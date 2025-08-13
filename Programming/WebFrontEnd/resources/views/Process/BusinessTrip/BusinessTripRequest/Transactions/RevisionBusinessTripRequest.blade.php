@@ -2,6 +2,17 @@
 @section('main')
 @include('Partials.navbar')
 @include('Partials.sidebar')
+@include('getFunction.getProduct')
+@include('Process.BusinessTrip.BusinessTripRequest.Functions.PopUp.PopUpBusinessTripRequestRevision')
+@include('getFunction.getSite')
+@include('getFunction.getWorker')
+@include('getFunction.getBeneficiary')
+@include('getFunction.getBank')
+@include('getFunction.getBankList')
+@include('getFunction.getBankAccount')
+@include('getFunction.getEntityBankAccount')
+@include('getFunction.getWorkFlow')
+@include('getFunction.getBusinessTripRequest')
 
 <div class="content-wrapper">
   <section class="content">
@@ -17,11 +28,12 @@
 
       @include('Process.BusinessTrip.BusinessTripRequest.Functions.Menu.MenuBusinessTripRequest')
       <div class="card">
-        <form method="post" enctype="multipart/form-data" id="FormSubmitBusinessTrip">
+        <form method="post" action="{{ route('BusinessTripRequest.UpdatesBusinessTripRequest') }}" id="FormRevisionBusinessTrip">
           @csrf
-          @method('PUT')
-          <input id="var_recordID" style="border-radius:0;" name="var_recordID" class="form-control" type="hidden">
-          <input id="trano" style="border-radius:0;" name="trano" class="form-control" type="hidden">
+          <input hidden id="DocumentTypeID" name="DocumentTypeID">
+          <input hidden id="var_combinedBudget_RefID" name="var_combinedBudget_RefID" value="<?= $budget['id']; ?>" />
+          <input hidden id="combinedBudgetSectionDetail_RefID" name="combinedBudgetSectionDetail_RefID" value="<?= $combinedBudgetSectionDetail_RefID; ?>" />
+          <input hidden id="budgetDetailsData" />
 
           <!-- BUSINESS REQUEST TRIP FORM -->
           <div class="tab-content px-3 pt-4 pb-2" id="nav-tabContent">
@@ -42,7 +54,7 @@
 
                   <!-- BODY -->
                   <div class="card-body">
-                    @include('Process.BusinessTrip.BusinessTripRequest.Functions.Header.HeaderBusinessTripRequest')
+                    @include('Process.BusinessTrip.BusinessTripRequest.Functions.Header.HeaderBusinessTripRequestRevision')
                   </div>
                 </div>
               </div>
@@ -114,7 +126,7 @@
                           <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Requester</label>
                           <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                             <div>
-                              <input id="requester_detail" style="border-radius:0;" class="form-control" size="17" name="requester_detail" readonly>
+                              <input id="requester_detail" style="border-radius:0;" class="form-control" size="17" name="requester_detail" readonly value="<?= $requester['position']; ?>" />
                             </div>
                             <div>
                               <span style="border-radius:0;" class="input-group-text form-control">
@@ -124,9 +136,8 @@
                               </span>
                             </div>
                             <div style="flex: 100%;">
-                              <input name="requester" id="requester" style="border-radius:0;" type="text" class="form-control" readonly>
-                              <input name="requester_id" id="requester_id" style="border-radius:0;" type="hidden" class="form-control" readonly>
-                              <input name="var_combinedBudget" id="combinedBudget" style="border-radius:0;" type="hidden" class="form-control" readonly>
+                              <input name="requester" id="requester" style="border-radius:0;" type="text" class="form-control" readonly value="<?= $requester['name']; ?>" />
+                              <input name="requester_id" id="requester_id" style="border-radius:0;" type="hidden" class="form-control" readonly value="<?= $requester['id']; ?>" />
                             </div>
                           </div>
                         </div>
@@ -136,7 +147,7 @@
                           <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Contact Phone</label>
                           <div class="col-sm-9 col-md-8 col-lg-3 d-flex p-0">
                             <div class="input-group">
-                              <input id="contactPhone" name="contactPhone" style="border-radius:0;" type="text" class="form-control" disabled>
+                              <input id="contactPhone" name="contactPhone" style="border-radius:0;" type="text" class="form-control" disabled value="<?= $requester['contact']; ?>" />
                             </div>
                           </div>
                         </div>
@@ -146,7 +157,7 @@
                           <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Date Commence Travel</label>
                           <div class="col-sm-9 col-md-8 col-lg-3 d-flex p-0">
                             <div class="input-group" style="width: 95px;">
-                              <input id="dateCommance" name="dateCommance" style="border-radius:0;" type="date" class="form-control">
+                              <input id="dateCommance" name="dateCommance" style="border-radius:0;" type="date" class="form-control" value="<?= $dateTravel['commence']; ?>">
                             </div>
                           </div>
                         </div>
@@ -156,7 +167,7 @@
                           <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Date End Travel</label>
                           <div class="col-sm-9 col-md-8 col-lg-3 d-flex p-0">
                             <div class="input-group" style="width: 95px;">
-                              <input id="dateEnd" name="dateEnd" style="border-radius:0;" type="date" class="form-control">
+                              <input id="dateEnd" name="dateEnd" style="border-radius:0;" type="date" class="form-control" value="<?= $dateTravel['end']; ?>" />
                             </div>
                           </div>
                         </div>
@@ -165,20 +176,20 @@
                       <div class="col-md-12 col-lg-5">
                         <!-- DEPARTING FROM -->
                         <div class="row" style="margin-bottom: 1rem;">
-                          <label for="headStationLocation" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Departing From</label>
+                          <label for="departingFrom" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Departing From</label>
                           <div class="col-sm-9 col-md-8 col-lg-3 p-0">
                             <div class="input-group" style="width: 95px;">
-                              <input id="headStationLocation" name="headStationLocation" style="border-radius:0;" type="text" class="form-control" autocomplete="off">
+                              <input id="departingFrom" name="departingFrom" style="border-radius:0;" type="text" class="form-control" autocomplete="off" value="<?= $departing['from']; ?>" />
                             </div>
                           </div>
                         </div>
 
                         <!-- DESTINATION TO -->
                         <div class="row" style="margin-bottom: 1rem;">
-                          <label for="bussinesLocation" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Destination To</label>
+                          <label for="destinationTo" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Destination To</label>
                           <div class="col-sm-9 col-md-8 col-lg-3 d-flex p-0">
                             <div class="input-group" style="width: 95px;">
-                              <input id="bussinesLocation" name="bussinesLocation" style="border-radius:0;" type="text" class="form-control" autocomplete="off">
+                              <input id="destinationTo" name="destinationTo" style="border-radius:0;" type="text" class="form-control" autocomplete="off" value="<?= $departing['to']; ?>" />
                             </div>
                           </div>
                         </div>
@@ -187,7 +198,7 @@
                         <div class="row" style="margin-bottom: 1rem;">
                           <label for="reasonTravel" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Reason To Travel</label>
                           <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
-                            <textarea id="reasonTravel" name="reasonTravel" style="border-radius:0;" cols="30" rows="3" class="form-control"></textarea>
+                            <textarea id="reasonTravel" name="reasonTravel" style="border-radius:0;" cols="30" rows="3" class="form-control"><?= $reason; ?></textarea>
                           </div>
                         </div>
                       </div>
@@ -210,7 +221,7 @@
                     </label>
                     <div class="card-tools d-flex" style="margin-left: -50px !important;">
                       <div>
-                        <input id="budget_detail_search" style="border-radius: 4px; display: none;" class="form-control" name="budget_detail_search" autocomplete="off" placeholder="Search Product">
+                        <input id="budget_detail_search" style="border-radius: 4px; display: none;" class="form-control" autocomplete="off" placeholder="Search Product">
                       </div>
                       <button type="button" class="btn btn-tool" data-card-widget="collapse">
                         <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
@@ -223,14 +234,11 @@
                       <thead>
                         <tr>
                           <th style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important;"></th>
-                          <th style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important;">Product Id</th>
+                          <th style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important;">Product Code</th>
                           <th style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important;">Product Name</th>
                           <th style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important;">Total Budget</th>
-                          <th style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important;">Qty Budget</th>
-                          <th style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important;">Qty Avail</th>
-                          <th style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important;">Price</th>
                           <th style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important;">Currency</th>
-                          <th style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important;">Current Budget</th>
+                          <th style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important;">Balanced Budget</th>
                         </tr>
                       </thead>
                       <tbody></tbody>
@@ -260,7 +268,6 @@
             <div class="row">
               <div class="col-12">
                 <div class="card">
-                  <!-- TITLE -->
                   <div class="card-header">
                     <label class="card-title">
                       Business Trip Budget Details
@@ -272,7 +279,6 @@
                     </div>
                   </div>
 
-                  <!-- BODY -->
                   <div class="card-body">
                     <div class="row pt-3" style="gap: 1rem;">
                       <div class="col-12">
@@ -283,137 +289,13 @@
                           </div>
                         </div>
 
-                        <div class="row" style="row-gap: 1rem;">
-                          <!-- TAXI -->
-                          <div class="col-3">
-                            <div class="row">
-                              <label for="taxi" class="p-0 col-5">Taxi</label>
-                              <div class="p-0">
-                                <div class="input-group">
-                                  <input id="taxi" name="taxi" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
-                                </div>
-                              </div>
+                        <div class="row" style="row-gap: 1rem;" id="travel-fares-container">
+                          <div class="loading-container py-3" style="justify-items: center; width: 100%;">
+                            <div class="spinner-border" role="status">
+                              <span class="sr-only">Loading...</span>
                             </div>
-                          </div>
-                          <!-- AIRPLANE -->
-                          <div class="col-3">
-                            <div class="row">
-                              <label for="airplane" class="p-0 col-5">Airplane</label>
-                              <div class="p-0">
-                                <div class="input-group">
-                                  <input id="airplane" name="airplane" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <!-- TRAIN -->
-                          <div class="col-3">
-                            <div class="row">
-                              <label for="train" class="p-0 col-5">Train</label>
-                              <div class="p-0">
-                                <div class="input-group">
-                                  <input id="train" name="train" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <!-- BUS -->
-                          <div class="col-3">
-                            <div class="row">
-                              <label for="bus" class="p-0 col-5">Bus</label>
-                              <div class="p-0">
-                                <div class="input-group">
-                                  <input id="bus" name="bus" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <!-- SHIP -->
-                          <div class="col-3">
-                            <div class="row">
-                              <label for="ship" class="p-0 col-5">Ship</label>
-                              <div class="p-0">
-                                <div class="input-group">
-                                  <input id="ship" name="ship" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <!-- TOL/ROAD -->
-                          <div class="col-3">
-                            <div class="row">
-                              <label for="tol_road" class="p-0 col-5">Tol/Road</label>
-                              <div class="p-0">
-                                <div class="input-group">
-                                  <input id="tol_road" name="tol_road" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <!-- PARK -->
-                          <div class="col-3">
-                            <div class="row">
-                              <label for="park" class="p-0 col-5">Park</label>
-                              <div class="p-0">
-                                <div class="input-group">
-                                  <input id="park" name="park" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <!-- ACCESS BAGAGE -->
-                          <div class="col-3">
-                            <div class="row">
-                              <label for="access_bagage" class="p-0 col-5">Access Bagage</label>
-                              <div class="p-0">
-                                <div class="input-group">
-                                  <input id="access_bagage" name="access_bagage" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <!-- FUEL -->
-                          <div class="col-3">
-                            <div class="row">
-                              <label for="fuel" class="p-0 col-5">Fuel</label>
-                              <div class="p-0">
-                                <div class="input-group">
-                                  <input id="fuel" name="fuel" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <!-- HOTEL -->
-                          <div class="col-3">
-                            <div class="row">
-                              <label for="hotel" class="p-0 col-5">Hotel</label>
-                              <div class="p-0">
-                                <div class="input-group">
-                                  <input id="hotel" name="hotel" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <!-- MESS -->
-                          <div class="col-3">
-                            <div class="row">
-                              <label for="mess" class="p-0 col-5">Mess</label>
-                              <div class="p-0">
-                                <div class="input-group">
-                                  <input id="mess" name="mess" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <!-- GUEST HOUSE -->
-                          <div class="col-3">
-                            <div class="row">
-                              <label for="guest_house" class="p-0 col-5">Guest House</label>
-                              <div class="p-0">
-                                <div class="input-group">
-                                  <input id="guest_house" name="guest_house" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
-                                </div>
-                              </div>
+                            <div class="mt-3" style="font-size: 0.75rem; font-weight: 700;">
+                              Loading...
                             </div>
                           </div>
                         </div>
@@ -425,15 +307,13 @@
                             2. Allowance
                           </div>
                         </div>
-                        <div class="row">
-                          <div class="col-3">
-                            <div class="row">
-                              <label class="p-0 col-5 d-none"></label>
-                              <div class="p-0">
-                                <div class="input-group">
-                                  <input id="allowance" name="allowance" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
-                                </div>
-                              </div>
+                        <div class="row" id="allowance-container">
+                          <div class="loading-container py-3" style="justify-items: center; width: 100%;">
+                            <div class="spinner-border" role="status">
+                              <span class="sr-only">Loading...</span>
+                            </div>
+                            <div class="mt-3" style="font-size: 0.75rem; font-weight: 700;">
+                              Loading...
                             </div>
                           </div>
                         </div>
@@ -445,15 +325,13 @@
                             3. Entertainment
                           </div>
                         </div>
-                        <div class="row">
-                          <div class="col-3">
-                            <div class="row">
-                              <label class="p-0 col-5 d-none"></label>
-                              <div class="p-0">
-                                <div class="input-group">
-                                  <input id="entertainment" name="entertainment" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
-                                </div>
-                              </div>
+                        <div class="row" id="entertainment-container">
+                          <div class="loading-container py-3" style="justify-items: center; width: 100%;">
+                            <div class="spinner-border" role="status">
+                              <span class="sr-only">Loading...</span>
+                            </div>
+                            <div class="mt-3" style="font-size: 0.75rem; font-weight: 700;">
+                              Loading...
                             </div>
                           </div>
                         </div>
@@ -465,15 +343,13 @@
                             4. Other
                           </div>
                         </div>
-                        <div class="row">
-                          <div class="col-3">
-                            <div class="row">
-                              <label class="p-0 col-5 d-none"></label>
-                              <div class="p-0">
-                                <div class="input-group">
-                                  <input id="other" name="other" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
-                                </div>
-                              </div>
+                        <div class="row" id="other-container">
+                          <div class="loading-container py-3" style="justify-items: center; width: 100%;">
+                            <div class="spinner-border" role="status">
+                              <span class="sr-only">Loading...</span>
+                            </div>
+                            <div class="mt-3" style="font-size: 0.75rem; font-weight: 700;">
+                              Loading...
                             </div>
                           </div>
                         </div>
@@ -487,7 +363,7 @@
                                   <label class="p-0 col-5 text-bold">Total BRF</label>
                                   <div class="p-0">
                                     <div class="input-group">
-                                      <input id="total_business_trip" name="total_business_trip" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative" disabled>
+                                      <input id="total_business_trip" name="total_business_trip" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative" value="<?= number_format($total['brf'], 2, '.', ','); ?>" disabled>
                                     </div>
                                   </div>
                                 </div>
@@ -507,7 +383,7 @@
                             Payment
                           </div>
                         </div>
-
+                        
                         <!-- DIRECT TO VENDOR -->
                         <div class="row m-0">
                           <div class="col-md-12 col-lg-5 p-0">
@@ -515,7 +391,7 @@
                               <label for="direct_to_vendor" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Direct to Vendor</label>
                               <div class="col-sm-9 col-md-8 col-lg-3 p-0">
                                 <div class="input-group">
-                                  <input id="direct_to_vendor" name="direct_to_vendor" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
+                                  <input id="direct_to_vendor" name="vendor_amount" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative" value="<?= number_format($payment['directVendor']['value'], 2, '.', ','); ?>" />
                                 </div>
                               </div>
                             </div>
@@ -527,8 +403,8 @@
                               <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Bank Name</label>
                               <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                                 <div>
-                                  <input id="bank_list_name" style="border-radius:0;" name="bank_list_name" class="form-control" size="17" readonly>
-                                  <input id="bank_list_code" style="border-radius:0;" class="form-control" name="bank_list_code" hidden>
+                                  <input id="bank_list_name" style="border-radius:0;" class="form-control" size="17" readonly value="<?= $payment['directVendor']['bankName']['code']; ?>" />
+                                  <input id="bank_list_code" name="vendor_bank_name" style="border-radius:0;" class="form-control" hidden value="<?= $payment['directVendor']['bankName']['id']; ?>" />
                                 </div>
                                 <div>
                                   <span style="border-radius:0;" class="input-group-text form-control">
@@ -538,7 +414,7 @@
                                   </span>
                                 </div>
                                 <div style="flex: 100%;">
-                                  <input id="bank_list_detail" style="border-radius:0;" class="form-control" name="bank_list_detail" readonly>
+                                  <input id="bank_list_detail" style="border-radius:0;" class="form-control" readonly value="<?= $payment['directVendor']['bankName']['name']; ?>" />
                                 </div>
                               </div>
                             </div>
@@ -548,10 +424,10 @@
                               <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Bank Account</label>
                               <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                                 <div>
-                                  <input id="bank_accounts" style="border-radius:0;" name="bank_accounts" class="form-control number-without-characters" size="17" autocomplete="off" readonly>
-                                  <input id="bank_accounts_duplicate" style="border-radius:0;" class="form-control" name="bank_accounts_duplicate" hidden>
-                                  <input id="bank_accounts_id" style="border-radius:0;" class="form-control" name="bank_accounts_id" hidden>
-                                  <input id="bank_accounts_duplicate_id" style="border-radius:0;" class="form-control" name="bank_accounts_duplicate_id" hidden>
+                                  <input id="bank_accounts" style="border-radius:0;" class="form-control number-without-characters" size="17" autocomplete="off" readonly value="<?= $payment['directVendor']['bankAccount']['number']; ?>" />
+                                  <input id="bank_accounts_duplicate" style="border-radius:0;" class="form-control" hidden value="<?= $payment['directVendor']['bankAccount']['number']; ?>" />
+                                  <input id="bank_accounts_id" name="vendor_bank_account" style="border-radius:0;" class="form-control" hidden value="<?= $payment['directVendor']['bankAccount']['id']; ?>" />
+                                  <input id="bank_accounts_duplicate_id" style="border-radius:0;" class="form-control" hidden value="<?= $payment['directVendor']['bankAccount']['id']; ?>" />
                                 </div>
                                 <div>
                                   <span style="border-radius:0;" class="input-group-text form-control">
@@ -561,8 +437,8 @@
                                   </span>
                                 </div>
                                 <div style="flex: 100%;">
-                                  <input id="bank_accounts_detail" style="border-radius:0;" class="form-control" name="bank_accounts_detail" autocomplete="off" readonly>
-                                  <input id="bank_accounts_duplicate_detail" style="border-radius:0;" class="form-control" name="bank_accounts_duplicate_detail" hidden>
+                                  <input id="bank_accounts_detail" style="border-radius:0;" class="form-control" autocomplete="off" readonly value="<?= $payment['directVendor']['bankAccount']['name']; ?>" />
+                                  <input id="bank_accounts_duplicate_detail" style="border-radius:0;" class="form-control" hidden value="<?= $payment['directVendor']['bankAccount']['name']; ?>" />
                                 </div>
                               </div>
                             </div>
@@ -578,7 +454,7 @@
                               <label for="by_corp_card" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">By Corp Card</label>
                               <div class="col-sm-9 col-md-8 col-lg-3 p-0">
                                 <div class="input-group">
-                                  <input id="by_corp_card" name="by_corp_card" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
+                                  <input id="by_corp_card" name="corp_amount" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative" value="<?= number_format($payment['corpCard']['value'], 2, '.', ','); ?>" />
                                 </div>
                               </div>
                             </div>
@@ -590,8 +466,8 @@
                               <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Bank Name</label>
                               <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                                 <div>
-                                  <input id="bank_list_second_name" style="border-radius:0;" name="bank_list_second_name" class="form-control" size="17" readonly>
-                                  <input id="bank_list_second_code" style="border-radius:0;" class="form-control" name="bank_list_second_code" hidden>
+                                  <input id="bank_list_second_name" style="border-radius:0;" class="form-control" size="17" readonly value="<?= $payment['corpCard']['bankName']['code']; ?>" />
+                                  <input id="bank_list_second_code" name="corp_bank_name" style="border-radius:0;" class="form-control" hidden value="<?= $payment['corpCard']['bankName']['id']; ?>" />
                                 </div>
                                 <div>
                                   <span style="border-radius:0;" class="input-group-text form-control">
@@ -601,7 +477,7 @@
                                   </span>
                                 </div>
                                 <div style="flex: 100%;">
-                                  <input id="bank_list_second_detail" style="border-radius:0;" class="form-control" name="bank_list_second_detail" readonly>
+                                  <input id="bank_list_second_detail" style="border-radius:0;" class="form-control" readonly value="<?= $payment['corpCard']['bankName']['name']; ?>" />
                                 </div>
                               </div>
                             </div>
@@ -611,10 +487,10 @@
                               <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Bank Account</label>
                               <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                                 <div>
-                                  <input id="bank_accounts_second" style="border-radius:0;" name="bank_accounts_second" class="form-control number-without-characters" size="17" autocomplete="off" readonly>
-                                  <input id="bank_accounts_duplicate_second" style="border-radius:0;" name="bank_accounts_duplicate_second" class="form-control number-without-characters" size="17" autocomplete="off" hidden>
-                                  <input id="bank_accounts_id_second" style="border-radius:0;" class="form-control" name="bank_accounts_id_second" hidden>
-                                  <input id="bank_accounts_duplicate_id_second" style="border-radius:0;" class="form-control" name="bank_accounts_duplicate_id_second" hidden>
+                                  <input id="bank_accounts_second" style="border-radius:0;" class="form-control number-without-characters" size="17" autocomplete="off" readonly value="<?= $payment['corpCard']['bankAccount']['number']; ?>" />
+                                  <input id="bank_accounts_duplicate_second" style="border-radius:0;" class="form-control number-without-characters" size="17" autocomplete="off" hidden value="<?= $payment['corpCard']['bankAccount']['number']; ?>" />
+                                  <input id="bank_accounts_id_second" name="corp_bank_account" style="border-radius:0;" class="form-control" hidden value="<?= $payment['corpCard']['bankAccount']['id']; ?>" />
+                                  <input id="bank_accounts_duplicate_id_second" style="border-radius:0;" class="form-control" hidden value="<?= $payment['corpCard']['bankAccount']['id']; ?>" />
                                 </div>
                                 <div>
                                   <span style="border-radius:0;" class="input-group-text form-control">
@@ -624,8 +500,8 @@
                                   </span>
                                 </div>
                                 <div style="flex: 100%;">
-                                  <input id="bank_accounts_detail_second" style="border-radius:0;" class="form-control" name="bank_accounts_detail_second" autocomplete="off" readonly>
-                                  <input id="bank_accounts_detail_duplicate_second" style="border-radius:0;" class="form-control" name="bank_accounts_detail_duplicate_second" autocomplete="off" hidden>
+                                  <input id="bank_accounts_detail_second" style="border-radius:0;" class="form-control" autocomplete="off" readonly value="<?= $payment['corpCard']['bankAccount']['name']; ?>" />
+                                  <input id="bank_accounts_detail_duplicate_second" style="border-radius:0;" class="form-control" autocomplete="off" hidden value="<?= $payment['corpCard']['bankAccount']['name']; ?>" />
                                 </div>
                               </div>
                             </div>
@@ -641,7 +517,7 @@
                               <label for="to_other" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">To Other</label>
                               <div class="col-sm-9 col-md-8 col-lg-3 p-0">
                                 <div class="input-group">
-                                  <input id="to_other" name="to_other" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
+                                  <input id="to_other" name="other_amount" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative" value="<?= number_format($payment['other']['value'], 2, '.', ','); ?>" />
                                 </div>
                               </div>
                             </div>
@@ -653,9 +529,9 @@
                               <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Beneficiary</label>
                               <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                                 <div>
-                                  <input id="beneficiary_second_person_position" style="border-radius:0;" size="17" class="form-control" name="beneficiary_second_person_position" readonly>
-                                  <input id="beneficiary_second_id" style="border-radius:0;" class="form-control" name="beneficiary_second_id" hidden>
-                                  <input id="beneficiary_second_person_ref_id" style="border-radius:0;" class="form-control" name="beneficiary_second_person_ref_id" hidden>
+                                  <input id="beneficiary_second_person_position" style="border-radius:0;" size="17" class="form-control" readonly value="<?= $payment['other']['beneficiary']['position']; ?>" />
+                                  <input id="beneficiary_second_id" name="other_beneficiary" style="border-radius:0;" class="form-control" hidden value="<?= $payment['other']['beneficiary']['id']; ?>" />
+                                  <input id="beneficiary_second_person_ref_id" style="border-radius:0;" class="form-control" hidden value="<?= $payment['other']['beneficiary']['positionID']; ?>" />
                                 </div>
                                 <div>
                                   <span style="border-radius:0;" class="input-group-text form-control">
@@ -665,7 +541,7 @@
                                   </span>
                                 </div>
                                 <div style="flex: 100%;">
-                                  <input id="beneficiary_second_person_name" name="beneficiary_second_person_name" style="border-radius:0;" type="text" class="form-control" readonly>
+                                  <input id="beneficiary_second_person_name" style="border-radius:0;" type="text" class="form-control" readonly value="<?= $payment['other']['beneficiary']['name']; ?>" />
                                 </div>
                               </div>
                             </div>
@@ -675,8 +551,8 @@
                               <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Bank Name</label>
                               <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                                 <div>
-                                  <input id="bank_list_third_name" style="border-radius:0;" name="bank_list_third_name" class="form-control" size="17" readonly>
-                                  <input id="bank_list_third_code" style="border-radius:0;" class="form-control" name="bank_list_third_code" hidden>
+                                  <input id="bank_list_third_name" style="border-radius:0;" class="form-control" size="17" readonly value="<?= $payment['other']['bankName']['code']; ?>" />
+                                  <input id="bank_list_third_code" name="other_bank_name" style="border-radius:0;" class="form-control" hidden value="<?= $payment['other']['bankName']['id']; ?>" />
                                 </div>
                                 <div>
                                   <span style="border-radius:0;" class="input-group-text form-control">
@@ -686,7 +562,7 @@
                                   </span>
                                 </div>
                                 <div style="flex: 100%;">
-                                  <input id="bank_list_third_detail" style="border-radius:0;" class="form-control" name="bank_list_third_detail" readonly>
+                                  <input id="bank_list_third_detail" style="border-radius:0;" class="form-control" readonly value="<?= $payment['other']['bankName']['name']; ?>" />
                                 </div>
                               </div>
                             </div>
@@ -696,10 +572,10 @@
                               <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Bank Account</label>
                               <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                                 <div>
-                                  <input id="bank_accounts_third" style="border-radius:0;" size="17" name="bank_accounts_third" class="form-control number-without-characters" autocomplete="off" readonly>
-                                  <input id="bank_accounts_duplicate_third" style="border-radius:0;" size="17" name="bank_accounts_duplicate_third" class="form-control number-without-characters" hidden>
-                                  <input id="bank_accounts_third_id" style="border-radius:0;" class="form-control" name="bank_accounts_third_id" hidden>
-                                  <input id="bank_accounts_duplicate_third_id" style="border-radius:0;" class="form-control" name="bank_accounts_duplicate_third_id" hidden>
+                                  <input id="bank_accounts_third" style="border-radius:0;" size="17" class="form-control number-without-characters" autocomplete="off" readonly value="<?= $payment['other']['bankAccount']['number']; ?>" />
+                                  <input id="bank_accounts_duplicate_third" style="border-radius:0;" size="17" class="form-control number-without-characters" hidden value="<?= $payment['other']['bankAccount']['number']; ?>" />
+                                  <input id="bank_accounts_third_id" name="other_bank_account" style="border-radius:0;" class="form-control" hidden value="<?= $payment['other']['bankAccount']['id']; ?>" />
+                                  <input id="bank_accounts_duplicate_third_id" style="border-radius:0;" class="form-control" hidden value="<?= $payment['other']['bankAccount']['id']; ?>" />
                                 </div>
                                 <div>
                                   <span style="border-radius:0;" class="input-group-text form-control">
@@ -709,8 +585,8 @@
                                   </span>
                                 </div>
                                 <div style="flex: 100%;">
-                                  <input id="bank_accounts_third_detail" style="border-radius:0;" class="form-control" name="bank_accounts_third_detail" autocomplete="off" readonly>
-                                  <input id="bank_accounts_duplicate_third_detail" style="border-radius:0;" class="form-control" name="bank_accounts_duplicate_third_detail" hidden>
+                                  <input id="bank_accounts_third_detail" style="border-radius:0;" class="form-control" autocomplete="off" readonly value="<?= $payment['other']['bankAccount']['name']; ?>" />
+                                  <input id="bank_accounts_duplicate_third_detail" style="border-radius:0;" class="form-control" hidden value="<?= $payment['other']['bankAccount']['name']; ?>" />
                                 </div>
                               </div>
                             </div>
@@ -726,7 +602,7 @@
                               <label for="total_payment" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Total Payment</label>
                               <div class="col-sm-9 col-md-8 col-lg-3 p-0">
                                 <div class="input-group">
-                                  <input id="total_payment" name="total_payment" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative" disabled>
+                                  <input id="total_payment" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative" disabled value="<?= number_format($total['payment'], 2, '.', ','); ?>" />
                                 </div>
                               </div>
                             </div>
@@ -744,11 +620,11 @@
           <div class="px-3 pb-3">
             <div style="display: flex; justify-content: flex-end; gap: 8px;">
               <div style="display: flex;">
-                <button class="btn btn-default btn-sm button-submit" id="submitButton" type="submit">
-                  <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" />
-                  <div>Submit</div>
+                <button type="button" id="budget-details-add" class="btn btn-default btn-sm float-right" data-toggle="modal" data-target="#businessTripRevisionFormModal" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
+                  <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" title="Submit to Business Trip"> Submit
                 </button>
               </div>
+              
               <div style="display: flex;">
                 <button class="btn btn-default btn-sm button-submit" id="cancelButton" type="button" onclick="CancelBusinessTrip();">
                   <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" />
@@ -761,6 +637,84 @@
       </div>
     </div>
   </section>
+</div>
+
+<div class="modal fade" id="businessTripRevisionFormModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-md" role="document" style="height: -webkit-fill-available; display: flex; align-items: center;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 style="margin: 0px;font-weight:bold;">Are you sure you want to save this data?</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body">
+        <div class="row" style="margin-bottom: 1rem;">
+          <div class="col">
+            <div style="font-size: 0.9rem; font-weight: bold;">
+              Travel & Fares
+            </div>
+          </div>
+          <div class="col">
+            <div id="travelSummary" style="font-size: 0.9rem;text-align:right;"></div>
+          </div>
+        </div>
+        <div class="row" style="margin-bottom: 1rem;">
+          <div class="col">
+            <div style="font-size: 0.9rem; font-weight: bold;">
+              Allowance
+            </div>
+          </div>
+          <div class="col">
+            <div id="allowanceSummary" style="font-size: 0.9rem;text-align:right;"></div>
+          </div>
+        </div>
+        <div class="row" style="margin-bottom: 1rem;">
+          <div class="col">
+            <div style="font-size: 0.9rem; font-weight: bold;">
+              Entertainment
+            </div>
+          </div>
+          <div class="col">
+            <div id="entertainmentSummary" style="font-size: 0.9rem;text-align:right;"></div>
+          </div>
+        </div>
+        <div class="row" style="margin-bottom: 1rem;">
+          <div class="col">
+            <div style="font-size: 0.9rem; font-weight: bold;">
+              Other
+            </div>
+          </div>
+          <div class="col">
+            <div id="otherSummary" style="font-size: 0.9rem;text-align:right;"></div>
+          </div>
+        </div>
+        <div class="row" style="margin-bottom: 1rem;">
+          <div class="col">
+            <div style="font-size: 0.9rem; font-weight: bold;text-align: right;margin-bottom: 0.3rem;">+</div>
+            <hr style="margin: 0;" />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <div style="font-size: 0.9rem; font-weight: bold;">
+              Total BRF
+            </div>
+          </div>
+          <div class="col">
+            <div id="totalSummary" style="font-size: 0.9rem;text-align:right;"></div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="revisionBRF" class="btn btn-default btn-sm" onclick="SubmitForm();" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
+          <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" title="Submit to Advance"> Yes, save it
+        </button>
+
+        <button type="button" class="btn btn-default btn-sm" data-dismiss="modal" style="background-color:#e9ecef;border:1px solid #ced4da;">
+          <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel Advance List Cart"> No, cancel
+        </button>
+      </div>
+    </div>
+  </div>
 </div>
 
 @include('Partials.footer')
