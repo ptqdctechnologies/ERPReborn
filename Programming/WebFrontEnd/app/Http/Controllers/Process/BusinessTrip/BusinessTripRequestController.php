@@ -16,9 +16,20 @@ use App\Helpers\ZhtHelper\System\Helper_Environment;
 use App\Helpers\ZhtHelper\Cache\Helper_Redis;
 use Maatwebsite\Excel\Facades\Excel;
 use Barryvdh\DomPDF\Facade\Pdf;
+use App\Services\Process\BusinessTrip\BusinessTripService;
+use App\Services\WorkflowService;
+use Carbon\Carbon;
 
 class BusinessTripRequestController extends Controller
 {
+    protected $businessTripService, $workflowService;
+
+    public function __construct(BusinessTripService $businessTripService, WorkflowService $workflowService)
+    {
+        $this->businessTripService = $businessTripService;
+        $this->workflowService = $workflowService;
+    }
+
     public function calculateTotal($filteredData, $key) {
         return array_reduce($filteredData, function ($carry, $item) use ($key) {
             return $carry + ($item[$key] ?? 0);
@@ -47,77 +58,39 @@ class BusinessTripRequestController extends Controller
     public function store(Request $request)
     {
         try {
-            $varAPIWebToken             = Session::get('SessionLogin');
-            $businessTripRequestData    = $request->all();
-            $fileID                     = $businessTripRequestData['storeData']['dataInput_Log_FileUpload_1'] ? (int) $businessTripRequestData['storeData']['dataInput_Log_FileUpload_1'] : null;
-            $components                 = $businessTripRequestData['storeData']['components'] ?? [];
+            $response = $this->businessTripService->create($request);
 
-            $result = [];
-            foreach ($components as $component) {
-                if (!empty($component['value'])) {
-                    $result[] = [
-                        'entities' => [
-                            'businessTripCostComponentEntity_RefID' => (int) $component['id'],
-                            'amountCurrency_RefID'                  => 62000000000001,
-                            'amountCurrencyValue'                   => (float) str_replace(',', '', $component['value']),
-                            'amountCurrencyExchangeRate'            => 1,
-                            'remarks'                               => null
-                        ]
-                    ];
-                }
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                return response()->json($response);
             }
 
-            $varData = Helper_APICall::setCallAPIGateway(
-                Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken,
-                'transaction.create.humanResource.setPersonBusinessTrip',
-                'latest',
-                [
-                'entities' => [
-                    'documentDateTimeTZ'                => date('Y-m-d'),
-                    'combinedBudgetSectionDetail_RefID' => (int) 169000000000001, // 169000000000001,
-                    'paymentDisbursementMethod_RefID'   => 218000000000002,
-                    'additionalData'    => [
-                        'itemList'      => [
-                            'items'     => [
-                                    [
-                                    'entities'  => [
-                                        'sequence'                                          => 1,
-                                        'log_FileUpload_Pointer_RefID'                      => $fileID,
-                                        'requesterWorkerJobsPosition_RefID'                 => 164000000000497, //(int) $businessTripRequestData['storeData']['requester_id'],
-                                        'startDateTimeTZ'                                   => $businessTripRequestData['storeData']['dateCommance'],
-                                        'finishDateTimeTZ'                                  => $businessTripRequestData['storeData']['dateEnd'],
-                                        'departurePoint'                                    => $businessTripRequestData['storeData']['departingFrom'],
-                                        'destinationPoint'                                  => $businessTripRequestData['storeData']['destinationTo'],
-                                        'reasonToTravel'                                    => $businessTripRequestData['storeData']['reasonTravel'],
-                                        'businessTripAccommodationArrangementsType_RefID'   => 219000000000002,
-                                        'remarks'                                           => null,
-                                        'additionalData' => [
-                                            'itemList' => [
-                                                'items' => $result
-                                                ]
-                                            ]
-                                        ]
-                                    ]
-                                ]
-                            ]
-                        ]
-                    ]
-                ]
-            );
-
-            if ($varData['metadata']['HTTPStatusCode'] !== 200) {
-                return response()->json($varData);
-            }
-
-            return $this->SubmitWorkflow(
-                $varData['data']['businessDocument']['businessDocument_RefID'],
+            $responseWorkflow = $this->workflowService->submit(
+                $response['data']['businessDocument']['businessDocument_RefID'],
                 $request->workFlowPath_RefID,
                 $request->comment,
                 $request->approverEntity,
-                $request->nextApprover,
-                $varData['data']['businessDocument']['documentNumber']
             );
+
+            if ($responseWorkflow['metadata']['HTTPStatusCode'] !== 200) {
+                return response()->json($responseWorkflow);
+            }
+
+            $compact = [
+                "documentNumber"    => $response['data']['businessDocument']['documentNumber'],
+                "status"            => $responseWorkflow['metadata']['HTTPStatusCode'],
+            ];
+
+            return response()->json($compact);
+        } catch (\Throwable $th) {
+            Log::error("Store Business Trip Request Function Error: " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
+    public function UpdatesBusinessTripRequest(Request $request)
+    {
+        try {
+            return $request->all();
         } catch (\Throwable $th) {
             Log::error("Store Business Trip Request Function Error: " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
@@ -181,37 +154,107 @@ class BusinessTripRequestController extends Controller
     public function RevisionBusinessTripRequestIndex(Request $request)
     {
         try {
-            // $searchBrfNumberRevisionId = $request->input('searchBrfNumberRevisionId');
-            $varAPIWebToken = Session::get('SessionLogin');
+            $varAPIWebToken             = Session::get('SessionLogin');
+            $personBusinessTripRefID    = $request->input('brf_number_id');
 
-            // // DATA REVISION
-            // $filteredArray = Helper_APICall::setCallAPIGateway(
-            //     Helper_Environment::getUserSessionID_System(),
-            //     $varAPIWebToken,
-            //     'transaction.read.dataList.finance.getAdvanceReport',
-            //     'latest',
-            //     [
-            //         'parameter' => [
-            //             'advance_RefID' => (int) $searchBrfNumberRevisionId,
-            //         ],
-            //         'SQLStatement' => [
-            //             'pick' => null,
-            //             'sort' => null,
-            //             'filter' => null,
-            //             'paging' => null
-            //         ]
-            //     ],
-            //     false
-            // );
-            // // dd($filteredArray);
+            $responseTripSequence = $this->businessTripService->getPersonBusinessTripSequence($personBusinessTripRefID);
+
+            if ($responseTripSequence['metadata']['HTTPStatusCode'] !== 200) {
+                return response()->json($responseTripSequence);
+            }
+
+            $responseTripSequenceDetail = $this->businessTripService->getPersonBusinessTripSequenceDetail($personBusinessTripRefID);
+
+            if ($responseTripSequenceDetail['metadata']['HTTPStatusCode'] !== 200) {
+                return response()->json($responseTripSequenceDetail);
+            }
+
+            $dataTripSequence       = $responseTripSequence['data']['data'];
+            $dataTripSequenceDetail = $responseTripSequenceDetail['data']['data'];
+
             $compact = [
-                // 'dataHeader' => $filteredArray['data'][0]['document']['header'],
-                // 'dataContent' => $filteredArray['data'][0]['document']['content']['general'],
-                // 'dataDetail' => $filteredArray['data'][0]['document']['content']['details']['itemList'],
-                'varAPIWebToken' => $varAPIWebToken,
-                // 'statusRevisi' => 1,
-                // 'statusFinalApprove' => "No",
+                'varAPIWebToken'                    => $varAPIWebToken ?? '',
+                'combinedBudgetSectionDetail_RefID' => 169000000000048,
+                'budget'            => [
+                    'id'            => $dataTripSequence[0]['combinedBudget_RefID'][0] ?? '-',
+                    'code'          => $dataTripSequence[0]['combinedBudgetCode'] ?? '-',
+                    'name'          => $dataTripSequence[0]['combinedBudgetName'] ?? '-'
+                ],
+                'subBudget'         => [
+                    'id'            => $dataTripSequence[0]['combinedBudgetSection_RefID'][0] ?? '-',
+                    'code'          => $dataTripSequence[0]['combinedBudgetSectionCode'] ?? '-',
+                    'name'          => $dataTripSequence[0]['combinedBudgetSectionName'] ?? '-'
+                ],
+                'fileID'            => '',
+                'requester'         => [
+                    'id'            => $dataTripSequence[0]['requesterWorkerJobsPosition_RefID'] ?? '-',
+                    'name'          => $dataTripSequence[0]['requesterWorkerName'] ?? '-',
+                    'position'      => '-',
+                    'contact'       => '-'
+                ],
+                'dateTravel'        => [
+                    'commence'      => $dataTripSequence[0]['startDateTimeTZ'] ? Carbon::parse($dataTripSequence[0]['startDateTimeTZ'])->format('Y-m-d') : '-',
+                    'end'           => $dataTripSequence[0]['finishDateTimeTZ'] ? Carbon::parse($dataTripSequence[0]['finishDateTimeTZ'])->format('Y-m-d') : '-'
+                ],
+                'departing'         => [
+                    'from'          => '-',
+                    'to'            => '-'
+                ],
+                'reason'            => '-',
+                'total'             => [
+                    'brf'           => $dataTripSequence[0]['amountBaseCurrencyValue'] ?? 0,
+                    'payment'       => $dataTripSequence[0]['amountBaseCurrencyValue'] ?? 0,
+                ],
+                'dataTripBudgetDetails' => $dataTripSequenceDetail,
+                'payment'           => [
+                    'directVendor'  => [
+                        'value'     => 30000.20,
+                        'bankName'  => [
+                            'id'    => 166000000000002,
+                            'code'  => 'BRI',
+                            'name'  => 'Bank Rakyat Indonesia'
+                        ],
+                        'bankAccount'   => [
+                            'id'        => 167000000000042,
+                            'number'    => 044101001553563,
+                            'name'      => 'PT QDC Technologies'
+                        ],
+                    ],
+                    'corpCard'  => [
+                        'value'     => 59184.20,
+                        'bankName'  => [
+                            'id'    => 166000000000005,
+                            'code'  => 'BCA',
+                            'name'  => 'Bank Central Asia'
+                        ],
+                        'bankAccount'   => [
+                            'id'        => 167000000000064,
+                            'number'    => 5520579321,
+                            'name'      => 'Belina Lindarwani'
+                        ],
+                    ],
+                    'other'                 => [
+                        'value'             => 29485.67,
+                        'beneficiary'       => [
+                            'id'            => 164000000000559,
+                            'positionID'    => 25000000000559,
+                            'position'      => 'General Manager',
+                            'name'          => 'Adhe Kurniawan'
+                        ],
+                        'bankName'          => [
+                            'id'            => 166000000000002,
+                            'code'          => 'BRI',
+                            'name'          => 'Bank Rakyat Indonesia'
+                        ],
+                        'bankAccount'       => [
+                            'id'            => 167000000000042,
+                            'number'        => 044101001553563,
+                            'name'          => 'PT QDC Technologies'
+                        ],
+                    ],
+                ]
             ];
+
             return view('Process.BusinessTrip.BusinessTripRequest.Transactions.RevisionBusinessTripRequest', $compact);
         } catch (\Throwable $th) {
             Log::error("Error at " . $th->getMessage());
