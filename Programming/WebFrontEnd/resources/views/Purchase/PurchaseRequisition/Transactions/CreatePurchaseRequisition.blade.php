@@ -140,65 +140,6 @@
             </div>
           </div>
 
-          <!-- PURCHASE REQUEST (CART) -->
-          {{-- <div class="tab-content px-3 pb-2" id="nav-tabContent">
-            <div class="row">
-              <div class="col-12">
-                <div class="card">
-                  <!-- HEADER -->
-                  <div class="card-header">
-                    <label class="card-title">
-                      Purchase Request List (Cart)
-                    </label>
-                    <div class="card-tools">
-                      <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                        <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
-                      </button>
-                    </div>
-                  </div>
-
-                  <!-- TABLE -->
-                  <div class="card-body table-responsive p-0" style="height:135px;">
-                    <table class="table table-head-fixed text-nowrap table-sm" id="tablePurchaseRequisitionList">
-                      <thead>
-                        <tr>
-                          <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Product Code</th>
-                          <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Product Name</th>
-                          <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">UOM</th>
-                          <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Currency</th>
-                          <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Price</th>
-                          <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Qty</th>
-                          <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Total</th>
-                          <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Note</th>
-                        </tr>
-                      </thead>
-                      <tbody></tbody>
-                    </table>
-                  </div>
-
-                  <!-- FOOTER -->
-                  <div class="card-body">
-                    <table style="float:right;">
-                      <tr>
-                        <th> Total Item :
-                          <span id="GrandTotal">0.00</span>
-                        </th>
-                      </tr>
-                      <tr>
-                        <td>
-                          <br>
-                          <a class="btn btn-default btn-sm float-right" id="budget-details-reset" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
-                            <img src="{{ asset('AdminLTE-master/dist/img/reset.png') }}" width="13" alt="" title="Add to Advance List"> Reset
-                          </a>
-                        </td>
-                      </tr>
-                    </table>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div> --}}
-
           <!-- BUTTON -->
           <div class="tab-content px-3 pb-2" id="nav-tabContent">
             <div class="row">
@@ -207,13 +148,9 @@
                   <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel Advance List Cart"> Cancel
                 </a>
 
-                <button type="button" id="budget-details-add" class="btn btn-default btn-sm float-right" data-toggle="modal" data-target="#purchaseRequestFormModal" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
+                <button type="button" id="budget-details-add" class="btn btn-default btn-sm float-right" onclick="validationForm()" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
                   <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" title="Submit to Advance"> Submit
                 </button>
-
-                {{-- <button class="btn btn-default btn-sm float-right" type="submit" id="submitPR" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
-                  <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" title="Submit to Advance"> Submit
-                </button> --}}
               </div>
             </div>
           </div>
@@ -237,7 +174,7 @@
             <tbody></tbody>
           </table>
         </div>
-        {{-- <div class="card-body">
+        <div class="card-body">
           <table style="float:right;">
             <tr>
               <th> Total Item :
@@ -245,7 +182,7 @@
               </th>
             </tr>
           </table>
-        </div> --}}
+        </div>
       </div>
       <div class="modal-footer">
         <button type="button" id="submitPR" class="btn btn-default btn-sm" onclick="SubmitForm();" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
