@@ -1,5 +1,6 @@
 <script>
     let dataStore                   = [];
+    const budgetCode                = document.getElementById("project_code_second");
     const siteCode                  = document.getElementById("site_code_second");
     const deliverCode               = document.getElementById("deliverCode");
     const dateDelivery              = document.getElementById("dateCommance");
@@ -47,12 +48,12 @@
         let total = 0;
         const rows = document.querySelectorAll('#tablePurchaseRequisitionList tbody tr');
         rows.forEach(row => {
-            const totalCell = row.children[9];
+            const totalCell = row.children[8];
             const value = parseFloat(totalCell.innerText.replace(/,/g, '')) || 0;
             total += value;
         });
 
-        document.getElementById('GrandTotal').innerText = decimalFormat(total);
+        document.getElementById('GrandTotal').innerText = `Total (${rows[0].children[9].value}): ${decimalFormat(total)}`;
     }
 
     function summaryData() {
@@ -98,9 +99,9 @@
                     const targetCode = targetRow.children[2].innerText.trim();
                     
                     if (targetCode == productCode) {
-                        targetRow.children[7].innerText = price;
-                        targetRow.children[8].innerText = qty;
-                        targetRow.children[9].innerText = total;
+                        targetRow.children[6].innerText = price;
+                        targetRow.children[7].innerText = qty;
+                        targetRow.children[8].innerText = total;
                         found = true;
 
                         const indexToUpdate = dataStore.findIndex(item => item.entities.product_RefID == productCode);
@@ -132,10 +133,10 @@
                         <td style="text-align: right;padding: 0.8rem 0.5rem;width: 80px;">${productCodeShow.value}</td>
                         <td style="text-align: left;padding: 0.8rem 0.5rem;">${productName}</td>
                         <td style="text-align: left;padding: 0.8rem 0.5rem;width: 20px;">${uom}</td>
-                        <td style="text-align: left;padding: 0.8rem 0.5rem;width: 40px;">${currency}</td>
                         <td style="text-align: right;padding: 0.8rem 0.5rem;width: 100px;">${price}</td>
                         <td style="text-align: right;padding: 0.8rem 0.5rem;"width: 50px;>${qty}</td>
                         <td style="text-align: right;padding: 0.8rem 0.5rem;width: 100px;">${total}</td>
+                        <input type="hidden" name="currency[]" value="${currency}">
                     `;
                     targetTable.appendChild(newRow);
 
@@ -179,32 +180,53 @@
     }
 
     function validationForm() {
+        const isBudgetCodeNotEmpty      = budgetCode.value.trim() !== '';
         const isSiteCodeNotEmpty        = siteCode.value.trim() !== '';
         const isDeliverCodeNotEmpty     = deliverCode.value.trim() !== '';
         const isDateDeliveryNotEmpty    = dateDelivery.value.trim() !== '';
         const isTableNotEmpty           = checkOneLineBudgetContents();
 
-        if (isSiteCodeNotEmpty && isDeliverCodeNotEmpty && isDateDeliveryNotEmpty && isTableNotEmpty) {
+        if (isBudgetCodeNotEmpty && isSiteCodeNotEmpty && isDeliverCodeNotEmpty && isDateDeliveryNotEmpty && isTableNotEmpty) {
             $('#purchaseRequestFormModal').modal('show');
             summaryData();
         } else {
-            if (!isSiteCodeNotEmpty && !isDeliverCodeNotEmpty && !isDateDeliveryNotEmpty) {
+            if (!isBudgetCodeNotEmpty && !isSiteCodeNotEmpty && !isDeliverCodeNotEmpty && !isDateDeliveryNotEmpty) {
+                $("#project_code_second").css("border", "1px solid red");
+                $("#project_name_second").css("border", "1px solid red");
                 $("#site_code_second").css("border", "1px solid red");
                 $("#site_name_second").css("border", "1px solid red");
                 $("#deliverCode").css("border", "1px solid red");
                 $("#deliverName").css("border", "1px solid red");
                 $("#dateCommance").css("border", "1px solid red");
+                Swal.fire("Please Complete the Form", "Budget, Sub Budget, Delivery To, and Date of Delivery cannot be empty.", "error");
+                return;
             } 
+            if (!isBudgetCodeNotEmpty) {
+                $("#project_code_second").css("border", "1px solid red");
+                $("#project_name_second").css("border", "1px solid red");
+                Swal.fire("Please Complete the Form", "Budget cannot be empty.", "error");
+                return;
+            }
             if (!isSiteCodeNotEmpty) {
                 $("#site_code_second").css("border", "1px solid red");
                 $("#site_name_second").css("border", "1px solid red");
+                Swal.fire("Please Complete the Form", "Sub Budget cannot be empty.", "error");
+                return;
             } 
             if (!isDeliverCodeNotEmpty) {
                 $("#deliverCode").css("border", "1px solid red");
                 $("#deliverName").css("border", "1px solid red");
+                Swal.fire("Please Complete the Form", "Delivery To cannot be empty.", "error");
+                return;
             } 
             if (!isDateDeliveryNotEmpty) {
                 $("#dateCommance").css("border", "1px solid red");
+                Swal.fire("Please Complete the Form", "Date of Delivery cannot be empty.", "error");
+                return;
+            }
+            if (!isTableNotEmpty) {
+                Swal.fire("Please Complete the Form", "Budget Details must be filled in at least 1 item.", "error");
+                return;
             }
         }
     }
@@ -365,6 +387,8 @@
                                 calculateTotal();
                                 $(`#total_req${key}`).val(currencyTotal(total_req));
                             }
+
+                            checkOneLineBudgetContents();
                         });
                     } else {
                         $(`#qty_req${key}`).on('keyup', function() {
@@ -392,6 +416,8 @@
                                 calculateTotal();
                                 $(`#balanced_qty${key}`).val(decimalFormat(total));
                             }
+
+                            checkOneLineBudgetContents();
                         });
                     }
 
@@ -417,6 +443,8 @@
                             }
                             calculateTotal();
                         }
+
+                        checkOneLineBudgetContents();
                     });
                 });
             },
@@ -585,6 +613,10 @@
                 $("#project_id_second").val(sysId);
                 $("#project_code_second").val(projectCode);
                 $("#project_name_second").val(projectName);
+                $("#myProjectSecondTrigger").prop("disabled", true);
+                $("#myProjectSecondTrigger").css("cursor", "not-allowed");
+                $("#project_code_second").css("border", "1px solid #ced4da");
+                $("#project_name_second").css("border", "1px solid #ced4da");
 
                 $("#var_combinedBudget_RefID").val(sysId);
 
