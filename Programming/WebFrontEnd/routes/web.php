@@ -21,7 +21,7 @@ $varUserSession =
     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
 
 $varAPIWebToken =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoid2lzbnUudHJlbmdnb25vIiwiaWF0IjoxNzU0NTQ5MjQ2fQ.ZDFkMjg1MTYyNWQ5NTYzZDk0MWM0Y2RiYThjZmI5NmJhYmJkNGE1ODUyYWI2MTBiZThkY2RkYWU2MWZkYTIwYg';
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoid2lzbnUudHJlbmdnb25vIiwiaWF0IjoxNzU0OTY3OTcwfQ.ZjYxNTE4NzY3ZmM5MDMzYmI1MzgwYTFkODY4YTc2ZWY5OGJjMWIwMDQ3MGNhMjMyOGIwOGY2NWY0Mjg4MTM0Mg';
 
 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_LaravelRoute::setDynamicRoute_Examples_APICall(
     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
@@ -302,6 +302,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('ReportPRtoPO', 'Purchase\PurchaseRequisitionController@ReportPRtoPO')->name('PurchaseRequisition.ReportPRtoPO');
     Route::post('ReportPRtoPOStore', 'Purchase\PurchaseRequisitionController@ReportPRtoPOStore')->name('PurchaseRequisition.ReportPRtoPOStore');
     Route::post('PrintExportReportPRtoPO', 'Purchase\PurchaseRequisitionController@PrintExportReportPRtoPO')->name('PurchaseRequisition.PrintExportReportPRtoPO');
+    // Route::get('/PrintExportReportPRtoPO', [PurchaseRequisitionController::class, 'PrintExportReportPRtoPO']);
 
     Route::get('ReportPurchaseRequisitionSummary', 'Purchase\PurchaseRequisitionController@ReportPurchaseRequisitionSummary')->name('PurchaseRequisition.ReportPurchaseRequisitionSummary');
     Route::post('ReportPurchaseRequisitionSummaryStore', 'Purchase\PurchaseRequisitionController@ReportPurchaseRequisitionSummaryStore')->name('PurchaseRequisition.ReportPurchaseRequisitionSummaryStore');
@@ -386,6 +387,12 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     
     Route::resource('CreditNote', 'Process\CreditNote\CreditNoteController');
 
+    // DEBIT NOTE
+    Route::get('ReportDebitNoteSummary', 'Process\DebitNote\DebitNoteController@ReportDebitNoteSummary')->name('DebitNote.ReportDebitNoteSummary');
+    Route::post('ReportDebitNoteSummaryStore', 'Process\DebitNote\DebitNoteController@ReportDebitNoteSummaryStore')->name('DebitNote.ReportDebitNoteSummaryStore');
+    Route::post('PrintExportReportDebitNoteSummary', 'Process\DebitNote\DebitNoteController@PrintExportReportDebitNoteSummary')->name('DebitNote.PrintExportReportDebitNoteSummary');
+    
+    Route::resource('DebitNote', 'Process\DebitNote\DebitNoteController');
     // OP
     Route::post('StoreValidateOrderPicking', 'Purchase\OrderPickingController@StoreValidateOrderPicking')->name('OrderPicking.StoreValidateOrderPicking');
     Route::post('StoreValidateOrderPicking2', 'Purchase\OrderPickingController@StoreValidateOrderPicking2')->name('OrderPicking.StoreValidateOrderPicking2');

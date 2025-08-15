@@ -1,345 +1,104 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('Partials.app')
+@section('main')
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="csrf-token" content="{{ csrf_token() }}" />
+<!-- <style>
+  table,
+  th,
+  td {
+    border: 1px solid #ced4da;
+    border-collapse: collapse;
+  }
+</style> -->
 
-  <title>ERP Reborn</title>
-
-  <!-- Theme style -->
-  <link rel="stylesheet" href="{{ asset('AdminLTE-master/dist/css/adminlte.min.css') }}">
-
-  <style>
-    .dates {
-      text-align: right; 
-      font-size: 14px;
-    }
-    .titles {
-      text-align: center;
-      font-size: 20px;
-      font-weight: bold;
-    }
-    .header_width_td {
-      width: 110px;
-      height: 20px;
-    }
-    .header_text_td {
-      font-size: 12px;
-      font-weight: bold;
-      line-height: 14px;
-    }
-    .header_value_td {
-      line-height: 14px;
-      font-size: 12px;
-    }
-    .detail_td {
-      border-top: 1px solid black;
-      border-bottom: 1px dotted black;
-      height: 20px;
-    }
-    .value_text_td {
-      font-size: 12px;
-      font-weight: bold;
-      margin: 4px 0px 16px 0px;
-    }
-    .value_table {
-      margin-top: 4px;
-      font-size: 12px;
-    }
-  </style>
-</head>
-
-<body>
-  <div class="card-body table-responsive p-0">
-    <div class="dates"><?= date('F j, Y'); ?></div>
-    <div class="titles">Report Reimbursement Summary</div>
-    <div class="dates"><?= date('h:i A'); ?></div>
-
-    <!-- HEADER -->
-    <table style="margin: 30px 0px 15px 1px;">
-      <tr>
-        <!-- BUDGET -->
-        <td style=" width: 350px;">
-          <table>
+<div class="content-wrapper">
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row mb-1">
+        <div class="col-sm-12">
+          <center>
+            <div style="text-align: center; font-size: 20px; font-weight: bold;">Report Reimbursement Summary</div>
+          </center>
+          <!-- <table style="float:left;">
             <tr>
-              <td class="header_width_td">
-                <div class="header_text_td">
-                  Budget
-                </div>
-              </td>
-              <td style="width: 5px;">
-                :
-              </td>
-              <td style="height: 20px;">
-                <div class="header_value_td">
-                  <?= $dataReport['budgetCode'] . ' - ' . $dataReport['budgetName']; ?>
-                </div>
-              </td>
+              <td>Project</td>
+              <td>:</td>
+              <td><?= $dataRem[0]['combinedBudgetCode'] . ' - ' . $dataRem[0]['combinedBudgetName']; ?></td>
+            </tr>
+          </table> -->
+          <table style="float:right;">
+            <!-- <tr>
+              <td><img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('/AdminLTE-master/dist/img/qdc.png'))) }}" width="180"></td>
+            </tr> -->
             </tr>
           </table>
-        </td>
+          <br><br>
+        </div>
+      </div>
+      <div class="card">
+        <div class="tab-content p-3" id="nav-tabContent">
+          <div class="row">
 
-        <td style=" width: 350px;">
-          <table>
-            <tr>
-              <td class="header_width_td">
-                <div class="header_text_td">
-                  Customer/Vendor Code 
+            <div class="col-12 ShowTableReportAdvanceSummary">
+              <div class="card">
+                <div class="card-body table-responsive p-0">
+                  <table class="TableReportAdvanceSummary" id="TableReportAdvanceSummary" style="font-size: 13px;width:100%;border: 1px solid #ced4da;border-collapse: collapse;">
+                    <thead>
+                      <tr style="border: 1px solid #ced4da;border-collapse: collapse;">
+                        <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">No</th>
+                        <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Reimbursement Number</th>
+                        <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Date</th>
+                        <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Budget</th>
+                        <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Supplier</th>
+                        <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Total IDR</th>
+                        <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Total Other Currency</th>
+                        <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Total Equivalent IDR</th>
+                        <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Remark</th>
+                      </tr>
+                    </thead>
+                    <?php 
+                      $counter = 1; 
+                      $grand_totalIDR=0;
+                      $grand_totalOther=0;
+                      $grand_totalEqui=0;
+                    ?>
+                    <?php foreach ($dataRem as $dataDetail) { ?>
+                      {{ $grand_totalIDR += $dataDetail['total_IDR'] }}
+                      {{ $grand_totalOther += $dataDetail['total_Other_Currency'] }}
+                      {{ $grand_totalEqui += $dataDetail['total_Equivalent_IDR'] }}
+                      <tbody>
+                        <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ $counter++ }}</td>
+                        <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ $dataDetail['reimbursementNumber'] }}</td>
+                        <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ date('Y-m-d', strtotime($dataDetail['date'])) }}</td>
+                        <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ $dataDetail['combinedBudgetCode'] }} - {{ $dataDetail['combinedBudgetName'] }}</td>
+                        <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ $dataDetail['vendor'] }}</td>
+                        <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ $dataDetail['total_IDR'] }}</td>
+                        <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ $dataDetail['total_Other_Currency'] }}</td>
+                        <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ $dataDetail['total_Equivalent_IDR'] }}</td>
+                        <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ $dataDetail['remarks'] }}</td>
+                        
+                      </tbody>
+                    <?php } ?>
+
+                      <tfoot>
+                        <tr style="font-weight:bolder;border: 1px solid #ced4da;border-collapse: collapse;">
+                          <td style="border: 1px solid #ced4da;border-collapse: collapse;padding: 5px;text-align:center;" colspan="5">GRAND TOTAL</td>
+                          <td style="border: 1px solid #ced4da;border-collapse: collapse;padding: 5px;">{{ $grand_totalIDR }}</td>
+                          <td style="border: 1px solid #ced4da;border-collapse: collapse;padding: 5px;">{{ $grand_totalOther}}</td>
+                          <td style="border: 1px solid #ced4da;border-collapse: collapse;padding: 5px;">{{ $grand_totalEqui}}</td>
+                          <td style="border: 1px solid #ced4da;border-collapse: collapse;padding: 5px;"></td>
+                        </tr>
+                      </tfoot>
+                    
+
+                  </table>
                 </div>
-              </td>
-              <td style="width: 5px;">
-                :
-              </td>
-              <td style="height: 20px;">
-                <div class="header_value_td">
-                  <?= $dataReport['requesterName'] ?? '-'; ?>
-                </div>
-              </td>
-            </tr>
-          </table>
-        </td>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
-        <!-- REQUESTER -->
-        <!-- <td style=" width: 350px;">
-          <table>
-            <tr>
-              <td class="header_width_td">
-                <div class="header_text_td">
-                  Requester
-                </div>
-              </td>
-              <td style="width: 5px;">
-                :
-              </td>
-              <td style="height: 20px;">
-                <div class="header_value_td">
-                  <?= $dataReport['requesterName'] ?? '-'; ?>
-                </div>
-              </td>
-            </tr>
-          </table>
-        </td> -->
-      </tr>
-      <tr>
-        <!-- SUB BUDGET -->
-        <td style=" width: 350px;">
-          <table>
-            <tr>
-              <td class="header_width_td">
-                <div class="header_text_td">
-                  Sub Budget
-                </div>
-              </td>
-              <td style="width: 5px;">
-                :
-              </td>
-              <td style="height: 20px;">
-                <div class="header_value_td">
-                  <?= $dataReport['siteCode'] . ' - ' .$dataReport['siteName']; ?>
-                </div>
-              </td>
-            </tr>
-          </table>
-        </td>
-
-        <!-- BENEFICIARY -->
-        <!-- <td style=" width: 350px;">
-          <table>
-            <tr>
-              <td class="header_width_td">
-                <div class="header_text_td">
-                  Beneficiary
-                </div>
-              </td>
-              <td style="width: 5px;">
-                :
-              </td>
-              <td style="height: 20px;">
-                <div class="header_value_td">
-                  <?= $dataReport['beneficiaryName'] ?? '-'; ?>
-                </div>
-              </td>
-            </tr>
-          </table>
-        </td> -->
-      </tr>
-    </table>
-
-    <!-- DETAIL -->
-    <table class="TableReportAdvanceSummary" style="margin-left: 1px; width: 100%;" id="TableReportAdvanceSummary">
-      <tr>
-        <td class="detail_td">
-          <div class="value_text_td">
-            No
-          </div>
-        </td>
-        <td class="detail_td">
-          <div class="value_text_td">
-            Reimbursement Number
-          </div>
-        </td>
-        <td class="detail_td">
-          <div class="value_text_td">
-            Currency
-          </div>
-        </td>
-        <td class="detail_td">
-          <div class="value_text_td">
-            Total
-          </div>
-        </td>
-        <td class="detail_td">
-          <div class="value_text_td">
-            Detail
-          </div>
-        </td>
-        <td class="detail_td">
-          <div class="value_text_td">
-            Notes
-          </div>
-        </td>
-        <!-- <td class="detail_td">
-          <div class="value_text_td">
-            Total Expense Claim
-          </div>
-        </td>
-        <td class="detail_td">
-          <div class="value_text_td">
-            Total Amount Due to Company
-          </div>
-        </td>
-        <td class="detail_td">
-          <div class="value_text_td">
-            Total BSF
-          </div>
-        </td>
-        <td class="detail_td">
-          <div class="value_text_td">
-            Currency
-          </div>
-        </td>
-        <td class="detail_td">
-          <div class="value_text_td">
-            Requester
-          </div>
-        </td>
-        <td class="detail_td">
-          <div class="value_text_td">
-            Beneficiary
-          </div>
-        </td>
-        <td class="detail_td">
-          <div class="value_text_td">
-            Remark
-          </div>
-        </td> -->
-      </tr>
-
-      <?php $counter = 1; ?>
-      <?php foreach ($dataReport['dataDetail'] as $dataDetail) { ?>
-        <tr>
-          <td>
-            <div class="value_table">
-              <?= $counter++; ?>
-            </div>
-          </td>
-          <td>
-            <div class="value_table">
-              <?= $dataDetail['DocumentNumber']; ?>
-            </div>
-          </td>
-          <td>
-            <div class="value_table">
-              <?= $dataDetail['CurrencyName']; ?>
-            </div>
-          </td>
-          <td>
-            <div class="value_table">
-              
-            </div>
-          </td>
-          <td>
-            <div class="value_table">
-              
-            </div>
-          </td>
-          <td>
-            <div class="value_table">
-              <?= $dataDetail['remark']; ?>
-            </div>
-          </td>
-
-          <!-- <td>
-            <div class="value_table">
-              <?= $dataDetail['CombinedBudgetSectionName']; ?>
-            </div>
-          </td> -->
-          <!-- <td>
-            <div class="value_table">
-              <?= $dataDetail['DepartingFrom']; ?>
-            </div>
-          </td>
-          <td>
-            <div class="value_table">
-              <?= $dataDetail['DestinationTo']; ?>
-            </div>
-          </td>
-          <td>
-            <div class="value_table">
-              <?= date('d-m-Y', strtotime($dataDetail['DocumentDateTimeTZ'])); ?>
-            </div>
-          </td>
-          <td>
-            <div class="value_table">
-              
-            </div>
-          </td>
-          <td>
-            <div class="value_table">
-             
-            </div>
-          </td>
-          <td>
-            <div class="value_table">
-              
-            </div>
-          </td>
-          
-          <td>
-            <div class="value_table">
-              <?= $dataDetail['RequesterWorkerName']; ?>
-            </div>
-          </td>
-          <td>
-            <div class="value_table">
-              <?= $dataDetail['BeneficiaryWorkerName']; ?>
-            </div>
-          </td> -->
-          
-        </tr>
-      <?php } ?>
-
-      <div style="height: 16px;"></div>
-
-      <tr style="border-top: 1px solid black;">
-        <td style="height: 20px; text-align: left;" colspan="3">
-          <div class="value_text_td">GRAND TOTAL</div>
-        </td>
-        <td style="height: 20px;">
-          <div class="value_text_td"></div>
-        </td>
-        <!-- <td style="height: 20px;">
-          <div class="value_text_td"></div>
-        </td>
-        <td style="height: 20px;">
-          <div class="value_text_td"></div>
-        </td>
-        <td style="height: 20px; text-align: left;" colspan="4"></td> -->
-      </tr>
-    </table>
-  </div>
-</body>
-
-</html>
+    </div>
+  </section>
+</div>
+@endsection
