@@ -96,7 +96,7 @@
     </form>
 
     <!-- EXPORT -->
-    <form method="post" action="{{ route('PurchaseRequisition.PrintExportReportPRtoPO') }}">
+    <form method="post" enctype="multipart/form-data" action="{{ route('PurchaseRequisition.PrintExportReportPRtoPO') }}">
     @csrf
         <div class="align-items-center justify-content-sm-end justify-content-md-end justify-content-lg-start row align-items-center p-0" style="margin-bottom: 1rem; gap: 0.5rem;">
             <div>

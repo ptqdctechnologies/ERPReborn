@@ -35,7 +35,7 @@
               </td>
               <td style="height: 20px;">
                 <div style="font-size: 14px; line-height: 14px;">
-                  <?= $dataASF[0]['combinedBudgetCode']; ?> - <?= $dataASF[0]['combinedBudgetName']; ?>
+                  <?= $dataArftoASF[0]['combinedBudgetCode']; ?> - <?= $dataArftoASF[0]['combinedBudgetName']; ?>
                 </div>
               </td>
             </tr>
@@ -78,7 +78,7 @@
               </td>
               <td style="height: 20px;">
                 <div style="font-size: 14px;line-height: 14px;">
-                  <?= $dataASF[0]['budget_Requester']; ?>
+                  <?= $dataArftoASF[0]['budget_Requester']; ?>
                 </div>
               </td>
             </tr>
@@ -184,7 +184,7 @@
       </tr>
 
       <?php $counter = 1; ?>
-      <?php foreach ($dataASF as $dataDetail) { ?>
+      <?php foreach ($dataArftoASF as $dataDetail) { ?>
         <tr>
           <td>
             <div style="margin-top: 4px; font-size: 12px;">
@@ -205,7 +205,63 @@
             <div style="margin-top: 4px; font-size: 12px;">
               <?= $dataDetail['ARF_Requester']; ?>
             </div>
-          </td>   
+          </td>
+          <td>
+            <div style="margin-top: 4px; font-size: 12px;">
+              <?= $dataDetail['ARF_Total_IDR']; ?>
+            </div>
+          </td> 
+          <td>
+            <div style="margin-top: 4px; font-size: 12px;">
+              <?= $dataDetail['ARF_Payment']; ?>
+            </div>
+          </td> 
+          <td>
+            <div style="margin-top: 4px; font-size: 12px;">
+              <?= $dataDetail['ARF_Status']; ?>
+            </div>
+          </td>
+          
+          <td>
+            <div style="margin-top: 4px; font-size: 12px;">
+              <?= $dataDetail['ASF_Number']; ?>
+            </div>
+          </td>
+          <td>
+            <div style="margin-top: 4px; font-size: 12px;">
+              <?= date('d-m-Y', strtotime($dataDetail['ASF_Date'])); ?>
+            </div>
+          </td>
+          <td>
+            <div style="margin-top: 4px; font-size: 12px;">
+              <?= $dataDetail['expense_Claim_IDR']; ?>
+            </div>
+          </td>
+          <td>
+            <div style="margin-top: 4px; font-size: 12px;">
+              <?= $dataDetail['amount_Due_Company_IDR']; ?>
+            </div>
+          </td>
+          <td>
+            <div style="margin-top: 4px; font-size: 12px;">
+              <?= $dataDetail['ASF_Total']; ?>
+            </div>
+          </td>
+          <td>
+            <div style="margin-top: 4px; font-size: 12px;">
+              <?= $dataDetail['ASF_Status']; ?>
+            </div>
+          </td>
+          <td>
+            <div style="margin-top: 4px; font-size: 12px;">
+              <?= $dataDetail['advance_ToPayment']; ?>
+            </div>
+          </td>
+          <td>
+            <div style="margin-top: 4px; font-size: 12px;">
+              <?= $dataDetail['advance_ToSettlement']; ?>
+            </div>
+          </td>
         </tr>
       <?php } ?>
 

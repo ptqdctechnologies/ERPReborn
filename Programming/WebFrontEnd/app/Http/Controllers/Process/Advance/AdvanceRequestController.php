@@ -377,16 +377,16 @@ class AdvanceRequestController extends Controller
 
                     $dataAdvance = Session::get("AdvanceSummaryReportDataPDF");
 
-                    $data = [
-                        'title' => 'ADVANCE REQUEST SUMMARY',
-                        'date' => date('d/m/Y H:m:s'),
-                        'projectCode' => $dataAdvance['varDataProject'][0]['projectCode'],
-                        'projectName' => $dataAdvance['varDataProject'][0]['projectName'],
-                        'printedBy' => Session::get('SessionLoginName'),
-                        'data' => $dataAdvance
-                    ];
+                    // $data = [
+                    //     'title' => 'ADVANCE REQUEST SUMMARY',
+                    //     'date' => date('d/m/Y H:m:s'),
+                    //     // 'projectCode' => $dataAdvance['varDataProject'][0]['projectCode'],
+                    //     // 'projectName' => $dataAdvance['varDataProject'][0]['projectName'],
+                    //     'printedBy' => Session::get('SessionLoginName'),
+                    //     'data' => $dataAdvance
+                    // ];
 
-                    $pdf = PDF::loadView('Process.Advance.AdvanceRequest.Reports.PrintReportAdvanceSummary', $data);
+                    $pdf = PDF::loadView('Process.Advance.AdvanceRequest.Reports.PrintReportAdvanceSummary', $dataAdvance);
                     $pdf->output();
                     $dom_pdf = $pdf->getDomPDF();
 
@@ -611,7 +611,7 @@ class AdvanceRequestController extends Controller
             'dataArftoASF' => $dataArftoASF
         
         ];
-        // dump($compact);
+        // dump($dataArftoASF);
 
         return view('Process.Advance.AdvanceToASF.Reports.ReportAdvanceToASF', $compact);
     }
@@ -650,7 +650,7 @@ class AdvanceRequestController extends Controller
 
             }
             Session::put("AdvanceToASFReportDataPDF", $filteredArray['data']['data']);
-            Session::put("AdvanceSettlementReportSummaryDataExcel", $filteredArray['data']['data']);
+            Session::put("AdvanceToASFReportDataExcel", $filteredArray['data']['data']);
             return $filteredArray['data']['data'];
         }
         catch (\Throwable $th) {
@@ -672,7 +672,7 @@ class AdvanceRequestController extends Controller
             Log::error("Error at " ,[$request->all()]);
             if ($project_code == "") {
                 Session::forget("AdvanceToASFReportDataPDF");
-                Session::forget("AdvanceSettlementReportSummaryDataExcel");
+                Session::forget("AdvanceToASFReportDataExcel");
                 
                 return redirect()->route('AdvanceRequest.ReportAdvanceToASF')->with('NotFound', 'Cannot Empty');
             }
@@ -694,9 +694,11 @@ class AdvanceRequestController extends Controller
     }
     public function PrintExportReportAdvanceToASF(Request $request)
     {
+        ini_set('memory_limit', '512M');
+        set_time_limit(300);
         try {
             $dataPDF = Session::get("AdvanceToASFReportDataPDF");
-            $dataExcel = Session::get("AdvanceSettlementReportSummaryDataExcel");
+            $dataExcel = Session::get("AdvanceToASFReportDataExcel");
 
             
             if ($dataPDF && $dataExcel) {
@@ -705,7 +707,7 @@ class AdvanceRequestController extends Controller
                     $dataArftoASF = Session::get("AdvanceToASFReportDataPDF");
                     // dd($dataArftoASF);
 
-                    $pdf = PDF::loadView('Process.Advance.AdvanceToASF.Reports.ReportAdvanceToASF_pdf', ['dataArftoAS$dataArftoASF' => $dataArftoASF])->setPaper('a4', 'landscape');
+                    $pdf = PDF::loadView('Process.Advance.AdvanceToASF.Reports.ReportAdvanceToASF_pdf', ['dataArftoASF' => $dataArftoASF])->setPaper('a4', 'landscape');
                     $pdf->output();
                     $dom_pdf = $pdf->getDomPDF();
 
@@ -717,10 +719,10 @@ class AdvanceRequestController extends Controller
 
                     return $pdf->download('Export Report Advance to ASF .pdf');
                 } else if ($print_type == "Excel") {
-                    return Excel::download(new ExportReportAdvanceSettlementSummary, 'Export Report Advance Settlement Summary.xlsx');
+                    return Excel::download(new ExportReportAdvanceToASF, 'Export Report Advance to ASF .xlsx');
                 }
             } else {
-                return redirect()->route('AdvanceSettlement.ReportAdvanceSettlementSummary')->with('NotFound', 'Data Cannot Empty');
+                return redirect()->route('AdvanceRequest.ReportAdvanceToASF')->with('NotFound', 'Data Cannot Empty');
             }
         } catch (\Throwable $th) {
             Log::error("Error at " . $th->getMessage());

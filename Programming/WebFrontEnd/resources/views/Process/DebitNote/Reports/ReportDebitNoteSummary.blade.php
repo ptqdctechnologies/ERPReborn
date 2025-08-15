@@ -12,15 +12,15 @@
         <div class="container-fluid">
             <div class="row mb-1" style="background-color:#4B586A;">
                 <div class="col-sm-6" style="height:30px;">
-                    <label style="font-size:15px;position:relative;top:7px;color:white;">Credit Note Report Summary</label>
+                    <label style="font-size:15px;position:relative;top:7px;color:white;">Debit Note Report Summary</label>
                 </div>
             </div>
             <div class="card">
                 <div class="tab-content p-3" id="nav-tabContent">
                     <!-- FORM -->
                     <div class="row">
-                                        @include('Process.CreditNote.Functions.Header.HeaderReportCreditNoteSummary')
-                                    
+                                        @include('Process.DebitNote.Functions.Header.HeaderReportDebitNoteSummary')
+                                   
                     </div>
 
                     <?php if ($dataReport) { ?>
@@ -47,14 +47,14 @@
                                             <thead>
                                                 <tr>
                                                     <th rowspan="2" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">No</th>
-                                                    <th rowspan="2" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">CN Number</th>
+                                                    <th rowspan="2" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">DN Number</th>
                                                     <th rowspan="2" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Budget</th>
                                                     <th rowspan="2" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Sub Budget</th>
                                                     <th rowspan="2" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Date</th>
                                                     <th rowspan="2" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Supplier/Customer</th>
-                                                    <th colspan="2" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">CN IDR</th>
-                                                    <th colspan="2" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">CN Other Currency</th>
-                                                    <th colspan="2" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">CN Equivalent IDR</th>
+                                                    <th colspan="2" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">DN IDR</th>
+                                                    <th colspan="2" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">DN Other Currency</th>
+                                                    <th colspan="2" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">DN Equivalent IDR</th>
                                                 </tr>
 
                                                 <tr>
@@ -101,7 +101,7 @@
                                 </div>
                             </div>
                         </div>
-                    <?php }; Session::forget("isButtonReportCreditNoteSummarySubmit"); ?>
+                    <?php }; Session::forget("isButtonReportDebitNoteSummarySubmit"); ?>
                 </div>
             </div>
         </div>
@@ -109,5 +109,5 @@
 </div>
 
 @include('Partials.footer')
-@include('Process.CreditNote.Functions.Footer.FooterReportCreditNoteSummary')
+@include('Process.DebitNote.Functions.Footer.FooterReportDebitNoteSummary')
 @endsection

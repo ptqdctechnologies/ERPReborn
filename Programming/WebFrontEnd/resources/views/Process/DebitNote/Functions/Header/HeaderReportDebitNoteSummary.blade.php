@@ -1,6 +1,6 @@
 <div class="col-12 ShowDocument">
   <div class="card">
-    <form method="post" enctype="multipart/form-data" action="{{ route('CreditNote.ReportCreditNoteSummaryStore') }}">
+    <form method="post" enctype="multipart/form-data" action="{{ route('DebitNote.ReportDebitNoteSummaryStore') }}">
       @csrf
       <div class="card-body">
         <div class="row">
