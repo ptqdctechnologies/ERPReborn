@@ -33,24 +33,6 @@ class ExportReportPRtoPO implements FromCollection, WithHeadings, ShouldAutoSize
                 'PO Qty'                            => $item['TotalExpenseClaimCart'] ?? null,
                 'PO Total'                          => $item['TotalAmountDueToCompanyCart'] ?? null,
                 'Balance'                           => $item['remark'] ?? null,
-
-                // 'BeneficiaryWorkerName'             => $item['BeneficiaryWorkerName'] ?? null,
-                // 'Total Expense Claim Cart'          => $item['TotalExpenseClaimCart'] ?? null,
-                // 'Total Amount Due to Company Cart'  => $item['TotalAmountDueToCompanyCart'] ?? null,
-                // 'Total BSF'                         => date('d-m-Y', strtotime($item['TotalAdvance'])) ?? null,
-                // 'Departing From'                    => $item['DepartingFrom'] ?? null,
-                // 'Destination To'                    => $item['DestinationTo'] ?? null,
-                // 'Requester'                         => $item['RequesterWorkerName'] ?? null,
-                // 'Qty DO'                            => $item['TotalExpenseClaimCart'] ?? null,
-
-                // 'Sub Budget'                        => $item['CombinedBudgetSectionName'] ?? null,
-                
-                
-                
-                // 'Currency'                          => $item['CurrencyName'] ?? null,
-                
-                // 'Beneficiary'                       => $item['BeneficiaryWorkerName'] ?? null,
-                // 'Remark'                            => $item['remark'] ?? null,
             ];
         }
 
@@ -65,11 +47,9 @@ class ExportReportPRtoPO implements FromCollection, WithHeadings, ShouldAutoSize
             [date('F j, Y')],
             ["Report Purchase Requisition to Purchase Order", " ", " ", " ", " ", " ", " "," ", " ", " "],
             [date('h:i A')],
-            ["Budget", ": " . $data['budgetCode'] . ' - ' . $data['budgetName'], "", "", "", "", "", "", "", "", ""],
+            ["Budget", ": " . $data[0]['combinedBudgetCode'] . ' - ' . $data[0]['combinedBudgetName'], "", "", "", "", "", "", "", "", ""],
             ["", "", "", "", "", "", "", "", "", "", "",""],
             ["No","PR Number","PR Date","Product Id","Description","PO Total","Valuta","PO Number","PO Date","PO Qty","PO Total","Balance"]
-            // ["No", "ASF Number", "Description", "Date", "Total Expense Claim Cart", "Total Amount Due to Company Cart", "Total Advance", "Requester", "Remark"]
-            // ["No", "BSF Number", "Sub Budget", "Departing From", "Destination To", "Date", "Total Expense Claim Cart", "Total Amount Due to Company Cart", "Total BSF", "Currency", "Requester", "Beneficiary", "Remark"]
         ];
     }
 
