@@ -3,6 +3,12 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 RUN printf "deb http://kambing.ui.ac.id/debian/ buster main contrib non-free" >> /etc/apt/sources.list \
     && printf "deb http://repo.ugm.ac.id/debian/ buster main contrib non-free" >> /etc/apt/sources.list
+#    && printf "deb http://kartolo.sby.datautama.net.id/debian-security/ buster/updates main contrib non-free" >> /etc/apt/sources.list \
+#    && printf "deb http://archive.debian.org/debian stretch main" >> /etc/apt/sources.list
+
+#deb http://kartolo.sby.datautama.net.id/debian/ buster main contrib non-free
+#deb http://kartolo.sby.datautama.net.id/debian-security/ buster/updates main contrib non-free
+
 
 #RUN apt-get update --fix-missing \
 RUN apt-get update \
