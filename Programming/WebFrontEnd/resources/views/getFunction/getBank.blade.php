@@ -1,4 +1,4 @@
-@if (request()->is('BusinessTripRequest') || request()->is('AdvanceRequest'))
+@if (request()->is('Reimbursement') || request()->is('BusinessTripRequest') || request()->is('AdvanceRequest'))
     <!-- GET BANK SECOND -->
     <div id="myGetBankSecond" class="modal fade" role="dialog" aria-labelledby="contohModalScrollableTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable" role="document">
@@ -97,11 +97,11 @@
                         $("#bank_accounts_third_id").val(data[0].Sys_PID);
                         $("#bank_accounts_third_detail").val(data[0].AccountName);
 
-                        if (!currentURL.includes("AdvanceRequest")) {
+                        if (!currentURL.includes("AdvanceRequest") && !currentURL.includes("Reimbursement")) {
                             adjustInputSize(document.getElementById("bank_accounts_third"), "string");
                         }
 
-                        if (currentURL.includes("AdvanceRequest")) {
+                        if (currentURL.includes("AdvanceRequest") || currentURL.includes("Reimbursement")) {
                             getBankAccountData(data[0].Bank_RefID, person_refID);
                         } else {
                             getBankAccountData(data[0].Bank_RefID, "third_modal", person_refID);
