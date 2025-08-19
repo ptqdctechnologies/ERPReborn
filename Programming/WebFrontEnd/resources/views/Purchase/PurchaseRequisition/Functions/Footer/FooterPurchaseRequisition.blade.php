@@ -6,12 +6,7 @@
     const dateDelivery              = document.getElementById("dateCommance");
     const tablePurchaseRequestLists = document.querySelector("#tablePurchaseRequisitionList tbody");
 
-    $(".loadingBudgetDetails").hide();
-    $(".errorMessageContainerBudgetDetails").hide();
-    $("#deliverModalTrigger").prop("disabled", true);
-    $("#mySiteCodeSecondTrigger").prop("disabled", true);
-
-    function checkOneLineBudgetContents() {
+    function checkOneLineBudgetContents(indexInput) {
         const rows = document.querySelectorAll("#tableGetBudgetDetails tbody tr");
         let hasFullRow = false;
 
@@ -34,10 +29,34 @@
                 $(qtyEl).css("border", "1px solid #ced4da");
                 $(priceEl).css("border", "1px solid #ced4da");
                 $(totalEl).css("border", "1px solid #ced4da");
+                $("#budgetDetailsMessage").hide();
             } else {
-                $(qtyEl).css("border", "1px solid red");
-                $(priceEl).css("border", "1px solid red");
-                $(totalEl).css("border", "1px solid red");
+                if (indexInput) {
+                    if (indexInput == index) {
+                        if (qtyEl.value.trim() != "" || priceEl.value.trim() != "") {
+                            $(qtyEl).css("border", "1px solid red");
+                            $(priceEl).css("border", "1px solid red");
+                            $(totalEl).css("border", "1px solid red");
+                            $("#budgetDetailsMessage").show();
+                        } else {
+                            $(qtyEl).css("border", "1px solid #ced4da");
+                            $(priceEl).css("border", "1px solid #ced4da");
+                            $(totalEl).css("border", "1px solid #ced4da");
+                            $("#budgetDetailsMessage").hide();
+                        }
+                    }
+
+                    if (indexInput != index && (qtyEl.value.trim() == "" && priceEl.value.trim() == "")) {
+                        $(qtyEl).css("border", "1px solid #ced4da");
+                        $(priceEl).css("border", "1px solid #ced4da");
+                        $(totalEl).css("border", "1px solid #ced4da");
+                    } 
+                } else {
+                    $(qtyEl).css("border", "1px solid red");
+                    $(priceEl).css("border", "1px solid red");
+                    $(totalEl).css("border", "1px solid red");
+                    $("#budgetDetailsMessage").show();
+                }
             }
         });
 
@@ -116,7 +135,7 @@
                                     productUnitPriceCurrencyValue: parseFloat(price.replace(/,/g, '')),
                                     productUnitPriceCurrencyExchangeRate: 1,
                                     fulfillmentDeadlineDateTimeTZ: null,
-                                    remarks: remark
+                                    remarks: remark || null
                                 }
                             };
                         }
@@ -151,7 +170,7 @@
                             productUnitPriceCurrencyValue: parseFloat(price.replace(/,/g, '')),
                             productUnitPriceCurrencyExchangeRate: 1,
                             fulfillmentDeadlineDateTimeTZ: null,
-                            remarks: remark
+                            remarks: remark || null
                         }
                     });
                 }
@@ -198,34 +217,45 @@
                 $("#deliverCode").css("border", "1px solid red");
                 $("#deliverName").css("border", "1px solid red");
                 $("#dateCommance").css("border", "1px solid red");
-                Swal.fire("Please Complete the Form", "Budget, Sub Budget, Delivery To, and Date of Delivery cannot be empty.", "error");
+                $("#dateCommance").css("border", "1px solid red");
+
+                $("#budgetMessage").show();
+                $("#subBudgetMessage").show();
+                $("#deliveryToMessage").show();
+                $("#dateOfDeliveryMessage").show();
+                // Swal.fire("Please Complete the Form", "Budget, Sub Budget, Delivery To, and Date of Delivery cannot be empty.", "error");
                 return;
             } 
             if (!isBudgetCodeNotEmpty) {
                 $("#project_code_second").css("border", "1px solid red");
                 $("#project_name_second").css("border", "1px solid red");
-                Swal.fire("Please Complete the Form", "Budget cannot be empty.", "error");
+                $("#budgetMessage").show();
+                // Swal.fire("Please Complete the Form", "Budget cannot be empty.", "error");
                 return;
             }
             if (!isSiteCodeNotEmpty) {
                 $("#site_code_second").css("border", "1px solid red");
                 $("#site_name_second").css("border", "1px solid red");
-                Swal.fire("Please Complete the Form", "Sub Budget cannot be empty.", "error");
+                $("#subBudgetMessage").show();
+                // Swal.fire("Please Complete the Form", "Sub Budget cannot be empty.", "error");
                 return;
             } 
             if (!isDeliverCodeNotEmpty) {
                 $("#deliverCode").css("border", "1px solid red");
                 $("#deliverName").css("border", "1px solid red");
-                Swal.fire("Please Complete the Form", "Delivery To cannot be empty.", "error");
+                $("#deliveryToMessage").show();
+                // Swal.fire("Please Complete the Form", "Delivery To cannot be empty.", "error");
                 return;
             } 
             if (!isDateDeliveryNotEmpty) {
                 $("#dateCommance").css("border", "1px solid red");
-                Swal.fire("Please Complete the Form", "Date of Delivery cannot be empty.", "error");
+                $("#dateOfDeliveryMessage").show();
+                // Swal.fire("Please Complete the Form", "Date of Delivery cannot be empty.", "error");
                 return;
             }
             if (!isTableNotEmpty) {
-                Swal.fire("Please Complete the Form", "Budget Details must be filled in at least 1 item.", "error");
+                $("#budgetDetailsMessage").show();
+                // Swal.fire("Please Complete the Form", "Budget Details must be filled in at least 1 item.", "error");
                 return;
             }
         }
@@ -388,7 +418,7 @@
                                 $(`#total_req${key}`).val(currencyTotal(total_req));
                             }
 
-                            checkOneLineBudgetContents();
+                            checkOneLineBudgetContents(key);
                         });
                     } else {
                         $(`#qty_req${key}`).on('keyup', function() {
@@ -417,7 +447,7 @@
                                 $(`#balanced_qty${key}`).val(decimalFormat(total));
                             }
 
-                            checkOneLineBudgetContents();
+                            checkOneLineBudgetContents(key);
                         });
                     }
 
@@ -444,7 +474,7 @@
                             calculateTotal();
                         }
 
-                        checkOneLineBudgetContents();
+                        checkOneLineBudgetContents(key);
                     });
                 });
             },
@@ -617,6 +647,7 @@
                 $("#myProjectSecondTrigger").css("cursor", "not-allowed");
                 $("#project_code_second").css("border", "1px solid #ced4da");
                 $("#project_name_second").css("border", "1px solid #ced4da");
+                $("#budgetMessage").hide();
 
                 $("#var_combinedBudget_RefID").val(sysId);
 
@@ -639,6 +670,7 @@
         getBudgetDetails(sysId);
         $("#site_code_second").css("border", "1px solid #ced4da");
         $("#site_name_second").css("border", "1px solid #ced4da");
+        $("#subBudgetMessage").hide();
         $(".loadingBudgetDetails").show();
         $("#deliverModalTrigger").prop("disabled", false);
     });
@@ -646,10 +678,12 @@
     $('#tableGetDeliverTo').on('click', 'tbody tr', function() {
         $("#deliverCode").css("border", "1px solid #ced4da");
         $("#deliverName").css("border", "1px solid #ced4da");
+        $("#deliveryToMessage").hide();
     });
 
     $('#dateCommance').on('change', function() {
         $("#dateCommance").css("border", "1px solid #ced4da");
+        $("#dateOfDeliveryMessage").hide();
     });
 
     $(document).on('input', '.number-without-negative', function() {
@@ -658,5 +692,16 @@
 
     $(window).one('load', function(e) {
         getDocumentType("Purchase Requisition Form");
+
+        $(".loadingBudgetDetails").hide();
+        $(".errorMessageContainerBudgetDetails").hide();
+        $("#deliverModalTrigger").prop("disabled", true);
+        $("#mySiteCodeSecondTrigger").prop("disabled", true);
+        
+        $("#budgetMessage").hide();
+        $("#subBudgetMessage").hide();
+        $("#deliveryToMessage").hide();
+        $("#dateOfDeliveryMessage").hide();
+        $("#budgetDetailsMessage").hide();
     });
 </script>
