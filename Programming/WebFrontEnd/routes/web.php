@@ -284,7 +284,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('ReportReimbursementSummary', 'Process\Reimbursement\ReimbursementController@ReportReimbursementSummary')->name('Reimbursement.ReportReimbursementSummary');
     Route::post('ReportReimbursementSummaryStore', 'Process\Reimbursement\ReimbursementController@ReportReimbursementSummaryStore')->name('Reimbursement.ReportReimbursementSummaryStore');
     Route::post('PrintExportReportReimbursementSummary', 'Process\Reimbursement\ReimbursementController@PrintExportReportReimbursementSummary')->name('Reimbursement.PrintExportReportReimbursementSummary');
-    Route::resource('ReimbursementController', 'Process\Reimbursement\ReimbursementController');
+    Route::resource('Reimbursement', 'Process\Reimbursement\ReimbursementController');
 
     // REM EXPENDITURE
     Route::post('StoreValidateReimbursableExpenditure', 'Process\Reimbursement\ReimbursableExpenditureController@StoreValidateReimbursableExpenditure')->name('ReimbursableExpenditure.StoreValidateReimbursableExpenditure');
