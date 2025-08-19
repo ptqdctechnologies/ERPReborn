@@ -20,7 +20,18 @@ class ReimbursementController extends Controller
 {
     public function index(Request $request)
     {
-        
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+        $var            = 0;
+        if (!empty($_GET['var'])) {
+            $var = $_GET['var'];
+        }
+
+        $compact = [
+            'var'               => $var,
+            'varAPIWebToken'    => $varAPIWebToken,
+        ];
+
+        return view('Process.Reimbursement.Transactions.CreateReimbursement', $compact);
     }
 
     public function ReportReimbursementSummary(Request $request)
