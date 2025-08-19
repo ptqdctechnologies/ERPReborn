@@ -281,14 +281,15 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::resource('BusinessTripRequest', 'Process\BusinessTrip\BusinessTripRequestController');
 
     // REM
+    Route::get('ReportReimbursementSummary', 'Process\Reimbursement\ReimbursementController@ReportReimbursementSummary')->name('Reimbursement.ReportReimbursementSummary');
+    Route::post('ReportReimbursementSummaryStore', 'Process\Reimbursement\ReimbursementController@ReportReimbursementSummaryStore')->name('Reimbursement.ReportReimbursementSummaryStore');
+    Route::post('PrintExportReportReimbursementSummary', 'Process\Reimbursement\ReimbursementController@PrintExportReportReimbursementSummary')->name('Reimbursement.PrintExportReportReimbursementSummary');
+    Route::resource('ReimbursementController', 'Process\Reimbursement\ReimbursementController');
+
+    // REM EXPENDITURE
     Route::post('StoreValidateReimbursableExpenditure', 'Process\Reimbursement\ReimbursableExpenditureController@StoreValidateReimbursableExpenditure')->name('ReimbursableExpenditure.StoreValidateReimbursableExpenditure');
     Route::post('StoreValidateReimbursableExpenditure2', 'Process\Reimbursement\ReimbursableExpenditureController@StoreValidateReimbursableExpenditure2')->name('ReimbursableExpenditure.StoreValidateReimbursableExpenditure2');
-    Route::post('RevisionReimbursableExpenditure', 'Process\Reimbursement\ReimbursableExpenditureController@RevisionReimbursableExpenditureIndex')->name('ReimbursableExpenditure.RevisionReimbursableExpenditure');
-    
-    Route::get('ReportReimbursementSummary', 'Process\Reimbursement\ReimbursableExpenditureController@ReportReimbursementSummary')->name('Reimbursement.ReportReimbursementSummary');
-    Route::post('ReportReimbursementSummaryStore', 'Process\Reimbursement\ReimbursableExpenditureController@ReportReimbursementSummaryStore')->name('Reimbursement.ReportReimbursementSummaryStore');
-    Route::post('PrintExportReportReimbursementSummary', 'Process\Reimbursement\ReimbursableExpenditureController@PrintExportReportReimbursementSummary')->name('Reimbursement.PrintExportReportReimbursementSummary');
-    
+    Route::post('RevisionReimbursableExpenditure', 'Process\Reimbursement\ReimbursableExpenditureController@RevisionReimbursableExpenditureIndex')->name('ReimbursableExpenditure.RevisionReimbursableExpenditure');   
     Route::resource('ReimbursableExpenditure', 'Process\Reimbursement\ReimbursableExpenditureController');
 
     // PR
