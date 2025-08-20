@@ -26,10 +26,11 @@
 
             <!-- CONTENT -->
             <div class="card">
-                <form method="post" action="{{ route('Reimbursement.store') }}" id="FormSubmitReimbursement">
+                <form method="post" action="{{ route('Reimbursement.UpdateReimbursement') }}" id="FormSubmitReimbursement">
                 @csrf
-                    <input type="hidden" name="DocumentTypeID" id="DocumentTypeID">
-                    <input type="hidden" name="var_combinedBudget_RefID" id="var_combinedBudget_RefID">
+                    <input type="hidden" name="DocumentTypeID" id="DocumentTypeID" />
+                    <input type="hidden" name="reimbursement_RefID" id="reimbursement_RefID" value="<?= $header['sys_RefID']; ?>" />
+                    <input type="hidden" name="var_combinedBudget_RefID" id="var_combinedBudget_RefID" value="<?= $header['combinedBudget_RefID']; ?>" />
 
                     <!-- ADD NEW REIMBURSEMENT -->
                     <div class="tab-content px-3 pt-4 pb-2" id="nav-tabContent">

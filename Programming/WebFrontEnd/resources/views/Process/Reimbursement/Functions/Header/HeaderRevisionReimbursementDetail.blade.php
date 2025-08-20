@@ -1,20 +1,12 @@
 <div class="card-body">
   <div class="row py-3" style="gap: 15px;">
     <div class="col-md-12 col-lg-5">
-      <!-- VENDOR/CUSTOMER -->
+      <!-- CUSTOMER -->
       <div class="row">
-        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Vendor/Customer</label>
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Customer</label>
         <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
           <div style="width: 42%;">
-            <input id="date_customer" name="date_customer" style="border-radius:0;width: 100%;" type="date" class="form-control" value="<?= $header['dateCustomer']; ?>" />
-          </div>
-        </div>
-      </div>
-      <div class="row" id="customerMessage" style="margin-top: .3rem; display: none;">
-        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
-        <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
-          <div class="text-red">
-            Vendor/Customer cannot be empty.
+            <input id="date_customer" name="date_customer" style="border-radius:0;width: 100%;cursor: not-allowed;" type="date" class="form-control" value="<?= $header['dateCustomer']; ?>" readonly />
           </div>
         </div>
       </div>

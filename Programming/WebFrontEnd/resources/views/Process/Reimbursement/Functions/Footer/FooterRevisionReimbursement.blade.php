@@ -1,11 +1,10 @@
 <script>
-    let dataStore                   = [];
-    const budgetCode                = document.getElementById("project_id_second");
-    const siteCode                  = document.getElementById("site_id_second");
-    const dateCustomer              = document.getElementById("date_customer");
-    const beneficiaryID             = document.getElementById("beneficiary_second_id");
-    const bankID                    = document.getElementById("bank_name_second_id");
-    const bankAccountID             = document.getElementById("bank_accounts_id");
+    let dataStore       = [];
+    const siteCode      = document.getElementById("site_id_second");
+    const beneficiaryID = document.getElementById("beneficiary_second_id");
+    const bankID        = document.getElementById("bank_name_second_id");
+    const bankAccountID = document.getElementById("bank_accounts_id");
+    const dataTable     = {!! json_encode($detail ?? []) !!};
 
     function checkOneLineBudgetContents(indexInput) {
         const rows = document.querySelectorAll("#tableGetBudgetDetails tbody tr");
@@ -32,7 +31,7 @@
                 $(totalEl).css("border", "1px solid #ced4da");
                 $("#budgetDetailsMessage").hide();
             } else {
-                if (indexInput) {
+                if (indexInput > -1) {
                     if (indexInput == index) {
                         if (qtyEl.value.trim() != "" || priceEl.value.trim() != "") {
                             $(qtyEl).css("border", "1px solid red");
@@ -71,6 +70,7 @@
         const rows = sourceTable.getElementsByTagName('tr');
 
         for (let row of rows) {
+            const sysRefID                          = row.querySelector('input[id^="sys_RefID"]');
             const combinedBudgetSectionDetailRefID  = row.querySelector('input[id^="combinedBudgetSectionDetail_RefID"]');
             const productRefID                      = row.querySelector('input[id^="product_RefID"]');
             const quantityUnitRefID                 = row.querySelector('input[id^="quantityUnit_RefID"]');
@@ -84,8 +84,8 @@
                 qtyInput.value.trim() !== '' &&
                 priceInput.value.trim() !== ''
             ) {
-                const productCode = row.children[4].innerText.trim();
-                const productName = row.children[5].innerText.trim();
+                const productCode = row.children[5].innerText.trim();
+                const productName = row.children[6].innerText.trim();
 
                 const price = priceInput.value.trim();
                 const qty   = qtyInput.value.trim();
@@ -107,6 +107,7 @@
                         const indexToUpdate = dataStore.findIndex(item => item.entities.combinedBudgetSectionDetail_RefID == combinedBudgetSectionDetailRefID.value);
                         if (indexToUpdate !== -1) {
                             dataStore[indexToUpdate] = {
+                                recordID: parseInt(sysRefID.value) || null,
                                 entities: {
                                     combinedBudgetSectionDetail_RefID: parseInt(combinedBudgetSectionDetailRefID.value),
                                     product_RefID: parseInt(productRefID.value),
@@ -133,6 +134,7 @@
                     targetTable.appendChild(newRow);
 
                     dataStore.push({
+                        recordID: parseInt(sysRefID.value) || null,
                         entities: {
                             combinedBudgetSectionDetail_RefID: parseInt(combinedBudgetSectionDetailRefID.value),
                             product_RefID: parseInt(productRefID.value),
@@ -145,8 +147,8 @@
                     });
                 }
             } else {
-                const productCode = row.children[4].innerText.trim();
-                const productName = row.children[5].innerText.trim();
+                const productCode = row.children[5].innerText.trim();
+                const productName = row.children[6].innerText.trim();
                 const existingRows = targetTable.getElementsByTagName('tr');
                 
                 for (let targetRow of existingRows) {
@@ -165,24 +167,16 @@
     }
 
     function validationForm() {
-        const isBudgetCodeNotEmpty      = budgetCode.value.trim() !== '';
-        const isSiteCodeNotEmpty        = siteCode.value.trim() !== '';
-        const isDateCustomerNotEmpty    = dateCustomer.value.trim() !== '';
         const isBeneficiaryIDNotEmpty   = beneficiaryID.value.trim() !== '';
         const isBankIDNotEmpty          = bankID.value.trim() !== '';
         const isBankAccountIDNotEmpty   = bankAccountID.value.trim() !== '';
         const isTableNotEmpty           = checkOneLineBudgetContents();
 
-        if (isBudgetCodeNotEmpty && isSiteCodeNotEmpty && isDateCustomerNotEmpty && isBeneficiaryIDNotEmpty && isBankIDNotEmpty && isBankAccountIDNotEmpty && isTableNotEmpty) {
+        if (isBeneficiaryIDNotEmpty && isBankIDNotEmpty && isBankAccountIDNotEmpty && isTableNotEmpty) {
             $('#reimbursementFormModal').modal('show');
             summaryData();
         } else {
-            if (!isBudgetCodeNotEmpty && !isSiteCodeNotEmpty && !isDateCustomerNotEmpty && !isBeneficiaryIDNotEmpty && !isBankIDNotEmpty && !isBankAccountIDNotEmpty && !isTableNotEmpty) {
-                $("#project_code_second").css("border", "1px solid red");
-                $("#project_name_second").css("border", "1px solid red");
-                $("#site_code_second").css("border", "1px solid red");
-                $("#site_name_second").css("border", "1px solid red");
-                $("#date_customer").css("border", "1px solid red");
+            if (!isBeneficiaryIDNotEmpty && !isBankIDNotEmpty && !isBankAccountIDNotEmpty && !isTableNotEmpty) {
                 $("#beneficiary_second_person_position").css("border", "1px solid red");
                 $("#beneficiary_second_person_name").css("border", "1px solid red");
                 $("#bank_name_second_name").css("border", "1px solid red");
@@ -190,34 +184,11 @@
                 $("#bank_accounts").css("border", "1px solid red");
                 $("#bank_accounts_detail").css("border", "1px solid red");
 
-                $("#budgetMessage").show();
-                $("#subBudgetMessage").show();
-                $("#customerMessage").show();
                 $("#beneficiaryMessage").show();
                 $("#bankNameMessage").show();
                 $("#bankAccountMessage").show();
                 return;
             }
-            if (!isBudgetCodeNotEmpty) {
-                $("#project_code_second").css("border", "1px solid red");
-                $("#project_name_second").css("border", "1px solid red");
-                $("#budgetMessage").show();
-                // Swal.fire("Please Complete the Form", "Budget cannot be empty.", "error");
-                return;
-            }
-            if (!isSiteCodeNotEmpty) {
-                $("#site_code_second").css("border", "1px solid red");
-                $("#site_name_second").css("border", "1px solid red");
-                $("#subBudgetMessage").show();
-                // Swal.fire("Please Complete the Form", "Sub Budget cannot be empty.", "error");
-                return;
-            } 
-            if (!isDateCustomerNotEmpty) {
-                $("#date_customer").css("border", "1px solid red");
-                $("#deliveryToMessage").show();
-                // Swal.fire("Please Complete the Form", "Delivery To cannot be empty.", "error");
-                return;
-            } 
             if (!isBeneficiaryIDNotEmpty) {
                 $("#beneficiary_second_person_position").css("border", "1px solid red");
                 $("#beneficiary_second_person_name").css("border", "1px solid red");
@@ -257,12 +228,10 @@
             }
         });
 
-        // total = Math.ceil(total * 100) / 100;
-
         document.getElementById('TotalBudgetSelected').textContent = decimalFormat(total);
     }
 
-    function getBudgetDetails(site_code) {
+    function getBudgetDetails(site_code, dataDetail) {
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -296,12 +265,46 @@
 
                 $.each(data, function(key, val2) {
                     if (val2.productName !== "Unspecified Product") {
-                        let isUnspecified = '';
-                        let balanced = currencyTotal(val2.quantityRemaining);
-                        let totalBudget = val2.quantity * val2.priceBaseCurrencyValue;
+                        let isUnspecified   = '';
+                        let balanced        = currencyTotal(val2.quantityRemaining);
+                        let totalBudget     = val2.quantity * val2.priceBaseCurrencyValue;
+
+                        let findDataDetail = dataDetail.find(el => el.CombinedBudgetSectionDetail_RefID == val2.sys_ID);
+
+                        let componentsHidden = `<input id="sys_RefID${key}" value="" type="hidden" />`;
+                        let componentsInput = `
+                            <td style="text-align: center;">
+                                <input class="form-control number-without-negative" id="qty_req${key}" autocomplete="off" style="border-radius:0px;" />
+                            </td>
+                            <td style="text-align: center;">
+                                <input class="form-control number-without-negative" id="price_req${key}" autocomplete="off" style="border-radius:0px;" />
+                            </td>
+                            <td style="text-align: center;">
+                                <input class="form-control number-without-negative" id="total_req${key}" autocomplete="off" style="border-radius:0px;" readonly />
+                            </td>
+                        `;
+
+                        if (findDataDetail) {
+                            componentsHidden = `
+                                <input id="sys_RefID${key}" value="${findDataDetail.Sys_ID_Detail}" type="hidden" />
+                            `;
+
+                            componentsInput = `
+                                <td style="text-align: center;">
+                                    <input class="form-control number-without-negative" id="qty_req${key}" autocomplete="off" style="border-radius:0px;" data-default="${decimalFormat(findDataDetail.Quantity)}" value="${decimalFormat(findDataDetail.Quantity)}" />
+                                </td>
+                                <td style="text-align: center;">
+                                    <input class="form-control number-without-negative" id="price_req${key}" autocomplete="off" style="border-radius:0px;" data-default="${decimalFormat(findDataDetail.ProductUnitPriceCurrencyValue)}" value="${decimalFormat(findDataDetail.ProductUnitPriceCurrencyValue)}" />
+                                </td>
+                                <td style="text-align: center;">
+                                    <input class="form-control number-without-negative" id="total_req${key}" autocomplete="off" style="border-radius:0px;" readonly data-default="${decimalFormat(findDataDetail.Quantity * findDataDetail.ProductUnitPriceCurrencyValue)}" value="${decimalFormat(findDataDetail.Quantity * findDataDetail.ProductUnitPriceCurrencyValue)}" />
+                                </td>
+                            `;
+                        }
                         
                         let row = `
                             <tr>
+                                ${componentsHidden}
                                 <input id="combinedBudgetSectionDetail_RefID${key}" value="${val2.sys_ID}" type="hidden" />
                                 <input id="product_RefID${key}" value="${val2.product_RefID}" type="hidden" />
                                 <input id="quantityUnit_RefID${key}" value="${val2.quantityUnit_RefID}" type="hidden" />
@@ -310,15 +313,7 @@
                                 <td style="text-align: center;">${val2.productCode}</td>
                                 <td style="text-align: center;">${val2.productName}</td>
                                 <td style="text-align: center;">${val2.priceBaseCurrencyISOCode}</td>
-                                <td style="text-align: center;">
-                                    <input class="form-control number-without-negative" id="qty_req${key}" autocomplete="off" style="border-radius:0px;" />
-                                </td>
-                                <td style="text-align: center;">
-                                    <input class="form-control number-without-negative" id="price_req${key}" autocomplete="off" style="border-radius:0px;" />
-                                </td>
-                                <td style="text-align: center;">
-                                    <input class="form-control number-without-negative" id="total_req${key}" autocomplete="off" style="border-radius:0px;" readonly />
-                                </td>
+                                ${componentsInput}
                             </tr>
                         `;
 
@@ -345,6 +340,8 @@
                         });
                     }
                 });
+
+                calculateTotal();
             },
             error: function (textStatus, errorThrown) {
                 $('#tableGetBudgetDetails tbody').empty();
@@ -353,85 +350,6 @@
                 $("#errorMessageBudgetDetails").text(`[${textStatus.status}] ${textStatus.responseJSON.message}`);
             }
         });
-    }
-
-    function SelectWorkFlow(formatData) {
-        const swalWithBootstrapButtons = Swal.mixin({
-            confirmButtonClass: 'btn btn-success btn-sm',
-            cancelButtonClass: 'btn btn-danger btn-sm',
-            buttonsStyling: true,
-        });
-
-        swalWithBootstrapButtons.fire({
-            title: 'Comment',
-            text: "Please write your comment here",
-            type: 'question',
-            input: 'textarea',
-            showCloseButton: false,
-            showCancelButton: true,
-            focusConfirm: false,
-            cancelButtonText: '<span style="color:black;"> Cancel </span>',
-            confirmButtonText: '<span style="color:black;"> OK </span>',
-            cancelButtonColor: '#DDDAD0',
-            confirmButtonColor: '#DDDAD0',
-            reverseButtons: true
-        }).then((result) => {
-            if ('value' in result) {
-                ShowLoading();
-                ReimbursementStore({...formatData, comment: result.value});
-            }
-        });
-    }
-
-    function ReimbursementStore(formatData) {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
-        $.ajax({
-            type: 'POST',
-            data: formatData,
-            url: '{{ route("Reimbursement.store") }}',
-            success: function(res) {
-                HideLoading();
-
-                if (res.status === 200) {
-                    const swalWithBootstrapButtons = Swal.mixin({
-                        confirmButtonClass: 'btn btn-success btn-sm',
-                        cancelButtonClass: 'btn btn-danger btn-sm',
-                        buttonsStyling: true,
-                    });
-
-                    swalWithBootstrapButtons.fire({
-                        title: 'Successful !',
-                        type: 'success',
-                        html: 'Data has been saved. Your transaction number is ' + '<span style="color:#0046FF;font-weight:bold;">' + res.documentNumber + '</span>',
-                        showCloseButton: false,
-                        showCancelButton: false,
-                        focusConfirm: false,
-                        confirmButtonText: '<span style="color:black;"> OK </span>',
-                        confirmButtonColor: '#4B586A',
-                        confirmButtonColor: '#e9ecef',
-                        reverseButtons: true
-                    }).then((result) => {
-                        ShowLoading();
-                        window.location.href = '/Reimbursement?var=1';
-                    });
-                } else {
-                    ErrorNotif("Data Cancel Inputed");
-                }
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-                console.log('error', jqXHR, textStatus, errorThrown);
-            }
-        });
-    }
-
-    function cancelReimbursement() {
-        ShowLoading();
-        window.location.href = "{{ route('Reimbursement.index', ['var' => 1]) }}";
     }
 
     function submitForm() {
@@ -520,63 +438,6 @@
         });
     }
 
-    $('#tableGetProjectSecond').on('click', 'tbody tr', async function() {
-        let sysId           = $(this).find('input[data-trigger="sys_id_project_second"]').val();
-        let projectCode     = $(this).find('td:nth-child(2)').text();
-        let projectName     = $(this).find('td:nth-child(3)').text();
-        let documentTypeID  = $("#DocumentTypeID").val();
-
-        $("#project_id_second").val("");
-        $("#project_code_second").val("");
-        $("#project_name_second").val("");
-
-        // $("#loadingBudget").css({"display":"block"});
-        // $("#myProjectSecondTrigger").css({"display":"none"});
-
-        // try {
-        //     let checkWorkFlow = await checkingWorkflow(sysId, documentTypeID);
-
-        //     if (!checkWorkFlow) {
-                $("#project_id_second").val(sysId);
-                $("#project_code_second").val(projectCode);
-                $("#project_name_second").val(projectName);
-                $("#myProjectSecondTrigger").prop("disabled", true);
-                $("#myProjectSecondTrigger").css("cursor", "not-allowed");
-                $("#project_code_second").css("border", "1px solid #ced4da");
-                $("#project_name_second").css("border", "1px solid #ced4da");
-                $("#budgetMessage").hide();
-
-                $("#var_combinedBudget_RefID").val(sysId);
-
-                getSiteSecond(sysId);
-                $("#mySiteCodeSecondTrigger").prop("disabled", false);
-        //     }
-
-        //     $("#loadingBudget").css({"display":"none"});
-        //     $("#myProjectSecondTrigger").css({"display":"block"});
-        // } catch (error) {
-        //     console.error('Error checking workflow:', error);
-
-        //     Swal.fire("Error", "Error Checking Workflow", "error");
-        // }
-    });
-
-    $('#tableGetSiteSecond').on('click', 'tbody tr', function() {
-        let sysId = $(this).find('input[data-trigger="sys_id_site_second"]').val();
-
-        getBudgetDetails(sysId);
-        $("#site_code_second").css("border", "1px solid #ced4da");
-        $("#site_name_second").css("border", "1px solid #ced4da");
-        $("#subBudgetMessage").hide();
-        $(".loadingBudgetDetails").show();
-        $("#deliverModalTrigger").prop("disabled", false);
-    });
-
-    $('#date_customer').on('input', function() {
-        $("#date_customer").css("border", "1px solid #ced4da");
-        $("#customerMessage").hide();
-    });
-
     $('#tableGetBeneficiarySecond').on('click', 'tbody tr', function() {
         var personRefId = $(this).find('input[data-trigger="person_ref_id_beneficiary_second"]').val();
 
@@ -638,7 +499,7 @@
     });
 
     $(window).one('load', function(e) {
-        getDocumentType("Reimbursement Form");
-        $(".loadingBudgetDetails").hide();
+        getDocumentType("Reimbursement Revision Form");
+        getBudgetDetails(siteCode.value, dataTable);
     });
 </script>
