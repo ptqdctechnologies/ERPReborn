@@ -9,6 +9,29 @@ use App\Helpers\ZhtHelper\System\Helper_Environment;
 
 class ReimbursementService
 {
+    public function getDetail($reimbursementRefID)
+    {
+        $sessionToken = Session::get('SessionLogin');
+
+        return Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
+            $sessionToken,
+            'transaction.read.dataList.finance.getReimbursementDetail',
+            'latest',
+            [
+            'parameter' => [
+                'reimbursement_RefID' => (int) $reimbursementRefID
+                ],
+            'SQLStatement' => [
+                'pick' => null,
+                'sort' => null,
+                'filter' => null,
+                'paging' => null
+                ]
+            ]
+        );
+    }
+
     public function create(Request $request)
     {
         $sessionToken   = Session::get('SessionLogin');

@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Input;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redis;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Session;
 use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
 use App\Helpers\ZhtHelper\System\Helper_Environment;
@@ -84,11 +85,44 @@ class ReimbursementController extends Controller
     public function RevisionReimbursement(Request $request)
     {
         try {
-            $reimbursementRefID = $request->modal_reimbursement_id;
+            $varAPIWebToken = $request->session()->get('SessionLogin');
+            $response       = $this->reimbursementService->getDetail($request->modal_reimbursement_id);
 
-            dd($reimbursementRefID);
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                return response()->json($response);
+            }
+
+            $data           = $response['data']['data'];
+            $dateCustomer   = $data[0]['Date'] ? Carbon::parse($data[0]['Date'])->toDateString() : '';
+
+            $compact = [
+                'varAPIWebToken'    => $varAPIWebToken,
+                'header'            => [
+                    'combinedBudget_RefID'          => $data[0]['CombinedBudget_RefID'] ?? '',
+                    'combinedBudgetCode'            => $data[0]['CombinedBudgetCode'] ?? '',
+                    'combinedBudgetName'            => $data[0]['CombinedBudgetName'] ?? '',
+                    'combinedBudgetSection_RefID'   => $data[0]['CombinedBudgetSection_RefID'] ?? '',
+                    'combinedBudgetSectionCode'     => $data[0]['CombinedBudgetSectionCode'] ?? '',
+                    'combinedBudgetSectionName'     => $data[0]['CombinedBudgetSectionName'] ?? '',
+                    'dateCustomer'                  => $dateCustomer,
+                    'beneficiary_RefID'             => $data[0]['Beneficiary_RefID'] ?? '',
+                    'beneficiaryName'               => '',
+                    'beneficiaryPosition'           => '',
+                    'beneficiaryBank_RefID'         => $data[0]['BeneficiaryBank_RefID'] ?? '',
+                    'beneficiaryBankName'           => $data[0]['BeneficiaryBankName'] ?? '',
+                    'beneficiaryBankAcronym'        => $data[0]['BeneficiaryBankAcronym'] ?? '',
+                    'beneficiaryBankAccount_RefID'  => $data[0]['BeneficiaryBankAccount_RefID'] ?? '',
+                    'beneficiaryBankAccountNumber'  => $data[0]['BeneficiaryBankAccountNumber'] ?? '',
+                    'beneficiaryBankAccountName'    => $data[0]['BeneficiaryBankAccountName'] ?? '',
+                    'fileID'                        => $data[0]['Log_FileUpload_Pointer_RefID'] ?? null,
+                    'remark'                        => $data[0]['Remarks_Header'] ?? '',
+                ],
+                'detail'                            => $data
+            ];
+            
+            return view('Process.Reimbursement.Transactions.RevisionReimbursement', $compact);
         } catch (\Throwable $th) {
-            Log::error("Store Advance Request Function Error: " . $th->getMessage());
+            Log::error("RevisionReimbursement Function Error: " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }
