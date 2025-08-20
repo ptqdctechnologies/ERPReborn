@@ -8,6 +8,8 @@
 @include('getFunction.getBank')
 @include('getFunction.getBankAccount')
 @include('getFunction.getWorkFlow')
+@include('getFunction.getReimbursement')
+@include('Process.Reimbursement.Functions.PopUp.PopUpRemRevision')
 
 <div class="content-wrapper">
     <section class="content">

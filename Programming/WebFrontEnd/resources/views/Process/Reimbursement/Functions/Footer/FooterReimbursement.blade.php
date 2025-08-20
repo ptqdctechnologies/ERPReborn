@@ -628,6 +628,15 @@
         $("#bankAccountMessage").hide();
     });
 
+    $('#tableGetModalReimbursement').on('click', 'tbody tr', function() {
+        var sysId           = $(this).find('input[data-trigger="sys_id_modal_reimbursement"]').val();
+        var trano           = $(this).find('td:nth-child(2)').text();
+
+        $("#modal_reimbursement_id").val(sysId);
+        $("#modal_reimbursement_document_number").val(trano);
+        $('#myGetModalReimbursement').modal('hide');
+    });
+
     $(window).one('load', function(e) {
         getDocumentType("Reimbursement Form");
         $(".loadingBudgetDetails").hide();

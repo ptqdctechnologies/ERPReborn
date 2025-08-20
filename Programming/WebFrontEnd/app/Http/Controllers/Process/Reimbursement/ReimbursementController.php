@@ -81,6 +81,18 @@ class ReimbursementController extends Controller
         }
     }
 
+    public function RevisionReimbursement(Request $request)
+    {
+        try {
+            $reimbursementRefID = $request->modal_reimbursement_id;
+
+            dd($reimbursementRefID);
+        } catch (\Throwable $th) {
+            Log::error("Store Advance Request Function Error: " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
     public function ReportReimbursementSummary(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
