@@ -63,6 +63,18 @@
         return hasFullRow;
     }
 
+    function updateGrandTotal() {
+        let total = 0;
+        const rows = document.querySelectorAll('#tableRemList tbody tr');
+        rows.forEach(row => {
+            const totalCell = row.children[4];
+            const value = parseFloat(totalCell.innerText.replace(/,/g, '')) || 0;
+            total += value;
+        });
+
+        document.getElementById('GrandTotal').innerText = `Total (${rows[0].children[5].value}): ${decimalFormat(total)}`;
+    }
+
     function summaryData() {
         const sourceTable = document.getElementById('tableGetBudgetDetails').getElementsByTagName('tbody')[0];
         const targetTable = document.getElementById('tableRemList').getElementsByTagName('tbody')[0];
@@ -84,8 +96,9 @@
                 qtyInput.value.trim() !== '' &&
                 priceInput.value.trim() !== ''
             ) {
-                const productCode = row.children[5].innerText.trim();
-                const productName = row.children[6].innerText.trim();
+                const productCode   = row.children[5].innerText.trim();
+                const productName   = row.children[6].innerText.trim();
+                const currency      = row.children[7].innerText.trim();
 
                 const price = priceInput.value.trim();
                 const qty   = qtyInput.value.trim();
@@ -130,6 +143,7 @@
                         <td style="text-align: right;padding: 0.8rem 0.5rem;">${price}</td>
                         <td style="text-align: right;padding: 0.8rem 0.5rem;">${qty}</td>
                         <td style="text-align: right;padding: 0.8rem 0.5rem;">${total}</td>
+                        <input type="hidden" name="currency[]" value="${currency}">
                     `;
                     targetTable.appendChild(newRow);
 
@@ -164,6 +178,10 @@
                 dataStore = dataStore.filter(item => item.entities.combinedBudgetSectionDetail_RefID != combinedBudgetSectionDetailRefID.value);
             }
         }
+
+        dataStore = dataStore.filter(item => item !== undefined);
+
+        updateGrandTotal();
     }
 
     function validationForm() {
@@ -291,13 +309,13 @@
 
                             componentsInput = `
                                 <td style="text-align: center;">
-                                    <input class="form-control number-without-negative" id="qty_req${key}" autocomplete="off" style="border-radius:0px;" data-default="${decimalFormat(findDataDetail.Quantity)}" value="${decimalFormat(findDataDetail.Quantity)}" />
+                                    <input class="form-control number-without-negative" id="qty_req${key}" autocomplete="off" style="border-radius:0px;" value="${decimalFormat(parseFloat(findDataDetail.Quantity))}" />
                                 </td>
                                 <td style="text-align: center;">
-                                    <input class="form-control number-without-negative" id="price_req${key}" autocomplete="off" style="border-radius:0px;" data-default="${decimalFormat(findDataDetail.ProductUnitPriceCurrencyValue)}" value="${decimalFormat(findDataDetail.ProductUnitPriceCurrencyValue)}" />
+                                    <input class="form-control number-without-negative" id="price_req${key}" autocomplete="off" style="border-radius:0px;" value="${decimalFormat(parseFloat(findDataDetail.ProductUnitPriceCurrencyValue))}" />
                                 </td>
                                 <td style="text-align: center;">
-                                    <input class="form-control number-without-negative" id="total_req${key}" autocomplete="off" style="border-radius:0px;" readonly data-default="${decimalFormat(findDataDetail.Quantity * findDataDetail.ProductUnitPriceCurrencyValue)}" value="${decimalFormat(findDataDetail.Quantity * findDataDetail.ProductUnitPriceCurrencyValue)}" />
+                                    <input class="form-control number-without-negative" id="total_req${key}" autocomplete="off" style="border-radius:0px;" readonly value="${decimalFormat(findDataDetail.Quantity * findDataDetail.ProductUnitPriceCurrencyValue)}" />
                                 </td>
                             `;
                         }
@@ -350,6 +368,11 @@
                 $("#errorMessageBudgetDetails").text(`[${textStatus.status}] ${textStatus.responseJSON.message}`);
             }
         });
+    }
+
+    function cancelReimbursement() {
+        ShowLoading();
+        window.location.href = "{{ route('Reimbursement.index', ['var' => 1]) }}";
     }
 
     function submitForm() {
