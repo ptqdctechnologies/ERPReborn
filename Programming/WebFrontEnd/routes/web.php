@@ -283,6 +283,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
 
     // REM
     Route::post('RevisionReimbursement', 'Process\Reimbursement\ReimbursementController@RevisionReimbursement')->name('Reimbursement.RevisionReimbursement');
+    Route::post('UpdateReimbursement', 'Process\Reimbursement\ReimbursementController@UpdateReimbursement')->name('Reimbursement.UpdateReimbursement');
     Route::get('ReportReimbursementSummary', 'Process\Reimbursement\ReimbursementController@ReportReimbursementSummary')->name('Reimbursement.ReportReimbursementSummary');
     Route::post('ReportReimbursementSummaryStore', 'Process\Reimbursement\ReimbursementController@ReportReimbursementSummaryStore')->name('Reimbursement.ReportReimbursementSummaryStore');
     Route::post('PrintExportReportReimbursementSummary', 'Process\Reimbursement\ReimbursementController@PrintExportReportReimbursementSummary')->name('Reimbursement.PrintExportReportReimbursementSummary');
