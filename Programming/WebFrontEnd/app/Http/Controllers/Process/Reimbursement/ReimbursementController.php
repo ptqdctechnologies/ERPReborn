@@ -98,6 +98,7 @@ class ReimbursementController extends Controller
             $compact = [
                 'varAPIWebToken'    => $varAPIWebToken,
                 'header'            => [
+                    'sys_RefID'                     => $data[0]['Sys_ID_Header'] ?? '',
                     'combinedBudget_RefID'          => $data[0]['CombinedBudget_RefID'] ?? '',
                     'combinedBudgetCode'            => $data[0]['CombinedBudgetCode'] ?? '',
                     'combinedBudgetName'            => $data[0]['CombinedBudgetName'] ?? '',
@@ -123,6 +124,39 @@ class ReimbursementController extends Controller
             return view('Process.Reimbursement.Transactions.RevisionReimbursement', $compact);
         } catch (\Throwable $th) {
             Log::error("RevisionReimbursement Function Error: " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
+    public function UpdateReimbursement(Request $request)
+    {
+        try {
+            $response = $this->reimbursementService->updates($request);
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                return response()->json($response);
+            }
+
+            // $responseWorkflow = $this->workflowService->submit(
+            //     $response['data']['businessDocument']['businessDocument_RefID'],
+            //     $request->workFlowPath_RefID,
+            //     $request->comment,
+            //     $request->approverEntity,
+            // );
+
+            // if ($responseWorkflow['metadata']['HTTPStatusCode'] !== 200) {
+            //     return response()->json($responseWorkflow);
+            // }
+
+            $compact = [
+                "documentNumber"    => $response['data'][0]['businessDocument']['documentNumber'],
+                "status"            => $response['metadata']['HTTPStatusCode'],
+                // "status"            => $responseWorkflow['metadata']['HTTPStatusCode'],
+            ];
+
+            return response()->json($compact);
+        } catch (\Throwable $th) {
+            Log::error("UpdateReimbursement Function Error: " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }

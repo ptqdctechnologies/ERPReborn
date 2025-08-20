@@ -64,4 +64,38 @@ class ReimbursementService
             ]
         );
     }
+
+    public function updates(Request $request)
+    {
+        $sessionToken   = Session::get('SessionLogin');
+        $careerRefID    = Session::get('SessionWorkerCareerInternal_RefID');
+
+        $data           = $request;
+        $detailItems    = json_decode($data['reimbursementDetail'], true);
+        $fileID         = $data['dataInput_Log_FileUpload_1'] ? (int) $data['dataInput_Log_FileUpload_1'] : null;
+
+        return Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
+            $sessionToken,
+            'transaction.update.finance.setReimbursement',
+            'latest',
+            [
+            'recordID' => (int) $data['reimbursement_RefID'],
+            'entities' => [
+                "documentDateTimeTZ"                    => date('Y-m-d'),
+                "requesterWorkerJobsPosition_RefID"     => (int) $careerRefID,
+                "beneficiaryWorkerJobsPosition_RefID"   => (int) $data['beneficiary_id'],
+                "beneficiaryBankAccount_RefID"          => (int) $data['bank_account_id'],
+                "date"                                  => $data['date_customer'],
+                "log_FileUpload_Pointer_RefID"          => $fileID,
+                "remarks"                               => $data['var_remark'],
+                "additionalData"    => [
+                    "itemList"      => [
+                        "items"     => $detailItems
+                        ]
+                    ]
+                ]
+            ]
+        );
+    }
 }
