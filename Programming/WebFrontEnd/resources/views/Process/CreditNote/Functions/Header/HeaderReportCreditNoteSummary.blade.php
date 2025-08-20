@@ -78,7 +78,7 @@
                   </td>
                  </form>
 
-                  <form method="post" enctype="multipart/form-data" action="{{ route('AdvanceSettlement.PrintExportReportAdvanceSettlementSummary') }}">
+                  <form method="post" enctype="multipart/form-data" action="{{ route('CreditNote.PrintExportReportCreditNoteSummary') }}">
                     @csrf
                     <td>
                       <select name="print_type" id="print_type" class="form-control">
