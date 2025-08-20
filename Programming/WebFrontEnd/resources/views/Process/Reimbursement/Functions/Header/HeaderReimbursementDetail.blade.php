@@ -6,7 +6,15 @@
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Vendor/Customer</label>
         <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
           <div style="width: 42%;">
-            <input id="dateCommance" name="dateCommance" style="border-radius:0;width: 100%;" type="date" class="form-control">
+            <input id="date_customer" name="date_customer" style="border-radius:0;width: 100%;" type="date" class="form-control">
+          </div>
+        </div>
+      </div>
+      <div class="row" id="customerMessage" style="margin-top: .3rem; display: none;">
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+        <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+          <div class="text-red">
+            Vendor/Customer cannot be empty.
           </div>
         </div>
       </div>
@@ -14,7 +22,7 @@
 
     <div class="col-md-12 col-lg-5">
       <!-- BENEFICIARY -->
-      <div class="row" style="margin-bottom: 1rem;">
+      <div class="row">
         <label for="beneficiary_second_person_position" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Beneficiary</label>
         <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
           <div>
@@ -34,9 +42,17 @@
           </div>
         </div>
       </div>
+      <div class="row" id="beneficiaryMessage" style="margin-top: .3rem;display: none;">
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+        <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+          <div class="text-red">
+            Beneficiary cannot be empty.
+          </div>
+        </div>
+      </div>
 
       <!-- BANK NAME -->
-      <div class="row" style="margin-bottom: 1rem;">
+      <div class="row" style="margin-top: 1rem;">
         <label for="bank_name_second_name" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Bank Name</label>
         <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
           <div>
@@ -55,9 +71,17 @@
           </div>
         </div>
       </div>
+      <div class="row" id="bankNameMessage" style="margin-top: .3rem;display: none;">
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+        <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+          <div class="text-red">
+            Bank Name cannot be empty.
+          </div>
+        </div>
+      </div>
 
       <!-- BANK ACCOUNT -->
-      <div class="row">
+      <div class="row" style="margin-top: 1rem;">
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Bank Account</label>
         <div for="bank_accounts" class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
           <div>
@@ -73,6 +97,14 @@
           </div>
           <div style="flex: 100%;">
             <input id="bank_accounts_detail" style="border-radius:0;" class="form-control" name="bank_account_detail" autocomplete="off" readonly aria-label="Bank Accounts Name">
+          </div>
+        </div>
+      </div>
+      <div class="row" id="bankAccountMessage" style="margin-top: .3rem;display: none;">
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+        <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+          <div class="text-red">
+            Bank Account cannot be empty.
           </div>
         </div>
       </div>

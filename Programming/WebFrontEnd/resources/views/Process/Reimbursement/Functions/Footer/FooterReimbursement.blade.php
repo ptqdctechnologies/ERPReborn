@@ -1,4 +1,266 @@
 <script>
+    let dataStore                   = [];
+    const budgetCode                = document.getElementById("project_id_second");
+    const siteCode                  = document.getElementById("site_id_second");
+    const dateCustomer              = document.getElementById("date_customer");
+    const beneficiaryID             = document.getElementById("beneficiary_second_id");
+    const bankID                    = document.getElementById("bank_name_second_id");
+    const bankAccountID             = document.getElementById("bank_accounts_id");
+
+    function checkOneLineBudgetContents(indexInput) {
+        const rows = document.querySelectorAll("#tableGetBudgetDetails tbody tr");
+        let hasFullRow = false;
+
+        rows.forEach((row, index) => {
+            const qty   = document.getElementById(`qty_req${index}`)?.value.trim();
+            const price = document.getElementById(`price_req${index}`)?.value.trim();
+            const total = document.getElementById(`total_req${index}`)?.value.trim();
+
+            if (qty !== "" && price !== "" && total !== "") {
+                hasFullRow = true;
+            }
+        });
+
+        rows.forEach((row, index) => {
+            const qtyEl   = document.getElementById(`qty_req${index}`);
+            const priceEl = document.getElementById(`price_req${index}`);
+            const totalEl = document.getElementById(`total_req${index}`);
+
+            if (hasFullRow) {
+                $(qtyEl).css("border", "1px solid #ced4da");
+                $(priceEl).css("border", "1px solid #ced4da");
+                $(totalEl).css("border", "1px solid #ced4da");
+                $("#budgetDetailsMessage").hide();
+            } else {
+                if (indexInput) {
+                    if (indexInput == index) {
+                        if (qtyEl.value.trim() != "" || priceEl.value.trim() != "") {
+                            $(qtyEl).css("border", "1px solid red");
+                            $(priceEl).css("border", "1px solid red");
+                            $(totalEl).css("border", "1px solid red");
+                            $("#budgetDetailsMessage").show();
+                        } else {
+                            $(qtyEl).css("border", "1px solid #ced4da");
+                            $(priceEl).css("border", "1px solid #ced4da");
+                            $(totalEl).css("border", "1px solid #ced4da");
+                            $("#budgetDetailsMessage").hide();
+                        }
+                    }
+
+                    if (indexInput != index && (qtyEl.value.trim() == "" && priceEl.value.trim() == "")) {
+                        $(qtyEl).css("border", "1px solid #ced4da");
+                        $(priceEl).css("border", "1px solid #ced4da");
+                        $(totalEl).css("border", "1px solid #ced4da");
+                    } 
+                } else {
+                    $(qtyEl).css("border", "1px solid red");
+                    $(priceEl).css("border", "1px solid red");
+                    $(totalEl).css("border", "1px solid red");
+                    $("#budgetDetailsMessage").show();
+                }
+            }
+        });
+
+        return hasFullRow;
+    }
+
+    function summaryData() {
+        const sourceTable = document.getElementById('tableGetBudgetDetails').getElementsByTagName('tbody')[0];
+        const targetTable = document.getElementById('tableRemList').getElementsByTagName('tbody')[0];
+
+        const rows = sourceTable.getElementsByTagName('tr');
+
+        for (let row of rows) {
+            const combinedBudgetSectionDetailRefID  = row.querySelector('input[id^="combinedBudgetSectionDetail_RefID"]');
+            const productRefID                      = row.querySelector('input[id^="product_RefID"]');
+            const quantityUnitRefID                 = row.querySelector('input[id^="quantityUnit_RefID"]');
+            const productUnitPriceCurrencyRefID     = row.querySelector('input[id^="productUnitPriceCurrency_RefID"]');
+            const qtyInput                          = row.querySelector('input[id^="qty_req"]');
+            const priceInput                        = row.querySelector('input[id^="price_req"]');
+            const totalInput                        = row.querySelector('input[id^="total_req"]');
+
+            if (
+                qtyInput && priceInput &&  
+                qtyInput.value.trim() !== '' &&
+                priceInput.value.trim() !== ''
+            ) {
+                const productCode = row.children[4].innerText.trim();
+                const productName = row.children[5].innerText.trim();
+
+                const price = priceInput.value.trim();
+                const qty   = qtyInput.value.trim();
+                const total = totalInput.value.trim();
+
+                let found           = false;
+                const existingRows  = targetTable.getElementsByTagName('tr');
+
+                for (let targetRow of existingRows) {
+                    const targetCode = targetRow.children[0]?.innerText?.trim();
+                    const targetName = targetRow.children[1]?.innerText?.trim();
+
+                    if (targetCode == productCode && targetName == productName) {
+                        targetRow.children[2].innerText = price;
+                        targetRow.children[3].innerText = qty;
+                        targetRow.children[4].innerText = total;
+                        found = true;
+
+                        const indexToUpdate = dataStore.findIndex(item => item.entities.combinedBudgetSectionDetail_RefID == combinedBudgetSectionDetailRefID.value);
+                        if (indexToUpdate !== -1) {
+                            dataStore[indexToUpdate] = {
+                                entities: {
+                                    combinedBudgetSectionDetail_RefID: parseInt(combinedBudgetSectionDetailRefID.value),
+                                    product_RefID: parseInt(productRefID.value),
+                                    quantity: parseFloat(qty.replace(/,/g, '')),
+                                    quantityUnit_RefID: parseInt(quantityUnitRefID.value),
+                                    productUnitPriceCurrency_RefID: parseInt(productUnitPriceCurrencyRefID.value),
+                                    productUnitPriceCurrencyValue: parseFloat(price.replace(/,/g, '')),
+                                    productUnitPriceCurrencyExchangeRate: 1
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if (!found) {
+                    const newRow = document.createElement('tr');
+                    newRow.innerHTML = `
+                        <td style="text-align: right;padding: 0.8rem 0.5rem;">${productCode}</td>
+                        <td style="text-align: left;padding: 0.8rem 0.5rem;">${productName}</td>
+                        <td style="text-align: left;padding: 0.8rem 0.5rem;">${price}</td>
+                        <td style="text-align: left;padding: 0.8rem 0.5rem;">${qty}</td>
+                        <td style="text-align: left;padding: 0.8rem 0.5rem;">${total}</td>
+                    `;
+                    targetTable.appendChild(newRow);
+
+                    dataStore.push({
+                        entities: {
+                            combinedBudgetSectionDetail_RefID: parseInt(combinedBudgetSectionDetailRefID.value),
+                            product_RefID: parseInt(productRefID.value),
+                            quantity: parseFloat(qty.replace(/,/g, '')),
+                            quantityUnit_RefID: parseInt(quantityUnitRefID.value),
+                            productUnitPriceCurrency_RefID: parseInt(productUnitPriceCurrencyRefID.value),
+                            productUnitPriceCurrencyValue: parseFloat(price.replace(/,/g, '')),
+                            productUnitPriceCurrencyExchangeRate: 1
+                        }
+                    });
+                }
+            } else {
+                const productCode = row.children[4].innerText.trim();
+                const productName = row.children[5].innerText.trim();
+                const existingRows = targetTable.getElementsByTagName('tr');
+                
+                for (let targetRow of existingRows) {
+                    const targetCode = targetRow.children[0]?.innerText?.trim();
+                    const targetName = targetRow.children[1]?.innerText?.trim();
+
+                    if (targetCode == productCode && targetName == productName) {
+                        targetRow.remove();
+                        break;
+                    }
+                }
+
+                dataStore = dataStore.filter(item => item.entities.combinedBudgetSectionDetail_RefID != combinedBudgetSectionDetailRefID.value);
+            }
+        }
+    }
+
+    function validationForm() {
+        const isBudgetCodeNotEmpty      = budgetCode.value.trim() !== '';
+        const isSiteCodeNotEmpty        = siteCode.value.trim() !== '';
+        const isDateCustomerNotEmpty    = dateCustomer.value.trim() !== '';
+        const isBeneficiaryIDNotEmpty   = beneficiaryID.value.trim() !== '';
+        const isBankIDNotEmpty          = bankID.value.trim() !== '';
+        const isBankAccountIDNotEmpty   = bankAccountID.value.trim() !== '';
+        const isTableNotEmpty           = checkOneLineBudgetContents();
+
+        if (isBudgetCodeNotEmpty && isSiteCodeNotEmpty && isDateCustomerNotEmpty && isBeneficiaryIDNotEmpty && isBankIDNotEmpty && isBankAccountIDNotEmpty && isTableNotEmpty) {
+            $('#reimbursementFormModal').modal('show');
+            summaryData();
+        } else {
+            if (!isBudgetCodeNotEmpty && !isSiteCodeNotEmpty && !isDateCustomerNotEmpty && !isBeneficiaryIDNotEmpty && !isBankIDNotEmpty && !isBankAccountIDNotEmpty && !isTableNotEmpty) {
+                $("#project_code_second").css("border", "1px solid red");
+                $("#project_name_second").css("border", "1px solid red");
+                $("#site_code_second").css("border", "1px solid red");
+                $("#site_name_second").css("border", "1px solid red");
+                $("#date_customer").css("border", "1px solid red");
+                $("#beneficiary_second_person_position").css("border", "1px solid red");
+                $("#beneficiary_second_person_name").css("border", "1px solid red");
+                $("#bank_name_second_name").css("border", "1px solid red");
+                $("#bank_name_second_detail").css("border", "1px solid red");
+                $("#bank_accounts").css("border", "1px solid red");
+                $("#bank_accounts_detail").css("border", "1px solid red");
+
+                $("#budgetMessage").show();
+                $("#subBudgetMessage").show();
+                $("#customerMessage").show();
+                $("#beneficiaryMessage").show();
+                $("#bankNameMessage").show();
+                $("#bankAccountMessage").show();
+                return;
+            }
+            if (!isBudgetCodeNotEmpty) {
+                $("#project_code_second").css("border", "1px solid red");
+                $("#project_name_second").css("border", "1px solid red");
+                $("#budgetMessage").show();
+                // Swal.fire("Please Complete the Form", "Budget cannot be empty.", "error");
+                return;
+            }
+            if (!isSiteCodeNotEmpty) {
+                $("#site_code_second").css("border", "1px solid red");
+                $("#site_name_second").css("border", "1px solid red");
+                $("#subBudgetMessage").show();
+                // Swal.fire("Please Complete the Form", "Sub Budget cannot be empty.", "error");
+                return;
+            } 
+            if (!isDateCustomerNotEmpty) {
+                $("#date_customer").css("border", "1px solid red");
+                $("#deliveryToMessage").show();
+                // Swal.fire("Please Complete the Form", "Delivery To cannot be empty.", "error");
+                return;
+            } 
+            if (!isBeneficiaryIDNotEmpty) {
+                $("#beneficiary_second_person_position").css("border", "1px solid red");
+                $("#beneficiary_second_person_name").css("border", "1px solid red");
+                $("#beneficiaryMessage").show();
+                // Swal.fire("Please Complete the Form", "Date of Delivery cannot be empty.", "error");
+                return;
+            }
+            if (!isBankIDNotEmpty) {
+                $("#bank_name_second_name").css("border", "1px solid red");
+                $("#bank_name_second_detail").css("border", "1px solid red");
+                $("#bankNameMessage").show();
+                // Swal.fire("Please Complete the Form", "Date of Delivery cannot be empty.", "error");
+                return;
+            }
+            if (!isBankAccountIDNotEmpty) {
+                $("#bank_accounts").css("border", "1px solid red");
+                $("#bank_accounts_detail").css("border", "1px solid red");
+                $("#bankAccountMessage").show();
+                // Swal.fire("Please Complete the Form", "Date of Delivery cannot be empty.", "error");
+                return;
+            }
+            if (!isTableNotEmpty) {
+                $("#budgetDetailsMessage").show();
+                // Swal.fire("Please Complete the Form", "Budget Details must be filled in at least 1 item.", "error");
+                return;
+            }
+        }
+    }
+
+    function calculateTotal() {
+        let total = 0;
+        
+        document.querySelectorAll('input[id^="total_req"]').forEach(function(input) {
+            let value = parseFloat(input.value.replace(/,/g, '')); // Mengambil nilai dan menghilangkan koma
+            if (!isNaN(value)) {
+                total += value;
+            }
+        });
+
+        // total = Math.ceil(total * 100) / 100;
+
+        document.getElementById('TotalBudgetSelected').textContent = decimalFormat(total);
+    }
 
     function getBudgetDetails(site_code) {
         $.ajaxSetup({
@@ -40,6 +302,11 @@
                         
                         let row = `
                             <tr>
+                                <input id="combinedBudgetSectionDetail_RefID${key}" value="${val2.sys_ID}" type="hidden" />
+                                <input id="product_RefID${key}" value="${val2.product_RefID}" type="hidden" />
+                                <input id="quantityUnit_RefID${key}" value="${val2.quantityUnit_RefID}" type="hidden" />
+                                <input id="productUnitPriceCurrency_RefID${key}" value="${val2.priceCurrency_RefID}" type="hidden" />
+
                                 <td style="text-align: center;">${val2.productCode}</td>
                                 <td style="text-align: center;">${val2.productName}</td>
                                 <td style="text-align: center;">${val2.priceBaseCurrencyISOCode}</td>
@@ -63,6 +330,8 @@
                             let total_req   = parseFloat(qty_req || 0) * parseFloat(price_req || 1);
 
                             $(`#total_req${key}`).val(decimalFormat(total_req));
+                            checkOneLineBudgetContents(key);
+                            calculateTotal();
                         });
 
                         $(`#price_req${key}`).on('keyup', function() {
@@ -71,6 +340,8 @@
                             let total_req   = parseFloat(qty_req || 1) * parseFloat(price_req || 0);
 
                             $(`#total_req${key}`).val(currencyTotal(total_req));
+                            checkOneLineBudgetContents(key);
+                            calculateTotal();
                         });
                     }
                 });
@@ -84,9 +355,169 @@
         });
     }
 
+    function SelectWorkFlow(formatData) {
+        const swalWithBootstrapButtons = Swal.mixin({
+            confirmButtonClass: 'btn btn-success btn-sm',
+            cancelButtonClass: 'btn btn-danger btn-sm',
+            buttonsStyling: true,
+        });
+
+        swalWithBootstrapButtons.fire({
+            title: 'Comment',
+            text: "Please write your comment here",
+            type: 'question',
+            input: 'textarea',
+            showCloseButton: false,
+            showCancelButton: true,
+            focusConfirm: false,
+            cancelButtonText: '<span style="color:black;"> Cancel </span>',
+            confirmButtonText: '<span style="color:black;"> OK </span>',
+            cancelButtonColor: '#DDDAD0',
+            confirmButtonColor: '#DDDAD0',
+            reverseButtons: true
+        }).then((result) => {
+            if ('value' in result) {
+                ShowLoading();
+                ReimbursementStore({...formatData, comment: result.value});
+            }
+        });
+    }
+
+    function ReimbursementStore(formatData) {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: 'POST',
+            data: formatData,
+            url: '{{ route("Reimbursement.store") }}',
+            success: function(res) {
+                HideLoading();
+
+                if (res.status === 200) {
+                    const swalWithBootstrapButtons = Swal.mixin({
+                        confirmButtonClass: 'btn btn-success btn-sm',
+                        cancelButtonClass: 'btn btn-danger btn-sm',
+                        buttonsStyling: true,
+                    });
+
+                    swalWithBootstrapButtons.fire({
+                        title: 'Successful !',
+                        type: 'success',
+                        html: 'Data has been saved. Your transaction number is ' + '<span style="color:#0046FF;font-weight:bold;">' + res.documentNumber + '</span>',
+                        showCloseButton: false,
+                        showCancelButton: false,
+                        focusConfirm: false,
+                        confirmButtonText: '<span style="color:black;"> OK </span>',
+                        confirmButtonColor: '#4B586A',
+                        confirmButtonColor: '#e9ecef',
+                        reverseButtons: true
+                    }).then((result) => {
+                        ShowLoading();
+                        window.location.href = '/Reimbursement?var=1';
+                    });
+                } else {
+                    ErrorNotif("Data Cancel Inputed");
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.log('error', jqXHR, textStatus, errorThrown);
+            }
+        });
+    }
+
     function cancelReimbursement() {
         ShowLoading();
         window.location.href = "{{ route('Reimbursement.index', ['var' => 1]) }}";
+    }
+
+    function submitForm() {
+        $('#reimbursementFormModal').modal('hide');
+
+        let action = $('#FormSubmitReimbursement').attr("action");
+        let method = $('#FormSubmitReimbursement').attr("method");
+        let form_data = new FormData($('#FormSubmitReimbursement')[0]);
+        form_data.append('reimbursementDetail', JSON.stringify(dataStore));
+
+        ShowLoading();
+
+        $.ajax({
+            url: action,
+            dataType: 'json',
+            cache: false,
+            contentType: false,
+            processData: false,
+            data: form_data,
+            type: method,
+            // success: function(response) {
+            success: function(res) {
+                HideLoading();
+
+                if (res.status === 200) {
+                    const swalWithBootstrapButtons = Swal.mixin({
+                        confirmButtonClass: 'btn btn-success btn-sm',
+                        cancelButtonClass: 'btn btn-danger btn-sm',
+                        buttonsStyling: true,
+                    });
+
+                    swalWithBootstrapButtons.fire({
+                        title: 'Successful !',
+                        type: 'success',
+                        html: 'Data has been saved. Your transaction number is ' + '<span style="color:#0046FF;font-weight:bold;">' + res.documentNumber + '</span>',
+                        showCloseButton: false,
+                        showCancelButton: false,
+                        focusConfirm: false,
+                        confirmButtonText: '<span style="color:black;"> OK </span>',
+                        confirmButtonColor: '#4B586A',
+                        confirmButtonColor: '#e9ecef',
+                        reverseButtons: true
+                    }).then((result) => {
+                        ShowLoading();
+                        window.location.href = '/Reimbursement?var=1';
+                    });
+                } else {
+                    ErrorNotif("Data Cancel Inputed");
+                }
+                
+                // HideLoading();
+
+                // if (response.message == "WorkflowError") {
+                //     $("#submitRem").prop("disabled", false);
+                //     CancelNotif("You don't have access", '/Reimbursement?var=1');
+                // } else if (response.message == "MoreThanOne") {
+                //     $('#getWorkFlow').modal('toggle');
+
+                //     let t = $('#tableGetWorkFlow').DataTable();
+                //     t.clear();
+                //     $.each(response.data, function(key, val) {
+                //         t.row.add([
+                //             '<td><span data-dismiss="modal" onclick="SelectWorkFlow(\'' + val.Sys_ID + '\', \'' + val.NextApprover_RefID + '\', \'' + response.approverEntity_RefID + '\', \'' + response.documentTypeID + '\');"><img src="{{ asset("AdminLTE-master/dist/img/add.png") }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></span></td>',
+                //             '<td style="border:1px solid #e9ecef;">' + val.FullApproverPath + '</td></tr></tbody>'
+                //         ]).draw();
+                //     });
+                // } else {
+                //     const formatData = {
+                //         workFlowPath_RefID: response.workFlowPath_RefID, 
+                //         nextApprover: response.nextApprover_RefID, 
+                //         approverEntity: response.approverEntity_RefID, 
+                //         documentTypeID: response.documentTypeID,
+                //         storeData: response.storeData
+                //     };
+
+                //     SelectWorkFlow(formatData);
+                // }
+            },
+            error: function(response) {
+                console.log('response error', response);
+                
+                HideLoading();
+                $("#submitRem").prop("disabled", false);
+                CancelNotif("You don't have access", '/Reimbursement?var=1');
+            }
+        });
     }
 
     $('#tableGetProjectSecond').on('click', 'tbody tr', async function() {
@@ -141,6 +572,11 @@
         $("#deliverModalTrigger").prop("disabled", false);
     });
 
+    $('#date_customer').on('input', function() {
+        $("#date_customer").css("border", "1px solid #ced4da");
+        $("#customerMessage").hide();
+    });
+
     $('#tableGetBeneficiarySecond').on('click', 'tbody tr', function() {
         var personRefId = $(this).find('input[data-trigger="person_ref_id_beneficiary_second"]').val();
 
@@ -153,6 +589,18 @@
         $("#bank_accounts").val("");
         $("#bank_accounts_id").val("");
         $("#bank_accounts_detail").val("");
+
+        $("#beneficiary_second_person_position").css("border", "1px solid #ced4da");
+        $("#beneficiary_second_person_name").css("border", "1px solid #ced4da");
+        $("#beneficiaryMessage").hide();
+
+        $("#bank_name_second_name").css("border", "1px solid #ced4da");
+        $("#bank_name_second_detail").css("border", "1px solid #ced4da");
+        $("#bankNameMessage").hide();
+
+        $("#bank_accounts").css("border", "1px solid #ced4da");
+        $("#bank_accounts_detail").css("border", "1px solid #ced4da");
+        $("#bankAccountMessage").hide();
 
         getBankSecond(personRefId);
     });
@@ -167,7 +615,17 @@
         $("#bank_accounts_id").val("");
         $("#bank_accounts_detail").val("");
 
+        $("#bank_name_second_name").css("border", "1px solid #ced4da");
+        $("#bank_name_second_detail").css("border", "1px solid #ced4da");
+        $("#bankNameMessage").hide();
+
         getBankAccountData(sysId, beneficiaryPersonRefID.value);
+    });
+    
+    $('#tableGetBankAccount').on('click', 'tbody tr', function() {
+        $("#bank_accounts").css("border", "1px solid #ced4da");
+        $("#bank_accounts_detail").css("border", "1px solid #ced4da");
+        $("#bankAccountMessage").hide();
     });
 
     $(window).one('load', function(e) {
