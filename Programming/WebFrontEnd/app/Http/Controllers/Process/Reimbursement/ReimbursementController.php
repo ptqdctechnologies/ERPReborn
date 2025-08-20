@@ -15,9 +15,19 @@ use App\Helpers\ZhtHelper\System\Helper_Environment;
 use App\Helpers\ZhtHelper\Cache\Helper_Redis;
 use Maatwebsite\Excel\Facades\Excel;
 use Barryvdh\DomPDF\Facade\Pdf;
+use App\Services\Process\Reimbursement\ReimbursementService;
+use App\Services\WorkflowService;
 
 class ReimbursementController extends Controller
 {
+    protected $reimbursementService, $workflowService;
+
+    public function __construct(ReimbursementService $reimbursementService, WorkflowService $workflowService)
+    {
+        $this->reimbursementService = $reimbursementService;
+        $this->workflowService      = $workflowService;
+    }
+
     public function index(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
@@ -32,6 +42,43 @@ class ReimbursementController extends Controller
         ];
 
         return view('Process.Reimbursement.Transactions.CreateReimbursement', $compact);
+    }
+
+    public function store(Request $request) 
+    {
+        try {
+            $careerRefID    = Session::get('SessionWorkerCareerInternal_RefID');
+            $response = $this->reimbursementService->create($request);
+
+            Log::error("careerRefID: ", [$careerRefID]);
+            Log::error("response: ", [$response]);
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                return response()->json($response);
+            }
+
+            // $responseWorkflow = $this->workflowService->submit(
+            //     $response['data']['businessDocument']['businessDocument_RefID'],
+            //     $request->workFlowPath_RefID,
+            //     $request->comment,
+            //     $request->approverEntity,
+            // );
+
+            // if ($responseWorkflow['metadata']['HTTPStatusCode'] !== 200) {
+            //     return response()->json($responseWorkflow);
+            // }
+
+            $compact = [
+                "documentNumber"    => $response['data']['businessDocument']['documentNumber'],
+                "status"            => $response['metadata']['HTTPStatusCode'],
+                // "status"            => $responseWorkflow['metadata']['HTTPStatusCode'],
+            ];
+
+            return response()->json($compact);
+        } catch (\Throwable $th) {
+            Log::error("Store Advance Request Function Error: " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
     }
 
     public function ReportReimbursementSummary(Request $request)
