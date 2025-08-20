@@ -126,9 +126,9 @@
                     newRow.innerHTML = `
                         <td style="text-align: right;padding: 0.8rem 0.5rem;">${productCode}</td>
                         <td style="text-align: left;padding: 0.8rem 0.5rem;">${productName}</td>
-                        <td style="text-align: left;padding: 0.8rem 0.5rem;">${price}</td>
-                        <td style="text-align: left;padding: 0.8rem 0.5rem;">${qty}</td>
-                        <td style="text-align: left;padding: 0.8rem 0.5rem;">${total}</td>
+                        <td style="text-align: right;padding: 0.8rem 0.5rem;">${price}</td>
+                        <td style="text-align: right;padding: 0.8rem 0.5rem;">${qty}</td>
+                        <td style="text-align: right;padding: 0.8rem 0.5rem;">${total}</td>
                     `;
                     targetTable.appendChild(newRow);
 

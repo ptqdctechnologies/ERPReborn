@@ -6,7 +6,7 @@
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Vendor/Customer</label>
         <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
           <div style="width: 42%;">
-            <input id="date_customer" name="date_customer" style="border-radius:0;width: 100%;" type="date" class="form-control">
+            <input id="date_customer" name="date_customer" style="border-radius:0;width: 100%;" type="date" class="form-control" />
           </div>
         </div>
       </div>
@@ -26,9 +26,9 @@
         <label for="beneficiary_second_person_position" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Beneficiary</label>
         <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
           <div>
-            <input id="beneficiary_second_person_position" style="border-radius:0;" name="beneficiary_detail" class="form-control" size="17" readonly>
-            <input id="beneficiary_second_id" style="border-radius:0;" name="beneficiary_id" class="form-control" hidden>
-            <input id="beneficiary_second_person_ref_id" style="border-radius:0;" name="person_refID" class="form-control" hidden>
+            <input id="beneficiary_second_person_position" style="border-radius:0;" name="beneficiary_detail" class="form-control" size="17" readonly />
+            <input id="beneficiary_second_id" style="border-radius:0;" name="beneficiary_id" class="form-control" hidden />
+            <input id="beneficiary_second_person_ref_id" style="border-radius:0;" name="person_refID" class="form-control" hidden />
           </div>
           <div>
             <span style="border-radius:0;" class="input-group-text form-control">
@@ -38,7 +38,7 @@
             </span>
           </div>
           <div style="flex: 100%;">
-            <input id="beneficiary_second_person_name" style="border-radius:0;" name="beneficiary" class="form-control" readonly aria-label="Beneficiary Name">
+            <input id="beneficiary_second_person_name" style="border-radius:0;" name="beneficiary" class="form-control" readonly aria-label="Beneficiary Name" />
           </div>
         </div>
       </div>
@@ -56,8 +56,8 @@
         <label for="bank_name_second_name" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Bank Name</label>
         <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
           <div>
-            <input id="bank_name_second_name" style="border-radius:0;" name="bank_name" class="form-control" size="17" readonly>
-            <input id="bank_name_second_id" style="border-radius:0;" class="form-control" name="bank_code" hidden>
+            <input id="bank_name_second_name" style="border-radius:0;" name="bank_name" class="form-control" size="17" readonly />
+            <input id="bank_name_second_id" style="border-radius:0;" class="form-control" name="bank_code" hidden />
           </div>
           <div>
             <span style="border-radius:0;" class="input-group-text form-control">
@@ -67,7 +67,7 @@
             </span>
           </div>
           <div style="flex: 100%;">
-            <input id="bank_name_second_detail" style="border-radius:0;" class="form-control" name="bank_name_detail" readonly aria-label="Bank Name">
+            <input id="bank_name_second_detail" style="border-radius:0;" class="form-control" name="bank_name_detail" readonly aria-label="Bank Name" />
           </div>
         </div>
       </div>
@@ -85,8 +85,8 @@
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Bank Account</label>
         <div for="bank_accounts" class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
           <div>
-            <input id="bank_accounts" style="border-radius:0;" name="bank_account" class="form-control number-without-characters" size="17" autocomplete="off" readonly aria-label="Bank Accounts">
-            <input id="bank_accounts_id" style="border-radius:0;" class="form-control" name="bank_account_id" hidden>
+            <input id="bank_accounts" style="border-radius:0;" name="bank_account" class="form-control number-without-characters" size="17" autocomplete="off" readonly aria-label="Bank Accounts" />
+            <input id="bank_accounts_id" style="border-radius:0;" class="form-control" name="bank_account_id" hidden />
           </div>
           <div>
             <span style="border-radius:0;" class="input-group-text form-control">
@@ -96,7 +96,7 @@
             </span>
           </div>
           <div style="flex: 100%;">
-            <input id="bank_accounts_detail" style="border-radius:0;" class="form-control" name="bank_account_detail" autocomplete="off" readonly aria-label="Bank Accounts Name">
+            <input id="bank_accounts_detail" style="border-radius:0;" class="form-control" name="bank_account_detail" autocomplete="off" readonly aria-label="Bank Accounts Name" />
           </div>
         </div>
       </div>
