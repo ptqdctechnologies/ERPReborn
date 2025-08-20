@@ -30,7 +30,7 @@
             <div class="form-group">
               <table>
                 <tr>
-                  <th style="padding-top: 7px;"><label>Supplier/Customer</label></th>
+                  <th style="padding-top: 7px;"><label>Customer</label></th>
                   <td>
                     <div class="input-group">
                         <input id="site_code_second" style="border-radius:0;" name="site_code_second" class="form-control" size="34" value="<?= $dataReport['siteCode'] ?? ''; ?>" readonly>
