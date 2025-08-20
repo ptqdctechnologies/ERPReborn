@@ -4,7 +4,6 @@
     const siteCode                  = document.getElementById("site_code_second");
     const deliverCode               = document.getElementById("deliverCode");
     const dateDelivery              = document.getElementById("dateCommance");
-    const tablePurchaseRequestLists = document.querySelector("#tablePurchaseRequisitionList tbody");
 
     function checkOneLineBudgetContents(indexInput) {
         const rows = document.querySelectorAll("#tableGetBudgetDetails tbody tr");
