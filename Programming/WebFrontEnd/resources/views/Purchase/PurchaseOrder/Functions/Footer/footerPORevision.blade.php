@@ -109,9 +109,6 @@
             total += value;
         });
 
-        // document.getElementById('TotalPpn').textContent = currencyTotal(0.00);
-        // document.getElementById('TotalBudgetSelected').textContent = currencyTotal(0.00);
-        // document.getElementById('TotalBudgetSelectedPpn').textContent = currencyTotal(0.00);
         document.getElementById('GrandTotal').innerText = total.toLocaleString('en-US', {
             minimumFractionDigits: 2,
             maximumFractionDigits: 2
@@ -552,29 +549,15 @@
                         }
                     });
                 }
-
-                // qtyInput.value = '';
-                // priceInput.value = '';
-                // totalInput.value = '';
-                // noteInput.value = '';
-                // balanceInput.value = balanceInput.getAttribute('data-default');
             }
         }
 
         dataStore = dataStore.filter(item => item !== undefined);
         $("#purchaseOrderDetail").val(JSON.stringify(dataStore));
 
-        // $('#vatOption').val("Select a PPN");
-        // $('#ppn').val("No");
-        // $('#containerValuePPN').hide();
-
         $('#tariffCurrencyValue').val(TotalPpns.textContent);
 
         updateGrandTotal();
-        // document.getElementById('GrandTotal').textContent = TotalBudgetSelectedPpn.textContent;
-        // document.getElementById('TotalPpn').textContent = currencyTotal(0.00);
-        // document.getElementById('TotalBudgetSelected').textContent = currencyTotal(0.00);
-        // document.getElementById('TotalBudgetSelectedPpn').textContent = currencyTotal(0.00);
     });
 
     $('#revision-po-details-reset').on('click', function() {
@@ -611,95 +594,12 @@
         calculateTotal();
     });
 
-    // $("#FormSubmitRevisionPurchaseOrder").on("submit", function(e) {
-    //     e.preventDefault();
-
-    //     const swalWithBootstrapButtons = Swal.mixin({
-    //         confirmButtonClass: 'btn btn-success btn-sm',
-    //         cancelButtonClass: 'btn btn-danger btn-sm',
-    //         buttonsStyling: true,
-    //     });
-
-    //     swalWithBootstrapButtons.fire({
-    //         title: 'Are you sure?',
-    //         text: "Save this data?",
-    //         type: 'question',
-    //         showCancelButton: true,
-    //         confirmButtonText: '<img src="{{ asset("AdminLTE-master/dist/img/save.png") }}" width="13" alt=""><span style="color:black;">Yes, save it </span>',
-    //         cancelButtonText: '<img src="{{ asset("AdminLTE-master/dist/img/cancel.png") }}" width="13" alt=""><span style="color:black;"> No, cancel </span>',
-    //         confirmButtonColor: '#e9ecef',
-    //         cancelButtonColor: '#e9ecef',
-    //         reverseButtons: true
-    //     }).then((result) => {
-    //         if (result.value) {
-    //             var action = $(this).attr("action");
-    //             var method = $(this).attr("method");
-    //             var form_data = new FormData($(this)[0]);
-
-    //             ShowLoading();
-
-    //             $.ajax({
-    //                 url: action,
-    //                 dataType: 'json',
-    //                 cache: false,
-    //                 contentType: false,
-    //                 processData: false,
-    //                 data: form_data,
-    //                 type: method,
-    //                 success: function(response) {
-    //                     HideLoading();
-
-    //                     if (response.message == "WorkflowError") {
-    //                         $("#submitRevisionPurchaseOrder").prop("disabled", false);
-
-    //                         CancelNotif("You don't have access", '/PurchaseOrder?var=1');
-    //                     } else if (response.message == "MoreThanOne") {
-
-    //                         $('#getWorkFlow').modal('toggle');
-
-    //                         var t = $('#tableGetWorkFlow').DataTable();
-    //                         t.clear();
-    //                         $.each(response.data, function(key, val) {
-    //                             t.row.add([
-    //                                 '<td><span data-dismiss="modal" onclick="SelectWorkFlow(\'' + val.Sys_ID + '\', \'' + val.NextApprover_RefID + '\', \'' + response.approverEntity_RefID + '\', \'' + response.documentTypeID + '\');"><img src="{{ asset("AdminLTE-master/dist/img/add.png") }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></span></td>',
-    //                                 '<td style="border:1px solid #e9ecef;">' + val.FullApproverPath + '</td></tr></tbody>'
-    //                             ]).draw();
-    //                         });
-    //                     } else {
-    //                         const formatData = {
-    //                             workFlowPath_RefID: response.workFlowPath_RefID, 
-    //                             nextApprover: response.nextApprover_RefID, 
-    //                             approverEntity: response.approverEntity_RefID, 
-    //                             documentTypeID: response.documentTypeID,
-    //                             storeData: response.storeData
-    //                         };
-
-    //                         SelectWorkFlow(formatData);
-    //                     }
-    //                 },
-    //                 error: function(response) {
-    //                     console.log('response error', response);
-                        
-    //                     HideLoading();
-    //                     $("#submitRevisionPurchaseOrder").prop("disabled", false);
-    //                     CancelNotif("You don't have access", '/PurchaseOrder?var=1');
-    //                 }
-    //             });
-    //         } else if (result.dismiss === Swal.DismissReason.cancel) {
-    //             HideLoading();
-    //             CancelNotif("Data Cancel Inputed", '/PurchaseOrder?var=1');
-    //         }
-    //     });
-    // });
-
     $(document).on('input', '.number-without-negative', function() {
         allowNumbersWithoutNegative(this);
     });
 
     $(window).one('load', function(e) {
-        // const data = JSON.parse(dataTable.value);
-
-        if (vatOptionValue.value) {
+        if (vatOptionValue.value != "0.00") {
             $('#containerValuePPN').show();
         } else {
             $('#containerValuePPN').hide();
@@ -718,100 +618,4 @@
             $("#delivery_to_id").val("");
         }
     });
-
-    // document.querySelector('#tablePurchaseOrderList tbody').addEventListener('click', function (e) {
-    //     const row = e.target.closest('tr');
-    //     if (!row) return;
-
-    //     if (['INPUT', 'TEXTAREA'].includes(e.target.tagName)) return;
-
-    //     const qtyAvail      = row.children[1];
-    //     const priceAvail    = row.children[2];
-    //     const qtyReq        = row.children[9];
-    //     const priceReq      = row.children[8];
-    //     const totalReq      = row.children[10];
-    //     const remarks       = row.children[11];
-
-    //     if (row.classList.contains('editing-row')) {
-    //         const newQtyReq     = qtyReq.querySelector('input')?.value || '';
-    //         const newPriceReq   = priceReq.querySelector('input')?.value || '';
-    //         const newTotalReq   = totalReq.querySelector('input')?.value || '';
-    //         const newRemarks    = remarks.querySelector('textarea')?.value || '';
-
-    //         qtyReq.innerHTML    = newQtyReq;
-    //         priceReq.innerHTML  = newPriceReq;
-    //         totalReq.innerHTML  = newTotalReq;
-    //         remarks.innerHTML   = newRemarks;
-
-    //         const hidden = remarks.querySelector('input[type="hidden"]');
-    //         remarks.innerHTML = `${newRemarks}`;
-    //         if (hidden) remarks.appendChild(hidden);
-
-    //         row.classList.remove('editing-row');
-
-    //         const recordID  = row.children[0].value.trim();
-    //         const storeItem = dataStore.find(item => item.recordID == recordID);
-
-    //         if (storeItem) {
-    //             storeItem.entities.quantity = parseFloat(newQtyReq.replace(/,/g, ''));
-    //             storeItem.entities.productUnitPriceCurrencyValue = parseFloat(newPriceReq.replace(/,/g, ''));
-    //             storeItem.entities.remarks = newRemarks;
-
-    //             $("#purchaseOrderDetail").val(JSON.stringify(dataStore));
-    //         }
-    //     } else {
-    //         const currentQty        = qtyReq.innerText.trim();
-    //         const currentPrice      = priceReq.innerText.trim();
-    //         const currentTotal      = totalReq.innerText.trim();
-
-    //         const hiddenInput       = remarks.querySelector('input[type="hidden"]');
-    //         const currentremarks    = remarks.childNodes[0]?.nodeValue?.trim() || '';
-
-    //         qtyReq.innerHTML = `<input class="form-control number-without-negative qty-input" value="${currentQty}" autocomplete="off" style="border-radius:0px;width:100px;">`;
-    //         priceReq.innerHTML = `<input class="form-control number-without-negative price-input" value="${currentPrice}" autocomplete="off" style="border-radius:0px;width:100px;">`;
-    //         totalReq.innerHTML = `<input class="form-control number-without-negative total-input" value="${currentTotal}" autocomplete="off" style="border-radius:0px;width:100px;" readonly>`;
-    //         remarks.innerHTML = `
-    //             <textarea class="form-control" style="width:100px;">${currentremarks}</textarea>
-    //         `;
-    //         if (hiddenInput) remarks.appendChild(hiddenInput);
-
-    //         row.classList.add('editing-row');
-
-    //         const qtyInput      = qtyReq.querySelector('.qty-input');
-    //         const priceInput    = priceReq.querySelector('.price-input');
-    //         const totalInput    = totalReq.querySelector('.total-input');
-
-    //         function validateQtyPrice() {
-    //             var price   = parseFloat(priceInput.value.replace(/,/g, '')) || 0;
-    //             var qty     = parseFloat(qtyInput.value.replace(/,/g, '')) || 0;
-    //             var total   = price * qty;
-
-    //             const qtyAvailValue     = parseFloat(qtyAvail?.value.replace(/,/g, '')) || 0;
-    //             const priceAvailValue   = parseFloat(priceAvail?.value.replace(/,/g, '')) || 0;
-
-    //             if (qty > qtyAvailValue) {
-    //                 total           = priceAvailValue * qtyAvailValue;
-    //                 qty             = qtyAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-    //                 qtyInput.value  = qtyAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-
-    //                 ErrorNotif("Qty Req is over Qty Avail !");
-    //             }
-
-    //             if (price > priceAvailValue) {
-    //                 total               = qtyAvailValue * priceAvailValue;
-    //                 price               = priceAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-    //                 priceInput.value    = priceAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-
-    //                 ErrorNotif("Price Req is over Price Avail !");
-    //             }
-
-    //             totalInput.value = total.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-    //         }
-
-    //         priceInput.addEventListener('input', validateQtyPrice);
-    //         qtyInput.addEventListener('input', validateQtyPrice);
-    //     }
-
-    //     updateGrandTotal();
-    // });
 </script>
