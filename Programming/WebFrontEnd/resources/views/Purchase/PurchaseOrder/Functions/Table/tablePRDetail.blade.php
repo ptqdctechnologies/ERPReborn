@@ -47,18 +47,15 @@
 <div class="card-body">
     <div class="row">
         <div class="col-md-6">
-            <div class="form-group">
-                <table>
-                    <tr>
-                        <td><label>VAT</label></td>
-                        <td style="border:1px solid #e9ecef;">
-                            <select name="ppn" id="ppn" style="border-radius:0;" type="text" class="form-control">
-                                <option value="No">No</option>
-                                <option value="Yes">Yes</option>
-                            </select>
-                        </td>
-                    </tr>
-                </table>
+            <div class="text-red" id="budgetDetailsMessage" style="display: none;">
+                Please input at least one item.
+            </div>
+            <div class="d-flex" style="margin-top: .5rem;gap: 8px;">
+                <label>VAT</label>
+                <select name="ppn" id="ppn" style="border-radius:0;width:auto;" type="text" class="form-control">
+                    <option value="No">No</option>
+                    <option value="Yes">Yes</option>
+                </select>
             </div>
         </div>
         <div class="col-md-6" id="containerValuePPN">
@@ -97,16 +94,5 @@
         <tr>
             <th style="position: relative;right:20px;"> Total Request + VAT: <span id="TotalBudgetSelectedPpn">0.00</span></th>
         </tr>
-        {{-- <tr>
-            <td>
-                <br>
-                <a id="purchase-details-add" class="btn btn-default btn-sm float-right" id="addFromDetailtoCart" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
-                    <img src="{{ asset('AdminLTE-master/dist/img/add.png') }}" width="13" alt="" title="Add to Purchase List"> Add
-                </a>
-                <a id="purchase-details-reset" class="btn btn-default btn-sm float-right" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
-                    <img src="{{ asset('AdminLTE-master/dist/img/reset.png') }}" width="13" alt="" title="Add to Advance List"> Reset
-                </a>
-            </td>
-        </tr> --}}
     </table>
 </div>
