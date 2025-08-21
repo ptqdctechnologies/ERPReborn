@@ -9,8 +9,10 @@
  */
 namespace PHPUnit\TextUI\Command;
 
+use const E_ALL;
 use const PHP_EOL;
 use function extension_loaded;
+use function in_array;
 use function ini_get;
 use function max;
 use function sprintf;
@@ -26,46 +28,6 @@ use SebastianBergmann\Environment\Console;
  */
 final class CheckPhpConfigurationCommand implements Command
 {
-    /**
-     * @var non-empty-array<non-empty-string, array{expectedValue: non-empty-string, valueForConfiguration: non-empty-string, requiredExtensions: list<non-empty-string>}>
-     */
-    private const SETTINGS = [
-        'display_errors' => [
-            'expectedValue'         => '1',
-            'valueForConfiguration' => 'On',
-            'requiredExtensions'    => [],
-        ],
-        'display_startup_errors' => [
-            'expectedValue'         => '1',
-            'valueForConfiguration' => 'On',
-            'requiredExtensions'    => [],
-        ],
-        'error_reporting' => [
-            'expectedValue'         => '-1',
-            'valueForConfiguration' => '-1',
-            'requiredExtensions'    => [],
-        ],
-        'xdebug.show_exception_trace' => [
-            'expectedValue'         => '0',
-            'valueForConfiguration' => '0',
-            'requiredExtensions'    => ['xdebug'],
-        ],
-        'zend.assertions' => [
-            'expectedValue'         => '1',
-            'valueForConfiguration' => '1',
-            'requiredExtensions'    => [],
-        ],
-        'assert.exception' => [
-            'expectedValue'         => '1',
-            'valueForConfiguration' => '1',
-            'requiredExtensions'    => [],
-        ],
-        'memory_limit' => [
-            'expectedValue'         => '-1',
-            'valueForConfiguration' => '-1',
-            'requiredExtensions'    => [],
-        ],
-    ];
     private readonly bool $colorize;
 
     public function __construct()
@@ -78,7 +40,7 @@ final class CheckPhpConfigurationCommand implements Command
         $lines         = [];
         $shellExitCode = 0;
 
-        foreach (self::SETTINGS as $name => $setting) {
+        foreach ($this->settings() as $name => $setting) {
             foreach ($setting['requiredExtensions'] as $extension) {
                 if (!extension_loaded($extension)) {
                     // @codeCoverageIgnoreStart
@@ -87,10 +49,12 @@ final class CheckPhpConfigurationCommand implements Command
                 }
             }
 
-            if (ini_get($name) === $setting['expectedValue']) {
+            $actualValue = ini_get($name);
+
+            if (in_array($actualValue, $setting['expectedValues'], true)) {
                 $check = $this->ok();
             } else {
-                $check         = $this->notOk();
+                $check         = $this->notOk($actualValue);
                 $shellExitCode = 1;
             }
 
@@ -143,14 +107,60 @@ final class CheckPhpConfigurationCommand implements Command
     /**
      * @return non-empty-string
      */
-    private function notOk(): string
+    private function notOk(string $actualValue): string
     {
+        $message = sprintf('not ok (%s)', $actualValue);
+
         if (!$this->colorize) {
-            return 'not ok';
+            return $message;
         }
 
         // @codeCoverageIgnoreStart
-        return Color::colorizeTextBox('fg-red, bold', 'not ok');
+        return Color::colorizeTextBox('fg-red, bold', $message);
         // @codeCoverageIgnoreEnd
+    }
+
+    /**
+     * @return non-empty-array<non-empty-string, array{expectedValues: non-empty-list<non-empty-string>, valueForConfiguration: non-empty-string, requiredExtensions: list<non-empty-string>}>
+     */
+    private function settings(): array
+    {
+        return [
+            'display_errors' => [
+                'expectedValues'        => ['1'],
+                'valueForConfiguration' => 'On',
+                'requiredExtensions'    => [],
+            ],
+            'display_startup_errors' => [
+                'expectedValues'        => ['1'],
+                'valueForConfiguration' => 'On',
+                'requiredExtensions'    => [],
+            ],
+            'error_reporting' => [
+                'expectedValues'        => ['-1', (string) E_ALL],
+                'valueForConfiguration' => '-1',
+                'requiredExtensions'    => [],
+            ],
+            'xdebug.show_exception_trace' => [
+                'expectedValues'        => ['0'],
+                'valueForConfiguration' => '0',
+                'requiredExtensions'    => ['xdebug'],
+            ],
+            'zend.assertions' => [
+                'expectedValues'        => ['1'],
+                'valueForConfiguration' => '1',
+                'requiredExtensions'    => [],
+            ],
+            'assert.exception' => [
+                'expectedValues'        => ['1'],
+                'valueForConfiguration' => '1',
+                'requiredExtensions'    => [],
+            ],
+            'memory_limit' => [
+                'expectedValues'        => ['-1'],
+                'valueForConfiguration' => '-1',
+                'requiredExtensions'    => [],
+            ],
+        ];
     }
 }

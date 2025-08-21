@@ -2,6 +2,25 @@
 
 All notable changes of the PHPUnit 10.5 release series are documented in this file using the [Keep a CHANGELOG](https://keepachangelog.com/) principles.
 
+## [10.5.53] - 2025-08-20
+
+### Changed
+
+* Do not configure `report_memleaks` setting (which will be deprecated in PHP 8.5) for PHPT processes
+
+## [10.5.52] - 2025-08-16
+
+### Changed
+
+* [#6321](https://github.com/sebastianbergmann/phpunit/issues/6321): Allow `error_reporting=E_ALL` for `--check-php-configuration`
+
+## [10.5.51] - 2025-08-12
+
+### Changed
+
+* [#6308](https://github.com/sebastianbergmann/phpunit/pull/6308): Improve output of `--check-php-configuration`
+* The version number for the test result cache file has been incremented to reflect that its structure for PHPUnit 10.5 is not compatible with its structure for PHPUnit 8.5 and PHPUnit 9.6
+
 ## [10.5.50] - 2025-08-10
 
 ### Changed
@@ -453,6 +472,9 @@ All notable changes of the PHPUnit 10.5 release series are documented in this fi
 
 * [#5563](https://github.com/sebastianbergmann/phpunit/issues/5563): `createMockForIntersectionOfInterfaces()` does not automatically register mock object for expectation verification
 
+[10.5.53]: https://github.com/sebastianbergmann/phpunit/compare/10.5.52...10.5.53
+[10.5.52]: https://github.com/sebastianbergmann/phpunit/compare/10.5.51...10.5.52
+[10.5.51]: https://github.com/sebastianbergmann/phpunit/compare/10.5.50...10.5.51
 [10.5.50]: https://github.com/sebastianbergmann/phpunit/compare/10.5.49...10.5.50
 [10.5.49]: https://github.com/sebastianbergmann/phpunit/compare/10.5.48...10.5.49
 [10.5.48]: https://github.com/sebastianbergmann/phpunit/compare/10.5.47...10.5.48
