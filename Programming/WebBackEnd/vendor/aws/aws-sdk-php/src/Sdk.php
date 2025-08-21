@@ -76,10 +76,14 @@ namespace Aws;
  * @method \Aws\MultiRegionClient createMultiRegionAutoScalingPlans(array $args = [])
  * @method \Aws\B2bi\B2biClient createB2bi(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionB2bi(array $args = [])
+ * @method \Aws\BCMDashboards\BCMDashboardsClient createBCMDashboards(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionBCMDashboards(array $args = [])
  * @method \Aws\BCMDataExports\BCMDataExportsClient createBCMDataExports(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionBCMDataExports(array $args = [])
  * @method \Aws\BCMPricingCalculator\BCMPricingCalculatorClient createBCMPricingCalculator(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionBCMPricingCalculator(array $args = [])
+ * @method \Aws\BCMRecommendedActions\BCMRecommendedActionsClient createBCMRecommendedActions(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionBCMRecommendedActions(array $args = [])
  * @method \Aws\Backup\BackupClient createBackup(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionBackup(array $args = [])
  * @method \Aws\BackupGateway\BackupGatewayClient createBackupGateway(array $args = [])
@@ -833,7 +837,7 @@ namespace Aws;
  */
 class Sdk
 {
-    const VERSION = '3.352.3';
+    const VERSION = '3.356.1';
 
     /** @var array Arguments for creating clients */
     private $args;
