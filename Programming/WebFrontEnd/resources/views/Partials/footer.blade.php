@@ -39,6 +39,13 @@
       });
     });
   }
+
+  function decimalFormat(value) {
+    return value.toLocaleString('en-US', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    });
+  }
 </script>
 
 <script>
@@ -483,6 +490,13 @@
     $("#DefaultFeatures").DataTable({
       "responsive": true,
       "autoWidth": false,
+      dom: '<"top"f>rt<"bottom"ip><"clear">',
+      scrollX: true,
+      lengthChange: true,
+      pageLength: 10,
+      dom: '<"top"l>rt<"bottom"ip><"clear">',
+      searching: true,
+      dom: 'lfrtip'
     });
   });
   
@@ -490,6 +504,7 @@
     $(".DefaultFeatures").DataTable({
       "responsive": true,
       "autoWidth": false,
+      
     });
   });
 </script>

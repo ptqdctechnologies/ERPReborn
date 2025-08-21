@@ -7,9 +7,44 @@
     let beneficiaryTrigger  = "";
     let indexAdvanceDetail  = 0;
     let totalAdvanceDetail  = 0;
+    let remark              = document.getElementById("remark");
+    let advanceDetailsAdd   = document.getElementById("advance-details-add");
 
     $(".loadingAdvanceSettlementTable").hide();
     $(".errorAdvanceSettlementTable").hide();
+    $("#advance-details-add").prop("disabled", true);
+
+    function checkOneLineBudgetContents() {
+        const rows  = document.querySelectorAll("#tableAdvanceDetail tbody tr");
+        let isFull  = false;
+
+        rows.forEach((row, index) => {
+            const qty   = document.getElementById(`qty_settlement${index}`)?.value.trim();
+            const price = document.getElementById(`price_settlement${index}`)?.value.trim();
+            const total = document.getElementById(`total_settlement${index}`)?.value.trim();
+
+            const qtyCompany   = document.getElementById(`qty_settlement_company${index}`)?.value.trim();
+            const priceCompany = document.getElementById(`price_settlement_company${index}`)?.value.trim();
+            const totalCompany = document.getElementById(`total_settlement_company${index}`)?.value.trim();
+
+            if (qty !== "" && price !== "" && total !== "" || qtyCompany !== "" && priceCompany !== "" && totalCompany !== "") {
+                isFull = true;
+            }
+        });
+
+        return isFull;
+    }
+
+    function checkFormCompleted() {
+        const remarkNotEmpty        = remark.value.trim() !== '';
+        const tableGetBudgetDetails = checkOneLineBudgetContents();
+
+        if (remarkNotEmpty && tableGetBudgetDetails) {
+            advanceDetailsAdd.disabled = false;
+        } else {
+            advanceDetailsAdd.disabled = true;
+        }
+    }
 
     function calculateTotal() {
         let total = 0;
@@ -21,9 +56,12 @@
             }
         });
 
-        total = Math.ceil(total * 100) / 100;
+        // total = Math.ceil(total * 100) / 100;
 
-        document.getElementById('TotalAdvanceDetail').textContent = currencyTotal(total);
+        document.getElementById('TotalAdvanceDetail').textContent = total.toLocaleString('en-US', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        });
     }
 
     function updateAdvanceUI(result, advanceRefID, advanceNumber) {
@@ -44,6 +82,8 @@
     function getAdvanceDetail(advanceRefID, advanceNumber) {
         $("#tableAdvanceDetail tbody").hide();
         $(".loadingAdvanceSettlementTable").show();
+        $("#myGetModalAdvanceTrigger").hide();
+        $("#loadingBudget").show();
 
         $.ajaxSetup({
             headers: {
@@ -64,12 +104,15 @@
 
                         if (!checkWorkFlow) {
                             $(".loadingAdvanceSettlementTable").hide();
+                            $("#loadingBudget").hide();
                             return;
                         }
                     }
 
                     $(".loadingAdvanceSettlementTable").hide();
+                    $("#loadingBudget").hide();
                     $("#tableAdvanceDetail tbody").show();
+                    $("#myGetModalAdvanceTrigger").show();
 
                     const isDuplicate       = arrAdvanceNumber.includes(result[0].businessDocumentNumber);
                     const sameBeneficiary   = beneficiaryTrigger == result[0].beneficiaryBankAccountName;
@@ -160,17 +203,21 @@
 
                             countBalance = countBalance < 0.00 ? 0.00 : countBalance;
 
-                            if (qty_settlement > val2.quantity) {
-                                $(this).val(0);
-                                $(`#total_settlement${data_index}`).val(0);
-                                $(`#balance${data_index}`).val(0);
-                                ErrorNotif("Qty Settlement is over Qty Request !");
+                            // if (qty_settlement > val2.quantity) {
+                            if (total_settlements > data_total_request) {
+                                $(this).val('');
+                                $(`#total_settlement${data_index}`).val('');
+                                $(`#balance${data_index}`).val('');
+                                ErrorNotif("Total Expense Claim is over!");
+                                // ErrorNotif("Qty Settlement is over!");
                             } else {
                                 $(`#total_settlement${data_index}`).val(currencyTotal(total_settlements));
                                 $(`#balance${data_index}`).val(currencyTotal(countBalance));
                                 $(`#TotalAdvanceDetail`).text(currencyTotal(totalAdvanceDetail));
                                 calculateTotal();
                             }
+
+                            checkFormCompleted();
                         });
 
                         $(`#price_settlement${indexAdvanceDetail}`).on('keyup', function() {
@@ -183,17 +230,21 @@
 
                             countBalance = countBalance < 0.00 ? 0.00 : countBalance;
 
-                            if (price_settlement > val2.productUnitPriceCurrencyValue) {
-                                $(this).val(0);
-                                $(`#total_settlement${data_index}`).val(0);
-                                $(`#balance${data_index}`).val(0);
-                                ErrorNotif("Price Settlement is over Price Request !");
+                            // if (price_settlement > val2.productUnitPriceCurrencyValue) {
+                            if (total_settlements > data_total_request) {
+                                $(this).val('');
+                                $(`#total_settlement${data_index}`).val('');
+                                $(`#balance${data_index}`).val('');
+                                ErrorNotif("Total Expense Claim is over!");
+                                // ErrorNotif("Price Settlement is over!");
                             } else {
                                 $(`#total_settlement${data_index}`).val(currencyTotal(total_settlements));
                                 $(`#balance${data_index}`).val(currencyTotal(countBalance));
                                 $(`#TotalAdvanceDetail`).text(currencyTotal(totalAdvanceDetail));
                                 calculateTotal();
                             }
+
+                            checkFormCompleted();
                         });
 
                         $(`#qty_settlement_company${indexAdvanceDetail}`).on('keyup', function() {
@@ -206,17 +257,21 @@
 
                             countBalance = countBalance < 0.00 ? 0.00 : countBalance;
 
-                            if (qty_settlement_company > val2.quantity) {
-                                $(this).val(0);
-                                $(`#total_settlement_company${data_index}`).val(0);
-                                $(`#balance${data_index}`).val(0);
-                                ErrorNotif("Qty Settlement is over Qty Request !");
+                            // if (qty_settlement_company > val2.quantity) {
+                            if (total_settlement_company > data_total_request) {
+                                $(this).val('');
+                                $(`#total_settlement_company${data_index}`).val('');
+                                $(`#balance${data_index}`).val('');
+                                // ErrorNotif("Qty Settlement is over!");
+                                ErrorNotif("Total Return is over!");
                             } else {
                                 $(`#total_settlement_company${data_index}`).val(currencyTotal(total_settlement_company));
                                 $(`#balance${data_index}`).val(currencyTotal(countBalance));
                                 $(`#TotalAdvanceDetail`).text(currencyTotal(totalAdvanceDetail));
                                 calculateTotal();
                             }
+
+                            checkFormCompleted();
                         });
 
                         $(`#price_settlement_company${indexAdvanceDetail}`).on('keyup', function() {
@@ -229,17 +284,21 @@
 
                             countBalance = countBalance < 0.00 ? 0.00 : countBalance;
 
-                            if (price_settlement_company > val2.productUnitPriceCurrencyValue) {
-                                $(this).val(0);
-                                $(`#total_settlement_company${data_index}`).val(0);
-                                $(`#balance${data_index}`).val(0);
-                                ErrorNotif("Price Settlement is over Price Request !");
+                            // if (price_settlement_company > val2.productUnitPriceCurrencyValue) {
+                            if (total_settlement_company > data_total_request) {
+                                $(this).val('');
+                                $(`#total_settlement_company${data_index}`).val('');
+                                $(`#balance${data_index}`).val('');
+                                // ErrorNotif("Price Settlement is over!");
+                                ErrorNotif("Total Return is over!");
                             } else {
                                 $(`#total_settlement_company${data_index}`).val(currencyTotal(total_settlement_company));
                                 $(`#balance${data_index}`).val(currencyTotal(countBalance));
                                 $(`#TotalAdvanceDetail`).text(currencyTotal(totalAdvanceDetail));
                                 calculateTotal();
                             }
+
+                            checkFormCompleted();
                         });
 
                         indexAdvanceDetail += 1;
@@ -253,6 +312,8 @@
             },
             error: function (textStatus, errorThrown) {
                 console.log('error', textStatus, errorThrown);
+                $("#myGetModalAdvanceTrigger").show();
+                $("#loadingBudget").hide();
             }
         });
     }
@@ -270,8 +331,12 @@
             total += valueCompany;
         });
 
-        // document.getElementById('TotalAdvanceDetail').innerText = "0.00";
-        document.getElementById('GrandTotal').innerText = total.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        total = total.toLocaleString('en-US', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        });
+
+        document.getElementById('GrandTotal').innerText = `Total (${rows[0].children[5].value}): ${total}`;
     }
 
     function SelectWorkFlow(formatData) {
@@ -289,8 +354,9 @@
             showCloseButton: false,
             showCancelButton: true,
             focusConfirm: false,
+            cancelButtonText: '<span style="color:black;"> Cancel </span>',
             confirmButtonText: '<span style="color:black;"> OK </span>',
-            cancelButtonColor: '#7A7A73',
+            cancelButtonColor: '#DDDAD0',
             confirmButtonColor: '#DDDAD0',
             reverseButtons: true
         }).then((result) => {
@@ -325,7 +391,7 @@
                     swalWithBootstrapButtons.fire({
                         title: 'Successful !',
                         type: 'success',
-                        html: 'Data has been saved. Your transaction number is ' + '<span style="color:red;">' + res.documentNumber + '</span>',
+                        html: 'Data has been saved. Your transaction number is ' + '<span style="color:#0046FF;font-weight:bold;">' + res.documentNumber + '</span>',
                         showCloseButton: false,
                         showCancelButton: false,
                         focusConfirm: false,
@@ -351,172 +417,6 @@
         ShowLoading();
         window.location.href = '/AdvanceSettlement?var=1';
     }
-
-    $("#advance-details-add").on('click', function() {
-        const sourceTable = document.getElementById('tableAdvanceDetail').getElementsByTagName('tbody')[0];
-        const targetTable = document.getElementById('tableAdvanceList').getElementsByTagName('tbody')[0];
-
-        const rows = sourceTable.getElementsByTagName('tr');
-
-        for (let row of rows) {
-            const advanceDetail_RefID               = row.querySelector('input[id^="advanceDetail_RefID"]');
-            const productUnitPriceCurrency_RefID    = row.querySelector('input[id^="productUnitPriceCurrency_RefID"]');
-            const qtyExpenseInput                   = row.querySelector('input[id^="qty_settlement"]');
-            const priceExpenseInput                 = row.querySelector('input[id^="price_settlement"]');
-            const totalExpenseInput                 = row.querySelector('input[id^="total_settlement"]');
-            const qtyCompanyInput                   = row.querySelector('input[id^="qty_settlement_company"]');
-            const priceCompanyInput                 = row.querySelector('input[id^="price_settlement_company"]');
-            const totalCompanyInput                 = row.querySelector('input[id^="total_settlement_company"]');
-            const balanceInput                      = row.querySelector('input[id^="balance"]');
-
-            if (
-                (qtyExpenseInput && priceExpenseInput && totalExpenseInput &&
-                    qtyExpenseInput.value.trim() !== '' && 
-                    priceExpenseInput.value.trim() !== '' && 
-                    totalExpenseInput.value.trim() !== '') ||
-                (qtyCompanyInput && priceCompanyInput && totalCompanyInput &&
-                    qtyCompanyInput.value.trim() !== '' && 
-                    priceCompanyInput.value.trim() !== '' && 
-                    totalCompanyInput.value.trim() !== ''
-                )
-            ) {
-                const transNumber   = row.children[3].innerText.trim();
-                const productCode   = row.children[5].innerText.trim();
-                const productName   = row.children[6].innerText.trim();
-                const uom           = row.children[7].innerText.trim();
-                const currency      = row.children[8].innerText.trim();
-                const qtyAvail      = row.children[9].innerText.trim();
-                const priceAvail    = row.children[10].innerText.trim();
-
-                const qtyExpense    = qtyExpenseInput.value.trim();
-                const priceExpense  = priceExpenseInput.value.trim();
-                const totalExpense  = totalExpenseInput.value.trim();
-                const qtyCompany    = qtyCompanyInput.value.trim();
-                const priceCompany  = priceCompanyInput.value.trim();
-                const totalCompany  = totalCompanyInput.value.trim();
-                const balance       = balanceInput.value.trim();
-
-                let found = false;
-                const existingRows = targetTable.getElementsByTagName('tr');
-
-                for (let targetRow of existingRows) {
-                    const targetProductCode = targetRow.children[2].value.trim();
-                    const targetTransNumber = targetRow.children[5].innerText.trim();
-
-                    if (targetTransNumber === transNumber && targetProductCode === productCode) {
-                        targetRow.children[9].innerText     = `Expence Claim: Rp ${totalExpense || '-'}`;
-                        targetRow.children[10].innerText    = `Amount to Company: Rp ${totalCompany || '-'}`;
-                        found = true;
-
-                        // update dataStore
-                        const indexToUpdate = dataStore.findIndex(item => item.entities.transactionNumber == transNumber && item.entities.productCode == productCode);
-                        if (indexToUpdate !== -1) {
-                            dataStore[indexToUpdate] = {
-                                entities: {
-                                    advanceDetail_RefID: parseInt(advanceDetail_RefID.value),
-                                    expenseQuantity: parseFloat(qtyExpense.replace(/,/g, '')),
-                                    expenseProductUnitPriceCurrency_RefID: parseInt(productUnitPriceCurrency_RefID.value),
-                                    expenseProductUnitPriceCurrencyValue: parseFloat(priceExpense.replace(/,/g, '')),
-                                    expenseProductUnitPriceCurrencyExchangeRate: parseFloat(1.00),
-                                    expenseProductUnitPriceBaseCurrencyValue: null,
-                                    // expenseProductUnitPriceBaseCurrencyValue: parseFloat(priceExpense.replace(/,/g, '')),
-                                    refundQuantity: parseFloat(qtyCompany.replace(/,/g, '')),
-                                    refundProductUnitPriceCurrency_RefID: parseInt(productUnitPriceCurrency_RefID.value),
-                                    refundProductUnitPriceCurrencyValue: parseFloat(priceCompany.replace(/,/g, '')),
-                                    refundProductUnitPriceCurrencyExchangeRate: parseFloat(1.00),
-                                    refundProductUnitPriceBaseCurrencyValue: null,
-                                    // refundProductUnitPriceBaseCurrencyValue: parseFloat(priceCompany.replace(/,/g, '')),
-                                    remarks: null,
-                                    transactionNumber: transNumber,
-                                    productCode: productCode
-                                }
-                            };
-                        }
-                    }
-                }
-
-                if (!found) {
-                    const newRow = document.createElement('tr');
-                    newRow.innerHTML = `
-                        <input type="hidden" id="qty_avail[]" value="${qtyAvail}">
-                        <input type="hidden" id="price_avail[]" value="${priceAvail}">
-                        <input type="hidden" id="product_code[]" value="${productCode}">
-                        <input type="hidden" id="total_expense[]" value="${totalExpense}">
-                        <input type="hidden" id="total_company[]" value="${totalCompany}">
-
-                        <td style="text-align: center;padding: 0.8rem;">${transNumber}</td>
-                        <td style="text-align: center;padding: 0.8rem;">${productCode + ' - ' + productName}</td>
-                        <td style="text-align: center;padding: 0.8rem;">${uom}</td>
-                        <td style="text-align: center;padding: 0.8rem;">${currency}</td>
-                        <td style="text-align: center;padding: 0.8rem;">Expence Claim: Rp ${totalExpense || '-'}</td>
-                        <td style="text-align: center;padding: 0.8rem;">Amount to Company: Rp ${totalCompany || '-'}</td>
-                    `;
-                    targetTable.appendChild(newRow);
-
-                    dataStore.push({
-                        entities: {
-                            advanceDetail_RefID: parseInt(advanceDetail_RefID.value),
-                            expenseQuantity: parseFloat(qtyExpense.replace(/,/g, '')),
-                            expenseProductUnitPriceCurrency_RefID: parseInt(productUnitPriceCurrency_RefID.value),
-                            expenseProductUnitPriceCurrencyValue: parseFloat(priceExpense.replace(/,/g, '')),
-                            expenseProductUnitPriceCurrencyExchangeRate: parseFloat(1.00),
-                            expenseProductUnitPriceBaseCurrencyValue: null,
-                            // expenseProductUnitPriceBaseCurrencyValue: parseFloat(priceExpense.replace(/,/g, '')),
-                            refundQuantity: parseFloat(qtyCompany.replace(/,/g, '')),
-                            refundProductUnitPriceCurrency_RefID: parseInt(productUnitPriceCurrency_RefID.value),
-                            refundProductUnitPriceCurrencyValue: parseFloat(priceCompany.replace(/,/g, '')),
-                            refundProductUnitPriceCurrencyExchangeRate: parseFloat(1.00),
-                            refundProductUnitPriceBaseCurrencyValue: null,
-                            // refundProductUnitPriceBaseCurrencyValue: parseFloat(priceCompany.replace(/,/g, '')),
-                            remarks: null,
-                            transactionNumber: transNumber,
-                            productCode: productCode
-                        }
-                    });
-                }
-            }
-        }
-
-        dataStore = dataStore.filter(item => item !== undefined);
-
-        updateGrandTotal();
-    });
-
-    $('#advance-details-reset').on('click', function() {
-        $('input[id^="qty_settlement"]').each(function() {
-            $(this).val($(this).data('default'));
-        });
-        $('input[id^="price_settlement"]').each(function() {
-            $(this).val($(this).data('default'));
-        });
-        $('input[id^="total_settlement"]').each(function() {
-            $(this).val($(this).data('default'));
-        });
-        $('input[id^="qty_settlement_company"]').each(function() {
-            $(this).val($(this).data('default'));
-        });
-        $('input[id^="price_settlement_company"]').each(function() {
-            $(this).val($(this).data('default'));
-        });
-        $('input[id^="total_settlement_company"]').each(function() {
-            $(this).val($(this).data('default'));
-        });
-        $('input[id^="balance"]').each(function() {
-            $(this).val($(this).data('default'));
-        });
-        $('#tableAdvanceList tbody').empty();
-        dataStore = [];
-
-        document.getElementById('GrandTotal').textContent = "0.00";
-        document.getElementById('TotalAdvanceDetail').textContent = "0.00";
-    });
-
-    $('#tableGetModalAdvance').on('click', 'tbody tr', function() {
-        let sysId           = $(this).find('input[data-trigger="sys_id_modal_advance"]').val();
-        let trano           = $(this).find('td:nth-child(2)').text();
-
-        getAdvanceDetail(sysId, trano);
-    });
 
     function SubmitForm() {
         $('#advanceSettlementFormModal').modal('hide');
@@ -574,6 +474,197 @@
             }
         });
     }
+
+    $("#advance-details-add").on('click', function() {
+        const sourceTable = document.getElementById('tableAdvanceDetail').getElementsByTagName('tbody')[0];
+        const targetTable = document.getElementById('tableAdvanceList').getElementsByTagName('tbody')[0];
+
+        const rows = sourceTable.getElementsByTagName('tr');
+
+        for (let row of rows) {
+            const advanceDetail_RefID               = row.querySelector('input[id^="advanceDetail_RefID"]');
+            const productUnitPriceCurrency_RefID    = row.querySelector('input[id^="productUnitPriceCurrency_RefID"]');
+            const qtyExpenseInput                   = row.querySelector('input[id^="qty_settlement"]');
+            const priceExpenseInput                 = row.querySelector('input[id^="price_settlement"]');
+            const totalExpenseInput                 = row.querySelector('input[id^="total_settlement"]');
+            const qtyCompanyInput                   = row.querySelector('input[id^="qty_settlement_company"]');
+            const priceCompanyInput                 = row.querySelector('input[id^="price_settlement_company"]');
+            const totalCompanyInput                 = row.querySelector('input[id^="total_settlement_company"]');
+            const balanceInput                      = row.querySelector('input[id^="balance"]');
+
+            if (
+                (qtyExpenseInput && priceExpenseInput && totalExpenseInput &&
+                    qtyExpenseInput.value.trim() !== '' && 
+                    priceExpenseInput.value.trim() !== '' && 
+                    totalExpenseInput.value.trim() !== '') ||
+                (qtyCompanyInput && priceCompanyInput && totalCompanyInput &&
+                    qtyCompanyInput.value.trim() !== '' && 
+                    priceCompanyInput.value.trim() !== '' && 
+                    totalCompanyInput.value.trim() !== ''
+                )
+            ) {
+                const transNumber   = row.children[3].innerText.trim();
+                const productCode   = row.children[5].innerText.trim();
+                const productName   = row.children[6].innerText.trim();
+                const uom           = row.children[7].innerText.trim();
+                const currency      = row.children[8].innerText.trim();
+                const qtyAvail      = row.children[9].innerText.trim();
+                const priceAvail    = row.children[10].innerText.trim();
+
+                const qtyExpense    = qtyExpenseInput.value.trim();
+                const priceExpense  = priceExpenseInput.value.trim();
+                const totalExpense  = totalExpenseInput.value.trim();
+                const qtyCompany    = qtyCompanyInput.value.trim();
+                const priceCompany  = priceCompanyInput.value.trim();
+                const totalCompany  = totalCompanyInput.value.trim();
+                const balance       = balanceInput.value.trim();
+
+                let found = false;
+                const existingRows = targetTable.getElementsByTagName('tr');
+
+                for (let targetRow of existingRows) {
+                    const targetProductCode = targetRow.children[2].value.trim();
+                    const targetTransNumber = targetRow.children[7].innerText.trim();
+
+                    if (targetTransNumber === transNumber && targetProductCode === productCode) {
+                        targetRow.children[3].value         = totalExpense || 0;
+                        targetRow.children[4].value         = totalCompany || 0;
+                        targetRow.children[10].innerText    = `Expence Claim: Rp ${totalExpense || '0.00'}`;
+                        targetRow.children[11].innerText    = `Return: Rp ${totalCompany || '0.00'}`;
+                        found = true;
+
+                        // update dataStore
+                        const indexToUpdate = dataStore.findIndex(item => item.entities.transactionNumber == transNumber && item.entities.productCode == productCode);
+                        if (indexToUpdate !== -1) {
+                            dataStore[indexToUpdate] = {
+                                entities: {
+                                    advanceDetail_RefID: parseInt(advanceDetail_RefID.value),
+                                    expenseQuantity: parseFloat(qtyExpense.replace(/,/g, '')) || 0,
+                                    expenseProductUnitPriceCurrency_RefID: parseInt(productUnitPriceCurrency_RefID.value),
+                                    expenseProductUnitPriceCurrencyValue: parseFloat(priceExpense.replace(/,/g, '')) || 0,
+                                    expenseProductUnitPriceCurrencyExchangeRate: parseFloat(1.00),
+                                    expenseProductUnitPriceBaseCurrencyValue: null,
+                                    // expenseProductUnitPriceBaseCurrencyValue: parseFloat(priceExpense.replace(/,/g, '')),
+                                    refundQuantity: parseFloat(qtyCompany.replace(/,/g, '')) || 0,
+                                    refundProductUnitPriceCurrency_RefID: parseInt(productUnitPriceCurrency_RefID.value),
+                                    refundProductUnitPriceCurrencyValue: parseFloat(priceCompany.replace(/,/g, '')) || 0,
+                                    refundProductUnitPriceCurrencyExchangeRate: parseFloat(1.00),
+                                    refundProductUnitPriceBaseCurrencyValue: null,
+                                    // refundProductUnitPriceBaseCurrencyValue: parseFloat(priceCompany.replace(/,/g, '')),
+                                    remarks: null,
+                                    transactionNumber: transNumber,
+                                    productCode: productCode
+                                }
+                            };
+                        }
+                    }
+                }
+
+                if (!found) {
+                    const newRow = document.createElement('tr');
+                    newRow.innerHTML = `
+                        <input type="hidden" id="qty_avail[]" value="${qtyAvail}">
+                        <input type="hidden" id="price_avail[]" value="${priceAvail}">
+                        <input type="hidden" id="product_code[]" value="${productCode}">
+                        <input type="hidden" id="total_expense[]" value="${totalExpense}">
+                        <input type="hidden" id="total_company[]" value="${totalCompany}">
+                        <input type="hidden" id="currency[]" value="${currency}">
+                        <input type="hidden" id="product_name[]" value="${productName}">
+
+                        <td style="text-align: left;padding: 0.8rem 0.5rem;width: 100px;">${transNumber}</td>
+                        <td style="text-align: right;padding: 0.8rem 0.5rem;">${productCode + ' - ' + productName}</td>
+                        <td style="text-align: left;padding: 0.8rem 0.5rem;width: 20px;">${uom}</td>
+                        <td style="text-align: left;padding: 0.8rem 0.5rem;">Expence Claim: Rp ${totalExpense || '0.00'}</td>
+                        <td style="text-align: left;padding: 0.8rem 0.5rem;">Return: Rp ${totalCompany || '0.00'}</td>
+                    `;
+                    targetTable.appendChild(newRow);
+
+                    dataStore.push({
+                        entities: {
+                            advanceDetail_RefID: parseInt(advanceDetail_RefID.value),
+                            expenseQuantity: parseFloat(qtyExpense.replace(/,/g, '')) || 0,
+                            expenseProductUnitPriceCurrency_RefID: parseInt(productUnitPriceCurrency_RefID.value),
+                            expenseProductUnitPriceCurrencyValue: parseFloat(priceExpense.replace(/,/g, '')) || 0,
+                            expenseProductUnitPriceCurrencyExchangeRate: parseFloat(1.00),
+                            expenseProductUnitPriceBaseCurrencyValue: null,
+                            // expenseProductUnitPriceBaseCurrencyValue: parseFloat(priceExpense.replace(/,/g, '')),
+                            refundQuantity: parseFloat(qtyCompany.replace(/,/g, '')) || 0,
+                            refundProductUnitPriceCurrency_RefID: parseInt(productUnitPriceCurrency_RefID.value),
+                            refundProductUnitPriceCurrencyValue: parseFloat(priceCompany.replace(/,/g, '')) || 0,
+                            refundProductUnitPriceCurrencyExchangeRate: parseFloat(1.00),
+                            refundProductUnitPriceBaseCurrencyValue: null,
+                            // refundProductUnitPriceBaseCurrencyValue: parseFloat(priceCompany.replace(/,/g, '')),
+                            remarks: null,
+                            transactionNumber: transNumber,
+                            productCode: productCode
+                        }
+                    });
+                }
+            } else {
+                const productCode   = row.children[5].innerText.trim();
+                const productName   = row.children[6].innerText.trim();
+                const existingRows  = targetTable.getElementsByTagName('tr');
+
+                for (let targetRow of existingRows) {
+                    const targetCode = targetRow.children[2]?.value?.trim();
+                    const targetName = targetRow.children[6]?.value?.trim();
+
+                    if (targetCode == productCode?.value && targetName == productName) {
+                        targetRow.remove();
+                        break;
+                    }
+                }
+
+                dataStore = dataStore.filter(item => item.entities.productCode != productCode);
+            }
+        }
+
+        dataStore = dataStore.filter(item => item !== undefined);
+
+        console.log('dataStore' , dataStore);
+
+        updateGrandTotal();
+    });
+
+    $('#advance-details-reset').on('click', function() {
+        $('input[id^="qty_settlement"]').each(function() {
+            $(this).val($(this).data('default'));
+        });
+        $('input[id^="price_settlement"]').each(function() {
+            $(this).val($(this).data('default'));
+        });
+        $('input[id^="total_settlement"]').each(function() {
+            $(this).val($(this).data('default'));
+        });
+        $('input[id^="qty_settlement_company"]').each(function() {
+            $(this).val($(this).data('default'));
+        });
+        $('input[id^="price_settlement_company"]').each(function() {
+            $(this).val($(this).data('default'));
+        });
+        $('input[id^="total_settlement_company"]').each(function() {
+            $(this).val($(this).data('default'));
+        });
+        $('input[id^="balance"]').each(function() {
+            $(this).val($(this).data('default'));
+        });
+        $('#tableAdvanceList tbody').empty();
+        dataStore = [];
+
+        document.getElementById('GrandTotal').textContent = "0.00";
+        document.getElementById('TotalAdvanceDetail').textContent = "0.00";
+    });
+
+    $('#tableGetModalAdvance').on('click', 'tbody tr', function() {
+        let sysId           = $(this).find('input[data-trigger="sys_id_modal_advance"]').val();
+        let trano           = $(this).find('td:nth-child(2)').text();
+
+        getAdvanceDetail(sysId, trano);
+    });
+
+    $('#remark').on('input', function() {
+        checkFormCompleted();
+    });
 
     $(document).on('input', '.number-without-negative', function() {
         allowNumbersWithoutNegative(this);

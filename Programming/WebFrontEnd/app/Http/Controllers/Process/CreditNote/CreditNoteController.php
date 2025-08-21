@@ -936,7 +936,7 @@ class CreditNoteController extends Controller
             // DUMMY DATA (2 PAGE)
             $getReportAdvanceSummary = [
                 [
-                    "DocumentNumber" => "BRF-24000229",
+                    "DocumentNumber" => "CN-24000229",
                     "DocumentDateTimeTZ" => "2024-12-27 00:00:00+07",
                     "TotalBusinessTrip" => "6300000.00",
                     "Sys_ID" => 76000000000054,
@@ -959,7 +959,7 @@ class CreditNoteController extends Controller
                     "ByCorpCard" => "5095132.82",
                 ],
                 [
-                    "DocumentNumber" => "BRF-24000228",
+                    "DocumentNumber" => "CN-24000228",
                     "DocumentDateTimeTZ" => "2024-12-27 00:00:00+07",
                     "TotalBusinessTrip" => "8400000.00",
                     "Sys_ID" => 76000000000054,
@@ -982,7 +982,7 @@ class CreditNoteController extends Controller
                     "ByCorpCard" => "4296891.03",
                 ],
                 [
-                    "DocumentNumber" => "BRF-24000227",
+                    "DocumentNumber" => "CN-24000227",
                     "DocumentDateTimeTZ" => "2024-12-27 00:00:00+07",
                     "TotalBusinessTrip" => "5900000.00",
                     "Sys_ID" => 76000000000054,
@@ -1005,7 +1005,7 @@ class CreditNoteController extends Controller
                     "ByCorpCard" => "8143150.32",
                 ],
                 [
-                    "DocumentNumber" => "BRF-24000226",
+                    "DocumentNumber" => "CN-24000226",
                     "DocumentDateTimeTZ" => "2024-12-26 00:00:00+07",
                     "TotalBusinessTrip" => "7600000.00",
                     "Sys_ID" => 76000000000054,
@@ -1028,7 +1028,7 @@ class CreditNoteController extends Controller
                     "ByCorpCard" => "12253790.16",
                 ],
                 [
-                    "DocumentNumber" => "BRF-24000225",
+                    "DocumentNumber" => "CN-24000225",
                     "DocumentDateTimeTZ" => "2024-12-26 00:00:00+07",
                     "TotalBusinessTrip" => "5200000.00",
                     "Sys_ID" => 76000000000054,
@@ -1051,7 +1051,7 @@ class CreditNoteController extends Controller
                     "ByCorpCard" => "10151969.28",
                 ],
                 [
-                    "DocumentNumber" => "BRF-24000224",
+                    "DocumentNumber" => "CN-24000224",
                     "DocumentDateTimeTZ" => "2024-12-25 00:00:00+07",
                     "TotalBusinessTrip" => "6900000.00",
                     "Sys_ID" => 76000000000054,
@@ -1074,7 +1074,7 @@ class CreditNoteController extends Controller
                     "ByCorpCard" => "5316023.26",
                 ],
                 [
-                    "DocumentNumber" => "BRF-24000223",
+                    "DocumentNumber" => "CN-24000223",
                     "DocumentDateTimeTZ" => "2024-12-24 00:00:00+07",
                     "TotalBusinessTrip" => "4700000.00",
                     "Sys_ID" => 76000000000054,
@@ -1097,7 +1097,7 @@ class CreditNoteController extends Controller
                     "ByCorpCard" => "1215213.85",
                 ],
                 [
-                    "DocumentNumber" => "BRF-24000222",
+                    "DocumentNumber" => "CN-24000222",
                     "DocumentDateTimeTZ" => "2024-12-23 00:00:00+07",
                     "TotalBusinessTrip" => "8100000.00",
                     "Sys_ID" => 76000000000054,
@@ -1120,7 +1120,7 @@ class CreditNoteController extends Controller
                     "ByCorpCard" => "1085223.38",
                 ],
                 [
-                    "DocumentNumber" => "BRF-24000221",
+                    "DocumentNumber" => "CN-24000221",
                     "DocumentDateTimeTZ" => "2024-12-20 00:00:00+07",
                     "TotalBusinessTrip" => "5600000.00",
                     "Sys_ID" => 76000000000054,
@@ -1143,7 +1143,7 @@ class CreditNoteController extends Controller
                     "ByCorpCard" => "7405033.38",
                 ],
                 [
-                    "DocumentNumber" => "BRF-24000220",
+                    "DocumentNumber" => "CN-24000220",
                     "DocumentDateTimeTZ" => "2024-12-19 00:00:00+07",
                     "TotalBusinessTrip" => "7300000.00",
                     "Sys_ID" => 76000000000054,
@@ -1166,7 +1166,7 @@ class CreditNoteController extends Controller
                     "ByCorpCard" => "7023584.36",
                 ],
                 [
-                    "DocumentNumber" => "BRF-24000219",
+                    "DocumentNumber" => "CN-24000219",
                     "DocumentDateTimeTZ" => "2024-12-19 00:00:00+07",
                     "TotalBusinessTrip" => "6400000.00",
                     "Sys_ID" => 76000000000054,
@@ -1189,7 +1189,7 @@ class CreditNoteController extends Controller
                     "ByCorpCard" => "1742125.93",
                 ],
                 [
-                    "DocumentNumber" => "BRF-24000218",
+                    "DocumentNumber" => "CN-24000218",
                     "DocumentDateTimeTZ" => "2024-12-19 00:00:00+07",
                     "TotalBusinessTrip" => "7100000.00",
                     "Sys_ID" => 76000000000054,
@@ -1212,7 +1212,7 @@ class CreditNoteController extends Controller
                     "ByCorpCard" => "11445578.27",
                 ],
                 [
-                    "DocumentNumber" => "BRF-24000217",
+                    "DocumentNumber" => "CN-24000217",
                     "DocumentDateTimeTZ" => "2024-12-18 00:00:00+07",
                     "TotalBusinessTrip" => "4900000.00",
                     "Sys_ID" => 76000000000054,
@@ -1235,7 +1235,7 @@ class CreditNoteController extends Controller
                     "ByCorpCard" => "3469770.83",
                 ],
                 [
-                    "DocumentNumber" => "BRF-24000216",
+                    "DocumentNumber" => "CN-24000216",
                     "DocumentDateTimeTZ" => "2024-12-17 00:00:00+07",
                     "TotalBusinessTrip" => "8800000.00",
                     "Sys_ID" => 76000000000054,
@@ -1258,7 +1258,7 @@ class CreditNoteController extends Controller
                     "ByCorpCard" => "1019176.27",
                 ],
                 [
-                    "DocumentNumber" => "BRF-24000215",
+                    "DocumentNumber" => "CN-24000215",
                     "DocumentDateTimeTZ" => "2024-12-13 00:00:00+07",
                     "TotalBusinessTrip" => "5300000.00",
                     "Sys_ID" => 76000000000054,
@@ -1281,7 +1281,7 @@ class CreditNoteController extends Controller
                     "ByCorpCard" => "1074832.13",
                 ],
                 [
-                    "DocumentNumber" => "BRF-24000214",
+                    "DocumentNumber" => "CN-24000214",
                     "DocumentDateTimeTZ" => "2024-12-13 00:00:00+07",
                     "TotalBusinessTrip" => "6700000.00",
                     "Sys_ID" => 76000000000054,
@@ -1304,7 +1304,7 @@ class CreditNoteController extends Controller
                     "ByCorpCard" => "981594.58",
                 ],
                 [
-                    "DocumentNumber" => "BRF-24000213",
+                    "DocumentNumber" => "CN-24000213",
                     "DocumentDateTimeTZ" => "2024-12-12 00:00:00+07",
                     "TotalBusinessTrip" => "7800000.00",
                     "Sys_ID" => 76000000000054,
@@ -1327,7 +1327,7 @@ class CreditNoteController extends Controller
                     "ByCorpCard" => "2423840.88",
                 ],
                 [
-                    "DocumentNumber" => "BRF-24000212",
+                    "DocumentNumber" => "CN-24000212",
                     "DocumentDateTimeTZ" => "2024-12-11 00:00:00+07",
                     "TotalBusinessTrip" => "5100000.00",
                     "Sys_ID" => 76000000000054,
@@ -1350,7 +1350,7 @@ class CreditNoteController extends Controller
                     "ByCorpCard" => "895938.52",
                 ],
                 [
-                    "DocumentNumber" => "BRF-24000211",
+                    "DocumentNumber" => "CN-24000211",
                     "DocumentDateTimeTZ" => "2024-12-10 00:00:00+07",
                     "TotalBusinessTrip" => "8200000.00",
                     "Sys_ID" => 76000000000054,
@@ -1373,7 +1373,7 @@ class CreditNoteController extends Controller
                     "ByCorpCard" => "2207263.87",
                 ],
                 [
-                    "DocumentNumber" => "BRF-24000210",
+                    "DocumentNumber" => "CN-24000210",
                     "DocumentDateTimeTZ" => "2024-12-10 00:00:00+07",
                     "TotalBusinessTrip" => "6200000.00",
                     "Sys_ID" => 76000000000054,
@@ -1396,7 +1396,7 @@ class CreditNoteController extends Controller
                     "ByCorpCard" => "6407582.00",
                 ],
                 [
-                    "DocumentNumber" => "BRF-24000209",
+                    "DocumentNumber" => "CN-24000209",
                     "DocumentDateTimeTZ" => "2024-12-10 00:00:00+07",
                     "TotalBusinessTrip" => "7500000.00",
                     "Sys_ID" => 76000000000054,
@@ -1419,7 +1419,7 @@ class CreditNoteController extends Controller
                     "ByCorpCard" => "7677468.37",
                 ],
                 [
-                    "DocumentNumber" => "BRF-24000208",
+                    "DocumentNumber" => "CN-24000208",
                     "DocumentDateTimeTZ" => "2024-12-10 00:00:00+07",
                     "TotalBusinessTrip" => "5800000.00",
                     "Sys_ID" => 76000000000054,
@@ -1442,7 +1442,7 @@ class CreditNoteController extends Controller
                     "ByCorpCard" => "4722046.68",
                 ],
                 [
-                    "DocumentNumber" => "BRF-24000207",
+                    "DocumentNumber" => "CN-24000207",
                     "DocumentDateTimeTZ" => "2024-12-09 00:00:00+07",
                     "TotalBusinessTrip" => "9000000.00",
                     "Sys_ID" => 76000000000054,
@@ -1465,7 +1465,7 @@ class CreditNoteController extends Controller
                     "ByCorpCard" => "1818964.19",
                 ],
                 [
-                    "DocumentNumber" => "BRF-24000206",
+                    "DocumentNumber" => "CN-24000206",
                     "DocumentDateTimeTZ" => "2024-12-09 00:00:00+07",
                     "TotalBusinessTrip" => "4200000.00",
                     "Sys_ID" => 76000000000054,
@@ -1488,7 +1488,7 @@ class CreditNoteController extends Controller
                     "ByCorpCard" => "2790922.28",
                 ],
                 [
-                    "DocumentNumber" => "BRF-24000205",
+                    "DocumentNumber" => "CN-24000205",
                     "DocumentDateTimeTZ" => "2024-12-09 00:00:00+07",
                     "TotalBusinessTrip" => "8500000.00",
                     "Sys_ID" => 76000000000054,
@@ -1511,7 +1511,7 @@ class CreditNoteController extends Controller
                     "ByCorpCard" => "11937158.49",
                 ],
                 [
-                    "DocumentNumber" => "BRF-24000204",
+                    "DocumentNumber" => "CN-24000204",
                     "DocumentDateTimeTZ" => "2024-12-06 00:00:00+07",
                     "TotalBusinessTrip" => "3800000.00",
                     "Sys_ID" => 76000000000054,
@@ -1534,7 +1534,7 @@ class CreditNoteController extends Controller
                     "ByCorpCard" => "513655.62",
                 ],
                 [
-                    "DocumentNumber" => "BRF-24000203",
+                    "DocumentNumber" => "CN-24000203",
                     "DocumentDateTimeTZ" => "2024-12-05 00:00:00+07",
                     "TotalBusinessTrip" => "7200000.00",
                     "Sys_ID" => 76000000000054,
@@ -1557,7 +1557,7 @@ class CreditNoteController extends Controller
                     "ByCorpCard" => "1780691.21",
                 ],
                 [
-                    "DocumentNumber" => "BRF-24000202",
+                    "DocumentNumber" => "CN-24000202",
                     "DocumentDateTimeTZ" => "2024-12-04 00:00:00+07",
                     "TotalBusinessTrip" => "5500000.00",
                     "Sys_ID" => 76000000000054,
@@ -1580,7 +1580,7 @@ class CreditNoteController extends Controller
                     "ByCorpCard" => "9816691.90",
                 ],
                 [
-                    "DocumentNumber" => "BRF-24000201",
+                    "DocumentNumber" => "CN-24000201",
                     "DocumentDateTimeTZ" => "2024-12-03 00:00:00+07",
                     "TotalBusinessTrip" => "4500000.00",
                     "Sys_ID" => 76000000000054,
@@ -1603,7 +1603,7 @@ class CreditNoteController extends Controller
                     "ByCorpCard" => "3944147.35",
                 ],
                 [
-                    "DocumentNumber" => "BRF-24000200",
+                    "DocumentNumber" => "CN-24000200",
                     "DocumentDateTimeTZ" => "2024-12-02 00:00:00+07",
                     "TotalBusinessTrip" => "6000000.00",
                     "Sys_ID" => 76000000000054,

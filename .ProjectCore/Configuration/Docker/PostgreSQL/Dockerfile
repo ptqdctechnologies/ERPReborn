@@ -23,17 +23,18 @@ RUN apt-get update \
        git \
        wget \
        unzip \
-       vim
-
+       vim \
+       make \
+       build-essential
 
 RUN apt-get install -y lsb-release \
-    && wget http://repo.mysql.com/mysql-apt-config_0.8.29-1_all.deb \  
-       && dpkg -i mysql-apt-config_0.8.29-1_all.deb \
-    && git clone https://github.com/EnterpriseDB/mysql_fdw.git \
+    && wget http://repo.mysql.com/mysql-apt-config_0.8.34-1_all.deb \  
+       && dpkg -i mysql-apt-config_0.8.34-1_all.deb \
+   && git clone https://github.com/EnterpriseDB/mysql_fdw.git \
        && apt-get install -y mariadb-server mariadb-client \
        && cd /mysql_fdw \
-          && export PATH=/usr/lib/postgresql/16/bin/:/usr/bin/mysql:$PATH make USE_PGXS=1 \
-          && PATH=/usr/lib/postgresql/16/bin/:/usr/bin/mysql:$PATH make USE_PGXS=1 install \
+          && export PATH=/usr/lib/postgresql/16/bin/:/usr/bin/mysql:$PATH make USE_PGXS=1 \ 
+          && PATH=/usr/lib/postgresql/16/bin/:/usr/bin/mysql:$PATH make USE_PGXS=1 install \ 
           && cd / \
           && rm -rf /mysql_fdw
 
@@ -50,14 +51,14 @@ RUN apt-get install -y lsb-release \
 #          && rm -rf /mysql_fdw
 
 
-RUN git clone https://github.com/CartoDB/odbc_fdw.git \
-       && apt-get install -y \
-          unixodbc-dev \
-       && cd /odbc_fdw \
-          && make \
-          && make install \
-          && cd / \
-          && rm -rf /odbc_fdw
+#RUN git clone https://github.com/CartoDB/odbc_fdw.git \
+#       && apt-get install -y \
+#          unixodbc-dev \
+#       && cd /odbc_fdw \
+#          && make \
+#          && make install \
+#          && cd / \
+#          && rm -rf /odbc_fdw
 
 
 RUN git clone https://github.com/tds-fdw/tds_fdw.git \

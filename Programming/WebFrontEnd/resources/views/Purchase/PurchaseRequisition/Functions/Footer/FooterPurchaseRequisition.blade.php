@@ -1,16 +1,265 @@
 <script>
-    var dataStore                   = [];
-    var TotalBudgetSelected         = document.getElementById('TotalBudgetSelected');
+    let dataStore                   = [];
+    const budgetCode                = document.getElementById("project_code_second");
     const siteCode                  = document.getElementById("site_code_second");
     const deliverCode               = document.getElementById("deliverCode");
     const dateDelivery              = document.getElementById("dateCommance");
     const tablePurchaseRequestLists = document.querySelector("#tablePurchaseRequisitionList tbody");
 
-    $(".loadingBudgetDetails").hide();
-    $(".errorMessageContainerBudgetDetails").hide();
-    $("#submitPR").prop("disabled", true);
-    $("#deliverModalTrigger").prop("disabled", true);
-    $("#mySiteCodeSecondTrigger").prop("disabled", true);
+    function checkOneLineBudgetContents(indexInput) {
+        const rows = document.querySelectorAll("#tableGetBudgetDetails tbody tr");
+        let hasFullRow = false;
+
+        rows.forEach((row, index) => {
+            const qty   = document.getElementById(`qty_req${index}`)?.value.trim();
+            const price = document.getElementById(`price_req${index}`)?.value.trim();
+            const total = document.getElementById(`total_req${index}`)?.value.trim();
+
+            if (qty !== "" && price !== "" && total !== "") {
+                hasFullRow = true;
+            }
+        });
+
+        rows.forEach((row, index) => {
+            const qtyEl   = document.getElementById(`qty_req${index}`);
+            const priceEl = document.getElementById(`price_req${index}`);
+            const totalEl = document.getElementById(`total_req${index}`);
+
+            if (hasFullRow) {
+                $(qtyEl).css("border", "1px solid #ced4da");
+                $(priceEl).css("border", "1px solid #ced4da");
+                $(totalEl).css("border", "1px solid #ced4da");
+                $("#budgetDetailsMessage").hide();
+            } else {
+                if (indexInput) {
+                    if (indexInput == index) {
+                        if (qtyEl.value.trim() != "" || priceEl.value.trim() != "") {
+                            $(qtyEl).css("border", "1px solid red");
+                            $(priceEl).css("border", "1px solid red");
+                            $(totalEl).css("border", "1px solid red");
+                            $("#budgetDetailsMessage").show();
+                        } else {
+                            $(qtyEl).css("border", "1px solid #ced4da");
+                            $(priceEl).css("border", "1px solid #ced4da");
+                            $(totalEl).css("border", "1px solid #ced4da");
+                            $("#budgetDetailsMessage").hide();
+                        }
+                    }
+
+                    if (indexInput != index && (qtyEl.value.trim() == "" && priceEl.value.trim() == "")) {
+                        $(qtyEl).css("border", "1px solid #ced4da");
+                        $(priceEl).css("border", "1px solid #ced4da");
+                        $(totalEl).css("border", "1px solid #ced4da");
+                    } 
+                } else {
+                    $(qtyEl).css("border", "1px solid red");
+                    $(priceEl).css("border", "1px solid red");
+                    $(totalEl).css("border", "1px solid red");
+                    $("#budgetDetailsMessage").show();
+                }
+            }
+        });
+
+        return hasFullRow;
+    }
+
+    function updateGrandTotal() {
+        let total = 0;
+        const rows = document.querySelectorAll('#tablePurchaseRequisitionList tbody tr');
+        rows.forEach(row => {
+            const totalCell = row.children[8];
+            const value = parseFloat(totalCell.innerText.replace(/,/g, '')) || 0;
+            total += value;
+        });
+
+        document.getElementById('GrandTotal').innerText = `Total (${rows[0].children[9].value}): ${decimalFormat(total)}`;
+    }
+
+    function summaryData() {
+        const sourceTable = document.getElementById('tableGetBudgetDetails').getElementsByTagName('tbody')[0];
+        const targetTable = document.getElementById('tablePurchaseRequisitionList').getElementsByTagName('tbody')[0];
+
+        const rows = sourceTable.getElementsByTagName('tr');
+
+        for (let row of rows) {
+            const productCodeShow = row.querySelector('input[id^="productCodeShow"]');
+            const qtyInput = row.querySelector('input[id^="qty_req"]');
+            const priceInput = row.querySelector('input[id^="price_req"]');
+            const totalInput = row.querySelector('input[id^="total_req"]');
+            const balanceInput = row.querySelector('input[id^="balanced_qty"]');
+            const remarkInput = row.querySelector('textarea[id^="remark"]');
+            const qtyUnitRefId = row.querySelector('input[id^="qtyId"]');
+            const currencyRefId = row.querySelector('input[id^="currencyId"]');
+            const combinedBudgetSectionDetailInput = row.querySelector('input[id^="combinedBudgetSectionDetail_RefID"]');
+
+            if (
+                qtyInput && priceInput && totalInput && balanceInput && 
+                qtyInput.value.trim() !== '' &&
+                priceInput.value.trim() !== '' &&
+                totalInput.value.trim() !== '' &&
+                balanceInput.value.trim() !== ''
+            ) {
+                const productCode = row.children[0].value.trim();
+                const productName = row.children[1].value.trim();
+                const uom = row.children[5].value.trim();
+                const currency = row.children[6].value.trim();
+                const qtyAvail = row.children[13].innerText.trim();
+                const priceAvail = row.children[15].innerText.trim();
+
+                const price = priceInput.value.trim();
+                const qty = qtyInput.value.trim();
+                const total = totalInput.value.trim();
+                const remark = remarkInput.value.trim();
+
+                let found = false;
+                const existingRows = targetTable.getElementsByTagName('tr');
+
+                for (let targetRow of existingRows) {
+                    const targetCode = targetRow.children[2].innerText.trim();
+                    
+                    if (targetCode == productCode) {
+                        targetRow.children[6].innerText = price;
+                        targetRow.children[7].innerText = qty;
+                        targetRow.children[8].innerText = total;
+                        found = true;
+
+                        const indexToUpdate = dataStore.findIndex(item => item.entities.product_RefID == productCode);
+                        if (indexToUpdate !== -1) {
+                            dataStore[indexToUpdate] = {
+                                entities: {
+                                    combinedBudgetSectionDetail_RefID: parseInt(combinedBudgetSectionDetailInput.value),
+                                    product_RefID: parseInt(productCode),
+                                    quantity: parseFloat(qty.replace(/,/g, '')),
+                                    quantityUnit_RefID: parseInt(qtyUnitRefId.value),
+                                    productUnitPriceCurrency_RefID: parseInt(currencyRefId.value),
+                                    productUnitPriceCurrencyValue: parseFloat(price.replace(/,/g, '')),
+                                    productUnitPriceCurrencyExchangeRate: 1,
+                                    fulfillmentDeadlineDateTimeTZ: null,
+                                    remarks: remark || null
+                                }
+                            };
+                        }
+                        break;
+                    }
+                }
+
+                if (!found) {
+                    const newRow = document.createElement('tr');
+                    newRow.innerHTML = `
+                        <input type="hidden" name="qty_avail[]" value="${qtyAvail}">
+                        <input type="hidden" name="price_avail[]" value="${priceAvail}">
+                        <td style="text-align: center;padding: 0.8rem 0.5rem;" hidden>${productCode}</td>
+                        <td style="text-align: right;padding: 0.8rem 0.5rem;width: 80px;">${productCodeShow.value}</td>
+                        <td style="text-align: left;padding: 0.8rem 0.5rem;">${productName}</td>
+                        <td style="text-align: left;padding: 0.8rem 0.5rem;width: 20px;">${uom}</td>
+                        <td style="text-align: right;padding: 0.8rem 0.5rem;width: 100px;">${price}</td>
+                        <td style="text-align: right;padding: 0.8rem 0.5rem;"width: 50px;>${qty}</td>
+                        <td style="text-align: right;padding: 0.8rem 0.5rem;width: 100px;">${total}</td>
+                        <input type="hidden" name="currency[]" value="${currency}">
+                    `;
+                    targetTable.appendChild(newRow);
+
+                    // push to dataStore
+                    dataStore.push({
+                        entities: {
+                            combinedBudgetSectionDetail_RefID: parseInt(combinedBudgetSectionDetailInput.value),
+                            product_RefID: parseInt(productCode),
+                            quantity: parseFloat(qty.replace(/,/g, '')),
+                            quantityUnit_RefID: parseInt(qtyUnitRefId.value),
+                            productUnitPriceCurrency_RefID: parseInt(currencyRefId.value),
+                            productUnitPriceCurrencyValue: parseFloat(price.replace(/,/g, '')),
+                            productUnitPriceCurrencyExchangeRate: 1,
+                            fulfillmentDeadlineDateTimeTZ: null,
+                            remarks: remark || null
+                        }
+                    });
+                }
+            } else {
+                const productCode   = row.children[0].value.trim();
+                const productName   = row.children[1].value.trim();
+                const existingRows  = targetTable.getElementsByTagName('tr');
+                
+                for (let targetRow of existingRows) {
+                    const targetCode = targetRow.children[2]?.innerText?.trim();
+                    const targetName = targetRow.children[4]?.innerText?.trim();
+
+                    if (targetCode == productCode && targetName == productName) {
+                        targetRow.remove();
+                        break;
+                    }
+                }
+
+                dataStore = dataStore.filter(item => item.entities.product_RefID != productCode);
+            }
+        }
+
+        dataStore = dataStore.filter(item => item !== undefined);
+
+        updateGrandTotal();
+    }
+
+    function validationForm() {
+        const isBudgetCodeNotEmpty      = budgetCode.value.trim() !== '';
+        const isSiteCodeNotEmpty        = siteCode.value.trim() !== '';
+        const isDeliverCodeNotEmpty     = deliverCode.value.trim() !== '';
+        const isDateDeliveryNotEmpty    = dateDelivery.value.trim() !== '';
+        const isTableNotEmpty           = checkOneLineBudgetContents();
+
+        if (isBudgetCodeNotEmpty && isSiteCodeNotEmpty && isDeliverCodeNotEmpty && isDateDeliveryNotEmpty && isTableNotEmpty) {
+            $('#purchaseRequestFormModal').modal('show');
+            summaryData();
+        } else {
+            if (!isBudgetCodeNotEmpty && !isSiteCodeNotEmpty && !isDeliverCodeNotEmpty && !isDateDeliveryNotEmpty) {
+                $("#project_code_second").css("border", "1px solid red");
+                $("#project_name_second").css("border", "1px solid red");
+                $("#site_code_second").css("border", "1px solid red");
+                $("#site_name_second").css("border", "1px solid red");
+                $("#deliverCode").css("border", "1px solid red");
+                $("#deliverName").css("border", "1px solid red");
+                $("#dateCommance").css("border", "1px solid red");
+                $("#dateCommance").css("border", "1px solid red");
+
+                $("#budgetMessage").show();
+                $("#subBudgetMessage").show();
+                $("#deliveryToMessage").show();
+                $("#dateOfDeliveryMessage").show();
+                // Swal.fire("Please Complete the Form", "Budget, Sub Budget, Delivery To, and Date of Delivery cannot be empty.", "error");
+                return;
+            } 
+            if (!isBudgetCodeNotEmpty) {
+                $("#project_code_second").css("border", "1px solid red");
+                $("#project_name_second").css("border", "1px solid red");
+                $("#budgetMessage").show();
+                // Swal.fire("Please Complete the Form", "Budget cannot be empty.", "error");
+                return;
+            }
+            if (!isSiteCodeNotEmpty) {
+                $("#site_code_second").css("border", "1px solid red");
+                $("#site_name_second").css("border", "1px solid red");
+                $("#subBudgetMessage").show();
+                // Swal.fire("Please Complete the Form", "Sub Budget cannot be empty.", "error");
+                return;
+            } 
+            if (!isDeliverCodeNotEmpty) {
+                $("#deliverCode").css("border", "1px solid red");
+                $("#deliverName").css("border", "1px solid red");
+                $("#deliveryToMessage").show();
+                // Swal.fire("Please Complete the Form", "Delivery To cannot be empty.", "error");
+                return;
+            } 
+            if (!isDateDeliveryNotEmpty) {
+                $("#dateCommance").css("border", "1px solid red");
+                $("#dateOfDeliveryMessage").show();
+                // Swal.fire("Please Complete the Form", "Date of Delivery cannot be empty.", "error");
+                return;
+            }
+            if (!isTableNotEmpty) {
+                $("#budgetDetailsMessage").show();
+                // Swal.fire("Please Complete the Form", "Budget Details must be filled in at least 1 item.", "error");
+                return;
+            }
+        }
+    }
 
     function calculateTotal() {
         let total = 0;
@@ -24,10 +273,7 @@
 
         total = Math.ceil(total * 100) / 100;
 
-        document.getElementById('TotalBudgetSelected').textContent = total.toLocaleString('en-US', {
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 2
-        });
+        document.getElementById('TotalBudgetSelected').textContent = decimalFormat(total);
     }
 
     function getBudgetDetails(site_code) {
@@ -45,8 +291,6 @@
             url: '{!! route("getBudget") !!}?site_code=' + site_code,
             success: function(data) {
                 $(".loadingBudgetDetails").hide();
-
-                console.log('data', data);
 
                 let tbody = $('#tableGetBudgetDetails tbody');
                 tbody.empty();
@@ -121,10 +365,10 @@
                                 <input class="form-control number-without-negative" id="price_req${key}" autocomplete="off" style="border-radius:0px;" ${isUnspecified} />
                             </td>
                             <td class="sticky-col third-col-pr" style="border:1px solid #e9ecef;background-color:white;">
-                                <input class="form-control number-without-negative" id="total_req${key}" autocomplete="off" style="border-radius:0px;background-color:white;" disabled />
+                                <input class="form-control number-without-negative" id="total_req${key}" autocomplete="off" style="border-radius:0px;" readonly />
                             </td>
                             <td class="sticky-col second-col-pr" style="border:1px solid #e9ecef;background-color:white;">
-                                <input class="form-control number-without-negative" id="balanced_qty${key}" autocomplete="off" style="border-radius:0px;width:90px;background-color:white;" data-default="${balanced}" value="${balanced}" disabled />
+                                <input class="form-control number-without-negative" id="balanced_qty${key}" autocomplete="off" style="border-radius:0px;width:90px;" data-default="${balanced}" value="${balanced}" readonly />
                             </td>
                             <td class="sticky-col first-col-pr" style="border:1px solid #e9ecef;background-color:white;">
                                 <textarea id="remark${key}" class="form-control"></textarea>
@@ -153,14 +397,18 @@
                         });
 
                         $(`#qty_req${key}`).on('keyup', function() {
-                            var qty_req = $(this).val().replace(/,/g, '');
-                            var price_req = $(`#price_req${key}`).val().replace(/,/g, '');
-                            var total_req = parseFloat(qty_req || 1) * parseFloat(price_req || 1);
-                            var total = parseFloat(qty_req || 0) + parseFloat(balanced);
+                            let qty_req     = $(this).val().replace(/,/g, '');
+                            let price_req   = $(`#price_req${key}`).val().replace(/,/g, '');
+                            let total_req   = parseFloat(qty_req || 0) * parseFloat(price_req || 1);
 
                             if (!qty_req) {
                                 $(`#qty_req${key}`).val('');
-                                $(`#total_req${key}`).val('');
+                                if (total_req == 0) {
+                                    $(`#total_req${key}`).val(decimalFormat(parseFloat(price_req || 0)));
+                                } else {
+                                    $(`#total_req${key}`).val(decimalFormat(total_req));
+                                }
+                                calculateTotal();
                             } else if (parseFloat(qty_req * price_req) > totalBudget) {
                                 $(`#qty_req${key}`).val('');
                                 $(`#total_req${key}`).val('');
@@ -169,35 +417,45 @@
                                 calculateTotal();
                                 $(`#total_req${key}`).val(currencyTotal(total_req));
                             }
+
+                            checkOneLineBudgetContents(key);
                         });
                     } else {
                         $(`#qty_req${key}`).on('keyup', function() {
-                            var qty_req = $(this).val().replace(/,/g, '');
-                            var price_req = $(`#price_req${key}`).val().replace(/,/g, '');
-                            var total_req = parseFloat(qty_req || 1) * parseFloat(price_req || 1);
-                            var total = parseFloat(balanced) - parseFloat(qty_req || 0);
+                            let qty_req     = $(this).val().replace(/,/g, '');
+                            let price_req   = $(`#price_req${key}`).val().replace(/,/g, '');
+                            let total_req   = parseFloat(qty_req || 0) * parseFloat(price_req || 1);
+                            let total       = parseFloat(balanced) - parseFloat(qty_req || 0);
 
                             if (parseFloat(qty_req) > val2.quantityRemaining) {
                                 $(`#qty_req${key}`).val('');
                                 $(`#total_req${key}`).val('');
+                                $(`#balanced_qty${key}`).val(balanced);
                                 ErrorNotif("Qty Req is over budget !");
                             } else if (parseFloat(qty_req * price_req) > totalBudget) {
                                 $(`#qty_req${key}`).val('');
                                 $(`#total_req${key}`).val('');
+                                $(`#balanced_qty${key}`).val(balanced);
                                 ErrorNotif("Total Req is over budget !");
                             } else {
+                                if (total_req == 0) {
+                                    $(`#total_req${key}`).val(decimalFormat(parseFloat(price_req || 0)));
+                                } else {
+                                    $(`#total_req${key}`).val(decimalFormat(total_req));
+                                }
                                 calculateTotal();
-                                $(`#total_req${key}`).val(currencyTotal(total_req));
-                                $(`#balanced_qty${key}`).val(currencyTotal(total));
+                                $(`#balanced_qty${key}`).val(decimalFormat(total));
                             }
+
+                            checkOneLineBudgetContents(key);
                         });
                     }
 
                     $(`#price_req${key}`).on('keyup', function() {
-                        var price_req = $(this).val().replace(/,/g, '');
-                        var qty_req = $(`#qty_req${key}`).val().replace(/,/g, '');
-                        var total_req = parseFloat(qty_req || 0) * parseFloat(price_req || 1);
-                        var total = parseFloat(price_req || 0) + parseFloat(val2.priceBaseCurrencyValue);
+                        let price_req   = $(this).val().replace(/,/g, '');
+                        let qty_req     = $(`#qty_req${key}`).val().replace(/,/g, '');
+                        let total_req   = parseFloat(qty_req || 1) * parseFloat(price_req || 0);
+                        let total       = parseFloat(price_req || 0) + parseFloat(val2.priceBaseCurrencyValue);
 
                         if (parseFloat(price_req) > val2.priceBaseCurrencyValue) {
                             $(`#price_req${key}`).val('');
@@ -208,9 +466,15 @@
                             $(`#total_req${key}`).val('');
                             ErrorNotif("Total Req is over budget !");
                         } else {
+                            if (total_req == 0) {
+                                $(`#total_req${key}`).val(decimalFormat(parseFloat(qty_req || 0)));
+                            } else {
+                                $(`#total_req${key}`).val(currencyTotal(total_req));
+                            }
                             calculateTotal();
-                            $(`#total_req${key}`).val(currencyTotal(total_req));
                         }
+
+                        checkOneLineBudgetContents(key);
                     });
                 });
             },
@@ -236,15 +500,18 @@
             type: 'question',
             input: 'textarea',
             showCloseButton: false,
-            showCancelButton: false,
+            showCancelButton: true,
             focusConfirm: false,
+            cancelButtonText: '<span style="color:black;"> Cancel </span>',
             confirmButtonText: '<span style="color:black;"> OK </span>',
-            confirmButtonColor: '#4B586A',
-            confirmButtonColor: '#e9ecef',
+            cancelButtonColor: '#DDDAD0',
+            confirmButtonColor: '#DDDAD0',
             reverseButtons: true
         }).then((result) => {
-            ShowLoading();
-            PurchaseRequisitionStore({...formatData, comment: result.value});
+            if ('value' in result) {
+                ShowLoading();
+                PurchaseRequisitionStore({...formatData, comment: result.value});
+            }
         });
     }
 
@@ -272,7 +539,7 @@
                     swalWithBootstrapButtons.fire({
                         title: 'Successful !',
                         type: 'success',
-                        html: 'Data has been saved. Your transaction number is ' + '<span style="color:red;">' + res.documentNumber + '</span>',
+                        html: 'Data has been saved. Your transaction number is ' + '<span style="color:#0046FF;font-weight:bold;">' + res.documentNumber + '</span>',
                         showCloseButton: false,
                         showCancelButton: false,
                         focusConfirm: false,
@@ -294,156 +561,73 @@
         });
     }
 
-    function updateGrandTotal() {
-        let total = 0;
-        const rows = document.querySelectorAll('#tablePurchaseRequisitionList tbody tr');
-        rows.forEach(row => {
-            const totalCell = row.children[9];
-            const value = parseFloat(totalCell.innerText.replace(/,/g, '')) || 0;
-            total += value;
-        });
-
-        document.getElementById('TotalBudgetSelected').innerText = "0.00";
-        document.getElementById('GrandTotal').innerText = total.toLocaleString('en-US', {
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 2
-        });
-    }
-
-    function validationForm() {
-        const isSiteCodeNotEmpty        = siteCode.value.trim() !== '';
-        const isDeliverCodeNotEmpty     = deliverCode.value.trim() !== '';
-        const isDateDeliveryNotEmpty    = dateDelivery.value.trim() !== '';
-        const isTableNotEmpty           = tablePurchaseRequestLists.rows.length > 0;
-
-        if (isSiteCodeNotEmpty && isDeliverCodeNotEmpty && isDateDeliveryNotEmpty && isTableNotEmpty) {
-            $("#submitPR").prop("disabled", false);
-        } else {
-            $("#submitPR").prop("disabled", true);
-        }
-    }
-
     function CancelPurchaseRequisition() {
         ShowLoading();
         window.location.href = '/PurchaseRequisition?var=1';
     }
 
-    if (siteCode) {
-        siteCode.addEventListener('input', validationForm);
-    }
+    function SubmitForm() {
+        $('#purchaseRequestFormModal').modal('hide');
 
-    if (deliverCode) {
-        deliverCode.addEventListener('input', validationForm);
-    }
+        let action = $('#FormSubmitPurchaseRequisition').attr("action");
+        let method = $('#FormSubmitPurchaseRequisition').attr("method");
+        let form_data = new FormData($('#FormSubmitPurchaseRequisition')[0]);
+        form_data.append('purchaseRequisitionDetail', JSON.stringify(dataStore));
 
-    if (dateDelivery) {
-        dateDelivery.addEventListener('input', validationForm);
-    }
+        ShowLoading();
 
-    if (tablePurchaseRequestLists) {
-        const observertablePurchaseRequestList = new MutationObserver(validationForm);
-        observertablePurchaseRequestList.observe(tablePurchaseRequestLists, { childList: true });
+        $.ajax({
+            url: action,
+            dataType: 'json',
+            cache: false,
+            contentType: false,
+            processData: false,
+            data: form_data,
+            type: method,
+            success: function(response) {
+                HideLoading();
 
-        document.querySelector('#tablePurchaseRequisitionList tbody').addEventListener('click', function (e) {
-            const row = e.target.closest('tr');
-            if (!row) return;
+                if (response.message == "WorkflowError") {
+                    $("#submitPR").prop("disabled", false);
+                    CancelNotif("You don't have access", '/PurchaseRequisition?var=1');
+                } else if (response.message == "MoreThanOne") {
+                    $('#getWorkFlow').modal('toggle');
 
-            if (['INPUT', 'TEXTAREA'].includes(e.target.tagName)) return;
+                    let t = $('#tableGetWorkFlow').DataTable();
+                    t.clear();
+                    $.each(response.data, function(key, val) {
+                        t.row.add([
+                            '<td><span data-dismiss="modal" onclick="SelectWorkFlow(\'' + val.Sys_ID + '\', \'' + val.NextApprover_RefID + '\', \'' + response.approverEntity_RefID + '\', \'' + response.documentTypeID + '\');"><img src="{{ asset("AdminLTE-master/dist/img/add.png") }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></span></td>',
+                            '<td style="border:1px solid #e9ecef;">' + val.FullApproverPath + '</td></tr></tbody>'
+                        ]).draw();
+                    });
+                } else {
+                    const formatData = {
+                        workFlowPath_RefID: response.workFlowPath_RefID, 
+                        nextApprover: response.nextApprover_RefID, 
+                        approverEntity: response.approverEntity_RefID, 
+                        documentTypeID: response.documentTypeID,
+                        storeData: response.storeData
+                    };
 
-            const qtyAvail = row.children[0];
-            const priceAvail = row.children[1];
-            const priceCell = row.children[7];
-            const qtyCell = row.children[8];
-            const totalCell = row.children[9];
-            const remarkCell = row.children[10];
-
-            if (row.classList.contains('editing-row')) {
-                const newPrice = priceCell.querySelector('input')?.value || '';
-                const newQty = qtyCell.querySelector('input')?.value || '';
-                const newTotal = totalCell.querySelector('input')?.value || '';
-                const newRemark = remarkCell.querySelector('textarea')?.value || '';
-
-                priceCell.innerHTML = newPrice;
-                qtyCell.innerHTML = newQty;
-                totalCell.innerHTML = newTotal;
-
-                const hidden = remarkCell.querySelector('input[type="hidden"]');
-                remarkCell.innerHTML = `${newRemark}`;
-                if (hidden) remarkCell.appendChild(hidden);
-
-                row.classList.remove('editing-row');
-
-                const productCode = row.children[2].innerText.trim();
-                const storeItem = dataStore.find(item => item.entities.product_RefID === productCode);
-                if (storeItem) {
-                    storeItem.quantity = newQty;
-                    storeItem.productUnitPriceCurrencyValue = newPrice;
-                    storeItem.remarks = newRemark;
+                    SelectWorkFlow(formatData);
                 }
-            } else {
-                const currentPrice = priceCell.innerText.trim();
-                const currentQty = qtyCell.innerText.trim();
-                const currentTotal = totalCell.innerText.trim();
-
-                const hiddenInput = remarkCell.querySelector('input[type="hidden"]');
-                const currentRemark = remarkCell.childNodes[0]?.nodeValue?.trim() || '';
-
-                priceCell.innerHTML = `<input class="form-control number-without-negative price-input" value="${currentPrice}" autocomplete="off" style="border-radius:0px;width:100px;">`;
-                qtyCell.innerHTML = `<input class="form-control number-without-negative qty-input" value="${currentQty}" autocomplete="off" style="border-radius:0px;width:100px;">`;
-                totalCell.innerHTML = `<input class="form-control number-without-negative total-input" value="${currentTotal}" autocomplete="off" style="border-radius:0px;width:100px;" readonly>`;
-                remarkCell.innerHTML = `
-                    <textarea class="form-control" style="width:100px;">${currentRemark}</textarea>
-                `;
-                if (hiddenInput) remarkCell.appendChild(hiddenInput);
-
-                row.classList.add('editing-row');
-
-                const priceInput = priceCell.querySelector('.price-input');
-                const qtyInput = qtyCell.querySelector('.qty-input');
-                const totalInput = totalCell.querySelector('.total-input');
-
-                function updateTotal() {
-                    var price = parseFloat(priceInput.value.replace(/,/g, '')) || 0;
-                    var qty = parseFloat(qtyInput.value.replace(/,/g, '')) || 0;
-                    var total = price * qty;
-
-                    const qtyAvailValue = parseFloat(qtyAvail?.value.replace(/,/g, '')) || 0;
-                    const priceAvailValue = parseFloat(priceAvail?.value.replace(/,/g, '')) || 0;
-
-                    if (qty > qtyAvailValue) {
-                        total = price * qtyAvailValue;
-                        qty = qtyAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-                        qtyInput.value = qtyAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-
-                        ErrorNotif("Qty Req is over Qty Avail !");
-                    }
-
-                    if (price > priceAvailValue) {
-                        total = priceAvailValue * qtyAvailValue;
-                        price = priceAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-                        priceInput.value = priceAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-
-                        ErrorNotif("Price Req is over Price Avail !");
-                    }
-
-                    totalInput.value = total.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-                }
-
-                priceInput.addEventListener('input', updateTotal);
-                qtyInput.addEventListener('input', updateTotal);
-
-                document.getElementById('GrandTotal').innerText = totalInput.value;
+            },
+            error: function(response) {
+                console.log('response error', response);
+                
+                HideLoading();
+                $("#submitPR").prop("disabled", false);
+                CancelNotif("You don't have access", '/PurchaseRequisition?var=1');
             }
-
-            updateGrandTotal();
         });
     }
 
     $('#tableGetProjectSecond').on('click', 'tbody tr', async function() {
-        var sysId           = $(this).find('input[data-trigger="sys_id_project_second"]').val();
-        var projectCode     = $(this).find('td:nth-child(2)').text();
-        var projectName     = $(this).find('td:nth-child(3)').text();
-        var documentTypeID  = $("#DocumentTypeID").val();
+        let sysId           = $(this).find('input[data-trigger="sys_id_project_second"]').val();
+        let projectCode     = $(this).find('td:nth-child(2)').text();
+        let projectName     = $(this).find('td:nth-child(3)').text();
+        let documentTypeID  = $("#DocumentTypeID").val();
 
         $("#project_id_second").val("");
         $("#project_code_second").val("");
@@ -453,12 +637,17 @@
         $("#myProjectSecondTrigger").css({"display":"none"});
 
         try {
-            var checkWorkFlow = await checkingWorkflow(sysId, documentTypeID);
+            let checkWorkFlow = await checkingWorkflow(sysId, documentTypeID);
 
             if (checkWorkFlow) {
                 $("#project_id_second").val(sysId);
                 $("#project_code_second").val(projectCode);
                 $("#project_name_second").val(projectName);
+                $("#myProjectSecondTrigger").prop("disabled", true);
+                $("#myProjectSecondTrigger").css("cursor", "not-allowed");
+                $("#project_code_second").css("border", "1px solid #ced4da");
+                $("#project_name_second").css("border", "1px solid #ced4da");
+                $("#budgetMessage").hide();
 
                 $("#var_combinedBudget_RefID").val(sysId);
 
@@ -476,217 +665,25 @@
     });
 
     $('#tableGetSiteSecond').on('click', 'tbody tr', function() {
-        var sysId = $(this).find('input[data-trigger="sys_id_site_second"]').val();
+        let sysId = $(this).find('input[data-trigger="sys_id_site_second"]').val();
 
         getBudgetDetails(sysId);
+        $("#site_code_second").css("border", "1px solid #ced4da");
+        $("#site_name_second").css("border", "1px solid #ced4da");
+        $("#subBudgetMessage").hide();
         $(".loadingBudgetDetails").show();
         $("#deliverModalTrigger").prop("disabled", false);
     });
 
-    $("#budget-details-add").on('click', function() {
-        const sourceTable = document.getElementById('tableGetBudgetDetails').getElementsByTagName('tbody')[0];
-        const targetTable = document.getElementById('tablePurchaseRequisitionList').getElementsByTagName('tbody')[0];
-
-        const rows = sourceTable.getElementsByTagName('tr');
-
-        for (let row of rows) {
-            const productCodeShow = row.querySelector('input[id^="productCodeShow"]');
-            const qtyInput = row.querySelector('input[id^="qty_req"]');
-            const priceInput = row.querySelector('input[id^="price_req"]');
-            const totalInput = row.querySelector('input[id^="total_req"]');
-            const balanceInput = row.querySelector('input[id^="balanced_qty"]');
-            const remarkInput = row.querySelector('textarea[id^="remark"]');
-            const qtyUnitRefId = row.querySelector('input[id^="qtyId"]');
-            const currencyRefId = row.querySelector('input[id^="currencyId"]');
-            const combinedBudgetSectionDetailInput = row.querySelector('input[id^="combinedBudgetSectionDetail_RefID"]');
-
-            if (
-                qtyInput && priceInput && totalInput && balanceInput && remarkInput &&
-                qtyInput.value.trim() !== '' &&
-                priceInput.value.trim() !== '' &&
-                totalInput.value.trim() !== '' &&
-                balanceInput.value.trim() !== '' &&
-                remarkInput.value.trim() !== ''
-            ) {
-                const productCode = row.children[0].value.trim();
-                const productName = row.children[1].value.trim();
-                const uom = row.children[5].value.trim();
-                const currency = row.children[6].value.trim();
-                const qtyAvail = row.children[13].innerText.trim();
-                const priceAvail = row.children[15].innerText.trim();
-
-                const price = priceInput.value.trim();
-                const qty = qtyInput.value.trim();
-                const total = totalInput.value.trim();
-                const remark = remarkInput.value.trim();
-
-                let found = false;
-                const existingRows = targetTable.getElementsByTagName('tr');
-
-                for (let targetRow of existingRows) {
-                    const targetCode = targetRow.children[2].innerText.trim();
-                    if (targetCode == productCode) {
-                        targetRow.children[7].innerText = price;
-                        targetRow.children[8].innerText = qty;
-                        targetRow.children[9].innerText = total;
-                        targetRow.children[10].innerText = remark;
-                        found = true;
-
-                        // update dataStore
-                        const indexToUpdate = dataStore.findIndex(item => item.entities.product_RefID === productCode);
-                        if (indexToUpdate !== -1) {
-                            dataStore[indexToUpdate] = {
-                                entities: {
-                                    combinedBudgetSectionDetail_RefID: parseInt(combinedBudgetSectionDetailInput.value),
-                                    product_RefID: parseInt(productCode),
-                                    quantity: parseFloat(qty.replace(/,/g, '')),
-                                    quantityUnit_RefID: parseInt(qtyUnitRefId.value),
-                                    productUnitPriceCurrency_RefID: parseInt(currencyRefId.value),
-                                    productUnitPriceCurrencyValue: parseFloat(price.replace(/,/g, '')),
-                                    productUnitPriceCurrencyExchangeRate: 1,
-                                    fulfillmentDeadlineDateTimeTZ: null,
-                                    remarks: remark
-                                }
-                            };
-                        }
-                        break;
-                    }
-                }
-
-                if (!found) {
-                    const newRow = document.createElement('tr');
-                    newRow.innerHTML = `
-                        <input type="hidden" name="qty_avail[]" value="${qtyAvail}">
-                        <input type="hidden" name="price_avail[]" value="${priceAvail}">
-                        <td style="text-align: center;padding: 0.8rem;" hidden>${productCode}</td>
-                        <td style="text-align: center;padding: 0.8rem;">${productCodeShow.value}</td>
-                        <td style="text-align: center;padding: 0.8rem;">${productName}</td>
-                        <td style="text-align: center;padding: 0.8rem;">${uom}</td>
-                        <td style="text-align: center;padding: 0.8rem;">${currency}</td>
-                        <td style="text-align: center;padding: 0.8rem;">${price}</td>
-                        <td style="text-align: center;padding: 0.8rem;">${qty}</td>
-                        <td style="text-align: center;padding: 0.8rem;">${total}</td>
-                        <td style="text-align: center;padding: 0.8rem;">${remark}</td>
-                    `;
-                    targetTable.appendChild(newRow);
-
-                    // push to dataStore
-                    dataStore.push({
-                        entities: {
-                            combinedBudgetSectionDetail_RefID: parseInt(combinedBudgetSectionDetailInput.value),
-                            product_RefID: parseInt(productCode),
-                            quantity: parseFloat(qty.replace(/,/g, '')),
-                            quantityUnit_RefID: parseInt(qtyUnitRefId.value),
-                            productUnitPriceCurrency_RefID: parseInt(currencyRefId.value),
-                            productUnitPriceCurrencyValue: parseFloat(price.replace(/,/g, '')),
-                            productUnitPriceCurrencyExchangeRate: 1,
-                            fulfillmentDeadlineDateTimeTZ: null,
-                            remarks: remark
-                        }
-                    });
-                }
-
-                qtyInput.value = '';
-                priceInput.value = '';
-                totalInput.value = '';
-                remarkInput.value = '';
-                balanceInput.value = balanceInput.getAttribute('data-default');
-            }
-        }
-
-        dataStore = dataStore.filter(item => item !== undefined);
-
-        updateGrandTotal();
+    $('#tableGetDeliverTo').on('click', 'tbody tr', function() {
+        $("#deliverCode").css("border", "1px solid #ced4da");
+        $("#deliverName").css("border", "1px solid #ced4da");
+        $("#deliveryToMessage").hide();
     });
 
-    $("#budget-details-reset").on('click', function() {
-        const targetTableBody = document.querySelector('#tablePurchaseRequisitionList tbody');
-
-        targetTableBody.innerHTML = '';
-
-        dataStore = [];
-
-        document.getElementById('GrandTotal').innerText = '0.00';
-    });
-
-    $("#FormSubmitPurchaseRequisition").on("submit", function(e) {
-        e.preventDefault();
-
-        const swalWithBootstrapButtons = Swal.mixin({
-            confirmButtonClass: 'btn btn-success btn-sm',
-            cancelButtonClass: 'btn btn-danger btn-sm',
-            buttonsStyling: true,
-        });
-
-        swalWithBootstrapButtons.fire({
-            title: 'Are you sure?',
-            text: "Save this data?",
-            type: 'question',
-            showCancelButton: true,
-            confirmButtonText: '<img src="{{ asset("AdminLTE-master/dist/img/save.png") }}" width="13" alt=""><span style="color:black;">Yes, save it </span>',
-            cancelButtonText: '<img src="{{ asset("AdminLTE-master/dist/img/cancel.png") }}" width="13" alt=""><span style="color:black;"> No, cancel </span>',
-            confirmButtonColor: '#e9ecef',
-            cancelButtonColor: '#e9ecef',
-            reverseButtons: true
-        }).then((result) => {
-            if (result.value) {
-                var action = $(this).attr("action");
-                var method = $(this).attr("method");
-                var form_data = new FormData($(this)[0]);
-                form_data.append('purchaseRequisitionDetail', JSON.stringify(dataStore));
-
-                ShowLoading();
-
-                $.ajax({
-                    url: action,
-                    dataType: 'json',
-                    cache: false,
-                    contentType: false,
-                    processData: false,
-                    data: form_data,
-                    type: method,
-                    success: function(response) {
-                        HideLoading();
-
-                        if (response.message == "WorkflowError") {
-                            $("#submitPR").prop("disabled", false);
-                            CancelNotif("You don't have access", '/PurchaseRequisition?var=1');
-                        } else if (response.message == "MoreThanOne") {
-                            $('#getWorkFlow').modal('toggle');
-
-                            var t = $('#tableGetWorkFlow').DataTable();
-                            t.clear();
-                            $.each(response.data, function(key, val) {
-                                t.row.add([
-                                    '<td><span data-dismiss="modal" onclick="SelectWorkFlow(\'' + val.Sys_ID + '\', \'' + val.NextApprover_RefID + '\', \'' + response.approverEntity_RefID + '\', \'' + response.documentTypeID + '\');"><img src="{{ asset("AdminLTE-master/dist/img/add.png") }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></span></td>',
-                                    '<td style="border:1px solid #e9ecef;">' + val.FullApproverPath + '</td></tr></tbody>'
-                                ]).draw();
-                            });
-                        } else {
-                            const formatData = {
-                                workFlowPath_RefID: response.workFlowPath_RefID, 
-                                nextApprover: response.nextApprover_RefID, 
-                                approverEntity: response.approverEntity_RefID, 
-                                documentTypeID: response.documentTypeID,
-                                storeData: response.storeData
-                            };
-
-                            SelectWorkFlow(formatData);
-                        }
-                    },
-                    error: function(response) {
-                        console.log('response error', response);
-                        
-                        HideLoading();
-                        $("#submitPR").prop("disabled", false);
-                        CancelNotif("You don't have access", '/PurchaseRequisition?var=1');
-                    }
-                });
-            } else if (result.dismiss === Swal.DismissReason.cancel) {
-                HideLoading();
-                CancelNotif("Data Cancel Inputed", '/PurchaseRequisition?var=1');
-            }
-        });
+    $('#dateCommance').on('change', function() {
+        $("#dateCommance").css("border", "1px solid #ced4da");
+        $("#dateOfDeliveryMessage").hide();
     });
 
     $(document).on('input', '.number-without-negative', function() {
@@ -695,5 +692,16 @@
 
     $(window).one('load', function(e) {
         getDocumentType("Purchase Requisition Form");
+
+        $(".loadingBudgetDetails").hide();
+        $(".errorMessageContainerBudgetDetails").hide();
+        $("#deliverModalTrigger").prop("disabled", true);
+        $("#mySiteCodeSecondTrigger").prop("disabled", true);
+        
+        $("#budgetMessage").hide();
+        $("#subBudgetMessage").hide();
+        $("#deliveryToMessage").hide();
+        $("#dateOfDeliveryMessage").hide();
+        $("#budgetDetailsMessage").hide();
     });
 </script>

@@ -15,28 +15,28 @@ class ExportReportAdvanceToASF implements FromCollection, WithHeadings, ShouldAu
 {
     public function collection()
     {
-        $data = Session::get("dataReportAdvanceToASF");
+        $data = Session::get("AdvanceToASFReportDataExcel");
 
         $filteredData = [];
         $counter = 1;
-        foreach ($data['dataDetail'] as $item) {
+        foreach ($data as $item) {
             $filteredData[] = [
                 'No'                    => $counter++,
-                'ARF Number'            => $item['DocumentNumber'] ?? null,
-                'Date'                  => date('d-m-Y', strtotime($item['DocumentDateTimeTZ'])) ?? null,
+                'ARF Number'            => $item['ARF_Number'] ?? null,
+                'Date'                  => date('d-m-Y', strtotime($item['ARF_Date'])) ?? null,
                 'Requester'             => $item['RequesterWorkerName'] ?? null,
-                'Total'                 => $item['TotalAdvance'] ?? null,
-                'Payment'               => $item['TotalPayment'] ?? null,
+                'Total'                 => $item['ARF_Total_IDR'] ?? null,
+                'Payment'               => $item['advance_ToPayment'] ?? null,
                 'Status'                => $item['Status'] ?? null,
-                'ASF Number'            => $item['DocumentASFNumber'] ?? null,
-                'ASF Date'              => date('d-m-Y', strtotime($item['DocumentASFDateTimeTZ'])) ?? null,
-                'Total ASF'             => $item['TotalSettlement'] ?? null,
-                'Expense Claim'         => $item['TotalExpenseClaim'] ?? null,
-                'Amount to the Company' => $item['TotalAmountCompany'] ?? null,
+                'ASF Number'            => $item['ASF_Number'] ?? null,
+                'ASF Date'              => date('d-m-Y', strtotime($item['ASF_Date'])) ?? null,
+                'Total ASF'             => $item['ASF_Total'] ?? null,
+                'Expense Claim'         => $item['expense_Claim_IDR'] ?? null,
+                'Amount to the Company' => $item['amount_Due_Company_IDR'] ?? null,
                 // 'Description'           => $item['Description'] ?? null,
                 'Status ASF'            => $item['StatusASF'] ?? null,
-                'Advance to Payment'    => $item['TotalAdvancePayment'] ?? null,
-                'Advance to Settlement' => $item['TotalAdvanceSettlement'] ?? null,
+                'Advance to Payment'    => $item['advance_ToPayment'] ?? null,
+                'Advance to Settlement' => $item['advance_ToSettlement'] ?? null,
             ];
         }
 
@@ -45,13 +45,13 @@ class ExportReportAdvanceToASF implements FromCollection, WithHeadings, ShouldAu
 
     public function headings(): array
     {
-        $data = Session::get("dataReportAdvanceToASF");
+        $data = Session::get("AdvanceToASFReportDataExcel");
         return [
             [date('F j, Y')],
             ["ADVANCE TO ASF"],
             [date('h:i A')],
-            ["Budget", ": " . $data['project']['code'] . ' - ' . $data['project']['name'], "Requester", ": " . $data['requester']['name'], "", "", "", "", "", "", ""],
-            ["Sub Budget", ": " . $data['site']['code'] . ' - ' . $data['site']['name']],
+            ["Budget", ": " . $data[0]['combinedBudgetCode'] . ' - ' . $data[0]['combinedBudgetName']],
+            ["Sub Budget", ": " ],
             ["", "", "", "", "", "", "", "", "", "", ""],
             ["No", "Advance", "", "", "", "", "", "Settlement", "", "", "", "", "", "Balance", ""],
             ["", "ARF Number", "Date", "Requester", "Total", "Payment", "Status", "ASF Number", "Date", "Total", "Expense Claim", "Amount to the Company", "Status", "Advance to Payment", "Advance to Settlement"],
@@ -171,18 +171,18 @@ class ExportReportAdvanceToASF implements FromCollection, WithHeadings, ShouldAu
             ],
         ];
 
-        $datas = Session::get("dataReportAdvanceToASF");
-        $totalCell = count($datas['dataDetail']);
+        $datas = Session::get("AdvanceToASFReportDataExcel");
+        $totalCell = count($datas);
         $lastCell = 'A8:O' . $totalCell + 8;
         $sheet->getStyle($lastCell)->applyFromArray($styleArrayContent);
 
-        $total                  = $datas['totalAdvance'];
-        $totalPayment           = $datas['totalPayment'];
-        $totalSettlement        = $datas['totalSettlement'];
-        $totalExpenseClaim      = $datas['totalExpenseClaim'];
-        $totalAmountCompany     = $datas['totalAmountCompany'];
-        $totalAdvancePayment    = $datas['totalAdvancePayment'];
-        $totalAdvanceSettlement = $datas['totalAdvanceSettlement'];
+        $total                  = $datas[0]['expense_Claim_IDR'];
+        $totalPayment           = $datas[0]['advance_ToPayment'];
+        $totalSettlement        = $datas[0]['ASF_Total'];
+        $totalExpenseClaim      = $datas[0]['expense_Claim_IDR'];
+        $totalAmountCompany     = $datas[0]['amount_Due_Company_IDR'];
+        $totalAdvancePayment    = $datas[0]['advance_ToPayment'];
+        $totalAdvanceSettlement = $datas[0]['advance_ToSettlement'];
 
         $sheet->insertNewRowBefore($totalCell + 9, 1);
         $sheet->setCellValue('A' . $totalCell + 9, "GRAND TOTAL");

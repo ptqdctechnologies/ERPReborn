@@ -97,7 +97,7 @@
         let total = 0;
         const rows = document.querySelectorAll('#tablePurchaseOrderList tbody tr');
         rows.forEach(row => {
-            const totalCell = row.children[10];
+            const totalCell = row.children[9];
             const input = totalCell.querySelector('input');
             
             const value = parseFloat(totalCell.innerText.replace(/,/g, '')) || 0;
@@ -109,9 +109,9 @@
             total += value;
         });
 
-        document.getElementById('TotalPpn').textContent = currencyTotal(0.00);
-        document.getElementById('TotalBudgetSelected').textContent = currencyTotal(0.00);
-        document.getElementById('TotalBudgetSelectedPpn').textContent = currencyTotal(0.00);
+        // document.getElementById('TotalPpn').textContent = currencyTotal(0.00);
+        // document.getElementById('TotalBudgetSelected').textContent = currencyTotal(0.00);
+        // document.getElementById('TotalBudgetSelectedPpn').textContent = currencyTotal(0.00);
         document.getElementById('GrandTotal').innerText = total.toLocaleString('en-US', {
             minimumFractionDigits: 2,
             maximumFractionDigits: 2
@@ -131,15 +131,18 @@
             type: 'question',
             input: 'textarea',
             showCloseButton: false,
-            showCancelButton: false,
+            showCancelButton: true,
             focusConfirm: false,
+            cancelButtonText: '<span style="color:black;"> Cancel </span>',
             confirmButtonText: '<span style="color:black;"> OK </span>',
-            confirmButtonColor: '#4B586A',
-            confirmButtonColor: '#e9ecef',
+            cancelButtonColor: '#DDDAD0',
+            confirmButtonColor: '#DDDAD0',
             reverseButtons: true
         }).then((result) => {
-            ShowLoading();
-            RevisionPurchaseOrder({...formatData, comment: result.value});
+            if ('value' in result) {
+                ShowLoading();
+                RevisionPurchaseOrder({...formatData, comment: result.value});
+            }
         });
     }
 
@@ -167,7 +170,7 @@
                     swalWithBootstrapButtons.fire({
                         title: 'Successful !',
                         type: 'success',
-                        html: 'Data has been saved. Your transaction number is ' + '<span style="color:red;">' + res.documentNumber + '</span>',
+                        html: 'Data has been saved. Your transaction number is ' + '<span style="color:#0046FF;">' + res.documentNumber + '</span>',
                         showCloseButton: false,
                         showCancelButton: false,
                         focusConfirm: false,
@@ -276,6 +279,7 @@
                     <input id="productUnitPriceDiscountCurrencyExchangeRate${key}" value="${val2.productUnitPriceDiscountCurrencyExchangeRate || 1}" type="hidden" />
 
                     <td style="text-align: center; padding: 10px !important;">${val2.purchaseRequisitionNumber || '-'}</td>
+                    <td style="text-align: center; padding: 10px !important;">${val2.combinedBudgetSectionCode + ' - ' + val2.combinedBudgetSectionName}</td>
                     <td style="text-align: center; padding: 10px !important;">${val2.productCode || '-'}</td>
                     <td style="text-align: center; padding: 10px !important;">${val2.productName || '-'}</td>
                     <td style="text-align: center; padding: 10px !important;">${currencyTotal(val2.qtyPR || 0)}</td>
@@ -305,18 +309,20 @@
             tbody.append(row);
 
             $(`#qty_req${key}`).on('keyup', function() {
-                var qty_req = $(this).val().replace(/,/g, '');
-                var data_index = $(this).data('index');
-                var data_total_request = $(this).data('total-request');
-                var price_req = $(`#price_req${data_index}`).val();
-                var total_req = parseFloat(qty_req || 0) * parseFloat(price_req.replace(/,/g, '') || 0);
-                var countBalance = data_total_request - total_req;
+                var qty_req             = $(this).val().replace(/,/g, '');
+                var data_index          = $(this).data('index');
+                var data_total_request  = $(this).data('total-request');
+                var price_req           = $(`#price_req${data_index}`).val().replace(/,/g, '');
+                var total_req           = parseFloat(qty_req || 0) * parseFloat(price_req || 0);
+                var countBalance        = data_total_request - total_req;
+                var validate            = parseFloat((parseFloat(val2.qtyAvail) + parseFloat(val2.quantity)).toFixed(2));
 
                 countBalance = countBalance < 0.00 ? 0.00 : countBalance;
 
-                if (parseFloat(qty_req || 0) > parseFloat(val2.quantity || 0)) {
-                    $(this).val(0);
-                    $(`#total_req${data_index}`).val(0);
+                // if (parseFloat(qty_req || 0) > parseFloat(val2.quantity || 0)) {
+                if (parseFloat(qty_req || 0) > validate) {
+                    $(this).val(currencyTotal(val2.quantity));
+                    $(`#total_req${data_index}`).val(currencyTotal(val2.quantity * (price_req || 1)));
                     $(`#balance${data_index}`).val(0);
                     ErrorNotif("Qty Req is over Qty Avail !");
                 } else {
@@ -327,18 +333,18 @@
             });
 
             $(`#price_req${key}`).on('keyup', function() {
-                var price_req = $(this).val().replace(/,/g, '');
-                var data_index = $(this).data('index');
-                var data_total_request = $(this).data('total-request');
-                var qty_req = $(`#qty_req${data_index}`).val();
-                var total_req = parseFloat(qty_req.replace(/,/g, '') || 0) * parseFloat(price_req || 0);
-                var countBalance = data_total_request - total_req;
+                var price_req           = $(this).val().replace(/,/g, '');
+                var data_index          = $(this).data('index');
+                var data_total_request  = $(this).data('total-request');
+                var qty_req             = $(`#qty_req${data_index}`).val().replace(/,/g, '');
+                var total_req           = parseFloat(qty_req || 0) * parseFloat(price_req || 0);
+                var countBalance        = data_total_request - total_req;
 
                 countBalance = countBalance < 0.00 ? 0.00 : countBalance;
 
                 if (parseFloat(price_req || 0) > parseFloat(val2.productUnitPriceCurrencyValue || 0)) {
-                    $(this).val(0);
-                    $(`#total_req${data_index}`).val(0);
+                    $(this).val(currencyTotal(val2.productUnitPriceCurrencyValue));
+                    $(`#total_req${data_index}`).val(currencyTotal((qty_req || 1) * val2.productUnitPriceCurrencyValue));
                     $(`#balance${data_index}`).val(0);
                     ErrorNotif("Price Req is over Unit Price !");
                 } else {
@@ -353,15 +359,14 @@
                     <input type="hidden" name="record_RefID[]" value="${val2.sys_ID}">
                     <input type="hidden" name="qty_avail[]" value="${currencyTotal(val2.quantity || 0)}">
                     <input type="hidden" name="price_avail[]" value="${currencyTotal(val2.productUnitPriceCurrencyValue || 0)}">
-                    <td style="text-align: center;padding: 0.8rem 0px;">${val2.purchaseRequisitionNumber || '-'}</td>
-                    <td style="text-align: center;padding: 0.8rem 0px;">${val2.productCode || '-'}</td>
-                    <td style="text-align: center;padding: 0.8rem 0px;">${val2.productName || '-'}</td>
-                    <td style="text-align: center;padding: 0.8rem 0px;">${val2.quantityUnitName || '-'}</td>
-                    <td style="text-align: center;padding: 0.8rem 0px;">${val2.productUnitPriceCurrencyISOCode || '-'}</td>
-                    <td style="text-align: center;padding: 0.8rem 0px;">${currencyTotal(val2.productUnitPriceCurrencyValue || 0)}</td>
-                    <td style="text-align: center;padding: 0.8rem 0px;">${currencyTotal(val2.quantity || 0)}</td>
-                    <td style="text-align: center;padding: 0.8rem 0px;">${currencyTotal(totalReq || 0)}</td> 
-                    <td style="text-align: center;padding: 0.8rem 0px;">${val2.note || '-'}</td>
+                    <td style="text-align: left;padding: 0.8rem 0.5rem;width: 100px;">${val2.purchaseRequisitionNumber || '-'}</td>
+                    <td style="text-align: right;padding: 0.8rem 0.5rem;width: 50px;">${val2.productCode + ' - ' + val2.productName}</td>
+                    <td style="text-align: left;padding: 0.8rem 0.5rem;width: 20px;">${val2.quantityUnitName || '-'}</td>
+                    <td style="text-align: left;padding: 0.8rem 0.5rem;width: 40px;">${val2.productUnitPriceCurrencyISOCode || '-'}</td>
+                    <td style="text-align: right;padding: 0.8rem 0.5rem;width: 100px;">${currencyTotal(val2.productUnitPriceCurrencyValue || 0)}</td>
+                    <td style="text-align: right;padding: 0.8rem 0.5rem;width: 50px;">${currencyTotal(val2.quantity || 0)}</td>
+                    <td style="text-align: right;padding: 0.8rem 0.5rem;width: 100px;">${currencyTotal(totalReq || 0)}</td> 
+                    <td style="text-align: left;padding: 0.8rem 0.5rem;width: 150px;">${val2.note || '-'}</td>
                 </tr>
             `;
 
@@ -374,6 +379,64 @@
         document.getElementById('TotalPpn').textContent = currencyTotal(dataDetail[0].tariffCurrencyValue);
         document.getElementById('TotalBudgetSelectedPpn').textContent = currencyTotal(allTotal);
         document.getElementById('GrandTotal').textContent = currencyTotal(totalRequest);
+    }
+
+    function SubmitForm() {
+        $('#purchaseOrderRevisionFormModal').modal('hide');
+
+        var action = $("#FormSubmitRevisionPurchaseOrder").attr("action");
+        var method = $("#FormSubmitRevisionPurchaseOrder").attr("method");
+        var form_data = new FormData($("#FormSubmitRevisionPurchaseOrder")[0]);
+
+        ShowLoading();
+
+        $.ajax({
+            url: action,
+            dataType: 'json',
+            cache: false,
+            contentType: false,
+            processData: false,
+            data: form_data,
+            type: method,
+            success: function(response) {
+                HideLoading();
+
+                if (response.message == "WorkflowError") {
+                    $("#submitRevisionPurchaseOrder").prop("disabled", false);
+
+                    CancelNotif("You don't have access", '/PurchaseOrder?var=1');
+                } else if (response.message == "MoreThanOne") {
+
+                    $('#getWorkFlow').modal('toggle');
+
+                    var t = $('#tableGetWorkFlow').DataTable();
+                    t.clear();
+                    $.each(response.data, function(key, val) {
+                        t.row.add([
+                            '<td><span data-dismiss="modal" onclick="SelectWorkFlow(\'' + val.Sys_ID + '\', \'' + val.NextApprover_RefID + '\', \'' + response.approverEntity_RefID + '\', \'' + response.documentTypeID + '\');"><img src="{{ asset("AdminLTE-master/dist/img/add.png") }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></span></td>',
+                            '<td style="border:1px solid #e9ecef;">' + val.FullApproverPath + '</td></tr></tbody>'
+                        ]).draw();
+                    });
+                } else {
+                    const formatData = {
+                        workFlowPath_RefID: response.workFlowPath_RefID, 
+                        nextApprover: response.nextApprover_RefID, 
+                        approverEntity: response.approverEntity_RefID, 
+                        documentTypeID: response.documentTypeID,
+                        storeData: response.storeData
+                    };
+
+                    SelectWorkFlow(formatData);
+                }
+            },
+            error: function(response) {
+                console.log('response error', response);
+                
+                HideLoading();
+                $("#submitRevisionPurchaseOrder").prop("disabled", false);
+                CancelNotif("You don't have access", '/PurchaseOrder?var=1');
+            }
+        });
     }
 
     $('#revision-po-details-add').on('click', function() {
@@ -407,12 +470,12 @@
                 noteInput.value.trim() !== ''
             ) {
                 const prNumber      = row.children[8].innerText.trim();
-                const productCode   = row.children[9].innerText.trim();
-                const productName   = row.children[10].innerText.trim();
-                const qtyAvail      = row.children[12].innerText.trim();
-                const uom           = row.children[13].innerText.trim();
-                const priceAvail    = row.children[14].innerText.trim();
-                const currency      = row.children[16].innerText.trim();
+                const productCode   = row.children[10].innerText.trim();
+                const productName   = row.children[11].innerText.trim();
+                const qtyAvail      = row.children[13].innerText.trim();
+                const uom           = row.children[14].innerText.trim();
+                const priceAvail    = row.children[15].innerText.trim();
+                const currency      = row.children[17].innerText.trim();
 
                 const qty   = qtyInput.value.trim();
                 const price = priceInput.value.trim();
@@ -426,10 +489,10 @@
                     const recordID = targetRow.children[0].value.trim();
 
                     if (recordID == recordRefID.value) {
-                        targetRow.children[8].innerText = currencyTotal(price);
-                        targetRow.children[9].innerText = currencyTotal(qty);
-                        targetRow.children[10].innerText = currencyTotal(total);
-                        targetRow.children[11].innerText = note;
+                        targetRow.children[7].innerText = currencyTotal(price);
+                        targetRow.children[8].innerText = currencyTotal(qty);
+                        targetRow.children[9].innerText = currencyTotal(total);
+                        targetRow.children[10].innerText = note;
                         found = true;
 
                         const indexToUpdate = dataStore.findIndex(item => item.recordID == recordRefID.value);
@@ -460,15 +523,14 @@
                         <input type="hidden" name="record_RefID[]" value="${recordRefID.value}">
                         <input type="hidden" name="qty_avail[]" value="${qtyAvail}">
                         <input type="hidden" name="price_avail[]" value="${priceAvail}">
-                        <td style="text-align: center;padding: 0.8rem;">${prNumber}</td>
-                        <td style="text-align: center;padding: 0.8rem;">${productCode}</td>
-                        <td style="text-align: center;padding: 0.8rem;">${productName}</td>
-                        <td style="text-align: center;padding: 0.8rem;">${uom}</td>
-                        <td style="text-align: center;padding: 0.8rem;">${currency}</td>
-                        <td style="text-align: center;padding: 0.8rem;">${price}</td>
-                        <td style="text-align: center;padding: 0.8rem;">${qty}</td>
-                        <td style="text-align: center;padding: 0.8rem;">${total}</td>
-                        <td style="text-align: center;padding: 0.8rem;">${note}</td>
+                        <td style="text-align: left;padding: 0.8rem 0.5rem;">${prNumber}</td>
+                        <td style="text-align: right;padding: 0.8rem 0.5rem;">${productCode + ' - ' + productName}</td>
+                        <td style="text-align: left;padding: 0.8rem 0.5rem;">${uom}</td>
+                        <td style="text-align: left;padding: 0.8rem 0.5rem;">${currency}</td>
+                        <td style="text-align: right;padding: 0.8rem 0.5rem;">${price}</td>
+                        <td style="text-align: right;padding: 0.8rem 0.5rem;">${qty}</td>
+                        <td style="text-align: right;padding: 0.8rem 0.5rem;">${total}</td>
+                        <td style="text-align: left;padding: 0.8rem 0.5rem;">${note}</td>
                     `;
                     targetTable.appendChild(newRow);
 
@@ -491,11 +553,11 @@
                     });
                 }
 
-                qtyInput.value = '';
-                priceInput.value = '';
-                totalInput.value = '';
-                noteInput.value = '';
-                balanceInput.value = balanceInput.getAttribute('data-default');
+                // qtyInput.value = '';
+                // priceInput.value = '';
+                // totalInput.value = '';
+                // noteInput.value = '';
+                // balanceInput.value = balanceInput.getAttribute('data-default');
             }
         }
 
@@ -549,86 +611,86 @@
         calculateTotal();
     });
 
-    $("#FormSubmitRevisionPurchaseOrder").on("submit", function(e) {
-        e.preventDefault();
+    // $("#FormSubmitRevisionPurchaseOrder").on("submit", function(e) {
+    //     e.preventDefault();
 
-        const swalWithBootstrapButtons = Swal.mixin({
-            confirmButtonClass: 'btn btn-success btn-sm',
-            cancelButtonClass: 'btn btn-danger btn-sm',
-            buttonsStyling: true,
-        });
+    //     const swalWithBootstrapButtons = Swal.mixin({
+    //         confirmButtonClass: 'btn btn-success btn-sm',
+    //         cancelButtonClass: 'btn btn-danger btn-sm',
+    //         buttonsStyling: true,
+    //     });
 
-        swalWithBootstrapButtons.fire({
-            title: 'Are you sure?',
-            text: "Save this data?",
-            type: 'question',
-            showCancelButton: true,
-            confirmButtonText: '<img src="{{ asset("AdminLTE-master/dist/img/save.png") }}" width="13" alt=""><span style="color:black;">Yes, save it </span>',
-            cancelButtonText: '<img src="{{ asset("AdminLTE-master/dist/img/cancel.png") }}" width="13" alt=""><span style="color:black;"> No, cancel </span>',
-            confirmButtonColor: '#e9ecef',
-            cancelButtonColor: '#e9ecef',
-            reverseButtons: true
-        }).then((result) => {
-            if (result.value) {
-                var action = $(this).attr("action");
-                var method = $(this).attr("method");
-                var form_data = new FormData($(this)[0]);
+    //     swalWithBootstrapButtons.fire({
+    //         title: 'Are you sure?',
+    //         text: "Save this data?",
+    //         type: 'question',
+    //         showCancelButton: true,
+    //         confirmButtonText: '<img src="{{ asset("AdminLTE-master/dist/img/save.png") }}" width="13" alt=""><span style="color:black;">Yes, save it </span>',
+    //         cancelButtonText: '<img src="{{ asset("AdminLTE-master/dist/img/cancel.png") }}" width="13" alt=""><span style="color:black;"> No, cancel </span>',
+    //         confirmButtonColor: '#e9ecef',
+    //         cancelButtonColor: '#e9ecef',
+    //         reverseButtons: true
+    //     }).then((result) => {
+    //         if (result.value) {
+    //             var action = $(this).attr("action");
+    //             var method = $(this).attr("method");
+    //             var form_data = new FormData($(this)[0]);
 
-                ShowLoading();
+    //             ShowLoading();
 
-                $.ajax({
-                    url: action,
-                    dataType: 'json',
-                    cache: false,
-                    contentType: false,
-                    processData: false,
-                    data: form_data,
-                    type: method,
-                    success: function(response) {
-                        HideLoading();
+    //             $.ajax({
+    //                 url: action,
+    //                 dataType: 'json',
+    //                 cache: false,
+    //                 contentType: false,
+    //                 processData: false,
+    //                 data: form_data,
+    //                 type: method,
+    //                 success: function(response) {
+    //                     HideLoading();
 
-                        if (response.message == "WorkflowError") {
-                            $("#submitRevisionPurchaseOrder").prop("disabled", false);
+    //                     if (response.message == "WorkflowError") {
+    //                         $("#submitRevisionPurchaseOrder").prop("disabled", false);
 
-                            CancelNotif("You don't have access", '/PurchaseOrder?var=1');
-                        } else if (response.message == "MoreThanOne") {
+    //                         CancelNotif("You don't have access", '/PurchaseOrder?var=1');
+    //                     } else if (response.message == "MoreThanOne") {
 
-                            $('#getWorkFlow').modal('toggle');
+    //                         $('#getWorkFlow').modal('toggle');
 
-                            var t = $('#tableGetWorkFlow').DataTable();
-                            t.clear();
-                            $.each(response.data, function(key, val) {
-                                t.row.add([
-                                    '<td><span data-dismiss="modal" onclick="SelectWorkFlow(\'' + val.Sys_ID + '\', \'' + val.NextApprover_RefID + '\', \'' + response.approverEntity_RefID + '\', \'' + response.documentTypeID + '\');"><img src="{{ asset("AdminLTE-master/dist/img/add.png") }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></span></td>',
-                                    '<td style="border:1px solid #e9ecef;">' + val.FullApproverPath + '</td></tr></tbody>'
-                                ]).draw();
-                            });
-                        } else {
-                            const formatData = {
-                                workFlowPath_RefID: response.workFlowPath_RefID, 
-                                nextApprover: response.nextApprover_RefID, 
-                                approverEntity: response.approverEntity_RefID, 
-                                documentTypeID: response.documentTypeID,
-                                storeData: response.storeData
-                            };
+    //                         var t = $('#tableGetWorkFlow').DataTable();
+    //                         t.clear();
+    //                         $.each(response.data, function(key, val) {
+    //                             t.row.add([
+    //                                 '<td><span data-dismiss="modal" onclick="SelectWorkFlow(\'' + val.Sys_ID + '\', \'' + val.NextApprover_RefID + '\', \'' + response.approverEntity_RefID + '\', \'' + response.documentTypeID + '\');"><img src="{{ asset("AdminLTE-master/dist/img/add.png") }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></span></td>',
+    //                                 '<td style="border:1px solid #e9ecef;">' + val.FullApproverPath + '</td></tr></tbody>'
+    //                             ]).draw();
+    //                         });
+    //                     } else {
+    //                         const formatData = {
+    //                             workFlowPath_RefID: response.workFlowPath_RefID, 
+    //                             nextApprover: response.nextApprover_RefID, 
+    //                             approverEntity: response.approverEntity_RefID, 
+    //                             documentTypeID: response.documentTypeID,
+    //                             storeData: response.storeData
+    //                         };
 
-                            SelectWorkFlow(formatData);
-                        }
-                    },
-                    error: function(response) {
-                        console.log('response error', response);
+    //                         SelectWorkFlow(formatData);
+    //                     }
+    //                 },
+    //                 error: function(response) {
+    //                     console.log('response error', response);
                         
-                        HideLoading();
-                        $("#submitRevisionPurchaseOrder").prop("disabled", false);
-                        CancelNotif("You don't have access", '/PurchaseOrder?var=1');
-                    }
-                });
-            } else if (result.dismiss === Swal.DismissReason.cancel) {
-                HideLoading();
-                CancelNotif("Data Cancel Inputed", '/PurchaseOrder?var=1');
-            }
-        });
-    });
+    //                     HideLoading();
+    //                     $("#submitRevisionPurchaseOrder").prop("disabled", false);
+    //                     CancelNotif("You don't have access", '/PurchaseOrder?var=1');
+    //                 }
+    //             });
+    //         } else if (result.dismiss === Swal.DismissReason.cancel) {
+    //             HideLoading();
+    //             CancelNotif("Data Cancel Inputed", '/PurchaseOrder?var=1');
+    //         }
+    //     });
+    // });
 
     $(document).on('input', '.number-without-negative', function() {
         allowNumbersWithoutNegative(this);
@@ -657,99 +719,99 @@
         }
     });
 
-    document.querySelector('#tablePurchaseOrderList tbody').addEventListener('click', function (e) {
-        const row = e.target.closest('tr');
-        if (!row) return;
+    // document.querySelector('#tablePurchaseOrderList tbody').addEventListener('click', function (e) {
+    //     const row = e.target.closest('tr');
+    //     if (!row) return;
 
-        if (['INPUT', 'TEXTAREA'].includes(e.target.tagName)) return;
+    //     if (['INPUT', 'TEXTAREA'].includes(e.target.tagName)) return;
 
-        const qtyAvail      = row.children[1];
-        const priceAvail    = row.children[2];
-        const qtyReq        = row.children[9];
-        const priceReq      = row.children[8];
-        const totalReq      = row.children[10];
-        const remarks       = row.children[11];
+    //     const qtyAvail      = row.children[1];
+    //     const priceAvail    = row.children[2];
+    //     const qtyReq        = row.children[9];
+    //     const priceReq      = row.children[8];
+    //     const totalReq      = row.children[10];
+    //     const remarks       = row.children[11];
 
-        if (row.classList.contains('editing-row')) {
-            const newQtyReq     = qtyReq.querySelector('input')?.value || '';
-            const newPriceReq   = priceReq.querySelector('input')?.value || '';
-            const newTotalReq   = totalReq.querySelector('input')?.value || '';
-            const newRemarks    = remarks.querySelector('textarea')?.value || '';
+    //     if (row.classList.contains('editing-row')) {
+    //         const newQtyReq     = qtyReq.querySelector('input')?.value || '';
+    //         const newPriceReq   = priceReq.querySelector('input')?.value || '';
+    //         const newTotalReq   = totalReq.querySelector('input')?.value || '';
+    //         const newRemarks    = remarks.querySelector('textarea')?.value || '';
 
-            qtyReq.innerHTML    = newQtyReq;
-            priceReq.innerHTML  = newPriceReq;
-            totalReq.innerHTML  = newTotalReq;
-            remarks.innerHTML   = newRemarks;
+    //         qtyReq.innerHTML    = newQtyReq;
+    //         priceReq.innerHTML  = newPriceReq;
+    //         totalReq.innerHTML  = newTotalReq;
+    //         remarks.innerHTML   = newRemarks;
 
-            const hidden = remarks.querySelector('input[type="hidden"]');
-            remarks.innerHTML = `${newRemarks}`;
-            if (hidden) remarks.appendChild(hidden);
+    //         const hidden = remarks.querySelector('input[type="hidden"]');
+    //         remarks.innerHTML = `${newRemarks}`;
+    //         if (hidden) remarks.appendChild(hidden);
 
-            row.classList.remove('editing-row');
+    //         row.classList.remove('editing-row');
 
-            const recordID  = row.children[0].value.trim();
-            const storeItem = dataStore.find(item => item.recordID == recordID);
+    //         const recordID  = row.children[0].value.trim();
+    //         const storeItem = dataStore.find(item => item.recordID == recordID);
 
-            if (storeItem) {
-                storeItem.entities.quantity = parseFloat(newQtyReq.replace(/,/g, ''));
-                storeItem.entities.productUnitPriceCurrencyValue = parseFloat(newPriceReq.replace(/,/g, ''));
-                storeItem.entities.remarks = newRemarks;
+    //         if (storeItem) {
+    //             storeItem.entities.quantity = parseFloat(newQtyReq.replace(/,/g, ''));
+    //             storeItem.entities.productUnitPriceCurrencyValue = parseFloat(newPriceReq.replace(/,/g, ''));
+    //             storeItem.entities.remarks = newRemarks;
 
-                $("#purchaseOrderDetail").val(JSON.stringify(dataStore));
-            }
-        } else {
-            const currentQty        = qtyReq.innerText.trim();
-            const currentPrice      = priceReq.innerText.trim();
-            const currentTotal      = totalReq.innerText.trim();
+    //             $("#purchaseOrderDetail").val(JSON.stringify(dataStore));
+    //         }
+    //     } else {
+    //         const currentQty        = qtyReq.innerText.trim();
+    //         const currentPrice      = priceReq.innerText.trim();
+    //         const currentTotal      = totalReq.innerText.trim();
 
-            const hiddenInput       = remarks.querySelector('input[type="hidden"]');
-            const currentremarks    = remarks.childNodes[0]?.nodeValue?.trim() || '';
+    //         const hiddenInput       = remarks.querySelector('input[type="hidden"]');
+    //         const currentremarks    = remarks.childNodes[0]?.nodeValue?.trim() || '';
 
-            qtyReq.innerHTML = `<input class="form-control number-without-negative qty-input" value="${currentQty}" autocomplete="off" style="border-radius:0px;width:100px;">`;
-            priceReq.innerHTML = `<input class="form-control number-without-negative price-input" value="${currentPrice}" autocomplete="off" style="border-radius:0px;width:100px;">`;
-            totalReq.innerHTML = `<input class="form-control number-without-negative total-input" value="${currentTotal}" autocomplete="off" style="border-radius:0px;width:100px;" readonly>`;
-            remarks.innerHTML = `
-                <textarea class="form-control" style="width:100px;">${currentremarks}</textarea>
-            `;
-            if (hiddenInput) remarks.appendChild(hiddenInput);
+    //         qtyReq.innerHTML = `<input class="form-control number-without-negative qty-input" value="${currentQty}" autocomplete="off" style="border-radius:0px;width:100px;">`;
+    //         priceReq.innerHTML = `<input class="form-control number-without-negative price-input" value="${currentPrice}" autocomplete="off" style="border-radius:0px;width:100px;">`;
+    //         totalReq.innerHTML = `<input class="form-control number-without-negative total-input" value="${currentTotal}" autocomplete="off" style="border-radius:0px;width:100px;" readonly>`;
+    //         remarks.innerHTML = `
+    //             <textarea class="form-control" style="width:100px;">${currentremarks}</textarea>
+    //         `;
+    //         if (hiddenInput) remarks.appendChild(hiddenInput);
 
-            row.classList.add('editing-row');
+    //         row.classList.add('editing-row');
 
-            const qtyInput      = qtyReq.querySelector('.qty-input');
-            const priceInput    = priceReq.querySelector('.price-input');
-            const totalInput    = totalReq.querySelector('.total-input');
+    //         const qtyInput      = qtyReq.querySelector('.qty-input');
+    //         const priceInput    = priceReq.querySelector('.price-input');
+    //         const totalInput    = totalReq.querySelector('.total-input');
 
-            function validateQtyPrice() {
-                var price   = parseFloat(priceInput.value.replace(/,/g, '')) || 0;
-                var qty     = parseFloat(qtyInput.value.replace(/,/g, '')) || 0;
-                var total   = price * qty;
+    //         function validateQtyPrice() {
+    //             var price   = parseFloat(priceInput.value.replace(/,/g, '')) || 0;
+    //             var qty     = parseFloat(qtyInput.value.replace(/,/g, '')) || 0;
+    //             var total   = price * qty;
 
-                const qtyAvailValue     = parseFloat(qtyAvail?.value.replace(/,/g, '')) || 0;
-                const priceAvailValue   = parseFloat(priceAvail?.value.replace(/,/g, '')) || 0;
+    //             const qtyAvailValue     = parseFloat(qtyAvail?.value.replace(/,/g, '')) || 0;
+    //             const priceAvailValue   = parseFloat(priceAvail?.value.replace(/,/g, '')) || 0;
 
-                if (qty > qtyAvailValue) {
-                    total           = priceAvailValue * qtyAvailValue;
-                    qty             = qtyAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-                    qtyInput.value  = qtyAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    //             if (qty > qtyAvailValue) {
+    //                 total           = priceAvailValue * qtyAvailValue;
+    //                 qty             = qtyAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    //                 qtyInput.value  = qtyAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
-                    ErrorNotif("Qty Req is over Qty Avail !");
-                }
+    //                 ErrorNotif("Qty Req is over Qty Avail !");
+    //             }
 
-                if (price > priceAvailValue) {
-                    total               = qtyAvailValue * priceAvailValue;
-                    price               = priceAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-                    priceInput.value    = priceAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    //             if (price > priceAvailValue) {
+    //                 total               = qtyAvailValue * priceAvailValue;
+    //                 price               = priceAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    //                 priceInput.value    = priceAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
-                    ErrorNotif("Price Req is over Price Avail !");
-                }
+    //                 ErrorNotif("Price Req is over Price Avail !");
+    //             }
 
-                totalInput.value = total.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-            }
+    //             totalInput.value = total.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    //         }
 
-            priceInput.addEventListener('input', validateQtyPrice);
-            qtyInput.addEventListener('input', validateQtyPrice);
-        }
+    //         priceInput.addEventListener('input', validateQtyPrice);
+    //         qtyInput.addEventListener('input', validateQtyPrice);
+    //     }
 
-        updateGrandTotal();
-    });
+    //     updateGrandTotal();
+    // });
 </script>

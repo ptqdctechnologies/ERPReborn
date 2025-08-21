@@ -114,7 +114,7 @@ class PurchaseRequisitionController extends Controller
         // tes;
         try {
             $project_code = $request->project_code_second;
-            $site_code = $request->site_id_second;
+            $site_code = $request->site_code_second;
 
             $statusHeader = "Yes";
             Log::error("Error at " ,[$request->all()]);
@@ -234,7 +234,7 @@ class PurchaseRequisitionController extends Controller
 
             }
             Session::put("ReportPRtoPODataPDF", $filteredArray['data']['data']);
-            Session::put("PurchaseRequisitionReportSummaryDataExcel", $filteredArray['data']['data']);
+            Session::put("dataReportPRtoPO", $filteredArray['data']['data']);
             return $filteredArray['data']['data'];
         }
         catch (\Throwable $th) {
@@ -254,7 +254,7 @@ class PurchaseRequisitionController extends Controller
             Log::error("Error at " ,[$request->all()]);
             if ($project_code == "" && $site_code == "") {
                 Session::forget("ReportPRtoPODataPDF");
-                Session::forget("PurchaseRequisitionReportSummaryDataExcel");
+                Session::forget("dataReportPRtoPO");
                 
                 return redirect()->route('PurchaseRequisition.ReportPRtoPO')->with('NotFound', 'Cannot Empty');
             }
@@ -276,9 +276,11 @@ class PurchaseRequisitionController extends Controller
     }
     public function PrintExportReportPRtoPO(Request $request)
     {
+        ini_set('memory_limit', '512M');
+        set_time_limit(300);
         try {
             $dataPDF = Session::get("ReportPRtoPODataPDF");
-            $dataExcel = Session::get("PurchaseRequisitionReportSummaryDataExcel");
+            $dataExcel = Session::get("dataReportPRtoPO");
 
             
             if ($dataPDF && $dataExcel) {

@@ -36,7 +36,7 @@
                                     </td>
                                 </tr>
 
-                                <tr>
+                                <!-- <tr>
                                     <td><label>Warehouse</label></td>
                                     <td>
                                         <div class="input-group">
@@ -48,23 +48,7 @@
                                             </select>
                                         </div>
                                     </td>
-                                </tr>
-                                <tr>
-                                    <td><label>Addres</label></td>
-                                    <td>
-                                        <div class="input-group">
-                                            <textarea name="" id="address" cols="30" rows="2" class="form-control" readonly></textarea>
-                                        </div>
-                                    </td>
-                                </tr>
-
-                            </table>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <table>
+                                </tr> -->
                                 <tr>
                                     <td><label>Sub Budget Code</label></td>
                                     <td>
@@ -84,14 +68,50 @@
                                         </div>
                                     </td>
                                 </tr>
+
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <table>
+                                <!-- <tr>
+                                    <td><label>Sub Budget Code</label></td>
+                                    <td>
+                                        <div class="input-group">
+                                            <input type="hidden" id="siteid" style="border-radius:0;" name="siteid" class="form-control" readonly>
+                                            <input id="sitecode" style="border-radius:0;" name="sitecode" class="form-control" readonly>
+                                            <div class="input-group-append">
+                                                <span style="border-radius:0;" class="input-group-text form-control">
+                                                    <a href="#" id="sitecode2" data-toggle="modal" data-target="#mySiteCode"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="input-group">
+                                            <input id="sitename" style="border-radius:0;" class="form-control" name="sitename" readonly>
+                                        </div>
+                                    </td>
+                                </tr> -->
                                 <tr>
                                     <td><label>DO Number</label></td>
                                     <td>
                                         <div class="input-group">
-                                            <input id="DoNumberMret" style="border-radius:0;" name="DoNumberMret" class="form-control">
-
+                                            <input id="project_code" style="border-radius:0;" name="project_code" class="form-control" readonly>
+                                            <div class="input-group-append">
+                                                <span style="border-radius:0;" class="input-group-text form-control">
+                                                    <a href="#" id="project_code2" data-toggle="modal" class="myProject"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
+                                                </span>
+                                            </div>
                                         </div>
                                     </td>
+                                    <!-- <td>
+                                        <div class="input-group">
+                                            <input id="project_code_detail" style="border-radius:0;" class="form-control" name="project_code_detail" readonly>
+                                        </div>
+                                    </td> -->
                                 </tr>
                                 <tr>
                                     <td><label>Delivery By</label></td>

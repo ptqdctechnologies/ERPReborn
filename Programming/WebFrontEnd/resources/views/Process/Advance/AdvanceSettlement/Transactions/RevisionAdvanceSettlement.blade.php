@@ -177,10 +177,6 @@
                 <button type="button" id="advance-details-add" class="btn btn-default btn-sm float-right" data-toggle="modal" data-target="#advanceSettlementRevisionFormModal" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
                   <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" title="Submit to Advance"> Submit
                 </button>
-
-                {{-- <button class="btn btn-default btn-sm float-right" type="submit" id="submitAsf" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
-                  <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" title="Submit to Advance"> Submit
-                </button> --}}
               </div>
             </div>
           </div>
@@ -191,7 +187,7 @@
 </div>
 
 <div class="modal fade" id="advanceSettlementRevisionFormModal" tabindex="-1" role="dialog">
-  <div class="modal-dialog modal-xl" role="document">
+  <div class="modal-dialog modal-lg" role="document" style="height: -webkit-fill-available; display: flex; align-items: center;">
     <div class="modal-content">
       <div class="modal-header">
         <h3 style="margin: 0px;font-weight:bold;">Are you sure you want to save this data?</h3>
@@ -206,9 +202,7 @@
         <div class="card-body">
           <table style="float:right;">
             <tr>
-              <th> Total Item :
-                <span id="GrandTotal">0.00</span>
-              </th>
+              <th id="GrandTotal"></th>
             </tr>
           </table>
         </div>

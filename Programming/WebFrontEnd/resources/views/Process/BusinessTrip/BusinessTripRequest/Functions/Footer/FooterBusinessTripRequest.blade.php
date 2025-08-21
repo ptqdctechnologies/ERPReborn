@@ -2,13 +2,40 @@
   // var currentModalSource = '';
   const initialValue = 0;
   const totalBusinessTrip = [];
-  
-  var currenctBudgetSelection = 0;
-  var date = new Date();
-  var today = new Date(date.setMonth(date.getMonth() - 3));
+
+  let documentTypeID = document.getElementById("DocumentTypeID");
+  let currenctBudgetSelection = 0;
+  let date = new Date();
+  let today = new Date(date.setMonth(date.getMonth() - 3));
 
   document.getElementById('dateCommance').setAttribute('min', today.toISOString().split('T')[0]);
   document.getElementById('dateEnd').setAttribute('min', today.toISOString().split('T')[0]);
+
+  document.getElementById("direct_to_vendor").addEventListener("input", calculateTotalPayment);
+  document.getElementById("by_corp_card").addEventListener("input", calculateTotalPayment);
+  document.getElementById("to_other").addEventListener("input", calculateTotalPayment);
+
+  function calculateTotalPayment() {
+    const totalBrf        = parseFormattedNumber(document.getElementById("total_business_trip").value);
+    const directToVendor  = parseFormattedNumber(document.getElementById("direct_to_vendor").value);
+    const corpCard        = parseFormattedNumber(document.getElementById("by_corp_card").value);
+    const toOther         = parseFormattedNumber(document.getElementById("to_other").value);
+
+    const total = directToVendor + corpCard + toOther;
+
+    if (totalBrf > 0 && total > totalBrf) {
+      // document.getElementById("direct_to_vendor").value = '';
+      // document.getElementById("by_corp_card").value = '';
+      // document.getElementById("to_other").value = '';
+      document.getElementById("total_payment").value = 0.00;
+      ErrorNotif("Total Payment is over!");
+    } else {
+      document.getElementById("total_payment").value = total.toLocaleString('en-US', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      });
+    }
+  }
 
   // FUNGSI UNTUK BUTTON CANCEL FORM
   function CancelBusinessTrip() {
@@ -42,8 +69,9 @@
   }
 
   // FUNGSI UNTUK MENGUBAH STRING ANGKA DENGAN FORMAT KE NUMBER
-  function parseFormattedNumber(strNumber) {
-    return parseFloat(strNumber.replace(/,/g, ''));
+  function parseFormattedNumber(value) {
+    if (!value) return 0;
+    return parseFloat(value.replace(/,/g, ''));
   }
 
   // FUNGSI UNTUK MENDAPATKAN DATA BARIS YANG DICENTANG DAN MENYIMPAN KE INPUT
@@ -59,17 +87,18 @@
         productId: row.cells[1].textContent.trim(),
         productName: row.cells[2].textContent.trim(),
         totalBudget: row.cells[3].textContent.trim(),
-        qtyBudget: row.cells[4].textContent.trim(),
-        qtyAvail: row.cells[5].textContent.trim(),
-        price: row.cells[6].textContent.trim(),
-        currency: row.cells[7].textContent.trim(),
-        balanceBudget: row.cells[8].textContent.trim(),
+        // qtyBudget: row.cells[4].textContent.trim(),
+        // qtyAvail: row.cells[5].textContent.trim(),
+        // price: row.cells[6].textContent.trim(),
+        currency: row.cells[4].textContent.trim(),
+        balanceBudget: row.cells[5].textContent.trim(),
         sysId: row.querySelector('input[data-budget-id="sys_ID"]').value
       };
       
       // $("#var_combinedBudget_RefID").val(datas.sysId);
       $("#total_business_trip_request").val(datas.totalBudget);
       $("#total_balanced").val(datas.balanceBudget);
+      $("#combinedBudgetSectionDetail_RefID").val(datas.sysId);
       
       budgetDetailsInput.value = JSON.stringify(datas);
       currenctBudgetSelection = parseFormattedNumber(datas.balanceBudget);
@@ -203,15 +232,18 @@
       type: 'question',
       input: 'textarea',
       showCloseButton: false,
-      showCancelButton: false,
+      showCancelButton: true,
       focusConfirm: false,
+      cancelButtonText: '<span style="color:black;"> Cancel </span>',
       confirmButtonText: '<span style="color:black;"> OK </span>',
-      confirmButtonColor: '#4B586A',
-      confirmButtonColor: '#e9ecef',
+      cancelButtonColor: '#DDDAD0',
+      confirmButtonColor: '#DDDAD0',
       reverseButtons: true
     }).then((result) => {
-      ShowLoading();
-      BusinessTripRequestStore({...formatData, comment: result.value});
+      if ('value' in result) {
+        ShowLoading();
+        BusinessTripRequestStore({...formatData, comment: result.value});
+      }
     });
   }
 
@@ -239,7 +271,7 @@
           swalWithBootstrapButtons.fire({
             title: 'Successful !',
             type: 'success',
-            html: 'Data has been saved. Your transaction number is ' + '<span style="color:red;">' + res.documentNumber + '</span>',
+            html: 'Data has been saved. Your transaction number is ' + '<span style="color:#0046FF;font-weight:bold;">' + res.documentNumber + '</span>',
             showCloseButton: false,
             showCancelButton: false,
             focusConfirm: false,
@@ -282,17 +314,41 @@
   $("#bank_accounts_third_popup").prop("disabled", true);
 
   // BUDGET CODE
-  $('#tableGetProjectSecond').on('click', 'tbody tr', function() {
-    var sysId = $(this).find('input[data-trigger="sys_id_project_second"]').val();
-    getSiteSecond(sysId);
+  $('#tableGetProjectSecond').on('click', 'tbody tr', async function() {
+    var sysId       = $(this).find('input[data-trigger="sys_id_project_second"]').val();
+    var projectCode = $(this).find('td:nth-child(2)').text();
+    var projectName = $(this).find('td:nth-child(3)').text();
 
-    $("#var_combinedBudget_RefID").val(sysId);
+    $("#project_id_second").val("");
+    $("#project_code_second").val("");
+    $("#project_name_second").val("");
 
-    $("#site_code_second").val("");
-    $("#site_id_second").val("");
-    $("#site_name_second").val("");
+    $("#loadingBudget").show();
+    $("#myProjectSecondTrigger").hide();
 
-    $("#mySiteCodeSecondTrigger").prop("disabled", false);
+    try {
+      var checkWorkFlow = await checkingWorkflow(sysId, documentTypeID.value);
+
+      if (checkWorkFlow) {
+        $("#var_combinedBudget_RefID").val(sysId);
+        $("#project_id_second").val(sysId);
+        $("#project_code_second").val(projectCode);
+        $("#project_name_second").val(projectName);
+        $("#myProjectSecondTrigger").prop("disabled", true);
+
+        getSiteSecond(sysId);
+        $("#mySiteCodeSecondTrigger").prop("disabled", false);
+      }
+
+      $("#loadingBudget").hide();
+      $("#myProjectSecondTrigger").show();
+    } catch (error) {
+      console.error('Error checking workflow:', error);
+      $("#loadingBudget").hide();
+      $("#myProjectSecondTrigger").show();
+
+      Swal.fire("Error", "Error Checking Workflow", "error");
+    }
   });
 
   // SUB BUDGET CODE
@@ -361,15 +417,6 @@
                 numberFormatPHPCustom(val2.quantity * val2.priceBaseCurrencyValue, 2) +
               '</td>' +
               '<td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">' +
-                numberFormatPHPCustom(val2.quantity, 2) +
-              '</td>' +
-              '<td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">' +
-                numberFormatPHPCustom(val2.quantityRemaining, 2) +
-              '</td>' +
-              '<td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">' +
-                numberFormatPHPCustom(val2.priceBaseCurrencyValue, 2) +
-              '</td>' +
-              '<td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">' +
                 val2.priceBaseCurrencyISOCode +
               '</td>' +
               '<td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">' +
@@ -420,25 +467,39 @@
 
   // ========== VENDOR ==========
   // GET BANK ACCOUNT VENDOR KETIKA MODAL BANK NAME VENDOR KE CLOSE
-  $('#myGetBankList').on('hidden.bs.modal', function () {
-    const bankVendorID = document.getElementById('bank_list_code');
-    const bankAccountsID = document.getElementById('bank_accounts_id');
+  // $('#myGetBankList').on('hidden.bs.modal', function () {
+  //   console.log('sono');
+    
+  //   const bankVendorID = document.getElementById('bank_list_code');
+  //   const bankAccountsID = document.getElementById('bank_accounts_id');
 
-    // CEK APAKAH BANK NAME VENDOR SUDAH TERISI
-    if (bankVendorID.value && !bankAccountsID.value) {
-      $("#bank_accounts_popup_vendor").prop("disabled", false);
-      $("#bank_accounts").removeAttr("readonly");
-      $("#bank_accounts_detail").removeAttr("readonly");
+  //   // CEK APAKAH BANK NAME VENDOR SUDAH TERISI
+  //   if (bankVendorID.value && !bankAccountsID.value) {
+  //     $("#bank_accounts_popup_vendor").prop("disabled", false);
+  //     $("#bank_accounts").removeAttr("readonly");
+  //     $("#bank_accounts_detail").removeAttr("readonly");
 
-      getBankAccountData(bankVendorID.value);
-    }
-  });
+  //     getBankAccountData(bankVendorID.value);
+  //   }
+  // });
 
   // KETIKA MODAL BANK NAME VENDOR DIPILIH, MAKA MENGHAPUS VALUE BANK ACCOUNT VENDOR
   $('#tableGetBankList').on('click', 'tbody tr', function() {
+    const bankVendorID = document.getElementById('bank_list_code');
+    const bankAccountsID = document.getElementById('bank_accounts_id');
+
+    $("#bank_accounts_popup_vendor").prop("disabled", false);
     $("#bank_accounts").val("");
     $("#bank_accounts_id").val("");
     $("#bank_accounts_detail").val("");
+    getBankAccountData(bankVendorID.value);
+
+    // CEK APAKAH BANK NAME VENDOR SUDAH TERISI
+    // if (bankVendorID.value && !bankAccountsID.value) {
+      // $("#bank_accounts").removeAttr("readonly");
+      // $("#bank_accounts_detail").removeAttr("readonly");
+    // } else {
+    // }
   });
 
   // MENAMBAHKAN READ-ONLY PADA KOMPONEN BANK ACCOUNT VENDOR
@@ -452,56 +513,62 @@
     $("#bank_accounts_duplicate_detail").val(accountName);
   });
 
-  $('#bank_accounts').on('input', function() {
-    var bankAccount                 = document.getElementById('bank_accounts');
-    var bankAccountDuplicate        = document.getElementById('bank_accounts_duplicate');
-    var bankAccountDuplicateId      = document.getElementById('bank_accounts_duplicate_id');
-    var bankAccountDetail           = document.getElementById('bank_accounts_detail');
-    var bankAccountDuplicateDetail  = document.getElementById('bank_accounts_duplicate_detail');
+  // $('#bank_accounts').on('input', function() {
+  //   var bankAccount                 = document.getElementById('bank_accounts');
+  //   var bankAccountDuplicate        = document.getElementById('bank_accounts_duplicate');
+  //   var bankAccountDuplicateId      = document.getElementById('bank_accounts_duplicate_id');
+  //   var bankAccountDetail           = document.getElementById('bank_accounts_detail');
+  //   var bankAccountDuplicateDetail  = document.getElementById('bank_accounts_duplicate_detail');
 
-    if (bankAccount.value !== bankAccountDuplicate.value || bankAccountDetail.value !== bankAccountDuplicateDetail.value) {
-      $("#bank_accounts_id").val("");
-    } else {
-      $("#bank_accounts_id").val(bankAccountDuplicateId.value);
-    }
-  });
+  //   if (bankAccount.value !== bankAccountDuplicate.value || bankAccountDetail.value !== bankAccountDuplicateDetail.value) {
+  //     $("#bank_accounts_id").val("");
+  //   } else {
+  //     $("#bank_accounts_id").val(bankAccountDuplicateId.value);
+  //   }
+  // });
 
-  $('#bank_accounts_detail').on('input', function() {
-    var bankAccountDetail           = document.getElementById('bank_accounts_detail');
-    var bankAccountDuplicateDetail  = document.getElementById('bank_accounts_duplicate_detail');
-    var bankAccountDuplicateId      = document.getElementById('bank_accounts_duplicate_id');
-    var bankAccount                 = document.getElementById('bank_accounts');
-    var bankAccountDuplicate        = document.getElementById('bank_accounts_duplicate');
+  // $('#bank_accounts_detail').on('input', function() {
+  //   var bankAccountDetail           = document.getElementById('bank_accounts_detail');
+  //   var bankAccountDuplicateDetail  = document.getElementById('bank_accounts_duplicate_detail');
+  //   var bankAccountDuplicateId      = document.getElementById('bank_accounts_duplicate_id');
+  //   var bankAccount                 = document.getElementById('bank_accounts');
+  //   var bankAccountDuplicate        = document.getElementById('bank_accounts_duplicate');
 
-    if (bankAccountDetail.value !== bankAccountDuplicateDetail.value || bankAccount.value !== bankAccountDuplicate.value) {
-      $("#bank_accounts_id").val("");
-    } else {
-      $("#bank_accounts_id").val(bankAccountDuplicateId.value);
-    }
-  });
+  //   if (bankAccountDetail.value !== bankAccountDuplicateDetail.value || bankAccount.value !== bankAccountDuplicate.value) {
+  //     $("#bank_accounts_id").val("");
+  //   } else {
+  //     $("#bank_accounts_id").val(bankAccountDuplicateId.value);
+  //   }
+  // });
   // ========== VENDOR ==========
 
   // ========== CORP CARD ==========
   // GET BANK ACCOUNT CORP CARD KETIKA MODAL BANK NAME CORP CARD KE CLOSE
-  $('#myGetBankListSecond').on('hidden.bs.modal', function () {
-    const bankCorpCardID = document.getElementById('bank_list_second_code');
-    const bankAccountsCorpCardID = document.getElementById('bank_accounts_id_second');
+  // $('#myGetBankListSecond').on('hidden.bs.modal', function () {
+  //   const bankCorpCardID = document.getElementById('bank_list_second_code');
+  //   const bankAccountsCorpCardID = document.getElementById('bank_accounts_id_second');
 
-    // CEK APAKAH BANK NAME CORP CARD SUDAH TERISI
-    if (bankCorpCardID.value && !bankAccountsCorpCardID.value) {
-      $("#bank_accounts_popup_corp_card").prop("disabled", false);
-      $("#bank_accounts_second").removeAttr("readonly");
-      $("#bank_accounts_detail_second").removeAttr("readonly");
+  //   // CEK APAKAH BANK NAME CORP CARD SUDAH TERISI
+  //   if (bankCorpCardID.value && !bankAccountsCorpCardID.value) {
+  //     $("#bank_accounts_popup_corp_card").prop("disabled", false);
+  //     $("#bank_accounts_second").removeAttr("readonly");
+  //     $("#bank_accounts_detail_second").removeAttr("readonly");
 
-      getBankAccountData(bankCorpCardID.value, "second_modal");
-    }
-  });
+  //     getBankAccountData(bankCorpCardID.value, "second_modal");
+  //   }
+  // });
 
   // KETIKA MODAL BANK NAME CORP CARD DIPILIH, MAKA MENGHAPUS VALUE BANK ACCOUNT CORP CARD
   $('#tableGetBankListSecond').on('click', 'tbody tr', function() {
+    const bankCorpCardID = document.getElementById('bank_list_second_code');
+    const bankAccountsCorpCardID = document.getElementById('bank_accounts_id_second');
+
+    $("#bank_accounts_popup_corp_card").prop("disabled", false);
     $("#bank_accounts_second").val("");
     $("#bank_accounts_id_second").val("");
     $("#bank_accounts_detail_second").val("");
+
+    getBankAccountData(bankCorpCardID.value, "second_modal");
   });
 
   // MENAMBAHKAN READ-ONLY PADA KOMPONEN BANK ACCOUNT CORP CARD
@@ -515,116 +582,119 @@
     $("#bank_accounts_detail_duplicate_second").val(accountName);
   });
 
-  $('#bank_accounts_second').on('input', function() {
-    var bankAccountSecond                 = document.getElementById('bank_accounts_second');
-    var bankAccountSecondDuplicate        = document.getElementById('bank_accounts_duplicate_second');
-    var bankAccountSecondDuplicateId      = document.getElementById('bank_accounts_duplicate_id_second');
-    var bankAccountDetailSecond           = document.getElementById('bank_accounts_detail_second');
-    var bankAccountDuplicateDetailSecond  = document.getElementById('bank_accounts_detail_duplicate_second');
+  // $('#bank_accounts_second').on('input', function() {
+  //   var bankAccountSecond                 = document.getElementById('bank_accounts_second');
+  //   var bankAccountSecondDuplicate        = document.getElementById('bank_accounts_duplicate_second');
+  //   var bankAccountSecondDuplicateId      = document.getElementById('bank_accounts_duplicate_id_second');
+  //   var bankAccountDetailSecond           = document.getElementById('bank_accounts_detail_second');
+  //   var bankAccountDuplicateDetailSecond  = document.getElementById('bank_accounts_detail_duplicate_second');
 
-    if (bankAccountSecond.value !== bankAccountSecondDuplicate.value || bankAccountDetailSecond.value !== bankAccountDuplicateDetailSecond.value) {
-      $("#bank_accounts_id_second").val("");
-    } else {
-      $("#bank_accounts_id_second").val(bankAccountSecondDuplicateId.value);
-    }
-  });
+  //   if (bankAccountSecond.value !== bankAccountSecondDuplicate.value || bankAccountDetailSecond.value !== bankAccountDuplicateDetailSecond.value) {
+  //     $("#bank_accounts_id_second").val("");
+  //   } else {
+  //     $("#bank_accounts_id_second").val(bankAccountSecondDuplicateId.value);
+  //   }
+  // });
 
-  $('#bank_accounts_detail_second').on('input', function() {
-    var bankAccountDetailSecond           = document.getElementById('bank_accounts_detail_second');
-    var bankAccountDuplicateDetailSecond  = document.getElementById('bank_accounts_detail_duplicate_second');
-    var bankAccountDuplicateIdSecond      = document.getElementById('bank_accounts_duplicate_id_second');
-    var bankAccountSecond                 = document.getElementById('bank_accounts_second');
-    var bankAccountSecondDuplicate        = document.getElementById('bank_accounts_duplicate_second');
+  // $('#bank_accounts_detail_second').on('input', function() {
+  //   var bankAccountDetailSecond           = document.getElementById('bank_accounts_detail_second');
+  //   var bankAccountDuplicateDetailSecond  = document.getElementById('bank_accounts_detail_duplicate_second');
+  //   var bankAccountDuplicateIdSecond      = document.getElementById('bank_accounts_duplicate_id_second');
+  //   var bankAccountSecond                 = document.getElementById('bank_accounts_second');
+  //   var bankAccountSecondDuplicate        = document.getElementById('bank_accounts_duplicate_second');
 
-    if (bankAccountDetailSecond.value !== bankAccountDuplicateDetailSecond.value || bankAccountSecond.value !== bankAccountSecondDuplicate.value) {
-      $("#bank_accounts_id_second").val("");
-    } else {
-      $("#bank_accounts_id_second").val(bankAccountDuplicateIdSecond.value);
-    }
-  });
+  //   if (bankAccountDetailSecond.value !== bankAccountDuplicateDetailSecond.value || bankAccountSecond.value !== bankAccountSecondDuplicate.value) {
+  //     $("#bank_accounts_id_second").val("");
+  //   } else {
+  //     $("#bank_accounts_id_second").val(bankAccountDuplicateIdSecond.value);
+  //   }
+  // });
   // ========== CORP CARD ==========
 
   // ========== TO OTHER ==========
-  $('#myBeneficiarySecond').on('hidden.bs.modal', function () {
-    const beneficiaryRefID = document.getElementById('beneficiary_second_id');
-    const beneficiaryPersonRefID = document.getElementById('beneficiary_second_person_ref_id');
+  // $('#myBeneficiarySecond').on('hidden.bs.modal', function () {
+  //   const beneficiaryRefID = document.getElementById('beneficiary_second_id');
+  //   const beneficiaryPersonRefID = document.getElementById('beneficiary_second_person_ref_id');
 
-    if (beneficiaryRefID.value && beneficiaryPersonRefID.value) {
-      $("#bank_list_popup_second").prop("disabled", false);
-      // $("#bank_accounts_third_popup").prop("disabled", false);
-    }
-  });
+  //   if (beneficiaryRefID.value && beneficiaryPersonRefID.value) {
+  //     $("#bank_list_popup_second").prop("disabled", false);
+  //     // $("#bank_accounts_third_popup").prop("disabled", false);
+  //   }
+  // });
 
   $('#tableGetBeneficiarySecond').on('click', 'tbody tr', function() {
-    const bankCorpCardID = document.getElementById('beneficiary_second_person_ref_id');
+    $("#bank_list_popup_second").prop("disabled", false);
+
+    // const bankCorpCardID = document.getElementById('beneficiary_second_person_ref_id');
     
-    if (bankCorpCardID.value) {
-      // $("#bank_list_third_name").val("");
-      // $("#bank_list_third_code").val("");
-      // $("#bank_list_third_detail").val("");
+    // if (bankCorpCardID.value) {
+    //   // $("#bank_list_third_name").val("");
+    //   // $("#bank_list_third_code").val("");
+    //   // $("#bank_list_third_detail").val("");
 
-      // $("#bank_accounts_third").val("");
-      // $("#bank_accounts_third_id").val("");
-      // $("#bank_accounts_third_detail").val("");
-    }
+    //   // $("#bank_accounts_third").val("");
+    //   // $("#bank_accounts_third_id").val("");
+    //   // $("#bank_accounts_third_detail").val("");
+    // }
 
-    adjustInputSize(document.getElementById("beneficiary_second_person_position"), "string");
+    // adjustInputSize(document.getElementById("beneficiary_second_person_position"), "string");
   });
 
-  $('#myGetBankListThird').on('hidden.bs.modal', function () {
-    const bankListThirdCode = document.getElementById('bank_list_third_code');
+  // $('#myGetBankListThird').on('hidden.bs.modal', function () {
+  //   const bankListThirdCode = document.getElementById('bank_list_third_code');
 
-    if (bankListThirdCode.value) {
-      getBankAccountData(bankListThirdCode.value,'third_modal');
+  //   if (bankListThirdCode.value) {
+  //     getBankAccountData(bankListThirdCode.value,'third_modal');
 
-      $("#bank_accounts_third").val("");
-      $("#bank_accounts_third_id").val("");
-      $("#bank_accounts_third_detail").val("");
+  //     $("#bank_accounts_third").val("");
+  //     $("#bank_accounts_third_id").val("");
+  //     $("#bank_accounts_third_detail").val("");
 
-      $("#bank_accounts_third").removeAttr("readonly");
-      $("#bank_accounts_third_detail").removeAttr("readonly");
+  //     $("#bank_accounts_third").removeAttr("readonly");
+  //     $("#bank_accounts_third_detail").removeAttr("readonly");
 
-      $("#bank_accounts_third_popup").prop("disabled", false);
-    }
-  });
+  //     $("#bank_accounts_third_popup").prop("disabled", false);
+  //   }
+  // });
 
   $('#tableGetBankAccountThird').on('click', 'tbody tr', function() {
     var sysID       = $(this).find('input[type="hidden"]').val();
     var bankAccount = $(this).find('td:nth-child(3)').text();
     var accountName = $(this).find('td:nth-child(4)').text();
+    var bankListThirdCode = document.getElementById('bank_list_third_code');
 
     $("#bank_accounts_duplicate_third_id").val(sysID);
     $("#bank_accounts_duplicate_third").val(bankAccount);
     $("#bank_accounts_duplicate_third_detail").val(accountName);
   });
 
-  $('#bank_accounts_third').on('input', function() {
-    var bankAccountThird                  = document.getElementById('bank_accounts_third');
-    var bankAccountThirdDuplicate         = document.getElementById('bank_accounts_duplicate_third');
-    var bankAccountThirdDuplicateId       = document.getElementById('bank_accounts_duplicate_third_id');
-    var bankAccountDetailThird            = document.getElementById('bank_accounts_third_detail');
-    var bankAccountDuplicateDetailThird   = document.getElementById('bank_accounts_duplicate_third_detail');
+  // $('#bank_accounts_third').on('input', function() {
+  //   var bankAccountThird                  = document.getElementById('bank_accounts_third');
+  //   var bankAccountThirdDuplicate         = document.getElementById('bank_accounts_duplicate_third');
+  //   var bankAccountThirdDuplicateId       = document.getElementById('bank_accounts_duplicate_third_id');
+  //   var bankAccountDetailThird            = document.getElementById('bank_accounts_third_detail');
+  //   var bankAccountDuplicateDetailThird   = document.getElementById('bank_accounts_duplicate_third_detail');
 
-    if (bankAccountThird.value !== bankAccountThirdDuplicate.value || bankAccountDetailThird.value !== bankAccountDuplicateDetailThird.value) {
-      $("#bank_accounts_third_id").val("");
-    } else {
-      $("#bank_accounts_third_id").val(bankAccountThirdDuplicateId.value);
-    }
-  });
+  //   if (bankAccountThird.value !== bankAccountThirdDuplicate.value || bankAccountDetailThird.value !== bankAccountDuplicateDetailThird.value) {
+  //     $("#bank_accounts_third_id").val("");
+  //   } else {
+  //     $("#bank_accounts_third_id").val(bankAccountThirdDuplicateId.value);
+  //   }
+  // });
 
-  $('#bank_accounts_third_detail').on('input', function() {
-    var bankAccountDetailThird           = document.getElementById('bank_accounts_third_detail');
-    var bankAccountDuplicateDetailThird  = document.getElementById('bank_accounts_duplicate_third_detail');
-    var bankAccountDuplicateIdThird      = document.getElementById('bank_accounts_duplicate_third_id');
-    var bankAccountThird                 = document.getElementById('bank_accounts_third');
-    var bankAccountThirdDuplicate        = document.getElementById('bank_accounts_duplicate_third');
+  // $('#bank_accounts_third_detail').on('input', function() {
+  //   var bankAccountDetailThird           = document.getElementById('bank_accounts_third_detail');
+  //   var bankAccountDuplicateDetailThird  = document.getElementById('bank_accounts_duplicate_third_detail');
+  //   var bankAccountDuplicateIdThird      = document.getElementById('bank_accounts_duplicate_third_id');
+  //   var bankAccountThird                 = document.getElementById('bank_accounts_third');
+  //   var bankAccountThirdDuplicate        = document.getElementById('bank_accounts_duplicate_third');
 
-    if (bankAccountDetailThird.value !== bankAccountDuplicateDetailThird.value || bankAccountThird.value !== bankAccountThirdDuplicate.value) {
-      $("#bank_accounts_third_id").val("");
-    } else {
-      $("#bank_accounts_third_id").val(bankAccountDuplicateIdThird.value);
-    }
-  });
+  //   if (bankAccountDetailThird.value !== bankAccountDuplicateDetailThird.value || bankAccountThird.value !== bankAccountThirdDuplicate.value) {
+  //     $("#bank_accounts_third_id").val("");
+  //   } else {
+  //     $("#bank_accounts_third_id").val(bankAccountDuplicateIdThird.value);
+  //   }
+  // });
 
   // $('#myGetBankSecond').on('hidden.bs.modal', function () {
   //   const bank_RefID = document.getElementById('bank_name_second_id');
@@ -635,9 +705,15 @@
   //   }
   // });
 
-  // $('#tableGetBankSecond').on('click', 'tbody tr', function() {
-  //   $("#bank_accounts_third_popup").prop("disabled", false);
-  // });
+  $('#tableGetBankListThird').on('click', 'tbody tr', function() {
+    const bankListThirdCode = document.getElementById('bank_list_third_code');
+    
+    $("#bank_accounts_third_popup").prop("disabled", false);
+    $("#bank_accounts_third").val("");
+    $("#bank_accounts_third_id").val("");
+    $("#bank_accounts_third_detail").val("");
+    getBankAccountData(bankListThirdCode.value,'third_modal');
+  });
   // ========== TO OTHER ==========
 
   // SUBMIT FORM
@@ -677,8 +753,6 @@
           type: method,
           success: function(response) {
             HideLoading();
-
-            console.log('response', response);
 
             if (response.message == "WorkflowError") {
               $("#submitArf").prop("disabled", false);

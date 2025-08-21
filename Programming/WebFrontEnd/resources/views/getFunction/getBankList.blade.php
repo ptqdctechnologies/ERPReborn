@@ -197,8 +197,8 @@
                     var table = $('#tableGetBankListSecond').DataTable();
                     table.clear();
 
-                    if (Array.isArray(data) && data.length > 0) {
-                        $.each(data, function(key, val) {
+                    if (Array.isArray(data.data) && data.data.length > 0) {
+                        $.each(data.data, function(key, val) {
                             keys += 1;
                             table.row.add([
                                 '<input id="sys_id_bank_list_second' + keys + '" value="' + val.sys_ID + '" type="hidden">' + no++,
@@ -227,8 +227,8 @@
                     var table = $('#tableGetBankListThird').DataTable();
                     table.clear();
 
-                    if (Array.isArray(data) && data.length > 0) {
-                        $.each(data, function(key, val) {
+                    if (Array.isArray(data.data) && data.data.length > 0) {
+                        $.each(data.data, function(key, val) {
                             keys += 1;
                             table.row.add([
                                 '<input id="sys_id_bank_list_third' + keys + '" value="' + val.sys_ID + '" type="hidden">' + no++,
@@ -257,8 +257,8 @@
                     var table = $('#tableGetBankList').DataTable();
                     table.clear();
 
-                    if (Array.isArray(data) && data.length > 0) {
-                        $.each(data, function(key, val) {
+                    if (Array.isArray(data.data) && data.data.length > 0) {
+                        $.each(data.data, function(key, val) {
                             keys += 1;
                             table.row.add([
                                 '<input id="sys_id_bank_list' + keys + '" value="' + val.sys_ID + '" type="hidden">' + no++,

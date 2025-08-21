@@ -283,156 +283,156 @@ services:
       #- './.ProjectCore/PermanentStorage/Grafana/var/log/grafana/:/var/log/grafana'
 
   #---> Services : Minio
-  minio-node01:
-    container_name: 'minio-node01'
-    image: 'erp-reborn-minio'
-    depends_on:
-      - 'db-postgresql'
-      - 'redis'
-    ports:
-      - '19000:9000'
-    networks:
-      app-network:
-        ipv4_address: '172.28.0.9'
-    volumes:
-      - './.ProjectCore/PermanentStorage/MinIO/Node-01/Disk-01/:/data01'
-      #- 'volume-minio-node01-disk01:/data01'
-    environment:
-      TZ: 'Asia/Jakarta'
-      MINIO_FORCE_NEW_KEYS: 'yes'
-      #MINIO_ACCESS_KEY: 'pt.qdc.technologies@gmail.com'
-      #MINIO_SECRET_KEY: 'qu1d151t3chn0'
-      MINIO_ROOT_USER: 'pt.qdc.technologies@gmail.com'
-      MINIO_ROOT_PASSWORD: 'qu1d151t3chn0'
-      MINIO_DISTRIBUTED_MODE_ENABLED: 'yes'
-      MINIO_DISTRIBUTED_NODES: 'minio-node01,minio-node02,minio-node03,minio-node04'
-      MINIO_SKIP_CLIENT: 'yes'
-    command: server http://172.28.0.9/data01 http://172.28.0.10/data01 http://172.28.0.11/data01 http://172.28.0.12/data01 --console-address ":9001"
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://172.28.0.9:9000/minio/health/live"]
-      interval: 30s
-      timeout: 20s
-      retries: 3
-    ulimits:
-      nproc: 65535
-      nofile:
-        soft: 4096
-        hard: 4096
-    restart: always
+  #minio-node01:
+  #  container_name: 'minio-node01'
+  #  image: 'erp-reborn-minio'
+  #  depends_on:
+  #    - 'db-postgresql'
+  #    - 'redis'
+  #  ports:
+  #    - '19000:9000'
+  #  networks:
+  #    app-network:
+  #      ipv4_address: '172.28.0.9'
+  #  volumes:
+  #    - './.ProjectCore/PermanentStorage/MinIO/Node-01/Disk-01/:/data01'
+  #    #- 'volume-minio-node01-disk01:/data01'
+  #  environment:
+  #    TZ: 'Asia/Jakarta'
+  #    MINIO_FORCE_NEW_KEYS: 'yes'
+  #    #MINIO_ACCESS_KEY: 'pt.qdc.technologies@gmail.com'
+  #    #MINIO_SECRET_KEY: 'qu1d151t3chn0'
+  #    MINIO_ROOT_USER: 'pt.qdc.technologies@gmail.com'
+  #    MINIO_ROOT_PASSWORD: 'qu1d151t3chn0'
+  #    MINIO_DISTRIBUTED_MODE_ENABLED: 'yes'
+  #    MINIO_DISTRIBUTED_NODES: 'minio-node01,minio-node02,minio-node03,minio-node04'
+  #    MINIO_SKIP_CLIENT: 'yes'
+  #  command: server http://172.28.0.9/data01 http://172.28.0.10/data01 http://172.28.0.11/data01 http://172.28.0.12/data01 --console-address ":9001"
+  #  healthcheck:
+  #    test: ["CMD", "curl", "-f", "http://172.28.0.9:9000/minio/health/live"]
+  #    interval: 30s
+  #    timeout: 20s
+  #    retries: 3
+  #  ulimits:
+  #    nproc: 65535
+  #    nofile:
+  #      soft: 4096
+  #      hard: 4096
+  #  restart: always
 
 
-  minio-node02:
-    container_name: 'minio-node02'
-    image: 'erp-reborn-minio'
-    depends_on:
-      - 'minio-node01'
-    ports:
-     - '29000:9000'
-    networks:
-      app-network:
-        ipv4_address: '172.28.0.10'
-    volumes:
-      - './.ProjectCore/PermanentStorage/MinIO/Node-02/Disk-01/:/data01'
-      #- 'volume-minio-node02-disk01:/data01'
-    environment:
-      TZ: 'Asia/Jakarta'
-      MINIO_FORCE_NEW_KEYS: 'yes'
-      #MINIO_ACCESS_KEY: 'pt.qdc.technologies@gmail.com'
-      #MINIO_SECRET_KEY: 'qu1d151t3chn0'
-      MINIO_ROOT_USER: 'pt.qdc.technologies@gmail.com'
-      MINIO_ROOT_PASSWORD: 'qu1d151t3chn0'
-      MINIO_DISTRIBUTED_MODE_ENABLED: 'yes'
-      MINIO_DISTRIBUTED_NODES: 'minio-node01,minio-node02,minio-node03,minio-node04'
-      MINIO_SKIP_CLIENT: 'yes'
-    command: server http://172.28.0.9/data01 http://172.28.0.10/data01 http://172.28.0.11/data01 http://172.28.0.12/data01 --console-address ":9001"
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://172.28.0.10:9000/minio/health/live"]
-      interval: 30s
-      timeout: 20s
-      retries: 3
-    ulimits:
-      nproc: 65535
-      nofile:
-        soft: 4096
-        hard: 4096
-    restart: always
+  #minio-node02:
+  #  container_name: 'minio-node02'
+  #  image: 'erp-reborn-minio'
+  #  depends_on:
+  #    - 'minio-node01'
+  #  ports:
+  #   - '29000:9000'
+  #  networks:
+  #    app-network:
+  #      ipv4_address: '172.28.0.10'
+  #  volumes:
+  #    - './.ProjectCore/PermanentStorage/MinIO/Node-02/Disk-01/:/data01'
+  #    #- 'volume-minio-node02-disk01:/data01'
+  #  environment:
+  #    TZ: 'Asia/Jakarta'
+  #    MINIO_FORCE_NEW_KEYS: 'yes'
+  #    #MINIO_ACCESS_KEY: 'pt.qdc.technologies@gmail.com'
+  #    #MINIO_SECRET_KEY: 'qu1d151t3chn0'
+  #    MINIO_ROOT_USER: 'pt.qdc.technologies@gmail.com'
+  #    MINIO_ROOT_PASSWORD: 'qu1d151t3chn0'
+  #    MINIO_DISTRIBUTED_MODE_ENABLED: 'yes'
+  #    MINIO_DISTRIBUTED_NODES: 'minio-node01,minio-node02,minio-node03,minio-node04'
+  #    MINIO_SKIP_CLIENT: 'yes'
+  #  command: server http://172.28.0.9/data01 http://172.28.0.10/data01 http://172.28.0.11/data01 http://172.28.0.12/data01 --console-address ":9001"
+  #  healthcheck:
+  #    test: ["CMD", "curl", "-f", "http://172.28.0.10:9000/minio/health/live"]
+  #    interval: 30s
+  #    timeout: 20s
+  #    retries: 3
+  #  ulimits:
+  #    nproc: 65535
+  #    nofile:
+  #      soft: 4096
+  #      hard: 4096
+  #  restart: always
 
 
-  minio-node03:
-    container_name: 'minio-node03'
-    image: 'erp-reborn-minio'
-    depends_on:
-      - 'minio-node01'
-      - 'minio-node02'
-    ports:
-      - '39000:9000'
-    networks:
-      app-network:
-        ipv4_address: '172.28.0.11'
-    volumes:
-      - './.ProjectCore/PermanentStorage/MinIO/Node-03/Disk-01/:/data01'
-      #- 'volume-minio-node03-disk01:/data01'
-    environment:
-      TZ: 'Asia/Jakarta'
-      MINIO_FORCE_NEW_KEYS: 'yes'
-      #MINIO_ACCESS_KEY: 'pt.qdc.technologies@gmail.com'
-      #MINIO_SECRET_KEY: 'qu1d151t3chn0'
-      MINIO_ROOT_USER: 'pt.qdc.technologies@gmail.com'
-      MINIO_ROOT_PASSWORD: 'qu1d151t3chn0'
-      MINIO_DISTRIBUTED_MODE_ENABLED: 'yes'
-      MINIO_DISTRIBUTED_NODES: 'minio-node01,minio-node02,minio-node03,minio-node04'
-      MINIO_SKIP_CLIENT: 'yes'
-    command: server http://172.28.0.9/data01 http://172.28.0.10/data01 http://172.28.0.11/data01 http://172.28.0.12/data01 --console-address ":9001"
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://172.28.0.11:9000/minio/health/live"]
-      interval: 30s
-      timeout: 20s
-      retries: 3
-    ulimits:
-      nproc: 65535
-      nofile:
-        soft: 4096
-        hard: 4096
-    restart: always
+  #minio-node03:
+  #  container_name: 'minio-node03'
+  #  image: 'erp-reborn-minio'
+  #  depends_on:
+  #    - 'minio-node01'
+  #    - 'minio-node02'
+  #  ports:
+  #    - '39000:9000'
+  #  networks:
+  #    app-network:
+  #      ipv4_address: '172.28.0.11'
+  #  volumes:
+  #    - './.ProjectCore/PermanentStorage/MinIO/Node-03/Disk-01/:/data01'
+  #    #- 'volume-minio-node03-disk01:/data01'
+  #  environment:
+  #    TZ: 'Asia/Jakarta'
+  #    MINIO_FORCE_NEW_KEYS: 'yes'
+  #    #MINIO_ACCESS_KEY: 'pt.qdc.technologies@gmail.com'
+  #    #MINIO_SECRET_KEY: 'qu1d151t3chn0'
+  #    MINIO_ROOT_USER: 'pt.qdc.technologies@gmail.com'
+  #    MINIO_ROOT_PASSWORD: 'qu1d151t3chn0'
+  #    MINIO_DISTRIBUTED_MODE_ENABLED: 'yes'
+  #    MINIO_DISTRIBUTED_NODES: 'minio-node01,minio-node02,minio-node03,minio-node04'
+  #    MINIO_SKIP_CLIENT: 'yes'
+  #  command: server http://172.28.0.9/data01 http://172.28.0.10/data01 http://172.28.0.11/data01 http://172.28.0.12/data01 --console-address ":9001"
+  #  healthcheck:
+  #    test: ["CMD", "curl", "-f", "http://172.28.0.11:9000/minio/health/live"]
+  #    interval: 30s
+  #    timeout: 20s
+  #    retries: 3
+  #  ulimits:
+  #    nproc: 65535
+  #    nofile:
+  #      soft: 4096
+  #      hard: 4096
+  #  restart: always
 
 
-  minio-node04:
-    container_name: 'minio-node04'
-    image: 'erp-reborn-minio'
-    depends_on:
-      - 'minio-node01'
-      - 'minio-node02'
-      - 'minio-node03'
-    ports:
-      - '49000:9000'
-    networks:
-      app-network:
-        ipv4_address: '172.28.0.12'
-    volumes:
-      - './.ProjectCore/PermanentStorage/MinIO/Node-04/Disk-01/:/data01'
-      #- 'volume-minio-node04-disk01:/data01'
-    environment:
-      TZ: 'Asia/Jakarta'
-      MINIO_FORCE_NEW_KEYS: 'yes'
-      #MINIO_ACCESS_KEY: 'pt.qdc.technologies@gmail.com'
-      #MINIO_SECRET_KEY: 'qu1d151t3chn0'
-      MINIO_ROOT_USER: 'pt.qdc.technologies@gmail.com'
-      MINIO_ROOT_PASSWORD: 'qu1d151t3chn0'
-      MINIO_DISTRIBUTED_MODE_ENABLED: 'yes'
-      MINIO_DISTRIBUTED_NODES: 'minio-node01,minio-node02,minio-node03,minio-node04'
-      MINIO_SKIP_CLIENT: 'yes'  
-    command: server http://172.28.0.9/data01 http://172.28.0.10/data01 http://172.28.0.11/data01 http://172.28.0.12/data01 --console-address ":9001"
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://172.28.0.12:9000/minio/health/live"]
-      interval: 30s
-      timeout: 20s
-      retries: 3
-    ulimits:
-      nproc: 65535
-      nofile:
-        soft: 4096
-        hard: 4096
-    restart: always
+  #minio-node04:
+  #  container_name: 'minio-node04'
+  #  image: 'erp-reborn-minio'
+  #  depends_on:
+  #    - 'minio-node01'
+  #    - 'minio-node02'
+  #    - 'minio-node03'
+  #  ports:
+  #    - '49000:9000'
+  #  networks:
+  #    app-network:
+  #      ipv4_address: '172.28.0.12'
+  #  volumes:
+  #    - './.ProjectCore/PermanentStorage/MinIO/Node-04/Disk-01/:/data01'
+  #    #- 'volume-minio-node04-disk01:/data01'
+  #  environment:
+  #    TZ: 'Asia/Jakarta'
+  #    MINIO_FORCE_NEW_KEYS: 'yes'
+  #    #MINIO_ACCESS_KEY: 'pt.qdc.technologies@gmail.com'
+  #    #MINIO_SECRET_KEY: 'qu1d151t3chn0'
+  #    MINIO_ROOT_USER: 'pt.qdc.technologies@gmail.com'
+  #    MINIO_ROOT_PASSWORD: 'qu1d151t3chn0'
+  #    MINIO_DISTRIBUTED_MODE_ENABLED: 'yes'
+  #    MINIO_DISTRIBUTED_NODES: 'minio-node01,minio-node02,minio-node03,minio-node04'
+  #    MINIO_SKIP_CLIENT: 'yes'  
+  #  command: server http://172.28.0.9/data01 http://172.28.0.10/data01 http://172.28.0.11/data01 http://172.28.0.12/data01 --console-address ":9001"
+  #  healthcheck:
+  #    test: ["CMD", "curl", "-f", "http://172.28.0.12:9000/minio/health/live"]
+  #    interval: 30s
+  #    timeout: 20s
+  #    retries: 3
+  #  ulimits:
+  #    nproc: 65535
+  #    nofile:
+  #      soft: 4096
+  #      hard: 4096
+  #  restart: always
 
 
   #---> Services : PGAdmin4

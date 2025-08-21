@@ -34,8 +34,8 @@
             @csrf
             <input hidden id="DocumentTypeID" name="DocumentTypeID">
             <input hidden id="var_combinedBudget_RefID" name="var_combinedBudget_RefID" />
+            <input hidden id="combinedBudgetSectionDetail_RefID" name="combinedBudgetSectionDetail_RefID" />
             <input hidden id="budgetDetailsData" />
-            <input hidden id="total_transport">
 
             <!-- ADD NEW BUSINESS REQUEST TRIP FORM -->
             <div class="tab-content px-3 pt-4 pb-2" id="nav-tabContent">
@@ -234,11 +234,11 @@
                             <th style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important;">Product Code</th>
                             <th style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important;">Product Name</th>
                             <th style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important;">Total Budget</th>
-                            <th style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important;">Qty Budget</th>
+                            {{-- <th style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important;">Qty Budget</th>
                             <th style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important;">Qty Avail</th>
-                            <th style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important;">Price</th>
+                            <th style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important;">Price</th> --}}
                             <th style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important;">Currency</th>
-                            <th style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important;">Current Budget</th>
+                            <th style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important;">Balanced Budget</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -392,7 +392,7 @@
                                 <label for="direct_to_vendor" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Direct to Vendor</label>
                                 <div class="col-sm-9 col-md-8 col-lg-3 p-0">
                                   <div class="input-group">
-                                    <input id="direct_to_vendor" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
+                                    <input id="direct_to_vendor" name="vendor_amount" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
                                   </div>
                                 </div>
                               </div>
@@ -404,8 +404,8 @@
                                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Bank Name</label>
                                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                                   <div>
-                                    <input id="bank_list_name" style="border-radius:0;" class="form-control" size="17" readonly>
-                                    <input id="bank_list_code" style="border-radius:0;" class="form-control" hidden>
+                                    <input id="bank_list_name" style="border-radius:0;" class="form-control" size="17" readonly />
+                                    <input id="bank_list_code" name="vendor_bank_name" style="border-radius:0;" class="form-control" hidden />
                                   </div>
                                   <div>
                                     <span style="border-radius:0;" class="input-group-text form-control">
@@ -415,7 +415,7 @@
                                     </span>
                                   </div>
                                   <div style="flex: 100%;">
-                                    <input id="bank_list_detail" style="border-radius:0;" class="form-control" readonly>
+                                    <input id="bank_list_detail" style="border-radius:0;" class="form-control" readonly />
                                   </div>
                                 </div>
                               </div>
@@ -425,10 +425,10 @@
                                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Bank Account</label>
                                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                                   <div>
-                                    <input id="bank_accounts" style="border-radius:0;" class="form-control number-without-characters" size="17" autocomplete="off" readonly>
-                                    <input id="bank_accounts_duplicate" style="border-radius:0;" class="form-control" hidden>
-                                    <input id="bank_accounts_id" style="border-radius:0;" class="form-control" hidden>
-                                    <input id="bank_accounts_duplicate_id" style="border-radius:0;" class="form-control" hidden>
+                                    <input id="bank_accounts" style="border-radius:0;" class="form-control number-without-characters" size="17" autocomplete="off" readonly />
+                                    <input id="bank_accounts_duplicate" style="border-radius:0;" class="form-control" hidden />
+                                    <input id="bank_accounts_id" name="vendor_bank_account" style="border-radius:0;" class="form-control" hidden />
+                                    <input id="bank_accounts_duplicate_id" style="border-radius:0;" class="form-control" hidden />
                                   </div>
                                   <div>
                                     <span style="border-radius:0;" class="input-group-text form-control">
@@ -438,8 +438,8 @@
                                     </span>
                                   </div>
                                   <div style="flex: 100%;">
-                                    <input id="bank_accounts_detail" style="border-radius:0;" class="form-control" autocomplete="off" readonly>
-                                    <input id="bank_accounts_duplicate_detail" style="border-radius:0;" class="form-control" hidden>
+                                    <input id="bank_accounts_detail" style="border-radius:0;" class="form-control" autocomplete="off" readonly />
+                                    <input id="bank_accounts_duplicate_detail" style="border-radius:0;" class="form-control" hidden />
                                   </div>
                                 </div>
                               </div>
@@ -455,7 +455,7 @@
                                 <label for="by_corp_card" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">By Corp Card</label>
                                 <div class="col-sm-9 col-md-8 col-lg-3 p-0">
                                   <div class="input-group">
-                                    <input id="by_corp_card" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
+                                    <input id="by_corp_card" name="corp_amount" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
                                   </div>
                                 </div>
                               </div>
@@ -468,7 +468,7 @@
                                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                                   <div>
                                     <input id="bank_list_second_name" style="border-radius:0;" class="form-control" size="17" readonly>
-                                    <input id="bank_list_second_code" style="border-radius:0;" class="form-control" hidden>
+                                    <input id="bank_list_second_code" name="corp_bank_name" style="border-radius:0;" class="form-control" hidden>
                                   </div>
                                   <div>
                                     <span style="border-radius:0;" class="input-group-text form-control">
@@ -490,7 +490,7 @@
                                   <div>
                                     <input id="bank_accounts_second" style="border-radius:0;" class="form-control number-without-characters" size="17" autocomplete="off" readonly>
                                     <input id="bank_accounts_duplicate_second" style="border-radius:0;" class="form-control number-without-characters" size="17" autocomplete="off" hidden>
-                                    <input id="bank_accounts_id_second" style="border-radius:0;" class="form-control" hidden>
+                                    <input id="bank_accounts_id_second" name="corp_bank_account" style="border-radius:0;" class="form-control" hidden>
                                     <input id="bank_accounts_duplicate_id_second" style="border-radius:0;" class="form-control" hidden>
                                   </div>
                                   <div>
@@ -518,7 +518,7 @@
                                 <label for="to_other" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">To Other</label>
                                 <div class="col-sm-9 col-md-8 col-lg-3 p-0">
                                   <div class="input-group">
-                                    <input id="to_other" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
+                                    <input id="to_other" name="other_amount" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
                                   </div>
                                 </div>
                               </div>
@@ -531,7 +531,7 @@
                                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                                   <div>
                                     <input id="beneficiary_second_person_position" style="border-radius:0;" size="17" class="form-control" readonly>
-                                    <input id="beneficiary_second_id" style="border-radius:0;" class="form-control" hidden>
+                                    <input id="beneficiary_second_id" name="other_beneficiary" style="border-radius:0;" class="form-control" hidden>
                                     <input id="beneficiary_second_person_ref_id" style="border-radius:0;" class="form-control" hidden>
                                   </div>
                                   <div>
@@ -553,7 +553,7 @@
                                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                                   <div>
                                     <input id="bank_list_third_name" style="border-radius:0;" class="form-control" size="17" readonly>
-                                    <input id="bank_list_third_code" style="border-radius:0;" class="form-control" hidden>
+                                    <input id="bank_list_third_code" name="other_bank_name" style="border-radius:0;" class="form-control" hidden>
                                   </div>
                                   <div>
                                     <span style="border-radius:0;" class="input-group-text form-control">
@@ -575,7 +575,7 @@
                                   <div>
                                     <input id="bank_accounts_third" style="border-radius:0;" size="17" class="form-control number-without-characters" autocomplete="off" readonly>
                                     <input id="bank_accounts_duplicate_third" style="border-radius:0;" size="17" class="form-control number-without-characters" hidden>
-                                    <input id="bank_accounts_third_id" style="border-radius:0;" class="form-control" hidden>
+                                    <input id="bank_accounts_third_id" name="other_bank_account" style="border-radius:0;" class="form-control" hidden>
                                     <input id="bank_accounts_duplicate_third_id" style="border-radius:0;" class="form-control" hidden>
                                   </div>
                                   <div>

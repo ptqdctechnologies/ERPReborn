@@ -133,25 +133,32 @@
         var sysIdCombinedBudget = $(this).find('input[data-trigger="sys_id_combined_budget"]').val();
         var sysIdDocumentType   = $(this).find('input[data-trigger="sys_id_document_type"]').val();
 
-        // $('#mySearchCheckDocument').modal('hide');
-        // $('#loadingDocTracking').show();
-        // $('.mySearchCheckDocument').hide();
-        // $("#businessDocument_RefID").val("");
-        // $("#businessDocumentType_Name").val("");
-        // $("#businessDocumentNumber").val("");
+        $('#mySearchCheckDocument').modal('hide');
 
-        // const validate = await checkingWorkflow(sysIdDocumentType, sysIdCombinedBudget);
-        // if (validate) {
-        //     $('.mySearchCheckDocument').show();
-        //     $('#loadingDocTracking').hide();
+        if (sysIdDocumentType != "null" && sysIdCombinedBudget != "null") {
+            $('#loadingDocTracking').show();
+            $('.mySearchCheckDocument').hide();
+            $("#businessDocument_RefID").val("");
+            $("#businessDocumentType_Name").val("");
+            $("#businessDocumentNumber").val("");
 
+            const validate = await checkingWorkflow(sysIdDocumentType, sysIdCombinedBudget);
+            if (validate) {
+                $('.mySearchCheckDocument').show();
+                $('#loadingDocTracking').hide();
+
+                $("#businessDocument_RefID").val(sysId);
+                $("#businessDocumentType_Name").val(docTypeName);
+                $("#businessDocumentNumber").val(trano);
+            } else {
+                $('.mySearchCheckDocument').show();
+                $('#loadingDocTracking').hide();
+            }
+        } else {
             $("#businessDocument_RefID").val(sysId);
             $("#businessDocumentType_Name").val(docTypeName);
             $("#businessDocumentNumber").val(trano);
-        // } else {
-        //     $('.mySearchCheckDocument').show();
-        //     $('#loadingDocTracking').hide();
-        // }
+        }
     });
 
     $('.ViewDocument').on('click', function() {

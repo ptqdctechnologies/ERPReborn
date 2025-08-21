@@ -20,20 +20,13 @@
                     
 
                     @if($statusHeader == "Yes")
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="row p-1" style="row-gap: 1rem;">
+                        <div class="col-12 ShowDocument">
                                         @include('Purchase.PurchaseRequisition.Functions.Header.HeaderReportPRSummary')
-                                    </div>
-                                </div>
-                            </div>
+                                    
                         </div>
-                    </div>
                     @endif
                     @if($statusDetail == 1 && $dataPO)
-                        <div class="row">
+                        <!-- <div class="row">
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-body">
@@ -44,7 +37,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
 
                         <!-- TABLE -->
                         <div class="row">
@@ -57,7 +50,7 @@
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">No</th>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">PR Number</th>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Date</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Sub Budget</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Budget</th>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Date Of Delivery</th>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Delivery To</th>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Total IDR</th>
@@ -73,12 +66,12 @@
                                                         <td><?= $counter++; ?></td>
                                                         <td><?= $dataDetail['documentNumber']; ?></td>
                                                         <td>{{ date('Y-m-d', strtotime($dataDetail['date'])) }}</td>
-                                                        <td>{{ $dataDetail['combinedBudgetSectionCode'] }} - {{ $dataDetail['combinedBudgetSectionName'] }} </td>
+                                                        <td>{{ $dataDetail['combinedBudgetCode'] }} - {{ $dataDetail['combinedBudgetName'] }} </td>
                                                         <td>{{ date('Y-m-d', strtotime($dataDetail['dateOfDelivery'])) }}</td>
                                                         <td>{{ $dataDetail['deliveryTo_NonRefID']['address'] ?? '-' }}</td>
                                                         <td><?= $dataDetail['total_IDR']; ?></td>
                                                         <td><?= $dataDetail['total_Other_Currency']; ?></td>
-                                                        <td></td>
+                                                        <td><?= $dataDetail['grand_Total_Equivalent_IDR']; ?></td>
                                                     </tr>
                                                 <?php } ?>
                                             </tbody>
@@ -87,7 +80,7 @@
                                                     <th colspan="6" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">GRAND TOTAL</th>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">{{ $dataPO[0]['grand_Total_IDR'] }}</th>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">{{ $dataPO[0]['grand_Total_Other_Currency'] }}</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"></th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">{{ $dataPO[0]['grand_Total_Equivalent_IDR'] }}</th>
                                                     
                                                 </tr>
                                             </tfoot>

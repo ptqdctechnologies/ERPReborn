@@ -362,15 +362,18 @@
             type: 'question',
             input: 'textarea',
             showCloseButton: false,
-            showCancelButton: false,
+            showCancelButton: true,
             focusConfirm: false,
+            cancelButtonText: '<span style="color:black;"> Cancel </span>',
             confirmButtonText: '<span style="color:black;"> OK </span>',
-            confirmButtonColor: '#4B586A',
-            confirmButtonColor: '#e9ecef',
+            cancelButtonColor: '#DDDAD0',
+            confirmButtonColor: '#DDDAD0',
             reverseButtons: true
         }).then((result) => {
-            ShowLoading();
-            PurchaseOrderStore({...formatData, comment: result.value});
+            if ('value' in result) {
+                ShowLoading();
+                PurchaseOrderStore({...formatData, comment: result.value});
+            }
         });
     }
 
@@ -398,7 +401,7 @@
                     swalWithBootstrapButtons.fire({
                         title: 'Successful !',
                         type: 'success',
-                        html: 'Data has been saved. Your transaction number is ' + '<span style="color:red;">' + res.documentNumber + '</span>',
+                        html: 'Data has been saved. Your transaction number is ' + '<span style="color:#0046FF;">' + res.documentNumber + '</span>',
                         showCloseButton: false,
                         showCancelButton: false,
                         focusConfirm: false,
@@ -429,12 +432,72 @@
             total += value;
         });
 
-        document.getElementById('TotalPpn').textContent = currencyTotal(0.00);
-        document.getElementById('TotalBudgetSelected').textContent = currencyTotal(0.00);
-        document.getElementById('TotalBudgetSelectedPpn').textContent = currencyTotal(0.00);
+        // document.getElementById('TotalPpn').textContent = currencyTotal(0.00);
+        // document.getElementById('TotalBudgetSelected').textContent = currencyTotal(0.00);
+        // document.getElementById('TotalBudgetSelectedPpn').textContent = currencyTotal(0.00);
         document.getElementById('GrandTotal').innerText = total.toLocaleString('en-US', {
             minimumFractionDigits: 2,
             maximumFractionDigits: 2
+        });
+    }
+
+    function SubmitForm() {
+        $('#purchaseOrderFormModal').modal('hide');
+
+        var action = $("#FormSubmitPurchaseOrder").attr("action");
+        var method = $("#FormSubmitPurchaseOrder").attr("method");
+        var form_data = new FormData($("#FormSubmitPurchaseOrder")[0]);
+
+        ShowLoading();
+
+        $.ajax({
+            url: action,
+            dataType: 'json',
+            cache: false,
+            contentType: false,
+            processData: false,
+            data: form_data,
+            type: method,
+            success: function(response) {
+                if (response.message == "WorkflowError") {
+                    HideLoading();
+                    $("#submitPurchaseOrder").prop("disabled", false);
+
+                    CancelNotif("You don't have access", '/PurchaseOrder?var=1');
+                } else if (response.message == "MoreThanOne") {
+                    HideLoading();
+
+                    $('#getWorkFlow').modal('toggle');
+
+                    var t = $('#tableGetWorkFlow').DataTable();
+                    t.clear();
+                    $.each(response.data, function(key, val) {
+                        t.row.add([
+                            '<td><span data-dismiss="modal" onclick="SelectWorkFlow(\'' + val.Sys_ID + '\', \'' + val.NextApprover_RefID + '\', \'' + response.approverEntity_RefID + '\', \'' + response.documentTypeID + '\');"><img src="{{ asset("AdminLTE-master/dist/img/add.png") }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></span></td>',
+                            '<td style="border:1px solid #e9ecef;">' + val.FullApproverPath + '</td></tr></tbody>'
+                        ]).draw();
+                    });
+                } else {
+                    const formatData = {
+                        workFlowPath_RefID: response.workFlowPath_RefID, 
+                        nextApprover: response.nextApprover_RefID, 
+                        approverEntity: response.approverEntity_RefID, 
+                        documentTypeID: response.documentTypeID,
+                        storeData: response.storeData
+                    };
+
+                    HideLoading();
+
+                    SelectWorkFlow(formatData);
+                }
+            },
+            error: function(response) {
+                console.log('response error', response);
+                
+                HideLoading();
+                $("#submitPurchaseOrder").prop("disabled", false);
+                CancelNotif("You don't have access", '/PurchaseOrder?var=1');
+            }
         });
     }
 
@@ -475,12 +538,12 @@
                 noteInput.value.trim() !== ''
             ) {
                 const documentNumber    = row.children[0].value.trim();
-                const productCode       = row.children[17].innerText.trim();
+                const productCode       = row.children[9].value.trim();
                 const productName       = row.children[10].value.trim();
                 const uom               = row.children[13].value.trim();
                 const currency          = row.children[15].value.trim();
-                const qtyAvail          = row.children[20].innerText.trim();
-                const priceAvail        = row.children[22].innerText.trim();
+                const qtyAvail          = row.children[12].value.trim();
+                const priceAvail        = row.children[14].value.trim();
 
                 const qty   = qtyInput.value.trim();
                 const price = priceInput.value.trim();
@@ -491,15 +554,15 @@
                 const existingRows = targetTable.getElementsByTagName('tr');
 
                 for (let targetRow of existingRows) {
-                    const targetDocNumber = targetRow.children[1].innerText.trim();
-                    const targetCode = targetRow.children[2].innerText.trim();
+                    const targetDocNumber   = targetRow.children[2].innerText.trim();
+                    const targetCode        = targetRow.children[1].value.trim();
 
                     if (targetDocNumber === documentNumber && targetCode === productCode) {
+                        found                           = true;
                         targetRow.children[6].innerText = price;
                         targetRow.children[7].innerText = qty;
                         targetRow.children[8].innerText = total;
                         targetRow.children[9].innerText = note;
-                        found = true;
 
                         // update dataStore
                         const indexToUpdate = dataStore.findIndex(item => item.entities.documentNumber === documentNumber && item.entities.product_RefID === productCode);
@@ -528,15 +591,15 @@
                     const newRow = document.createElement('tr');
                     newRow.innerHTML = `
                         <input type="hidden" name="qty_avail[]" value="${qtyAvail}">
-                        <td style="text-align: center;padding: 0.8rem;">${documentNumber}</td>
-                        <td style="text-align: center;padding: 0.8rem;">${productCode}</td>
-                        <td style="text-align: center;padding: 0.8rem;">${productName}</td>
-                        <td style="text-align: center;padding: 0.8rem;">${uom}</td>
-                        <td style="text-align: center;padding: 0.8rem;">${currency}</td>
-                        <td style="text-align: center;padding: 0.8rem;">${price}</td>
-                        <td style="text-align: center;padding: 0.8rem;">${qty}</td>
-                        <td style="text-align: center;padding: 0.8rem;">${total}</td>
-                        <td style="text-align: center;padding: 0.8rem;">${note}</td>
+                        <input type="hidden" name="product_code[]" value="${productCode}">
+                        <td style="text-align: left;padding: 0.8rem 0.5rem;width: 100px;">${documentNumber}</td>
+                        <td style="text-align: right;padding: 0.8rem 0.5rem;">${productCode + ' - ' + productName}</td>
+                        <td style="text-align: left;padding: 0.8rem 0.5rem;width: 20px;">${uom}</td>
+                        <td style="text-align: left;padding: 0.8rem 0.5rem;width: 40px;">${currency}</td>
+                        <td style="text-align: right;padding: 0.8rem 0.5rem;width: 100px;">${price}</td>
+                        <td style="text-align: right;padding: 0.8rem 0.5rem;width: 50px;">${qty}</td>
+                        <td style="text-align: right;padding: 0.8rem 0.5rem;width: 100px;">${total}</td>
+                        <td style="text-align: left;padding: 0.8rem 0.5rem;width: 150px;">${note}</td>
                         <input type="hidden" name="price_avail[]" value="${priceAvail}">
                     `;
                     targetTable.appendChild(newRow);
@@ -560,11 +623,11 @@
                     });
                 }
 
-                qtyInput.value = '';
-                priceInput.value = '';
-                totalInput.value = '';
-                noteInput.value = '';
-                balanceInput.value = balanceInput.getAttribute('data-default');
+                // qtyInput.value = '';
+                // priceInput.value = '';
+                // totalInput.value = '';
+                // noteInput.value = '';
+                // balanceInput.value = balanceInput.getAttribute('data-default');
             }
         }
 
@@ -572,6 +635,7 @@
         $("#purchaseOrderDetail").val(JSON.stringify(dataStore));
 
         updateGrandTotal();
+
         // document.getElementById('GrandTotal').textContent = TotalBudgetSelecteds.innerText;
         // document.getElementById('TotalPpn').textContent = currencyTotal(0.00);
         // document.getElementById('TotalBudgetSelected').textContent = currencyTotal(0.00);
@@ -591,103 +655,103 @@
     });
 
     if (tablePurchaseOrderLists) {
-        document.querySelector('#tablePurchaseOrderList tbody').addEventListener('click', function (e) {
-            const row = e.target.closest('tr');
-            if (!row) return;
+        // document.querySelector('#tablePurchaseOrderList tbody').addEventListener('click', function (e) {
+        //     const row = e.target.closest('tr');
+        //     if (!row) return;
 
-            if (['INPUT', 'TEXTAREA'].includes(e.target.tagName)) return;
+        //     if (['INPUT', 'TEXTAREA'].includes(e.target.tagName)) return;
 
-            const qtyAvail      = row.children[0];
-            const priceAvail    = row.children[10];
-            const priceCell     = row.children[6];
-            const qtyCell       = row.children[7];
-            const totalCell     = row.children[8];
-            const remarkCell    = row.children[9];
+        //     const qtyAvail      = row.children[0];
+        //     const priceAvail    = row.children[10];
+        //     const priceCell     = row.children[6];
+        //     const qtyCell       = row.children[7];
+        //     const totalCell     = row.children[8];
+        //     const remarkCell    = row.children[9];
 
-            if (row.classList.contains('editing-row')) {
-                const newPrice  = priceCell.querySelector('input')?.value || '';
-                const newQty    = qtyCell.querySelector('input')?.value || '';
-                const newTotal  = totalCell.querySelector('input')?.value || '';
-                const newRemark = remarkCell.querySelector('textarea')?.value || '';
+        //     if (row.classList.contains('editing-row')) {
+        //         const newPrice  = priceCell.querySelector('input')?.value || '';
+        //         const newQty    = qtyCell.querySelector('input')?.value || '';
+        //         const newTotal  = totalCell.querySelector('input')?.value || '';
+        //         const newRemark = remarkCell.querySelector('textarea')?.value || '';
 
-                priceCell.innerHTML = newPrice;
-                qtyCell.innerHTML   = newQty;
-                totalCell.innerHTML = newTotal;
+        //         priceCell.innerHTML = newPrice;
+        //         qtyCell.innerHTML   = newQty;
+        //         totalCell.innerHTML = newTotal;
 
-                const hidden = remarkCell.querySelector('input[type="hidden"]');
-                remarkCell.innerHTML = `${newRemark}`;
-                if (hidden) remarkCell.appendChild(hidden);
+        //         const hidden = remarkCell.querySelector('input[type="hidden"]');
+        //         remarkCell.innerHTML = `${newRemark}`;
+        //         if (hidden) remarkCell.appendChild(hidden);
 
-                row.classList.remove('editing-row');
+        //         row.classList.remove('editing-row');
 
-                const documentNumber = row.children[1].innerText.trim();
-                const productCode = row.children[2].innerText.trim();
-                const storeItem = dataStore.find(item => item.entities.documentNumber === documentNumber && item.entities.product_RefID === productCode);
+        //         const documentNumber = row.children[1].innerText.trim();
+        //         const productCode = row.children[2].innerText.trim();
+        //         const storeItem = dataStore.find(item => item.entities.documentNumber === documentNumber && item.entities.product_RefID === productCode);
 
-                if (storeItem) {
-                    storeItem.entities.quantity = parseFloat(newQty.replace(/,/g, ''));
-                    storeItem.entities.productUnitPriceCurrencyValue = parseFloat(newPrice.replace(/,/g, ''));
-                    storeItem.entities.remarks = newRemark;
+        //         if (storeItem) {
+        //             storeItem.entities.quantity = parseFloat(newQty.replace(/,/g, ''));
+        //             storeItem.entities.productUnitPriceCurrencyValue = parseFloat(newPrice.replace(/,/g, ''));
+        //             storeItem.entities.remarks = newRemark;
 
-                    $("#purchaseOrderDetail").val(JSON.stringify(dataStore));
-                }
-            } else {
-                const currentPrice = priceCell.innerText.trim();
-                const currentQty = qtyCell.innerText.trim();
-                const currentTotal = totalCell.innerText.trim();
+        //             $("#purchaseOrderDetail").val(JSON.stringify(dataStore));
+        //         }
+        //     } else {
+        //         const currentPrice = priceCell.innerText.trim();
+        //         const currentQty = qtyCell.innerText.trim();
+        //         const currentTotal = totalCell.innerText.trim();
 
-                const hiddenInput = remarkCell.querySelector('input[type="hidden"]');
-                const currentRemark = remarkCell.childNodes[0]?.nodeValue?.trim() || '';
+        //         const hiddenInput = remarkCell.querySelector('input[type="hidden"]');
+        //         const currentRemark = remarkCell.childNodes[0]?.nodeValue?.trim() || '';
 
-                priceCell.innerHTML = `<input class="form-control number-without-negative price-input" value="${currentPrice}" autocomplete="off" style="border-radius:0px;width:100px;">`;
-                qtyCell.innerHTML = `<input class="form-control number-without-negative qty-input" value="${currentQty}" autocomplete="off" style="border-radius:0px;width:100px;">`;
-                totalCell.innerHTML = `<input class="form-control number-without-negative total-input" value="${currentTotal}" autocomplete="off" style="border-radius:0px;width:100px;" readonly>`;
-                remarkCell.innerHTML = `
-                    <textarea class="form-control" style="width:100px;">${currentRemark}</textarea>
-                `;
-                if (hiddenInput) remarkCell.appendChild(hiddenInput);
+        //         priceCell.innerHTML = `<input class="form-control number-without-negative price-input" value="${currentPrice}" autocomplete="off" style="border-radius:0px;width:100px;">`;
+        //         qtyCell.innerHTML = `<input class="form-control number-without-negative qty-input" value="${currentQty}" autocomplete="off" style="border-radius:0px;width:100px;">`;
+        //         totalCell.innerHTML = `<input class="form-control number-without-negative total-input" value="${currentTotal}" autocomplete="off" style="border-radius:0px;width:100px;" readonly>`;
+        //         remarkCell.innerHTML = `
+        //             <textarea class="form-control" style="width:100px;">${currentRemark}</textarea>
+        //         `;
+        //         if (hiddenInput) remarkCell.appendChild(hiddenInput);
 
-                row.classList.add('editing-row');
+        //         row.classList.add('editing-row');
 
-                const priceInput = priceCell.querySelector('.price-input');
-                const qtyInput = qtyCell.querySelector('.qty-input');
-                const totalInput = totalCell.querySelector('.total-input');
+        //         const priceInput = priceCell.querySelector('.price-input');
+        //         const qtyInput = qtyCell.querySelector('.qty-input');
+        //         const totalInput = totalCell.querySelector('.total-input');
 
-                function updateTotal() {
-                    var price = parseFloat(priceInput.value.replace(/,/g, '')) || 0;
-                    var qty = parseFloat(qtyInput.value.replace(/,/g, '')) || 0;
-                    var total = price * qty;
+        //         function updateTotal() {
+        //             var price = parseFloat(priceInput.value.replace(/,/g, '')) || 0;
+        //             var qty = parseFloat(qtyInput.value.replace(/,/g, '')) || 0;
+        //             var total = price * qty;
 
-                    const qtyAvailValue = parseFloat(qtyAvail?.value.replace(/,/g, '')) || 0;
-                    const priceAvailValue = parseFloat(priceAvail?.value.replace(/,/g, '')) || 0;
+        //             const qtyAvailValue = parseFloat(qtyAvail?.value.replace(/,/g, '')) || 0;
+        //             const priceAvailValue = parseFloat(priceAvail?.value.replace(/,/g, '')) || 0;
 
-                    if (qty > qtyAvailValue) {
-                        total = price * qtyAvailValue;
-                        qty = qtyAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-                        qtyInput.value = qtyAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        //             if (qty > qtyAvailValue) {
+        //                 total = price * qtyAvailValue;
+        //                 qty = qtyAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        //                 qtyInput.value = qtyAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
-                        ErrorNotif("Qty Req is over Qty Avail !");
-                    }
+        //                 ErrorNotif("Qty Req is over Qty Avail !");
+        //             }
 
-                    if (price > priceAvailValue) {
-                        total               = priceAvailValue * qtyAvailValue;
-                        price               = priceAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-                        priceInput.value    = priceAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        //             if (price > priceAvailValue) {
+        //                 total               = priceAvailValue * qtyAvailValue;
+        //                 price               = priceAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        //                 priceInput.value    = priceAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
-                        ErrorNotif("Price Req is over Price Avail !");
-                    }
+        //                 ErrorNotif("Price Req is over Price Avail !");
+        //             }
 
-                    totalInput.value = total.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-                }
+        //             totalInput.value = total.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        //         }
 
-                priceInput.addEventListener('input', updateTotal);
-                qtyInput.addEventListener('input', updateTotal);
+        //         priceInput.addEventListener('input', updateTotal);
+        //         qtyInput.addEventListener('input', updateTotal);
 
-                document.getElementById('GrandTotal').innerText = totalInput.value;
-            }
+        //         document.getElementById('GrandTotal').innerText = totalInput.value;
+        //     }
 
-            updateGrandTotal();
-        });
+        //     updateGrandTotal();
+        // });
     }
 
     $("#FormSubmitPurchaseOrder").on("submit", function(e) {

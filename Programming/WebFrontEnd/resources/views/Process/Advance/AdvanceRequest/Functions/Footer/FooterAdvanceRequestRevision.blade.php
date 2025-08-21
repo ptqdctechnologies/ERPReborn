@@ -1,7 +1,37 @@
 <script>
-    let dataStore   = [];
-    const siteCode  = document.getElementById('site_id_second');
-    const dataTable = {!! json_encode($dataAdvanceList ?? []) !!};
+    let dataStore           = [];
+    let remark              = document.getElementById("remark");
+    let budgetDetailsAdd    = document.getElementById("budget-details-add");
+    const siteCode          = document.getElementById('site_id_second');
+    const dataTable         = {!! json_encode($dataAdvanceList ?? []) !!};
+
+    function checkOneLineBudgetContents() {
+        const rows  = document.querySelectorAll("#tableGetBudgetDetails tbody tr");
+        let isFull  = false;
+
+        rows.forEach((row, index) => {
+            const qty   = document.getElementById(`qty_req${index}`)?.value.trim();
+            const price = document.getElementById(`price_req${index}`)?.value.trim();
+            const total = document.getElementById(`total_req${index}`)?.value.trim();
+
+            if (qty !== "" && price !== "" && total !== "") {
+                isFull = true;
+            }
+        });
+
+        return isFull;
+    }
+
+    function checkFormCompleted() {
+        const remarkNotEmpty        = remark.value.trim() !== '';
+        const tableGetBudgetDetails = checkOneLineBudgetContents();
+
+        if (remarkNotEmpty && tableGetBudgetDetails) {
+            budgetDetailsAdd.disabled = false;
+        } else {
+            budgetDetailsAdd.disabled = true;
+        }
+    }
 
     function calculateTotal() {
         let total = 0;
@@ -37,11 +67,13 @@
             total += value;
         });
 
-        // document.getElementById('TotalBudgetSelected').innerText = "0.00";
-        document.getElementById('GrandTotal').innerText = total.toLocaleString('en-US', {
+        total = total.toLocaleString('en-US', {
             minimumFractionDigits: 2,
             maximumFractionDigits: 2
         });
+
+        // document.getElementById('TotalBudgetSelected').innerText = "0.00";
+        document.getElementById('GrandTotal').innerText = `Total (${rows[0].children[3].value}): ${total}`;
     }
 
     function SelectWorkFlow(formatData) {
@@ -59,8 +91,9 @@
             showCloseButton: false,
             showCancelButton: true,
             focusConfirm: false,
+            cancelButtonText: '<span style="color:black;"> Cancel </span>',
             confirmButtonText: '<span style="color:black;"> OK </span>',
-            cancelButtonColor: '#7A7A73',
+            cancelButtonColor: '#DDDAD0',
             confirmButtonColor: '#DDDAD0',
             reverseButtons: true
         }).then((result) => {
@@ -95,7 +128,7 @@
                     swalWithBootstrapButtons.fire({
                         title: 'Successful !',
                         type: 'success',
-                        html: 'Data has been saved. Your transaction number is ' + '<span style="color:red;">' + res.documentNumber + '</span>',
+                        html: 'Data has been saved. Your transaction number is ' + '<span style="color:#0046FF;font-weight:bold;">' + res.documentNumber + '</span>',
                         showCloseButton: false,
                         showCancelButton: false,
                         focusConfirm: false,
@@ -185,10 +218,10 @@
                             <input class="form-control number-without-negative" id="price_req${key}" autocomplete="off" style="border-radius:0px;" data-default="" ${isUnspecified} />
                         </td>
                         <td class="sticky-col second-col-arf" style="border:1px solid #e9ecef;background-color:white;">
-                            <input class="form-control number-without-negative" id="total_req${key}" autocomplete="off" style="border-radius:0px;background-color:white;" data-default="" disabled />
+                            <input class="form-control number-without-negative" id="total_req${key}" autocomplete="off" style="border-radius:0px;" data-default="" readonly />
                         </td>
                         <td class="sticky-col first-col-arf" style="border:1px solid #e9ecef;background-color:white;">
-                            <input class="form-control number-without-negative" id="balanced_qty${key}" autocomplete="off" style="border-radius:0px;width:90px;background-color:white;" data-default="${balanced}" value="${balanced}" disabled />
+                            <input class="form-control number-without-negative" id="balanced_qty${key}" autocomplete="off" style="border-radius:0px;width:90px;" data-default="${balanced}" value="${balanced}" readonly />
                         </td>
                     `;
 
@@ -257,10 +290,10 @@
                                 <input class="form-control number-without-negative" id="price_req${key}" autocomplete="off" style="border-radius:0px;" data-default="${currencyTotal(findDataMiscellaneous.productUnitPriceCurrencyValue)}" value="${currencyTotal(findDataMiscellaneous.productUnitPriceCurrencyValue)}" />
                             </td>
                             <td class="sticky-col second-col-arf" style="border:1px solid #e9ecef;background-color:white;">
-                                <input class="form-control number-without-negative" id="total_req${key}" autocomplete="off" style="border-radius:0px;background-color:white;" disabled data-default="${currencyTotal(findDataMiscellaneous.priceCurrencyValue)}" value="${currencyTotal(findDataMiscellaneous.priceCurrencyValue)}" />
+                                <input class="form-control number-without-negative" id="total_req${key}" autocomplete="off" style="border-radius:0px;" readonly data-default="${currencyTotal(findDataMiscellaneous.priceCurrencyValue)}" value="${currencyTotal(findDataMiscellaneous.priceCurrencyValue)}" />
                             </td>
                             <td class="sticky-col first-col-arf" style="border:1px solid #e9ecef;background-color:white;">
-                                <input class="form-control number-without-negative" id="balanced_qty${key}" autocomplete="off" style="border-radius:0px;width:90px;background-color:white;" data-default="${currencyTotal(balancedDetail)}" value="${currencyTotal(balancedDetail)}" disabled />
+                                <input class="form-control number-without-negative" id="balanced_qty${key}" autocomplete="off" style="border-radius:0px;width:90px;" data-default="${currencyTotal(balancedDetail)}" value="${currencyTotal(balancedDetail)}" readonly />
                             </td>
                         `;
                     }
@@ -289,10 +322,10 @@
                                 <input class="form-control number-without-negative" id="price_req${key}" autocomplete="off" style="border-radius:0px;" data-default="${currencyTotal(findDataDetail.productUnitPriceCurrencyValue)}" value="${currencyTotal(findDataDetail.productUnitPriceCurrencyValue)}" />
                             </td>
                             <td class="sticky-col second-col-arf" style="border:1px solid #e9ecef;background-color:white;">
-                                <input class="form-control number-without-negative" id="total_req${key}" autocomplete="off" style="border-radius:0px;background-color:white;" disabled data-default="${currencyTotal(findDataDetail.priceCurrencyValue)}" value="${currencyTotal(findDataDetail.priceCurrencyValue)}" />
+                                <input class="form-control number-without-negative" id="total_req${key}" autocomplete="off" style="border-radius:0px;" readonly data-default="${currencyTotal(findDataDetail.priceCurrencyValue)}" value="${currencyTotal(findDataDetail.priceCurrencyValue)}" />
                             </td>
                             <td class="sticky-col first-col-arf" style="border:1px solid #e9ecef;background-color:white;">
-                                <input class="form-control number-without-negative" id="balanced_qty${key}" autocomplete="off" style="border-radius:0px;width:90px;background-color:white;" data-default="${currencyTotal(balancedDetail)}" value="${currencyTotal(balancedDetail)}" disabled />
+                                <input class="form-control number-without-negative" id="balanced_qty${key}" autocomplete="off" style="border-radius:0px;width:90px;" data-default="${currencyTotal(balancedDetail)}" value="${currencyTotal(balancedDetail)}" readonly />
                             </td>
                         `;
                     }
@@ -322,10 +355,10 @@
                         });
 
                         $(`#qty_req${key}`).on('keyup', function() {
-                            var qty_req = $(this).val().replace(/,/g, '');
-                            var price_req = $(`#price_req${key}`).val().replace(/,/g, '');
-                            var total_req = parseFloat(qty_req || 1) * parseFloat(price_req || 1);
-                            var total = parseFloat(qty_req || 0) + parseFloat(balanced);
+                            var qty_req     = $(this).val().replace(/,/g, '');
+                            var price_req   = $(`#price_req${key}`).val().replace(/,/g, '');
+                            var total_req   = parseFloat(qty_req || 1) * parseFloat(price_req || 1);
+                            var total       = parseFloat(qty_req || 0) + parseFloat(balanced);
 
                             if (!qty_req) {
                                 $(`#qty_req${key}`).val('');
@@ -342,50 +375,64 @@
                         });
                     } else {
                         $(`#qty_req${key}`).on('keyup', function() {
-                            var qty_req = $(this).val().replace(/,/g, '');
-                            var price_req = $(`#price_req${key}`).val().replace(/,/g, '');
-                            var total_req = parseFloat(qty_req || 1) * parseFloat(price_req || 1);
-                            var total = parseFloat(balanced) - parseFloat(qty_req || 0);
-                            var validate = findDataDetail && findDataDetail.quantity ? parseFloat((parseFloat(val2.quantityRemaining) + parseFloat(findDataDetail.quantity)).toFixed(2)) : val2.quantityRemaining;
+                            var qty_req     = $(this).val().replace(/,/g, '');
+                            var price_req   = $(`#price_req${key}`).val().replace(/,/g, '');
+                            var total_req   = parseFloat(qty_req || 0) * parseFloat(price_req || 0);
+                            var total       = parseFloat(balanced) - parseFloat(qty_req || 0);
+                            var validate    = findDataDetail && findDataDetail.quantity ? parseFloat((parseFloat(val2.quantityRemaining) + parseFloat(findDataDetail.quantity)).toFixed(2)) : val2.quantityRemaining;
 
                             if (parseFloat(qty_req) > validate) {
                                 $(`#qty_req${key}`).val('');
                                 $(`#total_req${key}`).val('');
                                 $(`#balanced_qty${key}`).val(currencyTotal(val2.quantityRemaining));
+
                                 ErrorNotif("Qty Req is over budget !");
                             } else if (parseFloat(qty_req * price_req) > totalBudget) {
                                 $(`#qty_req${key}`).val('');
                                 $(`#total_req${key}`).val('');
                                 $(`#balanced_qty${key}`).val(currencyTotal(val2.quantityRemaining));
+
                                 ErrorNotif("Total Req is over budget !");
                             } else {
                                 calculateTotal();
                                 $(`#total_req${key}`).val(currencyTotal(total_req));
-                                $(`#balanced_qty${key}`).val(currencyTotal(total));
+
+                                if (Math.sign(total) == "-1") {
+                                    $(`#balanced_qty${key}`).val(currencyTotal(0));
+                                } else {
+                                    $(`#balanced_qty${key}`).val(total.toLocaleString('en-US', {
+                                        minimumFractionDigits: 2,
+                                        maximumFractionDigits: 2
+                                    }));
+                                }
                             }
+                            
+                            checkFormCompleted();
                         });
                     }
 
                     $(`#price_req${key}`).on('keyup', function() {
-                        var price_req = $(this).val().replace(/,/g, '');
-                        var qty_req = $(`#qty_req${key}`).val().replace(/,/g, '');
-                        var total_req = parseFloat(qty_req || 0) * parseFloat(price_req || 1);
-                        var total = parseFloat(price_req || 0) + parseFloat(val2.priceBaseCurrencyValue);
+                        var price_req   = $(this).val().replace(/,/g, '');
+                        var qty_req     = $(`#qty_req${key}`).val().replace(/,/g, '');
+                        var total_req   = parseFloat(qty_req || 0) * parseFloat(price_req || 0);
+                        var total       = parseFloat(price_req || 0) + parseFloat(val2.priceBaseCurrencyValue);
 
                         if (parseFloat(price_req) > val2.priceBaseCurrencyValue) {
                             $(`#price_req${key}`).val('');
                             $(`#total_req${key}`).val('');
-                            $(`#balanced_qty${key}`).val(currencyTotal(val2.quantityRemaining));
+
                             ErrorNotif("Price Req is over budget !");
                         } else if (parseFloat(qty_req * price_req) > totalBudget) {
                             $(`#price_req${key}`).val('');
                             $(`#total_req${key}`).val('');
-                            $(`#balanced_qty${key}`).val(currencyTotal(val2.quantityRemaining));
+
                             ErrorNotif("Total Req is over budget !");
                         } else {
                             calculateTotal();
                             $(`#total_req${key}`).val(currencyTotal(total_req));
                         }
+                        
+                        checkFormCompleted();
                     });
                 });
             },
@@ -426,13 +473,13 @@
                     <input type="hidden" name="record_RefID[]" value="${val2.sys_ID}">
                     <input type="hidden" name="qty_avail[]" value="${currencyTotal(val2.quantity)}">
                     <input type="hidden" name="price_avail[]" value="${currencyTotal(val2.productUnitPriceCurrencyValue)}">
-                    <td style="text-align: center;padding: 0.8rem 0px;">${val2.productCode}</td>
-                    <td style="text-align: center;padding: 0.8rem 0px;">${val2.productName}</td>
-                    <td style="text-align: center;padding: 0.8rem 0px;">${val2.quantityUnitName}</td>
-                    <td style="text-align: center;padding: 0.8rem 0px;">${val2.priceCurrencyISOCode}</td>
-                    <td style="text-align: center;padding: 0.8rem 0px;">${currencyTotal(val2.productUnitPriceCurrencyValue)}</td>
-                    <td style="text-align: center;padding: 0.8rem 0px;">${currencyTotal(val2.quantity)}</td>
-                    <td style="text-align: center;padding: 0.8rem 0px;">${currencyTotal(totalRequest)}</td>
+                    <input type="hidden" name="currency[]" value="${val2.priceCurrencyISOCode}">
+                    <td style="text-align: right;padding: 0.8rem 0.5rem;width: 100px;">${val2.productCode}</td>
+                    <td style="text-align: left;padding: 0.8rem 0.5rem;">${val2.productName}</td>
+                    <td style="text-align: left;padding: 0.8rem 0.5rem;width: 20px;">${val2.quantityUnitName}</td>
+                    <td style="text-align: right;padding: 0.8rem 0.5rem;width: 100px;">${currencyTotal(val2.productUnitPriceCurrencyValue)}</td>
+                    <td style="text-align: right;padding: 0.8rem 0.5rem;width: 50px;">${currencyTotal(val2.quantity)}</td>
+                    <td style="text-align: right;padding: 0.8rem 0.5rem;">${currencyTotal(totalRequest)}</td>
                 </tr>
             `;
 
@@ -472,7 +519,7 @@
                 HideLoading();
 
                 if (response.message == "WorkflowError") {
-                    $("#submitArf").prop("disabled", false);
+                    $("#budget-details-add").prop("disabled", false);
 
                     CancelNotif("You don't have access", '/AdvanceRequest?var=1');
                 } else if (response.message == "MoreThanOne") {
@@ -500,7 +547,7 @@
             },
             error: function(response) {
                 HideLoading();
-                $("#submitArf").prop("disabled", false);
+                $("#budget-details-add").prop("disabled", false);
                 CancelNotif("You don't have access", '/AdvanceRequest?var=1');
             }
         });
@@ -578,13 +625,13 @@
                         <input type="hidden" name="record_RefID[]" value="${recordRefID.value}">
                         <input type="hidden" name="qty_avail[]" value="${qtyAvail}">
                         <input type="hidden" name="price_avail[]" value="${priceAvail}">
-                        <td style="text-align: center;padding: 0.8rem 0px;">${productCode.value}</td>
-                        <td style="text-align: center;padding: 0.8rem 0px;">${productName}</td>
-                        <td style="text-align: center;padding: 0.8rem 0px;">${uom}</td>
-                        <td style="text-align: center;padding: 0.8rem 0px;">${currency}</td>
-                        <td style="text-align: center;padding: 0.8rem 0px;">${price}</td>
-                        <td style="text-align: center;padding: 0.8rem 0px;">${qty}</td>
-                        <td style="text-align: center;padding: 0.8rem 0px;">${total}</td>
+                        <input type="hidden" name="currency[]" value="${currency}">
+                        <td style="text-align: right;padding: 0.8rem 0.5rem;width: 100px;">${productCode.value}</td>
+                        <td style="text-align: left;padding: 0.8rem 0.5rem;">${productName}</td>
+                        <td style="text-align: left;padding: 0.8rem 0.5rem;width: 20px;">${uom}</td>
+                        <td style="text-align: right;padding: 0.8rem 0.5rem;width: 100px;">${price}</td>
+                        <td style="text-align: right;padding: 0.8rem 0.5rem;width: 50px;">${qty}</td>
+                        <td style="text-align: right;padding: 0.8rem 0.5rem;">${total}</td>
                     `;
                     targetTable.appendChild(newRow);
 
@@ -607,6 +654,21 @@
                 // priceInput.value = '';
                 // totalInput.value = '';
                 // balanceInput.value = balanceInput.getAttribute('data-default');
+            } else {
+                const productName = row.children[8].innerText.trim();
+                const existingRows  = targetTable.getElementsByTagName('tr');
+
+                for (let targetRow of existingRows) {
+                    const targetCode = targetRow.children[4]?.innerText?.trim();
+                    const targetName = targetRow.children[5]?.innerText?.trim();
+
+                    if (targetCode == productCode?.value && targetName == productName) {
+                        targetRow.remove();
+                        break;
+                    }
+                }
+
+                dataStore = dataStore.filter(item => item.entities.product_RefID != productRefID?.value);
             }
         }
 
@@ -615,7 +677,7 @@
         updateGrandTotal();
     });
 
-    $('#budget-details-reset').on('click', function() {
+    $('#budget-details-reset').on('click', function() {GrandTotal
         dataStore = [];
 
         $('input[id^="qty_req"]').each(function() {
@@ -634,6 +696,10 @@
 
         document.getElementById('GrandTotal').textContent = "0.00";
         calculateTotal();
+    });
+
+    $('#remark').on('input', function() {
+        checkFormCompleted();
     });
 
     $(document).on('input', '.number-without-negative', function() {
