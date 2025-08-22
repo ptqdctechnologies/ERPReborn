@@ -30,7 +30,7 @@
                 $(totalEl).css("border", "1px solid #ced4da");
                 $("#budgetDetailsMessage").hide();
             } else {
-                if (indexInput) {
+                if (indexInput > -1) {
                     if (indexInput == index) {
                         if (qtyEl.value.trim() != "" || priceEl.value.trim() != "") {
                             $(qtyEl).css("border", "1px solid red");
