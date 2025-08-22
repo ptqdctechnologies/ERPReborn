@@ -2917,8 +2917,8 @@ namespace App\Models\Database\SchData_OLTP_Finance
         | ▪ Method Name     : getDataPickList_CreditNote_LatestVersion                                                             |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2024-10-17                                                                                           |
-        | ▪ Creation Date   : 2024-10-17                                                                                           |
+        | ▪ Last Update     : 2025-08-21                                                                                           |
+        | ▪ Creation Date   : 2025-08-21                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Pilihan Data Credit Note Versi Terakhir                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -2937,11 +2937,9 @@ namespace App\Models\Database\SchData_OLTP_Finance
                         $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
-                            'SchData-OLTP-Finance.Func_GetDataPickList_CreditNote',
+                            'SchData-OLTP-Finance.Func_GetDataPickList_CreditNote_NEW',
                             [
-                                [$varSysBranch_RefID, 'bigint'],
-
-                                [FALSE, 'boolean']
+                                [$varSysBranch_RefID, 'bigint']
                             ]
                             )
                         );
