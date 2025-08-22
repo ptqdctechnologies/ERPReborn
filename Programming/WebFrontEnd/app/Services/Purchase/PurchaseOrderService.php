@@ -62,7 +62,7 @@ class PurchaseOrderService
                 "internalNotes"                         => $data['internalNote'],
                 "downPayment"                           => (float) str_replace(',', '', $data['downPaymentValue']),
                 "termOfPayment_RefID"                   => (int) $data['termOfPaymentValue'],
-                "vatRatio"                              => $data['vatValue'] ?? null,
+                "vatRatio"                              => $data['vatValue'] ?? 0,
                 "additionalData"                        => [
                     "itemList"  => [
                         "items" => $purchaseOrderDetail

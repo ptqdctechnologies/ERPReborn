@@ -1,4 +1,4 @@
-@if (request()->is('AdvanceRequest'))
+@if (request()->is('RevisionReimbursement') || request()->is('AdvanceRequest') || request()->is('Reimbursement'))
     <!-- DEFAULT MODAL -->
     <div id="myBankAccount" class="modal fade" role="dialog">
         <div class="modal-dialog modal-dialog-scrollable">
