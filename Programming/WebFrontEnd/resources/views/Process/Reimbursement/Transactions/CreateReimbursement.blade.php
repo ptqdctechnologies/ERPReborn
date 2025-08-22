@@ -244,7 +244,7 @@
 </div>
 
 <div class="modal fade" id="reimbursementFormModal" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-lg" role="document" style="height: -webkit-fill-available; display: flex; align-items: center;">
+    <div class="modal-dialog modal-lg" role="document" style="height: calc(100vh - 3.5rem); display: flex; align-items: center;">
         <div class="modal-content">
             <div class="modal-header">
                 <h3 style="margin: 0px;font-weight:bold;">Are you sure you want to save this data?</h3>
