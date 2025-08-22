@@ -27,7 +27,6 @@
           @csrf
             <input type="hidden" name="DocumentTypeID" id="DocumentTypeID">
             <input type="hidden" name="var_combinedBudget_RefID" id="var_combinedBudget_RefID">
-            <input type="hidden" name="purchaseOrderDetail" id="purchaseOrderDetail">
             <input type="hidden" name="tariffCurrencyValue" id="tariffCurrencyValue">
 
             <!-- CREATE NEW PURCHASE ORDER DETAIL -->
