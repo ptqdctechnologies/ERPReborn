@@ -16,7 +16,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
     | ▪ Description : Menangani Models Database ► SchData-OLTP-Finance ► TblCreditNote                                             |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class TblCreditNote extends \App\Models\Database\DefaultClassPrototype
+    class TblCreditNote_OLD extends \App\Models\Database\DefaultClassPrototype
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
