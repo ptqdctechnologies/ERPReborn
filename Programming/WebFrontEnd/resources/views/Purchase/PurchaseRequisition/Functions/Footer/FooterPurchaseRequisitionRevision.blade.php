@@ -1,7 +1,84 @@
 <script>
-    let dataStore   = [];
-    const siteCode  = document.getElementById('site_id_second');
-    const dataTable = {!! json_encode($detail ?? []) !!};
+    let dataStore       = [];
+    const siteCode      = document.getElementById('site_id_second');
+    const dateDelivery  = document.getElementById("dateCommance");
+    const dataTable     = {!! json_encode($detail ?? []) !!};
+
+    function checkOneLineBudgetContents(indexInput) {
+        const rows = document.querySelectorAll("#tableGetPRDetails tbody tr");
+        let hasFullRow = false;
+
+        rows.forEach((row, index) => {
+            const qty   = document.getElementById(`qty_req${index}`)?.value.trim();
+            const price = document.getElementById(`price_req${index}`)?.value.trim();
+            const total = document.getElementById(`total_req${index}`)?.value.trim();
+
+            if (qty !== "" && price !== "" && total !== "") {
+                hasFullRow = true;
+            }
+        });
+
+        rows.forEach((row, index) => {
+            const qtyEl   = document.getElementById(`qty_req${index}`);
+            const priceEl = document.getElementById(`price_req${index}`);
+            const totalEl = document.getElementById(`total_req${index}`);
+
+            if (hasFullRow) {
+                $(qtyEl).css("border", "1px solid #ced4da");
+                $(priceEl).css("border", "1px solid #ced4da");
+                $(totalEl).css("border", "1px solid #ced4da");
+                $("#budgetDetailsMessage").hide();
+            } else {
+                if (indexInput > -1) {
+                    if (indexInput == index) {
+                        if (qtyEl.value.trim() != "" || priceEl.value.trim() != "") {
+                            $(qtyEl).css("border", "1px solid red");
+                            $(priceEl).css("border", "1px solid red");
+                            $(totalEl).css("border", "1px solid red");
+                            $("#budgetDetailsMessage").show();
+                        } else {
+                            $(qtyEl).css("border", "1px solid #ced4da");
+                            $(priceEl).css("border", "1px solid #ced4da");
+                            $(totalEl).css("border", "1px solid #ced4da");
+                            $("#budgetDetailsMessage").hide();
+                        }
+                    }
+
+                    if (indexInput != index && (qtyEl.value.trim() == "" && priceEl.value.trim() == "")) {
+                        $(qtyEl).css("border", "1px solid #ced4da");
+                        $(priceEl).css("border", "1px solid #ced4da");
+                        $(totalEl).css("border", "1px solid #ced4da");
+                    } 
+                } else {
+                    $(qtyEl).css("border", "1px solid red");
+                    $(priceEl).css("border", "1px solid red");
+                    $(totalEl).css("border", "1px solid red");
+                    $("#budgetDetailsMessage").show();
+                }
+            }
+        });
+
+        return hasFullRow;
+    }
+
+    function updateGrandTotal() {
+        let total = 0;
+        const rows = document.querySelectorAll('#tablePRDetailList tbody tr');
+        rows.forEach(row => {
+            const totalCell = row.children[9];
+            const input = totalCell.querySelector('input');
+
+            const value = parseFloat(totalCell.innerText.replace(/,/g, '')) || 0;
+            if (input) {
+                const text = parseFloat(input.value.replace(/,/g, '')) || 0;
+                total += text;
+            }
+
+            total += value;
+        });
+
+        document.getElementById('GrandTotal').innerText = `Total (${rows[0].children[6].innerText}): ${decimalFormat(total)}`;
+    }
 
     function calculateTotal() {
         let total = 0;
@@ -13,12 +90,153 @@
             }
         });
 
-        total = Math.ceil(total * 100) / 100;
+        document.getElementById('TotalBudgetSelected').textContent = decimalFormat(total);
+    }
 
-        document.getElementById('TotalBudgetSelected').textContent = total.toLocaleString('en-US', {
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 2
-        });
+    function summaryData() {
+        const sourceTable = document.getElementById('tableGetPRDetails').getElementsByTagName('tbody')[0];
+        const targetTable = document.getElementById('tablePRDetailList').getElementsByTagName('tbody')[0];
+
+        const rows = sourceTable.getElementsByTagName('tr');
+
+        for (let row of rows) {
+            const recordRefID                           = row.querySelector('input[id^="recordID"]');
+            const productCode                           = row.querySelector('input[id^="productCode"]');
+            const productRefID                          = row.querySelector('input[id^="product_RefID"]');
+            const quantityUnitRefID                     = row.querySelector('input[id^="quantityUnit_RefID"]');
+            const productUnitPriceCurrencyRefID         = row.querySelector('input[id^="productUnitPriceCurrency_RefID"]');
+            const combinedBudgetSectionDetailRefID      = row.querySelector('input[id^="combinedBudgetSectionDetail_RefID"]');
+            const productUnitPriceCurrencyExchangeRate  = row.querySelector('input[id^="productUnitPriceCurrencyExchangeRate"]');
+
+            const qtyInput      = row.querySelector('input[id^="qty_req"]');
+            const priceInput    = row.querySelector('input[id^="price_req"]');
+            const totalInput    = row.querySelector('input[id^="total_req"]');
+            const balanceInput  = row.querySelector('input[id^="balanced_qty"]');
+            const noteInput     = row.querySelector('textarea[id^="remark"]');
+
+            if (
+                qtyInput && priceInput && totalInput && balanceInput &&
+                qtyInput.value.trim()       !== '' &&
+                priceInput.value.trim()     !== '' &&
+                totalInput.value.trim()     !== '' &&
+                balanceInput.value.trim()   !== '' 
+            ) {
+                const productName   = row.children[8].innerText.trim();
+                const qtyAvail      = row.children[10].innerText.trim();
+                const uom           = row.children[11].innerText.trim();
+                const priceAvail    = row.children[12].innerText.trim();
+                const currency      = row.children[14].innerText.trim();
+
+                const price = priceInput.value.trim();
+                const qty   = qtyInput.value.trim();
+                const total = totalInput.value.trim();
+                const note  = noteInput.value.trim();
+
+                let found           = false;
+                const existingRows  = targetTable.getElementsByTagName('tr');
+
+                for (let targetRow of existingRows) {
+                    const targetRecordID = targetRow.children[0].value.trim();
+                    if (targetRecordID == recordRefID.value) {
+                        found                               = true;
+                        targetRow.children[7].innerText     = price;
+                        targetRow.children[8].innerText     = qty;
+                        targetRow.children[9].innerText     = total;
+                        targetRow.children[10].innerText    = note;
+
+                        const indexToUpdate = dataStore.findIndex(item => item.recordID == recordRefID.value);
+                        if (indexToUpdate !== -1) {
+                            dataStore[indexToUpdate] = {
+                                recordID: parseInt(recordRefID.value) || null,
+                                entities: {
+                                    combinedBudgetSectionDetail_RefID: parseInt(combinedBudgetSectionDetailRefID.value),
+                                    product_RefID: parseInt(productRefID.value),
+                                    quantity: parseFloat(qty.replace(/,/g, '')),
+                                    quantityUnit_RefID: parseInt(quantityUnitRefID.value),
+                                    productUnitPriceCurrency_RefID: parseInt(productUnitPriceCurrencyRefID.value),
+                                    productUnitPriceCurrencyValue: parseFloat(price.replace(/,/g, '')),
+                                    productUnitPriceCurrencyExchangeRate: parseFloat(productUnitPriceCurrencyExchangeRate.value.replace(/,/g, '')),
+                                    remarks: note || null,
+                                    productCode: productCode.value
+                                },
+                            };
+                        }
+                    }
+                }
+
+                if (!found) {
+                    const newRow = document.createElement('tr');
+                    newRow.innerHTML = `
+                        <input type="hidden" name="record_RefID[]" value="${recordRefID.value}">
+                        <input type="hidden" name="qty_avail[]" value="${qtyAvail}">
+                        <input type="hidden" name="price_avail[]" value="${priceAvail}">
+                        <td style="text-align: right;padding: 0.8rem 0.5rem;width: 80px;">${productCode.value}</td>
+                        <td style="text-align: left;padding: 0.8rem 0.5rem;">${productName}</td>
+                        <td style="text-align: left;padding: 0.8rem 0.5rem;width: 20px;">${uom}</td>
+                        <td style="text-align: left;padding: 0.8rem 0.5rem;width: 40px;" hidden>${currency}</td>
+                        <td style="text-align: right;padding: 0.8rem 0.5rem;width: 100px;">${price}</td>
+                        <td style="text-align: right;padding: 0.8rem 0.5rem;width: 50px;">${qty}</td>
+                        <td style="text-align: right;padding: 0.8rem 0.5rem;width: 100px;">${total}</td>
+                        <td style="text-align: left;padding: 0.8rem 0.5rem;width: 150px;" hidden>${note}</td>
+                    `;
+                    targetTable.appendChild(newRow);
+
+                    dataStore.push({
+                        recordID: parseInt(recordRefID.value) || null,
+                        entities: {
+                            combinedBudgetSectionDetail_RefID: parseInt(combinedBudgetSectionDetailRefID.value),
+                            product_RefID: parseInt(productRefID.value),
+                            quantity: parseFloat(qty.replace(/,/g, '')),
+                            quantityUnit_RefID: parseInt(quantityUnitRefID.value),
+                            productUnitPriceCurrency_RefID: parseInt(productUnitPriceCurrencyRefID.value),
+                            productUnitPriceCurrencyValue: parseFloat(price.replace(/,/g, '')),
+                            productUnitPriceCurrencyExchangeRate: parseFloat(productUnitPriceCurrencyExchangeRate.value.replace(/,/g, '')),
+                            remarks: note || null,
+                            productCode: productCode.value
+                        },
+                    });
+                }
+            } else {
+                const productName   = row.children[8].innerText.trim();
+                const existingRows  = targetTable.getElementsByTagName('tr');
+
+                for (let targetRow of existingRows) {
+                    const targetCode = targetRow.children[3]?.innerText?.trim();
+                    const targetName = targetRow.children[4]?.innerText?.trim();
+
+                    if (targetCode == productCode.value && targetName == productName) {
+                        targetRow.remove();
+                        break;
+                    }
+                }
+
+                dataStore = dataStore.filter(item => item.entities.productCode != productCode.value);
+            }
+        }
+
+        dataStore = dataStore.filter(item => item !== undefined);
+
+        updateGrandTotal();
+    }
+
+    function validationForm() {
+        const isDateDeliveryNotEmpty = dateDelivery.value.trim() !== '';
+        const isTableNotEmpty        = checkOneLineBudgetContents();
+
+        if (isDateDeliveryNotEmpty && isTableNotEmpty) {
+            $('#purchaseRequestRevisionFormModal').modal('show');
+            summaryData();
+        } else {
+            if (!isDateDeliveryNotEmpty) {
+                $("#dateCommance").css("border", "1px solid red");
+                $("#dateOfDeliveryMessage").show();
+                return;
+            }
+            if (!isTableNotEmpty) {
+                $("#budgetDetailsMessage").show();
+                return;
+            }
+        }
     }
 
     function getBudget(site_code, dataDetail) {
@@ -203,7 +421,7 @@
                                 <input class="form-control number-without-negative" id="balanced_qty${key}" autocomplete="off" style="border-radius:0px;width:90px;" data-default="${currencyTotal(balancedDetail)}" value="${currencyTotal(balancedDetail)}" readonly />
                             </td>
                             <td class="sticky-col first-col-pr" style="border:1px solid #e9ecef;background-color:white;">
-                                <textarea id="remark${key}" class="form-control" data-default="${findDataDetail.notes}">${findDataDetail.notes}</textarea>
+                                <textarea id="remark${key}" class="form-control" data-default="${findDataDetail.notes || ''}">${findDataDetail.notes || ''}</textarea>
                             </td>
                         `;
                     }
@@ -291,6 +509,7 @@
                             }
 
                             calculateTotal();
+                            checkOneLineBudgetContents(key);
                         });
                     }
 
@@ -325,8 +544,11 @@
                         }
 
                         calculateTotal();
+                        checkOneLineBudgetContents(key);
                     });
                 });
+
+                calculateTotal();
             },
             error: function (textStatus, errorThrown) {
                 $('#tableGetPRDetails tbody').empty();
@@ -334,23 +556,6 @@
                 $(".errorMessageContainerPRDetails").show();
                 $("#errorMessagePRDetails").text(`[${textStatus.status}] ${textStatus.responseJSON.message}`);
             }
-        });
-    }
-
-    function updateGrandTotal() {
-        let total = 0;
-        const rows = document.querySelectorAll('#tablePRDetailList tbody tr');
-        rows.forEach(row => {
-            const totalCell = row.children[9];
-            const input = totalCell.querySelector('input');
-
-            const value = parseFloat(totalCell.innerText.replace(/,/g, '')) || 0;
-            if (input) {
-                const text = parseFloat(input.value.replace(/,/g, '')) || 0;
-                total += text;
-            }
-
-            total += value;
         });
     }
 
@@ -404,7 +609,7 @@
                     swalWithBootstrapButtons.fire({
                         title: 'Successful !',
                         type: 'success',
-                        html: 'Data has been saved. Your transaction number is ' + '<span style="color:#0046FF;">' + res.documentNumber + '</span>',
+                        html: 'Data has been saved. Your transaction number is ' + '<span style="color:#0046FF;font-weight:bold;">' + res.documentNumber + '</span>',
                         showCloseButton: false,
                         showCancelButton: false,
                         focusConfirm: false,
@@ -427,53 +632,6 @@
         });
     }
 
-    function GetPRNumberDetail(dataDetail) {
-        let totalPRNumberDetail = 0;
-
-        let tbodyList = $('#tablePRDetailList tbody');
-        tbodyList.empty();
-
-        $.each(dataDetail, function(key, val2) {
-            dataStore.push({
-                recordID: parseInt(val2.sys_ID),
-                entities: {
-                    combinedBudgetSectionDetail_RefID: parseInt(val2.combinedBudgetSectionDetail_RefID),
-                    product_RefID: parseInt(val2.product_RefID),
-                    quantity: val2.quantity,
-                    quantityUnit_RefID: parseInt(val2.quantityUnit_RefID),
-                    productUnitPriceCurrency_RefID: parseInt(val2.productUnitPriceCurrency_RefID),
-                    productUnitPriceCurrencyValue: val2.productUnitPriceCurrencyValue,
-                    productUnitPriceCurrencyExchangeRate: parseFloat(val2.productUnitPriceCurrencyExchangeRate.replace(/,/g, '')),
-                    remarks: val2.remarks
-                },
-            });
-
-            let totalRequest = val2.quantity * val2.productUnitPriceCurrencyValue;
-
-            let rowList = `
-                <tr>
-                    <input type="hidden" name="record_RefID[]" value="${val2.sys_ID}">
-                    <input type="hidden" name="qty_avail[]" value="${currencyTotal(val2.combinedBudget_Quantity)}">
-                    <input type="hidden" name="price_avail[]" value="${currencyTotal(val2.productUnitPriceCurrencyValue)}">
-                    <td style="text-align: right;padding: 0.8rem 0.5rem;width: 80px;">${val2.productCode}</td>
-                    <td style="text-align: left;padding: 0.8rem 0.5rem;">${val2.productName}</td>
-                    <td style="text-align: left;padding: 0.8rem 0.5rem;width: 20px;">${val2.quantityUnitName}</td>
-                    <td style="text-align: left;padding: 0.8rem 0.5rem;width: 40px;">${val2.priceCurrencyISOCode}</td>
-                    <td style="text-align: right;padding: 0.8rem 0.5rem;width: 100px;">${currencyTotal(val2.productUnitPriceCurrencyValue)}</td>
-                    <td style="text-align: right;padding: 0.8rem 0.5rem;width: 50px;">${currencyTotal(val2.quantity)}</td>
-                    <td style="text-align: right;padding: 0.8rem 0.5rem;width: 100px;">${currencyTotal(totalRequest)}</td>
-                    <td style="text-align: left;padding: 0.8rem 0.5rem;width: 150px;">${val2.notes}</td>
-                </tr>
-            `;
-
-            tbodyList.append(rowList);
-
-            totalPRNumberDetail += totalRequest;
-        });
-
-        document.getElementById('TotalBudgetSelected').textContent = currencyTotal(totalPRNumberDetail);
-    }
-
     function CancelPurchaseRequisition() {
         ShowLoading();
         window.location.href = '/PurchaseRequisition?var=1';
@@ -485,6 +643,7 @@
         var action = $("#FormRevisionPurchaseRequest").attr("action");
         var method = $("#FormRevisionPurchaseRequest").attr("method");
         var form_data = new FormData($("#FormRevisionPurchaseRequest")[0]);
+        form_data.append('purchaseRequisitionDetail', JSON.stringify(dataStore));
 
         ShowLoading();
 
@@ -538,151 +697,15 @@
         });
     }
 
-    $('#purchase-request-details-add').on('click', function() {
-        const sourceTable = document.getElementById('tableGetPRDetails').getElementsByTagName('tbody')[0];
-        const targetTable = document.getElementById('tablePRDetailList').getElementsByTagName('tbody')[0];
-
-        const rows = sourceTable.getElementsByTagName('tr');
-
-        for (let row of rows) {
-            const recordRefID                           = row.querySelector('input[id^="recordID"]');
-            const productCode                           = row.querySelector('input[id^="productCode"]');
-            const productRefID                          = row.querySelector('input[id^="product_RefID"]');
-            const quantityUnitRefID                     = row.querySelector('input[id^="quantityUnit_RefID"]');
-            const productUnitPriceCurrencyRefID         = row.querySelector('input[id^="productUnitPriceCurrency_RefID"]');
-            const combinedBudgetSectionDetailRefID      = row.querySelector('input[id^="combinedBudgetSectionDetail_RefID"]');
-            const productUnitPriceCurrencyExchangeRate  = row.querySelector('input[id^="productUnitPriceCurrencyExchangeRate"]');
-
-            const qtyInput      = row.querySelector('input[id^="qty_req"]');
-            const priceInput    = row.querySelector('input[id^="price_req"]');
-            const totalInput    = row.querySelector('input[id^="total_req"]');
-            const balanceInput  = row.querySelector('input[id^="balanced_qty"]');
-            const noteInput     = row.querySelector('textarea[id^="remark"]');
-
-            if (
-                qtyInput && priceInput && totalInput && balanceInput && noteInput &&
-                qtyInput.value.trim()       !== '' &&
-                priceInput.value.trim()     !== '' &&
-                totalInput.value.trim()     !== '' &&
-                balanceInput.value.trim()   !== '' &&
-                noteInput.value.trim()      !== ''
-            ) {
-                const productName   = row.children[8].innerText.trim();
-                const qtyAvail      = row.children[10].innerText.trim();
-                const uom           = row.children[11].innerText.trim();
-                const priceAvail    = row.children[12].innerText.trim();
-                const currency      = row.children[14].innerText.trim();
-
-                const price = priceInput.value.trim();
-                const qty   = qtyInput.value.trim();
-                const total = totalInput.value.trim();
-                const note  = noteInput.value.trim();
-
-                let found           = false;
-                const existingRows  = targetTable.getElementsByTagName('tr');
-
-                for (let targetRow of existingRows) {
-                    const targetRecordID = targetRow.children[0].value.trim();
-                    if (targetRecordID == recordRefID.value) {
-                        found                               = true;
-                        targetRow.children[7].innerText     = price;
-                        targetRow.children[8].innerText     = qty;
-                        targetRow.children[9].innerText     = total;
-                        targetRow.children[10].innerText    = note;
-
-                        const indexToUpdate = dataStore.findIndex(item => item.recordID == recordRefID.value);
-                        if (indexToUpdate !== -1) {
-                            dataStore[indexToUpdate] = {
-                                recordID: parseInt(recordRefID.value),
-                                entities: {
-                                    combinedBudgetSectionDetail_RefID: parseInt(combinedBudgetSectionDetailRefID.value),
-                                    product_RefID: parseInt(productRefID.value),
-                                    quantity: parseFloat(qty.replace(/,/g, '')),
-                                    quantityUnit_RefID: parseInt(quantityUnitRefID.value),
-                                    productUnitPriceCurrency_RefID: parseInt(productUnitPriceCurrencyRefID.value),
-                                    productUnitPriceCurrencyValue: parseFloat(price.replace(/,/g, '')),
-                                    productUnitPriceCurrencyExchangeRate: parseFloat(productUnitPriceCurrencyExchangeRate.value.replace(/,/g, '')),
-                                    remarks: note
-                                },
-                            };
-                        }
-                    }
-                }
-
-                if (!found) {
-                    const newRow = document.createElement('tr');
-                    newRow.innerHTML = `
-                        <input type="hidden" name="record_RefID[]" value="${recordRefID.value}">
-                        <input type="hidden" name="qty_avail[]" value="${qtyAvail}">
-                        <input type="hidden" name="price_avail[]" value="${priceAvail}">
-                        <td style="text-align: right;padding: 0.8rem 0.5rem;width: 80px;">${productCode.value}</td>
-                        <td style="text-align: left;padding: 0.8rem 0.5rem;">${productName}</td>
-                        <td style="text-align: left;padding: 0.8rem 0.5rem;width: 20px;">${uom}</td>
-                        <td style="text-align: left;padding: 0.8rem 0.5rem;width: 40px;">${currency}</td>
-                        <td style="text-align: right;padding: 0.8rem 0.5rem;width: 100px;">${price}</td>
-                        <td style="text-align: right;padding: 0.8rem 0.5rem;width: 50px;">${qty}</td>
-                        <td style="text-align: right;padding: 0.8rem 0.5rem;width: 100px;">${total}</td>
-                        <td style="text-align: left;padding: 0.8rem 0.5rem;width: 150px;">${note}</td>
-                    `;
-                    targetTable.appendChild(newRow);
-
-                    dataStore.push({
-                        recordID: parseInt(recordRefID.value),
-                        entities: {
-                            combinedBudgetSectionDetail_RefID: parseInt(combinedBudgetSectionDetailRefID.value),
-                            product_RefID: parseInt(productRefID.value),
-                            quantity: parseFloat(qty.replace(/,/g, '')),
-                            quantityUnit_RefID: parseInt(quantityUnitRefID.value),
-                            productUnitPriceCurrency_RefID: parseInt(productUnitPriceCurrencyRefID.value),
-                            productUnitPriceCurrencyValue: parseFloat(price.replace(/,/g, '')),
-                            productUnitPriceCurrencyExchangeRate: parseFloat(productUnitPriceCurrencyExchangeRate.value.replace(/,/g, '')),
-                            remarks: note
-                        },
-                    });
-                }
-            }
-        }
-
-        dataStore = dataStore.filter(item => item !== undefined);
-        $("#purchaseRequisitionDetail").val(JSON.stringify(dataStore));
-
-        updateGrandTotal();
-    });
-
-    $('#purchase-request-details-reset').on('click', function() {
-        dataStore = [];
-
-        $('input[id^="qty_req"]').each(function() {
-            $(this).val($(this).data('default'));
-        });
-        $('input[id^="price_req"]').each(function() {
-            $(this).val($(this).data('default'));
-        });
-        $('input[id^="total_req"]').each(function() {
-            $(this).val($(this).data('default'));
-        });
-        $('input[id^="balanced_qty"]').each(function() {
-            $(this).val($(this).data('default'));
-        });
-        $('textarea[id^="remark"]').each(function() {
-            $(this).val($(this).data('default'));
-        });
-        $('#tablePRDetailList tbody').empty();
-
-        // document.getElementById('GrandTotal').textContent = "0.00";
-        document.getElementById('purchaseRequisitionDetail').value = "";
-        calculateTotal();
-    });
-
-    $(document).on('input', '.number-without-negative', function() {
-        allowNumbersWithoutNegative(this);
+    $('#dateCommance').on('change', function() {
+        $("#dateCommance").css("border", "1px solid #ced4da");
+        $("#dateOfDeliveryMessage").hide();
     });
 
     $(window).one('load', function(e) {
         $(".errorMessageContainerPRDetails").hide();
 
         getDocumentType("Purchase Requisition Revision Form");
-        GetPRNumberDetail(dataTable);
         getBudget(siteCode.value, dataTable);
     });
 </script>
