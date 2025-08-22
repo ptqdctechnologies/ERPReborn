@@ -216,8 +216,7 @@
                 $("#deliverCode").css("border", "1px solid red");
                 $("#deliverName").css("border", "1px solid red");
                 $("#dateCommance").css("border", "1px solid red");
-                $("#dateCommance").css("border", "1px solid red");
-
+                
                 $("#budgetMessage").show();
                 $("#subBudgetMessage").show();
                 $("#deliveryToMessage").show();
