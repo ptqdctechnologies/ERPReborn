@@ -50,7 +50,7 @@
             <div class="form-group">
                 <table>
                     <tr>
-                        <td><label>PPN</label></td>
+                        <td><label>VAT</label></td>
                         <td style="border:1px solid #e9ecef;">
                             <select name="ppn" id="ppn" style="border-radius:0;" type="text" class="form-control">
                                 <option value="No">No</option>
@@ -65,7 +65,7 @@
             <div class="form-group">
                 <table>
                     <tr>
-                        <td><label>PPN(%)</label></td>
+                        <td><label>VAT(%)</label></td>
                         <td id="containerLoadingPPN">
                             <div class="d-flex flex-column justify-content-center py-3">
                                 <div class="spinner-border spinner-border-sm" role="status">
@@ -73,7 +73,7 @@
                                 </div>
                             </div>
                         </td>
-                        
+
                         <td id="containerSelectPPN" style="border:1px solid #e9ecef;">
                             <input hidden id="vatOptionValue" style="width: 20%;" value="<?= $header['vatValue']; ?>" />
                             <select name="vatValue" id="vatOption" style="border-radius:0;" class="form-control" onChange="calculateTotal();">

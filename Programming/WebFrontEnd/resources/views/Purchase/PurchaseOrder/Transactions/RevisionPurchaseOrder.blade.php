@@ -30,7 +30,7 @@
           <input type="hidden" name="transactionTaxDetail_RefID" id="transactionTaxDetail_RefID" value="<?= $header['transactionTaxDetailRefID']; ?>" />
 
           <!-- PURCHASE ORDER DETAIL -->
-          <div class="tab-content px-3 pb-2" id="nav-tabContent">
+          <div class="tab-content px-3 pt-4 pb-2" id="nav-tabContent">
             <div class="row">
               <div class="col-12">
                 <div class="card">
@@ -99,7 +99,7 @@
           </div>
 
           <!-- PURCHASE ORDER -->
-          <div class="tab-content px-3 pt-4 pb-2" id="nav-tabContent">
+          <div class="tab-content px-3 pb-2" id="nav-tabContent">
             <div class="row">
               <div class="col-12">
                 <div class="card">
@@ -169,7 +169,7 @@
 </div>
 
 <div class="modal fade" id="purchaseOrderRevisionFormModal" tabindex="-1" role="dialog">
-  <div class="modal-dialog modal-lg" role="document">
+  <div class="modal-dialog modal-lg" role="document" style="height: calc(100vh - 3.5rem); display: flex; align-items: center;">
     <div class="modal-content">
       <div class="modal-header">
         <h3 style="margin: 0px;font-weight:bold;">Are you sure you want to save this data?</h3>
