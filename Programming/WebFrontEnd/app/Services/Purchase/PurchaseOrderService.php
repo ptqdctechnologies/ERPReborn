@@ -121,7 +121,7 @@ class PurchaseOrderService
                 'log_FileUpload_Pointer_RefID'          => $fileID,
                 'requesterWorkerJobsPosition_RefID'     => (int) $careerRefID,
                 'supplier_RefID'                        => (int) $data['supplier_id'],
-                "deliveryDateTimeTZ"                    => null,
+                "deliveryDateTimeTZ"                    => $data['dateOfDelivery'],
                 "deliveryDestination_RefID"             => $deliveryDestinationRefID,
                 "supplierInvoiceBillingPurpose_RefID"   => null,
                 "remarks"                               => $data['remarkPO'],
