@@ -24,7 +24,6 @@
         @csrf
           <input type="hidden" name="DocumentTypeID" id="DocumentTypeID" />
           <input type="hidden" name="var_combinedBudget_RefID" id="var_combinedBudget_RefID" value="<?= $header['budgetID']; ?>" />
-          <input type="hidden" name="purchaseOrderDetail" id="purchaseOrderDetail" />
           <input type="hidden" name="purchaseOrderRecord_RefID" id="purchaseOrderRecord_RefID" />
           <input type="hidden" name="tariffCurrencyValue" id="tariffCurrencyValue" />
           <input type="hidden" name="transactionTaxDetail_RefID" id="transactionTaxDetail_RefID" value="<?= $header['transactionTaxDetailRefID']; ?>" />
@@ -152,13 +151,9 @@
                   <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel Purchase Order List Cart"> Cancel
                 </a>
 
-                <button type="button" id="revision-po-details-add" class="btn btn-default btn-sm float-right" data-toggle="modal" data-target="#purchaseOrderRevisionFormModal" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
+                <button type="button" class="btn btn-default btn-sm float-right" onclick="validationForm()" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
                   <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" title="Submit to Advance"> Submit
                 </button>
-
-                {{-- <button class="btn btn-default btn-sm float-right" type="submit" id="submitRevisionPurchaseOrder" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
-                  <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" title="Submit to Purchase Order"> Submit
-                </button> --}}
               </div>
             </div>
           </div>
@@ -176,18 +171,24 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
       </div>
       <div class="modal-body">
-        <div class="wrapper-budget table-responsive card-body p-0" style="max-height: 230px;">
-          <table class="table text-nowrap table-sm" id="tablePurchaseOrderList">
+        <div class="wrapper-budget table-responsive card-body p-0" style="max-height: 200px;">
+          <table class="table text-nowrap table-sm" id="tablePurchaseOrderList" style="border: 1px solid #dee2e6;">
             <tbody></tbody>
           </table>
         </div>
         <div class="card-body">
           <table style="float:right;">
-            <tr>
-              <th> Total Item :
-                <span id="GrandTotal">0.00</span>
-              </th>
-            </tr>
+            <tbody style="line-height: 1.3">
+              <tr>
+                <th id="GrandTotal"></th>
+              </tr>
+              <tr>
+                <th id="GrandVAT"></th>
+              </tr>
+              <tr>
+                <th id="GrandTotalVAT"></th>
+              </tr>
+            </tbody>
           </table>
         </div>
       </div>
