@@ -132,11 +132,10 @@
             const productUnitPriceDiscountCurrencyExchangeRate  = row.querySelector('input[id^="productUnitPriceDiscountCurrencyExchangeRate"]');
 
             if (
-                qtyInput && priceInput && totalInput && balanceInput && 
+                qtyInput && priceInput && totalInput &&
                 qtyInput.value.trim() !== '' &&
                 priceInput.value.trim() !== '' &&
-                totalInput.value.trim() !== '' &&
-                balanceInput.value.trim() !== '' 
+                totalInput.value.trim() !== ''
             ) {
                 const documentNumber    = row.children[0].value.trim();
                 const productCode       = row.children[9].value.trim();
@@ -237,11 +236,11 @@
                     }
                 }
 
-                dataStore = dataStore.filter(item => item.entities.documentNumber != documentNumber && item.entities.product_RefID != productCode);
+                dataStore = dataStore.filter(item => {
+                    return !(item.entities.documentNumber === documentNumber && item.entities.product_RefID === productCode);
+                });
             }
         }
-
-        dataStore = dataStore.filter(item => item !== undefined);
 
         updateGrandTotal();
     }
@@ -644,7 +643,7 @@
                     swalWithBootstrapButtons.fire({
                         title: 'Successful !',
                         type: 'success',
-                        html: 'Data has been saved. Your transaction number is ' + '<span style="color:#0046FF;">' + res.documentNumber + '</span>',
+                        html: 'Data has been saved. Your transaction number is ' + '<span style="color:#0046FF;font-weight:bold;">' + res.documentNumber + '</span>',
                         showCloseButton: false,
                         showCancelButton: false,
                         focusConfirm: false,
