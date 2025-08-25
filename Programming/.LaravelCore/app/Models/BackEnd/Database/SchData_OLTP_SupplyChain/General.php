@@ -2794,7 +2794,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                                 $varReturn['data'][$idxArray]['deliveryToName'] = null;
                                 $varReturn['data'][$idxArray]['deliveryToCode'] = null;
                             }
-                            $varReturn['data'][$idxArray]['qtyAvail'] = in_array($value["Sys_ID"], $listIdPRDetail) ? $value["Quantity"] - $qtyPODetail[$value["Sys_ID"]]["Qty"] : null;
+                            $varReturn['data'][$idxArray]['qtyAvail'] = in_array($value["Sys_ID"], $listIdPRDetail) ? round($value["Quantity"] - $qtyPODetail[$value["Sys_ID"]]["Qty"], 2) : null;
                             $varReturn['data'][$idxArray]['orderSequence'] = $value["OrderSequence"];
                             $idxArray++;
                         }
