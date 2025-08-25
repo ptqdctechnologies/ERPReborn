@@ -56,6 +56,14 @@
           </div>
         </div>
       </div>
+      <div class="row" id="deliveryToMessage" style="margin-top: .3rem;display: none;">
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+        <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+          <div class="text-red">
+            Delivery To cannot be empty.
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

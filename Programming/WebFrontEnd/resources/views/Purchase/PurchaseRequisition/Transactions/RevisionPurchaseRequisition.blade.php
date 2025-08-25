@@ -26,7 +26,6 @@
           @csrf
           <input type="hidden" name="DocumentTypeID" id="DocumentTypeID">
           <input type="hidden" name="var_combinedBudget_RefID" id="var_combinedBudget_RefID" value="<?= $header['budgetID']; ?>">
-          <input type="hidden" name="purchaseRequisitionDetail" id="purchaseRequisitionDetail">
           <input type="hidden" name="purchaseRequestID" id="purchaseRequestID" value="<?= $header['purchaseRequestID']; ?>">
 
           <!-- PURCHASE REQUEST -->
@@ -144,8 +143,6 @@
                     </div>
                   </div>
 
-                  {{-- @include('Purchase.PurchaseRequisition.Functions.Table.getBOQ') --}}
-
                   <!-- BODY -->
                   <div class="wrapper-budget card-body table-responsive p-0" style="height: 230px;">
                     <table class="table table-head-fixed text-nowrap table-sm" id="tableGetPRDetails">
@@ -193,83 +190,21 @@
 
                   <!-- FOOTER -->
                   <div class="card-body tableShowHideBudget">
-                    <table style="float:right;">
-                      <tr>
-                        <th style="position: relative;right:20px;"> Total : <span id="TotalBudgetSelected">0.00</span></th>
-                      </tr>
-                      {{-- <tr>
-                        <td>
-                          <br>
-                          <a class="btn btn-default btn-sm float-right" id="purchase-request-details-add" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
-                            <img src="{{ asset('AdminLTE-master/dist/img/add.png') }}" width="13" alt="" title="Add to Advance List"> Add
-                          </a>
-                        </td>
-                      </tr> --}}
-                    </table>
+                    <div class="row">
+                      <div class="col">
+                        <div class="text-red" id="budgetDetailsMessage" style="display: none;">
+                          Please input at least one item.
+                        </div>
+                      </div>
+                      <div class="col text-right" style="margin-right: 20px; font-size: 0.77rem; color: #212529; font-weight: 600;">
+                        Total : <span id="TotalBudgetSelected">0.00</span>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-
-          <!-- PURCHASE REQUEST (CART) -->
-          {{-- <div class="tab-content px-3 pb-2" id="nav-tabContent">
-            <div class="row">
-              <div class="col-12">
-                <div class="card">
-                  <!-- HEADER -->
-                  <div class="card-header">
-                    <label class="card-title">
-                      Purchase Request List (Cart)
-                    </label>
-                    <div class="card-tools">
-                      <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                        <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
-                      </button>
-                    </div>
-                  </div>
-
-                  <!-- TABLE -->
-                  <div class="card-body table-responsive p-0" style="height:135px;">
-                    <table class="table table-head-fixed text-nowrap table-sm" id="tablePRDetailList">
-                      <thead>
-                        <tr>
-                          <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Product Code</th>
-                          <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Product Name</th>
-                          <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">UOM</th>
-                          <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Currency</th>
-                          <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Price</th>
-                          <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Qty</th>
-                          <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Total</th>
-                          <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Note</th>
-                        </tr>
-                      </thead>
-                      <tbody></tbody>
-                    </table>
-                  </div>
-
-                  <!-- FOOTER -->
-                  <div class="card-body">
-                    <table style="float:right;">
-                      <tr>
-                        <th> Total Item :
-                          <span id="GrandTotal">0.00</span>
-                        </th>
-                      </tr>
-                      <tr>
-                        <td>
-                          <br>
-                          <a class="btn btn-default btn-sm float-right" id="purchase-request-details-reset" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
-                            <img src="{{ asset('AdminLTE-master/dist/img/reset.png') }}" width="13" alt="" title="Add to Advance List"> Reset
-                          </a>
-                        </td>
-                      </tr>
-                    </table>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div> --}}
 
           <!-- BUTTON -->
           <div class="tab-content px-3 pb-2" id="nav-tabContent">
@@ -279,13 +214,9 @@
                   <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel Advance List Cart"> Cancel
                 </a>
 
-                <button type="button" id="purchase-request-details-add" class="btn btn-default btn-sm float-right" data-toggle="modal" data-target="#purchaseRequestRevisionFormModal" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
+                <button type="button" class="btn btn-default btn-sm float-right" onclick="validationForm()" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
                   <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" title="Submit to Advance"> Submit
                 </button>
-
-                {{-- <button class="btn btn-default btn-sm float-right" type="submit" id="submitRevisionPR" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
-                  <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" title="Submit to Advance"> Submit
-                </button> --}}
               </div>
             </div>
           </div>
@@ -296,7 +227,7 @@
 </div>
 
 <div class="modal fade" id="purchaseRequestRevisionFormModal" tabindex="-1" role="dialog">
-  <div class="modal-dialog modal-lg" role="document">
+  <div class="modal-dialog modal-lg" role="document" style="min-height: calc(100vh - 3.5rem); display: flex; align-items: center;">
     <div class="modal-content">
       <div class="modal-header">
         <h3 style="margin: 0px;font-weight:bold;">Are you sure you want to save this data?</h3>
@@ -308,15 +239,13 @@
             <tbody></tbody>
           </table>
         </div>
-        {{-- <div class="card-body">
+        <div class="card-body">
           <table style="float:right;">
             <tr>
-              <th> Total Item :
-                <span id="GrandTotal">0.00</span>
-              </th>
+              <th id="GrandTotal"></th>
             </tr>
           </table>
-        </div> --}}
+        </div>
       </div>
       <div class="modal-footer">
         <button type="button" id="submitRevisionPR" class="btn btn-default btn-sm" onclick="SubmitForm();" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
@@ -331,6 +260,6 @@
   </div>
 </div>
 
-@include('Partials.footer')
 @include('Purchase.PurchaseRequisition.Functions.Footer.FooterPurchaseRequisitionRevision')
+@include('Partials.footer')
 @endsection

@@ -103,12 +103,12 @@
         let total = 0;
         const rows = document.querySelectorAll('#tablePurchaseOrderList tbody tr');
         rows.forEach(row => {
-            const totalCell = row.children[8];
+            const totalCell = row.children[9];
             const value = parseFloat(totalCell.innerText.replace(/,/g, '')) || 0;
             total += value;
         });
 
-        document.getElementById('GrandTotal').innerText = `Total (${rows[0].children[5].innerText}): ${decimalFormat(total)}`;
+        document.getElementById('GrandTotal').innerText = `Total (${rows[0].children[6].innerText}): ${decimalFormat(total)}`;
     }
 
     function summaryData() {
@@ -132,11 +132,10 @@
             const productUnitPriceDiscountCurrencyExchangeRate  = row.querySelector('input[id^="productUnitPriceDiscountCurrencyExchangeRate"]');
 
             if (
-                qtyInput && priceInput && totalInput && balanceInput && 
+                qtyInput && priceInput && totalInput &&
                 qtyInput.value.trim() !== '' &&
                 priceInput.value.trim() !== '' &&
-                totalInput.value.trim() !== '' &&
-                balanceInput.value.trim() !== '' 
+                totalInput.value.trim() !== ''
             ) {
                 const documentNumber    = row.children[0].value.trim();
                 const productCode       = row.children[9].value.trim();
@@ -160,9 +159,9 @@
 
                     if (targetDocNumber === documentNumber && targetCode === productCode) {
                         found                           = true;
-                        targetRow.children[6].innerText = price;
-                        targetRow.children[7].innerText = qty;
-                        targetRow.children[8].innerText = total;
+                        targetRow.children[7].innerText = price;
+                        targetRow.children[8].innerText = qty;
+                        targetRow.children[9].innerText = total;
 
                         // update dataStore
                         const indexToUpdate = dataStore.findIndex(item => item.entities.documentNumber === documentNumber && item.entities.product_RefID === productCode);
@@ -193,7 +192,8 @@
                         <input type="hidden" name="qty_avail[]" value="${qtyAvail}">
                         <input type="hidden" name="product_code[]" value="${productCode}">
                         <td style="text-align: left;padding: 0.8rem 0.5rem;width: 100px;">${documentNumber}</td>
-                        <td style="text-align: right;padding: 0.8rem 0.5rem;">${productCode + ' - ' + productName}</td>
+                        <td style="text-align: right;padding: 0.8rem 0.5rem;">${productCode}</td>
+                        <td style="text-align: left;padding: 0.8rem 0.5rem;">${productName}</td>
                         <td style="text-align: left;padding: 0.8rem 0.5rem;width: 20px;">${uom}</td>
                         <td style="text-align: left;padding: 0.8rem 0.5rem;width: 40px;" hidden>${currency}</td>
                         <td style="text-align: right;padding: 0.8rem 0.5rem;width: 100px;">${price}</td>
@@ -221,11 +221,26 @@
                         }
                     });
                 }
+            } else {
+                const documentNumber    = row.children[0].value.trim();
+                const productCode       = row.children[9].value.trim();
+                const existingRows      = targetTable.getElementsByTagName('tr');
+
+                for (let targetRow of existingRows) {
+                    const targetDocNumber   = targetRow.children[2].innerText.trim();
+                    const targetCode        = targetRow.children[1].value.trim();
+
+                    if (targetDocNumber == documentNumber && targetCode == productCode) {
+                        targetRow.remove();
+                        break;
+                    }
+                }
+
+                dataStore = dataStore.filter(item => {
+                    return !(item.entities.documentNumber === documentNumber && item.entities.product_RefID === productCode);
+                });
             }
         }
-
-        dataStore = dataStore.filter(item => item !== undefined);
-        $("#purchaseOrderDetail").val(JSON.stringify(dataStore));
 
         updateGrandTotal();
     }
@@ -530,7 +545,7 @@
                                 calculateTotal();
                             }
 
-                            checkOneLineBudgetContents(key);
+                            checkOneLineBudgetContents(data_index);
                         });
 
                         $(`#price_req${indexPurchaseOrder}`).on('keyup', function() {
@@ -554,7 +569,7 @@
                                 calculateTotal();
                             }
 
-                            checkOneLineBudgetContents(key);
+                            checkOneLineBudgetContents(data_index);
                         });
 
                         indexPurchaseOrder += 1;
@@ -628,7 +643,7 @@
                     swalWithBootstrapButtons.fire({
                         title: 'Successful !',
                         type: 'success',
-                        html: 'Data has been saved. Your transaction number is ' + '<span style="color:#0046FF;">' + res.documentNumber + '</span>',
+                        html: 'Data has been saved. Your transaction number is ' + '<span style="color:#0046FF;font-weight:bold;">' + res.documentNumber + '</span>',
                         showCloseButton: false,
                         showCancelButton: false,
                         focusConfirm: false,
@@ -656,6 +671,7 @@
         var action = $("#FormSubmitPurchaseOrder").attr("action");
         var method = $("#FormSubmitPurchaseOrder").attr("method");
         var form_data = new FormData($("#FormSubmitPurchaseOrder")[0]);
+        form_data.append('purchaseOrderDetail', JSON.stringify(dataStore));
 
         ShowLoading();
 
