@@ -314,6 +314,29 @@ class FunctionController extends Controller
         }
     }
 
+    public function getCreditNoteList(Request $request)
+    {
+        try {
+            $varAPIWebToken = Session::get('SessionLogin');
+            $varDataCN      = Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken,
+                'dataPickList.finance.getCreditNote',
+                'latest',
+                [
+                    'parameter' => [
+                    ]
+                ],
+                false
+            );
+
+            return response()->json($varDataCN['data']['data']);
+        } catch (\Throwable $th) {
+            Log::error("Error at getCreditNoteList: " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
     // FUNCTION WORKER 
     public function getTransporter(Request $request)
     {
