@@ -130,12 +130,12 @@
                     const newRow = document.createElement('tr');
                     newRow.innerHTML = `
                         <input type="hidden" id="combinedBudgetSectionDetail_RefID[]" value="${combinedBudgetSectionDetailRefID.value}">
-                        <td style="text-align: center;padding: 0.8rem 0.5rem;">${trano}</td>
-                        <td style="text-align: center;padding: 0.8rem 0.5rem;">${budget}</td>
-                        <td style="text-align: center;padding: 0.8rem 0.5rem;">${subBuget}</td>
-                        <td style="text-align: center;padding: 0.8rem 0.5rem;">${decimalFormat(cnValue)}</td>
-                        <td style="text-align: center;padding: 0.8rem 0.5rem;">${decimalFormat(cnTax)}</td>
-                        <td style="text-align: center;padding: 0.8rem 0.5rem;">${coaName}</td>
+                        <td style="text-align: left;padding: 0.8rem 0.5rem;">${trano}</td>
+                        <td style="text-align: center;padding: 0.8rem 0.5rem;" hidden>${budget}</td>
+                        <td style="text-align: right;padding: 0.8rem 0.5rem;">${subBuget}</td>
+                        <td style="text-align: right;padding: 0.8rem 0.5rem;">${decimalFormat(cnValue)}</td>
+                        <td style="text-align: right;padding: 0.8rem 0.5rem;">${decimalFormat(cnTax)}</td>
+                        <td style="text-align: right;padding: 0.8rem 0.5rem;">${coaName}</td>
                     `;
                     targetTable.appendChild(newRow);
 
@@ -376,20 +376,20 @@
     }
 
     function CreditNoteStore(formatData) {
-        // $.ajaxSetup({
-        //     headers: {
-        //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        //     }
-        // });
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
 
-        // $.ajax({
-        //     type: 'POST',
-        //     data: formatData,
-        //     url: '{{ route("CreditNote.store") }}',
-        //     success: function(res) {
+        $.ajax({
+            type: 'POST',
+            data: formatData,
+            url: '{{ route("CreditNote.store") }}',
+            success: function(res) {
                 HideLoading();
 
-        //         if (res.status === 200) {
+                if (res.status === 200) {
                     const swalWithBootstrapButtons = Swal.mixin({
                         confirmButtonClass: 'btn btn-success btn-sm',
                         cancelButtonClass: 'btn btn-danger btn-sm',
@@ -399,7 +399,7 @@
                     swalWithBootstrapButtons.fire({
                         title: 'Successful !',
                         type: 'success',
-                        html: 'Data has been saved. Your transaction number is ' + '<span style="color:#0046FF;font-weight:bold;">' + formatData.documentNumber + '</span>',
+                        html: 'Data has been saved. Your transaction number is ' + '<span style="color:#0046FF;font-weight:bold;">' + res.documentNumber + '</span>',
                         showCloseButton: false,
                         showCancelButton: false,
                         focusConfirm: false,
@@ -411,14 +411,19 @@
                         ShowLoading();
                         window.location.href = "{{ route('CreditNote.index', ['var' => 1]) }}";
                     });
-        //         } else {
-        //             ErrorNotif("Data Cancel Inputed");
-        //         }
-        //     },
-        //     error: function(jqXHR, textStatus, errorThrown) {
-        //         console.log('error', jqXHR, textStatus, errorThrown);
-        //     }
-        // });
+                } else {
+                    ErrorNotif("Data Cancel Inputed");
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.log('error', jqXHR, textStatus, errorThrown);
+            }
+        });
+    }
+
+    function cancelCreditNote() {
+        ShowLoading();
+        window.location.href = "{{ route('CreditNote.index', ['var' => 1]) }}";
     }
 
     function SubmitForm() {
@@ -441,7 +446,7 @@
             type: method,
             success: function(response) {
                 HideLoading();
-
+                
                 if (response.message == "WorkflowError") {
                     CancelNotif("You don't have access", "{{ route('CreditNote.index', ['var' => 1]) }}");
                 } else if (response.message == "MoreThanOne") {
@@ -464,8 +469,7 @@
                         storeData: response.storeData
                     };
 
-                    SelectWorkFlow(response);
-                    // SelectWorkFlow(formatData);
+                    SelectWorkFlow(formatData);
                 }
             },
             error: function(response) {
@@ -476,6 +480,16 @@
             }
         });
     }
+
+    $('#tableCreditNote').on('click', 'tbody tr', async function() {
+        var sysId = $(this).find('input[data-trigger="sys_id_modal_cn"]').val();
+        var trano  = $(this).find('td:nth-child(2)').text();
+
+        $('#creditNote_RefID').val(sysId);
+        $('#creditNoteNumber').val(trano);
+        
+        $('#myCreditNote').modal('hide');
+    });
 
     $('#tableGetInvoice').on('click', 'tbody tr', function() {
         var sysId = $(this).find('input[data-trigger="sys_id_modal_invoice"]').val();

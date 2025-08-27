@@ -4,7 +4,9 @@
 @include('Partials.sidebar')
 @include('getFunction.getInvoice')
 @include('getFunction.getWorkFlow')
+@include('getFunction.getCreditNote')
 @include('getFunction.getChartOfAccount')
+@include('Process.CreditNote.Functions.PopUp.PopUpCreditNoteRevision')
 
 <div class="content-wrapper">
     <section class="content">
@@ -23,8 +25,7 @@
             <!-- CONTENT -->
             @if($var == 0)
             <div class="card">
-                <!-- <form method="post" action="{{ route('SelectWorkFlow') }}" id="FormSubmitCreditNote"> -->
-                <form method="post" action="{{ route('CreditNote.store') }}" id="FormSubmitCreditNote">
+                <form method="post" action="{{ route('SelectWorkFlow') }}" id="FormSubmitCreditNote">
                 @csrf
                     <input type="hidden" name="DocumentTypeID" id="DocumentTypeID">
                     <input type="hidden" name="var_combinedBudget_RefID" id="var_combinedBudget_RefID" value="46000000000033">
@@ -211,7 +212,7 @@
                     <div class="tab-content px-3 pb-2" id="nav-tabContent">
                         <div class="row">
                             <div class="col">
-                                <a class="btn btn-default btn-sm float-right" style="background-color:#e9ecef;border:1px solid #ced4da;">
+                                <a class="btn btn-default btn-sm float-right" onclick="cancelCreditNote()" style="background-color:#e9ecef;border:1px solid #ced4da;">
                                     <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel Advance List Cart"> Cancel
                                 </a>
 
