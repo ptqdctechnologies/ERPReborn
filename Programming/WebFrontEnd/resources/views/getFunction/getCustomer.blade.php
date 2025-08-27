@@ -14,20 +14,32 @@
                                     <thead>
                                         <tr>
                                             <th>No</th>
-                                            <th>Customer Code</th>
-                                            <th>Customer Name</th>
+                                            <th>Code</th>
+                                            <th>Name</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        @php $no = 1 @endphp
-                                        @foreach($data3 as $datas)
-                                        <tr>
-                                            <td>{{ $no++ }}</td>
-                                            <td data-dismiss="modal" class="klikCustomer" data-id="{{$datas['code']}}" data-name="{{$datas['fullName']}}">{{$datas['code']}}</td>
-                                            <td>{{$datas['fullName']}}</td>
+                                    <tbody></tbody>
+                                    <tfoot>
+                                        <tr class="loadingGetModalCustomer">
+                                            <td colspan="3" class="p-0" style="height: 22rem;">
+                                                <div class="d-flex flex-column justify-content-center align-items-center py-3">
+                                                    <div class="spinner-border" role="status">
+                                                        <span class="sr-only">Loading...</span>
+                                                    </div>
+                                                    <div class="mt-3" style="font-size: 0.75rem; font-weight: 700;">
+                                                        Loading...
+                                                    </div>
+                                                </div>
+                                            </td>
                                         </tr>
-                                        @endforeach
-                                    </tbody>
+                                        <tr class="errorModalCustomerMessageContainer" style="display: none;">
+                                            <td colspan="3" class="p-0" style="height: 22rem;">
+                                                <div class="d-flex flex-column justify-content-center align-items-center py-3">
+                                                    <div id="errorModalCustomerMessage" class="mt-3 text-red" style="font-size: 1rem; font-weight: 700;"></div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tfoot>
                                 </table>
                             </div>
                         </div>
@@ -37,23 +49,57 @@
         </div>
     </div>
 </div>
-<!--|----------------------------------------------------------------------------------|
-    |                            End Function My Project Code                          |
-    |----------------------------------------------------------------------------------|-->
 
 <script>
+    function getModalCustomer() {
+        $('#tableGetCustomer tbody').empty();
+        $(".loadingGetModalCustomer").show();
+        $(".errorModalCustomerMessageContainer").hide();
 
-    // $('#tableGetSite').empty();
-
-    $(function() {
-        $('.klikCustomer').on('click', function(e) {
-            e.preventDefault(); // in chase you change to a link or button
-            var $this = $(this);
-            var code = $this.data("id");
-            var name = $this.data("name");
-            $("#var_customer").val(code);
-            $("#var_customer2").val(name);
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
         });
 
+        $.ajax({
+            type: 'GET',
+            url: '{!! route("getCustomerList") !!}',
+            success: function(data) {
+                $(".loadingGetModalCustomer").hide();
+
+                let no = 1;
+                let table = $('#tableGetCustomer').DataTable();
+                table.clear();
+
+                if (Array.isArray(data) && data.length > 0) {
+                    $.each(data, function(key, val) {
+                        table.row.add([
+                            '<input data-trigger="sys_id_modal_customer" value="' + val.sys_ID + '" type="hidden">' + no++,
+                            val.code || '-',
+                            val.sys_Text || '-',
+                        ]).draw();
+                    });
+                } else {
+                    $(".errorModalCustomerMessageContainer").show();
+                    $("#errorModalCustomerMessage").text(`Data not found.`);
+
+                    $("#tableGetCustomer_length").hide();
+                    $("#tableGetCustomer_filter").hide();
+                    $("#tableGetCustomer_info").hide();
+                    $("#tableGetCustomer_paginate").hide();
+                }
+            },
+            error: function (textStatus, errorThrown) {
+                $('#tableGetCustomer tbody').empty();
+                $(".loadingGetModalCustomer").hide();
+                $(".errorModalCustomerMessageContainer").show();
+                $("#errorModalCustomerMessage").text(`[${textStatus.status}] ${textStatus.responseJSON.message}`);
+            }
+        });
+    }
+
+    $(window).one('load', function(e) {
+        getModalCustomer();
     });
 </script>
