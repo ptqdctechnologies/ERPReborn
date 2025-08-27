@@ -86,10 +86,10 @@
                 coaNameInput.value.trim() !== ''
             ) {
                 const trano     = row.children[0].value.trim();
-                const budget    = row.children[6].innerText.trim();
-                const subBuget  = row.children[7].innerText.trim();
-                const quantity  = row.children[8].innerText.trim();
-                const price     = row.children[9].innerText.trim();
+                const budget    = row.children[7].innerText.trim();
+                const subBuget  = row.children[8].innerText.trim();
+                const quantity  = row.children[9].innerText.trim();
+                const price     = row.children[10].innerText.trim();
 
                 const cnValue   = cnValueInput.value.trim();
                 const cnTax     = cnTaxInput.value.trim();
@@ -100,11 +100,36 @@
                 const existingRows = targetTable.getElementsByTagName('tr');
 
                 for (let targetRow of existingRows) {
+                    const targetCombinedBudgetSectionDetailRefID = targetRow.children[0]?.value?.trim();
+
+                    if (targetCombinedBudgetSectionDetailRefID == combinedBudgetSectionDetailRefID.value) {
+                        targetRow.children[4].innerText = decimalFormat(cnValue);
+                        targetRow.children[5].innerText = decimalFormat(cnTax);
+                        targetRow.children[6].innerText = coaName;
+                        found = true;
+
+                        const indexToUpdate = dataStore.findIndex(item => item.entities.combinedBudgetSectionDetail_RefID == combinedBudgetSectionDetailRefID.value);
+                        if (indexToUpdate !== -1) {
+                            dataStore[indexToUpdate] = {
+                                entities: {
+                                    combinedBudgetSectionDetail_RefID: parseInt(combinedBudgetSectionDetailRefID.value),
+                                    product_RefID: parseInt(productRefID.value),
+                                    quantity: parseFloat(quantity.replace(/,/g, '')),
+                                    quantityUnit_RefID: parseInt(quantityUnitRefID.value),
+                                    productUnitPriceCurrency_RefID: parseInt(productUnitPriceCurrencyRefID.value),
+                                    productUnitPriceCurrencyValue: parseFloat(price.replace(/,/g, '')),
+                                    productUnitPriceCurrencyExchangeRate: parseInt(productUnitPriceCurrencyExchangeRate.value),
+                                    chartOfAccount_RefID: parseInt(coaId),
+                                }
+                            }
+                        }
+                    }
                 }
 
                 if (!found) {
                     const newRow = document.createElement('tr');
                     newRow.innerHTML = `
+                        <input type="hidden" id="combinedBudgetSectionDetail_RefID[]" value="${combinedBudgetSectionDetailRefID.value}">
                         <td style="text-align: center;padding: 0.8rem 0.5rem;">${trano}</td>
                         <td style="text-align: center;padding: 0.8rem 0.5rem;">${budget}</td>
                         <td style="text-align: center;padding: 0.8rem 0.5rem;">${subBuget}</td>
@@ -128,7 +153,20 @@
                     });
                 }
             } else {
+                const existingRows = targetTable.getElementsByTagName('tr');
 
+                for (let targetRow of existingRows) {
+                    const targetCombinedBudgetSectionDetailRefID = targetRow.children[0]?.value?.trim();
+
+                    if (targetCombinedBudgetSectionDetailRefID == combinedBudgetSectionDetailRefID.value) {
+                        targetRow.remove();
+                        break;
+                    }
+                }
+
+                dataStore = dataStore.filter(item => {
+                    return !(item.entities.combinedBudgetSectionDetail_RefID == combinedBudgetSectionDetailRefID.value);
+                });
             }
         }
     }
@@ -265,7 +303,7 @@
                     <input type="hidden" id="productUnitPriceCurrency_RefID[]" value="${val2.productUnitPriceCurrency_RefID}">
                     <input type="hidden" id="productUnitPriceCurrencyExchangeRate[]" value="${val2.productUnitPriceCurrencyExchangeRate}">
 
-                    ${key === 0 ? modifyColumn : ''}
+                    ${key === 0 ? modifyColumn : `<td style="text-align: center; padding: 10px !important;" hidden>${trano}</td>`}
                     <td style="text-align: center;">${val2.budgetCode} - ${val2.budgetName}</td>
                     <td style="text-align: center;">${val2.subBudgetCode} - ${val2.subBudgetName}</td>
                     <td style="text-align: center;">${decimalFormat(val2.quantity)}</td>
