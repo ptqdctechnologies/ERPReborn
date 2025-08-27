@@ -290,6 +290,30 @@ class FunctionController extends Controller
         return response()->json($varDataWorker['data']['data']);
     }
 
+    public function getChartOfAccountList(Request $request)
+    {
+        try {
+            $varAPIWebToken = Session::get('SessionLogin');
+            $varDataCOA     = Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken,
+                'dataPickList.accounting.getChartOfAccount',
+                'latest',
+                [
+                    'parameter' => [
+                        'effectiveDateTimeTZ' => NULL
+                    ]
+                ],
+                false
+            );
+
+            return response()->json($varDataCOA['data']['data']);
+        } catch (\Throwable $th) {
+            Log::error("Error at getChartOfAccountList: " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
     // FUNCTION WORKER 
     public function getTransporter(Request $request)
     {
@@ -852,6 +876,115 @@ class FunctionController extends Controller
         });
 
         return response()->json($filteredSubMenu);
+    }
+
+    public function getCustomerList(Request $request)
+    {
+        try {
+            $varAPIWebToken = Session::get('SessionLogin');
+            $varDataCustomer = Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'dataPickList.customerRelation.getCustomer', 
+                'latest', 
+                [
+                    'parameter'     => null,
+                    'SQLStatement'  => [
+                        'pick'      => null,
+                        'sort'      => null,
+                        'filter'    => null,
+                        'paging'    => null
+                    ]
+                ]
+            );
+
+            if ($varDataCustomer['metadata']['HTTPStatusCode'] !== 200) {
+                return response()->json($varDataCustomer);
+            }
+
+            return response()->json($varDataCustomer['data']['data']);
+        } catch (\Throwable $th) {
+            Log::error("Error at getCustomerList: " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
+    public function getInvoiceList(Request $request)
+    {
+        try {
+            // $varAPIWebToken = Session::get('SessionLogin');
+            // $varDataCustomer = Helper_APICall::setCallAPIGateway(
+            //     Helper_Environment::getUserSessionID_System(),
+            //     $varAPIWebToken, 
+            //     'dataPickList.customerRelation.getCustomer', 
+            //     'latest', 
+            //     [
+            //         'parameter'     => null,
+            //         'SQLStatement'  => [
+            //             'pick'      => null,
+            //             'sort'      => null,
+            //             'filter'    => null,
+            //             'paging'    => null
+            //         ]
+            //     ]
+            // );
+
+            // if ($varDataCustomer['metadata']['HTTPStatusCode'] !== 200) {
+            //     return response()->json($varDataCustomer);
+            // }
+
+            $varDataCustomer = [
+                'data'      => [
+                    'data'  => [
+                        [
+                            'sys_ID'    => '1',
+                            'sys_Text'  => 'INV/QDC/2025/000001'
+                        ],
+                        [
+                            'sys_ID'    => '2',
+                            'sys_Text'  => 'INV/QDC/2025/000002'
+                        ],
+                        [
+                            'sys_ID'    => '3',
+                            'sys_Text'  => 'INV/QDC/2025/000003'
+                        ],
+                        [
+                            'sys_ID'    => '4',
+                            'sys_Text'  => 'INV/QDC/2025/000004'
+                        ],
+                        [
+                            'sys_ID'    => '5',
+                            'sys_Text'  => 'INV/QDC/2025/000005'
+                        ],
+                        [
+                            'sys_ID'    => '6',
+                            'sys_Text'  => 'INV/QDC/2025/000006'
+                        ],
+                        [
+                            'sys_ID'    => '7',
+                            'sys_Text'  => 'INV/QDC/2025/000007'
+                        ],
+                        [
+                            'sys_ID'    => '8',
+                            'sys_Text'  => 'INV/QDC/2025/000008'
+                        ],
+                        [
+                            'sys_ID'    => '9',
+                            'sys_Text'  => 'INV/QDC/2025/000009'
+                        ],
+                        [
+                            'sys_ID'    => '10',
+                            'sys_Text'  => 'INV/QDC/2025/000010'
+                        ],
+                    ]
+                ]
+            ];
+
+            return response()->json($varDataCustomer['data']['data']);
+        } catch (\Throwable $th) {
+            Log::error("Error at getInvoiceList: " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
     }
 
     public function getCurrency(Request $request)
