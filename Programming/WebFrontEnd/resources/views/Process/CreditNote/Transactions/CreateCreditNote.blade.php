@@ -198,9 +198,9 @@
                                                     Please input at least one item.
                                                 </div>
                                             </div>
-                                            <!-- <div class="col text-right" style="margin-right: 20px; font-size: 0.77rem; color: #212529; font-weight: 600;">
+                                            <div class="col text-right" style="margin-right: 20px; font-size: 0.77rem; color: #212529; font-weight: 600;">
                                                 Total : <span id="TotalBudgetSelected">0.00</span>
-                                            </div> -->
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -240,6 +240,13 @@
                 <div class="wrapper-budget card-body table-responsive p-0" style="max-height:200px;">
                     <table class="table table-head-fixed text-nowrap table-sm" id="tableCreditNoteList" style="border: 1px solid #dee2e6;">
                         <tbody></tbody>
+                    </table>
+                </div>
+                <div class="card-body">
+                    <table style="float:right;">
+                        <tr>
+                            <th id="GrandTotal"></th>
+                        </tr>
                     </table>
                 </div>
             </div>

@@ -62,6 +62,18 @@
         return hasFullRow;
     }
 
+    function updateGrandTotal() {
+        let total = 0;
+        const rows = document.querySelectorAll('#tableCreditNoteList tbody tr');
+        rows.forEach(row => {
+            const totalCell = row.children[4];
+            const value = parseFloat(totalCell.innerText.replace(/,/g, '')) || 0;
+            total += value;
+        });
+
+        document.getElementById('GrandTotal').innerText = `Total: ${decimalFormat(parseFloat(total))}`;
+    }
+
     function summaryData() {
         const sourceTable = document.getElementById('tableGetCreditNoteDetails').getElementsByTagName('tbody')[0];
         const targetTable = document.getElementById('tableCreditNoteList').getElementsByTagName('tbody')[0];
@@ -169,6 +181,8 @@
                 });
             }
         }
+
+        updateGrandTotal();
     }
 
     function validationForm() {
@@ -189,6 +203,19 @@
                 return;
             }
         }
+    }
+
+    function calculateTotal() {
+        let total = 0;
+        
+        document.querySelectorAll('input[id^="cn_value"]').forEach(function(input) {
+            let value = parseFloat(input.value.replace(/,/g, ''));
+            if (!isNaN(value)) {
+                total += value;
+            }
+        });
+
+        document.getElementById('TotalBudgetSelected').textContent = decimalFormat(parseFloat(total));
     }
 
     function pickCOA(index) {
@@ -335,10 +362,12 @@
             tbody.append(row);
 
             $(`#cn_value${indexCreditNoteDetails}`).on('keyup', function() {
+                calculateTotal();
                 checkOneLineBudgetContents(indexCreditNoteDetails);
             });
 
             $(`#cn_tax${indexCreditNoteDetails}`).on('keyup', function() {
+                calculateTotal();
                 checkOneLineBudgetContents(indexCreditNoteDetails);
             });
 
