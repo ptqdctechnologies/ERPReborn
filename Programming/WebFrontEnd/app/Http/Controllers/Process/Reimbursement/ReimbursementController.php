@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Input;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redis;
-use Carbon\Carbon;
 use Illuminate\Support\Facades\Session;
 use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
 use App\Helpers\ZhtHelper\System\Helper_Environment;
@@ -77,7 +76,7 @@ class ReimbursementController extends Controller
 
             return response()->json($compact);
         } catch (\Throwable $th) {
-            Log::error("Store Advance Request Function Error: " . $th->getMessage());
+            Log::error("Store Reimbursement Function Error: " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }
@@ -93,7 +92,6 @@ class ReimbursementController extends Controller
             }
 
             $data           = $response['data']['data'];
-            $dateCustomer   = $data[0]['Date'] ? Carbon::parse($data[0]['Date'])->toDateString() : '';
 
             $compact = [
                 'varAPIWebToken'    => $varAPIWebToken,
@@ -105,10 +103,12 @@ class ReimbursementController extends Controller
                     'combinedBudgetSection_RefID'   => $data[0]['CombinedBudgetSection_RefID'] ?? '',
                     'combinedBudgetSectionCode'     => $data[0]['CombinedBudgetSectionCode'] ?? '',
                     'combinedBudgetSectionName'     => $data[0]['CombinedBudgetSectionName'] ?? '',
-                    'dateCustomer'                  => $dateCustomer,
+                    'customer_RefID'                => $data[0]['Requester_RefID'] ?? '',
+                    'customerCode'                  => $data[0]['RequesterCode'] ?? '',
+                    'customerName'                  => $data[0]['RequesterName'] ?? '',
                     'beneficiary_RefID'             => $data[0]['Beneficiary_RefID'] ?? '',
-                    'beneficiaryName'               => '',
-                    'beneficiaryPosition'           => '',
+                    'beneficiaryName'               => $data[0]['BeneficiaryName'] ?? '',
+                    'beneficiaryPosition'           => $data[0]['BeneficiaryCode'] ?? '',
                     'beneficiaryBank_RefID'         => $data[0]['BeneficiaryBank_RefID'] ?? '',
                     'beneficiaryBankName'           => $data[0]['BeneficiaryBankName'] ?? '',
                     'beneficiaryBankAcronym'        => $data[0]['BeneficiaryBankAcronym'] ?? '',
