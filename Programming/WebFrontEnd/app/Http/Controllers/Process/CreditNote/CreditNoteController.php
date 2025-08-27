@@ -50,26 +50,87 @@ class CreditNoteController extends Controller
                 return response()->json($response);
             }
 
-            // $responseWorkflow = $this->workflowService->submit(
-            //     $response['data']['businessDocument']['businessDocument_RefID'],
-            //     $request->workFlowPath_RefID,
-            //     $request->comment,
-            //     $request->approverEntity,
-            // );
+            $responseWorkflow = $this->workflowService->submit(
+                $response['data']['businessDocument']['businessDocument_RefID'],
+                $request->workFlowPath_RefID,
+                $request->comment,
+                $request->approverEntity,
+            );
 
-            // if ($responseWorkflow['metadata']['HTTPStatusCode'] !== 200) {
-            //     return response()->json($responseWorkflow);
-            // }
+            if ($responseWorkflow['metadata']['HTTPStatusCode'] !== 200) {
+                return response()->json($responseWorkflow);
+            }
 
             $compact = [
                 "documentNumber"    => $response['data']['businessDocument']['documentNumber'],
-                "status"            => $response['metadata']['HTTPStatusCode'],
-                // "status"            => $responseWorkflow['metadata']['HTTPStatusCode'],
+                "status"            => $responseWorkflow['metadata']['HTTPStatusCode'],
             ];
 
             return response()->json($compact);
         } catch (\Throwable $th) {
             Log::error("Store Credit Note Function Error: " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
+    public function RevisionCreditNote(Request $request) 
+    {
+        try {
+            $varAPIWebToken = $request->session()->get('SessionLogin');
+            $response       = $this->creditNoteService->getDetail($request->creditNote_RefID);
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                return response()->json($response);
+            }
+
+            $data = $response['data']['data'];
+
+            $compact = [
+                'varAPIWebToken'    => $varAPIWebToken,
+                'header'            => [
+                    'creditNote_RefID'      => $data[0]['Sys_ID_Header'] ?? '',
+                    'creditNoteNumber'      => $data[0]['BusinessDocumentNumber'] ?? '',
+                    'combinedBudget_RefID'  => $data[0]['CombinedBudget_RefID'] ?? '',
+                    'fileID'                => $data[0]['Log_FileUpload_Pointer_RefID'] ?? null,
+                ],
+                'detail'            => $data
+            ];
+
+            return view('Process.CreditNote.Transactions.RevisionCreditNote', $compact);
+        } catch (\Throwable $th) {
+            Log::error("Revision Credit Note Function Error: " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
+    public function UpdateCreditNote(Request $request)
+    {
+        try {
+            $response = $this->creditNoteService->update($request);
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                return response()->json($response);
+            }
+
+            $responseWorkflow = $this->workflowService->submit(
+                $response['data'][0]['businessDocument']['businessDocument_RefID'],
+                $request->workFlowPath_RefID,
+                $request->comment,
+                $request->approverEntity,
+            );
+
+            if ($responseWorkflow['metadata']['HTTPStatusCode'] !== 200) {
+                return response()->json($responseWorkflow);
+            }
+
+            $compact = [
+                "documentNumber"    => $response['data'][0]['businessDocument']['documentNumber'],
+                "status"            => $responseWorkflow['metadata']['HTTPStatusCode'],
+            ];
+
+            return response()->json($compact);
+        } catch (\Throwable $th) {
+            Log::error("Update Credit Note Function Error: " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }
