@@ -49,10 +49,10 @@ class ReimbursementService
             [
             'entities' => [
                 "documentDateTimeTZ"                    => date('Y-m-d'),
-                "requesterWorkerJobsPosition_RefID"     => (int) $careerRefID,
+                "requesterWorkerJobsPosition_RefID"     => (int) $data['customer_id'],
                 "beneficiaryWorkerJobsPosition_RefID"   => (int) $data['beneficiary_id'],
                 "beneficiaryBankAccount_RefID"          => (int) $data['bank_account_id'],
-                "date"                                  => $data['date_customer'],
+                "date"                                  => null,
                 "log_FileUpload_Pointer_RefID"          => $fileID,
                 "remarks"                               => $data['var_remark'],
                 "additionalData"    => [
@@ -83,10 +83,10 @@ class ReimbursementService
             'recordID' => (int) $data['reimbursement_RefID'],
             'entities' => [
                 "documentDateTimeTZ"                    => date('Y-m-d'),
-                "requesterWorkerJobsPosition_RefID"     => (int) $careerRefID,
+                "requesterWorkerJobsPosition_RefID"     => (int) $data['customer_id'],
                 "beneficiaryWorkerJobsPosition_RefID"   => (int) $data['beneficiary_id'],
                 "beneficiaryBankAccount_RefID"          => (int) $data['bank_account_id'],
-                "date"                                  => $data['date_customer'],
+                "date"                                  => null,
                 "log_FileUpload_Pointer_RefID"          => $fileID,
                 "remarks"                               => $data['var_remark'],
                 "additionalData"    => [
