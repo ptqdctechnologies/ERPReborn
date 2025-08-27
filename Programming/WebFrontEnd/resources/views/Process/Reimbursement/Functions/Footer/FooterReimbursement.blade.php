@@ -1,11 +1,12 @@
 <script>
-    let dataStore                   = [];
-    const budgetCode                = document.getElementById("project_id_second");
-    const siteCode                  = document.getElementById("site_id_second");
-    const dateCustomer              = document.getElementById("date_customer");
-    const beneficiaryID             = document.getElementById("beneficiary_second_id");
-    const bankID                    = document.getElementById("bank_name_second_id");
-    const bankAccountID             = document.getElementById("bank_accounts_id");
+    let dataStore       = [];
+    const budgetCode    = document.getElementById("project_id_second");
+    const siteCode      = document.getElementById("site_id_second");
+    const customerID    = document.getElementById("customer_id");
+    // const dateCustomer  = document.getElementById("customer_id");
+    const beneficiaryID = document.getElementById("beneficiary_second_id");
+    const bankID        = document.getElementById("bank_name_second_id");
+    const bankAccountID = document.getElementById("bank_accounts_id");
 
     function checkOneLineBudgetContents(indexInput) {
         const rows = document.querySelectorAll("#tableGetBudgetDetails tbody tr");
@@ -185,22 +186,23 @@
     function validationForm() {
         const isBudgetCodeNotEmpty      = budgetCode.value.trim() !== '';
         const isSiteCodeNotEmpty        = siteCode.value.trim() !== '';
-        const isDateCustomerNotEmpty    = dateCustomer.value.trim() !== '';
+        const isCustomerIDNotEmpty    = customerID.value.trim() !== '';
         const isBeneficiaryIDNotEmpty   = beneficiaryID.value.trim() !== '';
         const isBankIDNotEmpty          = bankID.value.trim() !== '';
         const isBankAccountIDNotEmpty   = bankAccountID.value.trim() !== '';
         const isTableNotEmpty           = checkOneLineBudgetContents();
 
-        if (isBudgetCodeNotEmpty && isSiteCodeNotEmpty && isDateCustomerNotEmpty && isBeneficiaryIDNotEmpty && isBankIDNotEmpty && isBankAccountIDNotEmpty && isTableNotEmpty) {
+        if (isBudgetCodeNotEmpty && isSiteCodeNotEmpty && isCustomerIDNotEmpty && isBeneficiaryIDNotEmpty && isBankIDNotEmpty && isBankAccountIDNotEmpty && isTableNotEmpty) {
             $('#reimbursementFormModal').modal('show');
             summaryData();
         } else {
-            if (!isBudgetCodeNotEmpty && !isSiteCodeNotEmpty && !isDateCustomerNotEmpty && !isBeneficiaryIDNotEmpty && !isBankIDNotEmpty && !isBankAccountIDNotEmpty && !isTableNotEmpty) {
+            if (!isBudgetCodeNotEmpty && !isSiteCodeNotEmpty && !isCustomerIDNotEmpty && !isBeneficiaryIDNotEmpty && !isBankIDNotEmpty && !isBankAccountIDNotEmpty && !isTableNotEmpty) {
                 $("#project_code_second").css("border", "1px solid red");
                 $("#project_name_second").css("border", "1px solid red");
                 $("#site_code_second").css("border", "1px solid red");
                 $("#site_name_second").css("border", "1px solid red");
-                $("#date_customer").css("border", "1px solid red");
+                $("#customer_code").css("border", "1px solid red");
+                $("#customer_name").css("border", "1px solid red");
                 $("#beneficiary_second_person_position").css("border", "1px solid red");
                 $("#beneficiary_second_person_name").css("border", "1px solid red");
                 $("#bank_name_second_name").css("border", "1px solid red");
@@ -230,9 +232,10 @@
                 // Swal.fire("Please Complete the Form", "Sub Budget cannot be empty.", "error");
                 return;
             } 
-            if (!isDateCustomerNotEmpty) {
-                $("#date_customer").css("border", "1px solid red");
-                $("#deliveryToMessage").show();
+            if (!isCustomerIDNotEmpty) {
+                $("#customer_code").css("border", "1px solid red");
+                $("#customer_name").css("border", "1px solid red");
+                $("#customerMessage").show();
                 // Swal.fire("Please Complete the Form", "Delivery To cannot be empty.", "error");
                 return;
             } 
@@ -590,11 +593,6 @@
         $("#deliverModalTrigger").prop("disabled", false);
     });
 
-    $('#date_customer').on('input', function() {
-        $("#date_customer").css("border", "1px solid #ced4da");
-        $("#customerMessage").hide();
-    });
-
     $('#tableGetBeneficiarySecond').on('click', 'tbody tr', function() {
         var personRefId = $(this).find('input[data-trigger="person_ref_id_beneficiary_second"]').val();
 
@@ -653,6 +651,17 @@
         $("#modal_reimbursement_id").val(sysId);
         $("#modal_reimbursement_document_number").val(trano);
         $('#myGetModalReimbursement').modal('hide');
+    });
+
+    $('#tableGetCustomer').on('click', 'tbody tr', function() {
+        var sysId   = $(this).find('input[data-trigger="sys_id_modal_customer"]').val();
+        var code    = $(this).find('td:nth-child(2)').text();
+        var name    = $(this).find('td:nth-child(3)').text();
+
+        $("#customer_id").val(sysId);
+        $("#customer_code").val(code);
+        $('#customer_name').val(name);
+        $('#myCustomer').modal('hide');
     });
 
     $(window).one('load', function(e) {

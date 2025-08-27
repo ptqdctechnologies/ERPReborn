@@ -4,6 +4,7 @@
 @include('Partials.sidebar')
 @include('getFunction.getProject')
 @include('getFunction.getSite')
+@include('getFunction.getCustomer')
 @include('getFunction.getBeneficiary')
 @include('getFunction.getBank')
 @include('getFunction.getBankAccount')
