@@ -1,4 +1,4 @@
-<div id="myGetChartOfAccount" class="modal fade" role="dialog" aria-labelledby="contohModalScrollableTitle" aria-hidden="true">
+<div id="myCreditNote" class="modal fade" role="dialog" aria-labelledby="contohModalScrollableTitle" aria-hidden="true" style="z-index: 9999;">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -10,18 +10,21 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body table-responsive p-0" style="height: 400px;">
-                                <table class="table table-head-fixed text-nowrap" id="tableGetChartOfAccount">
+                                <table class="table table-head-fixed text-nowrap" id="tableCreditNote">
                                     <thead>
                                         <tr>
                                             <th>No</th>
-                                            <th>Code</th>
-                                            <th>Name</th>
+                                            <th>Trano</th>
+                                            <th>Customer Code</th>
+                                            <th>Customer Name</th>
+                                            <th>Budget Code</th>
+                                            <th>Budget Name</th>
                                         </tr>
                                     </thead>
                                     <tbody></tbody>
                                     <tfoot>
-                                        <tr class="loadingGetModalChartOfAccount">
-                                            <td colspan="3" class="p-0" style="height: 22rem;">
+                                        <tr class="loadingGetModalCreditNote">
+                                            <td colspan="6" class="p-0" style="height: 22rem;">
                                                 <div class="d-flex flex-column justify-content-center align-items-center py-3">
                                                     <div class="spinner-border" role="status">
                                                         <span class="sr-only">Loading...</span>
@@ -32,10 +35,10 @@
                                                 </div>
                                             </td>
                                         </tr>
-                                        <tr class="errorModalChartOfAccountMessageContainer" style="display: none;">
-                                            <td colspan="3" class="p-0" style="height: 22rem;">
+                                        <tr class="errorModalCreditNoteMessageContainer" style="display: none;">
+                                            <td colspan="6" class="p-0" style="height: 22rem;">
                                                 <div class="d-flex flex-column justify-content-center align-items-center py-3">
-                                                    <div id="errorModalChartOfAccountMessage" class="mt-3 text-red" style="font-size: 1rem; font-weight: 700;"></div>
+                                                    <div id="errorModalCreditNoteMessage" class="mt-3 text-red" style="font-size: 1rem; font-weight: 700;"></div>
                                                 </div>
                                             </td>
                                         </tr>
@@ -51,10 +54,10 @@
 </div>
 
 <script>
-    function getModalChartOfAccount() {
-        $('#tableGetChartOfAccount tbody').empty();
-        $(".loadingGetModalChartOfAccount").show();
-        $(".errorModalChartOfAccountMessageContainer").hide();
+    function getModalCreditNote() {
+        $('#tableCreditNote tbody').empty();
+        $(".loadingGetModalCreditNote").show();
+        $(".errorModalCreditNoteMessageContainer").hide();
 
         $.ajaxSetup({
             headers: {
@@ -64,42 +67,45 @@
 
         $.ajax({
             type: 'GET',
-            url: '{!! route("getChartOfAccountList") !!}',
+            url: '{!! route("getCreditNoteList") !!}',
             success: function(data) {
-                $(".loadingGetModalChartOfAccount").hide();
+                $(".loadingGetModalCreditNote").hide();
 
                 let no = 1;
-                let table = $('#tableGetChartOfAccount').DataTable();
+                let table = $('#tableCreditNote').DataTable();
                 table.clear();
 
                 if (Array.isArray(data) && data.length > 0) {
                     $.each(data, function(key, val) {
                         table.row.add([
-                            '<input data-trigger="sys_id_modal_coa" value="' + val.sys_ID + '" type="hidden">' + no++,
-                            val.code || '-',
-                            val.name || '-',
+                            '<input data-trigger="sys_id_modal_cn" value="' + val.sys_ID + '" type="hidden">' + no++,
+                            val.sys_Text || '-',
+                            val.customerCode || '-',
+                            val.customerName || '-',
+                            val.combinedBudgetCode || '-',
+                            val.combinedBudgetName || '-',
                         ]).draw();
                     });
                 } else {
-                    $(".errorModalChartOfAccountMessageContainer").show();
-                    $("#errorModalChartOfAccountMessage").text(`Data not found.`);
+                    $(".errorModalCreditNoteMessageContainer").show();
+                    $("#errorModalCreditNoteMessage").text(`Data not found.`);
 
-                    $("#tableGetChartOfAccount_length").hide();
-                    $("#tableGetChartOfAccount_filter").hide();
-                    $("#tableGetChartOfAccount_info").hide();
-                    $("#tableGetChartOfAccount_paginate").hide();
+                    $("#tableCreditNote_length").hide();
+                    $("#tableCreditNote_filter").hide();
+                    $("#tableCreditNote_info").hide();
+                    $("#tableCreditNote_paginate").hide();
                 }
             },
             error: function (textStatus, errorThrown) {
-                $('#tableGetChartOfAccount tbody').empty();
-                $(".loadingGetModalChartOfAccount").hide();
-                $(".errorModalChartOfAccountMessageContainer").show();
-                $("#errorModalChartOfAccountMessage").text(`[${textStatus.status}] ${textStatus.responseJSON.message}`);
+                $('#tableCreditNote tbody').empty();
+                $(".loadingGetModalCreditNote").hide();
+                $(".errorModalCreditNoteMessageContainer").show();
+                $("#errorModalCreditNoteMessage").text(`[${textStatus.status}] ${textStatus.responseJSON.message}`);
             }
         });
     }
 
     $(window).one('load', function(e) {
-        getModalChartOfAccount();
+        getModalCreditNote();
     });
 </script>

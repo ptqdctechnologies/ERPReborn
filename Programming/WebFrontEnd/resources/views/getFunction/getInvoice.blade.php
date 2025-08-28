@@ -1,8 +1,8 @@
-<div id="myGetChartOfAccount" class="modal fade" role="dialog" aria-labelledby="contohModalScrollableTitle" aria-hidden="true">
+<div id="myInvoice" class="modal fade" role="dialog" aria-labelledby="contohModalScrollableTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <label class="card-title">Choose Chart of Account</label>
+                <h4 class="modal-title">Choose Invoice</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
@@ -10,18 +10,17 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body table-responsive p-0" style="height: 400px;">
-                                <table class="table table-head-fixed text-nowrap" id="tableGetChartOfAccount">
+                                <table class="table table-head-fixed text-nowrap" id="tableGetInvoice">
                                     <thead>
                                         <tr>
                                             <th>No</th>
-                                            <th>Code</th>
-                                            <th>Name</th>
+                                            <th>Trano</th>
                                         </tr>
                                     </thead>
                                     <tbody></tbody>
                                     <tfoot>
-                                        <tr class="loadingGetModalChartOfAccount">
-                                            <td colspan="3" class="p-0" style="height: 22rem;">
+                                        <tr class="loadingGetModalInvoice">
+                                            <td colspan="2" class="p-0" style="height: 22rem;">
                                                 <div class="d-flex flex-column justify-content-center align-items-center py-3">
                                                     <div class="spinner-border" role="status">
                                                         <span class="sr-only">Loading...</span>
@@ -32,10 +31,10 @@
                                                 </div>
                                             </td>
                                         </tr>
-                                        <tr class="errorModalChartOfAccountMessageContainer" style="display: none;">
-                                            <td colspan="3" class="p-0" style="height: 22rem;">
+                                        <tr class="errorModalInvoiceMessageContainer" style="display: none;">
+                                            <td colspan="2" class="p-0" style="height: 22rem;">
                                                 <div class="d-flex flex-column justify-content-center align-items-center py-3">
-                                                    <div id="errorModalChartOfAccountMessage" class="mt-3 text-red" style="font-size: 1rem; font-weight: 700;"></div>
+                                                    <div id="errorModalInvoiceMessage" class="mt-3 text-red" style="font-size: 1rem; font-weight: 700;"></div>
                                                 </div>
                                             </td>
                                         </tr>
@@ -51,10 +50,10 @@
 </div>
 
 <script>
-    function getModalChartOfAccount() {
-        $('#tableGetChartOfAccount tbody').empty();
-        $(".loadingGetModalChartOfAccount").show();
-        $(".errorModalChartOfAccountMessageContainer").hide();
+    function getModalInvoice() {
+        $('#tableGetInvoice tbody').empty();
+        $(".loadingGetModalInvoice").show();
+        $(".errorModalInvoiceMessageContainer").hide();
 
         $.ajaxSetup({
             headers: {
@@ -64,42 +63,41 @@
 
         $.ajax({
             type: 'GET',
-            url: '{!! route("getChartOfAccountList") !!}',
+            url: '{!! route("getInvoiceList") !!}',
             success: function(data) {
-                $(".loadingGetModalChartOfAccount").hide();
+                $(".loadingGetModalInvoice").hide();
 
                 let no = 1;
-                let table = $('#tableGetChartOfAccount').DataTable();
+                let table = $('#tableGetInvoice').DataTable();
                 table.clear();
 
                 if (Array.isArray(data) && data.length > 0) {
                     $.each(data, function(key, val) {
                         table.row.add([
-                            '<input data-trigger="sys_id_modal_coa" value="' + val.sys_ID + '" type="hidden">' + no++,
-                            val.code || '-',
-                            val.name || '-',
+                            '<input data-trigger="sys_id_modal_invoice" value="' + val.sys_ID + '" type="hidden">' + no++,
+                            val.sys_Text || '-',
                         ]).draw();
                     });
                 } else {
-                    $(".errorModalChartOfAccountMessageContainer").show();
-                    $("#errorModalChartOfAccountMessage").text(`Data not found.`);
+                    $(".errorModalInvoiceMessageContainer").show();
+                    $("#errorModalInvoiceMessage").text(`Data not found.`);
 
-                    $("#tableGetChartOfAccount_length").hide();
-                    $("#tableGetChartOfAccount_filter").hide();
-                    $("#tableGetChartOfAccount_info").hide();
-                    $("#tableGetChartOfAccount_paginate").hide();
+                    $("#tableGetInvoice_length").hide();
+                    $("#tableGetInvoice_filter").hide();
+                    $("#tableGetInvoice_info").hide();
+                    $("#tableGetInvoice_paginate").hide();
                 }
             },
             error: function (textStatus, errorThrown) {
-                $('#tableGetChartOfAccount tbody').empty();
-                $(".loadingGetModalChartOfAccount").hide();
-                $(".errorModalChartOfAccountMessageContainer").show();
-                $("#errorModalChartOfAccountMessage").text(`[${textStatus.status}] ${textStatus.responseJSON.message}`);
+                $('#tableGetInvoice tbody').empty();
+                $(".loadingGetModalInvoice").hide();
+                $(".errorModalInvoiceMessageContainer").show();
+                $("#errorModalInvoiceMessage").text(`[${textStatus.status}] ${textStatus.responseJSON.message}`);
             }
         });
     }
 
     $(window).one('load', function(e) {
-        getModalChartOfAccount();
+        getModalInvoice();
     });
 </script>

@@ -169,6 +169,10 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('getSite', 'Function\FunctionController@getSite')->name('getSite');
     Route::get('getNewSite', 'Function\FunctionController@getNewSite')->name('getNewSite');
     Route::get('getBudget', 'Function\FunctionController@getBudget')->name('getBudget');
+    Route::get('getCreditNoteList', 'Function\FunctionController@getCreditNoteList')->name('getCreditNoteList');
+    Route::get('getCustomerList', 'Function\FunctionController@getCustomerList')->name('getCustomerList');
+    Route::get('getChartOfAccountList', 'Function\FunctionController@getChartOfAccountList')->name('getChartOfAccountList');
+    Route::get('getInvoiceList', 'Function\FunctionController@getInvoiceList')->name('getInvoiceList');
     Route::get('getWarehouseList', 'Function\FunctionController@getWarehouseList')->name('getWarehouseList');
     Route::get('getAdvance', 'Function\FunctionController@getAdvance')->name('getAdvance');
     Route::get('getAdvanceSettlement', 'Function\FunctionController@getAdvanceSettlement')->name('getAdvanceSettlement');
@@ -376,6 +380,9 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
 
     // CREDIT NOTE
     Route::get('CreditNoteListData', 'Process\CreditNote\CreditNoteController@CreditNoteListData')->name('CreditNote.CreditNoteListData');
+
+    Route::post('RevisionCreditNote', 'Process\CreditNote\CreditNoteController@RevisionCreditNote')->name('CreditNote.RevisionCreditNote');
+    Route::post('UpdateCreditNote', 'Process\CreditNote\CreditNoteController@UpdateCreditNote')->name('CreditNote.UpdateCreditNote');
 
     Route::get('ReportCreditNoteSummary', 'Process\CreditNote\CreditNoteController@ReportCreditNoteSummary')->name('CreditNote.ReportCreditNoteSummary');
     Route::post('ReportCreditNoteSummaryStore', 'Process\CreditNote\CreditNoteController@ReportCreditNoteSummaryStore')->name('CreditNote.ReportCreditNoteSummaryStore');

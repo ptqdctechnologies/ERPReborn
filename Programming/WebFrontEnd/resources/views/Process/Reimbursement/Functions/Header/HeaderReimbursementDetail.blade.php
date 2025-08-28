@@ -5,8 +5,19 @@
       <div class="row">
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Customer</label>
         <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
-          <div style="width: 42%;">
-            <input id="date_customer" name="date_customer" style="border-radius:0;width: 100%;" type="date" class="form-control" />
+          <div>
+            <input id="customer_id" name="customer_id" class="form-control" style="border-radius:0;" hidden />
+            <input id="customer_code" class="form-control" style="border-radius:0;" size="17" readonly />
+          </div>
+          <div>
+            <span style="border-radius:0;" class="input-group-text form-control">
+              <a href="javascript:;" id="myCustomerTrigger" data-toggle="modal" data-target="#myCustomer">
+                <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="">
+              </a>
+            </span>
+          </div>
+          <div style="flex: 100%;">
+            <input id="customer_name" class="form-control" aria-label="Customer Name" style="border-radius:0;" readonly />
           </div>
         </div>
       </div>

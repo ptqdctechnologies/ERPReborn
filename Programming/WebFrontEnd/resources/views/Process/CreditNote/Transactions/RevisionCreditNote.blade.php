@@ -2,13 +2,10 @@
 @section('main')
 @include('Partials.navbar')
 @include('Partials.sidebar')
-@include('getFunction.getCustomer')
-@include('getFunction.getBeneficiary')
-@include('getFunction.getBank')
-@include('getFunction.getBankAccount')
 @include('getFunction.getWorkFlow')
-@include('getFunction.getReimbursement')
-@include('Process.Reimbursement.Functions.PopUp.PopUpRemRevision')
+@include('getFunction.getCreditNote')
+@include('getFunction.getChartOfAccount')
+@include('Process.CreditNote.Functions.PopUp.PopUpCreditNoteRevision')
 
 <div class="content-wrapper">
     <section class="content">
@@ -17,23 +14,21 @@
             <div class="row mb-1" style="background-color:#4B586A;">
                 <div class="col-sm-6" style="height:30px;">
                     <label style="font-size:15px;position:relative;top:7px;color:white;">
-                        Revision Reimbursement
+                        Revision Credit Note
                     </label>
                 </div>
             </div>
 
-            <!-- MENU -->
-            @include('Process.Reimbursement.Functions.Menu.MenuReimbursement')
+            @include('Process.CreditNote.Functions.Menu.MenuCreditNote')
 
             <!-- CONTENT -->
             <div class="card">
-                <form method="post" action="{{ route('Reimbursement.UpdateReimbursement') }}" id="FormSubmitReimbursement">
+                <form method="post" action="{{ route('SelectWorkFlow') }}" id="FormRevisionCreditNote">
                 @csrf
-                    <input type="hidden" name="DocumentTypeID" id="DocumentTypeID" />
-                    <input type="hidden" name="reimbursement_RefID" id="reimbursement_RefID" value="<?= $header['sys_RefID']; ?>" />
-                    <input type="hidden" name="var_combinedBudget_RefID" id="var_combinedBudget_RefID" value="<?= $header['combinedBudget_RefID']; ?>" />
+                    <input type="hidden" name="DocumentTypeID" id="DocumentTypeID">
+                    <input type="hidden" name="var_combinedBudget_RefID" id="var_combinedBudget_RefID" value="<?= $header['combinedBudget_RefID']; ?>">
 
-                    <!-- ADD NEW REIMBURSEMENT -->
+                    <!-- ADD NEW CREDIT NOTE -->
                     <div class="tab-content px-3 pt-4 pb-2" id="nav-tabContent">
                         <div class="row">
                             <div class="col-12">
@@ -41,7 +36,7 @@
                                     <!-- HEADER -->
                                     <div class="card-header">
                                         <label class="card-title">
-                                            Add New Reimbursement
+                                            Add New Credit Note
                                         </label>
                                         <div class="card-tools">
                                             <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -50,30 +45,25 @@
                                         </div>
                                     </div>
 
-                                    @include('Process.Reimbursement.Functions.Header.HeaderRevisionReimbursement')
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- REIMBURSEMENT DETAIL -->
-                    <div class="tab-content px-3 pb-2" id="nav-tabContent">
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="card">
-                                    <!-- HEADER -->
-                                    <div class="card-header">
-                                        <label class="card-title">
-                                            Reimbursement Detail
-                                        </label>
-                                        <div class="card-tools">
-                                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                                <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
-                                            </button>
+                                    <!-- BODY -->
+                                    <div class="card-body">
+                                        <div class="row py-3" style="gap: 15px;">
+                                            <!-- CREDIT NOTE NUMBER -->
+                                            <div class="col-md-12 col-lg-5">
+                                                <div class="row">
+                                                    <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">CN Number</label>
+                                                    <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                                                        <div>
+                                                            <div class="input-group">
+                                                                <input id="creditNoteNumber" style="border-radius:0;" class="form-control" value="<?= $header['creditNoteNumber']; ?>" readonly />
+                                                                <input id="creditNote_RefID" name="creditNote_RefID" style="border-radius:0;" class="form-control" value="<?= $header['creditNote_RefID']; ?>" hidden />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-
-                                    @include('Process.Reimbursement.Functions.Header.HeaderRevisionReimbursementDetail')
                                 </div>
                             </div>
                         </div>
@@ -127,7 +117,7 @@
                         </div>
                     </div>
 
-                    <!-- REIMBURSEMENT DETAILS -->
+                    <!-- CREDIT NOTE DETAILS -->
                     <div class="tab-content px-3 pb-2" id="nav-tabContent">
                         <div class="row">
                             <div class="col-12">
@@ -135,10 +125,10 @@
                                     <!-- HEADER -->
                                     <div class="card-header">
                                         <label class="card-title">
-                                            Reimbursement Details
+                                            Credit Note Details
                                         </label>
                                         <div class="card-tools">
-                                            <button type="button" class="btn btn-tool" data-card-widget="collapse" aria-label="Collapse Section Budget Details">
+                                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
                                                 <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
                                             </button>
                                         </div>
@@ -146,21 +136,25 @@
 
                                     <!-- BODY -->
                                     <div class="wrapper-budget card-body table-responsive p-0" style="height: 230px;">
-                                        <table class="table table-head-fixed text-nowrap table-sm" id="tableGetBudgetDetails">
+                                        <table class="table table-head-fixed text-nowrap table-sm" id="tableGetCreditNoteDetails">
                                             <thead>
                                                 <tr>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Product Code</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Product Name</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Currency</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;background: #4B586A;color: white;width: 80px;">Qty</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;background: #4B586A;color: white;width: 100px;">Price</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;background: #4B586A;color: white;width: 150px;">Total</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Invoice</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Budget</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Sub Budget</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Qty</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Price</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Total</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Balance</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;background-color:#4B586A;border-right:1px solid #fff;text-align: center;color: white;width: 100px;">CN Value</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;background-color:#4B586A;border-right:1px solid #fff;text-align: center;color: white;width: 100px;">CN Tax</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;background-color:#4B586A;border-right:1px solid #fff;text-align: center;color: white;width: 150px;">COA</th>
                                                 </tr>
                                             </thead>
                                             <tbody></tbody>
-                                            <tfoot>
+                                            <!-- <tfoot>
                                                 <tr class="loadingBudgetDetails">
-                                                    <td colspan="6" class="p-0" style="border: 0px; height: 150px;">
+                                                    <td colspan="13" class="p-0" style="border: 0px; height: 150px;">
                                                         <div class="d-flex flex-column justify-content-center align-items-center py-3">
                                                             <div class="spinner-border" role="status">
                                                                 <span class="sr-only">Loading...</span>
@@ -172,55 +166,27 @@
                                                     </td>
                                                 </tr>
                                                 <tr class="errorMessageContainerBudgetDetails">
-                                                    <td colspan="6" class="p-0" style="border: 0px;">
+                                                    <td colspan="13" class="p-0" style="border: 0px;">
                                                         <div class="d-flex flex-column justify-content-center align-items-center py-3">
                                                             <div id="errorMessageBudgetDetails" class="mt-3 text-red" style="font-size: 1rem; font-weight: 700;"></div>
                                                         </div>
                                                     </td>
                                                 </tr>
-                                            </tfoot>
+                                            </tfoot> -->
                                         </table>
                                     </div>
 
                                     <!-- FOOTER -->
-                                    <div class="card-body tableShowHideBudget">
+                                    <div class="card-body">
                                         <div class="row">
                                             <div class="col">
-                                                <div class="text-red" id="budgetDetailsMessage" style="display: none;">
+                                                <div class="text-red" id="creditNoteDetailsMessage" style="display: none;">
                                                     Please input at least one item.
                                                 </div>
                                             </div>
-                                            <div class="col text-right" style="margin-right: 20px; font-size: 0.77rem; color: #212529; font-weight: 600;">
+                                            <!-- <div class="col text-right" style="margin-right: 20px; font-size: 0.77rem; color: #212529; font-weight: 600;">
                                                 Total : <span id="TotalBudgetSelected">0.00</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- REMARK -->
-                    <div class="tab-content px-3 pb-2" id="nav-tabContent">
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="card">
-                                    <!-- HEADER -->
-                                    <div class="card-header">
-                                        <label for="remark" class="card-title">
-                                            Remark
-                                        </label>
-                                        <div class="card-tools">
-                                            <button type="button" class="btn btn-tool" data-card-widget="collapse" aria-label="Collapse Section Remark">
-                                                <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-
-                                    <!-- CONTENT -->
-                                    <div class="card-body">
-                                        <div class="row py-3">
-                                            <textarea name="var_remark" id="remark" class="form-control"><?= $header['remark']; ?></textarea>
+                                            </div> -->
                                         </div>
                                     </div>
                                 </div>
@@ -232,9 +198,10 @@
                     <div class="tab-content px-3 pb-2" id="nav-tabContent">
                         <div class="row">
                             <div class="col">
-                                <a onclick="cancelReimbursement()" class="btn btn-default btn-sm float-right" style="background-color:#e9ecef;border:1px solid #ced4da;">
+                                <a class="btn btn-default btn-sm float-right" onclick="cancelCreditNote()" style="background-color:#e9ecef;border:1px solid #ced4da;">
                                     <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel Advance List Cart"> Cancel
                                 </a>
+
                                 <button type="button" class="btn btn-default btn-sm float-right" onclick="validationForm()" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
                                     <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" title="Submit to Advance"> Submit
                                 </button>
@@ -247,8 +214,8 @@
     </section>
 </div>
 
-<div class="modal fade" id="reimbursementFormModal" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-lg" role="document" style="height: calc(100vh - 3.5rem); display: flex; align-items: center;">
+<div class="modal fade" id="creditNoteFormModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document" style="min-height: calc(100vh - 3.5rem); display: flex; align-items: center;">
         <div class="modal-content">
             <div class="modal-header">
                 <h3 style="margin: 0px;font-weight:bold;">Are you sure you want to save this data?</h3>
@@ -256,31 +223,24 @@
             </div>
             <div class="modal-body">
                 <div class="wrapper-budget card-body table-responsive p-0" style="max-height:200px;">
-                    <table class="table table-head-fixed text-nowrap table-sm" id="tableRemList" style="border: 1px solid #dee2e6;">
+                    <table class="table table-head-fixed text-nowrap table-sm" id="tableCreditNoteList" style="border: 1px solid #dee2e6;">
                         <tbody></tbody>
-                    </table>
-                </div>
-                <div class="card-body">
-                    <table style="float:right;">
-                        <tr>
-                            <th id="GrandTotal"></th>
-                        </tr>
                     </table>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" id="submitRem" class="btn btn-default btn-sm" onclick="submitForm();" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
-                    <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" title="Submit to Rem"> Yes, save it
+                <button type="button" id="submitPR" class="btn btn-default btn-sm" onclick="SubmitForm();" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
+                    <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" title="Submit to Advance"> Yes, save it
                 </button>
 
                 <button type="button" class="btn btn-default btn-sm" data-dismiss="modal" style="background-color:#e9ecef;border:1px solid #ced4da;">
-                    <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel Rem List Cart"> No, cancel
+                    <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel Advance List Cart"> No, cancel
                 </button>
             </div>
         </div>
     </div>
 </div>
 
-@include('Process.Reimbursement.Functions.Footer.FooterRevisionReimbursement')
 @include('Partials.footer')
+@include('Process.CreditNote.Functions.Footer.FooterRevisionCreditNote')
 @endsection

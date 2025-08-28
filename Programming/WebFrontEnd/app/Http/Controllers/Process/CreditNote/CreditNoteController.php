@@ -14,9 +14,127 @@ use App\Helpers\ZhtHelper\System\Helper_Environment;
 use App\Helpers\ZhtHelper\Cache\Helper_Redis;
 use Maatwebsite\Excel\Facades\Excel;
 use Barryvdh\DomPDF\Facade\Pdf;
+use App\Services\Process\CreditNote\CreditNoteService;
+use App\Services\WorkflowService;
 
 class CreditNoteController extends Controller
 {
+    public function __construct(CreditNoteService $creditNoteService, WorkflowService $workflowService)
+    {
+        $this->creditNoteService = $creditNoteService;
+        $this->workflowService   = $workflowService;
+    }
+
+    public function index() 
+    {
+        $varAPIWebToken = Session::get('SessionLogin');
+        $var            = 0;
+        if (!empty($_GET['var'])) {
+            $var = $_GET['var'];
+        }
+
+        $compact = [
+            'var'            => $var,
+            'varAPIWebToken' => $varAPIWebToken,
+        ];
+
+        return view('Process.CreditNote.Transactions.CreateCreditNote', $compact);
+    }
+
+    public function store(Request $request) 
+    {
+        try {
+            $response = $this->creditNoteService->create($request);
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                return response()->json($response);
+            }
+
+            $responseWorkflow = $this->workflowService->submit(
+                $response['data']['businessDocument']['businessDocument_RefID'],
+                $request->workFlowPath_RefID,
+                $request->comment,
+                $request->approverEntity,
+            );
+
+            if ($responseWorkflow['metadata']['HTTPStatusCode'] !== 200) {
+                return response()->json($responseWorkflow);
+            }
+
+            $compact = [
+                "documentNumber"    => $response['data']['businessDocument']['documentNumber'],
+                "status"            => $responseWorkflow['metadata']['HTTPStatusCode'],
+            ];
+
+            return response()->json($compact);
+        } catch (\Throwable $th) {
+            Log::error("Store Credit Note Function Error: " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
+    public function RevisionCreditNote(Request $request) 
+    {
+        try {
+            $varAPIWebToken = $request->session()->get('SessionLogin');
+            $response       = $this->creditNoteService->getDetail($request->creditNote_RefID);
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                return response()->json($response);
+            }
+
+            $data = $response['data']['data'];
+
+            $compact = [
+                'varAPIWebToken'    => $varAPIWebToken,
+                'header'            => [
+                    'creditNote_RefID'      => $data[0]['Sys_ID_Header'] ?? '',
+                    'creditNoteNumber'      => $data[0]['BusinessDocumentNumber'] ?? '',
+                    'combinedBudget_RefID'  => $data[0]['CombinedBudget_RefID'] ?? '',
+                    'fileID'                => $data[0]['Log_FileUpload_Pointer_RefID'] ?? null,
+                ],
+                'detail'            => $data
+            ];
+
+            return view('Process.CreditNote.Transactions.RevisionCreditNote', $compact);
+        } catch (\Throwable $th) {
+            Log::error("Revision Credit Note Function Error: " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
+    public function UpdateCreditNote(Request $request)
+    {
+        try {
+            $response = $this->creditNoteService->update($request);
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                return response()->json($response);
+            }
+
+            $responseWorkflow = $this->workflowService->submit(
+                $response['data'][0]['businessDocument']['businessDocument_RefID'],
+                $request->workFlowPath_RefID,
+                $request->comment,
+                $request->approverEntity,
+            );
+
+            if ($responseWorkflow['metadata']['HTTPStatusCode'] !== 200) {
+                return response()->json($responseWorkflow);
+            }
+
+            $compact = [
+                "documentNumber"    => $response['data'][0]['businessDocument']['documentNumber'],
+                "status"            => $responseWorkflow['metadata']['HTTPStatusCode'],
+            ];
+
+            return response()->json($compact);
+        } catch (\Throwable $th) {
+            Log::error("Update Credit Note Function Error: " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
     public function ReportCNtoDN(Request $request)
     {
         try {

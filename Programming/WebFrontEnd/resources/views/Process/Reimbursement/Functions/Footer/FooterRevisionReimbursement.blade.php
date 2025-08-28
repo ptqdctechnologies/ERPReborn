@@ -461,6 +461,17 @@
         });
     }
 
+    $('#tableGetCustomer').on('click', 'tbody tr', function() {
+        var sysId   = $(this).find('input[data-trigger="sys_id_modal_customer"]').val();
+        var code    = $(this).find('td:nth-child(2)').text();
+        var name    = $(this).find('td:nth-child(3)').text();
+
+        $("#customer_id").val(sysId);
+        $("#customer_code").val(code);
+        $('#customer_name').val(name);
+        $('#myCustomer').modal('hide');
+    });
+
     $('#tableGetBeneficiarySecond').on('click', 'tbody tr', function() {
         var personRefId = $(this).find('input[data-trigger="person_ref_id_beneficiary_second"]').val();
 
