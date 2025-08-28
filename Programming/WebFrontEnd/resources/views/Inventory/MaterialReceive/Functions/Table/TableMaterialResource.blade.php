@@ -39,18 +39,16 @@
 </div>
 
 <!-- FOOTER -->
-<div class="card-body tableShowHideDetail">
-    <table style="float:right;">
-        <tr>
-            <th style="position: relative;right:20px;"> Total : <span id="TotalDeliveryOrder">0.00</span></th>
-        </tr>
-        <tr>
-            <td>
-                <br>
-                <a class="btn btn-default btn-sm float-right" id="material-receive-details-add" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
-                    <img src="{{ asset('AdminLTE-master/dist/img/add.png') }}" width="13" alt="" title="Add to Material Receive List"> Add
-                </a>
-            </td>
-        </tr>
-    </table>
+ <div class="card-body tableShowHideBudget">
+    <div class="row">
+        <div class="col">
+            <div class="text-red" id="deliveryOrderDetailMessage" style="display: none;">
+                Please input at least one item.
+            </div>
+        </div>
+        <div class="col text-right" style="margin-right: 20px; font-size: 0.77rem; color: #212529; font-weight: 600;">
+            Total : <span id="TotalDeliveryOrder">0.00</span>
+        </div>
+    </div>
 </div>
+
