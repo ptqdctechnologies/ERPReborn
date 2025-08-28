@@ -27,7 +27,7 @@
 
             <!-- CONTENT -->
             <div class="card">
-                <form method="post" action="{{ route('Reimbursement.UpdateReimbursement') }}" id="FormSubmitReimbursement">
+                <form method="post" action="{{ route('SelectWorkFlow') }}" id="FormSubmitReimbursement">
                 @csrf
                     <input type="hidden" name="DocumentTypeID" id="DocumentTypeID" />
                     <input type="hidden" name="reimbursement_RefID" id="reimbursement_RefID" value="<?= $header['sys_RefID']; ?>" />

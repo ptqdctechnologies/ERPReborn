@@ -375,25 +375,45 @@
         window.location.href = "{{ route('Reimbursement.index', ['var' => 1]) }}";
     }
 
-    function submitForm() {
-        $('#reimbursementFormModal').modal('hide');
+    function SelectWorkFlow(formatData) {
+        const swalWithBootstrapButtons = Swal.mixin({
+            confirmButtonClass: 'btn btn-success btn-sm',
+            cancelButtonClass: 'btn btn-danger btn-sm',
+            buttonsStyling: true,
+        });
 
-        let action = $('#FormSubmitReimbursement').attr("action");
-        let method = $('#FormSubmitReimbursement').attr("method");
-        let form_data = new FormData($('#FormSubmitReimbursement')[0]);
-        form_data.append('reimbursementDetail', JSON.stringify(dataStore));
+        swalWithBootstrapButtons.fire({
+            title: 'Comment',
+            text: "Please write your comment here",
+            type: 'question',
+            input: 'textarea',
+            showCloseButton: false,
+            showCancelButton: true,
+            focusConfirm: false,
+            cancelButtonText: '<span style="color:black;"> Cancel </span>',
+            confirmButtonText: '<span style="color:black;"> OK </span>',
+            cancelButtonColor: '#DDDAD0',
+            confirmButtonColor: '#DDDAD0',
+            reverseButtons: true
+        }).then((result) => {
+            if ('value' in result) {
+                ShowLoading();
+                RevisionReimbursement({...formatData, comment: result.value});
+            }
+        });
+    }
 
-        ShowLoading();
+    function RevisionReimbursement(formatData) {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
 
         $.ajax({
-            url: action,
-            dataType: 'json',
-            cache: false,
-            contentType: false,
-            processData: false,
-            data: form_data,
-            type: method,
-            // success: function(response) {
+            type: 'POST',
+            data: formatData,
+            url: '{{ route("Reimbursement.UpdateReimbursement") }}',
             success: function(res) {
                 HideLoading();
 
@@ -417,39 +437,64 @@
                         reverseButtons: true
                     }).then((result) => {
                         ShowLoading();
-                        window.location.href = '/Reimbursement?var=1';
+                        window.location.href = "{{ route('Reimbursement.index', ['var' => 1]) }}";
                     });
                 } else {
                     ErrorNotif("Data Cancel Inputed");
                 }
-                
-                // HideLoading();
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.log('error', jqXHR, textStatus, errorThrown);
+            }
+        });
+    }
 
-                // if (response.message == "WorkflowError") {
-                //     $("#submitRem").prop("disabled", false);
-                //     CancelNotif("You don't have access", '/Reimbursement?var=1');
-                // } else if (response.message == "MoreThanOne") {
-                //     $('#getWorkFlow').modal('toggle');
+    function submitForm() {
+        $('#reimbursementFormModal').modal('hide');
 
-                //     let t = $('#tableGetWorkFlow').DataTable();
-                //     t.clear();
-                //     $.each(response.data, function(key, val) {
-                //         t.row.add([
-                //             '<td><span data-dismiss="modal" onclick="SelectWorkFlow(\'' + val.Sys_ID + '\', \'' + val.NextApprover_RefID + '\', \'' + response.approverEntity_RefID + '\', \'' + response.documentTypeID + '\');"><img src="{{ asset("AdminLTE-master/dist/img/add.png") }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></span></td>',
-                //             '<td style="border:1px solid #e9ecef;">' + val.FullApproverPath + '</td></tr></tbody>'
-                //         ]).draw();
-                //     });
-                // } else {
-                //     const formatData = {
-                //         workFlowPath_RefID: response.workFlowPath_RefID, 
-                //         nextApprover: response.nextApprover_RefID, 
-                //         approverEntity: response.approverEntity_RefID, 
-                //         documentTypeID: response.documentTypeID,
-                //         storeData: response.storeData
-                //     };
+        let action = $('#FormSubmitReimbursement').attr("action");
+        let method = $('#FormSubmitReimbursement').attr("method");
+        let form_data = new FormData($('#FormSubmitReimbursement')[0]);
+        form_data.append('reimbursementDetail', JSON.stringify(dataStore));
 
-                //     SelectWorkFlow(formatData);
-                // }
+        ShowLoading();
+
+        $.ajax({
+            url: action,
+            dataType: 'json',
+            cache: false,
+            contentType: false,
+            processData: false,
+            data: form_data,
+            type: method,
+            success: function(response) {
+                HideLoading();
+
+                if (response.message == "WorkflowError") {
+                    $("#submitRem").prop("disabled", false);
+                    CancelNotif("You don't have access", '/Reimbursement?var=1');
+                } else if (response.message == "MoreThanOne") {
+                    $('#getWorkFlow').modal('toggle');
+
+                    let t = $('#tableGetWorkFlow').DataTable();
+                    t.clear();
+                    $.each(response.data, function(key, val) {
+                        t.row.add([
+                            '<td><span data-dismiss="modal" onclick="SelectWorkFlow(\'' + val.Sys_ID + '\', \'' + val.NextApprover_RefID + '\', \'' + response.approverEntity_RefID + '\', \'' + response.documentTypeID + '\');"><img src="{{ asset("AdminLTE-master/dist/img/add.png") }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></span></td>',
+                            '<td style="border:1px solid #e9ecef;">' + val.FullApproverPath + '</td></tr></tbody>'
+                        ]).draw();
+                    });
+                } else {
+                    const formatData = {
+                        workFlowPath_RefID: response.workFlowPath_RefID, 
+                        nextApprover: response.nextApprover_RefID, 
+                        approverEntity: response.approverEntity_RefID, 
+                        documentTypeID: response.documentTypeID,
+                        storeData: response.storeData
+                    };
+
+                    SelectWorkFlow(formatData);
+                }
             },
             error: function(response) {
                 console.log('response error', response);
