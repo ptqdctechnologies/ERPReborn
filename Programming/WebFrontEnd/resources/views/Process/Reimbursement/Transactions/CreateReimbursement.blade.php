@@ -30,8 +30,7 @@
             <?php if ($var == 0) { ?>
                 <!-- CONTENT -->
                 <div class="card">
-                    <!-- <form method="post" action="{{ route('SelectWorkFlow') }}" id="FormSubmitReimbursement"> -->
-                    <form method="post" action="{{ route('Reimbursement.store') }}" id="FormSubmitReimbursement">
+                    <form method="post" action="{{ route('SelectWorkFlow') }}" id="FormSubmitReimbursement">
                     @csrf
                         <input type="hidden" name="DocumentTypeID" id="DocumentTypeID">
                         <input type="hidden" name="var_combinedBudget_RefID" id="var_combinedBudget_RefID">

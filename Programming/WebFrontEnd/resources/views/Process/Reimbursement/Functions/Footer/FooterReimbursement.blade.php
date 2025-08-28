@@ -473,63 +473,34 @@
             processData: false,
             data: form_data,
             type: method,
-            // success: function(response) {
-            success: function(res) {
+            success: function(response) {
                 HideLoading();
 
-                if (res.status === 200) {
-                    const swalWithBootstrapButtons = Swal.mixin({
-                        confirmButtonClass: 'btn btn-success btn-sm',
-                        cancelButtonClass: 'btn btn-danger btn-sm',
-                        buttonsStyling: true,
-                    });
+                if (response.message == "WorkflowError") {
+                    $("#submitRem").prop("disabled", false);
+                    CancelNotif("You don't have access", '/Reimbursement?var=1');
+                } else if (response.message == "MoreThanOne") {
+                    $('#getWorkFlow').modal('toggle');
 
-                    swalWithBootstrapButtons.fire({
-                        title: 'Successful !',
-                        type: 'success',
-                        html: 'Data has been saved. Your transaction number is ' + '<span style="color:#0046FF;font-weight:bold;">' + res.documentNumber + '</span>',
-                        showCloseButton: false,
-                        showCancelButton: false,
-                        focusConfirm: false,
-                        confirmButtonText: '<span style="color:black;"> OK </span>',
-                        confirmButtonColor: '#4B586A',
-                        confirmButtonColor: '#e9ecef',
-                        reverseButtons: true
-                    }).then((result) => {
-                        ShowLoading();
-                        window.location.href = '/Reimbursement?var=1';
+                    let t = $('#tableGetWorkFlow').DataTable();
+                    t.clear();
+                    $.each(response.data, function(key, val) {
+                        t.row.add([
+                            '<td><span data-dismiss="modal" onclick="SelectWorkFlow(\'' + val.Sys_ID + '\', \'' + val.NextApprover_RefID + '\', \'' + response.approverEntity_RefID + '\', \'' + response.documentTypeID + '\');"><img src="{{ asset("AdminLTE-master/dist/img/add.png") }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></span></td>',
+                            '<td style="border:1px solid #e9ecef;">' + val.FullApproverPath + '</td></tr></tbody>'
+                        ]).draw();
                     });
                 } else {
-                    ErrorNotif("Data Cancel Inputed");
+                    const formatData = {
+                        workFlowPath_RefID: response.workFlowPath_RefID, 
+                        nextApprover: response.nextApprover_RefID, 
+                        approverEntity: response.approverEntity_RefID, 
+                        documentTypeID: response.documentTypeID,
+                        storeData: response.storeData
+                    };
+
+                    SelectWorkFlow(formatData);
                 }
-                
-                // HideLoading();
-
-                // if (response.message == "WorkflowError") {
-                //     $("#submitRem").prop("disabled", false);
-                //     CancelNotif("You don't have access", '/Reimbursement?var=1');
-                // } else if (response.message == "MoreThanOne") {
-                //     $('#getWorkFlow').modal('toggle');
-
-                //     let t = $('#tableGetWorkFlow').DataTable();
-                //     t.clear();
-                //     $.each(response.data, function(key, val) {
-                //         t.row.add([
-                //             '<td><span data-dismiss="modal" onclick="SelectWorkFlow(\'' + val.Sys_ID + '\', \'' + val.NextApprover_RefID + '\', \'' + response.approverEntity_RefID + '\', \'' + response.documentTypeID + '\');"><img src="{{ asset("AdminLTE-master/dist/img/add.png") }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></span></td>',
-                //             '<td style="border:1px solid #e9ecef;">' + val.FullApproverPath + '</td></tr></tbody>'
-                //         ]).draw();
-                //     });
-                // } else {
-                //     const formatData = {
-                //         workFlowPath_RefID: response.workFlowPath_RefID, 
-                //         nextApprover: response.nextApprover_RefID, 
-                //         approverEntity: response.approverEntity_RefID, 
-                //         documentTypeID: response.documentTypeID,
-                //         storeData: response.storeData
-                //     };
-
-                //     SelectWorkFlow(formatData);
-                // }
             },
             error: function(response) {
                 console.log('response error', response);
