@@ -37,7 +37,7 @@ class ReimbursementService
         $sessionToken   = Session::get('SessionLogin');
         $careerRefID    = Session::get('SessionWorkerCareerInternal_RefID');
 
-        $data           = $request;
+        $data           = $request->storeData;
         $detailItems    = json_decode($data['reimbursementDetail'], true);
         $fileID         = $data['dataInput_Log_FileUpload_1'] ? (int) $data['dataInput_Log_FileUpload_1'] : null;
 
@@ -70,7 +70,7 @@ class ReimbursementService
         $sessionToken   = Session::get('SessionLogin');
         $careerRefID    = Session::get('SessionWorkerCareerInternal_RefID');
 
-        $data           = $request;
+        $data           = $request->storeData;
         $detailItems    = json_decode($data['reimbursementDetail'], true);
         $fileID         = $data['dataInput_Log_FileUpload_1'] ? (int) $data['dataInput_Log_FileUpload_1'] : null;
 
