@@ -3,17 +3,17 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\DataPickList\Engines\finance\getDebitNote\v1                    |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\DataPickList\Engines\finance\getDebitNote\v1                     |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2025 ijonk7 (rizal.devapps@gmail.com)                                                                              |
+| ▪ Copyleft 🄯 2024 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 namespace App\Http\Controllers\Application\BackEnd\System\DataPickList\Engines\finance\getDebitNote\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : getDebitNote                                                                                                |
-    | ▪ Description : Menangani API dataPickList.finance.getDebitNote Version 1                                                   |
+    | ▪ Class Name  : getDebitNote                                                                                                 |
+    | ▪ Description : Menangani API dataPickList.finance.getDebitNote Version 1                                                    |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
     class getDebitNote extends \App\Http\Controllers\Controller
@@ -23,8 +23,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\DataPickList\Engines\f
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-08-28                                                                                           |
-        | ▪ Creation Date   : 2025-08-28                                                                                           |
+        | ▪ Last Update     : 2024-10-17                                                                                           |
+        | ▪ Creation Date   : 2024-10-17                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -42,9 +42,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\DataPickList\Engines\f
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2025-08-28                                                                                           |
-        | ▪ Creation Date   : 2025-08-28                                                                                           |
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2024-10-17                                                                                           |
+        | ▪ Creation Date   : 2024-10-17                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -58,15 +58,15 @@ namespace App\Http\Controllers\Application\BackEnd\System\DataPickList\Engines\f
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Data Pick List Debit Note (version 1)');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Data Pick List Advance (version 1)');
                 try {
                     //-----[ MAIN CODE ]----------------------------------------------------------------------------( START POINT )-----
                     try {
                         if (!($varDataSend =
                             \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead(
                                 $varUserSession,
-                                (new \App\Models\Database\SchData_OLTP_Finance\General())->getDataPickList_DebitNote_LatestVersion(
-                                    $varUserSession, 
+                                (new \App\Models\Database\SchData_OLTP_Finance\General())->getDataPickList_DebitNote_LatestVersion_OLD(
+                                    $varUserSession,
                                     (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID']
                                     )
                                 )
@@ -83,15 +83,18 @@ namespace App\Http\Controllers\Application\BackEnd\System\DataPickList\Engines\f
                         }
                     //-----[ MAIN CODE ]------------------------------------------------------------------------------( END POINT )-----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
-                    } 
+                    }
+
                 catch (\Exception $ex) {
                     $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 401, $ex->getMessage());
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
                     }
                 \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
-                } 
+                }
+
             catch (\Exception $ex) {
                 }
+
             return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
             }
         }
