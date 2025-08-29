@@ -62,7 +62,7 @@ class PurchaseOrderService
                 "internalNotes"                         => $data['internalNote'],
                 "downPayment"                           => (float) str_replace(',', '', $data['downPaymentValue']),
                 "termOfPayment_RefID"                   => (int) $data['termOfPaymentValue'],
-                "vatRatio"                              => $data['vatValue'] ?? null,
+                "vatRatio"                              => $data['vatValue'] ?? 0,
                 "additionalData"                        => [
                     "itemList"  => [
                         "items" => $purchaseOrderDetail
@@ -121,7 +121,7 @@ class PurchaseOrderService
                 'log_FileUpload_Pointer_RefID'          => $fileID,
                 'requesterWorkerJobsPosition_RefID'     => (int) $careerRefID,
                 'supplier_RefID'                        => (int) $data['supplier_id'],
-                "deliveryDateTimeTZ"                    => null,
+                "deliveryDateTimeTZ"                    => $data['dateOfDelivery'],
                 "deliveryDestination_RefID"             => $deliveryDestinationRefID,
                 "supplierInvoiceBillingPurpose_RefID"   => null,
                 "remarks"                               => $data['remarkPO'],

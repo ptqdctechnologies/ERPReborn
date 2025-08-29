@@ -584,9 +584,13 @@
   //   });
   // }
 
-  document.querySelectorAll('.number-without-negative').forEach(function(input) {
-    allowNumbersWithoutNegative(input);
+  $(document).on('input', '.number-without-negative', function() {
+    allowNumbersWithoutNegative(this);
   });
+
+  // document.querySelectorAll('.number-without-negative').forEach(function(input) {
+  //   allowNumbersWithoutNegative(input);
+  // });
 </script>
 
 <script>

@@ -1,19 +1,20 @@
 <?php
 
+
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\update\finance\setCreditNote\v1              |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\update\finance\setCreditNote\v1           |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2025 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2025 ijonk7 (jookeo.rizal@gmail.com)                                                                                |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\update\finance\setCreditNote\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\update\finance\setCreditNote\v1;
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : setCreditNote                                                                                                |
-    | ▪ Description : Menangani API transaction.update.finance.setCreditNote Version 1                                             |
+    | ▪ Class Name  : setCreditNote                                                                                             |
+    | ▪ Description : Menangani API transaction.update.finance.setCreditNote Version 1                                          |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
     class setCreditNote extends \App\Http\Controllers\Controller
@@ -23,8 +24,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-01-13                                                                                           |
-        | ▪ Creation Date   : 2025-01-13                                                                                           |
+        | ▪ Last Update     : 2025-08-22                                                                                           |
+        | ▪ Creation Date   : 2025-08-22                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -42,9 +43,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-01-13                                                                                           |
-        | ▪ Creation Date   : 2025-01-13                                                                                           |
+        | ▪ Version         : 1.0001.0000000                                                                                       |
+        | ▪ Last Update     : 2025-08-22                                                                                           |
+        | ▪ Creation Date   : 2025-08-22                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -92,19 +93,20 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
                                     ),
 
                                     $varData['entities']['documentDateTimeTZ'],
+                                    null,
                                     $varData['entities']['log_FileUpload_Pointer_RefID'],
-                                    $varData['entities']['requesterWorkerJobsPosition_RefID'],
                                     $varData['entities']['remarks'],
+                                    $varData['entities']['workflow_Status'],
 
                                     (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
                                         $varUserSession,
                                         'additionalData',
                                         $varData['entities']
-                                        ) 
+                                        )
                                         ?   (
                                                 (
                                                 !is_null($varData['entities']['additionalData'])
-                                                ) 
+                                                )
                                                 ? $varData['entities']['additionalData']
                                                 : []
                                             )
@@ -125,10 +127,12 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
                         }
 
                     catch (\Exception $ex) {
+                        $varErrorMessage = $ex->getMessage();
                         $varReturn =
-                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataUpdateException(
+                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail(
                                 $varUserSession,
-                                $ex
+                                500,
+                                'Invalid SQL Syntax'.($varErrorMessage ? ' ('.$varErrorMessage.')' : '')
                                 );
                         }
                     //-----[ MAIN CODE ]------------------------------------------------------------------------------( END POINT )-----

@@ -20,8 +20,7 @@ use App\Http\Controllers\UserController;
 $varUserSession = 
     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
 
-$varAPIWebToken =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoid2lzbnUudHJlbmdnb25vIiwiaWF0IjoxNzU2MDkzMjU2fQ.ODc4ZGU3MDk1MzhhODZkZGI1OWJlMDhjOWFjY2IxYWYyOWVhYmE4NjRhYjM2Yzk2MjgyMmNlMTg5YzBmNWRiOQ';
+$varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoid2lzbnUudHJlbmdnb25vIiwiaWF0IjoxNzU2MDkzMjU2fQ.ODc4ZGU3MDk1MzhhODZkZGI1OWJlMDhjOWFjY2IxYWYyOWVhYmE4NjRhYjM2Yzk2MjgyMmNlMTg5YzBmNWRiOQ';
 
 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_LaravelRoute::setDynamicRoute_Examples_APICall(
     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
@@ -169,11 +168,16 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('getSite', 'Function\FunctionController@getSite')->name('getSite');
     Route::get('getNewSite', 'Function\FunctionController@getNewSite')->name('getNewSite');
     Route::get('getBudget', 'Function\FunctionController@getBudget')->name('getBudget');
+    Route::get('getCreditNoteList', 'Function\FunctionController@getCreditNoteList')->name('getCreditNoteList');
+    Route::get('getCustomerList', 'Function\FunctionController@getCustomerList')->name('getCustomerList');
+    Route::get('getChartOfAccountList', 'Function\FunctionController@getChartOfAccountList')->name('getChartOfAccountList');
+    Route::get('getInvoiceList', 'Function\FunctionController@getInvoiceList')->name('getInvoiceList');
     Route::get('getWarehouseList', 'Function\FunctionController@getWarehouseList')->name('getWarehouseList');
     Route::get('getAdvance', 'Function\FunctionController@getAdvance')->name('getAdvance');
     Route::get('getAdvanceSettlement', 'Function\FunctionController@getAdvanceSettlement')->name('getAdvanceSettlement');
     Route::get('getAdvanceDetail', 'Function\FunctionController@getAdvanceDetail')->name('getAdvanceDetail');
     Route::get('getDeliveryOrderList', 'Function\FunctionController@getDeliveryOrderList')->name('getDeliveryOrderList');
+    Route::get('getReimbursementList', 'Function\FunctionController@getReimbursementList')->name('getReimbursementList');
     Route::get('getDeliveryOrderDetail', 'Function\FunctionController@getDeliveryOrderDetail')->name('getDeliveryOrderDetail');
     Route::get('getPurchaseRequisitionList', 'Function\FunctionController@getPurchaseRequisitionList')->name('getPurchaseRequisitionList');
     Route::get('getPurchaseRequisitionDetail', 'Function\FunctionController@getPurchaseRequisitionDetail')->name('getPurchaseRequisitionDetail');
@@ -281,8 +285,17 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::resource('BusinessTripRequest', 'Process\BusinessTrip\BusinessTripRequestController');
 
     // REM
+    Route::post('RevisionReimbursement', 'Process\Reimbursement\ReimbursementController@RevisionReimbursement')->name('Reimbursement.RevisionReimbursement');
+    Route::post('UpdateReimbursement', 'Process\Reimbursement\ReimbursementController@UpdateReimbursement')->name('Reimbursement.UpdateReimbursement');
+    Route::get('ReportReimbursementSummary', 'Process\Reimbursement\ReimbursementController@ReportReimbursementSummary')->name('Reimbursement.ReportReimbursementSummary');
+    Route::post('ReportReimbursementSummaryStore', 'Process\Reimbursement\ReimbursementController@ReportReimbursementSummaryStore')->name('Reimbursement.ReportReimbursementSummaryStore');
+    Route::post('PrintExportReportReimbursementSummary', 'Process\Reimbursement\ReimbursementController@PrintExportReportReimbursementSummary')->name('Reimbursement.PrintExportReportReimbursementSummary');
+    Route::resource('Reimbursement', 'Process\Reimbursement\ReimbursementController');
+
+    // REM EXPENDITURE
     Route::post('StoreValidateReimbursableExpenditure', 'Process\Reimbursement\ReimbursableExpenditureController@StoreValidateReimbursableExpenditure')->name('ReimbursableExpenditure.StoreValidateReimbursableExpenditure');
     Route::post('StoreValidateReimbursableExpenditure2', 'Process\Reimbursement\ReimbursableExpenditureController@StoreValidateReimbursableExpenditure2')->name('ReimbursableExpenditure.StoreValidateReimbursableExpenditure2');
+
     Route::post('RevisionReimbursableExpenditure', 'Process\Reimbursement\ReimbursableExpenditureController@RevisionReimbursableExpenditureIndex')->name('ReimbursableExpenditure.RevisionReimbursableExpenditure');
     
     Route::get('ReportReimbursementSummary', 'Process\Reimbursement\ReimbursableExpenditureController@ReportReimbursementSummary')->name('Reimbursement.ReportReimbursementSummary');
@@ -380,6 +393,9 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
 
     // CREDIT NOTE
     Route::get('CreditNoteListData', 'Process\CreditNote\CreditNoteController@CreditNoteListData')->name('CreditNote.CreditNoteListData');
+
+    Route::post('RevisionCreditNote', 'Process\CreditNote\CreditNoteController@RevisionCreditNote')->name('CreditNote.RevisionCreditNote');
+    Route::post('UpdateCreditNote', 'Process\CreditNote\CreditNoteController@UpdateCreditNote')->name('CreditNote.UpdateCreditNote');
 
     Route::get('ReportCreditNoteSummary', 'Process\CreditNote\CreditNoteController@ReportCreditNoteSummary')->name('CreditNote.ReportCreditNoteSummary');
     Route::post('ReportCreditNoteSummaryStore', 'Process\CreditNote\CreditNoteController@ReportCreditNoteSummaryStore')->name('CreditNote.ReportCreditNoteSummaryStore');

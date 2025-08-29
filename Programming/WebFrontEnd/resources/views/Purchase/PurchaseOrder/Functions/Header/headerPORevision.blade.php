@@ -3,7 +3,7 @@
         <!-- LEFT -->
         <div class="col-md-12 col-lg-5">
             <!-- SUPPLIER -->
-            <div class="row" style="margin-bottom: 1rem;">
+            <div class="row">
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Supplier</label>
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div>
@@ -24,7 +24,7 @@
             </div>
 
             <!-- DP -->
-            <div class="row" style="margin-bottom: 1rem;">
+            <div class="row" style="margin-top: 1rem;">
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">DP</label>
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div id="dp_section">
@@ -32,9 +32,17 @@
                     </div>
                 </div>
             </div>
+            <div class="row" id="dpMessage" style="margin-top: .3rem;display: none;">
+                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+                <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                    <div class="text-red">
+                        DP cannot be empty.
+                    </div>
+                </div>
+            </div>
 
             <!-- TOP -->
-            <div class="row" style="margin-bottom: 1rem;">
+            <div class="row" style="margin-top: 1rem;">
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">TOP</label>
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div id="containerLoadingTOP">
@@ -55,7 +63,7 @@
             </div>
 
             <!-- PAYMENT NOTES -->
-            <div class="row">
+            <div class="row" style="margin-top: 1rem;">
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Payment Notes</label>
                 <div class="col-sm-9 col-md-8 col-lg-7 bg-red d-flex p-0">
                     <input id="paymentNotes" name="paymentNotes" style="border-radius:0;" type="text" class="form-control" value="<?= $header['paymentNotes']; ?>">

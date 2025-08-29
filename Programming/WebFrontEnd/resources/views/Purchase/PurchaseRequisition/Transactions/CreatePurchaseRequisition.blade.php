@@ -148,7 +148,7 @@
                   <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel Advance List Cart"> Cancel
                 </a>
 
-                <button type="button" id="budget-details-add" class="btn btn-default btn-sm float-right" onclick="validationForm()" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
+                <button type="button" class="btn btn-default btn-sm float-right" onclick="validationForm()" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
                   <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" title="Submit to Advance"> Submit
                 </button>
               </div>
@@ -162,7 +162,7 @@
 </div>
 
 <div class="modal fade" id="purchaseRequestFormModal" tabindex="-1" role="dialog">
-  <div class="modal-dialog modal-lg" role="document" style="height: -webkit-fill-available; display: flex; align-items: center;">
+  <div class="modal-dialog modal-lg" role="document" style="min-height: calc(100vh - 3.5rem); display: flex; align-items: center;">
     <div class="modal-content">
       <div class="modal-header">
         <h3 style="margin: 0px;font-weight:bold;">Are you sure you want to save this data?</h3>

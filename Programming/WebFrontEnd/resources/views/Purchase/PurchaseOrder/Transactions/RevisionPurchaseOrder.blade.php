@@ -24,13 +24,12 @@
         @csrf
           <input type="hidden" name="DocumentTypeID" id="DocumentTypeID" />
           <input type="hidden" name="var_combinedBudget_RefID" id="var_combinedBudget_RefID" value="<?= $header['budgetID']; ?>" />
-          <input type="hidden" name="purchaseOrderDetail" id="purchaseOrderDetail" />
           <input type="hidden" name="purchaseOrderRecord_RefID" id="purchaseOrderRecord_RefID" />
           <input type="hidden" name="tariffCurrencyValue" id="tariffCurrencyValue" />
           <input type="hidden" name="transactionTaxDetail_RefID" id="transactionTaxDetail_RefID" value="<?= $header['transactionTaxDetailRefID']; ?>" />
 
           <!-- PURCHASE ORDER DETAIL -->
-          <div class="tab-content px-3 pb-2" id="nav-tabContent">
+          <div class="tab-content px-3 pt-4 pb-2" id="nav-tabContent">
             <div class="row">
               <div class="col-12">
                 <div class="card">
@@ -99,7 +98,7 @@
           </div>
 
           <!-- PURCHASE ORDER -->
-          <div class="tab-content px-3 pt-4 pb-2" id="nav-tabContent">
+          <div class="tab-content px-3 pb-2" id="nav-tabContent">
             <div class="row">
               <div class="col-12">
                 <div class="card">
@@ -144,64 +143,6 @@
             </div>
           </div>
 
-          <!-- PURCHASE ORDER LIST (CART) -->
-          {{-- <div class="tab-content px-3 pb-2" id="nav-tabContent">
-            <div class="row">
-              <div class="col-12">
-                <div class="card">
-                  <!-- HEADER -->
-                  <div class="card-header">
-                    <label class="card-title">
-                      Purchase Order List (Cart)
-                    </label>
-                    <div class="card-tools">
-                      <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                        <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
-                      </button>
-                    </div>
-                  </div>
-
-                  <!-- TABLE -->
-                  <div class="card-body table-responsive p-0" style="height:135px;">
-                    <table class="table table-head-fixed text-nowrap table-sm" id="tablePurchaseOrderList">
-                      <thead>
-                        <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">PR Number</th>
-                        <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Product Code</th>
-                        <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Product Name</th>
-                        <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">UOM</th>
-                        <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Currency</th>
-                        <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Price</th>
-                        <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Qty</th>
-                        <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Total</th>
-                        <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Note</th>
-                      </thead>
-                      <tbody></tbody>
-                    </table>
-                  </div>
-
-                  <!-- FOOTER -->
-                  <div class="card-body">
-                    <table style="float:right;">
-                      <tr>
-                        <th> Total Item :
-                          <span id="GrandTotal">0.00</span>
-                        </th>
-                      </tr>
-                      <tr>
-                        <td>
-                          <br>
-                          <a id="revision-po-details-reset" class="btn btn-default btn-sm float-right" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
-                            <img src="{{ asset('AdminLTE-master/dist/img/reset.png') }}" width="13" alt="" title="Add to Advance List"> Reset
-                          </a>
-                        </td>
-                      </tr>
-                    </table>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div> --}}
-
           <!-- BUTTON -->
           <div class="tab-content px-3 pb-2" id="nav-tabContent">
             <div class="row">
@@ -210,13 +151,9 @@
                   <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel Purchase Order List Cart"> Cancel
                 </a>
 
-                <button type="button" id="revision-po-details-add" class="btn btn-default btn-sm float-right" data-toggle="modal" data-target="#purchaseOrderRevisionFormModal" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
+                <button type="button" class="btn btn-default btn-sm float-right" onclick="validationForm()" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
                   <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" title="Submit to Advance"> Submit
                 </button>
-
-                {{-- <button class="btn btn-default btn-sm float-right" type="submit" id="submitRevisionPurchaseOrder" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
-                  <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" title="Submit to Purchase Order"> Submit
-                </button> --}}
               </div>
             </div>
           </div>
@@ -227,25 +164,31 @@
 </div>
 
 <div class="modal fade" id="purchaseOrderRevisionFormModal" tabindex="-1" role="dialog">
-  <div class="modal-dialog modal-lg" role="document">
+  <div class="modal-dialog modal-lg" role="document" style="height: calc(100vh - 3.5rem); display: flex; align-items: center;">
     <div class="modal-content">
       <div class="modal-header">
         <h3 style="margin: 0px;font-weight:bold;">Are you sure you want to save this data?</h3>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
       </div>
       <div class="modal-body">
-        <div class="wrapper-budget table-responsive card-body p-0" style="max-height: 230px;">
-          <table class="table text-nowrap table-sm" id="tablePurchaseOrderList">
+        <div class="wrapper-budget table-responsive card-body p-0" style="max-height: 200px;">
+          <table class="table text-nowrap table-sm" id="tablePurchaseOrderList" style="border: 1px solid #dee2e6;">
             <tbody></tbody>
           </table>
         </div>
         <div class="card-body">
           <table style="float:right;">
-            <tr>
-              <th> Total Item :
-                <span id="GrandTotal">0.00</span>
-              </th>
-            </tr>
+            <tbody style="line-height: 1.3">
+              <tr>
+                <th id="GrandTotal"></th>
+              </tr>
+              <tr>
+                <th id="GrandVAT"></th>
+              </tr>
+              <tr>
+                <th id="GrandTotalVAT"></th>
+              </tr>
+            </tbody>
           </table>
         </div>
       </div>
