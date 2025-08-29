@@ -18,7 +18,7 @@ class AccountPayableService
         $dummyData = [
             [
                 'number'                => 'AP/QDC/2025/000157',
-                'date'                  => '2025-07-25',
+                'date'                  => '2025-01-25',
                 'sub_budget'            => '240 - Cendana Andalas',
                 'supplier'              => 'VDR0006 - Alumagada Jaya Mandiri',
                 'total_idr'             => 1500000,

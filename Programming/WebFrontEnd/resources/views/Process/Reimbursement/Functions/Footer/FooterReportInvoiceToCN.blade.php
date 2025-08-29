@@ -7,6 +7,16 @@
 
         $("#site_code_second").val("");
         $("#site_id_second").val("");
+        $("#site_name_second").val("");
+
+        $("#worker_name_second").val("");
+        $("#worker_id_second").val("");
+        $("#worker_position_second").val("");
+
+        $("#beneficiary_second_person_name").val("");
+        $("#beneficiary_second_id").val("");
+        $("#beneficiary_second_person_position").val("");
+
         $("#mySiteCodeSecondTrigger").prop("disabled", false);
     });
 
@@ -17,19 +27,4 @@
     $('#tableGetWorkerSecond').on('click', 'tbody tr', function() {
         adjustInputSize(document.getElementById("worker_name_second"), "string");
     });
-
-    $('#reservation').daterangepicker({
-    locale: { format: 'DD/MM/YYYY' },
-    autoUpdateInput: false
-});
-
-$('#reservation').on('apply.daterangepicker', function(ev, picker) {
-    $(this).val(picker.startDate.format('DD/MM/YYYY') + ' - ' + picker.endDate.format('DD/MM/YYYY'));
-});
-
-$('#reservation').on('cancel.daterangepicker', function(ev, picker) {
-    $(this).val('');
-});
-
 </script>
-

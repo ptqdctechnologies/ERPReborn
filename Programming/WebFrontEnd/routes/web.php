@@ -21,7 +21,7 @@ $varUserSession =
     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
 
 $varAPIWebToken =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoid2lzbnUudHJlbmdnb25vIiwiaWF0IjoxNzU1Njc0MDk1fQ.OTJkMmU1NjM3YmU5M2I3MjI2OGUxMWZiN2VmMDY3NjU4YjJmMzE0ZTg0N2M0ZTY5OTc1OWVlYTRjYmQ4MTY0MA';
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoid2lzbnUudHJlbmdnb25vIiwiaWF0IjoxNzU2MDkzMjU2fQ.ODc4ZGU3MDk1MzhhODZkZGI1OWJlMDhjOWFjY2IxYWYyOWVhYmE4NjRhYjM2Yzk2MjgyMmNlMTg5YzBmNWRiOQ';
 
 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_LaravelRoute::setDynamicRoute_Examples_APICall(
     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
@@ -288,6 +288,14 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('ReportReimbursementSummary', 'Process\Reimbursement\ReimbursableExpenditureController@ReportReimbursementSummary')->name('Reimbursement.ReportReimbursementSummary');
     Route::post('ReportReimbursementSummaryStore', 'Process\Reimbursement\ReimbursableExpenditureController@ReportReimbursementSummaryStore')->name('Reimbursement.ReportReimbursementSummaryStore');
     Route::post('PrintExportReportReimbursementSummary', 'Process\Reimbursement\ReimbursableExpenditureController@PrintExportReportReimbursementSummary')->name('Reimbursement.PrintExportReportReimbursementSummary');
+    
+    Route::get('ReportRemToDN', 'Process\Reimbursement\ReimbursableExpenditureController@ReportRemToDN')->name('Reimbursement.ReportRemToDN');
+    Route::post('ReportRemToDNStore', 'Process\Reimbursement\ReimbursableExpenditureController@ReportRemToDNStore')->name('Reimbursement.ReportRemToDNStore');
+    Route::post('PrintExportReportRemToDN', 'Process\Reimbursement\ReimbursableExpenditureController@PrintExportReportRemToDN')->name('Reimbursement.PrintExportReportRemToDN');
+    // REPORT INVOICE TO DEBIT NOTE SEMENTARA DI TAROH DI REIMBURSEMENT 
+    Route::get('ReportInvoiceToCN', 'Process\Reimbursement\ReimbursableExpenditureController@ReportInvoiceToCN')->name('Reimbursement.ReportInvoiceToCN');
+    Route::post('ReportInvoiceToCNStore', 'Process\Reimbursement\ReimbursableExpenditureController@ReportInvoiceToCNStore')->name('Reimbursement.ReportInvoiceToCNStore');
+    Route::post('PrintExportReportInvoiceToCN', 'Process\Reimbursement\ReimbursableExpenditureController@PrintExportReportInvoiceToCN')->name('Reimbursement.PrintExportReportInvoiceToCN');
     
     Route::resource('ReimbursableExpenditure', 'Process\Reimbursement\ReimbursableExpenditureController');
 

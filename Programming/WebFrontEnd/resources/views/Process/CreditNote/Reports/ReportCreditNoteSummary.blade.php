@@ -36,7 +36,7 @@
                                                     <th rowspan="2" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Budget</th>
                                                     <th rowspan="2" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Sub Budget</th>
                                                     <th rowspan="2" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Date</th>
-                                                    <th rowspan="2" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Supplier/Customer</th>
+                                                    <th rowspan="2" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Customer</th>
                                                     <th colspan="2" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">CN IDR</th>
                                                     <th colspan="2" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">CN Other Currency</th>
                                                     <th colspan="2" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">CN Equivalent IDR</th>
@@ -75,7 +75,8 @@
                                                         <td><?= $dataDetail['CN_Number']; ?></td>
                                                         <td>{{ $dataDetail['combinedBudgetCode'] }} - {{ $dataDetail['combinedBudgetName'] }}</td>
                                                         <td>{{ $dataDetail['combinedBudgetSectionCode'] }} - {{ $dataDetail['combinedBudgetSectionName'] }}</td>
-                                                        <td><?= date('d-m-Y', strtotime($dataDetail['date'])); ?></td>
+                                                        <!-- <td><?= date('d-m-Y', strtotime($dataDetail['date'])); ?></td> -->
+                                                         <td>{{ $dataDetail['date']}}</td>
                                                         <td>{{ $dataDetail['customerCode'] }} - {{ $dataDetail['customerName'] }}</td>
                                                         <td>{{ number_format($dataDetail['CN_Total_IDR'], 2, '.', ',')}} </td>
                                                         <td>{{ number_format($dataDetail['CN_Tax_IDR'], 2, '.', ',')}} </td>

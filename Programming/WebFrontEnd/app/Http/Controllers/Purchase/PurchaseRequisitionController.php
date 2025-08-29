@@ -15,6 +15,7 @@ use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
 use App\Helpers\ZhtHelper\System\Helper_Environment;
 use App\Services\Purchase\PurchaseRequisitionService;
 use App\Services\WorkflowService;
+use Carbon\Carbon;
 
 class PurchaseRequisitionController extends Controller
 {
@@ -42,15 +43,146 @@ class PurchaseRequisitionController extends Controller
         ];
         return view('Purchase.PurchaseRequisition.Transactions.CreatePurchaseRequisition', $compact);
     }
+   
+
+    // public function ReportPurchaseRequisitionSummaryData( $project_code, $site_code){
+        
+            
+    //     try {
+    //         Log::error("Error at ",[$project_code, $site_code]);
+
+    //         $varAPIWebToken = Session::get('SessionLogin');
+
+    //         $filteredArray = Helper_APICall::setCallAPIGateway(
+    //             Helper_Environment::getUserSessionID_System(),
+    //             $varAPIWebToken, 
+    //             'report.form.documentForm.supplyChain.getPurchaseRequisitionSummary', 
+    //             'latest',
+    //             [
+    //                 'parameter' => [
+    //                     'CombinedBudgetCode' =>  $project_code,
+    //                     'CombinedBudgetSectionCode' =>  $site_code,
+    //                     'Supplier_RefID' => NULL
+    //                     // 'PurchaseRequisition_RefID' => (int) $PurchaseRequisition_refID
+    //                 ],
+    //                  'SQLStatement' => [
+    //                     'pick' => null,
+    //                     'sort' => null,
+    //                     'filter' => null,
+    //                     'paging' => null
+    //                     ]
+    //             ]
+    //         );
+            
+    //         Log::error("Error at " ,$filteredArray);
+    //         if ($filteredArray['metadata']['HTTPStatusCode'] !== 200) {
+    //             return redirect()->back()->with('NotFound', 'Process Error');
+
+    //         }
+    //         Session::put("PurchaseRequisitionReportSummaryDataPDF", $filteredArray['data']['data']);
+    //         Session::put("PurchaseRequisitionReportSummaryDataExcel", $filteredArray['data']['data']);
+    //         return $filteredArray['data']['data'];
+    //     }
+    //     catch (\Throwable $th) {
+    //         Log::error("Error at " . $th->getMessage());
+    //         return redirect()->back()->with('NotFound', 'Process Error');
+    //     }
+    // }
+    //  public function ReportPurchaseRequisitionSummary(Request $request)
+    // {
+    //     $varAPIWebToken = $request->session()->get('SessionLogin');
+    //     $request->session()->forget("SessionPurchaseRequisitionNumber");
+    //     $dataPO = Session::get("PurchaseRequisitionReportSummaryDataPDF");
+
+    //     if (!empty($_GET['var'])) {
+    //         $var =  $_GET['var'];
+    //     }
+    //     $compact = [
+    //         'varAPIWebToken' => $varAPIWebToken,
+    //         'statusRevisi' => 1,
+    //         'statusHeader' => "Yes",
+    //         'statusDetail' => 1,
+    //         'dataHeader' => [],
+    //         'dataPO' => $dataPO
+        
+    //     ];
+    //     // dump($dataPO);
+
+    //     return view('Purchase.PurchaseRequisition.Reports.ReportPurchaseRequisitionSummary', $compact);
+    // }
+    // public function ReportPurchaseRequisitionSummaryData($project_code, $site_code, $start_date = null, $end_date = null)
+    // {
+    //     try {
+    //         $varAPIWebToken = Session::get('SessionLogin');
+    //         $filter = Session::get('ReportPurchaseRequisitionSummaryFilter');
+
+    //         // bikin filters
+    //         $filters = [];
+    //         if (!empty($filter['start_date']) && !empty($filter['end_date'])) {
+    //             $filters[] = [
+    //                 "condition" => "Between",
+    //                 "field" => "date", // ganti sesuai field API yang benar
+    //                 "value" => [
+    //                     "from" => $filter['start_date']." 00:00:00+07",
+    //                     "to"   => $filter['end_date']." 23:59:59+07",
+    //                 ]
+    //             ];
+
+    //         }
+
+    //         \Log::info("Filter Date Payload", ['filter' => $filters]);
+
+    //         $filteredArray = Helper_APICall::setCallAPIGateway(
+    //             Helper_Environment::getUserSessionID_System(),
+    //             $varAPIWebToken, 
+    //             'report.form.documentForm.supplyChain.getPurchaseRequisitionSummary', 
+    //             'latest',
+    //             [
+    //                 'parameter' => [
+    //                     'CombinedBudgetCode' => $project_code,
+    //                     'CombinedBudgetSectionCode' => $site_code,
+    //                     'Supplier_RefID' => null,
+    //                 ],
+    //                 'SQLStatement' => [
+    //                     'pick' => null,
+    //                     'sort' => null,
+    //                     'filter' => $filters,
+    //                     'paging' => null,
+    //                 ]
+    //             ]
+    //         );
+
+    //         if ($filteredArray['metadata']['HTTPStatusCode'] !== 200) {
+    //             return redirect()->back()->with('NotFound', 'Process Error');
+    //         }
+
+    //         Session::put("PurchaseRequisitionReportSummaryDataPDF", $filteredArray['data']['data']);
+    //         Session::put("PurchaseRequisitionReportSummaryDataExcel", $filteredArray['data']['data']);
+    //         return $filteredArray['data']['data'];
+
+    //     } catch (\Throwable $th) {
+    //         Log::error("Error at " . $th->getMessage());
+    //         return redirect()->back()->with('NotFound', 'Process Error');
+    //     }
+    // }
     public function ReportPurchaseRequisitionSummary(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
         $request->session()->forget("SessionPurchaseRequisitionNumber");
+
+        $filter = Session::get('ReportPurchaseRequisitionSummaryFilter', []);
         $dataPO = Session::get("PurchaseRequisitionReportSummaryDataPDF");
 
-        if (!empty($_GET['var'])) {
-            $var =  $_GET['var'];
+        // Jika session data kosong, panggil API
+        if (empty($dataPO) && !empty($filter['project_code']) && !empty($filter['site_code'])) {
+            $dataPO = $this->ReportPurchaseRequisitionSummaryData(
+                $filter['project_code'],
+                $filter['site_code'],
+                $filter['start_date'] ?? null,
+                $filter['end_date'] ?? null
+            );
         }
+
         $compact = [
             'varAPIWebToken' => $varAPIWebToken,
             'statusRevisi' => 1,
@@ -58,88 +190,131 @@ class PurchaseRequisitionController extends Controller
             'statusDetail' => 1,
             'dataHeader' => [],
             'dataPO' => $dataPO
-        
         ];
-        // dump($compact);
-
+        // dd($dataPO[0]);
         return view('Purchase.PurchaseRequisition.Reports.ReportPurchaseRequisitionSummary', $compact);
-    }
-
-    public function ReportPurchaseRequisitionSummaryData( $project_code, $site_code){
-        
-            
-        try {
-            Log::error("Error at ",[$project_code, $site_code]);
-
-            $varAPIWebToken = Session::get('SessionLogin');
-
-            $filteredArray = Helper_APICall::setCallAPIGateway(
-                Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'report.form.documentForm.supplyChain.getPurchaseRequisitionSummary', 
-                'latest',
-                [
-                    'parameter' => [
-                        'CombinedBudgetCode' =>  $project_code,
-                        'CombinedBudgetSectionCode' =>  $site_code,
-                        'Supplier_RefID' => NULL
-                        // 'PurchaseRequisition_RefID' => (int) $PurchaseRequisition_refID
-                    ],
-                     'SQLStatement' => [
-                        'pick' => null,
-                        'sort' => null,
-                        'filter' => null,
-                        'paging' => null
-                        ]
-                ]
-            );
-            
-            Log::error("Error at " ,$filteredArray);
-            if ($filteredArray['metadata']['HTTPStatusCode'] !== 200) {
-                return redirect()->back()->with('NotFound', 'Process Error');
-
-            }
-            Session::put("PurchaseRequisitionReportSummaryDataPDF", $filteredArray['data']['data']);
-            Session::put("PurchaseRequisitionReportSummaryDataExcel", $filteredArray['data']['data']);
-            return $filteredArray['data']['data'];
-        }
-        catch (\Throwable $th) {
-            Log::error("Error at " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
-        }
     }
 
     public function ReportPurchaseRequisitionSummaryStore(Request $request)
     {
-        // tes;
-        try {
-            $project_code = $request->project_code_second;
-            $site_code = $request->site_code_second;
+        $project_code = $request->input('project_code_second');
+        $site_code    = $request->input('site_code_second');
+        $date_range   = $request->input('date_range');
 
-            $statusHeader = "Yes";
-            Log::error("Error at " ,[$request->all()]);
-            if ($project_code == "" && $site_code == "") {
-                Session::forget("PurchaseRequisitionReportSummaryDataPDF");
-                Session::forget("PurchaseRequisitionReportSummaryDataExcel");
-                
-                return redirect()->route('PurchaseRequisition.ReportPurchaseRequisitionSummary')->with('NotFound', 'Cannot Empty');
+        $start_date = $end_date = null;
+
+        if ($date_range) {
+            // Split range "DD/MM/YYYY - DD/MM/YYYY"
+            [$start, $end] = explode(' - ', $date_range);
+
+            try {
+                $start_date = Carbon::createFromFormat('d/m/Y', trim($start))->format('Y-m-d');
+                $end_date   = Carbon::createFromFormat('d/m/Y', trim($end))->format('Y-m-d');
+            } catch (\Exception $e) {
+                \Log::error("Tanggal tidak valid: " . $e->getMessage());
+            }
+        }
+
+        // Simpan filter ke session
+        Session::put('ReportPurchaseRequisitionSummaryFilter', [
+            'project_code' => $project_code,
+            'site_code'    => $site_code,
+            'start_date'   => $start_date,
+            'end_date'     => $end_date,
+        ]);
+
+        \Log::info("Filter Session Saved", Session::get('ReportPurchaseRequisitionSummaryFilter'));
+
+        return redirect()->route('PurchaseRequisition.ReportPurchaseRequisitionSummary');
+    }
+
+
+    public function ReportPurchaseRequisitionSummaryData($project_code, $site_code, $start_date = null, $end_date = null)
+    {
+        try {
+            $varAPIWebToken = Session::get('SessionLogin');
+
+            // Ambil filter dari session jika parameter kosong
+            $filterSession = Session::get('ReportPurchaseRequisitionSummaryFilter', []);
+            $start_date = $start_date ?? $filterSession['start_date'] ?? now()->subMonth()->format('Y-m-d');
+            $end_date   = $end_date ?? $filterSession['end_date'] ?? now()->format('Y-m-d');
+
+            $filters = [];
+
+            // Filter Project
+            if (!empty($project_code)) {
+                $filters[] = [
+                    'condition' => 'Equal',
+                    'field'     => 'CombinedBudgetCode',
+                    'value'     => $project_code,
+                ];
             }
 
-            $compact = $this->ReportPurchaseRequisitionSummaryData($project_code, $site_code);
-            // dd($compact);
-            // if ($compact['dataHeader'] == []) {
-            //     Session::forget("PPurchaseRequisitionSummaryReportDataPDF");
-            //     Session::forget("PPurchaseRequisitionSummaryReportDataExcel");
+            // Filter Site / Sub Budget
+            if (!empty($site_code)) {
+                $filters[] = [
+                    'condition' => 'Equal',
+                    'field'     => 'CombinedBudgetSectionCode',
+                    'value'     => $site_code,
+                ];
+            }
 
-            //     return redirect()->back()->with('NotFound', 'Data Not Found');
-            // }
+            // Filter Date Range
+            if ($start_date && $end_date) {
+                $filters[] = [
+                    "condition" => "Between",
+                    "field" => "date", // pastikan sesuai field API
+                    "value" => [
+                        "from" => $start_date . " 00:00:00+07",
+                        "to"   => $end_date   . " 23:59:59+07",
+                    ]
+                ];
+            }
 
-            return redirect()->route('PurchaseRequisition.ReportPurchaseRequisitionSummary');
+            \Log::info("Filters sent to API", [
+                'project_code' => $project_code,
+                'site_code' => $site_code,
+                'filters' => $filters
+            ]);
+
+            // Panggil API
+            $filteredArray = Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken,
+                'report.form.documentForm.supplyChain.getPurchaseRequisitionSummary',
+                'latest',
+                [
+                    'parameter' => [
+                        'Supplier_RefID' => null,
+                    ],
+                    'SQLStatement' => [
+                        'pick' => null,
+                        'sort' => null,
+                        'filter' => $filters,
+                        'paging' => null,
+                    ]
+                ]
+            );
+
+            if ($filteredArray['metadata']['HTTPStatusCode'] !== 200) {
+                \Log::error('API call failed', ['response' => $filteredArray]);
+                return [];
+            }
+
+            $data = $filteredArray['data']['data'] ?? [];
+
+            // Simpan ke session untuk PDF/Excel
+            Session::put("PurchaseRequisitionReportSummaryDataPDF", $data);
+            Session::put("PurchaseRequisitionReportSummaryDataExcel", $data);
+
+            return $data;
+
         } catch (\Throwable $th) {
-            Log::error("Error at " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
+            \Log::error("Error at ReportPurchaseRequisitionSummaryData: " . $th->getMessage());
+            return [];
         }
     }
+
     public function PrintExportReportPurchaseRequisitionSummary(Request $request)
     {
         try {

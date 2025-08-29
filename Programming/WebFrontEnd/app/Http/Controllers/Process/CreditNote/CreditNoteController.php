@@ -40,73 +40,110 @@ class CreditNoteController extends Controller
 
         return view('Process.CreditNote.Reports.ReportCreditNoteSummary', $compact);
     }
-
-    public function ReportCreditNoteSummaryData( $project_code, $site_code){
-        
-            
+    public function ReportCreditNoteSummaryData($project_code, $site_code, $start_date = null, $end_date = null)
+    {
         try {
-            Log::error("Error at ",[$project_code, $site_code]);
-
             $varAPIWebToken = Session::get('SessionLogin');
+
+            // default date range kalau kosong
+            if (empty($start_date) && empty($end_date)) {
+                $start_date = now()->startOfMonth()->format('Y-m-d') . ' 00:00:00+07';
+                $end_date   = now()->endOfMonth()->format('Y-m-d') . ' 23:59:59+07';
+            }   
+
+            $params = [
+                'parameter' => [
+                    'CombinedBudgetCode' => $project_code,
+                    'CombinedBudgetSectionCode' => $site_code,
+                ],
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    'filter' => [],
+                    'paging' => null
+                ]
+            ];
+
+            // filter by date range
+            if (!empty($start_date) && !empty($end_date)) {
+                $params['SQLStatement']['filter'][] = [
+                    'condition' => 'Between',
+                    'field' => 'date',
+                    'value' => [
+                        'from' => \Carbon\Carbon::parse($start_date)->format('Y-m-d') . ' 00:00:00+07',
+                        'to'   => \Carbon\Carbon::parse($end_date)->format('Y-m-d') . ' 23:59:59+07',
+                    ],
+                ];
+            }
+            Log::info("Filter Date Payload", [
+                'from' => $start_date,
+                'to'   => $end_date
+            ]);
+            Log::info("Params send to API", $params);
 
             $filteredArray = Helper_APICall::setCallAPIGateway(
                 Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken, 
                 'report.form.documentForm.finance.getCreditNoteSummary', 
                 'latest',
-                [
-                    'parameter' => [
-                        'CombinedBudgetCode' =>  $project_code,
-                        'CombinedBudgetSectionCode' =>  $site_code,
-                    ],
-                     'SQLStatement' => [
-                        'pick' => null,
-                        'sort' => null,
-                        'filter' => null,
-                        'paging' => null
-                        ]
-                ]
+                $params
             );
-            
-            Log::error("Error at " ,$filteredArray);
+
             if ($filteredArray['metadata']['HTTPStatusCode'] !== 200) {
                 return redirect()->back()->with('NotFound', 'Process Error');
-
             }
+            Log::info("Keys:", array_keys($filteredArray['data']['data'][0]));
+
             Session::put("CreditNoteReportSummaryDataPDF", $filteredArray['data']['data']);
             Session::put("CreditNoteReportSummaryDataExcel", $filteredArray['data']['data']);
             return $filteredArray['data']['data'];
-        }
-        catch (\Throwable $th) {
+
+        } catch (\Throwable $th) {
             Log::error("Error at " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }
 
+
     public function ReportCreditNoteSummaryStore(Request $request)
     {
-        // tes;
         try {
             $project_code = $request->project_code_second;
             $site_code = $request->site_code_second;
+            $start_date = $request->start_date;
+            $end_date = $request->end_date;
 
-            $statusHeader = "Yes";
-            Log::error("Error at " ,[$request->all()]);
-            if ($project_code == "" && $site_code == "") {
+            // convert ke format Y-m-d H:i:s+07
+            if (!empty($start_date)) {
+                $start_date = \Carbon\Carbon::parse($start_date)->format('Y-m-d 00:00:00+07');
+            }
+            if (!empty($end_date)) {
+                $end_date = \Carbon\Carbon::parse($end_date)->format('Y-m-d 23:59:59+07');
+            }
+
+
+            Session::put('ReportCreditNoteSummaryFilter', [
+                'project_code' => $project_code,
+                'site_code' => $site_code,
+                'start_date' => $start_date,
+                'end_date' => $end_date,
+            ]);
+
+            Log::info("Filter params: ", [
+                'project_code' => $project_code,
+                'site_code' => $site_code,
+                'start_date' => $start_date,
+                'end_date' => $end_date,
+            ]);
+
+            if ($project_code == "" && $site_code == "" && $start_date == "" && $end_date == "") {
                 Session::forget("CreditNoteReportSummaryDataPDF");
                 Session::forget("CreditNoteReportSummaryDataExcel");
                 
                 return redirect()->route('CreditNote.ReportCreditNoteSummary')->with('NotFound', 'Cannot Empty');
             }
 
-            $compact = $this->ReportCreditNoteSummaryData($project_code, $site_code);
-            // dd($compact);
-            // if ($compact['dataHeader'] == []) {
-            //     Session::forget("PCreditNoteSummaryReportDataPDF");
-            //     Session::forget("PCreditNoteSummaryReportDataExcel");
-
-            //     return redirect()->back()->with('NotFound', 'Data Not Found');
-            // }
+            $compact = $this->ReportCreditNoteSummaryData($project_code, $site_code, $start_date, $end_date);
 
             return redirect()->route('CreditNote.ReportCreditNoteSummary');
         } catch (\Throwable $th) {
@@ -114,6 +151,50 @@ class CreditNoteController extends Controller
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }
+
+
+    // public function ReportCreditNoteSummaryData( $project_code, $site_code){
+        
+            
+    //     try {
+    //         Log::error("Error at ",[$project_code, $site_code]);
+
+    //         $varAPIWebToken = Session::get('SessionLogin');
+
+    //         $filteredArray = Helper_APICall::setCallAPIGateway(
+    //             Helper_Environment::getUserSessionID_System(),
+    //             $varAPIWebToken, 
+    //             'report.form.documentForm.finance.getCreditNoteSummary', 
+    //             'latest',
+    //             [
+    //                 'parameter' => [
+    //                     'CombinedBudgetCode' =>  $project_code,
+    //                     'CombinedBudgetSectionCode' =>  $site_code,
+    //                 ],
+    //                  'SQLStatement' => [
+    //                     'pick' => null,
+    //                     'sort' => null,
+    //                     'filter' => null,
+    //                     'paging' => null
+    //                     ]
+    //             ]
+    //         );
+            
+    //         Log::error("Error at " ,$filteredArray);
+    //         if ($filteredArray['metadata']['HTTPStatusCode'] !== 200) {
+    //             return redirect()->back()->with('NotFound', 'Process Error');
+
+    //         }
+    //         Session::put("CreditNoteReportSummaryDataPDF", $filteredArray['data']['data']);
+    //         Session::put("CreditNoteReportSummaryDataExcel", $filteredArray['data']['data']);
+    //         return $filteredArray['data']['data'];
+    //     }
+    //     catch (\Throwable $th) {
+    //         Log::error("Error at " . $th->getMessage());
+    //         return redirect()->back()->with('NotFound', 'Process Error');
+    //     }
+    // }
+    
     public function PrintExportReportCreditNoteSummary(Request $request)
     {
         try {
