@@ -1,6 +1,6 @@
 <div class="col-12 ShowDocument">
   <div class="card">
-    <form method="post" enctype="multipart/form-data" action="{{ route('PurchaseRequisition.ReportPurchaseRequisitionSummaryStore') }}">
+    <form method="post" enctype="multipart/form-data" action="{{ route('Reimbursement.ReportInvoiceToCNStore') }}">
       @csrf
       <div class="card-body">
         <div class="row">
@@ -51,25 +51,11 @@
           <div class="col-md-3">
             <div class="form-group">
               <table>
-                <!-- <tr>
-                  <th style="padding-top: 7px;"><label>Date Range</label></th>
-                  <td>
-                    <div class="input-group">
-                      <input readonly type="text" class="form-control" id="reservation" name="date_range" 
-                          value="{{ $dataReport['date_range'] ?? '' }}" />
-                      <div class="input-group-prepend" style="cursor: pointer;">
-                        <span class="input-group-text" id="reservation-icon">
-                          <i class="far fa-calendar-alt"></i>
-                        </span>
-                      </div>
-                    </div>
-                  </td>
-                </tr> -->
                 <tr>
                   <th style="padding-top: 7px;"><label>Date</label></th>
                   <td>
                     <div class="input-group">
-                        <input readonly type="text" class="form-control" id="reservation" name="date_range" value="<?= $dataReport['date'] ?? ''; ?>" />
+                        <input readonly type="text" class="form-control" id="reservation" name="date" value="<?= $dataReport['date'] ?? ''; ?>" />
                         <div class="input-group-prepend" style="margin-right: 0px; width: 27.78px;cursor: pointer;height: 21.8px;">
                             <span class="input-group-text" id="reservation-icon">
                                 <i class="far fa-calendar-alt" style="width: 13px; height: 13px;"></i>
@@ -92,7 +78,7 @@
                   </td>
                  </form>
 
-                  <form method="post" enctype="multipart/form-data" action="{{ route('PurchaseRequisition.PrintExportReportPurchaseRequisitionSummary') }}">
+                  <form method="post" enctype="multipart/form-data" action="{{ route('Reimbursement.PrintExportReportInvoiceToCN') }}">
                     @csrf
                     <td>
                       <select name="print_type" id="print_type" class="form-control">

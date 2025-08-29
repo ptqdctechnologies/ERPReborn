@@ -179,13 +179,22 @@ class DeliveryOrderController extends Controller
 
         return view('Inventory.DeliveryOrder.Reports.ReportDeliveryOrderSummary', $compact);
     }
-
-    public function ReportDeliveryOrderSummaryData( $project_code, $site_code)
+    public function ReportDeliveryOrderSummaryData($project_code, $site_code, $start_date = null, $end_date = null)
     {        
         try {
-            Log::error("Error at ",[$project_code, $site_code]);
-
             $varAPIWebToken = Session::get('SessionLogin');
+
+            $filters = [];
+            if ($start_date && $end_date) {
+                $filters[] = [
+                    "condition" => "Between",
+                    "field" => "date",
+                    "value" => [
+                        "from" => $start_date,
+                        "to"   => $end_date,
+                    ]
+                ];
+            }
 
             $filteredArray = Helper_APICall::setCallAPIGateway(
                 Helper_Environment::getUserSessionID_System(),
@@ -194,26 +203,26 @@ class DeliveryOrderController extends Controller
                 'latest',
                 [
                     'parameter' => [
-                        'CombinedBudgetCode' =>  $project_code,
-                        'CombinedBudgetSectionCode' =>  $site_code,
-                        'Warehouse_RefID' => NULL
+                        'CombinedBudgetCode'        => $project_code,
+                        'CombinedBudgetSectionCode' => $site_code,
+                        'Warehouse_RefID'           => NULL
                     ],
-                     'SQLStatement' => [
-                        'pick' => null,
-                        'sort' => null,
-                        'filter' => null,
+                    'SQLStatement' => [
+                        'pick'   => null,
+                        'sort'   => null,
+                        'filter' => $filters ?: null,
                         'paging' => null
-                        ]
+                    ]
                 ]
             );
-            
-            Log::error("Error at " ,$filteredArray);
+
             if ($filteredArray['metadata']['HTTPStatusCode'] !== 200) {
                 return redirect()->back()->with('NotFound', 'Process Error');
-
             }
+
             Session::put("DeliveryOrderReportSummaryDataPDF", $filteredArray['data']['data']);
             Session::put("DeliveryOrderReportSummaryDataExcel", $filteredArray['data']['data']);
+
             return $filteredArray['data']['data'];
         }
         catch (\Throwable $th) {
@@ -224,28 +233,35 @@ class DeliveryOrderController extends Controller
 
     public function ReportDeliveryOrderSummaryStore(Request $request)
     {
-        // tes;
         try {
             $project_code = $request->project_code_second;
-            $site_code = $request->site_id_second;
+            $site_code    = $request->site_code_second;
+            $date_range   = $request->input('date');
 
-            $statusHeader = "Yes";
-            Log::error("Error at " ,[$request->all()]);
-            if ($project_code == "" && $site_code == "") {
+            $start_date = $end_date = null;
+
+            if ($date_range) {
+                // format input: "DD/MM/YYYY - DD/MM/YYYY"
+                [$start, $end] = explode(' - ', $date_range);
+                $start_date = \Carbon\Carbon::createFromFormat('d/m/Y', trim($start))->format('Y-m-d 00:00:00+07');
+                $end_date   = \Carbon\Carbon::createFromFormat('d/m/Y', trim($end))->format('Y-m-d 23:59:59+07');
+            }
+
+            if (empty($project_code) && empty($site_code)) {
                 Session::forget("DeliveryOrderReportSummaryDataPDF");
                 Session::forget("DeliveryOrderReportSummaryDataExcel");
-                
                 return redirect()->route('DeliveryOrder.ReportDeliveryOrderSummary')->with('NotFound', 'Cannot Empty');
             }
 
-            $compact = $this->ReportDeliveryOrderSummaryData($project_code, $site_code);
-            // dd($compact);
-            // if ($compact['dataHeader'] == []) {
-            //     Session::forget("PDeliveryOrderSummaryReportDataPDF");
-            //     Session::forget("PDeliveryOrderSummaryReportDataExcel");
+            // simpan filter ke session
+            Session::put('ReportDeliveryOrderSummaryFilter', [
+                'project_code' => $project_code,
+                'site_code'    => $site_code,
+                'start_date'   => $start_date,
+                'end_date'     => $end_date,
+            ]);
 
-            //     return redirect()->back()->with('NotFound', 'Data Not Found');
-            // }
+            $this->ReportDeliveryOrderSummaryData($project_code, $site_code, $start_date, $end_date);
 
             return redirect()->route('DeliveryOrder.ReportDeliveryOrderSummary');
         } catch (\Throwable $th) {
@@ -253,6 +269,80 @@ class DeliveryOrderController extends Controller
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }
+
+    // public function ReportDeliveryOrderSummaryData( $project_code, $site_code)
+    // {        
+    //     try {
+    //         Log::error("Error at ",[$project_code, $site_code]);
+
+    //         $varAPIWebToken = Session::get('SessionLogin');
+
+    //         $filteredArray = Helper_APICall::setCallAPIGateway(
+    //             Helper_Environment::getUserSessionID_System(),
+    //             $varAPIWebToken, 
+    //             'report.form.documentForm.supplyChain.getDeliveryOrderSummary', 
+    //             'latest',
+    //             [
+    //                 'parameter' => [
+    //                     'CombinedBudgetCode' =>  $project_code,
+    //                     'CombinedBudgetSectionCode' =>  $site_code,
+    //                     'Warehouse_RefID' => NULL
+    //                 ],
+    //                  'SQLStatement' => [
+    //                     'pick' => null,
+    //                     'sort' => null,
+    //                     'filter' => null,
+    //                     'paging' => null
+    //                     ]
+    //             ]
+    //         );
+            
+    //         Log::error("Error at " ,$filteredArray);
+    //         if ($filteredArray['metadata']['HTTPStatusCode'] !== 200) {
+    //             return redirect()->back()->with('NotFound', 'Process Error');
+
+    //         }
+    //         Session::put("DeliveryOrderReportSummaryDataPDF", $filteredArray['data']['data']);
+    //         Session::put("DeliveryOrderReportSummaryDataExcel", $filteredArray['data']['data']);
+    //         return $filteredArray['data']['data'];
+    //     }
+    //     catch (\Throwable $th) {
+    //         Log::error("Error at " . $th->getMessage());
+    //         return redirect()->back()->with('NotFound', 'Process Error');
+    //     }
+    // }
+
+    // public function ReportDeliveryOrderSummaryStore(Request $request)
+    // {
+    //     // tes;
+    //     try {
+    //         $project_code = $request->project_code_second;
+    //         $site_code = $request->site_id_second;
+
+    //         $statusHeader = "Yes";
+    //         Log::error("Error at " ,[$request->all()]);
+    //         if ($project_code == "" && $site_code == "") {
+    //             Session::forget("DeliveryOrderReportSummaryDataPDF");
+    //             Session::forget("DeliveryOrderReportSummaryDataExcel");
+                
+    //             return redirect()->route('DeliveryOrder.ReportDeliveryOrderSummary')->with('NotFound', 'Cannot Empty');
+    //         }
+
+    //         $compact = $this->ReportDeliveryOrderSummaryData($project_code, $site_code);
+    //         // dd($compact);
+    //         // if ($compact['dataHeader'] == []) {
+    //         //     Session::forget("PDeliveryOrderSummaryReportDataPDF");
+    //         //     Session::forget("PDeliveryOrderSummaryReportDataExcel");
+
+    //         //     return redirect()->back()->with('NotFound', 'Data Not Found');
+    //         // }
+
+    //         return redirect()->route('DeliveryOrder.ReportDeliveryOrderSummary');
+    //     } catch (\Throwable $th) {
+    //         Log::error("Error at " . $th->getMessage());
+    //         return redirect()->back()->with('NotFound', 'Process Error');
+    //     }
+    // }
 
     public function PrintExportReportDeliveryOrderSummary(Request $request)
     {

@@ -56,6 +56,11 @@
                   <td>
                     <div class="input-group">
                         <input readonly type="text" class="form-control" id="reservation" name="date" value="<?= $dataReport['date'] ?? ''; ?>" />
+                        <!-- <input type="date" name="start_date" class="form-control"
+                              value="{{ Session::get('ReportCreditNoteSummaryFilter.start_date') }}">
+                        <input type="date" name="end_date" class="form-control"
+                              value="{{ Session::get('ReportCreditNoteSummaryFilter.end_date') }}"> -->
+
                         <div class="input-group-prepend" style="margin-right: 0px; width: 27.78px;cursor: pointer;height: 21.8px;">
                             <span class="input-group-text" id="reservation-icon">
                                 <i class="far fa-calendar-alt" style="width: 13px; height: 13px;"></i>
@@ -78,7 +83,7 @@
                   </td>
                  </form>
 
-                  <form method="post" enctype="multipart/form-data" action="{{ route('AdvanceSettlement.PrintExportReportAdvanceSettlementSummary') }}">
+                  <form method="post" enctype="multipart/form-data" action="{{ route('CreditNote.PrintExportReportCreditNoteSummary') }}">
                     @csrf
                     <td>
                       <select name="print_type" id="print_type" class="form-control">
