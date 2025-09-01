@@ -631,6 +631,9 @@
         $("#project_code_second").val("");
         $("#project_name_second").val("");
 
+        $("#project_code_second").css("border", "1px solid #ced4da");
+        $("#project_name_second").css("border", "1px solid #ced4da");
+        $("#budgetMessage").hide();
         $("#loadingBudget").css({"display":"block"});
         $("#myProjectSecondTrigger").css({"display":"none"});
 
@@ -643,9 +646,6 @@
                 $("#project_name_second").val(projectName);
                 $("#myProjectSecondTrigger").prop("disabled", true);
                 $("#myProjectSecondTrigger").css("cursor", "not-allowed");
-                $("#project_code_second").css("border", "1px solid #ced4da");
-                $("#project_name_second").css("border", "1px solid #ced4da");
-                $("#budgetMessage").hide();
 
                 $("#var_combinedBudget_RefID").val(sysId);
 
