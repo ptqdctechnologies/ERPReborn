@@ -5,9 +5,9 @@
     const siteCode          = document.getElementById('site_id_second');
     const dataTable         = {!! json_encode($dataAdvanceList ?? []) !!};
 
-    function checkOneLineBudgetContents() {
-        const rows  = document.querySelectorAll("#tableGetBudgetDetails tbody tr");
-        let isFull  = false;
+    function checkOneLineBudgetContents(indexInput) {
+        const rows = document.querySelectorAll("#tableGetBudgetDetails tbody tr");
+        let hasFullRow = false;
 
         rows.forEach((row, index) => {
             const qty   = document.getElementById(`qty_req${index}`)?.value.trim();
@@ -15,22 +15,51 @@
             const total = document.getElementById(`total_req${index}`)?.value.trim();
 
             if (qty !== "" && price !== "" && total !== "") {
-                isFull = true;
+                hasFullRow = true;
             }
         });
 
-        return isFull;
-    }
+        rows.forEach((row, index) => {
+            const qtyEl   = document.getElementById(`qty_req${index}`);
+            const priceEl = document.getElementById(`price_req${index}`);
+            const totalEl = document.getElementById(`total_req${index}`);
 
-    function checkFormCompleted() {
-        const remarkNotEmpty        = remark.value.trim() !== '';
-        const tableGetBudgetDetails = checkOneLineBudgetContents();
+            if (hasFullRow) {
+                $(qtyEl).css("border", "1px solid #ced4da");
+                $(priceEl).css("border", "1px solid #ced4da");
+                $(totalEl).css("border", "1px solid #ced4da");
+                $("#budgetDetailsMessage").hide();
+            } else {
+                if (indexInput > -1) {
+                    if (indexInput == index) {
+                        if (qtyEl.value.trim() != "" || priceEl.value.trim() != "") {
+                            $(qtyEl).css("border", "1px solid red");
+                            $(priceEl).css("border", "1px solid red");
+                            $(totalEl).css("border", "1px solid red");
+                            $("#budgetDetailsMessage").show();
+                        } else {
+                            $(qtyEl).css("border", "1px solid #ced4da");
+                            $(priceEl).css("border", "1px solid #ced4da");
+                            $(totalEl).css("border", "1px solid #ced4da");
+                            $("#budgetDetailsMessage").hide();
+                        }
+                    }
 
-        if (remarkNotEmpty && tableGetBudgetDetails) {
-            budgetDetailsAdd.disabled = false;
-        } else {
-            budgetDetailsAdd.disabled = true;
-        }
+                    if (indexInput != index && (qtyEl.value.trim() == "" && priceEl.value.trim() == "")) {
+                        $(qtyEl).css("border", "1px solid #ced4da");
+                        $(priceEl).css("border", "1px solid #ced4da");
+                        $(totalEl).css("border", "1px solid #ced4da");
+                    } 
+                } else {
+                    $(qtyEl).css("border", "1px solid red");
+                    $(priceEl).css("border", "1px solid red");
+                    $(totalEl).css("border", "1px solid red");
+                    $("#budgetDetailsMessage").show();
+                }
+            }
+        });
+
+        return hasFullRow;
     }
 
     function calculateTotal() {
@@ -76,79 +105,143 @@
         document.getElementById('GrandTotal').innerText = `Total (${rows[0].children[3].value}): ${total}`;
     }
 
-    function SelectWorkFlow(formatData) {
-        const swalWithBootstrapButtons = Swal.mixin({
-            confirmButtonClass: 'btn btn-success btn-sm',
-            cancelButtonClass: 'btn btn-danger btn-sm',
-            buttonsStyling: true,
-        });
+    function summaryData() {
+        const sourceTable = document.getElementById('tableGetBudgetDetails').getElementsByTagName('tbody')[0];
+        const targetTable = document.getElementById('tableAdvanceList').getElementsByTagName('tbody')[0];
 
-        swalWithBootstrapButtons.fire({
-            title: 'Comment',
-            text: "Please write your comment here",
-            type: 'question',
-            input: 'textarea',
-            showCloseButton: false,
-            showCancelButton: true,
-            focusConfirm: false,
-            cancelButtonText: '<span style="color:black;"> Cancel </span>',
-            confirmButtonText: '<span style="color:black;"> OK </span>',
-            cancelButtonColor: '#DDDAD0',
-            confirmButtonColor: '#DDDAD0',
-            reverseButtons: true
-        }).then((result) => {
-            if ('value' in result) {
-                ShowLoading();
-                RevisionAdvanceRequest({...formatData, comment: result.value});
+        const rows = sourceTable.getElementsByTagName('tr');
+
+        for (let row of rows) {
+            const recordRefID                           = row.querySelector('input[id^="recordID"]');
+            const productCode                           = row.querySelector('input[id^="productCode"]');
+            const productRefID                          = row.querySelector('input[id^="product_RefID"]');
+            const quantityUnitRefID                     = row.querySelector('input[id^="quantityUnit_RefID"]');
+            const productUnitPriceCurrencyRefID         = row.querySelector('input[id^="productUnitPriceCurrency_RefID"]');
+            const combinedBudgetSectionDetailRefID      = row.querySelector('input[id^="combinedBudgetSectionDetail_RefID"]');
+            const productUnitPriceCurrencyExchangeRate  = row.querySelector('input[id^="productUnitPriceCurrencyExchangeRate"]');
+
+            const qtyInput      = row.querySelector('input[id^="qty_req"]');
+            const priceInput    = row.querySelector('input[id^="price_req"]');
+            const totalInput    = row.querySelector('input[id^="total_req"]');
+            const balanceInput  = row.querySelector('input[id^="balanced_qty"]');
+
+            if (
+                qtyInput && priceInput && totalInput && balanceInput &&
+                qtyInput.value.trim() !== '' &&
+                priceInput.value.trim() !== '' &&
+                totalInput.value.trim() !== '' &&
+                balanceInput.value.trim() !== ''
+            ) {
+                const productName = row.children[8].innerText.trim();
+                const qtyAvail = row.children[10].innerText.trim();
+                const uom = row.children[11].innerText.trim();
+                const priceAvail = row.children[12].innerText.trim();
+                const currency = row.children[14].innerText.trim();
+
+                const price = priceInput.value.trim();
+                const qty   = qtyInput.value.trim();
+                const total = totalInput.value.trim();
+
+                let found = false;
+                const existingRows = targetTable.getElementsByTagName('tr');
+                for (let targetRow of existingRows) {
+                    const targetRecordID = targetRow.children[0].value.trim();
+                    if (targetRecordID == recordRefID.value) {
+                        targetRow.children[7].innerText = price;
+                        targetRow.children[8].innerText = qty;
+                        targetRow.children[9].innerText = total;
+                        found = true;
+
+                        const indexToUpdate = dataStore.findIndex(item => item.recordID == recordRefID.value);
+                        if (indexToUpdate !== -1) {
+                            dataStore[indexToUpdate] = {
+                                recordID: parseInt(recordRefID.value),
+                                entities: {
+                                    combinedBudgetSectionDetail_RefID: parseInt(combinedBudgetSectionDetailRefID.value),
+                                    product_RefID: parseInt(productRefID.value),
+                                    quantity: parseFloat(qty.replace(/,/g, '')),
+                                    quantityUnit_RefID: parseInt(quantityUnitRefID.value),
+                                    productUnitPriceCurrency_RefID: parseInt(productUnitPriceCurrencyRefID.value),
+                                    productUnitPriceCurrencyValue: parseFloat(price.replace(/,/g, '')),
+                                    productUnitPriceCurrencyExchangeRate: parseFloat(productUnitPriceCurrencyExchangeRate.value.replace(/,/g, '')),
+                                    remarks: null
+                                },
+                            };
+                        }
+                    }
+                }
+
+                if (!found) {
+                    const newRow = document.createElement('tr');
+                    newRow.innerHTML = `
+                        <input type="hidden" name="record_RefID[]" value="${recordRefID.value}">
+                        <input type="hidden" name="qty_avail[]" value="${qtyAvail}">
+                        <input type="hidden" name="price_avail[]" value="${priceAvail}">
+                        <input type="hidden" name="currency[]" value="${currency}">
+                        <td style="text-align: right;padding: 0.8rem 0.5rem;width: 100px;">${productCode.value}</td>
+                        <td style="text-align: left;padding: 0.8rem 0.5rem;">${productName}</td>
+                        <td style="text-align: left;padding: 0.8rem 0.5rem;width: 20px;">${uom}</td>
+                        <td style="text-align: right;padding: 0.8rem 0.5rem;width: 100px;">${price}</td>
+                        <td style="text-align: right;padding: 0.8rem 0.5rem;width: 50px;">${qty}</td>
+                        <td style="text-align: right;padding: 0.8rem 0.5rem;">${total}</td>
+                    `;
+                    targetTable.appendChild(newRow);
+
+                    dataStore.push({
+                        recordID: parseInt(recordRefID.value),
+                        entities: {
+                            combinedBudgetSectionDetail_RefID: parseInt(combinedBudgetSectionDetailRefID.value),
+                            product_RefID: parseInt(productRefID.value),
+                            quantity: parseFloat(qty.replace(/,/g, '')),
+                            quantityUnit_RefID: parseInt(quantityUnitRefID.value),
+                            productUnitPriceCurrency_RefID: parseInt(productUnitPriceCurrencyRefID.value),
+                            productUnitPriceCurrencyExchangeRate: parseFloat(productUnitPriceCurrencyExchangeRate.value.replace(/,/g, '')),
+                            productUnitPriceCurrencyValue: parseFloat(price.replace(/,/g, '')),
+                            remarks: null
+                        }
+                    });
+                }
+            } else {
+                const productName = row.children[8].innerText.trim();
+                const existingRows  = targetTable.getElementsByTagName('tr');
+
+                for (let targetRow of existingRows) {
+                    const targetCode = targetRow.children[4]?.innerText?.trim();
+                    const targetName = targetRow.children[5]?.innerText?.trim();
+
+                    if (targetCode == productCode?.value && targetName == productName) {
+                        targetRow.remove();
+                        break;
+                    }
+                }
+
+                dataStore = dataStore.filter(item => {
+                    return !(item.entities.product_RefID === productRefID?.value);
+                });
             }
-        });
+        }
+
+        updateGrandTotal();
     }
 
-    function RevisionAdvanceRequest(formatData) {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    function validationForm() {
+        const isRemarkNotEmpty  = remark.value.trim() !== '';
+        const isTableNotEmpty   = checkOneLineBudgetContents();
+
+        if (isRemarkNotEmpty && isTableNotEmpty) {
+            $('#advanceRequestRevisionFormModal').modal('show');
+            summaryData();
+        } else {
+            if (!isRemarkNotEmpty) {
+                $("#remark").css("border", "1px solid red");
+                $("#remarkMessage").show();
+                return;
             }
-        });
-
-        $.ajax({
-            type: 'POST',
-            data: formatData,
-            url: '{{ route("AdvanceRequest.UpdatesAdvanceRequest") }}',
-            success: function(res) {
-                HideLoading();
-
-                if (res.status === 200) {
-                    const swalWithBootstrapButtons = Swal.mixin({
-                        confirmButtonClass: 'btn btn-success btn-sm',
-                        cancelButtonClass: 'btn btn-danger btn-sm',
-                        buttonsStyling: true,
-                    });
-
-                    swalWithBootstrapButtons.fire({
-                        title: 'Successful !',
-                        type: 'success',
-                        html: 'Data has been saved. Your transaction number is ' + '<span style="color:#0046FF;font-weight:bold;">' + res.documentNumber + '</span>',
-                        showCloseButton: false,
-                        showCancelButton: false,
-                        focusConfirm: false,
-                        confirmButtonText: '<span style="color:black;"> OK </span>',
-                        confirmButtonColor: '#4B586A',
-                        confirmButtonColor: '#e9ecef',
-                        reverseButtons: true
-                    }).then((result) => {
-                        ShowLoading();
-                        window.location.href = '/AdvanceRequest?var=1';
-                    });
-                } else {
-                    ErrorNotif("Data Cancel Inputed");
-                }
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-                HideLoading();
-                console.log('error', jqXHR, textStatus, errorThrown);
+            if (!isTableNotEmpty) {
+                $("#budgetDetailsMessage").show();
+                return;
             }
-        });
+        }
     }
 
     function getBudgetDetails(site_code, dataDetail) {
@@ -407,7 +500,7 @@
                                 }
                             }
                             
-                            checkFormCompleted();
+                            checkOneLineBudgetContents(key);
                         });
                     }
 
@@ -432,7 +525,7 @@
                             $(`#total_req${key}`).val(currencyTotal(total_req));
                         }
                         
-                        checkFormCompleted();
+                        checkOneLineBudgetContents(key);
                     });
                 });
             },
@@ -492,17 +585,86 @@
         document.getElementById('GrandTotal').textContent = currencyTotal(totalARFNumberDetail);
     }
 
-    function CancelAdvance() {
-        ShowLoading();
-        window.location.href = '/AdvanceRequest?var=1';
+    function SelectWorkFlow(formatData) {
+        const swalWithBootstrapButtons = Swal.mixin({
+            confirmButtonClass: 'btn btn-success btn-sm',
+            cancelButtonClass: 'btn btn-danger btn-sm',
+            buttonsStyling: true,
+        });
+
+        swalWithBootstrapButtons.fire({
+            title: 'Comment',
+            text: "Please write your comment here",
+            type: 'question',
+            input: 'textarea',
+            showCloseButton: false,
+            showCancelButton: true,
+            focusConfirm: false,
+            cancelButtonText: '<span style="color:black;"> Cancel </span>',
+            confirmButtonText: '<span style="color:black;"> OK </span>',
+            cancelButtonColor: '#DDDAD0',
+            confirmButtonColor: '#DDDAD0',
+            reverseButtons: true
+        }).then((result) => {
+            if ('value' in result) {
+                ShowLoading();
+                RevisionAdvanceRequest({...formatData, comment: result.value});
+            }
+        });
+    }
+
+    function RevisionAdvanceRequest(formatData) {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: 'POST',
+            data: formatData,
+            url: '{{ route("AdvanceRequest.UpdatesAdvanceRequest") }}',
+            success: function(res) {
+                HideLoading();
+
+                if (res.status === 200) {
+                    const swalWithBootstrapButtons = Swal.mixin({
+                        confirmButtonClass: 'btn btn-success btn-sm',
+                        cancelButtonClass: 'btn btn-danger btn-sm',
+                        buttonsStyling: true,
+                    });
+
+                    swalWithBootstrapButtons.fire({
+                        title: 'Successful !',
+                        type: 'success',
+                        html: 'Data has been saved. Your transaction number is ' + '<span style="color:#0046FF;font-weight:bold;">' + res.documentNumber + '</span>',
+                        showCloseButton: false,
+                        showCancelButton: false,
+                        focusConfirm: false,
+                        confirmButtonText: '<span style="color:black;"> OK </span>',
+                        confirmButtonColor: '#4B586A',
+                        confirmButtonColor: '#e9ecef',
+                        reverseButtons: true
+                    }).then((result) => {
+                        cancelForm("{{ route('AdvanceRequest.index', ['var' => 1]) }}");
+                    });
+                } else {
+                    ErrorNotif("Data Cancel Inputed");
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                HideLoading();
+                console.log('error', jqXHR, textStatus, errorThrown);
+            }
+        });
     }
 
     function SubmitForm() {
-        $('#advanceRequestRevisionFormModal').modal('hide');
-        
-        var action = $('#FormUpdateAdvance').attr("action");
-        var method = $('#FormUpdateAdvance').attr("method");
-        var form_data = new FormData($('#FormUpdateAdvance')[0]);
+        $('#advanceRequestFormModal').modal('hide');
+
+        var action = $('#FormSubmitAdvance').attr("action");
+        var method = $('#FormSubmitAdvance').attr("method");
+        var form_data = new FormData($('#FormSubmitAdvance')[0]);
         form_data.append('advanceRequestDetail', JSON.stringify(dataStore));
 
         ShowLoading();
@@ -519,9 +681,7 @@
                 HideLoading();
 
                 if (response.message == "WorkflowError") {
-                    $("#budget-details-add").prop("disabled", false);
-
-                    CancelNotif("You don't have access", '/AdvanceRequest?var=1');
+                    CancelNotif("You don't have access", "{{ route('AdvanceRequest.index', ['var' => 1]) }}");
                 } else if (response.message == "MoreThanOne") {
                     $('#getWorkFlow').modal('toggle');
 
@@ -547,168 +707,19 @@
             },
             error: function(response) {
                 HideLoading();
-                $("#budget-details-add").prop("disabled", false);
-                CancelNotif("You don't have access", '/AdvanceRequest?var=1');
+                CancelNotif("You don't have access", "{{ route('AdvanceRequest.index', ['var' => 1]) }}");
             }
         });
     }
 
-    $("#budget-details-add").on('click', function() {
-        const sourceTable = document.getElementById('tableGetBudgetDetails').getElementsByTagName('tbody')[0];
-        const targetTable = document.getElementById('tableAdvanceList').getElementsByTagName('tbody')[0];
+    $('#remark').on('input', function(e) {
+        e.preventDefault();
 
-        const rows = sourceTable.getElementsByTagName('tr');
-
-        for (let row of rows) {
-            const recordRefID                           = row.querySelector('input[id^="recordID"]');
-            const productCode                           = row.querySelector('input[id^="productCode"]');
-            const productRefID                          = row.querySelector('input[id^="product_RefID"]');
-            const quantityUnitRefID                     = row.querySelector('input[id^="quantityUnit_RefID"]');
-            const productUnitPriceCurrencyRefID         = row.querySelector('input[id^="productUnitPriceCurrency_RefID"]');
-            const combinedBudgetSectionDetailRefID      = row.querySelector('input[id^="combinedBudgetSectionDetail_RefID"]');
-            const productUnitPriceCurrencyExchangeRate  = row.querySelector('input[id^="productUnitPriceCurrencyExchangeRate"]');
-
-            const qtyInput      = row.querySelector('input[id^="qty_req"]');
-            const priceInput    = row.querySelector('input[id^="price_req"]');
-            const totalInput    = row.querySelector('input[id^="total_req"]');
-            const balanceInput  = row.querySelector('input[id^="balanced_qty"]');
-
-            if (
-                qtyInput && priceInput && totalInput && balanceInput &&
-                qtyInput.value.trim() !== '' &&
-                priceInput.value.trim() !== '' &&
-                totalInput.value.trim() !== '' &&
-                balanceInput.value.trim() !== ''
-            ) {
-                const productName = row.children[8].innerText.trim();
-                const qtyAvail = row.children[10].innerText.trim();
-                const uom = row.children[11].innerText.trim();
-                const priceAvail = row.children[12].innerText.trim();
-                const currency = row.children[14].innerText.trim();
-
-                const price = priceInput.value.trim();
-                const qty   = qtyInput.value.trim();
-                const total = totalInput.value.trim();
-
-                let found = false;
-                const existingRows = targetTable.getElementsByTagName('tr');
-                for (let targetRow of existingRows) {
-                    const targetRecordID = targetRow.children[0].value.trim();
-                    if (targetRecordID == recordRefID.value) {
-                        targetRow.children[7].innerText = price;
-                        targetRow.children[8].innerText = qty;
-                        targetRow.children[9].innerText = total;
-                        found = true;
-
-                        const indexToUpdate = dataStore.findIndex(item => item.recordID == recordRefID.value);
-                        if (indexToUpdate !== -1) {
-                            dataStore[indexToUpdate] = {
-                                recordID: parseInt(recordRefID.value),
-                                entities: {
-                                    combinedBudgetSectionDetail_RefID: parseInt(combinedBudgetSectionDetailRefID.value),
-                                    product_RefID: parseInt(productRefID.value),
-                                    quantity: parseFloat(qty.replace(/,/g, '')),
-                                    quantityUnit_RefID: parseInt(quantityUnitRefID.value),
-                                    productUnitPriceCurrency_RefID: parseInt(productUnitPriceCurrencyRefID.value),
-                                    productUnitPriceCurrencyValue: parseFloat(price.replace(/,/g, '')),
-                                    productUnitPriceCurrencyExchangeRate: parseFloat(productUnitPriceCurrencyExchangeRate.value.replace(/,/g, '')),
-                                    remarks: null
-                                },
-                            };
-                        }
-                    }
-                }
-
-                if (!found) {
-                    const newRow = document.createElement('tr');
-                    newRow.innerHTML = `
-                        <input type="hidden" name="record_RefID[]" value="${recordRefID.value}">
-                        <input type="hidden" name="qty_avail[]" value="${qtyAvail}">
-                        <input type="hidden" name="price_avail[]" value="${priceAvail}">
-                        <input type="hidden" name="currency[]" value="${currency}">
-                        <td style="text-align: right;padding: 0.8rem 0.5rem;width: 100px;">${productCode.value}</td>
-                        <td style="text-align: left;padding: 0.8rem 0.5rem;">${productName}</td>
-                        <td style="text-align: left;padding: 0.8rem 0.5rem;width: 20px;">${uom}</td>
-                        <td style="text-align: right;padding: 0.8rem 0.5rem;width: 100px;">${price}</td>
-                        <td style="text-align: right;padding: 0.8rem 0.5rem;width: 50px;">${qty}</td>
-                        <td style="text-align: right;padding: 0.8rem 0.5rem;">${total}</td>
-                    `;
-                    targetTable.appendChild(newRow);
-
-                    dataStore.push({
-                        recordID: parseInt(recordRefID.value),
-                        entities: {
-                            combinedBudgetSectionDetail_RefID: parseInt(combinedBudgetSectionDetailRefID.value),
-                            product_RefID: parseInt(productRefID.value),
-                            quantity: parseFloat(qty.replace(/,/g, '')),
-                            quantityUnit_RefID: parseInt(quantityUnitRefID.value),
-                            productUnitPriceCurrency_RefID: parseInt(productUnitPriceCurrencyRefID.value),
-                            productUnitPriceCurrencyExchangeRate: parseFloat(productUnitPriceCurrencyExchangeRate.value.replace(/,/g, '')),
-                            productUnitPriceCurrencyValue: parseFloat(price.replace(/,/g, '')),
-                            remarks: null
-                        }
-                    });
-                }
-
-                // qtyInput.value = '';
-                // priceInput.value = '';
-                // totalInput.value = '';
-                // balanceInput.value = balanceInput.getAttribute('data-default');
-            } else {
-                const productName = row.children[8].innerText.trim();
-                const existingRows  = targetTable.getElementsByTagName('tr');
-
-                for (let targetRow of existingRows) {
-                    const targetCode = targetRow.children[4]?.innerText?.trim();
-                    const targetName = targetRow.children[5]?.innerText?.trim();
-
-                    if (targetCode == productCode?.value && targetName == productName) {
-                        targetRow.remove();
-                        break;
-                    }
-                }
-
-                dataStore = dataStore.filter(item => item.entities.product_RefID != productRefID?.value);
-            }
-        }
-
-        dataStore = dataStore.filter(item => item !== undefined);
-
-        updateGrandTotal();
-    });
-
-    $('#budget-details-reset').on('click', function() {GrandTotal
-        dataStore = [];
-
-        $('input[id^="qty_req"]').each(function() {
-            $(this).val($(this).data('default'));
-        });
-        $('input[id^="price_req"]').each(function() {
-            $(this).val($(this).data('default'));
-        });
-        $('input[id^="total_req"]').each(function() {
-            $(this).val($(this).data('default'));
-        });
-        $('input[id^="balanced_qty"]').each(function() {
-            $(this).val($(this).data('default'));
-        });
-        $('#tableAdvanceList tbody').empty();
-
-        document.getElementById('GrandTotal').textContent = "0.00";
-        calculateTotal();
-    });
-
-    $('#remark').on('input', function() {
-        checkFormCompleted();
-    });
-
-    $(document).on('input', '.number-without-negative', function() {
-        allowNumbersWithoutNegative(this);
+        $("#remark").css("border", "1px solid #ced4da");
+        $("#remarkMessage").hide();
     });
 
     $(window).one('load', function(e) {
-        // const data = JSON.parse(dataTable.value);
-
         GetARFNumberDetail(dataTable);
         getBudgetDetails(siteCode.value, dataTable);
 
