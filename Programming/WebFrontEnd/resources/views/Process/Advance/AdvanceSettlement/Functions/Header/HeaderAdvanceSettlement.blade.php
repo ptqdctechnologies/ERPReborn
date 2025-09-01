@@ -4,7 +4,7 @@
     <!-- LEFT COLUMN -->
     <div class="col-md-12 col-lg-5">
       <!-- ADVANCE NUMBER -->
-      <div class="row" style="margin-bottom: 1rem;">
+      <div class="row">
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">
           Advance Number
         </label>
@@ -27,9 +27,17 @@
           </div>
         </div>
       </div>
+      <div class="row" id="advanceNumberMessage" style="margin-top: .3rem;display: none;">
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+        <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+          <div class="text-red">
+            Advance Number cannot be empty.
+          </div>
+        </div>
+      </div>
 
       <!-- BUDGET -->
-      <div class="row">
+      <div class="row" style="margin-top: 1rem;">
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">
           Budget
         </label>

@@ -467,6 +467,10 @@ class MaterialReceiveController extends Controller
                 $request->approverEntity,
             );
 
+            if ($responseWorkflow['metadata']['HTTPStatusCode'] !== 200) {
+                return response()->json($responseWorkflow);
+            }
+
             $compact = [
                 "documentNumber"    => $response['data'][0]['businessDocument']['documentNumber'],
                 "status"            => $responseWorkflow['metadata']['HTTPStatusCode'],

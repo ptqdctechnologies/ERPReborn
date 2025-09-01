@@ -18,6 +18,7 @@
       </div>
 
       @include('Process.Advance.AdvanceSettlement.Functions.Menu.MenuAdvanceSettlement')
+
       @if($var == 0)
       <div class="card" style="position:relative;bottom:10px;">
         <form method="post" action="{{ route('SelectWorkFlow') }}" id="FormStoreAdvanceSettlement">
@@ -112,21 +113,14 @@
 
                   <!-- BUTTON -->
                   <div class="card-body">
-                    <div class="row" style="gap: 1rem;">
+                    <div class="row">
                       <div class="col">
-                        <table style="float:right;">
-                          <tr>
-                            <th style="position: relative;right:20px;"> Total : <span id="TotalAdvanceDetail">0.00</span></th>
-                          </tr>
-                          {{-- <tr>
-                            <td>
-                              <br>
-                              <a class="btn btn-default btn-sm float-right" id="advance-details-add" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
-                                <img src="{{ asset('AdminLTE-master/dist/img/add.png') }}" width="13" alt="" title="Add to Advance List"> Add
-                              </a>
-                            </td>
-                          </tr> --}}
-                        </table>
+                        <div class="text-red" id="advanceDetailsMessage" style="display: none;">
+                          Please input at least one item.
+                        </div>
+                      </div>
+                      <div class="col text-right" style="margin-right: 20px; font-size: 0.77rem; color: #212529; font-weight: 600;">
+                        Total : <span id="TotalAdvanceDetail">0.00</span>
                       </div>
                     </div>
                   </div>
@@ -155,7 +149,16 @@
                   <!-- CONTENT -->
                   <div class="card-body">
                     <div class="row py-3">
-                      <textarea name="var_remark" id="remark" class="form-control"></textarea>
+                      <div class="col p-0">
+                        <textarea name="var_remark" id="remark" class="form-control"></textarea>
+                        <div id="remarkMessage" style="margin-top: .3rem;display: none;">
+                          <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                            <div class="text-red">
+                              Remark cannot be empty.
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -167,11 +170,11 @@
           <div class="tab-content px-3 pb-2" id="nav-tabContent">
             <div class="row">
               <div class="col">
-                <a onclick="CancelAdvance()" class="btn btn-default btn-sm float-right" style="background-color:#e9ecef;border:1px solid #ced4da;">
+                <a onclick="cancelForm('{{ route('AdvanceSettlement.index', ['var' => 1]) }}')" class="btn btn-default btn-sm float-right" style="background-color:#e9ecef;border:1px solid #ced4da;">
                   <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel Advance List Cart"> Cancel
                 </a>
 
-                <button type="button" id="advance-details-add" class="btn btn-default btn-sm float-right" data-toggle="modal" data-target="#advanceSettlementFormModal" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
+                <button type="button" class="btn btn-default btn-sm float-right" onclick="validationForm()" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
                   <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" title="Submit to Advance"> Submit
                 </button>
               </div>
@@ -185,7 +188,7 @@
 </div>
 
 <div class="modal fade" id="advanceSettlementFormModal" tabindex="-1" role="dialog">
-  <div class="modal-dialog modal-lg" role="document" style="height: -webkit-fill-available; display: flex; align-items: center;">
+  <div class="modal-dialog modal-lg" role="document" style="min-height: calc(100vh - 3.5rem); display: flex; align-items: center;">
     <div class="modal-content">
       <div class="modal-header">
         <h3 style="margin: 0px;font-weight:bold;">Are you sure you want to save this data?</h3>
@@ -206,7 +209,7 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" id="submitArf" class="btn btn-default btn-sm" onclick="SubmitForm();" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
+        <button type="button" class="btn btn-default btn-sm" onclick="SubmitForm();" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
           <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" title="Submit to Advance"> Yes, save it
         </button>
 

@@ -2,7 +2,7 @@
     <div class="row py-3" style="gap: 15px;">
         <div class="col-md-12 col-lg-5">
             <!-- REQUESTER -->
-            <div class="row" style="margin-bottom: 1rem;">
+            <div class="row">
                 <label for="worker_position_second" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Requester</label>
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div>
@@ -21,9 +21,17 @@
                     </div>
                 </div>
             </div>
+            <div class="row" id="requesterMessage" style="margin-top: .3rem;display: none;">
+                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+                <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                    <div class="text-red">
+                        Requester cannot be empty.
+                    </div>
+                </div>
+            </div>
 
             <!-- BENEFICIARY -->
-            <div class="row">
+            <div class="row" style="margin-top: 1rem;">
                 <label for="beneficiary_second_person_position" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Beneficiary</label>
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div>
@@ -40,6 +48,14 @@
                     </div>
                     <div style="flex: 100%;">
                         <input id="beneficiary_second_person_name" style="border-radius:0;" name="beneficiary" class="form-control" readonly aria-label="Beneficiary Name">
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="beneficiaryMessage" style="margin-top: .3rem;display: none;">
+                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+                <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                    <div class="text-red">
+                        Beneficiary cannot be empty.
                     </div>
                 </div>
             </div>

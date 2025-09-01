@@ -22,11 +22,11 @@ class CreditNoteService
             'parameter' => [
                 'creditNote_RefID' => (int) $creditNoteRefID
                 ],
-            'SQLStatement' => [
-                'pick' => null,
-                'sort' => null,
-                'filter' => null,
-                'paging' => null
+            'SQLStatement'  => [
+                'pick'      => null,
+                'sort'      => null,
+                'filter'    => null,
+                'paging'    => null
                 ]
             ]
         );
@@ -54,20 +54,8 @@ class CreditNoteService
                 "remarks"                       => null,
                 "workflow_Status"               => null,
                 "additionalData"                => [
-                    "itemList"      => [
-                        "items"     => $detailItems
-                            // [
-                            // "entities" => [
-                            //     "combinedBudgetSectionDetail_RefID" => 169000000000001,
-                            //     "product_RefID" => 88000000000002,
-                            //     "quantity" => 10,
-                            //     "quantityUnit_RefID" => 73000000000001,
-                            //     "productUnitPriceCurrency_RefID" => 62000000000001,
-                            //     "productUnitPriceCurrencyValue" => 30000,
-                            //     "productUnitPriceCurrencyExchangeRate" => 1,
-                            //     "chartOfAccount_RefID" => 65000000000005
-                            //     ]
-                            // ],
+                    "itemList"                  => [
+                        "items"                 => $detailItems
                         ]
                     ]
                 ]
@@ -97,21 +85,8 @@ class CreditNoteService
                 "remarks"                       => null,
                 "workflow_Status"               => null,
                 "additionalData"                => [
-                    "itemList"  => [
-                        "items" => $detailItems
-                            // [
-                            // "recordID" => 243000000000014,
-                            // "entities" => [
-                            //     "combinedBudgetSectionDetail_RefID" => 169000000000001,
-                            //     "product_RefID" => 88000000000002,
-                            //     "quantity" => 4,
-                            //     "quantityUnit_RefID" => 73000000000001,
-                            //     "productUnitPriceCurrency_RefID" => 62000000000001,
-                            //     "productUnitPriceCurrencyValue" => 30000,
-                            //     "productUnitPriceCurrencyExchangeRate"  => 1,
-                            //     "chartOfAccount_RefID" => 65000000000005
-                            //     ]
-                            // ]
+                    "itemList"                  => [
+                        "items"                 => $detailItems
                         ]
                     ]
                 ]

@@ -47,31 +47,26 @@ class ReimbursementController extends Controller
     public function store(Request $request) 
     {
         try {
-            $careerRefID    = Session::get('SessionWorkerCareerInternal_RefID');
             $response = $this->reimbursementService->create($request);
-
-            Log::error("careerRefID: ", [$careerRefID]);
-            Log::error("response: ", [$response]);
 
             if ($response['metadata']['HTTPStatusCode'] !== 200) {
                 return response()->json($response);
             }
 
-            // $responseWorkflow = $this->workflowService->submit(
-            //     $response['data']['businessDocument']['businessDocument_RefID'],
-            //     $request->workFlowPath_RefID,
-            //     $request->comment,
-            //     $request->approverEntity,
-            // );
+            $responseWorkflow = $this->workflowService->submit(
+                $response['data']['businessDocument']['businessDocument_RefID'],
+                $request->workFlowPath_RefID,
+                $request->comment,
+                $request->approverEntity,
+            );
 
-            // if ($responseWorkflow['metadata']['HTTPStatusCode'] !== 200) {
-            //     return response()->json($responseWorkflow);
-            // }
+            if ($responseWorkflow['metadata']['HTTPStatusCode'] !== 200) {
+                return response()->json($responseWorkflow);
+            }
 
             $compact = [
                 "documentNumber"    => $response['data']['businessDocument']['documentNumber'],
-                "status"            => $response['metadata']['HTTPStatusCode'],
-                // "status"            => $responseWorkflow['metadata']['HTTPStatusCode'],
+                "status"            => $responseWorkflow['metadata']['HTTPStatusCode'],
             ];
 
             return response()->json($compact);
@@ -137,21 +132,20 @@ class ReimbursementController extends Controller
                 return response()->json($response);
             }
 
-            // $responseWorkflow = $this->workflowService->submit(
-            //     $response['data']['businessDocument']['businessDocument_RefID'],
-            //     $request->workFlowPath_RefID,
-            //     $request->comment,
-            //     $request->approverEntity,
-            // );
+            $responseWorkflow = $this->workflowService->submit(
+                $response['data'][0]['businessDocument']['businessDocument_RefID'],
+                $request->workFlowPath_RefID,
+                $request->comment,
+                $request->approverEntity,
+            );
 
-            // if ($responseWorkflow['metadata']['HTTPStatusCode'] !== 200) {
-            //     return response()->json($responseWorkflow);
-            // }
+            if ($responseWorkflow['metadata']['HTTPStatusCode'] !== 200) {
+                return response()->json($responseWorkflow);
+            }
 
             $compact = [
                 "documentNumber"    => $response['data'][0]['businessDocument']['documentNumber'],
-                "status"            => $response['metadata']['HTTPStatusCode'],
-                // "status"            => $responseWorkflow['metadata']['HTTPStatusCode'],
+                "status"            => $responseWorkflow['metadata']['HTTPStatusCode'],
             ];
 
             return response()->json($compact);

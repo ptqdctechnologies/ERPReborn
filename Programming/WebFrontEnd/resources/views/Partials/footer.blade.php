@@ -3,6 +3,11 @@
 </footer>
 
 <script>
+  function cancelForm(url) {
+    ShowLoading();
+    window.location.href = url;
+  }
+
   function checkingWorkflow(combinedBudget_RefID, documentTypeID) {
     // console.log('combinedBudget_RefID, documentTypeID', combinedBudget_RefID, documentTypeID);
 
@@ -352,7 +357,6 @@
         });
       }
     });
-
   }
 </script>
 

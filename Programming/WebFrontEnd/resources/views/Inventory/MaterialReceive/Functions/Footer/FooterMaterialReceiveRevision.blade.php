@@ -2,6 +2,8 @@
     let dataStore   = [];
     const dataTable = {!! json_encode($dataDetail ?? []) !!};
 
+    const receiveDate                       = document.getElementById("receive_date");
+
     const addressDeliveryOrderFrom          = document.getElementById("address_delivery_order_from");
     const addressDeliveryOrderFromDuplicate = document.getElementById("address_delivery_order_from_duplicate");
     const idDeliveryOrderFromDuplicate      = document.getElementById("id_delivery_order_from_duplicate");
@@ -22,90 +24,7 @@
 
         total = Math.ceil(total * 100) / 100;
 
-        document.getElementById('TotalDeliveryOrder').textContent = currencyTotal(total);
-    }
-
-    function CancelRevisionMaterialReceive() {
-        ShowLoading();
-        window.location.href = '/MaterialReceive?var=1';
-    }
-
-    function viewMaterialReceiveDetail(dataDetail) {
-        $(".loadingMaterialReceiveDetail").hide();
-        $(".errorMessageContainerMaterialReceiveDetail").hide();
-
-        let tbody = $('#tableMaterialReceiveDetail tbody');
-        tbody.empty();
-
-        let tbodyList = $('#tableMaterialReceiveList tbody');
-        tbodyList.empty();
-
-        let totalRequest = 0;
-
-        $.each(dataDetail, function(key, val2) {
-            totalRequest += val2.quantity;
-
-            dataStore.push({
-                recordID: val2.sys_ID,
-                entities: {
-                    deliveryOrderDetail_RefID: val2.deliveryOrderDetail_RefID,
-                    quantity: parseFloat(val2.quantity),
-                    remarks: val2.note
-                }
-            });
-
-            let row = `
-                <tr>
-                    <input id="record_RefID${key}" value="${val2.sys_ID}" type="hidden" />
-                    <input id="deliveryOrderDetail_RefID${key}" value="${val2.deliveryOrderDetail_RefID}" type="hidden" />
-
-                    <td style="text-align: center;">${val2.productCode || '-'}</td>
-                    <td style="text-align: center;">${val2.productName || '-'}</td>
-                    <td style="text-align: center;">${currencyTotal(val2.qtyDO) || '-'}</td>
-                    <td style="text-align: center;">${currencyTotal(val2.qtyAvailableDO) || '-'}</td>
-                    <td style="text-align: center;">${val2.quantityUnitName || '-'}</td>
-                    <td style="text-align: center; width: 100px;">
-                        <input class="form-control number-without-negative" id="qty_req${key}" data-index=${key} data-default="${currencyTotal(val2.quantity || 0)}" autocomplete="off" style="border-radius:0px;" value="${currencyTotal(val2.quantity) || '-'}" />
-                    </td>
-                    <td style="text-align: center; width: 150px; padding: 0.5rem !important;">
-                        <textarea id="note${key}" class="form-control" data-default="${val2.note}">${val2.note}</textarea>
-                    </td>
-                </tr>
-            `;
-
-            tbody.append(row);
-
-            $(`#qty_req${key}`).on('keyup', function() {
-                var qty_req     = $(this).val().replace(/,/g, '');
-                var data_index  = $(this).data('index');
-                var sumQty      = val2.quantity + val2.qtyAvailableDO;
-
-                if (parseFloat(qty_req) > sumQty) {
-                    $(this).val("");
-                    ErrorNotif("Qty Request is over Qty Avail !");
-                } else {
-                    calculateTotal();
-                }
-            });
-
-            let rowList = `
-                <tr>
-                    <input type="hidden" name="recordID[]" value="${val2.sys_ID}">
-                    <input type="hidden" name="deliveryOrderDetailRefID[]" value="${val2.deliveryOrderDetail_RefID}">
-                    <input type="hidden" name="qty_avail[]" value="${val2.quantity}">
-                    <td style="text-align: center;padding: 0.8rem;">${val2.productCode || '-'}</td>
-                    <td style="text-align: center;padding: 0.8rem;">${val2.productName || '-'}</td>
-                    <td style="text-align: center;padding: 0.8rem;">${val2.quantityUnitName || '-'}</td>
-                    <td style="text-align: center;padding: 0.8rem;">${val2.quantity || '-'}</td>
-                    <td style="text-align: center;padding: 0.8rem;">${val2.note || '-'}</td>
-                </tr>
-            `;
-
-            tbodyList.append(rowList);
-        });
-
-        document.getElementById('TotalDeliveryOrder').textContent = currencyTotal(totalRequest);
-        document.getElementById('GrandTotal').textContent = currencyTotal(totalRequest);
+        document.getElementById('totalMaterialReceiveDetail').textContent = currencyTotal(total);
     }
 
     function updateGrandTotal() {
@@ -117,190 +36,83 @@
             total += value;
         });
 
-        document.getElementById('TotalDeliveryOrder').innerText = "0.00";
-        document.getElementById('GrandTotal').innerText = total.toLocaleString('en-US', {
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 2
-        });
+        document.getElementById('GrandTotal').innerText = `Total: ${decimalFormat(total)}`;
     }
 
-    function SelectWorkFlow(formatData) {
-        const swalWithBootstrapButtons = Swal.mixin({
-            confirmButtonClass: 'btn btn-success btn-sm',
-            cancelButtonClass: 'btn btn-danger btn-sm',
-            buttonsStyling: true,
-        });
+    function checkOneLineBudgetContents(indexInput) {
+        const rows = document.querySelectorAll("#tableMaterialReceiveDetail tbody tr");
+        let hasFullRow = false;
 
-        swalWithBootstrapButtons.fire({
-            title: 'Comment',
-            text: "Please write your comment here",
-            type: 'question',
-            input: 'textarea',
-            showCloseButton: false,
-            showCancelButton: false,
-            focusConfirm: false,
-            confirmButtonText: '<span style="color:black;"> OK </span>',
-            confirmButtonColor: '#4B586A',
-            confirmButtonColor: '#e9ecef',
-            reverseButtons: true
-        }).then((result) => {
-            ShowLoading();
-            RevisionMaterialReceiveStore({...formatData, comment: result.value});
-        });
-    }
+        rows.forEach((row, index) => {
+            const qty   = document.getElementById(`qty_req${index}`)?.value.trim();
+            const note  = document.getElementById(`note${index}`)?.value.trim();
 
-    function RevisionMaterialReceiveStore(formatData) {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            if (qty !== "" && note !== "") {
+                hasFullRow = true;
             }
         });
 
-        $.ajax({
-            type: 'POST',
-            data: formatData,
-            url: '{{ route("MaterialReceive.UpdateMaterialReceive") }}',
-            success: function(res) {
-                HideLoading();
+        rows.forEach((row, index) => {
+            const qtyEl     = document.getElementById(`qty_req${index}`);
+            const noteEl    = document.getElementById(`note${index}`);
 
-                if (res.status == 200) {
-                    const swalWithBootstrapButtonsss = Swal.mixin({
-                        confirmButtonClass: 'btn btn-success btn-sm',
-                        cancelButtonClass: 'btn btn-danger btn-sm',
-                        buttonsStyling: true,
-                    });
+            if (hasFullRow) {
+                $(qtyEl).css("border", "1px solid #ced4da");
+                $(noteEl).css("border", "1px solid #ced4da");
+                $("#materialReceiveDetailMessage").hide();
+            } else {
+                if (indexInput > -1) {
+                    if (indexInput == index) {
+                        if (qtyEl.value.trim() != "" || noteEl.value.trim() != "") {
+                            $(qtyEl).css("border", "1px solid red");
+                            $(noteEl).css("border", "1px solid red");
+                            $("#materialReceiveDetailMessage").show();
+                        } else {
+                            $(qtyEl).css("border", "1px solid #ced4da");
+                            $(noteEl).css("border", "1px solid #ced4da");
+                            $("#materialReceiveDetailMessage").hide();
+                        }
+                    }
 
-                    swalWithBootstrapButtonsss.fire({
-                        title: 'Successful !',
-                        type: 'success',
-                        html: 'Data has been saved. Your transaction number is ' + '<span style="color:red;">' + res.documentNumber + '</span>',
-                        showCloseButton: false,
-                        showCancelButton: false,
-                        focusConfirm: false,
-                        confirmButtonText: '<span style="color:black;"> OK </span>',
-                        confirmButtonColor: '#4B586A',
-                        confirmButtonColor: '#e9ecef',
-                        reverseButtons: true
-                    }).then((result) => {
-                        window.location.href = '/MaterialReceive?var=1';
-                    });
+                    if (indexInput != index && (qtyEl.value.trim() == "" && noteEl.value.trim() == "")) {
+                        $(qtyEl).css("border", "1px solid #ced4da");
+                        $(noteEl).css("border", "1px solid #ced4da");
+                    } 
                 } else {
-                    ErrorNotif("Data Cancel Inputed");
+                    $(qtyEl).css("border", "1px solid red");noteEl
+                    $(noteEl).css("border", "1px solid red");
+                    $("#materialReceiveDetailMessage").show();
                 }
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-                console.log('error', jqXHR, textStatus, errorThrown);
             }
         });
+
+        return hasFullRow;
     }
 
-    $(document).on('input', '.number-without-negative', function() {
-        allowNumbersWithoutNegative(this);
-    });
-
-    document.querySelector('#tableMaterialReceiveList tbody').addEventListener('click', function (e) {
-        const row = e.target.closest('tr');
-        if (!row) return;
-
-        if (['INPUT', 'TEXTAREA'].includes(e.target.tagName)) return;
-
-        const qtyAvail  = row.children[2];
-        const qtyCell   = row.children[6];
-        const noteCell  = row.children[7];
-
-        if (row.classList.contains('editing-row')) {
-            const newQty = qtyCell.querySelector('input')?.value || '';
-            const newNote = noteCell.querySelector('textarea')?.value || '';
-
-            qtyCell.innerHTML = newQty;
-            noteCell.innerHTML = newNote;
-
-            const hidden = noteCell.querySelector('input[type="hidden"]');
-            noteCell.innerHTML = `${newNote}`;
-            if (hidden) noteCell.appendChild(hidden);
-
-            row.classList.remove('editing-row');
-            const recordID  = row.children[0].value.trim();
-            const storeItem = dataStore.find(item => item.recordID == recordID);
-
-            if (storeItem) {
-                storeItem.entities.quantity = parseFloat(newQty.replace(/,/g, ''));
-                storeItem.entities.remarks = newNote;
-            }
-        } else {
-            const currentQty = qtyCell.innerText.trim();
-
-            const hiddenInput = noteCell.querySelector('input[type="hidden"]');
-            const currentNote = noteCell.childNodes[0]?.nodeValue?.trim() || '';
-
-            qtyCell.innerHTML = `<input class="form-control number-without-negative qty-input" value="${currentQty}" autocomplete="off" style="border-radius:0px;width:100px;">`;
-            noteCell.innerHTML = `
-                <textarea class="form-control" style="width:100px;">${currentNote}</textarea>
-            `;
-            if (hiddenInput) noteCell.appendChild(hiddenInput);
-
-            row.classList.add('editing-row');
-
-            const qtyInput = qtyCell.querySelector('.qty-input');
-
-            function updateBalance() {
-                var qty = parseFloat(qtyInput.value.replace(/,/g, '')) || 0;
-                const qtyAvailValue = parseFloat(qtyAvail?.value.replace(/,/g, '')) || 0;
-                var balance = qtyAvailValue - qty;
-
-                if (qty > qtyAvailValue) {
-                    qty = qtyAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-                    qtyInput.value = qtyAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-
-                    ErrorNotif("Qty Req is over Qty Avail !");
-                }
-            }
-
-            qtyInput.addEventListener('input', updateBalance);
-
-            document.getElementById('GrandTotal').innerText = qtyInput.value;
-        }
-
-        updateGrandTotal();
-    });
-
-    $('#address_delivery_order_from').on('input', function() {
-        if ($(this).val().trim() === addressDeliveryOrderFromDuplicate.value) {
-            $("#id_delivery_order_from").val(idDeliveryOrderFromDuplicate.value);
-        } else {
-            $("#id_delivery_order_from").val('');
-        }
-    });
-
-    $('#address_delivery_order_to').on('input', function() {
-        if ($(this).val().trim() === addressDeliveryOrderToDuplicate.value) {
-            $("#id_delivery_order_to").val(idDeliveryOrderToDuplicate.value);
-        } else {
-            $("#id_delivery_order_to").val('');
-        }
-    });
-
-    $('#material-receive-details-add').on('click', function() {
+    function summaryData() {
         const sourceTable = document.getElementById('tableMaterialReceiveDetail').getElementsByTagName('tbody')[0];
         const targetTable = document.getElementById('tableMaterialReceiveList').getElementsByTagName('tbody')[0];
 
         const rows = sourceTable.getElementsByTagName('tr');
 
         for (let row of rows) {
-            const recordRefID               = row.querySelector('input[id^="record_RefID"]');
-            const deliveryOrderDetailRefID  = row.querySelector('input[id^="deliveryOrderDetail_RefID"]');
-            const qtyInput                  = row.querySelector('input[id^="qty_req"]');
-            const noteInput                 = row.querySelector('textarea[id^="note"]');
+            const recordRefID                   = row.querySelector('input[id^="record_RefID"]');
+            const deliveryOrderDetailRefID      = row.querySelector('input[id^="deliveryOrderDetail_RefID"]');
+            const productRefID                  = row.querySelector('input[id^="product_RefID"]');
+            const quantityUnitRefID             = row.querySelector('input[id^="quantityUnit_RefID"]');
+            const productUnitPriceCurrencyRefID = row.querySelector('input[id^="productUnitPriceCurrency_RefID"]');
+            const qtyInput                      = row.querySelector('input[id^="qty_req"]');
+            const noteInput                     = row.querySelector('textarea[id^="note"]');
 
             if (
                 qtyInput && noteInput &&
                 qtyInput.value.trim() !== '' &&
                 noteInput.value.trim() !== ''
             ) {
-                const productCode   = row.children[2].innerText.trim();
-                const productName   = row.children[3].innerText.trim();
-                const qtyAvail      = row.children[5].innerText.trim();
-                const uom           = row.children[6].innerText.trim();
+                const productCode   = row.children[3].innerText.trim();
+                const productName   = row.children[4].innerText.trim();
+                const qtyAvail      = row.children[6].innerText.trim();
+                const uom           = row.children[7].innerText.trim();
 
                 const qty   = qtyInput.value.trim();
                 const note  = noteInput.value.trim();
@@ -323,6 +135,11 @@
                                 entities: {
                                     deliveryOrderDetail_RefID: parseInt(deliveryOrderDetailRefID.value),
                                     quantity: parseFloat(qty.replace(/,/g, '')),
+                                    product_RefID: parseInt(productRefID.value),
+                                    quantityUnit_RefID: parseInt(quantityUnitRefID.value),
+                                    productUnitPriceCurrency_RefID: parseInt(productUnitPriceCurrencyRefID.value),
+                                    productUnitPriceCurrencyExchangeRate: parseFloat(1),
+                                    productUnitPriceCurrencyValue: parseFloat(0),
                                     remarks: note
                                 }
                             };
@@ -351,39 +168,176 @@
                         entities: {
                             deliveryOrderDetail_RefID: parseInt(deliveryOrderDetailRefID.value),
                             quantity: parseFloat(qty.replace(/,/g, '')),
+                            product_RefID: parseInt(productRefID.value),
+                            quantityUnit_RefID: parseInt(quantityUnitRefID.value),
+                            productUnitPriceCurrency_RefID: parseInt(productUnitPriceCurrencyRefID.value),
+                            productUnitPriceCurrencyExchangeRate: parseFloat(1),
+                            productUnitPriceCurrencyValue: parseFloat(0),
                             remarks: note
                         }
                     });
                 }
+            } else {
+                const existingRows  = targetTable.getElementsByTagName('tr');
 
-                qtyInput.value = '';
-                noteInput.value = '';
+                for (let targetRow of existingRows) {
+                    const recordID = targetRow.children[0].value.trim();
+
+                    if (recordID == recordRefID.value) {
+                        targetRow.remove();
+                        break;
+                    }
+                }
+
+                dataStore = dataStore.filter(item => {
+                    return !(item.recordID == recordRefID.value);
+                });
             }
         }
 
-        dataStore = dataStore.filter(item => item !== undefined);
-
         updateGrandTotal();
-    });
+    }
 
-    $('#material-receive-details-reset').on('click', function() {
-        dataStore = [];
+    function validationForm() {
+        const isReceiveDateNotEmpty     = receiveDate.value.trim() !== '';
+        const isDeliveryFromNotEmpty    = addressDeliveryOrderFrom.value.trim() !== '';
+        const isDeliveryToNotEmpty      = addressDeliveryOrderTo.value.trim() !== '';
+        const isTableNotEmpty           = checkOneLineBudgetContents();
 
-        $('input[id^="qty_req"]').each(function() {
-            $(this).val($(this).data('default'));
+        if (isReceiveDateNotEmpty && isDeliveryFromNotEmpty && isDeliveryToNotEmpty && isTableNotEmpty) {
+            $('#materialReceiveFormModal').modal('show');
+            summaryData();
+        } else {
+            if (!isReceiveDateNotEmpty && !isDeliveryFromNotEmpty && !isDeliveryToNotEmpty) {
+                $("#receive_date").css("border", "1px solid red");
+                $("#address_delivery_order_from").css("border", "1px solid red");
+                $("#address_delivery_order_to").css("border", "1px solid red");
+
+                $("#receiveDateMessage").show();
+                $("#deliveryFromMessage").show();
+                $("#deliveryToMessage").show();
+                return;
+            }
+            if (!isReceiveDateNotEmpty) {
+                $("#receive_date").css("border", "1px solid red");
+                $("#receiveDateMessage").show();
+                return;
+            }
+            if (!isDeliveryFromNotEmpty) {
+                $("#address_delivery_order_from").css("border", "1px solid red");
+                $("#deliveryFromMessage").show();
+                return;
+            }
+            if (!isDeliveryToNotEmpty) {
+                $("#address_delivery_order_to").css("border", "1px solid red");
+                $("#deliveryToMessage").show();
+                return;
+            }
+            if (!isTableNotEmpty) {
+                $("#materialReceiveDetailMessage").show();
+                return;
+            }
+        }
+    }
+
+    function viewMaterialReceiveDetail(dataDetail) {
+        $(".loadingMaterialReceiveDetail").hide();
+        $(".errorMessageContainerMaterialReceiveDetail").hide();
+
+        let tbody = $('#tableMaterialReceiveDetail tbody');
+        tbody.empty();
+
+        let tbodyList = $('#tableMaterialReceiveList tbody');
+        tbodyList.empty();
+
+        let totalRequest = 0;
+
+        $.each(dataDetail, function(key, val2) {
+            totalRequest += val2.quantity;
+
+            dataStore.push({
+                recordID: parseInt(val2.sys_ID),
+                entities: {
+                    deliveryOrderDetail_RefID: parseInt(val2.deliveryOrderDetail_RefID),
+                    quantity: parseFloat(val2.quantity),
+                    product_RefID: parseInt(val2.product_RefID),
+                    quantityUnit_RefID: parseInt(val2.quantityUnit_RefID),
+                    productUnitPriceCurrency_RefID: parseInt(val2.sys_BaseCurrency_RefID),
+                    productUnitPriceCurrencyExchangeRate: parseFloat(1),
+                    productUnitPriceCurrencyValue: parseFloat(0),
+                    remarks: val2.note
+                }
+            });
+
+            let row = `
+                <tr>
+                    <input id="record_RefID${key}" value="${val2.sys_ID}" type="hidden" />
+                    <input id="deliveryOrderDetail_RefID${key}" value="${val2.deliveryOrderDetail_RefID}" type="hidden" />
+
+                    <td style="text-align: center;">${val2.combinedBudgetSectionCode} - ${val2.combinedBudgetSectionName}</td>
+                    <td style="text-align: center;">${val2.productCode || '-'}</td>
+                    <td style="text-align: center;">${val2.productName || '-'}</td>
+                    <td style="text-align: center;">${currencyTotal(val2.qtyDO) || '-'}</td>
+                    <td style="text-align: center;">${currencyTotal(val2.qtyAvailableDO) || '-'}</td>
+                    <td style="text-align: center;">${val2.quantityUnitName || '-'}</td>
+                    <td style="text-align: center; width: 100px;">
+                        <input class="form-control number-without-negative" id="qty_req${key}" autocomplete="off" style="border-radius:0px;" value="${currencyTotal(val2.quantity) || '-'}" />
+                    </td>
+                    <td style="text-align: center; width: 150px; padding: 0.5rem !important;">
+                        <textarea id="note${key}" class="form-control" data-default="${val2.note}">${val2.note}</textarea>
+                    </td>
+
+                    <input id="product_RefID${key}" value="${val2.product_RefID}" type="hidden" />
+                    <input id="quantityUnit_RefID${key}" value="${val2.quantityUnit_RefID}" type="hidden" />
+                    <input id="productUnitPriceCurrency_RefID${key}" value="${val2.sys_BaseCurrency_RefID}" type="hidden" />
+                </tr>
+            `;
+
+            tbody.append(row);
+
+            $(`#qty_req${key}`).on('keyup', function() {
+                var qty_req     = $(this).val().replace(/,/g, '');
+                var sumQty      = val2.quantity + val2.qtyAvailableDO;
+
+                if (parseFloat(qty_req) > sumQty) {
+                    $(this).val("");
+                    ErrorNotif("Qty Receive is over!");
+                } else {
+                    calculateTotal();
+                }
+
+                checkOneLineBudgetContents(key);
+            });
+
+            $(`#note${key}`).on('keyup', function() {
+                checkOneLineBudgetContents(key);
+            });
+
+            let rowList = `
+                <tr>
+                    <input type="hidden" name="recordID[]" value="${val2.sys_ID}">
+                    <input type="hidden" name="deliveryOrderDetailRefID[]" value="${val2.deliveryOrderDetail_RefID}">
+                    <input type="hidden" name="qty_avail[]" value="${val2.quantity}">
+                    <td style="text-align: center;padding: 0.8rem;">${val2.productCode || '-'}</td>
+                    <td style="text-align: center;padding: 0.8rem;">${val2.productName || '-'}</td>
+                    <td style="text-align: center;padding: 0.8rem;">${val2.quantityUnitName || '-'}</td>
+                    <td style="text-align: center;padding: 0.8rem;">${val2.quantity || '-'}</td>
+                    <td style="text-align: center;padding: 0.8rem;">${val2.note || '-'}</td>
+                </tr>
+            `;
+
+            tbodyList.append(rowList);
         });
-        $('textarea[id^="note"]').each(function() {
-            $(this).val($(this).data('default'));
-        });
-        $('#tableMaterialReceiveList tbody').empty();
 
-        document.getElementById('GrandTotal').textContent = "0.00";
-        calculateTotal();
-    });
+        document.getElementById('totalMaterialReceiveDetail').textContent = currencyTotal(totalRequest);
+    }
 
-    $("#FormSubmitRevisionMaterialReceive").on("submit", function(e) {
-        e.preventDefault();
+    function CancelRevisionMaterialReceive() {
+        ShowLoading();
+        window.location.href = "{{ route('MaterialReceive.index', ['var' => 1]) }}";
+    }
 
+    function SelectWorkFlow(formatData) {
         const swalWithBootstrapButtons = Swal.mixin({
             confirmButtonClass: 'btn btn-success btn-sm',
             cancelButtonClass: 'btn btn-danger btn-sm',
@@ -391,79 +345,148 @@
         });
 
         swalWithBootstrapButtons.fire({
-            title: 'Are you sure?',
-            text: "Save this data?",
+            title: 'Comment',
+            text: "Please write your comment here",
             type: 'question',
+            input: 'textarea',
+            showCloseButton: false,
             showCancelButton: true,
-            confirmButtonText: '<img src="{{ asset("AdminLTE-master/dist/img/save.png") }}" width="13" alt=""><span style="color:black;">Yes, save it </span>',
-            cancelButtonText: '<img src="{{ asset("AdminLTE-master/dist/img/cancel.png") }}" width="13" alt=""><span style="color:black;"> No, cancel </span>',
-            confirmButtonColor: '#e9ecef',
-            cancelButtonColor: '#e9ecef',
+            focusConfirm: false,
+            cancelButtonText: '<span style="color:black;"> Cancel </span>',
+            confirmButtonText: '<span style="color:black;"> OK </span>',
+            cancelButtonColor: '#DDDAD0',
+            confirmButtonColor: '#DDDAD0',
             reverseButtons: true
         }).then((result) => {
-            ShowLoading();
-
-            if (result.value) {
-                var action = $(this).attr("action");
-                var method = $(this).attr("method");
-                var form_data = new FormData($(this)[0]);
-                form_data.append('materialReceiveDetail', JSON.stringify(dataStore));
-
-                $.ajax({
-                    url: action,
-                    dataType: 'json',
-                    cache: false,
-                    contentType: false,
-                    processData: false,
-                    data: form_data,
-                    type: method,
-                    success: function(response) {
-                        HideLoading();
-
-                        if (response.message == "WorkflowError") {
-                            $("#submitMaterialReceive").prop("disabled", false);
-
-                            CancelNotif("You don't have access", '/MaterialReceive?var=1');
-                        } else if (response.message == "MoreThanOne") {
-                            $('#getWorkFlow').modal('toggle');
-
-                            var t = $('#tableGetWorkFlow').DataTable();
-                            t.clear();
-                            $.each(response.data, function(key, val) {
-                                t.row.add([
-                                    '<td><span data-dismiss="modal" onclick="SelectWorkFlow(\'' + val.Sys_ID + '\', \'' + val.NextApprover_RefID + '\', \'' + response.approverEntity_RefID + '\', \'' + response.documentTypeID + '\');"><img src="{{ asset("AdminLTE-master/dist/img/add.png") }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></span></td>',
-                                    '<td style="border:1px solid #e9ecef;">' + val.FullApproverPath + '</td></tr></tbody>'
-                                ]).draw();
-                            });
-                        } else {
-                            const formatData = {
-                                workFlowPath_RefID: response.workFlowPath_RefID, 
-                                nextApprover: response.nextApprover_RefID, 
-                                approverEntity: response.approverEntity_RefID, 
-                                documentTypeID: response.documentTypeID,
-                                storeData: response.storeData
-                            };
-
-                            SelectWorkFlow(formatData);
-                        }
-                    },
-                    error: function(response) {
-                        console.log('response error', response.responseText);
-                        
-                        HideLoading();
-                        $("#submitMaterialReceive").prop("disabled", false);
-                        CancelNotif("You don't have access", '/MaterialReceive?var=1');
-                    }
-                });
-            } else if (result.dismiss === Swal.DismissReason.cancel) {
-                HideLoading();
-                CancelNotif("Data Cancel Inputed", '/MaterialReceive?var=1');
+            if ('value' in result) {
+                ShowLoading();
+                RevisionMaterialReceiveStore({...formatData, comment: result.value});
             }
         });
+    }
+
+    function RevisionMaterialReceiveStore(formatData) {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: 'POST',
+            data: formatData,
+            url: '{{ route("MaterialReceive.UpdateMaterialReceive") }}',
+            success: function(res) {
+                HideLoading();
+
+                if (res.status == 200) {
+                    const swalWithBootstrapButtonsss = Swal.mixin({
+                        confirmButtonClass: 'btn btn-success btn-sm',
+                        cancelButtonClass: 'btn btn-danger btn-sm',
+                        buttonsStyling: true,
+                    });
+
+                    swalWithBootstrapButtonsss.fire({
+                        title: 'Successful !',
+                        type: 'success',
+                        html: 'Data has been saved. Your transaction number is ' + '<span style="color:#0046FF;font-weight:bold;">' + res.documentNumber + '</span>',
+                        showCloseButton: false,
+                        showCancelButton: false,
+                        focusConfirm: false,
+                        confirmButtonText: '<span style="color:black;"> OK </span>',
+                        confirmButtonColor: '#4B586A',
+                        confirmButtonColor: '#e9ecef',
+                        reverseButtons: true
+                    }).then((result) => {
+                        window.location.href = "{{ route('MaterialReceive.index', ['var' => 1]) }}";
+                    });
+                } else {
+                    ErrorNotif("Data Cancel Inputed");
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.log('error', jqXHR, textStatus, errorThrown);
+            }
+        });
+    }
+
+    function submitForm() {
+        $('#materialReceiveFormModal').modal('hide');
+
+        let action = $('#FormSubmitRevisionMaterialReceive').attr("action");
+        let method = $('#FormSubmitRevisionMaterialReceive').attr("method");
+        let form_data = new FormData($('#FormSubmitRevisionMaterialReceive')[0]);
+        form_data.append('materialReceiveDetail', JSON.stringify(dataStore));
+
+        ShowLoading();
+
+        $.ajax({
+            url: action,
+            dataType: 'json',
+            cache: false,
+            contentType: false,
+            processData: false,
+            data: form_data,
+            type: method,
+            success: function(response) {
+                HideLoading();
+
+                if (response.message == "WorkflowError") {
+                    CancelNotif("You don't have access", "{{ route('MaterialReceive.index', ['var' => 1]) }}");
+                } else if (response.message == "MoreThanOne") {
+                    $('#getWorkFlow').modal('toggle');
+
+                    let t = $('#tableGetWorkFlow').DataTable();
+                    t.clear();
+                    $.each(response.data, function(key, val) {
+                        t.row.add([
+                            '<td><span data-dismiss="modal" onclick="SelectWorkFlow(\'' + val.Sys_ID + '\', \'' + val.NextApprover_RefID + '\', \'' + response.approverEntity_RefID + '\', \'' + response.documentTypeID + '\');"><img src="{{ asset("AdminLTE-master/dist/img/add.png") }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></span></td>',
+                            '<td style="border:1px solid #e9ecef;">' + val.FullApproverPath + '</td></tr></tbody>'
+                        ]).draw();
+                    });
+                } else {
+                    const formatData = {
+                        workFlowPath_RefID: response.workFlowPath_RefID, 
+                        nextApprover: response.nextApprover_RefID, 
+                        approverEntity: response.approverEntity_RefID, 
+                        documentTypeID: response.documentTypeID,
+                        storeData: response.storeData
+                    };
+
+                    SelectWorkFlow(formatData);
+                }
+            },
+            error: function(response) {
+                console.log('response error', response);
+                
+                HideLoading();
+                CancelNotif("You don't have access", "{{ route('MaterialReceive.index', ['var' => 1]) }}");
+            }
+        });
+    }
+
+    $('#address_delivery_order_from').on('input', function() {
+        if ($(this).val().trim() === addressDeliveryOrderFromDuplicate.value) {
+            $("#id_delivery_order_from").val(idDeliveryOrderFromDuplicate.value);
+        } else {
+            $("#id_delivery_order_from").val('');
+        }
+    });
+
+    $('#address_delivery_order_to').on('input', function() {
+        if ($(this).val().trim() === addressDeliveryOrderToDuplicate.value) {
+            $("#id_delivery_order_to").val(idDeliveryOrderToDuplicate.value);
+        } else {
+            $("#id_delivery_order_to").val('');
+        }
     });
 
     $(window).one('load', function(e) {
         viewMaterialReceiveDetail(dataTable);
         getDocumentType("Warehouse Inbound Order Revision Form");
+
+        $('#startDate').datetimepicker({
+            format: 'L'
+        });
     });
 </script>

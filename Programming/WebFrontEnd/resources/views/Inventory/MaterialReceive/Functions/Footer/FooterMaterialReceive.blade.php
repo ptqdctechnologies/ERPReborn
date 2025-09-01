@@ -1,6 +1,7 @@
 <script>
     let dataStore                           = [];
     const deliveryOrderCode                 = document.getElementById("delivery_order_code");
+    const receiveDate                       = document.getElementById("receive_date");
     const tableMaterialReceiveLists         = document.querySelector("#tableMaterialReceiveList tbody");
 
     const addressDeliveryOrderFrom          = document.getElementById("address_delivery_order_from");
@@ -10,13 +11,6 @@
     const addressDeliveryOrderTo            = document.getElementById("address_delivery_order_to");
     const addressDeliveryOrderToDuplicate   = document.getElementById("address_delivery_order_to_duplicate");
     const idDeliveryOrderToDuplicate        = document.getElementById("id_delivery_order_to_duplicate");
-
-    $("#submitMaterialReceive").prop("disabled", true);
-
-    function CancelMaterialReceive() {
-        ShowLoading();
-        window.location.href = '/MaterialReceive?var=1';
-    }
 
     function calculateTotal() {
         let total = 0;
@@ -28,204 +22,7 @@
             }
         });
 
-        total = Math.ceil(total * 100) / 100;
-
-        document.getElementById('TotalDeliveryOrder').textContent = currencyTotal(total);
-    }
-
-    function GetDeliveryOrderDetail(delivery_order_id, delivery_order_number) {
-        $("#tableMaterialReceiveDetail tbody").hide();
-        $(".loadingMaterialReceiveDetail").show();
-
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
-        $.ajax({
-            type: 'GET',
-            url: '{!! route("getDeliveryOrderDetail") !!}?delivery_order_id=' + delivery_order_id,
-            success: async function(data) {
-                let tbody = $('#tableMaterialReceiveDetail tbody');
-                tbody.empty();
-
-                if (Array.isArray(data) && data.length > 0) {
-                    const documentTypeID = document.getElementById("DocumentTypeID");
-
-                    if (documentTypeID.value) {
-                        var checkWorkFlow = await checkingWorkflow(data[0].combinedBudget_RefID, documentTypeID.value);
-
-                        if (!checkWorkFlow) {
-                            $(".loadingMaterialReceiveDetail").hide();
-                            return;
-                        }
-                    }
-
-                    $("#transporterRefID").val(data[0].transporter_RefID);
-
-                    $("#budget_value").val(data[0].combinedBudgetCode + ' - ' + data[0].combinedBudgetName);
-                    $("#sub_budget_value").val(data[0].combinedBudgetSectionCode + ' - ' + data[0].combinedBudgetSectionName);
-                    $("#address_delivery_order_from").val(data[0].deliveryFrom_NonRefID.Address);
-                    $("#address_delivery_order_from_duplicate").val(data[0].deliveryFrom_NonRefID.Address);
-                    $("#id_delivery_order_from").val(data[0].deliveryFrom_RefID);
-                    $("#id_delivery_order_from_duplicate").val(data[0].deliveryFrom_RefID);
-                    $("#address_delivery_order_to").val(data[0].deliveryTo_NonRefID.Address);
-                    $("#address_delivery_order_to_duplicate").val(data[0].deliveryTo_NonRefID.Address);
-                    $("#id_delivery_order_to").val(data[0].deliveryTo_RefID);
-                    $("#id_delivery_order_to_duplicate").val(data[0].deliveryTo_RefID);
-
-                    $.each(data, function(key, val2) {
-                        let row = `
-                            <tr>
-                                <input id="trano${key}" value="${delivery_order_number}" type="hidden" />
-                                <input id="delivery_order_detail_id${key}" value="${val2.deliveryOrderDetail_ID}" type="hidden" />
-                                <input id="product_code${key}" value="${val2.productCode}" type="hidden" />
-                                <input id="product_name${key}" value="${val2.productName}" type="hidden" />
-                                <input id="qty_do${key}" value="${val2.qtyReq}" type="hidden" />
-                                <input id="qty_available${key}" value="${val2.qtyAvail}" type="hidden" />
-                                <input id="uom${key}" value="${val2.quantityUnitName}" type="hidden" />
-                                <input id="product_RefID${key}" value="${val2.product_RefID}" type="hidden" />
-                                <input id="quantityUnit_RefID${key}" value="${val2.quantityUnit_RefID}" type="hidden" />
-                                <input id="productUnitPriceCurrency_RefID${key}" value="${val2.productUnitPriceCurrency_RefID}" type="hidden" />
-                                <input id="productUnitPriceCurrencyExchangeRate${key}" value="${val2.productUnitPriceCurrencyExchangeRate}" type="hidden" />
-                                <input id="productUnitPriceBaseCurrencyValue${key}" value="${val2.productUnitPriceBaseCurrencyValue}" type="hidden" />
-
-                                <td style="text-align: center;">${data[0].combinedBudgetSectionCode + ' - ' + data[0].combinedBudgetSectionName}</td>
-                                <td style="text-align: center;">${val2.productCode}</td>
-                                <td style="text-align: center;text-wrap: auto;">${val2.productName}</td>
-                                <td style="text-align: center;">${val2.qtyReq}</td>
-                                <td style="text-align: center;">${val2.qtyAvail}</td>
-                                <td style="text-align: center;">${val2.quantityUnitName}</td>
-                                <td style="text-align: center; width: 100px;">
-                                    <input class="form-control number-without-negative" id="qty_req${key}" data-index=${key} data-default="" autocomplete="off" style="border-radius:0px;" />
-                                </td>
-                                <td style="text-align: center; width: 150px; padding: 0.5rem !important;">
-                                    <textarea id="note${key}" class="form-control" data-default=""></textarea>
-                                </td>
-                            </tr>
-                        `;
-
-                        tbody.append(row);
-
-                        $(`#qty_req${key}`).on('keyup', function() {
-                            var qty_req     = $(this).val().replace(/,/g, '');
-                            var data_index  = $(this).data('index');
-                            var result      = val2.qtyReq - qty_req;
-
-                            if (parseFloat(qty_req) > val2.qtyReq) {
-                                $(this).val("");
-                                calculateTotal();
-                                ErrorNotif("Qty Request is over Qty Avail !");
-                            } else {
-                                calculateTotal();
-                            }
-                        });
-                    });
-
-                    $(".loadingMaterialReceiveDetail").hide();
-                    $("#tableMaterialReceiveDetail tbody").show();
-                } else {
-                    $(".loadingMaterialReceiveDetail").hide();
-                    $(".errorMessageContainerMaterialReceiveDetail").show();
-                    $("#errorMessageMaterialReceiveDetail").text(`Data not found.`);
-
-                    $("#tableMaterialReceiveDetail_length").hide();
-                    $("#tableMaterialReceiveDetail_filter").hide();
-                    $("#tableMaterialReceiveDetail_info").hide();
-                    $("#tableMaterialReceiveDetail_paginate").hide();
-                }
-            },
-            error: function (textStatus, errorThrown) {
-                $('#tableMaterialReceiveDetail tbody').empty();
-                $(".loadingMaterialReceiveDetail").hide();
-                $(".errorMessageContainerMaterialReceiveDetail").show();
-                $("#errorMessageMaterialReceiveDetail").text(`[${textStatus.status}] ${textStatus.responseJSON.message}`);
-            }
-        });
-    }
-
-    function SelectWorkFlow(formatData) {
-        const swalWithBootstrapButtons = Swal.mixin({
-            confirmButtonClass: 'btn btn-success btn-sm',
-            cancelButtonClass: 'btn btn-danger btn-sm',
-            buttonsStyling: true,
-        });
-
-        swalWithBootstrapButtons.fire({
-            title: 'Comment',
-            text: "Please write your comment here",
-            type: 'question',
-            input: 'textarea',
-            showCloseButton: false,
-            showCancelButton: false,
-            focusConfirm: false,
-            confirmButtonText: '<span style="color:black;"> OK </span>',
-            confirmButtonColor: '#4B586A',
-            confirmButtonColor: '#e9ecef',
-            reverseButtons: true
-        }).then((result) => {
-            ShowLoading();
-            MaterialReceiveStore({...formatData, comment: result.value});
-        });
-    }
-
-    function MaterialReceiveStore(formatData) {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
-        $.ajax({
-            type: 'POST',
-            data: formatData,
-            url: '{{ route("MaterialReceive.store") }}',
-            success: function(res) {
-                HideLoading();
-
-                if (res.status == 200) {
-                    const swalWithBootstrapButtonsss = Swal.mixin({
-                        confirmButtonClass: 'btn btn-success btn-sm',
-                        cancelButtonClass: 'btn btn-danger btn-sm',
-                        buttonsStyling: true,
-                    });
-
-                    swalWithBootstrapButtonsss.fire({
-                        title: 'Successful !',
-                        type: 'success',
-                        html: 'Data has been saved. Your transaction number is ' + '<span style="color:red;">' + res.documentNumber + '</span>',
-                        showCloseButton: false,
-                        showCancelButton: false,
-                        focusConfirm: false,
-                        confirmButtonText: '<span style="color:black;"> OK </span>',
-                        confirmButtonColor: '#4B586A',
-                        confirmButtonColor: '#e9ecef',
-                        reverseButtons: true
-                    }).then((result) => {
-                        window.location.href = '/MaterialReceive?var=1';
-                    });
-                } else {
-                    ErrorNotif("Data Cancel Inputed");
-                }
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-                console.log('error', jqXHR, textStatus, errorThrown);
-            }
-        });
-    }
-
-    function validationForm() {
-        const isDeliveryOrderCodeNotEmpty           = deliveryOrderCode.value.trim() !== '';
-        const isAddressDeliveryOrderFromNotEmpty    = addressDeliveryOrderFrom.value.trim() !== '';
-        const isAddressDeliveryOrderToNotEmpty      = addressDeliveryOrderTo.value.trim() !== '';
-        const isTableNotEmpty                       = tableMaterialReceiveLists.rows.length > 0;
-
-        if (isDeliveryOrderCodeNotEmpty && isAddressDeliveryOrderFromNotEmpty && isAddressDeliveryOrderToNotEmpty && isTableNotEmpty) {
-            $("#submitMaterialReceive").prop("disabled", false);
-        } else {
-            $("#submitMaterialReceive").prop("disabled", true);
-        }
+        document.getElementById('TotalDeliveryOrder').textContent = decimalFormat(total);
     }
 
     function updateGrandTotal() {
@@ -237,20 +34,60 @@
             total += value;
         });
 
-        document.getElementById('TotalDeliveryOrder').innerText = "0.00";
-        document.getElementById('GrandTotal').innerText = total.toLocaleString('en-US', {
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 2
-        });
+        document.getElementById('GrandTotal').innerText = `Total ${decimalFormat(total)}`;
     }
 
-    const observertableMaterialReceiveList = new MutationObserver(validationForm);
-    observertableMaterialReceiveList.observe(tableMaterialReceiveLists, { childList: true });
-    deliveryOrderCode.addEventListener('input', validationForm);
-    addressDeliveryOrderFrom.addEventListener('input', validationForm);
-    addressDeliveryOrderTo.addEventListener('input', validationForm);
+    function checkOneLineBudgetContents(indexInput) {
+        const rows = document.querySelectorAll("#tableMaterialReceiveDetail tbody tr");
+        let hasFullRow = false;
 
-    $('#material-receive-details-add').on('click', function() {
+        rows.forEach((row, index) => {
+            const qty   = document.getElementById(`qty_req${index}`)?.value.trim();
+            const note  = document.getElementById(`note${index}`)?.value.trim();
+
+            if (qty !== "" && note !== "") {
+                hasFullRow = true;
+            }
+        });
+
+        rows.forEach((row, index) => {
+            const qtyEl     = document.getElementById(`qty_req${index}`);
+            const noteEl    = document.getElementById(`note${index}`);
+
+            if (hasFullRow) {
+                $(qtyEl).css("border", "1px solid #ced4da");
+                $(noteEl).css("border", "1px solid #ced4da");
+                $("#deliveryOrderDetailMessage").hide();
+            } else {
+                if (indexInput > -1) {
+                    if (indexInput == index) {
+                        if (qtyEl.value.trim() != "" || noteEl.value.trim() != "") {
+                            $(qtyEl).css("border", "1px solid red");
+                            $(noteEl).css("border", "1px solid red");
+                            $("#deliveryOrderDetailMessage").show();
+                        } else {
+                            $(qtyEl).css("border", "1px solid #ced4da");
+                            $(noteEl).css("border", "1px solid #ced4da");
+                            $("#deliveryOrderDetailMessage").hide();
+                        }
+                    }
+
+                    if (indexInput != index && (qtyEl.value.trim() == "" && noteEl.value.trim() == "")) {
+                        $(qtyEl).css("border", "1px solid #ced4da");
+                        $(noteEl).css("border", "1px solid #ced4da");
+                    } 
+                } else {
+                    $(qtyEl).css("border", "1px solid red");noteEl
+                    $(noteEl).css("border", "1px solid red");
+                    $("#deliveryOrderDetailMessage").show();
+                }
+            }
+        });
+
+        return hasFullRow;
+    }
+
+    function summaryData() {
         const sourceTable = document.getElementById('tableMaterialReceiveDetail').getElementsByTagName('tbody')[0];
         const targetTable = document.getElementById('tableMaterialReceiveList').getElementsByTagName('tbody')[0];
 
@@ -315,11 +152,11 @@
                     const newRow = document.createElement('tr');
                     newRow.innerHTML = `
                         <input type="hidden" name="qty_avail[]" value="${qtyAvail}">
-                        <td style="text-align: center;padding: 0.8rem;">${productCode}</td>
-                        <td style="text-align: center;padding: 0.8rem;text-wrap: auto;">${productName}</td>
-                        <td style="text-align: center;padding: 0.8rem;">${uom}</td>
-                        <td style="text-align: center;padding: 0.8rem;">${qty}</td>
-                        <td style="text-align: center;padding: 0.8rem;">${note}</td>
+                        <td style="text-align: right;padding: 0.8rem;">${productCode}</td>
+                        <td style="text-align: left;padding: 0.8rem;text-wrap: auto;">${productName}</td>
+                        <td style="text-align: left;padding: 0.8rem;">${uom}</td>
+                        <td style="text-align: right;padding: 0.8rem;">${qty}</td>
+                        <td style="text-align: right;padding: 0.8rem;">${note}</td>
                     `;
                     targetTable.appendChild(newRow);
 
@@ -337,107 +174,327 @@
                         }
                     });
                 }
-
-                qtyInput.value = '';
-                noteInput.value = '';
             }
         }
         
         dataStore = dataStore.filter(item => item !== undefined);
-        $("#materialReceiveDetail").val(JSON.stringify(dataStore));
 
         updateGrandTotal();
-    });
+    }
 
-    $('#material-receive-details-reset').on('click', function() {
-        dataStore = [];
+    function validationForm() {
+        const isDeliveryOrderCodeNotEmpty           = deliveryOrderCode.value.trim() !== '';
+        const isReceiveDateNotEmpty                 = receiveDate.value.trim() !== '';
+        const isAddressDeliveryOrderFromNotEmpty    = addressDeliveryOrderFrom.value.trim() !== '';
+        const isAddressDeliveryOrderToNotEmpty      = addressDeliveryOrderTo.value.trim() !== '';
+        const isTableNotEmpty                       = checkOneLineBudgetContents();
 
-        $('input[id^="qty_req"]').each(function() {
-            $(this).val($(this).data('default'));
-        });
-        $('textarea[id^="note"]').each(function() {
-            $(this).val($(this).data('default'));
-        });
-        $('#tableMaterialReceiveList tbody').empty();
-        $('#materialReceiveDetail').val("");
-
-        document.getElementById('GrandTotal').textContent = "0.00";
-        document.getElementById('TotalDeliveryOrder').textContent = "0.00";
-    });
-
-    document.querySelector('#tableMaterialReceiveList tbody').addEventListener('click', function (e) {
-        const row = e.target.closest('tr');
-        if (!row) return;
-
-        if (['INPUT', 'TEXTAREA'].includes(e.target.tagName)) return;
-
-        const qtyAvail = row.children[0];
-        const qtyCell = row.children[4];
-        const noteCell = row.children[5];
-
-        if (row.classList.contains('editing-row')) {
-            const newQty = qtyCell.querySelector('input')?.value || '';
-            const newNote = noteCell.querySelector('textarea')?.value || '';
-
-            qtyCell.innerHTML = newQty;
-            noteCell.innerHTML = newNote;
-
-            const hidden = noteCell.querySelector('input[type="hidden"]');
-            noteCell.innerHTML = `${newNote}`;
-            if (hidden) noteCell.appendChild(hidden);
-
-            row.classList.remove('editing-row');
-
-            const productCode = row.children[1].innerText.trim();
-            const storeItem   = dataStore.find(item => item.entities.productCode == productCode);
-
-            if (storeItem) {
-                storeItem.entities.quantity = parseFloat(newQty.replace(/,/g, ''));
-                storeItem.entities.remarks = newNote;
-
-                $("#materialReceiveDetail").val(JSON.stringify(dataStore));
-            }
+        if (isDeliveryOrderCodeNotEmpty && isReceiveDateNotEmpty && isAddressDeliveryOrderFromNotEmpty && isAddressDeliveryOrderToNotEmpty && isTableNotEmpty) {
+            $('#materialReceiveFormModal').modal('show');
+            summaryData();
         } else {
-            const currentQty = qtyCell.innerText.trim();
+            if (!isDeliveryOrderCodeNotEmpty && !isReceiveDateNotEmpty && !isAddressDeliveryOrderFromNotEmpty && !isAddressDeliveryOrderToNotEmpty) {
+                $("#delivery_order_code").css("border", "1px solid red");
+                $("#receive_date").css("border", "1px solid red");
+                $("#address_delivery_order_from").css("border", "1px solid red");
+                $("#address_delivery_order_to").css("border", "1px solid red");
 
-            const hiddenInput = noteCell.querySelector('input[type="hidden"]');
-            const currentNote = noteCell.childNodes[0]?.nodeValue?.trim() || '';
-
-            qtyCell.innerHTML = `<input class="form-control number-without-negative qty-input" value="${currentQty}" autocomplete="off" style="border-radius:0px;width:100px;">`;
-            noteCell.innerHTML = `
-                <textarea class="form-control" style="width:100px;">${currentNote}</textarea>
-            `;
-            if (hiddenInput) noteCell.appendChild(hiddenInput);
-
-            row.classList.add('editing-row');
-
-            const qtyInput = qtyCell.querySelector('.qty-input');
-
-            function updateBalance() {
-                var qty = parseFloat(qtyInput.value.replace(/,/g, '')) || 0;
-                const qtyAvailValue = parseFloat(qtyAvail?.value.replace(/,/g, '')) || 0;
-                var balance = qtyAvailValue - qty;
-
-                if (qty > qtyAvailValue) {
-                    qty = qtyAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-                    qtyInput.value = qtyAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-
-                    ErrorNotif("Qty Req is over Qty Avail !");
-                }
+                $("#deliveryOrderMessage").show();
+                $("#receiveDateMessage").show();
+                $("#deliveryFromMessage").show();
+                $("#deliveryToMessage").show();
+                return;
             }
-
-            qtyInput.addEventListener('input', updateBalance);
-
-            document.getElementById('GrandTotal').innerText = qtyInput.value;
+            if (!isDeliveryOrderCodeNotEmpty) {
+                $("#delivery_order_code").css("border", "1px solid red");
+                $("#deliveryOrderMessage").show();
+                return;
+            }
+            if (!isReceiveDateNotEmpty) {
+                $("#receive_date").css("border", "1px solid red");
+                $("#receiveDateMessage").show();
+                return;
+            }
+            if (!isAddressDeliveryOrderFromNotEmpty) {
+                $("#address_delivery_order_from").css("border", "1px solid red");
+                $("#deliveryFromMessage").show();
+                return;
+            }
+            if (!isAddressDeliveryOrderToNotEmpty) {
+                $("#address_delivery_order_to").css("border", "1px solid red");
+                $("#deliveryToMessage").show();
+                return;
+            }
+            if (!isTableNotEmpty) {
+                $("#deliveryOrderDetailMessage").show();
+                return;
+            }
         }
+    }
 
-        updateGrandTotal();
-    });
+    function GetDeliveryOrderDetail(delivery_order_id, delivery_order_number) {
+        $("#tableMaterialReceiveDetail tbody").hide();
+        $(".loadingMaterialReceiveDetail").show();
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: 'GET',
+            url: '{!! route("getDeliveryOrderDetail") !!}?delivery_order_id=' + delivery_order_id,
+            success: async function(data) {
+                let tbody = $('#tableMaterialReceiveDetail tbody');
+                tbody.empty();
+
+                if (Array.isArray(data) && data.length > 0) {
+                    const documentTypeID = document.getElementById("DocumentTypeID");
+
+                    if (documentTypeID.value) {
+                        var checkWorkFlow = await checkingWorkflow(data[0].combinedBudget_RefID, documentTypeID.value);
+
+                        if (!checkWorkFlow) {
+                            $(".loadingMaterialReceiveDetail").hide();
+                            return;
+                        }
+                    }
+
+                    $("#transporterRefID").val(data[0].transporter_RefID);
+
+                    $("#budget_value").val(data[0].combinedBudgetCode + ' - ' + data[0].combinedBudgetName);
+                    $("#sub_budget_value").val(data[0].combinedBudgetSectionCode + ' - ' + data[0].combinedBudgetSectionName);
+                    $("#address_delivery_order_from").val(data[0].deliveryFrom_NonRefID.Address);
+                    $("#address_delivery_order_from_duplicate").val(data[0].deliveryFrom_NonRefID.Address);
+                    $("#id_delivery_order_from").val(data[0].deliveryFrom_RefID);
+                    $("#id_delivery_order_from_duplicate").val(data[0].deliveryFrom_RefID);
+                    $("#address_delivery_order_to").val(data[0].deliveryTo_NonRefID.Address);
+                    $("#address_delivery_order_to_duplicate").val(data[0].deliveryTo_NonRefID.Address);
+                    $("#id_delivery_order_to").val(data[0].deliveryTo_RefID);
+                    $("#id_delivery_order_to_duplicate").val(data[0].deliveryTo_RefID);
+
+                    $("#address_delivery_order_from").css("border", "1px solid #ced4da");
+                    $("#deliveryFromMessage").hide();
+
+                    $("#address_delivery_order_to").css("border", "1px solid #ced4da");
+                    $("#deliveryToMessage").hide();
+
+                    $.each(data, function(key, val2) {
+                        let row = `
+                            <tr>
+                                <input id="trano${key}" value="${delivery_order_number}" type="hidden" />
+                                <input id="delivery_order_detail_id${key}" value="${val2.deliveryOrderDetail_ID}" type="hidden" />
+                                <input id="product_code${key}" value="${val2.productCode}" type="hidden" />
+                                <input id="product_name${key}" value="${val2.productName}" type="hidden" />
+                                <input id="qty_do${key}" value="${val2.qtyReq}" type="hidden" />
+                                <input id="qty_available${key}" value="${val2.qtyAvail}" type="hidden" />
+                                <input id="uom${key}" value="${val2.quantityUnitName}" type="hidden" />
+                                <input id="product_RefID${key}" value="${val2.product_RefID}" type="hidden" />
+                                <input id="quantityUnit_RefID${key}" value="${val2.quantityUnit_RefID}" type="hidden" />
+                                <input id="productUnitPriceCurrency_RefID${key}" value="${val2.productUnitPriceCurrency_RefID}" type="hidden" />
+                                <input id="productUnitPriceCurrencyExchangeRate${key}" value="${val2.productUnitPriceCurrencyExchangeRate}" type="hidden" />
+                                <input id="productUnitPriceBaseCurrencyValue${key}" value="${val2.productUnitPriceBaseCurrencyValue}" type="hidden" />
+
+                                <td style="text-align: center;">${data[0].combinedBudgetSectionCode + ' - ' + data[0].combinedBudgetSectionName}</td>
+                                <td style="text-align: center;">${val2.productCode}</td>
+                                <td style="text-align: center;text-wrap: auto;">${val2.productName}</td>
+                                <td style="text-align: center;">${val2.qtyReq}</td>
+                                <td style="text-align: center;">${val2.qtyAvail}</td>
+                                <td style="text-align: center;">${val2.quantityUnitName}</td>
+                                <td style="text-align: center; width: 100px;">
+                                    <input class="form-control number-without-negative" id="qty_req${key}" data-index=${key} data-default="" autocomplete="off" style="border-radius:0px;" />
+                                </td>
+                                <td style="text-align: center; width: 150px; padding: 0.5rem !important;">
+                                    <textarea id="note${key}" class="form-control" data-default=""></textarea>
+                                </td>
+                            </tr>
+                        `;
+
+                        tbody.append(row);
+
+                        $(`#qty_req${key}`).on('keyup', function() {
+                            var qty_req     = $(this).val().replace(/,/g, '');
+                            var data_index  = $(this).data('index');
+                            var result      = val2.qtyReq - qty_req;
+
+                            if (parseFloat(qty_req) > val2.qtyReq) {
+                                $(this).val("");
+                                calculateTotal();
+                                ErrorNotif("Qty Receive is over!");
+                            } else {
+                                calculateTotal();
+                            }
+
+                            checkOneLineBudgetContents(key);
+                        });
+
+                        $(`#note${key}`).on('keyup', function() {
+                            checkOneLineBudgetContents(key);
+                        });
+                    });
+
+                    $(".loadingMaterialReceiveDetail").hide();
+                    $("#tableMaterialReceiveDetail tbody").show();
+                } else {
+                    $(".loadingMaterialReceiveDetail").hide();
+                    $(".errorMessageContainerMaterialReceiveDetail").show();
+                    $("#errorMessageMaterialReceiveDetail").text(`Data not found.`);
+
+                    $("#tableMaterialReceiveDetail_length").hide();
+                    $("#tableMaterialReceiveDetail_filter").hide();
+                    $("#tableMaterialReceiveDetail_info").hide();
+                    $("#tableMaterialReceiveDetail_paginate").hide();
+                }
+            },
+            error: function (textStatus, errorThrown) {
+                $('#tableMaterialReceiveDetail tbody').empty();
+                $(".loadingMaterialReceiveDetail").hide();
+                $(".errorMessageContainerMaterialReceiveDetail").show();
+                $("#errorMessageMaterialReceiveDetail").text(`[${textStatus.status}] ${textStatus.responseJSON.message}`);
+            }
+        });
+    }
+
+    function SelectWorkFlow(formatData) {
+        const swalWithBootstrapButtons = Swal.mixin({
+            confirmButtonClass: 'btn btn-success btn-sm',
+            cancelButtonClass: 'btn btn-danger btn-sm',
+            buttonsStyling: true,
+        });
+
+        swalWithBootstrapButtons.fire({
+            title: 'Comment',
+            text: "Please write your comment here",
+            type: 'question',
+            input: 'textarea',
+            showCloseButton: false,
+            showCancelButton: true,
+            focusConfirm: false,
+            cancelButtonText: '<span style="color:black;"> Cancel </span>',
+            confirmButtonText: '<span style="color:black;"> OK </span>',
+            cancelButtonColor: '#DDDAD0',
+            confirmButtonColor: '#DDDAD0',
+            reverseButtons: true
+        }).then((result) => {
+            if ('value' in result) {
+                ShowLoading();
+                MaterialReceiveStore({...formatData, comment: result.value});
+            }
+        });
+    }
+
+    function MaterialReceiveStore(formatData) {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: 'POST',
+            data: formatData,
+            url: '{{ route("MaterialReceive.store") }}',
+            success: function(res) {
+                HideLoading();
+
+                if (res.status == 200) {
+                    const swalWithBootstrapButtonsss = Swal.mixin({
+                        confirmButtonClass: 'btn btn-success btn-sm',
+                        cancelButtonClass: 'btn btn-danger btn-sm',
+                        buttonsStyling: true,
+                    });
+
+                    swalWithBootstrapButtonsss.fire({
+                        title: 'Successful !',
+                        type: 'success',
+                        html: 'Data has been saved. Your transaction number is ' + '<span style="color:#0046FF;font-weight:bold;">' + res.documentNumber + '</span>',
+                        showCloseButton: false,
+                        showCancelButton: false,
+                        focusConfirm: false,
+                        confirmButtonText: '<span style="color:black;"> OK </span>',
+                        confirmButtonColor: '#4B586A',
+                        confirmButtonColor: '#e9ecef',
+                        reverseButtons: true
+                    }).then((result) => {
+                        window.location.href = "{{ route('MaterialReceive.index', ['var' => 1]) }}";
+                    });
+                } else {
+                    ErrorNotif("Data Cancel Inputed");
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.log('error', jqXHR, textStatus, errorThrown);
+            }
+        });
+    }
+
+    function CancelMaterialReceive() {
+        ShowLoading();
+        window.location.href = "{{ route('MaterialReceive.index', ['var' => 1]) }}";
+    }
+
+    function SubmitForm() {
+        $('#materialReceiveFormModal').modal('hide');
+
+        let action = $('#FormSubmitMaterialReceive').attr("action");
+        let method = $('#FormSubmitMaterialReceive').attr("method");
+        let form_data = new FormData($('#FormSubmitMaterialReceive')[0]);
+        form_data.append('materialReceiveDetail', JSON.stringify(dataStore));
+
+        ShowLoading();
+        
+        $.ajax({
+            url: action,
+            dataType: 'json',
+            cache: false,
+            contentType: false,
+            processData: false,
+            data: form_data,
+            type: method,
+            success: function(response) {
+                HideLoading();
+
+                if (response.message == "WorkflowError") {
+                    CancelNotif("You don't have access", "{{ route('MaterialReceive.index', ['var' => 1]) }}");
+                } else if (response.message == "MoreThanOne") {
+                    $('#getWorkFlow').modal('toggle');
+
+                    let t = $('#tableGetWorkFlow').DataTable();
+                    t.clear();
+                    $.each(response.data, function(key, val) {
+                        t.row.add([
+                            '<td><span data-dismiss="modal" onclick="SelectWorkFlow(\'' + val.Sys_ID + '\', \'' + val.NextApprover_RefID + '\', \'' + response.approverEntity_RefID + '\', \'' + response.documentTypeID + '\');"><img src="{{ asset("AdminLTE-master/dist/img/add.png") }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></span></td>',
+                            '<td style="border:1px solid #e9ecef;">' + val.FullApproverPath + '</td></tr></tbody>'
+                        ]).draw();
+                    });
+                } else {
+                    const formatData = {
+                        workFlowPath_RefID: response.workFlowPath_RefID, 
+                        nextApprover: response.nextApprover_RefID, 
+                        approverEntity: response.approverEntity_RefID, 
+                        documentTypeID: response.documentTypeID,
+                        storeData: response.storeData
+                    };
+
+                    SelectWorkFlow(formatData);
+                }
+            },
+            error: function(response) {
+                console.log('response error', response);
+                
+                HideLoading();
+                CancelNotif("You don't have access", "{{ route('MaterialReceive.index', ['var' => 1]) }}");
+            }
+        });
+    }
 
     $('#tableGetDeliveryOrder').on('click', 'tbody tr', function() {
         var sysId       = $(this).find('input[data-trigger="sys_id_delivery_order"]').val();
         var projectCode = $(this).find('td:nth-child(2)').text();
 
+        $("#delivery_order_code").css("border", "1px solid #ced4da");
+        $("#deliveryOrderMessage").hide();
         GetDeliveryOrderDetail(sysId, projectCode);
     });
 
@@ -455,90 +512,6 @@
         } else {
             $("#id_delivery_order_to").val('');
         }
-    });
-
-    $("#FormSubmitMaterialReceive").on("submit", function(e) {
-        e.preventDefault();
-
-        const swalWithBootstrapButtons = Swal.mixin({
-            confirmButtonClass: 'btn btn-success btn-sm',
-            cancelButtonClass: 'btn btn-danger btn-sm',
-            buttonsStyling: true,
-        });
-
-        swalWithBootstrapButtons.fire({
-            title: 'Are you sure?',
-            text: "Save this data?",
-            type: 'question',
-            showCancelButton: true,
-            confirmButtonText: '<img src="{{ asset("AdminLTE-master/dist/img/save.png") }}" width="13" alt=""><span style="color:black;">Yes, save it </span>',
-            cancelButtonText: '<img src="{{ asset("AdminLTE-master/dist/img/cancel.png") }}" width="13" alt=""><span style="color:black;"> No, cancel </span>',
-            confirmButtonColor: '#e9ecef',
-            cancelButtonColor: '#e9ecef',
-            reverseButtons: true
-        }).then((result) => {
-            ShowLoading();
-
-            if (result.value) {
-                var action = $(this).attr("action");
-                var method = $(this).attr("method");
-                var form_data = new FormData($(this)[0]);
-
-                $.ajax({
-                    url: action,
-                    dataType: 'json',
-                    cache: false,
-                    contentType: false,
-                    processData: false,
-                    data: form_data,
-                    type: method,
-                    success: function(response) {
-                        HideLoading();
-                        
-                        if (response.message == "WorkflowError") {
-                            $("#submitMaterialReceive").prop("disabled", false);
-
-                            CancelNotif("You don't have access", '/MaterialReceive?var=1');
-                        } else if (response.message == "MoreThanOne") {
-                            $('#getWorkFlow').modal('toggle');
-
-                            var t = $('#tableGetWorkFlow').DataTable();
-                            t.clear();
-                            $.each(response.data, function(key, val) {
-                                t.row.add([
-                                    '<td><span data-dismiss="modal" onclick="SelectWorkFlow(\'' + val.Sys_ID + '\', \'' + val.NextApprover_RefID + '\', \'' + response.approverEntity_RefID + '\', \'' + response.documentTypeID + '\');"><img src="{{ asset("AdminLTE-master/dist/img/add.png") }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></span></td>',
-                                    '<td style="border:1px solid #e9ecef;">' + val.FullApproverPath + '</td></tr></tbody>'
-                                ]).draw();
-                            });
-                        } else {
-                            const formatData = {
-                                workFlowPath_RefID: response.workFlowPath_RefID, 
-                                nextApprover: response.nextApprover_RefID, 
-                                approverEntity: response.approverEntity_RefID, 
-                                documentTypeID: response.documentTypeID,
-                                storeData: response.storeData
-                            };
-
-                            SelectWorkFlow(formatData);
-                        }
-                    },
-                    error: function(response) {
-                        console.log('response error', response.responseText);
-                        
-                        HideLoading();
-                        $("#submitMaterialReceive").prop("disabled", false);
-                        CancelNotif("You don't have access", '/MaterialReceive?var=1');
-                    }
-                });
-            } else if (result.dismiss === Swal.DismissReason.cancel) {
-                HideLoading();
-                CancelNotif("Data Cancel Inputed", '/MaterialReceive?var=1');
-            }
-        });
-    });
-
-    $(document).on('input', '.number-without-negative', function() {
-        allowNumbersWithoutNegative(this);
     });
 
     $(window).one('load', function(e) {
