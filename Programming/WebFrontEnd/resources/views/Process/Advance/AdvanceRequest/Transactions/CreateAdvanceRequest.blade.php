@@ -187,19 +187,16 @@
 
                   <!-- FOOTER -->
                   <div class="card-body tableShowHideBudget">
-                    <table style="float:right;">
-                      <tr>
-                        <th style="position: relative;right:20px;"> Total : <span id="TotalBudgetSelected">0.00</span></th>
-                      </tr>
-                      {{-- <tr>
-                        <td>
-                          <br>
-                          <a class="btn btn-default btn-sm float-right" id="budget-details-add" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
-                            <img src="{{ asset('AdminLTE-master/dist/img/add.png') }}" width="13" alt="" title="Add to Advance List"> Add
-                          </a>
-                        </td>
-                      </tr> --}}
-                    </table>
+                    <div class="row">
+                      <div class="col">
+                        <div class="text-red" id="budgetDetailsMessage" style="display: none;">
+                          Please input at least one item.
+                        </div>
+                      </div>
+                      <div class="col text-right" style="margin-right: 20px; font-size: 0.77rem; color: #212529; font-weight: 600;">
+                        Total : <span id="TotalBudgetSelected">0.00</span>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -226,7 +223,16 @@
                   <!-- CONTENT -->
                   <div class="card-body">
                     <div class="row py-3">
-                      <textarea name="var_remark" id="remark" class="form-control"></textarea>
+                      <div class="col p-0">
+                        <textarea name="var_remark" id="remark" class="form-control"></textarea>
+                        <div id="remarkMessage" style="margin-top: .3rem;display: none;">
+                          <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                            <div class="text-red">
+                              Remark cannot be empty.
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -238,11 +244,11 @@
           <div class="tab-content px-3 pb-2" id="nav-tabContent">
             <div class="row">
               <div class="col">
-                <a onclick="CancelAdvance()" class="btn btn-default btn-sm float-right" style="background-color:#e9ecef;border:1px solid #ced4da;">
+                <a onclick="cancelForm('{{ route('AdvanceRequest.index', ['var' => 1]) }}')" class="btn btn-default btn-sm float-right" style="background-color:#e9ecef;border:1px solid #ced4da;">
                   <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel Advance List Cart"> Cancel
                 </a>
 
-                <button type="button" id="budget-details-add" class="btn btn-default btn-sm float-right" data-toggle="modal" data-target="#advanceRequestFormModal" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
+                <button type="button" class="btn btn-default btn-sm float-right" onclick="validationForm()" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
                   <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" title="Submit to Advance"> Submit
                 </button>
               </div>
@@ -256,7 +262,7 @@
 </div>
 
 <div class="modal fade" id="advanceRequestFormModal" tabindex="-1" role="dialog">
-  <div class="modal-dialog modal-lg" role="document" style="height: -webkit-fill-available; display: flex; align-items: center;">
+  <div class="modal-dialog modal-lg" role="document" style="min-height: calc(100vh - 3.5rem); display: flex; align-items: center;">
     <div class="modal-content">
       <div class="modal-header">
         <h3 style="margin: 0px;font-weight:bold;">Are you sure you want to save this data?</h3>
