@@ -1,8 +1,9 @@
 <script>
     let dataStore                   = [];
-    let date                        = new Date().toJSON().slice(0, 10).replace(/-/g, '-');
     let indexReferenceNumberDetail  = 0;
+    let referenceTypeValue          = document.getElementById("reference_type");
     let referenceNumber             = document.getElementById("reference_number");
+    let deliveryDate                = '';
     let deliveryFrom                = document.getElementById("delivery_from");
     let deliveryFromDuplicate       = document.getElementById("delivery_fromDuplicate");
     let deliveryFromRefID           = document.getElementById("deliveryFrom_RefID");
@@ -12,30 +13,56 @@
     let deliveryToRefID             = document.getElementById("deliveryTo_RefID");
     let deliveryToDuplicateRefID    = document.getElementById("deliveryToDuplicate_RefID");
     let transporterName             = document.getElementById("transporter_name");
-    let tableDeliverOrderDetailList = document.querySelector("#tableDeliverOrderDetailList tbody");
-    let submitDO                    = document.getElementById("submitDO");
 
-    function checkTableDataDO() {
-        const isReferenceNumberNotEmpty = referenceNumber.value.trim() !== '';
-        const isDeliveryFromNotEmpty    = deliveryFrom.value.trim() !== '';
-        const isDeliveryToNotEmpty      = deliveryTo.value.trim() !== '';
-        const isTransporterNameNotEmpty = transporterName.value.trim() !== '';
-        const isTableNotEmpty           = tableDeliverOrderDetailList.rows.length > 0;
+    function checkOneLineBudgetContents(indexInput) {
+        const rows = document.querySelectorAll("#tableReferenceNumberDetail tbody tr");
+        let hasFullRow = false;
 
-        if (isReferenceNumberNotEmpty && isDeliveryFromNotEmpty && isDeliveryToNotEmpty && isTransporterNameNotEmpty && isTableNotEmpty) {
-            submitDO.disabled = false;
-        } else {
-            submitDO.disabled = true;
-        }
+        rows.forEach((row, index) => {
+            const qty   = document.getElementById(`qty_req${index}`)?.value.trim();
+            const note  = document.getElementById(`note${index}`)?.value.trim();
+
+            if (qty !== "" && note !== "") {
+                hasFullRow = true;
+            }
+        });
+
+        rows.forEach((row, index) => {
+            const qtyEl     = document.getElementById(`qty_req${index}`);
+            const noteEl    = document.getElementById(`note${index}`);
+
+            if (hasFullRow) {
+                $(qtyEl).css("border", "1px solid #ced4da");
+                $(noteEl).css("border", "1px solid #ced4da");
+                $("#deliveryOrderDetailsMessage").hide();
+            } else {
+                if (indexInput > -1) {
+                    if (indexInput == index) {
+                        if (qtyEl.value.trim() != "" || noteEl.value.trim() != "") {
+                            $(qtyEl).css("border", "1px solid red");
+                            $(noteEl).css("border", "1px solid red");
+                            $("#deliveryOrderDetailsMessage").show();
+                        } else {
+                            $(qtyEl).css("border", "1px solid #ced4da");
+                            $(noteEl).css("border", "1px solid #ced4da");
+                            $("#deliveryOrderDetailsMessage").hide();
+                        }
+                    }
+
+                    if (indexInput != index && (qtyEl.value.trim() == "" && noteEl.value.trim() == "")) {
+                        $(qtyEl).css("border", "1px solid #ced4da");
+                        $(noteEl).css("border", "1px solid #ced4da");
+                    } 
+                } else {
+                    $(qtyEl).css("border", "1px solid red");
+                    $(noteEl).css("border", "1px solid red");
+                    $("#deliveryOrderDetailsMessage").show();
+                }
+            }
+        });
+
+        return hasFullRow;
     }
-
-    const observerTableDeliverOrderDetailList = new MutationObserver(checkTableDataDO);
-    observerTableDeliverOrderDetailList.observe(tableDeliverOrderDetailList, { childList: true });
-
-    referenceNumber.addEventListener('input', checkTableDataDO);
-    deliveryFrom.addEventListener('input', checkTableDataDO);
-    deliveryTo.addEventListener('input', checkTableDataDO);
-    transporterName.addEventListener('change', checkTableDataDO);
 
     function calculateTotal() {
         let total = 0;
@@ -52,9 +79,184 @@
         document.getElementById('TotalReferenceNumber').textContent = currencyTotal(total);
     }
 
-    function CancelDeliveryOrder() {
-        ShowLoading();
-        window.location.href = '/DeliveryOrder?var=1';
+    function updateGrandTotal() {
+        let total = 0;
+        const rows = document.querySelectorAll('#tableDeliverOrderDetailList tbody tr');
+        
+        rows.forEach(row => {
+            const totalCell = row.children[5];
+            const value = parseFloat(totalCell.innerText.replace(/,/g, '')) || 0;
+            total += value;
+        });
+
+        document.getElementById('GrandTotal').innerText = `Total: ${total}`;
+    }
+
+    function summaryData() {
+        const sourceTable = document.getElementById('tableReferenceNumberDetail').getElementsByTagName('tbody')[0];
+        const targetTable = document.getElementById('tableDeliverOrderDetailList').getElementsByTagName('tbody')[0];
+
+        const rows = sourceTable.getElementsByTagName('tr');
+
+        for (let row of rows) {
+            const refDocument_RefID         = row.querySelector('input[id^="refDocument_RefID"]');
+            const underlyingDetail_RefID    = row.querySelector('input[id^="underlyingDetail_RefID"]');
+            const qtyInput                  = row.querySelector('input[id^="qty_req"]');
+            const noteInput                 = row.querySelector('textarea[id^="note"]');
+            const qtyUnitRefId              = row.querySelector('input[id^="qty_unit_refID"]');
+            const productRefId              = row.querySelector('input[id^="product_refID"]');
+
+            if (
+                qtyInput && noteInput &&
+                qtyInput.value.trim() !== '' &&
+                noteInput.value.trim() !== ''
+            ) {
+                const refNumber     = row.children[2].value.trim();
+                const productCode   = row.children[3].value.trim();
+                const productName   = row.children[4].value.trim();
+                const uom           = row.children[5].value.trim();
+                const qtyAvail      = row.children[7].value.trim();
+
+                const qty       = qtyInput.value.trim();
+                const note      = noteInput.value.trim();
+
+                let found           = false;
+                const existingRows  = targetTable.getElementsByTagName('tr');
+
+                for (let targetRow of existingRows) {
+                    const targetRefNumber   = targetRow.children[1].innerText.trim();
+                    const targetProductCode = targetRow.children[2].innerText.trim();
+
+                    if (targetRefNumber === refNumber && targetProductCode === productCode) {
+                        targetRow.children[5].innerText = qty;
+                        targetRow.children[6].innerText = note;
+                        found = true;
+
+                        const indexToUpdate = dataStore.findIndex(item => item.entities.refNumber === refNumber && item.entities.productCode === productCode);
+                        if (indexToUpdate !== -1) {
+                            dataStore[indexToUpdate] = {
+                                entities: {
+                                    referenceDocument_RefID: parseInt(refDocument_RefID.value),
+                                    quantity: parseFloat(qty.replace(/,/g, '')),
+                                    quantityUnit_RefID: parseInt(qtyUnitRefId.value),
+                                    remarks: note,
+                                    underlyingDetail_RefID: parseInt(underlyingDetail_RefID.value),
+                                    product_RefID: parseInt(productRefId.value),
+                                    refNumber: refNumber,
+                                    productCode: productCode
+                                }
+                            };
+                        }
+                    }
+                }
+
+                if (!found) {
+                    const newRow = document.createElement('tr');
+                    newRow.innerHTML = `
+                        <input type="hidden" name="qty_avail[]" value="${qtyAvail}">
+                        <td style="text-align: left;padding: 0.8rem;">${refNumber}</td>
+                        <td style="text-align: right;padding: 0.8rem;">${productCode}</td>
+                        <td style="text-align: left;padding: 0.8rem;">${productName}</td>
+                        <td style="text-align: left;padding: 0.8rem;">${uom}</td>
+                        <td style="text-align: right;padding: 0.8rem;">${qty}</td>
+                        <td style="text-align: left;padding: 0.8rem;" hidden>${note}</td>
+                    `;
+                    targetTable.appendChild(newRow);
+
+                    dataStore.push({
+                        entities: {
+                            referenceDocument_RefID: parseInt(refDocument_RefID.value),
+                            quantity: parseFloat(qty.replace(/,/g, '')),
+                            quantityUnit_RefID: parseInt(qtyUnitRefId.value),
+                            remarks: note,
+                            underlyingDetail_RefID: parseInt(underlyingDetail_RefID.value),
+                            product_RefID: parseInt(productRefId.value),
+                            refNumber: refNumber,
+                            productCode: productCode
+                        }
+                    });
+                }
+            } else {
+                const refNumber     = row.children[2].value.trim();
+                const productCode   = row.children[3].value.trim();
+                const existingRows  = targetTable.getElementsByTagName('tr');
+
+                for (let targetRow of existingRows) {
+                    const targetRefNumber   = targetRow.children[1].innerText.trim();
+                    const targetProductCode = targetRow.children[2].innerText.trim();
+
+                    if (targetRefNumber === refNumber && targetProductCode === productCode) {
+                        targetRow.remove();
+                        break;
+                    }
+                }
+
+                dataStore = dataStore.filter(item => {
+                    return !(item.entities.refNumber === refNumber && item.entities.productCode === productCode);
+                });
+            }
+        }
+
+        console.log('dataStore', dataStore);
+
+        // $("#deliveryOrderDetail").val(JSON.stringify(dataStore));
+        updateGrandTotal();
+    }
+
+    function validationForm() {
+        const isReferenceTypeValueNotSelected   = referenceTypeValue.value.trim() !== 'Select a Source';
+        const isReferenceNumberNotEmpty         = referenceNumber.value.trim() !== '';
+        const isDeliveryFromNotEmpty            = deliveryFrom.value.trim() !== '';
+        const isDeliveryToNotEmpty              = deliveryTo.value.trim() !== '';
+        const isTransporterNameNotEmpty         = transporterName.value.trim() !== '';
+        const isTableNotEmpty                   = checkOneLineBudgetContents();
+
+        if (isReferenceTypeValueNotSelected && isReferenceNumberNotEmpty && isDeliveryFromNotEmpty && isDeliveryToNotEmpty && isTransporterNameNotEmpty && isTableNotEmpty) {
+            $('#deliveryOrderFormModal').modal('show');
+            summaryData();
+        } else {
+            if (!isReferenceTypeValueNotSelected) {
+                $("#reference_type").css("border", "1px solid red");
+                $("#referenceTypeMessage").show();
+                return;
+            }
+            if (!isReferenceNumberNotEmpty && !isDeliveryFromNotEmpty && !isDeliveryToNotEmpty && !isTransporterNameNotEmpty) {
+                $("#reference_number").css("border", "1px solid red");
+                $("#delivery_from").css("border", "1px solid red");
+                $("#delivery_to").css("border", "1px solid red");
+                $("#transporter_name").css("border", "1px solid red");
+
+                $("#purchaseOrderMessage").show();
+                $("#deliveryFromMessage").show();
+                $("#deliveryToMessage").show();
+                $("#transporterMessage").show();
+                return;
+            }
+            if (!isReferenceNumberNotEmpty) {
+                $("#reference_number").css("border", "1px solid red");
+                $("#purchaseOrderMessage").show();
+                return;
+            }
+            if (!isDeliveryFromNotEmpty) {
+                $("#delivery_from").css("border", "1px solid red");
+                $("#deliveryFromMessage").show();
+                return;
+            }
+            if (!isDeliveryToNotEmpty) {
+                $("#delivery_to").css("border", "1px solid red");
+                $("#deliveryToMessage").show();
+                return;
+            }
+            if (!isTransporterNameNotEmpty) {
+                $("#transporter_name").css("border", "1px solid red");
+                $("#transporterMessage").show();
+                return;
+            }
+            if (!isTableNotEmpty) {
+                $("#deliveryOrderDetailsMessage").show();
+                return;
+            }
+        }
     }
 
     function GetReferenceNumberDetail(reference_id, reference_number) {
@@ -106,6 +308,16 @@
                     $("#deliveryToDuplicate_RefID").val(data[0]['deliveryTo_RefID']);
                     $("#delivery_to").prop("disabled", false);
 
+                    $("#reference_number").css("border", "1px solid #ced4da");
+                    $("#purchaseOrderMessage").hide();
+                    $("#delivery_from").css("border", "1px solid #ced4da");
+                    $("#deliveryFromMessage").hide();
+                    $("#delivery_to").css("border", "1px solid #ced4da");
+                    $("#deliveryToMessage").hide();
+
+                    deliveryDate = data[0].deliveryDateTimeTZ;
+                    console.log('deliveryDate', deliveryDate);
+
                     let tbody = $('#tableReferenceNumberDetail tbody');
                     let modifyColumn = `<td rowspan="${data.length}" style="text-align: center; padding: 10px !important;">${reference_number}</td>`;
 
@@ -139,7 +351,7 @@
                                     <input class="form-control number-without-negative" id="balance${indexReferenceNumberDetail}" autocomplete="off" data-default="${balanced}" value="${balanced}" style="border-radius:0px;" disabled />
                                 </td>
                                 <td style="border:1px solid #e9ecef;background-color:white; padding: 0.5rem !important; width: 150px;">
-                                    <textarea id="note${indexReferenceNumberDetail}" class="form-control"></textarea>
+                                    <textarea id="note${indexReferenceNumberDetail}" class="form-control" data-index=${indexReferenceNumberDetail}></textarea>
                                 </td>
                             </tr>
                         `;
@@ -159,6 +371,14 @@
                                 $(`#balance${data_index}`).val(result.toFixed(2));
                                 calculateTotal();
                             }
+
+                            checkOneLineBudgetContents(data_index);
+                        });
+
+                        $(`#note${indexReferenceNumberDetail}`).on('keyup', function() {
+                            var data_index = $(this).data('index');
+
+                            checkOneLineBudgetContents(data_index);
                         });
 
                         indexReferenceNumberDetail += 1;
@@ -183,94 +403,6 @@
                 $(".errorMessageContainerReferenceNumberDetail").show();
                 $("#errorMessageReferenceNumberDetail").text(`[${textStatus.status}] ${textStatus.responseJSON.message}`);
             }
-        });
-    }
-
-    function SelectWorkFlow(formatData) {
-        const swalWithBootstrapButtons = Swal.mixin({
-            confirmButtonClass: 'btn btn-success btn-sm',
-            cancelButtonClass: 'btn btn-danger btn-sm',
-            buttonsStyling: true,
-        });
-
-        swalWithBootstrapButtons.fire({
-            title: 'Comment',
-            text: "Please write your comment here",
-            type: 'question',
-            input: 'textarea',
-            showCloseButton: false,
-            showCancelButton: false,
-            focusConfirm: false,
-            confirmButtonText: '<span style="color:black;"> OK </span>',
-            confirmButtonColor: '#4B586A',
-            confirmButtonColor: '#e9ecef',
-            reverseButtons: true
-        }).then((result) => {
-            ShowLoading();
-            DeliveryOrderStore({...formatData, comment: result.value});
-        });
-    }
-
-    function DeliveryOrderStore(formatData) {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
-        $.ajax({
-            type: 'POST',
-            data: formatData,
-            url: '{{ route("DeliveryOrder.store") }}',
-            success: function(res) {
-                HideLoading();
-
-                if (res.status === 200) {
-                    const swalWithBootstrapButtons = Swal.mixin({
-                        confirmButtonClass: 'btn btn-success btn-sm',
-                        cancelButtonClass: 'btn btn-danger btn-sm',
-                        buttonsStyling: true,
-                    });
-
-                    swalWithBootstrapButtons.fire({
-                        title: 'Successful !',
-                        type: 'success',
-                        html: 'Data has been saved. Your transaction number is ' + '<span style="color:red;">' + res.documentNumber + '</span>',
-                        showCloseButton: false,
-                        showCancelButton: false,
-                        focusConfirm: false,
-                        confirmButtonText: '<span style="color:black;"> OK </span>',
-                        confirmButtonColor: '#4B586A',
-                        confirmButtonColor: '#e9ecef',
-                        reverseButtons: true
-                    }).then((result) => {
-                        ShowLoading();
-                        window.location.href = '/DeliveryOrder?var=1';
-                    });
-                } else {
-                    ErrorNotif("Data Cancel Inputed");
-                }
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-                console.log('error', jqXHR, textStatus, errorThrown);
-            }
-        });
-    }
-
-    function updateGrandTotal() {
-        let total = 0;
-        const rows = document.querySelectorAll('#tableDeliverOrderDetailList tbody tr');
-        
-        rows.forEach(row => {
-            const totalCell = row.children[5];
-            const value = parseFloat(totalCell.innerText.replace(/,/g, '')) || 0;
-            total += value;
-        });
-
-        document.getElementById('TotalReferenceNumber').innerText = "0.00";
-        document.getElementById('GrandTotal').innerText = total.toLocaleString('en-US', {
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 2
         });
     }
 
@@ -301,6 +433,138 @@
             $(".thead-internal-use").css("display", "none");
             $(".thead-stock-movement").css("display", "table-row");
         }
+
+        $("#reference_type").css("border", "1px solid #ced4da");
+        $("#referenceTypeMessage").hide();
+    }
+
+    function SelectWorkFlow(formatData) {
+        const swalWithBootstrapButtons = Swal.mixin({
+            confirmButtonClass: 'btn btn-success btn-sm',
+            cancelButtonClass: 'btn btn-danger btn-sm',
+            buttonsStyling: true,
+        });
+
+        swalWithBootstrapButtons.fire({
+            title: 'Comment',
+            text: "Please write your comment here",
+            type: 'question',
+            input: 'textarea',
+            showCloseButton: false,
+            showCancelButton: true,
+            focusConfirm: false,
+            cancelButtonText: '<span style="color:black;"> Cancel </span>',
+            confirmButtonText: '<span style="color:black;"> OK </span>',
+            cancelButtonColor: '#DDDAD0',
+            confirmButtonColor: '#DDDAD0',
+            reverseButtons: true
+        }).then((result) => {
+            if ('value' in result) {
+                ShowLoading();
+                DeliveryOrderStore({...formatData, comment: result.value});
+            }
+        });
+    }
+
+    function DeliveryOrderStore(formatData) {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: 'POST',
+            data: formatData,
+            url: '{{ route("DeliveryOrder.store") }}',
+            success: function(res) {
+                HideLoading();
+
+                if (res.status === 200) {
+                    const swalWithBootstrapButtons = Swal.mixin({
+                        confirmButtonClass: 'btn btn-success btn-sm',
+                        cancelButtonClass: 'btn btn-danger btn-sm',
+                        buttonsStyling: true,
+                    });
+
+                    swalWithBootstrapButtons.fire({
+                        title: 'Successful !',
+                        type: 'success',
+                        html: 'Data has been saved. Your transaction number is ' + '<span style="color:#0046FF;font-weight:bold;">' + res.documentNumber + '</span>',
+                        showCloseButton: false,
+                        showCancelButton: false,
+                        focusConfirm: false,
+                        confirmButtonText: '<span style="color:black;"> OK </span>',
+                        confirmButtonColor: '#4B586A',
+                        confirmButtonColor: '#e9ecef',
+                        reverseButtons: true
+                    }).then((result) => {
+                        cancelForm("{{ route('DeliveryOrder.index', ['var' => 1]) }}");
+                    });
+                } else {
+                    ErrorNotif("Data Cancel Inputed");
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.log('error', jqXHR, textStatus, errorThrown);
+                HideLoading();
+                ErrorNotif("Data Cancel Inputed");
+            }
+        });
+    }
+
+    function SubmitForm() {
+        $('#deliveryOrderFormModal').modal('hide');
+
+        var action = $('#FormSubmitDeliveryOrder').attr("action");
+        var method = $('#FormSubmitDeliveryOrder').attr("method");
+        var form_data = new FormData($('#FormSubmitDeliveryOrder')[0]);
+        form_data.append('deliveryOrderDetail', JSON.stringify(dataStore));
+        form_data.append('delivery_date', deliveryDate.split(" ")[0]);
+
+        ShowLoading();
+
+        $.ajax({
+            url: action,
+            dataType: 'json',
+            cache: false,
+            contentType: false,
+            processData: false,
+            data: form_data,
+            type: method,
+            success: function(response) {
+                HideLoading();
+
+                if (response.message == "WorkflowError") {
+                    CancelNotif("You don't have access", "{{ route('DeliveryOrder.index', ['var' => 1]) }}");
+                } else if (response.message == "MoreThanOne") {
+                    $('#getWorkFlow').modal('toggle');
+
+                    var t = $('#tableGetWorkFlow').DataTable();
+                    t.clear();
+                    $.each(response.data, function(key, val) {
+                        t.row.add([
+                            '<td><span data-dismiss="modal" onclick="SelectWorkFlow(\'' + val.Sys_ID + '\', \'' + val.NextApprover_RefID + '\', \'' + response.approverEntity_RefID + '\', \'' + response.documentTypeID + '\');"><img src="{{ asset("AdminLTE-master/dist/img/add.png") }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></span></td>',
+                            '<td style="border:1px solid #e9ecef;">' + val.FullApproverPath + '</td></tr></tbody>'
+                        ]).draw();
+                    });
+                } else {
+                    const formatData = {
+                        workFlowPath_RefID: response.workFlowPath_RefID, 
+                        nextApprover: response.nextApprover_RefID, 
+                        approverEntity: response.approverEntity_RefID, 
+                        documentTypeID: response.documentTypeID,
+                        storeData: response.storeData
+                    };
+
+                    SelectWorkFlow(formatData);
+                }
+            },
+            error: function(response) {
+                HideLoading();
+                CancelNotif("You don't have access", "{{ route('DeliveryOrder.index', ['var' => 1]) }}");
+            }
+        });
     }
 
     $('#delivery_from').on('input', function(e) {
@@ -309,6 +573,9 @@
         } else {
             $("#deliveryFrom_RefID").val("");
         }
+
+        $("#delivery_from").css("border", "1px solid #ced4da");
+        $("#deliveryFromMessage").hide();
     });
 
     $('#delivery_to').on('input', function(e) {
@@ -317,211 +584,9 @@
         } else {
             $("#deliveryTo_RefID").val("");
         }
-    });
 
-    $(document).on('input', '.number-without-negative', function() {
-        allowNumbersWithoutNegative(this);
-    });
-
-    $("#reference-number-details-add").on('click', function() {
-        const sourceTable = document.getElementById('tableReferenceNumberDetail').getElementsByTagName('tbody')[0];
-        const targetTable = document.getElementById('tableDeliverOrderDetailList').getElementsByTagName('tbody')[0];
-
-        const rows = sourceTable.getElementsByTagName('tr');
-
-        for (let row of rows) {
-            const refDocument_RefID         = row.querySelector('input[id^="refDocument_RefID"]');
-            const underlyingDetail_RefID    = row.querySelector('input[id^="underlyingDetail_RefID"]');
-            const qtyInput                  = row.querySelector('input[id^="qty_req"]');
-            // const balanceInput              = row.querySelector('input[id^="balance"]');
-            const noteInput                 = row.querySelector('textarea[id^="note"]');
-            const qtyUnitRefId              = row.querySelector('input[id^="qty_unit_refID"]');
-            const productRefId              = row.querySelector('input[id^="product_refID"]');
-
-            if (
-                // qtyInput && balanceInput && noteInput &&
-                qtyInput && noteInput &&
-                qtyInput.value.trim() !== '' &&
-                // balanceInput.value.trim() !== '' &&
-                noteInput.value.trim() !== ''
-            ) {
-                const refNumber     = row.children[2].value.trim();
-                const productCode   = row.children[3].value.trim();
-                const productName   = row.children[4].value.trim();
-                const uom           = row.children[5].value.trim();
-                const qtyAvail      = row.children[7].value.trim();
-
-                const qty       = qtyInput.value.trim();
-                // const balance   = balanceInput.value.trim();
-                const note      = noteInput.value.trim();
-
-                let found           = false;
-                const existingRows  = targetTable.getElementsByTagName('tr');
-
-                for (let targetRow of existingRows) {
-                    const targetRefNumber   = targetRow.children[1].innerText.trim();
-                    const targetProductCode = targetRow.children[2].innerText.trim();
-
-                    if (targetRefNumber === refNumber && targetProductCode === productCode) {
-                        targetRow.children[5].innerText = qty;
-                        // targetRow.children[6].innerText = balance;
-                        targetRow.children[6].innerText = note;
-                        found = true;
-
-                        const indexToUpdate = dataStore.findIndex(item => item.entities.refNumber === refNumber && item.entities.productCode === productCode);
-                        if (indexToUpdate !== -1) {
-                            dataStore[indexToUpdate] = {
-                                entities: {
-                                    referenceDocument_RefID: parseInt(refDocument_RefID.value),
-                                    quantity: parseFloat(qty.replace(/,/g, '')),
-                                    quantityUnit_RefID: parseInt(qtyUnitRefId.value),
-                                    remarks: note,
-                                    underlyingDetail_RefID: parseInt(underlyingDetail_RefID.value),
-                                    product_RefID: parseInt(productRefId.value),
-                                    refNumber: refNumber,
-                                    productCode: productCode
-                                }
-                            };
-                        }
-                    }
-                }
-
-                if (!found) {
-                    const newRow = document.createElement('tr');
-                    newRow.innerHTML = `
-                        <input type="hidden" name="qty_avail[]" value="${qtyAvail}">
-                        <td style="text-align: center;padding: 0.8rem;">${refNumber}</td>
-                        <td style="text-align: center;padding: 0.8rem;">${productCode}</td>
-                        <td style="text-align: center;padding: 0.8rem;">${productName}</td>
-                        <td style="text-align: center;padding: 0.8rem;">${uom}</td>
-                        <td style="text-align: center;padding: 0.8rem;">${qty}</td>
-                        <td style="text-align: center;padding: 0.8rem;">${note}</td>
-                    `;
-                    targetTable.appendChild(newRow);
-                    // <td style="text-align: center;padding: 0.8rem;">${balance}</td>
-
-                    dataStore.push({
-                        entities: {
-                            referenceDocument_RefID: parseInt(refDocument_RefID.value),
-                            quantity: parseFloat(qty.replace(/,/g, '')),
-                            quantityUnit_RefID: parseInt(qtyUnitRefId.value),
-                            remarks: note,
-                            underlyingDetail_RefID: parseInt(underlyingDetail_RefID.value),
-                            product_RefID: parseInt(productRefId.value),
-                            refNumber: refNumber,
-                            productCode: productCode
-                        }
-                    });
-                }
-
-                qtyInput.value = '';
-                noteInput.value = '';
-                // balanceInput.value = balanceInput.getAttribute('data-default');
-            }
-        }
-
-        dataStore = dataStore.filter(item => item !== undefined);
-        $("#deliveryOrderDetail").val(JSON.stringify(dataStore));
-
-        updateGrandTotal();
-    });
-
-    $('#reference-number-details-reset').on('click', function() {
-        dataStore = [];
-
-        $('input[id^="qty_req"]').each(function() {
-            $(this).val($(this).data('default'));
-        });
-        $('input[id^="balance"]').each(function() {
-            $(this).val($(this).data('default'));
-        });
-        $('textarea[id^="note"]').each(function() {
-            $(this).val($(this).data('default'));
-        });
-        $('#tableDeliverOrderDetailList tbody').empty();
-        $('#deliveryOrderDetail').val("");
-
-        document.getElementById('GrandTotal').textContent = "0.00";
-        document.getElementById('TotalReferenceNumber').textContent = "0.00";
-    });
-
-    document.querySelector('#tableDeliverOrderDetailList tbody').addEventListener('click', function (e) {
-        const row = e.target.closest('tr');
-        if (!row) return;
-
-        if (['INPUT', 'TEXTAREA'].includes(e.target.tagName)) return;
-
-        const qtyAvail = row.children[0];
-        const qtyCell = row.children[5];
-        const balanceCell = row.children[6];
-        const noteCell = row.children[7];
-
-        if (row.classList.contains('editing-row')) {
-            const newQty = qtyCell.querySelector('input')?.value || '';
-            const newBalance = balanceCell.querySelector('input')?.value || '';
-            const newNote = noteCell.querySelector('textarea')?.value || '';
-
-            qtyCell.innerHTML = newQty;
-            balanceCell.innerHTML = newBalance;
-            noteCell.innerHTML = newNote;
-
-            const hidden = noteCell.querySelector('input[type="hidden"]');
-            noteCell.innerHTML = `${newNote}`;
-            if (hidden) noteCell.appendChild(hidden);
-
-            row.classList.remove('editing-row');
-
-            const refNumber   = row.children[1].innerText.trim();
-            const productCode = row.children[2].innerText.trim();
-            const storeItem   = dataStore.find(item => item.entities.refNumber === refNumber && item.entities.productCode === productCode);
-            
-            if (storeItem) {
-                storeItem.entities.quantity = newQty;
-                storeItem.entities.remarks = newNote;
-
-                $("#deliveryOrderDetail").val(JSON.stringify(dataStore));
-            }
-        } else {
-            const currentQty = qtyCell.innerText.trim();
-            const currentBalance = balanceCell.innerText.trim();
-
-            const hiddenInput = noteCell.querySelector('input[type="hidden"]');
-            const currentNote = noteCell.childNodes[0]?.nodeValue?.trim() || '';
-
-            qtyCell.innerHTML = `<input class="form-control number-without-negative qty-input" value="${currentQty}" autocomplete="off" style="border-radius:0px;width:100px;">`;
-            balanceCell.innerHTML = `<input class="form-control number-without-negative balance-input" value="${currentBalance}" autocomplete="off" style="border-radius:0px;width:100px;" readonly>`;
-            noteCell.innerHTML = `
-                <textarea class="form-control" style="width:100px;">${currentNote}</textarea>
-            `;
-            if (hiddenInput) noteCell.appendChild(hiddenInput);
-
-            row.classList.add('editing-row');
-
-            const qtyInput = qtyCell.querySelector('.qty-input');
-            const balanceInput = balanceCell.querySelector('.balance-input');
-
-            function updateBalance() {
-                var qty = parseFloat(qtyInput.value.replace(/,/g, '')) || 0;
-                const qtyAvailValue = parseFloat(qtyAvail?.value.replace(/,/g, '')) || 0;
-                var balance = qtyAvailValue - qty;
-
-                if (qty > qtyAvailValue) {
-                    balance = qtyAvailValue;
-                    qty = qtyAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-                    qtyInput.value = qtyAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-
-                    ErrorNotif("Qty Req is over Qty Avail !");
-                }
-
-                balanceInput.value = balance.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-            }
-
-            qtyInput.addEventListener('input', updateBalance);
-
-            document.getElementById('GrandTotal').innerText = qtyInput.value;
-        }
-
-        updateGrandTotal();
+        $("#delivery_to").css("border", "1px solid #ced4da");
+        $("#deliveryToMessage").hide();
     });
 
     $('#referenceNumberModal').on('click', 'tbody tr', function() {
@@ -530,8 +595,6 @@
 
         if (data) {
             $("#referenceNumberModal").modal('toggle');
-
-            console.log('data referenceNumberModal', data);
 
             // $("#reference_id").val(data.sys_ID);
             // $("#reference_number").val(data.sys_Text);
@@ -573,99 +636,16 @@
         $("#transporter_handphone").val(phoneOffice);
         $("#transporter_address").val(address);
 
-        checkTableDataDO();
-    });
-
-    $("#FormSubmitDeliveryOrder").on("submit", function(e) {
-        e.preventDefault();
-
-        const swalWithBootstrapButtons = Swal.mixin({
-            confirmButtonClass: 'btn btn-success btn-sm',
-            cancelButtonClass: 'btn btn-danger btn-sm',
-            buttonsStyling: true,
-        });
-
-        swalWithBootstrapButtons.fire({
-            title: 'Are you sure?',
-            text: "Save this data?",
-            type: 'question',
-            showCancelButton: true,
-            confirmButtonText: '<img src="{{ asset("AdminLTE-master/dist/img/save.png") }}" width="13" alt=""><span style="color:black;">Yes, save it </span>',
-            cancelButtonText: '<img src="{{ asset("AdminLTE-master/dist/img/cancel.png") }}" width="13" alt=""><span style="color:black;"> No, cancel </span>',
-            confirmButtonColor: '#e9ecef',
-            cancelButtonColor: '#e9ecef',
-            reverseButtons: true
-        }).then((result) => {
-            if (result.value) {
-                var action = $(this).attr("action");
-                var method = $(this).attr("method");
-                var form_data = new FormData($(this)[0]);
-
-                ShowLoading();
-
-                $.ajax({
-                    url: action,
-                    dataType: 'json',
-                    cache: false,
-                    contentType: false,
-                    processData: false,
-                    data: form_data,
-                    type: method,
-                    success: function(response) {
-                        if (response.message == "WorkflowError") {
-                            HideLoading();
-                            $("#submitDO").prop("disabled", false);
-
-                            CancelNotif("You don't have access", '/DeliveryOrder?var=1');
-                        } else if (response.message == "MoreThanOne") {
-                            HideLoading();
-
-                            $('#getWorkFlow').modal('toggle');
-
-                            var t = $('#tableGetWorkFlow').DataTable();
-                            t.clear();
-                            $.each(response.data, function(key, val) {
-                                t.row.add([
-                                    '<td><span data-dismiss="modal" onclick="SelectWorkFlow(\'' + val.Sys_ID + '\', \'' + val.NextApprover_RefID + '\', \'' + response.approverEntity_RefID + '\', \'' + response.documentTypeID + '\');"><img src="{{ asset("AdminLTE-master/dist/img/add.png") }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></span></td>',
-                                    '<td style="border:1px solid #e9ecef;">' + val.FullApproverPath + '</td></tr></tbody>'
-                                ]).draw();
-                            });
-                        } else {
-                            const formatData = {
-                                workFlowPath_RefID: response.workFlowPath_RefID, 
-                                nextApprover: response.nextApprover_RefID, 
-                                approverEntity: response.approverEntity_RefID, 
-                                documentTypeID: response.documentTypeID,
-                                storeData: response.storeData
-                            };
-
-                            HideLoading();
-                            SelectWorkFlow(formatData);
-                        }
-                    },
-                    error: function(response) {
-                        console.log('response error', response);
-                        
-                        HideLoading();
-                        $("#submitDO").prop("disabled", false);
-                        CancelNotif("You don't have access", '/DeliveryOrder?var=1');
-                    }
-                });
-            } else if (result.dismiss === Swal.DismissReason.cancel) {
-                HideLoading();
-                CancelNotif("Data Cancel Inputed", '/DeliveryOrder?var=1');
-            }
-        });
+        $("#transporter_name").css("border", "1px solid #ced4da");
+        $("#transporterMessage").hide();
     });
 
     $(window).one('load', function(e) {
         $(".loadingReferenceNumberDetail").hide();
         $(".errorMessageContainerReferenceNumberDetail").hide();
-        $("#var_date").val(date);
         $("#delivery_from").prop("disabled", true);
         $("#delivery_to").prop("disabled", true);
 
         getDocumentType("Delivery Order Form");
-        checkTableDataDO();
     });
 </script>
