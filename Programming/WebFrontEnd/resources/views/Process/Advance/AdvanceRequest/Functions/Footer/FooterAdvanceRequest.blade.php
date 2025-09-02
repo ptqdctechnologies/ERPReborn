@@ -498,8 +498,6 @@
     }
 
     function AdvanceRequestStore(formatData) {
-        var fileAttachments = $("#dataInput_Log_FileUpload").val();
-
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
