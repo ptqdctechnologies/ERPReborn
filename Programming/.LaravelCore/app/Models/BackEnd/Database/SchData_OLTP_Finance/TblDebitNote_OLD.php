@@ -5,15 +5,15 @@
 | ▪ Category   : Laravel Models                                                                                                    |
 | ▪ Name Space : \App\Models\Database\SchData_OLTP_Finance                                                                         |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2025 ijonk7 (jookeo.rizal@gmail.com)                                                                               |
+| ▪ Copyleft 🄯 2023 - 2025 Zheta (teguhpjs@gmail.com)                                                                              |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 namespace App\Models\Database\SchData_OLTP_Finance
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : TblDebitNote                                                                                                |
-    | ▪ Description : Menangani Models Database ► SchData-OLTP-Finance ► TblDebitNote                                             |
+    | ▪ Class Name  : TblDebitNote                                                                                                 |
+    | ▪ Description : Menangani Models Database ► SchData-OLTP-Finance ► TblDebitNote                                              |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
     class TblDebitNote extends \App\Models\Database\DefaultClassPrototype
@@ -23,8 +23,8 @@ namespace App\Models\Database\SchData_OLTP_Finance
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-09-03                                                                                           |
-        | ▪ Creation Date   : 2025-09-03                                                                                           |
+        | ▪ Last Update     : 2023-11-01                                                                                           |
+        | ▪ Creation Date   : 2023-11-01                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -44,8 +44,8 @@ namespace App\Models\Database\SchData_OLTP_Finance
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0001.0000000                                                                                       |
-        | ▪ Last Update     : 2025-09-03                                                                                           |
-        | ▪ Creation Date   : 2025-09-03                                                                                           |
+        | ▪ Last Update     : 2025-01-13                                                                                           |
+        | ▪ Creation Date   : 2023-11-01                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -58,29 +58,28 @@ namespace App\Models\Database\SchData_OLTP_Finance
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |        ----------------------------------------                                                                          |
         |      ▪ (string) varDocumentDateTimeTZ ► Document DateTimeTZ                                                              |
-        |      ▪ (int)    varPartner_RefID                                                                                        |
-        |      ▪ (int)    varLog_FileUpload_Pointer_RefID                                                                          |
+        |      ▪ (int)    varLog_FileUpload_Pointer_RefID ► File Attachments Reference ID                                          |
+        |      ▪ (int)    varRequesterWorkerJobsPosition_RefID ► Requester Worker Jobs Position Reference ID                       |
         |      ▪ (string) varRemarks ► Remarks                                                                                     |
-        |      ▪ (string) varWorkflow_Status ► Remarks                                                                             |
         |        ----------------------------------------                                                                          |
         |      ▪ (array)  varAdditionalData ► Additional Data                                                                      |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                |
+        |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function setDataInsert(
             $varUserSession,
             string $varSysDataAnnotation = null, string $varSysDataValidityStartDateTimeTZ = null, string $varSysDataValidityFinishDateTimeTZ = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, $varSysBaseCurrency_RefID = null,
-            string $varDocumentDateTimeTZ = null, int $varPartner_RefID = null, int $varLog_FileUpload_Pointer_RefID = null, string $varRemarks = null, string $varWorkflow_Status = null,
+            string $varDocumentDateTimeTZ = null, int $varLog_FileUpload_Pointer_RefID = null, int $varRequesterWorkerJobsPosition_RefID = null, string $varRemarks = null,
             array $varAdditionalData = []
             )
             {
             $varReturn =
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession,
+                    $varUserSession, 
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                         $varUserSession,
-                        parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET_NEW',
+                        parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
                         [
                             [$varUserSession, 'bigint'],
                             [null, 'bigint'],
@@ -93,13 +92,12 @@ namespace App\Models\Database\SchData_OLTP_Finance
                             [$varSysBaseCurrency_RefID, 'bigint'],
 
                             [$varDocumentDateTimeTZ, 'timestamptz'],
-                            [$varPartner_RefID, 'bigint'],
                             [$varLog_FileUpload_Pointer_RefID, 'bigint'],
+                            [$varRequesterWorkerJobsPosition_RefID, 'bigint'],
                             [$varRemarks, 'varchar'],
-                            [$varWorkflow_Status, 'varchar'],
 
                             [
-                                ((count($varAdditionalData) === 0)
+                                ((count($varAdditionalData) === 0) 
                                     ? null
                                     : \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode(
                                         $varUserSession,
@@ -122,8 +120,8 @@ namespace App\Models\Database\SchData_OLTP_Finance
         | ▪ Method Name     : setDataUpdate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0001.0000000                                                                                       |
-        | ▪ Last Update     : 2025-09-03                                                                                           |
-        | ▪ Creation Date   : 2025-09-03                                                                                           |
+        | ▪ Last Update     : 2025-01-13                                                                                           |
+        | ▪ Creation Date   : 2023-11-01                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -137,32 +135,29 @@ namespace App\Models\Database\SchData_OLTP_Finance
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |        ----------------------------------------                                                                          |
         |      ▪ (string) varDocumentDateTimeTZ ► Document DateTimeTZ                                                              |
-        |      ▪ (int)    varRequesterWorkerJobsPosition_RefID                                                                     |
-        |      ▪ (int)    varBeneficiaryWorkerJobsPosition_RefID                                                                   |
-        |      ▪ (int)    varBeneficiaryBankAccount_RefID                                                                          |
-        |      ▪ (string) varDate                                                                                                  |
-        |      ▪ (int)    varLog_FileUpload_Pointer_RefID                                                                          |
+        |      ▪ (int)    varLog_FileUpload_Pointer_RefID ► File Attachments Reference ID                                          |
+        |      ▪ (int)    varRequesterWorkerJobsPosition_RefID ► Requester Worker Jobs Position Reference ID                       |
         |      ▪ (string) varRemarks ► Remarks                                                                                     |
         |        ----------------------------------------                                                                          |
         |      ▪ (array)  varAdditionalData ► Additional Data                                                                      |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                |
+        |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function setDataUpdate(
             $varUserSession,
             int $varSysID,
             string $varSysDataAnnotation = null, string $varSysDataValidityStartDateTimeTZ = null, string $varSysDataValidityFinishDateTimeTZ = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, $varSysBaseCurrency_RefID = null,
-            string $varDocumentDateTimeTZ = null, int $varPartner_RefID = null, int $varLog_FileUpload_Pointer_RefID = null, string $varRemarks = null, string $varWorkflow_Status = null,
+            string $varDocumentDateTimeTZ = null, int $varLog_FileUpload_Pointer_RefID = null, int $varRequesterWorkerJobsPosition_RefID = null, string $varRemarks = null,
             array $varAdditionalData = []
             )
             {
             $varReturn =
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession,
+                    $varUserSession, 
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                         $varUserSession,
-                        parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET_NEW',
+                        parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
                         [
                             [$varUserSession, 'bigint'],
                             [$varSysID, 'bigint'],
@@ -175,13 +170,12 @@ namespace App\Models\Database\SchData_OLTP_Finance
                             [$varSysBaseCurrency_RefID, 'bigint'],
 
                             [$varDocumentDateTimeTZ, 'timestamptz'],
-                            [$varPartner_RefID, 'bigint'],
                             [$varLog_FileUpload_Pointer_RefID, 'bigint'],
+                            [$varRequesterWorkerJobsPosition_RefID, 'bigint'],
                             [$varRemarks, 'varchar'],
-                            [$varWorkflow_Status, 'varchar'],
 
                             [
-                                ((count($varAdditionalData) === 0)
+                                ((count($varAdditionalData) === 0) 
                                     ? null
                                     : \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode(
                                         $varUserSession,
