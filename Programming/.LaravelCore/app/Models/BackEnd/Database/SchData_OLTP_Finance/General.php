@@ -402,7 +402,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         | ▪ Version         : 1.0000.0000001                                                                                       |
         | ▪ Last Update     : 2025-08-25                                                                                           |
         | ▪ Creation Date   : 2025-08-25                                                                                           |
-        | ▪ Description     : Mendapatkan Daftar Detail CreditNote Versi Terakhir                                                  |
+        | ▪ Description     : Mendapatkan Daftar Detail Credit Note Versi Terakhir                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
@@ -428,6 +428,53 @@ namespace App\Models\Database\SchData_OLTP_Finance
                             'SchData-OLTP-Finance.Func_GetDataList_CreditNoteDetail',
                             [
                                 [$varCreditNote_RefID, 'bigint' ],
+                            ]
+                            )
+                        );
+
+                return
+                    $varReturn;
+                }
+
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataList_DebitNoteDetail_LatestVersion                                                            |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2025-09-03                                                                                           |
+        | ▪ Creation Date   : 2025-09-03                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Detail Debit Note Versi Terakhir                                                  |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varDebitNote_RefID ► DebitNote ID                                                                        |
+        |        ------------------------------                                                                                    |
+        |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
+        |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
+        |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
+        |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataList_DebitNoteDetail_LatestVersion(
+            $varUserSession, int $varDebitNote_RefID = null)
+            {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession,
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Finance.Func_GetDataList_DebitNoteDetail',
+                            [
+                                [$varDebitNote_RefID, 'bigint' ],
                             ]
                             )
                         );
