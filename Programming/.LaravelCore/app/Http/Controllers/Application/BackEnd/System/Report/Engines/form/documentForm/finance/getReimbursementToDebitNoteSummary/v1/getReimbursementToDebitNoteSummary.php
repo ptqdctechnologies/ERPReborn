@@ -4,20 +4,20 @@
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
 | ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\documentForm\finance                         |
-|                \getDebitNoteSummary\v1                                                                                          |
+|                \getReimbursementToDebitNoteSummary\v1                                                                                          |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2025 ijonk7 (rizal.devapps@gmail.com)                                                                               |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\documentForm\finance\getDebitNoteSummary\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\documentForm\finance\getReimbursementToDebitNoteSummary\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : getDebitNoteSummary                                                                                         |
-    | ▪ Description : Menangani API report.form.documentForm.finance.getDebitNoteSummary Version 1                                |
+    | ▪ Class Name  : getReimbursementToDebitNoteSummary                                                                                         |
+    | ▪ Description : Menangani API report.form.documentForm.finance.getReimbursementToDebitNoteSummary Version 1                                |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class getDebitNoteSummary extends \App\Http\Controllers\Controller
+    class getReimbursementToDebitNoteSummary extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -63,7 +63,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\do
                 try {
                     //-----[ MAIN CODE ]----------------------------------------------------------------------------( START POINT )-----
                     try {
-                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, (new \App\Models\Database\SchData_OLTP_Finance\General())->getReport_Form_DocumentForm_DebitNoteSummary(
+                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, (new \App\Models\Database\SchData_OLTP_Finance\General())->getReport_Form_DocumentForm_ReimbursementToDebitNoteSummary(
                             $varUserSession, 
                             (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
                             $varData['parameter']['CombinedBudgetCode'],
