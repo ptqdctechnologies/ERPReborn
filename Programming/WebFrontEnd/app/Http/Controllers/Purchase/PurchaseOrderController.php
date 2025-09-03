@@ -1539,7 +1539,7 @@ class PurchaseOrderController extends Controller
                 'internalNote'                  => $data[0]['internalNotes'] ?? '',
                 'fileID'                        => $data[0]['log_FileUpload_Pointer_RefID'] ?? null,
                 'vatValue'                      => $data[0]['vatRatio'] ?? null,
-                'isVATSelected'                 => $data[0]['vatRatio'] ? 'selected' : '',
+                'isVATSelected'                 => $data[0]['vatRatio'] != "0.00" ? 'selected' : '',
                 'transactionTaxDetailRefID'     => $data[0]['transactionTaxDetail_RefID'] ?? ''
             ],
             'detail'                => $data

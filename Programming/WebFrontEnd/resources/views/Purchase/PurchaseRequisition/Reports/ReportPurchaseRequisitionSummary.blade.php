@@ -26,18 +26,6 @@
                         </div>
                     @endif
                     @if($statusDetail == 1 && $dataPO)
-                        <!-- <div class="row">
-                            <div class="col-12">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="row py-2 px-1" style="gap: 1rem;">
-                                            <label class="p-0 text-bold mb-0">Budget</label>
-                                              :  <?= $dataPO[0]['combinedBudgetCode']; ?> - <?= $dataPO[0]['combinedBudgetName']; ?> 
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> -->
 
                         <!-- TABLE -->
                         <div class="row">
@@ -65,22 +53,22 @@
                                                     <tr>
                                                         <td><?= $counter++; ?></td>
                                                         <td><?= $dataDetail['documentNumber']; ?></td>
-                                                        <td>{{ date('Y-m-d', strtotime($dataDetail['date'])) }}</td>
+                                                        <td>{{ $dataDetail['date'] ? date('d-m-Y', strtotime($dataDetail['date'])) : '-' }}</td>
                                                         <td>{{ $dataDetail['combinedBudgetCode'] }} - {{ $dataDetail['combinedBudgetName'] }} </td>
                                                         <td>{{ date('Y-m-d', strtotime($dataDetail['dateOfDelivery'])) }}</td>
                                                         <td>{{ $dataDetail['deliveryTo_NonRefID']['address'] ?? '-' }}</td>
-                                                        <td><?= $dataDetail['total_IDR']; ?></td>
-                                                        <td><?= $dataDetail['total_Other_Currency']; ?></td>
-                                                        <td><?= $dataDetail['grand_Total_Equivalent_IDR']; ?></td>
+                                                        <td>{{ number_format($dataDetail['total_IDR'], 2, '.', ',')}}</td>
+                                                        <td>{{ number_format($dataDetail['total_Other_Currency'], 2, '.', ',')}}</td>
+                                                        <td>{{ number_format($dataDetail['grand_Total_Equivalent_IDR'], 2, '.', ',')}}</td>
                                                     </tr>
                                                 <?php } ?>
                                             </tbody>
                                             <tfoot>
                                                 <tr>
                                                     <th colspan="6" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">GRAND TOTAL</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">{{ $dataPO[0]['grand_Total_IDR'] }}</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">{{ $dataPO[0]['grand_Total_Other_Currency'] }}</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">{{ $dataPO[0]['grand_Total_Equivalent_IDR'] }}</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">{{ number_format($dataPO[0]['grand_Total_IDR'], 2, '.', ',')}}</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">{{ number_format($dataPO[0]['grand_Total_Other_Currency'], 2, '.', ',')}}</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">{{ number_format($dataPO[0]['grand_Total_Equivalent_IDR'], 2, '.', ',')}}</th>
                                                     
                                                 </tr>
                                             </tfoot>

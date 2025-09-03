@@ -3,6 +3,11 @@
 </footer>
 
 <script>
+  function cancelForm(url) {
+    ShowLoading();
+    window.location.href = url;
+  }
+
   function checkingWorkflow(combinedBudget_RefID, documentTypeID) {
     // console.log('combinedBudget_RefID, documentTypeID', combinedBudget_RefID, documentTypeID);
 
@@ -352,7 +357,6 @@
         });
       }
     });
-
   }
 </script>
 
@@ -584,9 +588,13 @@
   //   });
   // }
 
-  document.querySelectorAll('.number-without-negative').forEach(function(input) {
-    allowNumbersWithoutNegative(input);
+  $(document).on('input', '.number-without-negative', function() {
+    allowNumbersWithoutNegative(this);
   });
+
+  // document.querySelectorAll('.number-without-negative').forEach(function(input) {
+  //   allowNumbersWithoutNegative(input);
+  // });
 </script>
 
 <script>

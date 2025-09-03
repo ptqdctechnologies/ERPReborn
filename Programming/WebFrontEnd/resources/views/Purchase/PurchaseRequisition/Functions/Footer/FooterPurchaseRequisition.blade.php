@@ -4,7 +4,6 @@
     const siteCode                  = document.getElementById("site_code_second");
     const deliverCode               = document.getElementById("deliverCode");
     const dateDelivery              = document.getElementById("dateCommance");
-    const tablePurchaseRequestLists = document.querySelector("#tablePurchaseRequisitionList tbody");
 
     function checkOneLineBudgetContents(indexInput) {
         const rows = document.querySelectorAll("#tableGetBudgetDetails tbody tr");
@@ -31,7 +30,7 @@
                 $(totalEl).css("border", "1px solid #ced4da");
                 $("#budgetDetailsMessage").hide();
             } else {
-                if (indexInput) {
+                if (indexInput > -1) {
                     if (indexInput == index) {
                         if (qtyEl.value.trim() != "" || priceEl.value.trim() != "") {
                             $(qtyEl).css("border", "1px solid red");
@@ -217,8 +216,7 @@
                 $("#deliverCode").css("border", "1px solid red");
                 $("#deliverName").css("border", "1px solid red");
                 $("#dateCommance").css("border", "1px solid red");
-                $("#dateCommance").css("border", "1px solid red");
-
+                
                 $("#budgetMessage").show();
                 $("#subBudgetMessage").show();
                 $("#deliveryToMessage").show();
@@ -633,6 +631,9 @@
         $("#project_code_second").val("");
         $("#project_name_second").val("");
 
+        $("#project_code_second").css("border", "1px solid #ced4da");
+        $("#project_name_second").css("border", "1px solid #ced4da");
+        $("#budgetMessage").hide();
         $("#loadingBudget").css({"display":"block"});
         $("#myProjectSecondTrigger").css({"display":"none"});
 
@@ -645,9 +646,6 @@
                 $("#project_name_second").val(projectName);
                 $("#myProjectSecondTrigger").prop("disabled", true);
                 $("#myProjectSecondTrigger").css("cursor", "not-allowed");
-                $("#project_code_second").css("border", "1px solid #ced4da");
-                $("#project_name_second").css("border", "1px solid #ced4da");
-                $("#budgetMessage").hide();
 
                 $("#var_combinedBudget_RefID").val(sysId);
 
