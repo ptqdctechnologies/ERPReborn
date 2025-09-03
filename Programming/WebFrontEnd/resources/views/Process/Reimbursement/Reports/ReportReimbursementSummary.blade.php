@@ -68,9 +68,9 @@
                                                         <td>{{ date('Y-m-d', strtotime($dataDetail['date'])) }}</td>
                                                         <td>{{ $dataDetail['combinedBudgetCode'] }} - {{ $dataDetail['combinedBudgetName'] }}</td>
                                                         <td>{{ $dataDetail['vendor'] }}</td>
-                                                        <td>{{ $dataDetail['total_IDR'] }}</td>
-                                                        <td>{{ $dataDetail['total_Other_Currency'] }}</td>
-                                                        <td>{{ $dataDetail['total_Equivalent_IDR'] }}</td>
+                                                        <td>{{ number_format($dataDetail['total_IDR'], 2, '.', ',') }}</td>
+                                                        <td>{{ number_format($dataDetail['total_Other_Currency'], 2, '.', ',') }}</td>
+                                                        <td>{{ number_format($dataDetail['total_Equivalent_IDR'], 2, '.', ',') }}</td>
                                                         <td>{{ $dataDetail['remarks'] }}</td>
                                                     </tr>
                                                 <?php } ?>
@@ -78,10 +78,11 @@
                                             <tfoot>
                                                 <tr>
                                                     <th colspan="5" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">GRAND TOTAL</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">{{ $grand_totalIDR }}</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">{{ $grand_totalOther }}</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">{{ $grand_totalEqui }}</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format($grand_totalIDR, 2, '.', ','); ?></th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format($grand_totalOther, 2, '.', ','); ?></th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format($grand_totalEqui, 2, '.', ','); ?></th>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"></th>
+
                                                 </tr>
                                             </tfoot>
                                         </table>
