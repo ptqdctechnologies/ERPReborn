@@ -4,8 +4,8 @@
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category    : Example - API Call Controller                                                                                    |
 | ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\create\supplyChain               |
-|                 \setWarehouseInboundOrder\v1                                                                                                 |
-| ▪ API Key     : transaction.create.supplyChain.setWarehouseInboundOrder                                                                      |
+|                 \setWarehouseInboundOrder\v1                                                                                     |
+| ▪ API Key     : transaction.create.supplyChain.setWarehouseInboundOrder                                                          |
 | ▪ API Version : 1                                                                                                                |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2025 Rizal (rizal.devapps@gmail.com)                                                                                |
@@ -17,11 +17,11 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Call URL        : http(s)://<HOST>/transaction.create.supplyChain.setWarehouseInboundOrder.v1_throughAPIGateway                    |
-        |                     ► http://172.28.0.4/transaction.create.supplyChain.setWarehouseInboundOrder.v1_throughAPIGateway                 |
+        | ▪ Call URL        : http(s)://<HOST>/transaction.create.supplyChain.setWarehouseInboundOrder.v1_throughAPIGateway        |
+        |                     ► http://172.28.0.4/transaction.create.supplyChain.setWarehouseInboundOrder.v1_throughAPIGateway     |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-07-09                                                                                           |
+        | ▪ Last Update     : 2025-09-04                                                                                           |
         | ▪ Creation Date   : 2025-04-15                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -45,13 +45,15 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                         'documentDateTimeTZ' => '2025-06-18',
                         'log_FileUpload_Pointer_RefID' => null,
                         'requesterWorkerJobsPosition_RefID' => 164000000000497,
-                        "transporter_RefID" => 164000000000559,
+                        "transporter_RefID" => 284000000000006,
                         "deliveryDateTimeTZ" => '2025-06-30',
                         "deliveryFrom_RefID" => 126000000000001,
                         "deliveryFrom_NonRefID" => 'Jl. Salemba No. 29, Jakarta Pusat',
                         "deliveryTo_RefID" => 126000000000005,
                         "deliveryTo_NonRefID" => 'Jl. Mawar No. 51, Surabaya',
                         'remarks' => 'Catatan Test 11',
+                        "receiveDateTimeTZ" => '2025-09-04',
+                        "warehouse_RefID" => 173000000000001,
                         "additionalData" => [
                             "itemList" => [
                                 "items" => [
