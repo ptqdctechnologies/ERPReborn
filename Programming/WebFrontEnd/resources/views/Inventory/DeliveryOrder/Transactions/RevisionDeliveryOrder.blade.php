@@ -24,7 +24,7 @@
                 @csrf
                 <input type="hidden" name="DocumentTypeID" id="DocumentTypeID">
                 <input type="hidden" name="var_combinedBudget_RefID" id="var_combinedBudget_RefID" value='<?= $header['combinedBudget_RefID']; ?>'>
-                <input type="" name="deliveryDateTime" id="deliveryDateTime" value="<?= $header['deliveryDate']; ?>">
+                <input type="hidden" name="deliveryDateTime" id="deliveryDateTime" value="<?= $header['deliveryDate']; ?>">
 
                     <!-- TRANSPORTER DETAIL -->
                     <div class="tab-content px-3 pt-4 pb-2" id="nav-tabContent">

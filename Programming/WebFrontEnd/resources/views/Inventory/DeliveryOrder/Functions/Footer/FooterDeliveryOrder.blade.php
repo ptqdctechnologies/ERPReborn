@@ -74,9 +74,7 @@
             }
         });
 
-        total = Math.ceil(total * 100) / 100;
-
-        document.getElementById('TotalReferenceNumber').textContent = currencyTotal(total);
+        document.getElementById('TotalReferenceNumber').textContent = decimalFormat(parseFloat(total));
     }
 
     function updateGrandTotal() {
