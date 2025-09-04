@@ -660,11 +660,11 @@
     }
 
     function SubmitForm() {
-        $('#advanceRequestFormModal').modal('hide');
+        $('#advanceRequestRevisionFormModal').modal('hide');
 
-        var action = $('#FormSubmitAdvance').attr("action");
-        var method = $('#FormSubmitAdvance').attr("method");
-        var form_data = new FormData($('#FormSubmitAdvance')[0]);
+        var action = $('#FormUpdateAdvance').attr("action");
+        var method = $('#FormUpdateAdvance').attr("method");
+        var form_data = new FormData($('#FormUpdateAdvance')[0]);
         form_data.append('advanceRequestDetail', JSON.stringify(dataStore));
 
         ShowLoading();
@@ -706,6 +706,8 @@
                 }
             },
             error: function(response) {
+                console.log('error', response);
+
                 HideLoading();
                 CancelNotif("You don't have access", "{{ route('AdvanceRequest.index', ['var' => 1]) }}");
             }
