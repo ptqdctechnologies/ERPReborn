@@ -104,6 +104,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
                                     $varData['entities']['deliveryTo_NonRefID'],
                                     $varData['entities']['remarks'],
                                     $varData['entities']['receiveDateTimeTZ'],
+                                    $varData['entities']['warehouse_RefID'],
 
                                     (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
                                         $varUserSession,
