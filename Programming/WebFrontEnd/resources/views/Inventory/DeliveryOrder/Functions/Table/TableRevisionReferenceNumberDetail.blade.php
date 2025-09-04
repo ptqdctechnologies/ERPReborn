@@ -3,14 +3,15 @@
     <table class="table table-head-fixed text-nowrap table-sm" id="tableReferenceNumberDetail">
         <thead>
             <tr>
+                <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Sub Budget</th>
                 <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Product Code</th>
                 <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Product Name</th>
                 <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">UOM</th>
                 <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Qty PO</th>
                 <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Qty Avail</th>
-                <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Qty Req</th>
-                <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Balance</th>
-                <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Note</th>
+                <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;background-color: #4B586A;color: #FFF;">Qty Req</th>
+                <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;background-color: #4B586A;color: #FFF;">Balance</th>
+                <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;background-color: #4B586A;color: #FFF;">Note</th>
             </tr>
         </thead>
         <tbody></tbody>
@@ -40,20 +41,14 @@
 
 <!-- FOOTER -->
 <div class="card-body tableShowHideBudget">
-    <table style="float:right;">
-        <tr>
-            <th style="position: relative;right:20px;"> Total : <span id="TotalReferenceNumber">0.00</span></th>
-        </tr>
-        <tr>
-            <td>
-                <br>
-                <a class="btn btn-default btn-sm float-right" id="reference-number-details-add" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
-                    <img src="{{ asset('AdminLTE-master/dist/img/add.png') }}" width="13" alt="" title="Add to Advance List"> Add
-                </a>
-                <a class="btn btn-default btn-sm float-right" id="reference-number-details-reset" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
-                    <img src="{{ asset('AdminLTE-master/dist/img/reset.png') }}" width="13" alt="" title="Add to Advance List"> Reset
-                </a>
-            </td>
-        </tr>
-    </table>
+    <div class="row">
+        <div class="col">
+            <div class="text-red" id="deliveryOrderDetailsMessage" style="display: none;">
+                Please input at least one item.
+            </div>
+        </div>
+        <div class="col text-right" style="margin-right: 20px; font-size: 0.77rem; color: #212529; font-weight: 600;">
+            Total : <span id="TotalReferenceNumber">0.00</span>
+        </div>
+    </div>
 </div>

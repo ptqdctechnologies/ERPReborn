@@ -4,12 +4,12 @@
     <!-- LEFT COLUMN -->
     <div class="col-md-12 col-lg-5">
       <!-- REFERENCE TYPE -->
-      <div class="row" style="margin-bottom: 1rem;">
+      <div class="row">
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">
           Reference Type
         </label>
         <div class="col-sm-9 col-md-8 col-lg-4 d-flex p-0">
-          <select class="form-control" onchange="referenceType(this);">
+          <select id="reference_type" class="form-control" onchange="referenceType(this);">
             <option disabled selected>Select a Source</option>
             <option value="PURCHASE_ORDER">Purchase Order</option>
             <option value="INTERNAL_USE">Internal Use</option>
@@ -17,9 +17,17 @@
           </select>
         </div>
       </div>
+      <div class="row" id="referenceTypeMessage" style="display: none; margin-top: .3rem;">
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+        <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+          <div class="text-red">
+            Reference Type must be selected.
+          </div>
+        </div>
+      </div>
 
       <!-- PURCHASE ORDER -->
-      <div class="row purchase-order-components" style="display: none;margin-bottom: 1rem;">
+      <div class="row purchase-order-components" style="display: none;margin-top: 1rem;">
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">
           PO Number
         </label>
@@ -28,7 +36,7 @@
             <input id="reference_number" style="border-radius:0;" class="form-control" size="20" readonly>
             <input id="reference_id" style="border-radius:0;" name="reference_id" class="form-control" hidden>
           </div>
-          <div class="input-group-append">
+          <div>
             <span style="border-radius:0;" class="input-group-text form-control">
               <a href="javascript:;" id="referenceNumberTrigger" data-toggle="modal" data-target="#referenceNumberModal" style="display: block;">
                 <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="referenceNumberTrigger">
@@ -37,9 +45,17 @@
           </div>
         </div>
       </div>
+      <div class="row" id="purchaseOrderMessage" style="display: none; margin-top: .3rem;">
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+        <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+          <div class="text-red">
+            Purchase Order cannot be empty.
+          </div>
+        </div>
+      </div>
 
       <!-- PURCHASE ORDER - BUDGET -->
-      <div class="row purchase-order-components" style="display: none;">
+      <div class="row purchase-order-components" style="display: none; margin-top: 1rem;">
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">
           Budget
         </label>
@@ -114,7 +130,7 @@
       </div>
 
       <!-- DELIVERY FROM -->
-      <div class="row purchase-order-components" style="margin-bottom: 1rem; display: none;">
+      <div class="row purchase-order-components" style="display: none;">
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">
           Delivery From
         </label>
@@ -127,9 +143,17 @@
           </div>
         </div>
       </div>
+      <div class="row" id="deliveryFromMessage" style="margin-top: .3rem;display: none;">
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+        <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+          <div class="text-red">
+            Delivery From cannot be empty.
+          </div>
+        </div>
+      </div>
 
       <!-- DELIVERY TO -->
-      <div class="row purchase-order-components" style="display: none;">
+      <div class="row purchase-order-components" style="margin-top: 1rem; display: none;">
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">
           Delivery To
         </label>
@@ -139,6 +163,14 @@
             <input hidden name="deliveryTo_RefID" id="deliveryTo_RefID">
             <input hidden id="delivery_toDuplicate">
             <textarea id="delivery_to" name="delivery_to" rows="3" style="border-radius:0;" class="form-control"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="row" id="deliveryToMessage" style="margin-top: .3rem;display: none;">
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+        <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+          <div class="text-red">
+            Delivery To cannot be empty.
           </div>
         </div>
       </div>

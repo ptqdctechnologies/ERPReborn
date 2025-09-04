@@ -21,11 +21,13 @@ use App\Services\WorkflowService;
 class DeliveryOrderController extends Controller
 {
     protected $deliveryOrderService, $workflowService;
+    
     public function __construct(DeliveryOrderService $deliveryOrderService, WorkflowService $workflowService)
     {
         $this->deliveryOrderService = $deliveryOrderService;
         $this->workflowService      = $workflowService;
     }
+
     public function ReportDOToMaterialReceive(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
@@ -775,6 +777,7 @@ class DeliveryOrderController extends Controller
                     'doNumber'                  => $data[0]['documentNumber'] ?? '',
                     'doID'                      => $data[0]['deliveryOrder_RefID'] ?? '',
                     'doDetailID'                => $data[0]['deliveryOrderDetail_ID'] ?? '',
+                    'deliveryDate'              => $data[0]['deliveryDateTimeTZ'] ?? '',
                     'deliveryFrom'              => $data[0]['deliveryFrom_NonRefID']['Address'] ?? '',
                     'deliveryFromID'            => $data[0]['deliveryFrom_RefID'] ?? '',
                     'deliveryTo'                => $data[0]['deliveryTo_NonRefID']['Address'] ?? '',
