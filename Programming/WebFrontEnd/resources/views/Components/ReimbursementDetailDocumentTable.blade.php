@@ -10,21 +10,23 @@
                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">PRICE</th>
                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">QTY</th>
                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">TOTAL</th>
-                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">NOTE</th>
                 </tr>
             </thead>
 
             <tbody>
-                <tr>
-                    <td style="border:1px solid #4B586A;color:#4B586A;">1</td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;">1000080</td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;">Batu Split</td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;">m3</td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;">4,000.00</td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;">3.32</td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;">13,280.00</td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;">-</td>
-                </tr>
+                <?php $no = 1; $grand_total = 0; ?>
+                <?php foreach ($dataDetails as $dataDetail) { ?>
+                <?php $grand_total += $dataDetail['Quantity'] * $dataDetail['ProductUnitPriceCurrencyValue'];  ?>
+                    <tr>
+                        <td style="border:1px solid #4B586A;color:#4B586A;text-align:center;"><?= $no++; ?></td>
+                        <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['ProductCode'] ?? '-'; ?></td>
+                        <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['ProductName'] ?? '-'; ?></td>
+                        <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['QuantityUnitName'] ?? '-'; ?></td>
+                        <td style="border:1px solid #4B586A;color:#4B586A;"><?= number_format($dataDetail['ProductUnitPriceCurrencyValue'] ?? 0, 2); ?></td>
+                        <td style="border:1px solid #4B586A;color:#4B586A;"><?= number_format($dataDetail['Quantity'] ?? 0, 2); ?></td>
+                        <td style="border:1px solid #4B586A;color:#4B586A;"><?= number_format(($dataDetail['Quantity'] * $dataDetail['ProductUnitPriceCurrencyValue']) ?? 0, 2); ?></td>
+                    </tr>
+                <?php } ?>
             </tbody>
 
             <tfoot>
@@ -34,10 +36,9 @@
                     </th>
                     <td style="border:1px solid #4B586A;color:#4B586A;">
                         <span id="GrandTotal">
-                            13,280.00
+                            <?= number_format($grand_total, 2); ?>
                         </span>
                     </td>
-                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #4B586A;color:#4B586A;"></th>
                 </tr>
             </tfoot>
         </table>
