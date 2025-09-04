@@ -69,7 +69,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         public function setDataInsert(
             $varUserSession,
             string $varSysDataAnnotation = null, string $varSysDataValidityStartDateTimeTZ = null, string $varSysDataValidityFinishDateTimeTZ = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, $varSysBaseCurrency_RefID = null,
-            string $varDocumentDateTimeTZ = null, int $varLog_FileUpload_Pointer_RefID = null, int $varRequesterPerson_RefID = null, int $varTransporter_RefID = null, string $varDeliveryDateTimeTZ = null, int $varDeliveryFrom_RefID = null, string $varDeliveryFrom_NonRefID = null, int $varDeliveryTo_RefID = null, string $varDeliveryTo_NonRefID = null, string $varRemarks = null, string $varReceiveDateTimeTZ = null,
+            string $varDocumentDateTimeTZ = null, int $varLog_FileUpload_Pointer_RefID = null, int $varRequesterPerson_RefID = null, int $varTransporter_RefID = null, string $varDeliveryDateTimeTZ = null, int $varDeliveryFrom_RefID = null, string $varDeliveryFrom_NonRefID = null, int $varDeliveryTo_RefID = null, string $varDeliveryTo_NonRefID = null, string $varRemarks = null, string $varReceiveDateTimeTZ = null, int $varWarehouse_RefID = null,
             array $varAdditionalData = []
             )
             {
@@ -101,6 +101,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             [$varDeliveryTo_NonRefID, 'varchar'],
                             [$varRemarks, 'varchar'],
                             [$varReceiveDateTimeTZ, 'timestamptz'],
+                            [$varWarehouse_RefID, 'bigint'],
 
                             [
                                 ((count($varAdditionalData) === 0)
