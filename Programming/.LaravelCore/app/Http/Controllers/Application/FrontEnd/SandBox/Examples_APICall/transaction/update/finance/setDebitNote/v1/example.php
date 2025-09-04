@@ -3,11 +3,12 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category    : Example - API Call Controller                                                                                    |
-| ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\update\finance\setDebitNote\v1   |
-| ▪ API Key     : transaction.update.finance.setDebitNote                                                                          |
+| ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\update\finance                   |
+|                 \setDebitNote\v1                                                                                                |
+| ▪ API Key     : transaction.update.finance.setDebitNote                                                                         |
 | ▪ API Version : 1                                                                                                                |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2023 - 2025 Zheta (teguhpjs@gmail.com)                                                                              |
+| ▪ Copyleft 🄯 2025 ijonk7 (jookeo.rizal@gmail.com)                                                                                |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\update\finance\setDebitNote\v1
@@ -16,153 +17,108 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Call URL        : http(s)://<HOST>/transaction.update.finance.setDebitNote.v1_throughAPIGateway                        |
-        |                     ► http://172.28.0.4/transaction.update.finance.setDebitNote.v1_throughAPIGateway                     |
+        | ▪ Call URL        : http(s)://<HOST>/transaction.update.finance.setDebitNote.v1_throughAPIGateway                       |
+        |                     ► http://172.28.0.4/transaction.update.finance.setDebitNote.v1_throughAPIGateway                    |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0001.0000000                                                                                       |
-        | ▪ Last Update     : 2025-01-21                                                                                           |
-        | ▪ Creation Date   : 2023-11-01                                                                                           |
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2025-09-03                                                                                           |
+        | ▪ Creation Date   : 2025-09-03                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function throughAPIGateway($varAPIWebToken)
             {
             //---Parameter Set---
             if (!$varAPIWebToken) {
-                $varAPIWebToken =
-                    \App\Helpers\ZhtHelper\System\Helper_Environment::getAPIWebToken_System();
+                $varAPIWebToken = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
                 }
-
             //---Core---
-            $varData =
-                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                    //-----[ METADATA ]-----( START )-----
-                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                        $varAPIWebToken, 
-                        'transaction.update.finance.setDebitNote', 
-                        'latest',
-                    //-----[ METADATA ]-----(  END  )-----
-
-                    //-----[ DATA ]-----( START )-----
-                        [
-                        'recordID' => 240000000000001,
-                        'entities' => [
-                            "documentDateTimeTZ" => '2023-10-25',
-                            "log_FileUpload_Pointer_RefID" => null,
-                            "requesterWorkerJobsPosition_RefID" => 164000000000497,
-                            "remarks" => 'My Remarks',
-                            "additionalData" => [
-                                "itemList" => [
-                                    "items" => [
-                                            [
-                                            'recordID' => 241000000000001,
-                                            "entities" => [
-                                                "paymentInstruction_RefID" => 211000000000001,
-                                                "product_RefID" => 88000000000083,
-                                                "quantity" => 0.05,
-                                                "quantityUnit_RefID" => 73000000000009,
-                                                "productUnitPriceCurrency_RefID" => 62000000000001,
-                                                "productUnitPriceCurrencyValue" => 235000,
-                                                "productUnitPriceCurrencyExchangeRate" => 1,
-                                                "remarks" => 'Catatan'
-                                                ]
-                                            ]
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken,
+                'transaction.update.finance.setDebitNote',
+                'latest',
+                [
+                'recordID' => 240000000000007,
+                'entities' => [
+                    "documentDateTimeTZ" => '2025-09-03',
+                    "log_FileUpload_Pointer_RefID" => 91000000000001,
+                    "remarks" => 'My Remarks 2 (Edit)',
+                    "workflow_Status" => '',
+                    "additionalData" => [
+                        "itemList" => [
+                            "items" => [
+                                    [
+                                    "recordID" => 241000000000007,
+                                    "entities" => [
+                                        "combinedBudgetSectionDetail_RefID" => 169000000000001,
+                                        "product_RefID" => 88000000000002,
+                                        "quantity" => 4,
+                                        "quantityUnit_RefID" => 73000000000001,
+                                        "productUnitPriceCurrency_RefID" => 62000000000001,
+                                        "productUnitPriceCurrencyValue" => 30000,
+                                        "productUnitPriceCurrencyExchangeRate" => 1,
+                                        "vatRatio" => 10,
+                                        "chartOfAccount_RefID" => 65000000000005
                                         ]
-                                    ]
+                                    ],
                                 ]
                             ]
                         ]
-                    //-----[ DATA ]-----(  END  )-----
-                    );
-
-            var_dump($varData);
+                    ]
+                ]
+                );
+            return $varData;
             }
 
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Call URL        : http(s)://<HOST>/transaction.update.finance.setDebitNote.v1_throughAPIGatewayJQuery                  |
-        |                     ► http://172.28.0.4/transaction.update.finance.setDebitNote.v1_throughAPIGatewayJQuery               |
+        | ▪ Call URL        : http(s)://<HOST>/transaction.update.finance.setDebitNote.v1_throughAPIGatewayJQuery                 |
+        |                     ► http://172.28.0.4/transaction.update.finance.setDebitNote.v1_throughAPIGatewayJQuery              |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0001.0000000                                                                                       |
-        | ▪ Last Update     : 2025-01-21                                                                                           |
-        | ▪ Creation Date   : 2023-11-01                                                                                           |
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2025-09-03                                                                                           |
+        | ▪ Creation Date   : 2025-09-03                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function throughAPIGatewayJQuery($varAPIWebToken)
             {
-            //---Parameter Set---
+/*            //---Parameter Set---
             if (!$varAPIWebToken) {
-                $varAPIWebToken =
-                    \App\Helpers\ZhtHelper\System\Helper_Environment::getAPIWebToken_System();
+                $varAPIWebToken = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
                 }
-
             //---Core---
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
-
-            echo '<table border="1" style="border-collapse: collapse;">';
-            echo    '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">Advance Settlement Main Data</p></td></tr>';
-            echo        '<tr><td>RecordID</td><td><input type="text" id="dataInput_RecordID" value=240000000000001></td></tr>';
-            echo        '<tr><td>DocumentDateTimeTZ</td><td><input type="text" id="dataInput_DocumentDateTimeTZ" value="2023-03-25"></td></tr>';
-            echo        '<tr><td>Log_FileUpload_Pointer_RefID</td><td><input type="text" id="dataInput_Log_FileUpload_Pointer_RefID" value=""></td></tr>';
-            echo        '<tr><td>RequesterWorkerJobsPosition_RefID</td><td><input type="text" id="dataInput_RequesterWorkerJobsPosition_RefID" value=164000000000497></td></tr>';
-            echo        '<tr><td>Remarks</td><td><input type="text" id="dataInput_Remarks" value="My Remarks"></td></tr>';
-            echo    '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">Advance Settlement Detail Data</p></td></tr></tr>';
-            echo        '<tr><td>RecordIDDetail_RefID_1</td><td><input type="text" id="dataInput_RecordIDDetail_RefID_1" value=241000000000001></td></tr>';
-            echo        '<tr><td>PaymentInstruction_RefID_1</td><td><input type="text" id="dataInput_PaymentInstruction_RefID_1" value=211000000000001></td></tr>';
-            echo        '<tr><td>Product_RefID_1</td><td><input type="text" id="dataInput_Product_RefID_1" value=88000000000083></td></tr>';
-            echo        '<tr><td>Quantity_1</td><td><input type="text" id="dataInput_Quantity_1" value=0.05></td></tr>';
-            echo        '<tr><td>QuantityUnit_RefID_1</td><td><input type="text" id="dataInput_QuantityUnit_RefID_1" value=73000000000009></td></tr>';
-            echo        '<tr><td>ProductUnitPriceCurrency_RefID_1</td><td><input type="text" id="dataInput_ProductUnitPriceCurrency_RefID_1" value=62000000000001></td></tr>';
-            echo        '<tr><td>ProductUnitPriceCurrencyValue_1</td><td><input type="text" id="dataInput_ProductUnitPriceCurrencyValue_1" value=235000></td></tr>';
-            echo        '<tr><td>ProductUnitPriceCurrencyExchangeRate_1</td><td><input type="text" id="dataInput_ProductUnitPriceCurrencyExchangeRate_1" value=1></td></tr>';
-            echo        '<tr><td>Remarks_1</td><td><input type="text" id="dataInput_Remarks_1" value="Catatan"></td></tr>';
-            echo '</table><br>';
-
-            $varJQueryFunction =
-                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
-                    //-----[ METADATA ]-----( START )-----
-                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
-                        $varAPIWebToken, 
-                        'transaction.update.finance.setDebitNote', 
-                        'latest',
-                    //-----[ METADATA ]-----(  END  )-----
-
-                    //-----[ DATA ]-----( START )-----
-                        '{'.
-                        '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value), '.
-                        '"entities" : {'.
-                            '"documentDateTimeTZ" : document.getElementById("dataInput_DocumentDateTimeTZ").value, '.
-                            '"log_FileUpload_Pointer_RefID" : parseInt(document.getElementById("dataInput_Log_FileUpload_Pointer_RefID").value), '.
-                            '"requesterWorkerJobsPosition_RefID" : parseInt(document.getElementById("dataInput_RequesterWorkerJobsPosition_RefID").value), '.
-                            '"remarks" : document.getElementById("dataInput_Remarks").value, '.
-                            '"additionalData" : {'.
-                                '"itemList" : {'.
-                                    '"items" : ['.
-                                            '{'.
-                                            '"recordID" : parseInt(document.getElementById("dataInput_RecordIDDetail_RefID_1").value), '.
-                                            '"entities" : '.
-                                                '{'.
-                                                '"paymentInstruction_RefID" : parseInt(document.getElementById("dataInput_PaymentInstruction_RefID_1").value), '.
-                                                '"product_RefID" : parseInt(document.getElementById("dataInput_Product_RefID_1").value), '.
-                                                '"quantity" : parseFloat(document.getElementById("dataInput_Quantity_1").value), '.
-                                                '"quantityUnit_RefID" : parseInt(document.getElementById("dataInput_QuantityUnit_RefID_1").value),'.
-                                                '"productUnitPriceCurrency_RefID" : parseInt(document.getElementById("dataInput_ProductUnitPriceCurrency_RefID_1").value),'.
-                                                '"productUnitPriceCurrencyValue" : parseFloat(document.getElementById("dataInput_ProductUnitPriceCurrencyValue_1").value),'.
-                                                '"productUnitPriceCurrencyExchangeRate" : parseFloat(document.getElementById("dataInput_ProductUnitPriceCurrencyExchangeRate_1").value),'.
-                                                '"remarks" : document.getElementById("dataInput_Remarks_1").value'.
-                                                '}'.
-                                            '}'.
-                                        ']'.
-                                    '}'.
-                                '}'.
-                            '}'.
-                        '}'
-                    //-----[ DATA ]-----(  END  )-----
-                    ); 
-
+            echo '<input type="text" id="dataInput_RecordID" value=85000000000001>';
+            echo '<input type="text" id="dataInput_DocumentDateTimeTZ" value="2022-03-04">';
+            echo '<input type="text" id="dataInput_RequesterWorkerJobsPosition_RefID" value=164000000000497>';
+            echo '<input type="text" id="dataInput_Supplier_RefID" value=126000000000001>';
+            echo '<input type="text" id="dataInput_DebitNoteDateTimeTZ" value="2022-03-08">';
+            echo '<input type="text" id="dataInput_DebitNoteDestination_RefID" value=173000000000001>';
+            echo '<input type="text" id="dataInput_SupplierInvoiceBillingPurpose_RefID" value=189000000000001>';
+            echo '<input type="text" id="dataInput_PaymentTerm" value="My Payment Term">';
+            echo '<input type="text" id="dataInput_Remarks" value="My Remarks">';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken,
+                'transaction.update.finance.setDebitNote',
+                'latest',
+                '{'.
+                    '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value), '.
+                    '"entities" : {'.
+                        '"documentDateTimeTZ" : document.getElementById("dataInput_DocumentDateTimeTZ").value, '.
+                        '"requesterWorkerJobsPosition_RefID" : parseInt(document.getElementById("dataInput_RequesterWorkerJobsPosition_RefID").value), '.
+                        '"supplier_RefID" : parseInt(document.getElementById("dataInput_Supplier_RefID").value), '.
+                        '"creditNoteDateTimeTZ" : document.getElementById("dataInput_DebitNoteDateTimeTZ").value, '.
+                        '"creditNoteDestination_RefID" : parseInt(document.getElementById("dataInput_DebitNoteDestination_RefID").value), '.
+                        '"supplierInvoiceBillingPurpose_RefID" : parseInt(document.getElementById("dataInput_SupplierInvoiceBillingPurpose_RefID").value), '.
+                        '"paymentTerm" : document.getElementById("dataInput_PaymentTerm").value, '.
+                        '"remarks" : document.getElementById("dataInput_Remarks").value'.
+                        '}'.
+                '}'
+                );
             echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
-
-            dd($varJQueryFunction);
+            dd($varJQueryFunction);*/
             }
         }
     }

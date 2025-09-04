@@ -4,21 +4,21 @@
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category    : Example - API Call Controller                                                                                    |
 | ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\report\form\documentForm\finance             |
-|                 \getDebitNoteSummary\v1                                                                                          |
-| ▪ API Key     : report.form.documentForm.finance.getDebitNoteSummary                                                             |
+|                 \getReimbursementToDebitNoteSummary\v1                                                                                          |
+| ▪ API Key     : report.form.documentForm.finance.getReimbursementToDebitNoteSummary                                                             |
 | ▪ API Version : 1                                                                                                                |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2025 ijonk7 (rizal.devapps@gmail.com)                                                                               |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\report\form\documentForm\finance\getDebitNoteSummary\v1
+namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\report\form\documentForm\finance\getReimbursementToDebitNoteSummary\v1
     {
     class example extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Call URL        : http(s)://<HOST>/report.form.documentForm.finance.getDebitNoteSummary.v1_throughAPIGateway           |
-        |                     ► http://172.28.0.4/report.form.documentForm.finance.getDebitNoteSummary.v1_throughAPIGateway        |
+        | ▪ Call URL        : http(s)://<HOST>/report.form.documentForm.finance.getReimbursementToDebitNoteSummary.v1_throughAPIGateway           |
+        |                     ► http://172.28.0.4/report.form.documentForm.finance.getReimbursementToDebitNoteSummary.v1_throughAPIGateway        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2025-08-28                                                                                           |
@@ -35,7 +35,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
             $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken,
-                'report.form.documentForm.finance.getDebitNoteSummary',
+                'report.form.documentForm.finance.getReimbursementToDebitNoteSummary',
                 'latest',
                 [
                 'parameter' => [
