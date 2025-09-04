@@ -1,6 +1,6 @@
 {
 "title": "JSON Request Schema",
-"description": "JSON Request Schema of transaction.update.finance.setPayment (version 1)",
+"description": "JSON Request Schema of transaction.update.finance.setCashDisbursement (version 1)",
 "type": "object",
 "properties": {
     "metadata": {
@@ -11,7 +11,7 @@
                 "properties": {
                     "key": {
                         "type": "string",
-                        "enum": [ "transaction.update.finance.setPayment" ]
+                        "enum": [ "transaction.update.finance.setCashDisbursement" ]
                         },
                     "version": {
                         "type": [ "integer", "string" ],
@@ -53,6 +53,11 @@
                         "maximum": 9223372036854775807 
                         },
                     "requesterWorkerJobsPosition_RefID": {
+                        "type": [ "integer", "null" ],
+                        "minimum": 1,
+                        "maximum": 9223372036854775807 
+                        },
+                    "transactionTax_RefID": {
                         "type": [ "integer", "null" ],
                         "minimum": 1,
                         "maximum": 9223372036854775807 
@@ -104,11 +109,11 @@
                                                                     }
                                                                 },
                                                             "required": [ 
-                                                                "underlying_RefID", 
-                                                                "amountCurrency_RefID", 
-                                                                "amountCurrencyExchangeRate", 
-                                                                "amountCurrencyValue", 
-                                                                "remarks" 
+                                                                "underlying_RefID",
+                                                                "amountCurrency_RefID",
+                                                                "amountCurrencyExchangeRate",
+                                                                "amountCurrencyValue",
+                                                                "remarks"
                                                                 ]
                                                              }
                                                         },
@@ -156,12 +161,17 @@
                                                                     "type": [ "number", "null" ],
                                                                     "minimum": 0
                                                                     },
-                                                                "paymentFundingSource_RefID": {
+                                                                "fundingSource_RefID": {
                                                                     "type": [ "integer", "null" ],
                                                                     "minimum": 1,
                                                                     "maximum": 9223372036854775807
                                                                     },
-                                                                "paymentFundingDestination_RefID": {
+                                                                "fundingDestination_RefID": {
+                                                                    "type": [ "integer", "null" ],
+                                                                    "minimum": 1,
+                                                                    "maximum": 9223372036854775807
+                                                                    },
+                                                                "beneficiaryWorkerJobsPosition_RefID": {
                                                                     "type": [ "integer", "null" ],
                                                                     "minimum": 1,
                                                                     "maximum": 9223372036854775807
@@ -190,8 +200,9 @@
                                                                 "amountCurrency_RefID",
                                                                 "amountCurrencyValue",
                                                                 "amountCurrencyExchangeRate",
-                                                                "paymentFundingSource_RefID",
-                                                                "paymentFundingDestination_RefID",
+                                                                "fundingSource_RefID",
+                                                                "fundingDestination_RefID",
+                                                                "beneficiaryWorkerJobsPosition_RefID",
                                                                 "paidDateTimeTZ",
                                                                 "payerWorkerJobsPosition_RefID",
                                                                 "remarks"
@@ -217,11 +228,12 @@
                             ]
                         }
                     },
-                "required": [ 
-                    "documentDateTimeTZ", 
-                    "log_FileUpload_Pointer_RefID", 
-                    "requesterWorkerJobsPosition_RefID", 
-                    "remarks" 
+                "required": [
+                    "documentDateTimeTZ",
+                    "log_FileUpload_Pointer_RefID",
+                    "requesterWorkerJobsPosition_RefID",
+                    "transactionTax_RefID",
+                    "remarks"
                     ]    
                 }
             },

@@ -82,17 +82,17 @@
         },
         {
             "name": "brick/math",
-            "version": "0.12.3",
-            "version_normalized": "0.12.3.0",
+            "version": "0.13.1",
+            "version_normalized": "0.13.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/brick/math.git",
-                "reference": "866551da34e9a618e64a819ee1e01c20d8a588ba"
+                "reference": "fc7ed316430118cc7836bf45faff18d5dfc8de04"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/brick/math/zipball/866551da34e9a618e64a819ee1e01c20d8a588ba",
-                "reference": "866551da34e9a618e64a819ee1e01c20d8a588ba",
+                "url": "https://api.github.com/repos/brick/math/zipball/fc7ed316430118cc7836bf45faff18d5dfc8de04",
+                "reference": "fc7ed316430118cc7836bf45faff18d5dfc8de04",
                 "shasum": ""
             },
             "require": {
@@ -103,7 +103,7 @@
                 "phpunit/phpunit": "^10.1",
                 "vimeo/psalm": "6.8.8"
             },
-            "time": "2025-02-28T13:11:00+00:00",
+            "time": "2025-03-29T13:50:30+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -133,7 +133,7 @@
             ],
             "support": {
                 "issues": "https://github.com/brick/math/issues",
-                "source": "https://github.com/brick/math/tree/0.12.3"
+                "source": "https://github.com/brick/math/tree/0.13.1"
             },
             "funding": [
                 {
@@ -1705,21 +1705,21 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v11.45.2",
-            "version_normalized": "11.45.2.0",
+            "version": "v11.45.3",
+            "version_normalized": "11.45.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "d134bf11e2208c0c5bd488cf19e612ca176b820a"
+                "reference": "f88bacee8daae65774ca8aa0f0bd32293e4f82b0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/d134bf11e2208c0c5bd488cf19e612ca176b820a",
-                "reference": "d134bf11e2208c0c5bd488cf19e612ca176b820a",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/f88bacee8daae65774ca8aa0f0bd32293e4f82b0",
+                "reference": "f88bacee8daae65774ca8aa0f0bd32293e4f82b0",
                 "shasum": ""
             },
             "require": {
-                "brick/math": "^0.9.3|^0.10.2|^0.11|^0.12",
+                "brick/math": "^0.9.3|^0.10.2|^0.11|^0.12|^0.13|^0.14",
                 "composer-runtime-api": "^2.2",
                 "doctrine/inflector": "^2.0.5",
                 "dragonmantank/cron-expression": "^3.4",
@@ -1823,7 +1823,7 @@
                 "league/flysystem-read-only": "^3.25.1",
                 "league/flysystem-sftp-v3": "^3.25.1",
                 "mockery/mockery": "^1.6.10",
-                "orchestra/testbench-core": "^9.16.0",
+                "orchestra/testbench-core": "^9.16.1",
                 "pda/pheanstalk": "^5.0.6",
                 "php-http/discovery": "^1.15",
                 "phpstan/phpstan": "^2.0",
@@ -1871,7 +1871,7 @@
                 "symfony/postmark-mailer": "Required to enable support for the Postmark mail transport (^7.0).",
                 "symfony/psr-http-message-bridge": "Required to use PSR-7 bridging features (^7.0)."
             },
-            "time": "2025-08-13T20:28:00+00:00",
+            "time": "2025-09-02T23:56:44+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {

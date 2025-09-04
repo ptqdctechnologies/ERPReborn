@@ -52,6 +52,11 @@
                         "minimum": 1,
                         "maximum": 9223372036854775807 
                         },
+                    "transactionTax_RefID": {
+                        "type": [ "integer", "null" ],
+                        "minimum": 1,
+                        "maximum": 9223372036854775807 
+                        },
                     "remarks": {
                         "type": [ "string", "null" ],
                         "minLength": 1,
@@ -99,11 +104,11 @@
                                                                     }
                                                                 },
                                                             "required": [ 
-                                                                "underlying_RefID", 
-                                                                "amountCurrency_RefID", 
-                                                                "amountCurrencyExchangeRate", 
-                                                                "amountCurrencyValue", 
-                                                                "remarks" 
+                                                                "underlying_RefID",
+                                                                "amountCurrency_RefID",
+                                                                "amountCurrencyExchangeRate",
+                                                                "amountCurrencyValue",
+                                                                "remarks"
                                                                 ]
                                                              }
                                                         },
@@ -151,12 +156,17 @@
                                                                     "type": [ "number", "null" ],
                                                                     "minimum": 0
                                                                     },
-                                                                "paymentFundingSource_RefID": {
+                                                                "fundingSource_RefID": {
                                                                     "type": [ "integer", "null" ],
                                                                     "minimum": 1,
                                                                     "maximum": 9223372036854775807
                                                                     },
-                                                                "paymentFundingDestination_RefID": {
+                                                                "fundingDestination_RefID": {
+                                                                    "type": [ "integer", "null" ],
+                                                                    "minimum": 1,
+                                                                    "maximum": 9223372036854775807
+                                                                    },
+                                                                "beneficiaryWorkerJobsPosition_RefID": {
                                                                     "type": [ "integer", "null" ],
                                                                     "minimum": 1,
                                                                     "maximum": 9223372036854775807
@@ -185,8 +195,9 @@
                                                                 "amountCurrency_RefID",
                                                                 "amountCurrencyValue",
                                                                 "amountCurrencyExchangeRate",
-                                                                "paymentFundingSource_RefID",
-                                                                "paymentFundingDestination_RefID",
+                                                                "fundingSource_RefID",
+                                                                "fundingDestination_RefID",
+                                                                "beneficiaryWorkerJobsPosition_RefID",
                                                                 "paidDateTimeTZ",
                                                                 "payerWorkerJobsPosition_RefID",
                                                                 "remarks"
@@ -212,11 +223,12 @@
                             ]
                         }
                     },
-                "required": [ 
-                    "documentDateTimeTZ", 
-                    "log_FileUpload_Pointer_RefID", 
-                    "requesterWorkerJobsPosition_RefID", 
-                    "remarks" 
+                "required": [
+                    "documentDateTimeTZ",
+                    "log_FileUpload_Pointer_RefID",
+                    "requesterWorkerJobsPosition_RefID",
+                    "transactionTax_RefID",
+                    "remarks"
                     ]    
                 }
             },
