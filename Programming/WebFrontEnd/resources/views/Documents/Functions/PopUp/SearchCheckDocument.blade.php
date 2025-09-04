@@ -10,16 +10,16 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <table>
-                            <tr>
-                                <td style="padding-top: 10px;"><label>Transaction</label></td>
-                                <td>
-                                    <div class="input-group">
-                                        <select class="form-control select2" id="DocumentType" onchange="getListDocumentType(this);" style="width: 100%;">
-                                            <option disabled selected>Select a Document Type</option>
-                                        </select>
-                                    </div>
-                                </td>
-                            </tr>
+                                <tr>
+                                    <td style="padding-top: 10px;"><label>Transaction</label></td>
+                                    <td>
+                                        <div class="input-group">
+                                            <select class="form-control select2" id="DocumentType" onchange="getListDocumentType(this);" style="width: 100%;">
+                                                <option disabled selected>Select a Document Type</option>
+                                            </select>
+                                        </div>
+                                    </td>
+                                </tr>
                             </table>
                         </div>
                     </div>
