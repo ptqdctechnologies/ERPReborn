@@ -20,9 +20,9 @@
             'dev_requirement' => false,
         ),
         'brick/math' => array(
-            'pretty_version' => '0.13.1',
-            'version' => '0.13.1.0',
-            'reference' => 'fc7ed316430118cc7836bf45faff18d5dfc8de04',
+            'pretty_version' => '0.14.0',
+            'version' => '0.14.0.0',
+            'reference' => '113a8ee2656b882d4c3164fa31aa6e12cbb7aaa2',
             'type' => 'library',
             'install_path' => __DIR__ . '/../brick/math',
             'aliases' => array(),
@@ -626,9 +626,9 @@
             'dev_requirement' => true,
         ),
         'nesbot/carbon' => array(
-            'pretty_version' => '3.10.2',
-            'version' => '3.10.2.0',
-            'reference' => '76b5c07b8a9d2025ed1610e14cef1f3fd6ad2c24',
+            'pretty_version' => '3.10.3',
+            'version' => '3.10.3.0',
+            'reference' => '8e3643dcd149ae0fe1d2ff4f2c8e4bbfad7c165f',
             'type' => 'library',
             'install_path' => __DIR__ . '/../nesbot/carbon',
             'aliases' => array(),
@@ -945,9 +945,9 @@
             'dev_requirement' => false,
         ),
         'ramsey/uuid' => array(
-            'pretty_version' => '4.9.0',
-            'version' => '4.9.0.0',
-            'reference' => '4e0e23cc785f0724a0e838279a9eb03f28b092a0',
+            'pretty_version' => '4.9.1',
+            'version' => '4.9.1.0',
+            'reference' => '81f941f6f729b1e3ceea61d9d014f8b6c6800440',
             'type' => 'library',
             'install_path' => __DIR__ . '/../ramsey/uuid',
             'aliases' => array(),
@@ -965,7 +965,7 @@
         'rhumsaa/uuid' => array(
             'dev_requirement' => false,
             'replaced' => array(
-                0 => '4.9.0',
+                0 => '4.9.1',
             ),
         ),
         'sabberworm/php-css-parser' => array(
@@ -1005,9 +1005,9 @@
             'dev_requirement' => true,
         ),
         'sebastian/comparator' => array(
-            'pretty_version' => '5.0.3',
-            'version' => '5.0.3.0',
-            'reference' => 'a18251eb0b7a2dcd2f7aa3d6078b18545ef0558e',
+            'pretty_version' => '5.0.4',
+            'version' => '5.0.4.0',
+            'reference' => 'e8e53097718d2b53cfb2aa859b06a41abf58c62e',
             'type' => 'library',
             'install_path' => __DIR__ . '/../sebastian/comparator',
             'aliases' => array(),

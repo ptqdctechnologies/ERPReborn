@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.14.0](https://github.com/brick/math/releases/tag/0.14.0) - 2025-08-29
+
+✨ **New features**
+
+- New methods: `BigInteger::clamp()` and `BigDecimal::clamp()` (#96 by @JesterIruka)
+
+✨ **Improvements**
+
+- All pure methods in `BigNumber` classes are now marked as `@pure` for better static analysis
+
+💥 **Breaking changes**
+
+- Minimum PHP version is now 8.2
+- `BigNumber` classes are now `readonly`
+- `BigNumber` is now marked as sealed: it must not be extended outside of this package
+- Exception classes are now `final`
+
 ## [0.13.1](https://github.com/brick/math/releases/tag/0.13.1) - 2025-03-29
 
 ✨ **Improvements**

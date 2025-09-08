@@ -3967,6 +3967,7 @@ return array(
     'Brick\\Math\\Exception\\NumberFormatException' => $vendorDir . '/brick/math/src/Exception/NumberFormatException.php',
     'Brick\\Math\\Exception\\RoundingNecessaryException' => $vendorDir . '/brick/math/src/Exception/RoundingNecessaryException.php',
     'Brick\\Math\\Internal\\Calculator' => $vendorDir . '/brick/math/src/Internal/Calculator.php',
+    'Brick\\Math\\Internal\\CalculatorRegistry' => $vendorDir . '/brick/math/src/Internal/CalculatorRegistry.php',
     'Brick\\Math\\Internal\\Calculator\\BcMathCalculator' => $vendorDir . '/brick/math/src/Internal/Calculator/BcMathCalculator.php',
     'Brick\\Math\\Internal\\Calculator\\GmpCalculator' => $vendorDir . '/brick/math/src/Internal/Calculator/GmpCalculator.php',
     'Brick\\Math\\Internal\\Calculator\\NativeCalculator' => $vendorDir . '/brick/math/src/Internal/Calculator/NativeCalculator.php',
