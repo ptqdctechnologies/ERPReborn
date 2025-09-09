@@ -15,7 +15,8 @@ use App\Helpers\ZhtHelper\Cache\Helper_Redis;
 use Illuminate\Support\Facades\Log;
 use App\Services\Process\Advance\AdvanceSettlementService;
 use App\Services\Process\BusinessTrip\BusinessTripService;
-use App\Services\MasterDataService;
+use App\Services\Master\BusinessDocumentType\BusinessDocumentTypeService;
+use App\Services\Master\Transporter\TransporterService;
 
 class FunctionController extends Controller
 {
@@ -24,13 +25,21 @@ class FunctionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    protected $advanceSettlementService, $businessTripService, $masterDataService;
+    protected $advanceSettlementService, 
+        $businessDocumentTypeService, 
+        $businessTripService, 
+        $transporterService;
 
-    public function __construct(AdvanceSettlementService $advanceSettlementService, BusinessTripService $businessTripService, MasterDataService $masterDataService)
+    public function __construct(
+        AdvanceSettlementService $advanceSettlementService, 
+        BusinessTripService $businessTripService, 
+        BusinessDocumentTypeService $businessDocumentTypeService,
+        TransporterService $transporterService)
     {
-        $this->advanceSettlementService = $advanceSettlementService;
-        $this->businessTripService = $businessTripService;
-        $this->masterDataService = $masterDataService;
+        $this->advanceSettlementService     = $advanceSettlementService;
+        $this->businessTripService          = $businessTripService;
+        $this->businessDocumentTypeService  = $businessDocumentTypeService;
+        $this->transporterService           = $transporterService;
     }
 
     //FUNCTION PROJECT
@@ -341,7 +350,7 @@ class FunctionController extends Controller
     public function getTransporter(Request $request)
     {
         try {
-            $response = $this->masterDataService->transporter();
+            $response = $this->transporterService->dataPickList();
 
             if ($response['metadata']['HTTPStatusCode'] !== 200) {
                 return response()->json($response);
@@ -681,36 +690,36 @@ class FunctionController extends Controller
     // FUNCTION DOCUMENT TYPE 
     public function getDocumentType(Request $request)
     {
-        $varAPIWebToken = Session::get('SessionLogin');
-        $transName      = $request->input('name');
-        $filterName     = null;
+        try {
+            $varAPIWebToken = Session::get('SessionLogin');
+            $transName      = $request->input('name');
+            $filterName     = null;
 
-        if ($transName && $transName != "undefined" && $transName != null) {
-            $filterName = "\"Name\" = '$transName'";
-        }
+            if ($transName && $transName != "undefined" && $transName != null) {
+                $filterName = "\"Name\" = '$transName'";
+            }
 
-        $varBusinessDocumentType = Helper_APICall::setCallAPIGateway(
-            Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'transaction.read.dataList.master.getBusinessDocumentType',
-            'latest',
-            [
-                'parameter' => [],
-                'SQLStatement' => [
-                    'pick' => null,
-                    'sort' => null,
-                    'filter' => $filterName,
-                    'paging' => null
+            $response = $this->businessDocumentTypeService->getDetail(
+                [
+                    'parameter'     => [],
+                    'SQLStatement'  => [
+                        'pick'      => null,
+                        'sort'      => null,
+                        'filter'    => $filterName,
+                        'paging'    => null
+                    ]
                 ]
-            ],
-            false
-        );
+            );
 
-        // Log::error("transName: ",[$transName]);
-        // Log::error("filterName: ",[$filterName]);
-        // Log::error("varBusinessDocumentType: ",[$varBusinessDocumentType]);
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                return response()->json($response);
+            }
 
-        return response()->json($varBusinessDocumentType['data']['data']);
+            return response()->json($response['data']['data']);
+        } catch (\Throwable $th) {
+            Log::error("Error at getDocumentType: " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
     }
 
     // FUNCTION DOCUMENT TYPE 
