@@ -76,6 +76,23 @@ class ReimbursementController extends Controller
         }
     }
 
+    public function GetReimbursementDetail(Request $request) 
+    {
+        try {
+            $varAPIWebToken = $request->session()->get('SessionLogin');
+            $response       = $this->reimbursementService->getDetail($request->reimbursement_id);
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                return response()->json($response['data']);
+            }
+
+            return response()->json($response['data']['data']);
+        } catch (\Throwable $th) {
+            Log::error("GetReimbursementDetail Function Error: " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
     public function RevisionReimbursement(Request $request)
     {
         try {
