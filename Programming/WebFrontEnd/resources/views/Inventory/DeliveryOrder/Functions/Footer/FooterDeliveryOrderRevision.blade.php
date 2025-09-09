@@ -275,16 +275,19 @@
             tbody.append(row);
 
             $(`#qty_req${key}`).on('keyup', function() {
-                var qty_req = $(this).val().replace(/,/g, '');
-                var data_index = $(this).data('index');
-                var result = val2.qtyAvail - qty_req;
+                var qty_req         = $(this).val().replace(/,/g, '');
+                var data_index      = $(this).data('index');
+                var result          = val2.qtyAvail - qty_req;
+                var validate        = parseFloat((parseFloat(val2.qtyAvail) + parseFloat(val2.quantity)).toFixed(2));
+                var countBalance    = validate - qty_req;
 
-                if (qty_req > val2.qtyAvail) {
-                    $(this).val("");
+                // if (qty_req > val2.qtyAvail) {
+                if (parseFloat(qty_req || 0) > validate) {
+                    $(this).val(val2.quantity);
                     $(`#balance${data_index}`).val("");
-                    ErrorNotif("Qty Request is over Qty Avail !");
+                    ErrorNotif("Qty Request is over !");
                 } else {
-                    $(`#balance${data_index}`).val(result.toFixed(2));
+                    $(`#balance${data_index}`).val(decimalFormat(countBalance));
                     calculateTotal();
                 }
 
