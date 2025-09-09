@@ -20,20 +20,8 @@
                         @include('Process.Reimbursement.Functions.Header.HeaderReportRemToDN')           
                     </div>
 
-                    <?php if ($dataReport) { ?>
-                        <!-- HEADER -->
-                        <!-- <div class="row">
-                            <div class="col-12">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="row py-2 px-1" style="gap: 1rem;">
-                                            <label class="p-0 text-bold mb-0">Budget</label>
-                                            <div>: <?php $dataReport['budgetCode']; ?> - <?php $dataReport['budgetName']; ?></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> -->
+                    <?php if ($dataRemToDN) { ?>
+                        
 
                         <!-- TABLE -->
                         <div class="row">
@@ -69,61 +57,65 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                    <!-- <td>-</td>
-                                                    <td>-</td>
-                                                    <td>-</td>
-                                                    <td>-</td>
-                                                    <td>-</td>
-                                                    <td>-</td>
-                                                    <td>-</td>
-                                                    <td>-</td>
-                                                    <td>-</td>
-                                                    <td>-</td>
-                                                    <td>-</td>
-                                                    <td>-</td>
-                                                    <td>-</td>
-                                                    <td>-</td>
-                                                    <td>-</td>
-                                                    <td>-</td>
-                                                    <td>-</td> -->
-                                                <?= $counter = 1;  ?>
-                                                <?php foreach ($dataReport['dataDetail'] as $dataDetail) { ?>
+                                                <?php 
+                                                    $counter = 1; 
+                                                    $grandTotal_REM_Total_IDR=0;
+                                                    $grandTotal_REM_Total_Other_Currency=0;
+                                                    $grandTotal_REM_Total_Equivalent_IDR=0;
+                                                    $grandTotal_DN_Total_IDR=0;
+                                                    $grandTotal_DN_Total_Other_Currency=0;
+                                                    $grandTotal_DN_Total_Equivalent_IDR=0;
+                                                    $grandTotal_balanceREM_ToPayment=0;
+                                                    $grandTotal_balanceREM_ToDN=0;
+                                                    $grandTotal_=0;
+                                                ?>
+                                                <?php foreach ($dataRemToDN as $dataDetail) { ?>
+                                                    <?php $grandTotal_REM_Total_IDR += $dataDetail['REM_Total_IDR'];?>
+                                                    <?php $grandTotal_REM_Total_Other_Currency += $dataDetail['REM_Total_Other_Currency'];?>
+                                                    <?php $grandTotal_REM_Total_Equivalent_IDR += $dataDetail['REM_Total_Equivalent_IDR'];?>
+                                                    <?php $grandTotal_DN_Total_IDR += $dataDetail['DN_Total_IDR'];?>
+                                                    <?php $grandTotal_DN_Total_Other_Currency += $dataDetail['DN_Total_Other_Currency'];?>
+                                                    <?php $grandTotal_DN_Total_Equivalent_IDR += $dataDetail['DN_Total_Equivalent_IDR'];?>
+                                                    <?php $grandTotal_balanceREM_ToPayment += $dataDetail['balanceREM_ToPayment'];?>
+                                                    <?php $grandTotal_balanceREM_ToDN += $dataDetail['balanceREM_ToDN'];?>
+                                                    <?php $grandTotal_ += 0;?>
                                                     <tr>
                                                         <td><?= $counter++; ?></td>
-                                                        <td><?= $dataDetail['DocumentNumber']; ?></td>
-                                                        <td>{{ $dataDetail['CombinedBudgetCode'] }} - {{ $dataDetail['CombinedBudgetName'] }}</td>
-                                                        <td>{{ $dataDetail['CombinedBudgetSectionCode'] }} - {{ $dataDetail['CombinedBudgetSectionName'] }}</td>
-                                                        <td><?= date('d-m-Y', strtotime($dataDetail['DocumentDateTimeTZ'])); ?></td>
+                                                        <td><?= $dataDetail['REM_Number']; ?></td>
+                                                        <td><?= date('d-m-Y', strtotime($dataDetail['REM_Date'])); ?></td>
                                                         <td>-</td>
-                                                        <td>-</td>
-                                                        <td>-</td>
-                                                        <td>-</td>
-                                                        <td>-</td>
-                                                        <td>-</td>
-                                                        <td>-</td>
-                                                        <td>-</td>
-                                                        <td>-</td>
-                                                        <td>-</td>
-                                                        <td>-</td>
-                                                        <td>-</td>
-                                                        <td>-</td>
+                                                        <td>{{ $dataDetail['REM_CustomerCode'] }} - {{ $dataDetail['REM_CustomerName'] }}</td>
+                                                        <td>{{ number_format($dataDetail['REM_Total_IDR'], 2, '.', ',') }}</td>
+                                                        <td>{{ number_format($dataDetail['REM_Total_Other_Currency'], 2, '.', ',') }}</td>
+                                                        <td>{{ number_format($dataDetail['REM_Total_Equivalent_IDR'], 2, '.', ',') }}</td>
+                                                        <td>{{ $dataDetail['REM_Status'] }}</td>
+                                                        <td>{{ $dataDetail['DN_Number'] }}</td>
+                                                        <td><?= date('d-m-Y', strtotime($dataDetail['DN_Date'])); ?></td>
+                                                        <td>{{ number_format($dataDetail['DN_Total_IDR'], 2, '.', ',') }}</td>
+                                                        <td>{{ number_format($dataDetail['DN_Total_Other_Currency'], 2, '.', ',') }}</td>
+                                                        <td>{{ number_format($dataDetail['DN_Total_Equivalent_IDR'], 2, '.', ',') }}</td>
+                                                        <td>{{ $dataDetail['DN_Status'] }}</td>
+                                                        <td>{{ number_format($dataDetail['balanceREM_ToPayment'], 2, '.', ',') }}</td>
+                                                        <td>{{ number_format($dataDetail['balanceREM_ToDN'], 2, '.', ',') }}</td>
+                                                        <td>{{ number_format(0, 2, '.', ',') }}</td>
                                                     </tr>
                                                 <?php } ?>
+                                                
                                             </tbody>
                                             <tfoot>
                                                 <tr>
                                                     <th colspan="5" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">GRAND TOTAL</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format(0, 2, '.', ','); ?></th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format(0, 2, '.', ','); ?></th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format(0, 2, '.', ','); ?></th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format($grandTotal_REM_Total_IDR, 2, '.', ','); ?></th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format($grandTotal_REM_Total_Other_Currency, 2, '.', ','); ?></th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format($grandTotal_REM_Total_Equivalent_IDR, 2, '.', ','); ?></th>
                                                     <th colspan="3" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"></th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format(0, 2, '.', ','); ?></th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format(0, 2, '.', ','); ?></th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format(0, 2, '.', ','); ?></th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format($grandTotal_DN_Total_IDR, 2, '.', ','); ?></th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format($grandTotal_DN_Total_Other_Currency, 2, '.', ','); ?></th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format($grandTotal_DN_Total_Equivalent_IDR, 2, '.', ','); ?></th>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"></th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format(0, 2, '.', ','); ?></th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format(0, 2, '.', ','); ?></th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format(0, 2, '.', ','); ?></th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format($grandTotal_balanceREM_ToPayment, 2, '.', ','); ?></th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format($grandTotal_balanceREM_ToDN, 2, '.', ','); ?></th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format($grandTotal_, 2, '.', ','); ?></th>
                                                 </tr>
                                             </tfoot>
                                         </table>
