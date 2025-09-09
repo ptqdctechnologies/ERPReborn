@@ -49,11 +49,11 @@ class DeliveryOrderService
             'latest',
             [
                 'entities' => [
-                    "documentDateTimeTZ"                => $deliveryOrderData['storeData']['var_date'],
+                    "documentDateTimeTZ"                => date('Y-m-d'),
                     "log_FileUpload_Pointer_RefID"      => $fileID,
                     "requesterWorkerJobsPosition_RefID" => $SessionWorkerCareerInternal_RefID,
                     "transporter_RefID"                 => (int) $deliveryOrderData['storeData']['transporter_id'],
-                    "deliveryDateTimeTZ"                => null,
+                    "deliveryDateTimeTZ"                => $deliveryOrderData['storeData']['delivery_date'],
                     "deliveryFrom_RefID"                => $deliveryFromRefID,
                     "deliveryFrom_NonRefID"             => $deliveryOrderData['storeData']['delivery_from'],
                     "deliveryTo_RefID"                  => $deliveryToRefID,
@@ -89,7 +89,7 @@ class DeliveryOrderService
                 "log_FileUpload_Pointer_RefID"      => $fileID,
                 "requesterWorkerJobsPosition_RefID" => (int) $SessionWorkerCareerInternal_RefID,
                 "transporter_RefID"                 => (int) $revisionDeliveryOrderData['storeData']['transporter_id'],
-                "deliveryDateTimeTZ"                => null,
+                "deliveryDateTimeTZ"                => $revisionDeliveryOrderData['storeData']['deliveryDateTime'],
                 "deliveryFrom_RefID"                => null,
                 "deliveryFrom_NonRefID"             => $revisionDeliveryOrderData['storeData']['delivery_from'],
                 "deliveryTo_RefID"                  => null,

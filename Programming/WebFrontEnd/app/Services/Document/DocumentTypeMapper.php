@@ -15,6 +15,10 @@ class DocumentTypeMapper
                 'key'       => 'transaction.read.dataList.finance.getAdvanceSettlementDetail',
                 'parameter' => ['advanceSettlement_RefID' => (int) $referenceId]
             ],
+            'Credit Note Form' => [
+                'key'       => 'transaction.read.dataList.finance.getCreditNoteDetail',
+                'parameter' => ['creditNote_RefID' => (int) $referenceId]
+            ],
             'Delivery Order Form' => [
                 'key'       => 'transaction.read.dataList.supplyChain.getDeliveryOrderDetail',
                 'parameter' => ['deliveryOrder_RefID' => (int) $referenceId],
@@ -45,9 +49,8 @@ class DocumentTypeMapper
                 'businessDocument_RefID'    => (int) 74000000021494,
             ],
             'Person Business Trip Form' => [
-                'key'                       => '',
-                'parameter'                 => [],
-                'businessDocument_RefID'    => (int) 74000000021494,
+                'key'                       => 'transaction.read.dataList.humanResource.getPersonBusinessTripSequence',
+                'parameter'                 => ['personBusinessTrip_RefID' => (int) $referenceId],
             ],
             'Person Business Trip Settlement Form' => [
                 'key'                       => '',
@@ -63,9 +66,8 @@ class DocumentTypeMapper
                 'parameter' => ['purchaseRequisition_RefID' => (int) $referenceId],
             ],
             'Reimbursement Form' => [
-                'key'                       => '',
-                'parameter'                 => [],
-                'businessDocument_RefID'    => (int) 74000000021494,
+                'key'                       => 'transaction.read.dataList.finance.getReimbursementDetail',
+                'parameter'                 => ['reimbursement_RefID' => (int) $referenceId],
             ],
             'Sallary Allocation Form' => [
                 'key'                       => '',
@@ -156,6 +158,26 @@ class DocumentTypeMapper
                 ],
                 'transactionType'        => 'ADVANCE SETTLEMENT',
                 'businessDocument_RefID' => $dataDetail['businessDocument_RefID'] ?? '-',
+            ],
+            'Credit Note Form'          => [
+                'dataHeader'            => [
+                    'cnNumber'          => $dataDetail['BusinessDocumentNumber'] ?? '',
+                    'date'              => $dataDetail['Date'] ?? '',
+                    'dateUpdate'        => $dataDetail['DateUpdate'] ?? null,
+                    'fileID'            => $dataDetail['Log_FileUpload_Pointer_RefID'] ?? '',
+                    'budgetCode'        => $dataDetail['CombinedBudgetCode'] ?? '',
+                    'budgetName'        => $dataDetail['CombinedBudgetName'] ?? '',
+                    'subBudgetCode'     => $dataDetail['CombinedBudgetSectionCode'] ?? '',
+                    'subBudgetName'     => $dataDetail['CombinedBudgetSectionName'] ?? '',
+                    'customerCode'      => $dataDetail['CustomerCode'] ?? '',
+                    'customerName'      => $dataDetail['CustomerName'] ?? '',
+                ],
+                'components'            => [
+                    'detail'            => 'Components.CreditNoteDetailDocument',
+                    'revision'          => 'Components.CreditNoteDocumentRevision',
+                    'table'             => 'Components.CreditNoteDetailDocumentTable',
+                ],
+                'transactionType'       => 'CREDIT NOTE',
             ],
             'Delivery Order Form'   => [
                 'dataHeader'    => [
@@ -339,24 +361,24 @@ class DocumentTypeMapper
             ],
             'Person Business Trip Form' => [
                 'dataHeader'            => [
-                    'btNumber'              => 'BT/QDC/2025/000008',
-                    'budgetCode'            => 'Q000196',
-                    'budgetName'            => 'XL Microcell 2007',
-                    'subBudgetCode'         => '235',
-                    'subBudgetName'         => 'Ampang Kuranji - Padang',
+                    'btNumber'              => $dataDetail['documentNumber'] ?? '-',
+                    'budgetCode'            => $dataDetail['combinedBudgetCode'] ?? '-',
+                    'budgetName'            => $dataDetail['combinedBudgetName'] ?? '-',
+                    'subBudgetCode'         => $dataDetail['combinedBudgetSectionCode'] ?? '-',
+                    'subBudgetName'         => $dataDetail['combinedBudgetSectionName'] ?? '-',
+                    'description'           => '-',
+                    'dateCommenceTravel'    => $dataDetail['startDateTimeTZ'] ?? '-',
+                    'dateEndTravel'         => $dataDetail['finishDateTimeTZ'] ?? '-',
+                    'brfDate'               => $dataDetail['documentDateTimeTZ'] ?? '-',
                     'fileID'                => null,
-                    'description'           => '820005-0000 (Travel & Fares/Business Trip)',
-                    'dateCommenceTravel'    => '2025-12-18',
-                    'dateEndTravel'         => '2025-12-20',
-                    'brfDate'               => '2025-12-12',
-                    'contactPhone'          => '0896734873',
-                    'bankAccount'           => 'PT QDC Technologies',
-                    'bankName'              => 'BCA',
-                    'accountNumber'         => '0063032911',
-                    'requesterName'         => 'Abdollah Syani Siregar',
-                    'beneficiaryName'       => 'Abdul Rachman',
-                    'departingFrom'         => 'Jakarta',
-                    'destinationTo'         => 'Batam',
+                    'contactPhone'          => '-',
+                    'bankAccount'           => '-',
+                    'bankName'              => '-',
+                    'accountNumber'         => '',
+                    'requesterName'         => $dataDetail['requesterWorkerName'] ?? '-',
+                    'beneficiaryName'       => '-',
+                    'departingFrom'         => '-',
+                    'destinationTo'         => '-',
                 ],
                 'dataAdditional'    => [
                     'allowance'     => '240000.00',
@@ -504,19 +526,31 @@ class DocumentTypeMapper
             ],
             'Reimbursement Form'       => [
                 'dataHeader'            => [
-                    'customerVendorProject' => 'VDR0006',
-                    'customerVendorName'    => 'Alumagada Jaya Mandiri',
-                    'currency'              => 'IDR',
-                    'budgetCode'            => 'Q000062',
-                    'budgetName'            => 'XL Microcell 2007',
+                    'remNumber'             => $dataDetail['BusinessDocumentNumber'] ?? '-',
+                    'date'                  => $dataDetail['Date'] ?? '-',
+                    'dateUpdate'            => $dataDetail['DateUpdate'] ?? null,
+                    'fileID'                => $dataDetail['Log_FileUpload_Pointer_RefID'] ?? null,
+                    'customerVendorProject' => $dataDetail['RequesterCode'] ?? null,
+                    'customerVendorName'    => $dataDetail['RequesterName'] ?? null,
+                    'currency'              => $dataDetail['ProductUnitPriceCurrencyISOCode'] ?? null,
+                    'budgetCode'            => $dataDetail['CombinedBudgetCode'] ?? null,
+                    'budgetName'            => $dataDetail['CombinedBudgetName'] ?? null,
+                    'subBudgetCode'         => $dataDetail['CombinedBudgetSectionCode'] ?? null,
+                    'subBudgetName'         => $dataDetail['CombinedBudgetSectionName'] ?? null,
+                    'beneficiaryName'       => $dataDetail['BeneficiaryName'] ?? '-',
+                    'bankName'              => $dataDetail['BeneficiaryBankAcronym'] ?? '-',
+                    'accountName'           => $dataDetail['BeneficiaryBankAccountName'] ?? '',
+                    'accountNumber'         => $dataDetail['BeneficiaryBankAccountNumber'] ?? '',
                 ],
                 'textAreaFields'    => [
                     'title'         => 'Remark',
-                    'text'          => '-',
+                    'text'          => $dataDetail['Remarks_Header'] ?? null,
                 ],
                 'components'    => [
-                    'detail'    => 'Components.ReimbursementDetailDocument',
-                    'table'     => 'Components.ReimbursementDetailDocumentTable',
+                    'detail'            => 'Components.ReimbursementDetailDocument',
+                    'table'             => 'Components.ReimbursementDetailDocumentTable',
+                    'headerRevision'    => 'Components.ReimbursementDetailDocumentHeaderRevision',
+                    'revision'          => 'Components.ReimbursementDetailDocumentRevision'
                 ],
                 'resubmit'      => [
                     'url'       => '',
@@ -524,7 +558,7 @@ class DocumentTypeMapper
                     'value'     => ''
                 ],
                 'transactionType'        => 'REIMBURSEMENT',
-                'businessDocument_RefID' => '',
+                'businessDocument_RefID' => $dataDetail['BusinessDocument_RefID'] ?? '',
             ],
             'Sallary Allocation Form'       => [
                 'dataHeader'            => [
@@ -614,9 +648,11 @@ class DocumentTypeMapper
         $mapping = [
             'Advance Form'                  => 'Documents.Transactions.LogTransaction.LogTransactionAdvance',
             'Advance Settlement Form'       => 'Documents.Transactions.LogTransaction.LogTransactionAdvanceSettlement',
+            'Credit Note Form'              => 'Documents.Transactions.LogTransaction.LogTransactionCreditNote',
             'Delivery Order Form'           => 'Documents.Transactions.LogTransaction.LogTransactionDeliveryOrder',
             'Purchase Order Form'           => 'Documents.Transactions.LogTransaction.LogTransactionPurchaseOrder',
             'Purchase Requisition Form'     => 'Documents.Transactions.LogTransaction.LogTransactionPurchaseRequisition',
+            'Reimbursement Form'            => 'Documents.Transactions.LogTransaction.LogTransactionReimbursement',
             'Warehouse Inbound Order Form'  => 'Documents.Transactions.LogTransaction.LogTransactionMaterialReceive'
         ];
 

@@ -14,17 +14,20 @@ use Maatwebsite\Excel\Facades\Excel;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Services\Purchase\PurchaseOrderService;
 use App\Services\Inventory\DeliveryOrderService;
+use App\Services\Process\BusinessTrip\BusinessTripService;
 use App\Http\Controllers\ExportExcel\Purchase\ExportReportPurchaseOrderDetail;
 
 class CheckDocumentController extends Controller
 {
-    protected $checkDocumentService, $purchaseOrderService, $deliveryOrderService;
+    protected $checkDocumentService, $purchaseOrderService, $deliveryOrderService, $businessTripService;
 
     public function __construct(
+        BusinessTripService $businessTripService,
         CheckDocumentService $checkDocumentService, 
         PurchaseOrderService $purchaseOrderService, 
         DeliveryOrderService $deliveryOrderService)
     {
+        $this->businessTripService = $businessTripService;
         $this->checkDocumentService = $checkDocumentService;
         $this->purchaseOrderService = $purchaseOrderService;
         $this->deliveryOrderService = $deliveryOrderService;
@@ -70,9 +73,7 @@ class CheckDocumentController extends Controller
                 $documentType === 'Loan Form' ||
                 $documentType === 'Loan Settlement Form' ||
                 $documentType === 'Modify Budget Form' ||
-                $documentType === 'Person Business Trip Form' ||
                 $documentType === 'Person Business Trip Settlement Form' || 
-                $documentType === 'Reimbursement Form' || 
                 $documentType === 'Sallary Allocation Form'
             ) {
                 // JUST FOR TRIGGER, WHEN API KEY NOT READY
@@ -108,8 +109,6 @@ class CheckDocumentController extends Controller
             if ($responseData['metadata']['HTTPStatusCode'] !== 200) {
                 return redirect()->back()->with('NotFound', value: 'API Error.');
             }
-
-            // dd($responseData);
 
             $dataDetail             = $responseData['data']['data'] ?? $responseData['data'] ?? [];
             $businessDocumentRefID  = $dataDetail[0]['BusinessDocument_RefID'] ?? $dataDetail[0]['businessDocument_RefID'] ?? $apiConfig['businessDocument_RefID']; // Dummy: $apiConfig['businessDocument_RefID']
@@ -233,10 +232,8 @@ class CheckDocumentController extends Controller
 
             $formatData = DocumentTypeMapper::formatData($businessDocumentTypeName, $collection['dataDetail'][0]);
 
-            // dd($formatData['dataHeader']);
-
             $compactTransactionHistory = [];
-            if ($formatData['dataHeader']['dateUpdate']) {
+            if (isset($formatData['dataHeader']['dateUpdate']) && $formatData['dataHeader']['dateUpdate'] ?? isset($formatData['dataHeader']['DateUpdate']) && $formatData['dataHeader']['DateUpdate']) {
                 $responseGetTransactionHistory = $this->checkDocumentService->getTransactionHistory($transDetail_RefID);
 
                 if ($responseGetTransactionHistory['metadata']['HTTPStatusCode'] !== 200) {
@@ -266,7 +263,7 @@ class CheckDocumentController extends Controller
                 ];
             }
 
-            // dd($compactTransactionHistory);
+            // dump($compactTransactionHistory);
 
             $compact = [
                 'varAPIWebToken'                => $varAPIWebToken,
@@ -282,7 +279,7 @@ class CheckDocumentController extends Controller
                 'dataDetails'                   => $collection['dataDetail'],
             ] + $formatData + $compactTransactionHistory;
 
-            // dd($compact);
+            // dump($compact);
 
             return view('Documents.Transactions.IndexCheckDocument', $compact);
         } catch (\Throwable $th) {
@@ -501,26 +498,6 @@ class CheckDocumentController extends Controller
                             [
                                 'sys_ID'    => 23456781,
                                 'sys_Text'  => 'SA/QDC/2025/000002',
-                                'combinedBudgetCode' => 'Q000196',
-                                'combinedBudgetSectionCode' => 'Q000062 ► 235'
-                            ],
-                        ]
-                    ]
-                ];
-                break;
-            case "Reimbursement Form":
-                $varData = [
-                    'data' => [
-                        'data' => [
-                            [
-                                'sys_ID'    => 12345678,
-                                'sys_Text'  => 'REM/QDC/2025/000001',
-                                'combinedBudgetCode' => 'Q000196',
-                                'combinedBudgetSectionCode' => 'Q000062 ► 235'
-                            ],
-                            [
-                                'sys_ID'    => 23456781,
-                                'sys_Text'  => 'REM/QDC/2025/000002',
                                 'combinedBudgetCode' => 'Q000196',
                                 'combinedBudgetSectionCode' => 'Q000062 ► 235'
                             ],

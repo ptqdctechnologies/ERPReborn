@@ -4,7 +4,7 @@
         <!-- LEFT COLUMN -->
         <div class="col-md-12 col-lg-5">
             <!-- TRANSPORTER -->
-            <div class="row" style="margin-bottom: 1rem;">
+            <div class="row">
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">
                     Transporter
                 </label>
@@ -13,7 +13,7 @@
                         <input id="transporter_name" style="border-radius:0;" class="form-control" size="20" readonly>
                         <input id="transporter_id" style="border-radius:0;" name="transporter_id" class="form-control" hidden>
                     </div>
-                    <div class="input-group-append">
+                    <div>
                         <span style="border-radius:0;" class="input-group-text form-control myTransporter">
                             <a href="javascript:;" id="myTransporterTrigger" data-toggle="modal" data-target="#myTransporter" style="display: block;">
                                 <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="myTransporterTrigger">
@@ -22,9 +22,17 @@
                     </div>
                 </div>
             </div>
+            <div class="row" id="transporterMessage" style="margin-top: .3rem;display: none;">
+                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+                <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                    <div class="text-red">
+                        Transporter cannot be empty.
+                    </div>
+                </div>
+            </div>
 
             <!-- TRANS. PHONE -->
-            <div class="row" style="margin-bottom: 1rem;">
+            <div class="row" style="margin-top: 1rem;">
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">
                     Trans. Phone
                 </label>
@@ -36,7 +44,7 @@
             </div>
 
             <!-- TRANS. FAX -->
-            <div class="row">
+            <div class="row" style="margin-top: 1rem;">
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">
                     Trans. Fax
                 </label>
