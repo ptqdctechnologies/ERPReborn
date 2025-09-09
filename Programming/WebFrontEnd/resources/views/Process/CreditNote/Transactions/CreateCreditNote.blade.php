@@ -83,6 +83,21 @@
                                                     </div>
                                                 </div>
                                             </div>
+
+                                            <!-- CUSTOMER -->
+                                            <div class="col-md-12 col-lg-5">
+                                                <div class="row">
+                                                    <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Customer</label>
+                                                    <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                                                        <div>
+                                                            <div class="input-group">
+                                                                <input id="customer_number" style="border-radius:0;" class="form-control" readonly>
+                                                                <input id="customer_id" style="border-radius:0;" class="form-control" hidden>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -200,6 +215,36 @@
                                             </div>
                                             <div class="col text-right" style="margin-right: 20px; font-size: 0.77rem; color: #212529; font-weight: 600;">
                                                 Total : <span id="TotalBudgetSelected">0.00</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- REMARK -->
+                    <div class="tab-content px-3 pb-2" id="nav-tabContent">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <!-- HEADER -->
+                                    <div class="card-header">
+                                        <label for="remark" class="card-title">
+                                            Remarks
+                                        </label>
+                                        <div class="card-tools">
+                                            <button type="button" class="btn btn-tool" data-card-widget="collapse" aria-label="Collapse Section Remark">
+                                                <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <!-- CONTENT -->
+                                    <div class="card-body">
+                                        <div class="row py-3">
+                                            <div class="col p-0">
+                                                <textarea name="remarks" id="remarks" class="form-control"></textarea>
                                             </div>
                                         </div>
                                     </div>

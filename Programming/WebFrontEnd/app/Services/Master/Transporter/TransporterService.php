@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Master\Transporter;
 
 use Illuminate\Support\Facades\Session;
 use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
 use App\Helpers\ZhtHelper\System\Helper_Environment;
 
-class MasterDataService
+class TransporterService
 {
-    public function transporter()
+    public function dataPickList()
     {
         $sessionToken = Session::get('SessionLogin');
 
@@ -18,8 +18,7 @@ class MasterDataService
             'dataPickList.supplyChain.getTransporter', 
             'latest',
             [
-            'parameter' => [
-                ]
+                'parameter' => []
             ]
         );
     }

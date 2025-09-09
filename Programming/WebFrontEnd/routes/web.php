@@ -285,6 +285,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::resource('BusinessTripRequest', 'Process\BusinessTrip\BusinessTripRequestController');
 
     // REM
+    Route::get('GetReimbursementDetail', 'Process\Reimbursement\ReimbursementController@GetReimbursementDetail')->name('Reimbursement.GetReimbursementDetail');
     Route::post('RevisionReimbursement', 'Process\Reimbursement\ReimbursementController@RevisionReimbursement')->name('Reimbursement.RevisionReimbursement');
     Route::post('UpdateReimbursement', 'Process\Reimbursement\ReimbursementController@UpdateReimbursement')->name('Reimbursement.UpdateReimbursement');
     Route::get('ReportReimbursementSummary', 'Process\Reimbursement\ReimbursementController@ReportReimbursementSummary')->name('Reimbursement.ReportReimbursementSummary');
@@ -412,11 +413,13 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::resource('CreditNote', 'Process\CreditNote\CreditNoteController');
 
     // DEBIT NOTE
+    Route::get('DebitNoteDataPickList', 'Process\DebitNote\DebitNoteController@DataPickList')->name('DebitNote.DataPickList');
+    Route::post('RevisionDebitNote', 'Process\DebitNote\DebitNoteController@RevisionDebitNote')->name('DebitNote.RevisionDebitNote');
     Route::get('ReportDebitNoteSummary', 'Process\DebitNote\DebitNoteController@ReportDebitNoteSummary')->name('DebitNote.ReportDebitNoteSummary');
     Route::post('ReportDebitNoteSummaryStore', 'Process\DebitNote\DebitNoteController@ReportDebitNoteSummaryStore')->name('DebitNote.ReportDebitNoteSummaryStore');
     Route::post('PrintExportReportDebitNoteSummary', 'Process\DebitNote\DebitNoteController@PrintExportReportDebitNoteSummary')->name('DebitNote.PrintExportReportDebitNoteSummary');
-    
-    Route::resource('DebitNote', 'Process\DebitNote\DebitNoteController');
+    Route::resource('DebitNote', 'Process\DebitNote\DebitNoteController')->only(['index', 'store', 'update']);
+
     // OP
     Route::post('StoreValidateOrderPicking', 'Purchase\OrderPickingController@StoreValidateOrderPicking')->name('OrderPicking.StoreValidateOrderPicking');
     Route::post('StoreValidateOrderPicking2', 'Purchase\OrderPickingController@StoreValidateOrderPicking2')->name('OrderPicking.StoreValidateOrderPicking2');

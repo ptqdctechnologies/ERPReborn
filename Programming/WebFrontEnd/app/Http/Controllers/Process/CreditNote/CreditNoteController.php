@@ -223,6 +223,7 @@ class CreditNoteController extends Controller
                     'creditNoteNumber'      => $data[0]['BusinessDocumentNumber'] ?? '',
                     'combinedBudget_RefID'  => $data[0]['CombinedBudget_RefID'] ?? '',
                     'fileID'                => $data[0]['Log_FileUpload_Pointer_RefID'] ?? null,
+                    'remarks'               => $data[0]['Remarks'] ?? '',
                 ],
                 'detail'            => $data
             ];

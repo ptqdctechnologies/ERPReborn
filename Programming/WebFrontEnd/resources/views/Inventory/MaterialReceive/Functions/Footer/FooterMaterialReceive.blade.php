@@ -152,11 +152,11 @@
                     const newRow = document.createElement('tr');
                     newRow.innerHTML = `
                         <input type="hidden" name="qty_avail[]" value="${qtyAvail}">
-                        <td style="text-align: right;padding: 0.8rem;">${productCode}</td>
+                        <td style="text-align: left;padding: 0.8rem; width: 15% !important;">${productCode}</td>
                         <td style="text-align: left;padding: 0.8rem;text-wrap: auto;">${productName}</td>
                         <td style="text-align: left;padding: 0.8rem;">${uom}</td>
                         <td style="text-align: right;padding: 0.8rem;">${qty}</td>
-                        <td style="text-align: right;padding: 0.8rem;">${note}</td>
+                        <td style="text-align: right;padding: 0.8rem;" hidden>${note}</td>
                     `;
                     targetTable.appendChild(newRow);
 
