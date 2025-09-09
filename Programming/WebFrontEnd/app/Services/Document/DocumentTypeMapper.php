@@ -177,7 +177,13 @@ class DocumentTypeMapper
                     'revision'          => 'Components.CreditNoteDocumentRevision',
                     'table'             => 'Components.CreditNoteDetailDocumentTable',
                 ],
+                'resubmit'      => [
+                    'url'       => 'AdvanceSettlement.RevisionAdvanceSettlementIndex',
+                    'name'      => '',
+                    'value'     => $dataDetail['deliveryOrder_RefID'] ?? ''
+                ],
                 'transactionType'       => 'CREDIT NOTE',
+                'businessDocument_RefID' => $dataDetail['BusinessDocument_RefID'] ?? '',
             ],
             'Delivery Order Form'   => [
                 'dataHeader'    => [
@@ -370,6 +376,8 @@ class DocumentTypeMapper
                     'dateCommenceTravel'    => $dataDetail['startDateTimeTZ'] ?? '-',
                     'dateEndTravel'         => $dataDetail['finishDateTimeTZ'] ?? '-',
                     'brfDate'               => $dataDetail['documentDateTimeTZ'] ?? '-',
+                    'dateUpdate'            => null,
+                    'date'                  => null,
                     'fileID'                => null,
                     'contactPhone'          => '-',
                     'bankAccount'           => '-',
