@@ -60,7 +60,7 @@
             </div>
 
             <!-- TABLE HEADER LOG HISTORY -->
-            <?php if (isset($components['headerRevision']) && isset($dataHeader['dateUpdate']) && $dataHeader['dateUpdate']) { ?>
+            <?php if (isset($components['headerRevision']) && $dataHeader['dateUpdate']) { ?>
               <div class="col-12 ShowDocumentList">
                 <div class="card">
                   <div class="card-body p-0">
@@ -93,7 +93,7 @@
             <?php } ?>
 
             <!-- TEXT AREA FIELD (Remarks, Reason To Travel) -->
-            <?php if (isset($textAreaFields) && isset($dataHeader['dateUpdate']) && !$dataHeader['dateUpdate']) { ?>
+            <?php if (isset($textAreaFields)) { ?>
               <div class="col-12 ShowDocumentList">
                 <div class="card">
                   <!-- TITLE -->

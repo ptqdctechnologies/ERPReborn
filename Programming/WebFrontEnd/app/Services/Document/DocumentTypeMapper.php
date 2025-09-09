@@ -19,6 +19,10 @@ class DocumentTypeMapper
                 'key'       => 'transaction.read.dataList.finance.getCreditNoteDetail',
                 'parameter' => ['creditNote_RefID' => (int) $referenceId]
             ],
+            'Debit Note Form' => [
+                'key'       => 'transaction.read.dataList.finance.getDebitNoteDetail',
+                'parameter' => ['debitNote_RefID' => (int) $referenceId]
+            ],
             'Delivery Order Form' => [
                 'key'       => 'transaction.read.dataList.supplyChain.getDeliveryOrderDetail',
                 'parameter' => ['deliveryOrder_RefID' => (int) $referenceId],
@@ -171,6 +175,10 @@ class DocumentTypeMapper
                     'subBudgetName'     => $dataDetail['CombinedBudgetSectionName'] ?? '',
                     'customerCode'      => $dataDetail['CustomerCode'] ?? '',
                     'customerName'      => $dataDetail['CustomerName'] ?? '',
+                ],
+                'textAreaFields'    => [
+                    'title'         => 'Remark',
+                    'text'          => $dataDetail['Remarks'] ?? '-',
                 ],
                 'components'            => [
                     'detail'            => 'Components.CreditNoteDetailDocument',

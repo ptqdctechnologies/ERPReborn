@@ -124,6 +124,26 @@
     }
   }
 
+  function sumTravelFares() {
+    let total = 0;
+    const container = document.getElementById('travel-fares-container');
+
+    // Ambil semua input di dalam container yang bukan type="hidden"
+    const inputs = container.querySelectorAll('input:not([type="hidden"])');
+
+    inputs.forEach(input => {
+      // Ambil nilai dan ubah menjadi float
+      const value = parseCurrency(input.value);
+
+      // Cek apakah nilai adalah angka yang valid dan tambahkan ke total
+      if (!isNaN(value)) {
+        total += value;
+      }
+    });
+
+    return total;
+  }
+
   function parseCurrency(value) {
     const clean = value.replace(/,/g, '').trim();
     return isNaN(parseFloat(clean)) ? 0 : parseFloat(clean);
@@ -291,6 +311,22 @@
         console.log('error', jqXHR, textStatus, errorThrown);
       }
     });
+  }
+
+  function validationForm() {
+    const testing     = sumTravelFares();
+    let accommodation = document.getElementById("accommodation");
+    let entertainment = document.getElementById("entertainment");
+    let other         = document.getElementById("other");
+    let totalBRF      = document.getElementById("total_business_trip");
+    
+    $("#travel_fares_modal_summary").text(decimalFormat(testing));
+    $("#allowance_modal_summary").text(accommodation.value);
+    $("#entertainment_modal_summary").text(entertainment.value);
+    $("#other_modal_summary").text(other.value);
+    $("#total_brf_modal_summary").text(totalBRF.value);
+
+    $('#businessTripRequestFormModal').modal('show');
   }
 
   $("#myWorker").prop("disabled", true);
@@ -717,29 +753,35 @@
   // ========== TO OTHER ==========
 
   // SUBMIT FORM
-  $("#FormSubmitBusinessTrip").on("submit", function(e) {
-    e.preventDefault();
+  // $("#FormSubmitBusinessTrip").on("submit", function(e) {
+  function SubmitForm() {
+    // e.preventDefault();
 
-    const swalWithBootstrapButtons = Swal.mixin({
-      confirmButtonClass: 'btn btn-success',
-      cancelButtonClass: 'btn btn-danger',
-      buttonsStyling: true,
-    });
+    // const swalWithBootstrapButtons = Swal.mixin({
+    //   confirmButtonClass: 'btn btn-success',
+    //   cancelButtonClass: 'btn btn-danger',
+    //   buttonsStyling: true,
+    // });
 
-    swalWithBootstrapButtons.fire({
-      title: 'Are you sure?',
-      text: "Please confirm to save this data.",
-      type: 'question',
-      showCancelButton: true,
-      confirmButtonText: 'Yes, submit it!',
-      cancelButtonText: 'No, cancel!',
-      reverseButtons: true
-    }).then((result) => {
-      if (result.value) {
-        var action = $(this).attr("action");
-        var method = $(this).attr("method");
-        var form_data = new FormData($(this)[0]); 
-        var form = $(this);
+    // swalWithBootstrapButtons.fire({
+    //   title: 'Are you sure?',
+    //   text: "Please confirm to save this data.",
+    //   type: 'question',
+    //   showCancelButton: true,
+    //   confirmButtonText: 'Yes, submit it!',
+    //   cancelButtonText: 'No, cancel!',
+    //   reverseButtons: true
+    // }).then((result) => {
+    //   if (result.value) {
+        // var action = $(this).attr("action");
+        // var method = $(this).attr("method");
+        // var form_data = new FormData($(this)[0]); 
+        // var form = $(this);
+
+        $('#businessTripRequestFormModal').modal('hide');
+        var action = $('#FormSubmitBusinessTrip').attr("action");
+        var method = $('#FormSubmitBusinessTrip').attr("method");
+        var form_data = new FormData($('#FormSubmitBusinessTrip')[0]);
 
         ShowLoading();
 
@@ -788,12 +830,14 @@
             console.log('error response', response);
           }
         });
-      } else if (result.dismiss === Swal.DismissReason.cancel) {
-        HideLoading();
-        CancelNotif("Data Cancel Inputed", '/BusinessTripRequest?var=1');
-      }
-    });
-  });
+      // } else if (result.dismiss === Swal.DismissReason.cancel) {
+      //   HideLoading();
+      //   CancelNotif("Data Cancel Inputed", '/BusinessTripRequest?var=1');
+      // }
+  }
+  //   });
+  // }
+  // });
 
   $(document).on('input', '.number-without-negative', function() {
     allowNumbersWithoutNegative(this);
