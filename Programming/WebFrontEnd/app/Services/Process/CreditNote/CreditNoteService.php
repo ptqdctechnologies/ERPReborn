@@ -51,7 +51,7 @@ class CreditNoteService
                 "documentDateTimeTZ"            => date('Y-m-d'),
                 "customer_RefID"                => 125000000000001,
                 "log_FileUpload_Pointer_RefID"  => $fileID,
-                "remarks"                       => null,
+                "remarks"                       => nl2br(e($data['remarks'])),
                 "workflow_Status"               => null,
                 "additionalData"                => [
                     "itemList"                  => [
@@ -82,7 +82,7 @@ class CreditNoteService
             'entities'  => [
                 "documentDateTimeTZ"            => date('Y-m-d'),
                 "log_FileUpload_Pointer_RefID"  => $fileID,
-                "remarks"                       => null,
+                "remarks"                       => nl2br(e($data['remarks'])),
                 "workflow_Status"               => null,
                 "additionalData"                => [
                     "itemList"                  => [

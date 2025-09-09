@@ -194,6 +194,36 @@
                         </div>
                     </div>
 
+                    <!-- REMARK -->
+                    <div class="tab-content px-3 pb-2" id="nav-tabContent">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <!-- HEADER -->
+                                    <div class="card-header">
+                                        <label for="remark" class="card-title">
+                                            Remarks
+                                        </label>
+                                        <div class="card-tools">
+                                            <button type="button" class="btn btn-tool" data-card-widget="collapse" aria-label="Collapse Section Remark">
+                                                <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <!-- CONTENT -->
+                                    <div class="card-body">
+                                        <div class="row py-3">
+                                            <div class="col p-0">
+                                                <textarea name="remarks" id="remarks" class="form-control"><?= $header['remarks']; ?></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- BUTTON -->
                     <div class="tab-content px-3 pb-2" id="nav-tabContent">
                         <div class="row">
