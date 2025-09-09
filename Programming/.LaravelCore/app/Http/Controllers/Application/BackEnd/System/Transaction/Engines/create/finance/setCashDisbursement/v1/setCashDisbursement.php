@@ -5,7 +5,7 @@
 | ▪ Category   : API Engine Controller                                                                                             |
 | ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\create\finance\setCashDisbursement\v1        |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2023 - 2025 Zheta (teguhpjs@gmail.com)                                                                              |
+| ▪ Copyleft 🄯 2025 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\create\finance\setCashDisbursement\v1
@@ -23,8 +23,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2023-11-01                                                                                           |
-        | ▪ Creation Date   : 2023-11-01                                                                                           |
+        | ▪ Last Update     : 2025-09-03                                                                                           |
+        | ▪ Creation Date   : 2025-09-03                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -42,9 +42,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0001.0000000                                                                                       |
-        | ▪ Last Update     : 2025-01-20                                                                                           |
-        | ▪ Creation Date   : 2023-11-01                                                                                           |
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2025-09-03                                                                                           |
+        | ▪ Creation Date   : 2025-09-03                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -93,6 +93,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
                                     $varData['entities']['documentDateTimeTZ'],
                                     $varData['entities']['log_FileUpload_Pointer_RefID'],
                                     $varData['entities']['requesterWorkerJobsPosition_RefID'],
+                                    $varData['entities']['transactionTax_RefID'],
                                     $varData['entities']['remarks'],
 
                                     (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(

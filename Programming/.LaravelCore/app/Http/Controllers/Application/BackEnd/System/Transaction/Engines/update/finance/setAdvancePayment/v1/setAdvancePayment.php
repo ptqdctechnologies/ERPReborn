@@ -23,8 +23,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-07-13                                                                                           |
-        | ▪ Creation Date   : 2022-07-13                                                                                           |
+        | ▪ Last Update     : 2025-09-03                                                                                           |
+        | ▪ Creation Date   : 2025-09-03                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -42,9 +42,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0001.0000000                                                                                       |
-        | ▪ Last Update     : 2025-01-10                                                                                           |
-        | ▪ Creation Date   : 2022-07-13                                                                                           |
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2025-09-03                                                                                           |
+        | ▪ Creation Date   : 2025-09-03                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -61,15 +61,25 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
             try {
                 $varSysDataProcess =
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__,
-                        'Update Advance Payment Data (version 1)');
+                        'Update Cash Disbursement Data (version 1)');
 
                 try {
                     //-----[ MAIN CODE ]----------------------------------------------------------------------------( START POINT )-----
                     try {
+                        if (!is_null($varData['entities']['additionalData'])) {                            
+                            for ($i=0, $iMax=count($varData['entities']['additionalData']['itemList']['items']); $i!=$iMax; $i++)
+                                {
+                                $varData['entities']['additionalData']['itemList']['items'][$i]['entities']['underlying_RefID'] = 
+                                    $varData['entities']['additionalData']['itemList']['items'][$i]['entities']['advance_RefID'];
+
+                                unset($varData['entities']['additionalData']['itemList']['items'][$i]['entities']['advance_RefID']);
+                                }
+                            }
+
                         if (!($varDataSend =
                             \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataUpdate(
                                 $varUserSession,
-                                (new \App\Models\Database\SchData_OLTP_Finance\TblAdvancePayment())->setDataUpdate(
+                                (new \App\Models\Database\SchData_OLTP_Finance\TblCashDisbursement())->setDataUpdate(
                                     $varUserSession,
                                     $varData['recordID'],
 
@@ -94,6 +104,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
                                     $varData['entities']['documentDateTimeTZ'],
                                     $varData['entities']['log_FileUpload_Pointer_RefID'],
                                     $varData['entities']['requesterWorkerJobsPosition_RefID'],
+                                    $varData['entities']['transactionTax_RefID'],
                                     $varData['entities']['remarks'],
 
                                     (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
@@ -142,7 +153,6 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
                             401,
                             $ex->getMessage()
                             );
-
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
                     }
 
