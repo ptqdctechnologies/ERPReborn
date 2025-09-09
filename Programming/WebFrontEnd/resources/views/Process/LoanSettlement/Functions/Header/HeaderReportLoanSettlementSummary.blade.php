@@ -46,7 +46,7 @@
 <div class="col-sm-12 col-md-12 col-lg-4">
     <!-- REQUESTER -->
     <div class="row p-0 align-items-center" style="margin-bottom: 1rem;">
-        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Requester</label>
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Creditor</label>
         <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
             <div>
                 <input id="worker_name_second" style="border-radius:0;" name="worker_name_second" class="form-control" size="34" value="<?= $dataReport['requesterName'] ?? ''; ?>" readonly>
@@ -67,7 +67,7 @@
 
     <!-- BENEFICIARY -->
     <div class="row p-0 align-items-center">
-        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Beneficiary</label>
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Debitor</label>
         <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
             <div>
                 <input id="beneficiary_second_person_name" style="border-radius:0;" name="beneficiary_second_person_name" class="form-control" size="34" value="<?= $dataReport['beneficiaryName'] ?? ''; ?>" readonly>
