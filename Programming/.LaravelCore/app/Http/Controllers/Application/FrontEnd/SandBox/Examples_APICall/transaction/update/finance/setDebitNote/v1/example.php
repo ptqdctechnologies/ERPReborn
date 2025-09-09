@@ -58,7 +58,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                         "productUnitPriceCurrencyValue" => 30000,
                                         "productUnitPriceCurrencyExchangeRate" => 1,
                                         "vatRatio" => 10,
-                                        "chartOfAccount_RefID" => 65000000000005
+                                        "chartOfAccount_RefID" => 65000000000005,
+                                        "referenceDocument_RefID" => 288000000000002
                                         ]
                                     ],
                                 ]

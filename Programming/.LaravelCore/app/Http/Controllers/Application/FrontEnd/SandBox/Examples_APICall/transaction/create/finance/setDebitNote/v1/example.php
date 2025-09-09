@@ -21,7 +21,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         |                     ► http://172.28.0.4/transaction.create.finance.setDebitNote.v1_throughAPIGateway                     |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-09-03                                                                                           |
+        | ▪ Last Update     : 2025-09-09                                                                                           |
         | ▪ Creation Date   : 2025-09-03                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -57,7 +57,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                         "productUnitPriceCurrencyValue" => 30000,
                                         "productUnitPriceCurrencyExchangeRate" => 1,
                                         "vatRatio" => 12,
-                                        "chartOfAccount_RefID" => 65000000000005
+                                        "chartOfAccount_RefID" => 65000000000005,
+                                        "referenceDocument_RefID" => 288000000000001
                                         ]
                                     ],
                                     [
@@ -70,7 +71,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                         "productUnitPriceCurrencyValue" => 30000,
                                         "productUnitPriceCurrencyExchangeRate" => 1,
                                         "vatRatio" => 12,
-                                        "chartOfAccount_RefID" => 65000000000005
+                                        "chartOfAccount_RefID" => 65000000000005,
+                                        "referenceDocument_RefID" => 288000000000001
                                         ]
                                     ],
                                 ]
