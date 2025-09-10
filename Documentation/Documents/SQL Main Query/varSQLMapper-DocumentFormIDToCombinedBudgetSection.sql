@@ -1,0 +1,2823 @@
+		SELECT
+			"SubSQL"."DocumentForm_RefIDLink",
+			"SubSQL"."CombinedBudgetSectionDetail_RefIDLink"
+		FROM
+			(
+			SELECT DISTINCT
+				"SubSQL"."Initial_DocumentForm_RefIDLink" AS "DocumentForm_RefIDLink",
+				------------------------------
+				"SubSQL"."Running_CombinedBudgetSectionDetail_RefIDLink" AS "CombinedBudgetSectionDetail_RefIDLink"
+			FROM
+				(
+				-----[ FORM ELIMINATION LEVEL 1 : Advance Detail, Reimbursement Detail, Person Business Trip, Purchase Requisition Detail ]----( START )-----
+				SELECT DISTINCT
+					"SubSQL"."Initial_DocumentFormTag",
+					"SubSQL"."Initial_DocumentForm_RefIDLink",
+					------------------------------
+					"SubSQL"."Previous_DocumentForm_RefIDLink",
+					------------------------------
+					"SubSQL"."Running_DocumentFormTag",
+					"SubSQL"."Running_DocumentForm_RefIDLink",
+					"SubSQL"."Running_DocumentForm_RefPIDLink",
+					"SubSQL"."Running_DocumentForm_RefSIDLink",
+					"SubSQL"."Running_Underlying_RefIDLink",
+					------------------------------
+					"SubSQL"."Running_CombinedBudgetSectionDetail_RefIDLink",
+					------------------------------
+					"SubSQL"."OrderSequence"
+				FROM
+					(
+					SELECT
+						"SubSQL"."Initial_DocumentFormTag",
+						"SubSQL"."Initial_DocumentForm_RefIDLink",
+						------------------------------
+						CASE
+							WHEN ("SubSQL"."Running_Underlying_RefIDLink" IS NULL) THEN
+								"SubSQL"."Previous_DocumentForm_RefIDLink"
+							ELSE
+								"SubSQL"."Running_DocumentForm_RefIDLink"
+						END AS "Previous_DocumentForm_RefIDLink",
+						------------------------------
+						CASE
+							WHEN ("SubSQL"."Running_Underlying_RefIDLink" IS NULL) THEN
+								"SubSQL"."Running_DocumentFormTag"
+							ELSE
+								CASE
+									WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 76) THEN
+										'SchFinance.TblAdvance'
+									WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 82) THEN
+										'SchFinance.TblAdvanceDetail'
+									WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 203) THEN
+										'SchFinance.TblAdvanceSettlement'
+									WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 204) THEN
+										'SchFinance.TblAdvanceSettlementDetail'
+									WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 192) THEN
+										'SchFinance.TblCashDisbursement'
+									WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 193) THEN
+										'SchFinance.TblCashDisbursementDetail'
+									WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 290) THEN
+										'SchFinance.TblCashReceipt'
+									WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 291) THEN
+										'SchFinance.TblCashReceiptDetail'
+									WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 242) THEN
+										'SchFinance.TblCreditNote'
+									WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 243) THEN
+										'SchFinance.TblCreditNoteDetail'
+									WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 240) THEN
+										'SchFinance.TblDebitNote'
+									WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 241) THEN
+										'SchFinance.TblDebitNoteDetail'
+									WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 211) THEN
+										'SchFinance.TblPaymentInstruction'
+									WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 212) THEN
+										'SchFinance.TblPaymentInstructionDetail'
+									WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 208) THEN
+										'SchFinance.TblPurchaseInvoice'
+									WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 209) THEN
+										'SchFinance.TblPurchaseInvoiceDetail'
+									WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 205) THEN
+										'SchFinance.TblPurchaseProformaInvoice'
+									WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 206) THEN
+										'SchFinance.TblPurchaseProformaInvoiceDetail'
+									WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 288) THEN
+										'SchFinance.TblReimbursement'
+									WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 289) THEN
+										'SchFinance.TblReimbursementDetail'
+									WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 138) THEN
+										'SchFinance.TblSalesInvoice'
+									WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 139) THEN
+										'SchFinance.TblSalesInvoiceDetail'
+									WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 244) THEN
+										'SchFinance.TblSalesInvoiceRequisition'
+									WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 245) THEN
+										'SchFinance.TblSalesInvoiceRequisitionDetail'
+									WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 79) THEN
+										'SchHumanResource.TblPersonBusinessTripSequence'
+									WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 180) THEN
+										'SchSupplyChain.TblDeliveryOrder'
+									WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 181) THEN
+										'SchSupplyChain.TblDeliveryOrderDetail'
+									WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 262) THEN
+										'SchSupplyChain.TblMaterialServiceRequisition'
+									WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 263) THEN
+										'SchSupplyChain.TblMaterialServiceRequisitionDetail'
+									WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 250) THEN
+										'SchSupplyChain.TblOrderPicking'
+									WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 251) THEN
+										'SchSupplyChain.TblOrderPickingDetail'
+									WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 248) THEN
+										'SchSupplyChain.TblOrderPickingRequisition'
+									WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 249) THEN
+										'SchSupplyChain.TblOrderPickingRequisitionDetail'
+									WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 85) THEN
+										'SchSupplyChain.TblPurchaseOrder'
+									WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 86) THEN
+										'SchSupplyChain.TblPurchaseOrderDetail'
+									WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 83) THEN
+										'SchSupplyChain.TblPurchaseRequisition'
+									WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 84) THEN
+										'SchSupplyChain.TblPurchaseRequisitionDetail'
+									WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 176) THEN
+										'SchSupplyChain.TblWarehouseInboundOrder'
+									WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 177) THEN
+										'SchSupplyChain.TblWarehouseInboundOrderDetail'
+									ELSE
+										NULL
+								END::varchar
+						END AS "Running_DocumentFormTag",
+						CASE
+							WHEN ("SubSQL"."Running_Underlying_RefIDLink" IS NOT NULL) THEN
+								"SubSQL"."Running_Underlying_RefIDLink"
+							ELSE
+								"SubSQL"."Running_DocumentForm_RefIDLink"
+						END AS "Running_DocumentForm_RefIDLink",
+						CASE
+							WHEN ("SubSQL"."Running_Underlying_RefIDLink" IS NOT NULL) THEN
+								NULL::bigint
+							ELSE
+								"SubSQL"."Running_DocumentForm_RefPIDLink"
+						END AS "Running_DocumentForm_RefPIDLink",
+						CASE
+							WHEN ("SubSQL"."Running_Underlying_RefIDLink" IS NOT NULL) THEN
+								NULL::bigint
+							ELSE
+								"SubSQL"."Running_DocumentForm_RefSIDLink"
+						END AS "Running_DocumentForm_RefSIDLink",
+						CASE
+							WHEN ("SubSQL"."Running_Underlying_RefIDLink" IS NOT NULL) THEN
+								NULL::bigint
+							ELSE
+								"SubSQL"."Running_Underlying_RefIDLink"
+						END AS "Running_Underlying_RefIDLink",
+						------------------------------
+						"SubSQL"."Running_CombinedBudgetSectionDetail_RefIDLink",
+						------------------------------
+						"SubSQL"."OrderSequence"
+					FROM
+						(
+						SELECT 
+							"SubSQL"."Initial_DocumentFormTag",
+							"SubSQL"."Initial_DocumentForm_RefIDLink",
+							------------------------------
+							"SubSQL"."Previous_DocumentForm_RefIDLink",
+							------------------------------
+							CASE
+								WHEN (("VirtTblAdvanceDetail_PID"."Sys_RPK" IS NOT NULL) OR ("VirtTblAdvanceDetail_SID"."Sys_RPK" IS NOT NULL)) THEN
+									'SchFinance.TblAdvanceDetail'
+								WHEN (("VirtTblReimbursementDetail_PID"."Sys_RPK" IS NOT NULL) OR ("VirtTblReimbursementDetail_SID"."Sys_RPK" IS NOT NULL)) THEN
+									'SchFinance.TblReimbursementDetail'
+								WHEN (("VirtTblPersonBusinessTrip_PID"."Sys_RPK" IS NOT NULL) OR ("VirtTblPersonBusinessTrip_SID"."Sys_RPK" IS NOT NULL)) THEN
+									'SchHumanResource.TblPersonBusinessTrip'
+								WHEN (("VirtTblPurchaseRequisitionDetail_PID"."Sys_RPK" IS NOT NULL) OR ("VirtTblPurchaseRequisitionDetail_SID"."Sys_RPK" IS NOT NULL)) THEN
+									'SchSupplyChain.TblPurchaseRequisitionDetail'
+								ELSE
+									"SubSQL"."Running_DocumentFormTag"
+							END AS "Running_DocumentFormTag",
+							COALESCE (
+								"VirtTblAdvanceDetail_PID"."Sys_PID",
+								"VirtTblAdvanceDetail_SID"."Sys_PID",
+								"VirtTblAdvanceDetail_PID"."Sys_SID",
+								"VirtTblAdvanceDetail_SID"."Sys_SID",
+								------------------------------
+								"VirtTblReimbursementDetail_PID"."Sys_PID",
+								"VirtTblReimbursementDetail_SID"."Sys_PID",
+								"VirtTblReimbursementDetail_PID"."Sys_SID",
+								"VirtTblReimbursementDetail_SID"."Sys_SID",
+								------------------------------
+								"VirtTblPersonBusinessTrip_PID"."Sys_PID",
+								"VirtTblPersonBusinessTrip_SID"."Sys_PID",
+								"VirtTblPersonBusinessTrip_PID"."Sys_SID",
+								"VirtTblPersonBusinessTrip_SID"."Sys_SID",
+								------------------------------
+								"VirtTblPurchaseRequisitionDetail_PID"."Sys_PID",
+								"VirtTblPurchaseRequisitionDetail_SID"."Sys_PID",
+								"VirtTblPurchaseRequisitionDetail_PID"."Sys_SID",
+								"VirtTblPurchaseRequisitionDetail_SID"."Sys_SID",
+								------------------------------
+								"SubSQL"."Running_DocumentForm_RefIDLink"
+								) AS "Running_DocumentForm_RefIDLink",
+							COALESCE (
+								"VirtTblAdvanceDetail_PID"."Sys_PID",
+								"VirtTblAdvanceDetail_SID"."Sys_PID",
+								------------------------------
+								"VirtTblReimbursementDetail_PID"."Sys_PID",
+								"VirtTblReimbursementDetail_SID"."Sys_PID",
+								------------------------------
+								"VirtTblPersonBusinessTrip_PID"."Sys_PID",
+								"VirtTblPersonBusinessTrip_SID"."Sys_PID",
+								------------------------------
+								"VirtTblPurchaseRequisitionDetail_PID"."Sys_PID",
+								"VirtTblPurchaseRequisitionDetail_SID"."Sys_PID",
+								------------------------------
+								"SubSQL"."Running_DocumentForm_RefPIDLink"
+								) AS "Running_DocumentForm_RefPIDLink",
+							COALESCE (
+								"VirtTblAdvanceDetail_PID"."Sys_SID",
+								"VirtTblAdvanceDetail_SID"."Sys_SID",
+								------------------------------
+								"VirtTblReimbursementDetail_PID"."Sys_SID",
+								"VirtTblReimbursementDetail_SID"."Sys_SID",
+								------------------------------
+								"VirtTblPersonBusinessTrip_PID"."Sys_SID",
+								"VirtTblPersonBusinessTrip_SID"."Sys_SID",
+								------------------------------
+								"VirtTblPurchaseRequisitionDetail_PID"."Sys_SID",
+								"VirtTblPurchaseRequisitionDetail_SID"."Sys_SID",
+								------------------------------
+								"SubSQL"."Running_DocumentForm_RefSIDLink"
+								) AS "Running_DocumentForm_RefSIDLink",
+							CASE
+								WHEN (("VirtTblAdvanceDetail_PID"."Sys_RPK" IS NOT NULL) OR ("VirtTblAdvanceDetail_SID"."Sys_RPK" IS NOT NULL)) THEN
+									NULL::bigint
+								WHEN (("VirtTblReimbursementDetail_PID"."Sys_RPK" IS NOT NULL) OR ("VirtTblReimbursementDetail_SID"."Sys_RPK" IS NOT NULL)) THEN
+									NULL::bigint
+								WHEN (("VirtTblPersonBusinessTrip_PID"."Sys_RPK" IS NOT NULL) OR ("VirtTblPersonBusinessTrip_SID"."Sys_RPK" IS NOT NULL)) THEN
+									NULL::bigint
+								WHEN (("VirtTblPurchaseRequisitionDetail_PID"."Sys_RPK" IS NOT NULL) OR ("VirtTblPurchaseRequisitionDetail_SID"."Sys_RPK" IS NOT NULL)) THEN
+									NULL::bigint
+								ELSE
+									"SubSQL"."Running_Underlying_RefIDLink"
+							END AS "Running_Underlying_RefIDLink",
+							------------------------------
+							CASE
+								WHEN (("VirtTblAdvanceDetail_PID"."Sys_RPK" IS NOT NULL) OR ("VirtTblAdvanceDetail_SID"."Sys_RPK" IS NOT NULL)) THEN
+									COALESCE (
+										"VirtTblAdvanceDetail_PID"."CombinedBudgetSectionDetail_RefID",
+										"VirtTblAdvanceDetail_SID"."CombinedBudgetSectionDetail_RefID"
+										)
+								WHEN (("VirtTblReimbursementDetail_PID"."Sys_RPK" IS NOT NULL) OR ("VirtTblReimbursementDetail_SID"."Sys_RPK" IS NOT NULL)) THEN
+									COALESCE (
+										"VirtTblReimbursementDetail_PID"."CombinedBudgetSectionDetail_RefID",
+										"VirtTblReimbursementDetail_SID"."CombinedBudgetSectionDetail_RefID"
+										)
+								WHEN (("VirtTblPersonBusinessTrip_PID"."Sys_RPK" IS NOT NULL) OR ("VirtTblPersonBusinessTrip_SID"."Sys_RPK" IS NOT NULL)) THEN
+									COALESCE (
+										"VirtTblPersonBusinessTrip_PID"."CombinedBudgetSectionDetail_RefID",
+										"VirtTblPersonBusinessTrip_SID"."CombinedBudgetSectionDetail_RefID"
+										)
+								WHEN (("VirtTblPurchaseRequisitionDetail_PID"."Sys_RPK" IS NOT NULL) OR ("VirtTblPurchaseRequisitionDetail_SID"."Sys_RPK" IS NOT NULL)) THEN
+									COALESCE (
+										"VirtTblPurchaseRequisitionDetail_PID"."CombinedBudgetSectionDetail_RefID",
+										"VirtTblPurchaseRequisitionDetail_SID"."CombinedBudgetSectionDetail_RefID"
+										)
+								ELSE
+									NULL::bigint
+							END AS "Running_CombinedBudgetSectionDetail_RefIDLink",
+							------------------------------
+							"SubSQL"."OrderSequence"
+						FROM
+							(
+							-----[ FORM ELIMINATION LEVEL 2 : Advance, Advance Settlement Detail, Reimbursement, Person Business Trip Sequence, Purchase Order Detail ]----( START )-----
+							SELECT DISTINCT
+								"SubSQL"."Initial_DocumentFormTag",
+								"SubSQL"."Initial_DocumentForm_RefIDLink",
+								------------------------------
+								"SubSQL"."Previous_DocumentForm_RefIDLink",
+								------------------------------
+								"SubSQL"."Running_DocumentFormTag",
+								"SubSQL"."Running_DocumentForm_RefIDLink",
+								"SubSQL"."Running_DocumentForm_RefPIDLink",
+								"SubSQL"."Running_DocumentForm_RefSIDLink",
+								"SubSQL"."Running_Underlying_RefIDLink",
+								------------------------------
+								"SubSQL"."OrderSequence"
+							FROM
+								(
+								SELECT
+									"SubSQL"."Initial_DocumentFormTag",
+									"SubSQL"."Initial_DocumentForm_RefIDLink",
+									------------------------------
+									CASE
+										WHEN ("SubSQL"."Running_Underlying_RefIDLink" IS NULL) THEN
+											"SubSQL"."Previous_DocumentForm_RefIDLink"
+										ELSE
+											"SubSQL"."Running_DocumentForm_RefIDLink"
+									END AS "Previous_DocumentForm_RefIDLink",
+									------------------------------
+									CASE
+										WHEN ("SubSQL"."Running_Underlying_RefIDLink" IS NULL) THEN
+											"SubSQL"."Running_DocumentFormTag"
+										ELSE
+											CASE
+												WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 76) THEN
+													'SchFinance.TblAdvance'
+												WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 82) THEN
+													'SchFinance.TblAdvanceDetail'
+												WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 203) THEN
+													'SchFinance.TblAdvanceSettlement'
+												WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 204) THEN
+													'SchFinance.TblAdvanceSettlementDetail'
+												WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 192) THEN
+													'SchFinance.TblCashDisbursement'
+												WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 193) THEN
+													'SchFinance.TblCashDisbursementDetail'
+												WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 290) THEN
+													'SchFinance.TblCashReceipt'
+												WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 291) THEN
+													'SchFinance.TblCashReceiptDetail'
+												WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 242) THEN
+													'SchFinance.TblCreditNote'
+												WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 243) THEN
+													'SchFinance.TblCreditNoteDetail'
+												WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 240) THEN
+													'SchFinance.TblDebitNote'
+												WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 241) THEN
+													'SchFinance.TblDebitNoteDetail'
+												WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 211) THEN
+													'SchFinance.TblPaymentInstruction'
+												WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 212) THEN
+													'SchFinance.TblPaymentInstructionDetail'
+												WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 208) THEN
+													'SchFinance.TblPurchaseInvoice'
+												WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 209) THEN
+													'SchFinance.TblPurchaseInvoiceDetail'
+												WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 205) THEN
+													'SchFinance.TblPurchaseProformaInvoice'
+												WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 206) THEN
+													'SchFinance.TblPurchaseProformaInvoiceDetail'
+												WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 288) THEN
+													'SchFinance.TblReimbursement'
+												WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 289) THEN
+													'SchFinance.TblReimbursementDetail'
+												WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 138) THEN
+													'SchFinance.TblSalesInvoice'
+												WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 139) THEN
+													'SchFinance.TblSalesInvoiceDetail'
+												WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 244) THEN
+													'SchFinance.TblSalesInvoiceRequisition'
+												WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 245) THEN
+													'SchFinance.TblSalesInvoiceRequisitionDetail'
+												WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 78) THEN
+													'SchHumanResource.TblPersonBusinessTrip'
+												WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 79) THEN
+													'SchHumanResource.TblPersonBusinessTripSequence'
+												WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 180) THEN
+													'SchSupplyChain.TblDeliveryOrder'
+												WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 181) THEN
+													'SchSupplyChain.TblDeliveryOrderDetail'
+												WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 262) THEN
+													'SchSupplyChain.TblMaterialServiceRequisition'
+												WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 263) THEN
+													'SchSupplyChain.TblMaterialServiceRequisitionDetail'
+												WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 250) THEN
+													'SchSupplyChain.TblOrderPicking'
+												WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 251) THEN
+													'SchSupplyChain.TblOrderPickingDetail'
+												WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 248) THEN
+													'SchSupplyChain.TblOrderPickingRequisition'
+												WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 249) THEN
+													'SchSupplyChain.TblOrderPickingRequisitionDetail'
+												WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 85) THEN
+													'SchSupplyChain.TblPurchaseOrder'
+												WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 86) THEN
+													'SchSupplyChain.TblPurchaseOrderDetail'
+												WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 83) THEN
+													'SchSupplyChain.TblPurchaseRequisition'
+												WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 84) THEN
+													'SchSupplyChain.TblPurchaseRequisitionDetail'
+												WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 176) THEN
+													'SchSupplyChain.TblWarehouseInboundOrder'
+												WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 177) THEN
+													'SchSupplyChain.TblWarehouseInboundOrderDetail'
+												ELSE
+													NULL
+											END::varchar
+									END AS "Running_DocumentFormTag",
+									CASE
+										WHEN ("SubSQL"."Running_Underlying_RefIDLink" IS NOT NULL) THEN
+											"SubSQL"."Running_Underlying_RefIDLink"
+										ELSE
+											"SubSQL"."Running_DocumentForm_RefIDLink"
+									END AS "Running_DocumentForm_RefIDLink",
+									CASE
+										WHEN ("SubSQL"."Running_Underlying_RefIDLink" IS NOT NULL) THEN
+											NULL::bigint
+										ELSE
+											"SubSQL"."Running_DocumentForm_RefPIDLink"
+									END AS "Running_DocumentForm_RefPIDLink",
+									CASE
+										WHEN ("SubSQL"."Running_Underlying_RefIDLink" IS NOT NULL) THEN
+											NULL::bigint
+										ELSE
+											"SubSQL"."Running_DocumentForm_RefSIDLink"
+									END AS "Running_DocumentForm_RefSIDLink",
+									CASE
+										WHEN ("SubSQL"."Running_Underlying_RefIDLink" IS NOT NULL) THEN
+											NULL::bigint
+										ELSE
+											"SubSQL"."Running_Underlying_RefIDLink"
+									END AS "Running_Underlying_RefIDLink",
+									------------------------------
+									"SubSQL"."OrderSequence"
+								FROM
+									(
+									SELECT
+										"SubSQL"."Initial_DocumentFormTag",
+										"SubSQL"."Initial_DocumentForm_RefIDLink",
+										------------------------------
+										"SubSQL"."Previous_DocumentForm_RefIDLink",
+										------------------------------
+										CASE
+											WHEN (("VirtTblAdvance_PID"."Sys_RPK" IS NOT NULL) OR ("VirtTblAdvance_SID"."Sys_RPK" IS NOT NULL)) THEN
+												'SchFinance.TblAdvance'
+											WHEN (("VirtTblAdvanceSettlementDetail_PID"."Sys_RPK" IS NOT NULL) OR ("VirtTblAdvanceSettlementDetail_SID"."Sys_RPK" IS NOT NULL)) THEN
+												'SchFinance.TblAdvanceSettlementDetail'
+											WHEN (("VirtTblReimbursement_PID"."Sys_RPK" IS NOT NULL) OR ("VirtTblReimbursement_SID"."Sys_RPK" IS NOT NULL)) THEN
+												'SchFinance.TblReimbursement'
+											WHEN (("VirtTblPersonBusinessTripSequence_PID"."Sys_RPK" IS NOT NULL) OR ("VirtTblPersonBusinessTripSequence_SID"."Sys_RPK" IS NOT NULL)) THEN
+												'SchHumanResource.TblPersonBusinessTripSequence'
+											WHEN (("VirtTblPurchaseOrderDetail_PID"."Sys_RPK" IS NOT NULL) OR ("VirtTblPurchaseOrderDetail_SID"."Sys_RPK" IS NOT NULL)) THEN
+												'SchSupplyChain.TblPurchaseOrderDetail'
+											ELSE
+												"SubSQL"."Running_DocumentFormTag"
+										END AS "Running_DocumentFormTag",
+										COALESCE (
+											"VirtTblAdvance_PID"."Sys_PID",
+											"VirtTblAdvance_SID"."Sys_PID",
+											"VirtTblAdvance_PID"."Sys_SID",
+											"VirtTblAdvance_SID"."Sys_SID",
+											------------------------------
+											"VirtTblAdvanceSettlementDetail_PID"."Sys_PID",
+											"VirtTblAdvanceSettlementDetail_SID"."Sys_PID",
+											"VirtTblAdvanceSettlementDetail_PID"."Sys_SID",
+											"VirtTblAdvanceSettlementDetail_SID"."Sys_SID",
+											------------------------------
+											"VirtTblReimbursement_PID"."Sys_PID",
+											"VirtTblReimbursement_SID"."Sys_PID",
+											"VirtTblReimbursement_PID"."Sys_SID",
+											"VirtTblReimbursement_SID"."Sys_SID",
+											------------------------------
+											"VirtTblPersonBusinessTripSequence_PID"."Sys_PID",
+											"VirtTblPersonBusinessTripSequence_SID"."Sys_PID",
+											"VirtTblPersonBusinessTripSequence_PID"."Sys_SID",
+											"VirtTblPersonBusinessTripSequence_SID"."Sys_SID",
+											------------------------------
+											"VirtTblPurchaseOrderDetail_PID"."Sys_PID",
+											"VirtTblPurchaseOrderDetail_SID"."Sys_PID",
+											"VirtTblPurchaseOrderDetail_PID"."Sys_SID",
+											"VirtTblPurchaseOrderDetail_SID"."Sys_SID",
+											------------------------------
+											"SubSQL"."Running_DocumentForm_RefIDLink"
+											) AS "Running_DocumentForm_RefIDLink",
+										COALESCE (
+											"VirtTblAdvance_PID"."Sys_PID",
+											"VirtTblAdvance_SID"."Sys_PID",
+											------------------------------
+											"VirtTblAdvanceSettlementDetail_PID"."Sys_PID",
+											"VirtTblAdvanceSettlementDetail_SID"."Sys_PID",
+											------------------------------
+											"VirtTblReimbursement_PID"."Sys_PID",
+											"VirtTblReimbursement_SID"."Sys_PID",
+											------------------------------
+											"VirtTblPersonBusinessTripSequence_PID"."Sys_PID",
+											"VirtTblPersonBusinessTripSequence_SID"."Sys_PID",
+											------------------------------
+											"VirtTblPurchaseOrderDetail_PID"."Sys_PID",
+											"VirtTblPurchaseOrderDetail_SID"."Sys_PID",
+											------------------------------
+											"SubSQL"."Running_DocumentForm_RefPIDLink"
+											) AS "Running_DocumentForm_RefPIDLink",
+										COALESCE (
+											"VirtTblAdvance_PID"."Sys_SID",
+											"VirtTblAdvance_SID"."Sys_SID",
+											------------------------------
+											"VirtTblAdvanceSettlementDetail_PID"."Sys_SID",
+											"VirtTblAdvanceSettlementDetail_SID"."Sys_SID",
+											------------------------------
+											"VirtTblReimbursement_PID"."Sys_SID",
+											"VirtTblReimbursement_SID"."Sys_SID",
+											------------------------------
+											"VirtTblPersonBusinessTripSequence_PID"."Sys_SID",
+											"VirtTblPersonBusinessTripSequence_SID"."Sys_SID",
+											------------------------------
+											"VirtTblPurchaseOrderDetail_PID"."Sys_SID",
+											"VirtTblPurchaseOrderDetail_SID"."Sys_SID",
+											------------------------------
+											"SubSQL"."Running_DocumentForm_RefSIDLink"
+											) AS "Running_DocumentForm_RefSIDLink",
+										CASE
+											WHEN (("VirtTblAdvance_PID"."Sys_RPK" IS NOT NULL) OR ("VirtTblAdvance_SID"."Sys_RPK" IS NOT NULL)) THEN
+												NULL::bigint
+											WHEN (("VirtTblAdvanceSettlementDetail_PID"."Sys_RPK" IS NOT NULL) OR ("VirtTblAdvanceSettlementDetail_SID"."Sys_RPK" IS NOT NULL)) THEN
+												COALESCE (
+													"VirtTblAdvanceSettlementDetail_PID"."AdvanceDetail_RefID",
+													"VirtTblAdvanceSettlementDetail_SID"."AdvanceDetail_RefID"
+													)
+											WHEN (("VirtTblPersonBusinessTripSequence_PID"."Sys_RPK" IS NOT NULL) OR ("VirtTblPersonBusinessTripSequence_SID"."Sys_RPK" IS NOT NULL)) THEN
+												COALESCE (
+													"VirtTblPersonBusinessTripSequence_PID"."PersonBusinessTrip_RefID",
+													"VirtTblPersonBusinessTripSequence_SID"."PersonBusinessTrip_RefID"
+													)
+											WHEN (("VirtTblPurchaseOrderDetail_PID"."Sys_RPK" IS NOT NULL) OR ("VirtTblPurchaseOrderDetail_SID"."Sys_RPK" IS NOT NULL)) THEN
+												COALESCE (
+													"VirtTblPurchaseOrderDetail_PID"."PurchaseRequisitionDetail_RefID",
+													"VirtTblPurchaseOrderDetail_SID"."PurchaseRequisitionDetail_RefID"
+													)
+											ELSE
+												"SubSQL"."Running_Underlying_RefIDLink"
+										END AS "Running_Underlying_RefIDLink",
+										------------------------------
+										"SubSQL"."OrderSequence"
+									FROM
+										(
+										-----[ FORM ELIMINATION LEVEL 3 :  Advance Settlement, Delivery Order Detail, Purchase Order, Purchase Invoice Detail ]----( START )-----
+										SELECT DISTINCT
+											"SubSQL"."Initial_DocumentFormTag",
+											"SubSQL"."Initial_DocumentForm_RefIDLink",
+											------------------------------
+											"SubSQL"."Previous_DocumentForm_RefIDLink",
+											------------------------------
+											"SubSQL"."Running_DocumentFormTag",
+											"SubSQL"."Running_DocumentForm_RefIDLink",
+											"SubSQL"."Running_DocumentForm_RefPIDLink",
+											"SubSQL"."Running_DocumentForm_RefSIDLink",
+											"SubSQL"."Running_Underlying_RefIDLink",
+											------------------------------
+											"SubSQL"."OrderSequence"
+										FROM
+											(
+											SELECT
+												"SubSQL"."Initial_DocumentFormTag",
+												"SubSQL"."Initial_DocumentForm_RefIDLink",
+												------------------------------
+												CASE
+													WHEN ("SubSQL"."Running_Underlying_RefIDLink" IS NULL) THEN
+														"SubSQL"."Previous_DocumentForm_RefIDLink"
+													ELSE
+														"SubSQL"."Running_DocumentForm_RefIDLink"
+												END AS "Previous_DocumentForm_RefIDLink",
+												------------------------------
+												CASE
+													WHEN ("SubSQL"."Running_Underlying_RefIDLink" IS NULL) THEN
+														"SubSQL"."Running_DocumentFormTag"
+													ELSE
+														CASE
+															WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 76) THEN
+																'SchFinance.TblAdvance'
+															WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 82) THEN
+																'SchFinance.TblAdvanceDetail'
+															WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 203) THEN
+																'SchFinance.TblAdvanceSettlement'
+															WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 204) THEN
+																'SchFinance.TblAdvanceSettlementDetail'
+															WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 192) THEN
+																'SchFinance.TblCashDisbursement'
+															WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 193) THEN
+																'SchFinance.TblCashDisbursementDetail'
+															WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 290) THEN
+																'SchFinance.TblCashReceipt'
+															WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 291) THEN
+																'SchFinance.TblCashReceiptDetail'
+															WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 242) THEN
+																'SchFinance.TblCreditNote'
+															WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 243) THEN
+																'SchFinance.TblCreditNoteDetail'
+															WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 240) THEN
+																'SchFinance.TblDebitNote'
+															WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 241) THEN
+																'SchFinance.TblDebitNoteDetail'
+															WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 211) THEN
+																'SchFinance.TblPaymentInstruction'
+															WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 212) THEN
+																'SchFinance.TblPaymentInstructionDetail'
+															WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 208) THEN
+																'SchFinance.TblPurchaseInvoice'
+															WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 209) THEN
+																'SchFinance.TblPurchaseInvoiceDetail'
+															WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 205) THEN
+																'SchFinance.TblPurchaseProformaInvoice'
+															WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 206) THEN
+																'SchFinance.TblPurchaseProformaInvoiceDetail'
+															WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 288) THEN
+																'SchFinance.TblReimbursement'
+															WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 289) THEN
+																'SchFinance.TblReimbursementDetail'
+															WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 138) THEN
+																'SchFinance.TblSalesInvoice'
+															WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 139) THEN
+																'SchFinance.TblSalesInvoiceDetail'
+															WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 244) THEN
+																'SchFinance.TblSalesInvoiceRequisition'
+															WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 245) THEN
+																'SchFinance.TblSalesInvoiceRequisitionDetail'
+															WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 78) THEN
+																'SchHumanResource.TblPersonBusinessTrip'
+															WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 79) THEN
+																'SchHumanResource.TblPersonBusinessTripSequence'
+															WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 180) THEN
+																'SchSupplyChain.TblDeliveryOrder'
+															WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 181) THEN
+																'SchSupplyChain.TblDeliveryOrderDetail'
+															WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 262) THEN
+																'SchSupplyChain.TblMaterialServiceRequisition'
+															WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 263) THEN
+																'SchSupplyChain.TblMaterialServiceRequisitionDetail'
+															WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 250) THEN
+																'SchSupplyChain.TblOrderPicking'
+															WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 251) THEN
+																'SchSupplyChain.TblOrderPickingDetail'
+															WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 248) THEN
+																'SchSupplyChain.TblOrderPickingRequisition'
+															WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 249) THEN
+																'SchSupplyChain.TblOrderPickingRequisitionDetail'
+															WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 85) THEN
+																'SchSupplyChain.TblPurchaseOrder'
+															WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 86) THEN
+																'SchSupplyChain.TblPurchaseOrderDetail'
+															WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 83) THEN
+																'SchSupplyChain.TblPurchaseRequisition'
+															WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 84) THEN
+																'SchSupplyChain.TblPurchaseRequisitionDetail'
+															WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 176) THEN
+																'SchSupplyChain.TblWarehouseInboundOrder'
+															WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 177) THEN
+																'SchSupplyChain.TblWarehouseInboundOrderDetail'
+															ELSE
+																NULL
+														END::varchar
+												END AS "Running_DocumentFormTag",
+												CASE
+													WHEN ("SubSQL"."Running_Underlying_RefIDLink" IS NOT NULL) THEN
+														"SubSQL"."Running_Underlying_RefIDLink"
+													ELSE
+														"SubSQL"."Running_DocumentForm_RefIDLink"
+												END AS "Running_DocumentForm_RefIDLink",
+												CASE
+													WHEN ("SubSQL"."Running_Underlying_RefIDLink" IS NOT NULL) THEN
+														NULL::bigint
+													ELSE
+														"SubSQL"."Running_DocumentForm_RefPIDLink"
+												END AS "Running_DocumentForm_RefPIDLink",
+												CASE
+													WHEN ("SubSQL"."Running_Underlying_RefIDLink" IS NOT NULL) THEN
+														NULL::bigint
+													ELSE
+														"SubSQL"."Running_DocumentForm_RefSIDLink"
+												END AS "Running_DocumentForm_RefSIDLink",
+												CASE
+													WHEN ("SubSQL"."Running_Underlying_RefIDLink" IS NOT NULL) THEN
+														NULL::bigint
+													ELSE
+														"SubSQL"."Running_Underlying_RefIDLink"
+												END AS "Running_Underlying_RefIDLink",
+												------------------------------
+												"SubSQL"."OrderSequence"
+											FROM
+												(
+												SELECT
+													"SubSQL"."Initial_DocumentFormTag",
+													"SubSQL"."Initial_DocumentForm_RefIDLink",
+													------------------------------
+													"SubSQL"."Previous_DocumentForm_RefIDLink",
+													------------------------------
+													CASE
+														WHEN (("VirtTblAdvanceSettlement_PID"."Sys_RPK" IS NOT NULL) OR ("VirtTblAdvanceSettlement_SID"."Sys_RPK" IS NOT NULL)) THEN
+															'SchFinance.TblAdvanceSettlement'
+														WHEN (("VirtTblPurchaseInvoiceDetail_PID"."Sys_RPK" IS NOT NULL) OR ("VirtTblPurchaseInvoiceDetail_SID"."Sys_RPK" IS NOT NULL)) THEN
+															'SchFinance.TblPurchaseInvoiceDetail'
+														WHEN (("VirtTblDeliveryOrderDetail_PID"."Sys_RPK" IS NOT NULL) OR ("VirtTblDeliveryOrderDetail_SID"."Sys_RPK" IS NOT NULL)) THEN
+															'SchSupplyChain.TblDeliveryOrderDetail'
+														WHEN (("VirtTblPurchaseOrder_PID"."Sys_RPK" IS NOT NULL) OR ("VirtTblPurchaseOrder_SID"."Sys_RPK" IS NOT NULL)) THEN
+															'SchSupplyChain.TblPurchaseOrder'
+														ELSE
+															"SubSQL"."Running_DocumentFormTag"
+													END AS "Running_DocumentFormTag",
+													COALESCE (
+														"VirtTblAdvanceSettlement_PID"."Sys_PID",
+														"VirtTblAdvanceSettlement_SID"."Sys_PID",
+														"VirtTblAdvanceSettlement_PID"."Sys_SID",
+														"VirtTblAdvanceSettlement_SID"."Sys_SID",
+														------------------------------
+														"VirtTblPurchaseInvoiceDetail_PID"."Sys_PID",
+														"VirtTblPurchaseInvoiceDetail_SID"."Sys_PID",
+														"VirtTblPurchaseInvoiceDetail_PID"."Sys_SID",
+														"VirtTblPurchaseInvoiceDetail_SID"."Sys_SID",
+														------------------------------
+														"VirtTblDeliveryOrderDetail_PID"."Sys_PID",
+														"VirtTblDeliveryOrderDetail_SID"."Sys_PID",
+														"VirtTblDeliveryOrderDetail_PID"."Sys_SID",
+														"VirtTblDeliveryOrderDetail_SID"."Sys_SID",
+														------------------------------
+														"VirtTblPurchaseOrder_PID"."Sys_PID",
+														"VirtTblPurchaseOrder_SID"."Sys_PID",
+														"VirtTblPurchaseOrder_PID"."Sys_SID",
+														"VirtTblPurchaseOrder_SID"."Sys_SID",
+														------------------------------
+														"SubSQL"."Running_DocumentForm_RefIDLink"
+														) AS "Running_DocumentForm_RefIDLink",
+													COALESCE (
+														"VirtTblAdvanceSettlement_PID"."Sys_PID",
+														"VirtTblAdvanceSettlement_SID"."Sys_PID",
+														------------------------------
+														"VirtTblPurchaseInvoiceDetail_PID"."Sys_PID",
+														"VirtTblPurchaseInvoiceDetail_SID"."Sys_PID",
+														------------------------------
+														"VirtTblDeliveryOrderDetail_PID"."Sys_PID",
+														"VirtTblDeliveryOrderDetail_SID"."Sys_PID",
+														------------------------------
+														"VirtTblPurchaseOrder_PID"."Sys_PID",
+														"VirtTblPurchaseOrder_SID"."Sys_PID",
+														------------------------------
+														"SubSQL"."Running_DocumentForm_RefPIDLink"
+														) AS "Running_DocumentForm_RefPIDLink",
+													COALESCE (
+														"VirtTblAdvanceSettlement_PID"."Sys_SID",
+														"VirtTblAdvanceSettlement_SID"."Sys_SID",
+														------------------------------
+														"VirtTblPurchaseInvoiceDetail_PID"."Sys_SID",
+														"VirtTblPurchaseInvoiceDetail_SID"."Sys_SID",
+														------------------------------
+														"VirtTblDeliveryOrderDetail_PID"."Sys_SID",
+														"VirtTblDeliveryOrderDetail_SID"."Sys_SID",
+														------------------------------
+														"VirtTblPurchaseOrder_PID"."Sys_SID",
+														"VirtTblPurchaseOrder_SID"."Sys_SID",
+														------------------------------
+														"SubSQL"."Running_DocumentForm_RefSIDLink"
+														) AS "Running_DocumentForm_RefSIDLink",
+													CASE
+														WHEN (("VirtTblAdvanceSettlement_PID"."Sys_RPK" IS NOT NULL) OR ("VirtTblAdvanceSettlement_SID"."Sys_RPK" IS NOT NULL)) THEN
+															NULL::bigint
+														WHEN (("VirtTblPurchaseInvoiceDetail_PID"."Sys_RPK" IS NOT NULL) OR ("VirtTblPurchaseInvoiceDetail_SID"."Sys_RPK" IS NOT NULL)) THEN
+															COALESCE (
+																"VirtTblPurchaseInvoiceDetail_PID"."PurchaseOrderDetail_RefID",
+																"VirtTblPurchaseInvoiceDetail_SID"."PurchaseOrderDetail_RefID"
+																)
+														WHEN (("VirtTblDeliveryOrderDetail_PID"."Sys_RPK" IS NOT NULL) OR ("VirtTblDeliveryOrderDetail_SID"."Sys_RPK" IS NOT NULL)) THEN
+															COALESCE (
+																"VirtTblDeliveryOrderDetail_PID"."UnderlyingDetail_RefID",
+																"VirtTblDeliveryOrderDetail_SID"."UnderlyingDetail_RefID"
+																)
+														WHEN (("VirtTblPurchaseOrder_PID"."Sys_RPK" IS NOT NULL) OR ("VirtTblPurchaseOrder_SID"."Sys_RPK" IS NOT NULL)) THEN
+															NULL::bigint
+														ELSE
+															"SubSQL"."Running_Underlying_RefIDLink"
+													END AS "Running_Underlying_RefIDLink",
+													------------------------------
+													"SubSQL"."OrderSequence"
+												FROM
+													(
+													-----[ FORM ELIMINATION LEVEL 4 : Debit Note Detail, Purchase Invoice, Delivery Order, Warehouse Inbound Order Detail ]----( START )-----
+													SELECT DISTINCT
+														"SubSQL"."Initial_DocumentFormTag",
+														"SubSQL"."Initial_DocumentForm_RefIDLink",
+														------------------------------
+														"SubSQL"."Previous_DocumentForm_RefIDLink",
+														------------------------------
+														"SubSQL"."Running_DocumentFormTag",
+														"SubSQL"."Running_DocumentForm_RefIDLink",
+														"SubSQL"."Running_DocumentForm_RefPIDLink",
+														"SubSQL"."Running_DocumentForm_RefSIDLink",
+														"SubSQL"."Running_Underlying_RefIDLink",
+														------------------------------
+														"SubSQL"."OrderSequence"
+													FROM
+														(
+														SELECT
+															"SubSQL"."Initial_DocumentFormTag",
+															"SubSQL"."Initial_DocumentForm_RefIDLink",
+															------------------------------
+															CASE
+																WHEN ("SubSQL"."Running_Underlying_RefIDLink" IS NULL) THEN
+																	"SubSQL"."Previous_DocumentForm_RefIDLink"
+																ELSE
+																	"SubSQL"."Running_DocumentForm_RefIDLink"
+															END AS "Previous_DocumentForm_RefIDLink",
+															------------------------------
+															CASE
+																WHEN ("SubSQL"."Running_Underlying_RefIDLink" IS NULL) THEN
+																	"SubSQL"."Running_DocumentFormTag"
+																ELSE
+																	CASE
+																		WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 76) THEN
+																			'SchFinance.TblAdvance'
+																		WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 82) THEN
+																			'SchFinance.TblAdvanceDetail'
+																		WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 203) THEN
+																			'SchFinance.TblAdvanceSettlement'
+																		WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 204) THEN
+																			'SchFinance.TblAdvanceSettlementDetail'
+																		WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 192) THEN
+																			'SchFinance.TblCashDisbursement'
+																		WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 193) THEN
+																			'SchFinance.TblCashDisbursementDetail'
+																		WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 290) THEN
+																			'SchFinance.TblCashReceipt'
+																		WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 291) THEN
+																			'SchFinance.TblCashReceiptDetail'
+																		WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 242) THEN
+																			'SchFinance.TblCreditNote'
+																		WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 243) THEN
+																			'SchFinance.TblCreditNoteDetail'
+																		WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 240) THEN
+																			'SchFinance.TblDebitNote'
+																		WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 241) THEN
+																			'SchFinance.TblDebitNoteDetail'
+																		WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 211) THEN
+																			'SchFinance.TblPaymentInstruction'
+																		WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 212) THEN
+																			'SchFinance.TblPaymentInstructionDetail'
+																		WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 208) THEN
+																			'SchFinance.TblPurchaseInvoice'
+																		WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 209) THEN
+																			'SchFinance.TblPurchaseInvoiceDetail'
+																		WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 205) THEN
+																			'SchFinance.TblPurchaseProformaInvoice'
+																		WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 206) THEN
+																			'SchFinance.TblPurchaseProformaInvoiceDetail'
+																		WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 288) THEN
+																			'SchFinance.TblReimbursement'
+																		WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 289) THEN
+																			'SchFinance.TblReimbursementDetail'
+																		WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 138) THEN
+																			'SchFinance.TblSalesInvoice'
+																		WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 139) THEN
+																			'SchFinance.TblSalesInvoiceDetail'
+																		WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 244) THEN
+																			'SchFinance.TblSalesInvoiceRequisition'
+																		WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 245) THEN
+																			'SchFinance.TblSalesInvoiceRequisitionDetail'
+																		WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 78) THEN
+																			'SchHumanResource.TblPersonBusinessTrip'
+																		WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 79) THEN
+																			'SchHumanResource.TblPersonBusinessTripSequence'
+																		WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 180) THEN
+																			'SchSupplyChain.TblDeliveryOrder'
+																		WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 181) THEN
+																			'SchSupplyChain.TblDeliveryOrderDetail'
+																		WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 262) THEN
+																			'SchSupplyChain.TblMaterialServiceRequisition'
+																		WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 263) THEN
+																			'SchSupplyChain.TblMaterialServiceRequisitionDetail'
+																		WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 250) THEN
+																			'SchSupplyChain.TblOrderPicking'
+																		WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 251) THEN
+																			'SchSupplyChain.TblOrderPickingDetail'
+																		WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 248) THEN
+																			'SchSupplyChain.TblOrderPickingRequisition'
+																		WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 249) THEN
+																			'SchSupplyChain.TblOrderPickingRequisitionDetail'
+																		WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 85) THEN
+																			'SchSupplyChain.TblPurchaseOrder'
+																		WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 86) THEN
+																			'SchSupplyChain.TblPurchaseOrderDetail'
+																		WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 83) THEN
+																			'SchSupplyChain.TblPurchaseRequisition'
+																		WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 84) THEN
+																			'SchSupplyChain.TblPurchaseRequisitionDetail'
+																		WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 176) THEN
+																			'SchSupplyChain.TblWarehouseInboundOrder'
+																		WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 177) THEN
+																			'SchSupplyChain.TblWarehouseInboundOrderDetail'
+																		ELSE
+																			NULL
+																	END::varchar
+															END AS "Running_DocumentFormTag",
+															CASE
+																WHEN ("SubSQL"."Running_Underlying_RefIDLink" IS NOT NULL) THEN
+																	"SubSQL"."Running_Underlying_RefIDLink"
+																ELSE
+																	"SubSQL"."Running_DocumentForm_RefIDLink"
+															END AS "Running_DocumentForm_RefIDLink",
+															CASE
+																WHEN ("SubSQL"."Running_Underlying_RefIDLink" IS NOT NULL) THEN
+																	NULL::bigint
+																ELSE
+																	"SubSQL"."Running_DocumentForm_RefPIDLink"
+															END AS "Running_DocumentForm_RefPIDLink",
+															CASE
+																WHEN ("SubSQL"."Running_Underlying_RefIDLink" IS NOT NULL) THEN
+																	NULL::bigint
+																ELSE
+																	"SubSQL"."Running_DocumentForm_RefSIDLink"
+															END AS "Running_DocumentForm_RefSIDLink",
+															CASE
+																WHEN ("SubSQL"."Running_Underlying_RefIDLink" IS NOT NULL) THEN
+																	NULL::bigint
+																ELSE
+																	"SubSQL"."Running_Underlying_RefIDLink"
+															END AS "Running_Underlying_RefIDLink",
+															------------------------------
+															"SubSQL"."OrderSequence"
+														FROM
+															(
+															SELECT
+																"SubSQL"."Initial_DocumentFormTag",
+																"SubSQL"."Initial_DocumentForm_RefIDLink",
+																------------------------------
+																"SubSQL"."Previous_DocumentForm_RefIDLink",
+																------------------------------
+																CASE
+																	WHEN (("VirtTblDebitNoteDetail_PID"."Sys_RPK" IS NOT NULL) OR ("VirtTblDebitNoteDetail_SID"."Sys_RPK" IS NOT NULL)) THEN
+																		'SchFinance.TblDebitNoteDetail'
+																	WHEN (("VirtTblPurchaseInvoice_PID"."Sys_RPK" IS NOT NULL) OR ("VirtTblPurchaseInvoice_SID"."Sys_RPK" IS NOT NULL)) THEN
+																		'SchFinance.TblPurchaseInvoice'
+																	WHEN (("VirtTblDeliveryOrder_PID"."Sys_RPK" IS NOT NULL) OR ("VirtTblDeliveryOrder_SID"."Sys_RPK" IS NOT NULL)) THEN
+																		'SchSupplyChain.TblDeliveryOrder'
+																	WHEN (("VirtTblWarehouseInboundOrderDetail_PID"."Sys_RPK" IS NOT NULL) OR ("VirtTblWarehouseInboundOrderDetail_SID"."Sys_RPK" IS NOT NULL)) THEN
+																		'SchSupplyChain.TblWarehouseInboundOrderDetail'
+																	ELSE
+																		"SubSQL"."Running_DocumentFormTag"
+																END AS "Running_DocumentFormTag",
+																COALESCE (
+																	"VirtTblDebitNoteDetail_PID"."Sys_PID",
+																	"VirtTblDebitNoteDetail_SID"."Sys_PID",
+																	"VirtTblDebitNoteDetail_PID"."Sys_SID",
+																	"VirtTblDebitNoteDetail_SID"."Sys_SID",
+																	------------------------------
+																	"VirtTblPurchaseInvoice_PID"."Sys_PID",
+																	"VirtTblPurchaseInvoice_SID"."Sys_PID",
+																	"VirtTblPurchaseInvoice_PID"."Sys_SID",
+																	"VirtTblPurchaseInvoice_SID"."Sys_SID",
+																	------------------------------
+																	"VirtTblDeliveryOrder_PID"."Sys_PID",
+																	"VirtTblDeliveryOrder_SID"."Sys_PID",
+																	"VirtTblDeliveryOrder_PID"."Sys_SID",
+																	"VirtTblDeliveryOrder_SID"."Sys_SID",
+																	------------------------------
+																	"VirtTblWarehouseInboundOrderDetail_PID"."Sys_PID",
+																	"VirtTblWarehouseInboundOrderDetail_SID"."Sys_PID",
+																	"VirtTblWarehouseInboundOrderDetail_PID"."Sys_SID",
+																	"VirtTblWarehouseInboundOrderDetail_SID"."Sys_SID",
+																	------------------------------
+																	"SubSQL"."Running_DocumentForm_RefIDLink"
+																	) AS "Running_DocumentForm_RefIDLink",
+																COALESCE (
+																	"VirtTblDebitNoteDetail_PID"."Sys_PID",
+																	"VirtTblDebitNoteDetail_SID"."Sys_PID",
+																	------------------------------
+																	"VirtTblPurchaseInvoice_PID"."Sys_PID",
+																	"VirtTblPurchaseInvoice_SID"."Sys_PID",
+																	------------------------------
+																	"VirtTblDeliveryOrder_PID"."Sys_PID",
+																	"VirtTblDeliveryOrder_SID"."Sys_PID",
+																	------------------------------
+																	"VirtTblWarehouseInboundOrderDetail_PID"."Sys_PID",
+																	"VirtTblWarehouseInboundOrderDetail_SID"."Sys_PID",
+																	------------------------------
+																	"SubSQL"."Running_DocumentForm_RefPIDLink"
+																	) AS "Running_DocumentForm_RefPIDLink",
+																COALESCE (
+																	"VirtTblDebitNoteDetail_PID"."Sys_SID",
+																	"VirtTblDebitNoteDetail_SID"."Sys_SID",
+																	------------------------------
+																	"VirtTblPurchaseInvoice_PID"."Sys_SID",
+																	"VirtTblPurchaseInvoice_SID"."Sys_SID",
+																	------------------------------
+																	"VirtTblDeliveryOrder_PID"."Sys_SID",
+																	"VirtTblDeliveryOrder_SID"."Sys_SID",
+																	------------------------------
+																	"VirtTblWarehouseInboundOrderDetail_PID"."Sys_SID",
+																	"VirtTblWarehouseInboundOrderDetail_SID"."Sys_SID",
+																	------------------------------
+																	"SubSQL"."Running_DocumentForm_RefSIDLink"
+																	) AS "Running_DocumentForm_RefSIDLink",
+																CASE
+																	WHEN (("VirtTblDebitNoteDetail_PID"."Sys_RPK" IS NOT NULL) OR ("VirtTblDebitNoteDetail_SID"."Sys_RPK" IS NOT NULL)) THEN
+																		COALESCE (
+																			"VirtTblDebitNoteDetail_PID"."UnderlyingDetail_RefID",
+																			"VirtTblDebitNoteDetail_SID"."UnderlyingDetail_RefID"
+																			)
+																	WHEN (("VirtTblPurchaseInvoice_PID"."Sys_RPK" IS NOT NULL) OR ("VirtTblPurchaseInvoice_SID"."Sys_RPK" IS NOT NULL)) THEN
+																		NULL::bigint
+																	WHEN (("VirtTblDeliveryOrder_PID"."Sys_RPK" IS NOT NULL) OR ("VirtTblDeliveryOrder_SID"."Sys_RPK" IS NOT NULL)) THEN
+																		NULL::bigint
+																	WHEN (("VirtTblWarehouseInboundOrderDetail_PID"."Sys_RPK" IS NOT NULL) OR ("VirtTblWarehouseInboundOrderDetail_SID"."Sys_RPK" IS NOT NULL)) THEN
+																		COALESCE (
+																			"VirtTblWarehouseInboundOrderDetail_PID"."DeliveryOrderDetail_RefID",
+																			"VirtTblWarehouseInboundOrderDetail_SID"."DeliveryOrderDetail_RefID"
+																			)
+																	ELSE
+																		"SubSQL"."Running_Underlying_RefIDLink"
+																END AS "Running_Underlying_RefIDLink",
+																------------------------------
+																"SubSQL"."OrderSequence"
+															FROM
+																(
+																-----[ FORM ELIMINATION LEVEL 5 : Debit Note, Payment Instruction Detail, Warehouse Inbound Order ]----( START )-----
+																SELECT DISTINCT
+																	"SubSQL"."Initial_DocumentFormTag",
+																	"SubSQL"."Initial_DocumentForm_RefIDLink",
+																	------------------------------
+																	"SubSQL"."Previous_DocumentForm_RefIDLink",
+																	------------------------------
+																	"SubSQL"."Running_DocumentFormTag",
+																	"SubSQL"."Running_DocumentForm_RefIDLink",
+																	"SubSQL"."Running_DocumentForm_RefPIDLink",
+																	"SubSQL"."Running_DocumentForm_RefSIDLink",
+																	"SubSQL"."Running_Underlying_RefIDLink",
+																	------------------------------
+																	"SubSQL"."OrderSequence"
+																FROM
+																	(
+																	SELECT 
+																		"SubSQL"."Initial_DocumentFormTag",
+																		"SubSQL"."Initial_DocumentForm_RefIDLink",
+																		------------------------------
+																		CASE
+																			WHEN ("SubSQL"."Running_Underlying_RefIDLink" IS NULL) THEN
+																				"SubSQL"."Previous_DocumentForm_RefIDLink"
+																			ELSE
+																				"SubSQL"."Running_DocumentForm_RefIDLink"
+																		END AS "Previous_DocumentForm_RefIDLink",
+																		------------------------------
+																		CASE
+																			WHEN ("SubSQL"."Running_Underlying_RefIDLink" IS NULL) THEN
+																				"SubSQL"."Running_DocumentFormTag"
+																			ELSE
+																				CASE
+																					WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 76) THEN
+																						'SchFinance.TblAdvance'
+																					WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 82) THEN
+																						'SchFinance.TblAdvanceDetail'
+																					WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 203) THEN
+																						'SchFinance.TblAdvanceSettlement'
+																					WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 204) THEN
+																						'SchFinance.TblAdvanceSettlementDetail'
+																					WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 192) THEN
+																						'SchFinance.TblCashDisbursement'
+																					WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 193) THEN
+																						'SchFinance.TblCashDisbursementDetail'
+																					WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 290) THEN
+																						'SchFinance.TblCashReceipt'
+																					WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 291) THEN
+																						'SchFinance.TblCashReceiptDetail'
+																					WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 242) THEN
+																						'SchFinance.TblCreditNote'
+																					WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 243) THEN
+																						'SchFinance.TblCreditNoteDetail'
+																					WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 240) THEN
+																						'SchFinance.TblDebitNote'
+																					WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 241) THEN
+																						'SchFinance.TblDebitNoteDetail'
+																					WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 211) THEN
+																						'SchFinance.TblPaymentInstruction'
+																					WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 212) THEN
+																						'SchFinance.TblPaymentInstructionDetail'
+																					WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 208) THEN
+																						'SchFinance.TblPurchaseInvoice'
+																					WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 209) THEN
+																						'SchFinance.TblPurchaseInvoiceDetail'
+																					WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 205) THEN
+																						'SchFinance.TblPurchaseProformaInvoice'
+																					WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 206) THEN
+																						'SchFinance.TblPurchaseProformaInvoiceDetail'
+																					WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 288) THEN
+																						'SchFinance.TblReimbursement'
+																					WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 289) THEN
+																						'SchFinance.TblReimbursementDetail'
+																					WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 138) THEN
+																						'SchFinance.TblSalesInvoice'
+																					WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 139) THEN
+																						'SchFinance.TblSalesInvoiceDetail'
+																					WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 244) THEN
+																						'SchFinance.TblSalesInvoiceRequisition'
+																					WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 245) THEN
+																						'SchFinance.TblSalesInvoiceRequisitionDetail'
+																					WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 78) THEN
+																						'SchHumanResource.TblPersonBusinessTrip'
+																					WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 79) THEN
+																						'SchHumanResource.TblPersonBusinessTripSequence'
+																					WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 180) THEN
+																						'SchSupplyChain.TblDeliveryOrder'
+																					WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 181) THEN
+																						'SchSupplyChain.TblDeliveryOrderDetail'
+																					WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 262) THEN
+																						'SchSupplyChain.TblMaterialServiceRequisition'
+																					WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 263) THEN
+																						'SchSupplyChain.TblMaterialServiceRequisitionDetail'
+																					WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 250) THEN
+																						'SchSupplyChain.TblOrderPicking'
+																					WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 251) THEN
+																						'SchSupplyChain.TblOrderPickingDetail'
+																					WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 248) THEN
+																						'SchSupplyChain.TblOrderPickingRequisition'
+																					WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 249) THEN
+																						'SchSupplyChain.TblOrderPickingRequisitionDetail'
+																					WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 85) THEN
+																						'SchSupplyChain.TblPurchaseOrder'
+																					WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 86) THEN
+																						'SchSupplyChain.TblPurchaseOrderDetail'
+																					WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 83) THEN
+																						'SchSupplyChain.TblPurchaseRequisition'
+																					WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 84) THEN
+																						'SchSupplyChain.TblPurchaseRequisitionDetail'
+																					WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 176) THEN
+																						'SchSupplyChain.TblWarehouseInboundOrder'
+																					WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 177) THEN
+																						'SchSupplyChain.TblWarehouseInboundOrderDetail'
+																					ELSE
+																						NULL
+																				END::varchar
+																		END AS "Running_DocumentFormTag",
+																		CASE
+																			WHEN ("SubSQL"."Running_Underlying_RefIDLink" IS NOT NULL) THEN
+																				"SubSQL"."Running_Underlying_RefIDLink"
+																			ELSE
+																				"SubSQL"."Running_DocumentForm_RefIDLink"
+																		END AS "Running_DocumentForm_RefIDLink",
+																		CASE
+																			WHEN ("SubSQL"."Running_Underlying_RefIDLink" IS NOT NULL) THEN
+																				NULL::bigint
+																			ELSE
+																				"SubSQL"."Running_DocumentForm_RefPIDLink"
+																		END AS "Running_DocumentForm_RefPIDLink",
+																		CASE
+																			WHEN ("SubSQL"."Running_Underlying_RefIDLink" IS NOT NULL) THEN
+																				NULL::bigint
+																			ELSE
+																				"SubSQL"."Running_DocumentForm_RefSIDLink"
+																		END AS "Running_DocumentForm_RefSIDLink",
+																		CASE
+																			WHEN ("SubSQL"."Running_Underlying_RefIDLink" IS NOT NULL) THEN
+																				NULL::bigint
+																			ELSE
+																				"SubSQL"."Running_Underlying_RefIDLink"
+																		END AS "Running_Underlying_RefIDLink",
+																		------------------------------
+																		"SubSQL"."OrderSequence"
+																	FROM
+																		(
+																		SELECT
+																			"SubSQL"."Initial_DocumentFormTag",
+																			"SubSQL"."Initial_DocumentForm_RefIDLink",
+																			------------------------------
+																			"SubSQL"."Previous_DocumentForm_RefIDLink",
+																			------------------------------
+																			CASE
+																				WHEN (("VirtTblDebitNote_PID"."Sys_RPK" IS NOT NULL) OR ("VirtTblDebitNote_SID"."Sys_RPK" IS NOT NULL)) THEN
+																					'SchFinance.TblDebitNote'
+																				WHEN (("VirtTblPaymentInstructionDetail_PID"."Sys_RPK" IS NOT NULL) OR ("VirtTblPaymentInstructionDetail_SID"."Sys_RPK" IS NOT NULL)) THEN
+																					'SchFinance.TblPaymentInstructionDetail'
+																				WHEN (("VirtTblWarehouseInboundOrder_PID"."Sys_RPK" IS NOT NULL) OR ("VirtTblWarehouseInboundOrder_SID"."Sys_RPK" IS NOT NULL)) THEN
+																					'SchSupplyChain.TblWarehouseInboundOrder'
+																				ELSE
+																					"SubSQL"."Running_DocumentFormTag"
+																			END AS "Running_DocumentFormTag",
+																			COALESCE (
+																				"VirtTblDebitNote_PID"."Sys_PID",
+																				"VirtTblDebitNote_SID"."Sys_PID",
+																				"VirtTblDebitNote_PID"."Sys_SID",
+																				"VirtTblDebitNote_SID"."Sys_SID",
+																				------------------------------
+																				"VirtTblPaymentInstructionDetail_PID"."Sys_PID",
+																				"VirtTblPaymentInstructionDetail_SID"."Sys_PID",
+																				"VirtTblPaymentInstructionDetail_PID"."Sys_SID",
+																				"VirtTblPaymentInstructionDetail_SID"."Sys_SID",
+																				------------------------------
+																				"VirtTblWarehouseInboundOrder_PID"."Sys_PID",
+																				"VirtTblWarehouseInboundOrder_SID"."Sys_PID",
+																				"VirtTblWarehouseInboundOrder_PID"."Sys_SID",
+																				"VirtTblWarehouseInboundOrder_SID"."Sys_SID",
+																				------------------------------
+																				"SubSQL"."Running_DocumentForm_RefIDLink"
+																				) AS "Running_DocumentForm_RefIDLink",
+																			COALESCE (
+																				"VirtTblDebitNote_PID"."Sys_PID",
+																				"VirtTblDebitNote_SID"."Sys_PID",
+																				------------------------------
+																				"VirtTblPaymentInstructionDetail_PID"."Sys_PID",
+																				"VirtTblPaymentInstructionDetail_SID"."Sys_PID",
+																				------------------------------
+																				"VirtTblWarehouseInboundOrder_PID"."Sys_PID",
+																				"VirtTblWarehouseInboundOrder_SID"."Sys_PID",
+																				------------------------------
+																				"SubSQL"."Running_DocumentForm_RefPIDLink"
+																				) AS "Running_DocumentForm_RefPIDLink",
+																			COALESCE (
+																				"VirtTblDebitNote_PID"."Sys_SID",
+																				"VirtTblDebitNote_SID"."Sys_SID",
+																				------------------------------
+																				"VirtTblPaymentInstructionDetail_PID"."Sys_SID",
+																				"VirtTblPaymentInstructionDetail_SID"."Sys_SID",
+																				------------------------------
+																				"VirtTblWarehouseInboundOrder_PID"."Sys_SID",
+																				"VirtTblWarehouseInboundOrder_SID"."Sys_SID",
+																				------------------------------
+																				"SubSQL"."Running_DocumentForm_RefSIDLink"
+																				) AS "Running_DocumentForm_RefSIDLink",
+																			CASE
+																				WHEN (("VirtTblDebitNote_PID"."Sys_RPK" IS NOT NULL) OR ("VirtTblDebitNote_SID"."Sys_RPK" IS NOT NULL)) THEN
+																					NULL::bigint
+																				WHEN (("VirtTblPaymentInstructionDetail_PID"."Sys_RPK" IS NOT NULL) OR ("VirtTblPaymentInstructionDetail_SID"."Sys_RPK" IS NOT NULL)) THEN
+																					COALESCE (
+																						"VirtTblPaymentInstructionDetail_PID"."Underlying_RefID",
+																						"VirtTblPaymentInstructionDetail_SID"."Underlying_RefID"
+																						)
+																				WHEN (("VirtTblWarehouseInboundOrder_PID"."Sys_RPK" IS NOT NULL) OR ("VirtTblWarehouseInboundOrder_SID"."Sys_RPK" IS NOT NULL)) THEN
+																					NULL::bigint
+																				ELSE
+																					"SubSQL"."Running_Underlying_RefIDLink"
+																			END AS "Running_Underlying_RefIDLink",
+																			------------------------------
+																			"SubSQL"."OrderSequence"
+																		FROM
+																			(
+																			-----[ FORM ELIMINATION LEVEL 6 : Payment Instruction ]----( START )-----
+																			SELECT DISTINCT
+																				"SubSQL"."Initial_DocumentFormTag",
+																				"SubSQL"."Initial_DocumentForm_RefIDLink",
+																				------------------------------
+																				"SubSQL"."Previous_DocumentForm_RefIDLink",
+																				------------------------------
+																				"SubSQL"."Running_DocumentFormTag",
+																				"SubSQL"."Running_DocumentForm_RefIDLink",
+																				"SubSQL"."Running_DocumentForm_RefPIDLink",
+																				"SubSQL"."Running_DocumentForm_RefSIDLink",
+																				"SubSQL"."Running_Underlying_RefIDLink",
+																				------------------------------
+																				"SubSQL"."OrderSequence"
+																			FROM
+																				(
+																				SELECT
+																					"SubSQL"."Initial_DocumentFormTag",
+																					"SubSQL"."Initial_DocumentForm_RefIDLink",
+																					------------------------------
+																					CASE
+																						WHEN ("SubSQL"."Running_Underlying_RefIDLink" IS NULL) THEN
+																							"SubSQL"."Previous_DocumentForm_RefIDLink"
+																						ELSE
+																							"SubSQL"."Running_DocumentForm_RefIDLink"
+																					END AS "Previous_DocumentForm_RefIDLink",
+																					------------------------------
+																					CASE
+																						WHEN ("SubSQL"."Running_Underlying_RefIDLink" IS NULL) THEN
+																							"SubSQL"."Running_DocumentFormTag"
+																						ELSE
+																							CASE
+																								WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 76) THEN
+																									'SchFinance.TblAdvance'
+																								WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 82) THEN
+																									'SchFinance.TblAdvanceDetail'
+																								WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 203) THEN
+																									'SchFinance.TblAdvanceSettlement'
+																								WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 204) THEN
+																									'SchFinance.TblAdvanceSettlementDetail'
+																								WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 192) THEN
+																									'SchFinance.TblCashDisbursement'
+																								WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 193) THEN
+																									'SchFinance.TblCashDisbursementDetail'
+																								WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 290) THEN
+																									'SchFinance.TblCashReceipt'
+																								WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 291) THEN
+																									'SchFinance.TblCashReceiptDetail'
+																								WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 242) THEN
+																									'SchFinance.TblCreditNote'
+																								WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 243) THEN
+																									'SchFinance.TblCreditNoteDetail'
+																								WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 240) THEN
+																									'SchFinance.TblDebitNote'
+																								WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 241) THEN
+																									'SchFinance.TblDebitNoteDetail'
+																								WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 211) THEN
+																									'SchFinance.TblPaymentInstruction'
+																								WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 212) THEN
+																									'SchFinance.TblPaymentInstructionDetail'
+																								WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 208) THEN
+																									'SchFinance.TblPurchaseInvoice'
+																								WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 209) THEN
+																									'SchFinance.TblPurchaseInvoiceDetail'
+																								WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 205) THEN
+																									'SchFinance.TblPurchaseProformaInvoice'
+																								WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 206) THEN
+																									'SchFinance.TblPurchaseProformaInvoiceDetail'
+																								WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 288) THEN
+																									'SchFinance.TblReimbursement'
+																								WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 289) THEN
+																									'SchFinance.TblReimbursementDetail'
+																								WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 138) THEN
+																									'SchFinance.TblSalesInvoice'
+																								WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 139) THEN
+																									'SchFinance.TblSalesInvoiceDetail'
+																								WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 244) THEN
+																									'SchFinance.TblSalesInvoiceRequisition'
+																								WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 245) THEN
+																									'SchFinance.TblSalesInvoiceRequisitionDetail'
+																								WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 78) THEN
+																									'SchHumanResource.TblPersonBusinessTrip'
+																								WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 79) THEN
+																									'SchHumanResource.TblPersonBusinessTripSequence'
+																								WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 180) THEN
+																									'SchSupplyChain.TblDeliveryOrder'
+																								WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 181) THEN
+																									'SchSupplyChain.TblDeliveryOrderDetail'
+																								WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 262) THEN
+																									'SchSupplyChain.TblMaterialServiceRequisition'
+																								WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 263) THEN
+																									'SchSupplyChain.TblMaterialServiceRequisitionDetail'
+																								WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 250) THEN
+																									'SchSupplyChain.TblOrderPicking'
+																								WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 251) THEN
+																									'SchSupplyChain.TblOrderPickingDetail'
+																								WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 248) THEN
+																									'SchSupplyChain.TblOrderPickingRequisition'
+																								WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 249) THEN
+																									'SchSupplyChain.TblOrderPickingRequisitionDetail'
+																								WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 85) THEN
+																									'SchSupplyChain.TblPurchaseOrder'
+																								WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 86) THEN
+																									'SchSupplyChain.TblPurchaseOrderDetail'
+																								WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 83) THEN
+																									'SchSupplyChain.TblPurchaseRequisition'
+																								WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 84) THEN
+																									'SchSupplyChain.TblPurchaseRequisitionDetail'
+																								WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 176) THEN
+																									'SchSupplyChain.TblWarehouseInboundOrder'
+																								WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 177) THEN
+																									'SchSupplyChain.TblWarehouseInboundOrderDetail'
+																								ELSE
+																									NULL
+																							END::varchar
+																					END AS "Running_DocumentFormTag",
+																					CASE
+																						WHEN ("SubSQL"."Running_Underlying_RefIDLink" IS NOT NULL) THEN
+																							"SubSQL"."Running_Underlying_RefIDLink"
+																						ELSE
+																							"SubSQL"."Running_DocumentForm_RefIDLink"
+																					END AS "Running_DocumentForm_RefIDLink",
+																					CASE
+																						WHEN ("SubSQL"."Running_Underlying_RefIDLink" IS NOT NULL) THEN
+																							NULL::bigint
+																						ELSE
+																							"SubSQL"."Running_DocumentForm_RefPIDLink"
+																					END AS "Running_DocumentForm_RefPIDLink",
+																					CASE
+																						WHEN ("SubSQL"."Running_Underlying_RefIDLink" IS NOT NULL) THEN
+																							NULL::bigint
+																						ELSE
+																							"SubSQL"."Running_DocumentForm_RefSIDLink"
+																					END AS "Running_DocumentForm_RefSIDLink",
+																					CASE
+																						WHEN ("SubSQL"."Running_Underlying_RefIDLink" IS NOT NULL) THEN
+																							NULL::bigint
+																						ELSE
+																							"SubSQL"."Running_Underlying_RefIDLink"
+																					END AS "Running_Underlying_RefIDLink",
+																					------------------------------
+																					"SubSQL"."OrderSequence"
+																				FROM
+																					(
+																					SELECT
+																						"SubSQL"."Initial_DocumentFormTag",
+																						"SubSQL"."Initial_DocumentForm_RefIDLink",
+																						------------------------------
+																						"SubSQL"."Previous_DocumentForm_RefIDLink",
+																						------------------------------
+																						CASE
+																							WHEN (("VirtTblPaymentInstruction_PID"."Sys_RPK" IS NOT NULL) OR ("VirtTblPaymentInstruction_SID"."Sys_RPK" IS NOT NULL)) THEN
+																								'SchFinance.TblPaymentInstruction'
+																							ELSE
+																								"SubSQL"."Running_DocumentFormTag"
+																						END AS "Running_DocumentFormTag",
+																						COALESCE (
+																							"VirtTblPaymentInstruction_PID"."Sys_PID",
+																							"VirtTblPaymentInstruction_SID"."Sys_PID",
+																							"VirtTblPaymentInstruction_PID"."Sys_SID",
+																							"VirtTblPaymentInstruction_SID"."Sys_SID",
+																							------------------------------
+																							"SubSQL"."Running_DocumentForm_RefIDLink"
+																							) AS "Running_DocumentForm_RefIDLink",
+																						COALESCE (
+																							"VirtTblPaymentInstruction_PID"."Sys_PID",
+																							"VirtTblPaymentInstruction_SID"."Sys_PID",
+																							------------------------------
+																							"SubSQL"."Running_DocumentForm_RefPIDLink"
+																							) AS "Running_DocumentForm_RefPIDLink",
+																						COALESCE (
+																							"VirtTblPaymentInstruction_PID"."Sys_SID",
+																							"VirtTblPaymentInstruction_SID"."Sys_SID",
+																							------------------------------
+																							"SubSQL"."Running_DocumentForm_RefSIDLink"
+																							) AS "Running_DocumentForm_RefSIDLink",
+																						CASE
+																							WHEN (("VirtTblPaymentInstruction_PID"."Sys_RPK" IS NOT NULL) OR ("VirtTblPaymentInstruction_SID"."Sys_RPK" IS NOT NULL)) THEN
+																								NULL::bigint
+																							ELSE
+																								"SubSQL"."Running_Underlying_RefIDLink"
+																						END AS "Running_Underlying_RefIDLink",
+																						------------------------------
+																						"SubSQL"."OrderSequence"
+																					FROM
+																						(
+																						-----[ FORM ELIMINATION LEVEL 7 : Cash Disbursement Detail ]----( START )-----
+																						SELECT DISTINCT
+																							"SubSQL"."Initial_DocumentFormTag",
+																							"SubSQL"."Initial_DocumentForm_RefIDLink",
+																							------------------------------
+																							"SubSQL"."Previous_DocumentForm_RefIDLink",
+																							------------------------------
+																							"SubSQL"."Running_DocumentFormTag",
+																							"SubSQL"."Running_DocumentForm_RefIDLink",
+																							"SubSQL"."Running_DocumentForm_RefPIDLink",
+																							"SubSQL"."Running_DocumentForm_RefSIDLink",
+																							"SubSQL"."Running_Underlying_RefIDLink",
+																							------------------------------
+																							"SubSQL"."OrderSequence"
+																						FROM
+																							(
+																							SELECT
+																								"SubSQL"."Initial_DocumentFormTag",
+																								"SubSQL"."Initial_DocumentForm_RefIDLink",
+																								------------------------------
+																								CASE
+																									WHEN ("SubSQL"."Running_Underlying_RefIDLink" IS NULL) THEN
+																										"SubSQL"."Previous_DocumentForm_RefIDLink"
+																									ELSE
+																										"SubSQL"."Running_DocumentForm_RefIDLink"
+																								END AS "Previous_DocumentForm_RefIDLink",
+																								------------------------------
+																								CASE
+																									WHEN ("SubSQL"."Running_Underlying_RefIDLink" IS NULL) THEN
+																										"SubSQL"."Running_DocumentFormTag"
+																									ELSE
+																										CASE
+																											WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 76) THEN
+																												'SchFinance.TblAdvance'
+																											WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 82) THEN
+																												'SchFinance.TblAdvanceDetail'
+																											WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 203) THEN
+																												'SchFinance.TblAdvanceSettlement'
+																											WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 204) THEN
+																												'SchFinance.TblAdvanceSettlementDetail'
+																											WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 192) THEN
+																												'SchFinance.TblCashDisbursement'
+																											WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 193) THEN
+																												'SchFinance.TblCashDisbursementDetail'
+																											WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 290) THEN
+																												'SchFinance.TblCashReceipt'
+																											WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 291) THEN
+																												'SchFinance.TblCashReceiptDetail'
+																											WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 242) THEN
+																												'SchFinance.TblCreditNote'
+																											WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 243) THEN
+																												'SchFinance.TblCreditNoteDetail'
+																											WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 240) THEN
+																												'SchFinance.TblDebitNote'
+																											WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 241) THEN
+																												'SchFinance.TblDebitNoteDetail'
+																											WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 211) THEN
+																												'SchFinance.TblPaymentInstruction'
+																											WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 212) THEN
+																												'SchFinance.TblPaymentInstructionDetail'
+																											WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 208) THEN
+																												'SchFinance.TblPurchaseInvoice'
+																											WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 209) THEN
+																												'SchFinance.TblPurchaseInvoiceDetail'
+																											WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 205) THEN
+																												'SchFinance.TblPurchaseProformaInvoice'
+																											WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 206) THEN
+																												'SchFinance.TblPurchaseProformaInvoiceDetail'
+																											WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 288) THEN
+																												'SchFinance.TblReimbursement'
+																											WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 289) THEN
+																												'SchFinance.TblReimbursementDetail'
+																											WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 138) THEN
+																												'SchFinance.TblSalesInvoice'
+																											WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 139) THEN
+																												'SchFinance.TblSalesInvoiceDetail'
+																											WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 244) THEN
+																												'SchFinance.TblSalesInvoiceRequisition'
+																											WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 245) THEN
+																												'SchFinance.TblSalesInvoiceRequisitionDetail'
+																											WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 78) THEN
+																												'SchHumanResource.TblPersonBusinessTrip'
+																											WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 79) THEN
+																												'SchHumanResource.TblPersonBusinessTripSequence'
+																											WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 180) THEN
+																												'SchSupplyChain.TblDeliveryOrder'
+																											WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 181) THEN
+																												'SchSupplyChain.TblDeliveryOrderDetail'
+																											WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 262) THEN
+																												'SchSupplyChain.TblMaterialServiceRequisition'
+																											WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 263) THEN
+																												'SchSupplyChain.TblMaterialServiceRequisitionDetail'
+																											WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 250) THEN
+																												'SchSupplyChain.TblOrderPicking'
+																											WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 251) THEN
+																												'SchSupplyChain.TblOrderPickingDetail'
+																											WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 248) THEN
+																												'SchSupplyChain.TblOrderPickingRequisition'
+																											WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 249) THEN
+																												'SchSupplyChain.TblOrderPickingRequisitionDetail'
+																											WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 85) THEN
+																												'SchSupplyChain.TblPurchaseOrder'
+																											WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 86) THEN
+																												'SchSupplyChain.TblPurchaseOrderDetail'
+																											WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 83) THEN
+																												'SchSupplyChain.TblPurchaseRequisition'
+																											WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 84) THEN
+																												'SchSupplyChain.TblPurchaseRequisitionDetail'
+																											WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 176) THEN
+																												'SchSupplyChain.TblWarehouseInboundOrder'
+																											WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 177) THEN
+																												'SchSupplyChain.TblWarehouseInboundOrderDetail'
+																											ELSE
+																												NULL
+																										END::varchar
+																								END AS "Running_DocumentFormTag",
+																								CASE
+																									WHEN ("SubSQL"."Running_Underlying_RefIDLink" IS NOT NULL) THEN
+																										"SubSQL"."Running_Underlying_RefIDLink"
+																									ELSE
+																										"SubSQL"."Running_DocumentForm_RefIDLink"
+																								END AS "Running_DocumentForm_RefIDLink",
+																								CASE
+																									WHEN ("SubSQL"."Running_Underlying_RefIDLink" IS NOT NULL) THEN
+																										NULL::bigint
+																									ELSE
+																										"SubSQL"."Running_DocumentForm_RefPIDLink"
+																								END AS "Running_DocumentForm_RefPIDLink",
+																								CASE
+																									WHEN ("SubSQL"."Running_Underlying_RefIDLink" IS NOT NULL) THEN
+																										NULL::bigint
+																									ELSE
+																										"SubSQL"."Running_DocumentForm_RefSIDLink"
+																								END AS "Running_DocumentForm_RefSIDLink",
+																								CASE
+																									WHEN ("SubSQL"."Running_Underlying_RefIDLink" IS NOT NULL) THEN
+																										NULL::bigint
+																									ELSE
+																										"SubSQL"."Running_Underlying_RefIDLink"
+																								END AS "Running_Underlying_RefIDLink",
+																								------------------------------
+																								"SubSQL"."OrderSequence"
+																							FROM
+																								(
+																								SELECT
+																									"SubSQL"."Initial_DocumentFormTag",
+																									"SubSQL"."Initial_DocumentForm_RefIDLink",
+																									------------------------------
+																									"SubSQL"."Previous_DocumentForm_RefIDLink",
+																									------------------------------
+																									CASE
+																										WHEN (("VirtTblCashDisbursementDetail_PID"."Sys_RPK" IS NOT NULL) OR ("VirtTblCashDisbursementDetail_SID"."Sys_RPK" IS NOT NULL)) THEN
+																											'SchFinance.TblCashDisbursementDetail'
+																										ELSE
+																											"SubSQL"."Running_DocumentFormTag"
+																									END AS "Running_DocumentFormTag",
+																									COALESCE (
+																										"VirtTblCashDisbursementDetail_PID"."Sys_PID",
+																										"VirtTblCashDisbursementDetail_SID"."Sys_PID",
+																										"VirtTblCashDisbursementDetail_PID"."Sys_SID",
+																										"VirtTblCashDisbursementDetail_SID"."Sys_SID",
+																										------------------------------
+																										"SubSQL"."Running_DocumentForm_RefIDLink"
+																										) AS "Running_DocumentForm_RefIDLink",
+																									COALESCE (
+																										"VirtTblCashDisbursementDetail_PID"."Sys_PID",
+																										"VirtTblCashDisbursementDetail_SID"."Sys_PID",
+																										------------------------------
+																										"SubSQL"."Running_DocumentForm_RefPIDLink"
+																										) AS "Running_DocumentForm_RefPIDLink",
+																									COALESCE (
+																										"VirtTblCashDisbursementDetail_PID"."Sys_SID",
+																										"VirtTblCashDisbursementDetail_SID"."Sys_SID",
+																										------------------------------
+																										"SubSQL"."Running_DocumentForm_RefSIDLink"
+																										) AS "Running_DocumentForm_RefSIDLink",
+																									CASE
+																										WHEN (("VirtTblCashDisbursementDetail_PID"."Sys_RPK" IS NOT NULL) OR ("VirtTblCashDisbursementDetail_SID"."Sys_RPK" IS NOT NULL)) THEN
+																											COALESCE (
+																												"VirtTblCashDisbursementDetail_PID"."Underlying_RefID",
+																												"VirtTblCashDisbursementDetail_SID"."Underlying_RefID"
+																												)
+																										ELSE
+																											"SubSQL"."Running_Underlying_RefIDLink"
+																									END AS "Running_Underlying_RefIDLink",
+																									------------------------------
+																									"SubSQL"."OrderSequence"
+																								FROM
+																									(
+																									-----[ FORM ELIMINATION LEVEL 8: Cash Disbursement ]----( START )-----
+																									SELECT DISTINCT
+																										"SubSQL"."Initial_DocumentFormTag",
+																										"SubSQL"."Initial_DocumentForm_RefIDLink",
+																										------------------------------
+																										"SubSQL"."Previous_DocumentForm_RefIDLink",
+																										------------------------------
+																										"SubSQL"."Running_DocumentFormTag",
+																										"SubSQL"."Running_DocumentForm_RefIDLink",
+																										"SubSQL"."Running_DocumentForm_RefPIDLink",
+																										"SubSQL"."Running_DocumentForm_RefSIDLink",
+																										"SubSQL"."Running_Underlying_RefIDLink",
+																										------------------------------
+																										"SubSQL"."OrderSequence"
+																									FROM
+																										(
+																										SELECT
+																											"SubSQL"."Initial_DocumentFormTag",
+																											"SubSQL"."Initial_DocumentForm_RefIDLink",
+																											------------------------------
+																											CASE
+																												WHEN ("SubSQL"."Running_Underlying_RefIDLink" IS NULL) THEN
+																													"SubSQL"."Previous_DocumentForm_RefIDLink"
+																												ELSE
+																													"SubSQL"."Running_DocumentForm_RefIDLink"
+																											END AS "Previous_DocumentForm_RefIDLink",
+																											------------------------------
+																											CASE
+																												WHEN ("SubSQL"."Running_Underlying_RefIDLink" IS NULL) THEN
+																													"SubSQL"."Running_DocumentFormTag"
+																												ELSE
+																													CASE
+																														WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 76) THEN
+																															'SchFinance.TblAdvance'
+																														WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 82) THEN
+																															'SchFinance.TblAdvanceDetail'
+																														WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 203) THEN
+																															'SchFinance.TblAdvanceSettlement'
+																														WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 204) THEN
+																															'SchFinance.TblAdvanceSettlementDetail'
+																														WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 192) THEN
+																															'SchFinance.TblCashDisbursement'
+																														WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 193) THEN
+																															'SchFinance.TblCashDisbursementDetail'
+																														WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 290) THEN
+																															'SchFinance.TblCashReceipt'
+																														WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 291) THEN
+																															'SchFinance.TblCashReceiptDetail'
+																														WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 242) THEN
+																															'SchFinance.TblCreditNote'
+																														WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 243) THEN
+																															'SchFinance.TblCreditNoteDetail'
+																														WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 240) THEN
+																															'SchFinance.TblDebitNote'
+																														WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 241) THEN
+																															'SchFinance.TblDebitNoteDetail'
+																														WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 211) THEN
+																															'SchFinance.TblPaymentInstruction'
+																														WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 212) THEN
+																															'SchFinance.TblPaymentInstructionDetail'
+																														WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 208) THEN
+																															'SchFinance.TblPurchaseInvoice'
+																														WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 209) THEN
+																															'SchFinance.TblPurchaseInvoiceDetail'
+																														WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 205) THEN
+																															'SchFinance.TblPurchaseProformaInvoice'
+																														WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 206) THEN
+																															'SchFinance.TblPurchaseProformaInvoiceDetail'
+																														WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 288) THEN
+																															'SchFinance.TblReimbursement'
+																														WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 289) THEN
+																															'SchFinance.TblReimbursementDetail'
+																														WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 138) THEN
+																															'SchFinance.TblSalesInvoice'
+																														WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 139) THEN
+																															'SchFinance.TblSalesInvoiceDetail'
+																														WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 244) THEN
+																															'SchFinance.TblSalesInvoiceRequisition'
+																														WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 245) THEN
+																															'SchFinance.TblSalesInvoiceRequisitionDetail'
+																														WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 78) THEN
+																															'SchHumanResource.TblPersonBusinessTrip'
+																														WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 79) THEN
+																															'SchHumanResource.TblPersonBusinessTripSequence'
+																														WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 180) THEN
+																															'SchSupplyChain.TblDeliveryOrder'
+																														WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 181) THEN
+																															'SchSupplyChain.TblDeliveryOrderDetail'
+																														WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 262) THEN
+																															'SchSupplyChain.TblMaterialServiceRequisition'
+																														WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 263) THEN
+																															'SchSupplyChain.TblMaterialServiceRequisitionDetail'
+																														WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 250) THEN
+																															'SchSupplyChain.TblOrderPicking'
+																														WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 251) THEN
+																															'SchSupplyChain.TblOrderPickingDetail'
+																														WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 248) THEN
+																															'SchSupplyChain.TblOrderPickingRequisition'
+																														WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 249) THEN
+																															'SchSupplyChain.TblOrderPickingRequisitionDetail'
+																														WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 85) THEN
+																															'SchSupplyChain.TblPurchaseOrder'
+																														WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 86) THEN
+																															'SchSupplyChain.TblPurchaseOrderDetail'
+																														WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 83) THEN
+																															'SchSupplyChain.TblPurchaseRequisition'
+																														WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 84) THEN
+																															'SchSupplyChain.TblPurchaseRequisitionDetail'
+																														WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 176) THEN
+																															'SchSupplyChain.TblWarehouseInboundOrder'
+																														WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 177) THEN
+																															'SchSupplyChain.TblWarehouseInboundOrderDetail'
+																														ELSE
+																															NULL
+																													END::varchar
+																											END AS "Running_DocumentFormTag",
+																											CASE
+																												WHEN ("SubSQL"."Running_Underlying_RefIDLink" IS NOT NULL) THEN
+																													"SubSQL"."Running_Underlying_RefIDLink"
+																												ELSE
+																													"SubSQL"."Running_DocumentForm_RefIDLink"
+																											END AS "Running_DocumentForm_RefIDLink",
+																											CASE
+																												WHEN ("SubSQL"."Running_Underlying_RefIDLink" IS NOT NULL) THEN
+																													NULL::bigint
+																												ELSE
+																													"SubSQL"."Running_DocumentForm_RefPIDLink"
+																											END AS "Running_DocumentForm_RefPIDLink",
+																											CASE
+																												WHEN ("SubSQL"."Running_Underlying_RefIDLink" IS NOT NULL) THEN
+																													NULL::bigint
+																												ELSE
+																													"SubSQL"."Running_DocumentForm_RefSIDLink"
+																											END AS "Running_DocumentForm_RefSIDLink",
+																											CASE
+																												WHEN ("SubSQL"."Running_Underlying_RefIDLink" IS NOT NULL) THEN
+																													NULL::bigint
+																												ELSE
+																													"SubSQL"."Running_Underlying_RefIDLink"
+																											END AS "Running_Underlying_RefIDLink",
+																											------------------------------
+																											"SubSQL"."OrderSequence"
+																										FROM
+																											(
+																											SELECT
+																												"SubSQL"."Initial_DocumentFormTag",
+																												"SubSQL"."Initial_DocumentForm_RefIDLink",
+																												------------------------------
+																												"SubSQL"."Previous_DocumentForm_RefIDLink",
+																												------------------------------
+																												CASE
+																													WHEN (("VirtTblCashDisbursement_PID"."Sys_RPK" IS NOT NULL) OR ("VirtTblCashDisbursement_SID"."Sys_RPK" IS NOT NULL)) THEN
+																														'SchFinance.TblCashDisbursement'
+																													ELSE
+																														"SubSQL"."Running_DocumentFormTag"
+																												END AS "Running_DocumentFormTag",
+																												COALESCE (
+																													"VirtTblCashDisbursement_PID"."Sys_PID",
+																													"VirtTblCashDisbursement_SID"."Sys_PID",
+																													"VirtTblCashDisbursement_PID"."Sys_SID",
+																													"VirtTblCashDisbursement_SID"."Sys_SID",
+																													------------------------------
+																													"SubSQL"."Running_DocumentForm_RefIDLink"
+																													) AS "Running_DocumentForm_RefIDLink",
+																												COALESCE (
+																													"VirtTblCashDisbursement_PID"."Sys_PID",
+																													"VirtTblCashDisbursement_SID"."Sys_PID",
+																													------------------------------
+																													"SubSQL"."Running_DocumentForm_RefPIDLink"
+																													) AS "Running_DocumentForm_RefPIDLink",
+																												COALESCE (
+																													"VirtTblCashDisbursement_PID"."Sys_SID",
+																													"VirtTblCashDisbursement_SID"."Sys_SID",
+																													------------------------------
+																													"SubSQL"."Running_DocumentForm_RefSIDLink"
+																													) AS "Running_DocumentForm_RefSIDLink",
+																												CASE
+																													WHEN (("VirtTblCashDisbursement_PID"."Sys_RPK" IS NOT NULL) OR ("VirtTblCashDisbursement_SID"."Sys_RPK" IS NOT NULL)) THEN
+																														NULL::bigint
+																													ELSE
+																														"SubSQL"."Running_Underlying_RefIDLink"
+																												END AS "Running_Underlying_RefIDLink",
+																												------------------------------
+																												"SubSQL"."OrderSequence"
+																											FROM
+																												(
+																												-----[ FORM ELIMINATION LEVEL 9: CORE ]----( START )-----
+																												SELECT DISTINCT
+																													"SubSQL"."Initial_DocumentFormTag",
+																													"SubSQL"."Initial_DocumentForm_RefIDLink",
+																													------------------------------
+																													"SubSQL"."Previous_DocumentForm_RefIDLink",
+																													------------------------------
+																													"SubSQL"."Running_DocumentFormTag",
+																													"SubSQL"."Running_DocumentForm_RefIDLink",
+																													"SubSQL"."Running_DocumentForm_RefPIDLink",
+																													"SubSQL"."Running_DocumentForm_RefSIDLink",
+																													"SubSQL"."Running_Underlying_RefIDLink",
+																													------------------------------
+																													"SubSQL"."OrderSequence"
+																												FROM
+																													(
+																													SELECT
+																														"SubSQL"."Running_DocumentFormTag" AS "Initial_DocumentFormTag",
+																														"SubSQL"."Running_Underlying_RefIDLink" AS "Initial_DocumentForm_RefIDLink",
+																														------------------------------
+																														"SubSQL"."Running_Underlying_RefIDLink" AS "Previous_DocumentForm_RefIDLink",
+																														------------------------------
+																														"SubSQL"."Running_DocumentFormTag",
+																														"SubSQL"."Running_Underlying_RefIDLink" AS "Running_DocumentForm_RefIDLink",
+																														NULL::bigint AS "Running_DocumentForm_RefPIDLink",
+																														NULL::bigint AS "Running_DocumentForm_RefSIDLink",
+																														NULL::bigint AS "Running_Underlying_RefIDLink",
+																														------------------------------
+																														"SubSQL"."OrderSequence"
+																													FROM
+																														(
+																														SELECT
+																															CASE
+																																WHEN ("SubSQL"."Running_Underlying_RefIDLink" IS NULL) THEN
+																																	"SubSQL"."Running_DocumentFormTag"
+																																ELSE
+																																	CASE
+																																		WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 76) THEN
+																																			'SchFinance.TblAdvance'
+																																		WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 82) THEN
+																																			'SchFinance.TblAdvanceDetail'
+																																		WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 203) THEN
+																																			'SchFinance.TblAdvanceSettlement'
+																																		WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 204) THEN
+																																			'SchFinance.TblAdvanceSettlementDetail'
+																																		WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 192) THEN
+																																			'SchFinance.TblCashDisbursement'
+																																		WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 193) THEN
+																																			'SchFinance.TblCashDisbursementDetail'
+																																		WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 290) THEN
+																																			'SchFinance.TblCashReceipt'
+																																		WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 291) THEN
+																																			'SchFinance.TblCashReceiptDetail'
+																																		WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 242) THEN
+																																			'SchFinance.TblCreditNote'
+																																		WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 243) THEN
+																																			'SchFinance.TblCreditNoteDetail'
+																																		WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 240) THEN
+																																			'SchFinance.TblDebitNote'
+																																		WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 241) THEN
+																																			'SchFinance.TblDebitNoteDetail'
+																																		WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 211) THEN
+																																			'SchFinance.TblPaymentInstruction'
+																																		WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 212) THEN
+																																			'SchFinance.TblPaymentInstructionDetail'
+																																		WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 208) THEN
+																																			'SchFinance.TblPurchaseInvoice'
+																																		WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 209) THEN
+																																			'SchFinance.TblPurchaseInvoiceDetail'
+																																		WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 205) THEN
+																																			'SchFinance.TblPurchaseProformaInvoice'
+																																		WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 206) THEN
+																																			'SchFinance.TblPurchaseProformaInvoiceDetail'
+																																		WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 288) THEN
+																																			'SchFinance.TblReimbursement'
+																																		WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 289) THEN
+																																			'SchFinance.TblReimbursementDetail'
+																																		WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 138) THEN
+																																			'SchFinance.TblSalesInvoice'
+																																		WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 139) THEN
+																																			'SchFinance.TblSalesInvoiceDetail'
+																																		WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 244) THEN
+																																			'SchFinance.TblSalesInvoiceRequisition'
+																																		WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 245) THEN
+																																			'SchFinance.TblSalesInvoiceRequisitionDetail'
+																																		WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 78) THEN
+																																			'SchHumanResource.TblPersonBusinessTrip'
+																																		WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 79) THEN
+																																			'SchHumanResource.TblPersonBusinessTripSequence'
+																																		WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 180) THEN
+																																			'SchSupplyChain.TblDeliveryOrder'
+																																		WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 181) THEN
+																																			'SchSupplyChain.TblDeliveryOrderDetail'
+																																		WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 262) THEN
+																																			'SchSupplyChain.TblMaterialServiceRequisition'
+																																		WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 263) THEN
+																																			'SchSupplyChain.TblMaterialServiceRequisitionDetail'
+																																		WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 250) THEN
+																																			'SchSupplyChain.TblOrderPicking'
+																																		WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 251) THEN
+																																			'SchSupplyChain.TblOrderPickingDetail'
+																																		WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 248) THEN
+																																			'SchSupplyChain.TblOrderPickingRequisition'
+																																		WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 249) THEN
+																																			'SchSupplyChain.TblOrderPickingRequisitionDetail'
+																																		WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 85) THEN
+																																			'SchSupplyChain.TblPurchaseOrder'
+																																		WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 86) THEN
+																																			'SchSupplyChain.TblPurchaseOrderDetail'
+																																		WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 83) THEN
+																																			'SchSupplyChain.TblPurchaseRequisition'
+																																		WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 84) THEN
+																																			'SchSupplyChain.TblPurchaseRequisitionDetail'
+																																		WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 176) THEN
+																																			'SchSupplyChain.TblWarehouseInboundOrder'
+																																		WHEN ((("SubSQL"."Running_Underlying_RefIDLink" / 1000000000000) % 1000) = 177) THEN
+																																			'SchSupplyChain.TblWarehouseInboundOrderDetail'
+																																		ELSE
+																																			NULL
+																																	END::varchar
+																															END AS "Running_DocumentFormTag",
+																															"SubSQL"."Running_Underlying_RefIDLink",
+																															------------------------------
+																															ROW_NUMBER () OVER () AS "OrderSequence"
+																														FROM
+																															(
+																															SELECT
+																																NULL AS "Running_DocumentFormTag",
+																																UNNEST(('{' || '240000000000003, 240000000000004, 241000000000001, 241000000000002'::varchar || '}')::bigint[]) AS "Running_Underlying_RefIDLink"
+																																--UNNEST(('{' || '176000000000073, 176000000000074, 177000000000022, 177000000000023'::varchar || '}')::bigint[]) AS "Running_Underlying_RefIDLink"
+																																--UNNEST(('{' || '180000000000012, 180000000000013, 181000000000033, 181000000000034'::varchar || '}')::bigint[]) AS "Running_Underlying_RefIDLink"
+																																--UNNEST(('{' || '85000000000001, 85000000000002, 86000000000001, 86000000000002'::varchar || '}')::bigint[]) AS "Running_Underlying_RefIDLink"
+																																--UNNEST(('{' || '204000000000003, 204000000000006, 203000000000009, 203000000000010'::varchar || '}')::bigint[]) AS "Running_Underlying_RefIDLink"
+																																--UNNEST(('{' || '76000000000564, 76000000000565, 85000000000001, 192000000000001, 192000000000002, 192000000000003'::varchar || '}')::bigint[]) AS "Running_Underlying_RefIDLink"
+																																--UNNEST((''{'' || "SubSQL"."DocumentForm_RefIDLinkArray"::varchar || ''}'')::bigint[])
+																															) AS "SubSQL"
+																														) AS "SubSQL"
+																													) AS "SubSQL"
+																												-----[ FORM ELIMINATION LEVEL 9 : CORE ]----(  END  )-----
+																												) AS "SubSQL"
+																													LEFT JOIN
+																														"SchFinance"."TblCashDisbursement" AS "VirtTblCashDisbursement_PID"
+																															ON
+																																(
+																																	(
+																																	"SubSQL"."Running_DocumentFormTag" = 'SchFinance.TblCashDisbursement'
+																																	AND
+																																	"SubSQL"."Running_DocumentForm_RefIDLink" = "VirtTblCashDisbursement_PID"."Sys_PID"
+																																	)
+																																)
+																																AND
+																																"VirtTblCashDisbursement_PID"."Sys_Data_Delete_DateTimeTZ" IS NULL
+																																AND
+																																"VirtTblCashDisbursement_PID"."Sys_Data_Hidden_DateTimeTZ" IS NULL
+																													LEFT JOIN
+																														"SchFinance"."TblCashDisbursement" AS "VirtTblCashDisbursement_SID"
+																															ON
+																																(
+																																	(
+																																	"SubSQL"."Running_DocumentFormTag" = 'SchFinance.TblCashDisbursement'
+																																	AND
+																																	"SubSQL"."Running_DocumentForm_RefIDLink" = "VirtTblCashDisbursement_SID"."Sys_SID"
+																																	)
+																																)
+																																AND
+																																"VirtTblCashDisbursement_SID"."Sys_Data_Delete_DateTimeTZ" IS NULL
+																																AND
+																																"VirtTblCashDisbursement_SID"."Sys_Data_Hidden_DateTimeTZ" IS NULL
+																													------------------------------
+																													LEFT JOIN
+																														"SchFinance"."TblCashReceipt" AS "VirtTblCashReceipt_PID"
+																															ON
+																																(
+																																	(
+																																	"SubSQL"."Running_DocumentFormTag" = 'SchFinance.TblCashReceipt'
+																																	AND
+																																	"SubSQL"."Running_DocumentForm_RefIDLink" = "VirtTblCashReceipt_PID"."Sys_PID"
+																																	)
+																																)
+																																AND
+																																"VirtTblCashReceipt_PID"."Sys_Data_Delete_DateTimeTZ" IS NULL
+																																AND
+																																"VirtTblCashReceipt_PID"."Sys_Data_Hidden_DateTimeTZ" IS NULL
+																													LEFT JOIN
+																														"SchFinance"."TblCashReceipt" AS "VirtTblCashReceipt_SID"
+																															ON
+																																(
+																																	(
+																																	"SubSQL"."Running_DocumentFormTag" = 'SchFinance.TblCashReceipt'
+																																	AND
+																																	"SubSQL"."Running_DocumentForm_RefIDLink" = "VirtTblCashReceipt_SID"."Sys_SID"
+																																	)
+																																)
+																																AND
+																																"VirtTblCashReceipt_SID"."Sys_Data_Delete_DateTimeTZ" IS NULL
+																																AND
+																																"VirtTblCashReceipt_SID"."Sys_Data_Hidden_DateTimeTZ" IS NULL
+																											) AS "SubSQL"
+																										) AS "SubSQL"
+																									WHERE
+																										"SubSQL"."Running_DocumentFormTag" IS NOT NULL
+																									-----[ FORM ELIMINATION LEVEL 8 : Cash Disbursement ]----(  END  )-----
+																									) AS "SubSQL"
+																										LEFT JOIN
+																											"SchFinance"."TblCashDisbursementDetail" AS "VirtTblCashDisbursementDetail_PID"
+																												ON
+																													(
+																														(
+																														"SubSQL"."Running_DocumentFormTag" = 'SchFinance.TblCashDisbursementDetail'
+																														AND
+																														"SubSQL"."Running_DocumentForm_RefIDLink" = "VirtTblCashDisbursementDetail_PID"."Sys_PID"
+																														)
+																													OR
+																														(
+																														"SubSQL"."Running_DocumentFormTag" = 'SchFinance.TblCashDisbursement'
+																														AND
+																														"SubSQL"."Running_DocumentForm_RefPIDLink" = "VirtTblCashDisbursementDetail_PID"."CashDisbursement_RefID"
+																														)
+																													)
+																													AND
+																													"VirtTblCashDisbursementDetail_PID"."Sys_Data_Delete_DateTimeTZ" IS NULL
+																													AND
+																													"VirtTblCashDisbursementDetail_PID"."Sys_Data_Hidden_DateTimeTZ" IS NULL
+																										LEFT JOIN
+																											"SchFinance"."TblCashDisbursementDetail" AS "VirtTblCashDisbursementDetail_SID"
+																												ON
+																													(
+																														(
+																														"SubSQL"."Running_DocumentFormTag" = 'SchFinance.TblCashDisbursementDetail'
+																														AND
+																														"SubSQL"."Running_DocumentForm_RefIDLink" = "VirtTblCashDisbursementDetail_SID"."Sys_SID"
+																														)
+																													OR
+																														(
+																														"SubSQL"."Running_DocumentFormTag" = 'SchFinance.TblCashDisbursement'
+																														AND
+																														"SubSQL"."Running_DocumentForm_RefSIDLink" = "VirtTblCashDisbursementDetail_SID"."CashDisbursement_RefID"
+																														)
+																													)
+																													AND
+																													"VirtTblCashDisbursementDetail_SID"."Sys_Data_Delete_DateTimeTZ" IS NULL
+																													AND
+																													"VirtTblCashDisbursementDetail_SID"."Sys_Data_Hidden_DateTimeTZ" IS NULL
+																										------------------------------
+																										LEFT JOIN
+																											"SchFinance"."TblCashReceiptDetail" AS "VirtTblCashReceiptDetail_PID"
+																												ON
+																													(
+																														(
+																														"SubSQL"."Running_DocumentFormTag" = 'SchFinance.TblCashReceiptDetail'
+																														AND
+																														"SubSQL"."Running_DocumentForm_RefIDLink" = "VirtTblCashReceiptDetail_PID"."Sys_PID"
+																														)
+																													OR
+																														(
+																														"SubSQL"."Running_DocumentFormTag" = 'SchFinance.TblCashReceipt'
+																														AND
+																														"SubSQL"."Running_DocumentForm_RefPIDLink" = "VirtTblCashReceiptDetail_PID"."CashReceipt_RefID"
+																														)
+																													)
+																													AND
+																													"VirtTblCashReceiptDetail_PID"."Sys_Data_Delete_DateTimeTZ" IS NULL
+																													AND
+																													"VirtTblCashReceiptDetail_PID"."Sys_Data_Hidden_DateTimeTZ" IS NULL
+																										LEFT JOIN
+																											"SchFinance"."TblCashReceiptDetail" AS "VirtTblCashReceiptDetail_SID"
+																												ON
+																													(
+																														(
+																														"SubSQL"."Running_DocumentFormTag" = 'SchFinance.TblCashReceiptDetail'
+																														AND
+																														"SubSQL"."Running_DocumentForm_RefIDLink" = "VirtTblCashReceiptDetail_SID"."Sys_SID"
+																														)
+																													OR
+																														(
+																														"SubSQL"."Running_DocumentFormTag" = 'SchFinance.TblCashReceipt'
+																														AND
+																														"SubSQL"."Running_DocumentForm_RefSIDLink" = "VirtTblCashReceiptDetail_SID"."CashReceipt_RefID"
+																														)
+																													)
+																													AND
+																													"VirtTblCashReceiptDetail_SID"."Sys_Data_Delete_DateTimeTZ" IS NULL
+																													AND
+																													"VirtTblCashReceiptDetail_SID"."Sys_Data_Hidden_DateTimeTZ" IS NULL
+																								) AS "SubSQL"
+																							) AS "SubSQL"
+																						WHERE
+																							"SubSQL"."Running_DocumentFormTag" IS NOT NULL
+																						-----[ FORM ELIMINATION LEVEL 7 : Cash Disbursement Detail ]----(  END  )-----
+																						) AS "SubSQL"
+																							LEFT JOIN
+																								"SchFinance"."TblPaymentInstruction" AS "VirtTblPaymentInstruction_PID"
+																									ON
+																										(
+																											(
+																											"SubSQL"."Running_DocumentFormTag" = 'SchFinance.TblPaymentInstruction'
+																											AND
+																											"SubSQL"."Running_DocumentForm_RefIDLink" = "VirtTblPaymentInstruction_PID"."Sys_PID"
+																											)
+																										)
+																										AND
+																										"VirtTblPaymentInstruction_PID"."Sys_Data_Delete_DateTimeTZ" IS NULL
+																										AND
+																										"VirtTblPaymentInstruction_PID"."Sys_Data_Hidden_DateTimeTZ" IS NULL
+																							LEFT JOIN
+																								"SchFinance"."TblPaymentInstruction" AS "VirtTblPaymentInstruction_SID"
+																									ON
+																										(
+																											(
+																											"SubSQL"."Running_DocumentFormTag" = 'SchFinance.TblPaymentInstruction'
+																											AND
+																											"SubSQL"."Running_DocumentForm_RefIDLink" = "VirtTblPaymentInstruction_SID"."Sys_SID"
+																											)
+																										)
+																										AND
+																										"VirtTblPaymentInstruction_SID"."Sys_Data_Delete_DateTimeTZ" IS NULL
+																										AND
+																										"VirtTblPaymentInstruction_SID"."Sys_Data_Hidden_DateTimeTZ" IS NULL
+																					) AS "SubSQL"
+																				) AS "SubSQL"
+																			WHERE
+																				"SubSQL"."Running_DocumentFormTag" IS NOT NULL
+																			-----[ FORM ELIMINATION LEVEL 6 : Payment Instruction ]----(  END  )-----
+																			) AS "SubSQL"
+																				LEFT JOIN
+																					"SchFinance"."TblDebitNote" AS "VirtTblDebitNote_PID"
+																						ON
+																							(
+																								(
+																								"SubSQL"."Running_DocumentFormTag" = 'SchFinance.TblDebitNote'
+																								AND
+																								"SubSQL"."Running_DocumentForm_RefIDLink" = "VirtTblDebitNote_PID"."Sys_PID"
+																								)
+																							)
+																							AND
+																							"VirtTblDebitNote_PID"."Sys_Data_Delete_DateTimeTZ" IS NULL
+																							AND
+																							"VirtTblDebitNote_PID"."Sys_Data_Hidden_DateTimeTZ" IS NULL
+																				LEFT JOIN
+																					"SchFinance"."TblDebitNote" AS "VirtTblDebitNote_SID"
+																						ON
+																							(
+																								(
+																								"SubSQL"."Running_DocumentFormTag" = 'SchFinance.TblDebitNote'
+																								AND
+																								"SubSQL"."Running_DocumentForm_RefIDLink" = "VirtTblDebitNote_SID"."Sys_SID"
+																								)
+																							)
+																							AND
+																							"VirtTblDebitNote_SID"."Sys_Data_Delete_DateTimeTZ" IS NULL
+																							AND
+																							"VirtTblDebitNote_SID"."Sys_Data_Hidden_DateTimeTZ" IS NULL
+																				----------------------
+																				LEFT JOIN
+																					"SchFinance"."TblPaymentInstructionDetail" AS "VirtTblPaymentInstructionDetail_PID"
+																						ON
+																							(
+																								(
+																								"SubSQL"."Running_DocumentFormTag" = 'SchFinance.TblPaymentInstructionDetail'
+																								AND
+																								"SubSQL"."Running_DocumentForm_RefIDLink" = "VirtTblPaymentInstructionDetail_PID"."Sys_PID"
+																								)
+																							OR
+																								(
+																								"SubSQL"."Running_DocumentFormTag" = 'SchFinance.TblPaymentInstruction'
+																								AND
+																								"SubSQL"."Running_DocumentForm_RefPIDLink" = "VirtTblPaymentInstructionDetail_PID"."PaymentInstruction_RefID"
+																								)
+																							)
+																							AND
+																							"VirtTblPaymentInstructionDetail_PID"."Sys_Data_Delete_DateTimeTZ" IS NULL
+																							AND
+																							"VirtTblPaymentInstructionDetail_PID"."Sys_Data_Hidden_DateTimeTZ" IS NULL
+																				LEFT JOIN
+																					"SchFinance"."TblPaymentInstructionDetail" AS "VirtTblPaymentInstructionDetail_SID"
+																						ON
+																							(
+																								(
+																								"SubSQL"."Running_DocumentFormTag" = 'SchFinance.TblPaymentInstructionDetail'
+																								AND
+																								"SubSQL"."Running_DocumentForm_RefIDLink" = "VirtTblPaymentInstructionDetail_SID"."Sys_SID"
+																								)
+																							OR
+																								(
+																								"SubSQL"."Running_DocumentFormTag" = 'SchFinance.TblPaymentInstruction'
+																								AND
+																								"SubSQL"."Running_DocumentForm_RefSIDLink" = "VirtTblPaymentInstructionDetail_SID"."PaymentInstruction_RefID"
+																								)
+																							)
+																							AND
+																							"VirtTblPaymentInstructionDetail_SID"."Sys_Data_Delete_DateTimeTZ" IS NULL
+																							AND
+																							"VirtTblPaymentInstructionDetail_SID"."Sys_Data_Hidden_DateTimeTZ" IS NULL
+																				------------------------------
+																				LEFT JOIN
+																					"SchSupplyChain"."TblWarehouseInboundOrder" AS "VirtTblWarehouseInboundOrder_PID"
+																						ON
+																							(
+																								(
+																								"SubSQL"."Running_DocumentFormTag" = 'SchSupplyChain.TblWarehouseInboundOrder'
+																								AND
+																								"SubSQL"."Running_DocumentForm_RefIDLink" = "VirtTblWarehouseInboundOrder_PID"."Sys_PID"
+																								)
+																							)
+																							AND
+																							"VirtTblWarehouseInboundOrder_PID"."Sys_Data_Delete_DateTimeTZ" IS NULL
+																							AND
+																							"VirtTblWarehouseInboundOrder_PID"."Sys_Data_Hidden_DateTimeTZ" IS NULL
+																				LEFT JOIN
+																					"SchSupplyChain"."TblWarehouseInboundOrder" AS "VirtTblWarehouseInboundOrder_SID"
+																						ON
+																							(
+																								(
+																								"SubSQL"."Running_DocumentFormTag" = 'SchSupplyChain.TblWarehouseInboundOrder'
+																								AND
+																								"SubSQL"."Running_DocumentForm_RefIDLink" = "VirtTblWarehouseInboundOrder_SID"."Sys_SID"
+																								)
+																							)
+																							AND
+																							"VirtTblWarehouseInboundOrder_SID"."Sys_Data_Delete_DateTimeTZ" IS NULL
+																							AND
+																							"VirtTblWarehouseInboundOrder_SID"."Sys_Data_Hidden_DateTimeTZ" IS NULL
+																		) AS "SubSQL"
+																	) AS "SubSQL"
+																WHERE
+																	"SubSQL"."Running_DocumentFormTag" IS NOT NULL
+																-----[ FORM ELIMINATION LEVEL 5 : Debit Note, Payment Instruction Detail, Warehouse Inbound Order ]----(  END  )-----
+																) AS "SubSQL"
+																	LEFT JOIN
+																		"SchFinance"."TblDebitNoteDetail" AS "VirtTblDebitNoteDetail_PID"
+																			ON
+																				(
+																					(
+																					"SubSQL"."Running_DocumentFormTag" = 'SchFinance.TblDebitNoteDetail'
+																					AND
+																					"SubSQL"."Running_DocumentForm_RefIDLink" = "VirtTblDebitNoteDetail_PID"."Sys_PID"
+																					)
+																				OR
+																					(
+																					"SubSQL"."Running_DocumentFormTag" = 'SchFinance.TblDebitNote'
+																					AND
+																					"SubSQL"."Running_DocumentForm_RefPIDLink" = "VirtTblDebitNoteDetail_PID"."DebitNote_RefID"
+																					)
+																				)
+																				AND
+																				"VirtTblDebitNoteDetail_PID"."Sys_Data_Delete_DateTimeTZ" IS NULL
+																				AND
+																				"VirtTblDebitNoteDetail_PID"."Sys_Data_Hidden_DateTimeTZ" IS NULL
+																	LEFT JOIN
+																		"SchFinance"."TblDebitNoteDetail" AS "VirtTblDebitNoteDetail_SID"
+																			ON
+																				(
+																					(
+																					"SubSQL"."Running_DocumentFormTag" = 'SchFinance.TblDebitNoteDetail'
+																					AND
+																					"SubSQL"."Running_DocumentForm_RefIDLink" = "VirtTblDebitNoteDetail_SID"."Sys_SID"
+																					)
+																				OR
+																					(
+																					"SubSQL"."Running_DocumentFormTag" = 'SchFinance.TblDebitNote'
+																					AND
+																					"SubSQL"."Running_DocumentForm_RefSIDLink" = "VirtTblDebitNoteDetail_SID"."DebitNote_RefID"
+																					)
+																				)
+																				AND
+																				"VirtTblDebitNoteDetail_SID"."Sys_Data_Delete_DateTimeTZ" IS NULL
+																				AND
+																				"VirtTblDebitNoteDetail_SID"."Sys_Data_Hidden_DateTimeTZ" IS NULL
+																	------------------------------
+																	LEFT JOIN
+																		"SchFinance"."TblPurchaseInvoice" AS "VirtTblPurchaseInvoice_PID"
+																			ON
+																				(
+																					(
+																					"SubSQL"."Running_DocumentFormTag" = 'SchFinance.TblPurchaseInvoice'
+																					AND
+																					"SubSQL"."Running_DocumentForm_RefIDLink" = "VirtTblPurchaseInvoice_PID"."Sys_PID"
+																					)
+																				)
+																				AND
+																				"VirtTblPurchaseInvoice_PID"."Sys_Data_Delete_DateTimeTZ" IS NULL
+																				AND
+																				"VirtTblPurchaseInvoice_PID"."Sys_Data_Hidden_DateTimeTZ" IS NULL
+																	LEFT JOIN
+																		"SchFinance"."TblPurchaseInvoice" AS "VirtTblPurchaseInvoice_SID"
+																			ON
+																				(
+																					(
+																					"SubSQL"."Running_DocumentFormTag" = 'SchFinance.TblPurchaseInvoice'
+																					AND
+																					"SubSQL"."Running_DocumentForm_RefIDLink" = "VirtTblPurchaseInvoice_SID"."Sys_SID"
+																					)
+																				)
+																				AND
+																				"VirtTblPurchaseInvoice_SID"."Sys_Data_Delete_DateTimeTZ" IS NULL
+																				AND
+																				"VirtTblPurchaseInvoice_SID"."Sys_Data_Hidden_DateTimeTZ" IS NULL
+																	------------------------------
+																	LEFT JOIN
+																		"SchSupplyChain"."TblDeliveryOrder" AS "VirtTblDeliveryOrder_PID"
+																			ON
+																				(
+																					(
+																					"SubSQL"."Running_DocumentFormTag" = 'SchSupplyChain.TblDeliveryOrder'
+																					AND
+																					"SubSQL"."Running_DocumentForm_RefIDLink" = "VirtTblDeliveryOrder_PID"."Sys_PID"
+																					)
+																				)
+																				AND
+																				"VirtTblDeliveryOrder_PID"."Sys_Data_Delete_DateTimeTZ" IS NULL
+																				AND
+																				"VirtTblDeliveryOrder_PID"."Sys_Data_Hidden_DateTimeTZ" IS NULL
+																	LEFT JOIN
+																		"SchSupplyChain"."TblDeliveryOrder" AS "VirtTblDeliveryOrder_SID"
+																			ON
+																				(
+																					(
+																					"SubSQL"."Running_DocumentFormTag" = 'SchSupplyChain.TblDeliveryOrder'
+																					AND
+																					"SubSQL"."Running_DocumentForm_RefIDLink" = "VirtTblDeliveryOrder_SID"."Sys_SID"
+																					)
+																				)
+																				AND
+																				"VirtTblDeliveryOrder_SID"."Sys_Data_Delete_DateTimeTZ" IS NULL
+																				AND
+																				"VirtTblDeliveryOrder_SID"."Sys_Data_Hidden_DateTimeTZ" IS NULL
+																	------------------------------
+																	LEFT JOIN
+																		"SchSupplyChain"."TblWarehouseInboundOrderDetail" AS "VirtTblWarehouseInboundOrderDetail_PID"
+																			ON
+																				(
+																					(
+																					"SubSQL"."Running_DocumentFormTag" = 'SchSupplyChain.TblWarehouseInboundOrderDetail'
+																					AND
+																					"SubSQL"."Running_DocumentForm_RefIDLink" = "VirtTblWarehouseInboundOrderDetail_PID"."Sys_PID"
+																					)
+																				OR
+																					(
+																					"SubSQL"."Running_DocumentFormTag" = 'SchSupplyChain.TblWarehouseInboundOrder'
+																					AND
+																					"SubSQL"."Running_DocumentForm_RefPIDLink" = "VirtTblWarehouseInboundOrderDetail_PID"."WarehouseInboundOrder_RefID"
+																					)
+																				)
+																				AND
+																				"VirtTblWarehouseInboundOrderDetail_PID"."Sys_Data_Delete_DateTimeTZ" IS NULL
+																				AND
+																				"VirtTblWarehouseInboundOrderDetail_PID"."Sys_Data_Hidden_DateTimeTZ" IS NULL
+																	LEFT JOIN
+																		"SchSupplyChain"."TblWarehouseInboundOrderDetail" AS "VirtTblWarehouseInboundOrderDetail_SID"
+																			ON
+																				(
+																					(
+																					"SubSQL"."Running_DocumentFormTag" = 'SchSupplyChain.TblWarehouseInboundOrderDetail'
+																					AND
+																					"SubSQL"."Running_DocumentForm_RefIDLink" = "VirtTblWarehouseInboundOrderDetail_SID"."Sys_SID"
+																					)
+																				OR
+																					(
+																					"SubSQL"."Running_DocumentFormTag" = 'SchSupplyChain.TblWarehouseInboundOrder'
+																					AND
+																					"SubSQL"."Running_DocumentForm_RefSIDLink" = "VirtTblWarehouseInboundOrderDetail_SID"."WarehouseInboundOrder_RefID"
+																					)
+																				)
+																				AND
+																				"VirtTblWarehouseInboundOrderDetail_SID"."Sys_Data_Delete_DateTimeTZ" IS NULL
+																				AND
+																				"VirtTblWarehouseInboundOrderDetail_SID"."Sys_Data_Hidden_DateTimeTZ" IS NULL
+															) AS "SubSQL"
+														) AS "SubSQL"
+													WHERE
+														"SubSQL"."Running_DocumentFormTag" IS NOT NULL
+													-----[ FORM ELIMINATION LEVEL 4 : Debit Note Detail, Purchase Invoice, Delivery Order, Warehouse Inbound Order Detail ]----(  END  )-----
+													) AS "SubSQL"
+														LEFT JOIN
+															"SchFinance"."TblAdvanceSettlement" AS "VirtTblAdvanceSettlement_PID"
+																ON
+																	(
+																		(
+																		"SubSQL"."Running_DocumentFormTag" = 'SchFinance.TblAdvanceSettlement'
+																		AND
+																		"SubSQL"."Running_DocumentForm_RefIDLink" = "VirtTblAdvanceSettlement_PID"."Sys_PID"
+																		)
+																	)
+																	AND
+																	"VirtTblAdvanceSettlement_PID"."Sys_Data_Delete_DateTimeTZ" IS NULL
+																	AND
+																	"VirtTblAdvanceSettlement_PID"."Sys_Data_Hidden_DateTimeTZ" IS NULL
+														LEFT JOIN
+															"SchFinance"."TblAdvanceSettlement" AS "VirtTblAdvanceSettlement_SID"
+																ON
+																	(
+																		(
+																		"SubSQL"."Running_DocumentFormTag" = 'SchFinance.TblAdvanceSettlement'
+																		AND
+																		"SubSQL"."Running_DocumentForm_RefIDLink" = "VirtTblAdvanceSettlement_SID"."Sys_SID"
+																		)
+																	)
+																	AND
+																	"VirtTblAdvanceSettlement_SID"."Sys_Data_Delete_DateTimeTZ" IS NULL
+																	AND
+																	"VirtTblAdvanceSettlement_SID"."Sys_Data_Hidden_DateTimeTZ" IS NULL
+														------------------------------
+														LEFT JOIN
+															"SchSupplyChain"."TblDeliveryOrderDetail" AS "VirtTblDeliveryOrderDetail_PID"
+																ON
+																	(
+																		(
+																		"SubSQL"."Running_DocumentFormTag" = 'SchSupplyChain.TblDeliveryOrderDetail'
+																		AND
+																		"SubSQL"."Running_DocumentForm_RefIDLink" = "VirtTblDeliveryOrderDetail_PID"."Sys_PID"
+																		)
+																	OR
+																		(
+																		"SubSQL"."Running_DocumentFormTag" = 'SchSupplyChain.TblWarehouseInboundOrderDetail'
+																		AND
+																		"SubSQL"."Running_DocumentForm_RefIDLink" = "VirtTblDeliveryOrderDetail_PID"."Sys_PID"
+																		)
+																	)
+																	AND
+																	"VirtTblDeliveryOrderDetail_PID"."Sys_Data_Delete_DateTimeTZ" IS NULL
+																	AND
+																	"VirtTblDeliveryOrderDetail_PID"."Sys_Data_Hidden_DateTimeTZ" IS NULL
+														LEFT JOIN
+															"SchSupplyChain"."TblDeliveryOrderDetail" AS "VirtTblDeliveryOrderDetail_SID"
+																ON
+																	(
+																		(
+																		"SubSQL"."Running_DocumentFormTag" = 'SchSupplyChain.TblDeliveryOrderDetail'
+																		AND
+																		"SubSQL"."Running_DocumentForm_RefIDLink" = "VirtTblDeliveryOrderDetail_SID"."Sys_SID"
+																		)
+																	OR
+																		(
+																		"SubSQL"."Running_DocumentFormTag" = 'SchSupplyChain.TblWarehouseInboundOrderDetail'
+																		AND
+																		"SubSQL"."Running_DocumentForm_RefIDLink" = "VirtTblDeliveryOrderDetail_PID"."Sys_SID"
+																		)
+																	)
+																	AND
+																	"VirtTblDeliveryOrderDetail_SID"."Sys_Data_Delete_DateTimeTZ" IS NULL
+																	AND
+																	"VirtTblDeliveryOrderDetail_SID"."Sys_Data_Hidden_DateTimeTZ" IS NULL
+														------------------------------
+														LEFT JOIN
+															"SchFinance"."TblPurchaseInvoiceDetail" AS "VirtTblPurchaseInvoiceDetail_PID"
+																ON
+																	(
+																		(
+																		"SubSQL"."Running_DocumentFormTag" = 'SchFinance.TblPurchaseInvoiceDetail'
+																		AND
+																		"SubSQL"."Running_DocumentForm_RefIDLink" = "VirtTblPurchaseInvoiceDetail_PID"."Sys_PID"
+																		)
+																	OR
+																		(
+																		"SubSQL"."Running_DocumentFormTag" = 'SchFinance.TblPurchaseInvoice'
+																		AND
+																		"SubSQL"."Running_DocumentForm_RefPIDLink" = "VirtTblPurchaseInvoiceDetail_PID"."PurchaseInvoice_RefID"
+																		)
+																	)
+																	AND
+																	"VirtTblPurchaseInvoiceDetail_PID"."Sys_Data_Delete_DateTimeTZ" IS NULL
+																	AND
+																	"VirtTblPurchaseInvoiceDetail_PID"."Sys_Data_Hidden_DateTimeTZ" IS NULL
+														LEFT JOIN
+															"SchFinance"."TblPurchaseInvoiceDetail" AS "VirtTblPurchaseInvoiceDetail_SID"
+																ON
+																	(
+																		(
+																		"SubSQL"."Running_DocumentFormTag" = 'SchFinance.TblPurchaseInvoiceDetail'
+																		AND
+																		"SubSQL"."Running_DocumentForm_RefIDLink" = "VirtTblPurchaseInvoiceDetail_SID"."Sys_SID"
+																		)
+																	OR
+																		(
+																		"SubSQL"."Running_DocumentFormTag" = 'SchFinance.TblPurchaseInvoice'
+																		AND
+																		"SubSQL"."Running_DocumentForm_RefSIDLink" = "VirtTblPurchaseInvoiceDetail_SID"."PurchaseInvoice_RefID"
+																		)
+																	)
+																	AND
+																	"VirtTblPurchaseInvoiceDetail_SID"."Sys_Data_Delete_DateTimeTZ" IS NULL
+																	AND
+																	"VirtTblPurchaseInvoiceDetail_SID"."Sys_Data_Hidden_DateTimeTZ" IS NULL
+														------------------------------
+														LEFT JOIN
+															"SchSupplyChain"."TblPurchaseOrder" AS "VirtTblPurchaseOrder_PID"
+																ON
+																	(
+																		(
+																		"SubSQL"."Running_DocumentFormTag" = 'SchSupplyChain.TblPurchaseOrder'
+																		AND
+																		"SubSQL"."Running_DocumentForm_RefIDLink" = "VirtTblPurchaseOrder_PID"."Sys_PID"
+																		)
+																	)
+																	AND
+																	"VirtTblPurchaseOrder_PID"."Sys_Data_Delete_DateTimeTZ" IS NULL
+																	AND
+																	"VirtTblPurchaseOrder_PID"."Sys_Data_Hidden_DateTimeTZ" IS NULL
+														LEFT JOIN
+															"SchSupplyChain"."TblPurchaseOrder" AS "VirtTblPurchaseOrder_SID"
+																ON
+																	(
+																		(
+																		"SubSQL"."Running_DocumentFormTag" = 'SchSupplyChain.TblPurchaseOrder'
+																		AND
+																		"SubSQL"."Running_DocumentForm_RefIDLink" = "VirtTblPurchaseOrder_SID"."Sys_SID"
+																		)
+																	)
+																	AND
+																	"VirtTblPurchaseOrder_SID"."Sys_Data_Delete_DateTimeTZ" IS NULL
+																	AND
+																	"VirtTblPurchaseOrder_SID"."Sys_Data_Hidden_DateTimeTZ" IS NULL
+												) AS "SubSQL"
+											) AS "SubSQL"
+										WHERE
+											"SubSQL"."Running_DocumentFormTag" IS NOT NULL
+										-----[ FORM ELIMINATION LEVEL 3 : Advance Settlement, Delivery Order Detail, Purchase Invoice Detail, Purchase Order ]----(  END  )-----
+										) AS "SubSQL"
+											LEFT JOIN
+												"SchFinance"."TblAdvance" AS "VirtTblAdvance_PID"
+													ON
+														(
+															(
+															"SubSQL"."Running_DocumentFormTag" = 'SchFinance.TblAdvance'
+															AND
+															"SubSQL"."Running_DocumentForm_RefIDLink" = "VirtTblAdvance_PID"."Sys_PID"
+															)
+														)
+														AND
+														"VirtTblAdvance_PID"."Sys_Data_Delete_DateTimeTZ" IS NULL
+														AND
+														"VirtTblAdvance_PID"."Sys_Data_Hidden_DateTimeTZ" IS NULL
+											LEFT JOIN
+												"SchFinance"."TblAdvance" AS "VirtTblAdvance_SID"
+													ON
+														(
+															(
+															"SubSQL"."Running_DocumentFormTag" = 'SchFinance.TblAdvance'
+															AND
+															"SubSQL"."Running_DocumentForm_RefIDLink" = "VirtTblAdvance_SID"."Sys_PID"
+															)
+														)
+														AND
+														"VirtTblAdvance_SID"."Sys_Data_Delete_DateTimeTZ" IS NULL
+														AND
+														"VirtTblAdvance_SID"."Sys_Data_Hidden_DateTimeTZ" IS NULL
+											------------------------------
+											LEFT JOIN
+												"SchFinance"."TblAdvanceSettlementDetail" AS "VirtTblAdvanceSettlementDetail_PID"
+													ON
+														(
+															(
+															"SubSQL"."Running_DocumentFormTag" = 'SchFinance.TblAdvanceSettlementDetail'
+															AND
+															"SubSQL"."Running_DocumentForm_RefIDLink" = "VirtTblAdvanceSettlementDetail_PID"."Sys_PID"
+															)
+														OR
+															(
+															"SubSQL"."Running_DocumentFormTag" = 'SchFinance.TblAdvanceSettlement'
+															AND
+															"SubSQL"."Running_DocumentForm_RefPIDLink" = "VirtTblAdvanceSettlementDetail_PID"."AdvanceSettlement_RefID"
+															)
+														)
+														AND
+														"VirtTblAdvanceSettlementDetail_PID"."Sys_Data_Delete_DateTimeTZ" IS NULL
+														AND
+														"VirtTblAdvanceSettlementDetail_PID"."Sys_Data_Hidden_DateTimeTZ" IS NULL
+											LEFT JOIN
+												"SchFinance"."TblAdvanceSettlementDetail" AS "VirtTblAdvanceSettlementDetail_SID"
+													ON
+														(
+															(
+															"SubSQL"."Running_DocumentFormTag" = 'SchFinance.TblAdvanceSettlementDetail'
+															AND
+															"SubSQL"."Running_DocumentForm_RefIDLink" = "VirtTblAdvanceSettlementDetail_SID"."Sys_PID"
+															)
+														OR
+															(
+															"SubSQL"."Running_DocumentFormTag" = 'SchFinance.TblAdvanceSettlement'
+															AND
+															"SubSQL"."Running_DocumentForm_RefSIDLink" = "VirtTblAdvanceSettlementDetail_SID"."AdvanceSettlement_RefID"
+															)
+														)
+														AND
+														"VirtTblAdvanceSettlementDetail_SID"."Sys_Data_Delete_DateTimeTZ" IS NULL
+														AND
+														"VirtTblAdvanceSettlementDetail_SID"."Sys_Data_Hidden_DateTimeTZ" IS NULL
+											------------------------------
+											LEFT JOIN
+												"SchFinance"."TblReimbursement" AS "VirtTblReimbursement_PID"
+													ON
+														(
+															(
+															"SubSQL"."Running_DocumentFormTag" = 'SchFinance.TblReimbursement'
+															AND
+															"SubSQL"."Running_DocumentForm_RefIDLink" = "VirtTblReimbursement_PID"."Sys_PID"
+															)
+														)
+														AND
+														"VirtTblReimbursement_PID"."Sys_Data_Delete_DateTimeTZ" IS NULL
+														AND
+														"VirtTblReimbursement_PID"."Sys_Data_Hidden_DateTimeTZ" IS NULL
+											LEFT JOIN
+												"SchFinance"."TblReimbursement" AS "VirtTblReimbursement_SID"
+													ON
+														(
+															(
+															"SubSQL"."Running_DocumentFormTag" = 'SchFinance.TblReimbursement'
+															AND
+															"SubSQL"."Running_DocumentForm_RefIDLink" = "VirtTblReimbursement_SID"."Sys_PID"
+															)
+														)
+														AND
+														"VirtTblReimbursement_SID"."Sys_Data_Delete_DateTimeTZ" IS NULL
+														AND
+														"VirtTblReimbursement_SID"."Sys_Data_Hidden_DateTimeTZ" IS NULL
+											------------------------------
+											LEFT JOIN
+												"SchHumanResource"."TblPersonBusinessTripSequence" AS "VirtTblPersonBusinessTripSequence_PID"
+													ON
+														(
+															(
+															"SubSQL"."Running_DocumentFormTag" = 'SchHumanResource.TblPersonBusinessTripSequence'
+															AND
+															"SubSQL"."Running_DocumentForm_RefIDLink" = "VirtTblPersonBusinessTripSequence_PID"."Sys_PID"
+															)
+														)
+														AND
+														"VirtTblPersonBusinessTripSequence_PID"."Sys_Data_Delete_DateTimeTZ" IS NULL
+														AND
+														"VirtTblPersonBusinessTripSequence_PID"."Sys_Data_Hidden_DateTimeTZ" IS NULL
+											LEFT JOIN
+												"SchHumanResource"."TblPersonBusinessTripSequence" AS "VirtTblPersonBusinessTripSequence_SID"
+													ON
+														(
+															(
+															"SubSQL"."Running_DocumentFormTag" = 'SchHumanResource.TblPersonBusinessTripSequence'
+															AND
+															"SubSQL"."Running_DocumentForm_RefIDLink" = "VirtTblPersonBusinessTripSequence_SID"."Sys_SID"
+															)
+														)
+														AND
+														"VirtTblPersonBusinessTripSequence_SID"."Sys_Data_Delete_DateTimeTZ" IS NULL
+														AND
+														"VirtTblPersonBusinessTripSequence_SID"."Sys_Data_Hidden_DateTimeTZ" IS NULL
+											------------------------------
+											LEFT JOIN
+												"SchSupplyChain"."TblPurchaseOrderDetail" AS "VirtTblPurchaseOrderDetail_PID"
+													ON
+														(
+															(
+															"SubSQL"."Running_DocumentFormTag" = 'SchSupplyChain.TblPurchaseOrderDetail'
+															AND
+															"SubSQL"."Running_DocumentForm_RefIDLink" = "VirtTblPurchaseOrderDetail_PID"."Sys_PID"
+															)
+														OR
+															(
+															"SubSQL"."Running_DocumentFormTag" = 'SchSupplyChain.TblPurchaseOrder'
+															AND
+															"SubSQL"."Running_DocumentForm_RefIDLink" = "VirtTblPurchaseOrderDetail_PID"."PurchaseOrder_RefID"
+															)
+														)
+														AND
+														"VirtTblPurchaseOrderDetail_PID"."Sys_Data_Delete_DateTimeTZ" IS NULL
+														AND
+														"VirtTblPurchaseOrderDetail_PID"."Sys_Data_Hidden_DateTimeTZ" IS NULL
+											LEFT JOIN
+												"SchSupplyChain"."TblPurchaseOrderDetail" AS "VirtTblPurchaseOrderDetail_SID"
+													ON
+														(
+															(
+															"SubSQL"."Running_DocumentFormTag" = 'SchSupplyChain.TblPurchaseOrderDetail'
+															AND
+															"SubSQL"."Running_DocumentForm_RefIDLink" = "VirtTblPurchaseOrderDetail_SID"."Sys_SID"
+															)
+														OR
+															(
+															"SubSQL"."Running_DocumentFormTag" = 'SchSupplyChain.TblPurchaseOrder'
+															AND
+															"SubSQL"."Running_DocumentForm_RefIDLink" = "VirtTblPurchaseOrderDetail_SID"."PurchaseOrder_RefID"
+															)
+														)
+														AND
+														"VirtTblPurchaseOrderDetail_SID"."Sys_Data_Delete_DateTimeTZ" IS NULL
+														AND
+														"VirtTblPurchaseOrderDetail_SID"."Sys_Data_Hidden_DateTimeTZ" IS NULL
+									) AS "SubSQL"
+								) AS "SubSQL"
+							WHERE
+								"SubSQL"."Running_DocumentFormTag" IS NOT NULL
+							-----[ FORM ELIMINATION LEVEL 2 : Advance, Advance Settlement Detail, Reimbursement, Person Business Trip Sequence, Purchase Order Detail ]----(  END  )-----
+							) AS "SubSQL"
+								LEFT JOIN
+									"SchFinance"."TblAdvanceDetail" AS "VirtTblAdvanceDetail_PID"
+										ON
+											(
+												(
+												"SubSQL"."Running_DocumentFormTag" = 'SchFinance.TblAdvanceDetail'
+												AND
+												"SubSQL"."Running_DocumentForm_RefIDLink" = "VirtTblAdvanceDetail_PID"."Sys_PID"
+												)
+											OR
+												(
+												"SubSQL"."Running_DocumentFormTag" = 'SchFinance.TblAdvance'
+												AND
+												"SubSQL"."Running_DocumentForm_RefIDLink" = "VirtTblAdvanceDetail_PID"."Advance_RefID"
+												)
+											OR
+												(
+												"SubSQL"."Running_DocumentFormTag" = 'SchFinance.SchFinance.TblAdvanceSettlementDetail'
+												AND
+												"SubSQL"."Running_DocumentForm_RefIDLink" = "VirtTblAdvanceDetail_PID"."Sys_PID"
+												)
+											)
+											AND
+											"VirtTblAdvanceDetail_PID"."Sys_Data_Delete_DateTimeTZ" IS NULL
+											AND
+											"VirtTblAdvanceDetail_PID"."Sys_Data_Hidden_DateTimeTZ" IS NULL
+								LEFT JOIN
+									"SchFinance"."TblAdvanceDetail" AS "VirtTblAdvanceDetail_SID"
+										ON
+											(
+												(
+												"SubSQL"."Running_DocumentFormTag" = 'SchFinance.TblAdvanceDetail'
+												AND
+												"SubSQL"."Running_DocumentForm_RefIDLink" = "VirtTblAdvanceDetail_SID"."Sys_SID"
+												)
+											OR
+												(
+												"SubSQL"."Running_DocumentFormTag" = 'SchFinance.TblAdvance'
+												AND
+												"SubSQL"."Running_DocumentForm_RefIDLink" = "VirtTblAdvanceDetail_SID"."Advance_RefID"
+												)
+											)
+											AND
+											"VirtTblAdvanceDetail_SID"."Sys_Data_Delete_DateTimeTZ" IS NULL
+											AND
+											"VirtTblAdvanceDetail_SID"."Sys_Data_Hidden_DateTimeTZ" IS NULL
+								------------------------------
+								LEFT JOIN
+									"SchFinance"."TblReimbursementDetail" AS "VirtTblReimbursementDetail_PID"
+										ON
+											(
+												(
+												"SubSQL"."Running_DocumentFormTag" = 'SchFinance.TblReimbursementDetail'
+												AND
+												"SubSQL"."Running_DocumentForm_RefIDLink" = "VirtTblReimbursementDetail_PID"."Sys_PID"
+												)
+											OR
+												(
+												"SubSQL"."Running_DocumentFormTag" = 'SchFinance.TblReimbursement'
+												AND
+												"SubSQL"."Running_DocumentForm_RefIDLink" = "VirtTblReimbursementDetail_PID"."Reimbursement_RefID"
+												)
+											)
+											AND
+											"VirtTblReimbursementDetail_PID"."Sys_Data_Delete_DateTimeTZ" IS NULL
+											AND
+											"VirtTblReimbursementDetail_PID"."Sys_Data_Hidden_DateTimeTZ" IS NULL
+								LEFT JOIN
+									"SchFinance"."TblReimbursementDetail" AS "VirtTblReimbursementDetail_SID"
+										ON
+											(
+												(
+												"SubSQL"."Running_DocumentFormTag" = 'SchFinance.TblReimbursementDetail'
+												AND
+												"SubSQL"."Running_DocumentForm_RefIDLink" = "VirtTblReimbursementDetail_SID"."Sys_SID"
+												)
+											OR
+												(
+												"SubSQL"."Running_DocumentFormTag" = 'SchFinance.TblReimbursement'
+												AND
+												"SubSQL"."Running_DocumentForm_RefIDLink" = "VirtTblReimbursementDetail_SID"."Reimbursement_RefID"
+												)
+											)
+											AND
+											"VirtTblReimbursementDetail_SID"."Sys_Data_Delete_DateTimeTZ" IS NULL
+											AND
+											"VirtTblReimbursementDetail_SID"."Sys_Data_Hidden_DateTimeTZ" IS NULL
+								------------------------------
+								LEFT JOIN
+									"SchHumanResource"."TblPersonBusinessTrip" AS "VirtTblPersonBusinessTrip_PID"
+										ON
+											(
+												(
+												"SubSQL"."Running_DocumentFormTag" = 'SchHumanResource.TblPersonBusinessTrip'
+												AND
+												"SubSQL"."Running_DocumentForm_RefIDLink" = "VirtTblPersonBusinessTrip_PID"."Sys_PID"
+												)
+											)
+											AND
+											"VirtTblPersonBusinessTrip_PID"."Sys_Data_Delete_DateTimeTZ" IS NULL
+											AND
+											"VirtTblPersonBusinessTrip_PID"."Sys_Data_Hidden_DateTimeTZ" IS NULL
+								LEFT JOIN
+									"SchHumanResource"."TblPersonBusinessTrip" AS "VirtTblPersonBusinessTrip_SID"
+										ON
+											(
+												(
+												"SubSQL"."Running_DocumentFormTag" = 'SchHumanResource.TblPersonBusinessTrip'
+												AND
+												"SubSQL"."Running_DocumentForm_RefIDLink" = "VirtTblPersonBusinessTrip_SID"."Sys_SID"
+												)
+											)
+											AND
+											"VirtTblPersonBusinessTrip_SID"."Sys_Data_Delete_DateTimeTZ" IS NULL
+											AND
+											"VirtTblPersonBusinessTrip_SID"."Sys_Data_Hidden_DateTimeTZ" IS NULL
+								------------------------------
+								LEFT JOIN
+									"SchSupplyChain"."TblPurchaseRequisitionDetail" AS "VirtTblPurchaseRequisitionDetail_PID"
+										ON
+											(
+												(
+												"SubSQL"."Running_DocumentFormTag" = 'SchSupplyChain.TblPurchaseRequisitionDetail'
+												AND
+												"SubSQL"."Running_DocumentForm_RefIDLink" = "VirtTblPurchaseRequisitionDetail_PID"."Sys_PID"
+												)
+											)
+											AND
+											"VirtTblPurchaseRequisitionDetail_PID"."Sys_Data_Delete_DateTimeTZ" IS NULL
+											AND
+											"VirtTblPurchaseRequisitionDetail_PID"."Sys_Data_Hidden_DateTimeTZ" IS NULL
+								LEFT JOIN
+									"SchSupplyChain"."TblPurchaseRequisitionDetail" AS "VirtTblPurchaseRequisitionDetail_SID"
+										ON
+											(
+												(
+												"SubSQL"."Running_DocumentFormTag" = 'SchSupplyChain.TblPurchaseRequisitionDetail'
+												AND
+												"SubSQL"."Running_DocumentForm_RefIDLink" = "VirtTblPurchaseRequisitionDetail_SID"."Sys_SID"
+												)
+											)
+											AND
+											"VirtTblPurchaseRequisitionDetail_SID"."Sys_Data_Delete_DateTimeTZ" IS NULL
+											AND
+											"VirtTblPurchaseRequisitionDetail_SID"."Sys_Data_Hidden_DateTimeTZ" IS NULL
+						) AS "SubSQL"
+					) AS "SubSQL"
+				WHERE
+					"SubSQL"."Running_DocumentFormTag" IS NOT NULL
+				-----[ FORM ELIMINATION LEVEL 1 : Advance Detail, Reimbursement Detail, Person Business Trip, Purchase Requisition Detail ]----(  END  )-----
+				) AS "SubSQL"
+			WHERE
+				"SubSQL"."Running_CombinedBudgetSectionDetail_RefIDLink" IS NOT NULL
+			) AS "SubSQL"
+
