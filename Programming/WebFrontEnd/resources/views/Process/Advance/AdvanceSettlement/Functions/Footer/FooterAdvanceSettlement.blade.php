@@ -563,6 +563,9 @@
 
                         indexAdvanceDetail += 1;
                     });
+
+                    $("#myGetModalAdvanceTrigger").prop('disabled', true);
+                    $("#myGetModalAdvanceTrigger").css({"cursor":"not-allowed"});
                 } else {
                     console.log('error');
                     $(".loadingAdvanceSettlementTable").hide();

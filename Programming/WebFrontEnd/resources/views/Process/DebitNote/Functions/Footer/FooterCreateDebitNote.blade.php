@@ -253,6 +253,9 @@
 
                     indexDebitNoteDetails += 1;
                 });
+
+                $("#debit_note_reference_trigger").prop('disabled', true);
+                $("#debit_note_reference_trigger").css({"cursor":"not-allowed"});
             },
             error: function (textStatus, errorThrown) {
                 console.log('textStatus', textStatus);
