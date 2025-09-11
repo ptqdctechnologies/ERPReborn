@@ -53,7 +53,6 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                     "entities" => [
                                         "principleLoan" => 1000000000,
                                         "lendingRate" => 10,
-                                        "total" => 1100000000,
                                         "currency_RefID" => 62000000000001,
                                         "currencyExchangeRate" => 1,
                                         "chartOfAccount_RefID" => 65000000000005
