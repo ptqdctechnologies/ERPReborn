@@ -43,8 +43,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000002                                                                                       |
-        | ▪ Last Update     : 2025-04-10                                                                                           |
+        | ▪ Version         : 1.0000.0000003                                                                                       |
+        | ▪ Last Update     : 2025-09-11                                                                                           |
         | ▪ Creation Date   : 2022-05-31                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -57,6 +57,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
         */
         function main($varUserSession, $varData)
             {
+            $varAPIExecutionStartDateTime = (new \DateTime());
+
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
 
             try {
@@ -91,6 +93,12 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
                             {
                             throw new \Exception();
                             }
+                        
+                        \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineDataSend_UpdateAPIExecutionTime(
+                            $varUserSession,
+                            $varAPIExecutionStartDateTime,
+                            $varDataSend
+                            );
 
                         /*
                         //---> Data Processing

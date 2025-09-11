@@ -374,6 +374,106 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : setEngineDataSend_UpdateAPIExecutionTime                                                             |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2025-09-11                                                                                           |
+        | ▪ Creation Date   : 2025-09-11                                                                                           |
+        | ▪ Description     : Mendapatkan Engine Data Send untuk Mengupdate Data Send                                              |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (mixed)  varPHPStartDateTime ► PHP Start DateTime                                                                 |
+        |      ▪ (array)  varDataSend ► Data Send (By Reference)                                                                   |
+        |      ------------------------------                                                                                      |
+        |      ▪ (bool)   varSignConvertPHPArrayToJSONCamelCase ► Sign Comvert PHP Array to JSON CamelCase                         |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (void)                                                                                                            |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function setEngineDataSend_UpdateAPIExecutionTime($varUserSession, $varPHPStartDateTime, &$varDataSend)
+            {
+            $varPHPFinishDateTime = (new \DateTime());
+            $varExecutionInterval = $varPHPStartDateTime->diff($varPHPFinishDateTime);
+
+            $varExecutionInterval = 
+                (
+                    (
+                    (($varPHPStartDateTime->diff($varPHPFinishDateTime)->h) * 60 * 60) +
+                    (($varPHPStartDateTime->diff($varPHPFinishDateTime)->i) * 60) +
+                    ((($varPHPStartDateTime->diff($varPHPFinishDateTime))->s) + (($varPHPStartDateTime->diff($varPHPFinishDateTime))->f))
+                    )
+                -
+                    (
+                    (explode(':', $varDataSend['process']['DBMS']['executionInterval'])[0] * 60 * 60) +
+                    (explode(':', $varDataSend['process']['DBMS']['executionInterval'])[1] * 60) +
+                    (explode(':', $varDataSend['process']['DBMS']['executionInterval'])[2] * 1)
+                    )
+                );
+            
+            //$varExecutionInterval = ((3*60*60) + (15*60) + 43.123);
+            $varExecutionIntervalRemain = $varExecutionInterval;
+
+            $varExecutionInterval_Hours = (((int) $varExecutionIntervalRemain) - (((int) $varExecutionIntervalRemain) % (int) (60 * 60))) / (60 * 60);
+            $varExecutionIntervalRemain = $varExecutionIntervalRemain - ($varExecutionInterval_Hours * (60 * 60));
+
+            $varExecutionInterval_Minutes = (((int) $varExecutionIntervalRemain) - (((int) $varExecutionIntervalRemain) % (int) (60))) / (60);
+            $varExecutionIntervalRemain = $varExecutionIntervalRemain - ($varExecutionInterval_Minutes * (60));
+
+            $varExecutionInterval_Seconds = floor($varExecutionIntervalRemain);
+            $varExecutionIntervalRemain = $varExecutionIntervalRemain - $varExecutionInterval_Seconds;
+            
+            $varExecutionInterval_MicroSeconds = $varExecutionIntervalRemain;
+
+
+            $varDataSend['process']['API']['executionInterval'] = 
+                str_pad($varExecutionInterval_Hours, 2, '0', STR_PAD_LEFT).
+                ':'.
+                str_pad($varExecutionInterval_Minutes, 2, '0', STR_PAD_LEFT).
+                ':'.
+                str_pad($varExecutionInterval_Seconds, 2, '0', STR_PAD_LEFT).
+                '.'.
+                ($varExecutionInterval_MicroSeconds * 1000000)
+                //str_pad($varExecutionInterval_MicroSeconds, 6, '0', STR_PAD_RIGHT)
+                ;
+            $varDataSend['process']['API']['startDateTimeTZ'] = $varDataSend['process']['DBMS']['finishDateTimeTZ'];
+
+            $varPHPStartDateTime = new \DateTime();
+            $varPHPStartDateTime->setTimestamp(strtotime($varDataSend['process']['DBMS']['finishDateTimeTZ']));
+
+            $varStartDateTime_MicroSeconds = (float) ('0.'.substr(explode('.', $varDataSend['process']['DBMS']['finishDateTimeTZ'])[1], 0, 6));
+            
+            $varFinishDateTime_MicroSeconds = ((float) $varStartDateTime_MicroSeconds + (float) $varExecutionInterval_MicroSeconds);
+
+            
+            $varPHPFinishDateTime = $varPHPStartDateTime;
+            $varPHPFinishDateTime->add(new \DateInterval(
+                'PT'.
+                (
+                $varExecutionInterval_Seconds
+                +
+                (($varFinishDateTime_MicroSeconds > 1) ? 1 : 0)
+                ).
+                'S'
+                ));
+            
+            $varDataSend['process']['API']['finishDateTimeTZ'] = 
+                $varPHPFinishDateTime->format('Y-m-d H:i:s').
+                '.'.
+                (
+                (
+                $varFinishDateTime_MicroSeconds
+                +
+                (($varFinishDateTime_MicroSeconds > 1) ? -1 : 0)
+                ) * 1000000
+                ).
+                explode('+', $varDataSend['process']['DBMS']['finishDateTimeTZ'])[1];
+            }
+
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getEngineDataSend_DataRead                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000001                                                                                       |
@@ -449,7 +549,8 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
                     //dd($varReturn);
                     }
 
-                return $varReturn;
+                return
+                    $varReturn;
                 }
 /*
             if($varDataSend)
