@@ -8,7 +8,7 @@
 | ▪ API Key     : transaction.read.dataList.finance.getCreditNote                                                                  |
 | ▪ API Version : 1                                                                                                                |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2024 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2024 - 2025 Zheta (teguhpjs@gmail.com)                                                                              |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\read\dataList\finance\getCreditNote\v1
@@ -27,36 +27,44 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         */
         public function throughAPIGateway($varAPIWebToken)
             {
-            //---Parameter Set---
+            //-----[ PARAMETER SET ]-----
             if (!$varAPIWebToken) {
                 $varAPIWebToken = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
                 }
-            //---Core---
+
+            //-----[ CORE ]-----
             $varData = 
                 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                    $varAPIWebToken, 
-                    'transaction.read.dataList.finance.getCreditNote', 
-                    'latest', 
-                    [
-                    'parameter' => [
-                        ],
-                    'SQLStatement' => [
-                        'pick' => null,
-                        'sort' => null,
-                        'filter' => null,
-                        'paging' => null
-                        /*
-                        'pick' => '*',
-                        'sort' => '"OrderSequence" ASC',
-                        'filter' => '"CombinedBudgetSection_RefID" = 143000000000029',
-                        'paging' => null
-                        */
+                    //-----[ METADATA ]-----( START )-----
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                        $varAPIWebToken, 
+                        'transaction.read.dataList.finance.getCreditNote', 
+                        'latest',
+                    //-----[ METADATA ]-----(  END  )-----
+
+                    //-----[ DATA ]---------( START )-----
+                        [
+                        'parameter' => [
+                            ],
+                        'SQLStatement' => [
+                            'pick' => null,
+                            'sort' => null,
+                            'filter' => null,
+                            'paging' => null
+                            /*
+                            'pick' => '*',
+                            'sort' => '"OrderSequence" ASC',
+                            'filter' => '"CombinedBudgetSection_RefID" = 143000000000029',
+                            'paging' => null
+                            */
+                            ]
                         ]
-                    ]
+                    //-----[ DATA ]---------(  END  )-----
                     );
 
-            var_dump($varData);
+            //-----[ DATA RETURN ]-----
+            return
+                $varData;
             }
 
 
@@ -72,11 +80,12 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         */
         public function throughAPIGatewayJQuery($varAPIWebToken)
             {
-            //---Parameter Set---
+            //-----[ PARAMETER SET ]-----
             if (!$varAPIWebToken) {
                 $varAPIWebToken = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
                 }
-            //---Core---
+
+            //-----[ CORE ]-----
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
             echo '<table border="1" style="border-collapse: collapse;">';
             echo '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">Parameter</p></td></tr>';
@@ -88,20 +97,25 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             echo '</table>';
             $varJQueryFunction =
                 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
-                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
-                    $varAPIWebToken, 
-                    'transaction.read.dataList.finance.getCreditNote', 
-                    'latest', 
-                    '{'.
-                        '"parameter" : {'.
-                            '}, '.
-                        '"SQLStatement" : {'.
-                            '"pick" : document.getElementById("dataInput_SQLStatement_pick").value, '.
-                            '"sort" : document.getElementById("dataInput_SQLStatement_sort").value, '.
-                            '"filter" : document.getElementById("dataInput_SQLStatement_filter").value, '.
-                            '"paging" : document.getElementById("dataInput_SQLStatement_paging").value'.
-                            '}'.
-                    '}'
+                    //-----[ METADATA ]-----( START )-----
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                        $varAPIWebToken, 
+                        'transaction.read.dataList.finance.getCreditNote', 
+                        'latest',
+                    //-----[ METADATA ]-----(  END  )-----
+
+                    //-----[ DATA ]---------( START )-----
+                        '{'.
+                            '"parameter" : {'.
+                                '}, '.
+                            '"SQLStatement" : {'.
+                                '"pick" : document.getElementById("dataInput_SQLStatement_pick").value, '.
+                                '"sort" : document.getElementById("dataInput_SQLStatement_sort").value, '.
+                                '"filter" : document.getElementById("dataInput_SQLStatement_filter").value, '.
+                                '"paging" : document.getElementById("dataInput_SQLStatement_paging").value'.
+                                '}'.
+                        '}'
+                    //-----[ DATA ]---------(  END  )-----
                     ); 
             echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
             dd($varJQueryFunction);
