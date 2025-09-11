@@ -40,10 +40,10 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                 [
                 'entities' => [
                     "documentDateTimeTZ" => '2025-09-10',
-                    "creditor_RefID" => 0,
-                    "debitor_RefID" => 0,
+                    "creditor_RefID" => 166000000000001,
+                    "debitor_RefID" => 25000000000001,
                     "bankAccount_RefID" => 167000000000004,
-                    "loanTerm" => 0,
+                    "loanTerm" => 365,
                     "log_FileUpload_Pointer_RefID" => 91000000000001,
                     "workflowStatus" => '',
                     "notes" => "My Notes 1",
@@ -52,9 +52,9 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                             "items" => [
                                     [
                                     "entities" => [
-                                        "principleLoan" => 0,
-                                        "lendingRate" => 0,
-                                        "total" => 0,
+                                        "principleLoan" => 1000000000,
+                                        "lendingRate" => 10,
+                                        "total" => 1100000000,
                                         "currency_RefID" => 62000000000001,
                                         "currencyExchangeRate" => 1,
                                         "chartOfAccount_RefID" => 65000000000005
@@ -62,9 +62,9 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                     ],
                                     [
                                     "entities" => [
-                                        "principleLoan" => 0,
-                                        "lendingRate" => 0,
-                                        "total" => 0,
+                                        "principleLoan" => 1000000000,
+                                        "lendingRate" => 10,
+                                        "total" => 1100000000,
                                         "currency_RefID" => 62000000000001,
                                         "currencyExchangeRate" => 1,
                                         "chartOfAccount_RefID" => 65000000000005
