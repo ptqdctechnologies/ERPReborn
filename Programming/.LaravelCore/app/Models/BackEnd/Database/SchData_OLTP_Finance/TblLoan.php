@@ -76,8 +76,8 @@ namespace App\Models\Database\SchData_OLTP_Finance
             )
             {
             $varReturn =
-                // \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    // $varUserSession,
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession,
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                         $varUserSession,
                         parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
@@ -112,10 +112,8 @@ namespace App\Models\Database\SchData_OLTP_Finance
                                 'json'
                             ]
                         ]
-                        // )
+                        )
                     );
-
-                    dd($varReturn);
 
             return
                 $varReturn;
