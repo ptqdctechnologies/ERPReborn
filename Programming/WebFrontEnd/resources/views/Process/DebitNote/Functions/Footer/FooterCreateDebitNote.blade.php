@@ -232,14 +232,26 @@
                     debitNoteDetailsTable.append(row);
 
                     $(`#debit_note_value${indexDebitNoteDetails}`).on('keyup', function() {
+                        let debit_note_value = $(this).val().replace(/,/g, '');
                         let data_index = $(this).data('index');
+
+                        if (debit_note_value > total) {
+                            $(this).val('');
+                            ErrorNotif("DN Value is over!");
+                        }
 
                         calculateTotal();
                         checkOneLineBudgetContents(data_index);
                     });
 
                     $(`#debit_note_tax${indexDebitNoteDetails}`).on('keyup', function() {
+                        let debit_note_tax = $(this).val().replace(/,/g, '');
                         let data_index = $(this).data('index');
+
+                        if (debit_note_tax > total) {
+                            $(this).val('');
+                            ErrorNotif("DN Tax is over!");
+                        }
 
                         calculateTotal();
                         checkOneLineBudgetContents(data_index);
@@ -340,12 +352,12 @@
         });
     }
 
-    $('#tableGetModalReimbursement').on('click', 'tbody tr', async function() {
-        var sysId   = $(this).find('input[data-trigger="sys_id_modal_reimbursement"]').val();
-        var trano   = $(this).find('td:nth-child(2)').text();
+    $('#tableGetModalReimbursementAccountPayable').on('click', 'tbody tr', async function() {
+        let sysId   = $(this).find('input[data-trigger="sys_id_modal_reference"]').val();
+        let trano   = $(this).find('td:nth-child(2)').text();
 
         getReferenceNumberDetails(sysId, trano);
-        
-        $('#myGetModalReimbursement').modal('hide');
+
+        $('#myGetModalReimbursementAccountPayable').modal('hide');
     });
 </script>
