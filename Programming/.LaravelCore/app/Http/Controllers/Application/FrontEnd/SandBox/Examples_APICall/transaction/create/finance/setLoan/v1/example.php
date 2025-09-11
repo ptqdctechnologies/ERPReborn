@@ -21,8 +21,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         |                     ► http://172.28.0.4/transaction.create.finance.setLoan.v1_throughAPIGateway                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-09-10                                                                                           |
-        | ▪ Creation Date   : 2025-09-10                                                                                           |
+        | ▪ Last Update     : 2025-09-11                                                                                           |
+        | ▪ Creation Date   : 2025-09-11                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function throughAPIGateway($varAPIWebToken)
@@ -54,7 +54,6 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                     "entities" => [
                                         "principleLoan" => 1000000000,
                                         "lendingRate" => 10,
-                                        "total" => 1100000000,
                                         "currency_RefID" => 62000000000001,
                                         "currencyExchangeRate" => 1,
                                         "chartOfAccount_RefID" => 65000000000005
@@ -64,7 +63,6 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                     "entities" => [
                                         "principleLoan" => 1000000000,
                                         "lendingRate" => 10,
-                                        "total" => 1100000000,
                                         "currency_RefID" => 62000000000001,
                                         "currencyExchangeRate" => 1,
                                         "chartOfAccount_RefID" => 65000000000005
