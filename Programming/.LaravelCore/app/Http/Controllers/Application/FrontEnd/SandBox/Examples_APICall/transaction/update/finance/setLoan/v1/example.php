@@ -3,22 +3,22 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category    : Example - API Call Controller                                                                                    |
-| ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\create\finance                   |
-|                 \setLoan\v1                                                                                                      |
-| ▪ API Key     : transaction.create.finance.setLoan                                                                               |
+| ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\update\finance                   |
+|                 \setLoan\v1                                                                                                |
+| ▪ API Key     : transaction.update.finance.setLoan                                                                         |
 | ▪ API Version : 1                                                                                                                |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2025 ijonk7 (jookeo.rizal@gmail.com)                                                                                |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\create\finance\setLoan\v1
+namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\update\finance\setLoan\v1
     {
     class example extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Call URL        : http(s)://<HOST>/transaction.create.finance.setLoan.v1_throughAPIGateway                             |
-        |                     ► http://172.28.0.4/transaction.create.finance.setLoan.v1_throughAPIGateway                          |
+        | ▪ Call URL        : http(s)://<HOST>/transaction.update.finance.setLoan.v1_throughAPIGateway                       |
+        |                     ► http://172.28.0.4/transaction.update.finance.setLoan.v1_throughAPIGateway                    |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2025-09-11                                                                                           |
@@ -35,31 +35,21 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken,
-                'transaction.create.finance.setLoan',
+                'transaction.update.finance.setLoan',
                 'latest',
                 [
+                'recordID' => 293000000000001,
                 'entities' => [
-                    "documentDateTimeTZ" => '2025-09-10',
-                    "creditor_RefID" => 166000000000001,
-                    "debitor_RefID" => 25000000000001,
-                    "bankAccount_RefID" => 167000000000004,
+                    "documentDateTimeTZ" => '2025-09-11',
                     "loanTerm" => 365,
                     "log_FileUpload_Pointer_RefID" => 91000000000001,
                     "workflowStatus" => '',
-                    "notes" => "My Notes 1",
+                    "remarks" => 'My Remarks 3 (Edit)',
                     "additionalData" => [
                         "itemList" => [
                             "items" => [
                                     [
-                                    "entities" => [
-                                        "principleLoan" => 1000000000,
-                                        "lendingRate" => 10,
-                                        "currency_RefID" => 62000000000001,
-                                        "currencyExchangeRate" => 1,
-                                        "chartOfAccount_RefID" => 65000000000005
-                                        ]
-                                    ],
-                                    [
+                                    "recordID" => 294000000000001,
                                     "entities" => [
                                         "principleLoan" => 1000000000,
                                         "lendingRate" => 10,
@@ -80,12 +70,12 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Call URL        : http(s)://<HOST>/transaction.create.finance.setLoan.v1_throughAPIGatewayJQuery                 |
-        |                     ► http://172.28.0.4/transaction.create.finance.setLoan.v1_throughAPIGatewayJQuery              |
+        | ▪ Call URL        : http(s)://<HOST>/transaction.update.finance.setLoan.v1_throughAPIGatewayJQuery                 |
+        |                     ► http://172.28.0.4/transaction.update.finance.setLoan.v1_throughAPIGatewayJQuery              |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-09-10                                                                                           |
-        | ▪ Creation Date   : 2025-09-10                                                                                           |
+        | ▪ Last Update     : 2025-09-11                                                                                           |
+        | ▪ Creation Date   : 2025-09-11                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function throughAPIGatewayJQuery($varAPIWebToken)
@@ -108,7 +98,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken,
-                'transaction.create.finance.setLoan',
+                'transaction.update.finance.setLoan',
                 'latest',
                 '{'.
                     '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value), '.
@@ -116,8 +106,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                         '"documentDateTimeTZ" : document.getElementById("dataInput_DocumentDateTimeTZ").value, '.
                         '"requesterWorkerJobsPosition_RefID" : parseInt(document.getElementById("dataInput_RequesterWorkerJobsPosition_RefID").value), '.
                         '"supplier_RefID" : parseInt(document.getElementById("dataInput_Supplier_RefID").value), '.
-                        '"LoanDateTimeTZ" : document.getElementById("dataInput_LoanDateTimeTZ").value, '.
-                        '"LoanDestination_RefID" : parseInt(document.getElementById("dataInput_LoanDestination_RefID").value), '.
+                        '"loanDateTimeTZ" : document.getElementById("dataInput_LoanDateTimeTZ").value, '.
+                        '"loanDestination_RefID" : parseInt(document.getElementById("dataInput_LoanDestination_RefID").value), '.
                         '"supplierInvoiceBillingPurpose_RefID" : parseInt(document.getElementById("dataInput_SupplierInvoiceBillingPurpose_RefID").value), '.
                         '"paymentTerm" : document.getElementById("dataInput_PaymentTerm").value, '.
                         '"remarks" : document.getElementById("dataInput_Remarks").value'.
