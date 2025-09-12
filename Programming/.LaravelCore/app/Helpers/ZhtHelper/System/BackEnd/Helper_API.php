@@ -974,6 +974,13 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
             {
             $varErrorMessage = null;
 
+//------------< BLOCKING >------------------
+if (strcmp($varAPIKey, 'xxxxtransaction.read.dataList.finance.getAdvance')==0)
+    {
+    $varAPIExecutionStartDateTime = (new \DateTime());
+    }
+//------------< BLOCKING >------------------
+
             $varAPIKeyData = explode('.', $varAPIKey);
             $varAPIService =
                 \App\Helpers\ZhtHelper\General\Helper_String::getUpperCaseFirstCharacter(
@@ -1014,14 +1021,25 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
             $varMainPath =
                 '/./../'.str_replace('App/', 'app/', str_replace('\\', '/', implode('\\', $varMainPath)));            
             
-            $varFilePath = \App\Helpers\ZhtHelper\General\Helper_File::getAutoMatchFilePath($varUserSession, getcwd(), '/./../'.str_replace('App/', 'app/', str_replace('\\', '/', $varClass)).'.php');
+            $varFilePath = 
+                \App\Helpers\ZhtHelper\General\Helper_File::getAutoMatchFilePath(
+                    $varUserSession,
+                    getcwd(),
+                    '/./../'.str_replace('App/', 'app/', str_replace('\\', '/', $varClass)).'.php'
+                    );
+
             if (!$varFilePath)
                 {
                 //throw new \Exception('API with Key `'.$varAPIKey.'` version `'.$varAPIVersion.'` does not found');
                 $varErrorMessage =
                     'API with Key `'.$varAPIKey.'` version `'.$varAPIVersion.'` does not found';
 
-                $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 401, $varErrorMessage);
+                $varReturn =
+                    \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail(
+                        $varUserSession,
+                        401,
+                        $varErrorMessage
+                        );
                 }
             else
                 {    
@@ -1039,18 +1057,35 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
                         $varErrorMessage = 
                             'JSON Request Contract for API with Key `'.$varAPIKey.'` version `'.$varAPIVersion.'` does not found';
 
-                        $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 401, $varErrorMessage);
+                        $varReturn = 
+                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail(
+                                $varUserSession,
+                                401,
+                                $varErrorMessage
+                                );
                         }
 
                     $varJSONSchemaValidationStatus =
-                        \App\Helpers\ZhtHelper\General\Helper_JSON::getSchemaValidationFromFile($varUserSession, \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varRealDataRequest), $varFilePathJSONValidation);
+                        \App\Helpers\ZhtHelper\General\Helper_JSON::getSchemaValidationFromFile(
+                            $varUserSession,
+                            \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode(
+                                $varUserSession,
+                                $varRealDataRequest
+                                ),
+                            $varFilePathJSONValidation
+                            );
 
                     if ($varJSONSchemaValidationStatus == false)
                         {
                         $varErrorMessage =
                             'JSON Request incompatible with API\'s Contract ('.$varAPIKey.' version '.$varAPIVersion.')';
 
-                        $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 400, $varErrorMessage);
+                        $varReturn =
+                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail(
+                                $varUserSession,
+                                400,
+                                $varErrorMessage
+                                );
                         }                
                     }
                 
@@ -1076,13 +1111,33 @@ $varErrorMessage = 'test '.json_encode($varJSONRequestSchema->validate());
                 if (!$varErrorMessage)
                     {
                     require_once($varFilePath);
-                    $varReturn = (new $varClass())->{$varFunctionName}($varUserSession, $varData);
+
+                    $varReturn = (
+                        new $varClass()
+                        )->{$varFunctionName}($varUserSession, $varData);
                     }
                 }
-                
+
+//------------< BLOCKING >------------------
+if (strcmp($varAPIKey, 'xxxxtransaction.read.dataList.finance.getAdvance')==0)
+    {
+    //dd($varAPIKey);
+    //dd('$varClass : '.$varClass.', $varFunctionName : '.$varFunctionName.', $varUserSession : '.$varUserSession.'');
+    dd (
+        \App\Helpers\ZhtHelper\General\Helper_DateTime::getDateTimeStringWithTimeZoneDifferenceInterval(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            \App\Helpers\ZhtHelper\General\Helper_DateTime::getConvertPHPDateTimeToDateTimeStringWithTimeZone(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), $varAPIExecutionStartDateTime),
+            \App\Helpers\ZhtHelper\General\Helper_DateTime::getConvertPHPDateTimeToDateTimeStringWithTimeZone(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), (new \DateTime())),
+            )
+        );
+    }
+//------------< BLOCKING >------------------
+
+
             //var_dump($varFunctionName);
             //var_dump($varReturn);
-            return $varReturn;
+            return
+                $varReturn;
             }
 
 
@@ -1165,6 +1220,36 @@ $varErrorMessage = 'test '.json_encode($varJSONRequestSchema->validate());
             }
 
 
+        public static function getUserLoginSessionIDByAPIWebToken($varUserSession, string $varAPIWebToken = null)
+            {
+                if (!$varAPIWebToken) {
+                    try {
+                        $varDataHeader =
+                            \App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getHeader($varUserSession);
+
+                        $varAPIWebToken =
+                            str_replace(
+                                'Bearer ', 
+                                '', 
+                                $varDataHeader['authorization'][0]
+                                );
+
+                        $varReturn = 
+                            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_ByAPIWebToken(
+                                $varUserSession,
+                                $varAPIWebToken
+                                );
+                        }
+
+                    catch (\Exception $ex) {
+                        }
+                    
+                    return
+                        $varReturn;
+                    }
+            }
+
+
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getUserLoginSessionEntityByAPIWebToken                                                               |
@@ -1182,6 +1267,9 @@ $varErrorMessage = 'test '.json_encode($varJSONRequestSchema->validate());
         */
         public static function getUserLoginSessionEntityByAPIWebToken($varUserSession, string $varAPIWebToken = null)
             {
+//------------< BLOCKING >------------------
+    $varAPIExecutionStartDateTime = (new \DateTime());
+//------------< BLOCKING >------------------
             $varReturn = [
                 'APIWebToken' => '',
                 'userLoginSessionID' => '',
@@ -1209,6 +1297,7 @@ $varErrorMessage = 'test '.json_encode($varJSONRequestSchema->validate());
                                 $varDataHeader['authorization'][0]
                                 );
                         }
+
                     catch (\Exception $ex) {
                         //$varReturn['userLoginSessionID'] = $varUserSession;
                         //$varAPIWebToken = \App\Helpers\ZhtHelper\System\Helper_Environment::getAPIWebToken_System();
@@ -1229,12 +1318,12 @@ $varErrorMessage = 'test '.json_encode($varJSONRequestSchema->validate());
                     //'userPrivilegesMenu' => null
                     'environment' => null
                     ];
-
                 }
+
             catch (Exception $ex) {
                 }
 
-          if ((new \App\Models\Database\SchSysConfig\General())->isExist_APIWebToken($varUserSession, $varAPIWebToken) == true)
+            if ((new \App\Models\Database\SchSysConfig\General())->isExist_APIWebToken($varUserSession, $varAPIWebToken) == true)
                 {
                 //---> Jika $varAPIWebToken merupakan Web Token System (SysEngine)
                 if (strcmp($varAPIWebToken, \App\Helpers\ZhtHelper\System\Helper_Environment::getAPIWebToken_System()) == 0) 
@@ -1263,6 +1352,7 @@ $varErrorMessage = 'test '.json_encode($varJSONRequestSchema->validate());
                     $varReturn['sessionAutoFinishDateTimeTZ'] = $varData['sessionAutoFinishDateTimeTZ'];
                     //---> Bila $varReturn['userIdentity'] diambil Redis, data tidak terupdate apabila ada perubahan pada database 
 
+
                     if (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'userIdentity', $varData)) {
                         $varReturn['userIdentity'] = 
                             //null;
@@ -1272,6 +1362,18 @@ $varErrorMessage = 'test '.json_encode($varJSONRequestSchema->validate());
                                 ); //---> Data Diambil dari DB (Lebih update bila ada perubahan data)
                             //$varData['userIdentity']; //---> Data Diambil dari Redis (Lebih responsif tapi tidak adaptif)                    
                         }
+
+/*
+//------------< BLOCKING >------------------
+    dd (
+        \App\Helpers\ZhtHelper\General\Helper_DateTime::getDateTimeStringWithTimeZoneDifferenceInterval(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            \App\Helpers\ZhtHelper\General\Helper_DateTime::getConvertPHPDateTimeToDateTimeStringWithTimeZone(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), $varAPIExecutionStartDateTime),
+            \App\Helpers\ZhtHelper\General\Helper_DateTime::getConvertPHPDateTimeToDateTimeStringWithTimeZone(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), (new \DateTime())),
+            )
+        );
+//------------< BLOCKING >------------------
+*/
 
                     //if(\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'userPrivilegesMenu', $varData))
                     //    {

@@ -42,19 +42,29 @@ namespace App\Http\Controllers\Application\BackEnd\System\Core
             
         public function main()
             {
+//------------< BLOCKING >------------------
+    $varAPIExecutionStartDateTime = (new \DateTime());
+//------------< BLOCKING >------------------
             try {
                 //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
                 $varUserSession = '';
                 //$varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
-                
-                
+
+//dd(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+                /*
                 $varUserSession = (
                     \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken(
                         \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System()
                         )
                     )['userLoginSessionID'];
+                */
                 
-                
+                $varUserSession =
+                    \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionIDByAPIWebToken(
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System()
+                        );
+
+
 
 //$varRequest = request()->header();
 /*
@@ -92,8 +102,6 @@ die();
                     //$varDataReceive = \App\Helpers\ZhtHelper\General\Helper_Array::setRemoveElementByKey($varUserSession, 'header', $varDataReceive);
                     //dd($varDataReceive);
 
-$varAPIExecutionStartDateTime = (new \DateTime());
-
                     $varAPIKey = 'core.API.gateway';
                     $varAPIVersion = 'latest';
 
@@ -111,16 +119,6 @@ $varAPIExecutionStartDateTime = (new \DateTime());
                             ],
                         'data' => $varData
                         ];
-
-/*
-dd (
-    \App\Helpers\ZhtHelper\General\Helper_DateTime::getDateTimeStringWithTimeZoneDifferenceInterval(
-        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-        \App\Helpers\ZhtHelper\General\Helper_DateTime::getConvertPHPDateTimeToDateTimeStringWithTimeZone(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), $varAPIExecutionStartDateTime),
-        \App\Helpers\ZhtHelper\General\Helper_DateTime::getConvertPHPDateTimeToDateTimeStringWithTimeZone(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), (new \DateTime())),
-        )
-    );
-*/
 
     /*
     //echo '~~~~~~~~~~~~~~~~~~~~~~~~~~~';                
@@ -147,8 +145,36 @@ dd (
                             $varDataReceive
                             );
 
+//------------< BLOCKING >------------------
+//    dd (
+//        \App\Helpers\ZhtHelper\General\Helper_DateTime::getDateTimeStringWithTimeZoneDifferenceInterval(
+//            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+//            \App\Helpers\ZhtHelper\General\Helper_DateTime::getConvertPHPDateTimeToDateTimeStringWithTimeZone(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), $varAPIExecutionStartDateTime),
+//            \App\Helpers\ZhtHelper\General\Helper_DateTime::getConvertPHPDateTimeToDateTimeStringWithTimeZone(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), (new \DateTime())),
+//            )
+//        );
+//------------< BLOCKING >------------------
+
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----    
-                    return \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::setResponse($varUserSession, $varDataSend);
+                    
+                    $varReturn =
+                        \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::setResponse(
+                            $varUserSession,
+                            $varDataSend
+                            );
+                    
+                    $varReturn['data']['process']['API']['executionInterval'] = 
+                        \App\Helpers\ZhtHelper\General\Helper_DateTime::getDateTimeStringWithTimeZoneDifferenceInterval(
+                            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                            \App\Helpers\ZhtHelper\General\Helper_DateTime::getConvertPHPDateTimeToDateTimeStringWithTimeZone(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), $varAPIExecutionStartDateTime),
+                            \App\Helpers\ZhtHelper\General\Helper_DateTime::getConvertPHPDateTimeToDateTimeStringWithTimeZone(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), (new \DateTime())),
+                            );
+                    $varReturn['data']['process']['API']['startDateTimeTZ'] = $varReturn['data']['process']['DBMS']['finishDateTimeTZ'];
+                    $varReturn['data']['process']['API']['finishDateTimeTZ'] = NULL;
+                    
+                    //dd($varReturn['data']['process']['API']);
+
+                    return $varReturn;
                     }
                 } 
 //            catch (\Exception $ex) {

@@ -55,6 +55,11 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
         |      ▪ (string) varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
+        function mainnew($varUserSession, $varData)
+            {
+            
+            }
+
         function main($varUserSession, $varData)
             {
 /*

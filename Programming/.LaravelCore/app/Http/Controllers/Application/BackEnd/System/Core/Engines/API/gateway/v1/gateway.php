@@ -69,9 +69,17 @@ namespace App\Http\Controllers\Application\BackEnd\System\Core\Engines\API\gatew
         */
         function main($varUserSession, $varData)
             {
+//------------< BLOCKING >------------------
+//    $varAPIExecutionStartDateTime = (new \DateTime());
+//------------< BLOCKING >------------------
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
+
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Gateway (version 1)');
+                $varSysDataProcess = 
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__,
+                        'Gateway (version 1)'
+                        );
+
                 try {
                     //-----[ MAIN CODE ]----------------------------------------------------------------------------( START POINT )-----
                     //---> Redirection
@@ -80,17 +88,18 @@ namespace App\Http\Controllers\Application\BackEnd\System\Core\Engines\API\gatew
                     $varData = $varData['data'];
 
                     if (
-                        (strcmp($varAPIKey, 'authentication.userPrivilege.getInstitutionBranch')!=0) 
+                        (strcmp($varAPIKey, 'authentication.userPrivilege.getInstitutionBranch') !=0) 
                         AND 
-                        (strcmp($varAPIKey, 'authentication.userPrivilege.getRole')!=0) 
+                        (strcmp($varAPIKey, 'authentication.userPrivilege.getRole') !=0) 
                         AND 
-                        (strcmp($varAPIKey, 'authentication.userPrivilege.getCombinedBudget')!=0) 
+                        (strcmp($varAPIKey, 'authentication.userPrivilege.getCombinedBudget') !=0) 
+                        AND
+                        (strcmp($varAPIKey, 'authentication.userPrivilege.getMenu') !=0) 
                         AND 
-                        (strcmp($varAPIKey, 'authentication.userPrivilege.getMenu')!=0) 
+                        (strcmp($varAPIKey, 'authentication.general.setLoginBranchAndUserRole') !=0) 
                         AND 
-                        (strcmp($varAPIKey, 'authentication.general.setLoginBranchAndUserRole')!=0) 
-                        AND 
-                        (!(\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID']))
+                        (!(\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'])
+                        )
                         {
                         throw new \Exception('Branch ID has not been determined');
                         }
@@ -105,10 +114,11 @@ namespace App\Http\Controllers\Application\BackEnd\System\Core\Engines\API\gatew
                         'data' => $varData
                         ];
 
-                    $varAPIVersionValidity=FALSE;
-                    if(strcmp($varAPIVersion, 'latest') == 0)
+                    $varAPIVersionValidity = FALSE;
+
+                    if (strcmp($varAPIVersion, 'latest') == 0)
                         {
-                        $varAPIVersionValidity=TRUE;
+                        $varAPIVersionValidity = TRUE;
                         }
                     else
                         {
@@ -125,20 +135,36 @@ namespace App\Http\Controllers\Application\BackEnd\System\Core\Engines\API\gatew
                             }
                         }
                     
-                    if($varAPIVersionValidity == TRUE)
+                    if ($varAPIVersionValidity == TRUE)
                         {
                         //---> Method Call
-                        $varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setCallAPIEngine($varUserSession, $varAPIKey, $varAPIVersion, $varData, null, $varDataReceive);
-
-                        if($varDataSend['metadata']['successStatus'] == true)
+                        $varDataSend =
+                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setCallAPIEngine(
+                                $varUserSession,
+                                $varAPIKey,
+                                $varAPIVersion,
+                                $varData,
+                                null,
+                                $varDataReceive
+                                );                      
+                        
+                        if ($varDataSend['metadata']['successStatus'] == true)
                             {
                             $varReturn = 
                                 \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success(
                                     $varUserSession, 
                                     $varDataSend['data'], 
                                     [
-                                        'Key' => $varAPIKey, 
-                                        'Version' => ((strcmp($varAPIVersion, 'latest') !=0 ) ? $varAPIVersion : (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getAPILatestVersion($varUserSession, $varAPIKey)))
+                                    'Key' => $varAPIKey, 
+                                    'Version' => (
+                                        (strcmp($varAPIVersion, 'latest') !=0 ) ? 
+                                            $varAPIVersion : 
+                                            (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getAPILatestVersion(
+                                                $varUserSession,
+                                                $varAPIKey
+                                                )
+                                        )
+                                        )
                                     ]
                                     );
                             }
@@ -163,7 +189,18 @@ namespace App\Http\Controllers\Application\BackEnd\System\Core\Engines\API\gatew
                 } 
             catch (\Exception $ex) {
                 }
-            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+
+//------------< BLOCKING >------------------
+//    dd (
+//        \App\Helpers\ZhtHelper\General\Helper_DateTime::getDateTimeStringWithTimeZoneDifferenceInterval(
+//            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+//            \App\Helpers\ZhtHelper\General\Helper_DateTime::getConvertPHPDateTimeToDateTimeStringWithTimeZone(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), $varAPIExecutionStartDateTime),
+//            \App\Helpers\ZhtHelper\General\Helper_DateTime::getConvertPHPDateTimeToDateTimeStringWithTimeZone(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), (new \DateTime())),
+//            )
+//        );
+//------------< BLOCKING >------------------
+            return 
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
             }
         }
     }

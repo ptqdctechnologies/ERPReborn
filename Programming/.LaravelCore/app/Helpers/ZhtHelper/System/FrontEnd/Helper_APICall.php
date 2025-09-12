@@ -373,7 +373,11 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Call Gateway API');
+                $varSysDataProcess =
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 
+                        'Call Gateway API'
+                        );
+
                 try {
                     //dd($varData['SQLStatement']['filter']);
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
@@ -439,12 +443,24 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                     //dd($varDataArray);
                     //dd(json_encode($varDataArray));
 
+//------------< BLOCKING >------------------
+//    $varAPIExecutionStartDateTime = (new \DateTime());
+//------------< BLOCKING >------------------
                     $varResponseData =
                         \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::getResponse(
                             $varUserSession,
                             $varURL,
                             $varDataArray
                             );
+//------------< BLOCKING >------------------
+//    dd (
+//        \App\Helpers\ZhtHelper\General\Helper_DateTime::getDateTimeStringWithTimeZoneDifferenceInterval(
+//            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+//            \App\Helpers\ZhtHelper\General\Helper_DateTime::getConvertPHPDateTimeToDateTimeStringWithTimeZone(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), $varAPIExecutionStartDateTime),
+//            \App\Helpers\ZhtHelper\General\Helper_DateTime::getConvertPHPDateTimeToDateTimeStringWithTimeZone(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), (new \DateTime())),
+//            )
+//        );
+//------------< BLOCKING >------------------
 
                     if ($varResponseData['metadata']['HTTPStatusCode'] == 200) {
                         $varReturn = $varResponseData;
@@ -452,7 +468,8 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                     else {
                         $varResponseData['metadata']['successStatus'] = FALSE;
 
-                        $varRequesterSegment = (request()->segments())[0];
+                        $varRequesterSegment = 
+                            (request()->segments())[0];
 
                         //---> Jika Requester berasal dari Gateway JQuery
                         if (strcmp($varRequesterSegment, "APIGatewayJQuery_setRequest") == 0) {

@@ -721,14 +721,15 @@ namespace App\Helpers\ZhtHelper\System
                         $varUserSession, 
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
-                            'SchSysAsset.Func_GetData_UserSession_IDByAPIWebToken',
+                            'SchSysAsset.Func_GetData_UserSessionID_ByAPIWebToken',
                             [
                                 [$varAPIWebToken, 'varchar']
                             ]
                             )
                         );
 
-                return $varReturn['data'][0]['Func_GetData_UserSession_IDByAPIWebToken'];
+                return
+                    $varReturn['data'][0]['Func_GetData_UserSessionID_ByAPIWebToken'];
                 }
             catch (\Exception $ex) {
                 return NULL;
@@ -766,8 +767,10 @@ namespace App\Helpers\ZhtHelper\System
                     );
                 return $varReturn['data'][0]['Func_GetData_APIWebToken_ByUserSessionID'];
                 }
+
             catch (\Exception $ex) {
-                return NULL;
+                return
+                    NULL;
                 }
             }
 
@@ -790,7 +793,7 @@ namespace App\Helpers\ZhtHelper\System
         public static function getAPIWebToken_System()
             {
             $varUserSession = self::getUserSessionID_System();
-            //dd($varUserSession);
+
             try {
                 try {
                     $varReturn =
@@ -803,19 +806,29 @@ namespace App\Helpers\ZhtHelper\System
                                 ]
                                 )
                             );
-
-                    return
+    
+                    $varReturn = 
                         $varReturn['data'][0]['Func_GetData_APIWebToken_SysEngine'];
                     }
 
                 catch (\Exception $ex) {
-                    return
+                    $varReturn =
                         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoiU3lzRW5naW5lIiwiaWF0IjoxNTk4NDM0MDcxfQ.fkz2xMA1tUNmA5VaWC75a-A9WdYAmqToLbze3Sxojf4';
                     }
+
+                $varReturn =
+                    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoiU3lzRW5naW5lIiwiaWF0IjoxNTk4NDM0MDcxfQ.fkz2xMA1tUNmA5VaWC75a-A9WdYAmqToLbze3Sxojf4';
+
+                return
+                    $varReturn;
                 }
+
             catch (\Exception $ex) {
                 return [];
                 }
+    
+            return
+                $varReturn;
             }
         }
     }

@@ -48,13 +48,22 @@ namespace App\Helpers\ZhtHelper\System
             $varURL, $varData = null, $varMethod = null, int $varPort = null, int $varTTL = null, array $varHeaders = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
+
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get HTTP Response');
+                $varSysDataProcess =
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__,
+                        'Get HTTP Response'
+                        );
+
                 try {
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
                     //---> Reinisialisasi varPort
                     if (!$varPort) {
-                        $varPort = ((\App\Helpers\ZhtHelper\General\Helper_Network::isHTTPS($varUserSession)) == TRUE ? 443 : 80);
+                        $varPort = (
+                            (\App\Helpers\ZhtHelper\General\Helper_Network::isHTTPS($varUserSession)) == TRUE ? 
+                            443 : 
+                            80
+                            );
                         }
 
                     //---> Cek apakah port tujuan terbuka
@@ -176,6 +185,10 @@ namespace App\Helpers\ZhtHelper\System
                             }
                         }
 
+//------------< BLOCKING >------------------
+//    $varAPIExecutionStartDateTime = (new \DateTime());
+//------------< BLOCKING >------------------
+
                     //---> Main process
                     //dd($varData);
                     //dd($varURL);
@@ -190,6 +203,15 @@ namespace App\Helpers\ZhtHelper\System
                             $varHeaders
                             );
                     //dd($varReturn);
+//------------< BLOCKING >------------------
+//    dd (
+//        \App\Helpers\ZhtHelper\General\Helper_DateTime::getDateTimeStringWithTimeZoneDifferenceInterval(
+//            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+//            \App\Helpers\ZhtHelper\General\Helper_DateTime::getConvertPHPDateTimeToDateTimeStringWithTimeZone(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), $varAPIExecutionStartDateTime),
+//            \App\Helpers\ZhtHelper\General\Helper_DateTime::getConvertPHPDateTimeToDateTimeStringWithTimeZone(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), (new \DateTime())),
+//            )
+//        );
+//------------< BLOCKING >------------------
 
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
