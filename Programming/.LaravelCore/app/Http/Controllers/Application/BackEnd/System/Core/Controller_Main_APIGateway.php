@@ -92,6 +92,8 @@ die();
                     //$varDataReceive = \App\Helpers\ZhtHelper\General\Helper_Array::setRemoveElementByKey($varUserSession, 'header', $varDataReceive);
                     //dd($varDataReceive);
 
+$varAPIExecutionStartDateTime = (new \DateTime());
+
                     $varAPIKey = 'core.API.gateway';
                     $varAPIVersion = 'latest';
 
@@ -109,6 +111,16 @@ die();
                             ],
                         'data' => $varData
                         ];
+
+/*
+dd (
+    \App\Helpers\ZhtHelper\General\Helper_DateTime::getDateTimeStringWithTimeZoneDifferenceInterval(
+        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        \App\Helpers\ZhtHelper\General\Helper_DateTime::getConvertPHPDateTimeToDateTimeStringWithTimeZone(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), $varAPIExecutionStartDateTime),
+        \App\Helpers\ZhtHelper\General\Helper_DateTime::getConvertPHPDateTimeToDateTimeStringWithTimeZone(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), (new \DateTime())),
+        )
+    );
+*/
 
     /*
     //echo '~~~~~~~~~~~~~~~~~~~~~~~~~~~';                

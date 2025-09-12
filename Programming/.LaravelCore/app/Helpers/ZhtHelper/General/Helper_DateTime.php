@@ -140,28 +140,101 @@ namespace App\Helpers\ZhtHelper\General
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (void)                                                                                                            |
+        |      ▪ (string) varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public static function getCurrentDateTimeString($varUserSession)
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
+
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Current Date Time');
+                $varSysDataProcess =
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__,
+                        'Get Current Date Time'
+                        );
+
                 try {
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
-                    $varReturn = self::getDateTimeFromUnixTime($varUserSession, self::getUnixTime($varUserSession)).'.'.self::getMicroTime($varUserSession);
+                        $varReturn = 
+                            self::getDateTimeFromUnixTime($varUserSession, self::getUnixTime($varUserSession)).
+                            '.'.
+                            self::getMicroTime($varUserSession);
+
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                     } 
+
                 catch (\Exception $ex) {
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
                     }
+
                 \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
                 }
+
             catch (\Exception $ex) {
                 }
-            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+
+            return
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getCurrentDateTimeStringWithTimeZone                                                                 |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2025-09-12                                                                                           |
+        | ▪ Creation Date   : 2025-09-12                                                                                           |
+        | ▪ Description     : Mendapatkan Waktu Saat Ini beserta Time Zone nya                                                     |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (string) varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getCurrentDateTimeStringWithTimeZone($varUserSession)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
+
+            try {
+                $varSysDataProcess =
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__,
+                        'Get Current Date Time With Time Zone'
+                        );
+
+                try {
+                    //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
+                        $varReturn = 
+                            self::getDateTimeFromUnixTime($varUserSession, self::getUnixTime($varUserSession)).
+                            '.'.
+                            self::getMicroTime($varUserSession).
+                            (
+                                (
+                                (((int) self::getTimeZoneOffset($varUserSession)) >= 0) ?
+                                    '+' : '-'
+                                ).
+                                str_pad(self::getTimeZoneOffset($varUserSession), 2, '0', STR_PAD_LEFT)
+                            )
+                            ;
+
+                    //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
+                    } 
+
+                catch (\Exception $ex) {
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
+                    }
+
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
+                }
+
+            catch (\Exception $ex) {
+                }
+
+            return
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
             }
 
 
@@ -268,6 +341,180 @@ namespace App\Helpers\ZhtHelper\General
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getConvertPHPDateTimeToDateTimeStringWithTimeZone                                                    |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2025-09-12                                                                                           |
+        | ▪ Creation Date   : 2025-09-12                                                                                           |
+        | ▪ Description     : Mengkonversi PHP Date Time ke Date Time String With Timezone                                         |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ------------------------------                                                                                      |
+        |      ▪ (string) varStartDateTimeTZ ► Start DateTimeTZ                                                                    |
+        |      ▪ (string) varFinishDateTimeTZ ► Finish DateTimeTZ                                                                  |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (void)                                                                                                            |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getConvertPHPDateTimeToDateTimeStringWithTimeZone(
+            $varUserSession, \DateTime $varPHPDateTime,
+            int $varTimzZoneOffset = null
+            )
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
+
+            try {
+                $varSysDataProcess =
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__,
+                        'Get Convertion PHP Date Time to Date Time With Time Zone String'
+                        );
+
+                try {
+                    //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
+                        if ($varTimzZoneOffset === null) {
+                            $varTimzZoneOffset = self::getTimeZoneOffset($varUserSession);
+                            }
+
+                        $varReturn = (
+                            $varPHPDateTime->format('Y-m-d H:i:s.u').
+                            ($varTimzZoneOffset >= 0 ? '+' : '-').
+                            str_pad($varTimzZoneOffset, 2, '0', STR_PAD_LEFT)                
+                            );
+
+                    //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
+                    }
+
+                catch (\Exception $ex) {
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
+                    }
+
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
+                }
+
+            catch (\Exception $ex) {
+                }
+
+            return
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDateTimeStringWithTimeZoneDifferenceInterval                                                      |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2025-09-12                                                                                           |
+        | ▪ Creation Date   : 2025-09-12                                                                                           |
+        | ▪ Description     : Mendapatkan Interval Date Time String With Timezone                                                  |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ------------------------------                                                                                      |
+        |      ▪ (string) varStartDateTimeTZ ► Start DateTimeTZ                                                                    |
+        |      ▪ (string) varFinishDateTimeTZ ► Finish DateTimeTZ                                                                  |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (void)                                                                                                            |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getDateTimeStringWithTimeZoneDifferenceInterval($varUserSession, string $varStartDateTimeTZ, string $varFinishDateTimeTZ)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
+
+            try {
+                $varSysDataProcess =
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__,
+                        'Get Date Time With Time Zone String Difference Interval'
+                        );
+
+                try {
+                    //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
+                        $varStartDateTimeArray = explode('.', $varStartDateTimeTZ);
+                        $varStartDateTimeArray = explode('.', $varStartDateTimeTZ);
+                        $varFinishDateTimeArray = explode('.', $varFinishDateTimeTZ);
+
+                        try {
+                            $varStartDateTimeOffset = (1 * (float) explode('+', $varStartDateTimeArray[1])[1]);
+                            $varStartDateTimeMicroSecond = ((float) ('0.'.explode('+', $varStartDateTimeArray[1])[0]));
+                            }
+                        catch (\Exception $ex) {
+                            try {
+                                $varStartDateTimeOffset = (-1 * (float) explode('-', $varStartDateTimeArray[1])[1]);
+                                $varStartDateTimeMicroSecond = ((float) ('0.'.explode('-', $varStartDateTimeArray[1])[0]));
+                                }
+                            catch (\Exception $ex) {
+                                $varStartDateTimeOffset = (float) 0;
+                                $varStartDateTimeMicroSecond = (float) 0;
+                                }
+                            }
+
+                        try {
+                            $varFinishDateTimeOffset = (1 * (float) explode('+', $varFinishDateTimeArray[1])[1]);
+                            $varFinishDateTimeMicroSecond = ((float) ('0.'.explode('+', $varFinishDateTimeArray[1])[0]));
+                            }
+                        catch (\Exception $ex) {
+                            try {
+                                $varFinishDateTimeOffset = (-1 * (float) explode('-', $varFinishDateTimeArray[1])[1]);
+                                $varFinishDateTimeMicroSecond = ((float) ('0.'.explode('-', $varFinishDateTimeArray[1])[0]));
+                                }
+                            catch (\Exception $ex) {
+                                $varFinishDateTimeOffset = (float) 0;
+                                $varFinishDateTimeMicroSecond = (float) 0;
+                                }
+                            }
+
+                        $varUniversalSecondsDifference = (
+                                    (
+                                        ((((float) (self::getUnixTime($varUserSession, $varFinishDateTimeArray[0]) + ($varFinishDateTimeOffset * 3600))) + $varFinishDateTimeMicroSecond) * 1000000)
+                                        -
+                                        ((((float) (self::getUnixTime($varUserSession, $varStartDateTimeArray[0]) + ($varStartDateTimeOffset * 3600))) + $varStartDateTimeMicroSecond) * 1000000)
+                                    ) / 1000000
+                            );
+                        //dd($varUniversalSecondsDifference);
+
+                        $varIntervalRemain = $varUniversalSecondsDifference;
+                        $varHoursDifference = ((int) $varIntervalRemain - ((int) $varIntervalRemain % 3600)) / 3600;
+                        $varIntervalRemain = $varIntervalRemain - ($varHoursDifference * 3600);
+                        $varMinutesDifference = ((int) $varIntervalRemain - ((int) $varIntervalRemain % 60)) / 60;
+                        $varIntervalRemain = $varIntervalRemain - ($varMinutesDifference * 60);
+                        $varSecondsDifference = (int) $varIntervalRemain;
+                        
+                        try {
+                            $varMicroSecondsDifference = (explode('.', $varUniversalSecondsDifference)[1]);
+                            }
+                         catch (\Exception $ex) {
+                            $varMicroSecondsDifference = 0;
+                            }
+
+                        $varReturn = (
+                            str_pad($varHoursDifference, 2, '0', STR_PAD_LEFT).':'.
+                            str_pad($varMinutesDifference, 2, '0', STR_PAD_LEFT).':'.
+                            str_pad($varSecondsDifference, 2, '0', STR_PAD_LEFT).'.'.
+                            str_pad($varMicroSecondsDifference, 6, '0', STR_PAD_RIGHT)
+                            );
+                    //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
+                    }
+
+                catch (\Exception $ex) {
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
+                    }
+
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
+                }
+
+            catch (\Exception $ex) {
+                }
+
+            return
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getDateTimeStringDifference                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
@@ -291,11 +538,15 @@ namespace App\Helpers\ZhtHelper\General
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Date Time String Difference');
                 try {
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
-                    $varStartDateTimeArray=explode('.', $varStartDateTimeTZ);
-                    $varFinishDateTimeArray=explode('.', $varFinishDateTimeTZ);
-                    
-                    $varUniversalSecondsDifference = (self::getUnixTime($varUserSession, $varFinishDateTimeArray[0])-self::getUnixTime($varUserSession, $varStartDateTimeArray[0]));
-                    
+                    $varStartDateTimeArray = explode('.', $varStartDateTimeTZ);
+                    $varFinishDateTimeArray = explode('.', $varFinishDateTimeTZ);
+
+                    $varUniversalSecondsDifference = (
+                        self::getUnixTime($varUserSession, $varFinishDateTimeArray[0]) 
+                        -
+                        self::getUnixTime($varUserSession, $varStartDateTimeArray[0])
+                        );
+
                     $varSecondsRemain = $varUniversalSecondsDifference;
                     $varHoursDifference = ($varSecondsRemain - ($varSecondsRemain % 3600))/3600;
                     $varSecondsRemain = $varSecondsRemain - ($varHoursDifference*3600);
