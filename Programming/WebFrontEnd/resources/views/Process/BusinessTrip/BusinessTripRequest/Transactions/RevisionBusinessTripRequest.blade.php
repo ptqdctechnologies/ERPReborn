@@ -28,11 +28,13 @@
 
       @include('Process.BusinessTrip.BusinessTripRequest.Functions.Menu.MenuBusinessTripRequest')
       <div class="card">
-        <form method="post" action="{{ route('BusinessTripRequest.UpdatesBusinessTripRequest') }}" id="FormRevisionBusinessTrip">
+        <form method="post" action="{{ route('SelectWorkFlow') }}" id="FormRevisionBusinessTrip">
           @csrf
           <input hidden id="DocumentTypeID" name="DocumentTypeID">
           <input hidden id="var_combinedBudget_RefID" name="var_combinedBudget_RefID" value="<?= $budget['id']; ?>" />
           <input hidden id="combinedBudgetSectionDetail_RefID" name="combinedBudgetSectionDetail_RefID" value="<?= $combinedBudgetSectionDetail_RefID; ?>" />
+          <input hidden id="personBusinessTripRefID" name="personBusinessTripRefID" value="<?= $personBusinessTripRefID; ?>" />
+          <input hidden id="personBusinessTripDetailRefID" name="personBusinessTripDetailRefID" value="<?= $personBusinessTripDetailRefID; ?>" />
           <input hidden id="budgetDetailsData" />
 
           <!-- BUSINESS REQUEST TRIP FORM -->

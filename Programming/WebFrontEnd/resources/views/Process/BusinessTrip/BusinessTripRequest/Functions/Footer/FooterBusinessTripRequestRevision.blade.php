@@ -316,40 +316,37 @@
       data: form_data,
       type: method,
       success: function(response) {
-        console.log('response', response);
-        
-        // HideLoading();
+        HideLoading();
 
-        // if (response.message == "WorkflowError") {
-        //   $("#revisionBRF").prop("disabled", false);
+        if (response.message == "WorkflowError") {
+          $("#revisionBRF").prop("disabled", false);
 
-        //   CancelNotif("You don't have access", '/BusinessTripRequest?var=1');
-        // } else if (response.message == "MoreThanOne") {
-        //   $('#getWorkFlow').modal('toggle');
+          CancelNotif("You don't have access", '/BusinessTripRequest?var=1');
+        } else if (response.message == "MoreThanOne") {
+          $('#getWorkFlow').modal('toggle');
 
-        //   var t = $('#tableGetWorkFlow').DataTable();
-        //   t.clear();
-        //   $.each(response.data, function(key, val) {
-        //     t.row.add([
-        //       '<td><span data-dismiss="modal" onclick="SelectWorkFlow(\'' + val.Sys_ID + '\', \'' + val.NextApprover_RefID + '\', \'' + response.approverEntity_RefID + '\', \'' + response.documentTypeID + '\');"><img src="{{ asset("AdminLTE-master/dist/img/add.png") }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></span></td>',
-        //       '<td style="border:1px solid #e9ecef;">' + val.FullApproverPath + '</td></tr></tbody>'
-        //     ]).draw();
-        //   });
-        // } else {
-        //   const formatData = {
-        //     workFlowPath_RefID: response.workFlowPath_RefID, 
-        //     nextApprover: response.nextApprover_RefID, 
-        //     approverEntity: response.approverEntity_RefID, 
-        //     documentTypeID: response.documentTypeID,
-        //     storeData: response.storeData
-        //   };
+          var t = $('#tableGetWorkFlow').DataTable();
+          t.clear();
+          $.each(response.data, function(key, val) {
+            t.row.add([
+              '<td><span data-dismiss="modal" onclick="SelectWorkFlow(\'' + val.Sys_ID + '\', \'' + val.NextApprover_RefID + '\', \'' + response.approverEntity_RefID + '\', \'' + response.documentTypeID + '\');"><img src="{{ asset("AdminLTE-master/dist/img/add.png") }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></span></td>',
+              '<td style="border:1px solid #e9ecef;">' + val.FullApproverPath + '</td></tr></tbody>'
+            ]).draw();
+          });
+        } else {
+          const formatData = {
+            workFlowPath_RefID: response.workFlowPath_RefID, 
+            nextApprover: response.nextApprover_RefID, 
+            approverEntity: response.approverEntity_RefID, 
+            documentTypeID: response.documentTypeID,
+            storeData: response.storeData
+          };
 
-        //   SelectWorkFlow(formatData);
-        // }
+          SelectWorkFlow(formatData);
+        }
       },
       error: function(response) {
         HideLoading();
-        // $("#revisionBRF").prop("disabled", false);
         CancelNotif("You don't have access", '/BusinessTripRequest?var=1');
         console.log('error response', response);
       }
