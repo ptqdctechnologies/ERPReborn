@@ -35,6 +35,7 @@
         const rows = sourceTable.getElementsByTagName('tr');
 
         for (let row of rows) {
+            const referenceDocumentID                   = row.querySelector('input[id^="reference_document_id"]');
             const businessDocumentNumber                = row.querySelector('input[id^="business_document_number"]');
             const combinedBudgetSectionDetailID         = row.querySelector('input[id^="combined_budget_section_detail_id"]');
             const productID                             = row.querySelector('input[id^="product_id"]');
@@ -86,6 +87,7 @@
                                     productUnitPriceCurrencyExchangeRate: parseInt(productUnitPriceCurrencyExchangeRate.value),
                                     vatRatio: 0,
                                     chartOfAccount_RefID: parseInt(debitNoteCoaID.value),
+                                    referenceDocument_RefID: parseInt(referenceDocumentID.value)
                                 }
                             };
                         }
@@ -116,6 +118,7 @@
                             productUnitPriceCurrencyExchangeRate: parseInt(productUnitPriceCurrencyExchangeRate.value),
                             vatRatio: 0,
                             chartOfAccount_RefID: parseInt(debitNoteCoaID.value),
+                            referenceDocument_RefID: parseInt(referenceDocumentID.value)
                         }
                     });
                 }
@@ -189,7 +192,7 @@
                 let debitNoteDetailsTable = $('#debit_note_details_table tbody');
 
                 let modifyColumn = `<td rowspan="${data.length}" style="text-align: center; padding: 10px !important;">${refNumber}</td>`;
-                
+
                 $.each(data, function(key, value) {
                     let total = value.Quantity * value.ProductUnitPriceCurrencyValue;
                     let row = `
@@ -226,6 +229,7 @@
                             <input type="hidden" id="quantity_unit_id[]" value="${value.QuantityUnit_RefID}">
                             <input type="hidden" id="product_unit_price_currency_id[]" value="${value.ProductUnitPriceCurrency_RefID}">
                             <input type="hidden" id="product_unit_price_currency_exchange_rate[]" value="${value.ProductUnitPriceCurrencyExchangeRate}">
+                            <input type="hidden" id="reference_document_id[]" value="${value.Sys_ID_Detail}">
                         </tr>
                     `;
 
