@@ -690,7 +690,12 @@
           </div>
         </div>
 
-        <hr>
+        <div class="row" style="margin-bottom: 1rem;">
+          <div class="col">
+            <div style="font-size: 0.9rem; font-weight: bold;text-align: right;margin-bottom: 0.3rem;">+</div>
+            <hr style="margin: 0;" />
+          </div>
+        </div>
 
         <div class="row" style="margin-bottom: 1rem;">
           <div class="col" style="font-size: 0.9rem; font-weight: bold;">
