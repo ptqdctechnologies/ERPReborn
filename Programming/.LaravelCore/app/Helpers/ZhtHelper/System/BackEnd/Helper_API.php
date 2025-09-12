@@ -393,6 +393,36 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
         */
         public static function setEngineDataSend_UpdateAPIExecutionTime($varUserSession, $varPHPStartDateTime, &$varDataSend)
             {
+            $varStartDateTimeTZString = (
+                \App\Helpers\ZhtHelper\General\Helper_DateTime::getConvertPHPDateTimeToDateTimeStringWithTimeZone(
+                    $varUserSession,
+                    $varPHPStartDateTime
+                    )
+                );
+
+            $varFinishDateTimeTZString = (
+                \App\Helpers\ZhtHelper\General\Helper_DateTime::getConvertPHPDateTimeToDateTimeStringWithTimeZone(
+                    $varUserSession,
+                    (new \DateTime())
+                    )
+                );
+            
+            /*
+            dd (
+                    $varStartDateTimeTZString .
+                    ' >>> '.
+                    $varFinishDateTimeTZString
+                );
+            
+            dd(
+                $varPHPStartDateTime->format('Y-m-d H:i:s.u').
+                (
+                (\App\Helpers\ZhtHelper\General\Helper_DateTime::getTimeZoneOffset($varUserSession) >= 0) ? '+' : '-'
+                ).
+                ''
+                );
+            */
+            
             $varPHPFinishDateTime = (new \DateTime());
             $varExecutionInterval = $varPHPStartDateTime->diff($varPHPFinishDateTime);
 
@@ -445,7 +475,6 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
             
             $varFinishDateTime_MicroSeconds = ((float) $varStartDateTime_MicroSeconds + (float) $varExecutionInterval_MicroSeconds);
 
-            
             $varPHPFinishDateTime = $varPHPStartDateTime;
             $varPHPFinishDateTime->add(new \DateInterval(
                 'PT'.

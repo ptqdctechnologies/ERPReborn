@@ -377,36 +377,36 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                 try {
                     //dd($varData['SQLStatement']['filter']);
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
-                    //---> Reinitializing : $varURL
-                    if (!$varAPIVersion) {
-                        $varAPIVersion = 'latest';
-                        }
-                    else {
-                        $varAPIVersion = strtolower($varAPIVersion);
-                        }
+                        //---> Reinitializing : $varURL
+                        if (!$varAPIVersion) {
+                            $varAPIVersion = 'latest';
+                            }
+                        else {
+                            $varAPIVersion = strtolower($varAPIVersion);
+                            }
 
-                    //---> Reinitializing : $varSignDisplayErrorPage
-                    if ($varSignDisplayErrorPage === NULL) {
-                        $varSignDisplayErrorPage = TRUE;
-                        }
+                        //---> Reinitializing : $varSignDisplayErrorPage
+                        if ($varSignDisplayErrorPage === NULL) {
+                            $varSignDisplayErrorPage = TRUE;
+                            }
 
-                    //---> Reinitializing : $varSignUseHTTPSProxy
-                    if ($varSignUseHTTPSProxy === NULL) {
-                        $varSignUseHTTPSProxy = FALSE;
-                        }
+                        //---> Reinitializing : $varSignUseHTTPSProxy
+                        if ($varSignUseHTTPSProxy === NULL) {
+                            $varSignUseHTTPSProxy = FALSE;
+                            }
 
-                    //---> Reinitializing : $varData
-                    if (!$varData) {
-                        $varData = [];
-                        }
+                        //---> Reinitializing : $varData
+                        if (!$varData) {
+                            $varData = [];
+                            }
 
-                    //---> Reinitializing : $varURL
-                    $varURL = 
-                        str_replace(
-                            'http:',
-                            (\App\Helpers\ZhtHelper\General\Helper_Network::isHTTPS($varUserSession) == TRUE ? 'https:' : 'http:'),
-                            \App\Helpers\ZhtHelper\System\Helper_Environment::getFrontEndConfigEnvironment($varUserSession, 'URL_BACKEND_API_GATEWAY')
-                            );
+                        //---> Reinitializing : $varURL
+                        $varURL = 
+                            str_replace(
+                                'http:',
+                                (\App\Helpers\ZhtHelper\General\Helper_Network::isHTTPS($varUserSession) == TRUE ? 'https:' : 'http:'),
+                                \App\Helpers\ZhtHelper\System\Helper_Environment::getFrontEndConfigEnvironment($varUserSession, 'URL_BACKEND_API_GATEWAY')
+                                );
 
                     $varURL = 
                         str_replace(

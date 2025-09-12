@@ -779,9 +779,9 @@
             'dev_requirement' => true,
         ),
         'phpunit/phpunit' => array(
-            'pretty_version' => '10.5.53',
-            'version' => '10.5.53.0',
-            'reference' => '32768472ebfb6969e6c7399f1c7b09009723f653',
+            'pretty_version' => '10.5.54',
+            'version' => '10.5.54.0',
+            'reference' => 'b1dbbaaf96106b76d500b9d3db51f9b01f6a3589',
             'type' => 'library',
             'install_path' => __DIR__ . '/../phpunit/phpunit',
             'aliases' => array(),
