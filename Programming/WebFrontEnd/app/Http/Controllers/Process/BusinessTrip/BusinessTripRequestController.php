@@ -90,7 +90,29 @@ class BusinessTripRequestController extends Controller
     public function UpdatesBusinessTripRequest(Request $request)
     {
         try {
-            return $request->all();
+            $response = $this->businessTripService->updates($request);
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                return response()->json($response);
+            }
+
+            $responseWorkflow = $this->workflowService->submit(
+                $response['data'][0]['businessDocument']['businessDocument_RefID'],
+                $request->workFlowPath_RefID,
+                $request->comment,
+                $request->approverEntity,
+            );
+
+            if ($responseWorkflow['metadata']['HTTPStatusCode'] !== 200) {
+                return response()->json($responseWorkflow);
+            }
+
+            $compact = [
+                "documentNumber"    => $response['data'][0]['businessDocument']['documentNumber'],
+                "status"            => $responseWorkflow['metadata']['HTTPStatusCode'],
+            ];
+
+            return response()->json($compact);
         } catch (\Throwable $th) {
             Log::error("Store Business Trip Request Function Error: " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
@@ -175,6 +197,8 @@ class BusinessTripRequestController extends Controller
             $compact = [
                 'varAPIWebToken'                    => $varAPIWebToken ?? '',
                 'combinedBudgetSectionDetail_RefID' => 169000000000048,
+                'personBusinessTripRefID'           => $dataTripSequence[0]['personBusinessTrip_RefID'],
+                'personBusinessTripDetailRefID'     => $dataTripSequence[0]['sys_ID'],
                 'budget'            => [
                     'id'            => $dataTripSequence[0]['combinedBudget_RefID'][0] ?? '-',
                     'code'          => $dataTripSequence[0]['combinedBudgetCode'] ?? '-',
