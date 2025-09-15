@@ -444,7 +444,7 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                     //dd(json_encode($varDataArray));
 
 //------------< BLOCKING >------------------
-//    $varAPIExecutionStartDateTime = (new \DateTime());
+    $varAPIExecutionStartDateTime = (new \DateTime());
 //------------< BLOCKING >------------------
                     $varResponseData =
                         \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::getResponse(
@@ -452,16 +452,17 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                             $varURL,
                             $varDataArray
                             );
+/*
 //------------< BLOCKING >------------------
-//    dd (
-//        \App\Helpers\ZhtHelper\General\Helper_DateTime::getDateTimeStringWithTimeZoneDifferenceInterval(
-//            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-//            \App\Helpers\ZhtHelper\General\Helper_DateTime::getConvertPHPDateTimeToDateTimeStringWithTimeZone(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), $varAPIExecutionStartDateTime),
-//            \App\Helpers\ZhtHelper\General\Helper_DateTime::getConvertPHPDateTimeToDateTimeStringWithTimeZone(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), (new \DateTime())),
-//            )
-//        );
+    dd (
+        \App\Helpers\ZhtHelper\General\Helper_DateTime::getDifferenceOfDateTimeTZString(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            \App\Helpers\ZhtHelper\General\Helper_DateTime::getConvertPHPDateTimeToDateTimeTZString(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), $varAPIExecutionStartDateTime),
+            \App\Helpers\ZhtHelper\General\Helper_DateTime::getConvertPHPDateTimeToDateTimeTZString(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), (new \DateTime())),
+            )
+        );
 //------------< BLOCKING >------------------
-
+*/
                     if ($varResponseData['metadata']['HTTPStatusCode'] == 200) {
                         $varReturn = $varResponseData;
                         }

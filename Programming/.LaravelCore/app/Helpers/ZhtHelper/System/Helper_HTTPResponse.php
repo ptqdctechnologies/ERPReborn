@@ -47,6 +47,10 @@ namespace App\Helpers\ZhtHelper\System
             $varUserSession,
             $varURL, $varData = null, $varMethod = null, int $varPort = null, int $varTTL = null, array $varHeaders = null)
             {
+//------------< BLOCKING >------------------
+//    $varAPIExecutionStartDateTime = (new \DateTime());
+//------------< BLOCKING >------------------
+
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
 
             try {
@@ -185,10 +189,6 @@ namespace App\Helpers\ZhtHelper\System
                             }
                         }
 
-//------------< BLOCKING >------------------
-//    $varAPIExecutionStartDateTime = (new \DateTime());
-//------------< BLOCKING >------------------
-
                     //---> Main process
                     //dd($varData);
                     //dd($varURL);
@@ -203,27 +203,33 @@ namespace App\Helpers\ZhtHelper\System
                             $varHeaders
                             );
                     //dd($varReturn);
+/*
 //------------< BLOCKING >------------------
-//    dd (
-//        \App\Helpers\ZhtHelper\General\Helper_DateTime::getDateTimeStringWithTimeZoneDifferenceInterval(
-//            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-//            \App\Helpers\ZhtHelper\General\Helper_DateTime::getConvertPHPDateTimeToDateTimeStringWithTimeZone(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), $varAPIExecutionStartDateTime),
-//            \App\Helpers\ZhtHelper\General\Helper_DateTime::getConvertPHPDateTimeToDateTimeStringWithTimeZone(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), (new \DateTime())),
-//            )
-//        );
+    dd (
+        \App\Helpers\ZhtHelper\General\Helper_DateTime::getDifferenceOfDateTimeTZString(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            \App\Helpers\ZhtHelper\General\Helper_DateTime::getConvertPHPDateTimeToDateTimeTZString(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), $varAPIExecutionStartDateTime),
+            \App\Helpers\ZhtHelper\General\Helper_DateTime::getConvertPHPDateTimeToDateTimeTZString(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), (new \DateTime())),
+            )
+        );
 //------------< BLOCKING >------------------
-
+*/
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
-                    } 
+                    }
+
                 catch (\Exception $ex) {
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
-                    }               
+                    }
+
                 \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
-                } 
+                }
+
             catch (\Exception $ex) {
                 }
-            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+
+            return
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
             }
 
 
@@ -244,7 +250,7 @@ namespace App\Helpers\ZhtHelper\System
         */
         public static function setResponse($varUserSession, $varDataSend)
             {
-            if($varDataSend['metadata']['successStatus']==false)
+            if ($varDataSend['metadata']['successStatus'] == false)
                 {
                 abort($varDataSend['data']['code'], $varDataSend['data']['message']);
                 }
@@ -252,8 +258,13 @@ namespace App\Helpers\ZhtHelper\System
                 {
 //                $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, (response()->json([])), __CLASS__, __FUNCTION__);
                 $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, [], __CLASS__, __FUNCTION__);
+
                 try {
-                    $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Set HTTP Response');
+                    $varSysDataProcess =
+                        \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__,
+                            'Set HTTP Response'
+                            );
+
                     try {
                         //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
                         //$varReturn = response()->json($varDataSend);
@@ -261,15 +272,20 @@ namespace App\Helpers\ZhtHelper\System
                         
                         //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                         \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
-                        }          
+                        }
+
                     catch (\Exception $ex) {
                         \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
                         }
+                        
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
-                    } 
+                    }
+
                 catch (\Exception $ex) {
                     }
-                return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+
+                return
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
                 }
             }
 

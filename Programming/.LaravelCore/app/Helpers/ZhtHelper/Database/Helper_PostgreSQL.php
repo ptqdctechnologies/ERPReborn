@@ -360,8 +360,13 @@ namespace App\Helpers\ZhtHelper\Database
             string $varStoredProcedureName, array $varData, array $varReturnField = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
+
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Build String Literal for Stored Procedure');
+                $varSysDataProcess =
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__,
+                        'Get Build String Literal for Stored Procedure'
+                        );
+
                 try {
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
                     //---> Parameter Reinitialization
@@ -622,15 +627,20 @@ namespace App\Helpers\ZhtHelper\Database
                         $varSQL;
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
-                    } 
+                    }
+
                 catch (\Exception $ex) {
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
                     }
+
                 \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
-                } 
+                }
+
             catch (\Exception $ex) {
                 }
-            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);            
+
+            return
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);            
             }
 
 
@@ -913,7 +923,8 @@ namespace App\Helpers\ZhtHelper\Database
                                         $varUserSession, 
                                         "SELECT NOW();"
                                         );
-                                $varReturn['process']['DBMS']['startDateTimeTZ'] = $varDataTemp['data'][0]['now'];
+                                $varTempExplode = explode('+', $varDataTemp['data'][0]['now']);
+                                $varReturn['process']['DBMS']['startDateTimeTZ'] = (str_pad($varTempExplode[0], 26, '0', STR_PAD_RIGHT).((($varTempExplode[1] * 1) < 0) ? '-' : '+').$varTempExplode[1]);
                                 unset($varDataTemp);
 
                                 //---> Inisialisasi [Data], [RowCount], [Notice]
@@ -943,8 +954,11 @@ namespace App\Helpers\ZhtHelper\Database
                                             ) AS \"SubSQL\"
                                         "
                                         );
-                                $varReturn['process']['DBMS']['finishDateTimeTZ'] = $varDataTemp['data'][0]['FinishDateTimeTZ'];
-                                $varReturn['process']['DBMS']['executionInterval'] = $varDataTemp['data'][0]['ExecutionInterval'];                    
+                                $varTempExplode = explode('+', $varDataTemp['data'][0]['FinishDateTimeTZ']);
+                                $varReturn['process']['DBMS']['finishDateTimeTZ'] = (str_pad($varTempExplode[0], 26, '0', STR_PAD_RIGHT).((($varTempExplode[1] * 1) < 0) ? '-' : '+').$varTempExplode[1]);
+
+                                $varReturn['process']['DBMS']['executionInterval'] = $varDataTemp['data'][0]['ExecutionInterval'];
+                                
                                 unset($varDataTemp);
                                 }
                             }
@@ -955,15 +969,20 @@ namespace App\Helpers\ZhtHelper\Database
                         }
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
-                    } 
+                    }
+
                 catch (\Exception $ex) {
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
                     }
+
                 \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
                 }
+
             catch (\Exception $ex) {
                 }
-            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+
+            return
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
             }
 
 

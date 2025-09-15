@@ -341,7 +341,7 @@ namespace App\Helpers\ZhtHelper\General
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getConvertPHPDateTimeToDateTimeStringWithTimeZone                                                    |
+        | ▪ Method Name     : getConvertPHPDateTimeToDateTimeTZString                                                              |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2025-09-12                                                                                           |
@@ -357,7 +357,7 @@ namespace App\Helpers\ZhtHelper\General
         |      ▪ (void)                                                                                                            |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public static function getConvertPHPDateTimeToDateTimeStringWithTimeZone(
+        public static function getConvertPHPDateTimeToDateTimeTZString(
             $varUserSession, \DateTime $varPHPDateTime,
             int $varTimzZoneOffset = null
             )
@@ -403,7 +403,205 @@ namespace App\Helpers\ZhtHelper\General
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getDateTimeStringWithTimeZoneDifferenceInterval                                                      |
+        | ▪ Method Name     : getAdditionOfDateTimeTZStringWithIntervalString                                                      |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2025-09-15                                                                                           |
+        | ▪ Creation Date   : 2025-09-15                                                                                           |
+        | ▪ Description     : Mendapatkan Penambahan Antara DateTimeTZ String dengan Interval String                               |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ------------------------------                                                                                      |
+        |      ▪ (string) varDateTimeTZString ► Date Time TZ                                                                       |
+        |      ▪ (string) varIntervalString ► Interval                                                                             |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (void)                                                                                                            |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getAdditionOfDateTimeTZStringWithIntervalString($varUserSession, string $varDateTimeTZString, string $varIntervalString)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
+
+            try {
+                $varSysDataProcess =
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__,
+                        'Get Addition of DateTimeTZ String With Interval String'
+                        );
+
+                try {
+                    //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
+                    $varData = explode(' ', $varDateTimeTZString);
+
+                    try {
+                        $varTimeZone =
+                            '-'.explode('-', $varData[count($varData)-1])[1];            
+                        } 
+                    catch (\Exception $ex) {
+                        $varTimeZone = 
+                            '+'.explode('+', $varData[count($varData)-1])[1];
+                        }
+
+                    $varData = [
+                        'Date' => $varData[0],
+                        'Time' => substr($varData[1], 0, (strlen($varData[1])-strlen($varTimeZone))),
+                        'OffsetZone' => $varTimeZone
+                        ];
+
+                    $varReturn = new \DateTime();
+                    $varReturn->setTimestamp(
+                        strtotime($varData['Date'].' 00:00:00')
+                        );
+
+                    //dd($varData['Time']);
+                    $varTemp = explode(':', $varData['Time']);
+                    //dd($varTemp);
+                    $varDateTimeTZMicroSeconds = (
+                        ((float) $varTemp[0] * (60 * 60 * 1000000)) +
+                        ((float) $varTemp[1] * (60 * 1000000)) +
+                        ((float) $varTemp[2] * (1 * 1000000))
+                        );
+                    //dd($varDateTimeTZMicroSeconds);
+
+                    //dd($varIntervalString);
+                    $varTemp = explode(':', $varIntervalString);
+                    //dd($varTemp);
+                    $varIntervalInMicroSeconds = (
+                        ((float) $varTemp[0] * (60 * 60 * 1000000)) +
+                        ((float) $varTemp[1] * (60 * 1000000)) +
+                        ((float) (explode('.', $varTemp[2])[0]) * (1 * 1000000)) +
+                        ((float) (explode('.', $varTemp[2])[1]))
+                        );
+                    //dd($varIntervalInMicroSeconds);
+
+                    $varAdditionalMicroSecond = (
+                        $varDateTimeTZMicroSeconds + 
+                        $varIntervalInMicroSeconds
+                        );
+
+                    $varReturn->add(new \DateInterval(
+                        'PT'.
+                        (
+                        (($varAdditionalMicroSecond - ($varAdditionalMicroSecond % 1000000)) / 1000000)
+                        //(($varFinishDateTime_MicroSeconds > 1) ? 1 : 0)
+                        ).
+                        'S'
+                        ));
+
+                    $varReturn = (
+                        $varReturn->format('Y-m-d H:i:s').'.'.
+                        str_pad(($varAdditionalMicroSecond % 1000000), 6, '0', STR_PAD_RIGHT).
+                        $varTimeZone
+                        );
+
+                    //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
+                    }
+
+                catch (\Exception $ex) {
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
+                    }
+
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
+                }
+
+            catch (\Exception $ex) {
+                }
+
+            return
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDifferenceOfIntervalString                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2025-09-15                                                                                           |
+        | ▪ Creation Date   : 2025-09-15                                                                                           |
+        | ▪ Description     : Mendapatkan Selisih Antara Dua Data Interval String                                                  |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ------------------------------                                                                                      |
+        |      ▪ (string) $varFirstIntervalString ► Interval                                                                       |
+        |      ▪ (string) $varSecondIntervalString ► Interval                                                                      |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (void)                                                                                                            |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getDifferenceOfIntervalString($varUserSession, string $varFirstIntervalString, string $varSecondIntervalString)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
+
+            try {
+                $varSysDataProcess =
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__,
+                        'Get Difference of Interval String'
+                        );
+
+                try {
+                    //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
+                    $varTemp = explode(':', $varFirstIntervalString);
+                    $varFirstIntervalInSeconds = (
+                        ((float) $varTemp[0] * (60 * 60 * 1000000)) +
+                        ((float) $varTemp[1] * (60 * 1000000)) +
+                        ((float) $varTemp[2] * (1 * 1000000))
+                        );
+
+                    $varTemp = explode(':', $varSecondIntervalString);
+                    $varSecondIntervalInSeconds = (
+                        ((float) $varTemp[0] * (60 * 60 * 1000000)) +
+                        ((float) $varTemp[1] * (60 * 1000000)) +
+                        ((float) $varTemp[2] * (1 * 1000000))
+                        );
+
+                    $varReturn = (
+                        ($varFirstIntervalInSeconds > $varSecondIntervalInSeconds) ?
+                            ($varFirstIntervalInSeconds - $varSecondIntervalInSeconds) :
+                            ($varSecondIntervalInSeconds - $varFirstIntervalInSeconds)
+                        );
+
+                    $varHoursDifference = (int) (($varReturn - (((int) $varReturn) % (60 * 60 * 1000000))) / (60 * 60 * 1000000));
+                    $varReturn = $varReturn - ($varHoursDifference * (60 * 60 * 1000000));
+
+                    $varMinutesDifference = (int) (($varReturn - (((int) $varReturn) % (60 * 1000000))) / (60 * 1000000));
+                    $varReturn = $varReturn - ($varMinutesDifference * (60 * 1000000));
+
+                    $varSecondsDifference = (int) (($varReturn - (((int) $varReturn) % (1000000))) / (1000000));
+
+                    $varMicroSecondsDifference = $varReturn;
+
+                    $varReturn = (
+                        str_pad($varHoursDifference, 2, '0', STR_PAD_LEFT).':'.
+                        str_pad($varMinutesDifference, 2, '0', STR_PAD_LEFT).':'.
+                        str_pad($varSecondsDifference, 2, '0', STR_PAD_LEFT).'.'.
+                        str_pad($varMicroSecondsDifference, 6, '0', STR_PAD_LEFT)
+                        );
+
+                    //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
+                    }
+
+                catch (\Exception $ex) {
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
+                    }
+
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
+                }
+
+            catch (\Exception $ex) {
+                }
+
+            return
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDifferenceOfDateTimeTZString                                                                      |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2025-09-12                                                                                           |
@@ -419,7 +617,7 @@ namespace App\Helpers\ZhtHelper\General
         |      ▪ (void)                                                                                                            |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public static function getDateTimeStringWithTimeZoneDifferenceInterval($varUserSession, string $varStartDateTimeTZ, string $varFinishDateTimeTZ)
+        public static function getDifferenceOfDateTimeTZString($varUserSession, string $varStartDateTimeTZ, string $varFinishDateTimeTZ)
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
 
@@ -534,8 +732,13 @@ namespace App\Helpers\ZhtHelper\General
         public static function getDateTimeStringDifference($varUserSession, string $varStartDateTimeTZ, string $varFinishDateTimeTZ)
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
+
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Date Time String Difference');
+                $varSysDataProcess =
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__,
+                        'Get Date Time String Difference'
+                        );
+
                 try {
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
                     $varStartDateTimeArray = explode('.', $varStartDateTimeTZ);
@@ -554,8 +757,6 @@ namespace App\Helpers\ZhtHelper\General
                     $varSecondsRemain = $varSecondsRemain - ($varMinutesDifference*60);
                     $varSecondsDifference = $varSecondsRemain;       
                     
-                    
-                    
                     $varReturn = 
                         str_pad($varHoursDifference, 2, '0', STR_PAD_LEFT).':'.
                         str_pad($varMinutesDifference, 2, '0', STR_PAD_LEFT).':'.
@@ -563,15 +764,20 @@ namespace App\Helpers\ZhtHelper\General
                         explode('.', number_format($varUniversalSecondsDifference + ((float)('0.'.$varFinishDateTimeArray[1]) - (float)('0.'.$varStartDateTimeArray[0])), 6, '.', ','))[1];
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
-                    } 
+                    }
+
                 catch (\Exception $ex) {
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
                     }
+
                 \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
                 }
+
             catch (\Exception $ex) {
                 }
-            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+
+            return
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
             }
 
 
@@ -600,11 +806,11 @@ namespace App\Helpers\ZhtHelper\General
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'get current GMT DateTime');
                 try {
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
-                    if(!$varDateTimeFormat)
+                    if (!$varDateTimeFormat)
                         {
                         $varDateTimeFormat = 'Y-m-d H:i:s';
                         }
-                    if(!$varUnixTime)
+                    if (!$varUnixTime)
                         {
                         $varReturn = gmdate($varDateTimeFormat);
                         }

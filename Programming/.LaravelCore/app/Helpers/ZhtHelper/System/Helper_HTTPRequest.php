@@ -176,7 +176,7 @@ public static function getRequest_HeaderAPIWebToken($varUserSession)
             $varURL, $varMethod, $varData = null, $varPort = null, $varHeaders = null)
             {
 //------------< BLOCKING >------------------
-//    $varAPIExecutionStartDateTime = (new \DateTime());
+    $varAPIExecutionStartDateTime = (new \DateTime());
 //------------< BLOCKING >------------------
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
 
@@ -201,24 +201,27 @@ public static function getRequest_HeaderAPIWebToken($varUserSession)
                                 $varMethod,
                                 $varURL,
                                 [
-                                    'verify' => false,
-                                    'headers' => $varHeaders, 
-                                    'body' => json_encode($varData, true)//,
-                                    //'timeout' => 5,
-                                    //'connect_timeout' => 2
-                                    ]
+                                'verify' => false,
+                                'headers' => $varHeaders, 
+                                'body' => json_encode($varData, true)//,
+                                //'timeout' => 5,
+                                //'connect_timeout' => 2
+                                ]
                                 );
                         //dd($varResponse);
                         //dd($varData);
+
+/*
 //------------< BLOCKING >------------------
-//    dd (
-//        \App\Helpers\ZhtHelper\General\Helper_DateTime::getDateTimeStringWithTimeZoneDifferenceInterval(
-//            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-//            \App\Helpers\ZhtHelper\General\Helper_DateTime::getConvertPHPDateTimeToDateTimeStringWithTimeZone(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), $varAPIExecutionStartDateTime),
-//            \App\Helpers\ZhtHelper\General\Helper_DateTime::getConvertPHPDateTimeToDateTimeStringWithTimeZone(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), (new \DateTime())),
-//            )
-//        );
+    dd (
+        \App\Helpers\ZhtHelper\General\Helper_DateTime::getDifferenceOfDateTimeTZString(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            \App\Helpers\ZhtHelper\General\Helper_DateTime::getConvertPHPDateTimeToDateTimeTZString(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), $varAPIExecutionStartDateTime),
+            \App\Helpers\ZhtHelper\General\Helper_DateTime::getConvertPHPDateTimeToDateTimeTZString(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), (new \DateTime())),
+            )
+        );
 //------------< BLOCKING >------------------
+*/
 
 /*
 

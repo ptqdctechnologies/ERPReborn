@@ -176,7 +176,7 @@ namespace App\Models\Cache
         public function isDataExist($varUserSession, string $varKey)
             {
             $varReturn = FALSE;
-            if (strcmp($varKey, \App\Helpers\ZhtHelper\System\Helper_Environment::getAPIWebToken_System())==0)
+            if (strcmp($varKey, \App\Helpers\ZhtHelper\System\Helper_Environment::getAPIWebToken_System()) == 0)
                 {
                 $varReturn = TRUE;
                 }
