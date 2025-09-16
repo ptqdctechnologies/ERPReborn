@@ -227,7 +227,7 @@ class BusinessTripRequestController extends Controller
                 'reason'            => '-',
                 'total'             => [
                     'brf'           => $dataTripSequence[0]['amountBaseCurrencyValue'] ?? 0,
-                    'payment'       => $dataTripSequence[0]['amountBaseCurrencyValue'] ?? 0,
+                    'payment'       => 118670.07,
                 ],
                 'dataTripBudgetDetails' => $dataTripSequenceDetail,
                 'payment'           => [
