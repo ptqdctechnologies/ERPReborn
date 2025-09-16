@@ -954,17 +954,30 @@ namespace App\Helpers\ZhtHelper\Database
                                             ) AS \"SubSQL\"
                                         "
                                         );
+                                
+                                //---> Inisialisasi : varReturn[process][DBMS][finishDateTimeTZ]
                                 $varTempExplode = explode('+', $varDataTemp['data'][0]['FinishDateTimeTZ']);
-                                $varReturn['process']['DBMS']['finishDateTimeTZ'] = (str_pad($varTempExplode[0], 26, '0', STR_PAD_RIGHT).((($varTempExplode[1] * 1) < 0) ? '-' : '+').$varTempExplode[1]);
+                                $varReturn['process']['DBMS']['finishDateTimeTZ'] = (
+                                    str_pad($varTempExplode[0], 26, '0', STR_PAD_RIGHT).
+                                    ((($varTempExplode[1] * 1) < 0) ? '-' : '+').
+                                    $varTempExplode[1]
+                                    );
 
-                                $varReturn['process']['DBMS']['executionInterval'] = $varDataTemp['data'][0]['ExecutionInterval'];
+                                //---> Inisialisasi : varReturn[process][DBMS][executionInterval]
+                                $varTempExplode = explode('.', $varDataTemp['data'][0]['ExecutionInterval']);                                
+                                $varReturn['process']['DBMS']['executionInterval'] = (
+                                    $varTempExplode[0].
+                                    '.'.
+                                     str_pad($varTempExplode[1], 6, '0', STR_PAD_RIGHT)
+                                    );
                                 
                                 unset($varDataTemp);
                                 }
                             }
                         else
                             {
-                            throw new \Exception('Database connection is not available');
+                            throw
+                                new \Exception('Database connection is not available');
                             }
                         }
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----

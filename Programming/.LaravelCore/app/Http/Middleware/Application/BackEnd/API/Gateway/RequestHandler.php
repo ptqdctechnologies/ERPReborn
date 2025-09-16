@@ -6,6 +6,7 @@ namespace App\Http\Middleware\Application\BackEnd\API\Gateway
         {
         public function handle(\Illuminate\Http\Request $varObjRequest, \Closure $next)
             {
+            //dd($varObjRequest->header());
             return
                 $this->CheckAllStage(
                     $varObjRequest,

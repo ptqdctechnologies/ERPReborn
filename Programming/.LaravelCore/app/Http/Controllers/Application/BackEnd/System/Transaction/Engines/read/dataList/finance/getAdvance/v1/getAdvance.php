@@ -62,6 +62,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
 
         function main($varUserSession, $varData)
             {
+//------------< BLOCKING >------------------
+            $varAPIExecutionStartDateTime = (new \DateTime());
+//------------< BLOCKING >------------------
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
 
             try {
@@ -81,7 +84,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
                         if (!($varDataSend =
                             \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead(
                                 $varUserSession,
-                                (new \App\Models\Database\SchData_OLTP_Finance\General())->getDataListJSON_Advance_LatestVersion(
+                                    (new \App\Models\Database\SchData_OLTP_Finance\General())->getDataListJSON_Advance_LatestVersion(
                                     $varUserSession, 
                                     (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'], 
 
@@ -142,11 +145,24 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
 
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
                     }
+
                 \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
                 }
 
             catch (\Exception $ex) {
                 }
+
+/*
+//------------< BLOCKING >------------------
+    dd (
+        \App\Helpers\ZhtHelper\General\Helper_DateTime::getDifferenceOfDateTimeTZString(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            \App\Helpers\ZhtHelper\General\Helper_DateTime::getConvertPHPDateTimeToDateTimeTZString(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), $varAPIExecutionStartDateTime),
+            \App\Helpers\ZhtHelper\General\Helper_DateTime::getConvertPHPDateTimeToDateTimeTZString(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), (new \DateTime())),
+            )
+        );
+//------------< BLOCKING >------------------
+*/
 
             return
                 \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);

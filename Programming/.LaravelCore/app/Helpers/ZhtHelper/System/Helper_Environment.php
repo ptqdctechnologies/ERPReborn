@@ -716,21 +716,45 @@ namespace App\Helpers\ZhtHelper\System
         public static function getUserSessionID_ByAPIWebToken($varUserSession, string $varAPIWebToken)
             {
             try {
-                $varReturn =
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
-                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                //---> Get Data From Cache
+                if (
+                    \App\Helpers\ZhtHelper\Cache\Helper_Redis::isExpired(
+                        $varUserSession,
+                        'ERPReborn::APIWebToken::'.$varAPIWebToken
+                        )
+                    == false    
+                    ) {
+                    $varReturn = (
+                        \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                             $varUserSession,
-                            'SchSysAsset.Func_GetData_UserSessionID_ByAPIWebToken',
-                            [
-                                [$varAPIWebToken, 'varchar']
-                            ]
+                            \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
+                                $varUserSession,
+                                'ERPReborn::APIWebToken::'.$varAPIWebToken
+                                )
                             )
-                        );
+                        )['userLoginSession_RefID'];
+                    }
+                //---> Get Data From Database
+                else
+                    {
+                    $varReturn = (
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                            $varUserSession, 
+                            \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                                $varUserSession,
+                                'SchSysAsset.Func_GetData_UserSessionID_ByAPIWebToken',
+                                [
+                                    [$varAPIWebToken, 'varchar']
+                                ]
+                                )
+                            )
+                        )['data'][0]['Func_GetData_UserSessionID_ByAPIWebToken'];
+                    }
 
                 return
-                    $varReturn['data'][0]['Func_GetData_UserSessionID_ByAPIWebToken'];
+                    $varReturn;
                 }
+
             catch (\Exception $ex) {
                 return NULL;
                 }

@@ -9,8 +9,8 @@
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 
-namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines\general\setLogin\v1 {
-
+namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines\general\setLogin\v1
+    {
     use Illuminate\Support\Facades\Redis;
 
     /*
@@ -21,7 +21,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
     */
 
     class setLogin extends \App\Http\Controllers\Controller
-    {
+        {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | Class Properties                                                                                                         |
@@ -74,6 +74,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
         public function setLogin($varUserSession, $varData)
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
+
             try {
                 $varSysDataProcess = 
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__,
@@ -223,7 +224,8 @@ $varDataSend = [
                         //var_dump(\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getCurrentYear($varUserSession));
 
                         //$varSysID = $varBufferDB['SignRecordID'];
-                        $varSysID = $varBufferDB['data'][0]['SignRecordID'];
+                        $varSysID =
+                            $varBufferDB['data'][0]['SignRecordID'];
 
                         $varBufferDB =
                             (new \App\Models\Database\SchSysConfig\TblLog_UserLoginSession())->getDataRecord(
@@ -263,6 +265,7 @@ $varDataSend = [
 
                             //---> Set Return Value
                             $varDataSend = [
+                                //'RedisID', $varRedisID,
                                 'APIWebToken' => $varBufferDB[0]['APIWebToken'],
                                 'userIdentity' => $varUserIdentity,
                                 //'LDAPUserID' => $varBufferDB[0]['LDAPUserID'],
@@ -271,9 +274,9 @@ $varDataSend = [
                                 // 'sessionAutoFinishDateTimeTZ' => $varBufferDB[0]['SessionAutoFinishDateTimeTZ'],
                                 // 'redisID' => $varRedisID //,
                                 //'optionList' => $varOptionList
-                            ];
+                                ];
 
-
+//-----[ MULYADI CODE ]-----( START )-----
                             // START REDIS HELPER LOGIN 
                             // Redis::set("nama", json_encode($varDataSend['APIWebToken']));
 
@@ -301,13 +304,14 @@ $varDataSend = [
                                 );
                                 }
 
-                            $varDataBranch = json_decode(
-                                \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
-                                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                                    "Branch" . $user_RefID
-                                    ),
-                                true
-                                );
+                            $varDataBranch =
+                                json_decode(
+                                    \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
+                                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                                        "Branch" . $user_RefID
+                                        ),
+                                    true
+                                    );
 
 
 
@@ -389,7 +393,6 @@ $varDataSend = [
                                         }
                                     }
 
-
                                 $varDataRedis = \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode($varUserSession, (new \App\Models\Cache\General\APIWebToken())->getDataRecord($varUserSession, $varBufferDB[0]['APIWebToken']));
                                 $varDataRedis['branch_RefID'] = $varDataBranch[0]['Sys_ID'];
                                 (new \App\Models\Cache\General\APIWebToken())->setDataUpdate($varUserSession, $varBufferDB[0]['APIWebToken'], \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varDataRedis));
@@ -397,22 +400,47 @@ $varDataSend = [
 
 
                             // END REDIS HELPER LOGIN 
+//-----[ MULYADI CODE ]-----( END )-----
 
-                            $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend, $this->varAPIIdentity);
-                        } else {
-                            $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 401, 'User\'s Environment Variable Can\'t be Declared');
+
+                        $varReturn = 
+                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success(
+                                $varUserSession,
+                                $varDataSend,
+                                $this->varAPIIdentity
+                                );
+                            }
+                        else {
+                            $varReturn = 
+                                \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail(
+                                    $varUserSession,
+                                    401,
+                                    'User\'s Environment Variable Can\'t be Declared'
+                                    );
+                            }
                         }
-                    }
                     //---> Jika Otentikasi gagal
                     else {
-                        $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 401, 'Invalid LDAP Authentication');
-                    }
+                        $varReturn = 
+                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail(
+                                $varUserSession,
+                                401,
+                                'Invalid LDAP Authentication'
+                                );
+                        }
                     //-----[ MAIN CODE ]------------------------------------------------------------------------------( END POINT )-----
+
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                     }
 
                 catch (\Exception $ex) {
-                    $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 401, $ex->getMessage());
+                    $varReturn =
+                        \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail(
+                            $varUserSession,
+                            401,
+                            $ex->getMessage()
+                            );
+
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, ' . $ex->getMessage());
                     }
 
@@ -422,8 +450,9 @@ $varDataSend = [
             catch (\Exception $ex) {
                 }
 
-            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
-        }
+            return
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+            }
 
 
         /*
@@ -443,7 +472,7 @@ $varDataSend = [
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         private function getOptionList(int $varUserSession, int $varUserID)
-        {
+            {
             $varReturn = [];
             $varData = (new \App\Models\Database\SchSysConfig\General())->getDataList_BranchAccess($varUserID);
             //var_dump($varData);
@@ -485,10 +514,10 @@ $varDataSend = [
                             'BranchName' => $varData[$i]['BranchName'],
                             'UserRole' => $varReturnUserRole
                         ];
+                    }
                 }
-            }
 
             return $varReturn;
+            }
         }
     }
-}

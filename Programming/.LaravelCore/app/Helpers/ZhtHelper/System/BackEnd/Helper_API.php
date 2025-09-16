@@ -846,7 +846,7 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
             $varErrorMessage = null;
 
 //------------< BLOCKING >------------------
-if (strcmp($varAPIKey, 'xxxxtransaction.read.dataList.finance.getAdvance')==0)
+if (strcmp($varAPIKey, 'transaction.read.dataList.finance.getAdvance')==0)
     {
     $varAPIExecutionStartDateTime = (new \DateTime());
     }
@@ -989,13 +989,14 @@ $varErrorMessage = 'test '.json_encode($varJSONRequestSchema->validate());
                     }
                 }
 
+/*
 //------------< BLOCKING >------------------
-if (strcmp($varAPIKey, 'xxxxtransaction.read.dataList.finance.getAdvance')==0)
+if (strcmp($varAPIKey, 'transaction.read.dataList.finance.getAdvance')==0)
     {
     //dd($varAPIKey);
     //dd('$varClass : '.$varClass.', $varFunctionName : '.$varFunctionName.', $varUserSession : '.$varUserSession.'');
     dd (
-        \App\Helpers\ZhtHelper\General\Helper_DateTime::getDateTimeStringWithTimeZoneDifferenceInterval(
+        \App\Helpers\ZhtHelper\General\Helper_DateTime::getDifferenceOfDateTimeTZString(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             \App\Helpers\ZhtHelper\General\Helper_DateTime::getConvertPHPDateTimeToDateTimeTZString(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), $varAPIExecutionStartDateTime),
             \App\Helpers\ZhtHelper\General\Helper_DateTime::getConvertPHPDateTimeToDateTimeTZString(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), (new \DateTime())),
@@ -1003,7 +1004,7 @@ if (strcmp($varAPIKey, 'xxxxtransaction.read.dataList.finance.getAdvance')==0)
         );
     }
 //------------< BLOCKING >------------------
-
+*/
 
             //var_dump($varFunctionName);
             //var_dump($varReturn);
@@ -1030,10 +1031,11 @@ if (strcmp($varAPIKey, 'xxxxtransaction.read.dataList.finance.getAdvance')==0)
         */
         public static function setEngineResponseDataReturn_Fail($varUserSession, int $varHTTPErrorCode, string $varHTTPErrorMessage = null)
             {
-            if(!$varHTTPErrorMessage)
+            if (!$varHTTPErrorMessage)
                 {
                 $varHTTPErrorMessage = '';
                 }
+
             $varReturn = [
                 "metadata" => [
                     "successStatus" => false
@@ -1043,7 +1045,9 @@ if (strcmp($varAPIKey, 'xxxxtransaction.read.dataList.finance.getAdvance')==0)
                     "message" => $varHTTPErrorMessage
                     ]
                 ];
-            return $varReturn;
+
+            return
+                $varReturn;
             }
 
 
@@ -1065,7 +1069,7 @@ if (strcmp($varAPIKey, 'xxxxtransaction.read.dataList.finance.getAdvance')==0)
         */
         public static function setEngineResponseDataReturn_Success($varUserSession, array $varData, array $varAPIIdentity = null)
             {
-            if(!$varAPIIdentity)
+            if (!$varAPIIdentity)
                 {
                 $APIKey = null;
                 $APIVersion = null;
@@ -1087,7 +1091,9 @@ if (strcmp($varAPIKey, 'xxxxtransaction.read.dataList.finance.getAdvance')==0)
                     ],
                 "data" => $varData
                 ];
-            return $varReturn;
+
+            return
+                $varReturn;
             }
 
 
@@ -1095,6 +1101,7 @@ if (strcmp($varAPIKey, 'xxxxtransaction.read.dataList.finance.getAdvance')==0)
             {
                 if (!$varAPIWebToken) {
                     try {
+                        //---> Initializing : varAPIWebToken
                         $varDataHeader =
                             \App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getHeader($varUserSession);
 
@@ -1104,7 +1111,8 @@ if (strcmp($varAPIKey, 'xxxxtransaction.read.dataList.finance.getAdvance')==0)
                                 '', 
                                 $varDataHeader['authorization'][0]
                                 );
-
+                        
+                        //---> Initializing : varReturn
                         $varReturn = 
                             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_ByAPIWebToken(
                                 $varUserSession,
@@ -1125,8 +1133,9 @@ if (strcmp($varAPIKey, 'xxxxtransaction.read.dataList.finance.getAdvance')==0)
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getUserLoginSessionEntityByAPIWebToken                                                               |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0001.0000000                                                                                       |
-        | ▪ Last Update     : 2020-10-06                                                                                           |
+        | ▪ Version         : 1.0001.0000001                                                                                       |
+        | ▪ Last Update     : 2025-09-16                                                                                           |
+        | ▪ Creation Date   : 2020-10-06                                                                                           |
         | ▪ Description     : Mendapatkan API User Login Identity berdasarkan APIWebToken                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -1141,6 +1150,7 @@ if (strcmp($varAPIKey, 'xxxxtransaction.read.dataList.finance.getAdvance')==0)
 //------------< BLOCKING >------------------
     $varAPIExecutionStartDateTime = (new \DateTime());
 //------------< BLOCKING >------------------
+
             $varReturn = [
                 'APIWebToken' => '',
                 'userLoginSessionID' => '',
@@ -1155,7 +1165,7 @@ if (strcmp($varAPIKey, 'xxxxtransaction.read.dataList.finance.getAdvance')==0)
                 ];
 
             try {
-                //---> Reinitializing : $varAPIWebToken
+                //---> Initializing : varAPIWebToken
                 if (!$varAPIWebToken) {
                     try {
                         $varDataHeader =
@@ -1175,7 +1185,7 @@ if (strcmp($varAPIKey, 'xxxxtransaction.read.dataList.finance.getAdvance')==0)
                         }
                     }
 
-                //---> Reinitializing : $varReturn
+                //---> Initializing : varReturn
                 $varReturn = [
                     'APIWebToken' => $varAPIWebToken,
                     'userLoginSessionID' => $varReturn['userLoginSessionID'],
@@ -1194,46 +1204,82 @@ if (strcmp($varAPIKey, 'xxxxtransaction.read.dataList.finance.getAdvance')==0)
             catch (Exception $ex) {
                 }
 
-            if ((new \App\Models\Database\SchSysConfig\General())->isExist_APIWebToken($varUserSession, $varAPIWebToken) == true)
-                {
-                //---> Jika $varAPIWebToken merupakan Web Token System (SysEngine)
-                if (strcmp($varAPIWebToken, \App\Helpers\ZhtHelper\System\Helper_Environment::getAPIWebToken_System()) == 0) 
-                    {
-                    $varReturn['userLoginSessionID'] = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
-                    $varReturn['branchID'] = 11000000000001;
-                    }
-                else
-                    {
-                    $varData = 
-                        \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+            //---> Get Value From Cache
+            if (\App\Helpers\ZhtHelper\Cache\Helper_Redis::isExpired(
+                $varUserSession,
+                'ERPReborn::APIWebToken::'.$varAPIWebToken
+                ) == false) {
+                $varData = (
+                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                        $varUserSession,
+                        \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
                             $varUserSession,
-                            \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
-                                $varUserSession,
-                                'ERPReborn::APIWebToken::'.$varAPIWebToken
-                                )
-                            );
-                    //dd($varData['userIdentity']['LDAPUserID']);
+                            'ERPReborn::APIWebToken::'.$varAPIWebToken
+                            )
+                        )
+                    );
 
-                    $varReturn['userLoginSessionID'] = $varData['userLoginSession_RefID'];
-                    $varReturn['userID'] = $varData['user_RefID'];
-                    $varReturn['userRoleID'] = $varData['userRole_RefID'];
-                    $varReturn['branchID'] = $varData['branch_RefID'];
-                    $varReturn['sessionStartDateTimeTZ'] = $varData['sessionStartDateTimeTZ'];
-                    $varReturn['sessionAutoStartDateTimeTZ'] = $varData['sessionAutoStartDateTimeTZ'];
-                    $varReturn['sessionAutoFinishDateTimeTZ'] = $varData['sessionAutoFinishDateTimeTZ'];
-                    //---> Bila $varReturn['userIdentity'] diambil Redis, data tidak terupdate apabila ada perubahan pada database 
+                $varReturn['userLoginSessionID'] = $varData['userLoginSession_RefID'];
+                $varReturn['userID'] = $varData['user_RefID'];
+                $varReturn['userRoleID'] = $varData['userRole_RefID'];
+                $varReturn['branchID'] = $varData['branch_RefID'];
+                $varReturn['sessionStartDateTimeTZ'] = $varData['sessionStartDateTimeTZ'];
+                $varReturn['sessionAutoStartDateTimeTZ'] = $varData['sessionAutoStartDateTimeTZ'];
+                $varReturn['sessionAutoFinishDateTimeTZ'] = $varData['sessionAutoFinishDateTimeTZ'];
 
-
-                    if (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'userIdentity', $varData)) {
-                        $varReturn['userIdentity'] = 
-                            //null;
-                            self::getUserIdentity(
-                                $varUserSession,
-                                $varData['userIdentity']['LDAPUserID']
-                                ); //---> Data Diambil dari DB (Lebih update bila ada perubahan data)
-                            //$varData['userIdentity']; //---> Data Diambil dari Redis (Lebih responsif tapi tidak adaptif)                    
+                if (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'userIdentity', $varData)) {
+                    $varReturn['userIdentity'] = 
+                        //null;
+                        self::getUserIdentity(
+                            $varUserSession,
+                            $varData['userIdentity']['LDAPUserID']
+                            ); //---> Data Diambil dari DB (Lebih update bila ada perubahan data)
+                        //$varData['userIdentity']; //---> Data Diambil dari Redis (Lebih responsif tapi tidak adaptif)                    
+                    }
+                }
+            //---> Get Value From Database
+            else
+                {
+                if ((new \App\Models\Database\SchSysConfig\General())->isExist_APIWebToken($varUserSession, $varAPIWebToken) == true)
+                    {
+                    //---> Jika $varAPIWebToken merupakan Web Token System (SysEngine)
+                    if (strcmp($varAPIWebToken, \App\Helpers\ZhtHelper\System\Helper_Environment::getAPIWebToken_System()) == 0) 
+                        {
+                        $varReturn['userLoginSessionID'] = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
+                        $varReturn['branchID'] = 11000000000001;
                         }
+                    /*
+                    else
+                        {
+                        $varData = 
+                            \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                                $varUserSession,
+                                \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
+                                    $varUserSession,
+                                    'ERPReborn::APIWebToken::'.$varAPIWebToken
+                                    )
+                                );
+                        //dd($varData['userIdentity']['LDAPUserID']);
 
+                        $varReturn['userLoginSessionID'] = $varData['userLoginSession_RefID'];
+                        $varReturn['userID'] = $varData['user_RefID'];
+                        $varReturn['userRoleID'] = $varData['userRole_RefID'];
+                        $varReturn['branchID'] = $varData['branch_RefID'];
+                        $varReturn['sessionStartDateTimeTZ'] = $varData['sessionStartDateTimeTZ'];
+                        $varReturn['sessionAutoStartDateTimeTZ'] = $varData['sessionAutoStartDateTimeTZ'];
+                        $varReturn['sessionAutoFinishDateTimeTZ'] = $varData['sessionAutoFinishDateTimeTZ'];
+                        //---> Bila $varReturn['userIdentity'] diambil Redis, data tidak terupdate apabila ada perubahan pada database 
+
+                        //if(\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'userPrivilegesMenu', $varData))
+                        //    {
+                        //    $varReturn['userPrivilegesMenu'] = \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode($varUserSession, $varData['userPrivilegesMenu']);
+                        //    }
+                        //$varReturn['environment'] = $varData['environment'];
+                        if (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'environment', $varData)) {
+                            $varReturn['environment'] = $varData['environment'];
+                            }
+                        }
+                    */
 /*
 //------------< BLOCKING >------------------
     dd (
@@ -1245,17 +1291,12 @@ if (strcmp($varAPIKey, 'xxxxtransaction.read.dataList.finance.getAdvance')==0)
         );
 //------------< BLOCKING >------------------
 */
-
-                    //if(\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'userPrivilegesMenu', $varData))
-                    //    {
-                    //    $varReturn['userPrivilegesMenu'] = \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode($varUserSession, $varData['userPrivilegesMenu']);
-                    //    }
-                    //$varReturn['environment'] = $varData['environment'];
-                    if (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'environment', $varData)) {
-                        $varReturn['environment'] = $varData['environment'];
-                        }
-                    }                
+                    }
                 }
+
+
+
+
 
             return
                 $varReturn;

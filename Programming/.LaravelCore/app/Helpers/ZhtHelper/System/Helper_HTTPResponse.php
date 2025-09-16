@@ -69,7 +69,7 @@ namespace App\Helpers\ZhtHelper\System
             $varURL, $varData = null, $varMethod = null, int $varPort = null, int $varTTL = null, array $varHeaders = null)
             {
 //------------< BLOCKING >------------------
-//    $varAPIExecutionStartDateTime = (new \DateTime());
+    $varAPIExecutionStartDateTime = (new \DateTime());
 //------------< BLOCKING >------------------
 
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
@@ -174,26 +174,31 @@ namespace App\Helpers\ZhtHelper\System
                                     );
                             dd($x);
 */
-
                             
                             $varHeaders = [
                                 'Authorization' => (((\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'header', $varData) == true) && (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'authorization', $varData['header']) == true)) ? $varData['header']['authorization'] : null),
                                 'User-Agent' => (empty($_SERVER['HTTP_USER_AGENT'])? 'Non Browser' : $_SERVER['HTTP_USER_AGENT']),
                                 'Agent-DateTime' => \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateDate($varUserSession),
                                 'Expires' => \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateExpires($varUserSession, (10*60)),
-                                'Content-Type' => \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateContentType($varUserSession, json_encode($varData)),
+                                'Content-Type' => 
+                                    \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateContentType(
+                                        $varUserSession,
+                                        json_encode($varData)
+                                        ),
 //                                'X-Content-MD5' => \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateContentMD5($varUserSession, json_encode($varData)),
-                                'X-Content-MD5' => \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateContentMD5(
-                                    $varUserSession, 
-                                    json_encode(
-                                        \App\Helpers\ZhtHelper\General\Helper_Array::setRemoveElementByKey(
-                                            \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateDate($varUserSession), 
-                                            'header', 
-                                            $varData
+                                'X-Content-MD5' => 
+                                    \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateContentMD5(
+                                        $varUserSession, 
+                                        json_encode(
+                                            \App\Helpers\ZhtHelper\General\Helper_Array::setRemoveElementByKey(
+                                                \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateDate($varUserSession), 
+                                                'header', 
+                                                $varData
+                                                )
                                             )
-                                        )
-                                    ),
-                                'X-Request-ID' => \App\Helpers\ZhtHelper\General\Helper_RandomNumber::getUniqueID($varUserSession)
+                                        ),
+                                'X-Request-ID' => 
+                                    \App\Helpers\ZhtHelper\General\Helper_RandomNumber::getUniqueID($varUserSession)
 //                                'X-URL' => $varData['header']['URL']
                                 ];
 
@@ -224,6 +229,7 @@ namespace App\Helpers\ZhtHelper\System
                             $varHeaders
                             );
                     //dd($varReturn);
+
 /*
 //------------< BLOCKING >------------------
     dd (
@@ -235,6 +241,7 @@ namespace App\Helpers\ZhtHelper\System
         );
 //------------< BLOCKING >------------------
 */
+
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                     }
@@ -273,7 +280,9 @@ namespace App\Helpers\ZhtHelper\System
             {
             if ($varDataSend['metadata']['successStatus'] == false)
                 {
-                abort($varDataSend['data']['code'], $varDataSend['data']['message']);
+                abort(
+                    $varDataSend['data']['code'], $varDataSend['data']['message']
+                    );
                 }
             else
                 {
@@ -289,6 +298,7 @@ namespace App\Helpers\ZhtHelper\System
                     try {
                         //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
                         //$varReturn = response()->json($varDataSend);
+                        //dd($varDataSend);
                         $varReturn = $varDataSend;
                         
                         //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
@@ -298,7 +308,7 @@ namespace App\Helpers\ZhtHelper\System
                     catch (\Exception $ex) {
                         \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
                         }
-                        
+
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
                     }
 

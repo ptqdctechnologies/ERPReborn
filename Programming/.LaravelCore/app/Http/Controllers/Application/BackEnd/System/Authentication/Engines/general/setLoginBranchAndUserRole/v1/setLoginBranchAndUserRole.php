@@ -59,8 +59,12 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
         function main($varUserSession, $varData)
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
+
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Login Branch And User Role (version 1)');
+                $varSysDataProcess =
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__,
+                        'Get Login Branch And User Role (version 1)'
+                        );
 
                 /*
                 try {
@@ -159,7 +163,12 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                     //dd($varDataOptionList);
 
                     if ($varDataOptionList == null) {
-                        $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 403, 'User Role ID mismatch');
+                        $varReturn =
+                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail(
+                                $varUserSession,
+                                403,
+                                'User Role ID mismatch'
+                                );
                         }
                     else {
                         $varCachedData = [];
