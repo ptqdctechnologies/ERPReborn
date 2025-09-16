@@ -186,9 +186,9 @@ class DocumentTypeMapper
                     'table'             => 'Components.CreditNoteDetailDocumentTable',
                 ],
                 'resubmit'      => [
-                    'url'       => 'AdvanceSettlement.RevisionAdvanceSettlementIndex',
-                    'name'      => '',
-                    'value'     => $dataDetail['deliveryOrder_RefID'] ?? ''
+                    'url'       => 'CreditNote.RevisionCreditNote',
+                    'name'      => 'creditNote_RefID',
+                    'value'     => $dataDetail['Sys_ID_Header'] ?? '-'
                 ],
                 'transactionType'       => 'CREDIT NOTE',
                 'businessDocument_RefID' => $dataDetail['BusinessDocument_RefID'] ?? '',
@@ -216,9 +216,9 @@ class DocumentTypeMapper
                     'table'             => 'Components.DebitNoteDetailDocumentTable',
                 ],
                 'resubmit'      => [
-                    'url'       => '',
-                    'name'      => '',
-                    'value'     => ''
+                    'url'       => 'DebitNote.RevisionDebitNote',
+                    'name'      => 'debit_note_id',
+                    'value'     => $dataDetail['Sys_ID_Header'] ?? '-',
                 ],
                 'transactionType'       => 'DEBIT NOTE',
                 'businessDocument_RefID' => $dataDetail['BusinessDocument_RefID'] ?? '',
@@ -445,11 +445,11 @@ class DocumentTypeMapper
                 ],
                 'resubmit'      => [
                     'url'       => 'BusinessTripRequest.RevisionBusinessTripRequestIndex',
-                    'name'      => '',
-                    'value'     => ''
+                    'name'      => 'brf_number_id',
+                    'value'     => $dataDetail['personBusinessTrip_RefID'] ?? '-',
                 ],
                 'transactionType'        => 'BUSINESS TRIP',
-                'businessDocument_RefID' => '',
+                'businessDocument_RefID' => $dataDetail['businessDocument_RefID'] ?? '', 
             ],
             'Person Business Trip Settlement Form' => [
                 'dataHeader'            => [
@@ -599,9 +599,9 @@ class DocumentTypeMapper
                     'revision'          => 'Components.ReimbursementDetailDocumentRevision'
                 ],
                 'resubmit'      => [
-                    'url'       => '',
-                    'name'      => '',
-                    'value'     => ''
+                    'url'       => 'Reimbursement.RevisionReimbursement',
+                    'name'      => 'modal_reimbursement_id',
+                    'value'     => $dataDetail['Sys_ID_Header'] ?? '' 
                 ],
                 'transactionType'        => 'REIMBURSEMENT',
                 'businessDocument_RefID' => $dataDetail['BusinessDocument_RefID'] ?? '',
