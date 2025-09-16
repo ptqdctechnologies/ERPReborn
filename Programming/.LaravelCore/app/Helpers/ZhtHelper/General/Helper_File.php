@@ -337,7 +337,7 @@ namespace App\Helpers\ZhtHelper\General
                 try {
                     if(is_file($varPath))
                         {
-                        $varFileContent=file_get_contents($varPath);
+                        $varFileContent = file_get_contents($varPath);
                         }
                     $varReturn = $varFileContent;
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');

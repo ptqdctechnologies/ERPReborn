@@ -15,6 +15,13 @@ use App\Http\Controllers\UserController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute(
+    'HelloWorld',
+    'get',
+    '\App\Http\Controllers\Application\FrontEnd\SandBox\Controller_HelloWorld@ShowHelloWorld',
+    'webWithoutCSRF'
+    );
+
 //---[ Example Code - Dynamic Route ]----------------------------------------------------[START]---
 
 $varUserSession = 

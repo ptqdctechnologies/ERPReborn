@@ -66,6 +66,7 @@ return array(
     'App\\Helpers\\helpers' => $baseDir . '/app/Helpers/helpers.php',
     'App\\Http\\Controllers\\Admin\\Workflow\\WorkflowController' => $baseDir . '/app/Http/Controllers/Admin/Workflow/WorkflowController.php',
     'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Controller_Examples' => $baseDir . '/app/Http/Controllers/Application/FrontEnd/SandBox/Controller_Examples.php',
+    'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Controller_HelloWorld' => $baseDir . '/app/Http/Controllers/Application/FrontEnd/SandBox/Controller_HelloWorld.php',
     'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\authentication\\general\\isSessionExist\\v1\\example' => $baseDir . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/authentication/general/isSessionExist/v1/example.php',
     'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\authentication\\general\\setLoginBranchAndUserRole\\v1\\example' => $baseDir . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/authentication/general/setLoginBranchAndUserRole/v1/example.php',
     'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\authentication\\general\\setLogin\\v1\\example' => $baseDir . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/authentication/general/setLogin/v1/example.php',

@@ -24,6 +24,27 @@ namespace App\Helpers\ZhtHelper\System
     */
     class Helper_HTTPResponse
         {
+        public static function setHTTPHeader_JSONResponse()
+            {
+            require_once (
+                \App\Helpers\ZhtHelper\General\Helper_File::getAutoMatchSystemFilePath(
+                    getcwd(),
+                    '/../app/FilesInclude/HTTP_JSONResponse/Header.php'
+                    )
+                );
+            }
+
+        public static function setHTTPFooter_JSONResponse()
+            {
+            require_once (
+                \App\Helpers\ZhtHelper\General\Helper_File::getAutoMatchSystemFilePath(
+                    getcwd(),
+                    '/../app/FilesInclude/HTTP_JSONResponse/Footer.php'
+                    )
+                );            
+            }
+
+
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getResponse                                                                                          |

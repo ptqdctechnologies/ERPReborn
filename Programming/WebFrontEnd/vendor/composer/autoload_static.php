@@ -688,6 +688,7 @@ class ComposerStaticInitba8dd78905df56b3237571f0ff8edc85
         'App\\Helpers\\helpers' => __DIR__ . '/../..' . '/app/Helpers/helpers.php',
         'App\\Http\\Controllers\\Admin\\Workflow\\WorkflowController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/Workflow/WorkflowController.php',
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Controller_Examples' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Controller_Examples.php',
+        'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Controller_HelloWorld' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Controller_HelloWorld.php',
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\authentication\\general\\isSessionExist\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/authentication/general/isSessionExist/v1/example.php',
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\authentication\\general\\setLoginBranchAndUserRole\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/authentication/general/setLoginBranchAndUserRole/v1/example.php',
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\authentication\\general\\setLogin\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/authentication/general/setLogin/v1/example.php',
