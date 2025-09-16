@@ -24,7 +24,7 @@
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div>
                         <div class="input-group date" id="startDate" data-target-input="nearest">
-                            <input type="text" id="receive_date" class="form-control datetimepicker-input" data-target="#startDate" style="height: 21.8px;border-radius:0;background-color:#e9ecef;">
+                            <input type="text" id="receive_date" name="receive_date" class="form-control datetimepicker-input" data-target="#startDate" style="height: 21.8px;border-radius:0;background-color:#e9ecef;">
 
                             <div class="input-group-prepend" data-target="#startDate" data-toggle="datetimepicker" style="margin-right: 0px; width: 27.78px;cursor: pointer;height: 21.8px;">
                                 <span class="input-group-text">
@@ -51,18 +51,19 @@
                 </label>
                 <div class="col-sm-9 col-md-8 col-lg-5 d-flex p-0">
                     <div>
-                        <textarea disabled id="warehouse_name" rows="3" name="warehouse_name" style="border-radius:0;" class="form-control"></textarea>
+                        <input hidden type="text" id="warehouse_id" name="warehouse_id" value="<?= $header['warehouseRefID']; ?>" />
+                        <textarea disabled id="warehouse_name" rows="3" style="border-radius:0;" class="form-control"><?= $header['warehouseName']; ?></textarea>
                     </div>
                     <div style="background-color:#e9ecef;min-height:100%;border:1px solid #ced4da;">
                         <span style="border-radius:0;border:0;" class="input-group-text form-control">
-                            <a href="javascript:;" id="myProjectSecondTrigger" data-toggle="modal" data-target="#myProjectSecond" style="display: block;">
-                                <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="myProjectSecondTrigger">
+                            <a href="javascript:;" id="myGetModalWarehousesTrigger" data-toggle="modal" data-target="#myGetModalWarehouses" style="display: block;">
+                                <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="myGetModalWarehousesTrigger">
                             </a>
                         </span>
                     </div>
                     <div style="flex: 100%;">
                         <div class="input-group">
-                            <textarea disabled id="warehouse_name" rows="3" name="warehouse_name" style="border-radius:0;" class="form-control"></textarea>
+                            <textarea disabled id="warehouse_address" rows="3" style="border-radius:0;" class="form-control"><?= $header['warehouseAddress']; ?></textarea>
                         </div>
                     </div>
                 </div>

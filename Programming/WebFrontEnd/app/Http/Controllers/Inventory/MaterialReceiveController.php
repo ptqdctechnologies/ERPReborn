@@ -11,6 +11,7 @@ use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
 use App\Helpers\ZhtHelper\System\Helper_Environment;
 use App\Helpers\ZhtHelper\Cache\Helper_Redis;
 use App\Services\Inventory\MaterialReceiveService;
+use Carbon\Carbon;
 use App\Services\WorkflowService;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Maatwebsite\Excel\Facades\Excel;
@@ -253,8 +254,6 @@ class MaterialReceiveController extends Controller
             Log::error("Error at store: " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
         }
-
-        
     }
 
     public function MaterialReceiveListData(Request $request)
@@ -420,6 +419,9 @@ class MaterialReceiveController extends Controller
             }
 
             $data = $response['data'];
+            $receiveDate = $data[0]['receiveDateTimeTZ'] ? Carbon::parse($data[0]['receiveDateTimeTZ'])->toDateString() : '';
+
+            // dump($data);
 
             $compact = [
                 'varAPIWebToken'    => $varAPIWebToken,
@@ -432,6 +434,11 @@ class MaterialReceiveController extends Controller
                     'warehouseInboundOrderRefID'    => $data[0]['warehouseInboundOrder_RefID'] ?? '',
                     'materialReceiveNumber'         => $data[0]['businessDocumentNumber'] ?? '',
                     'transporterRefID'              => $data[0]['transporter_RefID'] ?? '',
+                    'receiveDate'                   => $receiveDate,
+                    'warehouseRefID'                => $data[0]['warehouse_RefID'] ?? '',
+                    'warehouseName'                 => $data[0]['warehouseName'] ?? '',
+                    'warehouseAddress'              => $data[0]['warehouseAddress'] ?? '',
+                    'deliveryDate'                  => $data[0]['deliveryDateTimeTZ'] ?? '',
                     'deliveryFromRefID'             => $data[0]['deliveryFrom_RefID'] ?? '',
                     'deliveryFromNonRefID'          => $data[0]['deliveryFrom_NonRefID']['Address'] ?? '',
                     'deliveryToRefID'               => $data[0]['deliveryTo_RefID'] ?? '',

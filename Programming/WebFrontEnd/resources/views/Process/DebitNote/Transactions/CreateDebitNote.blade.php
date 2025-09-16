@@ -3,7 +3,7 @@
 @include('Partials.navbar')
 @include('Partials.sidebar')
 @include('getFunction.getWorkFlow')
-@include('getFunction.getReimbursement')
+@include('getFunction.getReferenceReimbursementAccountPayable')
 @include('getFunction.getDebitNote')
 @include('getFunction.getChartOfAccount')
 @include('Process.DebitNote.Functions.PopUp.PopUpDebitNoteRevision')
@@ -64,7 +64,7 @@
                                                         </div>
                                                         <div>
                                                             <span style="border-radius:0;" class="input-group-text form-control">
-                                                                <a href="javascript:;" id="debit_note_reference_trigger" data-toggle="modal" data-target="#myGetModalReimbursement" style="display: block;">
+                                                                <a href="javascript:;" id="debit_note_reference_trigger" data-toggle="modal" data-target="#myGetModalReimbursementAccountPayable" style="display: block;">
                                                                     <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="box">
                                                                 </a>
                                                             </span>

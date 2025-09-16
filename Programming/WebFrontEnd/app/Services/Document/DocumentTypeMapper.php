@@ -186,11 +186,41 @@ class DocumentTypeMapper
                     'table'             => 'Components.CreditNoteDetailDocumentTable',
                 ],
                 'resubmit'      => [
-                    'url'       => 'AdvanceSettlement.RevisionAdvanceSettlementIndex',
-                    'name'      => '',
-                    'value'     => $dataDetail['deliveryOrder_RefID'] ?? ''
+                    'url'       => 'CreditNote.RevisionCreditNote',
+                    'name'      => 'creditNote_RefID',
+                    'value'     => $dataDetail['Sys_ID_Header'] ?? '-'
                 ],
                 'transactionType'       => 'CREDIT NOTE',
+                'businessDocument_RefID' => $dataDetail['BusinessDocument_RefID'] ?? '',
+            ],
+            'Debit Note Form' => [
+                'dataHeader'    => [
+                    'dnNumber'          => $dataDetail['BusinessDocumentNumber'] ?? '',
+                    'date'              => $dataDetail['Date'] ?? '',
+                    'dateUpdate'        => $dataDetail['DateUpdate'] ?? null,
+                    'budgetCode'        => $dataDetail['CombinedBudgetCode'] ?? '',
+                    'budgetName'        => $dataDetail['CombinedBudgetName'] ?? '',
+                    'subBudgetCode'     => $dataDetail['CombinedBudgetSectionCode'] ?? '',
+                    'subBudgetName'     => $dataDetail['CombinedBudgetSectionName'] ?? '',
+                    'customerCode'      => $dataDetail['PartnerCode'] ?? '',
+                    'customerName'      => $dataDetail['PartnerName'] ?? '',
+                    'fileID'            => $dataDetail['Log_FileUpload_Pointer_RefID'] ?? null,
+                ],
+                'textAreaFields'    => [
+                    'title'         => 'Remark',
+                    'text'          => $dataDetail['Remarks'] ?? '-',
+                ],
+                'components'            => [
+                    'detail'            => 'Components.DebitNoteDetailDocument',
+                    'revision'          => 'Components.DebitNoteDocumentRevision',
+                    'table'             => 'Components.DebitNoteDetailDocumentTable',
+                ],
+                'resubmit'      => [
+                    'url'       => 'DebitNote.RevisionDebitNote',
+                    'name'      => 'debit_note_id',
+                    'value'     => $dataDetail['Sys_ID_Header'] ?? '-',
+                ],
+                'transactionType'       => 'DEBIT NOTE',
                 'businessDocument_RefID' => $dataDetail['BusinessDocument_RefID'] ?? '',
             ],
             'Delivery Order Form'   => [
@@ -415,11 +445,11 @@ class DocumentTypeMapper
                 ],
                 'resubmit'      => [
                     'url'       => 'BusinessTripRequest.RevisionBusinessTripRequestIndex',
-                    'name'      => '',
-                    'value'     => ''
+                    'name'      => 'brf_number_id',
+                    'value'     => $dataDetail['personBusinessTrip_RefID'] ?? '-',
                 ],
                 'transactionType'        => 'BUSINESS TRIP',
-                'businessDocument_RefID' => '',
+                'businessDocument_RefID' => $dataDetail['businessDocument_RefID'] ?? '', 
             ],
             'Person Business Trip Settlement Form' => [
                 'dataHeader'            => [
@@ -569,9 +599,9 @@ class DocumentTypeMapper
                     'revision'          => 'Components.ReimbursementDetailDocumentRevision'
                 ],
                 'resubmit'      => [
-                    'url'       => '',
-                    'name'      => '',
-                    'value'     => ''
+                    'url'       => 'Reimbursement.RevisionReimbursement',
+                    'name'      => 'modal_reimbursement_id',
+                    'value'     => $dataDetail['Sys_ID_Header'] ?? '' 
                 ],
                 'transactionType'        => 'REIMBURSEMENT',
                 'businessDocument_RefID' => $dataDetail['BusinessDocument_RefID'] ?? '',
@@ -665,6 +695,7 @@ class DocumentTypeMapper
             'Advance Form'                  => 'Documents.Transactions.LogTransaction.LogTransactionAdvance',
             'Advance Settlement Form'       => 'Documents.Transactions.LogTransaction.LogTransactionAdvanceSettlement',
             'Credit Note Form'              => 'Documents.Transactions.LogTransaction.LogTransactionCreditNote',
+            'Debit Note Form'               => 'Documents.Transactions.LogTransaction.LogTransactionDebitNote',
             'Delivery Order Form'           => 'Documents.Transactions.LogTransaction.LogTransactionDeliveryOrder',
             'Purchase Order Form'           => 'Documents.Transactions.LogTransaction.LogTransactionPurchaseOrder',
             'Purchase Requisition Form'     => 'Documents.Transactions.LogTransaction.LogTransactionPurchaseRequisition',

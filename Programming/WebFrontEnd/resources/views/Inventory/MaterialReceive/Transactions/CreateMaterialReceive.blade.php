@@ -3,6 +3,7 @@
 @include('Partials.navbar')
 @include('Partials.sidebar')
 @include('getFunction.getWorkFlow')
+@include('getFunction.getWarehouses')
 @include('getFunction.getDeliveryOrder')
 @include('getFunction.getMaterialReceive')
 @include('Inventory.MaterialReceive.Functions.PopUp.PopUpMaterialReceiveRevision')
@@ -26,9 +27,10 @@
                 <form method="post" action="{{ route('SelectWorkFlow') }}" id="FormSubmitMaterialReceive">
                     @csrf
                     <input type="hidden" name="DocumentTypeID" id="DocumentTypeID">
-                    <input type="hidden" name="var_combinedBudget_RefID" id="var_combinedBudget_RefID" value="46000000000033">
+                    <input type="hidden" name="var_combinedBudget_RefID" id="var_combinedBudget_RefID">
                     <input type="hidden" name="materialReceiveDetail" id="materialReceiveDetail">
                     <input type="hidden" name="transporterRefID" id="transporterRefID">
+                    <input type="hidden" name="deliveryDateTimeTZ" id="deliveryDateTimeTZ">
 
                     <!-- ADD NEW MATERIAL RECEIVE -->
                     <div class="tab-content px-3 pt-4 pb-2" id="nav-tabContent">
