@@ -6,12 +6,45 @@
   const dataTripBudgetDetails             = {!! json_encode($dataTripBudgetDetails ?? []) !!};
   const combinedBudgetSectionDetailRefID  = document.getElementById('combinedBudgetSectionDetail_RefID');
 
+  // Utility function
+  function getElement(id) {
+    return document.getElementById(id);
+  }
+
+  const validation = {
+    sectionTwo: {
+      dateCommance: getElement("dateCommance"),
+      dateEnd: getElement("dateEnd"),
+      departingFrom: getElement("departingFrom"),
+      destinationTo: getElement("destinationTo"),
+      reasonTravel: getElement("reasonTravel"),
+    },
+    sectionFour: {
+      totalBusinessTrips: getElement("total_business_trip"),
+      totalPayment: getElement("total_payment"),
+      directToVendor: getElement("direct_to_vendor"),
+      bankListCode: getElement("bank_list_code"),
+      bankAccountsID: getElement("bank_accounts_id"),
+      byCorpCard: getElement("by_corp_card"),
+      bankListSecondCode: getElement("bank_list_second_code"),
+      bankAccountsIDSecond: getElement("bank_accounts_id_second"),
+      toOther: getElement("to_other"),
+      beneficiarySecondID: getElement("beneficiary_second_id"),
+      bankListThirdCode: getElement("bank_list_third_code"),
+      bankAccountsThirdID: getElement("bank_accounts_third_id")
+    }
+  };
+
   document.getElementById('dateCommance').setAttribute('min', today.toISOString().split('T')[0]);
   document.getElementById('dateEnd').setAttribute('min', today.toISOString().split('T')[0]);
 
   document.getElementById("direct_to_vendor").addEventListener("input", calculateTotalPayment);
   document.getElementById("by_corp_card").addEventListener("input", calculateTotalPayment);
   document.getElementById("to_other").addEventListener("input", calculateTotalPayment);
+
+  function isNotEmpty(value) {
+    return value && value.trim() !== '';
+  }
 
   function calculateTotalPayment() {
     const totalBrf        = parseFormattedNumber(document.getElementById("total_business_trip").value);
@@ -26,18 +59,18 @@
       // document.getElementById("by_corp_card").value = '';
       // document.getElementById("to_other").value = '';
       document.getElementById("total_payment").value = 0.00;
+      $("#total_payment").css("border", "1px solid red");
+      $("#totalPaymentMessage").show();
       ErrorNotif("Total Payment is over!");
     } else {
       document.getElementById("total_payment").value = total.toLocaleString('en-US', {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2
       });
-    }
-  }
 
-  function CancelBusinessTrip() {
-    ShowLoading();
-    window.location.href = '/BusinessTripRequest?var=1';
+      $("#total_payment").css("border", "1px solid #ced4da");
+      $("#totalPaymentMessage").hide();
+    }
   }
 
   function parseFormattedNumber(value) {
@@ -114,6 +147,26 @@
     });
   }
 
+  function sumTravelFares() {
+    let total = 0;
+    const container = document.getElementById('travel-fares-container');
+
+    // Ambil semua input di dalam container yang bukan type="hidden"
+    const inputs = container.querySelectorAll('input:not([type="hidden"])');
+
+    inputs.forEach(input => {
+      // Ambil nilai dan ubah menjadi float
+      const value = parseCurrency(input.value);
+
+      // Cek apakah nilai adalah angka yang valid dan tambahkan ke total
+      if (!isNaN(value)) {
+        total += value;
+      }
+    });
+
+    return total;
+  }
+
   function calculateTotalBRF() {
     const ids = ['taxi', 'airplane', 'train', 'bus', 'ship', 'tol/road', 'park', 'excess baggage', 'fuel', 'hotel', 'mess', 'guest house', 'accommodation', 'entertainment', 'other'];
     let total = 0;
@@ -126,11 +179,18 @@
     });
 
     const totalField = document.getElementById('total_business_trip');
-    if (currenctBudgetSelection != 0 && currenctBudgetSelection >= total) {
+
+    if (currenctBudgetSelection != 0 && total != 0 && currenctBudgetSelection >= total) {
       totalField.value = currencyTotal(total);
-    } else if (currenctBudgetSelection != 0 && currenctBudgetSelection < total) {
+      $("#total_business_trip").css("border", "1px solid #ced4da");
+      $("#totalBRFMessage").hide();
+    } else if (currenctBudgetSelection != 0 && total != 0 && currenctBudgetSelection < total) {
       totalField.value = currencyTotal("0.00");
-      ErrorNotif("Total Business Trip must not exceed the selected Balanced Budget!");
+      Swal.fire("Error", `Total Business Trip must not exceed the selected Balanced Budget`, "error");
+    } else if (currenctBudgetSelection != 0 && total == 0 && currenctBudgetSelection > total) {
+      totalField.value = currencyTotal("0.00");
+      $("#total_business_trip").css("border", "1px solid red");
+      $("#totalBRFMessage").show();
     }
   }
 
@@ -352,6 +412,207 @@
       }
     });
   }
+
+  function validationForm() {
+    const testing       = sumTravelFares();
+    const accommodation = document.getElementById("accommodation");
+    const entertainment = document.getElementById("entertainment");
+    const other         = document.getElementById("other");
+    const totalBRF      = document.getElementById("total_business_trip");
+
+    if (
+      isNotEmpty(validation.sectionTwo.dateCommance.value) &&
+      isNotEmpty(validation.sectionTwo.dateEnd.value) &&
+      isNotEmpty(validation.sectionTwo.departingFrom.value) &&
+      isNotEmpty(validation.sectionTwo.destinationTo.value) &&
+      isNotEmpty(validation.sectionTwo.reasonTravel.value) &&
+      isNotEmpty(validation.sectionFour.totalBusinessTrips.value) &&
+      isNotEmpty(validation.sectionFour.totalPayment.value)
+    ) {
+      $("#travelSummary").text(decimalFormat(testing));
+      $("#allowanceSummary").text(accommodation.value || 0.00);
+      $("#entertainmentSummary").text(entertainment.value || 0.00);
+      $("#otherSummary").text(other.value || 0.00);
+      $("#totalSummary").text(totalBRF.value || 0.00);
+
+      $('#businessTripRevisionFormModal').modal('show');
+    } else {
+      if (
+        !isNotEmpty(validation.sectionTwo.dateCommance.value) &&
+        !isNotEmpty(validation.sectionTwo.dateEnd.value) &&
+        !isNotEmpty(validation.sectionTwo.departingFrom.value) &&
+        !isNotEmpty(validation.sectionTwo.destinationTo.value) &&
+        !isNotEmpty(validation.sectionTwo.reasonTravel.value) &&
+        (!isNotEmpty(validation.sectionFour.totalBusinessTrips.value) || validation.sectionFour.totalBusinessTrips.value == "0.00") &&
+        (!isNotEmpty(validation.sectionFour.totalPayment.value) || validation.sectionFour.totalPayment.value == "0.00")
+      ) {
+        $("#dateCommance").css("border", "1px solid red");
+        $("#dateCommenceTravelMessage").show();
+  
+        $("#dateEnd").css("border", "1px solid red");
+        $("#dateEndTravelMessage").show();
+  
+        $("#departingFrom").css("border", "1px solid red");
+        $("#departingFromMessage").show();
+  
+        $("#destinationTo").css("border", "1px solid red");
+        $("#destinationToMessage").show();
+  
+        $("#reasonTravel").css("border", "1px solid red");
+        $("#reasonToTravelMessage").show();
+  
+        $("#total_business_trip").css("border", "1px solid red");
+        $("#totalBRFMessage").show();
+  
+        $("#total_payment").css("border", "1px solid red");
+        $("#totalPaymentMessage").show();
+  
+        return;
+      }
+      if (!isNotEmpty(validation.sectionTwo.dateCommance.value)) {
+        $("#dateCommance").css("border", "1px solid red");
+        $("#dateCommenceTravelMessage").show();
+
+        return;
+      }
+      if (!isNotEmpty(validation.sectionTwo.dateEnd.value)) {
+        $("#dateEnd").css("border", "1px solid red");
+        $("#dateEndTravelMessage").show();
+
+        return;
+      }
+      if (!isNotEmpty(validation.sectionTwo.departingFrom.value)) {
+        $("#departingFrom").css("border", "1px solid red");
+        $("#departingFromMessage").show();
+
+        return;
+      }
+      if (!isNotEmpty(validation.sectionTwo.destinationTo.value)) {
+        $("#destinationTo").css("border", "1px solid red");
+        $("#destinationToMessage").show();
+
+        return;
+      }
+      if (!isNotEmpty(validation.sectionTwo.reasonTravel.value)) {
+        $("#reasonTravel").css("border", "1px solid red");
+        $("#reasonToTravelMessage").show();
+
+        return;
+      }
+      if ((!isNotEmpty(validation.sectionFour.totalBusinessTrips.value) || validation.sectionFour.totalBusinessTrips.value == "0.00")) {
+        $("#total_business_trip").css("border", "1px solid red");
+        $("#totalBRFMessage").show();
+
+        return;
+      }
+      if ((!isNotEmpty(validation.sectionFour.totalPayment.value) || validation.sectionFour.totalPayment.value == "0.00")) {
+        $("#total_payment").css("border", "1px solid red");
+        $("#totalPaymentMessage").show();
+
+        return;
+      } else {
+        if (isNotEmpty(validation.sectionFour.directToVendor.value)) {
+          if (!isNotEmpty(validation.sectionFour.bankListCode.value)) {
+            $("#bank_list_name").css("border", "1px solid red");
+            $("#bank_list_detail").css("border", "1px solid red");
+            $("#bankNameVendorMessage").show();
+
+            return;
+          }
+
+          if (!isNotEmpty(validation.sectionFour.bankAccountsID.value)) {
+            $("#bank_accounts").css("border", "1px solid red");
+            $("#bank_accounts_detail").css("border", "1px solid red");
+            $("#bankAccountVendorMessage").show();
+
+            return;
+          }
+        }
+        if (isNotEmpty(validation.sectionFour.byCorpCard.value)) {
+          if (!isNotEmpty(validation.sectionFour.bankListSecondCode.value)) {
+            $("#bank_list_second_name").css("border", "1px solid red");
+            $("#bank_list_second_detail").css("border", "1px solid red");
+            $("#bankNameCorpCardMessage").show();
+
+            return;
+          }
+
+          if (!isNotEmpty(validation.sectionFour.bankAccountsIDSecond.value)) {
+            $("#bank_accounts_second").css("border", "1px solid red");
+            $("#bank_accounts_detail_second").css("border", "1px solid red");
+            $("#bankAccountCorpCardMessage").show();
+
+            return;
+          }
+        }
+        if (isNotEmpty(validation.sectionFour.toOther.value)) {
+          if (!isNotEmpty(validation.sectionFour.beneficiarySecondID.value)) {
+            $("#beneficiary_second_person_position").css("border", "1px solid red");
+            $("#beneficiary_second_person_name").css("border", "1px solid red");
+            $("#beneficiaryToOtherMessage").show();
+
+            return;
+          }
+
+          if (!isNotEmpty(validation.sectionFour.bankListThirdCode.value)) {
+            $("#bank_list_third_name").css("border", "1px solid red");
+            $("#bank_list_third_detail").css("border", "1px solid red");
+            $("#bankNameToOtherMessage").show();
+
+            return;
+          }
+
+          if (!isNotEmpty(validation.sectionFour.bankAccountsThirdID.value)) {
+            $("#bank_accounts_third").css("border", "1px solid red");
+            $("#bank_accounts_third_detail").css("border", "1px solid red");
+            $("#bankAccountToOtherMessage").show();
+
+            return;
+          }
+        }
+      }
+    }
+  }
+
+  $('#dateCommance').change(function() {
+    $("#dateCommance").css("border", "1px solid #ced4da");
+    $("#dateCommenceTravelMessage").hide();
+  });
+
+  $('#dateEnd').change(function() {
+    $("#dateEnd").css("border", "1px solid #ced4da");
+    $("#dateEndTravelMessage").hide();
+  });
+
+  $('#departingFrom').on('input', function(e) {
+    if (e.target.value) {
+      $("#departingFrom").css("border", "1px solid #ced4da");
+      $("#departingFromMessage").hide();
+    } else {
+      $("#departingFrom").css("border", "1px solid red");
+      $("#departingFromMessage").show();
+    }
+  });
+
+  $('#destinationTo').on('input', function(e) {
+    if (e.target.value) {
+      $("#destinationTo").css("border", "1px solid #ced4da");
+      $("#destinationToMessage").hide();
+    } else {
+      $("#destinationTo").css("border", "1px solid red");
+      $("#destinationToMessage").show();
+    }
+  });
+
+  $('#reasonTravel').on('input', function(e) {
+    if (e.target.value) {
+      $("#reasonTravel").css("border", "1px solid #ced4da");
+      $("#reasonToTravelMessage").hide();
+    } else {
+      $("#reasonTravel").css("border", "1px solid red");
+      $("#reasonToTravelMessage").show();
+    }
+  });
 
   // ========== VENDOR ==========
   // GET BANK ACCOUNT VENDOR KETIKA MODAL BANK NAME VENDOR KE CLOSE
@@ -603,73 +864,6 @@
     getBankAccountData(bankListThirdCode.value,'third_modal');
   });
   // ========== TO OTHER ==========
-
-  $('#budget-details-add').on('click', function() {
-    let total = {
-      travelFares: 0,
-      allowance: 0,
-      entertainment: 0,
-      other: 0,
-      brf: 0
-    };
-
-    document.querySelectorAll("#travel-fares-container input.form-control.number-without-negative").forEach(input => {
-      if (input.type !== "hidden" && input.offsetParent !== null) {
-        let value = parseFloat(input.value.replace(/,/g, "")) || 0;
-        total.travelFares += value;
-        total.brf += value;
-      }
-    });
-
-    document.querySelectorAll("#allowance-container input.form-control.number-without-negative").forEach(input => {
-      if (input.type !== "hidden" && input.offsetParent !== null) {
-        let value = parseFloat(input.value.replace(/,/g, "")) || 0;
-        total.allowance += value;
-        total.brf += value;
-      }
-    });
-
-    document.querySelectorAll("#entertainment-container input.form-control.number-without-negative").forEach(input => {
-      if (input.type !== "hidden" && input.offsetParent !== null) {
-        let value = parseFloat(input.value.replace(/,/g, "")) || 0;
-        total.entertainment += value;
-        total.brf += value;
-      }
-    });
-
-    document.querySelectorAll("#other-container input.form-control.number-without-negative").forEach(input => {
-      if (input.type !== "hidden" && input.offsetParent !== null) {
-        let value = parseFloat(input.value.replace(/,/g, "")) || 0;
-        total.other += value;
-        total.brf += value;
-      }
-    });
-
-    document.getElementById("travelSummary").textContent = total.travelFares.toLocaleString('en-US', {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2
-    });
-
-    document.getElementById("allowanceSummary").textContent = total.allowance.toLocaleString('en-US', {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2
-    });
-
-    document.getElementById("entertainmentSummary").textContent = total.entertainment.toLocaleString('en-US', {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2
-    });
-
-    document.getElementById("otherSummary").textContent = total.other.toLocaleString('en-US', {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2
-    });
-
-    document.getElementById("totalSummary").textContent = total.brf.toLocaleString('en-US', {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2
-    });
-  });
 
   $(document).on('input', '.number-without-negative', function() {
     allowNumbersWithoutNegative(this);

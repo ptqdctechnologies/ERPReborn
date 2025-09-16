@@ -121,21 +121,21 @@
 
                   <!-- BODY -->
                   <div class="card-body">
-                    <div class="row pt-3" style="gap: 15px;">
+                    <div class="row pt-3" style="gap: 15px; margin-bottom: 1rem;">
                       <div class="col-md-12 col-lg-5">
                         <!-- REQUESTER -->
                         <div class="row" style="margin-bottom: 1rem;">
                           <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Requester</label>
                           <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                             <div>
-                              <input id="requester_detail" style="border-radius:0;" class="form-control" size="17" name="requester_detail" readonly value="<?= $requester['position']; ?>" />
-                            </div>
-                            <div>
                               <span style="border-radius:0;" class="input-group-text form-control">
                                 <a href="javascript:;" id="requester_popup" data-toggle="modal" data-target="#myWorker" class="myWorker">
                                   <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="">
                                 </a>
                               </span>
+                            </div>
+                            <div>
+                              <input id="requester_detail" style="border-radius:0;" class="form-control" size="17" name="requester_detail" readonly value="<?= $requester['position']; ?>" />
                             </div>
                             <div style="flex: 100%;">
                               <input name="requester" id="requester" style="border-radius:0;" type="text" class="form-control" readonly value="<?= $requester['name']; ?>" />
@@ -155,7 +155,7 @@
                         </div>
 
                         <!-- DATE COMMANCE TRAVEL -->
-                        <div class="row" style="margin-bottom: 1rem;">
+                        <div class="row">
                           <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Date Commence Travel</label>
                           <div class="col-sm-9 col-md-8 col-lg-3 d-flex p-0">
                             <div class="input-group" style="width: 95px;">
@@ -163,9 +163,17 @@
                             </div>
                           </div>
                         </div>
+                        <div class="row" id="dateCommenceTravelMessage" style="margin-top: .3rem; display: none;">
+                          <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+                          <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                            <div class="text-red">
+                              Date Commence Travel cannot be empty.
+                            </div>
+                          </div>
+                        </div>
 
                         <!-- DATE END TRAVEL -->
-                        <div class="row">
+                        <div class="row" style="margin-top: 1rem;">
                           <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Date End Travel</label>
                           <div class="col-sm-9 col-md-8 col-lg-3 d-flex p-0">
                             <div class="input-group" style="width: 95px;">
@@ -173,11 +181,19 @@
                             </div>
                           </div>
                         </div>
+                        <div class="row" id="dateEndTravelMessage" style="margin-top: .3rem; display: none;">
+                          <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+                          <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                            <div class="text-red">
+                              Date End Travel cannot be empty.
+                            </div>
+                          </div>
+                        </div>
                       </div>
 
                       <div class="col-md-12 col-lg-5">
                         <!-- DEPARTING FROM -->
-                        <div class="row" style="margin-bottom: 1rem;">
+                        <div class="row">
                           <label for="departingFrom" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Departing From</label>
                           <div class="col-sm-9 col-md-8 col-lg-3 p-0">
                             <div class="input-group" style="width: 95px;">
@@ -185,9 +201,17 @@
                             </div>
                           </div>
                         </div>
+                        <div class="row" id="departingFromMessage" style="margin-top: .3rem; display: none;">
+                          <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+                          <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                            <div class="text-red">
+                              Departing From cannot be empty.
+                            </div>
+                          </div>
+                        </div>
 
                         <!-- DESTINATION TO -->
-                        <div class="row" style="margin-bottom: 1rem;">
+                        <div class="row" style="margin-top: 1rem;">
                           <label for="destinationTo" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Destination To</label>
                           <div class="col-sm-9 col-md-8 col-lg-3 d-flex p-0">
                             <div class="input-group" style="width: 95px;">
@@ -195,12 +219,28 @@
                             </div>
                           </div>
                         </div>
+                        <div class="row" id="destinationToMessage" style="margin-top: .3rem; display: none;">
+                          <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+                          <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                            <div class="text-red">
+                              Destination To cannot be empty.
+                            </div>
+                          </div>
+                        </div>
 
                         <!-- REASON TO TRAVEL -->
-                        <div class="row" style="margin-bottom: 1rem;">
+                        <div class="row" style="margin-top: 1rem;">
                           <label for="reasonTravel" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Reason To Travel</label>
                           <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                             <textarea id="reasonTravel" name="reasonTravel" style="border-radius:0;" cols="30" rows="3" class="form-control"><?= $reason; ?></textarea>
+                          </div>
+                        </div>
+                        <div class="row" id="reasonToTravelMessage" style="margin-top: .3rem; display: none;">
+                          <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+                          <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                            <div class="text-red">
+                              Reason to Travel cannot be empty.
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -293,11 +333,13 @@
 
                         <div class="row" style="row-gap: 1rem;" id="travel-fares-container">
                           <div class="loading-container py-3" style="justify-items: center; width: 100%;">
-                            <div class="spinner-border" role="status">
-                              <span class="sr-only">Loading...</span>
-                            </div>
-                            <div class="mt-3" style="font-size: 0.75rem; font-weight: 700;">
-                              Loading...
+                            <div style="display: flex; flex-direction: column; align-items: center;">
+                              <div class="spinner-border" role="status">
+                                <span class="sr-only">Loading...</span>
+                              </div>
+                              <div class="mt-3" style="font-size: 0.75rem; font-weight: 700;">
+                                Loading...
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -311,11 +353,13 @@
                         </div>
                         <div class="row" id="allowance-container">
                           <div class="loading-container py-3" style="justify-items: center; width: 100%;">
-                            <div class="spinner-border" role="status">
-                              <span class="sr-only">Loading...</span>
-                            </div>
-                            <div class="mt-3" style="font-size: 0.75rem; font-weight: 700;">
-                              Loading...
+                            <div style="display: flex; flex-direction: column; align-items: center;">
+                              <div class="spinner-border" role="status">
+                                <span class="sr-only">Loading...</span>
+                              </div>
+                              <div class="mt-3" style="font-size: 0.75rem; font-weight: 700;">
+                                Loading...
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -329,11 +373,13 @@
                         </div>
                         <div class="row" id="entertainment-container">
                           <div class="loading-container py-3" style="justify-items: center; width: 100%;">
-                            <div class="spinner-border" role="status">
-                              <span class="sr-only">Loading...</span>
-                            </div>
-                            <div class="mt-3" style="font-size: 0.75rem; font-weight: 700;">
-                              Loading...
+                            <div style="display: flex; flex-direction: column; align-items: center;">
+                              <div class="spinner-border" role="status">
+                                <span class="sr-only">Loading...</span>
+                              </div>
+                              <div class="mt-3" style="font-size: 0.75rem; font-weight: 700;">
+                                Loading...
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -347,11 +393,13 @@
                         </div>
                         <div class="row" id="other-container">
                           <div class="loading-container py-3" style="justify-items: center; width: 100%;">
-                            <div class="spinner-border" role="status">
-                              <span class="sr-only">Loading...</span>
-                            </div>
-                            <div class="mt-3" style="font-size: 0.75rem; font-weight: 700;">
-                              Loading...
+                            <div style="display: flex; flex-direction: column; align-items: center;">
+                              <div class="spinner-border" role="status">
+                                <span class="sr-only">Loading...</span>
+                              </div>
+                              <div class="mt-3" style="font-size: 0.75rem; font-weight: 700;">
+                                Loading...
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -366,6 +414,13 @@
                                   <div class="p-0">
                                     <div class="input-group">
                                       <input id="total_business_trip" name="total_business_trip" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative" value="<?= number_format($total['brf'], 2, '.', ','); ?>" disabled>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="row" id="totalBRFMessage" style="margin-top: .3rem; display: none;">
+                                  <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                                    <div class="text-red">
+                                      Total BRF cannot be empty.
                                     </div>
                                   </div>
                                 </div>
@@ -385,7 +440,7 @@
                             Payment
                           </div>
                         </div>
-                        
+
                         <!-- DIRECT TO VENDOR -->
                         <div class="row m-0">
                           <div class="col-md-12 col-lg-5 p-0">
@@ -405,18 +460,26 @@
                               <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Bank Name</label>
                               <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                                 <div>
-                                  <input id="bank_list_name" style="border-radius:0;" class="form-control" size="17" readonly value="<?= $payment['directVendor']['bankName']['code']; ?>" />
-                                  <input id="bank_list_code" name="vendor_bank_name" style="border-radius:0;" class="form-control" hidden value="<?= $payment['directVendor']['bankName']['id']; ?>" />
-                                </div>
-                                <div>
                                   <span style="border-radius:0;" class="input-group-text form-control">
                                     <a href="javascript:;" id="bank_list_popup_vendor" data-toggle="modal" data-target="#myGetBankList" class="myGetBankList">
                                       <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="">
                                     </a>
                                   </span>
                                 </div>
+                                <div>
+                                  <input id="bank_list_name" style="border-radius:0;" class="form-control" size="17" readonly value="<?= $payment['directVendor']['bankName']['code']; ?>" />
+                                  <input id="bank_list_code" name="vendor_bank_name" style="border-radius:0;" class="form-control" hidden value="<?= $payment['directVendor']['bankName']['id']; ?>" />
+                                </div>
                                 <div style="flex: 100%;">
                                   <input id="bank_list_detail" style="border-radius:0;" class="form-control" readonly value="<?= $payment['directVendor']['bankName']['name']; ?>" />
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row" id="bankNameVendorMessage" style="margin-top: .3rem; display: none;">
+                              <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+                              <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                                <div class="text-red">
+                                  Bank Name cannot be empty.
                                 </div>
                               </div>
                             </div>
@@ -426,21 +489,29 @@
                               <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Bank Account</label>
                               <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                                 <div>
-                                  <input id="bank_accounts" style="border-radius:0;" class="form-control number-without-characters" size="17" autocomplete="off" readonly value="<?= $payment['directVendor']['bankAccount']['number']; ?>" />
-                                  <input id="bank_accounts_duplicate" style="border-radius:0;" class="form-control" hidden value="<?= $payment['directVendor']['bankAccount']['number']; ?>" />
-                                  <input id="bank_accounts_id" name="vendor_bank_account" style="border-radius:0;" class="form-control" hidden value="<?= $payment['directVendor']['bankAccount']['id']; ?>" />
-                                  <input id="bank_accounts_duplicate_id" style="border-radius:0;" class="form-control" hidden value="<?= $payment['directVendor']['bankAccount']['id']; ?>" />
-                                </div>
-                                <div>
                                   <span style="border-radius:0;" class="input-group-text form-control">
                                     <a href="javascript:;" id="bank_accounts_popup_vendor" data-toggle="modal" data-target="#myBankAccount" class="myBankAccount">
                                       <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="">
                                     </a>
                                   </span>
                                 </div>
+                                <div>
+                                  <input id="bank_accounts" style="border-radius:0;" class="form-control number-without-characters" size="17" autocomplete="off" readonly value="<?= $payment['directVendor']['bankAccount']['number']; ?>" />
+                                  <input id="bank_accounts_duplicate" style="border-radius:0;" class="form-control" hidden value="<?= $payment['directVendor']['bankAccount']['number']; ?>" />
+                                  <input id="bank_accounts_id" name="vendor_bank_account" style="border-radius:0;" class="form-control" hidden value="<?= $payment['directVendor']['bankAccount']['id']; ?>" />
+                                  <input id="bank_accounts_duplicate_id" style="border-radius:0;" class="form-control" hidden value="<?= $payment['directVendor']['bankAccount']['id']; ?>" />
+                                </div>
                                 <div style="flex: 100%;">
                                   <input id="bank_accounts_detail" style="border-radius:0;" class="form-control" autocomplete="off" readonly value="<?= $payment['directVendor']['bankAccount']['name']; ?>" />
                                   <input id="bank_accounts_duplicate_detail" style="border-radius:0;" class="form-control" hidden value="<?= $payment['directVendor']['bankAccount']['name']; ?>" />
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row" id="bankAccountVendorMessage" style="margin-top: .3rem; display: none;">
+                              <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+                              <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                                <div class="text-red">
+                                  Bank Account cannot be empty.
                                 </div>
                               </div>
                             </div>
@@ -468,18 +539,26 @@
                               <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Bank Name</label>
                               <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                                 <div>
-                                  <input id="bank_list_second_name" style="border-radius:0;" class="form-control" size="17" readonly value="<?= $payment['corpCard']['bankName']['code']; ?>" />
-                                  <input id="bank_list_second_code" name="corp_bank_name" style="border-radius:0;" class="form-control" hidden value="<?= $payment['corpCard']['bankName']['id']; ?>" />
-                                </div>
-                                <div>
                                   <span style="border-radius:0;" class="input-group-text form-control">
                                     <a href="javascript:;" id="bank_list_popup_corp_card" data-toggle="modal" data-target="#myGetBankListSecond" class="myGetBankListSecond">
                                       <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="">
                                     </a>
                                   </span>
                                 </div>
+                                <div>
+                                  <input id="bank_list_second_name" style="border-radius:0;" class="form-control" size="17" readonly value="<?= $payment['corpCard']['bankName']['code']; ?>" />
+                                  <input id="bank_list_second_code" name="corp_bank_name" style="border-radius:0;" class="form-control" hidden value="<?= $payment['corpCard']['bankName']['id']; ?>" />
+                                </div>
                                 <div style="flex: 100%;">
                                   <input id="bank_list_second_detail" style="border-radius:0;" class="form-control" readonly value="<?= $payment['corpCard']['bankName']['name']; ?>" />
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row" id="bankNameCorpCardMessage" style="margin-top: .3rem; display: none;">
+                              <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+                              <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                                <div class="text-red">
+                                  Bank Name cannot be empty.
                                 </div>
                               </div>
                             </div>
@@ -489,21 +568,29 @@
                               <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Bank Account</label>
                               <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                                 <div>
-                                  <input id="bank_accounts_second" style="border-radius:0;" class="form-control number-without-characters" size="17" autocomplete="off" readonly value="<?= $payment['corpCard']['bankAccount']['number']; ?>" />
-                                  <input id="bank_accounts_duplicate_second" style="border-radius:0;" class="form-control number-without-characters" size="17" autocomplete="off" hidden value="<?= $payment['corpCard']['bankAccount']['number']; ?>" />
-                                  <input id="bank_accounts_id_second" name="corp_bank_account" style="border-radius:0;" class="form-control" hidden value="<?= $payment['corpCard']['bankAccount']['id']; ?>" />
-                                  <input id="bank_accounts_duplicate_id_second" style="border-radius:0;" class="form-control" hidden value="<?= $payment['corpCard']['bankAccount']['id']; ?>" />
-                                </div>
-                                <div>
                                   <span style="border-radius:0;" class="input-group-text form-control">
                                     <a href="javascript:;" id="bank_accounts_popup_corp_card" data-toggle="modal" data-target="#myBankAccountSecond" class="myBankAccountSecond">
                                       <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="">
                                     </a>
                                   </span>
                                 </div>
+                                <div>
+                                  <input id="bank_accounts_second" style="border-radius:0;" class="form-control number-without-characters" size="17" autocomplete="off" readonly value="<?= $payment['corpCard']['bankAccount']['number']; ?>" />
+                                  <input id="bank_accounts_duplicate_second" style="border-radius:0;" class="form-control number-without-characters" size="17" autocomplete="off" hidden value="<?= $payment['corpCard']['bankAccount']['number']; ?>" />
+                                  <input id="bank_accounts_id_second" name="corp_bank_account" style="border-radius:0;" class="form-control" hidden value="<?= $payment['corpCard']['bankAccount']['id']; ?>" />
+                                  <input id="bank_accounts_duplicate_id_second" style="border-radius:0;" class="form-control" hidden value="<?= $payment['corpCard']['bankAccount']['id']; ?>" />
+                                </div>
                                 <div style="flex: 100%;">
                                   <input id="bank_accounts_detail_second" style="border-radius:0;" class="form-control" autocomplete="off" readonly value="<?= $payment['corpCard']['bankAccount']['name']; ?>" />
                                   <input id="bank_accounts_detail_duplicate_second" style="border-radius:0;" class="form-control" autocomplete="off" hidden value="<?= $payment['corpCard']['bankAccount']['name']; ?>" />
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row" id="bankAccountCorpCardMessage" style="margin-top: .3rem; display: none;">
+                              <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+                              <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                                <div class="text-red">
+                                  Bank Account cannot be empty.
                                 </div>
                               </div>
                             </div>
@@ -531,19 +618,27 @@
                               <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Beneficiary</label>
                               <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                                 <div>
-                                  <input id="beneficiary_second_person_position" style="border-radius:0;" size="17" class="form-control" readonly value="<?= $payment['other']['beneficiary']['position']; ?>" />
-                                  <input id="beneficiary_second_id" name="other_beneficiary" style="border-radius:0;" class="form-control" hidden value="<?= $payment['other']['beneficiary']['id']; ?>" />
-                                  <input id="beneficiary_second_person_ref_id" style="border-radius:0;" class="form-control" hidden value="<?= $payment['other']['beneficiary']['positionID']; ?>" />
-                                </div>
-                                <div>
                                   <span style="border-radius:0;" class="input-group-text form-control">
                                     <a href="javascript:;" id="beneficiary_second_popup" data-toggle="modal" data-target="#myBeneficiarySecond">
                                       <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="">
                                     </a>
                                   </span>
                                 </div>
+                                <div>
+                                  <input id="beneficiary_second_person_position" style="border-radius:0;" size="17" class="form-control" readonly value="<?= $payment['other']['beneficiary']['position']; ?>" />
+                                  <input id="beneficiary_second_id" name="other_beneficiary" style="border-radius:0;" class="form-control" hidden value="<?= $payment['other']['beneficiary']['id']; ?>" />
+                                  <input id="beneficiary_second_person_ref_id" style="border-radius:0;" class="form-control" hidden value="<?= $payment['other']['beneficiary']['positionID']; ?>" />
+                                </div>
                                 <div style="flex: 100%;">
                                   <input id="beneficiary_second_person_name" style="border-radius:0;" type="text" class="form-control" readonly value="<?= $payment['other']['beneficiary']['name']; ?>" />
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row" id="beneficiaryToOtherMessage" style="margin-top: .3rem; display: none;">
+                              <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+                              <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                                <div class="text-red">
+                                  Beneficiary cannot be empty.
                                 </div>
                               </div>
                             </div>
@@ -553,18 +648,26 @@
                               <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Bank Name</label>
                               <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                                 <div>
-                                  <input id="bank_list_third_name" style="border-radius:0;" class="form-control" size="17" readonly value="<?= $payment['other']['bankName']['code']; ?>" />
-                                  <input id="bank_list_third_code" name="other_bank_name" style="border-radius:0;" class="form-control" hidden value="<?= $payment['other']['bankName']['id']; ?>" />
-                                </div>
-                                <div>
                                   <span style="border-radius:0;" class="input-group-text form-control">
                                     <a href="javascript:;" id="bank_list_popup_second" data-toggle="modal" data-target="#myGetBankListThird" class="myGetBankListThird">
                                       <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="">
                                     </a>
                                   </span>
                                 </div>
+                                <div>
+                                  <input id="bank_list_third_name" style="border-radius:0;" class="form-control" size="17" readonly value="<?= $payment['other']['bankName']['code']; ?>" />
+                                  <input id="bank_list_third_code" name="other_bank_name" style="border-radius:0;" class="form-control" hidden value="<?= $payment['other']['bankName']['id']; ?>" />
+                                </div>
                                 <div style="flex: 100%;">
                                   <input id="bank_list_third_detail" style="border-radius:0;" class="form-control" readonly value="<?= $payment['other']['bankName']['name']; ?>" />
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row" id="bankNameToOtherMessage" style="margin-top: .3rem; display: none;">
+                              <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+                              <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                                <div class="text-red">
+                                  Bank Name cannot be empty.
                                 </div>
                               </div>
                             </div>
@@ -574,21 +677,29 @@
                               <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Bank Account</label>
                               <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                                 <div>
-                                  <input id="bank_accounts_third" style="border-radius:0;" size="17" class="form-control number-without-characters" autocomplete="off" readonly value="<?= $payment['other']['bankAccount']['number']; ?>" />
-                                  <input id="bank_accounts_duplicate_third" style="border-radius:0;" size="17" class="form-control number-without-characters" hidden value="<?= $payment['other']['bankAccount']['number']; ?>" />
-                                  <input id="bank_accounts_third_id" name="other_bank_account" style="border-radius:0;" class="form-control" hidden value="<?= $payment['other']['bankAccount']['id']; ?>" />
-                                  <input id="bank_accounts_duplicate_third_id" style="border-radius:0;" class="form-control" hidden value="<?= $payment['other']['bankAccount']['id']; ?>" />
-                                </div>
-                                <div>
                                   <span style="border-radius:0;" class="input-group-text form-control">
                                     <a href="javascript:;" id="bank_accounts_third_popup" data-toggle="modal" data-target="#myBankAccountThird">
                                       <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="">
                                     </a>
                                   </span>
                                 </div>
+                                <div>
+                                  <input id="bank_accounts_third" style="border-radius:0;" size="17" class="form-control number-without-characters" autocomplete="off" readonly value="<?= $payment['other']['bankAccount']['number']; ?>" />
+                                  <input id="bank_accounts_duplicate_third" style="border-radius:0;" size="17" class="form-control number-without-characters" hidden value="<?= $payment['other']['bankAccount']['number']; ?>" />
+                                  <input id="bank_accounts_third_id" name="other_bank_account" style="border-radius:0;" class="form-control" hidden value="<?= $payment['other']['bankAccount']['id']; ?>" />
+                                  <input id="bank_accounts_duplicate_third_id" style="border-radius:0;" class="form-control" hidden value="<?= $payment['other']['bankAccount']['id']; ?>" />
+                                </div>
                                 <div style="flex: 100%;">
                                   <input id="bank_accounts_third_detail" style="border-radius:0;" class="form-control" autocomplete="off" readonly value="<?= $payment['other']['bankAccount']['name']; ?>" />
                                   <input id="bank_accounts_duplicate_third_detail" style="border-radius:0;" class="form-control" hidden value="<?= $payment['other']['bankAccount']['name']; ?>" />
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row" id="bankAccountToOtherMessage" style="margin-top: .3rem; display: none;">
+                              <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+                              <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                                <div class="text-red">
+                                  Bank Account cannot be empty.
                                 </div>
                               </div>
                             </div>
@@ -600,11 +711,19 @@
                         <!-- TOTAL PAYMENT -->
                         <div class="row m-0">
                           <div class="col-md-12 col-lg-5 p-0">
-                            <div class="row mt-0 mx-0" style="margin-bottom: 1rem;">
+                            <div class="row mt-0 mx-0">
                               <label for="total_payment" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Total Payment</label>
                               <div class="col-sm-9 col-md-8 col-lg-3 p-0">
                                 <div class="input-group">
                                   <input id="total_payment" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative" disabled value="<?= number_format($total['payment'], 2, '.', ','); ?>" />
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row" id="totalPaymentMessage" style="margin-top: .3rem; display: none;">
+                              <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+                              <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                                <div class="text-red">
+                                  Total Payment cannot be empty.
                                 </div>
                               </div>
                             </div>
@@ -621,18 +740,18 @@
           <!-- BUTTON -->
           <div class="px-3 pb-3">
             <div style="display: flex; justify-content: flex-end; gap: 8px;">
-              <div style="display: flex;">
-                <button type="button" id="budget-details-add" class="btn btn-default btn-sm float-right" data-toggle="modal" data-target="#businessTripRevisionFormModal" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
-                  <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" title="Submit to Business Trip"> Submit
-                </button>
-              </div>
+              <!-- <button type="button" id="budget-details-add" class="btn btn-default btn-sm float-right" data-toggle="modal" data-target="#businessTripRevisionFormModal" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
+                <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" title="Submit to Business Trip"> Submit
+              </button> -->
+
+              <button type="button" class="btn btn-default btn-sm float-right" onclick="validationForm()" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
+                <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" title="Submit to Business Trip"> Submit
+              </button>
               
-              <div style="display: flex;">
-                <button class="btn btn-default btn-sm button-submit" id="cancelButton" type="button" onclick="CancelBusinessTrip();">
-                  <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" />
-                  <div>Cancel</div>
-                </button>
-              </div>
+              <button class="btn btn-default btn-sm button-submit" id="cancelButton" type="button" onclick="cancelForm('{{ route('BusinessTripRequest.index', ['var' => 1]) }}')">
+                <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" />
+                <div>Cancel</div>
+              </button>
             </div>
           </div>
         </form>
@@ -651,7 +770,7 @@
       <div class="modal-body">
         <div class="row" style="margin-bottom: 1rem;">
           <div class="col">
-            <div style="font-size: 0.9rem; font-weight: bold;">
+            <div style="font-size: 0.9rem;">
               Travel & Fares
             </div>
           </div>
@@ -661,7 +780,7 @@
         </div>
         <div class="row" style="margin-bottom: 1rem;">
           <div class="col">
-            <div style="font-size: 0.9rem; font-weight: bold;">
+            <div style="font-size: 0.9rem;">
               Allowance
             </div>
           </div>
@@ -671,7 +790,7 @@
         </div>
         <div class="row" style="margin-bottom: 1rem;">
           <div class="col">
-            <div style="font-size: 0.9rem; font-weight: bold;">
+            <div style="font-size: 0.9rem;">
               Entertainment
             </div>
           </div>
@@ -681,7 +800,7 @@
         </div>
         <div class="row" style="margin-bottom: 1rem;">
           <div class="col">
-            <div style="font-size: 0.9rem; font-weight: bold;">
+            <div style="font-size: 0.9rem;">
               Other
             </div>
           </div>
@@ -691,13 +810,13 @@
         </div>
         <div class="row" style="margin-bottom: 1rem;">
           <div class="col">
-            <div style="font-size: 0.9rem; font-weight: bold;text-align: right;margin-bottom: 0.3rem;">+</div>
+            <!-- <div style="font-size: 0.9rem;text-align: right;margin-bottom: 0.3rem;">+</div> -->
             <hr style="margin: 0;" />
           </div>
         </div>
         <div class="row">
           <div class="col">
-            <div style="font-size: 0.9rem; font-weight: bold;">
+            <div style="font-size: 0.9rem;">
               Total BRF
             </div>
           </div>
