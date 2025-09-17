@@ -87,8 +87,7 @@ namespace App\Http\Middleware\Application\BackEnd\API\Gateway
                                 );
                         }
 
-/*
-// BIKIN LAMBAT (START)
+
                 //--->---> Check API Web Token Existence
                     if ((new \App\Models\Cache\General\APIWebToken())->isDataExist(
                         $varUserSession, 
@@ -121,7 +120,7 @@ namespace App\Http\Middleware\Application\BackEnd\API\Gateway
                             }
                         }
 // BIKIN LAMBAT (END)
-*/
+
 
                 //--->---> Check Date Time on HTTP Header
                     if (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'agent-datetime', $varHTTPHeader)==false)
@@ -273,7 +272,20 @@ namespace App\Http\Middleware\Application\BackEnd\API\Gateway
     */                                                                    
 // BIKIN LAMBAT (END)
 
+                //--->---> Check Content Integrity
+                    if (strcmp(
+                        $varHTTPHeader['x-content-md5'], 
+                        \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateContentMD5(
+                            $varUserSession, 
+                            \GuzzleHttp\json_encode(\App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getRequest($varUserSession))
+                            )) != 0
+                        )
+                        {
+                        throw new \Exception(implode($varDataSeparatorTag,
+                            [403, 'Content integrity is invalid']));
+                        }
 
+                //---> Finish
                 $varReturn =
                     $varObjNext($varObjRequest);
                 }

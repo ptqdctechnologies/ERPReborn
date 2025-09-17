@@ -915,7 +915,7 @@ namespace App\Helpers\ZhtHelper\Database
                                 }
                             else
                                 {
-                                $varReturn['process']['DBMS']['executionInterval'] = NULL;
+                                $varReturn['process']['DBMS']['executionTime']['interval'] = NULL;
 
                                 //---> Inisialisasi [Process][StartDateTime]
                                 $varDataTemp = 
@@ -924,7 +924,11 @@ namespace App\Helpers\ZhtHelper\Database
                                         "SELECT NOW();"
                                         );
                                 $varTempExplode = explode('+', $varDataTemp['data'][0]['now']);
-                                $varReturn['process']['DBMS']['startDateTimeTZ'] = (str_pad($varTempExplode[0], 26, '0', STR_PAD_RIGHT).((($varTempExplode[1] * 1) < 0) ? '-' : '+').$varTempExplode[1]);
+                                $varReturn['process']['DBMS']['executionTime']['startDateTimeTZ'] = (
+                                    str_pad($varTempExplode[0], 26, '0', STR_PAD_RIGHT).
+                                    ((($varTempExplode[1] * 1) < 0) ? '-' : '+').
+                                    $varTempExplode[1]
+                                    );
                                 unset($varDataTemp);
 
                                 //---> Inisialisasi [Data], [RowCount], [Notice]
@@ -947,7 +951,7 @@ namespace App\Helpers\ZhtHelper\Database
                                         "
                                         SELECT
                                             \"SubSQL\".now AS \"FinishDateTimeTZ\",
-                                            (\"SubSQL\".now - '".$varReturn['process']['DBMS']['startDateTimeTZ']."')::interval AS \"ExecutionInterval\"
+                                            (\"SubSQL\".now - '".$varReturn['process']['DBMS']['executionTime']['startDateTimeTZ']."')::interval AS \"ExecutionInterval\"
                                         FROM
                                             (
                                             SELECT NOW()
@@ -957,7 +961,7 @@ namespace App\Helpers\ZhtHelper\Database
                                 
                                 //---> Inisialisasi : varReturn[process][DBMS][finishDateTimeTZ]
                                 $varTempExplode = explode('+', $varDataTemp['data'][0]['FinishDateTimeTZ']);
-                                $varReturn['process']['DBMS']['finishDateTimeTZ'] = (
+                                $varReturn['process']['DBMS']['executionTime']['finishDateTimeTZ'] = (
                                     str_pad($varTempExplode[0], 26, '0', STR_PAD_RIGHT).
                                     ((($varTempExplode[1] * 1) < 0) ? '-' : '+').
                                     $varTempExplode[1]
@@ -965,7 +969,7 @@ namespace App\Helpers\ZhtHelper\Database
 
                                 //---> Inisialisasi : varReturn[process][DBMS][executionInterval]
                                 $varTempExplode = explode('.', $varDataTemp['data'][0]['ExecutionInterval']);                                
-                                $varReturn['process']['DBMS']['executionInterval'] = (
+                                $varReturn['process']['DBMS']['executionTime']['interval'] = (
                                     $varTempExplode[0].
                                     '.'.
                                      str_pad($varTempExplode[1], 6, '0', STR_PAD_RIGHT)

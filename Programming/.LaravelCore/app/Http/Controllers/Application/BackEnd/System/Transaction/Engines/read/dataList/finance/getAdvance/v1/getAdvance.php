@@ -55,16 +55,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
         |      ▪ (string) varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        function mainnew($varUserSession, $varData)
-            {
-            
-            }
-
         function main($varUserSession, $varData)
             {
-//------------< BLOCKING >------------------
-            $varAPIExecutionStartDateTime = (new \DateTime());
-//------------< BLOCKING >------------------
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
 
             try {
@@ -151,18 +143,6 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
 
             catch (\Exception $ex) {
                 }
-
-/*
-//------------< BLOCKING >------------------
-    dd (
-        \App\Helpers\ZhtHelper\General\Helper_DateTime::getDifferenceOfDateTimeTZString(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            \App\Helpers\ZhtHelper\General\Helper_DateTime::getConvertPHPDateTimeToDateTimeTZString(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), $varAPIExecutionStartDateTime),
-            \App\Helpers\ZhtHelper\General\Helper_DateTime::getConvertPHPDateTimeToDateTimeTZString(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), (new \DateTime())),
-            )
-        );
-//------------< BLOCKING >------------------
-*/
 
             return
                 \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);

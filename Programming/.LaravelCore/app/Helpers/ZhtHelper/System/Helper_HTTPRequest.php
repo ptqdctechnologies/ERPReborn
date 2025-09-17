@@ -190,7 +190,9 @@ public static function getRequest_HeaderAPIWebToken($varUserSession)
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
                     $varResponseData = '';
 
-                    $ObjClient = new \GuzzleHttp\Client();
+                    $ObjClient =
+                        new \GuzzleHttp\Client();
+
                     try {
                         //dd($varMethod);
                         //dd($varURL);
@@ -360,6 +362,8 @@ public static function getRequest_HeaderAPIWebToken($varUserSession)
                         }
 
                     catch (\GuzzleHttp\Exception\BadResponseException $ex) {
+
+
                         $response = $ex->getResponse();
                         //var_dump($response);
                         $responseBodyAsString = $response->getBody()->getContents();

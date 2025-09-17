@@ -568,7 +568,7 @@ namespace App\Helpers\ZhtHelper\General
 
                         $varSecondsDifference = (int) (($varReturn - (((int) $varReturn) % (1000000))) / (1000000));
 
-                        $varMicroSecondsDifference = $varReturn;
+                        $varMicroSecondsDifference = (int) $varReturn;
 
                         $varReturn = (
                             str_pad($varHoursDifference, 2, '0', STR_PAD_LEFT).':'.
@@ -654,7 +654,7 @@ namespace App\Helpers\ZhtHelper\General
 
                         $varSecondsDifference = (int) (($varReturn - (((int) $varReturn) % (1000000))) / (1000000));
 
-                        $varMicroSecondsDifference = $varReturn;
+                        $varMicroSecondsDifference = (int) $varReturn;
 
                         $varReturn = (
                             str_pad($varHoursDifference, 2, '0', STR_PAD_LEFT).':'.

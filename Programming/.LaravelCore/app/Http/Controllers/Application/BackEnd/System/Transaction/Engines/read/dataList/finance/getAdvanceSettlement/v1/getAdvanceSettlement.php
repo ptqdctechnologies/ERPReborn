@@ -63,7 +63,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
             try {
                 $varSysDataProcess =
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__,
-                        'Get Purchase Requisition Data List (version 1)'
+                        'Get Advance Settlement Data List (version 1)'
                         );
 
                 try {

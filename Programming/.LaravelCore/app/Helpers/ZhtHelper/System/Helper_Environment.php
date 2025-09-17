@@ -819,6 +819,7 @@ namespace App\Helpers\ZhtHelper\System
             $varUserSession = self::getUserSessionID_System();
 
             try {
+                /*
                 try {
                     $varReturn =
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -839,6 +840,7 @@ namespace App\Helpers\ZhtHelper\System
                     $varReturn =
                         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoiU3lzRW5naW5lIiwiaWF0IjoxNTk4NDM0MDcxfQ.fkz2xMA1tUNmA5VaWC75a-A9WdYAmqToLbze3Sxojf4';
                     }
+                */
 
                 $varReturn =
                     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoiU3lzRW5naW5lIiwiaWF0IjoxNTk4NDM0MDcxfQ.fkz2xMA1tUNmA5VaWC75a-A9WdYAmqToLbze3Sxojf4';

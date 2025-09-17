@@ -93,7 +93,8 @@ namespace App\Helpers\ZhtHelper\System
 
                     //---> Cek apakah port tujuan terbuka
                     if (\App\Helpers\ZhtHelper\General\Helper_Network::isPortOpen($varUserSession, $varURL, $varPort) == false) {
-                        throw new \Exception('Port is closed');
+                        throw
+                            new \Exception('Port is closed');
                         }
 
                     //---> Pengecekan Method
@@ -107,7 +108,8 @@ namespace App\Helpers\ZhtHelper\System
                         }
 
                     if (!is_array($varData)) {
-                        throw new Exception('Data must be an array');
+                        throw
+                            new Exception('Data must be an array');
                         }
 
                     //---> Pengecekan TTL
