@@ -27,11 +27,10 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         */
         public function throughAPIGateway($varAPIWebToken)
             {
-//$varAPIExecutionStartDateTime = (new \DateTime());
-
             //-----[ PARAMETER SET ]-----
             if (!$varAPIWebToken) {
-                $varAPIWebToken = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
+                $varAPIWebToken =
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
                 }
 
             //-----[ CORE ]-----
@@ -63,16 +62,6 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                         ]
                     //-----[ DATA ]---------(  END  )-----
                     );
-
-/*
-dd (
-    \App\Helpers\ZhtHelper\General\Helper_DateTime::getDateTimeStringWithTimeZoneDifferenceInterval(
-        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-        \App\Helpers\ZhtHelper\General\Helper_DateTime::getConvertPHPDateTimeToDateTimeStringWithTimeZone(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), $varAPIExecutionStartDateTime),
-        \App\Helpers\ZhtHelper\General\Helper_DateTime::getConvertPHPDateTimeToDateTimeStringWithTimeZone(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), (new \DateTime())),
-        )
-    );
-*/
 
             //-----[ DATA RETURN ]-----
             return

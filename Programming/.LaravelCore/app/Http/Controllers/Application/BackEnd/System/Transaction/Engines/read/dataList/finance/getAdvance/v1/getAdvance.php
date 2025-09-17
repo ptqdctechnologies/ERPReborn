@@ -57,20 +57,6 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
         */
         function main($varUserSession, $varData)
             {
-/*
-            $y1 = \App\Helpers\ZhtHelper\General\Helper_DateTime::getDateTimeStringWithTimeZoneDifferenceInterval(
-                    $varUserSession, 
-                    '2025-09-12 09:50:44.321552+06', 
-                    '2025-09-12 09:55:44.321551+07'
-                    );
-
-            $x = \App\Helpers\ZhtHelper\General\Helper_DateTime::getCurrentDateTimeStringWithTimeZone($varUserSession);
-//::getCurrentDateTimeString($varUserSession);
-            dd($y1);
-*/
-            
-            $varAPIExecutionStartDateTime = (new \DateTime());
-
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
 
             try {
@@ -90,7 +76,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
                         if (!($varDataSend =
                             \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead(
                                 $varUserSession,
-                                (new \App\Models\Database\SchData_OLTP_Finance\General())->getDataListJSON_Advance_LatestVersion(
+                                    (new \App\Models\Database\SchData_OLTP_Finance\General())->getDataListJSON_Advance_LatestVersion(
                                     $varUserSession, 
                                     (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'], 
 
@@ -105,12 +91,6 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
                             {
                             throw new \Exception();
                             }
-                        
-                        \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineDataSend_UpdateAPIExecutionTime(
-                            $varUserSession,
-                            $varAPIExecutionStartDateTime,
-                            $varDataSend
-                            );
 
                         /*
                         //---> Data Processing
@@ -157,6 +137,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
 
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
                     }
+
                 \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
                 }
 

@@ -1046,9 +1046,14 @@ namespace App\Models\Database\SchSysConfig
                         )
                     );
 
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBooleanConvertion($varUserSession, $varData['data'][0]['FuncSys_General_GetExistantionOnSystem_APIWebToken']);
+            $varReturn =
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBooleanConvertion(
+                    $varUserSession,
+                    $varData['data'][0]['FuncSys_General_GetExistantionOnSystem_APIWebToken']
+                    );
 
-            return $varReturn;
+            return
+                $varReturn;
             }
 
 

@@ -175,36 +175,56 @@ public static function getRequest_HeaderAPIWebToken($varUserSession)
             $varUserSession, 
             $varURL, $varMethod, $varData = null, $varPort = null, $varHeaders = null)
             {
+//------------< BLOCKING >------------------
+    $varAPIExecutionStartDateTime = (new \DateTime());
+//------------< BLOCKING >------------------
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
 
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Send HTTP Request');
+                $varSysDataProcess =
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__,
+                        'Send HTTP Request'
+                        );
+
                 try {
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
                     $varResponseData = '';
 
-                    $ObjClient = new \GuzzleHttp\Client();
+                    $ObjClient =
+                        new \GuzzleHttp\Client();
+
                     try {
                         //dd($varMethod);
                         //dd($varURL);
                         //dd($varHeaders);
                         //dd(json_encode($varData, true));
-                        
                         $varResponse =
                             $ObjClient->request(
                                 $varMethod,
                                 $varURL,
                                 [
-                                    'verify' => false,
-                                    'headers' => $varHeaders, 
-                                    'body' => json_encode($varData, true)//,
-                                    //'timeout' => 5,
-                                    //'connect_timeout' => 2
-                                    ]
+                                'verify' => false,
+                                'headers' => $varHeaders, 
+                                'body' => json_encode($varData, true)//,
+                                //'timeout' => 5,
+                                //'connect_timeout' => 2
+                                ]
                                 );
-
                         //dd($varResponse);
                         //dd($varData);
+
+/*
+//------------< BLOCKING >------------------
+    dd (
+        \App\Helpers\ZhtHelper\General\Helper_DateTime::getDifferenceOfDateTimeTZString(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            \App\Helpers\ZhtHelper\General\Helper_DateTime::getConvertPHPDateTimeToDateTimeTZString(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), $varAPIExecutionStartDateTime),
+            \App\Helpers\ZhtHelper\General\Helper_DateTime::getConvertPHPDateTimeToDateTimeTZString(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), (new \DateTime())),
+            )
+        );
+//------------< BLOCKING >------------------
+*/
+
 /*
 
 
@@ -340,7 +360,10 @@ public static function getRequest_HeaderAPIWebToken($varUserSession)
                             //dd($varResponseData);
                             }
                         }
+
                     catch (\GuzzleHttp\Exception\BadResponseException $ex) {
+
+
                         $response = $ex->getResponse();
                         //var_dump($response);
                         $responseBodyAsString = $response->getBody()->getContents();
@@ -364,18 +387,24 @@ public static function getRequest_HeaderAPIWebToken($varUserSession)
                         }
                     //\App\Helpers\ZhtHelper\General\Helper_HTTPAuthentication::getJSONWebToken(000000, 'admin', 'secretkey');                  
                     
-                    $varReturn = $varResponseContents;
+                    $varReturn =
+                        $varResponseContents;
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
-                    } 
+                    }
+
                 catch (\Exception $ex) {
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
                     }
+
                 \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
-                } 
+                }
+
             catch (\Exception $ex) {
                 }
-            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+
+            return
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
             }
 
 

@@ -370,14 +370,22 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
             string $varAPIKey, $varAPIVersion = null, array $varData = null,
             bool $varSignDisplayErrorPage = null, bool $varSignUseHTTPSProxy = null)
             {
+//------------< BLOCKING >------------------
+            $varProcessExecutionStartDateTime = (new \DateTime());
+//------------< BLOCKING >------------------
+
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Call Gateway API');
+                $varSysDataProcess =
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 
+                        'Call Gateway API'
+                        );
+
                 try {
                     //dd($varData['SQLStatement']['filter']);
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
-                        //---> Reinitializing : $varURL
+                        //---> Reinitializing : varURL
                         if (!$varAPIVersion) {
                             $varAPIVersion = 'latest';
                             }
@@ -385,22 +393,22 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                             $varAPIVersion = strtolower($varAPIVersion);
                             }
 
-                        //---> Reinitializing : $varSignDisplayErrorPage
+                        //---> Reinitializing : varSignDisplayErrorPage
                         if ($varSignDisplayErrorPage === NULL) {
                             $varSignDisplayErrorPage = TRUE;
                             }
 
-                        //---> Reinitializing : $varSignUseHTTPSProxy
+                        //---> Reinitializing : varSignUseHTTPSProxy
                         if ($varSignUseHTTPSProxy === NULL) {
                             $varSignUseHTTPSProxy = FALSE;
                             }
 
-                        //---> Reinitializing : $varData
+                        //---> Reinitializing : varData
                         if (!$varData) {
                             $varData = [];
                             }
 
-                        //---> Reinitializing : $varURL
+                        //---> Reinitializing : varURL
                         $varURL = 
                             str_replace(
                                 'http:',
@@ -408,51 +416,140 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                                 \App\Helpers\ZhtHelper\System\Helper_Environment::getFrontEndConfigEnvironment($varUserSession, 'URL_BACKEND_API_GATEWAY')
                                 );
 
-                    $varURL = 
-                        str_replace(
-                            'http:',
-                            (\App\Helpers\ZhtHelper\General\Helper_Network::isHTTPS($varUserSession) == TRUE ? 'https:' : 'http:'),
-                            \App\Helpers\ZhtHelper\System\Helper_Environment::getFrontEndConfigEnvironment(
+                        $varURL = 
+                            str_replace(
+                                'http:',
+                                (\App\Helpers\ZhtHelper\General\Helper_Network::isHTTPS($varUserSession) == TRUE ? 'https:' : 'http:'),
+                                \App\Helpers\ZhtHelper\System\Helper_Environment::getFrontEndConfigEnvironment(
+                                    $varUserSession,
+                                    (
+                                    $varSignUseHTTPSProxy === FALSE ? 
+                                        'URL_BACKEND_API_GATEWAY' :
+                                        'URL_FRONTEND_JQUERY_API_GATEWAY_HTTPSPROXY'
+                                    )
+                                    )
+                                );
+                        //dd($varURL);
+
+                        //---> Initializing : varDataArray
+                        $varDataArray = [
+                            'header' => [
+                                'authorization' => 'Bearer'.' '.$varAPIWebToken,
+                                'URL' => $varURL
+                                ],
+                            'metadata' => [
+                                'API' => [
+                                    'key' => $varAPIKey,
+                                    'version' => $varAPIVersion
+                                    ]
+                                ],
+                            'data' => $varData
+                            ];
+                        //dd($varDataArray);
+                        //dd(json_encode($varDataArray));
+
+                        //---> Initializing : varResponseData
+                        $varResponseData =
+                            \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::getResponse(
                                 $varUserSession,
-                                (
-                                $varSignUseHTTPSProxy === FALSE ? 
-                                    'URL_BACKEND_API_GATEWAY' :
-                                    'URL_FRONTEND_JQUERY_API_GATEWAY_HTTPSPROXY'
-                                )
-                                )
-                            );
+                                $varURL,
+                                $varDataArray
+                                );
 
-                    //---> Initializing : $varDataArray
-                    $varDataArray = [
-                        'header' => [
-                            'authorization' => 'Bearer'.' '.$varAPIWebToken,
-                            'URL' => $varURL
-                            ],
-                        'metadata' => [
-                            'API' => [
-                                'key' => $varAPIKey,
-                                'version' => $varAPIVersion
-                                ]
-                            ],
-                        'data' => $varData
-                        ];
-                    //dd($varDataArray);
-                    //dd(json_encode($varDataArray));
+                    //-----[ UPDATE PROCESSING TIME ]-----( START )-----
+                    try {
+                        $varProcessAPIPreliminarilyStartDateTimeTZString =
+                            \App\Helpers\ZhtHelper\General\Helper_DateTime::getConvertPHPDateTimeToDateTimeTZString(
+                                $varUserSession,
+                                $varProcessExecutionStartDateTime
+                                );
 
-                    $varResponseData =
-                        \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::getResponse(
-                            $varUserSession,
-                            $varURL,
-                            $varDataArray
-                            );
+                        $varProcessAPIClosureStartDateTimeTZString =
+                            \App\Helpers\ZhtHelper\General\Helper_DateTime::getConvertPHPDateTimeToDateTimeTZString(
+                                $varUserSession,
+                                (new \DateTime())
+                                );
 
+                        $varResponseData['data']['process']['others']['executionTime'] = [
+                            'interval' =>
+                                \App\Helpers\ZhtHelper\General\Helper_DateTime::getDifferenceOfIntervalString(
+                                    $varUserSession,
+                                    \App\Helpers\ZhtHelper\General\Helper_DateTime::getDifferenceOfDateTimeTZString(
+                                        $varUserSession,
+                                        $varProcessAPIPreliminarilyStartDateTimeTZString,
+                                        $varProcessAPIClosureStartDateTimeTZString
+                                        ),
+                                    $varResponseData['data']['process']['overAll']['executionTime']['interval']
+                                    ),
+                            'preliminarilyStartDateTimeTZ' => $varProcessAPIPreliminarilyStartDateTimeTZString,
+                            'preliminarilyFinishDateTimeTZ' => 
+                                (                            
+                                    (
+                                    \App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
+                                        $varUserSession,
+                                        'startDateTimeTZ',
+                                        $varResponseData['data']['process']['API']['executionTime']
+                                        ) == TRUE
+                                    ) ?
+                                    $varResponseData['data']['process']['API']['executionTime']['startDateTimeTZ']
+                                    :
+                                    $varResponseData['data']['process']['API']['executionTime']['preliminarilyStartDateTimeTZ']
+                                ),
+                            'closureStartDateTimeTZ' => 
+                                (                            
+                                    (
+                                    \App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
+                                        $varUserSession,
+                                        'finishDateTimeTZ',
+                                        $varResponseData['data']['process']['API']['executionTime']
+                                        ) == TRUE
+                                    ) ?
+                                    $varResponseData['data']['process']['API']['executionTime']['finishDateTimeTZ']
+                                    :
+                                    $varResponseData['data']['process']['API']['executionTime']['closureFinishDateTimeTZ']
+                                ),
+                            'closureFinishDateTimeTZ' => $varProcessAPIClosureStartDateTimeTZString
+                            ];
+
+                        $varResponseData['data']['process']['overAll']['executionTime'] = [
+                            'interval' =>
+                                \App\Helpers\ZhtHelper\General\Helper_DateTime::getAdditionOfIntervalString(
+                                    $varUserSession,
+                                    $varResponseData['data']['process']['overAll']['executionTime']['interval'],
+                                    $varResponseData['data']['process']['others']['executionTime']['interval']
+                                    ),
+                            'startDateTimeTZ' => $varResponseData['data']['process']['others']['executionTime']['preliminarilyStartDateTimeTZ'],
+                            'finishDateTimeTZ' => $varResponseData['data']['process']['others']['executionTime']['closureFinishDateTimeTZ']
+                            ];
+                        }
+                    catch (\Exception $ex) {
+                        }
+
+                    //-----[ UPDATE PROCESSING TIME ]-----(  END  )-----
+
+
+//            dd ($varResponseData['data']['process']);
+
+/*
+//------------< BLOCKING >------------------
+    dd (
+        \App\Helpers\ZhtHelper\General\Helper_DateTime::getDifferenceOfDateTimeTZString(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            \App\Helpers\ZhtHelper\General\Helper_DateTime::getConvertPHPDateTimeToDateTimeTZString(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), $varProcessExecutionStartDateTime),
+            \App\Helpers\ZhtHelper\General\Helper_DateTime::getConvertPHPDateTimeToDateTimeTZString(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), (new \DateTime())),
+            )
+        );
+//------------< BLOCKING >------------------
+*/
                     if ($varResponseData['metadata']['HTTPStatusCode'] == 200) {
-                        $varReturn = $varResponseData;
+                        $varReturn = 
+                            $varResponseData;
                         }
                     else {
                         $varResponseData['metadata']['successStatus'] = FALSE;
 
-                        $varRequesterSegment = (request()->segments())[0];
+                        $varRequesterSegment = 
+                            (request()->segments())[0];
 
                         //---> Jika Requester berasal dari Gateway JQuery
                         if (strcmp($varRequesterSegment, "APIGatewayJQuery_setRequest") == 0) {
@@ -460,8 +557,7 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                             }
                         //---> Jika Requester berasal dari Gateway PHP
                         else {
-                            if ($varSignDisplayErrorPage === TRUE)
-                                {
+                            if ($varSignDisplayErrorPage === TRUE) {
                                 echo $varResponseData['data']['message'];
                                 }
 
@@ -474,8 +570,8 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                                         ))[1]
                                     )[0];
 
-                            $varReturn = $varResponseData;
-                            
+                            $varReturn =
+                                $varResponseData;
                             }                        
                         //dd($varReturn);
                         //die();
@@ -528,83 +624,83 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Call Gateway API');
                 try {
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
-                    //---> Reinitializing : $varAPIVersion
-                    if (!$varAPIVersion) {
-                        $varAPIVersion = 'latest';
-                        }
-                    else {
-                        $varAPIVersion = strtolower($varAPIVersion);
-                        }
+                        //---> Reinitializing : $varAPIVersion
+                        if (!$varAPIVersion) {
+                            $varAPIVersion = 'latest';
+                            }
+                        else {
+                            $varAPIVersion = strtolower($varAPIVersion);
+                            }
 
-                    //---> Reinitializing : $varData
-                    if (!$varData) {
-                        $varData = '{}';
-                        }
-                    if (strcmp($varData, '{}') == 0) {
-                        $varData = '[]';
-                        }                    
-                    $varData = htmlspecialchars_decode($varData);
+                        //---> Reinitializing : $varData
+                        if (!$varData) {
+                            $varData = '{}';
+                            }
+                        if (strcmp($varData, '{}') == 0) {
+                            $varData = '[]';
+                            }                    
+                        $varData = htmlspecialchars_decode($varData);
 
-                    //---> Reinitializing : $varTimeOut
-                    if (!$varTimeOut) {
-                        $varTimeOut = 5000;
-                        }
+                        //---> Reinitializing : $varTimeOut
+                        if (!$varTimeOut) {
+                            $varTimeOut = 5000;
+                            }
 
 
 //                    dd($varData);
 //                    dd(\App\Helpers\ZhtHelper\System\Helper_Environment::getFrontEndConfigEnvironment(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 'URL_BACKEND_API_GATEWAY'));
 
-                    //---> Reinitializing : $varURL
-                    $varURL = 
-                        str_replace(
-                            'http:',
-                            (\App\Helpers\ZhtHelper\General\Helper_Network::isHTTPS($varUserSession) == TRUE ? 'https:' : 'http:'),
-                            \App\Helpers\ZhtHelper\System\Helper_Environment::getFrontEndConfigEnvironment(
-                                $varUserSession,
-                                (
-                                \App\Helpers\ZhtHelper\General\Helper_Network::isHTTPS($varUserSession) === FALSE ? 
-                                    'URL_BACKEND_API_GATEWAY' :
-                                    'URL_FRONTEND_JQUERY_API_GATEWAY_HTTPSPROXY'
-                                )
-                                )
-                            );
-                    //dd($varURL);
+                        //---> Reinitializing : $varURL
+                        $varURL = 
+                            str_replace(
+                                'http:',
+                                (\App\Helpers\ZhtHelper\General\Helper_Network::isHTTPS($varUserSession) == TRUE ? 'https:' : 'http:'),
+                                \App\Helpers\ZhtHelper\System\Helper_Environment::getFrontEndConfigEnvironment(
+                                    $varUserSession,
+                                    (
+                                    \App\Helpers\ZhtHelper\General\Helper_Network::isHTTPS($varUserSession) === FALSE ? 
+                                        'URL_BACKEND_API_GATEWAY' :
+                                        'URL_FRONTEND_JQUERY_API_GATEWAY_HTTPSPROXY'
+                                    )
+                                    )
+                                );
+                        //dd($varURL);
                         
-                    $varReturn = 
-                        'function() '.
-                            '{ '.
-                            'varReturn = null; '.
-                            'varReturnValue = null; '.
-                            'try '.
-                                '{ '.                            
-                                'varJSONData = JSON.parse(JSON.stringify('.$varData.')); '.
-                                //'alert(JSON.stringify('.$varData.')); '.
+                        $varReturn = 
+                            'function() '.
+                                '{ '.
+                                'varReturn = null; '.
+                                'varReturnValue = null; '.
+                                'try '.
+                                    '{ '.                            
+                                    'varJSONData = JSON.parse(JSON.stringify('.$varData.')); '.
+                                    //'alert(JSON.stringify('.$varData.')); '.
 
-                                'varReturn = '.
-                                    'new zht_JSAPIRequest_Gateway('.
-                                        '"'.$varAPIWebToken.'", '.
-                                        //'"'.\App\Helpers\ZhtHelper\System\Helper_Environment::getFrontEndConfigEnvironment(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 'URL_BACKEND_API_GATEWAY').'", '.
-                                        '"'.$varURL.'", '.
-                                        '"'.$varAPIKey.'", '.
-                                        '"'.$varAPIVersion.'", '.
-                                        'JSON.parse(JSON.stringify(varJSONData)), '.
-                                        ''.$varTimeOut.''.
-                                        //'true'.
-                                        //''.(($varSignDisplayErrorPage == TRUE) ? 'true' : 'false').''.
-                                        '); '.
-                                //'alert(JSON.stringify(varJSONData)); '.
-                                'varReturnValue = varReturn.value; '.
-                                //'alert(varReturnValue); '.
-                                //'alert("done"); '.
-                                '} '.
+                                    'varReturn = '.
+                                        'new zht_JSAPIRequest_Gateway('.
+                                            '"'.$varAPIWebToken.'", '.
+                                            //'"'.\App\Helpers\ZhtHelper\System\Helper_Environment::getFrontEndConfigEnvironment(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 'URL_BACKEND_API_GATEWAY').'", '.
+                                            '"'.$varURL.'", '.
+                                            '"'.$varAPIKey.'", '.
+                                            '"'.$varAPIVersion.'", '.
+                                            'JSON.parse(JSON.stringify(varJSONData)), '.
+                                            ''.$varTimeOut.''.
+                                            //'true'.
+                                            //''.(($varSignDisplayErrorPage == TRUE) ? 'true' : 'false').''.
+                                            '); '.
+                                    //'alert(JSON.stringify(varJSONData)); '.
+                                    'varReturnValue = varReturn.value; '.
+                                    //'alert(varReturnValue); '.
+                                    //'alert("done"); '.
+                                    '} '.
 
-                            'catch(varError) '.
-                                '{'.
-                                'alert("ERP Reborn Error Notification\n\nInvalid Data Request\n(" + varError + ")"); '.
-                                '} '.
+                                'catch(varError) '.
+                                    '{'.
+                                    'alert("ERP Reborn Error Notification\n\nInvalid Data Request\n(" + varError + ")"); '.
+                                    '} '.
 
-                            'return varReturnValue; '.
-                            '}()';
+                                'return varReturnValue; '.
+                                '}()';
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                     }

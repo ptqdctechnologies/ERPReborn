@@ -15,13 +15,20 @@ use App\Http\Controllers\UserController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute(
+    'HelloWorld',
+    'get',
+    '\App\Http\Controllers\Application\FrontEnd\SandBox\Controller_HelloWorld@ShowHelloWorld',
+    'webWithoutCSRF'
+    );
+
 //---[ Example Code - Dynamic Route ]----------------------------------------------------[START]---
 
 $varUserSession = 
     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
 
 $varAPIWebToken = 
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoid2lzbnUudHJlbmdnb25vIiwiaWF0IjoxNzU3NjQzNzkxfQ.YzQwYzhiOGIxMTc0OGQ1YTEzNWI4M2FmNjNmNmI4YmZlODczM2Y1MzMxNzhjYmQxMTVhYjI3YjVkZDE0MjAzYw';
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoid2lzbnUudHJlbmdnb25vIiwiaWF0IjoxNzU4MDkzMjk2fQ.ZGM5MGRhZGI5NmYyNWYyNTcyMDdmYTgwODk2MDc4ZTAzNzBjYjU5M2I1YTM4NTNiYWE0M2I0OGU4MWZjNGYzMA';
 
 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_LaravelRoute::setDynamicRoute_Examples_APICall(
     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),

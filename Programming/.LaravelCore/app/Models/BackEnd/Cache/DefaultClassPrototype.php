@@ -176,7 +176,7 @@ namespace App\Models\Cache
         public function isDataExist($varUserSession, string $varKey)
             {
             $varReturn = FALSE;
-            if (strcmp($varKey, \App\Helpers\ZhtHelper\System\Helper_Environment::getAPIWebToken_System())==0)
+            if (strcmp($varKey, \App\Helpers\ZhtHelper\System\Helper_Environment::getAPIWebToken_System()) == 0)
                 {
                 $varReturn = TRUE;
                 }
@@ -296,26 +296,49 @@ namespace App\Models\Cache
         |      ▪ (string) varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function setDataInsert(int $varUserSession, string $varKey, $varValue, int $varTTL = null)
+        public function setDataInsert(
+            int $varUserSession,
+            string $varKey, $varValue,
+            int $varTTL = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
+
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Set Data Insert');
+                $varSysDataProcess =
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__,
+                        'Set Data Insert'
+                        );
+
                 try {
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
-                    \App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue($varUserSession, $this->varKeyHeader.'::'.$varKey, $varValue, $varTTL);
-                    $varReturn = $this->varKeyHeader.'::'.$varKey;
+                        \App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(
+                            $varUserSession,
+                            
+                            $this->varKeyHeader.'::'.$varKey,
+                            $varValue,
+                            
+                            $varTTL
+                            );
+
+                        $varReturn =
+                            $this->varKeyHeader.'::'.$varKey;
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
+
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
-                    } 
+                    }
+
                 catch (\Exception $ex) {
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
                     }
+
                 \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
-                } 
+                }
+
             catch (\Exception $ex) {
                 }
-            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+
+            return
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
             }
 
 
