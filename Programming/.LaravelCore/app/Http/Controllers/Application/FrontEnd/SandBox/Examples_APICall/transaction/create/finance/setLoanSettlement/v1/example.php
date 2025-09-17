@@ -21,7 +21,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         |                     ► http://172.28.0.4/transaction.create.finance.setLoanSettlement.v1_throughAPIGateway                |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-09-16                                                                                           |
+        | ▪ Last Update     : 2025-09-17                                                                                           |
         | ▪ Creation Date   : 2025-09-16                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -56,7 +56,9 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                         "interestSettlement" => 2000000,
                                         "currency_RefID" => 62000000000001,
                                         "currencyExchangeRate" => 1,
-                                        "chartOfAccount_RefID" => 65000000000005
+                                        "chartOfAccount_Settlement_RefID" => 65000000000005,
+                                        "chartOfAccount_Penalty_RefID" => 65000000000005,
+                                        "chartOfAccount_Interest_RefID" => 65000000000005
                                         ]
                                     ],
                                     [
@@ -66,7 +68,9 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                         "interestSettlement" => 2000000,
                                         "currency_RefID" => 62000000000001,
                                         "currencyExchangeRate" => 1,
-                                        "chartOfAccount_RefID" => 65000000000005
+                                        "chartOfAccount_Settlement_RefID" => 65000000000005,
+                                        "chartOfAccount_Penalty_RefID" => 65000000000005,
+                                        "chartOfAccount_Interest_RefID" => 65000000000005
                                         ]
                                     ],
                                 ]
