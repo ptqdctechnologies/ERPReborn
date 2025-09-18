@@ -5,6 +5,57 @@
     const siteCode          = document.getElementById('site_id_second');
     const dataTable         = {!! json_encode($dataAdvanceList ?? []) !!};
 
+    function validateQtyAndPriceWithHighlight() {
+        let isValid                 = true;
+        const rows                  = document.querySelectorAll("#tableGetBudgetDetails tbody tr");
+        const budgetDetailsMessage  = document.getElementById("budgetDetailsMessage");
+
+        if (budgetDetailsMessage) {
+            budgetDetailsMessage.style.display = "none";
+        }
+
+        rows.forEach(row => {
+            const qtyInput      = row.querySelector('input[id^="qty_req"]');
+            const priceInput    = row.querySelector('input[id^="price_req"]');
+
+            if (!qtyInput || !priceInput) return;
+
+            const qty           = qtyInput.value.trim();
+            const qtyDetail     = qtyInput.getAttribute("data-default");
+
+            const price         = priceInput.value.trim();
+            const priceDetail   = qtyInput.getAttribute("data-default");
+
+            const isQtyFilled   = qty !== "";
+            const isPriceFilled = price !== "";
+
+            qtyInput.style.border   = "1px solid #e9ecef";
+            priceInput.style.border = "1px solid #e9ecef";
+
+            if (
+                (isQtyFilled && !isPriceFilled && qtyDetail && priceDetail) || 
+                (!isQtyFilled && isPriceFilled && qtyDetail && priceDetail) || 
+                (!isQtyFilled && !isPriceFilled && qtyDetail && priceDetail)
+            ) {
+                if (!isQtyFilled) {
+                    qtyInput.style.border   = "1px solid red";
+                }
+
+                if (!isPriceFilled) {
+                    priceInput.style.border = "1px solid red";
+                }
+                
+                if (budgetDetailsMessage) {
+                    budgetDetailsMessage.style.display = "block";
+                }
+
+                isValid = false;
+            }
+        });
+
+        return isValid;
+    }
+
     function checkOneLineBudgetContents(indexInput) {
         const rows = document.querySelectorAll("#tableGetBudgetDetails tbody tr");
         let hasFullRow = false;
@@ -145,14 +196,17 @@
                 let found = false;
                 const existingRows = targetTable.getElementsByTagName('tr');
                 for (let targetRow of existingRows) {
-                    const targetRecordID = targetRow.children[0].value.trim();
-                    if (targetRecordID == recordRefID.value) {
+                    const targetRecordID    = targetRow.children[0].value.trim();
+                    const targetProductCode = targetRow.children[4].innerText;
+                    const targetProductName = targetRow.children[5].innerText;
+
+                    if (targetRecordID == recordRefID.value && targetProductCode == productCode.value && targetProductName == productName) {
                         targetRow.children[7].innerText = price;
                         targetRow.children[8].innerText = qty;
                         targetRow.children[9].innerText = total;
                         found = true;
 
-                        const indexToUpdate = dataStore.findIndex(item => item.recordID == recordRefID.value);
+                        const indexToUpdate = dataStore.findIndex(item => item.recordID == recordRefID.value && item.entities.combinedBudgetSectionDetail_RefID == combinedBudgetSectionDetailRefID.value);
                         if (indexToUpdate !== -1) {
                             dataStore[indexToUpdate] = {
                                 recordID: parseInt(recordRefID.value),
@@ -188,7 +242,7 @@
                     targetTable.appendChild(newRow);
 
                     dataStore.push({
-                        recordID: parseInt(recordRefID.value),
+                        recordID: parseInt(recordRefID.value) || null,
                         entities: {
                             combinedBudgetSectionDetail_RefID: parseInt(combinedBudgetSectionDetailRefID.value),
                             product_RefID: parseInt(productRefID.value),
@@ -202,7 +256,7 @@
                     });
                 }
             } else {
-                const productName = row.children[8].innerText.trim();
+                const productName   = row.children[8].innerText.trim();
                 const existingRows  = targetTable.getElementsByTagName('tr');
 
                 for (let targetRow of existingRows) {
@@ -216,19 +270,22 @@
                 }
 
                 dataStore = dataStore.filter(item => {
-                    return !(item.entities.product_RefID === productRefID?.value);
+                    return !(
+                        item.entities.combinedBudgetSectionDetail_RefID == combinedBudgetSectionDetailRefID.value
+                    );
                 });
             }
         }
-
+        
         updateGrandTotal();
     }
 
     function validationForm() {
         const isRemarkNotEmpty  = remark.value.trim() !== '';
         const isTableNotEmpty   = checkOneLineBudgetContents();
+        const isInputNotEmpty   = validateQtyAndPriceWithHighlight();
 
-        if (isRemarkNotEmpty && isTableNotEmpty) {
+        if (isRemarkNotEmpty && isTableNotEmpty && isInputNotEmpty) {
             $('#advanceRequestRevisionFormModal').modal('show');
             summaryData();
         } else {
@@ -471,61 +528,76 @@
                             var qty_req     = $(this).val().replace(/,/g, '');
                             var price_req   = $(`#price_req${key}`).val().replace(/,/g, '');
                             var total_req   = parseFloat(qty_req || 0) * parseFloat(price_req || 0);
+                            var default_req = $(this).data('default');
+                            var default_total = $(`#total_req${key}`).data('default');
                             var total       = parseFloat(balanced) - parseFloat(qty_req || 0);
                             var validate    = findDataDetail && findDataDetail.quantity ? parseFloat((parseFloat(val2.quantityRemaining) + parseFloat(findDataDetail.quantity)).toFixed(2)) : val2.quantityRemaining;
 
                             if (parseFloat(qty_req) > validate) {
-                                $(`#qty_req${key}`).val('');
-                                $(`#total_req${key}`).val('');
+                                $(`#qty_req${key}`).val(default_req);
+                                $(`#total_req${key}`).val(default_total);
                                 $(`#balanced_qty${key}`).val(currencyTotal(val2.quantityRemaining));
 
-                                ErrorNotif("Qty Req is over budget !");
+                                ErrorNotif("Qty Req is over !");
                             } else if (parseFloat(qty_req * price_req) > totalBudget) {
                                 $(`#qty_req${key}`).val('');
                                 $(`#total_req${key}`).val('');
                                 $(`#balanced_qty${key}`).val(currencyTotal(val2.quantityRemaining));
 
-                                ErrorNotif("Total Req is over budget !");
+                                ErrorNotif("Total Req is over !");
                             } else {
                                 calculateTotal();
+                                $(`#qty_req${key}`).css({"border": "1px solid #ced4da"});
+                                $(`#budgetDetailsMessage`).css({"display": "none"});
                                 $(`#total_req${key}`).val(currencyTotal(total_req));
 
                                 if (Math.sign(total) == "-1") {
                                     $(`#balanced_qty${key}`).val(currencyTotal(0));
                                 } else {
-                                    $(`#balanced_qty${key}`).val(total.toLocaleString('en-US', {
-                                        minimumFractionDigits: 2,
-                                        maximumFractionDigits: 2
-                                    }));
+                                    if (findDataDetail && findDataDetail.quantity && !qty_req) {
+                                        $(`#qty_req${key}`).css({"border": "1px solid red"});
+                                        $(`#budgetDetailsMessage`).css({"display": "block"});
+                                    } else {
+                                        $(`#balanced_qty${key}`).val(total.toLocaleString('en-US', {
+                                            minimumFractionDigits: 2,
+                                            maximumFractionDigits: 2
+                                        }));
+    
+                                        checkOneLineBudgetContents(key);
+                                    }
                                 }
                             }
-                            
-                            checkOneLineBudgetContents(key);
                         });
                     }
 
                     $(`#price_req${key}`).on('keyup', function() {
                         var price_req   = $(this).val().replace(/,/g, '');
                         var qty_req     = $(`#qty_req${key}`).val().replace(/,/g, '');
+                        var default_req = $(this).data('default');
+                        var default_total = $(`#total_req${key}`).data('default');
                         var total_req   = parseFloat(qty_req || 0) * parseFloat(price_req || 0);
                         var total       = parseFloat(price_req || 0) + parseFloat(val2.priceBaseCurrencyValue);
 
-                        if (parseFloat(price_req) > val2.priceBaseCurrencyValue) {
-                            $(`#price_req${key}`).val('');
-                            $(`#total_req${key}`).val('');
-
-                            ErrorNotif("Price Req is over budget !");
-                        } else if (parseFloat(qty_req * price_req) > totalBudget) {
-                            $(`#price_req${key}`).val('');
-                            $(`#total_req${key}`).val('');
-
-                            ErrorNotif("Total Req is over budget !");
+                        if (findDataDetail && findDataDetail.productUnitPriceCurrencyValue && !price_req) {
+                            $(`#price_req${key}`).css({"border": "1px solid red"});
+                            $(`#budgetDetailsMessage`).css({"display": "block"});
                         } else {
-                            calculateTotal();
-                            $(`#total_req${key}`).val(currencyTotal(total_req));
+                            if (parseFloat(price_req) > val2.priceBaseCurrencyValue) {
+                                $(`#price_req${key}`).val(default_req);
+                                $(`#total_req${key}`).val(default_total);
+
+                                ErrorNotif("Price Req is over budget !");
+                            } else if (parseFloat(qty_req * price_req) > totalBudget) {
+                                $(`#price_req${key}`).val('');
+                                $(`#total_req${key}`).val('');
+
+                                ErrorNotif("Total Req is over budget !");
+                            } else {
+                                calculateTotal();
+                                checkOneLineBudgetContents(key);
+                                $(`#total_req${key}`).val(currencyTotal(total_req));
+                            }
                         }
-                        
-                        checkOneLineBudgetContents(key);
                     });
                 });
             },
