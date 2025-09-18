@@ -61,7 +61,6 @@ $varAPIWebToken =
 // LOGIN
 Route::get('/', 'Auth\LoginController@index')->name('login');
 Route::post('loginStore', 'Auth\LoginController@loginStore')->name('loginStore');
-Route::get('getRoleLogin', 'Auth\LoginController@getRoleLogin')->name('getRoleLogin');
 Route::get('FlushCache', 'Auth\LoginController@FlushCache')->name('FlushCache');
 
 Route::get('SessionCheckingLogout', 'Auth\LoginController@SessionCheckingLogout')->name('SessionCheckingLogout');
@@ -78,7 +77,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::post('SelectWorkFlow', 'Controller@SelectWorkFlow')->name('SelectWorkFlow');
 
     // DASHBOARD
-    Route::resource('dashboard', 'Dashboard\DashboardController');
+    Route::resource('dashboard', 'Dashboard\DashboardController')->only(['index']);
 
     // WAREHOUSE
     Route::post('EditWarehouse', 'Register\Warehouse\WarehouseController@EditWarehouse')->name('Warehouse.EditWarehouse');
