@@ -688,40 +688,57 @@ namespace App\Helpers\ZhtHelper\Cache
         |      ▪ (string) varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public static function setValue($varUserSession, $varKey, $varValue, $varTTL=null)
+        public static function setValue($varUserSession, $varKey, $varValue, $varTTL = null)
             {
-
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, false, __CLASS__, __FUNCTION__);
 
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Storing data value of `'.$varValue.'` with key `'.$varKey.'` '.($varTTL?' (will expired at '.$varTTL.' second(s))':''));
-                
+                $varSysDataProcess =
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__,
+                        'Storing data value of `'.$varValue.'` with key `'.$varKey.'` '.($varTTL?' (will expired at '.$varTTL.' second(s))':'')
+                        );
+
                 try {
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
-                    if(self::getStatusAvailability($varUserSession)==false)
-                        {
-                        throw new \Exception('Redis not available');
-                        }
-                    if($varTTL)
-                        {
-                        \Illuminate\Support\Facades\Redis::set($varKey, $varValue, 'EX', $varTTL);
-                        }
-                    else
-                        {
-                        \Illuminate\Support\Facades\Redis::set($varKey, $varValue);
-                        }
-                    $varReturn = true;
+                        if (self::getStatusAvailability($varUserSession) == false)
+                            {
+                            throw new \Exception('Redis not available');
+                            }
+
+                        if ($varTTL)
+                            {
+                            \Illuminate\Support\Facades\Redis::set(
+                                $varKey,
+                                $varValue,
+                                'EX',
+                                $varTTL
+                                );
+                            }
+                        else
+                            {
+                            \Illuminate\Support\Facades\Redis::set(
+                                $varKey,
+                                $varValue
+                                );
+                            }
+
+                        $varReturn = true;
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
-                    } 
+                    }
+
                 catch (\Exception $ex) {
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
                     }
+
                 \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
-                } 
+                }
+
             catch (\Exception $ex) {
                 }
-            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+
+            return
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
             }
 
 
@@ -744,28 +761,50 @@ namespace App\Helpers\ZhtHelper\Cache
         public static function setValueRenewal($varUserSession, $varKey, $varValue)
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
+
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Value renewal for data with key `'.$varKey.'`');
+                $varSysDataProcess =
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__,
+                        'Value renewal for data with key `'.$varKey.'`'
+                        );
+
                 try {
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
-                    if(self::getStatusAvailability($varUserSession)==false)
-                        {
-                        throw new \Exception('Redis not available');
-                        }
-                    self::setValue($varUserSession, $varKey, $varValue, self::getTTL($varUserSession, $varKey));
-                    $varReturn = true;                            
-                    //$varReturn = \Illuminate\Support\Facades\Redis::get($varKey);
+                        if (self::getStatusAvailability($varUserSession) == false)
+                            {
+                            throw
+                                new \Exception('Redis not available');
+                            }
+
+                        self::setValue(
+                            $varUserSession,
+                            $varKey,
+                            $varValue,
+                            self::getTTL(
+                                $varUserSession,
+                                $varKey
+                                )
+                            );
+
+                        $varReturn = true;
+                        //$varReturn = \Illuminate\Support\Facades\Redis::get($varKey);
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
+
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
-                    } 
+                    }
+
                 catch (\Exception $ex) {
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
                     }
+
                 \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
-                } 
+                }
+
             catch (\Exception $ex) {
                 }
-            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);            
+                
+            return
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);            
             }
         }
     }

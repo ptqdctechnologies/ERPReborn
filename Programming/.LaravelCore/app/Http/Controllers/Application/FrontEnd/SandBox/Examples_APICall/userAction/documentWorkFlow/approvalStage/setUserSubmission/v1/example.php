@@ -8,7 +8,7 @@
 | ▪ API Key     : userAction.documentWorkFlow.approvalStage.setUserSubmission                                                      |
 | ▪ API Version : 1                                                                                                                |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2023 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2023 - 2025 Zheta (teguhpjs@gmail.com)                                                                              |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\userAction\documentWorkFlow\approvalStage\setUserSubmission\v1
@@ -19,41 +19,52 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\use
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Call URL        : http(s)://<HOST>/                                                                                    |
         |                     userAction.documentWorkFlow.approvalStage.setUserSubmission.v1_throughAPIGateway                     |
-        |                     ► http://172.28.0.4/userAction.documentWorkFlow.approvalStage.setUserSubmission.v1_throughAPIGateway                   |
+        |                     ► http://172.28.0.4/userAction.documentWorkFlow.approvalStage.setUserSubmission.v1_throughAPIGateway |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2023-03-07                                                                                           |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2025-09-17                                                                                           |
         | ▪ Creation Date   : 2023-03-07                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function throughAPIGateway($varAPIWebToken)
             {
-            //---Parameter Set---
+            //-----[ PARAMETER SET ]-----
             if (!$varAPIWebToken) {
-                $varAPIWebToken = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
+                $varAPIWebToken =
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
                 }
-            //---Core---
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'userAction.documentWorkFlow.approvalStage.setUserSubmission', 
-                'latest',
-                [
-                'entities' => [
-                    "businessDocument_RefID" => 74000000020323,
-                    "workFlowPath_RefID" => 116000000000001,
-                    "remarks" => "xxx'xxx",
-                    // "remarks" => null,
-                    "approverEntity_RefID" => 164000000000023
 
-                    // "businessDocument_RefID" => 74000000020456,
-                    // "workFlowPath_RefID" => 116000000000004,
-                    // "remarks" => null,
-                    // "approverEntity_RefID" => 164000000000514
-                    ]
-                ]
-                );
-            var_dump($varData);
+            //-----[ CORE ]-----
+            $varData =
+                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                    //-----[ METADATA ]-----( START )-----
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                        $varAPIWebToken, 
+                        'userAction.documentWorkFlow.approvalStage.setUserSubmission', 
+                        'latest',
+                    //-----[ METADATA ]-----(  END  )-----
+
+                    //-----[ DATA ]---------( START )-----
+                        [
+                        'entities' => [
+                            "businessDocument_RefID" => 74000000020323,
+                            "workFlowPath_RefID" => 116000000000001,
+                            "remarks" => "xxx'xxx",
+                            // "remarks" => null,
+                            "approverEntity_RefID" => 164000000000023
+
+                            // "businessDocument_RefID" => 74000000020456,
+                            // "workFlowPath_RefID" => 116000000000004,
+                            // "remarks" => null,
+                            // "approverEntity_RefID" => 164000000000514
+                            ]
+                        ]
+                    //-----[ DATA ]---------(  END  )-----
+                    );
+
+            //-----[ DATA RETURN ]-----
+            return
+                $varData;
             }
 
 
