@@ -281,7 +281,7 @@ namespace App\Helpers\ZhtHelper\System
                            'ERPReborn::APIWebToken::'.(self::getAPIWebToken_ByUserSessionID($varUserSession))
                            )
                        )
-                    )['userIdentity'];
+                    )['userIdentities'];
                 }
             catch (\Exception $ex) {
                 $varReturn = NULL;
