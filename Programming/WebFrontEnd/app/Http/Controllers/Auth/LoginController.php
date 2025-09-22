@@ -79,7 +79,7 @@ class LoginController extends Controller
     }
 
     private function setLoginBranchAndRole($branchID, $roleID)
-    {
+        {
         $response = $this->loginService->setLoginBranchAndUserRole($this->token, $branchID, $roleID);
 
         if ($response['metadata']['HTTPStatusCode'] !== 200) {

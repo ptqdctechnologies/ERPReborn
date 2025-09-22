@@ -140,7 +140,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
 
                                 //---> Initializing : $varDataUserAccessPrivileges
                                     $varDataUserAccessPrivileges =
-                                         \App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationUserPrivilegesCombinedBudgetAndMenu(
+                                         \App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationUserPrivileges(
                                             $varUserSession,
                                             $varUserID
                                             );
@@ -197,24 +197,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                                         $varUserRoleID
                                         );
 
-                                    //$varRedisData = 
-                                    //    \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession);
-
-                                /*
-                                $varRedisData = 
-                                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
-                                        $varUserSession,
-                                        \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
-                                            $varUserSession,
-                                            'ERPReborn::APIWebToken::'.$varAPIWebToken
-                                            )
-                                        );
-
-                                dd (
-                                    $varRedisData
-                                    );
-                                */
-
+                                $x = \App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationUserSession_AllData($varUserSession);
+                                dd($x);
 
 /*
                             if (self::isSet($varUserSession, $varAPIWebToken) == true) {
@@ -225,7 +209,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                                         'Branch ID and User Role ID already choosen'
                                         );
                                 //dd(\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession));
-                                //dd(\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession)['userIdentity']['workerCareerInternal_RefID']);
+                                //dd(\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession)['userIdentities']['workerCareerInternal_RefID']);
                                 }
 
 
@@ -337,7 +321,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                     (new \App\Models\Database\SchSysConfig\General())->setUserSessionBranchAndUserRole($varUserSession, $varUserSession, $varBranchID, $varUserRoleID);
                     //---> Update Redis
                     $varDataRedis = \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode($varUserSession, (new \App\Models\Cache\General\APIWebToken())->getDataRecord($varUserSession, $varAPIWebToken));
-                    // $varUserIdentity = $varDataRedis['userIdentity'];
+                    // $varUserIdentity = $varDataRedis['userIdentities'];
                     $varDataRedis['branch_RefID'] = $varBranchID;
 
                     (new \App\Models\Cache\General\APIWebToken())->setDataUpdate($varUserSession, $varAPIWebToken, \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varDataRedis));
@@ -469,7 +453,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                                     'Branch ID and User Role ID already choosen'
                                     );
                             //dd(\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession));
-                            //dd(\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession)['userIdentity']['workerCareerInternal_RefID']);
+                            //dd(\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession)['userIdentities']['workerCareerInternal_RefID']);
                             }
 
                          if (!$varReturn) {
@@ -502,14 +486,14 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                                         )
                                     );
                             
-                            // $varUserIdentity = $varDataRedis['userIdentity'];
+                            // $varUserIdentity = $varDataRedis['userIdentities'];
                             $varDataRedis['branch_RefID'] = $varBranchID;
 
                              //                        $varDataRedis['userRole_RefID'] = $varUserRoleID;
-                             // $varDataRedis['userIdentity'] =
+                             // $varDataRedis['userIdentities'] =
                              //     \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserIdentity(
                              //         $varUserSession,
-                             //         \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession)['userIdentity']['LDAPUserID']
+                             //         \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession)['userIdentities']['LDAPUserID']
                              //     );
                              //$varDataRedis['userPrivilegesMenu'] = $varUserPrivilegesMenu;
                              // $varDataRedis['environment']['userPrivileges']['menu'] = [
@@ -520,7 +504,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                              //     'keyList' => $varCachedData[$varBranchID][$varUserRoleID]['combinedBudget']['keyList'],
                              //     'dataTable' => $varCachedData[$varBranchID][$varUserRoleID]['combinedBudget']['dataTable']
                              // ];
-                             //$varDataRedis['userIdentity'] = $varUserIdentity;
+                             //$varDataRedis['userIdentities'] = $varUserIdentity;
 
                             (new \App\Models\Cache\General\APIWebToken())->setDataUpdate(
                                 $varUserSession,
@@ -538,7 +522,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
 
                 //             // \App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(
                 //             //     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
-                //             //     "RedisGetMenu".$varDataRedis['userIdentity']['workerCareerInternal_RefID'], 
+                //             //     "RedisGetMenu".$varDataRedis['userIdentities']['workerCareerInternal_RefID'], 
                 //             //     json_encode($varDataRedis['environment']['userPrivileges']['menu']['keyList'])
                 //             // );
 

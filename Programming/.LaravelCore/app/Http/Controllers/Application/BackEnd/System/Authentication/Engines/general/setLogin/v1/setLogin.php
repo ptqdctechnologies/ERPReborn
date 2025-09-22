@@ -236,7 +236,7 @@ $varDataSend = [
                         if (count($varBufferDB) > 0) {
                             //---> Data Initailizing Base On Database Record
                             //---> Get User Identity
-                            $varUserIdentity =
+                            $varUserIdentities =
                                 \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserIdentity(
                                     $varUserSession,
                                     $varBufferDB[0]['LDAPUserID']
@@ -257,7 +257,7 @@ $varDataSend = [
                                             'sessionStartDateTimeTZ' => $varBufferDB[0]['SessionStartDateTimeTZ'],
                                             'sessionAutoStartDateTimeTZ' => $varBufferDB[0]['SessionAutoStartDateTimeTZ'],
                                             'sessionAutoFinishDateTimeTZ' => $varBufferDB[0]['SessionAutoFinishDateTimeTZ'],
-                                            'userIdentity' => $varUserIdentity
+                                            'userIdentities' => $varUserIdentities
                                         ]
                                     ),
                                     $varSessionIntervalInSeconds
@@ -267,7 +267,7 @@ $varDataSend = [
                             $varDataSend = [
                                 //'RedisID', $varRedisID,
                                 'APIWebToken' => $varBufferDB[0]['APIWebToken'],
-                                'userIdentity' => $varUserIdentity,
+                                'userIdentities' => $varUserIdentities,
                                 //'LDAPUserID' => $varBufferDB[0]['LDAPUserID'],
                                 // 'sessionStartDateTimeTZ' => $varBufferDB[0]['SessionStartDateTimeTZ'],
                                 // 'sessionAutoStartDateTimeTZ' => $varBufferDB[0]['SessionAutoStartDateTimeTZ'],
@@ -280,7 +280,7 @@ $varDataSend = [
                             // START REDIS HELPER LOGIN 
                             // Redis::set("nama", json_encode($varDataSend['APIWebToken']));
 
-                            $user_RefID = $varDataSend['userIdentity']['user_RefID'];
+                            $user_RefID = $varDataSend['userIdentities']['user_RefID'];
 
                             $varTTL = 32400; // 9 Jam
 

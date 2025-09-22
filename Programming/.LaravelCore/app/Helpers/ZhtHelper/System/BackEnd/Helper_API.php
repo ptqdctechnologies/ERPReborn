@@ -1160,7 +1160,7 @@ if (strcmp($varAPIKey, 'transaction.read.dataList.finance.getAdvance')==0)
                 'sessionStartDateTimeTZ' => null,
                 'sessionAutoStartDateTimeTZ' => null,
                 'sessionAutoFinishDateTimeTZ' => null,
-                'userIdentity' => null,
+                'userIdentities' => null,
                 'environment' => null
                 ];
 
@@ -1195,8 +1195,8 @@ if (strcmp($varAPIKey, 'transaction.read.dataList.finance.getAdvance')==0)
                     'sessionStartDateTimeTZ' => null,
                     'sessionAutoStartDateTimeTZ' => null,
                     'sessionAutoFinishDateTimeTZ' => null,
-                    'userIdentity' => null,
-                    //'userPrivilegesMenu' => null
+                    'userIdentities' => null,
+                    'userAccessPrivileges' => null,
                     'environment' => null
                     ];
                 }
@@ -1227,14 +1227,14 @@ if (strcmp($varAPIKey, 'transaction.read.dataList.finance.getAdvance')==0)
                 $varReturn['sessionAutoStartDateTimeTZ'] = $varData['sessionAutoStartDateTimeTZ'];
                 $varReturn['sessionAutoFinishDateTimeTZ'] = $varData['sessionAutoFinishDateTimeTZ'];
 
-                if (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'userIdentity', $varData)) {
-                    $varReturn['userIdentity'] = 
+                if (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'userIdentities', $varData)) {
+                    $varReturn['userIdentities'] = 
                         //null;
                         self::getUserIdentity(
                             $varUserSession,
-                            $varData['userIdentity']['LDAPUserID']
+                            $varData['userIdentities']['LDAPUserID']
                             ); //---> Data Diambil dari DB (Lebih update bila ada perubahan data)
-                        //$varData['userIdentity']; //---> Data Diambil dari Redis (Lebih responsif tapi tidak adaptif)                    
+                        //$varData['userIdentities']; //---> Data Diambil dari Redis (Lebih responsif tapi tidak adaptif)                    
                     }
                 }
             //---> Get Value From Database
@@ -1259,7 +1259,7 @@ if (strcmp($varAPIKey, 'transaction.read.dataList.finance.getAdvance')==0)
                                     'ERPReborn::APIWebToken::'.$varAPIWebToken
                                     )
                                 );
-                        //dd($varData['userIdentity']['LDAPUserID']);
+                        //dd($varData['userIdentities']['LDAPUserID']);
 
                         $varReturn['userLoginSessionID'] = $varData['userLoginSession_RefID'];
                         $varReturn['userID'] = $varData['user_RefID'];
@@ -1268,7 +1268,7 @@ if (strcmp($varAPIKey, 'transaction.read.dataList.finance.getAdvance')==0)
                         $varReturn['sessionStartDateTimeTZ'] = $varData['sessionStartDateTimeTZ'];
                         $varReturn['sessionAutoStartDateTimeTZ'] = $varData['sessionAutoStartDateTimeTZ'];
                         $varReturn['sessionAutoFinishDateTimeTZ'] = $varData['sessionAutoFinishDateTimeTZ'];
-                        //---> Bila $varReturn['userIdentity'] diambil Redis, data tidak terupdate apabila ada perubahan pada database 
+                        //---> Bila $varReturn['userIdentities'] diambil Redis, data tidak terupdate apabila ada perubahan pada database 
 
                         //if(\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'userPrivilegesMenu', $varData))
                         //    {
