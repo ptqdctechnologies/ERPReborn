@@ -137,40 +137,158 @@ namespace App\Helpers\ZhtHelper\System
             }
 
 
-        public static function getApplicationUserPrivilegesCombinedBudgetAndMenu($varUserSession, int $varUserID)
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getApplicationUserSession_AllData                                                                    |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2025-09-22                                                                                           |
+        | ▪ Creation Date   : 2025-09-22                                                                                           |
+        | ▪ Description     : Mendapatkan Data Sesi Aplkasi Pengguna - Semua Data Pengguna                                         |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varUserID ► User ID                                                                                      |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array) varReturn                                                                                                 |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getApplicationUserSession_AllData($varUserSession)
             {
-            
-                $varReturn =
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+            try {
+                $varReturn = (
+                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                       $varUserSession,
+                       \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
+                           $varUserSession,
+                           'ERPReborn::APIWebToken::'.(self::getAPIWebToken_ByUserSessionID($varUserSession))
+                           )
+                       )
+                    );
+                }
+            catch (\Exception $ex) {
+                $varReturn = NULL;
+                }
+
+            return
+                $varReturn;
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getApplicationUserPrivileges                                                                         |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2025-09-22                                                                                           |
+        | ▪ Creation Date   : 2025-09-22                                                                                           |
+        | ▪ Description     : Mendapatkan User Role Privileges Aplikasi                                                            |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varUserID ► User ID                                                                                      |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array) varReturn                                                                                                 |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getApplicationUserPrivileges($varUserSession, int $varUserID)
+            {
+            $varReturn =
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession,
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                         $varUserSession,
-                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                            $varUserSession,
-                            'SchSysConfig.Func_GetDataPickSet_UserPrivileges',
-                            [
-                                [$varUserID, 'bigint' ]
-                            ]
-                            )
-                        );
-                
-                $varData = 
-                    (\App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
-                            $varUserSession,
-                            $varReturn['data'][0]['ProcessedData_JSON']
-                            ))['general'];
-                
-                return
-                    $varData;
-            
-            /*
-            	SELECT
-		*
-	FROM
-		"SchSysConfig"."Func_GetDataPickSet_UserPrivileges"(
-			4000000000359::bigint
-			------------------------------
-			);
-             
-             */
+                        'SchSysConfig.Func_GetDataPickSet_UserPrivileges',
+                        [
+                            [$varUserID, 'bigint' ]
+                        ]
+                        )
+                    );
+
+            $varReturn = 
+                (\App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                        $varUserSession,
+                        $varReturn['data'][0]['ProcessedData_JSON']
+                        ))['general'];
+
+            return
+                $varReturn;
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getApplicationUserSession_UserAccessPrivileges                                                       |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2025-09-22                                                                                           |
+        | ▪ Creation Date   : 2025-09-22                                                                                           |
+        | ▪ Description     : Mendapatkan Data Sesi Aplkasi Pengguna - Hak Akses Pengguna                                          |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varUserID ► User ID                                                                                      |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array) varReturn                                                                                                 |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getApplicationUserSession_UserAccessPrivileges($varUserSession)
+            {
+            try {
+                $varReturn = (
+                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                       $varUserSession,
+                       \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
+                           $varUserSession,
+                           'ERPReborn::APIWebToken::'.(self::getAPIWebToken_ByUserSessionID($varUserSession))
+                           )
+                       )
+                    )['userAccessPrivileges'];
+                }
+            catch (\Exception $ex) {
+                $varReturn = NULL;
+                }
+
+            return
+                $varReturn;
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getApplicationUserSession_UserIdentity                                                               |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2025-09-22                                                                                           |
+        | ▪ Creation Date   : 2025-09-22                                                                                           |
+        | ▪ Description     : Mendapatkan Data Sesi Aplkasi Pengguna - Identitas Pengguna                                          |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varUserID ► User ID                                                                                      |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array) varReturn                                                                                                 |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getApplicationUserSession_UserIdentities($varUserSession)
+            {
+            try {
+                $varReturn = (
+                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                       $varUserSession,
+                       \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
+                           $varUserSession,
+                           'ERPReborn::APIWebToken::'.(self::getAPIWebToken_ByUserSessionID($varUserSession))
+                           )
+                       )
+                    )['userIdentity'];
+                }
+            catch (\Exception $ex) {
+                $varReturn = NULL;
+                }
+
+            return
+                $varReturn;
             }
 
 

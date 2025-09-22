@@ -140,7 +140,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
 
                                 //---> Initializing : $varDataUserAccessPrivileges
                                     $varDataUserAccessPrivileges =
-                                         \App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationUserPrivilegesCombinedBudgetAndMenu(
+                                         \App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationUserPrivileges(
                                             $varUserSession,
                                             $varUserID
                                             );
@@ -197,24 +197,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                                         $varUserRoleID
                                         );
 
-                                    //$varRedisData = 
-                                    //    \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession);
-
-                                /*
-                                $varRedisData = 
-                                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
-                                        $varUserSession,
-                                        \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
-                                            $varUserSession,
-                                            'ERPReborn::APIWebToken::'.$varAPIWebToken
-                                            )
-                                        );
-
-                                dd (
-                                    $varRedisData
-                                    );
-                                */
-
+                                $x = \App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationUserSession_AllData($varUserSession);
+                                dd($x);
 
 /*
                             if (self::isSet($varUserSession, $varAPIWebToken) == true) {
