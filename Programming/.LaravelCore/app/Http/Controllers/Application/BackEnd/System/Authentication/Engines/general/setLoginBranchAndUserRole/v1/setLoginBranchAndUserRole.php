@@ -102,6 +102,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                             }
                         //---> Web Token is valid
                         else {
+//                        if (1 == 1) {
                             //---> Initializing : varRedisData
                                 $varRedisData = 
                                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
@@ -113,8 +114,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                                         );
                             
                             if (
-///                                (1 == 2)
-                                ($varRedisData['userRole_RefID'] != null) AND ($varRedisData['branch_RefID'] != null)                                    
+                                (1 == 2)
+//                                ($varRedisData['userRole_RefID'] != null) AND ($varRedisData['branch_RefID'] != null)                                    
                                 ) {
                                 $varReturn =
                                     \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail(
@@ -137,10 +138,48 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                                     $varUserRoleID =
                                         $varData['userRoleID'];
 
+                                //---> Initializing : $varDataUserAccessPrivileges
+                                    $varDataUserAccessPrivileges =
+                                         \App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationUserPrivilegesCombinedBudgetAndMenu(
+                                            $varUserSession,
+                                            $varUserID
+                                            );
+
+                                    $varDataUserAccessPrivileges = [
+                                        'branch' => [
+                                            'IDList   ' => $varDataUserAccessPrivileges['branchIDList']
+                                            ],
+                                        'userRole' => [
+                                            'IDList' => $varDataUserAccessPrivileges['userRoleIDList'],
+                                            'nameList' => $varDataUserAccessPrivileges['userRoleNameList']
+                                            ],
+                                        'combinedBudget' => [
+                                            'IDList' => $varDataUserAccessPrivileges['combinedBudgetIDList'],
+                                            'codeList' => $varDataUserAccessPrivileges['combinedBudgetCodeList'],
+                                            'nameList' => $varDataUserAccessPrivileges['combinedBudgetNameList'],
+                                            'fullNameList' => $varDataUserAccessPrivileges['combinedBudgetFullNameList']
+                                            ],
+                                        'menu' => [
+                                            'IDList' => $varDataUserAccessPrivileges['menuIDList'],
+                                            'keyList' => $varDataUserAccessPrivileges['menuKeyList'],
+                                            'captionList' => $varDataUserAccessPrivileges['menuCaptionList'],
+                                            'fullCaptionList' => $varDataUserAccessPrivileges['menuFullCaptionList'],
+                                            ],
+                                        'menuAction' => [
+                                            'IDList' => $varDataUserAccessPrivileges['menuActionIDList'],
+                                            'keyList' => $varDataUserAccessPrivileges['menuKeyList'],
+                                            'captionList' => $varDataUserAccessPrivileges['menuCaptionList'],
+                                            'fullCaptionList' => $varDataUserAccessPrivileges['menuActionFullCaptionList'],
+                                            ]
+                                        ];
+
                                 //---> Reinitializing : Redis
                                     $varRedisData['userRole_RefID'] = $varUserRoleID;
                                     $varRedisData['branch_RefID'] = $varBranchID;
+                                    $varRedisData['userAccessPrivileges'] = $varDataUserAccessPrivileges;
 
+                                    //dd($varRedisData);
+                                    
                                     \App\Helpers\ZhtHelper\Cache\Helper_Redis::setValueRenewal(
                                         $varUserSession,
                                         'ERPReborn::APIWebToken::'.$varAPIWebToken,
@@ -150,32 +189,31 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                                             )
                                         );
 
-                                    //---> Update Database
-                                        (new \App\Models\Database\SchSysConfig\General())->setUserSessionBranchAndUserRole(
-                                            $varUserSession,
-                                            $varUserSession,
-                                            $varBranchID,
-                                            $varUserRoleID
-                                            );
+                                //---> Update Database
+                                    (new \App\Models\Database\SchSysConfig\General())->setUserSessionBranchAndUserRole(
+                                        $varUserSession,
+                                        $varUserSession,
+                                        $varBranchID,
+                                        $varUserRoleID
+                                        );
 
                                     //$varRedisData = 
                                     //    \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession);
 
-                                    /*
-                                    $varRedisData = 
-                                         \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                                /*
+                                $varRedisData = 
+                                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                                        $varUserSession,
+                                        \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
                                             $varUserSession,
-                                            \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
-                                                $varUserSession,
-                                                'ERPReborn::APIWebToken::'.$varAPIWebToken
-                                                )
-                                            );
-                                     * 
-                                     */
+                                            'ERPReborn::APIWebToken::'.$varAPIWebToken
+                                            )
+                                        );
 
-                                //dd (
-                                //   $varRedisData
-                                //    );
+                                dd (
+                                    $varRedisData
+                                    );
+                                */
 
 
 /*
@@ -225,6 +263,26 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
             }
 
 
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
 
         function mainOLD($varUserSession, $varData)
             {
