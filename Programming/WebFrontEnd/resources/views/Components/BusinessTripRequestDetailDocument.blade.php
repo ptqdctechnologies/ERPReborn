@@ -47,7 +47,7 @@
             Date Commence Travel
         </div>
         <div class="col-sm-8 col-md-6 p-0">
-            : <?= $dataHeader['dateCommenceTravel']; ?>
+            : <?= substr($dataHeader['dateCommenceTravel'], 0, 10); ?>
         </div>
     </div>
 
@@ -57,7 +57,7 @@
             Date End Travel
         </div>
         <div class="col-sm-8 col-md-6 p-0">
-            : <?= $dataHeader['dateEndTravel']; ?>
+            : <?= substr($dataHeader['dateEndTravel'], 0, 10); ?>
         </div>
     </div>
 
@@ -67,7 +67,7 @@
             BRF Date
         </div>
         <div class="col-sm-8 col-md-6 p-0">
-            : <?= $dataHeader['brfDate']; ?>
+            : <?= substr($dataHeader['brfDate'], 0, 10); ?>
         </div>
     </div>
 

@@ -35,6 +35,7 @@
 
         for (let row of rows) {
             const recordID                              = row.querySelector('input[id^="record_id"]');
+            const referenceDocumentID                   = row.querySelector('input[id^="reference_document_id"]');
             const combinedBudgetSectionDetailID         = row.querySelector('input[id^="combined_budget_section_detail_id"]');
             const productID                             = row.querySelector('input[id^="product_id"]');
             const quantityUnitID                        = row.querySelector('input[id^="quantity_unit_id"]');
@@ -87,6 +88,7 @@
                                     productUnitPriceCurrencyExchangeRate: parseInt(productUnitPriceCurrencyExchangeRate.value),
                                     vatRatio: parseFloat(vatRatio.value.replace(/,/g, '')),
                                     chartOfAccount_RefID: parseInt(debitNoteCoaID.value),
+                                    referenceDocument_RefID: parseInt(referenceDocumentID.value)
                                 }
                             };
                         }
@@ -118,6 +120,7 @@
                             productUnitPriceCurrencyExchangeRate: parseInt(productUnitPriceCurrencyExchangeRate.value),
                             vatRatio: parseFloat(vatRatio.value.replace(/,/g, '')),
                             chartOfAccount_RefID: parseInt(debitNoteCoaID.value),
+                            referenceDocument_RefID: parseInt(referenceDocumentID.value)
                         }
                     });
                 }
@@ -175,6 +178,7 @@
                     productUnitPriceCurrencyExchangeRate: parseFloat(value.PriceFinalCurrencyExchangeRate.replace(/,/g, '')),
                     vatRatio: parseFloat(value.VatRatio.replace(/,/g, '')),
                     chartOfAccount_RefID: parseInt(value.ChartOfAccount_RefID),
+                    referenceDocument_RefID: parseInt(value.ReferenceDocument_RefID)
                 }
             });
 
@@ -213,6 +217,7 @@
                     <input type="hidden" id="product_unit_price_currency_id[]" value="${value.ProductUnitPriceCurrency_RefID}">
                     <input type="hidden" id="product_unit_price_currency_exchange_rate[]" value="${value.ProductUnitPriceCurrencyExchangeRate}">
                     <input type="hidden" id="vat_ratio[]" value="${value.VatRatio}">
+                    <input type="hidden" id="reference_document_id[]" value="${value.ReferenceDocument_RefID}">
                 </tr>
             `;
 

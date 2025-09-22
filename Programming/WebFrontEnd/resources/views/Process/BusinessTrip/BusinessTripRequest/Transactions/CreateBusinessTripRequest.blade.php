@@ -117,15 +117,12 @@
                     </div>
 
                     <div class="card-body">
-                      <div class="row pt-3" style="gap: 15px;">
+                      <div class="row pt-3 pb-3" style="gap: 15px;">
                         <div class="col-md-12 col-lg-5">
                           <!-- REQUESTER -->
-                          <div class="row" style="margin-bottom: 1rem;">
+                          <div class="row">
                             <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Requester</label>
                             <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
-                              <div>
-                                <input id="requester_detail" style="border-radius:0;" class="form-control" size="17" readonly>
-                              </div>
                               <div>
                                 <span style="border-radius:0;" class="input-group-text form-control">
                                   <a href="javascript:;" id="requester_popup" data-toggle="modal" data-target="#myWorker" class="myWorker">
@@ -133,15 +130,26 @@
                                   </a>
                                 </span>
                               </div>
+                              <div>
+                                <input id="requester_detail" style="border-radius:0;" class="form-control" size="17" readonly>
+                              </div>
                               <div style="flex: 100%;">
                                 <input id="requester" style="border-radius:0;" type="text" class="form-control" readonly>
                                 <input id="requester_id" name="requester_id" style="border-radius:0;" type="hidden" class="form-control" readonly>
                               </div>
                             </div>
                           </div>
+                          <div class="row" id="requesterMessage" style="margin-top: .3rem; display: none;">
+                            <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+                            <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                              <div class="text-red">
+                                Requester cannot be empty.
+                              </div>
+                            </div>
+                          </div>
 
                           <!-- CONTACT PHONE -->
-                          <div class="row" style="margin-bottom: 1rem;">
+                          <div class="row" style="margin-top: 1rem;">
                             <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Contact Phone</label>
                             <div class="col-sm-9 col-md-8 col-lg-3 d-flex p-0">
                               <div class="input-group">
@@ -151,7 +159,7 @@
                           </div>
 
                           <!-- DATE COMMANCE TRAVEL -->
-                          <div class="row" style="margin-bottom: 1rem;">
+                          <div class="row" style="margin-top: 1rem;">
                             <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Date Commence Travel</label>
                             <div class="col-sm-9 col-md-8 col-lg-3 d-flex p-0">
                               <div class="input-group" style="width: 95px;">
@@ -159,9 +167,17 @@
                               </div>
                             </div>
                           </div>
+                          <div class="row" id="dateCommenceTravelMessage" style="margin-top: .3rem; display: none;">
+                            <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+                            <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                              <div class="text-red">
+                                Date Commence Travel cannot be empty.
+                              </div>
+                            </div>
+                          </div>
 
                           <!-- DATE END TRAVEL -->
-                          <div class="row">
+                          <div class="row" style="margin-top: 1rem;">
                             <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Date End Travel</label>
                             <div class="col-sm-9 col-md-8 col-lg-3 d-flex p-0">
                               <div class="input-group" style="width: 95px;">
@@ -169,11 +185,19 @@
                               </div>
                             </div>
                           </div>
+                          <div class="row" id="dateEndTravelMessage" style="margin-top: .3rem; margin-bottom: 1rem; display: none;">
+                            <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+                            <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                              <div class="text-red">
+                                Date End Travel cannot be empty.
+                              </div>
+                            </div>
+                          </div>
                         </div>
 
                         <div class="col-md-12 col-lg-5">
                           <!-- DEPARTING FROM -->
-                          <div class="row" style="margin-bottom: 1rem;">
+                          <div class="row">
                             <label for="departingFrom" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Departing From</label>
                             <div class="col-sm-9 col-md-8 col-lg-3 p-0">
                               <div class="input-group" style="width: 95px;">
@@ -181,9 +205,17 @@
                               </div>
                             </div>
                           </div>
+                          <div class="row" id="departingFromMessage" style="margin-top: .3rem; display: none;">
+                            <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+                            <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                              <div class="text-red">
+                                Departing From cannot be empty.
+                              </div>
+                            </div>
+                          </div>
 
                           <!-- DESTINATION TO -->
-                          <div class="row" style="margin-bottom: 1rem;">
+                          <div class="row" style="margin-top: 1rem;">
                             <label for="destinationTo" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Destination To</label>
                             <div class="col-sm-9 col-md-8 col-lg-3 d-flex p-0">
                               <div class="input-group" style="width: 95px;">
@@ -191,12 +223,28 @@
                               </div>
                             </div>
                           </div>
+                          <div class="row" id="destinationToMessage" style="margin-top: .3rem; display: none;">
+                            <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+                            <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                              <div class="text-red">
+                                Destination To cannot be empty.
+                              </div>
+                            </div>
+                          </div>
 
                           <!-- REASON TO TRAVEL -->
-                          <div class="row" style="margin-bottom: 1rem;">
+                          <div class="row" style="margin-top: 1rem;">
                             <label for="reasonTravel" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Reason To Travel</label>
                             <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                               <textarea id="reasonTravel" name="reasonTravel" style="border-radius:0;" cols="30" rows="3" class="form-control"></textarea>
+                            </div>
+                          </div>
+                          <div class="row" id="reasonToTravelMessage" style="margin-top: .3rem; display: none;">
+                            <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+                            <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                              <div class="text-red">
+                                Reason to Travel cannot be empty.
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -259,6 +307,17 @@
                         </tfoot>
                       </table>
                     </div>
+
+                    <!-- FOOTER -->
+                    <div id="budgetDetailsMessage" class="card-body tableShowHideBudget" style="display: none;">
+                      <div class="row">
+                        <div class="col">
+                          <div class="text-red">
+                            Please check one item.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -292,11 +351,13 @@
 
                           <div class="row" style="row-gap: 1rem;" id="travel-fares-container">
                             <div class="loading-container py-3" style="justify-items: center; width: 100%;">
-                              <div class="spinner-border" role="status">
-                                <span class="sr-only">Loading...</span>
-                              </div>
-                              <div class="mt-3" style="font-size: 0.75rem; font-weight: 700;">
-                                Loading...
+                              <div style="display: flex; flex-direction: column; align-items: center;">
+                                <div class="spinner-border" role="status">
+                                  <span class="sr-only">Loading...</span>
+                                </div>
+                                <div class="mt-3" style="font-size: 0.75rem; font-weight: 700;">
+                                  Loading...
+                                </div>
                               </div>
                             </div>
                           </div>
@@ -308,13 +369,16 @@
                               2. Allowance
                             </div>
                           </div>
+                          
                           <div class="row" id="allowance-container">
                             <div class="loading-container py-3" style="justify-items: center; width: 100%;">
-                              <div class="spinner-border" role="status">
-                                <span class="sr-only">Loading...</span>
-                              </div>
-                              <div class="mt-3" style="font-size: 0.75rem; font-weight: 700;">
-                                Loading...
+                              <div style="display: flex; flex-direction: column; align-items: center;">
+                                <div class="spinner-border" role="status">
+                                  <span class="sr-only">Loading...</span>
+                                </div>
+                                <div class="mt-3" style="font-size: 0.75rem; font-weight: 700;">
+                                  Loading...
+                                </div>
                               </div>
                             </div>
                           </div>
@@ -328,11 +392,13 @@
                           </div>
                           <div class="row" id="entertainment-container">
                             <div class="loading-container py-3" style="justify-items: center; width: 100%;">
-                              <div class="spinner-border" role="status">
-                                <span class="sr-only">Loading...</span>
-                              </div>
-                              <div class="mt-3" style="font-size: 0.75rem; font-weight: 700;">
-                                Loading...
+                              <div style="display: flex; flex-direction: column; align-items: center;">
+                                <div class="spinner-border" role="status">
+                                  <span class="sr-only">Loading...</span>
+                                </div>
+                                <div class="mt-3" style="font-size: 0.75rem; font-weight: 700;">
+                                  Loading...
+                                </div>
                               </div>
                             </div>
                           </div>
@@ -346,11 +412,13 @@
                           </div>
                           <div class="row" id="other-container">
                             <div class="loading-container py-3" style="justify-items: center; width: 100%;">
-                              <div class="spinner-border" role="status">
-                                <span class="sr-only">Loading...</span>
-                              </div>
-                              <div class="mt-3" style="font-size: 0.75rem; font-weight: 700;">
-                                Loading...
+                              <div style="display: flex; flex-direction: column; align-items: center;">
+                                <div class="spinner-border" role="status">
+                                  <span class="sr-only">Loading...</span>
+                                </div>
+                                <div class="mt-3" style="font-size: 0.75rem; font-weight: 700;">
+                                  Loading...
+                                </div>
                               </div>
                             </div>
                           </div>
@@ -365,6 +433,13 @@
                                     <div class="p-0">
                                       <div class="input-group">
                                         <input id="total_business_trip" name="total_business_trip" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative" disabled>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="row" id="totalBRFMessage" style="margin-top: .3rem; display: none;">
+                                    <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                                      <div class="text-red">
+                                        Total BRF cannot be empty.
                                       </div>
                                     </div>
                                   </div>
@@ -400,13 +475,9 @@
 
                             <div class="col-md-12 col-lg-5 p-0">
                               <!-- BANK NAME -->
-                              <div class="row mt-0 mx-0" style="margin-bottom: 1rem;">
+                              <div class="row mt-0 mx-0">
                                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Bank Name</label>
                                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
-                                  <div>
-                                    <input id="bank_list_name" style="border-radius:0;" class="form-control" size="17" readonly />
-                                    <input id="bank_list_code" name="vendor_bank_name" style="border-radius:0;" class="form-control" hidden />
-                                  </div>
                                   <div>
                                     <span style="border-radius:0;" class="input-group-text form-control">
                                       <a href="javascript:;" id="bank_list_popup_vendor" data-toggle="modal" data-target="#myGetBankList" class="myGetBankList">
@@ -414,22 +485,28 @@
                                       </a>
                                     </span>
                                   </div>
+                                  <div>
+                                    <input id="bank_list_name" style="border-radius:0;" class="form-control" size="17" readonly />
+                                    <input id="bank_list_code" name="vendor_bank_name" style="border-radius:0;" class="form-control" hidden />
+                                  </div>
                                   <div style="flex: 100%;">
                                     <input id="bank_list_detail" style="border-radius:0;" class="form-control" readonly />
                                   </div>
                                 </div>
                               </div>
+                              <div class="row" id="bankNameVendorMessage" style="margin-top: .3rem; display: none;">
+                                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+                                <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                                  <div class="text-red">
+                                    Bank Name cannot be empty.
+                                  </div>
+                                </div>
+                              </div>
 
                               <!-- BANK ACCOUNT -->
-                              <div class="row mt-0 mx-0">
+                              <div class="row mx-0" style="margin-top: 1rem;">
                                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Bank Account</label>
                                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
-                                  <div>
-                                    <input id="bank_accounts" style="border-radius:0;" class="form-control number-without-characters" size="17" autocomplete="off" readonly />
-                                    <input id="bank_accounts_duplicate" style="border-radius:0;" class="form-control" hidden />
-                                    <input id="bank_accounts_id" name="vendor_bank_account" style="border-radius:0;" class="form-control" hidden />
-                                    <input id="bank_accounts_duplicate_id" style="border-radius:0;" class="form-control" hidden />
-                                  </div>
                                   <div>
                                     <span style="border-radius:0;" class="input-group-text form-control">
                                       <a href="javascript:;" id="bank_accounts_popup_vendor" data-toggle="modal" data-target="#myBankAccount" class="myBankAccount">
@@ -437,9 +514,23 @@
                                       </a>
                                     </span>
                                   </div>
+                                  <div>
+                                    <input id="bank_accounts" style="border-radius:0;" class="form-control number-without-characters" size="17" autocomplete="off" readonly />
+                                    <input id="bank_accounts_duplicate" style="border-radius:0;" class="form-control" hidden />
+                                    <input id="bank_accounts_id" name="vendor_bank_account" style="border-radius:0;" class="form-control" hidden />
+                                    <input id="bank_accounts_duplicate_id" style="border-radius:0;" class="form-control" hidden />
+                                  </div>
                                   <div style="flex: 100%;">
                                     <input id="bank_accounts_detail" style="border-radius:0;" class="form-control" autocomplete="off" readonly />
                                     <input id="bank_accounts_duplicate_detail" style="border-radius:0;" class="form-control" hidden />
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="row" id="bankAccountVendorMessage" style="margin-top: .3rem; display: none;">
+                                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+                                <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                                  <div class="text-red">
+                                    Bank Account cannot be empty.
                                   </div>
                                 </div>
                               </div>
@@ -463,13 +554,9 @@
 
                             <div class="col-md-12 col-lg-5 p-0">
                               <!-- BANK NAME -->
-                              <div class="row mt-0 mx-0" style="margin-bottom: 1rem;">
+                              <div class="row mt-0 mx-0">
                                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Bank Name</label>
                                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
-                                  <div>
-                                    <input id="bank_list_second_name" style="border-radius:0;" class="form-control" size="17" readonly>
-                                    <input id="bank_list_second_code" name="corp_bank_name" style="border-radius:0;" class="form-control" hidden>
-                                  </div>
                                   <div>
                                     <span style="border-radius:0;" class="input-group-text form-control">
                                       <a href="javascript:;" id="bank_list_popup_corp_card" data-toggle="modal" data-target="#myGetBankListSecond" class="myGetBankListSecond">
@@ -477,22 +564,28 @@
                                       </a>
                                     </span>
                                   </div>
+                                  <div>
+                                    <input id="bank_list_second_name" style="border-radius:0;" class="form-control" size="17" readonly>
+                                    <input id="bank_list_second_code" name="corp_bank_name" style="border-radius:0;" class="form-control" hidden>
+                                  </div>
                                   <div style="flex: 100%;">
                                     <input id="bank_list_second_detail" style="border-radius:0;" class="form-control" readonly>
                                   </div>
                                 </div>
                               </div>
+                              <div class="row" id="bankNameCorpCardMessage" style="margin-top: .3rem; display: none;">
+                                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+                                <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                                  <div class="text-red">
+                                    Bank Name cannot be empty.
+                                  </div>
+                                </div>
+                              </div>
 
                               <!-- BANK ACCOUNT -->
-                              <div class="row mt-0 mx-0">
+                              <div class="row mx-0" style="margin-top: 1rem;">
                                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Bank Account</label>
                                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
-                                  <div>
-                                    <input id="bank_accounts_second" style="border-radius:0;" class="form-control number-without-characters" size="17" autocomplete="off" readonly>
-                                    <input id="bank_accounts_duplicate_second" style="border-radius:0;" class="form-control number-without-characters" size="17" autocomplete="off" hidden>
-                                    <input id="bank_accounts_id_second" name="corp_bank_account" style="border-radius:0;" class="form-control" hidden>
-                                    <input id="bank_accounts_duplicate_id_second" style="border-radius:0;" class="form-control" hidden>
-                                  </div>
                                   <div>
                                     <span style="border-radius:0;" class="input-group-text form-control">
                                       <a href="javascript:;" id="bank_accounts_popup_corp_card" data-toggle="modal" data-target="#myBankAccountSecond" class="myBankAccountSecond">
@@ -500,9 +593,23 @@
                                       </a>
                                     </span>
                                   </div>
+                                  <div>
+                                    <input id="bank_accounts_second" style="border-radius:0;" class="form-control number-without-characters" size="17" autocomplete="off" readonly>
+                                    <input id="bank_accounts_duplicate_second" style="border-radius:0;" class="form-control number-without-characters" size="17" autocomplete="off" hidden>
+                                    <input id="bank_accounts_id_second" name="corp_bank_account" style="border-radius:0;" class="form-control" hidden>
+                                    <input id="bank_accounts_duplicate_id_second" style="border-radius:0;" class="form-control" hidden>
+                                  </div>
                                   <div style="flex: 100%;">
                                     <input id="bank_accounts_detail_second" style="border-radius:0;" class="form-control" autocomplete="off" readonly>
                                     <input id="bank_accounts_detail_duplicate_second" style="border-radius:0;" class="form-control" autocomplete="off" hidden>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="row" id="bankAccountCorpCardMessage" style="margin-top: .3rem; display: none;">
+                                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+                                <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                                  <div class="text-red">
+                                    Bank Account cannot be empty.
                                   </div>
                                 </div>
                               </div>
@@ -526,14 +633,9 @@
 
                             <div class="col-md-12 col-lg-5 p-0">
                               <!-- BENEFICIARY -->
-                              <div class="row mt-0 mx-0" style="margin-bottom: 1rem;">
+                              <div class="row mt-0 mx-0">
                                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Beneficiary</label>
                                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
-                                  <div>
-                                    <input id="beneficiary_second_person_position" style="border-radius:0;" size="17" class="form-control" readonly>
-                                    <input id="beneficiary_second_id" name="other_beneficiary" style="border-radius:0;" class="form-control" hidden>
-                                    <input id="beneficiary_second_person_ref_id" style="border-radius:0;" class="form-control" hidden>
-                                  </div>
                                   <div>
                                     <span style="border-radius:0;" class="input-group-text form-control">
                                       <a href="javascript:;" id="beneficiary_second_popup" data-toggle="modal" data-target="#myBeneficiarySecond">
@@ -541,20 +643,29 @@
                                       </a>
                                     </span>
                                   </div>
+                                  <div>
+                                    <input id="beneficiary_second_person_position" style="border-radius:0;" size="17" class="form-control" readonly>
+                                    <input id="beneficiary_second_id" name="other_beneficiary" style="border-radius:0;" class="form-control" hidden>
+                                    <input id="beneficiary_second_person_ref_id" style="border-radius:0;" class="form-control" hidden>
+                                  </div>
                                   <div style="flex: 100%;">
                                     <input id="beneficiary_second_person_name" style="border-radius:0;" type="text" class="form-control" readonly>
                                   </div>
                                 </div>
                               </div>
+                              <div class="row" id="beneficiaryToOtherMessage" style="margin-top: .3rem; display: none;">
+                                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+                                <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                                  <div class="text-red">
+                                    Beneficiary cannot be empty.
+                                  </div>
+                                </div>
+                              </div>
 
                               <!-- BANK NAME -->
-                              <div class="row mt-0 mx-0" style="margin-bottom: 1rem;">
+                              <div class="row mx-0" style="margin-top: 1rem;">
                                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Bank Name</label>
                                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
-                                  <div>
-                                    <input id="bank_list_third_name" style="border-radius:0;" class="form-control" size="17" readonly>
-                                    <input id="bank_list_third_code" name="other_bank_name" style="border-radius:0;" class="form-control" hidden>
-                                  </div>
                                   <div>
                                     <span style="border-radius:0;" class="input-group-text form-control">
                                       <a href="javascript:;" id="bank_list_popup_second" data-toggle="modal" data-target="#myGetBankListThird" class="myGetBankListThird">
@@ -562,22 +673,28 @@
                                       </a>
                                     </span>
                                   </div>
+                                  <div>
+                                    <input id="bank_list_third_name" style="border-radius:0;" class="form-control" size="17" readonly>
+                                    <input id="bank_list_third_code" name="other_bank_name" style="border-radius:0;" class="form-control" hidden>
+                                  </div>
                                   <div style="flex: 100%;">
                                     <input id="bank_list_third_detail" style="border-radius:0;" class="form-control" readonly>
                                   </div>
                                 </div>
                               </div>
+                              <div class="row" id="bankNameToOtherMessage" style="margin-top: .3rem; display: none;">
+                                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+                                <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                                  <div class="text-red">
+                                    Bank Name cannot be empty.
+                                  </div>
+                                </div>
+                              </div>
 
                               <!-- BANK ACCOUNT -->
-                              <div class="row mt-0 mx-0">
+                              <div class="row mx-0" style="margin-top: 1rem;">
                                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Bank Account</label>
                                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
-                                  <div>
-                                    <input id="bank_accounts_third" style="border-radius:0;" size="17" class="form-control number-without-characters" autocomplete="off" readonly>
-                                    <input id="bank_accounts_duplicate_third" style="border-radius:0;" size="17" class="form-control number-without-characters" hidden>
-                                    <input id="bank_accounts_third_id" name="other_bank_account" style="border-radius:0;" class="form-control" hidden>
-                                    <input id="bank_accounts_duplicate_third_id" style="border-radius:0;" class="form-control" hidden>
-                                  </div>
                                   <div>
                                     <span style="border-radius:0;" class="input-group-text form-control">
                                       <a href="javascript:;" id="bank_accounts_third_popup" data-toggle="modal" data-target="#myBankAccountThird">
@@ -585,9 +702,23 @@
                                       </a>
                                     </span>
                                   </div>
+                                  <div>
+                                    <input id="bank_accounts_third" style="border-radius:0;" size="17" class="form-control number-without-characters" autocomplete="off" readonly>
+                                    <input id="bank_accounts_duplicate_third" style="border-radius:0;" size="17" class="form-control number-without-characters" hidden>
+                                    <input id="bank_accounts_third_id" name="other_bank_account" style="border-radius:0;" class="form-control" hidden>
+                                    <input id="bank_accounts_duplicate_third_id" style="border-radius:0;" class="form-control" hidden>
+                                  </div>
                                   <div style="flex: 100%;">
                                     <input id="bank_accounts_third_detail" style="border-radius:0;" class="form-control" autocomplete="off" readonly>
                                     <input id="bank_accounts_duplicate_third_detail" style="border-radius:0;" class="form-control" hidden>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="row" id="bankAccountToOtherMessage" style="margin-top: .3rem; display: none;">
+                                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+                                <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                                  <div class="text-red">
+                                    Bank Account cannot be empty.
                                   </div>
                                 </div>
                               </div>
@@ -599,11 +730,19 @@
                           <!-- TOTAL PAYMENT -->
                           <div class="row m-0">
                             <div class="col-md-12 col-lg-5 p-0">
-                              <div class="row mt-0 mx-0" style="margin-bottom: 1rem;">
+                              <div class="row mt-0 mx-0">
                                 <label for="total_payment" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Total Payment</label>
                                 <div class="col-sm-9 col-md-8 col-lg-3 p-0">
                                   <div class="input-group">
                                     <input id="total_payment" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative" disabled>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="row" id="totalPaymentMessage" style="margin-top: .3rem; display: none;">
+                                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+                                <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                                  <div class="text-red">
+                                    Total Payment cannot be empty.
                                   </div>
                                 </div>
                               </div>
@@ -620,23 +759,15 @@
             <!-- BUTTON -->
             <div class="px-3 pb-3">
               <div style="display: flex; justify-content: flex-end; gap: 8px;">
-                <div style="display: flex;">
-                  <!-- <button class="btn btn-default btn-sm button-submit" id="submitButton" type="submit">
-                    <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" />
-                    <div>Submit</div>
-                  </button> -->
-                  <button type="button" class="btn btn-default btn-sm button-submit" onclick="validationForm()">
-                    <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" />
-                    <div>Submit</div>
-                  </button>
-                </div>
+                <button type="button" class="btn btn-default btn-sm button-submit" onclick="validationForm()">
+                  <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" />
+                  <div>Submit</div>
+                </button>
                 
-                <div style="display: flex;">
-                  <button class="btn btn-default btn-sm button-submit" id="cancelButton" type="button" onclick="CancelBusinessTrip();">
-                    <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" />
-                    <div>Cancel</div>
-                  </button>
-                </div>
+                <button class="btn btn-default btn-sm button-submit" id="cancelButton" type="button" onclick="cancelForm('{{ route('BusinessTripRequest.index', ['var' => 1]) }}')">
+                  <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" />
+                  <div>Cancel</div>
+                </button>
               </div>
             </div>
           </form>
@@ -655,7 +786,7 @@
       </div>
       <div class="modal-body">
         <div class="row" style="margin-bottom: 1rem;">
-          <div class="col" style="font-size: 0.9rem; font-weight: bold;">
+          <div class="col" style="font-size: 0.9rem;">
             Travel & Fares
           </div>
           <div id="travel_fares_modal_summary" class="col text-right" style="font-size: 0.9rem;">
@@ -664,7 +795,7 @@
         </div>
 
         <div class="row" style="margin-bottom: 1rem;">
-          <div class="col" style="font-size: 0.9rem; font-weight: bold;">
+          <div class="col" style="font-size: 0.9rem;">
             Allowance
           </div>
           <div id="allowance_modal_summary" class="col text-right" style="font-size: 0.9rem;">
@@ -673,7 +804,7 @@
         </div>
 
         <div class="row" style="margin-bottom: 1rem;">
-          <div class="col" style="font-size: 0.9rem; font-weight: bold;">
+          <div class="col" style="font-size: 0.9rem;">
             Entertainment
           </div>
           <div id="entertainment_modal_summary" class="col text-right" style="font-size: 0.9rem;">
@@ -682,7 +813,7 @@
         </div>
 
         <div class="row" style="margin-bottom: 1rem;">
-          <div class="col" style="font-size: 0.9rem; font-weight: bold;">
+          <div class="col" style="font-size: 0.9rem;">
             Other
           </div>
           <div id="other_modal_summary" class="col text-right" style="font-size: 0.9rem;">
@@ -690,10 +821,15 @@
           </div>
         </div>
 
-        <hr>
+        <div class="row" style="margin-bottom: 1rem;">
+          <div class="col">
+            <!-- <div style="font-size: 0.9rem;text-align: right;margin-bottom: 0.3rem;">+</div> -->
+            <hr style="margin: 0; border: 1px solid #000;" />
+          </div>
+        </div>
 
         <div class="row" style="margin-bottom: 1rem;">
-          <div class="col" style="font-size: 0.9rem; font-weight: bold;">
+          <div class="col" style="font-size: 0.9rem;">
             Total BRF
           </div>
           <div id="total_brf_modal_summary" class="col text-right" style="font-size: 0.9rem;">

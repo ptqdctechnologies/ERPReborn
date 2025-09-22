@@ -262,6 +262,8 @@
                     }
 
                     $("#transporterRefID").val(data[0].transporter_RefID);
+                    $("#deliveryDateTimeTZ").val(data[0].deliveryDateTimeTZ);
+                    $("#var_combinedBudget_RefID").val(data[0].combinedBudget_RefID);
 
                     $("#budget_value").val(data[0].combinedBudgetCode + ' - ' + data[0].combinedBudgetName);
                     $("#sub_budget_value").val(data[0].combinedBudgetSectionCode + ' - ' + data[0].combinedBudgetSectionName);
@@ -496,6 +498,18 @@
         $("#delivery_order_code").css("border", "1px solid #ced4da");
         $("#deliveryOrderMessage").hide();
         GetDeliveryOrderDetail(sysId, projectCode);
+    });
+
+    $('#tableGetModalWarehouses').on('click', 'tbody tr', function() {
+        let sysId   = $(this).find('input[data-trigger="sys_id_modal_warehouse"]').val();
+        let name    = $(this).find('td:nth-child(2)').text();
+        let address = $(this).find('td:nth-child(3)').text();
+
+        $("#warehouse_id").val(sysId);
+        $("#warehouse_name").val(name);
+        $("#warehouse_address").val(address);
+
+        $("#myGetModalWarehouses").modal('toggle');
     });
 
     $('#address_delivery_order_from').on('input', function() {

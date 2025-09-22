@@ -1,6 +1,7 @@
 <script>
-    let dataStore   = [];
-    const dataTable = {!! json_encode($dataDetail ?? []) !!};
+    let dataStore           = [];
+    const receiveDateValue  = {!! json_encode($header['receiveDate']) !!};
+    const dataTable         = {!! json_encode($dataDetail ?? []) !!};
 
     const receiveDate                       = document.getElementById("receive_date");
 
@@ -465,6 +466,18 @@
         });
     }
 
+    $('#tableGetModalWarehouses').on('click', 'tbody tr', function() {
+        let sysId   = $(this).find('input[data-trigger="sys_id_modal_warehouse"]').val();
+        let name    = $(this).find('td:nth-child(2)').text();
+        let address = $(this).find('td:nth-child(3)').text();
+
+        $("#warehouse_id").val(sysId);
+        $("#warehouse_name").val(name);
+        $("#warehouse_address").val(address);
+
+        $("#myGetModalWarehouses").modal('toggle');
+    });
+
     $('#address_delivery_order_from').on('input', function() {
         if ($(this).val().trim() === addressDeliveryOrderFromDuplicate.value) {
             $("#id_delivery_order_from").val(idDeliveryOrderFromDuplicate.value);
@@ -486,7 +499,8 @@
         getDocumentType("Warehouse Inbound Order Revision Form");
 
         $('#startDate').datetimepicker({
-            format: 'L'
+            format: 'L',
+            defaultDate: receiveDateValue
         });
     });
 </script>

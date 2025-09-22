@@ -35,6 +35,7 @@
         const rows = sourceTable.getElementsByTagName('tr');
 
         for (let row of rows) {
+            const referenceDocumentID                   = row.querySelector('input[id^="reference_document_id"]');
             const businessDocumentNumber                = row.querySelector('input[id^="business_document_number"]');
             const combinedBudgetSectionDetailID         = row.querySelector('input[id^="combined_budget_section_detail_id"]');
             const productID                             = row.querySelector('input[id^="product_id"]');
@@ -86,6 +87,7 @@
                                     productUnitPriceCurrencyExchangeRate: parseInt(productUnitPriceCurrencyExchangeRate.value),
                                     vatRatio: 0,
                                     chartOfAccount_RefID: parseInt(debitNoteCoaID.value),
+                                    referenceDocument_RefID: parseInt(referenceDocumentID.value)
                                 }
                             };
                         }
@@ -116,6 +118,7 @@
                             productUnitPriceCurrencyExchangeRate: parseInt(productUnitPriceCurrencyExchangeRate.value),
                             vatRatio: 0,
                             chartOfAccount_RefID: parseInt(debitNoteCoaID.value),
+                            referenceDocument_RefID: parseInt(referenceDocumentID.value)
                         }
                     });
                 }
@@ -189,7 +192,7 @@
                 let debitNoteDetailsTable = $('#debit_note_details_table tbody');
 
                 let modifyColumn = `<td rowspan="${data.length}" style="text-align: center; padding: 10px !important;">${refNumber}</td>`;
-                
+
                 $.each(data, function(key, value) {
                     let total = value.Quantity * value.ProductUnitPriceCurrencyValue;
                     let row = `
@@ -226,20 +229,33 @@
                             <input type="hidden" id="quantity_unit_id[]" value="${value.QuantityUnit_RefID}">
                             <input type="hidden" id="product_unit_price_currency_id[]" value="${value.ProductUnitPriceCurrency_RefID}">
                             <input type="hidden" id="product_unit_price_currency_exchange_rate[]" value="${value.ProductUnitPriceCurrencyExchangeRate}">
+                            <input type="hidden" id="reference_document_id[]" value="${value.Sys_ID_Detail}">
                         </tr>
                     `;
 
                     debitNoteDetailsTable.append(row);
 
                     $(`#debit_note_value${indexDebitNoteDetails}`).on('keyup', function() {
+                        let debit_note_value = $(this).val().replace(/,/g, '');
                         let data_index = $(this).data('index');
+
+                        if (debit_note_value > total) {
+                            $(this).val('');
+                            ErrorNotif("DN Value is over!");
+                        }
 
                         calculateTotal();
                         checkOneLineBudgetContents(data_index);
                     });
 
                     $(`#debit_note_tax${indexDebitNoteDetails}`).on('keyup', function() {
+                        let debit_note_tax = $(this).val().replace(/,/g, '');
                         let data_index = $(this).data('index');
+
+                        if (debit_note_tax > total) {
+                            $(this).val('');
+                            ErrorNotif("DN Tax is over!");
+                        }
 
                         calculateTotal();
                         checkOneLineBudgetContents(data_index);
@@ -253,6 +269,9 @@
 
                     indexDebitNoteDetails += 1;
                 });
+
+                $("#debit_note_reference_trigger").prop('disabled', true);
+                $("#debit_note_reference_trigger").css({"cursor":"not-allowed"});
             },
             error: function (textStatus, errorThrown) {
                 console.log('textStatus', textStatus);
@@ -337,12 +356,12 @@
         });
     }
 
-    $('#tableGetModalReimbursement').on('click', 'tbody tr', async function() {
-        var sysId   = $(this).find('input[data-trigger="sys_id_modal_reimbursement"]').val();
-        var trano   = $(this).find('td:nth-child(2)').text();
+    $('#tableGetModalReimbursementAccountPayable').on('click', 'tbody tr', async function() {
+        let sysId   = $(this).find('input[data-trigger="sys_id_modal_reference"]').val();
+        let trano   = $(this).find('td:nth-child(2)').text();
 
         getReferenceNumberDetails(sysId, trano);
-        
-        $('#myGetModalReimbursement').modal('hide');
+
+        $('#myGetModalReimbursementAccountPayable').modal('hide');
     });
 </script>

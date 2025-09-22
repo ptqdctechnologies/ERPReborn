@@ -9,7 +9,6 @@
                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">QTY</th>
                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">PRICE</th>
                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">TOTAL</th>
-                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">BALANCE</th>
                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">CN VALUE</th>
                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">CN TAX</th>
                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">COA</th>
@@ -29,7 +28,6 @@
                         <td style="border:1px solid #4B586A;color:#4B586A;"><?= number_format($dataDetail['Quantity'] * $dataDetail['ProductUnitPriceCurrencyValue'], 2, '.', ',') ?? '-'; ?></td>
                         <td style="border:1px solid #4B586A;color:#4B586A;">-</td>
                         <td style="border:1px solid #4B586A;color:#4B586A;">-</td>
-                        <td style="border:1px solid #4B586A;color:#4B586A;">-</td>
                         <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['COA_Code']; ?> - <?= $dataDetail['COA_Name']; ?></td>
                     </tr>
                 <?php } ?>
@@ -45,7 +43,6 @@
                             <?= number_format($grand_total, 2); ?>
                         </span>
                     </td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;"></td>
                     <td style="border:1px solid #4B586A;color:#4B586A;"></td>
                     <td style="border:1px solid #4B586A;color:#4B586A;"></td>
                     <td style="border:1px solid #4B586A;color:#4B586A;"></td>

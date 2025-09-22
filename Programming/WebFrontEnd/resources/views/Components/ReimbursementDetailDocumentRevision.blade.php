@@ -35,7 +35,7 @@
                         <td style="padding: 8px; width: 40px; min-width: 40px; max-width: 40px; position: sticky; background-color: white; left: 250px; z-index: 10;">{{ $dataDetailGetTransactionHistory[$i][count($dataDetailGetTransactionHistory[$i]) - 1]['quantityUnitName'] }}</td>
                         <td style="padding: 8px; width: 80px; min-width: 80px; max-width: 80px; position: sticky; background-color: white; left: 290px; z-index: 10;">{{ number_format($dataDetailGetTransactionHistory[$i][count($dataDetailGetTransactionHistory[$i]) - 1]['content']['quantity'], 2) }}</td>
                         <td style="padding: 8px; width: 125px; min-width: 125px; max-width: 125px; position: sticky; background-color: white; left: 370px; z-index: 10;">{{ number_format($dataDetailGetTransactionHistory[$i][count($dataDetailGetTransactionHistory[$i]) - 1]['content']['productUnitPriceCurrencyValue'], 2) }}</td>
-                        <td style="padding: 8px; width: 125px; min-width: 125px; max-width: 125px; position: sticky; background-color: white; left: 495px; z-index: 10;">{{ number_format($dataDetailGetTransactionHistory[$i][count($dataDetailGetTransactionHistory[$i]) - 1]['content']['priceCurrencyValue'], 2) }}</td>
+                        <td style="padding: 8px; width: 125px; min-width: 125px; max-width: 125px; position: sticky; background-color: white; left: 495px; z-index: 10;">{{ number_format($dataDetailGetTransactionHistory[$i][count($dataDetailGetTransactionHistory[$i]) - 1]['content']['priceFinalCurrencyValue'], 2) }}</td>
                         <td style="padding: 8px; width: 125px; min-width: 125px; max-width: 125px; position: sticky; background-color: white; left: 620px; z-index: 10;">-</td>
                     </tr>
                 @endfor
@@ -77,7 +77,7 @@
                             @if ($n !== count($dataDetailGetTransactionHistory[$i]) - 1)
                                 <td style="padding: 8px;border-right:1px solid #e9ecef;width: 60px; min-width: 60px; max-width: 60px;">{{ number_format($dataDetailGetTransactionHistory[$i][$n]['content']['quantity'], 2) }}</td>
                                 <td style="padding: 8px;border-right:1px solid #e9ecef;width: 80px; min-width: 80px; max-width: 80px;">{{ number_format($dataDetailGetTransactionHistory[$i][$n]['content']['productUnitPriceCurrencyValue'], 2) }}</td>
-                                <td style="padding: 8px;border-right:1px solid #e9ecef;width: 80px; min-width: 80px; max-width: 80px;">{{ number_format($dataDetailGetTransactionHistory[$i][$n]['content']['priceCurrencyValue'], 2) }}</td>
+                                <td style="padding: 8px;border-right:1px solid #e9ecef;width: 80px; min-width: 80px; max-width: 80px;">{{ number_format($dataDetailGetTransactionHistory[$i][$n]['content']['priceFinalCurrencyValue'], 2) }}</td>
                                 <td style="padding: 8px;border-right:1px solid #e9ecef;width: 150px; min-width: 150px; max-width: 150px;">-</td>
                             @endif
                         @endfor

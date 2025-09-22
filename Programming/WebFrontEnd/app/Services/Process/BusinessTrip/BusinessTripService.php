@@ -204,7 +204,7 @@ class BusinessTripService
             'transaction.update.humanResource.setPersonBusinessTrip',
             'latest',
             [
-            'recordID' => 78000000000001,
+            'recordID' => (int) $data['personBusinessTripRefID'],
             'entities' => [
                 'documentDateTimeTZ'                => date('Y-m-d'),
                 'combinedBudgetSectionDetail_RefID' => (int) $data['combinedBudgetSectionDetail_RefID'],
@@ -213,7 +213,7 @@ class BusinessTripService
                     'itemList'      => [
                         'items'     => [
                                 [
-                                'recordID' => 79000000000001,
+                                'recordID' => (int) $data['personBusinessTripDetailRefID'],
                                 'entities' => [
                                     'sequence'                                          => 1,
                                     'log_FileUpload_Pointer_RefID'                      => $fileID,

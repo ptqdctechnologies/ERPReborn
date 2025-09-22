@@ -374,6 +374,9 @@
             indexCreditNoteDetails += 1;
             dataDummy = [];
         });
+
+        $("#myInvoiceTrigger").prop('disabled', true);
+        $("#myInvoiceTrigger").css({"cursor":"not-allowed"});
     }
 
     function SelectWorkFlow(formatData) {
