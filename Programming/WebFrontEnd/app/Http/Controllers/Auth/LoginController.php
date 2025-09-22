@@ -91,7 +91,7 @@ class LoginController extends Controller
 
     private function storeSessionData(array $loginData, array $roleData)
     {
-        $userIdentity = $loginData['userIdentity'];
+        $userIdentity = $loginData['userIdentities'];
         Session::put('SessionLogin', $loginData['APIWebToken']);
         Session::put('SessionOrganizationalDepartmentName', $userIdentity['organizationalDepartmentName']);
         Session::put('SessionLoginName', $userIdentity['personName']);
@@ -110,7 +110,7 @@ class LoginController extends Controller
             $password   = $request->input('password');
 
             $loginData = $this->performLogin($username, $password);
-            $userRefID = $loginData['userIdentity']['user_RefID'];
+            $userRefID = $loginData['userIdentities']['user_RefID'];
 
             $institutionBranchData = $this->fetchInstitutionBranch($userRefID);
             $institutionBranchID   = $institutionBranchData[0]['sys_ID'];
@@ -123,7 +123,7 @@ class LoginController extends Controller
             $this->storeSessionData($loginData, $roleData);
 
             return response()->json([
-                'responseDataLogin'                     => $loginData['userIdentity'], 
+                'responseDataLogin'                     => $loginData['userIdentities'], 
                 'responseDataInstitutionBranch'         => $institutionBranchData,
                 'responseDataRole'                      => $roleData,
                 'responseDataSetLoginBranchAndUserRole' => $setLoginData
