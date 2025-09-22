@@ -149,10 +149,10 @@ class LoginController extends Controller
                     return response()->json($compact);
                 } else {
                     $varAPIWebToken = $dataAwal['data']['APIWebToken'];
-                    $varDataBranch = $this->GetInstitutionBranchFunction($dataAwal['data']['userIdentity']['user_RefID']);
+                    $varDataBranch = $this->GetInstitutionBranchFunction($dataAwal['data']['userIdentities']['user_RefID']);
 
                     if (count($varDataBranch) == 1) {
-                        $varDataRole = $this->GetRoleFunction($varDataBranch[0]['Sys_ID'], $dataAwal['data']['userIdentity']['user_RefID']);
+                        $varDataRole = $this->GetRoleFunction($varDataBranch[0]['Sys_ID'], $dataAwal['data']['userIdentities']['user_RefID']);
 
                         for ($i = 0; $i < count($varDataRole); $i++) {
                             Session::push('SessionRoleLogin', $varDataRole[$i]['Sys_ID']);
@@ -172,7 +172,7 @@ class LoginController extends Controller
                         // $privilageMenu = json_decode(
                         //     Helper_Redis::getValue(
                         //         Helper_Environment::getUserSessionID_System(),
-                        //         "RedisGetMenu" . $dataAwal['data']['userIdentity']['user_RefID']
+                        //         "RedisGetMenu" . $dataAwal['data']['userIdentities']['user_RefID']
                         //     ),
                         //     true
                         // );
@@ -183,10 +183,10 @@ class LoginController extends Controller
                         // foreach($cekLogin as $cekLogins){
                         //     if($cekLogins['entities']['caption'] == "Login"){
                                 Session::put('SessionLogin', $varAPIWebToken);
-                                Session::put('SessionOrganizationalDepartmentName', $dataAwal['data']['userIdentity']['organizationalDepartmentName']);
-                                Session::put('SessionLoginName', $dataAwal['data']['userIdentity']['personName']);
-                                Session::put('SessionWorkerCareerInternal_RefID', $dataAwal['data']['userIdentity']['workerCareerInternal_RefID']);
-                                Session::put('SessionUser_RefID', $dataAwal['data']['userIdentity']['user_RefID']);
+                                Session::put('SessionOrganizationalDepartmentName', $dataAwal['data']['userIdentities']['organizationalDepartmentName']);
+                                Session::put('SessionLoginName', $dataAwal['data']['userIdentities']['personName']);
+                                Session::put('SessionWorkerCareerInternal_RefID', $dataAwal['data']['userIdentities']['workerCareerInternal_RefID']);
+                                Session::put('SessionUser_RefID', $dataAwal['data']['userIdentities']['user_RefID']);
                                 // Session::put('PrivilageMenu', $privilageMenu);
         
                                 $compact = [
@@ -207,11 +207,11 @@ class LoginController extends Controller
                             $compact = [
                                 'status_code'                   => 2,
                                 'data'                          => $varDataBranch,
-                                'user_RefID'                    => $dataAwal['data']['userIdentity']['user_RefID'],
+                                'user_RefID'                    => $dataAwal['data']['userIdentities']['user_RefID'],
                                 'varAPIWebToken'                => $varAPIWebToken,
-                                'personName'                    => $dataAwal['data']['userIdentity']['personName'],
-                                'workerCareerInternal_RefID'    => $dataAwal['data']['userIdentity']['workerCareerInternal_RefID'],
-                                'organizationalDepartmentName'  => $dataAwal['data']['userIdentity']['organizationalDepartmentName']
+                                'personName'                    => $dataAwal['data']['userIdentities']['personName'],
+                                'workerCareerInternal_RefID'    => $dataAwal['data']['userIdentities']['workerCareerInternal_RefID'],
+                                'organizationalDepartmentName'  => $dataAwal['data']['userIdentities']['organizationalDepartmentName']
                             ];
 
                             return response()->json($compact);

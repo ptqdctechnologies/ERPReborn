@@ -114,8 +114,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                                         );
                             
                             if (
-                                (1 == 2)
-//                                ($varRedisData['userRole_RefID'] != null) AND ($varRedisData['branch_RefID'] != null)                                    
+//                                (1 == 2)
+                                ($varRedisData['userRole_RefID'] != null) AND ($varRedisData['branch_RefID'] != null)                                    
                                 ) {
                                 $varReturn =
                                     \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail(
@@ -197,8 +197,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                                         $varUserRoleID
                                         );
 
-                                $x = \App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationUserSession_AllData($varUserSession);
-                                dd($x);
+//                                $x = \App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationUserSession_AllData($varUserSession);
+//                                dd($x);
 
 /*
                             if (self::isSet($varUserSession, $varAPIWebToken) == true) {
