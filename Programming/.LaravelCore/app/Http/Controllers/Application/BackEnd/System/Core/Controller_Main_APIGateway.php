@@ -282,7 +282,6 @@ die();
 //                }
 
             catch (\Symfony\Component\HttpKernel\Exception\HttpException $ex) {
-                dd(111);
                 return
                     \App\Helpers\ZhtHelper\System\Helper_HTTPError::setResponse($varUserSession, $ex->getStatusCode(), $ex->getMessage());
                 }

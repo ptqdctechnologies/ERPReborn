@@ -66,6 +66,234 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                         'Get Login Branch And User Role (version 1)'
                         );
 
+                try {
+                    //-----[ MAIN CODE ]----------------------------------------------------------------------------( START POINT )-----
+                        //---> Initializing : varAPIWebToken
+                            $varAPIWebToken =
+                                \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession)['APIWebToken'];
+
+                        //---> Check Web Token is Exist
+                        if (
+                            \App\Helpers\ZhtHelper\Cache\Helper_Redis::isExist(
+                                $varUserSession,
+                                'ERPReborn::APIWebToken::'.$varAPIWebToken
+                                ) == FALSE
+                            ) {
+                            $varReturn =
+                                \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail(
+                                    $varUserSession,
+                                    403,
+                                    'API Web Token is not exist'
+                                    );
+                            }
+                        //---> Check Web Token has Expired
+                        elseif (
+                            \App\Helpers\ZhtHelper\Cache\Helper_Redis::isExpired(
+                                $varUserSession,
+                                'ERPReborn::APIWebToken::'.$varAPIWebToken
+                                ) == TRUE
+                            ) {
+                            $varReturn =
+                                \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail(
+                                    $varUserSession,
+                                    403,
+                                    'API Web Token has expired'
+                                    );
+                            }
+                        //---> Web Token is valid
+                        else {
+//                        if (1 == 1) {
+                            //---> Initializing : varRedisData
+                                $varRedisData = 
+                                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                                        $varUserSession,
+                                        \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
+                                            $varUserSession,
+                                            'ERPReborn::APIWebToken::'.$varAPIWebToken
+                                            )
+                                        );
+                            
+                            if (
+                                (1 == 2)
+//                                ($varRedisData['userRole_RefID'] != null) AND ($varRedisData['branch_RefID'] != null)                                    
+                                ) {
+                                $varReturn =
+                                    \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail(
+                                        $varUserSession,
+                                        403,
+                                        'Branch ID and User Role ID already choosen'
+                                        );
+                                }
+                            else
+                                {
+                                //---> Initializing : varBranchID
+                                    $varBranchID =
+                                        $varData['branchID'];
+
+                                //---> Initializing : varUserID
+                                    $varUserID =
+                                        \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession)['userID'];
+
+                                //---> Initializing : varUserRoleID
+                                    $varUserRoleID =
+                                        $varData['userRoleID'];
+
+                                //---> Initializing : $varDataUserAccessPrivileges
+                                    $varDataUserAccessPrivileges =
+                                         \App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationUserPrivilegesCombinedBudgetAndMenu(
+                                            $varUserSession,
+                                            $varUserID
+                                            );
+
+                                    $varDataUserAccessPrivileges = [
+                                        'branch' => [
+                                            'IDList   ' => $varDataUserAccessPrivileges['branchIDList']
+                                            ],
+                                        'userRole' => [
+                                            'IDList' => $varDataUserAccessPrivileges['userRoleIDList'],
+                                            'nameList' => $varDataUserAccessPrivileges['userRoleNameList']
+                                            ],
+                                        'combinedBudget' => [
+                                            'IDList' => $varDataUserAccessPrivileges['combinedBudgetIDList'],
+                                            'codeList' => $varDataUserAccessPrivileges['combinedBudgetCodeList'],
+                                            'nameList' => $varDataUserAccessPrivileges['combinedBudgetNameList'],
+                                            'fullNameList' => $varDataUserAccessPrivileges['combinedBudgetFullNameList']
+                                            ],
+                                        'menu' => [
+                                            'IDList' => $varDataUserAccessPrivileges['menuIDList'],
+                                            'keyList' => $varDataUserAccessPrivileges['menuKeyList'],
+                                            'captionList' => $varDataUserAccessPrivileges['menuCaptionList'],
+                                            'fullCaptionList' => $varDataUserAccessPrivileges['menuFullCaptionList'],
+                                            ],
+                                        'menuAction' => [
+                                            'IDList' => $varDataUserAccessPrivileges['menuActionIDList'],
+                                            'keyList' => $varDataUserAccessPrivileges['menuKeyList'],
+                                            'captionList' => $varDataUserAccessPrivileges['menuCaptionList'],
+                                            'fullCaptionList' => $varDataUserAccessPrivileges['menuActionFullCaptionList'],
+                                            ]
+                                        ];
+
+                                //---> Reinitializing : Redis
+                                    $varRedisData['userRole_RefID'] = $varUserRoleID;
+                                    $varRedisData['branch_RefID'] = $varBranchID;
+                                    $varRedisData['userAccessPrivileges'] = $varDataUserAccessPrivileges;
+
+                                    //dd($varRedisData);
+                                    
+                                    \App\Helpers\ZhtHelper\Cache\Helper_Redis::setValueRenewal(
+                                        $varUserSession,
+                                        'ERPReborn::APIWebToken::'.$varAPIWebToken,
+                                        \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode(
+                                            $varUserSession,
+                                            $varRedisData
+                                            )
+                                        );
+
+                                //---> Update Database
+                                    (new \App\Models\Database\SchSysConfig\General())->setUserSessionBranchAndUserRole(
+                                        $varUserSession,
+                                        $varUserSession,
+                                        $varBranchID,
+                                        $varUserRoleID
+                                        );
+
+                                    //$varRedisData = 
+                                    //    \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession);
+
+                                /*
+                                $varRedisData = 
+                                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                                        $varUserSession,
+                                        \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
+                                            $varUserSession,
+                                            'ERPReborn::APIWebToken::'.$varAPIWebToken
+                                            )
+                                        );
+
+                                dd (
+                                    $varRedisData
+                                    );
+                                */
+
+
+/*
+                            if (self::isSet($varUserSession, $varAPIWebToken) == true) {
+                                $varReturn =
+                                    \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail(
+                                        $varUserSession,
+                                        403,
+                                        'Branch ID and User Role ID already choosen'
+                                        );
+                                //dd(\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession));
+                                //dd(\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession)['userIdentity']['workerCareerInternal_RefID']);
+                                }
+
+
+                            dd($varUserRoleID);
+*/
+
+
+
+
+                                $varDataSend = ['message' => 'Chosen Branch ID and User Role ID have been saved'];
+
+                                $varReturn =
+                                    \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success(
+                                        $varUserSession,
+                                        $varDataSend
+                                        );
+                                }
+                            }
+
+                    //-----[ MAIN CODE ]------------------------------------------------------------------------------( END POINT )-----
+
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');    
+                    }
+                catch (\Exception $ex) {
+                    }
+
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
+                }
+
+            catch (\Exception $ex) {
+                }
+
+            return
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+            }
+
+
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+
+        function mainOLD($varUserSession, $varData)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
+
+            try {
+                $varSysDataProcess =
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__,
+                        'Get Login Branch And User Role (version 1)'
+                        );
+
                 /*
                 try {
                     //-----[ MAIN CODE ]----------------------------------------------------------------------------( START POINT )-----
@@ -315,20 +543,26 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                 //             // );
 
 
-                             $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
+                            $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
                             }
                         }
                     //-----[ MAIN CODE ]------------------------------------------------------------------------------( END POINT )-----
+
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
-                    } 
+                    }
+
                 catch (\Exception $ex) {
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, ' . $ex->getMessage());
-                }
-                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
-            } 
-                catch (\Exception $ex) {
                     }
-            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
+                }
+
+            catch (\Exception $ex) {
+                }
+
+            return
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
             }
 
 

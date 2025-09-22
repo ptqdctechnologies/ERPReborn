@@ -527,9 +527,6 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
 
                     //-----[ UPDATE PROCESSING TIME ]-----(  END  )-----
 
-
-//            dd ($varResponseData['data']['process']);
-
 /*
 //------------< BLOCKING >------------------
     dd (

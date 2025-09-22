@@ -4578,6 +4578,7 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'Aws\\Token\\TokenAuthorization' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Token/TokenAuthorization.php',
         'Aws\\Token\\TokenInterface' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Token/TokenInterface.php',
         'Aws\\Token\\TokenProvider' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Token/TokenProvider.php',
+        'Aws\\Token\\TokenSource' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Token/TokenSource.php',
         'Aws\\TraceMiddleware' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/TraceMiddleware.php',
         'Aws\\TranscribeService\\Exception\\TranscribeServiceException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/TranscribeService/Exception/TranscribeServiceException.php',
         'Aws\\TranscribeService\\TranscribeServiceClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/TranscribeService/TranscribeServiceClient.php',

@@ -137,6 +137,43 @@ namespace App\Helpers\ZhtHelper\System
             }
 
 
+        public static function getApplicationUserPrivilegesCombinedBudgetAndMenu($varUserSession, int $varUserID)
+            {
+            
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession,
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchSysConfig.Func_GetDataPickSet_UserPrivileges',
+                            [
+                                [$varUserID, 'bigint' ]
+                            ]
+                            )
+                        );
+                
+                $varData = 
+                    (\App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                            $varUserSession,
+                            $varReturn['data'][0]['ProcessedData_JSON']
+                            ))['general'];
+                
+                return
+                    $varData;
+            
+            /*
+            	SELECT
+		*
+	FROM
+		"SchSysConfig"."Func_GetDataPickSet_UserPrivileges"(
+			4000000000359::bigint
+			------------------------------
+			);
+             
+             */
+            }
+
+
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getApplicationUserRolePrivilegesMenu                                                                 |
