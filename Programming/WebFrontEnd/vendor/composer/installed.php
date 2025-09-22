@@ -918,9 +918,9 @@
             ),
         ),
         'psy/psysh' => array(
-            'pretty_version' => 'v0.12.10',
-            'version' => '0.12.10.0',
-            'reference' => '6e80abe6f2257121f1eb9a4c55bf29d921025b22',
+            'pretty_version' => 'v0.12.12',
+            'version' => '0.12.12.0',
+            'reference' => 'cd23863404a40ccfaf733e3af4db2b459837f7e7',
             'type' => 'library',
             'install_path' => __DIR__ . '/../psy/psysh',
             'aliases' => array(),
