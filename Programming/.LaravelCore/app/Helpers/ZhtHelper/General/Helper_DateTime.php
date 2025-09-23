@@ -107,24 +107,39 @@ namespace App\Helpers\ZhtHelper\General
         public static function getDateConvertion_YYYYMMDDToDDMMYYYY($varUserSession, $varOriginalDate)
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
+
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Date Convertion From YYYY-MM-DD To DD-MM-YYYY');
+                $varSysDataProcess =
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__,
+                        'Get Date Convertion From YYYY-MM-DD To DD-MM-YYYY'
+                        );
+
                 try {
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
-                    $varTimeStamp = strtotime($varOriginalDate);
-                    $varNewDate = date("d-m-Y", $varTimeStamp);
-                    $varReturn = $varNewDate;
+                        $varTimeStamp =
+                            strtotime($varOriginalDate);
+
+                        $varNewDate =
+                            date("d-m-Y", $varTimeStamp);
+
+                        $varReturn =
+                            $varNewDate;
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
-                    } 
+                    }
+
                 catch (\Exception $ex) {
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
                     }
+
                 \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
                 }
+
             catch (\Exception $ex) {
                 }
-            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+
+            return
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
             }
 
 
@@ -206,18 +221,18 @@ namespace App\Helpers\ZhtHelper\General
 
                 try {
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
-                        $varReturn = 
-                            self::getDateTimeFromUnixTime($varUserSession, self::getUnixTime($varUserSession)).
-                            '.'.
-                            self::getMicroTime($varUserSession).
-                            (
+                        $varReturn = (
+                                self::getDateTimeFromUnixTime($varUserSession, self::getUnixTime($varUserSession)).
+                                '.'.
+                                self::getMicroTime($varUserSession).
                                 (
-                                (((int) self::getTimeZoneOffset($varUserSession)) >= 0) ?
-                                    '+' : '-'
-                                ).
-                                str_pad(self::getTimeZoneOffset($varUserSession), 2, '0', STR_PAD_LEFT)
-                            )
-                            ;
+                                    (
+                                    (((int) self::getHourOfTimeZoneOffset($varUserSession)) >= 0) ?
+                                        '+' : '-'
+                                    ).
+                                    str_pad(self::getHourOfTimeZoneOffset($varUserSession), 2, '0', STR_PAD_LEFT)
+                                )
+                            );
 
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
@@ -316,32 +331,85 @@ namespace App\Helpers\ZhtHelper\General
         public static function getDateTimeFromUnixTime($varUserSession, float $varUnixTime, $varDateTimeFormat=null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
+
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Convert UnixTime `'.$varUnixTime.'` to DateTime');
+                $varSysDataProcess =
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__,
+                        'Convert UnixTime `'.$varUnixTime.'` to DateTime'
+                        );
+
                 try {
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
-                    if(!$varDateTimeFormat)
-                        {
-                        $varDateTimeFormat = 'Y-m-d H:i:s';
-                        }
-                    $varReturn = date($varDateTimeFormat, $varUnixTime);
+                        if (!$varDateTimeFormat)
+                            {
+                            $varDateTimeFormat = 'Y-m-d H:i:s';
+                            }
+
+                        $varReturn =
+                            date($varDateTimeFormat, $varUnixTime);
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
-                    } 
+                    }
+
                 catch (\Exception $ex) {
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
                     }
+
                 \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
                 }
+
             catch (\Exception $ex) {
                 }
-            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+
+            return
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
             }
+
+
+
+        public static function getTimeStampTZConvert_DateTimeTZStringToJSONDateTimeTZ($varUserSession, $varDateTimeTZString)
+            {
+            $varData = 
+                explode(' ', $varDateTimeTZString);
+
+            $varDate = $varData[0];
+
+            try {
+                $varData = 
+                    explode('+', $varData[1]);
+                $varTime = $varData[0];
+                $varOffset = $varData[1];
+                }
+            catch (\Exception $ex) {
+                try {
+                    $varData = 
+                        explode('-', $varData[1]);
+                    $varTime = $varData[0];
+                    $varOffset = $varData[1];
+                    }
+                catch (\Exception $ex) {
+                    }
+                }
+            
+            $varTimeZoneOffset = self::getTimeZoneOffset($varUserSession, $varOffset);
+            
+            $varReturn = 
+                $varDate.
+                'T'.
+                $varTime.
+                ((((int) explode(':', $varTimeZoneOffset)[0])*1) >= 0 ? '+' : '-').
+                $varTimeZoneOffset;
+            
+            return
+                $varReturn;
+            }
+
+
 
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getConvertPHPDateTimeToDateTimeTZString                                                              |
+        | ▪ Method Name     : getTimeStampTZConvert_PHPDateTimeToDateTimeTZString                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2025-09-12                                                                                           |
@@ -357,9 +425,9 @@ namespace App\Helpers\ZhtHelper\General
         |      ▪ (void)                                                                                                            |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public static function getConvertPHPDateTimeToDateTimeTZString(
+        public static function getTimeStampTZConvert_PHPDateTimeToDateTimeTZString(
             $varUserSession, \DateTime $varPHPDateTime,
-            int $varTimzZoneOffset = null
+            int $varTimeZoneOffset = null
             )
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
@@ -372,16 +440,15 @@ namespace App\Helpers\ZhtHelper\General
 
                 try {
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
-                        if ($varTimzZoneOffset === null) {
-                            $varTimzZoneOffset = self::getTimeZoneOffset($varUserSession);
+                        if ($varTimeZoneOffset === null) {
+                            $varTimeZoneOffset = self::getTimeZoneOffset($varUserSession);
                             }
 
                         $varReturn = (
                             $varPHPDateTime->format('Y-m-d H:i:s.u').
-                            ($varTimzZoneOffset >= 0 ? '+' : '-').
-                            str_pad($varTimzZoneOffset, 2, '0', STR_PAD_LEFT)                
+                            ((((int) explode(':', $varTimeZoneOffset)[0]) * 1) >= 0 ? '+' : '-').
+                            $varTimeZoneOffset
                             );
-
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                     }
@@ -431,68 +498,69 @@ namespace App\Helpers\ZhtHelper\General
 
                 try {
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
-                    $varData = explode(' ', $varDateTimeTZString);
+                        $varDateTimeTZString = str_replace('T', ' ', $varDateTimeTZString);
+                        $varData = explode(' ', $varDateTimeTZString);
 
-                    try {
-                        $varTimeZone =
-                            '-'.explode('-', $varData[count($varData)-1])[1];            
-                        } 
-                    catch (\Exception $ex) {
-                        $varTimeZone = 
-                            '+'.explode('+', $varData[count($varData)-1])[1];
-                        }
+                        try {
+                            $varTimeZone =
+                                '-'.explode('-', $varData[count($varData)-1])[1];            
+                            } 
+                        catch (\Exception $ex) {
+                            $varTimeZone = 
+                                '+'.explode('+', $varData[count($varData)-1])[1];
+                            }
 
-                    $varData = [
-                        'Date' => $varData[0],
-                        'Time' => substr($varData[1], 0, (strlen($varData[1])-strlen($varTimeZone))),
-                        'OffsetZone' => $varTimeZone
-                        ];
+                        $varData = [
+                            'Date' => $varData[0],
+                            'Time' => substr($varData[1], 0, (strlen($varData[1])-strlen($varTimeZone))),
+                            'OffsetZone' => $varTimeZone
+                            ];
 
-                    $varReturn = new \DateTime();
-                    $varReturn->setTimestamp(
-                        strtotime($varData['Date'].' 00:00:00')
-                        );
+                        $varReturn = new \DateTime();
+                        $varReturn->setTimestamp(
+                            strtotime($varData['Date'].' 00:00:00')
+                            );
 
-                    //dd($varData['Time']);
-                    $varTemp = explode(':', $varData['Time']);
-                    //dd($varTemp);
-                    $varDateTimeTZMicroSeconds = (
-                        ((float) $varTemp[0] * (60 * 60 * 1000000)) +
-                        ((float) $varTemp[1] * (60 * 1000000)) +
-                        ((float) $varTemp[2] * (1 * 1000000))
-                        );
-                    //dd($varDateTimeTZMicroSeconds);
+                        //dd($varData['Time']);
+                        $varTemp = explode(':', $varData['Time']);
+                        //dd($varTemp);
+                        $varDateTimeTZMicroSeconds = (
+                            ((float) $varTemp[0] * (60 * 60 * 1000000)) +
+                            ((float) $varTemp[1] * (60 * 1000000)) +
+                            ((float) $varTemp[2] * (1 * 1000000))
+                            );
+                        //dd($varDateTimeTZMicroSeconds);
 
-                    //dd($varIntervalString);
-                    $varTemp = explode(':', $varIntervalString);
-                    //dd($varTemp);
-                    $varIntervalInMicroSeconds = (
-                        ((float) $varTemp[0] * (60 * 60 * 1000000)) +
-                        ((float) $varTemp[1] * (60 * 1000000)) +
-                        ((float) (explode('.', $varTemp[2])[0]) * (1 * 1000000)) +
-                        ((float) (explode('.', $varTemp[2])[1]))
-                        );
-                    //dd($varIntervalInMicroSeconds);
+                        //dd($varIntervalString);
+                        $varTemp = explode(':', $varIntervalString);
+                        //dd($varTemp);
+                        $varIntervalInMicroSeconds = (
+                            ((float) $varTemp[0] * (60 * 60 * 1000000)) +
+                            ((float) $varTemp[1] * (60 * 1000000)) +
+                            ((float) (explode('.', $varTemp[2])[0]) * (1 * 1000000)) +
+                            ((float) (explode('.', $varTemp[2])[1]))
+                            );
+                        //dd($varIntervalInMicroSeconds);
 
-                    $varAdditionalMicroSecond = (
-                        $varDateTimeTZMicroSeconds + 
-                        $varIntervalInMicroSeconds
-                        );
+                        $varAdditionalMicroSecond = (
+                            $varDateTimeTZMicroSeconds + 
+                            $varIntervalInMicroSeconds
+                            );
 
-                    $varReturn->add(new \DateInterval(
-                        'PT'.
-                        (
-                        (($varAdditionalMicroSecond - ($varAdditionalMicroSecond % 1000000)) / 1000000)
-                        //(($varFinishDateTime_MicroSeconds > 1) ? 1 : 0)
-                        ).
-                        'S'
-                        ));
+                        $varReturn->add(new \DateInterval(
+                            'PT'.
+                            (
+                            (($varAdditionalMicroSecond - ($varAdditionalMicroSecond % 1000000)) / 1000000)
+                            //(($varFinishDateTime_MicroSeconds > 1) ? 1 : 0)
+                            ).
+                            'S'
+                            ));
 
-                    $varReturn = (
-                        $varReturn->format('Y-m-d H:i:s').'.'.
-                        str_pad(($varAdditionalMicroSecond % 1000000), 6, '0', STR_PAD_RIGHT).
-                        $varTimeZone
-                        );
+                        $varReturn = (
+                            $varReturn->format('Y-m-d H:i:s').'.'.
+                            str_pad(($varAdditionalMicroSecond % 1000000), 6, '0', STR_PAD_RIGHT).
+                            $varTimeZone
+                            );
 
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
@@ -543,6 +611,7 @@ namespace App\Helpers\ZhtHelper\General
 
                 try {
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
+                        //---> Initializing : varFirstIntervalInSeconds 
                         $varTemp = explode(':', $varFirstIntervalString);
                         $varFirstIntervalInSeconds = (
                             ((float) $varTemp[0] * (60 * 60 * 1000000)) +
@@ -550,6 +619,7 @@ namespace App\Helpers\ZhtHelper\General
                             ((float) $varTemp[2] * (1 * 1000000))
                             );
 
+                        //---> Initializing : varSecondIntervalString 
                         $varTemp = explode(':', $varSecondIntervalString);
                         $varSecondIntervalInSeconds = (
                             ((float) $varTemp[0] * (60 * 60 * 1000000)) +
@@ -557,18 +627,27 @@ namespace App\Helpers\ZhtHelper\General
                             ((float) $varTemp[2] * (1 * 1000000))
                             );
 
+                        //--->
                         $varReturn =
                             $varFirstIntervalInSeconds + $varSecondIntervalInSeconds;
 
-                        $varHoursDifference = (int) (($varReturn - (((int) $varReturn) % (60 * 60 * 1000000))) / (60 * 60 * 1000000));
-                        $varReturn = $varReturn - ($varHoursDifference * (60 * 60 * 1000000));
+                        $varHoursDifference =
+                            (int) (($varReturn - (((int) $varReturn) % (60 * 60 * 1000000))) / (60 * 60 * 1000000));
 
-                        $varMinutesDifference = (int) (($varReturn - (((int) $varReturn) % (60 * 1000000))) / (60 * 1000000));
-                        $varReturn = $varReturn - ($varMinutesDifference * (60 * 1000000));
+                        $varReturn =
+                            $varReturn - ($varHoursDifference * (60 * 60 * 1000000));
 
-                        $varSecondsDifference = (int) (($varReturn - (((int) $varReturn) % (1000000))) / (1000000));
+                        $varMinutesDifference =
+                            (int) (($varReturn - (((int) $varReturn) % (60 * 1000000))) / (60 * 1000000));
 
-                        $varMicroSecondsDifference = (int) $varReturn;
+                        $varReturn =
+                            $varReturn - ($varMinutesDifference * (60 * 1000000));
+
+                        $varSecondsDifference =
+                            (int) (($varReturn - (((int) $varReturn) % (1000000))) / (1000000));
+
+                        $varMicroSecondsDifference = 
+                            (int) $varReturn;
 
                         $varReturn = (
                             str_pad($varHoursDifference, 2, '0', STR_PAD_LEFT).':'.
@@ -626,35 +705,50 @@ namespace App\Helpers\ZhtHelper\General
 
                 try {
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
-                        $varTemp = explode(':', $varFirstIntervalString);
+                        //---> Initializing : varFirstIntervalInSeconds
+                        $varTemp =
+                            explode(':', $varFirstIntervalString);
+
                         $varFirstIntervalInSeconds = (
                             ((float) $varTemp[0] * (60 * 60 * 1000000)) +
                             ((float) $varTemp[1] * (60 * 1000000)) +
                             ((float) $varTemp[2] * (1 * 1000000))
                             );
 
-                        $varTemp = explode(':', $varSecondIntervalString);
+                        //---> Initializing : varSecondIntervalInSeconds
+                        $varTemp =
+                            explode(':', $varSecondIntervalString);
+
                         $varSecondIntervalInSeconds = (
                             ((float) $varTemp[0] * (60 * 60 * 1000000)) +
                             ((float) $varTemp[1] * (60 * 1000000)) +
                             ((float) $varTemp[2] * (1 * 1000000))
                             );
 
+                        //--->
                         $varReturn = (
                             ($varFirstIntervalInSeconds > $varSecondIntervalInSeconds) ?
                                 ($varFirstIntervalInSeconds - $varSecondIntervalInSeconds) :
                                 ($varSecondIntervalInSeconds - $varFirstIntervalInSeconds)
                             );
 
-                        $varHoursDifference = (int) (($varReturn - (((int) $varReturn) % (60 * 60 * 1000000))) / (60 * 60 * 1000000));
-                        $varReturn = $varReturn - ($varHoursDifference * (60 * 60 * 1000000));
+                        $varHoursDifference =
+                            (int) (($varReturn - (((int) $varReturn) % (60 * 60 * 1000000))) / (60 * 60 * 1000000));
 
-                        $varMinutesDifference = (int) (($varReturn - (((int) $varReturn) % (60 * 1000000))) / (60 * 1000000));
-                        $varReturn = $varReturn - ($varMinutesDifference * (60 * 1000000));
+                        $varReturn =
+                            $varReturn - ($varHoursDifference * (60 * 60 * 1000000));
 
-                        $varSecondsDifference = (int) (($varReturn - (((int) $varReturn) % (1000000))) / (1000000));
+                        $varMinutesDifference = 
+                            (int) (($varReturn - (((int) $varReturn) % (60 * 1000000))) / (60 * 1000000));
 
-                        $varMicroSecondsDifference = (int) $varReturn;
+                        $varReturn =
+                            $varReturn - ($varMinutesDifference * (60 * 1000000));
+
+                        $varSecondsDifference =
+                            (int) (($varReturn - (((int) $varReturn) % (1000000))) / (1000000));
+
+                        $varMicroSecondsDifference = 
+                            (int) $varReturn;
 
                         $varReturn = (
                             str_pad($varHoursDifference, 2, '0', STR_PAD_LEFT).':'.
@@ -712,9 +806,17 @@ namespace App\Helpers\ZhtHelper\General
 
                 try {
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
-                        $varStartDateTimeArray = explode('.', $varStartDateTimeTZ);
-                        $varStartDateTimeArray = explode('.', $varStartDateTimeTZ);
-                        $varFinishDateTimeArray = explode('.', $varFinishDateTimeTZ);
+                        $varStartDateTimeTZ =
+                            str_replace('T', ' ', $varStartDateTimeTZ);
+
+                        $varFinishDateTimeTZ =
+                            str_replace('T', ' ', $varFinishDateTimeTZ);
+
+                        $varStartDateTimeArray =
+                            explode('.', $varStartDateTimeTZ);
+
+                        $varFinishDateTimeArray =
+                            explode('.', $varFinishDateTimeTZ);
 
                         try {
                             $varStartDateTimeOffset = (1 * (float) explode('+', $varStartDateTimeArray[1])[1]);
@@ -761,7 +863,7 @@ namespace App\Helpers\ZhtHelper\General
                         $varMinutesDifference = ((int) $varIntervalRemain - ((int) $varIntervalRemain % 60)) / 60;
                         $varIntervalRemain = $varIntervalRemain - ($varMinutesDifference * 60);
                         $varSecondsDifference = (int) $varIntervalRemain;
-                        
+
                         try {
                             $varMicroSecondsDifference = (explode('.', $varUniversalSecondsDifference)[1]);
                             }
@@ -1040,7 +1142,7 @@ namespace App\Helpers\ZhtHelper\General
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getTimeZoneOffset                                                                                    |
+        | ▪ Method Name     : getHourOfTimeZoneOffset                                                                                    |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2020-08-25                                                                                           |
@@ -1055,32 +1157,142 @@ namespace App\Helpers\ZhtHelper\General
         |      ▪ (int)    varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public static function getTimeZoneOffset($varUserSession, $varZone=null)
+        public static function getHourOfTimeZoneOffset($varUserSession, $varZone = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
+
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Time Zone Offset of '.($varZone ? $varZone : 'Asia/Jakarta'));
+                $varSysDataProcess =
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__,
+                        'Get Hour Time Zone Offset of '.($varZone ? $varZone : 'Asia/Jakarta'));
+
                 try {
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
-                    if(!$varZone)
-                        {
-                        $varZone = 'Asia/Jakarta';
-                        }
-                    $varLocalDateTimeZone = new \DateTimeZone($varZone);
-                    $varDateTimeLocal = new \DateTime("now", $varLocalDateTimeZone);
-                    $varTimeOffset = ($varLocalDateTimeZone->getOffset($varDateTimeLocal))/(60*60);
-                    $varReturn =  $varTimeOffset;
+                        $varReturn = (
+                            (
+                                (int) explode(':', self::getTimeZoneOffset($varUserSession))[1]
+                            ) * 1
+                            );
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                     }
+
                 catch (\Exception $ex) {
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
                     }
+
                 \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
                 }
+
             catch (\Exception $ex) {
                 }
-            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+
+            return
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getTimeZoneOffset                                                                                    |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2025-09-22                                                                                           |
+        | ▪ Creation Date   : 2025-09-22                                                                                           |
+        | ▪ Description     : Mendapatkan Time Zone Offset dari suatu Zone (varZone)                                               |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ------------------------------                                                                                      |
+        |      ▪ (string) varZone ► Zone                                                                                           |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (int)    varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getTimeZoneOffset($varUserSession, $varZone = null)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
+
+            try {
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Time Zone Offset of '.($varZone ? $varZone : 'Asia/Jakarta'));
+
+                try {
+                    //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
+                        if (!$varZone)
+                            {
+                            $varZone = 'Asia/Jakarta';
+                            }
+                        else
+                            {
+                            try {
+                                $varTemp = explode(':', $varZone);
+                                $varReturn = (
+                                    str_pad($varTemp[0], 2, '0', STR_PAD_LEFT).
+                                    ':'.
+                                    str_pad($varTemp[1], 2, '0', STR_PAD_LEFT)
+                                    );
+                                } 
+                            catch (\Exception $ex) {
+                                try {
+                                    $varReturn = (
+                                        str_pad(((int) ($varTemp[0]) * 1), 2, '0', STR_PAD_LEFT).
+                                        ':'.
+                                        '00'
+                                        );                                    
+                                    }
+                                catch (\Exception $ex) {
+                                    $varReturn = null;
+                                    }
+                                }
+                            }
+
+                        if ($varReturn == null) {
+                            $varLocalDateTimeZone =
+                                new \DateTimeZone($varZone);
+
+                            $varDateTimeLocal =
+                                new \DateTime("now", $varLocalDateTimeZone);
+
+                            $varRemainInSeconds =
+                                ($varLocalDateTimeZone->getOffset($varDateTimeLocal));
+
+                            //$varRemainInSeconds += (30 * 60);
+
+                            $varHoursTimeOffset = 
+                                (int) ($varRemainInSeconds / (60*60));
+
+                            $varRemainInSeconds = 
+                                $varRemainInSeconds - ($varHoursTimeOffset * (60 * 60));
+
+                            $varMinutesTimeOffset = 
+                                (int) ($varRemainInSeconds / 60);
+
+                            $varRemainInSeconds = 
+                                $varRemainInSeconds - ($varMinutesTimeOffset * (60));
+
+                            $varReturn = (
+                                str_pad($varHoursTimeOffset, 2, '0', STR_PAD_LEFT).
+                                ':'.
+                                str_pad($varMinutesTimeOffset, 2, '0', STR_PAD_LEFT)
+                                );
+                            }
+
+                    //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
+                    }
+
+                catch (\Exception $ex) {
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
+                    }
+
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
+                }
+
+            catch (\Exception $ex) {
+                }
+
+            return
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
             }
 
 

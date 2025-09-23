@@ -5042,7 +5042,7 @@ var DateEnv = /** @class */ (function () {
     };
     DateEnv.prototype.offsetForMarker = function (m) {
         if (this.timeZone === 'local') {
-            return -arrayToLocalDate(dateToUtcArray(m)).getTimezoneOffset(); // convert "inverse" offset to "normal" offset
+            return -arrayToLocalDate(dateToUtcArray(m)).getHourOfTimeZoneOffset(); // convert "inverse" offset to "normal" offset
         }
         else if (this.timeZone === 'UTC') {
             return 0;

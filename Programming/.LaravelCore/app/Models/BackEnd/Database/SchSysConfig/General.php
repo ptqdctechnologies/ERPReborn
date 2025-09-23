@@ -448,17 +448,27 @@ namespace App\Models\Database\SchSysConfig
                         $varUserSession, 
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
-                            'SchSysConfig.Func_General_GetBusDocWorkFlowPathApprovementHistory',
+                            'SchSysConfig.Func_General_GetBusDocWorkFlowPathApprovementHistoryxxx',
                             [
                                 [$varSysBranch_RefID, 'bigint' ],
 
                                 [$varBusinessDocument_RefID, 'bigint' ]
                             ]
                             )
-                        );                
+                        );
 
-                return $varReturn['data'];
+                try {
+                    $varReturn =
+                        $varReturn['data'];
+                    }
+                catch (\Exception $ex) {
+                    $varReturn = [];
+                    }
+
+                return
+                    $varReturn;
                 }
+
             catch (\Exception $ex) {
                 return [];
                 }
@@ -502,8 +512,16 @@ namespace App\Models\Database\SchSysConfig
                             )
                         );
 
+                try {
+                    $varReturn =
+                        $varReturn['data'];
+                    }
+                catch (\Exception $ex) {
+                    $varReturn = [];
+                    }
+
                 return
-                    $varReturn['data'];
+                    $varReturn;
                 }
 
             catch (\Exception $ex) {

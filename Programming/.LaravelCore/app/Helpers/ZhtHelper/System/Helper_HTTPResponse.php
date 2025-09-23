@@ -237,8 +237,8 @@ namespace App\Helpers\ZhtHelper\System
     dd (
         \App\Helpers\ZhtHelper\General\Helper_DateTime::getDifferenceOfDateTimeTZString(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            \App\Helpers\ZhtHelper\General\Helper_DateTime::getConvertPHPDateTimeToDateTimeTZString(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), $varAPIExecutionStartDateTime),
-            \App\Helpers\ZhtHelper\General\Helper_DateTime::getConvertPHPDateTimeToDateTimeTZString(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), (new \DateTime())),
+            \App\Helpers\ZhtHelper\General\Helper_DateTime::getTimeStampTZConvert_PHPDateTimeToDateTimeTZString(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), $varAPIExecutionStartDateTime),
+            \App\Helpers\ZhtHelper\General\Helper_DateTime::getTimeStampTZConvert_PHPDateTimeToDateTimeTZString(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), (new \DateTime())),
             )
         );
 //------------< BLOCKING >------------------
@@ -399,20 +399,24 @@ namespace App\Helpers\ZhtHelper\System
         public static function getResponse_Header($varUserSession, $varObjResponse, $varKey=null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
+
             try {
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Header of HTTP Response');
+
                 try {
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
-                    if(!$varKey)
+                    if (!$varKey)
                         {
                         //---> Guzzle Mode
                         try {
-                            $varReturn = $varObjResponse->getHeaders();                        
+                            $varReturn =
+                                $varObjResponse->getHeaders();                        
                             } 
                         //---> Non Guzzle Mode
                         catch (\Exception $ex) {
                             try {
-                                $varReturn = $varObjResponse->headers->all();
+                                $varReturn =
+                                    $varObjResponse->headers->all();
                                 } 
                             catch (\Exception $ex) {
                                 }
@@ -422,14 +426,14 @@ namespace App\Helpers\ZhtHelper\System
                         {
                         //---> Guzzle Mode
                         try {
-                            if ($varObjResponse->hasHeader($varKey)==true)
+                            if ($varObjResponse->hasHeader($varKey) == true)
                                 {
                                 $varReturn = $varObjResponse->getHeader($varKey);
-                                if(count($varReturn)==1)
+                                if (count($varReturn)==1)
                                     {
                                     $varReturn = $varReturn[0];
                                     }
-                                }                            
+                                }
                             } 
                         //---> Non Guzzle Mode
                         catch (\Exception $ex) {

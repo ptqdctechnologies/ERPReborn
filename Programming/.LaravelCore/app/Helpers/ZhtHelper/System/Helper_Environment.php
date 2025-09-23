@@ -137,42 +137,7 @@ namespace App\Helpers\ZhtHelper\System
             }
 
 
-        /*
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getApplicationUserSession_AllData                                                                    |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-09-22                                                                                           |
-        | ▪ Creation Date   : 2025-09-22                                                                                           |
-        | ▪ Description     : Mendapatkan Data Sesi Aplkasi Pengguna - Semua Data Pengguna                                         |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varUserID ► User ID                                                                                      |
-        | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array) varReturn                                                                                                 |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        */
-        public static function getApplicationUserSession_AllData($varUserSession)
-            {
-            try {
-                $varReturn = (
-                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
-                       $varUserSession,
-                       \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
-                           $varUserSession,
-                           'ERPReborn::APIWebToken::'.(self::getAPIWebToken_ByUserSessionID($varUserSession))
-                           )
-                       )
-                    );
-                }
-            catch (\Exception $ex) {
-                $varReturn = NULL;
-                }
 
-            return
-                $varReturn;
-            }
 
 
         /*
@@ -218,6 +183,44 @@ namespace App\Helpers\ZhtHelper\System
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getApplicationUserSession_AllData                                                                    |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2025-09-22                                                                                           |
+        | ▪ Creation Date   : 2025-09-22                                                                                           |
+        | ▪ Description     : Mendapatkan Data Sesi Aplkasi Pengguna - Semua Data Pengguna                                         |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varUserID ► User ID                                                                                      |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array) varReturn                                                                                                 |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getApplicationUserSession_AllData($varUserSession)
+            {
+            try {
+                $varReturn = (
+                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                       $varUserSession,
+                       \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
+                           $varUserSession,
+                           'ERPReborn::APIWebToken::'.(self::getAPIWebToken_ByUserSessionID($varUserSession))
+                           )
+                       )
+                    );
+                }
+            catch (\Exception $ex) {
+                $varReturn = NULL;
+                }
+
+            return
+                $varReturn;
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getApplicationUserSession_UserAccessPrivileges                                                       |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
@@ -236,14 +239,7 @@ namespace App\Helpers\ZhtHelper\System
             {
             try {
                 $varReturn = (
-                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
-                       $varUserSession,
-                       \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
-                           $varUserSession,
-                           'ERPReborn::APIWebToken::'.(self::getAPIWebToken_ByUserSessionID($varUserSession))
-                           )
-                       )
-                    )['userAccessPrivileges'];
+                    self::getApplicationUserSession_AllData($varUserSession))['userAccessPrivileges'];
                 }
             catch (\Exception $ex) {
                 $varReturn = NULL;
@@ -274,14 +270,7 @@ namespace App\Helpers\ZhtHelper\System
             {
             try {
                 $varReturn = (
-                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
-                       $varUserSession,
-                       \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
-                           $varUserSession,
-                           'ERPReborn::APIWebToken::'.(self::getAPIWebToken_ByUserSessionID($varUserSession))
-                           )
-                       )
-                    )['userIdentities'];
+                    self::getApplicationUserSession_AllData($varUserSession))['userIdentities'];
                 }
             catch (\Exception $ex) {
                 $varReturn = NULL;

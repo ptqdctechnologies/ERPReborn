@@ -87,7 +87,6 @@ namespace App\Http\Middleware\Application\BackEnd\API\Gateway
                                 );
                         }
 
-
                 //--->---> Check API Web Token Existence
                     if ((new \App\Models\Cache\General\APIWebToken())->isDataExist(
                         $varUserSession, 
@@ -119,8 +118,6 @@ namespace App\Http\Middleware\Application\BackEnd\API\Gateway
                                     );
                             }
                         }
-// BIKIN LAMBAT (END)
-
 
                 //--->---> Check Date Time on HTTP Header
                     if (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'agent-datetime', $varHTTPHeader)==false)
@@ -229,8 +226,8 @@ namespace App\Http\Middleware\Application\BackEnd\API\Gateway
     dd (
         \App\Helpers\ZhtHelper\General\Helper_DateTime::getDifferenceOfDateTimeTZString(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            \App\Helpers\ZhtHelper\General\Helper_DateTime::getConvertPHPDateTimeToDateTimeTZString(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), $varAPIExecutionStartDateTime),
-            \App\Helpers\ZhtHelper\General\Helper_DateTime::getConvertPHPDateTimeToDateTimeTZString(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), (new \DateTime())),
+            \App\Helpers\ZhtHelper\General\Helper_DateTime::getTimeStampTZConvert_PHPDateTimeToDateTimeTZString(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), $varAPIExecutionStartDateTime),
+            \App\Helpers\ZhtHelper\General\Helper_DateTime::getTimeStampTZConvert_PHPDateTimeToDateTimeTZString(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), (new \DateTime())),
             )
         );
 //------------< BLOCKING >------------------

@@ -80,7 +80,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\UserAction\Engines\doc
                                 )
                             ))
                             {
-                            throw new \Exception();
+                            throw
+                                new \Exception();
                             }
 
                         $varReturn =
@@ -114,7 +115,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\UserAction\Engines\doc
 
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
                     }
-                    
+
                 \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
                 }
 

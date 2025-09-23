@@ -11,6 +11,7 @@
 | ▪ Copyleft 🄯 2023 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
+
 namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\userAction\documentWorkFlow\approvalStage\getApprovementHistoryList\v1
     {
     class example extends \App\Http\Controllers\Controller
@@ -29,23 +30,34 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\use
         */
         public function throughAPIGateway($varAPIWebToken)
             {
-            //---Parameter Set---
+            //-----[ PARAMETER SET ]-----
             if (!$varAPIWebToken) {
-                $varAPIWebToken = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
+                $varAPIWebToken =
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
                 }
-            //---Core---
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'userAction.documentWorkFlow.approvalStage.getApprovementHistoryList', 
-                'latest',
-                [
-                'parameter' => [
-                    'businessDocument_RefID' => 74000000020323
-                    ]
-                ]
-                );
-            var_dump($varData);
+
+            //-----[ CORE ]-----
+            $varData =
+                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                    //-----[ METADATA ]-----( START )-----
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                        $varAPIWebToken, 
+                        'userAction.documentWorkFlow.approvalStage.getApprovementHistoryList', 
+                        'latest',
+                    //-----[ METADATA ]-----(  END  )-----
+
+                    //-----[ DATA ]---------( START )-----
+                        [
+                        'parameter' => [
+                            'businessDocument_RefID' => 74000000020323
+                            ]
+                        ]
+                    //-----[ DATA ]---------(  END  )-----
+                    );
+
+            //-----[ DATA RETURN ]-----
+            return
+                $varData;
             }
 
 

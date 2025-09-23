@@ -4986,8 +4986,10 @@ namespace App\Models\Database\SchData_OLTP_Master
                     'status' => $varData['data'][0]['Func_General_IsBusinessDocumentFinalApproved']
                     ];
 
-                return $varReturn;
+                return
+                    $varReturn;
                 }
+
             catch (\Exception $ex) {
                 return [];
                 }
