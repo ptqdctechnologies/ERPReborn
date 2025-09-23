@@ -57,22 +57,50 @@
   }
 
   function calculateTotalPayment() {
-    const totalBrf        = parseFormattedNumber(document.getElementById("total_business_trip").value);
-    const directToVendor  = parseFormattedNumber(document.getElementById("direct_to_vendor").value);
-    const corpCard        = parseFormattedNumber(document.getElementById("by_corp_card").value);
-    const toOther         = parseFormattedNumber(document.getElementById("to_other").value);
+    const totalBrf            = parseFormattedNumber(document.getElementById("total_business_trip").value);
+    const directToVendorInput = document.getElementById("direct_to_vendor");
+    const corpCardInput       = document.getElementById("by_corp_card");
+    const toOtherInput        = document.getElementById("to_other");
 
-    const total = directToVendor + corpCard + toOther;
+    let directToVendor = parseFormattedNumber(directToVendorInput.value);
+    let corpCard       = parseFormattedNumber(corpCardInput.value);
+    let toOther        = parseFormattedNumber(toOtherInput.value);
+
+    let total = directToVendor + corpCard + toOther;
 
     if (totalBrf > 0 && total > totalBrf) {
-      // document.getElementById("direct_to_vendor").value = '';
-      // document.getElementById("by_corp_card").value = '';
-      // document.getElementById("to_other").value = '';
-      document.getElementById("total_payment").value = 0.00;
-      $("#total_payment").css("border", "1px solid red");
-      $("#totalPaymentMessage").show();
-      ErrorNotif("Total Payment is over!");
+      const activeInput = document.activeElement;
+
+      // Reset input yang sedang aktif
+      if (activeInput && activeInput.tagName === "INPUT") {
+        activeInput.value = "0.00";
+
+        // Kurangi total dengan nilai yang tadi diinput agar total_payment tetap valid
+        if (activeInput === directToVendorInput) {
+          total -= directToVendor;
+          directToVendor = 0;
+        } else if (activeInput === corpCardInput) {
+          total -= corpCard;
+          corpCard = 0;
+        } else if (activeInput === toOtherInput) {
+          total -= toOther;
+          toOther = 0;
+        }
+      }
+
+      // Update total_payment dengan total valid setelah koreksi
+      document.getElementById("total_payment").value = total.toLocaleString('en-US', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      });
+
+      // // Highlight error
+      // $("#total_payment").css("border", "1px solid red");
+      // $("#totalPaymentMessage").show();
+
+      Swal.fire("Error", `Total Payment is over`, "error");
     } else {
+      // Total valid
       document.getElementById("total_payment").value = total.toLocaleString('en-US', {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2
@@ -205,8 +233,18 @@
 
     ids.forEach(id => {
       const input = document.getElementById(id);
+      
       if (input && input.value) {
-        total += parseCurrency(input.value);
+        const amount = parseCurrency(input.value);
+
+        const simulatedTotal = total + amount;
+
+        if (currenctBudgetSelection < simulatedTotal && document.activeElement === input) {
+          input.value = "0";
+          Swal.fire("Error", `Value can't be greater than Business Trip Request`, "error");
+        } else if (input.value !== "0.00") {
+          total += amount;
+        }
       }
     });
 
@@ -217,7 +255,7 @@
       $("#total_business_trip").css("border", "1px solid #ced4da");
       $("#totalBRFMessage").hide();
     } else if (currenctBudgetSelection != 0 && total != 0 && currenctBudgetSelection < total) {
-      totalField.value = currencyTotal("0.00");
+      totalField.value = currencyTotal(total);
       Swal.fire("Error", `Total Business Trip must not exceed the selected Balanced Budget`, "error");
     } else if (currenctBudgetSelection != 0 && total == 0 && currenctBudgetSelection > total) {
       totalField.value = currencyTotal("0.00");
@@ -366,8 +404,11 @@
   function isSectionValid() {
     let result = true;
 
-    if (!isNotEmpty(validation.sectionFour.totalPayment.value)) {
-      if (!isNotEmpty(validation.sectionFour.directToVendor.value) && !isNotEmpty(validation.sectionFour.byCorpCard.value)) {
+    if (!isNotEmpty(validation.sectionFour.totalPayment.value) || validation.sectionFour.totalPayment.value == "0.00") {
+      if (
+        !isNotEmpty(validation.sectionFour.directToVendor.value) && 
+        !isNotEmpty(validation.sectionFour.byCorpCard.value) && 
+        !isNotEmpty(validation.sectionFour.toOther.value)) {
         result = false;
       }
     }
@@ -381,6 +422,14 @@
       }
     }
 
+    if (
+      (
+        isNotEmpty(validation.sectionFour.bankListCode.value) || 
+        isNotEmpty(validation.sectionFour.bankAccountsID.value)
+      ) && !isNotEmpty(validation.sectionFour.directToVendor.value)) {
+      result = false;
+    }
+
     if (isNotEmpty(validation.sectionFour.byCorpCard.value)) {
       if (!isNotEmpty(validation.sectionFour.bankListSecondCode.value)) {
         result = false;
@@ -388,6 +437,14 @@
       if (!isNotEmpty(validation.sectionFour.bankAccountsIDSecond.value)) {
         result = false;
       }
+    }
+
+    if (
+      (
+        isNotEmpty(validation.sectionFour.bankListSecondCode.value) || 
+        isNotEmpty(validation.sectionFour.bankAccountsIDSecond.value)
+      ) && !isNotEmpty(validation.sectionFour.byCorpCard.value)) {
+      result = false;
     }
 
     if (isNotEmpty(validation.sectionFour.toOther.value)) {
@@ -400,6 +457,15 @@
       if (!isNotEmpty(validation.sectionFour.bankAccountsThirdID.value)) {
         result = false;
       }
+    }
+
+    if (
+      (
+        isNotEmpty(validation.sectionFour.beneficiarySecondID.value) || 
+        isNotEmpty(validation.sectionFour.bankListThirdCode.value) || 
+        isNotEmpty(validation.sectionFour.bankAccountsThirdID.value)
+      ) && !isNotEmpty(validation.sectionFour.toOther.value)) {
+      result = false;
     }
 
     return isNotEmpty(validation.sectionOne.budgetID.value) && 
@@ -556,7 +622,7 @@
             $("#bankNameVendorMessage").show();
 
             return;
-          }
+          } 
 
           if (!isNotEmpty(validation.sectionFour.bankAccountsID.value)) {
             $("#bank_accounts").css("border", "1px solid red");
@@ -566,6 +632,18 @@
             return;
           }
         }
+
+        if (
+          (
+            isNotEmpty(validation.sectionFour.bankListCode.value) || 
+            isNotEmpty(validation.sectionFour.bankAccountsID.value)
+          ) && !isNotEmpty(validation.sectionFour.directToVendor.value)) {
+          $("#direct_to_vendor").css("border", "1px solid red");
+          $("#directToVendorMessage").show();
+
+          return;
+        }
+        
         if (isNotEmpty(validation.sectionFour.byCorpCard.value)) {
           if (!isNotEmpty(validation.sectionFour.bankListSecondCode.value)) {
             $("#bank_list_second_name").css("border", "1px solid red");
@@ -583,6 +661,18 @@
             return;
           }
         }
+
+        if (
+          (
+            isNotEmpty(validation.sectionFour.bankListSecondCode.value) || 
+            isNotEmpty(validation.sectionFour.bankAccountsIDSecond.value)
+          ) && !isNotEmpty(validation.sectionFour.byCorpCard.value)) {
+          $("#by_corp_card").css("border", "1px solid red");
+          $("#byCorpCardMessage").show();
+
+          return;
+        }
+
         if (isNotEmpty(validation.sectionFour.toOther.value)) {
           if (!isNotEmpty(validation.sectionFour.beneficiarySecondID.value)) {
             $("#beneficiary_second_person_position").css("border", "1px solid red");
@@ -607,6 +697,18 @@
 
             return;
           }
+        }
+
+        if (
+          (
+            isNotEmpty(validation.sectionFour.beneficiarySecondID.value) || 
+            isNotEmpty(validation.sectionFour.bankListThirdCode.value) || 
+            isNotEmpty(validation.sectionFour.bankAccountsThirdID.value)
+          ) && !isNotEmpty(validation.sectionFour.toOther.value)) {
+          $("#to_other").css("border", "1px solid red");
+          $("#toOtherMessage").show();
+
+          return;
         }
       }
     }
@@ -855,6 +957,13 @@
   //   }
   // });
 
+  $('#direct_to_vendor').on('input', function(e) {
+    if (e.target.value) {
+      $("#direct_to_vendor").css("border", "1px solid #ced4da");
+      $("#directToVendorMessage").hide();
+    }
+  });
+
   // KETIKA MODAL BANK NAME VENDOR DIPILIH, MAKA MENGHAPUS VALUE BANK ACCOUNT VENDOR
   $('#tableGetBankList').on('click', 'tbody tr', function() {
     const bankVendorID = document.getElementById('bank_list_code');
@@ -938,6 +1047,13 @@
   //   }
   // });
 
+  $('#by_corp_card').on('input', function(e) {
+    if (e.target.value) {
+      $("#by_corp_card").css("border", "1px solid #ced4da");
+      $("#byCorpCardMessage").hide();
+    }
+  });
+
   // KETIKA MODAL BANK NAME CORP CARD DIPILIH, MAKA MENGHAPUS VALUE BANK ACCOUNT CORP CARD
   $('#tableGetBankListSecond').on('click', 'tbody tr', function() {
     const bankCorpCardID = document.getElementById('bank_list_second_code');
@@ -1009,6 +1125,13 @@
   //     // $("#bank_accounts_third_popup").prop("disabled", false);
   //   }
   // });
+
+  $('#to_other').on('input', function(e) {
+    if (e.target.value) {
+      $("#to_other").css("border", "1px solid #ced4da");
+      $("#toOtherMessage").hide();
+    }
+  });
 
   $('#tableGetBeneficiarySecond').on('click', 'tbody tr', function() {
     $("#bank_list_popup_second").prop("disabled", false);
