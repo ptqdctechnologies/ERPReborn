@@ -114,40 +114,56 @@ namespace App\Helpers\ZhtHelper\Database
         private static function getArrayFromQueryExecutionDataFetch_UsingLaravelConnection($varUserSession, $varSQLQuery)
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
+
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Fetch Array Data from SQL syntax `'.$varSQLQuery.'`');
+                $varSysDataProcess =
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__,
+                        'Fetch Array Data from SQL syntax `'.$varSQLQuery.'`'
+                        );
+
                 try {
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
-                    //$varSQLQuery = preg_replace('/\s+/', '', $varSQLQuery);                   
-                    $i=0;
-                    $varDataFetch = self::getQueryExecutionDataFetch($varUserSession, $varSQLQuery);
-                    //var_dump($varReturn);
-                    //var_dump($varSQLQuery);
-                    $varData = [];
-                    $varNotice = null;
-                    foreach($varDataFetch as $row)
-                        {
-                        $varData[] = (array) $row;
-                        //str_replace("world","Peter","Hello world!");
-                        //$varData[] = str_replace("\\u20ac", "€", ((array) $row));
-                        $i++;
-                        }
-                    $varReturn['data'] = $varData;
-                    $varReturn['Notice'] = null;
-                    $varReturn['rowCount']=$i;
-                    unset($varData);                   
-                    
+                        //$varSQLQuery = preg_replace('/\s+/', '', $varSQLQuery);                   
+                        $i = 0;
+
+                        $varDataFetch =
+                            self::getQueryExecutionDataFetch(
+                                $varUserSession,
+                                $varSQLQuery
+                                );
+
+                        //var_dump($varReturn);
+                        //var_dump($varSQLQuery);
+
+                        $varData = [];
+                        $varNotice = null;
+                        foreach($varDataFetch as $row)
+                            {
+                            $varData[] = (array) $row;
+                            $i++;
+                            }
+
+                        $varReturn['data'] = $varData;
+                        $varReturn['Notice'] = null;
+                        $varReturn['rowCount']=$i;
+
+                        unset($varData);                    
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
-                    } 
+                    }
+
                 catch (\Exception $ex) {
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
                     }
+
                 \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
-                } 
+                }
+
             catch (\Exception $ex) {
                 }
-            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+
+            return
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
             }
 
 
@@ -897,21 +913,23 @@ namespace App\Helpers\ZhtHelper\Database
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
                     if (!$varSQLQuery)
                         {
-                        throw new \Exception('Incorrect SQL syntax');
+                        throw
+                            new \Exception('Incorrect SQL syntax');
                         }
                     else
                         {
                         $varSQLQuery = ltrim(str_replace("\n", "" , $varSQLQuery));
 
                         //echo $varSQLQuery."<br><br>";
-                        if(self::getStatusAvailability($varUserSession)==true)
+                        if (self::getStatusAvailability($varUserSession) == true)
                             {
 //echo $varSQLQuery."<br><br>";
 //echo $varSQLQuery;
                             //---> Cek apakah SQLQuery Proper
-                            if(self::isValid_SQLSyntax($varUserSession, $varSQLQuery) == FALSE)
+                            if (self::isValid_SQLSyntax($varUserSession, $varSQLQuery) == FALSE)
                                 {
-                                throw new \Exception('Incorrect SQL syntax');
+                                throw
+                                    new \Exception('Incorrect SQL syntax');
                                 }
                             else
                                 {
@@ -924,11 +942,13 @@ namespace App\Helpers\ZhtHelper\Database
                                         "SELECT NOW();"
                                         );
                                 $varTempExplode = explode('+', $varDataTemp['data'][0]['now']);
+
                                 $varReturn['process']['DBMS']['executionTime']['startDateTimeTZ'] = (
                                     str_pad($varTempExplode[0], 26, '0', STR_PAD_RIGHT).
                                     ((($varTempExplode[1] * 1) < 0) ? '-' : '+').
                                     $varTempExplode[1]
                                     );
+
                                 unset($varDataTemp);
 
                                 //---> Inisialisasi [Data], [RowCount], [Notice]
@@ -942,6 +962,7 @@ namespace App\Helpers\ZhtHelper\Database
                                 $varReturn['data'] = $varDataTemp['data'];
                                 $varReturn['rowCount'] = $varDataTemp['rowCount'];
                                 $varReturn['notice'] = $varDataTemp['notice'];
+
                                 unset($varDataTemp);
                                 
                                 //---> Inisialisasi [Process][StartDateTime]

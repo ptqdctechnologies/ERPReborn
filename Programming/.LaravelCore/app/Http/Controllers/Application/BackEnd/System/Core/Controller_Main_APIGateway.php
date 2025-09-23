@@ -174,6 +174,18 @@ die();
                                 ) {
                                 $varProcessDBMS =
                                     $varDataSend['data']['process']['DBMS'];
+
+                                $varProcessDBMS['executionTime']['startDateTimeTZ'] =
+                                    \App\Helpers\ZhtHelper\General\Helper_DateTime::getTimeStampTZConvert_DateTimeTZStringToJSONDateTimeTZ(
+                                        $varUserSession,
+                                        $varProcessDBMS['executionTime']['startDateTimeTZ']
+                                        );
+
+                                $varProcessDBMS['executionTime']['finishDateTimeTZ'] =
+                                    \App\Helpers\ZhtHelper\General\Helper_DateTime::getTimeStampTZConvert_DateTimeTZStringToJSONDateTimeTZ(
+                                        $varUserSession,
+                                        $varProcessDBMS['executionTime']['finishDateTimeTZ']
+                                        );
                                 }
                             else
                                 {
@@ -190,13 +202,13 @@ die();
                             $varDataSend['data']['process']['DBMS'] = $varProcessDBMS;
 
                             $varProcessAPIPreliminarilyStartDateTimeTZString =
-                                \App\Helpers\ZhtHelper\General\Helper_DateTime::getConvertPHPDateTimeToDateTimeTZString(
+                                \App\Helpers\ZhtHelper\General\Helper_DateTime::getTimeStampTZConvert_PHPDateTimeToDateTimeTZString(
                                     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                                     $varProcessExecutionStartDateTime
                                     );
 
                             $varProcessAPIClosureStartDateTimeTZString =
-                                \App\Helpers\ZhtHelper\General\Helper_DateTime::getConvertPHPDateTimeToDateTimeTZString(
+                                \App\Helpers\ZhtHelper\General\Helper_DateTime::getTimeStampTZConvert_PHPDateTimeToDateTimeTZString(
                                     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                                     (new \DateTime())
                                     );
@@ -219,6 +231,12 @@ die();
                                     'startDateTimeTZ' => $varDataSend['data']['process']['API']['executionTime']['startDateTimeTZ'],
                                     'finishDateTimeTZ' => $varDataSend['data']['process']['API']['executionTime']['finishDateTimeTZ']
                                     ];
+
+                                $varDataSend['data']['process']['API']['executionTime']['startDateTimeTZ'] =
+                                    str_replace(' ', 'T', $varDataSend['data']['process']['API']['executionTime']['startDateTimeTZ']);
+
+                                $varDataSend['data']['process']['API']['executionTime']['finishDateTimeTZ'] =
+                                    str_replace(' ', 'T', $varDataSend['data']['process']['API']['executionTime']['finishDateTimeTZ']);
                                 }
                             else
                                 {
@@ -249,11 +267,19 @@ die();
                                     'startDateTimeTZ' => $varDataSend['data']['process']['API']['executionTime']['preliminarilyStartDateTimeTZ'],
                                     'finishDateTimeTZ' => $varDataSend['data']['process']['API']['executionTime']['closureFinishDateTimeTZ']
                                     ];
-                                }                       
+
+                                $varDataSend['data']['process']['API']['executionTime']['preliminarilyStartDateTimeTZ'] =
+                                    str_replace(' ', 'T', $varDataSend['data']['process']['API']['executionTime']['preliminarilyStartDateTimeTZ']);
+
+                                $varDataSend['data']['process']['API']['executionTime']['closureFinishDateTimeTZ'] =
+                                    str_replace(' ', 'T', $varDataSend['data']['process']['API']['executionTime']['closureFinishDateTimeTZ']);
+                                }
                             }
                         }
+
                     catch (\Exception $ex) {
                         }
+
                     //-----[ UPDATE PROCESSING TIME ]-----(  END  )-----
                     $varReturn =
                         \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::setResponse(
@@ -267,8 +293,8 @@ die();
     dd (
         \App\Helpers\ZhtHelper\General\Helper_DateTime::getDifferenceOfDateTimeTZString(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            \App\Helpers\ZhtHelper\General\Helper_DateTime::getConvertPHPDateTimeToDateTimeTZString(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), $varProcessExecutionStartDateTime),
-            \App\Helpers\ZhtHelper\General\Helper_DateTime::getConvertPHPDateTimeToDateTimeTZString(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), (new \DateTime())),
+            \App\Helpers\ZhtHelper\General\Helper_DateTime::getTimeStampTZConvert_PHPDateTimeToDateTimeTZString(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), $varProcessExecutionStartDateTime),
+            \App\Helpers\ZhtHelper\General\Helper_DateTime::getTimeStampTZConvert_PHPDateTimeToDateTimeTZString(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), (new \DateTime())),
             )
         );
 //------------< BLOCKING >------------------

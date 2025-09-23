@@ -393,13 +393,16 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
             {
             if (is_array($varDataSend) == FALSE)
                 {
-                throw new \Exception('Data Read Failed');
+                throw
+                    new \Exception('Data Read Failed');
                 }
             else
                 {
                 if (count($varDataSend) == 0)
                     {
-                    $varReturn = [];
+                    //$varReturn = [];
+                    throw
+                        new \Exception('Empty Data Result');
                     }
                 else
                     {
@@ -426,17 +429,19 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
                                 );
                         //dd($varReturn);
 
-                        $varReturn['data'] = 
+                        $varReturn['data'] =
                             \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                                 $varUserSession,
                                 $varReturn['data'][0]['Func_General_JSONArray_ConvertKeysToCamelCase']
                                 );
 
-                        $varReturn = $varReturn['data'];
+                        $varReturn =
+                            $varReturn['data'];
                         }
                     else
                         {
-                        $varReturn = $varDataSend;
+                        $varReturn =
+                            $varDataSend;
                         }
                     
                     /*
@@ -767,20 +772,35 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
         */
         public static function getEngineDataSend_DataUpdateException($varUserSession, $ObjException)
             {
-            $varErrorMessage = $ObjException->getMessage();
+            $varErrorMessage =
+                $ObjException->getMessage();
+
             switch($varErrorMessage)
                 {
                 case 'Undefined array key "Data"':
                     {
-                    $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 500, 'Update Failed');
+                    $varReturn =
+                        \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail(
+                            $varUserSession,
+                            500,
+                            'Update Failed'
+                            );
+
                     break;
                     }
                 default:
                     {
-                    $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 500, 'Invalid SQL Syntax'.($varErrorMessage ? ' ('.$varErrorMessage.')' : ''));
+                    $varReturn =
+                        \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail(
+                            $varUserSession,
+                            500,
+                            'Invalid SQL Syntax'.($varErrorMessage ? ' ('.$varErrorMessage.')' : '')
+                            );
                     }
                 }
-            return $varReturn;
+
+            return
+                $varReturn;
             }
 
 
@@ -998,8 +1018,8 @@ if (strcmp($varAPIKey, 'transaction.read.dataList.finance.getAdvance')==0)
     dd (
         \App\Helpers\ZhtHelper\General\Helper_DateTime::getDifferenceOfDateTimeTZString(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            \App\Helpers\ZhtHelper\General\Helper_DateTime::getConvertPHPDateTimeToDateTimeTZString(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), $varAPIExecutionStartDateTime),
-            \App\Helpers\ZhtHelper\General\Helper_DateTime::getConvertPHPDateTimeToDateTimeTZString(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), (new \DateTime())),
+            \App\Helpers\ZhtHelper\General\Helper_DateTime::getTimeStampTZConvert_PHPDateTimeToDateTimeTZString(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), $varAPIExecutionStartDateTime),
+            \App\Helpers\ZhtHelper\General\Helper_DateTime::getTimeStampTZConvert_PHPDateTimeToDateTimeTZString(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), (new \DateTime())),
             )
         );
     }
@@ -1285,8 +1305,8 @@ if (strcmp($varAPIKey, 'transaction.read.dataList.finance.getAdvance')==0)
     dd (
         \App\Helpers\ZhtHelper\General\Helper_DateTime::getDateTimeStringWithTimeZoneDifferenceInterval(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            \App\Helpers\ZhtHelper\General\Helper_DateTime::getConvertPHPDateTimeToDateTimeTZString(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), $varAPIExecutionStartDateTime),
-            \App\Helpers\ZhtHelper\General\Helper_DateTime::getConvertPHPDateTimeToDateTimeTZString(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), (new \DateTime())),
+            \App\Helpers\ZhtHelper\General\Helper_DateTime::getTimeStampTZConvert_PHPDateTimeToDateTimeTZString(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), $varAPIExecutionStartDateTime),
+            \App\Helpers\ZhtHelper\General\Helper_DateTime::getTimeStampTZConvert_PHPDateTimeToDateTimeTZString(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), (new \DateTime())),
             )
         );
 //------------< BLOCKING >------------------

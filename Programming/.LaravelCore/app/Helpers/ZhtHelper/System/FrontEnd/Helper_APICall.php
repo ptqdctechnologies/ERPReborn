@@ -459,13 +459,13 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                     //-----[ UPDATE PROCESSING TIME ]-----( START )-----
                     try {
                         $varProcessAPIPreliminarilyStartDateTimeTZString =
-                            \App\Helpers\ZhtHelper\General\Helper_DateTime::getConvertPHPDateTimeToDateTimeTZString(
+                            \App\Helpers\ZhtHelper\General\Helper_DateTime::getTimeStampTZConvert_PHPDateTimeToDateTimeTZString(
                                 $varUserSession,
                                 $varProcessExecutionStartDateTime
                                 );
 
                         $varProcessAPIClosureStartDateTimeTZString =
-                            \App\Helpers\ZhtHelper\General\Helper_DateTime::getConvertPHPDateTimeToDateTimeTZString(
+                            \App\Helpers\ZhtHelper\General\Helper_DateTime::getTimeStampTZConvert_PHPDateTimeToDateTimeTZString(
                                 $varUserSession,
                                 (new \DateTime())
                                 );
@@ -521,7 +521,20 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                             'startDateTimeTZ' => $varResponseData['data']['process']['others']['executionTime']['preliminarilyStartDateTimeTZ'],
                             'finishDateTimeTZ' => $varResponseData['data']['process']['others']['executionTime']['closureFinishDateTimeTZ']
                             ];
+
+                        $varResponseData['data']['process']['others']['executionTime']['preliminarilyStartDateTimeTZ'] =
+                            str_replace(' ', 'T', $varResponseData['data']['process']['others']['executionTime']['preliminarilyStartDateTimeTZ']);
+
+                        $varResponseData['data']['process']['others']['executionTime']['closureFinishDateTimeTZ'] =
+                            str_replace(' ', 'T', $varResponseData['data']['process']['others']['executionTime']['closureFinishDateTimeTZ']);
+
+                        $varResponseData['data']['process']['overAll']['executionTime']['startDateTimeTZ'] =
+                            str_replace(' ', 'T', $varResponseData['data']['process']['overAll']['executionTime']['startDateTimeTZ']);
+
+                        $varResponseData['data']['process']['overAll']['executionTime']['finishDateTimeTZ'] =
+                            str_replace(' ', 'T', $varResponseData['data']['process']['overAll']['executionTime']['finishDateTimeTZ']);
                         }
+
                     catch (\Exception $ex) {
                         }
 
@@ -532,8 +545,8 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
     dd (
         \App\Helpers\ZhtHelper\General\Helper_DateTime::getDifferenceOfDateTimeTZString(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            \App\Helpers\ZhtHelper\General\Helper_DateTime::getConvertPHPDateTimeToDateTimeTZString(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), $varProcessExecutionStartDateTime),
-            \App\Helpers\ZhtHelper\General\Helper_DateTime::getConvertPHPDateTimeToDateTimeTZString(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), (new \DateTime())),
+            \App\Helpers\ZhtHelper\General\Helper_DateTime::getTimeStampTZConvert_PHPDateTimeToDateTimeTZString(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), $varProcessExecutionStartDateTime),
+            \App\Helpers\ZhtHelper\General\Helper_DateTime::getTimeStampTZConvert_PHPDateTimeToDateTimeTZString(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), (new \DateTime())),
             )
         );
 //------------< BLOCKING >------------------
