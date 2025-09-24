@@ -44,7 +44,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0001.0000000                                                                                       |
-        | ▪ Last Update     : 2025-09-10                                                                                           |
+        | ▪ Last Update     : 2025-09-24                                                                                           |
         | ▪ Creation Date   : 2025-09-10                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -71,7 +71,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         public function setDataInsert(
             $varUserSession,
             string $varSysDataAnnotation = null, string $varSysDataValidityStartDateTimeTZ = null, string $varSysDataValidityFinishDateTimeTZ = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, $varSysBaseCurrency_RefID = null,
-            string $varDocumentDateTimeTZ = null, int $varCreditor_RefID = null, int $varDebitor_RefID = null, int $varBankAccount_RefID = null, int $varLoanTerm = null, int $varLog_FileUpload_Pointer_RefID = null, string $varWorkflowStatus = null, string $varRemarks = null,
+            string $varDocumentDateTimeTZ = null, int $varCreditor_RefID = null, int $varDebitor_RefID = null, int $varBankAccount_RefID = null, int $varLoanTerm = null, int $varLog_FileUpload_Pointer_RefID = null, string $varRemarks = null,
             array $varAdditionalData = []
             )
             {
@@ -98,7 +98,6 @@ namespace App\Models\Database\SchData_OLTP_Finance
                             [$varBankAccount_RefID, 'bigint'],
                             [$varLoanTerm, 'bigint'],
                             [$varLog_FileUpload_Pointer_RefID, 'bigint'],
-                            [$varWorkflowStatus, 'varchar'],
                             [$varRemarks, 'varchar'],
 
                             [
@@ -125,7 +124,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         | ▪ Method Name     : setDataUpdate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0001.0000000                                                                                       |
-        | ▪ Last Update     : 2025-09-11                                                                                           |
+        | ▪ Last Update     : 2025-09-24                                                                                           |
         | ▪ Creation Date   : 2025-09-11                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -156,7 +155,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
             $varUserSession,
             int $varSysID,
             string $varSysDataAnnotation = null, string $varSysDataValidityStartDateTimeTZ = null, string $varSysDataValidityFinishDateTimeTZ = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, $varSysBaseCurrency_RefID = null,
-            string $varDocumentDateTimeTZ = null, int $varCreditor_RefID = null, int $varDebitor_RefID = null, int $varBankAccount_RefID = null, int $varLoanTerm = null, int $varLog_FileUpload_Pointer_RefID = null, string $varWorkflowStatus = null, string $varRemarks = null,
+            string $varDocumentDateTimeTZ = null, int $varCreditor_RefID = null, int $varDebitor_RefID = null, int $varBankAccount_RefID = null, int $varLoanTerm = null, int $varLog_FileUpload_Pointer_RefID = null, string $varRemarks = null,
             array $varAdditionalData = []
             )
             {
@@ -183,7 +182,6 @@ namespace App\Models\Database\SchData_OLTP_Finance
                             [$varBankAccount_RefID, 'bigint'],
                             [$varLoanTerm, 'bigint'],
                             [$varLog_FileUpload_Pointer_RefID, 'bigint'],
-                            [$varWorkflowStatus, 'varchar'],
                             [$varRemarks, 'varchar'],
 
                             [
