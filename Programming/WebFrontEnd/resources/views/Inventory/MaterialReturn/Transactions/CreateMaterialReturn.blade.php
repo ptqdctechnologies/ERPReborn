@@ -54,15 +54,15 @@
                                                 </label>
                                                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                                                     <div>
-                                                        <input id="material_receive_number" style="border-radius:0;" class="form-control" size="20" readonly>
-                                                        <input id="material_receive_id" name="material_receive_id" style="border-radius:0;" class="form-control" hidden>
-                                                    </div>
-                                                    <div>
                                                         <span style="border-radius:0;" class="input-group-text form-control">
-                                                            <a href="javascript:;" id="materialReceiveTrigger" data-toggle="modal" data-target="#myGetModalMaterialReceive" style="display: block;">
-                                                                <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="materialReceiveTrigger">
+                                                            <a href="javascript:;" id="material_receive_trigger" data-toggle="modal" data-target="#myGetModalMaterialReceive" style="display: block;">
+                                                                <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="material_receive_trigger">
                                                             </a>
                                                         </span>
+                                                    </div>
+                                                    <div>
+                                                        <input id="material_receive_number" style="border-radius:0;" class="form-control" size="16" readonly>
+                                                        <input id="material_receive_id" name="material_receive_id" style="border-radius:0;" class="form-control" hidden>
                                                     </div>
                                                 </div>
                                             </div>
@@ -106,15 +106,15 @@
                                                 </label>
                                                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                                                     <div>
-                                                        <input id="transporter_name" style="border-radius:0;" class="form-control" size="20" readonly>
-                                                        <input id="transporter_id" style="border-radius:0;" name="transporter_id" class="form-control" hidden>
-                                                    </div>
-                                                    <div>
                                                         <span style="border-radius:0;" class="input-group-text form-control myTransporter">
                                                             <a href="javascript:;" id="myTransporterTrigger" data-toggle="modal" data-target="#myTransporter" style="display: block;">
                                                                 <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="myTransporterTrigger">
                                                             </a>
                                                         </span>
+                                                    </div>
+                                                    <div>
+                                                        <input id="transporter_name" style="border-radius:0;" class="form-control" size="16" readonly>
+                                                        <input id="transporter_id" style="border-radius:0;" name="transporter_id" class="form-control" hidden>
                                                     </div>
                                                 </div>
                                             </div>
@@ -197,7 +197,7 @@
                     </div>
                 </div>
 
-                <!-- MATERIAL RETURN DETAILS -->
+                <!-- MATERIAL RECEIVE DETAILS -->
                 <div class="tab-content px-3 pb-2" id="nav-tabContent">
                     <div class="row">
                         <div class="col-12">
@@ -205,7 +205,7 @@
                                 <!-- HEADER -->
                                 <div class="card-header">
                                     <label class="card-title">
-                                        Material Return Details
+                                        Material Receive Details
                                     </label>
                                     <div class="card-tools">
                                         <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -216,20 +216,56 @@
 
                                 <!-- BODY -->
                                 <div class="wrapper-budget card-body table-responsive p-0" style="height: 230px;">
-                                    <table class="table table-head-fixed text-nowrap table-sm" id="material_return_details_table">
+                                    <table class="table table-head-fixed text-nowrap table-sm" id="material_receive_details_table">
                                         <thead>
                                             <tr>
                                                 <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Sub Budget</th>
                                                 <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Product Code</th>
                                                 <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Product Name</th>
-                                                <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Valuta</th>
+                                                <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">UOM</th>
                                                 <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Note</th>
                                                 <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Qty Receive</th>
-                                                <th style="padding-top: 10px;padding-bottom: 10px;background-color:#4B586A;border-right:1px solid #fff;text-align: center;color: white;width: 130px;">Qty Return</th>
-                                                <th style="padding-top: 10px;padding-bottom: 10px;background-color:#4B586A;border-right:1px solid #fff;text-align: center;color: white;width: 200px;">Note</th>
+                                                <th style="padding-top: 10px;padding-bottom: 10px;background-color:#4B586A;border-right:1px solid #fff;text-align: center;color: white;width: 100px;">Qty Return</th>
+                                                <th style="padding-top: 10px;padding-bottom: 10px;background-color:#4B586A;border-right:1px solid #fff;text-align: center;color: white;width: 150px;">Note</th>
                                             </tr>
                                         </thead>
+                                        <tbody></tbody>
+                                        <tfoot>
+                                            <tr class="material_receive_details_loading" style="display: none;">
+                                                <td colspan="7" class="p-0" style="border: 0px; height: 150px;">
+                                                    <div class="d-flex flex-column justify-content-center align-items-center py-3">
+                                                        <div class="spinner-border" role="status">
+                                                            <span class="sr-only">Loading...</span>
+                                                        </div>
+                                                        <div class="mt-3" style="font-size: 0.75rem; font-weight: 700;">
+                                                            Loading...
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr class="material_receive_details_error_message_container" style="display: none;">
+                                                <td colspan="7" class="p-0" style="border: 0px;">
+                                                    <div class="d-flex flex-column justify-content-center align-items-center py-3">
+                                                        <div id="material_receive_details_error_message" class="mt-3 text-red" style="font-size: 1rem; font-weight: 700;"></div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tfoot>
                                     </table>
+                                </div>
+
+                                <!-- FOOTER -->
+                                <div class="card-body tableShowHideBudget">
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="text-red" id="material_receive_details_message" style="display: none;">
+                                                Please input at least one item.
+                                            </div>
+                                        </div>
+                                        <div class="col text-right" style="margin-right: 20px; font-size: 0.77rem; color: #212529; font-weight: 600;">
+                                            Total : <span id="material_receive_details_total">0.00</span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -270,13 +306,13 @@
                 <div class="tab-content px-3 pb-2" id="nav-tabContent">
                     <div class="row">
                         <div class="col">
+                            <button type="button" id="debit_note_submit_button" class="btn btn-default btn-sm float-right" onclick="validationForm()" style="margin-left: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
+                                <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="submit" title="Submit Debit Note"> Submit
+                            </button>
+
                             <a id="debit_note_cancel_button" class="btn btn-default btn-sm float-right" onclick="cancelForm('{{ route('DebitNote.index', ['var' => 1]) }}')" style="background-color:#e9ecef;border:1px solid #ced4da;">
                                 <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="cancel" title="Cancel Debit Note"> Cancel
                             </a>
-
-                            <button type="button" id="debit_note_submit_button" class="btn btn-default btn-sm float-right" onclick="validationForm()" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
-                                <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="submit" title="Submit Debit Note"> Submit
-                            </button>
                         </div>
                     </div>
                 </div>
