@@ -21,7 +21,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         |                     ► http://172.28.0.4/transaction.create.finance.setLoan.v1_throughAPIGateway                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-09-11                                                                                           |
+        | ▪ Last Update     : 2025-09-24                                                                                           |
         | ▪ Creation Date   : 2025-09-11                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -50,15 +50,6 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                     "additionalData" => [
                         "itemList" => [
                             "items" => [
-                                    [
-                                    "entities" => [
-                                        "principleLoan" => 1000000000,
-                                        "lendingRate" => 10,
-                                        "currency_RefID" => 62000000000001,
-                                        "currencyExchangeRate" => 1,
-                                        "chartOfAccount_RefID" => 65000000000005
-                                        ]
-                                    ],
                                     [
                                     "entities" => [
                                         "principleLoan" => 1000000000,
