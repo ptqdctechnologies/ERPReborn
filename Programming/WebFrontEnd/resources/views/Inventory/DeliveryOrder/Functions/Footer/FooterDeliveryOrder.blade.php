@@ -13,6 +13,11 @@
     let deliveryToRefID             = document.getElementById("deliveryTo_RefID");
     let deliveryToDuplicateRefID    = document.getElementById("deliveryToDuplicate_RefID");
     let transporterName             = document.getElementById("transporter_name");
+    let isDeliveryFromStockMovement = false;
+
+    function deliveryFromStockMovementTrigger(value) {
+        isDeliveryFromStockMovement = value;
+    }
 
     function checkOneLineBudgetContents(indexInput) {
         const rows = document.querySelectorAll("#tableReferenceNumberDetail tbody tr");
@@ -314,7 +319,6 @@
                     $("#deliveryToMessage").hide();
 
                     deliveryDate = data[0].deliveryDateTimeTZ;
-                    console.log('deliveryDate', deliveryDate);
 
                     let tbody = $('#tableReferenceNumberDetail tbody');
                     let modifyColumn = `<td rowspan="${data.length}" style="text-align: center; padding: 10px !important;">${reference_number}</td>`;
@@ -403,8 +407,160 @@
             }
         });
     }
+    
+    function getStockMovementDetail() {
+        const data = [
+            {
+                id: 0,
+                productCode: '2000185',
+                productName: 'Cable BCC / NYA 35 mm2',
+                uom: 'm',
+                qtyStock: 9
+            },
+            {
+                id: 1,
+                productCode: '2000190',
+                productName: 'Cable NYM 3x2.5 mm2',
+                uom: 'm',
+                qtyStock: 120
+            },
+            {
+                id: 2,
+                productCode: '2000191',
+                productName: 'MCB 6A Schneider',
+                uom: 'pcs',
+                qtyStock: 45
+            },
+            {
+                id: 3,
+                productCode: '2000192',
+                productName: 'MCB 10A Schneider',
+                uom: 'pcs',
+                qtyStock: 30
+            },
+            {
+                id: 4,
+                productCode: '2000193',
+                productName: 'Panel LVMDP 3 Phase',
+                uom: 'unit',
+                qtyStock: 5
+            },
+            {
+                id: 5,
+                productCode: '2000194',
+                productName: 'Trafo 100 kVA 20/0.4 kV',
+                uom: 'unit',
+                qtyStock: 2
+            },
+            {
+                id: 6,
+                productCode: '2000195',
+                productName: 'Arrester Tegangan Menengah',
+                uom: 'pcs',
+                qtyStock: 20
+            },
+            {
+                id: 7,
+                productCode: '2000196',
+                productName: 'Isolator Keramik 24kV',
+                uom: 'pcs',
+                qtyStock: 75
+            },
+            {
+                id: 8,
+                productCode: '2000197',
+                productName: 'Kabel ACSR 50 mm2',
+                uom: 'm',
+                qtyStock: 500
+            },
+            {
+                id: 9,
+                productCode: '2000198',
+                productName: 'Tiang Beton 12 Meter',
+                uom: 'batang',
+                qtyStock: 15
+            }
+        ];
+
+        let tbody = $('#tableReferenceNumberDetail tbody');
+        tbody.empty();
+
+        $.each(data, function(key, val) {
+            let row = `
+                <tr>
+                    <td style="text-align: center;">${val.productCode || '-'}</td>
+                    <td style="text-align: center;">${val.productName || '-'}</td>
+                    <td style="text-align: center;">${val.uom || '-'}</td>
+                    <td style="text-align: center;">${val.qtyStock || '-'}</td>
+                    <td style="border:1px solid #e9ecef;background-color:white; padding: 0.5rem !important; width: 100px;">
+                        <input class="form-control number-without-negative" autocomplete="off" style="border-radius:0px;" />
+                    </td>
+                    <td style="border:1px solid #e9ecef;background-color:white; padding: 0.5rem !important; width: 100px;">
+                        <input class="form-control number-without-negative" autocomplete="off" style="border-radius:0px;" />
+                    </td>
+                    <td style="border:1px solid #e9ecef;background-color:white; padding: 0.5rem !important; width: 100px;">
+                        <input class="form-control number-without-negative" autocomplete="off" style="border-radius:0px;" />
+                    </td>
+                </tr>
+            `;
+
+            tbody.append(row);
+        });
+    }
+
+    function getInternalUseDetail() {
+        const data = [
+            {
+                id: 0,
+                productCode: '2000185',
+                productName: 'Cable BCC / NYA 35 mm2',
+                uom: 'm',
+                qtyBudget: 15,
+                qtyAvailBudget: 7,
+                priceBudget: 82756.94,
+                totalBudget: 1241354.10,
+                qtyStok: 4,
+                priceStok: 47295.08,
+                totalStok: 189180.32
+            },
+        ];
+
+        let tbody = $('#tableReferenceNumberDetail tbody');
+        tbody.empty();
+
+        $.each(data, function(key, val) {
+            let row = `
+                <tr>
+                    <td style="text-align: center;">${val.productCode || '-'}</td>
+                    <td style="text-align: center;">${val.productName || '-'}</td>
+                    <td style="text-align: center;">${val.uom || '-'}</td>
+                    <td style="text-align: center;">${val.qtyBudget || '-'}</td>
+                    <td style="text-align: center;">${val.qtyAvailBudget || '-'}</td>
+                    <td style="text-align: center;">${val.priceBudget || '-'}</td>
+                    <td style="text-align: center;">${val.totalBudget || '-'}</td>
+                    <td style="text-align: center;">${val.qtyStok || '-'}</td>
+                    <td style="text-align: center;">${val.priceStok || '-'}</td>
+                    <td style="text-align: center;">${val.totalStok || '-'}</td>
+                    <td style="border:1px solid #e9ecef;background-color:white; padding: 0.5rem !important; width: 100px;">
+                        <input class="form-control number-without-negative" autocomplete="off" style="border-radius:0px;" />
+                    </td>
+                    <td style="border:1px solid #e9ecef;background-color:white; padding: 0.5rem !important; width: 100px;">
+                        <input class="form-control number-without-negative" autocomplete="off" style="border-radius:0px;" />
+                    </td>
+                    <td style="border:1px solid #e9ecef;background-color:white; padding: 0.5rem !important; width: 100px;">
+                        <input class="form-control number-without-negative" autocomplete="off" style="border-radius:0px;" />
+                    </td>
+                </tr>
+            `;
+
+            tbody.append(row);
+        });
+    }
 
     function referenceType(source) {
+        let tbody = $('#tableReferenceNumberDetail tbody');
+        tbody.empty();
+
         if (source.value == "PURCHASE_ORDER") {
             $(".purchase-order-components").css("display", "flex");
             $(".internal-use-components").css("display", "none");
@@ -565,6 +721,22 @@
         });
     }
 
+    $('#tableGetProjectSecond').on('click', 'tbody tr', async function() {
+        var sysId       = $(this).find('input[data-trigger="sys_id_project_second"]').val();
+        var projectCode = $(this).find('td:nth-child(2)').text();
+        var projectName = $(this).find('td:nth-child(3)').text();
+
+        $("#project_id_second").val(sysId);
+        $("#project_code_second").val(projectCode);
+        $("#project_name_second").val(projectName);
+
+        getSiteSecond(sysId);
+    });
+
+    $('#tableGetSiteSecond').on('click', 'tbody tr', function() {
+        getInternalUseDetail();
+    });
+
     $('#delivery_from').on('input', function(e) {
         if (e.target.value == deliveryFromDuplicate.value) {
             $("#deliveryFrom_RefID").val(deliveryFromDuplicateRefID.value);
@@ -636,6 +808,33 @@
 
         $("#transporter_name").css("border", "1px solid #ced4da");
         $("#transporterMessage").hide();
+    });
+
+    $('#tableGetModalWarehouses').on('click', 'tbody tr', function() {
+        let sysId   = $(this).find('input[data-trigger="sys_id_modal_warehouse"]').val();
+        let name    = $(this).find('td:nth-child(2)').text();
+        let address = $(this).find('td:nth-child(3)').text();
+
+        if (isDeliveryFromStockMovement == "from_internal_use") {
+            $("#delivery_from_id_internal_use").val(sysId);
+            $("#delivery_from_name_internal_use").val(name);
+            $("#delivery_from_address_internal_use").val(address);
+        } else if (isDeliveryFromStockMovement == "to_internal_use") {
+            $("#delivery_to_id_internal_use").val(sysId);
+            $("#delivery_to_name_internal_use").val(name);
+            $("#delivery_to_address_internal_use").val(address);
+        } else if (isDeliveryFromStockMovement == "from_stock_movement") {
+            $("#delivery_from_id_stock_movement").val(sysId);
+            $("#delivery_from_name_stock_movement").val(name);
+            $("#delivery_from_address_stock_movement").val(address);
+            getStockMovementDetail();
+        } else if (isDeliveryFromStockMovement == "to_stock_movement") {
+            $("#delivery_to_id_stock_movement").val(sysId);
+            $("#delivery_to_name_stock_movement").val(name);
+            $("#delivery_to_address_stock_movement").val(address);
+        }
+
+        $("#myGetModalWarehouses").modal('toggle');
     });
 
     $(window).one('load', function(e) {

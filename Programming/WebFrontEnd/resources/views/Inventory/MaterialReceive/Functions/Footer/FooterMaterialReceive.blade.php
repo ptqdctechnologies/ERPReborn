@@ -275,6 +275,7 @@
                     $("#address_delivery_order_to_duplicate").val(data[0].deliveryTo_NonRefID.Address);
                     $("#id_delivery_order_to").val(data[0].deliveryTo_RefID);
                     $("#id_delivery_order_to_duplicate").val(data[0].deliveryTo_RefID);
+                    $("#do_transporter").val(`${data[0].transporterCode} - ${data[0].transporterName}`);
 
                     $("#address_delivery_order_from").css("border", "1px solid #ced4da");
                     $("#deliveryFromMessage").hide();

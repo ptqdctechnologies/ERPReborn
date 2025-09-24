@@ -462,12 +462,20 @@
                           
                           <!-- DIRECT TO VENDOR -->
                           <div class="row m-0">
-                            <div class="col-md-12 col-lg-5 p-0">
-                              <div class="row mt-0 mx-0" style="margin-bottom: 1rem;">
+                            <div class="col-md-12 col-lg-5 p-0" style="margin-bottom: 1rem;">
+                              <div class="row mt-0 mx-0">
                                 <label for="direct_to_vendor" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Direct to Vendor</label>
                                 <div class="col-sm-9 col-md-8 col-lg-3 p-0">
                                   <div class="input-group">
                                     <input id="direct_to_vendor" name="vendor_amount" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="row" id="directToVendorMessage" style="margin-top: .3rem; display: none;">
+                                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+                                <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                                  <div class="text-red">
+                                    Direct to Vendor cannot be empty.
                                   </div>
                                 </div>
                               </div>
@@ -541,12 +549,20 @@
 
                           <!-- BY CORP CARD -->
                           <div class="row m-0">
-                            <div class="col-md-12 col-lg-5 p-0">
-                              <div class="row mt-0 mx-0" style="margin-bottom: 1rem;">
+                            <div class="col-md-12 col-lg-5 p-0" style="margin-bottom: 1rem;">
+                              <div class="row mt-0 mx-0">
                                 <label for="by_corp_card" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">By Corp Card</label>
                                 <div class="col-sm-9 col-md-8 col-lg-3 p-0">
                                   <div class="input-group">
                                     <input id="by_corp_card" name="corp_amount" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="row" id="byCorpCardMessage" style="margin-top: .3rem; display: none;">
+                                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+                                <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                                  <div class="text-red">
+                                    By Corp Card cannot be empty.
                                   </div>
                                 </div>
                               </div>
@@ -620,12 +636,20 @@
 
                           <!-- TO OTHER -->
                           <div class="row m-0">
-                            <div class="col-md-12 col-lg-5 p-0">
-                              <div class="row mt-0 mx-0" style="margin-bottom: 1rem;">
+                            <div class="col-md-12 col-lg-5 p-0" style="margin-bottom: 1rem;">
+                              <div class="row mt-0 mx-0">
                                 <label for="to_other" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">To Other</label>
                                 <div class="col-sm-9 col-md-8 col-lg-3 p-0">
                                   <div class="input-group">
                                     <input id="to_other" name="other_amount" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="row" id="toOtherMessage" style="margin-top: .3rem; display: none;">
+                                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+                                <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                                  <div class="text-red">
+                                    To Other cannot be empty.
                                   </div>
                                 </div>
                               </div>

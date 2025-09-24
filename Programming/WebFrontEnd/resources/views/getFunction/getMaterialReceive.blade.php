@@ -133,7 +133,7 @@
         $("#modal_material_receive_document_number").val(trano);
         // $("#modal_material_receive_budget_code").val(trano);
 
-        adjustInputSize(document.getElementById("modal_material_receive_document_number"), "string");
+        // adjustInputSize(document.getElementById("modal_material_receive_document_number"), "string");
 
         $('#myGetModalMaterialReceive').modal('hide');
     });

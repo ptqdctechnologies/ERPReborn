@@ -1,16 +1,16 @@
 <!-- BODY -->
 <div class="card-body">
-    <div class="row py-3" style="gap: 15px;">
+    <div class="row py-3" style="row-gap: 15px;">
         <!-- LEFT COLUMN -->
-        <div class="col-md-12 col-lg-5">
-            <!-- DELIVERY ORDER -->
+        <div class="col-md-12 col-lg-4">
+            <!-- DELIVERY ORDER NUMBER -->
             <div class="row">
-                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">
-                    Delivery Order Number
+                <label class="col-sm-3 col-md-4 col-lg-3 col-form-label p-0">
+                    DO Number
                 </label>
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div>
-                        <input id="delivery_order_code" style="border-radius:0;" class="form-control" size="20" readonly>
+                        <input id="delivery_order_code" style="border-radius:0;" class="form-control" size="19" readonly>
                         <input id="delivery_order_id" style="border-radius:0;" name="delivery_order_id" class="form-control" hidden>
                     </div>
                     <div>
@@ -33,13 +33,13 @@
 
             <!-- RECEIVE DATE -->
             <div class="row" style="margin-top: 1rem;">
-                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">
+                <label class="col-sm-3 col-md-4 col-lg-3 col-form-label p-0">
                     Receive Date
                 </label>
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div>
                         <div class="input-group date" id="startDate" data-target-input="nearest">
-                            <input type="text" id="receive_date" name="receive_date" class="form-control datetimepicker-input" data-target="#startDate" style="height: 21.8px;border-radius:0;background-color:#e9ecef;">
+                            <input type="text" size="19" id="receive_date" name="receive_date" class="form-control datetimepicker-input" data-target="#startDate" style="height: 21.8px;border-radius:0;background-color:#e9ecef;">
 
                             <div class="input-group-prepend" data-target="#startDate" data-toggle="datetimepicker" style="margin-right: 0px; width: 27.78px;cursor: pointer;height: 21.8px;">
                                 <span class="input-group-text">
@@ -61,10 +61,10 @@
 
             <!-- RECEIVE IN -->
             <div class="row" style="margin-top: 1rem;">
-                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">
+                <label class="col-sm-3 col-md-4 col-lg-3 col-form-label p-0">
                     Receive in
                 </label>
-                <div class="col-sm-9 col-md-8 col-lg-5 d-flex p-0">
+                <div class="col-sm-9 col-md-8 col-lg-6 d-flex p-0">
                     <div>
                         <input hidden type="text" id="warehouse_id" name="warehouse_id" />
                         <textarea disabled id="warehouse_name" rows="3" style="border-radius:0;" class="form-control"></textarea>
@@ -93,42 +93,81 @@
             </div>
         </div>
 
-        <!-- RIGHT COLUMN -->
-        <div class="col-md-12 col-lg-5">
-            <!-- BUDGET -->
+        <!-- MIDDLE COLUMN -->
+        <div class="col-md-12 col-lg-4">
+            <!-- TYPE -->
             <div class="row" style="margin-bottom: 1rem;">
-                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">
-                    Budget
+                <label class="col-sm-3 col-md-4 col-lg-2 col-form-label p-0">
+                    Type
                 </label>
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div>
-                        <input id="budget_value" style="border-radius:0;" size="24" class="form-control" readonly>
+                        <input id="do_type" style="border-radius:0;" size="23" class="form-control" readonly>
                     </div>
                 </div>
             </div>
 
-            <!-- SUB BUDGET -->
-            <!-- <div class="row">
-                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">
-                    Sub Budget
+            <!-- BUDGET -->
+            <div class="row" style="margin-bottom: 1rem;">
+                <label class="col-sm-3 col-md-4 col-lg-2 col-form-label p-0">
+                    Budget
                 </label>
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div>
-                        <input id="sub_budget_value" style="border-radius:0;" size="24" class="form-control" readonly>
+                        <input id="budget_value" style="border-radius:0;" size="23" class="form-control" readonly>
                     </div>
                 </div>
-            </div> -->
+            </div>
+
+            <!-- REQUESTER -->
+            <div class="row" style="margin-bottom: 1rem; display: none;">
+                <label class="col-sm-3 col-md-4 col-lg-2 col-form-label p-0">
+                    Requester
+                </label>
+                <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                    <div>
+                        <input id="do_requester" style="border-radius:0;" size="23" class="form-control" readonly>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- STATUS -->
+            <div class="row" style="display: none;">
+                <label class="col-sm-3 col-md-4 col-lg-2 col-form-label p-0">
+                    Status
+                </label>
+                <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                    <div>
+                        <input id="do_status" style="border-radius:0;" size="23" class="form-control" readonly>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- RIGHT COLUMN -->
+        <div class="col-md-12 col-lg-4">
+            <!-- TRANSPORTER -->
+            <div class="row" style="margin-bottom: 1rem;">
+                <label class="col-sm-3 col-md-4 col-lg-3 col-form-label p-0">
+                    Transporter
+                </label>
+                <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                    <div>
+                        <input id="do_transporter" style="border-radius:0;" size="23" class="form-control" readonly>
+                    </div>
+                </div>
+            </div>
 
             <!-- DELIVERY FROM -->
             <div class="row" style="margin-top: 1rem;">
-                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">
+                <label class="col-sm-3 col-md-4 col-lg-3 col-form-label p-0">
                     Delivery From
                 </label>
-                <div class="col-sm-9 col-md-8 col-lg-5 d-flex p-0">
+                <div class="col-sm-9 col-md-8 col-lg-6 d-flex p-0">
                     <div style="width: 100%;">
-                        <input type="hidden" id="id_delivery_order_from_duplicate" style="border-radius:0;" class="form-control" size="20" readonly>
-                        <input type="hidden" id="id_delivery_order_from" name="id_delivery_order_from" style="border-radius:0;" class="form-control" size="20" readonly>
-                        <input type="hidden" id="address_delivery_order_from_duplicate" style="border-radius:0;" class="form-control" size="20" readonly>
+                        <input type="hidden" id="id_delivery_order_from_duplicate" style="border-radius:0;" class="form-control" size="24" readonly>
+                        <input type="hidden" id="id_delivery_order_from" name="id_delivery_order_from" style="border-radius:0;" class="form-control" size="24" readonly>
+                        <input type="hidden" id="address_delivery_order_from_duplicate" style="border-radius:0;" class="form-control" size="24" readonly>
                         <textarea id="address_delivery_order_from" name="address_delivery_order_from" rows="3" style="border-radius:0;" class="form-control"></textarea>
                     </div>
                 </div>
@@ -144,10 +183,10 @@
 
             <!-- DELIVERY TO -->
             <div class="row" style="margin-top: 1rem;">
-                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">
+                <label class="col-sm-3 col-md-4 col-lg-3 col-form-label p-0">
                     Delivery To
                 </label>
-                <div class="col-sm-9 col-md-8 col-lg-5 d-flex p-0">
+                <div class="col-sm-9 col-md-8 col-lg-6 d-flex p-0">
                     <div style="width: 100%;">
                         <input type="hidden" id="id_delivery_order_to_duplicate" style="border-radius:0;" class="form-control" size="20" readonly>
                         <input type="hidden" id="id_delivery_order_to" name="id_delivery_order_to" style="border-radius:0;" class="form-control" size="20" readonly>

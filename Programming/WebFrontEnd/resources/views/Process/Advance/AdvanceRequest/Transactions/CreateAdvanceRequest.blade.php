@@ -12,6 +12,7 @@
 @include('getFunction.getProduct')
 @include('getFunction.getWorkFlow')
 @include('Process.Advance.AdvanceRequest.Functions.PopUp.PopUpAdvanceRevision')
+@include('Process.Advance.AdvanceRequest.Functions.PopUp.PopUpAdvanceSummaryData')
 
 <div class="content-wrapper">
   <section class="content">
@@ -139,51 +140,7 @@
                     </div>
                   </div>
 
-                  <!-- BODY -->
-                  <div class="wrapper-budget card-body table-responsive p-0" style="height: 230px;">
-                    <table class="table table-head-fixed text-nowrap table-sm" id="tableGetBudgetDetails">
-                      <thead>
-                        <tr>
-                          <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Product Code</th>
-                          <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Product Name</th>
-                          <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Qty Budget</th>
-                          <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Qty Avail</th>
-                          <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">UOM</th>
-                          <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Price</th>
-                          <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Total Budget</th>
-                          <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Currency</th>
-                          <th class="sticky-col forth-col-arf" style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">Qty Req</th>
-                          <th class="sticky-col third-col-arf" style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">Price Req</th>
-                          <th class="sticky-col second-col-arf" style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">Total Req</th>
-                          <th class="sticky-col first-col-arf" style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">Balance Qty</th>
-                        </tr>
-                      </thead>
-
-                      <tbody></tbody>
-
-                      <tfoot>
-                        <tr class="loadingBudgetDetails">
-                          <td colspan="11" class="p-0" style="border: 0px; height: 150px;">
-                            <div class="d-flex flex-column justify-content-center align-items-center py-3">
-                              <div class="spinner-border" role="status">
-                                <span class="sr-only">Loading...</span>
-                              </div>
-                              <div class="mt-3" style="font-size: 0.75rem; font-weight: 700;">
-                                Loading...
-                              </div>
-                            </div>
-                          </td>
-                        </tr>
-                        <tr class="errorMessageContainerBudgetDetails">
-                          <td colspan="11" class="p-0" style="border: 0px;">
-                            <div class="d-flex flex-column justify-content-center align-items-center py-3">
-                              <div id="errorMessageBudgetDetails" class="mt-3 text-red" style="font-size: 1rem; font-weight: 700;"></div>
-                            </div>
-                          </td>
-                        </tr>
-                      </tfoot>
-                    </table>
-                  </div>
+                  @include('Process.Advance.AdvanceRequest.Functions.Table.TableAdvance')
 
                   <!-- FOOTER -->
                   <div class="card-body tableShowHideBudget">
@@ -259,40 +216,6 @@
       @endif
     </div>
   </section>
-</div>
-
-<div class="modal fade" id="advanceRequestFormModal" tabindex="-1" role="dialog">
-  <div class="modal-dialog modal-lg" role="document" style="min-height: calc(100vh - 3.5rem); display: flex; align-items: center;">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h3 style="margin: 0px;font-weight:bold;">Are you sure you want to save this data?</h3>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-      </div>
-      <div class="modal-body">
-        <div class="wrapper-budget card-body table-responsive p-0" style="max-height:200px;">
-          <table class="table table-head-fixed text-nowrap table-sm" id="tableAdvanceList" style="border: 1px solid #dee2e6;">
-            <tbody></tbody>
-          </table>
-        </div>
-        <div class="card-body">
-          <table style="float:right;">
-            <tr>
-              <th id="GrandTotal"></th>
-            </tr>
-          </table>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" id="submitArf" class="btn btn-default btn-sm" onclick="SubmitForm();" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
-          <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" title="Submit to Advance"> Yes, save it
-        </button>
-
-        <button type="button" class="btn btn-default btn-sm" data-dismiss="modal" style="background-color:#e9ecef;border:1px solid #ced4da;">
-          <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel Advance List Cart"> No, cancel
-        </button>
-      </div>
-    </div>
-  </div>
 </div>
 
 @include('Partials.footer')

@@ -5,7 +5,11 @@
 @include('Inventory.DeliveryOrder.Functions.PopUp.PopUpDoRevision')
 @include('getFunction.getReferenceNumber')
 @include('getFunction.getTransporter')
+@include('getFunction.getWorker')
 @include('getFunction.getWorkFlow')
+@include('getFunction.getWarehouses')
+@include('getFunction.getProject')
+@include('getFunction.getSite')
 
 <div class="content-wrapper">
     <section class="content">

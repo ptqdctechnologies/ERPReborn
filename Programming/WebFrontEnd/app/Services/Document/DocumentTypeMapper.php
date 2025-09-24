@@ -87,6 +87,11 @@ class DocumentTypeMapper
                 'key'       => 'transaction.read.dataList.supplyChain.getWarehouseInboundOrderDetail',
                 'parameter' => ['warehouseInboundOrder_RefID' => (int) $referenceId]
             ],
+            'Warehouse Outbound Order Form' => [
+                'key'                       => '',
+                'parameter'                 => [],
+                'businessDocument_RefID'    => (int) 74000000021494,
+            ],
         ];
 
         return $mapping[$documentType] ?? null;
@@ -684,6 +689,35 @@ class DocumentTypeMapper
                 'transactionType'        => 'MATERIAL RECEIVE',
                 'businessDocument_RefID' => $dataDetail['businessDocument_RefID'] ?? '',
             ],
+            'Warehouse Outbound Order Form' => [
+                'dataHeader'            => [
+                    'materialReturnNumber'      => 'WHOb/QDC/2025/000001',
+                    'budgetCode'                => 'Q00006',
+                    'budgetName'                => 'XL Microcell 2007',
+                    'transporterName'           => 'Aji Irawan',
+                    'transporterContactPerson'  => 'aji.irawan@gmail.com',
+                    'transporterPhone'          => '+62 818-2166-7499-99',
+                    'transporterHandphone'      => '+62 21 791-9123-4 Ext 1417',
+                    'transporterFax'            => '+62 821-1480-0364',
+                    'transporterAddress'        => 'Jl. Letjend Bambang Utoyo',
+                    'fileID'                    => null
+                ],
+                'textAreaFields'    => [
+                    'title'         => 'Remark',
+                    'text'          => $dataDetail['remarks'] ?? '-',
+                ],
+                'components'    => [
+                    'detail'            => 'Components.MaterialReturnDetailDocument',
+                    'table'             => 'Components.MaterialReturnDetailDocumentTable'
+                ],
+                'resubmit'      => [
+                    'url'       => 'MaterialReceive.RevisionMaterialReceiveIndex',
+                    'name'      => 'modal_material_receive_id',
+                    'value'     => $dataDetail['warehouseInboundOrder_RefID'] ?? '-',
+                ],
+                'transactionType'        => 'MATERIAL RETURN',
+                'businessDocument_RefID' => $dataDetail['businessDocument_RefID'] ?? '',
+            ],
         ];
 
         return $mapping[$documentType] ?? null;
@@ -700,7 +734,8 @@ class DocumentTypeMapper
             'Purchase Order Form'           => 'Documents.Transactions.LogTransaction.LogTransactionPurchaseOrder',
             'Purchase Requisition Form'     => 'Documents.Transactions.LogTransaction.LogTransactionPurchaseRequisition',
             'Reimbursement Form'            => 'Documents.Transactions.LogTransaction.LogTransactionReimbursement',
-            'Warehouse Inbound Order Form'  => 'Documents.Transactions.LogTransaction.LogTransactionMaterialReceive'
+            'Warehouse Inbound Order Form'  => 'Documents.Transactions.LogTransaction.LogTransactionMaterialReceive',
+            'Warehouse Outbound Order Form' => 'Documents.Transactions.LogTransaction.LogTransactionMaterialReturn'
         ];
 
         return $mapping[$documentType] ?? null;

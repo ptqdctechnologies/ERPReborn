@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Inventory;
+
 use App\Http\Controllers\ExportExcel\Inventory\ExportReportMaterialReceiveSummary;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -180,50 +181,6 @@ class MaterialReceiveController extends Controller
         return view('Inventory.MaterialReceive.Transactions.CreateMaterialReceive', $compact);
     }
 
-    public function StoreValidateMaterialReceive(Request $request)
-    {
-        $tamp = 0;
-        $status = 200;
-        $val = $request->input('putWorkId');
-        $val2 = $request->input('putProductId');
-        $data = $request->session()->get("SessionMaterialReceive");
-        if ($request->session()->has("SessionMaterialReceive")) {
-            for ($i = 0; $i < count($data); $i++) {
-                if ($data[$i] == $val && $data[$i + 1] == $val2) {
-                    $tamp = 1;
-                }
-            }
-            if ($tamp == 0) {
-                $request->session()->push("SessionMaterialReceive", $val);
-                $request->session()->push("SessionMaterialReceive", $val2);
-            } else {
-                $status = 500;
-            }
-        } else {
-            $request->session()->push("SessionMaterialReceive", $val);
-            $request->session()->push("SessionMaterialReceive", $val2);
-        }
-
-        return response()->json($status);
-    }
-
-    public function StoreValidateMaterialReceive2(Request $request)
-    {
-        $val = $request->input('putWorkId');
-        $val2 = $request->input('putProductId');
-        $data = $request->session()->get("SessionMaterialReceive");
-        if ($request->session()->has("SessionMaterialReceive")) {
-            for ($i = 0; $i < count($data); $i++) {
-                if ($data[$i] == $val && $data[$i + 1] == $val2) {
-                    unset($data[$i]);
-                    unset($data[$i + 1]);
-                    $newClass = array_values($data);
-                    $request->session()->put("SessionMaterialReceive", $newClass);
-                }
-            }
-        }
-    }
-
     public function store(Request $request)
     {
         try {
@@ -256,107 +213,42 @@ class MaterialReceiveController extends Controller
         }
     }
 
-    public function MaterialReceiveListData(Request $request)
+    public function update(Request $request, $id)
     {
-        try {
+        $input = $request->all();
+        dd($input);
+        $compact = [
+            "status" => true,
+        ];
 
-            if (Redis::get("DataListAdvance") == null) {
-                $varAPIWebToken = Session::get('SessionLogin');
-                Helper_APICall::setCallAPIGateway(
-                    Helper_Environment::getUserSessionID_System(),
-                    $varAPIWebToken,
-                    'transaction.read.dataList.finance.getAdvance',
-                    'latest',
-                    [
-                        'parameter' => null,
-                        'SQLStatement' => [
-                            'pick' => null,
-                            'sort' => null,
-                            'filter' => null,
-                            'paging' => null
-                        ]
-                    ],
-                    false
-                );
-            }
-
-            $DataListAdvance = json_decode(
-                Helper_Redis::getValue(
-                    Helper_Environment::getUserSessionID_System(),
-                    "DataListAdvance"
-                ),
-                true
-            );
-
-
-            $collection = collect($DataListAdvance);
-
-            $project_id = $request->project_id;
-            $site_id = $request->site_id;
-
-            if ($project_id != "") {
-                $collection = $collection->where('CombinedBudget_RefID', $project_id);
-            }
-            if ($site_id != "") {
-                $collection = $collection->where('CombinedBudgetSection_RefID', $site_id);
-            }
-
-            $collection = $collection->all();
-
-            return response()->json($collection);
-        } catch (\Throwable $th) {
-            Log::error("Error at " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
-        }
+        return response()->json($compact);
     }
 
-    public function MaterialReceiveListDataPO(Request $request)
+    public function MaterialReceiveDetail(Request $request) 
     {
-        $advance_RefID = $request->input('purchase_order_id');
-        $varAPIWebToken = Session::get('SessionLogin');
+        try {
+            $varAPIWebToken = Session::get('SessionLogin');
+            $response = $this->materialReceiveService->getDetail($request->materialReceive_RefID);
 
-        // DATA REVISION ADVANCE
-        if (Redis::get("DataListAdvanceDetailComplex") == null) {
-            Helper_APICall::setCallAPIGateway(
-                Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken,
-                'transaction.read.dataList.finance.getAdvanceDetailComplex',
-                'latest',
-                [
-                    'parameter' => [
-                        'advance_RefID' => (int) $advance_RefID,
-                    ],
-                    'SQLStatement' => [
-                        'pick' => null,
-                        'sort' => null,
-                        'filter' => null,
-                        'paging' => null
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                throw new \Exception('Failed to fetch material receive detail');
+            }
+
+            return response()->json($response);
+        } catch (\Throwable $th) {
+            Log::error("Error at MaterialReceiveDetail: " . $th->getMessage());
+            
+            $compact = [
+                'metadata'  => [
+                    'metadata'  => [
+                        'HTTPStatusCode' => 500
                     ]
                 ],
-                false
-            );
+                'message'   => 'Terjadi kesalahan saat memproses material receive detail. Silakan coba lagi nanti.'
+            ];
+
+            return response()->json($compact);
         }
-
-        $DataAdvanceDetailComplex = json_decode(
-            Helper_Redis::getValue(
-                Helper_Environment::getUserSessionID_System(),
-                "DataListAdvanceDetailComplex"
-            ),
-            true
-        );
-
-        $collection = collect($DataAdvanceDetailComplex);
-        $collection = $collection->where('Sys_ID_Advance', $advance_RefID);
-
-        $num = 0;
-        $filteredArray = [];
-
-        foreach ($collection as $collections) {
-            $filteredArray[$num] = $collections;
-            $num++;
-        }
-
-        return response()->json($filteredArray);
     }
 
     public function MaterialReceiveListdataMR(Request $request)
@@ -490,42 +382,7 @@ class MaterialReceiveController extends Controller
         }
     }
 
-    public function update(Request $request, $id)
-    {
-        $input = $request->all();
-        dd($input);
-        $compact = [
-            "status" => true,
-        ];
-
-        return response()->json($compact);
-    }
-
-    public function MaterialReceiveListCartRevision(Request $request)
-    {
-
-        $varAPIWebToken = $request->session()->get('SessionLogin');
-        $var_recordID = $request->input('var_recordID');
-
-        $varData = Helper_APICall::setCallAPIGateway(
-            Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'transaction.read.dataList.finance.getAdvanceDetail',
-            'latest',
-            [
-                'parameter' => [
-                    'advance_RefID' => (int) $var_recordID,
-                ],
-                'SQLStatement' => [
-                    'pick' => null,
-                    'sort' => null,
-                    'filter' => null,
-                    'paging' => null
-                ]
-            ]
-        );
-        return response()->json($varData['data']);
-    }
+    
 
     public function SearchDeliveryOrder(Request $request)
     {

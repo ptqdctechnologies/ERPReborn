@@ -1,12 +1,12 @@
 <!-- BODY -->
 <div class="card-body">
-    <div class="row py-3" style="gap: 15px;">
+    <div class="row py-3" style="row-gap: 15px;">
         <!-- LEFT COLUMN -->
-        <div class="col-md-12 col-lg-5">
+        <div class="col-md-12 col-lg-4">
             <!-- MATERIAL RECEIVE -->
             <div class="row" style="margin-bottom: 1rem;">
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">
-                    Material Receive Number
+                    MR Number
                 </label>
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div>
@@ -70,11 +70,23 @@
             </div>
         </div>
 
-        <!-- RIGHT COLUMN -->
-        <div class="col-md-12 col-lg-5">
+        <!-- MIDDLE COLUMN -->
+        <div class="col-md-12 col-lg-4">
+            <!-- TYPE -->
+            <div class="row" style="margin-bottom: 1rem;">
+                <label class="col-sm-3 col-md-4 col-lg-2 col-form-label p-0">
+                    Type
+                </label>
+                <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                    <div>
+                        <input id="do_type" style="border-radius:0;" size="24" class="form-control" readonly>
+                    </div>
+                </div>
+            </div>
+
             <!-- BUDGET -->
-            <div class="row">
-                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">
+            <div class="row" style="margin-bottom: 1rem;">
+                <label class="col-sm-3 col-md-4 col-lg-2 col-form-label p-0">
                     Budget
                 </label>
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
@@ -84,24 +96,51 @@
                 </div>
             </div>
 
-            <!-- SUB BUDGET -->
-            <!-- <div class="row">
-                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">
-                    Sub Budget
+            <!-- REQUESTER -->
+            <div class="row" style="margin-bottom: 1rem; display: none;">
+                <label class="col-sm-3 col-md-4 col-lg-2 col-form-label p-0">
+                    Requester
                 </label>
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div>
-                        <input id="sub_budget_value" style="border-radius:0;" size="24" class="form-control" value="<?= $header['combinedBudgetSectionCode'] . ' - ' . $header['combinedBudgetSectionName']; ?>" readonly>
+                        <input id="do_requester" style="border-radius:0;" size="24" class="form-control" readonly>
                     </div>
                 </div>
-            </div> -->
+            </div>
+            
+            <!-- STATUS -->
+            <div class="row" style="display: none;">
+                <label class="col-sm-3 col-md-4 col-lg-2 col-form-label p-0">
+                    Status
+                </label>
+                <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                    <div>
+                        <input id="do_status" style="border-radius:0;" size="24" class="form-control" readonly>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- RIGHT COLUMN -->
+        <div class="col-md-12 col-lg-4">
+            <!-- TRANSPORTER -->
+            <div class="row" style="margin-bottom: 1rem;">
+                <label class="col-sm-3 col-md-4 col-lg-3 col-form-label p-0">
+                    Transporter
+                </label>
+                <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                    <div>
+                        <input id="do_transporter" style="border-radius:0;" size="24" class="form-control" readonly>
+                    </div>
+                </div>
+            </div>
 
             <!-- DELIVERY FROM -->
             <div class="row" style="margin-top: 1rem;">
-                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">
+                <label class="col-sm-3 col-md-4 col-lg-3 col-form-label p-0">
                     Delivery From
                 </label>
-                <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                <div class="col-sm-9 col-md-8 col-lg-5 d-flex p-0">
                     <div>
                         <input type="hidden" id="id_delivery_order_from_duplicate" style="border-radius:0;" class="form-control" size="20" value="<?= $header['deliveryFromRefID']; ?>" readonly>
                         <input type="hidden" id="id_delivery_order_from" name="id_delivery_order_from" style="border-radius:0;" class="form-control" size="20" value="<?= $header['deliveryFromRefID']; ?>" readonly>
@@ -123,10 +162,10 @@
 
             <!-- DELIVERY TO -->
             <div class="row" style="margin-top: 1rem;">
-                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">
+                <label class="col-sm-3 col-md-4 col-lg-3 col-form-label p-0">
                     Delivery To
                 </label>
-                <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                <div class="col-sm-9 col-md-8 col-lg-5 d-flex p-0">
                     <div>
                         <input type="hidden" id="id_delivery_order_to_duplicate" style="border-radius:0;" class="form-control" size="20" value="<?= $header['deliveryToRefID']; ?>" readonly>
                         <input type="hidden" id="id_delivery_order_to" name="id_delivery_order_to" style="border-radius:0;" class="form-control" size="20" value="<?= $header['deliveryToRefID']; ?>" readonly>

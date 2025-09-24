@@ -504,37 +504,25 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::resource('DeliveryOrder', 'Inventory\DeliveryOrderController');
 
     // MATERIAL RECEIVE
-    Route::post('StoreValidateMaterialReceive', 'Inventory\MaterialReceiveController@StoreValidateMaterialReceive')->name('MaterialReceive.StoreValidateMaterialReceive');
-    Route::post('StoreValidateMaterialReceive2', 'Inventory\MaterialReceiveController@StoreValidateMaterialReceive2')->name('MaterialReceive.StoreValidateMaterialReceive2');
-    Route::post('MaterialReceiveListCartRevision', 'Inventory\MaterialReceiveController@MaterialReceiveListCartRevision')->name('MaterialReceive.MaterialReceiveListCartRevision');
-    Route::get('MaterialReceiveListDataPO', 'Inventory\MaterialReceiveController@MaterialReceiveListDataPO')->name('MaterialReceive.MaterialReceiveListDataPO');
-    Route::get('MaterialReceiveListDataDO', 'Inventory\MaterialReceiveController@MaterialReceiveListDataDO')->name('MaterialReceive.MaterialReceiveListDataDO');
+    Route::post('MaterialReceiveDetail', 'Inventory\MaterialReceiveController@MaterialReceiveDetail')->name('MaterialReceive.Detail');
     Route::post('RevisionMaterialReceiveIndex', 'Inventory\MaterialReceiveController@RevisionMaterialReceiveIndex')->name('MaterialReceive.RevisionMaterialReceiveIndex');
-    Route::get('MaterialReceiveListData', 'Inventory\MaterialReceiveController@MaterialReceiveListData')->name('MaterialReceive.MaterialReceiveListData');
     Route::get('MaterialReceiveList', 'Inventory\MaterialReceiveController@MaterialReceiveList')->name('MaterialReceive.MaterialReceiveList');
     Route::post('SearchDeliveryOrder', 'Inventory\MaterialReceiveController@SearchDeliveryOrder')->name('MaterialReceive.SearchDeliveryOrder');
     Route::post('UpdateMaterialReceive', 'Inventory\MaterialReceiveController@UpdateMaterialReceive')->name('MaterialReceive.UpdateMaterialReceive');
-    
     Route::get('ReportMaterialReceiveSummary', 'Inventory\MaterialReceiveController@ReportMaterialReceiveSummary')->name('MaterialReceive.ReportMaterialReceiveSummary');
     Route::post('ReportMaterialReceiveSummaryStore', 'Inventory\MaterialReceiveController@ReportMaterialReceiveSummaryStore')->name('MaterialReceive.ReportMaterialReceiveSummaryStore');
     Route::post('PrintExportReportMaterialReceiveSummary', 'Inventory\MaterialReceiveController@PrintExportReportMaterialReceiveSummary')->name('MaterialReceive.PrintExportReportMaterialReceiveSummary');
-    
     Route::resource('MaterialReceive', 'Inventory\MaterialReceiveController');
 
     // MRET
-    Route::post('StoreValidateiMaterialReturn', 'Inventory\MaterialReturnController@StoreValidateiMaterialReturn')->name('MaterialReturn.StoreValidateiMaterialReturn');
-    Route::post('StoreValidateiMaterialReturn2', 'Inventory\MaterialReturnController@StoreValidateiMaterialReturn2')->name('MaterialReturn.StoreValidateiMaterialReturn2');
     Route::post('RevisionMaterialReturnIndex', 'Inventory\MaterialReturnController@RevisionMaterialReturnIndex')->name('MaterialReturn.RevisionMaterialReturnIndex');
-    Route::get('MaterialReturnListData', 'Inventory\MaterialReturnController@MaterialReturnListData')->name('MaterialReturn.MaterialReturnListData');
-    Route::post('MaterialReturnListCartRevision', 'Inventory\MaterialReturnController@MaterialReturnListCartRevision')->name('MaterialReturn.MaterialReturnListCartRevision');
-    Route::get('MaterialReturnByDorID', 'Inventory\MaterialReturnController@MaterialReturnByDorID')->name('MaterialReturn.MaterialReturnByDorID');
     Route::get('ReportMatReturnDetail', 'Inventory\MaterialReturnController@ReportMatReturnDetail')->name('Inventory.ReportMatReturnDetail');
     Route::post('ReportMatReturnDetailStore', 'Inventory\MaterialReturnController@ReportMatReturnDetailStore')->name('Inventory.ReportMatReturnDetailStore');
     Route::post('PrintExportReportMatReturnDetail', 'Inventory\MaterialReturnController@PrintExportReportMatReturnDetail')->name('Inventory.PrintExportReportMatReturnDetail');
     Route::get('ReportMatReturnSummary', 'Inventory\MaterialReturnController@ReportMatReturnSummary')->name('Inventory.ReportMatReturnSummary');
     Route::post('ReportMatReturnSummaryStore', 'Inventory\MaterialReturnController@ReportMatReturnSummaryStore')->name('Inventory.ReportMatReturnSummaryStore');
     Route::post('PrintExportReportMatReturnSummary', 'Inventory\MaterialReturnController@PrintExportReportMatReturnSummary')->name('Inventory.PrintExportReportMatReturnSummary');
-    Route::resource('MaterialReturn', 'Inventory\MaterialReturnController');
+    Route::resource('MaterialReturn', 'Inventory\MaterialReturnController')->only(['index', 'store', 'update']);
 
     // WORKFLOW
     Route::post('WorkflowRoute/store', 'Admin\Workflow\WorkflowController@WorkflowRouteStore')->name('Workflow.WorkflowRouteStore');
