@@ -21,7 +21,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         |                     ► http://172.28.0.4/transaction.update.finance.setLoan.v1_throughAPIGateway                    |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-09-11                                                                                           |
+        | ▪ Last Update     : 2025-09-24                                                                                           |
         | ▪ Creation Date   : 2025-09-11                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -43,7 +43,6 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                     "documentDateTimeTZ" => '2025-09-11',
                     "loanTerm" => 365,
                     "log_FileUpload_Pointer_RefID" => 91000000000001,
-                    "workflowStatus" => '',
                     "remarks" => 'My Remarks 3 (Edit)',
                     "additionalData" => [
                         "itemList" => [
