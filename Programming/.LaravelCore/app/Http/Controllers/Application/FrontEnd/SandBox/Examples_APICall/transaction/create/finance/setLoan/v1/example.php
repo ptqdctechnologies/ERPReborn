@@ -45,7 +45,6 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                     "bankAccount_RefID" => 167000000000004,
                     "loanTerm" => 365,
                     "log_FileUpload_Pointer_RefID" => 91000000000001,
-                    "workflowStatus" => '',
                     "notes" => "My Notes 1",
                     "additionalData" => [
                         "itemList" => [
@@ -56,7 +55,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                         "lendingRate" => 10,
                                         "currency_RefID" => 62000000000001,
                                         "currencyExchangeRate" => 1,
-                                        "chartOfAccount_RefID" => 65000000000005
+                                        "chartOfAccount_RefID" => 65000000000005,
+                                        "combinedBudgetSectionDetail_RefID" => 169000000000024,
                                         ]
                                     ],
                                 ]
