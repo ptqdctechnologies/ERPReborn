@@ -21,7 +21,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         |                     ► http://172.28.0.4/transaction.update.finance.setLoanSettlement.v1_throughAPIGateway                |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-09-17                                                                                           |
+        | ▪ Last Update     : 2025-09-23                                                                                           |
         | ▪ Creation Date   : 2025-09-16                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -38,7 +38,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                 'transaction.update.finance.setLoanSettlement',
                 'latest',
                 [
-                'recordID' => 295000000000008,
+                'recordID' => 295000000000010,
                 'entities' => [
                     "documentDateTimeTZ" => '2025-09-16',
                     "log_FileUpload_Pointer_RefID" => 91000000000001,
@@ -48,21 +48,9 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                         "itemList" => [
                             "items" => [
                                     [
-                                    "recordID" => 296000000000003,
+                                    "recordID" => 296000000000007,
                                     "entities" => [
-                                        "principleSettlement" => 20000000,
-                                        "penaltySettlement" => 500000.10,
-                                        "interestSettlement" => 2000000,
-                                        "currency_RefID" => 62000000000001,
-                                        "currencyExchangeRate" => 1,
-                                        "chartOfAccount_Settlement_RefID" => 65000000000005,
-                                        "chartOfAccount_Penalty_RefID" => 65000000000005,
-                                        "chartOfAccount_Interest_RefID" => 65000000000005
-                                        ]
-                                    ],
-                                    [
-                                    "recordID" => 296000000000004,
-                                    "entities" => [
+                                        "loanDetail_RefID" => 294000000000010,
                                         "principleSettlement" => 20000000,
                                         "penaltySettlement" => 500000.10,
                                         "interestSettlement" => 2000000,
