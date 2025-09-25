@@ -24,7 +24,7 @@
             const qtyDetail     = qtyInput.getAttribute("data-default");
 
             const price         = priceInput.value.trim();
-            const priceDetail   = qtyInput.getAttribute("data-default");
+            const priceDetail   = priceInput.getAttribute("data-default");
 
             const isQtyFilled   = qty !== "";
             const isPriceFilled = price !== "";
