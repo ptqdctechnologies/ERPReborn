@@ -86,6 +86,7 @@
   <script src="{{ asset('AdminLTE-master/plugins/jquery/jquery.min.js')}}"></script>
   <script src="{{ asset('AdminLTE-master/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
   <script src="{{ asset('AdminLTE-master/plugins/moment/moment.min.js') }}"></script>
+  <script src="{{ asset('AdminLTE-master/plugins/moment/moment-timezone-with-data.min.js') }}"></script>
   <script src="{{ asset('AdminLTE-master/plugins/inputmask/jquery.inputmask.min.js') }}"></script>
   <script src="{{ asset('AdminLTE-master/plugins/daterangepicker/daterangepicker.js') }}"></script>
   <script src="{{ asset('AdminLTE-master/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>
