@@ -385,7 +385,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     // Route::get('ReportLoanDetail', 'Process\Loan\LoanController@ReportLoanDetail')->name('Loan.ReportLoanDetail');
     // Route::post('ReportLoanDetailStore', 'Process\Loan\LoanController@ReportLoanDetailStore')->name('Loan.ReportLoanDetailStore');
     // Route::post('PrintExportReportLoanDetail', 'Process\Loan\LoanController@PrintExportReportLoanDetail')->name('Loan.PrintExportReportLoanDetail');
-    
+    // Route::resource('AdvanceRequest', 'Process\Advance\AdvanceRequestController');
     Route::resource('Loan', 'Process\Loan\LoanController');
 
     // LOAN SETTLEMENT
