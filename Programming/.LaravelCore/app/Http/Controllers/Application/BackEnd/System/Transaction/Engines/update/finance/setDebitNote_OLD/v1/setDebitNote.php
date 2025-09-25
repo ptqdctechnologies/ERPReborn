@@ -8,7 +8,7 @@
 | ▪ Copyleft 🄯 2023 - 2025 Zheta (teguhpjs@gmail.com)                                                                              |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\update\finance\setDebitNote\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\update\finance\setDebitNote_OLD\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+

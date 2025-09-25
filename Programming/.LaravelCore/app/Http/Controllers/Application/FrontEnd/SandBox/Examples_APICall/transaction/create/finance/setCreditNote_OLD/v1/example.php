@@ -3,21 +3,21 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category    : Example - API Call Controller                                                                                    |
-| ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\create\finance\setCreditNote\v1   |
-| ▪ API Key     : transaction.create.finance.setCreditNote                                                                          |
+| ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\create\finance\setCreditNote\v1  |
+| ▪ API Key     : transaction.create.finance.setCreditNote                                                                         |
 | ▪ API Version : 1                                                                                                                |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2025 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\create\finance\setCreditNote\v1
+namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\create\finance\setCreditNote_OLD\v1
     {
     class example extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Call URL        : http(s)://<HOST>/transaction.create.finance.setCreditNote.v1_throughAPIGateway                        |
-        |                     ► http://172.28.0.4/transaction.create.finance.setCreditNote.v1_throughAPIGateway                     |
+        | ▪ Call URL        : http(s)://<HOST>/transaction.create.finance.setCreditNote.v1_throughAPIGateway                       |
+        |                     ► http://172.28.0.4/transaction.create.finance.setCreditNote.v1_throughAPIGateway                    |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2025-01-13                                                                                           |

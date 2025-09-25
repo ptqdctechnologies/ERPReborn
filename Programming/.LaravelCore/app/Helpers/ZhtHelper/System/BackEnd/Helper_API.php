@@ -93,7 +93,8 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
             $varFileVersionHeader = 'v';
             $varFolderArray = \App\Helpers\ZhtHelper\General\Helper_File::getFilesListInFolder($varUserSession, getcwd().'/./../app/Http/Controllers/Application/BackEnd/System/'.$varAPIService.'/Engines/'.str_replace('.', '/', $varAPIStructure));
             $varLastVersion = 0;
-            for($i=0; $i!=count($varFolderArray); $i++)
+
+            for ($i=0; $i!=count($varFolderArray); $i++)
                 {
                 $varCheckVersion = str_replace($varFileVersionHeader, '', $varFolderArray[$i]);
                 if($varLastVersion < $varCheckVersion)
@@ -101,8 +102,12 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
                     $varLastVersion = $varCheckVersion;
                     }
                 }
-            $varReturn=$varLastVersion;
-            return $varReturn;
+
+            $varReturn =
+                $varLastVersion;
+
+            return
+                $varReturn;
             }
 
 
@@ -538,11 +543,14 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
                 $varReturn = [
                     'message' => 'Data Synchronization Successful'
                     ];
-                return $varReturn;
+
+                return
+                    $varReturn;
                 }
             else
                 {
-                throw new \Exception('Data Synchronization Failed');
+                throw
+                    new \Exception('Data Synchronization Failed');
                 }
             }
 
@@ -865,12 +873,16 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
             {
             $varErrorMessage = null;
 
+/*
 //------------< BLOCKING >------------------
 if (strcmp($varAPIKey, 'transaction.read.dataList.finance.getAdvance')==0)
     {
     $varAPIExecutionStartDateTime = (new \DateTime());
     }
 //------------< BLOCKING >------------------
+*/
+
+            //dd($varAPIKey);            
 
             $varAPIKeyData = explode('.', $varAPIKey);
             $varAPIService =
@@ -879,6 +891,7 @@ if (strcmp($varAPIKey, 'transaction.read.dataList.finance.getAdvance')==0)
                     array_shift($varAPIKeyData)
                     );
             $varAPIStructure = implode('.', $varAPIKeyData);
+            dd($varAPIStructure);
 
             //---> Cek Nama Fungsi yang akan dieksekusi
             if (!$varFunctionName)

@@ -8,7 +8,7 @@
 | ▪ Copyleft 🄯 2025 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\update\finance\setCreditNote\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\update\finance\setCreditNote_OLD\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+

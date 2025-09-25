@@ -10,7 +10,7 @@
 | ▪ Copyleft 🄯 2024 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\dataPickList\finance\getCreditNote\v1
+namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\dataPickList\finance\getCreditNote_OLD\v1
     {
     class example extends \App\Http\Controllers\Controller
         {

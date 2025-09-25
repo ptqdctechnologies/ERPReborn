@@ -29,6 +29,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\aut
             //---Parameter Set---
             $varUserName = 'wisnu.trenggono';
             $varUserPassword = 'wisnu1234';
+            $varBranchID = 11000000000004;
+            $varUserRoleID = 95000000000038;
             
 //            $varUserName = 'sysadmin';
 //            $varUserPassword = 'sysadmin1234';
@@ -36,6 +38,9 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\aut
 //            $varUserName = 'aldi.mulyadi';
 //            $varUserPassword = 'aldi1234';
 
+//            $varUserName = 'teguh.pratama';
+//            $varUserPassword = 'teguhpratama1234';
+            
 //            $varUserName = 'budianto';
 //            $varUserPassword = 'budianto1234';
 //            $varUserName = 'eka.bagus';
@@ -67,8 +72,16 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\aut
             $varData =
                 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIAuthentication(
                     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+
                     $varUserName, 
-                    $varUserPassword
+                    $varUserPassword,
+
+                    [
+                    'branch_RefID' => $varBranchID,
+                    'userRole_RefID' => $varUserRoleID                    
+                    ]
+
+
                     );
 
             return

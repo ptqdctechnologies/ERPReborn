@@ -258,20 +258,22 @@ public static function getRequest_HeaderAPIWebToken($varUserSession)
                             //---> Jika Backend Process Sukses
                             if ($varHTTPStatusCode == 200)
                                 {
-                                $varResponseData =
-                                    \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::getResponse_BodyContent(
-                                        $varUserSession,
-                                        $varResponse
-                                        );
-                                //dd($varResponseData);
+                                //---> Initializing : varResponseData
+                                    $varResponseData =
+                                        \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::getResponse_BodyContent(
+                                            $varUserSession,
+                                            $varResponse
+                                            );
+                                    //dd($varResponseData);
 
-                                $varDataHeaderMD5 =
-                                    \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::getResponse_Header(
-                                        $varUserSession,
-                                        $varResponse,
-                                        'X-Content-MD5'
-                                        );
-                                //dd($varDataHeaderMD5);
+                                //---> Initializing : varDataHeaderMD5
+                                    $varDataHeaderMD5 =
+                                        \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::getResponse_Header(
+                                            $varUserSession,
+                                            $varResponse,
+                                            'X-Content-MD5'
+                                            );
+                                    //dd($varDataHeaderMD5);
     //dd($varObjResponse->getContent);
 
     //dd($varResponse);
@@ -293,6 +295,7 @@ public static function getRequest_HeaderAPIWebToken($varUserSession)
                                     {
     //                                $varResponseContents = \App\Helpers\ZhtHelper\System\API\Response\Helper_APIResponse::getResponse($varUserSession, ['authentication', 'getErrorNotification', 'v1'] , $varHTTPStatusCode, 'Data integrity check failed');
                                     //---> Based on Core\Engines\APIResponse\setNotificationFailure\v1\setNotificationFailure
+                                    
                                     $varResponseContents = [
                                         'metadata' => [
                                             'HTTPStatusCode' => $varHTTPStatusCode,
@@ -305,7 +308,28 @@ public static function getRequest_HeaderAPIWebToken($varUserSession)
                                         'data' => [
                                             'message' => 'Data integrity check failed (MD5 Payload Inconsistency)',
                                             'md5' => $varDataHeaderMD5,
-                                            'Response' =>  ((array) $varResponseData)[0],
+                                            //'Response' =>  ((array) $varResponseData)[0],
+                                            'response' => (
+                                                ($varDataHeaderMD5 === NULL) ?
+                                                    (
+                                                    str_replace(
+                                                        "\n",
+                                                        "",
+                                                        explode(
+                                                            '<!DOCTYPE html>',
+                                                            ((array) $varResponseData)[0]
+                                                            )[0]
+                                                        )                                            
+                                                    )
+                                                    :
+                                                    (
+                                                    ((array) $varResponseData)[0]
+                                                    )
+                                                )
+                                            
+                                            
+                                            
+
 
 
     //'ccc' => \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateContentMD5($varUserSession, $varResponseData)
@@ -365,11 +389,43 @@ public static function getRequest_HeaderAPIWebToken($varUserSession)
 
 
                         $response = $ex->getResponse();
-                        //var_dump($response);
-                        $responseBodyAsString = $response->getBody()->getContents();
-                        //echo "Error : ". $responseBodyAsString;
                         //dd($response);
-                        $varHTTPStatusCode = $response->getStatusCode();
+
+                        //---> Initializing : varHTTPStatusCode
+                            $varHTTPStatusCode =
+                                $response->getStatusCode();
+                            //dd($varHTTPStatusCode);
+                        
+                        //---> Initializing : responseBodyAsString                        
+                            $response->getBody()->rewind();
+                            $responseBodyAsString =
+                                $response->getBody()->getContents();
+    
+                            if (stristr((string) $responseBodyAsString, 'Sfdump =') === NULL)
+                                {
+                                }
+                            else
+                                {
+                                //$varHTTPStatusCode = 200;
+
+                                ob_start();
+                                echo (
+                                var_dump (
+                                    $responseBodyAsString
+                                    ));
+                                $responseBodyAsString = ob_get_clean();
+                                $responseBodyAsString = (string) $responseBodyAsString;
+                                $responseBodyAsString = preg_replace('/<style\b[^>]*>(.*?)<\/style>/is', "", $responseBodyAsString);
+                                $responseBodyAsString = trim(preg_replace('/\s\s+/', ' ', $responseBodyAsString));
+
+                                $responseBodyAsString = explode('<span class=sf-dump-str', $responseBodyAsString);
+                                $responseBodyAsString = $responseBodyAsString[count($responseBodyAsString)-1];
+                                $responseBodyAsString = explode('</span>', $responseBodyAsString)[0];
+                                $responseBodyAsString = explode('characters">', $responseBodyAsString)[1];
+                                $responseBodyAsString = 
+                                    'Data dump : `'.$responseBodyAsString.'`';
+                                }
+
                         //$varResponseContents = \App\Helpers\ZhtHelper\System\Helper_APIResponse::getNotification_FailureMessage_v1($varUserSession, $varHTTPStatusCode, $responseBodyAsString);
 
                         $varResponseContents = [

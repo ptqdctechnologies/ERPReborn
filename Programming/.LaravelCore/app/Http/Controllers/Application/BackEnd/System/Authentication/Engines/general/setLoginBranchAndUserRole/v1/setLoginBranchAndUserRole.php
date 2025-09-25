@@ -70,7 +70,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                     //-----[ MAIN CODE ]----------------------------------------------------------------------------( START POINT )-----
                         //---> Initializing : varAPIWebToken
                             $varAPIWebToken =
-                                \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession)['APIWebToken'];
+                                \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken(
+                                    $varUserSession
+                                    )['APIWebToken'];
 
                         //---> Check Web Token is Exist
                         if (
@@ -132,13 +134,15 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
 
                                 //---> Initializing : varUserID
                                     $varUserID =
-                                        \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession)['userID'];
+                                        \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken(
+                                            $varUserSession
+                                            )['userID'];
 
                                 //---> Initializing : varUserRoleID
                                     $varUserRoleID =
                                         $varData['userRoleID'];
 
-                                //---> Initializing : $varDataUserAccessPrivileges
+                                //---> Initializing : varDataUserAccessPrivileges
                                     $varDataUserAccessPrivileges =
                                          \App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationUserPrivileges(
                                             $varUserSession,
@@ -174,12 +178,17 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                                         ];
 
                                 //---> Reinitializing : Redis
-                                    $varRedisData['userRole_RefID'] = $varUserRoleID;
-                                    $varRedisData['branch_RefID'] = $varBranchID;
-                                    $varRedisData['userAccessPrivileges'] = $varDataUserAccessPrivileges;
+                                    $varRedisData['userRole_RefID'] =
+                                        $varUserRoleID;
+
+                                    $varRedisData['branch_RefID'] =
+                                        $varBranchID;
+
+                                    $varRedisData['userAccessPrivileges'] =
+                                        $varDataUserAccessPrivileges;
 
                                     //dd($varRedisData);
-                                    
+
                                     \App\Helpers\ZhtHelper\Cache\Helper_Redis::setValueRenewal(
                                         $varUserSession,
                                         'ERPReborn::APIWebToken::'.$varAPIWebToken,
@@ -233,6 +242,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
 
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');    
                     }
+
                 catch (\Exception $ex) {
                     }
 

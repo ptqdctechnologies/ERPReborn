@@ -35,17 +35,22 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
         */
         public static function getUserSessionByAPIWebToken($varUserSession, string $varAPIWebToken)
             {
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                //\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varUserSession,
-                $varAPIWebToken, 
-                'environment.general.session.getData', 
-                'latest', 
-                [
-                ]
-                );
-            $varReturn = $varData['data']['userLoginSessionID'];
-            return $varReturn;
+            $varData =
+                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                    //\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                    $varUserSession,
+                    $varAPIWebToken, 
+                    'environment.general.session.getData', 
+                    'latest', 
+                    [
+                    ]
+                    );
+
+            $varReturn =
+                $varData['data']['userLoginSessionID'];
+
+            return
+                $varReturn;
             }
 
 
@@ -53,8 +58,9 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setCallAPIAuthentication                                                                             |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2021-08-16                                                                                           |
+        | ▪ Version         : 1.0001.0000001                                                                                       |
+        | ▪ Last Update     : 2025-09-25                                                                                           |
+        | ▪ Creation Date   : 2021-08-16                                                                                           |
         | ▪ Description     : Memanggil API Authentication                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -66,11 +72,20 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
         |      ▪ (int)    varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public static function setCallAPIAuthentication($varUserSession, string $varUserName, string $varUserPassword, bool $varSignDisplayErrorPage = null)
+        public static function setCallAPIAuthentication(
+            $varUserSession,
+            string $varUserName, string $varUserPassword,
+            array $varAdditionalData = null,
+            bool $varSignDisplayErrorPage = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
+
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Call Authentication API');
+                $varSysDataProcess =
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__,
+                        'Call Authentication API'
+                        );
+
                 try {
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
                     $varDataArray = [
@@ -81,7 +96,9 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                             ],
                         'data' => [
                             'userName' => $varUserName,
-                            'userPassword' => $varUserPassword
+                            'userPassword' => $varUserPassword,
+
+                            'additionalData' => $varAdditionalData
                             ]
                         ];
 
@@ -92,23 +109,61 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                                 $varUserSession,
                                 'URL_BACKEND_API_AUTH'
                                 ),
+
                             $varDataArray
                             );
+                    //dd($varResponseData);
 
                     if ($varResponseData['metadata']['HTTPStatusCode'] == 200)
                         {
-                        //var_dump($varResponseData);
-                        $varReturn = $varResponseData;
+
+                        
+
+/*
+                        $varObjLoginBranchAndUserRole->main(
+                                $varUserSession,
+                                [
+                                'branchID' => 11000000000004,
+                                'userRoleID' => 95000000000038
+                                ]
+                                );
+*/
+//\App\Helpers\ZhtHelper\System\BackEnd\Helper_APICall::setCallAPIAuth();
+
+//                        (new \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\report\form\documentForm\finance\getAdvancePayment\v1\example());
+                        
+//                        dd($varResponseData);
+
+                        $varReturn =
+                            $varResponseData;
                         }
                     else
                         {
-                        if($varSignDisplayErrorPage === TRUE)
+                        if ($varSignDisplayErrorPage === TRUE)
                             {
-                            echo $varResponseData['data']['message'];
+                            echo
+                                $varResponseData['data']['message'];
                             }
-                        $varResponseData['data']['message'] = explode('</i></b></font></td></tr></table></div></body></html>', (explode('►<b><i> ', $varResponseData['data']['message']))[1])[0];
-                        $varReturn = $varResponseData;
-                        //die();
+
+                        //---> Reinitializing : varResponseData['data']['message']
+                            try {
+                                $varResponseData['data']['message'] = (
+                                    explode(
+                                        '</i></b></font></td></tr></table></div></body></html>',
+                                        (explode(
+                                            '►<b><i> ',
+                                            $varResponseData['data']['message']
+                                            ))[1]
+                                        )[0]
+                                    );                            
+                                }
+                            catch (\Exception $ex) {
+                                }
+
+                        //---> Reinitializing : varReturn
+                            $varReturn =
+                                $varResponseData;
+                            //die();
                         }
 //                        \App\Helpers\ZhtHelper\General\Helper_DateTime::getTimeStampTZConvert_GMTToOtherTimeZone($varUserSession, 'Tue, 25 Aug 2020 08:23:38 GMT', 7);                   
 //phpinfo();
@@ -119,16 +174,22 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
 //                    echo "<br>~~~~~~~~~~~~~~~~~~~~~~~<br>";
 //                    var_dump(headers_list());
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
+
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
-                    } 
+                    }
+
                 catch (\Exception $ex) {
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
                     }
+
                 \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
-                } 
+                }
+
             catch (\Exception $ex) {
                 }
-            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+
+            return
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
             }
 
 
