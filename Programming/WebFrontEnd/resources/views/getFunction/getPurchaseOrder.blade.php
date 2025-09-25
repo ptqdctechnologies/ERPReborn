@@ -10,7 +10,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body table-responsive p-0" style="height: 400px;">
-                                <table class="table table-head-fixed text-nowrap" id="TableSearchPORevision">
+                                <table class="table table-head-fixed text-nowrap" id="TableSearchPORevision" style="width: 100%;">
                                     <thead>
                                         <tr>
                                             <th>No</th>
