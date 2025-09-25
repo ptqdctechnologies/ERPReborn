@@ -43,7 +43,6 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                     "creditor_RefID" => 166000000000001,
                     "debitor_RefID" => 25000000000001,
                     "log_FileUpload_Pointer_RefID" => 91000000000001,
-                    "workflowStatus" => '',
                     "notes" => "My Notes 1",
                     "additionalData" => [
                         "itemList" => [
