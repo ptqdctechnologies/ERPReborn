@@ -95,7 +95,6 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
                                     $varData['entities']['creditor_RefID'],
                                     $varData['entities']['debitor_RefID'],
                                     $varData['entities']['log_FileUpload_Pointer_RefID'],
-                                    $varData['entities']['workflowStatus'],
                                     $varData['entities']['notes'],
 
                                     (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
