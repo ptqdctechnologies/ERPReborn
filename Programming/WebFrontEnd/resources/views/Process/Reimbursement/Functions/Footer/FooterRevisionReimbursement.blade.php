@@ -6,6 +6,57 @@
     const bankAccountID = document.getElementById("bank_accounts_id");
     const dataTable     = {!! json_encode($detail ?? []) !!};
 
+    function validateQtyAndPriceWithHighlight() {
+        let isValid                 = true;
+        const rows                  = document.querySelectorAll("#tableGetBudgetDetails tbody tr");
+        const budgetDetailsMessage  = document.getElementById("budgetDetailsMessage");
+
+        if (budgetDetailsMessage) {
+            budgetDetailsMessage.style.display = "none";
+        }
+
+        rows.forEach(row => {
+            const qtyInput      = row.querySelector('input[id^="qty_req"]');
+            const priceInput    = row.querySelector('input[id^="price_req"]');
+
+            if (!qtyInput || !priceInput) return;
+
+            const qty           = qtyInput.value.trim();
+            const qtyDetail     = qtyInput.getAttribute("data-default");
+
+            const price         = priceInput.value.trim();
+            const priceDetail   = priceInput.getAttribute("data-default");
+
+            const isQtyFilled   = qty !== "";
+            const isPriceFilled = price !== "";
+
+            qtyInput.style.border   = "1px solid #e9ecef";
+            priceInput.style.border = "1px solid #e9ecef";
+
+            if (
+                (isQtyFilled && !isPriceFilled && qtyDetail && priceDetail) || 
+                (!isQtyFilled && isPriceFilled && qtyDetail && priceDetail) || 
+                (!isQtyFilled && !isPriceFilled && qtyDetail && priceDetail)
+            ) {
+                if (!isQtyFilled) {
+                    qtyInput.style.border   = "1px solid red";
+                }
+
+                if (!isPriceFilled) {
+                    priceInput.style.border = "1px solid red";
+                }
+                
+                if (budgetDetailsMessage) {
+                    budgetDetailsMessage.style.display = "block";
+                }
+
+                isValid = false;
+            }
+        });
+
+        return isValid;
+    }
+
     function checkOneLineBudgetContents(indexInput) {
         const rows = document.querySelectorAll("#tableGetBudgetDetails tbody tr");
         let hasFullRow = false;
@@ -189,8 +240,9 @@
         const isBankIDNotEmpty          = bankID.value.trim() !== '';
         const isBankAccountIDNotEmpty   = bankAccountID.value.trim() !== '';
         const isTableNotEmpty           = checkOneLineBudgetContents();
+        const isInputNotEmpty           = validateQtyAndPriceWithHighlight();
 
-        if (isBeneficiaryIDNotEmpty && isBankIDNotEmpty && isBankAccountIDNotEmpty && isTableNotEmpty) {
+        if (isBeneficiaryIDNotEmpty && isBankIDNotEmpty && isBankAccountIDNotEmpty && isTableNotEmpty && isInputNotEmpty) {
             $('#reimbursementFormModal').modal('show');
             summaryData();
         } else {
@@ -309,13 +361,13 @@
 
                             componentsInput = `
                                 <td style="text-align: center;">
-                                    <input class="form-control number-without-negative" id="qty_req${key}" autocomplete="off" style="border-radius:0px;" value="${decimalFormat(parseFloat(findDataDetail.Quantity))}" />
+                                    <input class="form-control number-without-negative" id="qty_req${key}" data-default="${decimalFormat(parseFloat(findDataDetail.Quantity))}" autocomplete="off" style="border-radius:0px;" value="${decimalFormat(parseFloat(findDataDetail.Quantity))}" />
                                 </td>
                                 <td style="text-align: center;">
-                                    <input class="form-control number-without-negative" id="price_req${key}" autocomplete="off" style="border-radius:0px;" value="${decimalFormat(parseFloat(findDataDetail.ProductUnitPriceCurrencyValue))}" />
+                                    <input class="form-control number-without-negative" id="price_req${key}" data-default="${decimalFormat(parseFloat(findDataDetail.ProductUnitPriceCurrencyValue))}" autocomplete="off" style="border-radius:0px;" value="${decimalFormat(parseFloat(findDataDetail.ProductUnitPriceCurrencyValue))}" />
                                 </td>
                                 <td style="text-align: center;">
-                                    <input class="form-control number-without-negative" id="total_req${key}" autocomplete="off" style="border-radius:0px;" readonly value="${decimalFormat(findDataDetail.Quantity * findDataDetail.ProductUnitPriceCurrencyValue)}" />
+                                    <input class="form-control number-without-negative" id="total_req${key}" data-default="${decimalFormat(parseFloat(findDataDetail.Quantity * findDataDetail.ProductUnitPriceCurrencyValue))}" autocomplete="off" style="border-radius:0px;" readonly value="${decimalFormat(findDataDetail.Quantity * findDataDetail.ProductUnitPriceCurrencyValue)}" />
                                 </td>
                             `;
                         }
