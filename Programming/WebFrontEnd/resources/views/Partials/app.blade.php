@@ -55,7 +55,7 @@
   <link rel="stylesheet" href="{{ asset('AdminLTE-master/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
 
   <!-- Bootstrap4 Duallistbox -->
-  <link rel="stylesheet" href="{{ asset('AdminLTE-master/plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css') }} ../../plugins/">
+  <link rel="stylesheet" href="{{ asset('AdminLTE-master/plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css') }}">
 
   <!-- Core  -->
   <script src="{{ asset('js/zht-js/core.js') }}"></script>
