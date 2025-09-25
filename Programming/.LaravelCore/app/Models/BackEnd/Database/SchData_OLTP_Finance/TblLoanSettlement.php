@@ -153,7 +153,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
             $varUserSession,
             int $varSysID,
             string $varSysDataAnnotation = null, string $varSysDataValidityStartDateTimeTZ = null, string $varSysDataValidityFinishDateTimeTZ = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, $varSysBaseCurrency_RefID = null,
-            string $varDocumentDateTimeTZ = null, int $varCreditor_RefID = null, int $varDebitor_RefID = null, int $varLog_FileUpload_Pointer_RefID = null, string $varWorkflowStatus = null, string $varNotes = null,
+            string $varDocumentDateTimeTZ = null, int $varCreditor_RefID = null, int $varDebitor_RefID = null, int $varLog_FileUpload_Pointer_RefID = null, string $varNotes = null,
             array $varAdditionalData = []
             )
             {
@@ -178,7 +178,6 @@ namespace App\Models\Database\SchData_OLTP_Finance
                             [$varCreditor_RefID, 'bigint'],
                             [$varDebitor_RefID, 'bigint'],
                             [$varLog_FileUpload_Pointer_RefID, 'bigint'],
-                            [$varWorkflowStatus, 'varchar'],
                             [$varNotes, 'varchar'],
 
                             [
