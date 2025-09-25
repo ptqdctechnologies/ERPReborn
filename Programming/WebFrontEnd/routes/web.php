@@ -28,7 +28,7 @@ $varUserSession =
     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
 
 $varAPIWebToken = 
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoid2lzbnUudHJlbmdnb25vIiwiaWF0IjoxNzU4NTE5NTU0fQ.MjdlMGY5NzY3YWRmNWRkNmQzMGZiNjFjNzBkYjdhOWZlNmQ4Yzg0NWVlMGZkZWE1ZjJkYWIzNThiOTBmN2RmYg';
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoid2lzbnUudHJlbmdnb25vIiwiaWF0IjoxNzU4NTk1MTk3fQ.OGNhMWY3ZGFmMWYwZDYwODZlY2Y3ODQ1ZDdjZWRjYzEwYjlkMmFmMGZhYzBiZGE3NzNkZWFjMWM1NzU1Y2RlMQ';
 
 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_LaravelRoute::setDynamicRoute_Examples_APICall(
     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
@@ -385,7 +385,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     // Route::get('ReportLoanDetail', 'Process\Loan\LoanController@ReportLoanDetail')->name('Loan.ReportLoanDetail');
     // Route::post('ReportLoanDetailStore', 'Process\Loan\LoanController@ReportLoanDetailStore')->name('Loan.ReportLoanDetailStore');
     // Route::post('PrintExportReportLoanDetail', 'Process\Loan\LoanController@PrintExportReportLoanDetail')->name('Loan.PrintExportReportLoanDetail');
-    
+    // Route::resource('AdvanceRequest', 'Process\Advance\AdvanceRequestController');
     Route::resource('Loan', 'Process\Loan\LoanController');
 
     // LOAN SETTLEMENT

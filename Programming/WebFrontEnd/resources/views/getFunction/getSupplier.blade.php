@@ -78,20 +78,49 @@
 </script>
 
 <script>
+    let currentType = null;
+    $(document).on('click', '.mySupplier', function() {
+        currentType = $(this).data('type');
+    });
+
     $('#tableGetSupplier tbody').on('click', 'tr', function() {
-        
         $("#mySupplier").modal('toggle');
 
         var row = $(this).closest("tr");
-        var id = row.find("td:nth-child(1)").text();
-        var sys_id_supplier = $('#sys_id_supplier' + id).val();
+        var sys_id_supplier = row.find(".sys_id_supplier").val();
         var code = row.find("td:nth-child(2)").text();
         var name = row.find("td:nth-child(3)").text();
-        var address = row.find("td:nth-child(4)").text();
 
-        $("#supplier_id").val(sys_id_supplier);
-        $("#supplier_code").val(code + ' - ' + name);
-        $("#address").val(address);
-
+        if (currentType === 'creditor') {
+            $("#creditor_id").val(sys_id_supplier);
+            $("#creditor_code").val(code);
+            $("#creditor_name").val(name);
+        } 
+        else if (currentType === 'debitor') {
+            $("#debitor_id").val(sys_id_supplier);
+            $("#debitor_code").val(code);
+            $("#debitor_name").val(name);
+        }else{
+            $("#supplier_id").val(sys_id_supplier);
+            $("#supplier_code").val(code);
+            $("#supplier_name").val(name);
+            $("#address").val(address);
+        }
     });
+
+    // $('#tableGetSupplier tbody').on('click', 'tr', function() {
+    //     $("#mySupplier").modal('toggle');
+
+    //     var row = $(this).closest("tr");
+    //     var sys_id_supplier = row.find(".sys_id_supplier").val();
+    //     var code = row.find("td:nth-child(2)").text();
+    //     var name = row.find("td:nth-child(3)").text();
+    //     var address = row.find("td:nth-child(4)").text();
+
+    //     $("#supplier_id").val(sys_id_supplier);
+    //     $("#supplier_code").val(code);
+    //     $("#supplier_name").val(name);
+    //     $("#address").val(address);
+    // });
+
 </script>
