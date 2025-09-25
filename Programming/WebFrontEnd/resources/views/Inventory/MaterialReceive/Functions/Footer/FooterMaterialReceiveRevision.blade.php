@@ -13,6 +13,57 @@
     const addressDeliveryOrderToDuplicate   = document.getElementById("address_delivery_order_to_duplicate");
     const idDeliveryOrderToDuplicate        = document.getElementById("id_delivery_order_to_duplicate");
 
+    function validateQtyAndPriceWithHighlight() {
+        let isValid                 = true;
+        const rows                  = document.querySelectorAll("#tableMaterialReceiveDetail tbody tr");
+        const budgetDetailsMessage  = document.getElementById("materialReceiveDetailMessage");
+
+        if (budgetDetailsMessage) {
+            budgetDetailsMessage.style.display = "none";
+        }
+
+        rows.forEach(row => {
+            const qtyInput  = row.querySelector('input[id^="qty_req"]');
+            const noteInput = row.querySelector('textarea[id^="note"]');
+
+            if (!qtyInput || !noteInput) return;
+
+            const qty           = qtyInput.value.trim();
+            const qtyDetail     = qtyInput.getAttribute("data-default");
+
+            const note          = noteInput.value.trim();
+            const noteDetail    = noteInput.getAttribute("data-default");
+
+            const isQtyFilled   = qty !== "";
+            const isNoteFilled  = note !== "";
+
+            qtyInput.style.border   = "1px solid #e9ecef";
+            noteInput.style.border = "1px solid #e9ecef";
+            
+            if (
+                (isQtyFilled && !isNoteFilled && qtyDetail && noteDetail) || 
+                (!isQtyFilled && isNoteFilled && qtyDetail && noteDetail) || 
+                (!isQtyFilled && !isNoteFilled && qtyDetail && noteDetail)
+            ) {
+                if (!isQtyFilled) {
+                    qtyInput.style.border   = "1px solid red";
+                }
+
+                if (!isNoteFilled) {
+                    priceInput.style.border = "1px solid red";
+                }
+                
+                if (budgetDetailsMessage) {
+                    budgetDetailsMessage.style.display = "block";
+                }
+
+                isValid = false;
+            }
+        });
+
+        return isValid;
+    }
+
     function calculateTotal() {
         let total = 0;
         
@@ -204,8 +255,9 @@
         const isDeliveryFromNotEmpty    = addressDeliveryOrderFrom.value.trim() !== '';
         const isDeliveryToNotEmpty      = addressDeliveryOrderTo.value.trim() !== '';
         const isTableNotEmpty           = checkOneLineBudgetContents();
+        const isInputNotEmpty           = validateQtyAndPriceWithHighlight();
 
-        if (isReceiveDateNotEmpty && isDeliveryFromNotEmpty && isDeliveryToNotEmpty && isTableNotEmpty) {
+        if (isReceiveDateNotEmpty && isDeliveryFromNotEmpty && isDeliveryToNotEmpty && isTableNotEmpty && isInputNotEmpty) {
             $('#materialReceiveFormModal').modal('show');
             summaryData();
         } else {
@@ -282,7 +334,7 @@
                     <td style="text-align: center;">${currencyTotal(val2.qtyAvailableDO) || '-'}</td>
                     <td style="text-align: center;">${val2.quantityUnitName || '-'}</td>
                     <td style="text-align: center; width: 100px;">
-                        <input class="form-control number-without-negative" id="qty_req${key}" autocomplete="off" style="border-radius:0px;" value="${currencyTotal(val2.quantity) || '-'}" />
+                        <input class="form-control number-without-negative" id="qty_req${key}" data-default="${currencyTotal(val2.quantity)}" autocomplete="off" style="border-radius:0px;" value="${currencyTotal(val2.quantity) || '-'}" />
                     </td>
                     <td style="text-align: center; width: 150px; padding: 0.5rem !important;">
                         <textarea id="note${key}" class="form-control" data-default="${val2.note}">${val2.note}</textarea>

@@ -4,6 +4,42 @@
     let deliveryTo      = document.getElementById("delivery_to");
     const dataTable     = {!! json_encode($data ?? []) !!};
 
+    function validateQtyAndPriceWithHighlight() {
+        let isValid                 = true;
+        const rows                  = document.querySelectorAll("#tableReferenceNumberDetail tbody tr");
+        const budgetDetailsMessage  = document.getElementById("deliveryOrderDetailsMessage");
+
+        if (budgetDetailsMessage) {
+            budgetDetailsMessage.style.display = "none";
+        }
+
+        rows.forEach(row => {
+            const qtyInput = row.querySelector('input[id^="qty_req"]');
+
+            if (!qtyInput) return;
+
+            const qty           = qtyInput.value.trim();
+            const qtyDetail     = qtyInput.getAttribute("data-quantity");
+            const isQtyFilled   = qty !== "";
+
+            qtyInput.style.border   = "1px solid #e9ecef";
+
+            if (!isQtyFilled && qtyDetail) {
+                if (!isQtyFilled) {
+                    qtyInput.style.border   = "1px solid red";
+                }
+
+                if (budgetDetailsMessage) {
+                    budgetDetailsMessage.style.display = "block";
+                }
+
+                isValid = false;
+            }
+        });
+
+        return isValid;
+    }
+
     function checkOneLineBudgetContents(indexInput) {
         const rows = document.querySelectorAll("#tableReferenceNumberDetail tbody tr");
         let hasFullRow = false;
@@ -191,12 +227,13 @@
         const isDeliveryFromNotEmpty    = deliveryFrom.value.trim() !== '';
         const isDeliveryToNotEmpty      = deliveryTo.value.trim() !== '';
         const isTableNotEmpty           = checkOneLineBudgetContents();
+        const isInputNotEmpty           = validateQtyAndPriceWithHighlight();
 
-        if (isDeliveryFromNotEmpty && isDeliveryToNotEmpty) {
+        if (isDeliveryFromNotEmpty && isDeliveryToNotEmpty && isTableNotEmpty && isInputNotEmpty) {
             $('#deliveryOrderFormModal').modal('show');
             summaryData();
         } else {
-            if (!isDeliveryFromNotEmpty && !isDeliveryToNotEmpty) {
+            if (!isDeliveryFromNotEmpty && !isDeliveryToNotEmpty && !isTableNotEmpty) {
                 $("#delivery_from").css("border", "1px solid red");
                 $("#delivery_to").css("border", "1px solid red");
 
@@ -212,6 +249,10 @@
             if (!isDeliveryToNotEmpty) {
                 $("#delivery_to").css("border", "1px solid red");
                 $("#deliveryToMessage").show();
+                return;
+            }
+            if (!isTableNotEmpty) {
+                $("#deliveryOrderDetailsMessage").show();
                 return;
             }
         }
