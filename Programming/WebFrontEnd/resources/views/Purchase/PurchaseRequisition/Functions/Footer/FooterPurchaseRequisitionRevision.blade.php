@@ -4,6 +4,57 @@
     const dateDelivery  = document.getElementById("dateCommance");
     const dataTable     = {!! json_encode($detail ?? []) !!};
 
+    function validateQtyAndPriceWithHighlight() {
+        let isValid                 = true;
+        const rows                  = document.querySelectorAll("#tableGetPRDetails tbody tr");
+        const budgetDetailsMessage  = document.getElementById("budgetDetailsMessage");
+
+        if (budgetDetailsMessage) {
+            budgetDetailsMessage.style.display = "none";
+        }
+
+        rows.forEach(row => {
+            const qtyInput      = row.querySelector('input[id^="qty_req"]');
+            const priceInput    = row.querySelector('input[id^="price_req"]');
+
+            if (!qtyInput || !priceInput) return;
+
+            const qty           = qtyInput.value.trim();
+            const qtyDetail     = qtyInput.getAttribute("data-default");
+
+            const price         = priceInput.value.trim();
+            const priceDetail   = qtyInput.getAttribute("data-default");
+
+            const isQtyFilled   = qty !== "";
+            const isPriceFilled = price !== "";
+
+            qtyInput.style.border   = "1px solid #e9ecef";
+            priceInput.style.border = "1px solid #e9ecef";
+
+            if (
+                (isQtyFilled && !isPriceFilled && qtyDetail && priceDetail) || 
+                (!isQtyFilled && isPriceFilled && qtyDetail && priceDetail) || 
+                (!isQtyFilled && !isPriceFilled && qtyDetail && priceDetail)
+            ) {
+                if (!isQtyFilled) {
+                    qtyInput.style.border   = "1px solid red";
+                }
+
+                if (!isPriceFilled) {
+                    priceInput.style.border = "1px solid red";
+                }
+                
+                if (budgetDetailsMessage) {
+                    budgetDetailsMessage.style.display = "block";
+                }
+
+                isValid = false;
+            }
+        });
+
+        return isValid;
+    }
+
     function checkOneLineBudgetContents(indexInput) {
         const rows = document.querySelectorAll("#tableGetPRDetails tbody tr");
         let hasFullRow = false;
@@ -220,10 +271,11 @@
     }
 
     function validationForm() {
-        const isDateDeliveryNotEmpty = dateDelivery.value.trim() !== '';
-        const isTableNotEmpty        = checkOneLineBudgetContents();
+        const isDateDeliveryNotEmpty    = dateDelivery.value.trim() !== '';
+        const isTableNotEmpty           = checkOneLineBudgetContents();
+        const isInputNotEmpty           = validateQtyAndPriceWithHighlight();
 
-        if (isDateDeliveryNotEmpty && isTableNotEmpty) {
+        if (isDateDeliveryNotEmpty && isTableNotEmpty && isInputNotEmpty) {
             $('#purchaseRequestRevisionFormModal').modal('show');
             summaryData();
         } else {
