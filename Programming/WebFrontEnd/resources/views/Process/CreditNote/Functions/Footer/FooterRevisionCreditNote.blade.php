@@ -3,6 +3,71 @@
     let currentIndexPickCOA = null;
     const dataTable         = {!! json_encode($detail ?? []) !!};
 
+    function validateWithHighlight() {
+        let isValid                     = true;
+        const rows                      = document.querySelectorAll("#tableGetCreditNoteDetails tbody tr");
+        const creditNoteDetailsMessage  = document.getElementById("creditNoteDetailsMessage");
+
+        if (creditNoteDetailsMessage) {
+            creditNoteDetailsMessage.style.display = "none";
+        }
+
+        rows.forEach(row => {
+            const cnValueInput  = row.querySelector('input[id^="cn_value"]');
+            const cnTaxInput    = row.querySelector('input[id^="cn_tax"]');
+            const COAInput      = row.querySelector('input[id^="coa_name"]');
+
+            if (!cnValueInput || !cnTaxInput || !COAInput) return;
+
+            const cnValue       = cnValueInput.value.trim();
+            const cnValueDetail = cnValueInput.getAttribute("data-default");
+
+            const cnTax         = cnTaxInput.value.trim();
+            const cnTaxDetail   = cnTaxInput.getAttribute("data-default");
+            
+            const coa         = COAInput.value.trim();
+            const coaDetail   = COAInput.getAttribute("data-default");
+
+            const isCNValueFilled   = cnValue !== "";
+            const isCNTaxFilled     = cnTax !== "";
+            const isCoaFilled       = coa !== "";
+
+            cnValueInput.style.border   = "1px solid #e9ecef";
+            cnTaxInput.style.border = "1px solid #e9ecef";
+            COAInput.style.border = "1px solid #e9ecef";
+
+            if (
+                (isCNValueFilled && isCNTaxFilled && !isCoaFilled && cnValueDetail && cnTaxDetail && coaDetail) || 
+                (isCNValueFilled && !isCNTaxFilled && isCoaFilled && cnValueDetail && cnTaxDetail && coaDetail) || 
+                (!isCNValueFilled && isCNTaxFilled && isCoaFilled && cnValueDetail && cnTaxDetail && coaDetail) || 
+                (isCNValueFilled && !isCNTaxFilled && !isCoaFilled && cnValueDetail && cnTaxDetail && coaDetail) || 
+                (!isCNValueFilled && !isCNTaxFilled && isCoaFilled && cnValueDetail && cnTaxDetail && coaDetail) || 
+                (!isCNValueFilled && isCNTaxFilled && !isCoaFilled && cnValueDetail && cnTaxDetail && coaDetail) || 
+                (!isCNValueFilled && !isCNTaxFilled && !isCoaFilled && cnValueDetail && cnTaxDetail && coaDetail)
+            ) {
+                if (!isCNValueFilled) {
+                    cnValueInput.style.border   = "1px solid red";
+                }
+
+                if (!isCNTaxFilled) {
+                    cnTaxInput.style.border = "1px solid red";
+                }
+
+                if (!isCoaFilled) {
+                    COAInput.style.border = "1px solid red";
+                }
+                
+                if (creditNoteDetailsMessage) {
+                    creditNoteDetailsMessage.style.display = "block";
+                }
+
+                isValid = false;
+            }
+        });
+
+        return isValid;
+    }
+
     function checkOneLineBudgetContents(indexInput) {
         const rows = document.querySelectorAll("#tableGetCreditNoteDetails tbody tr");
         let hasFullRow = false;
@@ -114,10 +179,10 @@
                                 entities: {
                                     combinedBudgetSectionDetail_RefID: parseInt(combinedBudgetSectionDetailRefID.value),
                                     product_RefID: parseInt(productRefID.value),
-                                    quantity: parseFloat(quantity.replace(/,/g, '')),
+                                    quantity: parseFloat(cnValue.replace(/,/g, '')),
                                     quantityUnit_RefID: parseInt(quantityUnitRefID.value),
                                     productUnitPriceCurrency_RefID: parseInt(productUnitPriceCurrencyRefID.value),
-                                    productUnitPriceCurrencyValue: parseFloat(price.replace(/,/g, '')),
+                                    productUnitPriceCurrencyValue: parseFloat(cnTax.replace(/,/g, '')),
                                     productUnitPriceCurrencyExchangeRate: parseInt(productUnitPriceCurrencyExchangeRate.value),
                                     chartOfAccount_RefID: parseInt(coaId),
                                 }
@@ -144,10 +209,10 @@
                         entities: {
                             combinedBudgetSectionDetail_RefID: parseInt(combinedBudgetSectionDetailRefID.value),
                             product_RefID: parseInt(productRefID.value),
-                            quantity: parseFloat(quantity.replace(/,/g, '')),
+                            quantity: parseFloat(cnValue.replace(/,/g, '')),
                             quantityUnit_RefID: parseInt(quantityUnitRefID.value),
                             productUnitPriceCurrency_RefID: parseInt(productUnitPriceCurrencyRefID.value),
-                            productUnitPriceCurrencyValue: parseFloat(price.replace(/,/g, '')),
+                            productUnitPriceCurrencyValue: parseFloat(cnTax.replace(/,/g, '')),
                             productUnitPriceCurrencyExchangeRate: parseInt(productUnitPriceCurrencyExchangeRate.value),
                             chartOfAccount_RefID: parseInt(coaId),
                         }
@@ -174,8 +239,9 @@
 
     function validationForm() {
         const isTableNotEmpty = checkOneLineBudgetContents();
+        const isInputNotEmpty = validateWithHighlight();
 
-        if (isTableNotEmpty) {
+        if (isTableNotEmpty && isInputNotEmpty) {
             $('#creditNoteFormModal').modal('show');
             summaryData();
         } else {
@@ -230,15 +296,15 @@
                     <td style="text-align: center;">-</td>
                     <td style="text-align: center;">-</td>
                     <td>
-                        <input class="form-control number-without-negative" id="cn_value${key}" autocomplete="off" value="${decimalFormat(parseFloat(val2.Quantity))}" style="border-radius:0px;" />
+                        <input class="form-control number-without-negative" id="cn_value${key}" autocomplete="off" data-default="${decimalFormat(parseFloat(val2.Quantity))}" value="${decimalFormat(parseFloat(val2.Quantity))}" style="border-radius:0px;" />
                     </td>
                     <td>
-                        <input class="form-control number-without-negative" id="cn_tax${key}" autocomplete="off" value="${decimalFormat(parseFloat(val2.ProductUnitPriceCurrencyValue))}" style="border-radius:0px;" />
+                        <input class="form-control number-without-negative" id="cn_tax${key}" autocomplete="off" data-default="${decimalFormat(parseFloat(val2.ProductUnitPriceCurrencyValue))}" value="${decimalFormat(parseFloat(val2.ProductUnitPriceCurrencyValue))}" style="border-radius:0px;" />
                     </td>
                     <td>
                         <div class="input-group">
                             <input id="coa_id${key}" style="border-radius:0;width:130px;background-color:white;" class="form-control" value="${val2.ChartOfAccount_RefID}" hidden />
-                            <input id="coa_name${key}" style="border-radius:0;width:130px;background-color:white;" class="form-control" value="${val2.COA_Code} - ${val2.COA_Name}" readonly />
+                            <input id="coa_name${key}" style="border-radius:0;width:130px;background-color:white;" class="form-control" data-default="${val2.COA_Code} - ${val2.COA_Name}" value="${val2.COA_Code} - ${val2.COA_Name}" readonly />
                             <div class="input-group-append">
                                 <span style="border-radius:0;cursor:pointer;" class="input-group-text form-control">
                                     <a data-toggle="modal" data-target="#myGetChartOfAccount" onclick="pickCOA(${key})">
