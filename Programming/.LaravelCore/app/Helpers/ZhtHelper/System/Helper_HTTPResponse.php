@@ -82,40 +82,41 @@ namespace App\Helpers\ZhtHelper\System
 
                 try {
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
-                    //---> Reinisialisasi varPort
-                    if (!$varPort) {
-                        $varPort = (
-                            (\App\Helpers\ZhtHelper\General\Helper_Network::isHTTPS($varUserSession)) == TRUE ? 
-                            443 : 
-                            80
-                            );
-                        }
+                        //---> Reinitializing : varPort
+                            if (!$varPort) {
+                                $varPort = (
+                                    (\App\Helpers\ZhtHelper\General\Helper_Network::isHTTPS($varUserSession)) == TRUE ? 
+                                    443 : 
+                                    80
+                                    );
+                                }
 
-                    //---> Cek apakah port tujuan terbuka
-                    if (\App\Helpers\ZhtHelper\General\Helper_Network::isPortOpen($varUserSession, $varURL, $varPort) == false) {
-                        throw
-                            new \Exception('Port is closed');
-                        }
+                        //---> Exception Conditional : Port must Open
+                            if (\App\Helpers\ZhtHelper\General\Helper_Network::isPortOpen($varUserSession, $varURL, $varPort) == false) {
+                                throw
+                                    new \Exception('Port is closed');
+                                }
 
-                    //---> Pengecekan Method
-                    if (!$varMethod) {
-                        $varMethod = 'POST';
-                        }
+                        //---> Reinitializing : varMethod
+                            if (!$varMethod) {
+                                $varMethod = 'POST';
+                                }
                         
-                    //---> Pengecekan data
-                    if (!$varData) {
-                        $varData=[];                 
-                        }
+                        //---> Reinitializing : data
+                            if (!$varData) {
+                                $varData = [];                 
+                                }
 
-                    if (!is_array($varData)) {
-                        throw
-                            new Exception('Data must be an array');
-                        }
+                        //---> Exception Conditional : varData Must Array
+                            if (!is_array($varData)) {
+                                throw
+                                    new Exception('Data must be an array');
+                                }
 
-                    //---> Pengecekan TTL
-                    if (!$varTTL) {
-                        $varTTL = 300;
-                        }
+                        //---> Reinitializing : TTL
+                            if (!$varTTL) {
+                                $varTTL = 300;
+                                }
 
                     //---> Overide TTL untuk API tertentu
                     if (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExistOnSubArray($varUserSession, $varData, 'metadata::API::key') == true)
@@ -128,8 +129,11 @@ namespace App\Helpers\ZhtHelper\System
                             }
                         }
 
-                    //---> Set TTL
-                    ini_set('max_execution_time', $varTTL);
+                    //---> Initializing : Maximum Execution Time
+                        ini_set(
+                            'max_execution_time',
+                            $varTTL
+                            );
 
 //dd($varURL);
 //dd($varData['header']['URL']);

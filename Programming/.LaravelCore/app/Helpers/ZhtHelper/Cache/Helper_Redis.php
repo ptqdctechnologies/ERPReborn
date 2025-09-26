@@ -509,7 +509,8 @@ namespace App\Helpers\ZhtHelper\Cache
                             }
 
                         if (\Illuminate\Support\Facades\Redis::exists($varKey) == 1) {
-                            $varReturn = true;
+                            $varReturn =
+                                true;
                             }
 
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----

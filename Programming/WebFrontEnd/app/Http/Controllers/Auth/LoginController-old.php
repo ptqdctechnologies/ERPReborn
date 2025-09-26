@@ -13,7 +13,7 @@ use App\Helpers\ZhtHelper\Cache\Helper_Redis;
 use App\Helpers\ZhtHelper\System\Helper_Environment;
 use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
 
-class LoginController extends Controller
+class LoginController-old extends Controller
 {
     // FUNCTION INDEX LOGIN 
     public function index(Request $request)

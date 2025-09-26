@@ -8,7 +8,7 @@
 | ▪ Copyleft 🄯 2024 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\DataPickList\Engines\finance\getDebitNote\v1
+namespace App\Http\Controllers\Application\BackEnd\System\DataPickList\Engines\finance\getDebitNote_OLD\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
@@ -16,7 +16,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\DataPickList\Engines\f
     | ▪ Description : Menangani API dataPickList.finance.getDebitNote Version 1                                                    |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class getDebitNote extends \App\Http\Controllers\Controller
+    class getDebitNote_OLD extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+

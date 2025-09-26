@@ -19,6 +19,19 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
     class Helper_APICall
         {
         /*
+        public static function setCallAPIAuth() {
+            $varObjLoginBranchAndUserRole =
+                (
+                new
+                \App\Http\Controllers\Application\BackEnd\System\Authentication\Engines\general\setLoginBranchAndUserRole\v1\setLoginBranchAndUserRole()
+                );
+
+            }
+        
+        */
+
+
+        /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setCallAPIGateway                                                                                    |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -42,28 +55,39 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
             $varUserSession, string $varAPIWebToken,
             string $varAPIKey, $varAPIVersion = null, array $varData = null, bool $varSignDisplayErrorPage = null)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
+            $varReturn =
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
+
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Call Gateway API');
+                $varSysDataProcess =
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__,
+                        'Call Gateway API'
+                        );
+
                 try {
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
                     //$varAPIWebToken = (new \App\Models\Database\SchSysConfig\General())->getAPIWebToken_SysEngine($varUserSession);
                     //dd($varAPIWebToken);
 
-                    if (!$varAPIVersion)
-                        {
-                        $varAPIVersion = 'latest';
-                        }
-                    else
-                        {
-                        $varAPIVersion = strtolower($varAPIVersion);
-                        }
+                        //---> Initializing : varAPIVersion
+                            if (!$varAPIVersion) {
+                                $varAPIVersion =
+                                    'latest';
+                                }
+                            else {
+                                $varAPIVersion =
+                                    strtolower(
+                                        $varAPIVersion
+                                        );
+                                }
 
-                    if ($varSignDisplayErrorPage === NULL)
-                        {
-                        $varSignDisplayErrorPage = TRUE;
-                        }
-        
+                        //---> Initializing : varSignDisplayErrorPage
+                            if ($varSignDisplayErrorPage === NULL) {
+                                $varSignDisplayErrorPage =
+                                    TRUE;
+                                }
+
+                    //--->
                     if (!$varData)
                         {
                         $varData = [];

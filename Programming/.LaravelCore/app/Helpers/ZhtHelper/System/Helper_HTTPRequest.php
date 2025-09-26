@@ -258,20 +258,22 @@ public static function getRequest_HeaderAPIWebToken($varUserSession)
                             //---> Jika Backend Process Sukses
                             if ($varHTTPStatusCode == 200)
                                 {
-                                $varResponseData =
-                                    \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::getResponse_BodyContent(
-                                        $varUserSession,
-                                        $varResponse
-                                        );
-                                //dd($varResponseData);
+                                //---> Initializing : varResponseData
+                                    $varResponseData =
+                                        \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::getResponse_BodyContent(
+                                            $varUserSession,
+                                            $varResponse
+                                            );
+                                    //dd($varResponseData);
 
-                                $varDataHeaderMD5 =
-                                    \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::getResponse_Header(
-                                        $varUserSession,
-                                        $varResponse,
-                                        'X-Content-MD5'
-                                        );
-                                //dd($varDataHeaderMD5);
+                                //---> Initializing : varDataHeaderMD5
+                                    $varDataHeaderMD5 =
+                                        \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::getResponse_Header(
+                                            $varUserSession,
+                                            $varResponse,
+                                            'X-Content-MD5'
+                                            );
+                                    //dd($varDataHeaderMD5);
     //dd($varObjResponse->getContent);
 
     //dd($varResponse);
@@ -293,6 +295,7 @@ public static function getRequest_HeaderAPIWebToken($varUserSession)
                                     {
     //                                $varResponseContents = \App\Helpers\ZhtHelper\System\API\Response\Helper_APIResponse::getResponse($varUserSession, ['authentication', 'getErrorNotification', 'v1'] , $varHTTPStatusCode, 'Data integrity check failed');
                                     //---> Based on Core\Engines\APIResponse\setNotificationFailure\v1\setNotificationFailure
+                                    
                                     $varResponseContents = [
                                         'metadata' => [
                                             'HTTPStatusCode' => $varHTTPStatusCode,
@@ -305,7 +308,28 @@ public static function getRequest_HeaderAPIWebToken($varUserSession)
                                         'data' => [
                                             'message' => 'Data integrity check failed (MD5 Payload Inconsistency)',
                                             'md5' => $varDataHeaderMD5,
-                                            'Response' =>  ((array) $varResponseData)[0],
+                                            //'Response' =>  ((array) $varResponseData)[0],
+                                            'response' => (
+                                                ($varDataHeaderMD5 === NULL) ?
+                                                    (
+                                                    str_replace(
+                                                        "\n",
+                                                        "",
+                                                        explode(
+                                                            '<!DOCTYPE html>',
+                                                            ((array) $varResponseData)[0]
+                                                            )[0]
+                                                        )                                            
+                                                    )
+                                                    :
+                                                    (
+                                                    ((array) $varResponseData)[0]
+                                                    )
+                                                )
+                                            
+                                            
+                                            
+
 
 
     //'ccc' => \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateContentMD5($varUserSession, $varResponseData)
@@ -365,25 +389,40 @@ public static function getRequest_HeaderAPIWebToken($varUserSession)
 
 
                         $response = $ex->getResponse();
-                        //var_dump($response);
-                        $responseBodyAsString = $response->getBody()->getContents();
-                        //echo "Error : ". $responseBodyAsString;
                         //dd($response);
-                        $varHTTPStatusCode = $response->getStatusCode();
+
+                        //---> Initializing : varHTTPStatusCode
+                            $varHTTPStatusCode =
+                                $response->getStatusCode();
+                            //dd($varHTTPStatusCode);
+                        
+                        //---> Initializing : responseBodyAsString                        
+                            $response->getBody()->rewind();
+                            $responseBodyAsString =
+                                $response->getBody()->getContents();
+    
+                            //---> Remove Sfdump Script dan Style From responseBodyAsString
+                                $responseBodyAsString =
+                                     \App\Helpers\ZhtHelper\General\Helper_Laravel::setRemoveSFDumpFromHTTPRequestResponseBody(
+                                        $varUserSession,
+                                        $responseBodyAsString
+                                        );
+
                         //$varResponseContents = \App\Helpers\ZhtHelper\System\Helper_APIResponse::getNotification_FailureMessage_v1($varUserSession, $varHTTPStatusCode, $responseBodyAsString);
 
-                        $varResponseContents = [
-                            'metadata' => [
-                                'HTTPStatusCode' => $varHTTPStatusCode,
-                                'APIResponse' => [
-                                    'key' => 'core.general.notification',
-                                    'version' => 1
+                        //---> Initializing : varResponseContents 
+                            $varResponseContents = [
+                                'metadata' => [
+                                    'HTTPStatusCode' => $varHTTPStatusCode,
+                                    'APIResponse' => [
+                                        'key' => 'core.general.notification',
+                                        'version' => 1
+                                        ],
                                     ],
-                                ],
-                            'data' => [
-                                'message' => $responseBodyAsString
-                                ]
-                            ]; 
+                                'data' => [
+                                    'message' => $responseBodyAsString
+                                    ]
+                                ]; 
                         }
                     //\App\Helpers\ZhtHelper\General\Helper_HTTPAuthentication::getJSONWebToken(000000, 'admin', 'secretkey');                  
                     
@@ -408,6 +447,9 @@ public static function getRequest_HeaderAPIWebToken($varUserSession)
             }
 
 
+
+
+            
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setRequest                                                                                           |
