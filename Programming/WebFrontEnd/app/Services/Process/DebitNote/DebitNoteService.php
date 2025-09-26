@@ -68,7 +68,6 @@ class DebitNoteService
                 "partner_RefID"                 => (int) $data['debit_note_partner_id'],
                 "log_FileUpload_Pointer_RefID"  => $fileID,
                 "remarks"                       => nl2br(e($data['remarks'])),
-                "workflow_Status"               => null,
                 "additionalData"    => [
                     "itemList"      => [
                         "items"     => $detailItems
@@ -99,7 +98,6 @@ class DebitNoteService
                 "documentDateTimeTZ"            => date('Y-m-d'),
                 "log_FileUpload_Pointer_RefID"  => $fileID,
                 "remarks"                       => nl2br(e($data['remarks'])),
-                "workflow_Status"               => null,
                 "additionalData"    => [
                     "itemList"      => [
                         "items"     => $detailItems

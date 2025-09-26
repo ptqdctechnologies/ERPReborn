@@ -408,7 +408,7 @@
                         window.location.href = "{{ route('CreditNote.index', ['var' => 1]) }}";
                     });
                 } else {
-                    ErrorNotif("Data Cancel Inputed");
+                    ErrorNotif("Process Error");
                 }
             },
             error: function(jqXHR, textStatus, errorThrown) {
