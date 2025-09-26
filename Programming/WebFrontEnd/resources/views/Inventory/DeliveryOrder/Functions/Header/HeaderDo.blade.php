@@ -123,6 +123,35 @@
       </div>
 
       <!-- ============= STOCK MOVEMENT ============= -->
+      <!-- BUDGET -->
+      <div class="row stock-movement-components" style="display: none; margin-bottom: 1rem; margin-top: 1rem;">
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">
+          Budget Code
+        </label>
+        <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+          <div>
+            <input id="project_code_second" style="border-radius:0;" class="form-control" size="17" readonly>
+            <input id="project_id_second" name="project_id_second" style="border-radius:0;" class="form-control" hidden>
+          </div>
+          <div>
+            <span style="border-radius:0;" class="input-group-text form-control">
+              <a href="javascript:;" id="myProjectSecondTrigger" data-toggle="modal" data-target="#myProjectSecond" style="display: block;">
+                <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="myProjectSecondTrigger">
+              </a>
+
+              <div id="loadingBudget" class="spinner-border spinner-border-sm" role="status" style="display: none;">
+                <span class="sr-only">Loading...</span>
+              </div>
+            </span>
+          </div>
+          <div style="flex: 100%;">
+            <div class="input-group">
+              <input id="project_name_second" style="border-radius:0;" class="form-control" readonly>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <!-- REQUESTER -->
       <div class="row stock-movement-components" style="display: none; margin-top: 1rem;">
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">
@@ -145,20 +174,6 @@
               <input id="worker_name_second" style="border-radius:0;" class="form-control" readonly>
             </div>
           </div>
-        </div>
-      </div>
-      
-      <!-- STATUS -->
-      <div class="row stock-movement-components" style="display: none; margin-top: 1rem;">
-        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">
-          Status
-        </label>
-        <div class="col-sm-9 col-md-8 col-lg-4 d-flex p-0">
-          <select id="reference_type" class="form-control" onchange="referenceType(this);">
-            <option disabled selected>Select a Type</option>
-            <option value="RENT">Rent</option>
-            <option value="PERMANENT">Permanent</option>
-          </select>
         </div>
       </div>
     </div>
@@ -274,9 +289,18 @@
       </div>
 
       <!-- ============= STOCK MOVEMENT ============= -->
-      <div class="row stock-movement-components" style="margin-bottom: 1rem; display: none; visibility: hidden;">
-        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
-        <div class="col-sm-9 col-md-8 col-lg-4 d-flex p-0"><select class="form-control"></select></div>
+      <!-- STATUS -->
+      <div class="row stock-movement-components" style="display: none; margin-bottom: 1rem;">
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">
+          Status
+        </label>
+        <div class="col-sm-9 col-md-8 col-lg-4 d-flex p-0">
+          <select id="reference_type" class="form-control" onchange="referenceType(this);">
+            <option disabled selected>Select a Type</option>
+            <option value="RENT">Rent</option>
+            <option value="PERMANENT">Permanent</option>
+          </select>
+        </div>
       </div>
 
       <!-- DELIVERY FROM -->
