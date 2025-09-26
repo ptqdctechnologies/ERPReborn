@@ -126,10 +126,10 @@
                                 entities: {
                                     combinedBudgetSectionDetail_RefID: parseInt(combinedBudgetSectionDetailRefID.value),
                                     product_RefID: parseInt(productRefID.value),
-                                    quantity: parseFloat(quantity.replace(/,/g, '')),
+                                    quantity: parseFloat(cnValue.replace(/,/g, '')),
                                     quantityUnit_RefID: parseInt(quantityUnitRefID.value),
                                     productUnitPriceCurrency_RefID: parseInt(productUnitPriceCurrencyRefID.value),
-                                    productUnitPriceCurrencyValue: parseFloat(price.replace(/,/g, '')),
+                                    productUnitPriceCurrencyValue: parseFloat(cnTax.replace(/,/g, '')),
                                     productUnitPriceCurrencyExchangeRate: parseInt(productUnitPriceCurrencyExchangeRate.value),
                                     chartOfAccount_RefID: parseInt(coaId),
                                 }
@@ -155,10 +155,10 @@
                         entities: {
                             combinedBudgetSectionDetail_RefID: parseInt(combinedBudgetSectionDetailRefID.value),
                             product_RefID: parseInt(productRefID.value),
-                            quantity: parseFloat(quantity.replace(/,/g, '')),
+                            quantity: parseFloat(cnValue.replace(/,/g, '')),
                             quantityUnit_RefID: parseInt(quantityUnitRefID.value),
                             productUnitPriceCurrency_RefID: parseInt(productUnitPriceCurrencyRefID.value),
-                            productUnitPriceCurrencyValue: parseFloat(price.replace(/,/g, '')),
+                            productUnitPriceCurrencyValue: parseFloat(cnTax.replace(/,/g, '')),
                             productUnitPriceCurrencyExchangeRate: parseInt(productUnitPriceCurrencyExchangeRate.value),
                             chartOfAccount_RefID: parseInt(coaId),
                         }
@@ -451,11 +451,6 @@
                 console.log('error', jqXHR, textStatus, errorThrown);
             }
         });
-    }
-
-    function cancelCreditNote() {
-        ShowLoading();
-        window.location.href = "{{ route('CreditNote.index', ['var' => 1]) }}";
     }
 
     function SubmitForm() {

@@ -225,15 +225,15 @@
                     <td style="text-align: center;">-</td>
                     <td style="text-align: center;">${val2.CombinedBudgetCode} - ${val2.CombinedBudgetName}</td>
                     <td style="text-align: center;">${val2.CombinedBudgetSectionCode} - ${val2.CombinedBudgetSectionName}</td>
-                    <td style="text-align: center;">${val2.Quantity}</td>
-                    <td style="text-align: center;">${decimalFormat(parseFloat(val2.ProductUnitPriceCurrencyValue))}</td>
-                    <td style="text-align: center;">${decimalFormat(parseFloat(val2.Quantity * val2.ProductUnitPriceCurrencyValue))}</td>
+                    <td style="text-align: center;">-</td>
+                    <td style="text-align: center;">-</td>
+                    <td style="text-align: center;">-</td>
                     <td style="text-align: center;">-</td>
                     <td>
-                        <input class="form-control number-without-negative" id="cn_value${key}" autocomplete="off" style="border-radius:0px;" />
+                        <input class="form-control number-without-negative" id="cn_value${key}" autocomplete="off" value="${decimalFormat(parseFloat(val2.Quantity))}" style="border-radius:0px;" />
                     </td>
                     <td>
-                        <input class="form-control number-without-negative" id="cn_tax${key}" autocomplete="off" style="border-radius:0px;" />
+                        <input class="form-control number-without-negative" id="cn_tax${key}" autocomplete="off" value="${decimalFormat(parseFloat(val2.ProductUnitPriceCurrencyValue))}" style="border-radius:0px;" />
                     </td>
                     <td>
                         <div class="input-group">
@@ -267,8 +267,8 @@
                     <td style="text-align: left;padding: 0.8rem 0.5rem;">-</td>
                     <td style="text-align: center;padding: 0.8rem 0.5rem;" hidden>${val2.CombinedBudgetCode} - ${val2.CombinedBudgetName}</td>
                     <td style="text-align: right;padding: 0.8rem 0.5rem;">${val2.CombinedBudgetSectionCode} - ${val2.CombinedBudgetSectionName}</td>
-                    <td style="text-align: right;padding: 0.8rem 0.5rem;">0.00</td>
-                    <td style="text-align: right;padding: 0.8rem 0.5rem;">0.00</td>
+                    <td style="text-align: right;padding: 0.8rem 0.5rem;">${decimalFormat(parseFloat(val2.Quantity))}</td>
+                    <td style="text-align: right;padding: 0.8rem 0.5rem;">${decimalFormat(parseFloat(val2.ProductUnitPriceCurrencyValue))}</td>
                     <td style="text-align: right;padding: 0.8rem 0.5rem;">${val2.COA_Code} - ${val2.COA_Name}</td>
                 </tr>
             `;
@@ -349,11 +349,6 @@
                 console.log('error', jqXHR, textStatus, errorThrown);
             }
         });
-    }
-
-    function cancelCreditNote() {
-        ShowLoading();
-        window.location.href = "{{ route('CreditNote.index', ['var' => 1]) }}";
     }
 
     function SubmitForm() {
@@ -440,5 +435,4 @@
         getDocumentType("Credit Note Revision Form");
         getCreditNoteDetails(dataTable);
     });
-    
 </script>

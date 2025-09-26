@@ -257,7 +257,7 @@
                     <div class="tab-content px-3 pb-2" id="nav-tabContent">
                         <div class="row">
                             <div class="col">
-                                <a class="btn btn-default btn-sm float-right" onclick="cancelCreditNote()" style="background-color:#e9ecef;border:1px solid #ced4da;">
+                                <a class="btn btn-default btn-sm float-right" onclick="cancelForm('{{ route('CreditNote.index', ['var' => 1]) }}')" style="background-color:#e9ecef;border:1px solid #ced4da;">
                                     <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel Advance List Cart"> Cancel
                                 </a>
 

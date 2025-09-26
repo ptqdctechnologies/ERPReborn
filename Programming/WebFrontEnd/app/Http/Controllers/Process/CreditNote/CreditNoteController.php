@@ -20,6 +20,60 @@ use App\Services\WorkflowService;
 
 class CreditNoteController extends Controller
 {
+    public function __construct(CreditNoteService $creditNoteService, WorkflowService $workflowService)
+    {
+        $this->creditNoteService = $creditNoteService;
+        $this->workflowService   = $workflowService;
+    }
+
+    public function index() 
+    {
+        $varAPIWebToken = Session::get('SessionLogin');
+        $var            = 0;
+        if (!empty($_GET['var'])) {
+            $var = $_GET['var'];
+        }
+
+        $compact = [
+            'var'            => $var,
+            'varAPIWebToken' => $varAPIWebToken,
+        ];
+
+        return view('Process.CreditNote.Transactions.CreateCreditNote', $compact);
+    }
+
+    public function store(Request $request) 
+    {
+        try {
+            $response = $this->creditNoteService->create($request);
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                return response()->json($response);
+            }
+
+            $responseWorkflow = $this->workflowService->submit(
+                $response['data']['businessDocument']['businessDocument_RefID'],
+                $request->workFlowPath_RefID,
+                $request->comment,
+                $request->approverEntity,
+            );
+
+            if ($responseWorkflow['metadata']['HTTPStatusCode'] !== 200) {
+                return response()->json($responseWorkflow);
+            }
+
+            $compact = [
+                "documentNumber"    => $response['data']['businessDocument']['documentNumber'],
+                "status"            => $responseWorkflow['metadata']['HTTPStatusCode'],
+            ];
+
+            return response()->json($compact);
+        } catch (\Throwable $th) {
+            Log::error("Store Credit Note Function Error: " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
     public function ReportCreditNoteSummary(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
@@ -42,6 +96,7 @@ class CreditNoteController extends Controller
 
         return view('Process.CreditNote.Reports.ReportCreditNoteSummary', $compact);
     }
+
     public function ReportCreditNoteSummaryData($project_code, $site_code, $start_date = null, $end_date = null)
     {
         try {
@@ -104,60 +159,6 @@ class CreditNoteController extends Controller
             Log::error("Error at " . $th->getMessage());
         }
     }
-    public function __construct(CreditNoteService $creditNoteService, WorkflowService $workflowService)
-    {
-        $this->creditNoteService = $creditNoteService;
-        $this->workflowService   = $workflowService;
-    }
-
-    public function index() 
-    {
-        $varAPIWebToken = Session::get('SessionLogin');
-        $var            = 0;
-        if (!empty($_GET['var'])) {
-            $var = $_GET['var'];
-        }
-
-        $compact = [
-            'var'            => $var,
-            'varAPIWebToken' => $varAPIWebToken,
-        ];
-
-        return view('Process.CreditNote.Transactions.CreateCreditNote', $compact);
-    }
-
-    public function store(Request $request) 
-    {
-        try {
-            $response = $this->creditNoteService->create($request);
-
-            if ($response['metadata']['HTTPStatusCode'] !== 200) {
-                return response()->json($response);
-            }
-
-            $responseWorkflow = $this->workflowService->submit(
-                $response['data']['businessDocument']['businessDocument_RefID'],
-                $request->workFlowPath_RefID,
-                $request->comment,
-                $request->approverEntity,
-            );
-
-            if ($responseWorkflow['metadata']['HTTPStatusCode'] !== 200) {
-                return response()->json($responseWorkflow);
-            }
-
-            $compact = [
-                "documentNumber"    => $response['data']['businessDocument']['documentNumber'],
-                "status"            => $responseWorkflow['metadata']['HTTPStatusCode'],
-            ];
-
-            return response()->json($compact);
-        } catch (\Throwable $th) {
-            Log::error("Store Credit Note Function Error: " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
-        }
-    }
-
 
     public function ReportCreditNoteSummaryStore(Request $request)
     {
@@ -204,6 +205,7 @@ class CreditNoteController extends Controller
             Log::error("Error at " . $th->getMessage());
         }
     }
+
     public function RevisionCreditNote(Request $request) 
     {
         try {
@@ -211,7 +213,7 @@ class CreditNoteController extends Controller
             $response       = $this->creditNoteService->getDetail($request->creditNote_RefID);
 
             if ($response['metadata']['HTTPStatusCode'] !== 200) {
-                return response()->json($response);
+                throw new \Exception('Failed to fetch Detail Credit Note');
             }
 
             $data = $response['data']['data'];
@@ -228,6 +230,8 @@ class CreditNoteController extends Controller
                 'detail'            => $data
             ];
 
+            // dd($compact);
+
             return view('Process.CreditNote.Transactions.RevisionCreditNote', $compact);
         } catch (\Throwable $th) {
             Log::error("Revision Credit Note Function Error: " . $th->getMessage());
@@ -235,55 +239,11 @@ class CreditNoteController extends Controller
         }
     }
 
-
-    // public function ReportCreditNoteSummaryData( $project_code, $site_code){
-        
-            
-    //     try {
-    //         Log::error("Error at ",[$project_code, $site_code]);
-
-    //         $varAPIWebToken = Session::get('SessionLogin');
-
-    //         $filteredArray = Helper_APICall::setCallAPIGateway(
-    //             Helper_Environment::getUserSessionID_System(),
-    //             $varAPIWebToken, 
-    //             'report.form.documentForm.finance.getCreditNoteSummary', 
-    //             'latest',
-    //             [
-    //                 'parameter' => [
-    //                     'CombinedBudgetCode' =>  $project_code,
-    //                     'CombinedBudgetSectionCode' =>  $site_code,
-    //                 ],
-    //                  'SQLStatement' => [
-    //                     'pick' => null,
-    //                     'sort' => null,
-    //                     'filter' => null,
-    //                     'paging' => null
-    //                     ]
-    //             ]
-    //         );
-            
-    //         Log::error("Error at " ,$filteredArray);
-    //         if ($filteredArray['metadata']['HTTPStatusCode'] !== 200) {
-    //             return redirect()->back()->with('NotFound', 'Process Error');
-
-    //         }
-    //         Session::put("CreditNoteReportSummaryDataPDF", $filteredArray['data']['data']);
-    //         Session::put("CreditNoteReportSummaryDataExcel", $filteredArray['data']['data']);
-    //         return $filteredArray['data']['data'];
-    //     }
-    //     catch (\Throwable $th) {
-    //         Log::error("Error at " . $th->getMessage());
-    //         return redirect()->back()->with('NotFound', 'Process Error');
-    //     }
-    // }
-    
     public function PrintExportReportCreditNoteSummary(Request $request)
     {
         try {
             $dataPDF = Session::get("CreditNoteReportSummaryDataPDF");
             $dataExcel = Session::get("CreditNoteReportSummaryDataExcel");
-
             
             if ($dataPDF && $dataExcel) {
                 $print_type = $request->print_type;
@@ -312,6 +272,7 @@ class CreditNoteController extends Controller
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }
+
     public function UpdateCreditNote(Request $request)
     {
         try {
@@ -1237,7 +1198,6 @@ class CreditNoteController extends Controller
         return view('Process.CreditNote.Reports.ReportCreditNoteDetail', $compact);
     }
 
-
     public function CreditNoteListData(Request $request)
     {
         $varAPIWebToken = Session::get('SessionLogin');
@@ -1262,9 +1222,8 @@ class CreditNoteController extends Controller
         return response()->json($compact);
     }
 
-    public function CreditNoteDetailData($do_refID, $do_number, $statusHeader){
-        
-            
+    public function CreditNoteDetailData($do_refID, $do_number, $statusHeader)
+    {
         try {
             Log::error("Error at ",[$do_refID,$do_number, $statusHeader]);
 
@@ -1333,6 +1292,7 @@ class CreditNoteController extends Controller
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }
+
     public function PrintExportReportCreditNoteDetail(Request $request)
     {
         try {
