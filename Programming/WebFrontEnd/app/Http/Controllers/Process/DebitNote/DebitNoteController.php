@@ -94,29 +94,31 @@ class DebitNoteController extends Controller
             $response = $this->debitNoteService->create($request);
 
             if ($response['metadata']['HTTPStatusCode'] !== 200) {
-                return response()->json($response);
+                throw new \Exception('Failed to fetch Create Debit Note');
             }
 
-            $responseWorkflow = $this->workflowService->submit(
-                $response['data']['businessDocument']['businessDocument_RefID'],
-                $request->workFlowPath_RefID,
-                $request->comment,
-                $request->approverEntity,
-            );
+            // $responseWorkflow = $this->workflowService->submit(
+            //     $response['data']['businessDocument']['businessDocument_RefID'],
+            //     $request->workFlowPath_RefID,
+            //     $request->comment,
+            //     $request->approverEntity,
+            // );
 
-            if ($responseWorkflow['metadata']['HTTPStatusCode'] !== 200) {
-                return response()->json($responseWorkflow);
-            }
+            // if ($responseWorkflow['metadata']['HTTPStatusCode'] !== 200) {
+            //     throw new \Exception('Failed to fetch Submit Workflow Create Debit Note');
+            // }
 
             $compact = [
                 "documentNumber"    => $response['data']['businessDocument']['documentNumber'],
-                "status"            => $responseWorkflow['metadata']['HTTPStatusCode'],
+                "status"            => $response['metadata']['HTTPStatusCode'],
+                // "status"            => $responseWorkflow['metadata']['HTTPStatusCode'],
             ];
 
             return response()->json($compact);
         } catch (\Throwable $th) {
             Log::error("Store Debit Note Function Error: " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
+
+            return response()->json(["status" => 500]);
         }
     }
 
@@ -126,29 +128,31 @@ class DebitNoteController extends Controller
             $response = $this->debitNoteService->update($request);
 
             if ($response['metadata']['HTTPStatusCode'] !== 200) {
-                return response()->json($response);
+                throw new \Exception('Failed to fetch Update Debit Note');
             }
 
-            $responseWorkflow = $this->workflowService->submit(
-                $response['data'][0]['businessDocument']['businessDocument_RefID'],
-                $request->workFlowPath_RefID,
-                $request->comment,
-                $request->approverEntity,
-            );
+            // $responseWorkflow = $this->workflowService->submit(
+            //     $response['data'][0]['businessDocument']['businessDocument_RefID'],
+            //     $request->workFlowPath_RefID,
+            //     $request->comment,
+            //     $request->approverEntity,
+            // );
 
-            if ($responseWorkflow['metadata']['HTTPStatusCode'] !== 200) {
-                return response()->json($responseWorkflow);
-            }
+            // if ($responseWorkflow['metadata']['HTTPStatusCode'] !== 200) {
+            //     throw new \Exception('Failed to fetch Submit Workflow Revision Debit Note');
+            // }
 
             $compact = [
                 "documentNumber"    => $response['data'][0]['businessDocument']['documentNumber'],
-                "status"            => $responseWorkflow['metadata']['HTTPStatusCode'],
+                "status"            => $response['metadata']['HTTPStatusCode'],
+                // "status"            => $responseWorkflow['metadata']['HTTPStatusCode'],
             ];
 
             return response()->json($compact);
         } catch (\Throwable $th) {
             Log::error("Update Debit Note Function Error: " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
+
+            return response()->json(["status" => 500]);
         }
     }
 

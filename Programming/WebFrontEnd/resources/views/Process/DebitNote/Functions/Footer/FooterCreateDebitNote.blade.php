@@ -80,10 +80,10 @@
                                 entities: {
                                     combinedBudgetSectionDetail_RefID: parseInt(combinedBudgetSectionDetailID.value),
                                     product_RefID: parseInt(productID.value),
-                                    quantity: parseFloat(quantity.replace(/,/g, '')),
+                                    quantity: parseFloat(debitNoteValue.replace(/,/g, '')),
                                     quantityUnit_RefID: parseInt(quantityUnitID.value),
                                     productUnitPriceCurrency_RefID: parseInt(productUnitPriceCurrencyID.value),
-                                    productUnitPriceCurrencyValue: parseFloat(price.replace(/,/g, '')),
+                                    productUnitPriceCurrencyValue: parseFloat(debitNoteTax.replace(/,/g, '')),
                                     productUnitPriceCurrencyExchangeRate: parseInt(productUnitPriceCurrencyExchangeRate.value),
                                     vatRatio: 0,
                                     chartOfAccount_RefID: parseInt(debitNoteCoaID.value),
@@ -111,10 +111,10 @@
                         entities: {
                             combinedBudgetSectionDetail_RefID: parseInt(combinedBudgetSectionDetailID.value),
                             product_RefID: parseInt(productID.value),
-                            quantity: parseFloat(quantity.replace(/,/g, '')),
+                            quantity: parseFloat(debitNoteValue.replace(/,/g, '')),
                             quantityUnit_RefID: parseInt(quantityUnitID.value),
                             productUnitPriceCurrency_RefID: parseInt(productUnitPriceCurrencyID.value),
-                            productUnitPriceCurrencyValue: parseFloat(price.replace(/,/g, '')),
+                            productUnitPriceCurrencyValue: parseFloat(debitNoteTax.replace(/,/g, '')),
                             productUnitPriceCurrencyExchangeRate: parseInt(productUnitPriceCurrencyExchangeRate.value),
                             vatRatio: 0,
                             chartOfAccount_RefID: parseInt(debitNoteCoaID.value),
@@ -319,7 +319,7 @@
                         cancelForm("{{ route('DebitNote.index', ['var' => 1]) }}");
                     });
                 } else {
-                    ErrorNotif("Data Cancel Inputed");
+                    ErrorNotif("Process Error");
                 }
             },
             error: function(jqXHR, textStatus, errorThrown) {

@@ -81,10 +81,10 @@
                                 entities: {
                                     combinedBudgetSectionDetail_RefID: parseInt(combinedBudgetSectionDetailID.value),
                                     product_RefID: parseInt(productID.value),
-                                    quantity: parseFloat(quantity.replace(/,/g, '')),
+                                    quantity: parseFloat(debitNoteValue.replace(/,/g, '')),
                                     quantityUnit_RefID: parseInt(quantityUnitID.value),
                                     productUnitPriceCurrency_RefID: parseInt(productUnitPriceCurrencyID.value),
-                                    productUnitPriceCurrencyValue: parseFloat(price.replace(/,/g, '')),
+                                    productUnitPriceCurrencyValue: parseFloat(debitNoteTax.replace(/,/g, '')),
                                     productUnitPriceCurrencyExchangeRate: parseInt(productUnitPriceCurrencyExchangeRate.value),
                                     vatRatio: parseFloat(vatRatio.value.replace(/,/g, '')),
                                     chartOfAccount_RefID: parseInt(debitNoteCoaID.value),
@@ -113,10 +113,10 @@
                         entities: {
                             combinedBudgetSectionDetail_RefID: parseInt(combinedBudgetSectionDetailID.value),
                             product_RefID: parseInt(productID.value),
-                            quantity: parseFloat(quantity.replace(/,/g, '')),
+                            quantity: parseFloat(debitNoteValue.replace(/,/g, '')),
                             quantityUnit_RefID: parseInt(quantityUnitID.value),
                             productUnitPriceCurrency_RefID: parseInt(productUnitPriceCurrencyID.value),
-                            productUnitPriceCurrencyValue: parseFloat(price.replace(/,/g, '')),
+                            productUnitPriceCurrencyValue: parseFloat(debitNoteTax.replace(/,/g, '')),
                             productUnitPriceCurrencyExchangeRate: parseInt(productUnitPriceCurrencyExchangeRate.value),
                             vatRatio: parseFloat(vatRatio.value.replace(/,/g, '')),
                             chartOfAccount_RefID: parseInt(debitNoteCoaID.value),
@@ -186,20 +186,20 @@
                 <tr>
                     <td style="text-align: center;">-</td>
                     <td style="text-align: center;">${value.CombinedBudgetCode} - ${value.CombinedBudgetName}</td>
-                    <td style="text-align: center;">${decimalFormat(parseFloat(value.Quantity))}</td>
-                    <td style="text-align: center;">${decimalFormat(parseFloat(value.ProductUnitPriceCurrencyValue))}</td>
-                    <td style="text-align: center;">${decimalFormat(parseFloat(value.Total))}</td>
+                    <td style="text-align: center;">-</td>
+                    <td style="text-align: center;">-</td>
+                    <td style="text-align: center;">-</td>
                     <td style="text-align: center;">-</td>
                     <td>
-                        <input class="form-control number-without-negative" id="debit_note_value${key}" autocomplete="off" style="border-radius:0px;" />
+                        <input class="form-control number-without-negative" id="debit_note_value${key}" data-default="${decimalFormat(parseFloat(value.Quantity))}" value="${decimalFormat(parseFloat(value.Quantity))}" autocomplete="off" style="border-radius:0px;" />
                     </td>
                     <td>
-                        <input class="form-control number-without-negative" id="debit_note_tax${key}" autocomplete="off" style="border-radius:0px;" />
+                        <input class="form-control number-without-negative" id="debit_note_tax${key}" data-default="${decimalFormat(parseFloat(value.ProductUnitPriceCurrencyValue))}" value="${decimalFormat(parseFloat(value.ProductUnitPriceCurrencyValue))}" autocomplete="off" style="border-radius:0px;" />
                     </td>
                     <td>
                         <div class="input-group">
                             <input id="debit_note_coa_id${key}" style="border-radius:0;width:130px;background-color:white;" class="form-control" hidden value="${value.ChartOfAccount_RefID}" />
-                            <input id="debit_note_coa_name${key}" style="border-radius:0;width:130px;background-color:white;" class="form-control" readonly value="${value.COA_Code} - ${value.COA_Name}" />
+                            <input id="debit_note_coa_name${key}" style="border-radius:0;width:130px;background-color:white;" class="form-control" readonly data-default="${value.COA_Code} - ${value.COA_Name}" value="${value.COA_Code} - ${value.COA_Name}" />
                             <div class="input-group-append">
                                 <span style="border-radius:0;cursor:pointer;" class="input-group-text form-control">
                                     <a data-toggle="modal" data-target="#myGetChartOfAccount" onclick="pickCOA(${key})">
@@ -295,7 +295,7 @@
                         cancelForm("{{ route('DebitNote.index', ['var' => 1]) }}");
                     });
                 } else {
-                    ErrorNotif("Data Cancel Inputed");
+                    ErrorNotif("Process Error");
                 }
             },
             error: function(jqXHR, textStatus, errorThrown) {
