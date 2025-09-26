@@ -81,7 +81,6 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\aut
                     'userRole_RefID' => $varUserRoleID                    
                     ]
 
-
                     );
 
             return

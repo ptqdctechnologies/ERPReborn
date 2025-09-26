@@ -186,10 +186,15 @@ namespace App\Helpers\ZhtHelper\General
                                 $responseBodyAsString
                                 );
 
-                        $responseBodyAsString =
+/*                        $responseBodyAsString =
                             str_replace(
                                 '&quot;',
                                 '"',
+                                $responseBodyAsString
+                                );*/
+
+                        $responseBodyAsString =
+                            htmlspecialchars_decode(
                                 $responseBodyAsString
                                 );
                         }

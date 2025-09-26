@@ -403,7 +403,7 @@ public static function getRequest_HeaderAPIWebToken($varUserSession)
     
                             //---> Remove Sfdump Script dan Style From responseBodyAsString
                                 $responseBodyAsString =
-                                     \App\Helpers\ZhtHelper\General\Helper_Laravel::setRemoveSFDumpFromRequestResponseBody(
+                                     \App\Helpers\ZhtHelper\General\Helper_Laravel::setRemoveSFDumpFromHTTPRequestResponseBody(
                                         $varUserSession,
                                         $responseBodyAsString
                                         );
