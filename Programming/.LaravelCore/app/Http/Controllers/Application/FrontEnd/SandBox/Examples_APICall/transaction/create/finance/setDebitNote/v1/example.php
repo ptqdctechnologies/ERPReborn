@@ -43,7 +43,6 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                     "partner_RefID" => 125000000000001,
                     "log_FileUpload_Pointer_RefID" => 91000000000001,
                     "remarks" => 'My Remarks 1',
-                    "workflow_Status" => '',
                     "additionalData" => [
                         "itemList" => [
                             "items" => [
