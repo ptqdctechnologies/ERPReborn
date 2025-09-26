@@ -43,7 +43,6 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                     "documentDateTimeTZ" => '2025-08-22',
                     "log_FileUpload_Pointer_RefID" => 91000000000001,
                     "remarks" => 'My Remarks 2 (Edit)',
-                    "workflow_Status" => '',
                     "additionalData" => [
                         "itemList" => [
                             "items" => [

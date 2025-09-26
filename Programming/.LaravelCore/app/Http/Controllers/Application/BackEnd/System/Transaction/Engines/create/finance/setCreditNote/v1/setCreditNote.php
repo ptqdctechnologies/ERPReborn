@@ -95,7 +95,6 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
                                     $varData['entities']['customer_RefID'],
                                     $varData['entities']['log_FileUpload_Pointer_RefID'],
                                     $varData['entities']['remarks'],
-                                    $varData['entities']['workflow_Status'],
 
                                     (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
                                         $varUserSession,
