@@ -4,8 +4,8 @@
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category    : Example - API Call Controller                                                                                    |
 | ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\update\finance                   |
-|                 \setDebitNote\v1                                                                                                |
-| ▪ API Key     : transaction.update.finance.setDebitNote                                                                         |
+|                 \setDebitNote\v1                                                                                                 |
+| ▪ API Key     : transaction.update.finance.setDebitNote                                                                          |
 | ▪ API Version : 1                                                                                                                |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2025 ijonk7 (jookeo.rizal@gmail.com)                                                                                |
@@ -17,8 +17,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Call URL        : http(s)://<HOST>/transaction.update.finance.setDebitNote.v1_throughAPIGateway                       |
-        |                     ► http://172.28.0.4/transaction.update.finance.setDebitNote.v1_throughAPIGateway                    |
+        | ▪ Call URL        : http(s)://<HOST>/transaction.update.finance.setDebitNote.v1_throughAPIGateway                        |
+        |                     ► http://172.28.0.4/transaction.update.finance.setDebitNote.v1_throughAPIGateway                     |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2025-09-03                                                                                           |
@@ -43,7 +43,6 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                     "documentDateTimeTZ" => '2025-09-03',
                     "log_FileUpload_Pointer_RefID" => 91000000000001,
                     "remarks" => 'My Remarks 2 (Edit)',
-                    "workflow_Status" => '',
                     "additionalData" => [
                         "itemList" => [
                             "items" => [
