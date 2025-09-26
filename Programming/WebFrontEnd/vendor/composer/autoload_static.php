@@ -658,6 +658,7 @@ class ComposerStaticInitba8dd78905df56b3237571f0ff8edc85
         'App\\Helpers\\ZhtHelper\\General\\Helper_JavaScriptOLD' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/General/Helper_JavaScriptOLD.php',
         'App\\Helpers\\ZhtHelper\\General\\Helper_JavaScriptOLDORI' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/General/Helper_JavaScriptOLDORI.php',
         'App\\Helpers\\ZhtHelper\\General\\Helper_LDAP' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/General/Helper_LDAP.php',
+        'App\\Helpers\\ZhtHelper\\General\\Helper_Laravel' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/General/Helper_Laravel.php',
         'App\\Helpers\\ZhtHelper\\General\\Helper_Network' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/General/Helper_Network.php',
         'App\\Helpers\\ZhtHelper\\General\\Helper_PHPObject' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/General/Helper_PHPObject.php',
         'App\\Helpers\\ZhtHelper\\General\\Helper_RandomNumber' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/General/Helper_RandomNumber.php',

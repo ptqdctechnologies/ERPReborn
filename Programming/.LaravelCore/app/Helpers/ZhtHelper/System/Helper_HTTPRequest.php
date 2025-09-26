@@ -401,45 +401,28 @@ public static function getRequest_HeaderAPIWebToken($varUserSession)
                             $responseBodyAsString =
                                 $response->getBody()->getContents();
     
-                            if (stristr((string) $responseBodyAsString, 'Sfdump =') === NULL)
-                                {
-                                }
-                            else
-                                {
-                                //$varHTTPStatusCode = 200;
-
-                                ob_start();
-                                echo (
-                                var_dump (
-                                    $responseBodyAsString
-                                    ));
-                                $responseBodyAsString = ob_get_clean();
-                                $responseBodyAsString = (string) $responseBodyAsString;
-                                $responseBodyAsString = preg_replace('/<style\b[^>]*>(.*?)<\/style>/is', "", $responseBodyAsString);
-                                $responseBodyAsString = trim(preg_replace('/\s\s+/', ' ', $responseBodyAsString));
-
-                                $responseBodyAsString = explode('<span class=sf-dump-str', $responseBodyAsString);
-                                $responseBodyAsString = $responseBodyAsString[count($responseBodyAsString)-1];
-                                $responseBodyAsString = explode('</span>', $responseBodyAsString)[0];
-                                $responseBodyAsString = explode('characters">', $responseBodyAsString)[1];
-                                $responseBodyAsString = 
-                                    'Data dump : `'.$responseBodyAsString.'`';
-                                }
+                            //---> Remove Sfdump Script dan Style From responseBodyAsString
+                                $responseBodyAsString =
+                                     \App\Helpers\ZhtHelper\General\Helper_Laravel::setRemoveSFDumpFromRequestResponseBody(
+                                        $varUserSession,
+                                        $responseBodyAsString
+                                        );
 
                         //$varResponseContents = \App\Helpers\ZhtHelper\System\Helper_APIResponse::getNotification_FailureMessage_v1($varUserSession, $varHTTPStatusCode, $responseBodyAsString);
 
-                        $varResponseContents = [
-                            'metadata' => [
-                                'HTTPStatusCode' => $varHTTPStatusCode,
-                                'APIResponse' => [
-                                    'key' => 'core.general.notification',
-                                    'version' => 1
+                        //---> Initializing : varResponseContents 
+                            $varResponseContents = [
+                                'metadata' => [
+                                    'HTTPStatusCode' => $varHTTPStatusCode,
+                                    'APIResponse' => [
+                                        'key' => 'core.general.notification',
+                                        'version' => 1
+                                        ],
                                     ],
-                                ],
-                            'data' => [
-                                'message' => $responseBodyAsString
-                                ]
-                            ]; 
+                                'data' => [
+                                    'message' => $responseBodyAsString
+                                    ]
+                                ]; 
                         }
                     //\App\Helpers\ZhtHelper\General\Helper_HTTPAuthentication::getJSONWebToken(000000, 'admin', 'secretkey');                  
                     
@@ -464,6 +447,9 @@ public static function getRequest_HeaderAPIWebToken($varUserSession)
             }
 
 
+
+
+            
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setRequest                                                                                           |

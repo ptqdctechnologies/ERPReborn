@@ -891,7 +891,6 @@ if (strcmp($varAPIKey, 'transaction.read.dataList.finance.getAdvance')==0)
                     array_shift($varAPIKeyData)
                     );
             $varAPIStructure = implode('.', $varAPIKeyData);
-            dd($varAPIStructure);
 
             //---> Cek Nama Fungsi yang akan dieksekusi
             if (!$varFunctionName)
@@ -905,7 +904,10 @@ if (strcmp($varAPIKey, 'transaction.read.dataList.finance.getAdvance')==0)
             if (strcmp($varAPIVersion, 'latest') == 0)
                 {
                 $varAPIVersion =
-                    self::getAPILatestVersion($varUserSession, $varAPIKey);
+                    self::getAPILatestVersion(
+                        $varUserSession,
+                        $varAPIKey
+                        );
                 }
 
             //---> Main Process
@@ -923,7 +925,19 @@ if (strcmp($varAPIKey, 'transaction.read.dataList.finance.getAdvance')==0)
             $varMainPath = explode('\\', $varClass);
             array_pop($varMainPath);
             $varMainPath =
-                '/./../'.str_replace('App/', 'app/', str_replace('\\', '/', implode('\\', $varMainPath)));            
+                '/./../'.
+                str_replace(
+                    'App/',
+                    'app/',
+                    str_replace(
+                        '\\',
+                        '/',
+                        implode(
+                            '\\',
+                            $varMainPath
+                            )
+                        )
+                    );            
             
             $varFilePath = 
                 \App\Helpers\ZhtHelper\General\Helper_File::getAutoMatchFilePath(

@@ -497,7 +497,16 @@ $varDataSend = [
                             $varObjLoginBranchAndUserRole =
                                 (new \App\Http\Controllers\Application\BackEnd\System\Authentication\Engines\general\setLoginBranchAndUserRole\v1\setLoginBranchAndUserRole());
                             
-                            //dd($varUserSession);
+//                            dd('aaaa');
+//                            dd(111111);
+                            dd('{"a" : "a"}');
+                              dd([1, 2, 3]);
+                            dd([
+                                'a' => '111',
+                                'b' => '2a22',
+                                'c' => '333'
+                                ]);
+                            dd($varUserSession);
                             
                             //$varObjLoginBranchAndUserRole->main(
                             //    $varUserSession, 

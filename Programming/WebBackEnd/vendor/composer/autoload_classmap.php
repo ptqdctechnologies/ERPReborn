@@ -68,6 +68,7 @@ return array(
     'App\\Helpers\\ZhtHelper\\General\\Helper_JavaScriptOLD' => $baseDir . '/app/Helpers/ZhtHelper/General/Helper_JavaScriptOLD.php',
     'App\\Helpers\\ZhtHelper\\General\\Helper_JavaScriptOLDORI' => $baseDir . '/app/Helpers/ZhtHelper/General/Helper_JavaScriptOLDORI.php',
     'App\\Helpers\\ZhtHelper\\General\\Helper_LDAP' => $baseDir . '/app/Helpers/ZhtHelper/General/Helper_LDAP.php',
+    'App\\Helpers\\ZhtHelper\\General\\Helper_Laravel' => $baseDir . '/app/Helpers/ZhtHelper/General/Helper_Laravel.php',
     'App\\Helpers\\ZhtHelper\\General\\Helper_Network' => $baseDir . '/app/Helpers/ZhtHelper/General/Helper_Network.php',
     'App\\Helpers\\ZhtHelper\\General\\Helper_PHPObject' => $baseDir . '/app/Helpers/ZhtHelper/General/Helper_PHPObject.php',
     'App\\Helpers\\ZhtHelper\\General\\Helper_RandomNumber' => $baseDir . '/app/Helpers/ZhtHelper/General/Helper_RandomNumber.php',
