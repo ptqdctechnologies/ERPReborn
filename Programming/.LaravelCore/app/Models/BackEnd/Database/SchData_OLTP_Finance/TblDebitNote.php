@@ -58,10 +58,9 @@ namespace App\Models\Database\SchData_OLTP_Finance
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |        ----------------------------------------                                                                          |
         |      ▪ (string) varDocumentDateTimeTZ ► Document DateTimeTZ                                                              |
-        |      ▪ (int)    varPartner_RefID                                                                                        |
+        |      ▪ (int)    varPartner_RefID                                                                                         |
         |      ▪ (int)    varLog_FileUpload_Pointer_RefID                                                                          |
         |      ▪ (string) varRemarks ► Remarks                                                                                     |
-        |      ▪ (string) varWorkflow_Status ► Remarks                                                                             |
         |        ----------------------------------------                                                                          |
         |      ▪ (array)  varAdditionalData ► Additional Data                                                                      |
         | ▪ Output Variable :                                                                                                      |
@@ -71,7 +70,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         public function setDataInsert(
             $varUserSession,
             string $varSysDataAnnotation = null, string $varSysDataValidityStartDateTimeTZ = null, string $varSysDataValidityFinishDateTimeTZ = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, $varSysBaseCurrency_RefID = null,
-            string $varDocumentDateTimeTZ = null, int $varPartner_RefID = null, int $varLog_FileUpload_Pointer_RefID = null, string $varRemarks = null, string $varWorkflow_Status = null,
+            string $varDocumentDateTimeTZ = null, int $varPartner_RefID = null, int $varLog_FileUpload_Pointer_RefID = null, string $varRemarks = null,
             array $varAdditionalData = []
             )
             {
@@ -96,7 +95,6 @@ namespace App\Models\Database\SchData_OLTP_Finance
                             [$varPartner_RefID, 'bigint'],
                             [$varLog_FileUpload_Pointer_RefID, 'bigint'],
                             [$varRemarks, 'varchar'],
-                            [$varWorkflow_Status, 'varchar'],
 
                             [
                                 ((count($varAdditionalData) === 0)
@@ -153,7 +151,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
             $varUserSession,
             int $varSysID,
             string $varSysDataAnnotation = null, string $varSysDataValidityStartDateTimeTZ = null, string $varSysDataValidityFinishDateTimeTZ = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, $varSysBaseCurrency_RefID = null,
-            string $varDocumentDateTimeTZ = null, int $varPartner_RefID = null, int $varLog_FileUpload_Pointer_RefID = null, string $varRemarks = null, string $varWorkflow_Status = null,
+            string $varDocumentDateTimeTZ = null, int $varPartner_RefID = null, int $varLog_FileUpload_Pointer_RefID = null, string $varRemarks = null,
             array $varAdditionalData = []
             )
             {
@@ -178,7 +176,6 @@ namespace App\Models\Database\SchData_OLTP_Finance
                             [$varPartner_RefID, 'bigint'],
                             [$varLog_FileUpload_Pointer_RefID, 'bigint'],
                             [$varRemarks, 'varchar'],
-                            [$varWorkflow_Status, 'varchar'],
 
                             [
                                 ((count($varAdditionalData) === 0)
