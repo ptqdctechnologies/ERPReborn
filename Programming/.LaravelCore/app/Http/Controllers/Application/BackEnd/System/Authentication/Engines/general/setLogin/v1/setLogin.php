@@ -189,372 +189,371 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                                     }
                                 }
 
-                    //---> Jika Otentikasi berhasil
-                        if (
-                            $varSignLoginSuccess == true
-                            ) {
-                            //--->
-                            $varSessionIntervalInSeconds = (5 * 60);
-                            $varSessionIntervalInSeconds = (10 * 60 * 60);
-                            $varSessionIntervalInSeconds = (24 * 60 * 60);
+                        //---> Jika Otentikasi berhasil
+                            if (
+                                $varSignLoginSuccess == true
+                                ) {
+                                //--->
+                                $varSessionIntervalInSeconds = (5 * 60);
+                                $varSessionIntervalInSeconds = (10 * 60 * 60);
+                                $varSessionIntervalInSeconds = (24 * 60 * 60);
 
-                            //---> Penyusunan Option List
-                            /*
-                            $varOptionList = 
-                                \App\Helpers\ZhtHelper\General\Helper_Array::getArrayKeyRename_LowerFirstCharacter(
-                                    $varUserSession, 
-                                    $this->getOptionList(
-                                        $varUserSession,
-                                        (new \App\Models\Database\SchSysConfig\General())->getUserIDByName($varUserSession, $varUserName)
-                                        )
-                                    );
-                             $varOptionList = \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varOptionList);
-                            var_dump($varOptionList);
-                            echo "<br><br><br>";
-                            */
-                            $varOptionList = [];
-
-                            /*
-    $varAPIWebToken = \App\Helpers\ZhtHelper\General\Helper_HTTPAuthentication::getJSONWebToken($varUserSession, $varUserName, \App\Helpers\ZhtHelper\General\Helper_RandomNumber::getUniqueID($varUserSession), 'HS256', (int) \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getCurrentUnixTime($varUserSession));
-    $varDataSend = [
-        'AWT' => $varAPIWebToken,
-        'xxx' => ((new \App\Models\Database\SchSysConfig\General())->isExist_APIWebToken($varUserSession, $varAPIWebToken)) 
-        ];
-    */
-
-                            //---> Generate APIWebToken
-                            $i = 0;
-                            do {
-                                $varAPIWebToken =
-                                    \App\Helpers\ZhtHelper\General\Helper_HTTPAuthentication::getJSONWebToken(
-                                        $varUserSession,
-                                        $varUserName,
-                                        \App\Helpers\ZhtHelper\General\Helper_RandomNumber::getUniqueID($varUserSession),
-                                        'HS256',
-                                        (int) \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getCurrentUnixTime($varUserSession)
-                                        );
-                                } 
-                            while ((new \App\Models\Database\SchSysConfig\General())->isExist_APIWebToken($varUserSession, $varAPIWebToken) == true);
-
-                            //---> Insert Data to PostgreSQL
-                            $varBufferDB =
-                                (new \App\Models\Database\SchSysConfig\TblLog_UserLoginSession())->setDataInsert(
-                                    6000000000001,
-                                    null,
-                                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getCurrentYear($varUserSession),
-                                    11000000000001,
-
-                                    $varUserName,
-                                    $varAPIWebToken,
-                                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode(
-                                        $varUserSession,
-                                        $varOptionList
-                                        ),
-                                    null,
-                                    null,
-                                    'NOW()',
-                                    null,
-                                    'NOW()',
-                                    '(NOW() + \'' . $varSessionIntervalInSeconds . ' seconds\'::interval)'
-                                    );  
-                            //var_dump(\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getCurrentYear($varUserSession));
-
-                            //$varSysID = $varBufferDB['SignRecordID'];
-                            $varSysID =
-                                $varBufferDB['data'][0]['SignRecordID'];
-
-                            $varBufferDB =
-                                (new \App\Models\Database\SchSysConfig\TblLog_UserLoginSession())->getDataRecord(
-                                    $varUserSession,
-                                    $varSysID
-                                    );
-
-                            if (count($varBufferDB) > 0) {
-                                //---> Data Initailizing Base On Database Record
-                                //---> Get User Identity
-                                    $varUserIdentities =
-                                        \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserIdentity(
+                                //---> Penyusunan Option List
+                                /*
+                                $varOptionList = 
+                                    \App\Helpers\ZhtHelper\General\Helper_Array::getArrayKeyRename_LowerFirstCharacter(
+                                        $varUserSession, 
+                                        $this->getOptionList(
                                             $varUserSession,
-                                            $varBufferDB[0]['LDAPUserID']
-                                            );
-
-                                $varOptionList_BranchIDList = NULL;
-                                //---> Initializing : varDataUserOptionList
-                                    try {
-                                        $varDataUserAvailableOptionListTemp =
-                                            \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
-                                                $varUserSession,
-                                                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                                                    $varUserSession,
-                                                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                                                        $varUserSession,
-                                                        'SchSysConfig.Func_GetDataPickSet_UserPrivileges',
-                                                        [
-                                                            [$varBufferDB[0]['User_RefID'], 'bigint']
-                                                        ]
-                                                        )
-                                                    )['data'][0]['ProcessedData_JSON']
-                                                )['general'];
-
-                                        $varOptionList_BranchIDList =
-                                            $varDataUserAvailableOptionListTemp['branchIDList'];
-
-                                        for ($i = 0, $iMax = count($varDataUserAvailableOptionListTemp['branchIDList']); $i != $iMax; $i++) {
-                                            for ($j = 0, $jMax = count($varDataUserAvailableOptionListTemp['userRoleIDList']); $j != $jMax; $j++) {
-                                                $varDataUserRoleSelectionList[$j] = [
-                                                    'ID' => $varDataUserAvailableOptionListTemp['userRoleIDList'][$j],
-                                                    'name' => $varDataUserAvailableOptionListTemp['userRoleNameList'][$j]
-                                                    ];
-                                                }
-
-                                            $varDataUserAvailableOptionList['institutionBranchList'][$i] = [
-                                                'ID' => $varDataUserAvailableOptionListTemp['branchIDList'][$i],
-                                                'name' => $varDataUserAvailableOptionListTemp['branchNameList'][$i],
-                                                'userRoleList' => $varDataUserRoleSelectionList
-                                                ];
-
-                                            $varOptionList_BranchUserRoleIDList[$varDataUserAvailableOptionList['institutionBranchList'][$i]['ID']] =
-                                                $varDataUserAvailableOptionListTemp['userRoleIDList'];
-                                            }
-                                        }
-
-                                    catch (\Exception $ex) {
-                                        $varDataUserAvailableOptionList = NULL;
-                                        }
-
-                                //---> Insert Data to Redis
-                                    $varRedisID =
-                                        (new \App\Models\Cache\General\APIWebToken())->setDataInsert(
-                                            $varUserSession,
-                                            $varBufferDB[0]['APIWebToken'],
-                                            \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode(
-                                                $varUserSession,
-                                                [
-                                                    'userLoginSession_RefID' => $varBufferDB[0]['Sys_ID'],
-                                                    'user_RefID' => $varBufferDB[0]['User_RefID'],
-                                                    'userRole_RefID' => $varBufferDB[0]['UserRole_RefID'],
-                                                    'branch_RefID' => $varBufferDB[0]['Branch_RefID'],
-                                                    'sessionStartDateTimeTZ' => $varBufferDB[0]['SessionStartDateTimeTZ'],
-                                                    'sessionAutoStartDateTimeTZ' => $varBufferDB[0]['SessionAutoStartDateTimeTZ'],
-                                                    'sessionAutoFinishDateTimeTZ' => $varBufferDB[0]['SessionAutoFinishDateTimeTZ'],
-                                                    'userIdentities' => $varUserIdentities,
-                                                    'userAvailableOptionList' => $varDataUserAvailableOptionList
-                                                ]
-                                            ),
-                                            $varSessionIntervalInSeconds
+                                            (new \App\Models\Database\SchSysConfig\General())->getUserIDByName($varUserSession, $varUserName)
+                                            )
                                         );
-                                //---> Exceptional Condition : Branch ID In Additional Data Is Not Feasible
-                                    if (($varBranchID != NULL) AND (in_array($varBranchID, $varOptionList_BranchIDList)) == FALSE) {
-                                        throw
-                                            new \Exception('Branch ID in Addtional Data is not Feasible');
-                                        }
-
-                                //---> Exceptional Condition : User Role ID In Additional Data Is Not Feasible
-                                    if (($varUserRoleID != NULL) AND (in_array($varUserRoleID, $varOptionList_BranchUserRoleIDList[$varData['additionalData']['branch_RefID']])) == FALSE) {
-                                        throw
-                                            new \Exception('User Role ID in Addtional Data is not Feasible');
-                                        }
-
-                                //---> Set Return Value
-                                    $varDataSend = [
-                                        //'RedisID', $varRedisID,
-                                        'APIWebToken' => $varBufferDB[0]['APIWebToken'],
-                                        'userIdentities' => $varUserIdentities,
-                                        'optionList' => $varDataUserAvailableOptionList
-                                        //'LDAPUserID' => $varBufferDB[0]['LDAPUserID'],
-                                        // 'sessionStartDateTimeTZ' => $varBufferDB[0]['SessionStartDateTimeTZ'],
-                                        // 'sessionAutoStartDateTimeTZ' => $varBufferDB[0]['SessionAutoStartDateTimeTZ'],
-                                        // 'sessionAutoFinishDateTimeTZ' => $varBufferDB[0]['SessionAutoFinishDateTimeTZ'],
-                                        // 'redisID' => $varRedisID //,
-                                        //'optionList' => $varOptionList
-                                        ];
-                                    //dd($varDataSend['APIWebToken']);
-
-    //-----[ MULYADI CODE ]-----( START )-----
-                                // START REDIS HELPER LOGIN 
-                                // Redis::set("nama", json_encode($varDataSend['APIWebToken']));
-
-                                $user_RefID = $varDataSend['userIdentities']['user_RefID'];
-
-                                $varTTL = 32400; // 9 Jam
-
-                                // 1
-                                //DATA BRANCH
-
-                                if (Redis::get("Branch" . $user_RefID) == null) {
-                                    $varBranch =
-                                        (new \App\Models\Database\SchSysConfig\General())->getUserPrivilege_InstitutionBranch(
-                                            $varUserSession,
-                                            $user_RefID
-                                        );
-
-                                    //SET REDIS BRANCH
-
-                                    \App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(
-                                        $varUserSession,
-                                        "Branch" . $user_RefID,
-                                        json_encode($varBranch),
-                                        $varTTL
-                                    );
-                                    }
-
-                                $varDataBranch =
-                                    json_decode(
-                                        \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
-                                            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                                            "Branch" . $user_RefID
-                                            ),
-                                        true
-                                        );
-
-
-
-                                // 2
-                                //GET REDIS BRANCH
-
-                                if (Redis::get("Role" . $user_RefID) == null) {
-                                    //DATA ROLE
-
-                                    if (count($varDataBranch) > 1) {
-                                        $varRole =
-                                            (new \App\Models\Database\SchSysConfig\General())->getDataList_UserRole(
-                                                $varUserSession,
-                                                $user_RefID,
-                                                null
-                                            );
-                                        }
-                                    else
-                                        {
-                                        $varRole =
-                                            (new \App\Models\Database\SchSysConfig\General())->getUserPrivilege_Role(
-                                                $varUserSession,
-                                                $user_RefID,
-                                                $varDataBranch[0]['Sys_ID'],
-                                                null,
-                                            );
-                                        }
-
-                                    // //SET REDIS ROLE
-
-                                    \App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(
-                                        $varUserSession,
-                                        "Role" . $user_RefID,
-                                        json_encode($varRole),
-                                        $varTTL
-                                    );
-                                }
-
-
-                                // 3
-                                //DATA MENU
-
-                                $varDataRole = 
-                                    json_decode(
-                                        \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
-                                            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                                            "Role".$user_RefID
-                                            ),
-                                        true
-                                        );
-
-                                if (count($varDataBranch) == 1) {
-                                    foreach ($varDataRole as $varDataRoles) {
-
-                                        if (Redis::get("RedisSetMenu" . $varDataRoles['Sys_ID']) == null) {
-
-                                            //SET REDIS MENU
-
-                                            \App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(
-                                                $varUserSession,
-                                                "RedisSetMenu" . $varDataRoles['Sys_ID'],
-                                                true,
-                                                $varTTL
-                                            );
-
-                                            $varMenu =
-                                                (new \App\Models\Database\SchSysConfig\General())->getUserPrivilege_MenuLayout(
-                                                    $varUserSession,
-                                                    $varDataBranch[0]['Sys_ID'],
-                                                    $user_RefID
-                                                    );
-
-                                            \App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(
-                                                $varUserSession,
-                                                "RedisGetMenu" . $user_RefID,
-                                                json_encode($varMenu),
-                                                $varTTL
-                                                );
-                                            }
-                                        }
-
-                                    $varDataRedis = \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode($varUserSession, (new \App\Models\Cache\General\APIWebToken())->getDataRecord($varUserSession, $varBufferDB[0]['APIWebToken']));
-                                    $varDataRedis['branch_RefID'] = $varDataBranch[0]['Sys_ID'];
-                                    (new \App\Models\Cache\General\APIWebToken())->setDataUpdate($varUserSession, $varBufferDB[0]['APIWebToken'], \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varDataRedis));
-                                }
-
-
-                                // END REDIS HELPER LOGIN 
-    //-----[ MULYADI CODE ]-----( END )-----
-
-//dd($varBufferDB[0]['Sys_ID']);
-//dd($varDataSend);
-
-                                //---> Set Auto Login Branch And User Role
-                                if (($varBranchID != NULL) AND ($varUserRoleID != NULL))
-                                    {
-                                    (new \App\Http\Controllers\Application\BackEnd\System\Authentication\Engines\general\setLoginBranchAndUserRole\v1\setLoginBranchAndUserRole())->main(
-                                        //$varUserSession,
-                                        $varBufferDB[0]['Sys_ID'],
-                                        [
-                                        'branchID' => $varBranchID,
-                                        'userRoleID' => $varUserRoleID,
-                                        'APIWebToken'=> $varDataSend['APIWebToken']
-                                        ]
-                                        );
+                                 $varOptionList = \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varOptionList);
+                                var_dump($varOptionList);
+                                echo "<br><br><br>";
+                                */
+                                $varOptionList = [];
 
                                 /*
-                                    try {
-                                        (new \App\Http\Controllers\Application\BackEnd\System\Authentication\Engines\general\setLoginBranchAndUserRole\v1\setLoginBranchAndUserRole())->main(
+        $varAPIWebToken = \App\Helpers\ZhtHelper\General\Helper_HTTPAuthentication::getJSONWebToken($varUserSession, $varUserName, \App\Helpers\ZhtHelper\General\Helper_RandomNumber::getUniqueID($varUserSession), 'HS256', (int) \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getCurrentUnixTime($varUserSession));
+        $varDataSend = [
+            'AWT' => $varAPIWebToken,
+            'xxx' => ((new \App\Models\Database\SchSysConfig\General())->isExist_APIWebToken($varUserSession, $varAPIWebToken)) 
+            ];
+        */
+
+                                //---> Generate APIWebToken
+                                $i = 0;
+                                do {
+                                    $varAPIWebToken =
+                                        \App\Helpers\ZhtHelper\General\Helper_HTTPAuthentication::getJSONWebToken(
                                             $varUserSession,
+                                            $varUserName,
+                                            \App\Helpers\ZhtHelper\General\Helper_RandomNumber::getUniqueID($varUserSession),
+                                            'HS256',
+                                            (int) \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getCurrentUnixTime($varUserSession)
+                                            );
+                                    } 
+                                while ((new \App\Models\Database\SchSysConfig\General())->isExist_APIWebToken($varUserSession, $varAPIWebToken) == true);
+
+                                //---> Insert Data to PostgreSQL
+                                $varBufferDB =
+                                    (new \App\Models\Database\SchSysConfig\TblLog_UserLoginSession())->setDataInsert(
+                                        6000000000001,
+                                        null,
+                                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getCurrentYear($varUserSession),
+                                        11000000000001,
+
+                                        $varUserName,
+                                        $varAPIWebToken,
+                                        \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode(
+                                            $varUserSession,
+                                            $varOptionList
+                                            ),
+                                        null,
+                                        null,
+                                        'NOW()',
+                                        null,
+                                        'NOW()',
+                                        '(NOW() + \'' . $varSessionIntervalInSeconds . ' seconds\'::interval)'
+                                        );  
+                                //var_dump(\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getCurrentYear($varUserSession));
+
+                                //$varSysID = $varBufferDB['SignRecordID'];
+                                $varSysID =
+                                    $varBufferDB['data'][0]['SignRecordID'];
+
+                                $varBufferDB =
+                                    (new \App\Models\Database\SchSysConfig\TblLog_UserLoginSession())->getDataRecord(
+                                        $varUserSession,
+                                        $varSysID
+                                        );
+
+                                if (count($varBufferDB) > 0) {
+                                    //---> Data Initailizing Base On Database Record
+                                    //---> Get User Identity
+                                        $varUserIdentities =
+                                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserIdentity(
+                                                $varUserSession,
+                                                $varBufferDB[0]['LDAPUserID']
+                                                );
+
+                                    $varOptionList_BranchIDList = NULL;
+                                    //---> Initializing : varDataUserOptionList
+                                        try {
+                                            $varDataUserAvailableOptionListTemp =
+                                                \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                                                    $varUserSession,
+                                                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                                                        $varUserSession,
+                                                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                                                            $varUserSession,
+                                                            'SchSysConfig.Func_GetDataPickSet_UserPrivileges',
+                                                            [
+                                                                [$varBufferDB[0]['User_RefID'], 'bigint']
+                                                            ]
+                                                            )
+                                                        )['data'][0]['ProcessedData_JSON']
+                                                    )['general'];
+
+                                            $varOptionList_BranchIDList =
+                                                $varDataUserAvailableOptionListTemp['branchIDList'];
+
+                                            for ($i = 0, $iMax = count($varDataUserAvailableOptionListTemp['branchIDList']); $i != $iMax; $i++) {
+                                                for ($j = 0, $jMax = count($varDataUserAvailableOptionListTemp['userRoleIDList']); $j != $jMax; $j++) {
+                                                    $varDataUserRoleSelectionList[$j] = [
+                                                        'ID' => $varDataUserAvailableOptionListTemp['userRoleIDList'][$j],
+                                                        'name' => $varDataUserAvailableOptionListTemp['userRoleNameList'][$j]
+                                                        ];
+                                                    }
+
+                                                $varDataUserAvailableOptionList['institutionBranchList'][$i] = [
+                                                    'ID' => $varDataUserAvailableOptionListTemp['branchIDList'][$i],
+                                                    'name' => $varDataUserAvailableOptionListTemp['branchNameList'][$i],
+                                                    'userRoleList' => $varDataUserRoleSelectionList
+                                                    ];
+
+                                                $varOptionList_BranchUserRoleIDList[$varDataUserAvailableOptionList['institutionBranchList'][$i]['ID']] =
+                                                    $varDataUserAvailableOptionListTemp['userRoleIDList'];
+                                                }
+                                            }
+
+                                        catch (\Exception $ex) {
+                                            $varDataUserAvailableOptionList = NULL;
+                                            }
+
+                                    //---> Insert Data to Redis
+                                        $varRedisID =
+                                            (new \App\Models\Cache\General\APIWebToken())->setDataInsert(
+                                                $varUserSession,
+                                                $varBufferDB[0]['APIWebToken'],
+                                                \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode(
+                                                    $varUserSession,
+                                                    [
+                                                        'userLoginSession_RefID' => $varBufferDB[0]['Sys_ID'],
+                                                        'user_RefID' => $varBufferDB[0]['User_RefID'],
+                                                        'userRole_RefID' => $varBufferDB[0]['UserRole_RefID'],
+                                                        'branch_RefID' => $varBufferDB[0]['Branch_RefID'],
+                                                        'sessionStartDateTimeTZ' => $varBufferDB[0]['SessionStartDateTimeTZ'],
+                                                        'sessionAutoStartDateTimeTZ' => $varBufferDB[0]['SessionAutoStartDateTimeTZ'],
+                                                        'sessionAutoFinishDateTimeTZ' => $varBufferDB[0]['SessionAutoFinishDateTimeTZ'],
+                                                        'userIdentities' => $varUserIdentities,
+                                                        'userAvailableOptionList' => $varDataUserAvailableOptionList
+                                                    ]
+                                                ),
+                                                $varSessionIntervalInSeconds
+                                            );
+                                    //---> Exceptional Condition : Branch ID In Additional Data Is Not Feasible
+                                        if (($varBranchID != NULL) AND (in_array($varBranchID, $varOptionList_BranchIDList)) == FALSE) {
+                                            throw
+                                                new \Exception('Branch ID in Addtional Data is not Feasible');
+                                            }
+
+                                    //---> Exceptional Condition : User Role ID In Additional Data Is Not Feasible
+                                        if (($varUserRoleID != NULL) AND (in_array($varUserRoleID, $varOptionList_BranchUserRoleIDList[$varData['additionalData']['branch_RefID']])) == FALSE) {
+                                            throw
+                                                new \Exception('User Role ID in Addtional Data is not Feasible');
+                                            }
+
+                                    //---> Set Return Value
+                                        $varDataSend = [
+                                            //'RedisID', $varRedisID,
+                                            'APIWebToken' => $varBufferDB[0]['APIWebToken'],
+                                            'userIdentities' => $varUserIdentities,
+                                            'optionList' => $varDataUserAvailableOptionList
+                                            //'LDAPUserID' => $varBufferDB[0]['LDAPUserID'],
+                                            // 'sessionStartDateTimeTZ' => $varBufferDB[0]['SessionStartDateTimeTZ'],
+                                            // 'sessionAutoStartDateTimeTZ' => $varBufferDB[0]['SessionAutoStartDateTimeTZ'],
+                                            // 'sessionAutoFinishDateTimeTZ' => $varBufferDB[0]['SessionAutoFinishDateTimeTZ'],
+                                            // 'redisID' => $varRedisID //,
+                                            //'optionList' => $varOptionList
+                                            ];
+                                        //dd($varDataSend['APIWebToken']);
+//dd($varDataSend);
+
+
+//-----[ MULYADI CODE ]-----( START )-----
+                                    // START REDIS HELPER LOGIN 
+                                    // Redis::set("nama", json_encode($varDataSend['APIWebToken']));
+
+                                    $user_RefID = $varDataSend['userIdentities']['user_RefID'];
+
+                                    $varTTL = 32400; // 9 Jam
+
+                                    // 1
+                                    //DATA BRANCH
+
+                                    if (Redis::get("Branch" . $user_RefID) == null) {
+                                        $varBranch =
+                                            (new \App\Models\Database\SchSysConfig\General())->getUserPrivilege_InstitutionBranch(
+                                                $varUserSession,
+                                                $user_RefID
+                                            );
+
+                                        //SET REDIS BRANCH
+
+                                        \App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(
+                                            $varUserSession,
+                                            "Branch" . $user_RefID,
+                                            json_encode($varBranch),
+                                            $varTTL
+                                        );
+                                        }
+
+                                    $varDataBranch =
+                                        json_decode(
+                                            \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
+                                                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                                                "Branch" . $user_RefID
+                                                ),
+                                            true
+                                            );
+
+
+
+                                    // 2
+                                    //GET REDIS BRANCH
+
+                                    if (Redis::get("Role" . $user_RefID) == null) {
+                                        //DATA ROLE
+
+                                        if (count($varDataBranch) > 1) {
+                                            $varRole =
+                                                (new \App\Models\Database\SchSysConfig\General())->getDataList_UserRole(
+                                                    $varUserSession,
+                                                    $user_RefID,
+                                                    null
+                                                );
+                                            }
+                                        else
+                                            {
+                                            $varRole =
+                                                (new \App\Models\Database\SchSysConfig\General())->getUserPrivilege_Role(
+                                                    $varUserSession,
+                                                    $user_RefID,
+                                                    $varDataBranch[0]['Sys_ID'],
+                                                    null,
+                                                );
+                                            }
+
+                                        // //SET REDIS ROLE
+
+                                        \App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(
+                                            $varUserSession,
+                                            "Role" . $user_RefID,
+                                            json_encode($varRole),
+                                            $varTTL
+                                        );
+                                    }
+
+
+                                    // 3
+                                    //DATA MENU
+
+                                    $varDataRole = 
+                                        json_decode(
+                                            \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
+                                                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                                                "Role".$user_RefID
+                                                ),
+                                            true
+                                            );
+
+                                    if (count($varDataBranch) == 1) {
+                                        foreach ($varDataRole as $varDataRoles) {
+
+                                            if (Redis::get("RedisSetMenu" . $varDataRoles['Sys_ID']) == null) {
+
+                                                //SET REDIS MENU
+
+                                                \App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(
+                                                    $varUserSession,
+                                                    "RedisSetMenu" . $varDataRoles['Sys_ID'],
+                                                    true,
+                                                    $varTTL
+                                                );
+
+                                                $varMenu =
+                                                    (new \App\Models\Database\SchSysConfig\General())->getUserPrivilege_MenuLayout(
+                                                        $varUserSession,
+                                                        $varDataBranch[0]['Sys_ID'],
+                                                        $user_RefID
+                                                        );
+
+                                                \App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(
+                                                    $varUserSession,
+                                                    "RedisGetMenu" . $user_RefID,
+                                                    json_encode($varMenu),
+                                                    $varTTL
+                                                    );
+                                                }
+                                            }
+
+                                        $varDataRedis = \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode($varUserSession, (new \App\Models\Cache\General\APIWebToken())->getDataRecord($varUserSession, $varBufferDB[0]['APIWebToken']));
+                                        $varDataRedis['branch_RefID'] = $varDataBranch[0]['Sys_ID'];
+                                        (new \App\Models\Cache\General\APIWebToken())->setDataUpdate($varUserSession, $varBufferDB[0]['APIWebToken'], \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varDataRedis));
+                                    }
+
+
+                                    // END REDIS HELPER LOGIN 
+//-----[ MULYADI CODE ]-----( END )-----
+
+                                    //---> Set Auto Login Branch And User Role
+                                    if (($varBranchID != NULL) AND ($varUserRoleID != NULL))
+                                        {
+                                        (new \App\Http\Controllers\Application\BackEnd\System\Authentication\Engines\general\setLoginBranchAndUserRole\v1\setLoginBranchAndUserRole())->main(
+                                            //$varUserSession,
+                                            $varBufferDB[0]['Sys_ID'],
                                             [
                                             'branchID' => $varBranchID,
                                             'userRoleID' => $varUserRoleID,
                                             'APIWebToken'=> $varDataSend['APIWebToken']
                                             ]
                                             );
-                                        }
-                                    catch (\Exception $ex) {
-                                        }
-*/
-                                    }
 
-                                $varReturn = 
-                                    \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success(
-                                        $varUserSession,
-                                        $varDataSend,
-                                        $this->varAPIIdentity
-                                        );
+                                    /*
+                                        try {
+                                            (new \App\Http\Controllers\Application\BackEnd\System\Authentication\Engines\general\setLoginBranchAndUserRole\v1\setLoginBranchAndUserRole())->main(
+                                                $varUserSession,
+                                                [
+                                                'branchID' => $varBranchID,
+                                                'userRoleID' => $varUserRoleID,
+                                                'APIWebToken'=> $varDataSend['APIWebToken']
+                                                ]
+                                                );
+                                            }
+                                        catch (\Exception $ex) {
+                                            }
+    */
+                                        }
+
+                                    $varReturn = 
+                                        \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success(
+                                            $varUserSession,
+                                            $varDataSend,
+                                            $this->varAPIIdentity
+                                            );
+                                    }
+                                else {
+                                    $varReturn = 
+                                        \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail(
+                                            $varUserSession,
+                                            401,
+                                            'User\'s Environment Variable Can\'t be Declared'
+                                            );
+                                    }
                                 }
+                        //---> Jika Otentikasi gagal
                             else {
                                 $varReturn = 
                                     \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail(
                                         $varUserSession,
                                         401,
-                                        'User\'s Environment Variable Can\'t be Declared'
+                                        'Invalid LDAP Authentication'
                                         );
                                 }
-                            }
-                    //---> Jika Otentikasi gagal
-                        else {
-                            $varReturn = 
-                                \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail(
-                                    $varUserSession,
-                                    401,
-                                    'Invalid LDAP Authentication'
-                                    );
-                            }
                     //-----[ MAIN CODE ]------------------------------------------------------------------------------( END POINT )-----
-
+ 
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                     }
 
