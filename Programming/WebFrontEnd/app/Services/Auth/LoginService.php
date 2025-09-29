@@ -14,8 +14,17 @@ class LoginService
         return Helper_APICall::setCallAPIAuthentication(
             Helper_Environment::getUserSessionID_System(),
             $username, 
-            $password
+            $password,
+            [
+                'branch_RefID'      => 11000000000004, // 11000000000004
+                'userRole_RefID'    => 95000000000001  // 95000000000001
+            ]
         );
+        // return Helper_APICall::setCallAPIAuthentication(
+        //     Helper_Environment::getUserSessionID_System(),
+        //     $username, 
+        //     $password
+        // );
     }
 
     public function setLoginBranchAndUserRole($sessionToken, $branchRefID, $userRoleRefID) 
