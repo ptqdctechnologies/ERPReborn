@@ -47,20 +47,17 @@
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Creditor</th>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Debitor</th>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Principle Loan</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Lending Rate (%)</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Total Loan</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Rate (%)</th>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Notes</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <?php 
                                                     $counter = 1; 
-                                                    $grand_totalIDR=0;
-                                                    $grand_totalOther=0;
-                                                    $grand_totalEqui=0;
+                                                    $grand_totalprincipleLoan=0;
                                                 ?>
                                                 <?php foreach ($dataLoan as $dataDetail) { ?>
-                                                    
+                                                    <?php $grand_totalprincipleLoan += $dataDetail['principleLoan'];?>
                                                     <tr>
                                                         <td>{{ $counter++ }}</td>
                                                         <td>{{ $dataDetail['loanNumber'] }}</td>
@@ -70,15 +67,15 @@
                                                         <td>{{ $dataDetail['debitorName'] }}</td>
                                                         <td>{{ number_format($dataDetail['principleLoan'], 2, '.', ',') }}</td>
                                                         <td>{{ $dataDetail['rate'] }}</td>
-                                                        <td>-</td>
                                                         <td>{{ $dataDetail['notes'] }}</td>
                                                     </tr>
                                                 <?php } ?>
                                             </tbody>
                                             <tfoot>
                                                 <tr>
-                                                    <th colspan="5" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">GRAND TOTAL</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"></th>
+                                                    <th colspan="6" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">GRAND TOTAL</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format($grand_totalprincipleLoan, 2, '.', ','); ?></th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;background-color:#4B586A;"></th>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;background-color:#4B586A;"></th>
                                                 </tr>
                                             </tfoot>
