@@ -286,7 +286,7 @@
         const isInputNotEmpty   = validateQtyAndPriceWithHighlight();
 
         if (isRemarkNotEmpty && isTableNotEmpty && isInputNotEmpty) {
-            $('#advanceRequestRevisionFormModal').modal('show');
+            $('#advanceRequestFormModal').modal('show');
             summaryData();
         } else {
             if (!isRemarkNotEmpty) {
@@ -732,7 +732,7 @@
     }
 
     function SubmitForm() {
-        $('#advanceRequestRevisionFormModal').modal('hide');
+        $('#advanceRequestFormModal').modal('hide');
 
         var action = $('#FormUpdateAdvance').attr("action");
         var method = $('#FormUpdateAdvance').attr("method");
