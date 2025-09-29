@@ -21,7 +21,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         |                     ► http://172.28.0.4/transaction.create.supplyChain.setDeliveryOrder.v1_throughAPIGateway              |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-05-06                                                                                           |
+        | ▪ Last Update     : 2025-09-29                                                                                           |
         | ▪ Creation Date   : 2024-01-11                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -54,22 +54,24 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                             "items" => [
                                     [
                                     "entities" => [
-                                        "referenceDocument_RefID" => null,
+                                        "product_RefID" => 88000000000017,
                                         "quantity" => 5,
                                         "quantityUnit_RefID" => 73000000000001,
                                         "remarks" => "Catatan 1",
-                                        "underlyingDetail_RefID" => null,
-                                        "product_RefID" => 88000000000017
+                                        "underlyingDetail_RefID" => 86000000000018,
+                                        "StockMovementRequester_RefID" => null,
+                                        "StockMovementStatus" => null   // 0 => "RENT", 1 => "PERMANENT"
                                         ]
                                     ],
                                     [
                                     "entities" => [
-                                        "referenceDocument_RefID" => null,
+                                        "product_RefID" => 88000000000018,
                                         "quantity" => 10,
                                         "quantityUnit_RefID" => 73000000000001,
                                         "remarks" => "Catatan 2",
-                                        "underlyingDetail_RefID" => null,
-                                        "product_RefID" => 88000000000018
+                                        "underlyingDetail_RefID" => 86000000000018,
+                                        "StockMovementRequester_RefID" => null,
+                                        "StockMovementStatus" => null   // 0 => "RENT", 1 => "PERMANENT"
                                         ]
                                     ],
                                 ]
