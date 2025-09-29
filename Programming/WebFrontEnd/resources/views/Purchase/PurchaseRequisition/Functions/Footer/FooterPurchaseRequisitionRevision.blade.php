@@ -114,7 +114,7 @@
 
     function updateGrandTotal() {
         let total = 0;
-        const rows = document.querySelectorAll('#tablePRDetailList tbody tr');
+        const rows = document.querySelectorAll('#tablePurchaseRequisitionList tbody tr');
         rows.forEach(row => {
             const totalCell = row.children[9];
             const input = totalCell.querySelector('input');
@@ -146,7 +146,7 @@
 
     function summaryData() {
         const sourceTable = document.getElementById('tableGetPRDetails').getElementsByTagName('tbody')[0];
-        const targetTable = document.getElementById('tablePRDetailList').getElementsByTagName('tbody')[0];
+        const targetTable = document.getElementById('tablePurchaseRequisitionList').getElementsByTagName('tbody')[0];
 
         const rows = sourceTable.getElementsByTagName('tr');
 
@@ -276,7 +276,7 @@
         const isInputNotEmpty           = validateQtyAndPriceWithHighlight();
 
         if (isDateDeliveryNotEmpty && isTableNotEmpty && isInputNotEmpty) {
-            $('#purchaseRequestRevisionFormModal').modal('show');
+            $('#purchaseRequestFormModal').modal('show');
             summaryData();
         } else {
             if (!isDateDeliveryNotEmpty) {
@@ -632,8 +632,10 @@
             confirmButtonColor: '#DDDAD0',
             reverseButtons: true
         }).then((result) => {
-            ShowLoading();
-            RevisionPurchaseRequest({...formatData, comment: result.value});
+            if ('value' in result) {
+                ShowLoading();
+                RevisionPurchaseRequest({...formatData, comment: result.value});
+            }
         });
     }
 
@@ -690,7 +692,7 @@
     }
 
     function SubmitForm() {
-        $('#purchaseRequestRevisionFormModal').modal('hide');
+        $('#purchaseRequestFormModal').modal('hide');
 
         var action = $("#FormRevisionPurchaseRequest").attr("action");
         var method = $("#FormRevisionPurchaseRequest").attr("method");
