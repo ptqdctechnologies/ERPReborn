@@ -9,11 +9,6 @@
           Advance Number
         </label>
         <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
-          <div>
-            <input id="advance_number" style="border-radius:0;" size="20" class="form-control" readonly />
-            <input id="advance_id" style="border-radius:0;" class="form-control" hidden />
-            <input id="modal_advance_document_number" style="border-radius:0;" class="form-control" hidden />
-          </div>
           <div class="input-group-append">
             <span style="border-radius:0;" class="input-group-text form-control">
               <a href="javascript:;" id="myGetModalAdvanceTrigger" data-toggle="modal" data-target="#myGetModalAdvance">
@@ -24,6 +19,11 @@
                 <span class="sr-only">Loading...</span>
               </div>
             </span>
+          </div>
+          <div>
+            <input id="advance_number" style="border-radius:0;" size="20" class="form-control" readonly />
+            <input id="advance_id" style="border-radius:0;" class="form-control" hidden />
+            <input id="modal_advance_document_number" style="border-radius:0;" class="form-control" hidden />
           </div>
         </div>
       </div>
