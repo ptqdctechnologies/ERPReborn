@@ -60,7 +60,7 @@
                         var address = val.address ? val.address : '-';
 
                         t.row.add([
-                            '<tbody><tr><input id="sys_id_supplier' + key + '" value="' + val.sys_ID + '" type="hidden"><td>' + no++ + '</td>',
+                            '<tbody><tr><input id="sys_id_supplier' + key + '" value="' + val.sys_ID + '" data-trigger="sys_id_supplier" type="hidden"><td>' + no++ + '</td>',
                             '<td>' + code + '</td>',
                             '<td>' + name + '</td>',
                             '<td>' + address + '</td></tr></tbody>',
@@ -86,10 +86,11 @@
     $('#tableGetSupplier tbody').on('click', 'tr', function() {
         $("#mySupplier").modal('toggle');
 
-        var row = $(this).closest("tr");
-        var sys_id_supplier = row.find(".sys_id_supplier").val();
-        var code = row.find("td:nth-child(2)").text();
-        var name = row.find("td:nth-child(3)").text();
+        var row             = $(this).closest("tr");
+        var sys_id_supplier = row.find('input[data-trigger="sys_id_supplier"]').val();
+        var code            = row.find("td:nth-child(2)").text();
+        var name            = row.find("td:nth-child(3)").text();
+        var address         = row.find("td:nth-child(4)").text();
 
         if (currentType === 'creditor') {
             $("#creditor_id").val(sys_id_supplier);
