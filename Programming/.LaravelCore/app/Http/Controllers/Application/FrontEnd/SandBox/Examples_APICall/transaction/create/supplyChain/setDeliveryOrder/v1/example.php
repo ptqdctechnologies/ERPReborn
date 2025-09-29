@@ -59,8 +59,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                         "quantityUnit_RefID" => 73000000000001,
                                         "remarks" => "Catatan 1",
                                         "underlyingDetail_RefID" => 86000000000018,
-                                        "StockMovementRequester_RefID" => null,
-                                        "StockMovementStatus" => null   // 0 => "RENT", 1 => "PERMANENT"
+                                        "stockMovementRequester_RefID" => null,
+                                        "stockMovementStatus" => null   // 0 => "RENT", 1 => "PERMANENT"
                                         ]
                                     ],
                                     [
@@ -70,8 +70,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                         "quantityUnit_RefID" => 73000000000001,
                                         "remarks" => "Catatan 2",
                                         "underlyingDetail_RefID" => 86000000000018,
-                                        "StockMovementRequester_RefID" => null,
-                                        "StockMovementStatus" => null   // 0 => "RENT", 1 => "PERMANENT"
+                                        "stockMovementRequester_RefID" => null,
+                                        "stockMovementStatus" => null   // 0 => "RENT", 1 => "PERMANENT"
                                         ]
                                     ],
                                 ]
