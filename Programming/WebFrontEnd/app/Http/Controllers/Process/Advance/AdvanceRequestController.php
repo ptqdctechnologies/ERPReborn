@@ -57,7 +57,7 @@ class AdvanceRequestController extends Controller
             $response = $this->advanceRequestService->create($request);
 
             if ($response['metadata']['HTTPStatusCode'] !== 200) {
-                return response()->json($response);
+                throw new \Exception('Failed to fetch Create Advance Request');
             }
 
             $responseWorkflow = $this->workflowService->submit(
@@ -68,7 +68,7 @@ class AdvanceRequestController extends Controller
             );
 
             if ($responseWorkflow['metadata']['HTTPStatusCode'] !== 200) {
-                return response()->json($responseWorkflow);
+                throw new \Exception('Failed to fetch Submit Workflow Create Advance Request');
             }
 
             $compact = [
@@ -79,7 +79,8 @@ class AdvanceRequestController extends Controller
             return response()->json($compact);
         } catch (\Throwable $th) {
             Log::error("Store Advance Request Function Error: " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
+
+            return response()->json(["status" => 500]);
         }
     }
 
