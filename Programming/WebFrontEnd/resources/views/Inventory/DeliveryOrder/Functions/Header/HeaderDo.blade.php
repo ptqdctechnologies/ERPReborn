@@ -34,15 +34,15 @@
         </label>
         <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
           <div>
-            <input id="reference_number" style="border-radius:0;" class="form-control" size="20" readonly>
-            <input id="reference_id" style="border-radius:0;" name="reference_id" class="form-control" hidden>
-          </div>
-          <div>
             <span style="border-radius:0;" class="input-group-text form-control">
               <a href="javascript:;" id="referenceNumberTrigger" data-toggle="modal" data-target="#referenceNumberModal" style="display: block;">
                 <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="referenceNumberTrigger">
               </a>
             </span>
+          </div>
+          <div>
+            <input id="reference_number" style="border-radius:0;" class="form-control" size="20" readonly>
+            <input id="reference_id" style="border-radius:0;" name="reference_id" class="form-control" hidden>
           </div>
         </div>
       </div>
@@ -75,10 +75,6 @@
         </label>
         <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
           <div>
-            <input id="project_code_second" style="border-radius:0;" class="form-control" size="17" readonly>
-            <input id="project_id_second" name="project_id_second" style="border-radius:0;" class="form-control" hidden>
-          </div>
-          <div>
             <span style="border-radius:0;" class="input-group-text form-control">
               <a href="javascript:;" id="myProjectSecondTrigger" data-toggle="modal" data-target="#myProjectSecond" style="display: block;">
                 <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="myProjectSecondTrigger">
@@ -88,6 +84,10 @@
                 <span class="sr-only">Loading...</span>
               </div>
             </span>
+          </div>
+          <div>
+            <input id="project_code_second" style="border-radius:0;" class="form-control" size="17" readonly>
+            <input id="project_id_second" name="project_id_second" style="border-radius:0;" class="form-control" hidden>
           </div>
           <div style="flex: 100%;">
             <div class="input-group">
@@ -104,15 +104,15 @@
         </label>
         <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
           <div>
-            <input id="site_code_second" style="border-radius:0;" class="form-control" size="17" readonly>
-            <input id="site_id_second" style="border-radius:0;" name="site_id_second" class="form-control" hidden>
-          </div>
-          <div>
             <span style="border-radius:0;" class="input-group-text form-control">
               <a href="javascript:;" id="mySiteCodeSecondTrigger" data-toggle="modal" data-target="#mySiteCodeSecond">
                 <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="mySiteCodeSecondTrigger">
               </a>
             </span>
+          </div>
+          <div>
+            <input id="site_code_second" style="border-radius:0;" class="form-control" size="17" readonly>
+            <input id="site_id_second" style="border-radius:0;" name="site_id_second" class="form-control" hidden>
           </div>
           <div style="flex: 100%;">
             <div class="input-group">
@@ -130,10 +130,6 @@
         </label>
         <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
           <div>
-            <input id="project_code_second" style="border-radius:0;" class="form-control" size="17" readonly>
-            <input id="project_id_second" name="project_id_second" style="border-radius:0;" class="form-control" hidden>
-          </div>
-          <div>
             <span style="border-radius:0;" class="input-group-text form-control">
               <a href="javascript:;" id="myProjectSecondTrigger" data-toggle="modal" data-target="#myProjectSecond" style="display: block;">
                 <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="myProjectSecondTrigger">
@@ -143,6 +139,10 @@
                 <span class="sr-only">Loading...</span>
               </div>
             </span>
+          </div>
+          <div>
+            <input id="project_code_second" style="border-radius:0;" class="form-control" size="17" readonly>
+            <input id="project_id_second" name="project_id_second" style="border-radius:0;" class="form-control" hidden>
           </div>
           <div style="flex: 100%;">
             <div class="input-group">
@@ -159,15 +159,15 @@
         </label>
         <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
           <div>
-            <input id="worker_position_second" style="border-radius:0;" class="form-control" size="17" readonly>
-            <input id="worker_id_second" style="border-radius:0;" name="worker_id_stock_movement" class="form-control" hidden>
-          </div>
-          <div>
             <span style="border-radius:0;" class="input-group-text form-control">
               <a href="javascript:;" id="myWorkerSecondTrigger" data-toggle="modal" data-target="#myWorkerSecond">
                 <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="myWorkerSecondTrigger">
               </a>
             </span>
+          </div>
+          <div>
+            <input id="worker_position_second" style="border-radius:0;" class="form-control" size="17" readonly>
+            <input id="worker_id_second" style="border-radius:0;" name="worker_id_stock_movement" class="form-control" hidden>
           </div>
           <div style="flex: 100%;">
             <div class="input-group">
@@ -245,15 +245,15 @@
         </label>
         <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
           <div>
-            <input id="delivery_from_name_internal_use" style="border-radius:0;" class="form-control" size="17" readonly>
-            <input id="delivery_from_id_internal_use" style="border-radius:0;" name="delivery_from_id_internal_use" class="form-control" hidden>
-          </div>
-          <div>
             <span style="border-radius:0;" class="input-group-text form-control" onclick="deliveryFromStockMovementTrigger('from_internal_use')">
               <a href="javascript:;" id="myGetModalWarehousesTrigger" data-toggle="modal" data-target="#myGetModalWarehouses">
                 <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="myGetModalWarehousesTrigger">
               </a>
             </span>
+          </div>
+          <div>
+            <input id="delivery_from_name_internal_use" style="border-radius:0;" class="form-control" size="17" readonly>
+            <input id="delivery_from_id_internal_use" style="border-radius:0;" name="delivery_from_id_internal_use" class="form-control" hidden>
           </div>
           <div style="flex: 100%;">
             <div class="input-group">
@@ -270,15 +270,15 @@
         </label>
         <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
           <div>
-            <input id="delivery_to_name_internal_use" style="border-radius:0;" class="form-control" size="17" readonly>
-            <input id="delivery_to_id_internal_use" style="border-radius:0;" name="delivery_to_id_internal_use" class="form-control" hidden>
-          </div>
-          <div>
             <span style="border-radius:0;" class="input-group-text form-control" onclick="deliveryFromStockMovementTrigger('to_internal_use')">
               <a href="javascript:;" id="myGetModalWarehousesTrigger" data-toggle="modal" data-target="#myGetModalWarehouses">
                 <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="myGetModalWarehousesTrigger">
               </a>
             </span>
+          </div>
+          <div>
+            <input id="delivery_to_name_internal_use" style="border-radius:0;" class="form-control" size="17" readonly>
+            <input id="delivery_to_id_internal_use" style="border-radius:0;" name="delivery_to_id_internal_use" class="form-control" hidden>
           </div>
           <div style="flex: 100%;">
             <div class="input-group">
@@ -310,15 +310,15 @@
         </label>
         <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
           <div>
-            <input id="delivery_from_name_stock_movement" style="border-radius:0;" class="form-control" size="17" readonly>
-            <input id="delivery_from_id_stock_movement" style="border-radius:0;" name="delivery_from_id_stock_movement" class="form-control" hidden>
-          </div>
-          <div>
             <span style="border-radius:0;" class="input-group-text form-control" onclick="deliveryFromStockMovementTrigger('from_stock_movement')">
               <a href="javascript:;" id="myGetModalWarehousesTrigger" data-toggle="modal" data-target="#myGetModalWarehouses">
                 <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="myGetModalWarehousesTrigger">
               </a>
             </span>
+          </div>
+          <div>
+            <input id="delivery_from_name_stock_movement" style="border-radius:0;" class="form-control" size="17" readonly>
+            <input id="delivery_from_id_stock_movement" style="border-radius:0;" name="delivery_from_id_stock_movement" class="form-control" hidden>
           </div>
           <div style="flex: 100%;">
             <div class="input-group">
@@ -335,15 +335,15 @@
         </label>
         <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
           <div>
-            <input id="delivery_to_name_stock_movement" style="border-radius:0;" class="form-control" size="17" readonly>
-            <input id="delivery_to_id_stock_movement" style="border-radius:0;" name="delivery_to_id_stock_movement" class="form-control" hidden>
-          </div>
-          <div>
             <span style="border-radius:0;" class="input-group-text form-control" onclick="deliveryFromStockMovementTrigger('to_stock_movement')">
               <a href="javascript:;" id="myGetModalWarehousesTrigger" data-toggle="modal" data-target="#myGetModalWarehouses">
                 <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="myGetModalWarehousesTrigger">
               </a>
             </span>
+          </div>
+          <div>
+            <input id="delivery_to_name_stock_movement" style="border-radius:0;" class="form-control" size="17" readonly>
+            <input id="delivery_to_id_stock_movement" style="border-radius:0;" name="delivery_to_id_stock_movement" class="form-control" hidden>
           </div>
           <div style="flex: 100%;">
             <div class="input-group">

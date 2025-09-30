@@ -14,8 +14,6 @@
                                             <td><label>Revision Number&nbsp;</label></td>
                                             <td>
                                                 <div class="input-group">
-                                                    <input id="do_RefID" style="border-radius:0;" name="do_RefID" type="hidden" class="form-control" hidden>
-                                                    <input id="do_number" style="border-radius:0;" name="do_number" class="form-control" readonly>
                                                     <div class="input-group-append">
                                                         <span style="border-radius:0;" class="input-group-text form-control">
                                                             <a data-toggle="modal" data-target="#PopUpTableDoRevision">
@@ -23,6 +21,8 @@
                                                             </a>
                                                         </span>
                                                     </div>
+                                                    <input id="do_RefID" style="border-radius:0;" name="do_RefID" type="hidden" class="form-control" hidden>
+                                                    <input id="do_number" style="border-radius:0;" name="do_number" class="form-control" readonly>
                                                 </div>
                                             </td>
                                         </tr>
@@ -30,11 +30,11 @@
                                 </div>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-sm" style="margin-left: 38%;background-color:#e9ecef;border:1px solid #ced4da;">
-                            <img src="{{ asset('AdminLTE-master/dist/img/edit.png') }}" width="13" alt="" title="Edit"> Edit
-                        </button>
-                        <button type="reset" class="btn btn-sm" style="background-color:#e9ecef;border:1px solid #ced4da;">
+                        <button type="reset" class="btn btn-sm" style="margin-left: 38%; background-color:#e9ecef;border:1px solid #ced4da;">
                             <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Edit"> Cancel
+                        </button>
+                        <button type="submit" class="btn btn-sm" style="background-color:#e9ecef;border:1px solid #ced4da;">
+                            <img src="{{ asset('AdminLTE-master/dist/img/edit.png') }}" width="13" alt="" title="Edit"> Edit
                         </button>
                     </form>
                 </div>
