@@ -21,7 +21,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         |                     ► http://172.28.0.4/transaction.create.supplyChain.setDeliveryOrder.v1_throughAPIGateway              |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-09-29                                                                                           |
+        | ▪ Last Update     : 2025-09-30                                                                                           |
         | ▪ Creation Date   : 2024-01-11                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -48,6 +48,9 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                     "deliveryFrom_NonRefID" => 'Jl. Salemba No. 23, Jakarta Pusat',
                     "deliveryTo_RefID" => 126000000000005,
                     "deliveryTo_NonRefID" => 'Jl. Mawar No. 50, Surabaya',
+                    "stockMovementRequester_RefID" => null,
+                    "stockMovementStatus" => null,      // 0 => "RENT", 1 => "PERMANENT", null => Option non-select
+                    "type" => 0,     // 0 => "PURCHASE_ORDER", 1 => "INTERNAL_USE", 2 => "STOCK_MOVEMENT", null => Option non-select
                     "remarks" => 'My Remarks',
                     "additionalData" => [
                         "itemList" => [
@@ -58,9 +61,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                         "quantity" => 5,
                                         "quantityUnit_RefID" => 73000000000001,
                                         "remarks" => "Catatan 1",
-                                        "underlyingDetail_RefID" => 86000000000018,
-                                        "stockMovementRequester_RefID" => null,
-                                        "stockMovementStatus" => null   // 0 => "RENT", 1 => "PERMANENT"
+                                        "reference_ID" => 86000000000018
                                         ]
                                     ],
                                     [
@@ -69,9 +70,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                         "quantity" => 10,
                                         "quantityUnit_RefID" => 73000000000001,
                                         "remarks" => "Catatan 2",
-                                        "underlyingDetail_RefID" => 86000000000018,
-                                        "stockMovementRequester_RefID" => null,
-                                        "stockMovementStatus" => null   // 0 => "RENT", 1 => "PERMANENT"
+                                        "reference_ID" => 86000000000018
                                         ]
                                     ],
                                 ]
