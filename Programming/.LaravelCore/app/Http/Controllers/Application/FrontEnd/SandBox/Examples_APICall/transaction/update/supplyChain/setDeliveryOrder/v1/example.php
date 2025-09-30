@@ -49,6 +49,9 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                     "deliveryFrom_NonRefID" => 'Jl. Nuri No. 1, Jakarta Barat',
                     "deliveryTo_RefID" => 126000000000005,
                     "deliveryTo_NonRefID" => 'Jl. Melati No. 2, Surabaya',
+                    "stockMovementRequester_RefID" => null,
+                    "stockMovementStatus" => null,      // 0 => "RENT", 1 => "PERMANENT", null => Option non-select
+                    "type" => 0,     // 0 => "PURCHASE_ORDER", 1 => "INTERNAL_USE", 2 => "STOCK_MOVEMENT", null => Option non-select
                     "remarks" => 'My Remarks - 1 A (NEW)',
                     "additionalData" => [
                         "itemList" => [
@@ -60,9 +63,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                         "quantity" => 25,
                                         "quantityUnit_RefID" => 73000000000036,
                                         "remarks" => "Catatan 1 (NEW)",
-                                        "underlyingDetail_RefID" => 73000000000039,
-                                        "stockMovementRequester_RefID" => null,
-                                        "stockMovementStatus" => null   // 0 => "RENT", 1 => "PERMANENT"
+                                        "reference_ID" => 73000000000039
                                         ]
                                     ],
                                     [
@@ -72,9 +73,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                         "quantity" => 20,
                                         "quantityUnit_RefID" => 73000000000037,
                                         "remarks" => "Catatan 2 (NEW)",
-                                        "underlyingDetail_RefID" => 73000000000040,
-                                        "stockMovementRequester_RefID" => null,
-                                        "stockMovementStatus" => null   // 0 => "RENT", 1 => "PERMANENT"
+                                        "reference_ID" => 73000000000040
                                         ]
                                     ],
                                 ]
