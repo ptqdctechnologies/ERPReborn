@@ -31,7 +31,7 @@
                         </div>
                     </div>
 
-                    <?php if ($dataReport) { ?>
+                    <?php if ($dataloantosettle) { ?>
                         <!-- HEADER -->
                         <!-- <div class="row">
                             <div class="col-12">
@@ -79,41 +79,58 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <?php $counter = 1; ?>
-                                                <?php foreach ($dataReport['dataDetail'] as $dataDetail) { ?>
+                                                <?php 
+                                                    $counter = 1; 
+
+                                                    $grand_totalIDRSettle=0;
+                                                    $grand_totalOtherSettle=0;
+                                                    $grand_totalEquiSettle=0;
+
+                                                    $grand_totalloantoPay=0;
+                                                    $grand_totalLoantoSettle=0;
+                                                    $grand_totalSettletoPay=0;
+                                                ?>
+                                                <?php foreach ($dataloantosettle as $dataDetail) { ?>
+                                                    <?php $grand_totalIDRSettle += $dataDetail['loanSettle_Total_IDR'];?>
+                                                    <?php $grand_totalOtherSettle += $dataDetail['loanSettle_Total_Other_Currency'];?>
+                                                    <?php $grand_totalEquiSettle += $dataDetail['loanSettle_Total_Equivalent_IDR'];?>
+                                                    <?php $grand_totalloantoPay += $dataDetail['loanToPaymnet'];?>
+                                                    <?php $grand_totalLoantoSettle += $dataDetail['loanToSettlement'];?>
+                                                    <?php $grand_totalSettletoPay += $dataDetail['settlementToPayment'];?>
                                                     <tr>
                                                         <td><?= $counter++; ?></td>
-                                                        <td><?= $dataDetail['DocumentNumber']; ?></td>
-                                                        <td><?= date('d-m-Y', strtotime($dataDetail['DocumentDateTimeTZ'])); ?></td>
-                                                        <td>-</td>
-                                                        <td>-</td>
-                                                        <td><?= number_format($dataDetail['TotalAdvance'], 2, '.', ','); ?></td>
-                                                        <td>-</td>
-                                                        <td>-</td>
-                                                        <td><?= $dataDetail['DocumentASFNumber']; ?></td>
-                                                        <td><?= date('d-m-Y', strtotime($dataDetail['DocumentASFDateTimeTZ'])); ?></td>
-                                                        <td><?= number_format($dataDetail['TotalSettlement'], 2, '.', ','); ?></td>
+                                                        <td>{{ $dataDetail['loanNumber'] }}</td>
+                                                        <td>{{ date('Y-m-d', strtotime($dataDetail['loanDate'])) }}</td>
+                                                        <td>{{ $dataDetail['loanCreditorName'] }}</td>
+                                                        <td>{{ $dataDetail['loanDebitorName'] }}</td>
                                                         <td>-</td>
                                                         <td>-</td>
                                                         <td>-</td>
-                                                        <td>-</td>
-                                                        <td>-</td>
+                                                        <td>{{ $dataDetail['loanSettleNumber'] }}</td>
+                                                        <td>{{ date('Y-m-d', strtotime($dataDetail['loanSettleDate'])) }}</td>
+                                                        <td>{{ number_format($dataDetail['loanSettle_Total_IDR'], 2, '.', ',') }}</td>
+                                                        <td>{{ number_format($dataDetail['loanSettle_Total_Other_Currency'], 2, '.', ',') }}</td>
+                                                        <td>{{ number_format($dataDetail['loanSettle_Total_Equivalent_IDR'], 2, '.', ',') }}</td>
+                                                        <td>{{ number_format($dataDetail['loanToPaymnet'], 2, '.', ',') }}</td>
+                                                        <td>{{ number_format($dataDetail['loanToSettlement'], 2, '.', ',') }}</td>
+                                                        <td>{{ number_format($dataDetail['settlementToPayment'], 2, '.', ',') }}</td>
                                                     </tr>
                                                 <?php } ?>
                                             </tbody>
                                             <tfoot>
                                                 <tr>
                                                     <th colspan="5" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">GRAND TOTAL</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format($dataReport['totalAdvance'], 2, '.', ','); ?></th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"></th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"></th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format(0, 2, '.', ','); ?></th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format(0, 2, '.', ','); ?></th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format(0, 2, '.', ','); ?></th>
                                                     <th colspan="2" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"></th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format($dataReport['totalSettlement'], 2, '.', ','); ?></th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"></th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"></th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format($grand_totalIDRSettle, 2, '.', ','); ?></th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format($grand_totalOtherSettle, 2, '.', ','); ?></th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format($grand_totalEquiSettle, 2, '.', ','); ?></th>
 
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"></th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"></th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format($grand_totalloantoPay, 2, '.', ','); ?></th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format($grand_totalLoantoSettle, 2, '.', ','); ?></th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format($grand_totalSettletoPay, 2, '.', ','); ?></th>
                                                 </tr>
                                             </tfoot>
                                         </table>

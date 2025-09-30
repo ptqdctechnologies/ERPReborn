@@ -97,7 +97,7 @@
     </form>
 
     <!-- EXPORT -->
-    <form method="POST" action="{{ route('BusinessTripRequest.PrintExportReportBusinessTripRequestSummary') }}">
+    <form method="POST" action="{{ route('LoanSettlement.PrintExportReportLoanSettlementSummary') }}">
     @csrf
         <input id="project_code_second_trigger" style="border-radius:0;" name="project_code_second_trigger" class="form-control" size="34" value="<?= $dataReport['budgetCode'] ?? null; ?>" readonly hidden>
         <div class="align-items-center justify-content-sm-end justify-content-md-end justify-content-lg-start row align-items-center p-0" style="margin-bottom: 1rem; gap: 0.5rem;">

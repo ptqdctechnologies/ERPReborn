@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Process\Loan;
 
 use App\Http\Controllers\ExportExcel\Process\ExportReportLoanDetail;
 use App\Http\Controllers\ExportExcel\Process\ExportReportLoanSummary;
+use App\Http\Controllers\ExportExcel\Process\ExportReportLoantoLoanSettlement;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use App\Http\Controllers\Controller;
@@ -34,6 +35,141 @@ class LoanController extends Controller
 
         return view('Process.Loan.Transactions.CreateLoan', $compact);
     }
+
+    public function ReportLoantoLoanSettlement(Request $request)
+    {
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+        $request->session()->forget("SessionReimbursementNumber");
+        $dataloantosettle = Session::get("LoanSettlementReportSummaryDataPDF");
+
+        if (!empty($_GET['var'])) {
+            $var =  $_GET['var'];
+        }
+        $compact = [
+            'varAPIWebToken' => $varAPIWebToken,
+            'statusRevisi' => 1,
+            'statusHeader' => "Yes",
+            'statusDetail' => 1,
+            'dataHeader' => [],
+            'dataloantosettle' => $dataloantosettle
+        
+        ];
+        // dump($dataloantosettle);
+
+        return view('Process.Loan.Reports.ReportLoantoLoanSettlement', $compact);
+    }
+
+    public function ReportLoantoLoanSettlementData( $project_code)
+    {        
+        try {
+            Log::error("Error at ",[$project_code]);
+
+            $varAPIWebToken = Session::get('SessionLogin');
+
+            $filteredArray = Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'report.form.documentForm.finance.getLoanToLoanSettlementSummary', 
+                'latest',
+                [
+                    'parameter' => [
+                        // 'CombinedBudgetCode' => 'Q000062',
+                        // 'CombinedBudgetSectionCode' => '235',
+                        'CombinedBudgetCode' => NULL,
+                        'CombinedBudgetSectionCode' => NULL,
+                    ],
+                     'SQLStatement' => [
+                        'pick' => null,
+                        'sort' => null,
+                        'filter' => null,
+                        'paging' => null
+                        ]
+                ]
+            );
+            
+            Log::error("Error at " ,$filteredArray);
+            if ($filteredArray['metadata']['HTTPStatusCode'] !== 200) {
+                return redirect()->back()->with('NotFound', 'Process Error');
+
+            }
+            Session::put("LoanSettlementReportSummaryDataPDF", $filteredArray['data']['data']);
+            Session::put("LoanSettlementReportSummaryDataExcel", $filteredArray['data']['data']);
+            return $filteredArray['data']['data'];
+        }
+        catch (\Throwable $th) {
+            Log::error("Error at " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
+    public function ReportLoantoLoanSettlementStore(Request $request)
+    {
+        // tes;
+        try {
+            $project_code = $request->project_code_second;
+            // $site_code = $request->site_id_second;
+
+            $statusHeader = "Yes";
+            Log::error("Error at " ,[$request->all()]);
+            if ($project_code == "") {
+                Session::forget("LoanSettlementReportSummaryDataPDF");
+                Session::forget("LoanSettlementReportSummaryDataExcel");
+                
+                return redirect()->route('Loan.ReportLoantoLoanSettlement')->with('NotFound', 'Cannot Empty');
+            }
+
+            $compact = $this->ReportLoantoLoanSettlementData($project_code);
+            // dd($compact);
+            // if ($compact['dataHeader'] == []) {
+            //     Session::forget("PReimbursementSummaryReportDataPDF");
+            //     Session::forget("PReimbursementSummaryReportDataExcel");
+
+            //     return redirect()->back()->with('NotFound', 'Data Not Found');
+            // }
+
+            return redirect()->route('Loan.ReportLoantoLoanSettlement');
+        } catch (\Throwable $th) {
+            Log::error("Error at " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
+    public function PrintExportReportLoantoLoanSettlement(Request $request)
+    {
+        try {
+            $dataPDF = Session::get("LoanSettlementReportSummaryDataPDF");
+            $dataExcel = Session::get("LoanSettlementReportSummaryDataExcel");
+
+            
+            if ($dataPDF && $dataExcel) {
+                $print_type = $request->print_type;
+                if ($print_type == "PDF") {
+                    $dataloantosettle = Session::get("LoanSettlementReportSummaryDataPDF");
+                    // dd($dataloantosettle);
+
+                    $pdf = PDF::loadView('Process.Loan.Reports.ReportLoantoLoanSettlement_pdf', ['dataloantosettle' => $dataloantosettle])->setPaper('a4', 'landscape');
+                    $pdf->output();
+                    $dom_pdf = $pdf->getDomPDF();
+
+                    $canvas = $dom_pdf ->get_canvas();
+                    $width = $canvas->get_width();
+                    $height = $canvas->get_height();
+                    $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
+                    $canvas->page_text(34, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
+
+                    return $pdf->download('Export Report Loan to Loan Settlement.pdf');
+                } else if ($print_type == "Excel") {
+                    return Excel::download(new ExportReportLoantoLoanSettlement, 'Export Report Loan to Loan Settlement.xlsx');
+                }
+            } else {
+                return redirect()->route('Loan.ReportLoantoLoanSettlement')->with('NotFound', 'Data Cannot Empty');
+            }
+        } catch (\Throwable $th) {
+            Log::error("Error at " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
     public function ReportLoanSummary(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
@@ -157,9 +293,9 @@ class LoanController extends Controller
                     $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
                     $canvas->page_text(34, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
 
-                    return $pdf->download('Export Report Reimbursement Summary.pdf');
+                    return $pdf->download('Export Report Loan Summary.pdf');
                 } else if ($print_type == "Excel") {
-                    return Excel::download(new ExportReportLoanSummary, 'Export Report Reimbursement Summary.xlsx');
+                    return Excel::download(new ExportReportLoanSummary, 'Export Report Loan Summary.xlsx');
                 }
             } else {
                 return redirect()->route('Loan.ReportLoanSummary')->with('NotFound', 'Data Cannot Empty');
@@ -222,409 +358,409 @@ class LoanController extends Controller
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }
-    public function ReportLoantoLoanSettlement(Request $request)
-    {
-        try {
-            $varAPIWebToken = Session::get('SessionLogin');
-            $isSubmitButton = $request->session()->get('isButtonReportLoantoLoanSettlementSubmit');
+    // public function ReportLoantoLoanSettlement(Request $request)
+    // {
+    //     try {
+    //         $varAPIWebToken = Session::get('SessionLogin');
+    //         $isSubmitButton = $request->session()->get('isButtonReportLoantoLoanSettlementSubmit');
 
-            $dataReport = $isSubmitButton ? $request->session()->get('dataReportLoantoLoanSettlement', []) : [];
+    //         $dataReport = $isSubmitButton ? $request->session()->get('dataReportLoantoLoanSettlement', []) : [];
 
-            $compact = [
-                'varAPIWebToken'    => $varAPIWebToken,
-                'dataReport'        => $dataReport
-            ];
+    //         $compact = [
+    //             'varAPIWebToken'    => $varAPIWebToken,
+    //             'dataReport'        => $dataReport
+    //         ];
 
-            return view('Process.Loan.Reports.ReportLoantoLoanSettlement', $compact);
-        } catch (\Throwable $th) {
-            Log::error("ReportLoantoLoanSettlement Function Error at " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
-        }
-    }
+    //         return view('Process.Loan.Reports.ReportLoantoLoanSettlement', $compact);
+    //     } catch (\Throwable $th) {
+    //         Log::error("ReportLoantoLoanSettlement Function Error at " . $th->getMessage());
+    //         return redirect()->back()->with('NotFound', 'Process Error');
+    //     }
+    // }
 
-    public function ReportLoantoLoanSettlementData($project, $site, $requester)
-    {
-        try {
-            // Budget
-            // 46000000000033, "XL Microcell 2007"
-            // 46000000000009, "Nokia 2G CME & TI Project"
+    // public function ReportLoantoLoanSettlementData($project, $site, $requester)
+    // {
+    //     try {
+    //         // Budget
+    //         // 46000000000033, "XL Microcell 2007"
+    //         // 46000000000009, "Nokia 2G CME & TI Project"
 
-            // Sub Budget
-            // 143000000000305, "Ampang Kuranji - Padang"
-            // 143000000000308, "Bukit Pakis Sby Infill"
+    //         // Sub Budget
+    //         // 143000000000305, "Ampang Kuranji - Padang"
+    //         // 143000000000308, "Bukit Pakis Sby Infill"
 
-            // Requester
-            // 164000000000521, "Fabrian Danang Destiyara"
-            // 164000000000155, "M. Fikri Caesarandi Hasibuan"
+    //         // Requester
+    //         // 164000000000521, "Fabrian Danang Destiyara"
+    //         // 164000000000155, "M. Fikri Caesarandi Hasibuan"
 
-            $dataDummy = [
-                // Fabrian Danang Destiyara
-                [
-                    "Sys_ID" => 76000000000059,
-                    "DocumentNumber" => "LN/QDC/2025/000015",
-                    "DocumentDateTimeTZ" => "2024-07-03 00:00:00+07",
-                    "CombinedBudgetCode" => "Q000062",
-                    "CombinedBudgetName" => "XL Microcell 2007",
-                    "CombinedBudgetSectionCode" => "254",
-                    "CombinedBudgetSectionName" => "Ampang Kuranji - Padang",
-                    "RequesterWorkerJobsPosition_RefID" => 164000000000521,
-                    "RequesterWorkerName" => "Fabrian Danang Destiyara",
-                    "TotalAdvance" => "4875412.00",
-                    "TotalPayment" => "4875412.00",
-                    "Status" => "Final Approval",
-                    "DocumentASFNumber" => "LNS/QDC/2025/000015",
-                    "DocumentASFDateTimeTZ" => "2024-07-03 00:00:00+07",
-                    "TotalSettlement" => "4875412.00",
-                    "TotalExpenseClaim" => "4674312.00",
-                    "TotalAmountCompany" => "201100.00",
-                    "Description" => "Settlement Biaya Penyambungan Listrik Baru",
-                    "StatusASF" => "Final Approval",
-                    "TotalAdvancePayment" => "0.00",
-                    "TotalAdvanceSettlement" => "0.00",
-                    "CombinedBudget_RefID" => 46000000000033,
-                    "CombinedBudgetSection_RefID" => 143000000000305,
-                ],
-                [
-                    "Sys_ID" => 76000000000060,
-                    "DocumentNumber" => "LN/QDC/2025/000014",
-                    "DocumentDateTimeTZ" => "2024-07-09 00:00:00+07",
-                    "CombinedBudgetCode" => "Q000062",
-                    "CombinedBudgetName" => "XL Microcell 2007",
-                    "CombinedBudgetSectionCode" => "254",
-                    "CombinedBudgetSectionName" => "Ampang Kuranji - Padang",
-                    "RequesterWorkerJobsPosition_RefID" => 164000000000521,
-                    "RequesterWorkerName" => "Fabrian Danang Destiyara",
-                    "TotalAdvance" => "2768450.00",
-                    "TotalPayment" => "2768450.00",
-                    "Status" => "Final Approval",
-                    "DocumentASFNumber" => "LNS/QDC/2025/000014",
-                    "DocumentASFDateTimeTZ" => "2024-07-09 00:00:00+07",
-                    "TotalSettlement" => "2768450.00",
-                    "TotalExpenseClaim" => "2589320.00",
-                    "TotalAmountCompany" => "179130.00",
-                    "Description" => "Settlement biaya pindah panel beton di gudang",
-                    "StatusASF" => "Final Approval",
-                    "TotalAdvancePayment" => "0.00",
-                    "TotalAdvanceSettlement" => "0.00",
-                    "CombinedBudget_RefID" => 46000000000033,
-                    "CombinedBudgetSection_RefID" => 143000000000305,
-                ],
-                [
-                    "Sys_ID" => 76000000000061,
-                    "DocumentNumber" => "LN/QDC/2025/000013",
-                    "DocumentDateTimeTZ" => "2024-07-16 00:00:00+07",
-                    "CombinedBudgetCode" => "Q000062",
-                    "CombinedBudgetName" => "XL Microcell 2007",
-                    "CombinedBudgetSectionCode" => "254",
-                    "CombinedBudgetSectionName" => "Ampang Kuranji - Padang",
-                    "RequesterWorkerJobsPosition_RefID" => 164000000000521,
-                    "RequesterWorkerName" => "Fabrian Danang Destiyara",
-                    "TotalAdvance" => "5689450.00",
-                    "TotalPayment" => "5689450.00",
-                    "Status" => "Final Approval",
-                    "DocumentASFNumber" => "LNS/QDC/2025/000013",
-                    "DocumentASFDateTimeTZ" => "2024-07-16 00:00:00+07",
-                    "TotalSettlement" => "5689450.00",
-                    "TotalExpenseClaim" => "5471364.00",
-                    "TotalAmountCompany" => "218086.00",
-                    "Description" => "Settlement Biaya Perbaikan Motor untuk dibawa ke Pangkalan Bun",
-                    "StatusASF" => "Final Approval",
-                    "TotalAdvancePayment" => "0.00",
-                    "TotalAdvanceSettlement" => "0.00",
-                    "CombinedBudget_RefID" => 46000000000033,
-                    "CombinedBudgetSection_RefID" => 143000000000305,
-                ],
-                [
-                    "Sys_ID" => 76000000000062,
-                    "DocumentNumber" => "LN/QDC/2025/000012",
-                    "DocumentDateTimeTZ" => "2024-07-05 00:00:00+07",
-                    "CombinedBudgetCode" => "Q000062",
-                    "CombinedBudgetName" => "XL Microcell 2007",
-                    "CombinedBudgetSectionCode" => "254",
-                    "CombinedBudgetSectionName" => "Ampang Kuranji - Padang",
-                    "RequesterWorkerJobsPosition_RefID" => 164000000000521,
-                    "RequesterWorkerName" => "Fabrian Danang Destiyara",
-                    "TotalAdvance" => "1476312.00",
-                    "TotalPayment" => "1476312.00",
-                    "Status" => "Final Approval",
-                    "DocumentASFNumber" => "LNS/QDC/2025/000012",
-                    "DocumentASFDateTimeTZ" => "2024-07-05 00:00:00+07",
-                    "TotalSettlement" => "1476312.00",
-                    "TotalExpenseClaim" => "1350874.00",
-                    "TotalAmountCompany" => "125438.00",
-                    "Description" => "Settlement Biaya Warmeking Surat Kuasa Jaminan",
-                    "StatusASF" => "Final Approval",
-                    "TotalAdvancePayment" => "0.00",
-                    "TotalAdvanceSettlement" => "0.00",
-                    "CombinedBudget_RefID" => 46000000000033,
-                    "CombinedBudgetSection_RefID" => 143000000000305,
-                ],
-                [
-                    "Sys_ID" => 76000000000063,
-                    "DocumentNumber" => "LN/QDC/2025/000011",
-                    "DocumentDateTimeTZ" => "2024-07-19 00:00:00+07",
-                    "CombinedBudgetCode" => "Q000062",
-                    "CombinedBudgetName" => "XL Microcell 2007",
-                    "CombinedBudgetSectionCode" => "254",
-                    "CombinedBudgetSectionName" => "Ampang Kuranji - Padang",
-                    "RequesterWorkerJobsPosition_RefID" => 164000000000521,
-                    "RequesterWorkerName" => "Fabrian Danang Destiyara",
-                    "TotalAdvance" => "6254399.00",
-                    "TotalPayment" => "6254399.00",
-                    "Status" => "Final Approval",
-                    "DocumentASFNumber" => "LNS/QDC/2025/000011",
-                    "DocumentASFDateTimeTZ" => "2024-07-19 00:00:00+07",
-                    "TotalSettlement" => "6254399.00",
-                    "TotalExpenseClaim" => "6021648.00",
-                    "TotalAmountCompany" => "232751.00",
-                    "Description" => "Settlement Operasional Crane (Jakarta-Semarang)",
-                    "StatusASF" => "Final Approval",
-                    "TotalAdvancePayment" => "0.00",
-                    "TotalAdvanceSettlement" => "0.00",
-                    "CombinedBudget_RefID" => 46000000000033,
-                    "CombinedBudgetSection_RefID" => 143000000000305,
-                ],
-                // M. Fikri Caesarandi Hasibuan
-                [
-                    "Sys_ID" => 76000000000059,
-                    "DocumentNumber" => "LN/QDC/2025/000005",
-                    "DocumentDateTimeTZ" => "2024-07-03 00:00:00+07",
-                    "CombinedBudgetCode" => "Q000062",
-                    "CombinedBudgetName" => "XL Microcell 2007",
-                    "CombinedBudgetSectionCode" => "254",
-                    "CombinedBudgetSectionName" => "Ampang Kuranji - Padang",
-                    "RequesterWorkerJobsPosition_RefID" => 164000000000155,
-                    "RequesterWorkerName" => "M. Fikri Caesarandi Hasibuan",
-                    "TotalAdvance" => "3589710.00",
-                    "TotalPayment" => "3589710.00",
-                    "Status" => "Final Approval",
-                    "DocumentASFNumber" => "LNS/QDC/2025/000005",
-                    "DocumentASFDateTimeTZ" => "2024-07-03 00:00:00+07",
-                    "TotalSettlement" => "3589710.00",
-                    "TotalExpenseClaim" => "3454672.00",
-                    "TotalAmountCompany" => "135038.00",
-                    "Description" => "Settlement Biaya Penyambungan Listrik Baru",
-                    "StatusASF" => "Final Approval",
-                    "TotalAdvancePayment" => "0.00",
-                    "TotalAdvanceSettlement" => "0.00",
-                    "CombinedBudget_RefID" => 46000000000033,
-                    "CombinedBudgetSection_RefID" => 143000000000305,
-                ],
-                [
-                    "Sys_ID" => 76000000000060,
-                    "DocumentNumber" => "LN/QDC/2025/000004",
-                    "DocumentDateTimeTZ" => "2024-07-09 00:00:00+07",
-                    "CombinedBudgetCode" => "Q000062",
-                    "CombinedBudgetName" => "XL Microcell 2007",
-                    "CombinedBudgetSectionCode" => "254",
-                    "CombinedBudgetSectionName" => "Ampang Kuranji - Padang",
-                    "RequesterWorkerJobsPosition_RefID" => 164000000000155,
-                    "RequesterWorkerName" => "M. Fikri Caesarandi Hasibuan",
-                    "TotalAdvance" => "1295614.00",
-                    "TotalPayment" => "1295614.00",
-                    "Status" => "Final Approval",
-                    "DocumentASFNumber" => "LNS/QDC/2025/000004",
-                    "DocumentASFDateTimeTZ" => "2024-07-09 00:00:00+07",
-                    "TotalSettlement" => "1295614.00",
-                    "TotalExpenseClaim" => "1234125.00",
-                    "TotalAmountCompany" => "61489.00",
-                    "Description" => "Settlement biaya pindah panel beton di gudang",
-                    "StatusASF" => "Final Approval",
-                    "TotalAdvancePayment" => "0.00",
-                    "TotalAdvanceSettlement" => "0.00",
-                    "CombinedBudget_RefID" => 46000000000033,
-                    "CombinedBudgetSection_RefID" => 143000000000305,
-                ],
-                [
-                    "Sys_ID" => 76000000000061,
-                    "DocumentNumber" => "LN/QDC/2025/000003",
-                    "DocumentDateTimeTZ" => "2024-07-16 00:00:00+07",
-                    "CombinedBudgetCode" => "Q000062",
-                    "CombinedBudgetName" => "XL Microcell 2007",
-                    "CombinedBudgetSectionCode" => "254",
-                    "CombinedBudgetSectionName" => "Ampang Kuranji - Padang",
-                    "RequesterWorkerJobsPosition_RefID" => 164000000000155,
-                    "RequesterWorkerName" => "M. Fikri Caesarandi Hasibuan",
-                    "TotalAdvance" => "5618352.00",
-                    "TotalPayment" => "5618352.00",
-                    "Status" => "Final Approval",
-                    "DocumentASFNumber" => "LNS/QDC/2025/000003",
-                    "DocumentASFDateTimeTZ" => "2024-07-16 00:00:00+07",
-                    "TotalSettlement" => "5618352.00",
-                    "TotalExpenseClaim" => "5245289.00",
-                    "TotalAmountCompany" => "373063.00",
-                    "Description" => "Settlement Biaya Perbaikan Motor untuk dibawa ke Pangkalan Bun",
-                    "StatusASF" => "Final Approval",
-                    "TotalAdvancePayment" => "0.00",
-                    "TotalAdvanceSettlement" => "0.00",
-                    "CombinedBudget_RefID" => 46000000000033,
-                    "CombinedBudgetSection_RefID" => 143000000000305,
-                ],
-                [
-                    "Sys_ID" => 76000000000062,
-                    "DocumentNumber" => "LN/QDC/2025/000002",
-                    "DocumentDateTimeTZ" => "2024-07-05 00:00:00+07",
-                    "CombinedBudgetCode" => "Q000062",
-                    "CombinedBudgetName" => "XL Microcell 2007",
-                    "CombinedBudgetSectionCode" => "254",
-                    "CombinedBudgetSectionName" => "Ampang Kuranji - Padang",
-                    "RequesterWorkerJobsPosition_RefID" => 164000000000155,
-                    "RequesterWorkerName" => "M. Fikri Caesarandi Hasibuan",
-                    "TotalAdvance" => "850237.00",
-                    "TotalPayment" => "850237.00",
-                    "Status" => "Final Approval",
-                    "DocumentASFNumber" => "LNS/QDC/2025/000002",
-                    "DocumentASFDateTimeTZ" => "2024-07-05 00:00:00+07",
-                    "TotalSettlement" => "850237.00",
-                    "TotalExpenseClaim" => "812568.00",
-                    "TotalAmountCompany" => "37669.00",
-                    "Description" => "Settlement Biaya Warmeking Surat Kuasa Jaminan",
-                    "StatusASF" => "Final Approval",
-                    "TotalAdvancePayment" => "0.00",
-                    "TotalAdvanceSettlement" => "0.00",
-                    "CombinedBudget_RefID" => 46000000000033,
-                    "CombinedBudgetSection_RefID" => 143000000000305,
-                ],
-                [
-                    "Sys_ID" => 76000000000063,
-                    "DocumentNumber" => "LN/QDC/2025/000001",
-                    "DocumentDateTimeTZ" => "2024-07-19 00:00:00+07",
-                    "CombinedBudgetCode" => "Q000062",
-                    "CombinedBudgetName" => "XL Microcell 2007",
-                    "CombinedBudgetSectionCode" => "254",
-                    "CombinedBudgetSectionName" => "Ampang Kuranji - Padang",
-                    "RequesterWorkerJobsPosition_RefID" => 164000000000155,
-                    "RequesterWorkerName" => "M. Fikri Caesarandi Hasibuan",
-                    "TotalAdvance" => "7014213.00",
-                    "TotalPayment" => "7014213.00",
-                    "Status" => "Final Approval",
-                    "DocumentASFNumber" => "LNS/QDC/2025/000001",
-                    "DocumentASFDateTimeTZ" => "2024-07-19 00:00:00+07",
-                    "TotalSettlement" => "7014213.00",
-                    "TotalExpenseClaim" => "6810928.00",
-                    "TotalAmountCompany" => "203285.00",
-                    "Description" => "Settlement Operasional Crane (Jakarta-Semarang)",
-                    "StatusASF" => "Final Approval",
-                    "TotalAdvancePayment" => "0.00",
-                    "TotalAdvanceSettlement" => "0.00",
-                    "CombinedBudget_RefID" => 46000000000033,
-                    "CombinedBudgetSection_RefID" => 143000000000305,
-                ],
-            ];
+    //         $dataDummy = [
+    //             // Fabrian Danang Destiyara
+    //             [
+    //                 "Sys_ID" => 76000000000059,
+    //                 "DocumentNumber" => "LN/QDC/2025/000015",
+    //                 "DocumentDateTimeTZ" => "2024-07-03 00:00:00+07",
+    //                 "CombinedBudgetCode" => "Q000062",
+    //                 "CombinedBudgetName" => "XL Microcell 2007",
+    //                 "CombinedBudgetSectionCode" => "254",
+    //                 "CombinedBudgetSectionName" => "Ampang Kuranji - Padang",
+    //                 "RequesterWorkerJobsPosition_RefID" => 164000000000521,
+    //                 "RequesterWorkerName" => "Fabrian Danang Destiyara",
+    //                 "TotalAdvance" => "4875412.00",
+    //                 "TotalPayment" => "4875412.00",
+    //                 "Status" => "Final Approval",
+    //                 "DocumentASFNumber" => "LNS/QDC/2025/000015",
+    //                 "DocumentASFDateTimeTZ" => "2024-07-03 00:00:00+07",
+    //                 "TotalSettlement" => "4875412.00",
+    //                 "TotalExpenseClaim" => "4674312.00",
+    //                 "TotalAmountCompany" => "201100.00",
+    //                 "Description" => "Settlement Biaya Penyambungan Listrik Baru",
+    //                 "StatusASF" => "Final Approval",
+    //                 "TotalAdvancePayment" => "0.00",
+    //                 "TotalAdvanceSettlement" => "0.00",
+    //                 "CombinedBudget_RefID" => 46000000000033,
+    //                 "CombinedBudgetSection_RefID" => 143000000000305,
+    //             ],
+    //             [
+    //                 "Sys_ID" => 76000000000060,
+    //                 "DocumentNumber" => "LN/QDC/2025/000014",
+    //                 "DocumentDateTimeTZ" => "2024-07-09 00:00:00+07",
+    //                 "CombinedBudgetCode" => "Q000062",
+    //                 "CombinedBudgetName" => "XL Microcell 2007",
+    //                 "CombinedBudgetSectionCode" => "254",
+    //                 "CombinedBudgetSectionName" => "Ampang Kuranji - Padang",
+    //                 "RequesterWorkerJobsPosition_RefID" => 164000000000521,
+    //                 "RequesterWorkerName" => "Fabrian Danang Destiyara",
+    //                 "TotalAdvance" => "2768450.00",
+    //                 "TotalPayment" => "2768450.00",
+    //                 "Status" => "Final Approval",
+    //                 "DocumentASFNumber" => "LNS/QDC/2025/000014",
+    //                 "DocumentASFDateTimeTZ" => "2024-07-09 00:00:00+07",
+    //                 "TotalSettlement" => "2768450.00",
+    //                 "TotalExpenseClaim" => "2589320.00",
+    //                 "TotalAmountCompany" => "179130.00",
+    //                 "Description" => "Settlement biaya pindah panel beton di gudang",
+    //                 "StatusASF" => "Final Approval",
+    //                 "TotalAdvancePayment" => "0.00",
+    //                 "TotalAdvanceSettlement" => "0.00",
+    //                 "CombinedBudget_RefID" => 46000000000033,
+    //                 "CombinedBudgetSection_RefID" => 143000000000305,
+    //             ],
+    //             [
+    //                 "Sys_ID" => 76000000000061,
+    //                 "DocumentNumber" => "LN/QDC/2025/000013",
+    //                 "DocumentDateTimeTZ" => "2024-07-16 00:00:00+07",
+    //                 "CombinedBudgetCode" => "Q000062",
+    //                 "CombinedBudgetName" => "XL Microcell 2007",
+    //                 "CombinedBudgetSectionCode" => "254",
+    //                 "CombinedBudgetSectionName" => "Ampang Kuranji - Padang",
+    //                 "RequesterWorkerJobsPosition_RefID" => 164000000000521,
+    //                 "RequesterWorkerName" => "Fabrian Danang Destiyara",
+    //                 "TotalAdvance" => "5689450.00",
+    //                 "TotalPayment" => "5689450.00",
+    //                 "Status" => "Final Approval",
+    //                 "DocumentASFNumber" => "LNS/QDC/2025/000013",
+    //                 "DocumentASFDateTimeTZ" => "2024-07-16 00:00:00+07",
+    //                 "TotalSettlement" => "5689450.00",
+    //                 "TotalExpenseClaim" => "5471364.00",
+    //                 "TotalAmountCompany" => "218086.00",
+    //                 "Description" => "Settlement Biaya Perbaikan Motor untuk dibawa ke Pangkalan Bun",
+    //                 "StatusASF" => "Final Approval",
+    //                 "TotalAdvancePayment" => "0.00",
+    //                 "TotalAdvanceSettlement" => "0.00",
+    //                 "CombinedBudget_RefID" => 46000000000033,
+    //                 "CombinedBudgetSection_RefID" => 143000000000305,
+    //             ],
+    //             [
+    //                 "Sys_ID" => 76000000000062,
+    //                 "DocumentNumber" => "LN/QDC/2025/000012",
+    //                 "DocumentDateTimeTZ" => "2024-07-05 00:00:00+07",
+    //                 "CombinedBudgetCode" => "Q000062",
+    //                 "CombinedBudgetName" => "XL Microcell 2007",
+    //                 "CombinedBudgetSectionCode" => "254",
+    //                 "CombinedBudgetSectionName" => "Ampang Kuranji - Padang",
+    //                 "RequesterWorkerJobsPosition_RefID" => 164000000000521,
+    //                 "RequesterWorkerName" => "Fabrian Danang Destiyara",
+    //                 "TotalAdvance" => "1476312.00",
+    //                 "TotalPayment" => "1476312.00",
+    //                 "Status" => "Final Approval",
+    //                 "DocumentASFNumber" => "LNS/QDC/2025/000012",
+    //                 "DocumentASFDateTimeTZ" => "2024-07-05 00:00:00+07",
+    //                 "TotalSettlement" => "1476312.00",
+    //                 "TotalExpenseClaim" => "1350874.00",
+    //                 "TotalAmountCompany" => "125438.00",
+    //                 "Description" => "Settlement Biaya Warmeking Surat Kuasa Jaminan",
+    //                 "StatusASF" => "Final Approval",
+    //                 "TotalAdvancePayment" => "0.00",
+    //                 "TotalAdvanceSettlement" => "0.00",
+    //                 "CombinedBudget_RefID" => 46000000000033,
+    //                 "CombinedBudgetSection_RefID" => 143000000000305,
+    //             ],
+    //             [
+    //                 "Sys_ID" => 76000000000063,
+    //                 "DocumentNumber" => "LN/QDC/2025/000011",
+    //                 "DocumentDateTimeTZ" => "2024-07-19 00:00:00+07",
+    //                 "CombinedBudgetCode" => "Q000062",
+    //                 "CombinedBudgetName" => "XL Microcell 2007",
+    //                 "CombinedBudgetSectionCode" => "254",
+    //                 "CombinedBudgetSectionName" => "Ampang Kuranji - Padang",
+    //                 "RequesterWorkerJobsPosition_RefID" => 164000000000521,
+    //                 "RequesterWorkerName" => "Fabrian Danang Destiyara",
+    //                 "TotalAdvance" => "6254399.00",
+    //                 "TotalPayment" => "6254399.00",
+    //                 "Status" => "Final Approval",
+    //                 "DocumentASFNumber" => "LNS/QDC/2025/000011",
+    //                 "DocumentASFDateTimeTZ" => "2024-07-19 00:00:00+07",
+    //                 "TotalSettlement" => "6254399.00",
+    //                 "TotalExpenseClaim" => "6021648.00",
+    //                 "TotalAmountCompany" => "232751.00",
+    //                 "Description" => "Settlement Operasional Crane (Jakarta-Semarang)",
+    //                 "StatusASF" => "Final Approval",
+    //                 "TotalAdvancePayment" => "0.00",
+    //                 "TotalAdvanceSettlement" => "0.00",
+    //                 "CombinedBudget_RefID" => 46000000000033,
+    //                 "CombinedBudgetSection_RefID" => 143000000000305,
+    //             ],
+    //             // M. Fikri Caesarandi Hasibuan
+    //             [
+    //                 "Sys_ID" => 76000000000059,
+    //                 "DocumentNumber" => "LN/QDC/2025/000005",
+    //                 "DocumentDateTimeTZ" => "2024-07-03 00:00:00+07",
+    //                 "CombinedBudgetCode" => "Q000062",
+    //                 "CombinedBudgetName" => "XL Microcell 2007",
+    //                 "CombinedBudgetSectionCode" => "254",
+    //                 "CombinedBudgetSectionName" => "Ampang Kuranji - Padang",
+    //                 "RequesterWorkerJobsPosition_RefID" => 164000000000155,
+    //                 "RequesterWorkerName" => "M. Fikri Caesarandi Hasibuan",
+    //                 "TotalAdvance" => "3589710.00",
+    //                 "TotalPayment" => "3589710.00",
+    //                 "Status" => "Final Approval",
+    //                 "DocumentASFNumber" => "LNS/QDC/2025/000005",
+    //                 "DocumentASFDateTimeTZ" => "2024-07-03 00:00:00+07",
+    //                 "TotalSettlement" => "3589710.00",
+    //                 "TotalExpenseClaim" => "3454672.00",
+    //                 "TotalAmountCompany" => "135038.00",
+    //                 "Description" => "Settlement Biaya Penyambungan Listrik Baru",
+    //                 "StatusASF" => "Final Approval",
+    //                 "TotalAdvancePayment" => "0.00",
+    //                 "TotalAdvanceSettlement" => "0.00",
+    //                 "CombinedBudget_RefID" => 46000000000033,
+    //                 "CombinedBudgetSection_RefID" => 143000000000305,
+    //             ],
+    //             [
+    //                 "Sys_ID" => 76000000000060,
+    //                 "DocumentNumber" => "LN/QDC/2025/000004",
+    //                 "DocumentDateTimeTZ" => "2024-07-09 00:00:00+07",
+    //                 "CombinedBudgetCode" => "Q000062",
+    //                 "CombinedBudgetName" => "XL Microcell 2007",
+    //                 "CombinedBudgetSectionCode" => "254",
+    //                 "CombinedBudgetSectionName" => "Ampang Kuranji - Padang",
+    //                 "RequesterWorkerJobsPosition_RefID" => 164000000000155,
+    //                 "RequesterWorkerName" => "M. Fikri Caesarandi Hasibuan",
+    //                 "TotalAdvance" => "1295614.00",
+    //                 "TotalPayment" => "1295614.00",
+    //                 "Status" => "Final Approval",
+    //                 "DocumentASFNumber" => "LNS/QDC/2025/000004",
+    //                 "DocumentASFDateTimeTZ" => "2024-07-09 00:00:00+07",
+    //                 "TotalSettlement" => "1295614.00",
+    //                 "TotalExpenseClaim" => "1234125.00",
+    //                 "TotalAmountCompany" => "61489.00",
+    //                 "Description" => "Settlement biaya pindah panel beton di gudang",
+    //                 "StatusASF" => "Final Approval",
+    //                 "TotalAdvancePayment" => "0.00",
+    //                 "TotalAdvanceSettlement" => "0.00",
+    //                 "CombinedBudget_RefID" => 46000000000033,
+    //                 "CombinedBudgetSection_RefID" => 143000000000305,
+    //             ],
+    //             [
+    //                 "Sys_ID" => 76000000000061,
+    //                 "DocumentNumber" => "LN/QDC/2025/000003",
+    //                 "DocumentDateTimeTZ" => "2024-07-16 00:00:00+07",
+    //                 "CombinedBudgetCode" => "Q000062",
+    //                 "CombinedBudgetName" => "XL Microcell 2007",
+    //                 "CombinedBudgetSectionCode" => "254",
+    //                 "CombinedBudgetSectionName" => "Ampang Kuranji - Padang",
+    //                 "RequesterWorkerJobsPosition_RefID" => 164000000000155,
+    //                 "RequesterWorkerName" => "M. Fikri Caesarandi Hasibuan",
+    //                 "TotalAdvance" => "5618352.00",
+    //                 "TotalPayment" => "5618352.00",
+    //                 "Status" => "Final Approval",
+    //                 "DocumentASFNumber" => "LNS/QDC/2025/000003",
+    //                 "DocumentASFDateTimeTZ" => "2024-07-16 00:00:00+07",
+    //                 "TotalSettlement" => "5618352.00",
+    //                 "TotalExpenseClaim" => "5245289.00",
+    //                 "TotalAmountCompany" => "373063.00",
+    //                 "Description" => "Settlement Biaya Perbaikan Motor untuk dibawa ke Pangkalan Bun",
+    //                 "StatusASF" => "Final Approval",
+    //                 "TotalAdvancePayment" => "0.00",
+    //                 "TotalAdvanceSettlement" => "0.00",
+    //                 "CombinedBudget_RefID" => 46000000000033,
+    //                 "CombinedBudgetSection_RefID" => 143000000000305,
+    //             ],
+    //             [
+    //                 "Sys_ID" => 76000000000062,
+    //                 "DocumentNumber" => "LN/QDC/2025/000002",
+    //                 "DocumentDateTimeTZ" => "2024-07-05 00:00:00+07",
+    //                 "CombinedBudgetCode" => "Q000062",
+    //                 "CombinedBudgetName" => "XL Microcell 2007",
+    //                 "CombinedBudgetSectionCode" => "254",
+    //                 "CombinedBudgetSectionName" => "Ampang Kuranji - Padang",
+    //                 "RequesterWorkerJobsPosition_RefID" => 164000000000155,
+    //                 "RequesterWorkerName" => "M. Fikri Caesarandi Hasibuan",
+    //                 "TotalAdvance" => "850237.00",
+    //                 "TotalPayment" => "850237.00",
+    //                 "Status" => "Final Approval",
+    //                 "DocumentASFNumber" => "LNS/QDC/2025/000002",
+    //                 "DocumentASFDateTimeTZ" => "2024-07-05 00:00:00+07",
+    //                 "TotalSettlement" => "850237.00",
+    //                 "TotalExpenseClaim" => "812568.00",
+    //                 "TotalAmountCompany" => "37669.00",
+    //                 "Description" => "Settlement Biaya Warmeking Surat Kuasa Jaminan",
+    //                 "StatusASF" => "Final Approval",
+    //                 "TotalAdvancePayment" => "0.00",
+    //                 "TotalAdvanceSettlement" => "0.00",
+    //                 "CombinedBudget_RefID" => 46000000000033,
+    //                 "CombinedBudgetSection_RefID" => 143000000000305,
+    //             ],
+    //             [
+    //                 "Sys_ID" => 76000000000063,
+    //                 "DocumentNumber" => "LN/QDC/2025/000001",
+    //                 "DocumentDateTimeTZ" => "2024-07-19 00:00:00+07",
+    //                 "CombinedBudgetCode" => "Q000062",
+    //                 "CombinedBudgetName" => "XL Microcell 2007",
+    //                 "CombinedBudgetSectionCode" => "254",
+    //                 "CombinedBudgetSectionName" => "Ampang Kuranji - Padang",
+    //                 "RequesterWorkerJobsPosition_RefID" => 164000000000155,
+    //                 "RequesterWorkerName" => "M. Fikri Caesarandi Hasibuan",
+    //                 "TotalAdvance" => "7014213.00",
+    //                 "TotalPayment" => "7014213.00",
+    //                 "Status" => "Final Approval",
+    //                 "DocumentASFNumber" => "LNS/QDC/2025/000001",
+    //                 "DocumentASFDateTimeTZ" => "2024-07-19 00:00:00+07",
+    //                 "TotalSettlement" => "7014213.00",
+    //                 "TotalExpenseClaim" => "6810928.00",
+    //                 "TotalAmountCompany" => "203285.00",
+    //                 "Description" => "Settlement Operasional Crane (Jakarta-Semarang)",
+    //                 "StatusASF" => "Final Approval",
+    //                 "TotalAdvancePayment" => "0.00",
+    //                 "TotalAdvanceSettlement" => "0.00",
+    //                 "CombinedBudget_RefID" => 46000000000033,
+    //                 "CombinedBudgetSection_RefID" => 143000000000305,
+    //             ],
+    //         ];
 
-            $filteredData = array_filter($dataDummy, function ($item) use ($project, $site, $requester) {
-                return 
-                    (empty($project['id'])      || $item['CombinedBudget_RefID'] == $project['id']) &&
-                    (empty($site['id'])         || $item['CombinedBudgetSection_RefID'] == $site['id']) &&
-                    (empty($requester['id'])    || $item['RequesterWorkerJobsPosition_RefID'] == $requester['id']);
-            });
+    //         $filteredData = array_filter($dataDummy, function ($item) use ($project, $site, $requester) {
+    //             return 
+    //                 (empty($project['id'])      || $item['CombinedBudget_RefID'] == $project['id']) &&
+    //                 (empty($site['id'])         || $item['CombinedBudgetSection_RefID'] == $site['id']) &&
+    //                 (empty($requester['id'])    || $item['RequesterWorkerJobsPosition_RefID'] == $requester['id']);
+    //         });
 
-            $compact = [
-                'project'                   => $project,
-                'site'                      => $site,
-                'requester'                 => $requester,
-                'dataDetail'                => $filteredData,
-                'totalAdvance'              => $this->calculateTotal($filteredData, 'TotalAdvance'),
-                'totalPayment'              => $this->calculateTotal($filteredData, 'TotalPayment'),
-                'totalSettlement'           => $this->calculateTotal($filteredData, 'TotalSettlement'),
-                'totalExpenseClaim'         => $this->calculateTotal($filteredData, 'TotalExpenseClaim'),
-                'totalAmountCompany'        => $this->calculateTotal($filteredData, 'TotalAmountCompany'),
-                'totalAdvancePayment'       => $this->calculateTotal($filteredData, 'TotalAdvancePayment'),
-                'totalAdvanceSettlement'    => $this->calculateTotal($filteredData, 'TotalAdvanceSettlement'),
-            ];
+    //         $compact = [
+    //             'project'                   => $project,
+    //             'site'                      => $site,
+    //             'requester'                 => $requester,
+    //             'dataDetail'                => $filteredData,
+    //             'totalAdvance'              => $this->calculateTotal($filteredData, 'TotalAdvance'),
+    //             'totalPayment'              => $this->calculateTotal($filteredData, 'TotalPayment'),
+    //             'totalSettlement'           => $this->calculateTotal($filteredData, 'TotalSettlement'),
+    //             'totalExpenseClaim'         => $this->calculateTotal($filteredData, 'TotalExpenseClaim'),
+    //             'totalAmountCompany'        => $this->calculateTotal($filteredData, 'TotalAmountCompany'),
+    //             'totalAdvancePayment'       => $this->calculateTotal($filteredData, 'TotalAdvancePayment'),
+    //             'totalAdvanceSettlement'    => $this->calculateTotal($filteredData, 'TotalAdvanceSettlement'),
+    //         ];
 
-            Session::put("isButtonReportLoantoLoanSettlementSubmit", true);
-            Session::put("dataReportLoantoLoanSettlement", $compact);
+    //         Session::put("isButtonReportLoantoLoanSettlementSubmit", true);
+    //         Session::put("dataReportLoantoLoanSettlement", $compact);
 
-            return $compact;
-        } catch (\Throwable $th) {
-            Log::error("ReportLoantoLoanSettlementData Function Error at " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
-        }
-    }
+    //         return $compact;
+    //     } catch (\Throwable $th) {
+    //         Log::error("ReportLoantoLoanSettlementData Function Error at " . $th->getMessage());
+    //         return redirect()->back()->with('NotFound', 'Process Error');
+    //     }
+    // }
 
-    public function ReportLoantoLoanSettlementStore(Request $request)
-    {
-        try {
-            $project = [
-                'id'        => $request->project_id_second,
-                'code'      => $request->project_code_second,
-                'name'      => $request->project_name_second,
-            ];
+    // public function ReportLoantoLoanSettlementStore(Request $request)
+    // {
+    //     try {
+    //         $project = [
+    //             'id'        => $request->project_id_second,
+    //             'code'      => $request->project_code_second,
+    //             'name'      => $request->project_name_second,
+    //         ];
 
-            $site = [
-                'id'        => $request->site_id_second,
-                'code'      => $request->site_code_second,
-                'name'      => $request->site_name_second,
-            ];
+    //         $site = [
+    //             'id'        => $request->site_id_second,
+    //             'code'      => $request->site_code_second,
+    //             'name'      => $request->site_name_second,
+    //         ];
 
-            $requester = [
-                'id'        => $request->worker_id_second,
-                'name'      => $request->worker_name_second,
-                'position'  => $request->worker_position_second,
-            ];
+    //         $requester = [
+    //             'id'        => $request->worker_id_second,
+    //             'name'      => $request->worker_name_second,
+    //             'position'  => $request->worker_position_second,
+    //         ];
 
-            if (!$project['id'] && !$site['id'] && !$requester['id']) {
-                Session::forget("isButtonReportLoantoLoanSettlementSubmit");
-                Session::forget("dataReportLoantoLoanSettlement");
+    //         if (!$project['id'] && !$site['id'] && !$requester['id']) {
+    //             Session::forget("isButtonReportLoantoLoanSettlementSubmit");
+    //             Session::forget("dataReportLoantoLoanSettlement");
 
-                return redirect()->route('Loan.ReportLoantoLoanSettlement')->with('NotFound', 'Budget, Sub Budget, & Requester Cannot Be Empty');
-            }
+    //             return redirect()->route('Loan.ReportLoantoLoanSettlement')->with('NotFound', 'Budget, Sub Budget, & Requester Cannot Be Empty');
+    //         }
 
-            $compact = $this->ReportLoantoLoanSettlementData($project, $site, $requester);
+    //         $compact = $this->ReportLoantoLoanSettlementData($project, $site, $requester);
 
-            if ($compact === null || empty($compact)) {
-                return redirect()->back()->with('NotFound', 'Data Not Found');
-            }
+    //         if ($compact === null || empty($compact)) {
+    //             return redirect()->back()->with('NotFound', 'Data Not Found');
+    //         }
 
-            return redirect()->route('Loan.ReportLoantoLoanSettlement');
-        } catch (\Throwable $th) {
-            Log::error("ReportLoantoLoanSettlementStore Function Error at " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
-        }
-    }
+    //         return redirect()->route('Loan.ReportLoantoLoanSettlement');
+    //     } catch (\Throwable $th) {
+    //         Log::error("ReportLoantoLoanSettlementStore Function Error at " . $th->getMessage());
+    //         return redirect()->back()->with('NotFound', 'Process Error');
+    //     }
+    // }
 
-    public function PrintExportReportLoantoLoanSettlement(Request $request)
-    {
-        try {
-            $dataReport = Session::get("dataReportLoantoLoanSettlement");
-            // $print_type = $request->print_type;
-            // $project_code_second_trigger = $request->project_code_second_trigger;
-            // dd($project_code_second_trigger);
+    // public function PrintExportReportLoantoLoanSettlement(Request $request)
+    // {
+    //     try {
+    //         $dataReport = Session::get("dataReportLoantoLoanSettlement");
+    //         // $print_type = $request->print_type;
+    //         // $project_code_second_trigger = $request->project_code_second_trigger;
+    //         // dd($project_code_second_trigger);
 
-            // if ($project_code_second_trigger == null) {
-            //     Session::forget("isButtonReportLoantoLoanSettlementSubmit");
-            //     Session::forget("dataReportLoantoLoanSettlement");
+    //         // if ($project_code_second_trigger == null) {
+    //         //     Session::forget("isButtonReportLoantoLoanSettlementSubmit");
+    //         //     Session::forget("dataReportLoantoLoanSettlement");
 
-            //     return redirect()->route('Loan.ReportLoantoLoanSettlement')->with('NotFound', 'Budget, Sub Budget, & Requester Cannot Be Empty');
-            // }
+    //         //     return redirect()->route('Loan.ReportLoantoLoanSettlement')->with('NotFound', 'Budget, Sub Budget, & Requester Cannot Be Empty');
+    //         // }
 
-            if ($dataReport) {
-                $print_type = $request->print_type;
-                if ($print_type === "PDF") {
-                    $pdf = PDF::loadView('Process.Loan.Reports.ReportLoantoLoanSettlement_pdf', ['dataReport' => $dataReport])->setPaper('a4', 'landscape');
-                    $pdf->output();
-                    $dom_pdf = $pdf->getDomPDF();
+    //         if ($dataReport) {
+    //             $print_type = $request->print_type;
+    //             if ($print_type === "PDF") {
+    //                 $pdf = PDF::loadView('Process.Loan.Reports.ReportLoantoLoanSettlement_pdf', ['dataReport' => $dataReport])->setPaper('a4', 'landscape');
+    //                 $pdf->output();
+    //                 $dom_pdf = $pdf->getDomPDF();
 
-                    $canvas = $dom_pdf ->get_canvas();
-                    $width = $canvas->get_width();
-                    $height = $canvas->get_height();
-                    $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
-                    $canvas->page_text(34, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
+    //                 $canvas = $dom_pdf ->get_canvas();
+    //                 $width = $canvas->get_width();
+    //                 $height = $canvas->get_height();
+    //                 $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
+    //                 $canvas->page_text(34, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
 
-                    return $pdf->download('Export Loan to Loan Settlement.pdf');
-                } else {
-                    return Excel::download(new ExportReportLoantoLoanSettlement, 'Export Advance To ASF.xlsx');
-                }
-            } else {
-                return redirect()->route('Loan.ReportLoantoLoanSettlement')->with('NotFound', 'Budget, Sub Budget, & Requester Cannot Be Empty');
-            }
+    //                 return $pdf->download('Export Loan to Loan Settlement.pdf');
+    //             } else {
+    //                 return Excel::download(new ExportReportLoantoLoanSettlement, 'Export Advance To ASF.xlsx');
+    //             }
+    //         } else {
+    //             return redirect()->route('Loan.ReportLoantoLoanSettlement')->with('NotFound', 'Budget, Sub Budget, & Requester Cannot Be Empty');
+    //         }
 
-        } catch (\Throwable $th) {
-            Log::error("PrintExportReportLoantoLoanSettlement Function Error at " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
-        }
-    }
+    //     } catch (\Throwable $th) {
+    //         Log::error("PrintExportReportLoantoLoanSettlement Function Error at " . $th->getMessage());
+    //         return redirect()->back()->with('NotFound', 'Process Error');
+    //     }
+    // }
     public function calculateTotal($filteredData, $key) {
         return array_reduce($filteredData, function ($carry, $item) use ($key) {
             return $carry + ($item[$key] ?? 0);

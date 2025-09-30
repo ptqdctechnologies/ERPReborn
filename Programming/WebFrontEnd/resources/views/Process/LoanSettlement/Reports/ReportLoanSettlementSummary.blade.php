@@ -30,20 +30,7 @@
                         </div>
                     </div>
 
-                    <?php if ($dataReport) { ?>
-                        <!-- HEADER -->
-                        <!-- <div class="row">
-                            <div class="col-12">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="row py-2 px-1" style="gap: 1rem;">
-                                            <label class="p-0 text-bold mb-0">Budget</label>
-                                            <div>: <?php $dataReport['budgetCode']; ?> - <?php $dataReport['budgetName']; ?></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> -->
+                    <?php if ($dataLoanSettle) { ?>
 
                         <!-- TABLE -->
                         <div class="row">
@@ -65,27 +52,35 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <?php $counter = 1; ?>
-                                                <?php foreach ($dataReport['dataDetail'] as $dataDetail) { ?>
+                                                <?php 
+                                                    $counter = 1; 
+                                                    $grand_totalIDR=0;
+                                                    $grand_totalOther=0;
+                                                    $grand_totalEqui=0;
+                                                ?>
+                                                <?php foreach ($dataLoanSettle as $dataDetail) { ?>
+                                                    <?php $grand_totalIDR += $dataDetail['total_IDR'];?>
+                                                    <?php $grand_totalOther += $dataDetail['total_Other_Currency'];?>
+                                                    <?php $grand_totalEqui += $dataDetail['total_Equivalent_IDR'];?>
                                                     <tr>
-                                                        <td><?= $counter++; ?></td>
-                                                        <td><?= $dataDetail['DocumentNumber']; ?></td>
-                                                        <td><?= $dataDetail['TotalBusinessTrip']; ?></td>
-                                                        <td><?= $dataDetail['CombinedBudgetSectionCode']; ?></td>
-                                                        <td><?= $dataDetail['CombinedBudgetSectionName']; ?></td>
-                                                        <td><?= number_format($dataDetail['DirectToVendor'], 2, '.', ','); ?></td>
-                                                        <td><?= number_format($dataDetail['DepartingFrom'], 2, '.', ','); ?></td>
-                                                        <td><?= number_format($dataDetail['ByCorpCard'], 2, '.', ','); ?></td>
-                                                        <td><?= $dataDetail['remark']; ?></td>
+                                                        <td>{{ $counter++ }}</td>
+                                                        <td>{{ $dataDetail['loanSettlementNumber'] }}</td>
+                                                        <td>{{ $dataDetail['loanNumber'] }}</td>
+                                                        <td>{{ $dataDetail['creditorName'] }}</td>
+                                                        <td>{{ $dataDetail['debitorName'] }}</td>
+                                                        <td>{{ number_format($dataDetail['total_IDR'], 2, '.', ',') }}</td>
+                                                        <td>{{ number_format($dataDetail['total_Other_Currency'], 2, '.', ',') }}</td>
+                                                        <td>{{ number_format($dataDetail['total_Equivalent_IDR'], 2, '.', ',') }}</td>
+                                                        <td>{{ $dataDetail['notes'] }}</td>
                                                     </tr>
                                                 <?php } ?>
                                             </tbody>
                                             <tfoot>
                                                 <tr>
                                                     <th colspan="5" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">GRAND TOTAL</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format(605000000, 2, '.', ','); ?></th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format(0, 2, '.', ','); ?></th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format(605000000, 2, '.', ','); ?></th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format($grand_totalIDR, 2, '.', ','); ?></th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format($grand_totalOther, 2, '.', ','); ?></th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format($grand_totalEqui, 2, '.', ','); ?></th>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;background-color:#4B586A;"></th>
                                                 </tr>
                                             </tfoot>

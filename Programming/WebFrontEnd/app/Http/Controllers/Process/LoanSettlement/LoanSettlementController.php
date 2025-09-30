@@ -3,6 +3,7 @@
 
 namespace App\Http\Controllers\Process\LoanSettlement;
 
+use App\Http\Controllers\ExportExcel\Process\ExportReportLoanSettlementSummary;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use App\Http\Controllers\Controller;
@@ -19,230 +20,120 @@ class LoanSettlementController extends Controller
 {
     public function ReportLoanSettlementSummary(Request $request)
     {
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+        $request->session()->forget("SessionReimbursementNumber");
+        $dataLoanSettle = Session::get("LoanSettlementReportSummaryDataPDF");
+
+        if (!empty($_GET['var'])) {
+            $var =  $_GET['var'];
+        }
+        $compact = [
+            'varAPIWebToken' => $varAPIWebToken,
+            'statusRevisi' => 1,
+            'statusHeader' => "Yes",
+            'statusDetail' => 1,
+            'dataHeader' => [],
+            'dataLoanSettle' => $dataLoanSettle
+        
+        ];
+        // dump($dataLoanSettle);
+
+        return view('Process.LoanSettlement.Reports.ReportLoanSettlementSummary', $compact);
+    }
+
+    public function ReportLoanSettlementSummaryData( $project_code)
+    {        
         try {
+            Log::error("Error at ",[$project_code]);
+
             $varAPIWebToken = Session::get('SessionLogin');
-            $isSubmitButton = $request->session()->get('isButtonReportLoanSettlementSummarySubmit');
 
-            $dataReport = $isSubmitButton ? $request->session()->get('dataReportLoanSettlementSummary', []) : [];
+            $filteredArray = Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'report.form.documentForm.finance.getLoanSettlementSummary', 
+                'latest',
+                [
+                    'parameter' => [
+                        // 'CombinedBudgetCode' => 'Q000062',
+                        // 'CombinedBudgetSectionCode' => '235',
+                        // 'Creditor_RefID' => 166000000000001,
+                        // 'Debitor_RefID' => 25000000000001,
+                        'CombinedBudgetCode' => NULL,
+                        'CombinedBudgetSectionCode' => NULL,
+                        'Creditor_RefID' => NULL,
+                        'Debitor_RefID' => NULL,
+                    ],
+                     'SQLStatement' => [
+                        'pick' => null,
+                        'sort' => null,
+                        'filter' => null,
+                        'paging' => null
+                        ]
+                ]
+            );
+            
+            Log::error("Error at " ,$filteredArray);
+            if ($filteredArray['metadata']['HTTPStatusCode'] !== 200) {
+                return redirect()->back()->with('NotFound', 'Process Error');
 
-            $compact = [
-                'varAPIWebToken' => $varAPIWebToken,
-                'dataReport' => $dataReport
-            ];
-    
-            return view('Process.LoanSettlement.Reports.ReportLoanSettlementSummary', $compact);
-        } catch (\Throwable $th) {
-            Log::error("ReportLoanSettlementSummary Function Error at " . $th->getMessage());
+            }
+            Session::put("LoanSettlementReportSummaryDataPDF", $filteredArray['data']['data']);
+            Session::put("LoanSettlementReportSummaryDataExcel", $filteredArray['data']['data']);
+            return $filteredArray['data']['data'];
+        }
+        catch (\Throwable $th) {
+            Log::error("Error at " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }
 
-    public function ReportLoanSettlementSummaryData($project_id, $site_id, $requester_id, $beneficiary_id, $project_name, $project_code, $site_code, $requester_name, $beneficiary_name, $site_name, $requester_position, $beneficiary_position) 
+    public function ReportLoanSettlementSummaryStore(Request $request)
     {
+        // tes;
         try {
-            $varAPIWebToken             = Session::get('SessionLogin');
-            $getReportAdvanceSummary    = null;
+            $project_code = $request->project_code_second;
+            // $site_code = $request->site_id_second;
 
-            // if (!Helper_Redis::getValue($varAPIWebToken, "ReportAdvanceSummary")) {
-            //     $getReportAdvanceSummary = Helper_APICall::setCallAPIGateway(
-            //         Helper_Environment::getUserSessionID_System(),
-            //         $varAPIWebToken,
-            //         'report.form.documentForm.finance.getReportAdvanceSummary',
-            //         'latest',
-            //         [
-            //             'parameter' => [
-            //                 'dataFilter' => [
-            //                     'budgetID' => 1,
-            //                     'subBudgetID' => 1,
-            //                     'workID' => 1,
-            //                     'productID' => 1,
-            //                     'beneficiaryID' => 1,
-            //                 ]
-            //             ]
-            //         ],
-            //         false
-            //     );
-            // } else {
-            //     $getReportAdvanceSummary = Helper_Redis::getValue($varAPIWebToken, "ReportAdvanceSummary");
+            $statusHeader = "Yes";
+            Log::error("Error at " ,[$request->all()]);
+            if ($project_code == "") {
+                Session::forget("LoanSettlementReportSummaryDataPDF");
+                Session::forget("LoanSettlementReportSummaryDataExcel");
+                
+                return redirect()->route('LoanSettlement.ReportLoanSettlementSummary')->with('NotFound', 'Cannot Empty');
+            }
+
+            $compact = $this->ReportLoanSettlementSummaryData($project_code);
+            // dd($compact);
+            // if ($compact['dataHeader'] == []) {
+            //     Session::forget("PReimbursementSummaryReportDataPDF");
+            //     Session::forget("PReimbursementSummaryReportDataExcel");
+
+            //     return redirect()->back()->with('NotFound', 'Data Not Found');
             // }
 
-            // DUMMY DATA (2 PAGE)
-            $getReportAdvanceSummary = [
-                [
-                    "DocumentNumber" => "LNS/QDC/2025/000229",
-                    "DocumentDateTimeTZ" => "2024-12-27 00:00:00+07",
-                    "TotalBusinessTrip" => "LN/QDC/2025/000030",
-                    "Sys_ID" => 76000000000054,
-                    "CombinedBudgetCode" => "Q000062",
-                    "CombinedBudgetName" => "XL Microcell 2007",
-                    "CombinedBudgetSectionCode" => "Bank Mandiri",
-                    "CombinedBudgetSectionName" => "PT QDC Technoogies",
-                    "RequesterWorkerJobsPosition_RefID" => 164000000000023,
-                    "RequesterWorkerName" => "Ahmad Faiz Haems Muda",
-                    "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
-                    "BeneficiaryWorkerName" => "Abdul Rachman",
-                    "CurrencyName" => "IDR",
-                    "Product_ID" => 88000000000527,
-                    "CombinedBudget_RefID" => 46000000000033,
-                    "CombinedBudgetSection_RefID" => 143000000000305,
-                    "remark" => "Partially Settled",
-                    "DepartingFrom" => "0",
-                    "DestinationTo" => "Tanjung Pinang",
-                    "DirectToVendor" => "100000000",
-                    "ByCorpCard" => "100000000",
-                ],
-                [
-                    "DocumentNumber" => "LNS/QDC/2025/000229",
-                    "DocumentDateTimeTZ" => "2024-12-27 00:00:00+07",
-                    "TotalBusinessTrip" => "LN/QDC/2025/000029",
-                    "Sys_ID" => 76000000000054,
-                    "CombinedBudgetCode" => "Q000062",
-                    "CombinedBudgetName" => "XL Microcell 2007",
-                    "CombinedBudgetSectionCode" => "PT QDC Technoogies",
-                    "CombinedBudgetSectionName" => "Eka",
-                    "RequesterWorkerJobsPosition_RefID" => 164000000000023,
-                    "RequesterWorkerName" => "Ahmad Faiz Haems Muda",
-                    "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
-                    "BeneficiaryWorkerName" => "Abdul Rachman",
-                    "CurrencyName" => "IDR",
-                    "Product_ID" => 88000000000527,
-                    "CombinedBudget_RefID" => 46000000000033,
-                    "CombinedBudgetSection_RefID" => 143000000000305,
-                    "remark" => "Payroll Deduction",
-                    "DepartingFrom" => "0",
-                    "DestinationTo" => "Tanjung Pinang",
-                    "DirectToVendor" => "5000000",
-                    "ByCorpCard" => "5000000",
-                ],
-                [
-                    "DocumentNumber" => "LNS/QDC/2025/000229",
-                    "DocumentDateTimeTZ" => "2024-12-27 00:00:00+07",
-                    "TotalBusinessTrip" => "LN/QDC/2025/000028",
-                    "Sys_ID" => 76000000000054,
-                    "CombinedBudgetCode" => "Q000062",
-                    "CombinedBudgetName" => "XL Microcell 2007",
-                    "CombinedBudgetSectionCode" => "Bank Rakyat Indonesia (BRI)",
-                    "CombinedBudgetSectionName" => "PT QDC Technoogies",
-                    "RequesterWorkerJobsPosition_RefID" => 164000000000023,
-                    "RequesterWorkerName" => "Ahmad Faiz Haems Muda",
-                    "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
-                    "BeneficiaryWorkerName" => "Abdul Rachman",
-                    "CurrencyName" => "IDR",
-                    "Product_ID" => 88000000000527,
-                    "CombinedBudget_RefID" => 46000000000033,
-                    "CombinedBudgetSection_RefID" => 143000000000305,
-                    "remark" => "Partially Settled",
-                    "DepartingFrom" => "0",
-                    "DestinationTo" => "Tanjung Pinang",
-                    "DirectToVendor" => "500000000",
-                    "ByCorpCard" => "500000000",
-                ],
-                
-            ];
-
-            $reportData = is_string($getReportAdvanceSummary) ? json_decode($getReportAdvanceSummary, true) : $getReportAdvanceSummary;
-
-            $filteredData = array_filter($reportData, function ($item) use ($project_code, $site_name, $requester_name, $beneficiary_name) {
-                return 
-                    (empty($project_code)     || $item['CombinedBudgetCode'] == $project_code) &&
-                    (empty($site_name)        || $item['CombinedBudgetSectionName'] == $site_name) &&
-                    (empty($requester_name)   || $item['RequesterWorkerName'] == $requester_name) &&
-                    (empty($beneficiary_name) || $item['BeneficiaryWorkerName'] == $beneficiary_name);
-                    // (empty($project_id)     || $item['CombinedBudget_RefID'] == $project_id) &&
-                    // (empty($site_id)        || $item['CombinedBudgetSection_RefID'] == $site_id) &&
-                    // (empty($requester_id)   || $item['RequesterWorkerJobsPosition_RefID'] == $requester_id) &&
-                    // (empty($beneficiary_id) || $item['BeneficiaryWorkerJobsPosition_RefID'] == $beneficiary_id);
-            });
-
-            // $totalAdvance = array_reduce($filteredData, function ($carry, $item) {
-            $totalAdvance = array_reduce($filteredData, function ($carry, $item) {
-                return $carry + ($item['TotalAdvance'] ?? 0);
-            }, 0);
-
-            $compact = [
-                // 'dataDetail'         => $filteredData,
-                'dataDetail'            => $filteredData,
-                'budgetCode'            => $project_code,
-                'budgetName'            => $project_name,
-                'budgetId'              => $project_id,
-                'siteCode'              => $site_code,
-                'siteName'              => $site_name,
-                'siteId'                => $site_id,
-                'requesterName'         => $requester_name,
-                'requesterId'           => $requester_id,
-                'requesterPosition'     => $requester_position,
-                'beneficiaryName'       => $beneficiary_name,
-                'beneficiaryId'         => $beneficiary_id,
-                'beneficiaryPosition'   => $beneficiary_position,
-                'total'                 => $totalAdvance,
-            ];
-
-            Session::put("isButtonReportLoanSettlementSummarySubmit", true);
-            Session::put("dataReportLoanSettlementSummary", $compact);
-
-            return $compact;
-        } catch (\Throwable $th) {
-            Log::error("ReportLoanSettlementSummaryData Error at " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
-        }
-    }
-
-    public function ReportLoanSettlementSummaryStore(Request $request) 
-    {
-        try {
-            $project_code           = $request->project_code_second;
-            $project_name           = $request->project_name_second;
-            $project_id             = $request->project_id_second;
-
-            $site_id                = $request->site_id_second;
-            $site_code              = $request->site_code_second;
-            $site_name              = $request->site_name_second;
-
-            $requester_id           = $request->worker_id_second;
-            $requester_name         = $request->worker_name_second;
-            $requester_position     = $request->worker_position_second;
-
-            $beneficiary_id         = $request->beneficiary_second_id;
-            $beneficiary_name       = $request->beneficiary_second_person_name;
-            $beneficiary_position   = $request->beneficiary_second_person_position;
-
-            if (!$project_id && !$site_id && !$requester_id && !$beneficiary_id) {
-                Session::forget("isButtonReportLoanSettlementSummarySubmit");
-                Session::forget("dataReportLoanSettlementSummary");
-
-                return redirect()->route('LoanSettlement.ReportLoanSettlementSummary')->with('NotFound', 'Budget, Sub Budget, Requester, & Beneficiary Cannot Be Empty');
-            }
-
-            $compact = $this->ReportLoanSettlementSummaryData($project_id, $site_id, $requester_id, $beneficiary_id, $project_name, $project_code, $site_code, $requester_name, $beneficiary_name, $site_name, $requester_position, $beneficiary_position);
-
-            if ($compact === null || empty($compact)) {
-                return redirect()->back()->with('NotFound', 'Data Not Found');
-            }
-            
             return redirect()->route('LoanSettlement.ReportLoanSettlementSummary');
         } catch (\Throwable $th) {
-            Log::error("ReportLoanSettlementSummaryStore Error at " . $th->getMessage());
+            Log::error("Error at " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }
 
-    public function PrintExportReportLoanSettlementSummary(Request $request) 
+    public function PrintExportReportLoanSettlementSummary(Request $request)
     {
         try {
-            $dataReport = Session::get("dataReportLoanSettlementSummary");
-            $print_type = $request->print_type;
-            $project_code_second_trigger = $request->project_code_second_trigger;
+            $dataPDF = Session::get("LoanSettlementReportSummaryDataPDF");
+            $dataExcel = Session::get("LoanSettlementReportSummaryDataExcel");
 
-            if ($project_code_second_trigger == null) {
-                Session::forget("isButtonReportLoanSettlementSummarySubmit");
-                Session::forget("dataReportLoanSettlementSummary");
-        
-                return redirect()->route('LoanSettlement.ReportLoanSettlementSummary')->with('NotFound', 'Budget, Sub Budget, Requester, & Beneficiary Cannot Be Empty');
-            }
+            
+            if ($dataPDF && $dataExcel) {
+                $print_type = $request->print_type;
+                if ($print_type == "PDF") {
+                    $dataLoanSettle = Session::get("LoanSettlementReportSummaryDataPDF");
+                    // dd($dataLoanSettle);
 
-            if ($dataReport) {
-                if ($print_type === "PDF") {
-                    $pdf = PDF::loadView('Process.LoanSettlement.Reports.ReportLoanSettlementSummary_pdf', ['dataReport' => $dataReport])->setPaper('a4', 'landscape');
+                    $pdf = PDF::loadView('Process.LoanSettlement.Reports.ReportLoanSettlementSummary_pdf', ['dataLoanSettle' => $dataLoanSettle])->setPaper('a4', 'landscape');
                     $pdf->output();
                     $dom_pdf = $pdf->getDomPDF();
 
@@ -252,15 +143,15 @@ class LoanSettlementController extends Controller
                     $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
                     $canvas->page_text(34, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
 
-                    return $pdf->download('Export Report Business Trip Request Summary.pdf');
-                } else {
-                    return Excel::download(new ExportReportLoanSettlementSummary, 'Export Report Business Trip Request Summary.xlsx');
+                    return $pdf->download('Export Report Loan Settlement Summary.pdf');
+                } else if ($print_type == "Excel") {
+                    return Excel::download(new ExportReportLoanSettlementSummary, 'Export Report Loan Settlement Summary.xlsx');
                 }
             } else {
-                return redirect()->route('LoanSettlement.ReportLoanSettlementSummary')->with('NotFound', 'Budget, Sub Budget, Requester, & Beneficiary Cannot Empty');
+                return redirect()->route('LoanSettlement.ReportLoanSettlementSummary')->with('NotFound', 'Data Cannot Empty');
             }
         } catch (\Throwable $th) {
-            Log::error("PrintExportReportLoanSettlementSummary Error at " . $th->getMessage());
+            Log::error("Error at " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }
