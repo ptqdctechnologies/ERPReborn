@@ -100,6 +100,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
                                     $varData['entities']['deliveryFrom_NonRefID'],
                                     $varData['entities']['deliveryTo_RefID'],
                                     $varData['entities']['deliveryTo_NonRefID'],
+                                    $varData['entities']['stockMovementRequester_RefID'],
+                                    $varData['entities']['stockMovementStatus'],
+                                    $varData['entities']['type'],
                                     $varData['entities']['remarks'],
 
                                     (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(

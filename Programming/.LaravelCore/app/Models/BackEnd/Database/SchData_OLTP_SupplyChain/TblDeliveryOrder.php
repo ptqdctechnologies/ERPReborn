@@ -169,7 +169,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
             $varUserSession,
             int $varSysID,
             string $varSysDataAnnotation = null, string $varSysDataValidityStartDateTimeTZ = null, string $varSysDataValidityFinishDateTimeTZ = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, $varSysBaseCurrency_RefID = null,
-            string $varDocumentDateTimeTZ = null, int $varLog_FileUpload_Pointer_RefID = null, int $varRequesterWorkerJobsPosition_RefID = null, int $varTransporter_RefID = null, string $varDeliveryDateTimeTZ = null, int $varDeliveryFrom_RefID = null, string $varDeliveryFrom_NonRefID  = null, int $varDeliveryTo_RefID = null, string $varDeliveryTo_NonRefID  = null, string $varRemarks = null,
+            string $varDocumentDateTimeTZ = null, int $varLog_FileUpload_Pointer_RefID = null, int $varRequesterWorkerJobsPosition_RefID = null, int $varTransporter_RefID = null, string $varDeliveryDateTimeTZ = null, int $varDeliveryFrom_RefID = null, string $varDeliveryFrom_NonRefID  = null, int $varDeliveryTo_RefID = null, string $varDeliveryTo_NonRefID  = null, int $varStockMovementRequester_RefID = null, int $varStockMovementStatus = null, int $varType = null, string $varRemarks = null,
             array $varAdditionalData = null
             )
             {
@@ -199,6 +199,9 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             [$varDeliveryFrom_NonRefID, 'varchar'],
                             [$varDeliveryTo_RefID, 'bigint'],
                             [$varDeliveryTo_NonRefID, 'varchar'],
+                            [$varStockMovementRequester_RefID, 'bigint'],
+                            [$varStockMovementStatus, 'smallint'],
+                            [$varType, 'smallint'],
                             [$varRemarks, 'varchar'],
 
                             [
