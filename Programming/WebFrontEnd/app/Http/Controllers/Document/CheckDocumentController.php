@@ -144,7 +144,16 @@ class CheckDocumentController extends Controller
             );
 
             if ($responseData['metadata']['HTTPStatusCode'] !== 200) {
-                return redirect()->back()->with('NotFound', value: 'Workflow History API Error.');
+                return [
+                    [
+                        'remarks' => 'ini data dummy', 
+                        'workFlowPathActionName' => 'Rejection To Resubmit',
+                        'approvalDateTimeTZ' => '2025-09-29 10:31:00.113 +0700',
+                        'approverEntityName' => 'Teguh Pratama Januzir Sukin',
+                        'approverEntityFullJobPositionTitle' => 'Manager'
+                    ]
+                ];
+                // return redirect()->back()->with('NotFound', value: 'Workflow History API Error.');
             }
 
             // dd($responseData);
@@ -229,9 +238,16 @@ class CheckDocumentController extends Controller
             // dd($collection, $workflowHistory);
 
             $approverStatus     = $this->determineApproverStatus($workflowHistory, $sourceData);
+
+            // dd($approverStatus);
+
             $documentStatus     = $this->determineDocumentStatus($workflowHistory);
 
+            // dd($documentStatus);
+
             $formatData = DocumentTypeMapper::formatData($businessDocumentTypeName, $collection['dataDetail'][0]);
+
+            // dd($formatData);
 
             $compactTransactionHistory = [];
             if (isset($formatData['dataHeader']['dateUpdate']) && $formatData['dataHeader']['dateUpdate'] ?? isset($formatData['dataHeader']['DateUpdate']) && $formatData['dataHeader']['DateUpdate']) {
@@ -264,7 +280,7 @@ class CheckDocumentController extends Controller
                 ];
             }
 
-            // dump($compactTransactionHistory);
+            // dd($compactTransactionHistory);
 
             $compact = [
                 'varAPIWebToken'                => $varAPIWebToken,
