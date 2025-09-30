@@ -21,7 +21,6 @@
                                                     @csrf
                                                     <input id="advance_settlement_id" style="border-radius:0;" name="advance_settlement_id" type="hidden" class="form-control">
                                                 </form>
-                                                <input required="" id="advance_settlement_number" style="border-radius:0;" name="advance_settlement_number" type="text" class="form-control" required readonly>
                                                 <div class="input-group-append">
                                                     <span style="border-radius:0;cursor:pointer;" class="input-group-text form-control" id="advance_settlement_number_icon">
                                                         <a data-toggle="modal" data-target="#myGetModalAdvanceSettlement">
@@ -29,6 +28,7 @@
                                                         </a>
                                                     </span>
                                                 </div>
+                                                <input required="" id="advance_settlement_number" style="border-radius:0;" name="advance_settlement_number" type="text" class="form-control" required readonly>
                                             </div>
                                         </td>
                                     </tr>

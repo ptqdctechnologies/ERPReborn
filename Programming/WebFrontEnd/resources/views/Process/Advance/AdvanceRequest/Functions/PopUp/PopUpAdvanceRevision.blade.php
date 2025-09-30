@@ -23,7 +23,6 @@
                                                     <input id="modal_advance_id" style="border-radius:0;" name="modal_advance_id" type="hidden" class="form-control">
                                                 </form>
 
-                                                <input required="" id="modal_advance_document_number" style="border-radius:0;" name="modal_advance_document_number" type="text" class="form-control" required readonly>
                                                 <div class="input-group-append" style="cursor: pointer;">
                                                     <span style="border-radius:0;" class="input-group-text form-control" id="modal_advance_document_number_icon">
                                                         <a data-toggle="modal" data-target="#myGetModalAdvance">
@@ -31,6 +30,7 @@
                                                         </a>
                                                     </span>
                                                 </div>
+                                                <input required="" id="modal_advance_document_number" style="border-radius:0;" name="modal_advance_document_number" type="text" class="form-control" required readonly>
                                             </div>
                                         </td>
                                     </tr>
