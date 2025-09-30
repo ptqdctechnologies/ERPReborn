@@ -349,16 +349,16 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getDataList_DeliveryOrderDetail_LatestVersion                                                              |
+        | ▪ Method Name     : getDataList_DeliveryOrderDetail_LatestVersion                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2025-07-08                                                                                           |
+        | ▪ Last Update     : 2025-09-30                                                                                           |
         | ▪ Creation Date   : 2025-03-27                                                                                           |
-        | ▪ Description     : Mendapatkan Daftar Detail Pesanan Pengiriman (DO) Versi Terakhir                                            |
+        | ▪ Description     : Mendapatkan Daftar Detail Pesanan Pengiriman (DO) Versi Terakhir                                     |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varDeliveryOrder_RefID ► Delivery Order ID                                                                           |
+        |      ▪ (int)    varDeliveryOrder_RefID ► Delivery Order ID                                                               |
         |        ------------------------------                                                                                    |
         |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
         |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
@@ -448,9 +448,28 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             $varReturn['data'][$idxArray]['deliveryTo_NonRefID'] = json_decode($value["DeliveryTo_NonRefID"]);
                             $varReturn['data'][$idxArray]['deliveryDateTimeTZ'] = $value["DeliveryDateTimeTZ"];
                             $varReturn['data'][$idxArray]['transporter_RefID'] = $value["Transporter_RefID"];
+                            $varReturn['data'][$idxArray]['stockMovementRequester_RefID'] = $value["StockMovementRequester_RefID"];
+                            if ($value["StockMovementStatus"] === 0) {
+                                $varReturn['data'][$idxArray]['stockMovementStatus'] = 'RENT';
+                            } elseif ($value["StockMovementStatus"] === 1) {
+                                $varReturn['data'][$idxArray]['stockMovementStatus'] = 'PERMANENT';
+                            } else {
+                                $varReturn['data'][$idxArray]['stockMovementStatus'] = null;
+                            }
+                            if ($value["Type"] === 0) {
+                                $varReturn['data'][$idxArray]['type'] = 'PURCHASE_ORDER';
+                            } elseif ($value["Type"] === 1) {
+                                $varReturn['data'][$idxArray]['type'] = 'INTERNAL_USE';
+                            } elseif ($value["Type"] === 2) {
+                                $varReturn['data'][$idxArray]['type'] = 'STOCK_MOVEMENT';
+                            } else {
+                                $varReturn['data'][$idxArray]['type'] = null;
+                            }
+                            $varReturn['data'][$idxArray]['stockMovementRequesterName'] = $value["StockMovementRequesterName"];
+                            $varReturn['data'][$idxArray]['stockMovementRequesterPosition'] = $value["StockMovementRequesterPosition"];
                             $varReturn['data'][$idxArray]['remarks'] = $value["Remarks"];
                             $varReturn['data'][$idxArray]['qtyReq'] = $value["QtyReq"];
-                            $varReturn['data'][$idxArray]['underlyingDetail_RefID'] = $value["UnderlyingDetail_RefID"];
+                            $varReturn['data'][$idxArray]['reference_ID'] = $value["UnderlyingDetail_RefID"];
                             $varReturn['data'][$idxArray]['product_RefID'] = $value["Product_RefID"];
                             $varReturn['data'][$idxArray]['deliveryOrder_RefID'] = $value["DeliveryOrder_RefID"];
                             $varReturn['data'][$idxArray]['deliveryOrderDetail_ID'] = $value["DeliveryOrderDetail_ID"];
@@ -551,7 +570,6 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                                 $varReturn['data'][$idxArray]['transporterPhone'] = null;
                                 $varReturn['data'][$idxArray]['transporterFax'] = null;
                             }
-                            $varReturn['data'][$idxArray]['referenceDocument_RefID'] = $value["ReferenceDocument_RefID"];
                             $varReturn['data'][$idxArray]['qtyAvail'] = in_array($value["DeliveryOrderDetail_ID"], $listIdDODetail) ? round($value["QtyReq"] - $qtyWarehouseInboundOrderDetail[$value["DeliveryOrderDetail_ID"]]["Qty"], 2) : null;
                             $varReturn['data'][$idxArray]['orderSequence'] = $idxArray + 1;
                             $idxArray++;
