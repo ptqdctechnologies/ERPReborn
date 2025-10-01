@@ -20,12 +20,11 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" id="debit_note_submit_button_modal" class="btn btn-default btn-sm" onclick="submitForm();" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
-                    <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" title="Submit Debit Note Modal"> Yes, save it
-                </button>
-
                 <button type="button" id="debit_note_cancel_button_modal" class="btn btn-default btn-sm" data-dismiss="modal" style="background-color:#e9ecef;border:1px solid #ced4da;">
                     <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel Debit Note Modal"> No, cancel
+                </button>
+                <button type="button" id="debit_note_submit_button_modal" class="btn btn-default btn-sm" onclick="submitForm();" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
+                    <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" title="Submit Debit Note Modal"> Yes, save it
                 </button>
             </div>
         </div>
