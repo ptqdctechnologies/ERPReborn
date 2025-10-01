@@ -9,6 +9,7 @@
  */
 namespace SebastianBergmann\CodeCoverage\Report;
 
+use const DIRECTORY_SEPARATOR;
 use function basename;
 use function count;
 use function dirname;
@@ -116,10 +117,6 @@ final class Cobertura
             foreach ($classes as $className => $class) {
                 $complexity        += $class['ccn'];
                 $packageComplexity += $class['ccn'];
-
-                if (!empty($class['package']['namespace'])) {
-                    $className = $class['package']['namespace'] . '\\' . $className;
-                }
 
                 $linesValid   = $class['executableLines'];
                 $linesCovered = $class['executedLines'];
