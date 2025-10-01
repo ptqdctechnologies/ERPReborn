@@ -211,8 +211,6 @@
                             </td>
                             <td>
                                 <div class="input-group">
-                                    <input id="debit_note_coa_id${indexDebitNoteDetails}" style="border-radius:0;width:130px;background-color:white;" class="form-control" hidden />
-                                    <input id="debit_note_coa_name${indexDebitNoteDetails}" style="border-radius:0;width:130px;background-color:white;" class="form-control" readonly />
                                     <div class="input-group-append">
                                         <span style="border-radius:0;cursor:pointer;" class="input-group-text form-control">
                                             <a data-toggle="modal" data-target="#myGetChartOfAccount" onclick="pickCOA(${indexDebitNoteDetails})">
@@ -220,6 +218,8 @@
                                             </a>
                                         </span>
                                     </div>
+                                    <input id="debit_note_coa_id${indexDebitNoteDetails}" style="border-radius:0;width:130px;background-color:white;" class="form-control" hidden />
+                                    <input id="debit_note_coa_name${indexDebitNoteDetails}" style="border-radius:0;width:130px;background-color:white;" class="form-control" readonly />
                                 </div>
                             </td>
 

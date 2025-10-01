@@ -10,15 +10,15 @@
                 </label>
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div>
-                        <input id="delivery_order_code" style="border-radius:0;" class="form-control" size="19" readonly>
-                        <input id="delivery_order_id" style="border-radius:0;" name="delivery_order_id" class="form-control" hidden>
-                    </div>
-                    <div>
                         <span style="border-radius:0;" class="input-group-text form-control">
                             <a href="javascript:;" id="deliveryOrderTrigger" data-toggle="modal" data-target="#myDeliveryOrder" style="display: block;">
                                 <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="deliveryOrderTrigger">
                             </a>
                         </span>
+                    </div>
+                    <div>
+                        <input id="delivery_order_code" style="border-radius:0;" class="form-control" size="19" readonly>
+                        <input id="delivery_order_id" style="border-radius:0;" name="delivery_order_id" class="form-control" hidden>
                     </div>
                 </div>
             </div>
@@ -39,13 +39,13 @@
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div>
                         <div class="input-group date" id="startDate" data-target-input="nearest">
-                            <input type="text" size="19" id="receive_date" name="receive_date" class="form-control datetimepicker-input" data-target="#startDate" style="height: 21.8px;border-radius:0;background-color:#e9ecef;">
-
                             <div class="input-group-prepend" data-target="#startDate" data-toggle="datetimepicker" style="margin-right: 0px; width: 27.78px;cursor: pointer;height: 21.8px;">
                                 <span class="input-group-text">
                                     <i class="far fa-calendar-alt" style="width: 13px; height: 13px;"></i>
                                 </span>
                             </div>
+
+                            <input type="text" size="19" id="receive_date" name="receive_date" class="form-control datetimepicker-input" data-target="#startDate" style="height: 21.8px;border-radius:0;background-color:#e9ecef;">
                         </div>
                     </div>
                 </div>
@@ -65,16 +65,16 @@
                     Receive in
                 </label>
                 <div class="col-sm-9 col-md-8 col-lg-6 d-flex p-0">
-                    <div>
-                        <input hidden type="text" id="warehouse_id" name="warehouse_id" />
-                        <textarea disabled id="warehouse_name" rows="3" style="border-radius:0;" class="form-control"></textarea>
-                    </div>
                     <div style="background-color:#e9ecef;min-height:100%;border:1px solid #ced4da;">
                         <span style="border-radius:0;border:0;" class="input-group-text form-control">
                             <a href="javascript:;" id="myGetModalWarehousesTrigger" data-toggle="modal" data-target="#myGetModalWarehouses" style="display: block;">
                                 <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="myGetModalWarehousesTrigger">
                             </a>
                         </span>
+                    </div>
+                    <div>
+                        <input hidden type="text" id="warehouse_id" name="warehouse_id" />
+                        <textarea disabled id="warehouse_name" rows="3" style="border-radius:0;" class="form-control"></textarea>
                     </div>
                     <div style="flex: 100%;">
                         <div class="input-group">

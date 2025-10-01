@@ -183,7 +183,7 @@
         });
 
         document.getElementById('GrandTotal').innerText = `Total (${rows[0].children[7].innerText}): ${decimalFormat(total)}`;
-        document.getElementById('GrandVAT').innerText = `VAT ${TotalPpns.innerText}`;
+        document.getElementById('GrandVAT').innerText = `VAT: ${TotalPpns.innerText}`;
         document.getElementById('GrandTotalVAT').innerText = `Total (${rows[0].children[7].innerText}) + VAT: ${decimalFormat(total + parseFloat(TotalPpns.innerText))}`;
     }
 
@@ -331,7 +331,7 @@
         const isInputNotEmpty               = validateQtyAndPriceWithHighlight();
 
         if (isDeliveryToNotEmpty && isDownPaymentValueNotEmpty && isTableNotEmpty && isInputNotEmpty) {
-            $('#purchaseOrderRevisionFormModal').modal('show');
+            $('#purchaseOrderFormModal').modal('show');
             summaryData();
         } else {
             if (!isDeliveryToNotEmpty && !isDownPaymentValueNotEmpty && !isTableNotEmpty) {
@@ -664,7 +664,7 @@
     }
 
     function SubmitForm() {
-        $('#purchaseOrderRevisionFormModal').modal('hide');
+        $('#purchaseOrderFormModal').modal('hide');
 
         var action = $("#FormSubmitRevisionPurchaseOrder").attr("action");
         var method = $("#FormSubmitRevisionPurchaseOrder").attr("method");

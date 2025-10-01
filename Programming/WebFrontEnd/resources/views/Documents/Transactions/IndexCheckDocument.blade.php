@@ -93,7 +93,7 @@
             <?php } ?>
 
             <!-- TEXT AREA FIELD (Remarks, Reason To Travel) -->
-            <?php if (isset($textAreaFields)) { ?>
+            <?php if (isset($textAreaFields) && !$dataHeader['dateUpdate']) { ?>
               <div class="col-12 ShowDocumentList">
                 <div class="card">
                   <!-- TITLE -->

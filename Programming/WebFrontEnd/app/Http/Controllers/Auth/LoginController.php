@@ -98,7 +98,7 @@ class LoginController extends Controller
         Session::put('SessionWorkerCareerInternal_RefID', $userIdentity['workerCareerInternal_RefID']);
         Session::put('SessionUser_RefID', $userIdentity['user_RefID']);
 
-        $userRole = array_column($roleData, 'sys_ID');
+        $userRole = array_column($roleData, 'ID');
         Session::put('SessionRoleLogin', $userRole);
     }
 
@@ -109,24 +109,25 @@ class LoginController extends Controller
             $username   = $request->input('username');
             $password   = $request->input('password');
 
-            $loginData = $this->performLogin($username, $password);
-            $userRefID = $loginData['userIdentities']['user_RefID'];
+            $loginData  = $this->performLogin($username, $password);
+            $userRefID  = $loginData['userIdentities']['user_RefID'];
+            $roleData   = $loginData['optionList']['institutionBranchList'][0]['userRoleList'];
 
-            $institutionBranchData = $this->fetchInstitutionBranch($userRefID);
-            $institutionBranchID   = $institutionBranchData[0]['sys_ID'];
+            // $institutionBranchData = $this->fetchInstitutionBranch($userRefID);
+            // $institutionBranchID   = $institutionBranchData[0]['sys_ID'];
 
-            $roleData = $this->fetchUserRole($userRefID, $institutionBranchID);
-            $roleSysID = $roleData[0]['sys_ID'];
+            // $roleData = $this->fetchUserRole($userRefID, $institutionBranchID);
+            // $roleSysID = $roleData[0]['sys_ID'];
 
-            $setLoginData = $this->setLoginBranchAndRole($institutionBranchID, $roleSysID);
+            // $setLoginData = $this->setLoginBranchAndRole($institutionBranchID, $roleSysID);
 
             $this->storeSessionData($loginData, $roleData);
 
             return response()->json([
                 'responseDataLogin'                     => $loginData['userIdentities'], 
-                'responseDataInstitutionBranch'         => $institutionBranchData,
-                'responseDataRole'                      => $roleData,
-                'responseDataSetLoginBranchAndUserRole' => $setLoginData
+                'responseDataInstitutionBranch'         => [],
+                'responseDataRole'                      => [],
+                'responseDataSetLoginBranchAndUserRole' => []
             ]);
 
         } catch (\Throwable $th) {

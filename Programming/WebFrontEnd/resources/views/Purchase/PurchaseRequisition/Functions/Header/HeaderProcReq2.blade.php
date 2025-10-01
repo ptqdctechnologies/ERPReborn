@@ -6,22 +6,22 @@
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Delivery To</label>
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div>
-                        <input id="deliver_RefID" name="deliver_RefID" style="border-radius:0;" class="form-control" readonly hidden>
-                        <input id="deliverCode" style="border-radius:0;" class="form-control" readonly>
-                    </div>
-                    <div>
                         <span style="border-radius:0;" class="input-group-text form-control">
                             <a href="javascript:;" id="deliverModalTrigger" data-toggle="modal" data-target="#myDeliverTo">
                                 <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="" />
                             </a>
                         </span>
                     </div>
+                    <div>
+                        <input id="deliver_RefID" name="deliver_RefID" style="border-radius:0;" class="form-control" readonly hidden>
+                        <input id="deliverCode" style="border-radius:0;" class="form-control" readonly>
+                    </div>
                     <div style="flex: 100%;">
                         <input id="deliverName" style="border-radius:0;" class="form-control" readonly>
                     </div>
                 </div>
-            </div>
-            <div class="row" id="deliveryToMessage" style="margin-top: .3rem;">
+            </div> 
+            <div class="row" id="deliveryToMessage" style="margin-top: .3rem; display: none;">
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div class="text-red">

@@ -13,9 +13,6 @@
                                             <td style="position:relative;top:3px;"><label>Document Number</label></td>
                                             <td>
                                                 <div class="input-group">
-                                                    <input id="businessDocumentType_Name" style="border-radius:0;" name="businessDocumentType_Name" type="text" class="form-control" hidden value="{{ $transactionForm ?? '' }}">
-                                                    <input id="businessDocument_RefID" style="border-radius:0;" name="businessDocument_RefID" type="text" class="form-control" hidden value="{{ $transactionDetail_RefID ?? '' }}">
-                                                    <input id="businessDocumentNumber" style="border-radius:0;" name="businessDocumentNumber" type="text" class="form-control" value="{{ $transactionNumber ?? '' }}" autocomplete="off">
                                                     <div class="input-group-append">
                                                         <span style="border-radius:0;cursor:pointer;" class="input-group-text form-control">
                                                             <a href="javascript:;" class="nav-link mySearchCheckDocument" data-toggle="modal" data-target="#mySearchCheckDocument">
@@ -27,6 +24,9 @@
                                                             </div>
                                                         </span>
                                                     </div>
+                                                    <input id="businessDocumentType_Name" style="border-radius:0;" name="businessDocumentType_Name" type="text" class="form-control" hidden value="{{ $transactionForm ?? '' }}">
+                                                    <input id="businessDocument_RefID" style="border-radius:0;" name="businessDocument_RefID" type="text" class="form-control" hidden value="{{ $transactionDetail_RefID ?? '' }}">
+                                                    <input id="businessDocumentNumber" style="border-radius:0;" name="businessDocumentNumber" type="text" class="form-control" value="{{ $transactionNumber ?? '' }}" autocomplete="off">
                                                 </div>
                                             </td>
                                             <td style="padding-left: 20px;">

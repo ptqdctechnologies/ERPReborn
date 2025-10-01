@@ -54,13 +54,7 @@
                                             <div class="col-md-12 col-lg-5">
                                                 <div class="row">
                                                     <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Invoice</label>
-                                                    <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
-                                                        <div>
-                                                            <div class="input-group">
-                                                                <input id="invoice_number" style="border-radius:0;" class="form-control" readonly>
-                                                                <input id="invoice_id" name="invoice_id" style="border-radius:0;" class="form-control" hidden>
-                                                            </div>
-                                                        </div>
+                                                    <div class="col-sm-9 col-md-8 col-lg-5 d-flex p-0">
                                                         <div>
                                                             <span style="border-radius:0;" class="input-group-text form-control">
                                                                 <a href="javascript:;" id="myInvoiceTrigger" data-toggle="modal" data-target="#myInvoice" style="display: block;">
@@ -71,6 +65,12 @@
                                                                     <span class="sr-only">Loading...</span>
                                                                 </div>
                                                             </span>
+                                                        </div>
+                                                        <div>
+                                                            <div class="input-group">
+                                                                <input id="invoice_number" style="border-radius:0;" class="form-control" readonly>
+                                                                <input id="invoice_id" name="invoice_id" style="border-radius:0;" class="form-control" hidden>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -257,13 +257,13 @@
                     <div class="tab-content px-3 pb-2" id="nav-tabContent">
                         <div class="row">
                             <div class="col">
+                                <button type="button" class="btn btn-default btn-sm float-right" onclick="validationForm()" style="margin-left: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
+                                    <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" title="Submit to Advance"> Submit
+                                </button>
+
                                 <a class="btn btn-default btn-sm float-right" onclick="cancelForm('{{ route('CreditNote.index', ['var' => 1]) }}')" style="background-color:#e9ecef;border:1px solid #ced4da;">
                                     <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel Advance List Cart"> Cancel
                                 </a>
-
-                                <button type="button" class="btn btn-default btn-sm float-right" onclick="validationForm()" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
-                                    <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" title="Submit to Advance"> Submit
-                                </button>
                             </div>
                         </div>
                     </div>

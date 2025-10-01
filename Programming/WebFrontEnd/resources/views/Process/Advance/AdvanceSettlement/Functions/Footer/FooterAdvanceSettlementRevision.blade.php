@@ -288,7 +288,7 @@
         const isTableNotEmpty   = checkOneLineBudgetContents();
 
         if (isRemarkNotEmpty && isTableNotEmpty) {
-            $('#advanceSettlementRevisionFormModal').modal('show');
+            $('#advanceSettlementFormModal').modal('show');
             summaryData();
         } else {
             if (!isRemarkNotEmpty) {
@@ -606,7 +606,7 @@
     }
 
     function SubmitForm() {
-        $('#advanceSettlementRevisionFormModal').modal('hide');
+        $('#advanceSettlementFormModal').modal('hide');
 
         var action = $('#FormRevisionAdvanceSettlement').attr("action");
         var method = $('#FormRevisionAdvanceSettlement').attr("method");

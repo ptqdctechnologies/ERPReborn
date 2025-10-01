@@ -12,6 +12,7 @@
 @include('getFunction.getProduct')
 @include('getFunction.getWorkFlow')
 @include('Process.Advance.AdvanceRequest.Functions.PopUp.PopUpAdvanceRevision')
+@include('Process.Advance.AdvanceRequest.Functions.PopUp.PopUpAdvanceSummaryData')
 
 <div class="content-wrapper">
   <section class="content">
@@ -251,13 +252,13 @@
           <div class="tab-content px-3 pb-2" id="nav-tabContent">
             <div class="row">
               <div class="col">
+                <button type="button" class="btn btn-default btn-sm float-right" onclick="validationForm()" style="margin-left: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
+                  <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" title="Submit to Advance"> Submit
+                </button>
+
                 <a onclick="cancelForm('{{ route('AdvanceRequest.index', ['var' => 1]) }}')" class="btn btn-default btn-sm float-right" style="background-color:#e9ecef;border:1px solid #ced4da;">
                   <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel Advance List Cart"> Cancel
                 </a>
-
-                <button type="button" class="btn btn-default btn-sm float-right" onclick="validationForm()" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
-                  <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" title="Submit to Advance"> Submit
-                </button>
               </div>
             </div>
           </div>
@@ -267,7 +268,7 @@
   </section>
 </div>
 
-<div class="modal fade" id="advanceRequestRevisionFormModal" tabindex="-1" role="dialog">
+<!-- <div class="modal fade" id="advanceRequestRevisionFormModal" tabindex="-1" role="dialog">
   <div class="modal-dialog modal-lg" role="document" style="min-height: calc(100vh - 3.5rem); display: flex; align-items: center;">
     <div class="modal-content">
       <div class="modal-header">
@@ -289,17 +290,17 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" id="submitArf" class="btn btn-default btn-sm" onclick="SubmitForm();" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
-          <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" title="Submit to Advance"> Yes, save it
-        </button>
-
         <button type="button" class="btn btn-default btn-sm" data-dismiss="modal" style="background-color:#e9ecef;border:1px solid #ced4da;">
           <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel Advance List Cart"> No, cancel
+        </button>
+
+        <button type="button" id="submitArf" class="btn btn-default btn-sm" onclick="SubmitForm();" style="margin-left: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
+          <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" title="Submit to Advance"> Yes, save it
         </button>
       </div>
     </div>
   </div>
-</div>
+</div> -->
 
 @include('Partials.footer')
 @include('Process.Advance.AdvanceRequest.Functions.Footer.FooterAdvanceRequestRevision')

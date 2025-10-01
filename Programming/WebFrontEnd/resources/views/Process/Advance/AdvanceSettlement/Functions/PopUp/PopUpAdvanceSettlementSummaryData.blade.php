@@ -1,4 +1,4 @@
-<div class="modal fade" id="advanceRequestFormModal" tabindex="-1" role="dialog">
+<div class="modal fade" id="advanceSettlementFormModal" tabindex="-1" role="dialog">
   <div class="modal-dialog modal-lg" role="document" style="min-height: calc(100vh - 3.5rem); display: flex; align-items: center;">
     <div class="modal-content">
       <div class="modal-header">
@@ -6,8 +6,8 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
       </div>
       <div class="modal-body">
-        <div class="wrapper-budget card-body table-responsive p-0" style="max-height:200px;">
-          <table class="table table-head-fixed text-nowrap table-sm" id="tableAdvanceList" style="border: 1px solid #dee2e6;">
+        <div class="wrapper-budget table-responsive card-body p-0" style="max-height: 230px;">
+          <table class="table text-nowrap table-sm" id="tableAdvanceList">
             <tbody></tbody>
           </table>
         </div>
@@ -24,7 +24,7 @@
           <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel Advance List Cart"> No, cancel
         </button>
 
-        <button type="button" id="submitArf" class="btn btn-default btn-sm" onclick="SubmitForm();" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
+        <button type="button" class="btn btn-default btn-sm" onclick="SubmitForm();" style="margin-left: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
           <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" title="Submit to Advance"> Yes, save it
         </button>
       </div>

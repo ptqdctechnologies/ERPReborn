@@ -194,20 +194,24 @@
                             $('#branch_id').empty();
                             $('#branch_id').append('<option disabled selected>Select a Company Name</option>');
 
-                            response.responseDataInstitutionBranch.forEach((institution, index) => {
-                                const isSelected = index === 0 ? ' selected' : '';
-                                const option = `<option value="${institution.sys_ID}"${isSelected}>${institution.name}</option>`;
-                                $('#branch_id').append(option);
-                            });
+                            if (response.responseDataInstitutionBranch.length > 0) {
+                                response.responseDataInstitutionBranch.forEach((institution, index) => {
+                                    const isSelected = index === 0 ? ' selected' : '';
+                                    const option = `<option value="${institution.sys_ID}"${isSelected}>${institution.name}</option>`;
+                                    $('#branch_id').append(option);
+                                });
+                            }
 
                             $('#role_id').empty();
                             $('#role_id').append('<option disabled selected>Select a Role</option>');
 
-                            response.responseDataRole.forEach((role, index) => {
-                                const isSelected = index === 0 ? ' selected' : '';
-                                const option = `<option value="${role.sys_ID}"${isSelected}>${role.name}</option>`;
-                                $('#role_id').append(option);
-                            });
+                            if (response.responseDataRole.length > 0) {
+                                response.responseDataRole.forEach((role, index) => {
+                                    const isSelected = index === 0 ? ' selected' : '';
+                                    const option = `<option value="${role.sys_ID}"${isSelected}>${role.name}</option>`;
+                                    $('#role_id').append(option);
+                                });
+                            }
 
                             window.location.href =  "{{ route('dashboard.index') }}";
                         }

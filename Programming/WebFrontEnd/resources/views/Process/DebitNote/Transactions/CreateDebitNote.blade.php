@@ -57,17 +57,17 @@
                                                     <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Reference Number</label>
                                                     <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                                                         <div>
-                                                            <div class="input-group">
-                                                                <input id="debit_note_reference_number" style="border-radius:0;" class="form-control" readonly>
-                                                                <input id="debit_note_reference_id" name="debit_note_reference_id" style="border-radius:0;" class="form-control" hidden>
-                                                            </div>
-                                                        </div>
-                                                        <div>
                                                             <span style="border-radius:0;" class="input-group-text form-control">
                                                                 <a href="javascript:;" id="debit_note_reference_trigger" data-toggle="modal" data-target="#myGetModalReimbursementAccountPayable" style="display: block;">
                                                                     <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="box">
                                                                 </a>
                                                             </span>
+                                                        </div>
+                                                        <div>
+                                                            <div class="input-group">
+                                                                <input id="debit_note_reference_number" style="border-radius:0;" class="form-control" readonly>
+                                                                <input id="debit_note_reference_id" name="debit_note_reference_id" style="border-radius:0;" class="form-control" hidden>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -246,13 +246,13 @@
                     <div class="tab-content px-3 pb-2" id="nav-tabContent">
                         <div class="row">
                             <div class="col">
+                                <button type="button" id="debit_note_submit_button" class="btn btn-default btn-sm float-right" onclick="validationForm()" style="margin-left: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
+                                    <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="submit" title="Submit Debit Note"> Submit
+                                </button>
+
                                 <a id="debit_note_cancel_button" class="btn btn-default btn-sm float-right" onclick="cancelForm('{{ route('DebitNote.index', ['var' => 1]) }}')" style="background-color:#e9ecef;border:1px solid #ced4da;">
                                     <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="cancel" title="Cancel Debit Note"> Cancel
                                 </a>
-
-                                <button type="button" id="debit_note_submit_button" class="btn btn-default btn-sm float-right" onclick="validationForm()" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
-                                    <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="submit" title="Submit Debit Note"> Submit
-                                </button>
                             </div>
                         </div>
                     </div>

@@ -692,6 +692,8 @@ class DocumentTypeMapper
             'Warehouse Outbound Order Form' => [
                 'dataHeader'            => [
                     'materialReturnNumber'      => 'WHOb/QDC/2025/000001',
+                    'date'                      => '2025-09-29 10:31:00.113 +0700',
+                    'dateUpdate'                => '2025-09-29 15:49:00.113 +0700', // null or '2025-09-29 15:49:00.113 +0700'
                     'budgetCode'                => 'Q00006',
                     'budgetName'                => 'XL Microcell 2007',
                     'transporterName'           => 'Aji Irawan',
@@ -704,19 +706,21 @@ class DocumentTypeMapper
                 ],
                 'textAreaFields'    => [
                     'title'         => 'Remark',
-                    'text'          => $dataDetail['remarks'] ?? '-',
+                    'text'          => '-',
                 ],
                 'components'    => [
                     'detail'            => 'Components.MaterialReturnDetailDocument',
-                    'table'             => 'Components.MaterialReturnDetailDocumentTable'
+                    'table'             => 'Components.MaterialReturnDetailDocumentTable',
+                    'headerRevision'    => 'Components.MaterialReturnDetailDocumentHeaderRevision',
+                    'revision'          => 'Components.MaterialReturnDetailDocumentRevision',
                 ],
                 'resubmit'      => [
                     'url'       => 'MaterialReceive.RevisionMaterialReceiveIndex',
                     'name'      => 'modal_material_receive_id',
-                    'value'     => $dataDetail['warehouseInboundOrder_RefID'] ?? '-',
+                    'value'     => '-',
                 ],
                 'transactionType'        => 'MATERIAL RETURN',
-                'businessDocument_RefID' => $dataDetail['businessDocument_RefID'] ?? '',
+                'businessDocument_RefID' => '',
             ],
         ];
 

@@ -1,4 +1,4 @@
-<div class="modal fade" id="advanceRequestFormModal" tabindex="-1" role="dialog">
+<div class="modal fade" id="purchaseRequestFormModal" tabindex="-1" role="dialog">
   <div class="modal-dialog modal-lg" role="document" style="min-height: calc(100vh - 3.5rem); display: flex; align-items: center;">
     <div class="modal-content">
       <div class="modal-header">
@@ -7,7 +7,7 @@
       </div>
       <div class="modal-body">
         <div class="wrapper-budget card-body table-responsive p-0" style="max-height:200px;">
-          <table class="table table-head-fixed text-nowrap table-sm" id="tableAdvanceList" style="border: 1px solid #dee2e6;">
+          <table class="table table-head-fixed text-nowrap table-sm" id="tablePurchaseRequisitionList" style="border: 1px solid #dee2e6;">
             <tbody></tbody>
           </table>
         </div>
@@ -24,7 +24,7 @@
           <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel Advance List Cart"> No, cancel
         </button>
 
-        <button type="button" id="submitArf" class="btn btn-default btn-sm" onclick="SubmitForm();" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
+        <button type="button" id="submitPR" class="btn btn-default btn-sm" onclick="SubmitForm();" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
           <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" title="Submit to Advance"> Yes, save it
         </button>
       </div>

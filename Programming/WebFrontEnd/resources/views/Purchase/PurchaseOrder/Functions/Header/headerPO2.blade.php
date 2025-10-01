@@ -10,15 +10,15 @@
         </label>
         <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
           <div>
-            <input id="modal_purchase_requisition_document_numbers" style="border-radius:0;" class="form-control" size="20" readonly>
-            <input id="modal_purchase_requisition_ids" style="border-radius:0;" class="form-control" hidden>
-          </div>
-          <div>
             <span style="border-radius:0;" class="input-group-text form-control">
               <a href="javascript:;" id="purchaseRequisitionTrigger" data-toggle="modal" data-target="#purchaseRequisitionModal" style="display: block;">
                 <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="purchaseRequisitionTrigger">
               </a>
             </span>
+          </div>
+          <div>
+            <input id="modal_purchase_requisition_document_numbers" style="border-radius:0;" class="form-control" size="20" readonly>
+            <input id="modal_purchase_requisition_ids" style="border-radius:0;" class="form-control" hidden>
           </div>
         </div>
       </div>

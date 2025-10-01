@@ -109,6 +109,8 @@
         });
 
         document.getElementById('GrandTotal').innerText = `Total (${rows[0].children[6].innerText}): ${decimalFormat(total)}`;
+        document.getElementById('GrandVAT').innerText = `VAT: ${TotalPpns.innerText}`;
+        document.getElementById('GrandTotalVAT').innerText = `Total (${rows[0].children[6].innerText}) + VAT: ${decimalFormat(total + parseFloat(TotalPpns.innerText))}`;
     }
 
     function summaryData() {

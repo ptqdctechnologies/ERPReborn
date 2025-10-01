@@ -50,7 +50,7 @@ class PurchaseOrderService
             [
             'entities' => [
                 "documentDateTimeTZ"                    => date('Y-m-d'),
-                "log_FileUpload_Pointer_RefID"          => (int) $fileID,
+                "log_FileUpload_Pointer_RefID"          => $fileID,
                 "requesterWorkerJobsPosition_RefID"     => (int) $careerRefID,
                 "supplier_RefID"                        => (int) $data['supplier_id'],
                 "deliveryDateTimeTZ"                    => $data['dateOfDelivery'],
@@ -73,7 +73,7 @@ class PurchaseOrderService
                                 "entities" => [
                                     "taxType_RefID"                 => null,
                                     "tariffCurrency_RefID"          => null,
-                                    "tariffCurrencyValue"           => (float) str_replace(',', '', $data['tariffCurrencyValue']),
+                                    "tariffCurrencyValue"           => (float) str_replace(',', '', $data['tariffCurrencyValue'] ?? 0),
                                     "tariffCurrencyExchangeRate"    => null,
                                     "remarks"                       => null
                                     ]
@@ -130,7 +130,7 @@ class PurchaseOrderService
                 "internalNotes"                         => $data['internalNote'],
                 "downPayment"                           => (float) str_replace(',', '', $data['downPaymentValue']),
                 "termOfPayment_RefID"                   => (int) $data['termOfPaymentValue'],
-                "vatRatio"                              => (float) str_replace(',', '', $data['vatValue']),
+                "vatRatio"                              => (float) str_replace(',', '', $data['vatValue'] ?? 0),
                 'additionalData'    => [
                     'itemList'      => [
                         'items'     => $detailItems
