@@ -303,8 +303,6 @@
                     </td>
                     <td>
                         <div class="input-group">
-                            <input id="coa_id${key}" style="border-radius:0;width:130px;background-color:white;" class="form-control" value="${val2.ChartOfAccount_RefID}" hidden />
-                            <input id="coa_name${key}" style="border-radius:0;width:130px;background-color:white;" class="form-control" data-default="${val2.COA_Code} - ${val2.COA_Name}" value="${val2.COA_Code} - ${val2.COA_Name}" readonly />
                             <div class="input-group-append">
                                 <span style="border-radius:0;cursor:pointer;" class="input-group-text form-control">
                                     <a data-toggle="modal" data-target="#myGetChartOfAccount" onclick="pickCOA(${key})">
@@ -312,6 +310,8 @@
                                     </a>
                                 </span>
                             </div>
+                            <input id="coa_id${key}" style="border-radius:0;width:130px;background-color:white;" class="form-control" value="${val2.ChartOfAccount_RefID}" hidden />
+                            <input id="coa_name${key}" style="border-radius:0;width:130px;background-color:white;" class="form-control" data-default="${val2.COA_Code} - ${val2.COA_Name}" value="${val2.COA_Code} - ${val2.COA_Name}" readonly />
                         </div>
                     </td>
                 </tr>
