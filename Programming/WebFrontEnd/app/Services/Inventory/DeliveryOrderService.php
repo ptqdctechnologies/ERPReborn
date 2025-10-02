@@ -39,6 +39,8 @@ class DeliveryOrderService
         $deliveryOrderData                  = $request->all();
         $deliveryFromRefID                  = $deliveryOrderData['storeData']['deliveryFrom_RefID'] ? (int) $deliveryOrderData['storeData']['deliveryFrom_RefID'] : null;
         $deliveryToRefID                    = $deliveryOrderData['storeData']['deliveryTo_RefID'] ? (int) $deliveryOrderData['storeData']['deliveryTo_RefID'] : null;
+        $stockMovementStatus                = isset($deliveryOrderData['storeData']['stock_movement_status']) ? (int) $deliveryOrderData['storeData']['stock_movement_status'] : null;
+        $stockMovementRequester_RefID       = $deliveryOrderData['storeData']['worker_id_stock_movement'] ? (int) $deliveryOrderData['storeData']['worker_id_stock_movement'] : null;
         $deliveryOrderDetail                = json_decode($deliveryOrderData['storeData']['deliveryOrderDetail'], true);
         $fileID                             = $deliveryOrderData['storeData']['dataInput_Log_FileUpload_1'] ? (int) $deliveryOrderData['storeData']['dataInput_Log_FileUpload_1'] : null;
 
@@ -58,6 +60,9 @@ class DeliveryOrderService
                     "deliveryFrom_NonRefID"             => $deliveryOrderData['storeData']['delivery_from'],
                     "deliveryTo_RefID"                  => $deliveryToRefID,
                     "deliveryTo_NonRefID"               => $deliveryOrderData['storeData']['delivery_to'],
+                    "stockMovementRequester_RefID"      => $stockMovementRequester_RefID, 
+                    "stockMovementStatus"               => $stockMovementStatus, // 0 => "RENT", 1 => "PERMANENT", null => Option non-select
+                    "type"                              => (int) $deliveryOrderData['storeData']['reference_type'], // 0 => "PURCHASE_ORDER", 1 => "INTERNAL_USE", 2 => "STOCK_MOVEMENT", null => Option non-select
                     "remarks"                           => $deliveryOrderData['storeData']['var_remark'],
                     "additionalData"                    => [
                         "itemList"                      => [
@@ -94,6 +99,9 @@ class DeliveryOrderService
                 "deliveryFrom_NonRefID"             => $revisionDeliveryOrderData['storeData']['delivery_from'],
                 "deliveryTo_RefID"                  => null,
                 "deliveryTo_NonRefID"               => $revisionDeliveryOrderData['storeData']['delivery_to'],
+                "stockMovementRequester_RefID"      => $stockMovementRequester_RefID,
+                "stockMovementStatus"               => $stockMovementStatus,
+                "type"                              => (int) $deliveryOrderData['storeData']['reference_type'],
                 "remarks"                           => $revisionDeliveryOrderData['storeData']['var_remark'],
                 "additionalData"    => [
                     "itemList"      => [
