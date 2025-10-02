@@ -32,7 +32,24 @@
                 },
             "userPassword": {
                 "type": "string"
-                }                
+                },
+            "additionalData": {
+                "type": ["object", "null"],
+                "properties": {
+                    "branch_RefID": {
+                        "type": [ "integer", "string" ],
+                        "minimum": 1,
+                        "minLength": 1,
+                        "pattern": "^[A]{1}[U]{1}[T]{1}[O]{1}$"
+                        },
+                    "branch_RefID": {
+                        "type": [ "integer", "string" ],
+                        "minimum": 1,
+                        "minLength": 1,
+                        "pattern": "^[A]{1}[U]{1}[T]{1}[O]{1}$"
+                        }
+                    }
+                }
             },
         "required": [
             "userName",

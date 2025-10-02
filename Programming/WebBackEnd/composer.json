@@ -14,11 +14,8 @@
         "elibyy/tcpdf-laravel": "^11.0",
         "fakerphp/faker": "^1.21",
         "guzzlehttp/guzzle": "^7.0.1",
-        "illuminate/collections": "*",
-        "illuminate/http": "^11.0",
-        "illuminate/support": "^11.0",
         "intervention/httpauth": "^3.0",
-        "laravel/framework": "^11.0",
+        "laravel/framework": "^12.0",
         "laravel/serializable-closure": "^1.3",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^4.0",
@@ -42,7 +39,7 @@
     },
     "require-dev": {
         "mockery/mockery": "^1.3.1",
-        "phpunit/phpunit": "^10.0"
+        "phpunit/phpunit": "^11.0"
     },
     "config": {
         "optimize-autoloader": true,

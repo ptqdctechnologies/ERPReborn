@@ -84,7 +84,7 @@ final class SummaryPrinter
                     $color,
                     'ERRORS!',
                 );
-            } elseif ($result->hasTestFailedEvents()) {
+            } else {
                 $color = 'fg-white, bg-red';
 
                 $this->printWithColor(

@@ -29,8 +29,10 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\aut
             //---Parameter Set---
             $varUserName = 'wisnu.trenggono';
             $varUserPassword = 'wisnu1234';
-            $varBranchID = 11000000000004;
-            $varUserRoleID = 95000000000038;
+            //$varBranchID = 11000000000004;
+            //$varUserRoleID = 95000000000038;
+            $varBranchID = 'AUTO';
+            $varUserRoleID = 'AUTO';
             
 //            $varUserName = 'sysadmin';
 //            $varUserPassword = 'sysadmin1234';

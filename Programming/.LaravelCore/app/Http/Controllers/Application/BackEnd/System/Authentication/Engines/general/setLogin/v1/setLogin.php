@@ -343,16 +343,49 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                                                 ),
                                                 $varSessionIntervalInSeconds
                                             );
+
                                     //---> Exceptional Condition : Branch ID In Additional Data Is Not Feasible
-                                        if (($varBranchID != NULL) AND (in_array($varBranchID, $varOptionList_BranchIDList)) == FALSE) {
-                                            throw
-                                                new \Exception('Branch ID in Addtional Data is not Feasible');
+                                        if (strcmp(strtoupper((string) $varBranchID), 'AUTO') == 0) {
+                                            if (count($varOptionList_BranchIDList) > 0) {
+                                                $varBranchID =
+                                                    $varOptionList_BranchIDList[0];
+                                                }
+                                            else {
+                                                throw
+                                                    new \Exception('Branch ID in Addtional Data is not Feasible');
+                                                }
+                                            }
+                                        else {
+                                            if (($varBranchID != NULL) AND (in_array($varBranchID, $varOptionList_BranchIDList)) == FALSE) {
+                                                throw
+                                                    new \Exception('Branch ID in Addtional Data is not Feasible');
+                                                }
                                             }
 
                                     //---> Exceptional Condition : User Role ID In Additional Data Is Not Feasible
-                                        if (($varUserRoleID != NULL) AND (in_array($varUserRoleID, $varOptionList_BranchUserRoleIDList[$varData['additionalData']['branch_RefID']])) == FALSE) {
-                                            throw
-                                                new \Exception('User Role ID in Addtional Data is not Feasible');
+                                        if (strcmp(strtoupper((string) $varUserRoleID), 'AUTO') == 0) {
+                                            if (count($varOptionList_BranchUserRoleIDList[$varBranchID]) > 0) {
+                                                //---> Check For Super User Role
+                                                if ((in_array(95000000000001, $varOptionList_BranchUserRoleIDList[$varBranchID])) == TRUE) {
+                                                    $varUserRoleID =
+                                                        95000000000001;
+                                                    }
+                                                //---> Non Super User Role
+                                                else {
+                                                    $varUserRoleID =
+                                                        $varOptionList_BranchUserRoleIDList[$varBranchID][0];                                                    
+                                                    }
+                                                }
+                                            else {
+                                                throw
+                                                    new \Exception('User Role ID in Addtional Data is not Feasible');
+                                                }                                            
+                                            }
+                                        else {
+                                            if (($varUserRoleID != NULL) AND (in_array($varUserRoleID, $varOptionList_BranchUserRoleIDList[$varData['additionalData']['branch_RefID']])) == FALSE) {
+                                                throw
+                                                    new \Exception('User Role ID in Addtional Data is not Feasible');
+                                                }                                            
                                             }
 
                                     //---> Set Return Value
