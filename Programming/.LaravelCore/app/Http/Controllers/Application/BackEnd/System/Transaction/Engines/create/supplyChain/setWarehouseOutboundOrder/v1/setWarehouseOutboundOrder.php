@@ -24,8 +24,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-03-08                                                                                           |
-        | ▪ Creation Date   : 2022-03-08                                                                                           |
+        | ▪ Last Update     : 2022-10-02                                                                                           |
+        | ▪ Creation Date   : 2022-10-02                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -44,8 +44,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0001.0000000                                                                                       |
-        | ▪ Last Update     : 2025-02-11                                                                                           |
-        | ▪ Creation Date   : 2022-03-08                                                                                           |
+        | ▪ Last Update     : 2025-10-02                                                                                           |
+        | ▪ Creation Date   : 2022-10-02                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -94,7 +94,23 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
                                     $varData['entities']['documentDateTimeTZ'],
                                     $varData['entities']['log_FileUpload_Pointer_RefID'],
                                     $varData['entities']['requesterWorkerJobsPosition_RefID'],
-                                    $varData['entities']['remarks']
+                                    $varData['entities']['transporter_RefID'],
+                                    $varData['entities']['remarks'],
+
+                                    (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
+                                        $varUserSession,
+                                        'additionalData',
+                                        $varData['entities']
+                                        )
+                                        ?   (
+                                                (
+                                                !is_null($varData['entities']['additionalData'])
+                                                )
+                                                ? $varData['entities']['additionalData']
+                                                : []
+                                            )
+                                        : []
+                                    )
                                     )
                                 )
                             ))
