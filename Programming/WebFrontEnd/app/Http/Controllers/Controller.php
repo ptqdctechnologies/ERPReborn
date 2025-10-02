@@ -19,6 +19,41 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
+    public function GetBusinessDocumentsType($businessDocumentName)
+    {
+        try {
+            $sessionToken = Session::get('SessionLogin');
+
+            $response = Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
+                $sessionToken,
+                'transaction.read.dataList.master.getBusinessDocumentType',
+                'latest',
+                [
+                    'parameter'     => [],
+                    'SQLStatement'  => [
+                        'pick'      => null,
+                        'sort'      => null,
+                        'filter'    => "\"Name\" = '$businessDocumentName'",
+                        'paging'    => null
+                    ]
+                ],
+                false
+            );
+
+            $documentTypes = $response['data']['data'] ?? [];
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200 || empty($documentTypes)) {
+                throw new \Exception('Failed to fetch Get Business Documents Type');
+            }
+
+            return $documentTypes[0]['sys_ID'];
+        } catch (\Throwable $th) {
+            Log::error("GetBusinessDocumentType Controller Function Error: " . $th->getMessage());
+
+            return null;
+        }
+    }
 
     public function GetPrivilageMenu()
     {
