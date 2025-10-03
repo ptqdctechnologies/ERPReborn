@@ -43,7 +43,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\DataPickList\Engines\s
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2024-10-16                                                                                           |
+        | ▪ Last Update     : 2025-10-03                                                                                           |
         | ▪ Creation Date   : 2022-03-08                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
