@@ -364,6 +364,7 @@
 
                         if (!checkWorkFlow) {
                             $(".loadingAdvanceSettlementTable").hide();
+                            $("#myGetModalAdvanceTrigger").show();
                             $("#loadingBudget").hide();
                             return;
                         }

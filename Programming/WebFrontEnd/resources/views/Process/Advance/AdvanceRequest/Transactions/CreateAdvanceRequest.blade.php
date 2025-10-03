@@ -35,7 +35,7 @@
           <input type="hidden" name="DocumentTypeID" id="DocumentTypeID">
           <input type="hidden" name="var_combinedBudget_RefID" id="var_combinedBudget_RefID">
 
-          <!-- ADD NEW ADVANCE REQUEST -->
+          <!-- BUDGET INFORMATION -->
           <div class="tab-content px-3 pt-4 pb-2" id="nav-tabContent">
             <div class="row">
               <div class="col-12">
@@ -43,10 +43,10 @@
                   <!-- HEADER -->
                   <div class="card-header">
                     <label class="card-title">
-                      Add New Advance Request
+                      Budget Information
                     </label>
                     <div class="card-tools">
-                      <button type="button" class="btn btn-tool" data-card-widget="collapse" aria-label="Collapse Section Add New Advance Request">
+                      <button type="button" class="btn btn-tool" data-card-widget="collapse" aria-label="Collapse Section Budget Information">
                         <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
                       </button>
                     </div>
@@ -59,7 +59,7 @@
             </div>
           </div>
 
-          <!-- ADVANCE REQUEST DETAIL -->
+          <!-- ADVANCE REQUEST -->
           <div class="tab-content px-3 pb-2" id="nav-tabContent">
             <div class="row">
               <div class="col-12">
@@ -67,10 +67,10 @@
                   <!-- HEADER -->
                   <div class="card-header">
                     <label class="card-title">
-                      Advance Request Detail
+                      Advance Request
                     </label>
                     <div class="card-tools">
-                      <button type="button" class="btn btn-tool" data-card-widget="collapse" aria-label="Collapse Section Advance Request Detail">
+                      <button type="button" class="btn btn-tool" data-card-widget="collapse" aria-label="Collapse Section Advance Request">
                         <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
                       </button>
                     </div>
@@ -82,7 +82,7 @@
             </div>
           </div>
 
-          <!-- FILE ATTACHMENT -->
+          <!-- ATTACHMENT -->
           <div class="tab-content px-3 pb-2" id="nav-tabContent">
             <div class="row">
               <div class="col-12">
@@ -90,10 +90,10 @@
                   <!-- HEADER -->
                   <div class="card-header">
                     <label class="card-title">
-                      File Attachment
+                      Attachment
                     </label>
                     <div class="card-tools">
-                      <button type="button" class="btn btn-tool" data-card-widget="collapse" aria-label="Collapse Section File Attachment">
+                      <button type="button" class="btn btn-tool" data-card-widget="collapse" aria-label="Collapse Section Attachment">
                         <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
                       </button>
                     </div>
@@ -123,7 +123,7 @@
             </div>
           </div>
 
-          <!-- BUDGET DETAILS -->
+          <!-- ADVANCE REQUEST DETAILS -->
           <div class="tab-content px-3 pb-2" id="nav-tabContent">
             <div class="row">
               <div class="col-12">
@@ -131,10 +131,10 @@
                   <!-- HEADER -->
                   <div class="card-header">
                     <label class="card-title">
-                      Budget Details
+                      Advance Request Details
                     </label>
                     <div class="card-tools">
-                      <button type="button" class="btn btn-tool" data-card-widget="collapse" aria-label="Collapse Section Budget Details">
+                      <button type="button" class="btn btn-tool" data-card-widget="collapse" aria-label="Collapse Section Advance Request Details">
                         <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
                       </button>
                     </div>
