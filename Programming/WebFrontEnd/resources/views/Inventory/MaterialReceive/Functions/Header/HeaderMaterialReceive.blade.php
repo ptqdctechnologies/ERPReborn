@@ -120,7 +120,7 @@
             </div>
 
             <!-- REQUESTER -->
-            <div class="row" style="margin-bottom: 1rem; display: none;">
+            <div id="requester_stock_movement_container" class="row" style="margin-bottom: 1rem; display: none;">
                 <label class="col-sm-3 col-md-4 col-lg-2 col-form-label p-0">
                     Requester
                 </label>
@@ -132,7 +132,7 @@
             </div>
             
             <!-- STATUS -->
-            <div class="row" style="display: none;">
+            <div id="status_stock_movement_container" class="row" style="display: none;">
                 <label class="col-sm-3 col-md-4 col-lg-2 col-form-label p-0">
                     Status
                 </label>

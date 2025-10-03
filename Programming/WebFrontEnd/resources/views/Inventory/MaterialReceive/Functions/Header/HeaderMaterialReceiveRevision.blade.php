@@ -73,7 +73,7 @@
         <!-- MIDDLE COLUMN -->
         <div class="col-md-12 col-lg-4">
             <!-- TYPE -->
-            <div class="row" style="margin-bottom: 1rem;">
+            <div class="row" style="margin-bottom: 1rem; display: none;">
                 <label class="col-sm-3 col-md-4 col-lg-2 col-form-label p-0">
                     Type
                 </label>
@@ -86,12 +86,24 @@
 
             <!-- BUDGET -->
             <div class="row" style="margin-bottom: 1rem;">
-                <label class="col-sm-3 col-md-4 col-lg-2 col-form-label p-0">
+                <label class="col-sm-3 col-md-4 col-lg-3 col-form-label p-0">
                     Budget
                 </label>
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div>
                         <input id="budget_value" style="border-radius:0;" size="24" class="form-control" value="<?= $header['combinedBudgetCode'] . ' - ' . $header['combinedBudgetName']; ?>" readonly>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TRANSPORTER -->
+            <div class="row" style="margin-bottom: 1rem;">
+                <label class="col-sm-3 col-md-4 col-lg-3 col-form-label p-0">
+                    Transporter
+                </label>
+                <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                    <div>
+                        <input id="do_transporter" style="border-radius:0;" size="24" class="form-control" readonly>
                     </div>
                 </div>
             </div>
@@ -124,7 +136,7 @@
         <!-- RIGHT COLUMN -->
         <div class="col-md-12 col-lg-4">
             <!-- TRANSPORTER -->
-            <div class="row" style="margin-bottom: 1rem;">
+            <div class="row" style="margin-bottom: 1rem; display: none;">
                 <label class="col-sm-3 col-md-4 col-lg-3 col-form-label p-0">
                     Transporter
                 </label>
@@ -136,7 +148,7 @@
             </div>
 
             <!-- DELIVERY FROM -->
-            <div class="row" style="margin-top: 1rem;">
+            <div class="row">
                 <label class="col-sm-3 col-md-4 col-lg-3 col-form-label p-0">
                     Delivery From
                 </label>

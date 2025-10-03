@@ -125,6 +125,7 @@ class AdvanceSettlementController extends Controller
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }
+
     public function PrintExportReportAdvanceSettlementSummary(Request $request)
     {
         try {
@@ -160,6 +161,7 @@ class AdvanceSettlementController extends Controller
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }
+
     public function index(Request $request)
     {
         $varAPIWebToken = Session::get('SessionLogin');
@@ -186,7 +188,7 @@ class AdvanceSettlementController extends Controller
             $response = $this->advanceSettlementService->create($request);
 
             if ($response['metadata']['HTTPStatusCode'] !== 200) {
-                return response()->json($response);
+                throw new \Exception('Failed to fetch Create Advance Settlement');
             }
 
             $responseWorkflow = $this->workflowService->submit(
@@ -197,7 +199,7 @@ class AdvanceSettlementController extends Controller
             );
 
             if ($responseWorkflow['metadata']['HTTPStatusCode'] !== 200) {
-                return response()->json($responseWorkflow);
+                throw new \Exception('Failed to fetch Submit Workflow Create Advance Settlement');
             }
 
             $compact = [
@@ -207,8 +209,9 @@ class AdvanceSettlementController extends Controller
 
             return response()->json($compact);
         } catch (\Throwable $th) {
-            Log::error("Error at store: " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
+            Log::error("Store Advance Settlement Function Error: " . $th->getMessage());
+
+            return response()->json(["status" => 500]);
         }
     }
 
@@ -218,7 +221,7 @@ class AdvanceSettlementController extends Controller
             $response = $this->advanceSettlementService->updates($request);
 
             if ($response['metadata']['HTTPStatusCode'] !== 200) {
-                return response()->json($response);
+                throw new \Exception('Failed to fetch Update Advance Settlement');
             }
 
             $responseWorkflow = $this->workflowService->submit(
@@ -229,7 +232,7 @@ class AdvanceSettlementController extends Controller
             );
 
             if ($responseWorkflow['metadata']['HTTPStatusCode'] !== 200) {
-                return response()->json($responseWorkflow);
+                throw new \Exception('Failed to fetch Submit Workflow Revision Advance Settlement');
             }
 
             $compact = [
@@ -239,8 +242,9 @@ class AdvanceSettlementController extends Controller
 
             return response()->json($compact);
         } catch (\Throwable $th) {
-            Log::error("Error at " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
+            Log::error("Update Advance Settlement Function Error: " . $th->getMessage());
+
+            return response()->json(["status" => 500]);
         }
     }
 
@@ -803,7 +807,7 @@ class AdvanceSettlementController extends Controller
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }
-
+    
     public function PrintExportReportAdvanceSettlementDetail(Request $request) 
     {
         try {

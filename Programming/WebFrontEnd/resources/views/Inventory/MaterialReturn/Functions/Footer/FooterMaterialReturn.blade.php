@@ -29,9 +29,9 @@
         if (data.metadata.HTTPStatusCode == 200) {
           let result = data.data;
 
-          console.log('result', result);
-
           $("#var_combinedBudget_RefID").val(result[0].combinedBudget_RefID);
+
+          $("#material_receive_budget_id").val(`${result[0].combinedBudgetCode} - ${result[0].combinedBudgetName}`);
 
           $.each(result, function(key, val) {
             let row = `

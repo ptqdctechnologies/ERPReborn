@@ -31,34 +31,6 @@ class DebitNoteController extends Controller
         $this->workflowService              = $workflowService;
     }
 
-    public function GetBusinessDocumentType($businessDocumentName)
-    {
-        try {
-            $response = $this->businessDocumentTypeService->getDetail(
-                [
-                    'parameter'     => [],
-                    'SQLStatement'  => [
-                        'pick'      => null,
-                        'sort'      => null,
-                        'filter'    => "\"Name\" = '$businessDocumentName'",
-                        'paging'    => null
-                    ]
-                ]
-            );
-
-            $documentTypes = $response['data']['data'] ?? [];
-
-            if ($response['metadata']['HTTPStatusCode'] !== 200 || empty($documentTypes)) {
-                return null;
-            }
-
-            return $documentTypes[0]['sys_ID'];
-        } catch (\Throwable $th) {
-            Log::error("GetBusinessDocumentType Debit Note Function Error: " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
-        }
-    }
-
     public function DataPickList(Request $request) 
     {
         try {
@@ -79,7 +51,7 @@ class DebitNoteController extends Controller
     {
         $var                = $request->query('var', 0);
         $varAPIWebToken     = Session::get('SessionLogin');
-        $documentTypeRefID  = $this->GetBusinessDocumentType('Debit Note Form');
+        $documentTypeRefID  = $this->GetBusinessDocumentsType('Debit Note Form');
 
         return view('Process.DebitNote.Transactions.CreateDebitNote', [
             'var'                   => $var,

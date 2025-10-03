@@ -232,6 +232,14 @@
         }
     }
 
+    function formatLabel(text) {
+        return text
+            .toLowerCase()                         // Ubah semua huruf ke lowercase
+            .split('_')                            // Pisahkan berdasarkan underscore
+            .map(word => word.charAt(0).toUpperCase() + word.slice(1)) // Kapitalisasi huruf pertama
+            .join(' ');                            // Gabungkan dengan spasi
+    }
+
     function GetDeliveryOrderDetail(delivery_order_id, delivery_order_number) {
         $("#tableMaterialReceiveDetail tbody").hide();
         $(".loadingMaterialReceiveDetail").show();
@@ -265,6 +273,7 @@
                     $("#deliveryDateTimeTZ").val(data[0].deliveryDateTimeTZ);
                     $("#var_combinedBudget_RefID").val(data[0].combinedBudget_RefID);
 
+                    $("#do_type").val(formatLabel(data[0].type));
                     $("#budget_value").val(data[0].combinedBudgetCode + ' - ' + data[0].combinedBudgetName);
                     $("#sub_budget_value").val(data[0].combinedBudgetSectionCode + ' - ' + data[0].combinedBudgetSectionName);
                     $("#address_delivery_order_from").val(data[0].deliveryFrom_NonRefID.Address);
@@ -282,6 +291,14 @@
 
                     $("#address_delivery_order_to").css("border", "1px solid #ced4da");
                     $("#deliveryToMessage").hide();
+
+                    if (data[0].type == "STOCK_MOVEMENT") {
+                        $("#requester_stock_movement_container").show();
+                        $("#status_stock_movement_container").show();
+
+                        $("#do_requester").val(`${data[0].stockMovementRequesterName} - ${data[0].stockMovementRequesterPosition}`);
+                        $("#do_status").val(data[0].stockMovementStatus);
+                    }
 
                     $.each(data, function(key, val2) {
                         let row = `

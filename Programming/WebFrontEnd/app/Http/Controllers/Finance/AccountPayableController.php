@@ -20,9 +20,17 @@ class AccountPayableController extends Controller
         $this->accountPayableService    = $accountPayableService;
     }
 
-    public function index() 
+    public function index(Request $request) 
     {
-        return view('');
+        $var                = $request->query('var', 0);
+        $varAPIWebToken     = Session::get('SessionLogin');
+        $documentTypeRefID  = $this->GetBusinessDocumentsType('');
+
+        return view('Finance.AccountPayable.Transactions.CreateAccountPayable', [
+            'var'                   => $var,
+            'varAPIWebToken'        => $varAPIWebToken,
+            'documentType_RefID'    => $documentTypeRefID
+        ]);
     }
 
     public function ReportAccountPayableSummary() 

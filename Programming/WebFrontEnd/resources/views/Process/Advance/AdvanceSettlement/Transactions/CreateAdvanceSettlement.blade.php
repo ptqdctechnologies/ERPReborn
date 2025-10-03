@@ -27,7 +27,7 @@
           <input type="hidden" name="DocumentTypeID" id="DocumentTypeID">
           <input type="hidden" name="var_combinedBudget_RefID" id="var_combinedBudget_RefID">
 
-          <!-- ADD NEW SETTLEMENT -->
+          <!-- ADVANCE SETTLEMENT -->
           <div class="tab-content px-3 pt-4 pb-2" id="nav-tabContent">
             <div class="row">
               <div class="col-12">
@@ -35,7 +35,7 @@
                   <!-- HEADER -->
                   <div class="card-header">
                     <label class="card-title">
-                      Add New Settlement
+                      Advance Settlement
                     </label>
                     <div class="card-tools">
                       <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -51,7 +51,7 @@
             </div>
           </div>
 
-          <!-- FILE ATTACHMENT -->
+          <!-- ATTACHMENT -->
           <div class="tab-content px-3 pb-2" id="nav-tabContent">
             <div class="row">
               <div class="col-12">
@@ -59,7 +59,7 @@
                   <!-- HEADER -->
                   <div class="card-header">
                     <label class="card-title">
-                      File Attachment
+                      Attachment
                     </label>
                     <div class="card-tools">
                       <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -92,7 +92,7 @@
             </div>
           </div>
 
-          <!-- ADVANCE REQUEST DETAIL -->
+          <!-- ADVANCE SETTLEMENT DETAILS -->
           <div class="tab-content px-3 pb-2" id="nav-tabContent">
             <div class="row">
               <div class="col-12">
@@ -100,7 +100,7 @@
                   <!-- HEADER -->
                   <div class="card-header">
                     <label class="card-title">
-                      Advance Request Detail
+                      Advance Settlement Details
                     </label>
                     <div class="card-tools">
                       <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -112,7 +112,7 @@
                   <!-- BODY -->
                   @include('Process.Advance.AdvanceSettlement.Functions.Table.TableArfDetail')
 
-                  <!-- BUTTON -->
+                  <!-- INFORMATION -->
                   <div class="card-body">
                     <div class="row">
                       <div class="col">

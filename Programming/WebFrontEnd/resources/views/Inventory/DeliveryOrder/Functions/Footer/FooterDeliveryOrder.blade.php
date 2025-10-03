@@ -139,12 +139,13 @@
                         if (indexToUpdate !== -1) {
                             dataStore[indexToUpdate] = {
                                 entities: {
-                                    referenceDocument_RefID: parseInt(refDocument_RefID.value),
+                                    product_RefID: parseInt(productRefId.value),
                                     quantity: parseFloat(qty.replace(/,/g, '')),
                                     quantityUnit_RefID: parseInt(qtyUnitRefId.value),
                                     remarks: note,
-                                    underlyingDetail_RefID: parseInt(underlyingDetail_RefID.value),
-                                    product_RefID: parseInt(productRefId.value),
+                                    reference_ID: parseInt(underlyingDetail_RefID.value),
+                                    // referenceDocument_RefID: parseInt(refDocument_RefID.value),
+                                    // underlyingDetail_RefID: parseInt(underlyingDetail_RefID.value),
                                     refNumber: refNumber,
                                     productCode: productCode
                                 }
@@ -168,12 +169,13 @@
 
                     dataStore.push({
                         entities: {
-                            referenceDocument_RefID: parseInt(refDocument_RefID.value),
+                            product_RefID: parseInt(productRefId.value),
                             quantity: parseFloat(qty.replace(/,/g, '')),
                             quantityUnit_RefID: parseInt(qtyUnitRefId.value),
                             remarks: note,
-                            underlyingDetail_RefID: parseInt(underlyingDetail_RefID.value),
-                            product_RefID: parseInt(productRefId.value),
+                            reference_ID: parseInt(underlyingDetail_RefID.value),
+                            // referenceDocument_RefID: parseInt(refDocument_RefID.value),
+                            // underlyingDetail_RefID: parseInt(underlyingDetail_RefID.value),
                             refNumber: refNumber,
                             productCode: productCode
                         }
@@ -561,7 +563,7 @@
         let tbody = $('#tableReferenceNumberDetail tbody');
         tbody.empty();
 
-        if (source.value == "PURCHASE_ORDER") {
+        if (source.value == "0") {
             $(".purchase-order-components").css("display", "flex");
             $(".internal-use-components").css("display", "none");
             $(".stock-movement-components").css("display", "none");
@@ -570,7 +572,7 @@
             $(".thead-internal-use").css("display", "none");
             $(".thead-stock-movement").css("display", "none");
             getReferenceNumber(source);
-        } else if (source.value == "INTERNAL_USE") {
+        } else if (source.value == "1") {
             $(".purchase-order-components").css("display", "none");
             $(".internal-use-components").css("display", "flex");
             $(".stock-movement-components").css("display", "none");
@@ -726,11 +728,17 @@
         var projectCode = $(this).find('td:nth-child(2)').text();
         var projectName = $(this).find('td:nth-child(3)').text();
 
-        $("#project_id_second").val(sysId);
-        $("#project_code_second").val(projectCode);
-        $("#project_name_second").val(projectName);
+        if (referenceTypeValue.value == "1") {
+            $("#project_id_second").val(sysId);
+            $("#project_code_second").val(projectCode);
+            $("#project_name_second").val(projectName);
 
-        getSiteSecond(sysId);
+            getSiteSecond(sysId);
+        } else {
+            $("#project_id_second_stock_movement").val(sysId);
+            $("#project_code_second_stock_movement").val(projectCode);
+            $("#project_name_second_stock_movement").val(projectName);
+        }
     });
 
     $('#tableGetSiteSecond').on('click', 'tbody tr', function() {

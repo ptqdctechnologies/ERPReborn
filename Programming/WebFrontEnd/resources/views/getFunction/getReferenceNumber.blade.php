@@ -61,9 +61,9 @@
     function getReferenceNumber(source) {
         let urls = '';
 
-        if (source.value === "PURCHASE_ORDER") {
+        if (source.value === "0") {
             urls = '{!! route("getPurchaseOrderList") !!}';
-        } else if (source.value === "INTERNAL_USE") {
+        } else if (source.value === "1") {
             urls = '';
         } else {
             urls = '';

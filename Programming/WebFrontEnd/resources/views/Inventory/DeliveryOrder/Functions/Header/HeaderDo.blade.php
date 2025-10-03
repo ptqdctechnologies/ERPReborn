@@ -9,11 +9,11 @@
           Reference Type
         </label>
         <div class="col-sm-9 col-md-8 col-lg-4 d-flex p-0">
-          <select id="reference_type" class="form-control" onchange="referenceType(this);">
+          <select id="reference_type" name="reference_type" class="form-control" onchange="referenceType(this);">
             <option disabled selected>Select a Source</option>
-            <option value="PURCHASE_ORDER">Purchase Order</option>
-            <option value="INTERNAL_USE">Internal Use</option>
-            <option value="STOCK_MOVEMENT">Stock Movement</option>
+            <option value="0">Purchase Order</option>
+            <option value="1">Internal Use</option>
+            <option value="2">Stock Movement</option>
           </select>
         </div>
       </div>
@@ -141,12 +141,12 @@
             </span>
           </div>
           <div>
-            <input id="project_code_second" style="border-radius:0;" class="form-control" size="17" readonly>
-            <input id="project_id_second" name="project_id_second" style="border-radius:0;" class="form-control" hidden>
+            <input id="project_code_second_stock_movement" style="border-radius:0;" class="form-control" size="17" readonly>
+            <input id="project_id_second_stock_movement" name="project_id_second_stock_movement" style="border-radius:0;" class="form-control" hidden>
           </div>
           <div style="flex: 100%;">
             <div class="input-group">
-              <input id="project_name_second" style="border-radius:0;" class="form-control" readonly>
+              <input id="project_name_second_stock_movement" style="border-radius:0;" class="form-control" readonly>
             </div>
           </div>
         </div>
@@ -295,10 +295,10 @@
           Status
         </label>
         <div class="col-sm-9 col-md-8 col-lg-4 d-flex p-0">
-          <select id="reference_type" class="form-control" onchange="referenceType(this);">
+          <select id="stock_movement_status" name="stock_movement_status" class="form-control">
             <option disabled selected>Select a Type</option>
-            <option value="RENT">Rent</option>
-            <option value="PERMANENT">Permanent</option>
+            <option value="0">Rent</option>
+            <option value="1">Permanent</option>
           </select>
         </div>
       </div>
