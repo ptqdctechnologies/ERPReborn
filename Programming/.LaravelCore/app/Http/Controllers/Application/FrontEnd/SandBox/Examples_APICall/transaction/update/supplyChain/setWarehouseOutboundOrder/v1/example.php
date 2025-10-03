@@ -23,7 +23,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         |                       transaction.update.supplyChain.setWarehouseOutboundOrder.v1_throughAPIGateway                      |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-07-27                                                                                           |
+        | ▪ Last Update     : 2025-10-02                                                                                           |
         | ▪ Creation Date   : 2022-07-27                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -40,15 +40,31 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                 'transaction.update.supplyChain.setWarehouseOutboundOrder', 
                 'latest', 
                 [
-                'recordID' => 178000000000001,
+                'recordID' => 178000000000012,
                 'entities' => [
-                    'documentDateTimeTZ' => '2022-03-08',
+                    'documentDateTimeTZ' => '2025-06-20',
+                    'log_FileUpload_Pointer_RefID' => null,
                     'requesterWorkerJobsPosition_RefID' => 164000000000497,
-                    'remarks' => 'My Remarks'
+                    'transporter_RefID' => 284000000000006,
+                    'remarks' => 'Catatan Test 1B (Edit)',
+                    "additionalData" => [
+                        "itemList" => [
+                            "items" => [
+                                    [
+                                    "recordID" => 179000000000009,
+                                    "entities" => [
+                                            'warehouseInboundOrderDetail_RefID' => 177000000000001,
+                                            'quantity' => 25,
+                                            'note' => 'Catatan Detail - 1B - (Edit)',
+                                        ]
+                                    ],
+                                ]
+                            ]
+                        ]
                     ]
                 ]
                 );
-            var_dump($varData);
+            return $varData;
             }
 
 
