@@ -12,6 +12,23 @@
     document.getElementById('material_receive_details_total').textContent = decimalFormat(total);
   }
 
+  function summaryData() {
+    const sourceTable = document.getElementById('debit_note_details_table').getElementsByTagName('tbody')[0];
+    const targetTable = document.getElementById('debit_note_list_table_modal').getElementsByTagName('tbody')[0];
+
+    const rows = sourceTable.getElementsByTagName('tr');
+
+    for (let row of rows) {
+      const materialReceiveDetailRefID = row.querySelector('input[id^="warehouseInboundOrderDetail_RefID"]');
+      const materialReturnValueInput   = row.querySelector('input[id^="qty_return"]');
+      const materialReturnValueInput   = row.querySelector('input[id^="note"]');
+    }
+  }
+
+  function validationForm() {
+    summaryData();
+  }
+
   function getMaterialReceiveDetail(materialReceive_RefID) {
     $("#material_receive_details_table tbody").empty();
     $(".material_receive_details_loading").show();
@@ -36,6 +53,8 @@
           $.each(result, function(key, val) {
             let row = `
               <tr>
+                <input type="hidden" id="warehouseInboundOrderDetail_RefID[]" value="${val.sys_ID}">
+
                 <td style="text-align: center;">${val.combinedBudgetSectionCode} - ${val.combinedBudgetSectionName}</td>
                 <td style="text-align: center;">${val.productCode}</td>
                 <td style="text-align: center;">${val.productName}</td>

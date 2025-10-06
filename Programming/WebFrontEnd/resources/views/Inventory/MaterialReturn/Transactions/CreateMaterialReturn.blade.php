@@ -4,6 +4,7 @@
 @include('Partials.sidebar')
 @include('getFunction.getTransporter')
 @include('getFunction.getMaterialReceive')
+@include('Inventory.MaterialReturn.Functions.PopUp.PopUpMaterialReturnSummaryData')
 
 <div class="content-wrapper">
     <section class="content">
@@ -25,7 +26,7 @@
                 <input type="hidden" name="DocumentTypeID" id="DocumentTypeID" value="<?= $documentType_RefID; ?>">
                 <input type="hidden" name="var_combinedBudget_RefID" id="var_combinedBudget_RefID">
 
-                <!-- ADD NEW MATERIAL RETURN -->
+                <!-- MATERIAL RETURN -->
                 <div class="tab-content px-3 pt-4 pb-2" id="nav-tabContent">
                     <div class="row">
                         <div class="col-12">
@@ -33,7 +34,7 @@
                                 <!-- HEADER -->
                                 <div class="card-header">
                                     <label class="card-title">
-                                        Add New Material Return
+                                        Material Return
                                     </label>
                                     <div class="card-tools">
                                         <button type="button" class="btn btn-tool" data-card-widget="collapse">
