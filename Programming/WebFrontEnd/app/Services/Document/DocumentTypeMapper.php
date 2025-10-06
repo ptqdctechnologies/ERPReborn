@@ -73,6 +73,11 @@ class DocumentTypeMapper
                 'key'                       => 'transaction.read.dataList.finance.getReimbursementDetail',
                 'parameter'                 => ['reimbursement_RefID' => (int) $referenceId],
             ],
+            'Sales Invoice Form' => [
+                'key'                       => '',
+                'parameter'                 => [],
+                'businessDocument_RefID'    => (int) 74000000021494,
+            ],
             'Sallary Allocation Form' => [
                 'key'                       => '',
                 'parameter'                 => [],
@@ -610,6 +615,33 @@ class DocumentTypeMapper
                 ],
                 'transactionType'        => 'REIMBURSEMENT',
                 'businessDocument_RefID' => $dataDetail['BusinessDocument_RefID'] ?? '',
+            ],
+            'Sales Invoice Form'       => [
+                'dataHeader'            => [
+                    'vat'           => '-',
+                    'date'          => '2025-06-04 10:47:11.993084+07',
+                    'dateUpdate'    => null,
+                    'fileID'        => null,
+                    'currency'      => 'IDR',
+                    'budgetCode'    => 'Q000062',
+                    'budgetName'    => 'XL Microcell 2007',
+                    'customer'      => 'Alumagada Jaya Mandiri'
+                ],
+                'textAreaFields'    => [
+                    'title'         => 'Remark',
+                    'text'          => '-',
+                ],
+                'components'    => [
+                    'detail'    => 'Components.InvoiceDetailDocument',
+                    'table'     => 'Components.InvoiceDetailDocumentTable',
+                ],
+                'resubmit'      => [
+                    'url'       => '',
+                    'name'      => '',
+                    'value'     => ''
+                ],
+                'transactionType'        => 'INVOICE',
+                'businessDocument_RefID' => '',
             ],
             'Sallary Allocation Form'       => [
                 'dataHeader'            => [
