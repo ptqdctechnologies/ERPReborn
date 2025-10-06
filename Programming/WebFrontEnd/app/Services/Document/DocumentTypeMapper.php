@@ -620,7 +620,7 @@ class DocumentTypeMapper
                 'dataHeader'            => [
                     'vat'           => '-',
                     'date'          => '2025-06-04 10:47:11.993084+07',
-                    'dateUpdate'    => null,
+                    'dateUpdate'    => '2025-06-04 10:47:11.993084+07',
                     'fileID'        => null,
                     'currency'      => 'IDR',
                     'budgetCode'    => 'Q000062',
@@ -632,8 +632,10 @@ class DocumentTypeMapper
                     'text'          => '-',
                 ],
                 'components'    => [
-                    'detail'    => 'Components.InvoiceDetailDocument',
-                    'table'     => 'Components.InvoiceDetailDocumentTable',
+                    'detail'            => 'Components.InvoiceDetailDocument',
+                    'table'             => 'Components.InvoiceDetailDocumentTable', 
+                    'headerRevision'    => 'Components.InvoiceDetailDocumentHeaderRevision',
+                    'revision'          => 'Components.InvoiceDetailDocumentRevision',
                 ],
                 'resubmit'      => [
                     'url'       => '',
@@ -770,6 +772,7 @@ class DocumentTypeMapper
             'Purchase Order Form'           => 'Documents.Transactions.LogTransaction.LogTransactionPurchaseOrder',
             'Purchase Requisition Form'     => 'Documents.Transactions.LogTransaction.LogTransactionPurchaseRequisition',
             'Reimbursement Form'            => 'Documents.Transactions.LogTransaction.LogTransactionReimbursement',
+            'Sales Invoice Form'            => 'Documents.Transactions.LogTransaction.LogTransactionInvoice',
             'Warehouse Inbound Order Form'  => 'Documents.Transactions.LogTransaction.LogTransactionMaterialReceive',
             'Warehouse Outbound Order Form' => 'Documents.Transactions.LogTransaction.LogTransactionMaterialReturn'
         ];
