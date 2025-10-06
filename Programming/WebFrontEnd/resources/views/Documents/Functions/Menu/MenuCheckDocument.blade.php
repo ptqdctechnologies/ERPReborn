@@ -10,7 +10,7 @@
                                 <div class="form-group">
                                     <table>
                                         <tr>
-                                            <td style="position:relative;top:3px;"><label>Document Number</label></td>
+                                            <td style="position:relative;top:3px; padding-right: 0.3rem;"><label>Document Number</label></td>
                                             <td>
                                                 <div class="input-group">
                                                     <div class="input-group-append">
