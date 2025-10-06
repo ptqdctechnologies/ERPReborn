@@ -74,6 +74,7 @@ class CheckDocumentController extends Controller
                 $documentType === 'Loan Settlement Form' ||
                 $documentType === 'Modify Budget Form' ||
                 $documentType === 'Person Business Trip Settlement Form' || 
+                $documentType === 'Sales Invoice Form' || 
                 $documentType === 'Sallary Allocation Form' || 
                 $documentType === 'Warehouse Outbound Order Form'
             ) {

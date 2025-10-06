@@ -514,7 +514,7 @@ class PurchaseRequisitionController extends Controller
             $response = $this->purchaseRequisitionService->create($request);
 
             if ($response['metadata']['HTTPStatusCode'] !== 200) {
-                return response()->json($response);
+                throw new \Exception('Failed to fetch Create Purchase Request');
             }
 
             $responseWorkflow = $this->workflowService->submit(
@@ -525,7 +525,7 @@ class PurchaseRequisitionController extends Controller
             );
 
             if ($responseWorkflow['metadata']['HTTPStatusCode'] !== 200) {
-                return response()->json($responseWorkflow);
+                throw new \Exception('Failed to fetch Submit Workflow Create Purchase Request');
             }
 
             $compact = [
@@ -535,8 +535,9 @@ class PurchaseRequisitionController extends Controller
 
             return response()->json($compact);
         } catch (\Throwable $th) {
-            Log::error("Error at store: " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
+            Log::error("Store Purchase Requesition Function Error: " . $th->getMessage());
+
+            return response()->json(["status" => 500]);
         }
     }
 
@@ -613,7 +614,7 @@ class PurchaseRequisitionController extends Controller
             $response = $this->purchaseRequisitionService->updates($request);
 
             if ($response['metadata']['HTTPStatusCode'] !== 200) {
-                return response()->json($response);
+                throw new \Exception('Failed to fetch Update Purchase Request');
             }
 
             $responseWorkflow = $this->workflowService->submit(
@@ -624,7 +625,7 @@ class PurchaseRequisitionController extends Controller
             );
 
             if ($responseWorkflow['metadata']['HTTPStatusCode'] !== 200) {
-                return response()->json($responseWorkflow);
+                throw new \Exception('Failed to fetch Submit Workflow Revision Purchase Request');
             }
 
             $compact = [
@@ -634,8 +635,9 @@ class PurchaseRequisitionController extends Controller
 
             return response()->json($compact);
         } catch (\Throwable $th) {
-            Log::error("Error at " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
+            Log::error("Update Purchase Requesition Function Error: " . $th->getMessage());
+
+            return response()->json(["status" => 500]);
         }
     }
 

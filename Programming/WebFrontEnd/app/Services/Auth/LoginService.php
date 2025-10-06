@@ -16,8 +16,8 @@ class LoginService
             $username, 
             $password,
             [
-                'branch_RefID'      => 11000000000004, // 11000000000004
-                'userRole_RefID'    => 95000000000001  // 95000000000001
+                'branch_RefID'      => 'AUTO',
+                'userRole_RefID'    => 'AUTO'
             ]
         );
         // return Helper_APICall::setCallAPIAuthentication(

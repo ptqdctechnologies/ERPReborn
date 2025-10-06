@@ -48,7 +48,7 @@
                     <div class="col-md-12 col-lg-5">
                       <!-- BUDGET -->
                       <div class="row">
-                        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Budget Code</label>
+                        <label class="col-sm-3 col-md-4 col-lg-3 col-form-label p-0">Budget Code</label>
                         <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                           <div>
                             <span class="input-group-text form-control" style="border-radius:0;">
@@ -83,7 +83,7 @@
                     <div class="col-md-12 col-lg-5">
                       <!-- CUSTOMER -->
                       <div class="row">
-                        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Customer</label>
+                        <label class="col-sm-3 col-md-4 col-lg-3 col-form-label p-0">Customer</label>
                         <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                           <div>
                             <div class="input-group">
@@ -160,15 +160,16 @@
                 </div>
 
                 <!-- BODY -->
-                <div class="wrapper-budget card-body table-responsive p-0" style="height: 230px;">
+                <div class="wrapper-budget card-body table-responsive p-0" style="height: 227px; border-bottom: 1px solid #e9ecef;">
                   <table class="table table-head-fixed text-nowrap table-sm" id="invoice_details_table">
                     <thead>
                       <tr>
-                        <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Sub Budget</th>
-                        <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Customer Order</th>
-                        <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Balance</th>
-                        <th style="padding-top: 10px;padding-bottom: 10px;background-color:#4B586A;border-right:1px solid #fff;text-align: center;color: white;width: 125px;">Invoice Value</th>
-                        <th style="padding-top: 10px;padding-bottom: 10px;background-color:#4B586A;border-right:1px solid #fff;text-align: center;color: white;width: 100px;padding-right: 0 !important;">Progress (%)</th>
+                        <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;width: 20%;">Sub Budget</th>
+                        <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;width: 17%;">Customer Order</th>
+                        <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;width: 18%;">Progress Completed (%)</th>
+                        <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;width: 18%;">Balance</th>
+                        <th style="padding-top: 10px;padding-bottom: 10px;background-color:#4B586A;border-right:1px solid #fff;text-align: center;color: white;width: 13%;">Invoice Value</th>
+                        <th style="padding-top: 10px;padding-bottom: 10px;background-color:#4B586A;border-right:1px solid #fff;text-align: center;color: white;width: 12%;padding-right: 0 !important;">Progress (%)</th>
                       </tr>
                     </thead>
                     <tbody></tbody>
@@ -191,30 +192,32 @@
 
                 <!-- FOOTER -->
                 <div class="card-body">
-                  <div class="row">
+                  <div class="row my-2">
                     <div class="col">
-                      <div class="text-red" id="invoice_details_message" style="display: none; margin-bottom: 1rem;">
+                      <div class="row text-red" id="invoice_details_message" style="display: none; margin-bottom: 1rem; margin-left: auto;">
                         Please input at least one item.
                       </div>
-                      <div class="d-flex" style="gap: 8px; margin-bottom: 1rem;">
-                        <label>VAT</label>
-                        <select type="text" id="ppn" class="form-control" name="ppn" onchange="onChangeVAT(this)" style="border-radius:0;width:auto;">
-                          <option value="No">No</option>
-                          <option value="Yes">Yes</option>
-                        </select>
-                      </div>
-                      <div id="invoice_vat_percentage" style="gap: 8px; display: none;">
-                        <input hidden id="vatOptionValue" style="width: 20%;" />
-                        <label>VAT (%)</label>
-                        <select name="vatValue" id="vatOption" style="border-radius:0;width:auto;" class="form-control" onChange="calculateTotal();">
-                          <option>0%</option>
-                          <option>10%</option>
-                          <option>11%</option>
-                          <option>12%</option>
-                        </select>
+                      <div class="row d-flex" style="gap: 5%; margin-left: auto;">
+                        <div class="d-flex" style="gap: 8px; margin-bottom: 1rem;">
+                          <label>VAT</label>
+                          <select type="text" id="ppn" class="form-control" name="ppn" onchange="onChangeVAT(this)" style="border-radius:0;width:auto;">
+                            <option value="No">No</option>
+                            <option value="Yes">Yes</option>
+                          </select>
+                        </div>
+                        <div id="invoice_vat_percentage" style="gap: 8px; margin-bottom: 1rem; display: none;">
+                          <input hidden id="vatOptionValue" style="width: 20%;" />
+                          <label>VAT (%)</label>
+                          <select name="vatValue" id="vatOption" style="border-radius:0;width:auto;" class="form-control" onChange="calculateTotal();">
+                            <option>0%</option>
+                            <option>10%</option>
+                            <option>11%</option>
+                            <option>12%</option>
+                          </select>
+                        </div>
                       </div>
                     </div>
-                    <div class="col" style="margin-right: 20px; font-size: 0.77rem; color: #212529; font-weight: 600;">
+                    <div class="col" style="font-size: 0.77rem; color: #212529; font-weight: 600;">
                       <div id="invoice_details_total" class="col text-right" style="margin-bottom: 0.6rem;">
                         Total Invoice: 0.00
                       </div>
@@ -226,9 +229,9 @@
 
                   <hr class="m-0" />
 
-                  <div class="row">
+                  <div class="row my-2">
                     <div class="col"></div>
-                    <div class="col" style="margin-right: 20px; font-size: 0.77rem; color: #212529; font-weight: 600;">
+                    <div class="col" style="font-size: 0.77rem; color: #212529; font-weight: 600;">
                       <div id="invoice_details_total" class="col text-right" style="margin-top: 0.6rem;">
                         Grand Total: 0.00
                       </div>
