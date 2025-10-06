@@ -15,12 +15,18 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
 use App\Helpers\ZhtHelper\System\Helper_Environment;
 use App\Helpers\ZhtHelper\Cache\Helper_Redis;
+use App\Services\Inventory\MaterialReturnService;
 use App\Services\Master\BusinessDocumentType\BusinessDocumentTypeService;
 
 class MaterialReturnController extends Controller
 {
-    public function __construct(BusinessDocumentTypeService $businessDocumentTypeService)
-    {
+    protected $materialReturnService, $businessDocumentTypeService;
+
+    public function __construct(
+        BusinessDocumentTypeService $businessDocumentTypeService, 
+        MaterialReturnService $materialReturnService
+    ) {
+        $this->materialReturnService        = $materialReturnService;
         $this->businessDocumentTypeService  = $businessDocumentTypeService;
     }
 
@@ -67,8 +73,36 @@ class MaterialReturnController extends Controller
 
     public function store(Request $request)
     {
-        $input = $request->all();
-        dd($input);
+        try {
+            $response = $this->materialReturnService->create($request);
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                throw new \Exception('Failed to fetch Create Material Return');
+            }
+
+            // $responseWorkflow = $this->workflowService->submit(
+            //     $response['data']['businessDocument']['businessDocument_RefID'],
+            //     $request->workFlowPath_RefID,
+            //     $request->comment,
+            //     $request->approverEntity,
+            // );
+
+            // if ($responseWorkflow['metadata']['HTTPStatusCode'] !== 200) {
+            //     throw new \Exception('Failed to fetch Submit Workflow Create Material Return');
+            // }
+
+            $compact = [
+                "documentNumber"    => $response['data']['businessDocument']['documentNumber'],
+                "status"            => $response['metadata']['HTTPStatusCode'],
+                // "status"            => $responseWorkflow['metadata']['HTTPStatusCode']
+            ];
+
+            return response()->json($compact);
+        } catch (\Throwable $th) {
+            Log::error("Store Material Return Function Error: " . $th->getMessage());
+
+            return response()->json(["status" => 500]);
+        }
     }
 
     public function update(Request $request, $id)
