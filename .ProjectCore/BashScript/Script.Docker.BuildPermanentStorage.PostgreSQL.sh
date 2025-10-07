@@ -35,8 +35,10 @@ if [ ! -d $varDirectory ]; then
    cd -;
 fi
 
-sudo chmod 700 $varDirectory/data;
-sudo chown 999 $varDirectory/data;
+#sudo chmod 700 $varDirectory/data;
+sudo chmod 700 $varDirectory/18/docker;
+#sudo chown 999 $varDirectory/data;
+sudo chown 999 $varDirectory/18/docker;
 
 #------[ MySQL ]------
 
