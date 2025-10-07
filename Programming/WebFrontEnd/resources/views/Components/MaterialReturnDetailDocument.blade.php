@@ -11,23 +11,13 @@
             </div>
         </div>
 
-        <!-- MATERIAL RECEIVE NUMBER -->
-        <div class="row" style="margin-bottom: 1rem;">
-            <div class="col-4 col-sm-4 col-md-4 col-lg-3 text-bold">
-                Material Receive Number
-            </div>
-            <div class="col">
-                : WHIn/QDC/2025/000093
-            </div>
-        </div>
-
         <!-- DATE -->
         <div class="row" style="margin-bottom: 1rem;">
             <div class="col-4 col-sm-4 col-md-4 col-lg-3 text-bold">
                 Date
             </div>
             <div class="col">
-                : 2025-09-18
+                : <?= isset($dataHeader['date']) ? date('Y-m-d', strtotime($dataHeader['date'])) : '-'; ?>
             </div>
         </div>
 
