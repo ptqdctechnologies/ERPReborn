@@ -3,7 +3,10 @@
 @include('Partials.navbar')
 @include('Partials.sidebar')
 @include('getFunction.getTransporter')
+@include('getFunction.getMaterialReturn')
 @include('getFunction.getMaterialReceive')
+@include('Inventory.MaterialReturn.Functions.PopUp.PopUpMaterialReturnRevision')
+@include('Inventory.MaterialReturn.Functions.PopUp.PopUpMaterialReturnSummaryData')
 
 <div class="content-wrapper">
     <section class="content">
@@ -21,7 +24,10 @@
 
             <!-- CONTENT -->
             <div class="card">
-                <!-- ADD NEW MATERIAL RETURN -->
+                <input type="hidden" name="DocumentTypeID" id="DocumentTypeID" />
+                <input type="hidden" name="var_combinedBudget_RefID" id="var_combinedBudget_RefID" value="<?= $header['combinedBudget_RefID']; ?>" />
+
+                <!-- MATERIAL RETURN -->
                 <div class="tab-content px-3 pt-4 pb-2" id="nav-tabContent">
                     <div class="row">
                         <div class="col-12">
@@ -29,7 +35,7 @@
                                 <!-- HEADER -->
                                 <div class="card-header">
                                     <label class="card-title">
-                                        Add New Material Return
+                                        Material Return
                                     </label>
                                     <div class="card-tools">
                                         <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -46,26 +52,31 @@
                                             <!-- MATERIAL RECEIVE -->
                                             <div class="row">
                                                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">
-                                                    MR Number
+                                                    Material Receive Number
                                                 </label>
                                                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                                                     <div>
-                                                        <input id="material_receive_number" style="border-radius:0;" class="form-control" size="20" readonly>
-                                                        <input id="material_receive_id" name="material_receive_id" style="border-radius:0;" class="form-control" hidden>
-                                                    </div>
-                                                    <div>
-                                                        <span style="border-radius:0;" class="input-group-text form-control">
-                                                            <a href="javascript:;" id="materialReceiveTrigger" data-toggle="modal" data-target="#myGetModalMaterialReceive" style="display: block;">
-                                                                <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="materialReceiveTrigger">
-                                                            </a>
-                                                        </span>
+                                                        <input id="material_receive_number" class="form-control" size="20" value="<?= $header['materialReturnNumber']; ?>" readonly style="border-radius:0;">
+                                                        <input type="hidden" id="material_receive_id" class="form-control" name="material_receive_id" value="<?= $header['materialReturn_RefID']; ?>" style="border-radius:0;">
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
 
                                         <!-- RIGHT COLUMN -->
-                                        <div class="col-md-12 col-lg-5"></div>
+                                        <div class="col-md-12 col-lg-5">
+                                            <!-- BUDGET CODE -->
+                                            <div class="row">
+                                                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">
+                                                    Budget Code
+                                                </label>
+                                                <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                                                    <div>
+                                                        <input id="material_receive_budget_id" class="form-control" style="border-radius:0;" readonly value="<?= $header['combinedBudgetCode'] . " - " . $header['combinedBudgetName']; ?>">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -73,7 +84,7 @@
                     </div>
                 </div>
 
-                <!-- ADD NEW TRANSPORTER -->
+                <!-- TRANSPORTER -->
                 <div class="tab-content px-3 pb-2" id="nav-tabContent">
                     <div class="row">
                         <div class="col-12">
@@ -81,7 +92,7 @@
                                 <!-- HEADER -->
                                 <div class="card-header">
                                     <label class="card-title">
-                                        Add New Transporter
+                                        Transporter
                                     </label>
                                     <div class="card-tools">
                                         <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -102,15 +113,8 @@
                                                 </label>
                                                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                                                     <div>
-                                                        <input id="transporter_name" style="border-radius:0;" class="form-control" size="20" readonly>
-                                                        <input id="transporter_id" style="border-radius:0;" name="transporter_id" class="form-control" hidden>
-                                                    </div>
-                                                    <div>
-                                                        <span style="border-radius:0;" class="input-group-text form-control myTransporter">
-                                                            <a href="javascript:;" id="myTransporterTrigger" data-toggle="modal" data-target="#myTransporter" style="display: block;">
-                                                                <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="myTransporterTrigger">
-                                                            </a>
-                                                        </span>
+                                                        <input id="transporter_name" style="border-radius:0;" class="form-control" size="20" readonly value="<?= $header['transporterName']; ?>" />
+                                                        <input id="transporter_id" style="border-radius:0;" name="transporter_id" class="form-control" hidden value="<?= $header['transporter_RefID']; ?>" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -130,7 +134,7 @@
                                                 </label>
                                                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                                                     <div>
-                                                        <input id="transporter_phone" style="border-radius:0;" class="form-control" size="20" readonly>
+                                                        <input id="transporter_phone" style="border-radius:0;" class="form-control" size="20" readonly value="<?= $header['transporterPhone']; ?>" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -142,7 +146,7 @@
                                                 </label>
                                                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                                                     <div>
-                                                        <input id="transporter_fax" style="border-radius:0;" class="form-control" size="20" readonly>
+                                                        <input id="transporter_fax" style="border-radius:0;" class="form-control" size="20" readonly value="<?= $header['transporterFax']; ?>" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -157,7 +161,7 @@
                                                 </label>
                                                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                                                     <div>
-                                                        <input id="transporter_contact" style="border-radius:0;" class="form-control" size="20" readonly>
+                                                        <input id="transporter_contact" style="border-radius:0;" class="form-control" size="20" value="<?= $header['transporterContactPerson']; ?>" readonly />
                                                     </div>
                                                 </div>
                                             </div>
@@ -169,7 +173,7 @@
                                                 </label>
                                                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                                                     <div>
-                                                        <input id="transporter_handphone" style="border-radius:0;" class="form-control" size="20" readonly>
+                                                        <input id="transporter_handphone" style="border-radius:0;" class="form-control" size="20" value="<?= $header['transporterHandphone']; ?>" readonly>
                                                     </div>
                                                 </div>
                                             </div>
@@ -181,7 +185,7 @@
                                                 </label>
                                                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                                                     <div>
-                                                        <textarea id="transporter_address" rows="3" style="border-radius:0;" class="form-control" readonly></textarea>
+                                                        <textarea id="transporter_address" rows="3" style="border-radius:0;" class="form-control" readonly><?= $header['transporterAddress']; ?></textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -218,14 +222,29 @@
                                                 <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Sub Budget</th>
                                                 <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Product Code</th>
                                                 <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Product Name</th>
-                                                <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Valuta</th>
+                                                <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">UOM</th>
                                                 <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Note</th>
                                                 <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Qty Receive</th>
                                                 <th style="padding-top: 10px;padding-bottom: 10px;background-color:#4B586A;border-right:1px solid #fff;text-align: center;color: white;width: 130px;">Qty Return</th>
                                                 <th style="padding-top: 10px;padding-bottom: 10px;background-color:#4B586A;border-right:1px solid #fff;text-align: center;color: white;width: 200px;">Note</th>
                                             </tr>
                                         </thead>
+                                        <tbody></tbody>
                                     </table>
+                                </div>
+
+                                <!-- FOOTER -->
+                                <div class="card-body tableShowHideBudget">
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="text-red" id="material_return_details_message" style="display: none;">
+                                                Please input at least one item.
+                                            </div>
+                                        </div>
+                                        <div class="col text-right" style="margin-right: 20px; font-size: 0.77rem; color: #212529; font-weight: 600;">
+                                            Total : <span id="material_return_details_total">0.00</span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -253,7 +272,7 @@
                                 <div class="card-body">
                                     <div class="row py-3">
                                         <div class="col p-0">
-                                            <textarea name="remarks" id="remarks" class="form-control"></textarea>
+                                            <textarea name="remarks" id="remarks" class="form-control"><?= $header['remarks']; ?></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -266,13 +285,13 @@
                 <div class="tab-content px-3 pb-2" id="nav-tabContent">
                     <div class="row">
                         <div class="col">
-                            <a id="debit_note_cancel_button" class="btn btn-default btn-sm float-right" onclick="cancelForm('{{ route('DebitNote.index', ['var' => 1]) }}')" style="background-color:#e9ecef;border:1px solid #ced4da;">
-                                <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="cancel" title="Cancel Debit Note"> Cancel
-                            </a>
-
-                            <button type="button" id="debit_note_submit_button" class="btn btn-default btn-sm float-right" onclick="validationForm()" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
-                                <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="submit" title="Submit Debit Note"> Submit
+                            <button type="button" id="material_return_submit_button" class="btn btn-default btn-sm float-right" onclick="validationForm()" style="margin-left: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
+                                <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="submit" title="Submit Material Return"> Submit
                             </button>
+
+                            <a id="material_return_cancel_button" class="btn btn-default btn-sm float-right" onclick="cancelForm('{{ route('MaterialReturn.index', ['var' => 1]) }}')" style="background-color:#e9ecef;border:1px solid #ced4da;">
+                                <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="cancel" title="Cancel Material Return"> Cancel
+                            </a>
                         </div>
                     </div>
                 </div>
