@@ -364,9 +364,9 @@
                         </div>
                       </div>
 
-                      <!-- DEPRECIATION RATE -->
+                      <!-- DEPRECIATION METHOD -->
                       <div class="row" style="margin-top: 1rem;">
-                        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Depreciation Rate</label>
+                        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Depreciation Method</label>
                         <div class="col-sm-9 col-md-8 col-lg-4 p-0">
                           <div id="containerSelectTOP">
                             <select class="form-control" name="termOfPaymentValue" id="termOfPaymentOption" style="border-radius:0;" type="text">
@@ -378,7 +378,7 @@
 
                       <!-- DEPRECIATION RATE -->
                       <div class="row" style="margin-top: 1rem;">
-                        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Depreciation Method</label>
+                        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Depreciation Rate</label>
                         <div class="col-sm-9 col-md-8 col-lg-4 p-0">
                           <div class="row">
                             <div class="col-4">
