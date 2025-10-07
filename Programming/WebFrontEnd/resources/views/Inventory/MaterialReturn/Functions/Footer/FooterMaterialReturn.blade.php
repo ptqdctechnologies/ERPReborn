@@ -16,7 +16,7 @@
   }
 
   function summaryData() {
-    const sourceTable = document.getElementById('material_receive_details_table').getElementsByTagName('tbody')[0];
+    const sourceTable = document.getElementById('material_return_details_table').getElementsByTagName('tbody')[0];
     const targetTable = document.getElementById('material_return_list_table_modal').getElementsByTagName('tbody')[0];
 
     const rows = sourceTable.getElementsByTagName('tr');
@@ -111,8 +111,8 @@
   }
 
   function getMaterialReceiveDetail(materialReceive_RefID, materialReceiveNumber) {
-    $("#material_receive_details_table tbody").empty();
-    $(".material_receive_details_loading").show();
+    $("#material_return_details_table tbody").empty();
+    $(".material_return_details_loading").show();
 
     $.ajaxSetup({
       headers: {
@@ -154,7 +154,7 @@
               </tr>
             `;
 
-            $('#material_receive_details_table tbody').append(row);
+            $('#material_return_details_table tbody').append(row);
 
             $(`#qty_return${key}`).on('keyup', function() {
               let qty_return  = $(this).val().replace(/,/g, '');
@@ -168,24 +168,24 @@
             });
           });
         } else {
-          $(".material_receive_details_error_message_container").show();
-          $("#material_receive_details_error_message").text(`Data not found.`);
+          $(".material_return_details_error_message_container").show();
+          $("#material_return_details_error_message").text(`Data not found.`);
 
-          $("#material_receive_details_table_length").hide();
-          $("#material_receive_details_table_filter").hide();
-          $("#material_receive_details_table_info").hide();
-          $("#material_receive_details_table_paginate").hide();
+          $("#material_return_details_table_length").hide();
+          $("#material_return_details_table_filter").hide();
+          $("#material_return_details_table_info").hide();
+          $("#material_return_details_table_paginate").hide();
         }
 
-        $(".material_receive_details_loading").hide();
+        $(".material_return_details_loading").hide();
       },
       error: function (textStatus, errorThrown) {
         console.log('getMaterialReceiveDetail', textStatus.status, errorThrown);
         
-        $('#material_receive_details_table tbody').empty();
-        $(".material_receive_details_loading").hide();
-        $(".material_receive_details_error_message_container").show();
-        $("#material_receive_details_error_message").text(`Failed to fetch material receive detail`);
+        $('#material_return_details_table tbody').empty();
+        $(".material_return_details_loading").hide();
+        $(".material_return_details_error_message_container").show();
+        $("#material_return_details_error_message").text(`Failed to fetch material receive detail`);
       }
     });
   }
@@ -381,5 +381,15 @@
 
     $("#transporter_name").css("border", "1px solid #ced4da");
     $("#transporterMessage").hide();
+  });
+
+  $('#tableGetModalMaterialReturn tbody').on('click', 'tr', function () {
+    let sysId = $(this).find('input[data-trigger="sys_id_modal_material_return"]').val();
+    let trano = $(this).find('td:nth-child(2)').text();
+
+    $("#material_return_id").val(sysId);
+    $("#material_return_number").val(trano);
+
+    $('#myGetModalMaterialReturn').modal('hide');
   });
 </script>

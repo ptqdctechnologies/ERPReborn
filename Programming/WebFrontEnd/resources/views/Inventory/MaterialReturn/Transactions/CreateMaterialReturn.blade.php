@@ -4,7 +4,9 @@
 @include('Partials.sidebar')
 @include('getFunction.getWorkFlow')
 @include('getFunction.getTransporter')
+@include('getFunction.getMaterialReturn')
 @include('getFunction.getMaterialReceive')
+@include('Inventory.MaterialReturn.Functions.PopUp.PopUpMaterialReturnRevision')
 @include('Inventory.MaterialReturn.Functions.PopUp.PopUpMaterialReturnSummaryData')
 
 <div class="content-wrapper">
@@ -94,7 +96,7 @@
                         </div>
                     </div>
 
-                    <!-- ADD NEW TRANSPORTER -->
+                    <!-- TRANSPORTER -->
                     <div class="tab-content px-3 pb-2" id="nav-tabContent">
                         <div class="row">
                             <div class="col-12">
@@ -102,7 +104,7 @@
                                     <!-- HEADER -->
                                     <div class="card-header">
                                         <label class="card-title">
-                                            Add New Transporter
+                                            Transporter
                                         </label>
                                         <div class="card-tools">
                                             <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -255,7 +257,7 @@
                         </div>
                     </div>
 
-                    <!-- MATERIAL RECEIVE DETAILS -->
+                    <!-- MATERIAL RETURN DETAILS -->
                     <div class="tab-content px-3 pb-2" id="nav-tabContent">
                         <div class="row">
                             <div class="col-12">
@@ -263,7 +265,7 @@
                                     <!-- HEADER -->
                                     <div class="card-header">
                                         <label class="card-title">
-                                            Material Receive Details
+                                            Material Return Details
                                         </label>
                                         <div class="card-tools">
                                             <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -274,7 +276,7 @@
 
                                     <!-- BODY -->
                                     <div class="wrapper-budget card-body table-responsive p-0" style="height: 230px;">
-                                        <table class="table table-head-fixed text-nowrap table-sm" id="material_receive_details_table">
+                                        <table class="table table-head-fixed text-nowrap table-sm" id="material_return_details_table">
                                             <thead>
                                                 <tr>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Sub Budget</th>
@@ -289,7 +291,7 @@
                                             </thead>
                                             <tbody></tbody>
                                             <tfoot>
-                                                <tr class="material_receive_details_loading" style="display: none;">
+                                                <tr class="material_return_details_loading" style="display: none;">
                                                     <td colspan="7" class="p-0" style="border: 0px; height: 150px;">
                                                         <div class="d-flex flex-column justify-content-center align-items-center py-3">
                                                             <div class="spinner-border" role="status">
@@ -301,10 +303,10 @@
                                                         </div>
                                                     </td>
                                                 </tr>
-                                                <tr class="material_receive_details_error_message_container" style="display: none;">
+                                                <tr class="material_return_details_error_message_container" style="display: none;">
                                                     <td colspan="7" class="p-0" style="border: 0px;">
                                                         <div class="d-flex flex-column justify-content-center align-items-center py-3">
-                                                            <div id="material_receive_details_error_message" class="mt-3 text-red" style="font-size: 1rem; font-weight: 700;"></div>
+                                                            <div id="material_return_details_error_message" class="mt-3 text-red" style="font-size: 1rem; font-weight: 700;"></div>
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -316,12 +318,12 @@
                                     <div class="card-body tableShowHideBudget">
                                         <div class="row">
                                             <div class="col">
-                                                <div class="text-red" id="material_receive_details_message" style="display: none;">
+                                                <div class="text-red" id="material_return_details_message" style="display: none;">
                                                     Please input at least one item.
                                                 </div>
                                             </div>
                                             <div class="col text-right" style="margin-right: 20px; font-size: 0.77rem; color: #212529; font-weight: 600;">
-                                                Total : <span id="material_receive_details_total">0.00</span>
+                                                Total : <span id="material_return_details_total">0.00</span>
                                             </div>
                                         </div>
                                     </div>
@@ -364,11 +366,11 @@
                     <div class="tab-content px-3 pb-2" id="nav-tabContent">
                         <div class="row">
                             <div class="col">
-                                <button type="button" id="debit_note_submit_button" class="btn btn-default btn-sm float-right" onclick="validationForm()" style="margin-left: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
+                                <button type="button" id="material_return_submit_button" class="btn btn-default btn-sm float-right" onclick="validationForm()" style="margin-left: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
                                     <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="submit" title="Submit Material Return"> Submit
                                 </button>
 
-                                <a id="debit_note_cancel_button" class="btn btn-default btn-sm float-right" onclick="cancelForm('{{ route('DebitNote.index', ['var' => 1]) }}')" style="background-color:#e9ecef;border:1px solid #ced4da;">
+                                <a id="material_return_cancel_button" class="btn btn-default btn-sm float-right" onclick="cancelForm('{{ route('MaterialReturn.index', ['var' => 1]) }}')" style="background-color:#e9ecef;border:1px solid #ced4da;">
                                     <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="cancel" title="Cancel Material Return"> Cancel
                                 </a>
                             </div>
