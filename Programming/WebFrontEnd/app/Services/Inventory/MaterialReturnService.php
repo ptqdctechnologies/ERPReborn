@@ -9,6 +9,45 @@ use App\Helpers\ZhtHelper\System\Helper_Environment;
 
 class MaterialReturnService
 {
+    public function getDetail($materialReceiveRefID)
+    {
+        $sessionToken = Session::get('SessionLogin');
+
+        return Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
+            $sessionToken,
+            'transaction.read.dataList.supplyChain.getWarehouseOutboundOrderDetail',
+            'latest',
+            [
+            'parameter' => [
+                'warehouseOutboundOrder_RefID' => (int) $materialReceiveRefID,
+                ],
+            'SQLStatement' => [
+                'pick' => null,
+                'sort' => null,
+                'filter' => null,
+                'paging' => null
+                ]
+            ]
+        );
+    }
+    
+    public function dataPickList()
+    {
+        $sessionToken = Session::get('SessionLogin');
+
+        return Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
+            $sessionToken, 
+            'dataPickList.supplyChain.getWarehouseOutboundOrder', 
+            'latest',
+            [
+            'parameter' => [
+                ]
+            ]
+        );
+    }
+
     public function create(Request $request)
     {
         $sessionToken   = Session::get('SessionLogin');

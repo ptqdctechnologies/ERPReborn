@@ -111,10 +111,57 @@ class MaterialReturnController extends Controller
         dd($input);
     }
 
+    public function List() 
+    {
+        try {
+            $response = $this->materialReturnService->dataPickList();
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                throw new \Exception('Failed to fetch List Material Return');
+            }
+
+            return response()->json($response['data']['data']);
+        } catch (\Throwable $th) {
+            Log::error("List Material Return Function Error: " . $th->getMessage());
+
+            return response()->json([]);
+        }
+    }
+
     public function RevisionMaterialReturnIndex(Request $request)
     {
         try {
-            return view('Inventory.MaterialReturn.Transactions.RevisionMaterialReturn');
+            $varAPIWebToken = $request->session()->get('SessionLogin');
+            $response       = $this->materialReturnService->getDetail($request->material_return_id);
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                throw new \Exception('Failed to fetch Detail Material Return');
+            }
+
+            $data = $response['data'];
+
+            $compact = [
+                'varAPIWebToken'                => $varAPIWebToken,
+                'header'                        => [
+                    'materialReturn_RefID'      => $data[0]['Sys_ID'] ?? '',
+                    'materialReturnNumber'      => '-',
+                    'combinedBudget_RefID'      => $data[0]['CombinedBudget_RefID'] ?? '',
+                    'combinedBudgetCode'        => $data[0]['CombinedBudgetCode'] ?? '',
+                    'combinedBudgetName'        => $data[0]['CombinedBudgetName'] ?? '',
+                    'transporter_RefID'         => '-',
+                    'transporterCode'           => '-',
+                    'transporterName'           => '-',
+                    'transporterAddress'        => '-',
+                    'transporterContactPerson'  => '-',
+                    'transporterHandphone'      => '-',
+                    'transporterPhone'          => '-',
+                    'transporterFax'            => '-',
+                    'remarks'                   => $data[0]['Remarks'] ?? ''
+                ],
+                'detail'            => $data
+            ];
+
+            return view('Inventory.MaterialReturn.Transactions.RevisionMaterialReturn', $compact);
         } catch (\Throwable $th) {
             Log::error("Error at " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
