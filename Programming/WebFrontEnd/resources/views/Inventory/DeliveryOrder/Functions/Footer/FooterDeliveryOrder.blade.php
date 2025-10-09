@@ -1,567 +1,80 @@
 <script>
     let dataStore                   = [];
-    let indexReferenceNumberDetail  = 0;
-    let referenceTypeValue          = document.getElementById("reference_type");
-    let referenceNumber             = document.getElementById("reference_number");
-    let deliveryDate                = '';
-    let deliveryFrom                = document.getElementById("delivery_from");
-    let deliveryFromDuplicate       = document.getElementById("delivery_fromDuplicate");
-    let deliveryFromRefID           = document.getElementById("deliveryFrom_RefID");
-    let deliveryFromDuplicateRefID  = document.getElementById("deliveryFromDuplicate_RefID");
-    let deliveryTo                  = document.getElementById("delivery_to");
-    let deliveryToDuplicate         = document.getElementById("delivery_toDuplicate");
-    let deliveryToRefID             = document.getElementById("deliveryTo_RefID");
-    let deliveryToDuplicateRefID    = document.getElementById("deliveryToDuplicate_RefID");
-    let transporterName             = document.getElementById("transporter_name");
-    let isDeliveryFromStockMovement = false;
+    let indexPurchaseOrderDetail    = 0;
+    let indexInternalUseDetail      = 0;
+    let deliveryType                = null;
+    let deliveryDate                = null;
+    const referenceTypeValue        = document.getElementById("reference_type");
+    const transporterRefID          = document.getElementById("transporter_id");
 
-    function deliveryFromStockMovementTrigger(value) {
-        isDeliveryFromStockMovement = value;
-    }
+    // PURCHASE ORDER
+    const purchaseOrderRefID            = document.getElementById("purchase_order_id");
+    const purchaseOrderDeliveryFrom     = document.getElementById("purchase_order_delivery_from");
+    const purchaseOrderDeliveryTo       = document.getElementById("purchase_order_delivery_to");
 
-    function checkOneLineBudgetContents(indexInput) {
-        const rows = document.querySelectorAll("#tableReferenceNumberDetail tbody tr");
-        let hasFullRow = false;
-
-        rows.forEach((row, index) => {
-            const qty   = document.getElementById(`qty_req${index}`)?.value.trim();
-            const note  = document.getElementById(`note${index}`)?.value.trim();
-
-            if (qty !== "" && note !== "") {
-                hasFullRow = true;
-            }
-        });
-
-        rows.forEach((row, index) => {
-            const qtyEl     = document.getElementById(`qty_req${index}`);
-            const noteEl    = document.getElementById(`note${index}`);
-
-            if (hasFullRow) {
-                $(qtyEl).css("border", "1px solid #ced4da");
-                $(noteEl).css("border", "1px solid #ced4da");
-                $("#deliveryOrderDetailsMessage").hide();
-            } else {
-                if (indexInput > -1) {
-                    if (indexInput == index) {
-                        if (qtyEl.value.trim() != "" || noteEl.value.trim() != "") {
-                            $(qtyEl).css("border", "1px solid red");
-                            $(noteEl).css("border", "1px solid red");
-                            $("#deliveryOrderDetailsMessage").show();
-                        } else {
-                            $(qtyEl).css("border", "1px solid #ced4da");
-                            $(noteEl).css("border", "1px solid #ced4da");
-                            $("#deliveryOrderDetailsMessage").hide();
-                        }
-                    }
-
-                    if (indexInput != index && (qtyEl.value.trim() == "" && noteEl.value.trim() == "")) {
-                        $(qtyEl).css("border", "1px solid #ced4da");
-                        $(noteEl).css("border", "1px solid #ced4da");
-                    } 
-                } else {
-                    $(qtyEl).css("border", "1px solid red");
-                    $(noteEl).css("border", "1px solid red");
-                    $("#deliveryOrderDetailsMessage").show();
-                }
-            }
-        });
-
-        return hasFullRow;
-    }
-
-    function calculateTotal() {
-        let total = 0;
-        
-        document.querySelectorAll('input[id^="qty_req"]').forEach(function(input) {
-            let value = parseFloat(input.value.replace(/,/g, '')); // Mengambil nilai dan menghilangkan koma
-            if (!isNaN(value)) {
-                total += value;
-            }
-        });
-
-        document.getElementById('TotalReferenceNumber').textContent = decimalFormat(parseFloat(total));
-    }
-
-    function updateGrandTotal() {
-        let total = 0;
-        const rows = document.querySelectorAll('#tableDeliverOrderDetailList tbody tr');
-        
-        rows.forEach(row => {
-            const totalCell = row.children[5];
-            const value = parseFloat(totalCell.innerText.replace(/,/g, '')) || 0;
-            total += value;
-        });
-
-        document.getElementById('GrandTotal').innerText = `Total: ${total}`;
-    }
-
-    function summaryData() {
-        const sourceTable = document.getElementById('tableReferenceNumberDetail').getElementsByTagName('tbody')[0];
-        const targetTable = document.getElementById('tableDeliverOrderDetailList').getElementsByTagName('tbody')[0];
-
-        const rows = sourceTable.getElementsByTagName('tr');
-
-        for (let row of rows) {
-            const refDocument_RefID         = row.querySelector('input[id^="refDocument_RefID"]');
-            const underlyingDetail_RefID    = row.querySelector('input[id^="underlyingDetail_RefID"]');
-            const qtyInput                  = row.querySelector('input[id^="qty_req"]');
-            const noteInput                 = row.querySelector('textarea[id^="note"]');
-            const qtyUnitRefId              = row.querySelector('input[id^="qty_unit_refID"]');
-            const productRefId              = row.querySelector('input[id^="product_refID"]');
-
-            if (
-                qtyInput && noteInput &&
-                qtyInput.value.trim() !== '' &&
-                noteInput.value.trim() !== ''
-            ) {
-                const refNumber     = row.children[2].value.trim();
-                const productCode   = row.children[3].value.trim();
-                const productName   = row.children[4].value.trim();
-                const uom           = row.children[5].value.trim();
-                const qtyAvail      = row.children[7].value.trim();
-
-                const qty       = qtyInput.value.trim();
-                const note      = noteInput.value.trim();
-
-                let found           = false;
-                const existingRows  = targetTable.getElementsByTagName('tr');
-
-                for (let targetRow of existingRows) {
-                    const targetRefNumber   = targetRow.children[1].innerText.trim();
-                    const targetProductCode = targetRow.children[2].innerText.trim();
-
-                    if (targetRefNumber === refNumber && targetProductCode === productCode) {
-                        targetRow.children[5].innerText = qty;
-                        targetRow.children[6].innerText = note;
-                        found = true;
-
-                        const indexToUpdate = dataStore.findIndex(item => item.entities.refNumber === refNumber && item.entities.productCode === productCode);
-                        if (indexToUpdate !== -1) {
-                            dataStore[indexToUpdate] = {
-                                entities: {
-                                    product_RefID: parseInt(productRefId.value),
-                                    quantity: parseFloat(qty.replace(/,/g, '')),
-                                    quantityUnit_RefID: parseInt(qtyUnitRefId.value),
-                                    remarks: note,
-                                    reference_ID: parseInt(underlyingDetail_RefID.value),
-                                    // referenceDocument_RefID: parseInt(refDocument_RefID.value),
-                                    // underlyingDetail_RefID: parseInt(underlyingDetail_RefID.value),
-                                    refNumber: refNumber,
-                                    productCode: productCode
-                                }
-                            };
-                        }
-                    }
-                }
-
-                if (!found) {
-                    const newRow = document.createElement('tr');
-                    newRow.innerHTML = `
-                        <input type="hidden" name="qty_avail[]" value="${qtyAvail}">
-                        <td style="text-align: left;padding: 0.8rem;">${refNumber}</td>
-                        <td style="text-align: right;padding: 0.8rem;">${productCode}</td>
-                        <td style="text-align: left;padding: 0.8rem;">${productName}</td>
-                        <td style="text-align: left;padding: 0.8rem;">${uom}</td>
-                        <td style="text-align: right;padding: 0.8rem;">${qty}</td>
-                        <td style="text-align: left;padding: 0.8rem;" hidden>${note}</td>
-                    `;
-                    targetTable.appendChild(newRow);
-
-                    dataStore.push({
-                        entities: {
-                            product_RefID: parseInt(productRefId.value),
-                            quantity: parseFloat(qty.replace(/,/g, '')),
-                            quantityUnit_RefID: parseInt(qtyUnitRefId.value),
-                            remarks: note,
-                            reference_ID: parseInt(underlyingDetail_RefID.value),
-                            // referenceDocument_RefID: parseInt(refDocument_RefID.value),
-                            // underlyingDetail_RefID: parseInt(underlyingDetail_RefID.value),
-                            refNumber: refNumber,
-                            productCode: productCode
-                        }
-                    });
-                }
-            } else {
-                const refNumber     = row.children[2].value.trim();
-                const productCode   = row.children[3].value.trim();
-                const existingRows  = targetTable.getElementsByTagName('tr');
-
-                for (let targetRow of existingRows) {
-                    const targetRefNumber   = targetRow.children[1].innerText.trim();
-                    const targetProductCode = targetRow.children[2].innerText.trim();
-
-                    if (targetRefNumber === refNumber && targetProductCode === productCode) {
-                        targetRow.remove();
-                        break;
-                    }
-                }
-
-                dataStore = dataStore.filter(item => {
-                    return !(item.entities.refNumber === refNumber && item.entities.productCode === productCode);
-                });
-            }
-        }
-
-        console.log('dataStore', dataStore);
-
-        // $("#deliveryOrderDetail").val(JSON.stringify(dataStore));
-        updateGrandTotal();
-    }
-
-    function validationForm() {
-        const isReferenceTypeValueNotSelected   = referenceTypeValue.value.trim() !== 'Select a Source';
-        const isReferenceNumberNotEmpty         = referenceNumber.value.trim() !== '';
-        const isDeliveryFromNotEmpty            = deliveryFrom.value.trim() !== '';
-        const isDeliveryToNotEmpty              = deliveryTo.value.trim() !== '';
-        const isTransporterNameNotEmpty         = transporterName.value.trim() !== '';
-        const isTableNotEmpty                   = checkOneLineBudgetContents();
-
-        if (isReferenceTypeValueNotSelected && isReferenceNumberNotEmpty && isDeliveryFromNotEmpty && isDeliveryToNotEmpty && isTransporterNameNotEmpty && isTableNotEmpty) {
-            $('#deliveryOrderFormModal').modal('show');
-            summaryData();
-        } else {
-            if (!isReferenceTypeValueNotSelected) {
-                $("#reference_type").css("border", "1px solid red");
-                $("#referenceTypeMessage").show();
-                return;
-            }
-            if (!isReferenceNumberNotEmpty && !isDeliveryFromNotEmpty && !isDeliveryToNotEmpty && !isTransporterNameNotEmpty) {
-                $("#reference_number").css("border", "1px solid red");
-                $("#delivery_from").css("border", "1px solid red");
-                $("#delivery_to").css("border", "1px solid red");
-                $("#transporter_name").css("border", "1px solid red");
-
-                $("#purchaseOrderMessage").show();
-                $("#deliveryFromMessage").show();
-                $("#deliveryToMessage").show();
-                $("#transporterMessage").show();
-                return;
-            }
-            if (!isReferenceNumberNotEmpty) {
-                $("#reference_number").css("border", "1px solid red");
-                $("#purchaseOrderMessage").show();
-                return;
-            }
-            if (!isDeliveryFromNotEmpty) {
-                $("#delivery_from").css("border", "1px solid red");
-                $("#deliveryFromMessage").show();
-                return;
-            }
-            if (!isDeliveryToNotEmpty) {
-                $("#delivery_to").css("border", "1px solid red");
-                $("#deliveryToMessage").show();
-                return;
-            }
-            if (!isTransporterNameNotEmpty) {
-                $("#transporter_name").css("border", "1px solid red");
-                $("#transporterMessage").show();
-                return;
-            }
-            if (!isTableNotEmpty) {
-                $("#deliveryOrderDetailsMessage").show();
-                return;
-            }
-        }
-    }
-
-    function GetReferenceNumberDetail(reference_id, reference_number) {
-        $("#tableReferenceNumberDetail tbody").hide();
-        $(".loadingReferenceNumberDetail").show();
-
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
-        $.ajax({
-            type: 'GET',
-            url: '{!! route("getPurchaseOrderDetail") !!}?purchase_order_id=' + reference_id,
-            success: async function(data) {
-                if (Array.isArray(data) && data.length > 0) {
-                    const documentTypeID = document.getElementById("DocumentTypeID");
-
-                    if (documentTypeID.value) {
-                        var checkWorkFlow = await checkingWorkflow(data[0].combinedBudget_RefID, documentTypeID.value);
-
-                        if (!checkWorkFlow) {
-                            $(".loadingReferenceNumberDetail").hide();
-                            $("#reference_number").val("");
-                            $("#reference_id").val("");
-                            return;
-                        }
-                    }
-
-                    let deliveryFroms = `(${data[0]['supplierCode']}) ${data[0]['supplierName']} - ${data[0]['supplierAddress']}`;
-                    let deliveryToNonRefIDs = data[0]['deliveryTo_NonRefID'] ? data[0]['deliveryTo_NonRefID'].Address : '';
-
-                    $("#reference_id").val(reference_id);
-                    $("#reference_number").val(reference_number);
-                    $("#var_combinedBudget_RefID").val(data[0].combinedBudget_RefID);
-                    // $("#requesterWorkerJobsPosition_RefID").val(data.combinedBudget_RefID);
-                    $("#budget_value").val(`${data[0]['combinedBudgetCode']} - ${data[0]['combinedBudgetName']}`);
-
-                    $("#delivery_fromDuplicate").val(deliveryFroms);
-                    $("#delivery_from").val(deliveryFroms);
-                    $("#deliveryFromDuplicate_RefID").val(data[0]['supplier_RefID']);
-                    $("#deliveryFrom_RefID").val(data[0]['supplier_RefID']);
-                    $("#delivery_from").prop("disabled", false);
-
-                    $("#delivery_to").val(deliveryToNonRefIDs);
-                    $("#delivery_toDuplicate").val(deliveryToNonRefIDs);
-                    $("#deliveryTo_RefID").val(data[0]['deliveryTo_RefID']);
-                    $("#deliveryToDuplicate_RefID").val(data[0]['deliveryTo_RefID']);
-                    $("#delivery_to").prop("disabled", false);
-
-                    $("#reference_number").css("border", "1px solid #ced4da");
-                    $("#purchaseOrderMessage").hide();
-                    $("#delivery_from").css("border", "1px solid #ced4da");
-                    $("#deliveryFromMessage").hide();
-                    $("#delivery_to").css("border", "1px solid #ced4da");
-                    $("#deliveryToMessage").hide();
-
-                    deliveryDate = data[0].deliveryDateTimeTZ;
-
-                    let tbody = $('#tableReferenceNumberDetail tbody');
-                    let modifyColumn = `<td rowspan="${data.length}" style="text-align: center; padding: 10px !important;">${reference_number}</td>`;
-
-                    $.each(data, function(key, val2) {
-                        let randomNumber = Math.floor(Math.random() * 11);
-                        let balanced = currencyTotal(val2.quantity);
-                        let row = `
-                            <tr>
-                                <input id="refDocument_RefID${indexReferenceNumberDetail}" value="${val2.purchaseOrder_RefID || ''}" type="hidden" />
-                                <input id="underlyingDetail_RefID${indexReferenceNumberDetail}" value="${val2.sys_ID || ''}" type="hidden" />
-                                <input id="reference_number${indexReferenceNumberDetail}" value="${reference_number}" type="hidden" />
-                                <input id="product_code${indexReferenceNumberDetail}" value="${val2.productCode || ''}" type="hidden" />
-                                <input id="product_name${indexReferenceNumberDetail}" value="${val2.productName || ''}" type="hidden" />
-                                <input id="uom${indexReferenceNumberDetail}" value="${val2.quantityUnitName || ''}" type="hidden" />
-                                <input id="qty_reference${indexReferenceNumberDetail}" value="${currencyTotal(val2.quantity)}" type="hidden" />
-                                <input id="qty_avail${indexReferenceNumberDetail}" value="${currencyTotal(val2.qtyAvail)}" type="hidden" />
-                                <input id="qty_unit_refID${indexReferenceNumberDetail}" value="${val2.quantityUnit_RefID || ''}" type="hidden" />
-                                <input id="product_refID${indexReferenceNumberDetail}" value="${val2.product_RefID || ''}" type="hidden" />
-
-                                ${key === 0 ? modifyColumn : ''}
-                                <td style="text-align: center;">${val2.combinedBudgetSectionCode + ' - ' + val2.combinedBudgetSectionName}</td>
-                                <td style="text-align: center;">${val2.productCode || '-'}</td>
-                                <td style="text-align: center;">${val2.productName || '-'}</td>
-                                <td style="text-align: center;">${val2.quantityUnitName || '-'}</td>
-                                <td style="text-align: center;">${currencyTotal(val2.quantity)}</td>
-                                <td style="text-align: center;">${currencyTotal(val2.qtyAvail)}</td>
-                                <td style="border:1px solid #e9ecef;background-color:white; padding: 0.5rem !important; width: 100px;">
-                                    <input class="form-control number-without-negative" id="qty_req${indexReferenceNumberDetail}" data-index=${indexReferenceNumberDetail} data-quantity="" autocomplete="off" style="border-radius:0px;" />
-                                </td>
-                                <td style="border:1px solid #e9ecef;background-color:white; padding: 0.5rem !important; width: 100px;">
-                                    <input class="form-control number-without-negative" id="balance${indexReferenceNumberDetail}" autocomplete="off" data-default="${balanced}" value="${balanced}" style="border-radius:0px;" disabled />
-                                </td>
-                                <td style="border:1px solid #e9ecef;background-color:white; padding: 0.5rem !important; width: 150px;">
-                                    <textarea id="note${indexReferenceNumberDetail}" class="form-control" data-index=${indexReferenceNumberDetail}></textarea>
-                                </td>
-                            </tr>
-                        `;
-
-                        tbody.append(row);
-
-                        $(`#qty_req${indexReferenceNumberDetail}`).on('keyup', function() {
-                            var qty_req = $(this).val().replace(/,/g, '');
-                            var data_index = $(this).data('index');
-                            var result = val2.quantity - qty_req;
-
-                            if (parseFloat(qty_req) > val2.quantity) {
-                                $(this).val("");
-                                $(`#balance${data_index}`).val(balanced);
-                                ErrorNotif("Qty Request is over Qty Avail !");
-                            } else {
-                                $(`#balance${data_index}`).val(result.toFixed(2));
-                                calculateTotal();
-                            }
-
-                            checkOneLineBudgetContents(data_index);
-                        });
-
-                        $(`#note${indexReferenceNumberDetail}`).on('keyup', function() {
-                            var data_index = $(this).data('index');
-
-                            checkOneLineBudgetContents(data_index);
-                        });
-
-                        indexReferenceNumberDetail += 1;
-                    });
-
-                    $(".loadingReferenceNumberDetail").hide();
-                    $("#tableReferenceNumberDetail tbody").show();
-                } else {
-                    $(".loadingReferenceNumberDetail").hide();
-                    $(".errorMessageContainerReferenceNumberDetail").show();
-                    $("#errorMessageReferenceNumberDetail").text(`Data not found.`);
-
-                    $("#tableReferenceNumberDetail_length").hide();
-                    $("#tableReferenceNumberDetail_filter").hide();
-                    $("#tableReferenceNumberDetail_info").hide();
-                    $("#tableReferenceNumberDetail_paginate").hide();
-                }
-            },
-            error: function (textStatus, errorThrown) {
-                $('#tableReferenceNumberDetail tbody').empty();
-                $(".loadingReferenceNumberDetail").hide();
-                $(".errorMessageContainerReferenceNumberDetail").show();
-                $("#errorMessageReferenceNumberDetail").text(`[${textStatus.status}] ${textStatus.responseJSON.message}`);
-            }
-        });
-    }
+    // INTERNAL USE
+    const internalUseBudgetCodeRefID    = document.getElementById("internal_use_budget_id");
+    const internalUseSubBudgetCodeRefID = document.getElementById("internal_use_site_id");
+    const internalUseDeliveryFromRefID  = document.getElementById("internal_use_delivery_from_id");
+    const internalUseDeliveryToRefID    = document.getElementById("internal_use_delivery_to_id");
     
-    function getStockMovementDetail() {
-        const data = [
-            {
-                id: 0,
-                productCode: '2000185',
-                productName: 'Cable BCC / NYA 35 mm2',
-                uom: 'm',
-                qtyStock: 9
-            },
-            {
-                id: 1,
-                productCode: '2000190',
-                productName: 'Cable NYM 3x2.5 mm2',
-                uom: 'm',
-                qtyStock: 120
-            },
-            {
-                id: 2,
-                productCode: '2000191',
-                productName: 'MCB 6A Schneider',
-                uom: 'pcs',
-                qtyStock: 45
-            },
-            {
-                id: 3,
-                productCode: '2000192',
-                productName: 'MCB 10A Schneider',
-                uom: 'pcs',
-                qtyStock: 30
-            },
-            {
-                id: 4,
-                productCode: '2000193',
-                productName: 'Panel LVMDP 3 Phase',
-                uom: 'unit',
-                qtyStock: 5
-            },
-            {
-                id: 5,
-                productCode: '2000194',
-                productName: 'Trafo 100 kVA 20/0.4 kV',
-                uom: 'unit',
-                qtyStock: 2
-            },
-            {
-                id: 6,
-                productCode: '2000195',
-                productName: 'Arrester Tegangan Menengah',
-                uom: 'pcs',
-                qtyStock: 20
-            },
-            {
-                id: 7,
-                productCode: '2000196',
-                productName: 'Isolator Keramik 24kV',
-                uom: 'pcs',
-                qtyStock: 75
-            },
-            {
-                id: 8,
-                productCode: '2000197',
-                productName: 'Kabel ACSR 50 mm2',
-                uom: 'm',
-                qtyStock: 500
-            },
-            {
-                id: 9,
-                productCode: '2000198',
-                productName: 'Tiang Beton 12 Meter',
-                uom: 'batang',
-                qtyStock: 15
-            }
-        ];
-
-        let tbody = $('#tableReferenceNumberDetail tbody');
-        tbody.empty();
-
-        $.each(data, function(key, val) {
-            let row = `
-                <tr>
-                    <td style="text-align: center;">${val.productCode || '-'}</td>
-                    <td style="text-align: center;">${val.productName || '-'}</td>
-                    <td style="text-align: center;">${val.uom || '-'}</td>
-                    <td style="text-align: center;">${val.qtyStock || '-'}</td>
-                    <td style="border:1px solid #e9ecef;background-color:white; padding: 0.5rem !important; width: 100px;">
-                        <input class="form-control number-without-negative" autocomplete="off" style="border-radius:0px;" />
-                    </td>
-                    <td style="border:1px solid #e9ecef;background-color:white; padding: 0.5rem !important; width: 100px;">
-                        <input class="form-control number-without-negative" autocomplete="off" style="border-radius:0px;" />
-                    </td>
-                    <td style="border:1px solid #e9ecef;background-color:white; padding: 0.5rem !important; width: 100px;">
-                        <input class="form-control number-without-negative" autocomplete="off" style="border-radius:0px;" />
-                    </td>
-                </tr>
-            `;
-
-            tbody.append(row);
-        });
-    }
-
-    function getInternalUseDetail() {
-        const data = [
-            {
-                id: 0,
-                productCode: '2000185',
-                productName: 'Cable BCC / NYA 35 mm2',
-                uom: 'm',
-                qtyBudget: 15,
-                qtyAvailBudget: 7,
-                priceBudget: 82756.94,
-                totalBudget: 1241354.10,
-                qtyStok: 4,
-                priceStok: 47295.08,
-                totalStok: 189180.32
-            },
-        ];
-
-        let tbody = $('#tableReferenceNumberDetail tbody');
-        tbody.empty();
-
-        $.each(data, function(key, val) {
-            let row = `
-                <tr>
-                    <td style="text-align: center;">${val.productCode || '-'}</td>
-                    <td style="text-align: center;">${val.productName || '-'}</td>
-                    <td style="text-align: center;">${val.uom || '-'}</td>
-                    <td style="text-align: center;">${val.qtyBudget || '-'}</td>
-                    <td style="text-align: center;">${val.qtyAvailBudget || '-'}</td>
-                    <td style="text-align: center;">${val.priceBudget || '-'}</td>
-                    <td style="text-align: center;">${val.totalBudget || '-'}</td>
-                    <td style="text-align: center;">${val.qtyStok || '-'}</td>
-                    <td style="text-align: center;">${val.priceStok || '-'}</td>
-                    <td style="text-align: center;">${val.totalStok || '-'}</td>
-                    <td style="border:1px solid #e9ecef;background-color:white; padding: 0.5rem !important; width: 100px;">
-                        <input class="form-control number-without-negative" autocomplete="off" style="border-radius:0px;" />
-                    </td>
-                    <td style="border:1px solid #e9ecef;background-color:white; padding: 0.5rem !important; width: 100px;">
-                        <input class="form-control number-without-negative" autocomplete="off" style="border-radius:0px;" />
-                    </td>
-                    <td style="border:1px solid #e9ecef;background-color:white; padding: 0.5rem !important; width: 100px;">
-                        <input class="form-control number-without-negative" autocomplete="off" style="border-radius:0px;" />
-                    </td>
-                </tr>
-            `;
-
-            tbody.append(row);
-        });
-    }
-
+    // STOCK MOVEMENT
+    const stockMovementStatus               = document.getElementById('stock_movement_status');
+    const stockMovementBudgetCodeRefID      = document.getElementById("stock_movement_budget_id");
+    const stockMovementRequesterRefID       = document.getElementById("stock_movement_requester_id");
+    const stockMovementDeliveryFromRefID    = document.getElementById("stock_movement_delivery_from_id");
+    const stockMovementDeliveryToRefID      = document.getElementById("stock_movement_delivery_to_id");
+    
     function referenceType(source) {
-        let tbody = $('#tableReferenceNumberDetail tbody');
-        tbody.empty();
+        dataStore = [];
+        indexPurchaseOrderDetail = 0;
+        indexInternalUseDetail = 0;
+        stockMovementStatus.value = '';
+
+        // PURCHASE ORDER
+        $(`#purchase_order_number`).val("");
+        $(`#purchase_order_id`).val("");
+        $(`#purchase_order_budget`).val("");
+
+        $(`#purchase_order_delivery_from_id_duplicate`).val("");
+        $(`#purchase_order_delivery_from_id`).val("");
+        $(`#purchase_order_delivery_from_duplicate`).val("");
+        $(`#purchase_order_delivery_from`).val("");
+
+        // INTERNAL USE
+        $(`#internal_use_budget_code`).val("");
+        $(`#internal_use_budget_id`).val("");
+        $(`#internal_use_budget_name`).val("");
+        $(`#internal_use_site_code`).val("");
+        $(`#internal_use_site_id`).val("");
+        $(`#internal_use_site_name`).val("");
+        $(`#internal_use_delivery_from_name`).val("");
+        $(`#internal_use_delivery_from_id`).val("");
+        $(`#internal_use_delivery_from_address`).val("");
+        $(`#internal_use_delivery_to_name`).val("");
+        $(`#internal_use_delivery_to_id`).val("");
+        $(`#internal_use_delivery_to_address`).val("");
+
+        // STOCK MOVEMENT
+        $(`#stock_movement_budget_code`).val("");
+        $(`#stock_movement_budget_id`).val("");
+        $(`#stock_movement_budget_name`).val("");
+        $(`#stock_movement_requester_position`).val("");
+        $(`#stock_movement_requester_id`).val("");
+        $(`#stock_movement_requester_name`).val("");
+        $(`#stock_movement_delivery_from_name`).val("");
+        $(`#stock_movement_delivery_from_id`).val("");
+        $(`#stock_movement_delivery_from_address`).val("");
+        $(`#stock_movement_delivery_to_name`).val("");
+        $(`#stock_movement_delivery_to_id`).val("");
+        $(`#stock_movement_delivery_to_address`).val("");
+
+        $("#table_reference_type_detail tbody").empty();
+
+        $("#reference_type").css("border", "1px solid #ced4da");
+        $("#reference_type_message").hide();
+
+        $("#total_reference_number").text("0.00");
 
         if (source.value == "0") {
             $(".purchase-order-components").css("display", "flex");
@@ -571,7 +84,8 @@
             $(".thead-purchase-order").css("display", "table-row");
             $(".thead-internal-use").css("display", "none");
             $(".thead-stock-movement").css("display", "none");
-            getReferenceNumber(source);
+
+            // getReferenceNumber(source);
         } else if (source.value == "1") {
             $(".purchase-order-components").css("display", "none");
             $(".internal-use-components").css("display", "flex");
@@ -580,7 +94,7 @@
             $(".thead-purchase-order").css("display", "none");
             $(".thead-internal-use").css("display", "table-row");
             $(".thead-stock-movement").css("display", "none");
-        } else {
+        } else if (source.value == "2") {
             $(".purchase-order-components").css("display", "none");
             $(".internal-use-components").css("display", "none");
             $(".stock-movement-components").css("display", "flex");
@@ -589,12 +103,496 @@
             $(".thead-internal-use").css("display", "none");
             $(".thead-stock-movement").css("display", "table-row");
         }
-
-        $("#reference_type").css("border", "1px solid #ced4da");
-        $("#referenceTypeMessage").hide();
     }
 
-    function SelectWorkFlow(formatData) {
+    function deliveryTypeTrigger(value) {
+        deliveryType = value;
+    }
+
+    function summaryData() {
+        const sourceTable = document.getElementById('table_reference_type_detail').getElementsByTagName('tbody')[0];
+        const targetTable = document.getElementById('delivery_order_list_table_modal').getElementsByTagName('tbody')[0];
+
+        const rows = sourceTable.getElementsByTagName('tr');
+
+        switch (referenceTypeValue.value) {
+            case "0":
+                for (let row of rows) {
+                    const referenceRefID    = row.querySelector('input[id^="reference_ID"]');
+                    const quantityUnitRefID = row.querySelector('input[id^="quantityUnit_RefID"]');
+                    const productRefID      = row.querySelector('input[id^="product_RefID"]');
+                    
+                    const qtyInput          = row.querySelector('input[id^="qty_req"]');
+                    const noteInput         = row.querySelector('textarea[id^="note"]');
+
+                    if (qtyInput && qtyInput.value.trim() !== '') {
+                        const refNumber     = row.children[3].innerText.trim();
+                        const productCode   = row.children[5].innerText.trim();
+                        const productName   = row.children[6].innerText.trim();
+                        const uom           = row.children[7].innerText.trim();
+
+                        const qty       = qtyInput.value.trim();
+                        const note      = noteInput.value.trim();
+
+                        let found = false;
+                        const existingRows = targetTable.getElementsByTagName('tr');
+
+                        for (let targetRow of existingRows) {
+                            const targetReferenceRefID  = targetRow.children[0].value.trim();
+                            const targetProductRefID    = targetRow.children[1].value.trim();
+
+                            if (targetReferenceRefID == referenceRefID.value && targetProductRefID == productRefID.value) {
+                                targetRow.children[6].innerText = qty;
+                                found = true;
+
+                                // update dataStore
+                                const indexToUpdate = dataStore.findIndex(item => item.entities.reference_ID == referenceRefID.value && item.entities.product_RefID == productRefID.value);
+                                if (indexToUpdate !== -1) {
+                                    dataStore[indexToUpdate] = {
+                                        entities: {
+                                            product_RefID: parseInt(productRefID.value),
+                                            quantity: parseFloat(qty.replace(/,/g, '')),
+                                            quantityUnit_RefID: parseInt(quantityUnitRefID.value),
+                                            remarks: note,
+                                            reference_ID: parseInt(referenceRefID.value)
+                                        }
+                                    };
+                                }
+
+                                break;
+                            }
+                        }
+
+                        if (!found) {
+                            const newRow = document.createElement('tr');
+                            newRow.innerHTML = `
+                                <input type="hidden" id="reference_submit_modal_ID[]" value="${referenceRefID.value}">
+                                <input type="hidden" id="product_submit_modal_ID[]" value="${productRefID.value}">
+                                
+                                <td style="text-align: right;padding: 0.8rem 0.5rem;width: 100px;">${refNumber}</td>
+                                <td style="text-align: right;padding: 0.8rem 0.5rem;width: 100px;">${productCode}</td>
+                                <td style="text-align: right;padding: 0.8rem 0.5rem;width: 100px;">${productName}</td>
+                                <td style="text-align: right;padding: 0.8rem 0.5rem;width: 100px;">${uom}</td>
+                                <td style="text-align: right;padding: 0.8rem 0.5rem;width: 100px;">${qty}</td>
+                            `;
+                            targetTable.appendChild(newRow);
+
+                            dataStore.push({
+                                entities: {
+                                    product_RefID: parseInt(productRefID.value),
+                                    quantity: parseFloat(qty.replace(/,/g, '')),
+                                    quantityUnit_RefID: parseInt(quantityUnitRefID.value),
+                                    remarks: note,
+                                    reference_ID: parseInt(referenceRefID.value)
+                                }
+                            });
+                        }
+                    } else {
+                        const existingRows  = targetTable.getElementsByTagName('tr');
+
+                        for (let targetRow of existingRows) {
+                            const targetReferenceRefID  = targetRow.children[0].value.trim();
+                            const targetProductRefID    = targetRow.children[1].value.trim();
+
+                            if (targetReferenceRefID == referenceRefID.value && targetProductRefID == productRefID.value) {
+                                targetRow.remove();
+                                break;
+                            }
+                        }
+
+                        dataStore = dataStore.filter(item => {
+                            return !(item.entities.reference_ID == referenceRefID.value && item.entities.product_RefID == productRefID.value);
+                        });
+                    }
+                }
+
+                break;
+            case "1":
+                for (let row of rows) {
+                    const referenceRefID    = row.querySelector('input[id^="reference_ID"]');
+                    const quantityUnitRefID = row.querySelector('input[id^="quantityUnit_RefID"]');
+                    const productRefID      = row.querySelector('input[id^="product_RefID"]');
+
+                    const qtyInput          = row.querySelector('input[id^="internal_use_qty_req"]');
+                    const noteInput         = row.querySelector('textarea[id^="internal_use_note"]');
+
+                    if (qtyInput && qtyInput.value.trim() !== '') {
+                        const subBudget     = row.children[3].innerText.trim();
+                        const productCode   = row.children[4].innerText.trim();
+                        const productName   = row.children[5].innerText.trim();
+                        const uom           = row.children[6].innerText.trim();
+
+                        const qty       = qtyInput.value.trim();
+                        const note      = noteInput.value.trim();
+
+                        let found = false;
+                        const existingRows = targetTable.getElementsByTagName('tr');
+
+                        for (let targetRow of existingRows) {
+                            const targetReferenceRefID  = targetRow.children[0].value.trim();
+                            const targetProductRefID    = targetRow.children[1].value.trim();
+
+                            if (targetReferenceRefID == referenceRefID.value && targetProductRefID == productRefID.value) {
+                                targetRow.children[6].innerText = qty;
+                                found = true;
+
+                                // update dataStore
+                                const indexToUpdate = dataStore.findIndex(item => item.entities.reference_ID == referenceRefID.value && item.entities.product_RefID == productRefID.value);
+                                if (indexToUpdate !== -1) {
+                                    dataStore[indexToUpdate] = {
+                                        entities: {
+                                            product_RefID: parseInt(productRefID.value),
+                                            quantity: parseFloat(qty.replace(/,/g, '')),
+                                            quantityUnit_RefID: parseInt(quantityUnitRefID.value),
+                                            remarks: note,
+                                            reference_ID: parseInt(referenceRefID.value)
+                                        }
+                                    };
+                                }
+
+                                break;
+                            }
+                        }
+
+                        if (!found) {
+                            const newRow = document.createElement('tr');
+                            newRow.innerHTML = `
+                                <input type="hidden" id="reference_submit_modal_ID[]" value="${referenceRefID.value}">
+                                <input type="hidden" id="product_submit_modal_ID[]" value="${productRefID.value}">
+
+                                <td style="text-align: right;padding: 0.8rem 0.5rem;width: 100px;">${subBudget}</td>
+                                <td style="text-align: right;padding: 0.8rem 0.5rem;width: 100px;">${productCode}</td>
+                                <td style="text-align: right;padding: 0.8rem 0.5rem;width: 100px;">${productName}</td>
+                                <td style="text-align: right;padding: 0.8rem 0.5rem;width: 100px;">${uom}</td>
+                                <td style="text-align: right;padding: 0.8rem 0.5rem;width: 100px;">${qty}</td>
+                            `;
+                            targetTable.appendChild(newRow);
+
+                            dataStore.push({
+                                entities: {
+                                    product_RefID: parseInt(productRefID.value),
+                                    quantity: parseFloat(qty.replace(/,/g, '')),
+                                    quantityUnit_RefID: parseInt(quantityUnitRefID.value),
+                                    remarks: note,
+                                    reference_ID: parseInt(referenceRefID.value)
+                                }
+                            });
+                        }
+                    } else {
+                        const existingRows  = targetTable.getElementsByTagName('tr');
+
+                        for (let targetRow of existingRows) {
+                            const targetReferenceRefID  = targetRow.children[0].value.trim();
+                            const targetProductRefID    = targetRow.children[1].value.trim();
+
+                            if (targetReferenceRefID == referenceRefID.value && targetProductRefID == productRefID.value) {
+                                targetRow.remove();
+                                break;
+                            }
+                        }
+
+                        dataStore = dataStore.filter(item => {
+                            return !(item.entities.reference_ID == referenceRefID.value && item.entities.product_RefID == productRefID.value);
+                        });
+                    }
+                }
+                
+                break;
+            case "2":
+                for (let row of rows) {
+                    const referenceRefID    = row.querySelector('input[id^="reference_ID"]');
+                    const quantityUnitRefID = row.querySelector('input[id^="quantityUnit_RefID"]');
+                    const productRefID      = row.querySelector('input[id^="product_RefID"]');
+
+                    const qtyInput          = row.querySelector('input[id^="stock_movement_qty_req"]');
+                    const noteInput         = row.querySelector('textarea[id^="stock_movement_note_req"]');
+
+                    if (qtyInput && qtyInput.value.trim() !== '') {
+                        const productCode   = row.children[3].innerText.trim();
+                        const productName   = row.children[4].innerText.trim();
+                        const uom           = row.children[5].innerText.trim();
+
+                        const qty       = qtyInput.value.trim();
+                        const note      = noteInput.value.trim();
+
+                        let found = false;
+                        const existingRows = targetTable.getElementsByTagName('tr');
+
+                        for (let targetRow of existingRows) {
+                            const targetReferenceRefID  = targetRow.children[0].value.trim();
+                            const targetProductRefID    = targetRow.children[1].value.trim();
+                            
+                            if (targetReferenceRefID == referenceRefID.value && targetProductRefID == productRefID.value) {
+                                targetRow.children[5].innerText = qty;
+                                found = true;
+
+                                // update dataStore
+                                const indexToUpdate = dataStore.findIndex(item => item.entities.reference_ID == referenceRefID.value && item.entities.product_RefID == productRefID.value);
+                                if (indexToUpdate !== -1) {
+                                    dataStore[indexToUpdate] = {
+                                        entities: {
+                                            product_RefID: parseInt(productRefID.value),
+                                            quantity: parseFloat(qty.replace(/,/g, '')),
+                                            quantityUnit_RefID: parseInt(quantityUnitRefID.value),
+                                            remarks: note,
+                                            reference_ID: parseInt(referenceRefID.value)
+                                        }
+                                    };
+                                }
+
+                                break;
+                            }
+                        }
+
+                        if (!found) {
+                            const newRow = document.createElement('tr');
+                            newRow.innerHTML = `
+                                <input type="hidden" id="reference_submit_modal_ID[]" value="${referenceRefID.value}">
+                                <input type="hidden" id="product_submit_modal_ID[]" value="${productRefID.value}">
+
+                                <td style="text-align: right;padding: 0.8rem 0.5rem;width: 100px;">${productCode}</td>
+                                <td style="text-align: right;padding: 0.8rem 0.5rem;width: 100px;">${productName}</td>
+                                <td style="text-align: right;padding: 0.8rem 0.5rem;width: 100px;">${uom}</td>
+                                <td style="text-align: right;padding: 0.8rem 0.5rem;width: 100px;">${qty}</td>
+                            `;
+                            targetTable.appendChild(newRow);
+
+                            dataStore.push({
+                                entities: {
+                                    product_RefID: parseInt(productRefID.value),
+                                    quantity: parseFloat(qty.replace(/,/g, '')),
+                                    quantityUnit_RefID: parseInt(quantityUnitRefID.value),
+                                    remarks: note,
+                                    reference_ID: parseInt(referenceRefID.value)
+                                }
+                            });
+                        }
+                    } else {
+                        const existingRows  = targetTable.getElementsByTagName('tr');
+
+                        for (let targetRow of existingRows) {
+                            const targetReferenceRefID  = targetRow.children[0].value.trim();
+                            const targetProductRefID    = targetRow.children[1].value.trim();
+
+                            if (targetReferenceRefID == referenceRefID.value && targetProductRefID == productRefID.value) {
+                                targetRow.remove();
+                                break;
+                            }
+                        }
+
+                        dataStore = dataStore.filter(item => {
+                            return !(item.entities.reference_ID == referenceRefID.value && item.entities.product_RefID == productRefID.value);
+                        });
+                    }
+                }
+
+                break;            
+            default:
+                break;
+        }
+    }
+
+    function validationForm() {
+        const isReferenceTypeValueNotSelected   = referenceTypeValue.value.trim() !== 'Select a Source';
+        const isTransporterRefIDNotEmpty        = transporterRefID.value.trim() !== '';
+
+        // PURCHASE ORDER
+        const isPurchaseOrderRefIDNotEmpty           = purchaseOrderRefID.value.trim() !== '';
+        const isPurchaseOrderDeliveryFromNotEmpty    = purchaseOrderDeliveryFrom.value.trim() !== '';
+        const isPurchaseOrderDeliveryToNotEmpty      = purchaseOrderDeliveryTo.value.trim() !== '';
+
+        // INTERNAL USE
+        const isInternalUseBudgetCodeRefIDNotEmpty      = internalUseBudgetCodeRefID.value.trim() !== '';
+        const isInternalUseSubBudgetCodeRefIDNotEmpty   = internalUseSubBudgetCodeRefID.value.trim() !== '';
+        const isInternalUseDeliveryFromRefIDNotEmpty    = internalUseDeliveryFromRefID.value.trim() !== '';
+        const isInternalUseDeliveryToRefIDNotEmpty      = internalUseDeliveryToRefID.value.trim() !== '';
+        
+        // STOCK MOVEMENT
+        const isStockMovementStatusNotEmpty             = stockMovementStatus.value.trim() !== '';
+        const isStockMovementBudgetCodeRefIDNotEmpty    = stockMovementBudgetCodeRefID.value.trim() !== '';
+        const isStockMovementRequesterRefIDNotEmpty     = stockMovementRequesterRefID.value.trim() !== '';
+        const isStockMovementDeliveryFromRefIDNotEmpty  = stockMovementDeliveryFromRefID.value.trim() !== '';
+        const isStockMovementDeliveryToRefIDNotEmpty    = stockMovementDeliveryToRefID.value.trim() !== '';
+
+        if (!isReferenceTypeValueNotSelected) {
+            $("#reference_type").css("border", "1px solid red");
+            $("#reference_type_message").show();
+            return;
+        } else {
+            switch (referenceTypeValue.value) {
+                case "0":
+                    if (isPurchaseOrderRefIDNotEmpty && isPurchaseOrderDeliveryFromNotEmpty && isPurchaseOrderDeliveryToNotEmpty && isTransporterRefIDNotEmpty) {
+                        summaryData();
+                        $('#delivery_order_submit_modal').modal('show');
+                    } else {
+                        if (!isPurchaseOrderRefIDNotEmpty && !isPurchaseOrderDeliveryFromNotEmpty && !isPurchaseOrderDeliveryToNotEmpty && !isTransporterRefIDNotEmpty) {
+                            $("#transporter_name").css("border", "1px solid red");
+                            $("#transporter_message").show();
+                            
+                            $("#purchase_order_delivery_from").css("border", "1px solid red");
+                            $("#purchase_order_delivery_from_message").show();
+
+                            $("#purchase_order_delivery_to").css("border", "1px solid red");
+                            $("#purchase_order_delivery_to_message").show();
+
+                            $("#purchase_order_number").css("border", "1px solid red");
+                            $("#purchase_order_message").show();
+                            return;
+                        }
+                        if (!isPurchaseOrderRefIDNotEmpty) {
+                            $("#purchase_order_number").css("border", "1px solid red");
+                            $("#purchase_order_message").show();
+                            return;
+                        }
+                        if (!isPurchaseOrderDeliveryFromNotEmpty) {
+                            $("#purchase_order_delivery_from").css("border", "1px solid red");
+                            $("#purchase_order_delivery_from_message").show();
+                            return;
+                        }
+                        if (!isPurchaseOrderDeliveryToNotEmpty) {
+                            $("#purchase_order_delivery_to").css("border", "1px solid red");
+                            $("#purchase_order_delivery_to_message").show();
+                            return;
+                        }
+                        if (!isTransporterRefIDNotEmpty) {
+                            $("#transporter_name").css("border", "1px solid red");
+                            $("#transporter_message").show();
+                            return;
+                        }
+                    }
+                    break;
+                case "1":
+                    if (isInternalUseBudgetCodeRefIDNotEmpty && isInternalUseSubBudgetCodeRefIDNotEmpty && isInternalUseDeliveryFromRefIDNotEmpty && isInternalUseDeliveryToRefIDNotEmpty && isTransporterRefIDNotEmpty) {
+                        summaryData();
+                        $('#delivery_order_submit_modal').modal('show');
+                    } else {
+                        if (!isInternalUseBudgetCodeRefIDNotEmpty && !isInternalUseSubBudgetCodeRefIDNotEmpty && !isInternalUseDeliveryFromRefIDNotEmpty && !isInternalUseDeliveryToRefIDNotEmpty && !isTransporterRefIDNotEmpty) {
+                            $("#transporter_name").css("border", "1px solid red");
+                            $("#transporter_message").show();
+
+                            $("#internal_use_budget_code").css("border", "1px solid red");
+                            $("#internal_use_budget_name").css("border", "1px solid red");
+                            $("#internal_use_budget_message").show();
+
+                            $("#internal_use_site_code").css("border", "1px solid red");
+                            $("#internal_use_site_name").css("border", "1px solid red");
+                            $("#internal_use_site_message").show();
+
+                            $("#internal_use_delivery_from_name").css("border", "1px solid red");
+                            $("#internal_use_delivery_from_address").css("border", "1px solid red");
+                            $("#internal_use_delivery_from_message").show();
+
+                            $("#internal_use_delivery_to_name").css("border", "1px solid red");
+                            $("#internal_use_delivery_to_address").css("border", "1px solid red");
+                            $("#internal_use_delivery_to_message").show();
+
+                            return;
+                        }
+                        if (!isInternalUseBudgetCodeRefIDNotEmpty) {
+                            $("#internal_use_budget_code").css("border", "1px solid red");
+                            $("#internal_use_budget_name").css("border", "1px solid red");
+                            $("#internal_use_budget_message").show();
+                            return;
+                        }
+                        if (!isInternalUseSubBudgetCodeRefIDNotEmpty) {
+                            $("#internal_use_site_code").css("border", "1px solid red");
+                            $("#internal_use_site_name").css("border", "1px solid red");
+                            $("#internal_use_site_message").show();
+                            return;
+                        }
+                        if (!isInternalUseDeliveryFromRefIDNotEmpty) {
+                            $("#internal_use_delivery_from_name").css("border", "1px solid red");
+                            $("#internal_use_delivery_from_address").css("border", "1px solid red");
+                            $("#internal_use_delivery_from_message").show();
+                            return;
+                        }
+                        if (!isInternalUseDeliveryToRefIDNotEmpty) {
+                            $("#internal_use_delivery_to_name").css("border", "1px solid red");
+                            $("#internal_use_delivery_to_address").css("border", "1px solid red");
+                            $("#internal_use_delivery_to_message").show();
+                            return;
+                        }
+                        if (!isTransporterRefIDNotEmpty) {
+                            $("#transporter_name").css("border", "1px solid red");
+                            $("#transporter_message").show();
+                            return;
+                        }
+                    }
+                    break;
+                case "2":
+                    if (isStockMovementStatusNotEmpty && isStockMovementBudgetCodeRefIDNotEmpty && isStockMovementRequesterRefIDNotEmpty && isStockMovementDeliveryFromRefIDNotEmpty && isStockMovementDeliveryToRefIDNotEmpty && isTransporterRefIDNotEmpty) {
+                        summaryData();
+                        $('#delivery_order_submit_modal').modal('show');
+                    } else {
+                        if (!isStockMovementStatusNotEmpty && !isStockMovementBudgetCodeRefIDNotEmpty && !isStockMovementRequesterRefIDNotEmpty && !isStockMovementDeliveryFromRefIDNotEmpty && !isStockMovementDeliveryToRefIDNotEmpty && !isTransporterRefIDNotEmpty) {
+                            $("#transporter_name").css("border", "1px solid red");
+                            $("#transporter_message").show();
+
+                            $("#stock_movement_budget_code").css("border", "1px solid red");
+                            $("#stock_movement_budget_name").css("border", "1px solid red");
+                            $("#stock_movement_budget_message").show();
+
+                            $("#stock_movement_requester_position").css("border", "1px solid red");
+                            $("#stock_movement_requester_name").css("border", "1px solid red");
+                            $("#stock_movement_requester_message").show();
+
+                            $("#stock_movement_status").css("border", "1px solid red");
+                            $("#stock_movement_status_message").show();
+
+                            $("#stock_movement_delivery_from_name").css("border", "1px solid red");
+                            $("#stock_movement_delivery_from_address").css("border", "1px solid red");
+                            $("#stock_movement_delivery_from_message").show();
+
+                            $("#stock_movement_delivery_to_name").css("border", "1px solid red");
+                            $("#stock_movement_delivery_to_address").css("border", "1px solid red");
+                            $("#stock_movement_delivery_to_message").show();
+
+                            return;
+                        }
+                        if (!isStockMovementStatusNotEmpty) {
+                            $("#stock_movement_status").css("border", "1px solid red");
+                            $("#stock_movement_status_message").show();
+                            return;
+                        }
+                        if (!isStockMovementBudgetCodeRefIDNotEmpty) {
+                            $("#stock_movement_budget_code").css("border", "1px solid red");
+                            $("#stock_movement_budget_name").css("border", "1px solid red");
+                            $("#stock_movement_budget_message").show();
+                            return;
+                        }
+                        if (!isStockMovementRequesterRefIDNotEmpty) {
+                            $("#stock_movement_requester_position").css("border", "1px solid red");
+                            $("#stock_movement_requester_name").css("border", "1px solid red");
+                            $("#stock_movement_requester_message").show();
+                            return;
+                        }
+                        if (!isStockMovementDeliveryFromRefIDNotEmpty) {
+                            $("#stock_movement_delivery_from_name").css("border", "1px solid red");
+                            $("#stock_movement_delivery_from_address").css("border", "1px solid red");
+                            $("#stock_movement_delivery_from_message").show();
+                            return;
+                        }
+                        if (!isStockMovementDeliveryToRefIDNotEmpty) {
+                            $("#stock_movement_delivery_to_name").css("border", "1px solid red");
+                            $("#stock_movement_delivery_to_address").css("border", "1px solid red");
+                            $("#stock_movement_delivery_to_message").show();
+                            return;
+                        }
+                        if (!isTransporterRefIDNotEmpty) {
+                            $("#transporter_name").css("border", "1px solid red");
+                            $("#transporter_message").show();
+                            return;
+                        }
+                    }
+                    break;
+                default:
+                    console.log('error');
+                    break;
+            }
+        }
+    }
+
+    function selectWorkFlow(formatData) {
         const swalWithBootstrapButtons = Swal.mixin({
             confirmButtonClass: 'btn btn-success btn-sm',
             cancelButtonClass: 'btn btn-danger btn-sm',
@@ -617,12 +615,12 @@
         }).then((result) => {
             if ('value' in result) {
                 ShowLoading();
-                DeliveryOrderStore({...formatData, comment: result.value});
+                deliveryOrderStore({...formatData, comment: result.value});
             }
         });
     }
 
-    function DeliveryOrderStore(formatData) {
+    function deliveryOrderStore(formatData) {
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -635,6 +633,8 @@
             url: '{{ route("DeliveryOrder.store") }}',
             success: function(res) {
                 HideLoading();
+
+                console.log('res', res);
 
                 if (res.status === 200) {
                     const swalWithBootstrapButtons = Swal.mixin({
@@ -669,14 +669,14 @@
         });
     }
 
-    function SubmitForm() {
-        $('#deliveryOrderFormModal').modal('hide');
+    function submitForm() {
+        $('#delivery_order_submit_modal').modal('hide');
 
-        var action = $('#FormSubmitDeliveryOrder').attr("action");
-        var method = $('#FormSubmitDeliveryOrder').attr("method");
-        var form_data = new FormData($('#FormSubmitDeliveryOrder')[0]);
-        form_data.append('deliveryOrderDetail', JSON.stringify(dataStore));
-        form_data.append('delivery_date', deliveryDate.split(" ")[0]);
+        var action = $('#delivery_order_submit_form').attr("action");
+        var method = $('#delivery_order_submit_form').attr("method");
+        var form_data = new FormData($('#delivery_order_submit_form')[0]);
+        form_data.append('delivery_order_details', JSON.stringify(dataStore));
+        form_data.append('delivery_date', deliveryDate ? deliveryDate.split(" ")[0] : deliveryDate);
 
         ShowLoading();
 
@@ -713,98 +713,500 @@
                         storeData: response.storeData
                     };
 
-                    SelectWorkFlow(formatData);
+                    selectWorkFlow(formatData);
                 }
             },
             error: function(response) {
+                console.log('response error', response);
+                
                 HideLoading();
+
                 CancelNotif("You don't have access", "{{ route('DeliveryOrder.index', ['var' => 1]) }}");
             }
         });
     }
 
-    $('#tableGetProjectSecond').on('click', 'tbody tr', async function() {
-        var sysId       = $(this).find('input[data-trigger="sys_id_project_second"]').val();
-        var projectCode = $(this).find('td:nth-child(2)').text();
-        var projectName = $(this).find('td:nth-child(3)').text();
+    // START OF PURCHASE ORDER TYPE
+        function calculateTotal() {
+            let total = 0;
+            
+            document.querySelectorAll('input[id^="qty_req"]').forEach(function(input) {
+                let value = parseFloat(input.value.replace(/,/g, '')); 
+                if (!isNaN(value)) {
+                    total += value;
+                }
+            });
+
+            document.getElementById('total_reference_number').textContent = decimalFormat(parseFloat(total));
+        }
+
+        function checkOneLineBudgetContents(indexInput) {
+            const rows = document.querySelectorAll("#table_reference_type_detail tbody tr");
+            let hasFullRow = false;
+
+            rows.forEach((row, index) => {
+                const qty   = document.getElementById(`qty_req${index}`)?.value.trim();
+                const note  = document.getElementById(`note${index}`)?.value.trim();
+
+                if (qty !== "" && note !== "") {
+                    hasFullRow = true;
+                }
+            });
+
+            rows.forEach((row, index) => {
+                const qtyEl     = document.getElementById(`qty_req${index}`);
+                const noteEl    = document.getElementById(`note${index}`);
+
+                if (hasFullRow) {
+                    $(qtyEl).css("border", "1px solid #ced4da");
+                    $(noteEl).css("border", "1px solid #ced4da");
+                    $("#delivery_order_details_message").hide();
+                } else {
+                    if (indexInput > -1) {
+                        if (indexInput == index) {
+                            if (qtyEl.value.trim() != "" || noteEl.value.trim() != "") {
+                                $(qtyEl).css("border", "1px solid red");
+                                $(noteEl).css("border", "1px solid red");
+                                $("#delivery_order_details_message").show();
+                            } else {
+                                $(qtyEl).css("border", "1px solid #ced4da");
+                                $(noteEl).css("border", "1px solid #ced4da");
+                                $("#delivery_order_details_message").hide();
+                            }
+                        }
+
+                        if (indexInput != index && (qtyEl.value.trim() == "" && noteEl.value.trim() == "")) {
+                            $(qtyEl).css("border", "1px solid #ced4da");
+                            $(noteEl).css("border", "1px solid #ced4da");
+                        } 
+                    } else {
+                        $(qtyEl).css("border", "1px solid red");
+                        $(noteEl).css("border", "1px solid red");
+                        $("#delivery_order_details_message").show();
+                    }
+                }
+            });
+
+            return hasFullRow;
+        }
+
+        function getPurchaseOrderDetail(purchaseOrder_RefID, purchaseOrderNumber) {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                type: 'GET',
+                url: '{!! route("getPurchaseOrderDetail") !!}?purchase_order_id=' + purchaseOrder_RefID,
+                success: async function(data) {
+                    if (Array.isArray(data) && data.length > 0) {
+                        deliveryDate = data[0].deliveryDateTimeTZ;
+                        let deliveryFroms = `(${data[0]['supplierCode']}) ${data[0]['supplierName']} - ${data[0]['supplierAddress']}`;
+                        let deliveryToNonRefIDs = data[0]['deliveryTo_NonRefID'] ? data[0]['deliveryTo_NonRefID'].Address : '';
+
+                        $("#purchase_order_id").val(purchaseOrder_RefID);
+                        $("#purchase_order_number").val(purchaseOrderNumber);
+                        $("#purchase_order_budget").val(`${data[0]['combinedBudgetCode']} - ${data[0]['combinedBudgetName']}`);
+
+                        $("#var_combinedBudget_RefID").val(data[0].combinedBudget_RefID);
+
+                        $("#purchase_order_delivery_from_duplicate").val(deliveryFroms);
+                        $("#purchase_order_delivery_from").val(deliveryFroms);
+                        $("#purchase_order_delivery_from_id_duplicate").val(data[0]['supplier_RefID']);
+                        $("#purchase_order_delivery_from_id").val(data[0]['supplier_RefID']);
+                        $("#purchase_order_delivery_from").prop("disabled", false);
+
+                        $("#purchase_order_delivery_to").val(deliveryToNonRefIDs);
+                        $("#purchase_order_delivery_to_duplicate").val(deliveryToNonRefIDs);
+                        $("#purchase_order_delivery_to_id").val(data[0]['deliveryTo_RefID']);
+                        $("#purchase_order_delivery_to_id_duplicate").val(data[0]['deliveryTo_RefID']);
+                        $("#purchase_order_delivery_to").prop("disabled", false);
+
+                        $("#purchase_order_delivery_from").css("border", "1px solid #ced4da");
+                        $("#purchase_order_delivery_from_message").hide();
+
+                        $("#purchase_order_delivery_to").css("border", "1px solid #ced4da");
+                        $("#purchase_order_delivery_to_message").hide();
+
+                        $("#purchase_order_number").css("border", "1px solid #ced4da");
+                        $("#purchase_order_message").hide();
+
+                        let modifyColumn = `<td rowspan="${data.length}" style="text-align: center; padding: 10px !important;">${purchaseOrderNumber}</td>`;
+
+                        $.each(data, function(key, val) {
+                            let balanced = currencyTotal(val.quantity);
+                            let row = `
+                                <tr>
+                                    <input id="product_RefID${indexPurchaseOrderDetail}" value="${val.product_RefID}" type="hidden" />
+                                    <input id="quantityUnit_RefID${indexPurchaseOrderDetail}" value="${val.quantityUnit_RefID}" type="hidden" />
+                                    <input id="reference_ID${indexPurchaseOrderDetail}" value="${val.sys_ID}" type="hidden" />
+
+                                    ${key === 0 ? modifyColumn : `<td style="display: none;">${purchaseOrderNumber}</td>`}
+                                    <td style="text-align: center;">${val.combinedBudgetSectionCode + ' - ' + val.combinedBudgetSectionName}</td>
+                                    <td style="text-align: center;">${val.productCode}</td>
+                                    <td style="text-align: center;">${val.productName}</td>
+                                    <td style="text-align: center;">${val.quantityUnitName}</td>
+                                    <td style="text-align: center;">${currencyTotal(val.quantity)}</td>
+                                    <td style="text-align: center;">${currencyTotal(val.qtyAvail)}</td>
+                                    <td style="border:1px solid #e9ecef;background-color:white; padding: 0.5rem !important; width: 100px;">
+                                        <input id="qty_req${indexPurchaseOrderDetail}" class="form-control number-without-negative" data-index=${indexPurchaseOrderDetail} autocomplete="off" style="border-radius:0px;" />
+                                    </td>
+                                    <td style="border:1px solid #e9ecef;background-color:white; padding: 0.5rem !important; width: 100px;">
+                                        <input id="balance${indexPurchaseOrderDetail}" class="form-control number-without-negative" data-index=${indexPurchaseOrderDetail} data-default="${balanced}" value="${balanced}" autocomplete="off" style="border-radius:0px;" disabled />
+                                    </td>
+                                    <td style="border:1px solid #e9ecef;background-color:white; padding: 0.5rem !important; width: 150px;">
+                                        <textarea id="note${indexPurchaseOrderDetail}" class="form-control" data-index=${indexPurchaseOrderDetail}></textarea>
+                                    </td>
+                                </tr>
+                            `;
+
+                            $('#table_reference_type_detail tbody').append(row);
+
+                            $(`#qty_req${indexPurchaseOrderDetail}`).on('keyup', function() {
+                                var qty_req     = $(this).val().replace(/,/g, '');
+                                var data_index  = $(this).data('index');
+                                var result      = val.quantity - qty_req;
+
+                                if (parseFloat(qty_req) > val.quantity) {
+                                    $(this).val("");
+                                    $(`#balance${data_index}`).val(balanced);
+                                    ErrorNotif("Qty Request is over !");
+                                } else {
+                                    $(`#balance${data_index}`).val(result.toFixed(2));
+                                    calculateTotal();
+                                }
+
+                                checkOneLineBudgetContents(data_index);
+                            });
+
+                            $(`#note${indexPurchaseOrderDetail}`).on('keyup', function() {
+                                var data_index = $(this).data('index');
+
+                                checkOneLineBudgetContents(data_index);
+                            });
+
+                            indexPurchaseOrderDetail += 1;
+                        });
+                    } else {
+
+                    }
+                },
+                error: function (textStatus, errorThrown) {
+                }
+            });
+        }
+
+        $('#TableSearchPORevision').on('click', 'tbody tr', function () {
+            let table   = $('#TableSearchPORevision').DataTable();
+            let data    = table.row(this).data();
+
+            if (data) {
+                $("#mySearchPO").modal('toggle');
+
+                let purchaseOrder_RefID = data.sys_ID;
+                let purchaseOrderNumber = data.sys_Text;
+
+                getPurchaseOrderDetail(purchaseOrder_RefID, purchaseOrderNumber);
+            }
+        });
+    // END OF PURCHASE ORDER TYPE
+
+    // START OF INTERNAL USE TYPE
+        function calculateTotalInternalUse() {
+            let total = 0;
+            
+            document.querySelectorAll('input[id^="internal_use_qty_req"]').forEach(function(input) {
+                let value = parseFloat(input.value.replace(/,/g, '')); 
+                if (!isNaN(value)) {
+                    total += value;
+                }
+            });
+
+            document.getElementById('total_reference_number').textContent = decimalFormat(parseFloat(total));
+        }
+        
+        function getBudgetDetails(site_code) {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                type: 'GET',
+                url: '{!! route("getBudget") !!}?site_code=' + site_code,
+                success: function(data) {
+                    if (Array.isArray(data) && data.length > 0) {
+                        $.each(data, function(key, val) {
+                            if (val.product_RefID) {
+                                let row = `
+                                    <tr>
+                                        <input id="product_RefID${indexInternalUseDetail}" value="${val.product_RefID}" type="hidden" />
+                                        <input id="quantityUnit_RefID${indexInternalUseDetail}" value="${val.quantityUnit_RefID}" type="hidden" />
+                                        <input id="reference_ID${indexInternalUseDetail}" value="${val.sys_ID}" type="hidden" />
+
+                                        <td style="text-align: center;">${val.combinedBudgetSectionCode} - ${val.combinedBudgetSectionName}</td>
+                                        <td style="text-align: center;">${val.productCode}</td>
+                                        <td style="text-align: center;">${val.productName}</td>
+                                        <td style="text-align: center;">${val.quantityUnitName}</td>
+                                        <td style="text-align: center;">${currencyTotal(val.quantity)}</td>
+                                        <td style="text-align: center;">${currencyTotal(val.quantityRemaining)}</td>
+                                        <td style="text-align: center;">${currencyTotal(val.priceBaseCurrencyValue)}</td>
+                                        <td style="text-align: center;">${currencyTotal(val.quantity * val.priceBaseCurrencyValue)}</td>
+                                        <td style="text-align: center;">-</td>
+                                        <td style="text-align: center;">-</td>
+                                        <td style="text-align: center;">-</td>
+                                        <td class="sticky-col third-col-arf" style="border:1px solid #e9ecef;background-color:white; padding: 0.5rem !important; width: 100px;">
+                                            <input id="internal_use_qty_req${indexInternalUseDetail}" class="form-control number-without-negative" data-index=${indexInternalUseDetail} autocomplete="off" style="border-radius:0px;" />
+                                        </td>
+                                        <td class="sticky-col second-col-arf" style="border:1px solid #e9ecef;background-color:white; padding: 0.5rem !important; width: 100px;">
+                                            <input id="internal_use_balance_req${indexInternalUseDetail}" class="form-control number-without-negative" data-index=${indexInternalUseDetail} autocomplete="off" style="border-radius:0px;" readonly />
+                                        </td>
+                                        <td class="sticky-col first-col-arf" style="border:1px solid #e9ecef;background-color:white; padding: 0.5rem !important; width: 100px;">
+                                            <textarea id="internal_use_note${indexInternalUseDetail}" data-index=${indexInternalUseDetail} class="form-control"></textarea>
+                                        </td>
+                                    </tr>
+                                `;
+
+                                $('#table_reference_type_detail tbody').append(row);
+
+                                $(`#internal_use_qty_req${indexInternalUseDetail}`).on('keyup', function() {
+                                    let qty_req     = $(this).val().replace(/,/g, '');
+                                    let data_index  = $(this).data('index');
+                                    let result      = val.quantityRemaining - qty_req;
+
+                                    if (parseFloat(qty_req) > val.quantityRemaining) {
+                                        $(this).val("");
+                                        $(`#internal_use_balance_req${data_index}`).val("");
+                                        ErrorNotif("Qty Request is over !");
+                                    } else {
+                                        $(`#internal_use_balance_req${data_index}`).val(result);
+                                        calculateTotalInternalUse();
+                                    }
+
+                                    // checkOneLineBudgetContents(indexInternalUseDetail);
+                                });
+
+                                indexInternalUseDetail += 1;
+                            }
+                        });
+                    } else {
+
+                    }
+                },
+                error: function (textStatus, errorThrown) {
+                }
+            });
+        }
+
+        $('#tableGetSiteSecond').on('click', 'tbody tr', function() {
+            let sysId    = $(this).find('input[data-trigger="sys_id_site_second"]').val();
+            let siteCode = $(this).find('td:nth-child(2)').text();
+            let siteName = $(this).find('td:nth-child(3)').text();
+
+            $("#internal_use_site_id").val(sysId);
+            $("#internal_use_site_code").val(siteCode);
+            $("#internal_use_site_name").val(siteName);
+
+            $("#internal_use_site_code").css("border", "1px solid #ced4da");
+            $("#internal_use_site_name").css("border", "1px solid #ced4da");
+            $("#internal_use_site_message").hide();
+
+            getBudgetDetails(sysId);
+
+            $("#mySiteCodeSecond").modal('toggle');
+        });
+    // END OF INTERNAL USE TYPE
+
+    // START OF STOCK MOVEMENT TYPE
+        function calculateTotalStockMovement() {
+            let total = 0;
+            
+            document.querySelectorAll('input[id^="stock_movement_qty_req"]').forEach(function(input) {
+                let value = parseFloat(input.value.replace(/,/g, '')); 
+                if (!isNaN(value)) {
+                    total += value;
+                }
+            });
+
+            document.getElementById('total_reference_number').textContent = decimalFormat(parseFloat(total));
+        }
+
+        function getStockDetail(deliveryFrom_RefID) {
+            let stockMovementBudget_RefID = document.getElementById("stock_movement_budget_id");
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                type: 'GET',
+                url: '{!! route("DeliveryOrder.StockDetail") !!}?combinedBudget_RefID=' + stockMovementBudget_RefID.value + '&warehouse_RefID=' + deliveryFrom_RefID,
+                success: async function(data) {
+                    if (Array.isArray(data) && data.length > 0) {
+                        $('#table_reference_type_detail tbody').empty();
+
+                        $.each(data, function(key, val) {
+                            let row = `
+                                <tr>
+                                    <input id="product_RefID${indexInternalUseDetail}" value="${val.Product_RefID}" type="hidden" />
+                                    <input id="quantityUnit_RefID${indexInternalUseDetail}" value="${val.QuantityUnit_RefID}" type="hidden" />
+                                    <input id="reference_ID${indexInternalUseDetail}" value="${val.Warehouse_RefID}" type="hidden" />
+
+                                    <td style="text-align: center;">${val.ProductCode || '-'}</td>
+                                    <td style="text-align: center;">${val.ProductName || '-'}</td>
+                                    <td style="text-align: center;">${val.QuantityUnitName || '-'}</td>
+                                    <td style="text-align: center;">${val.QuantityStok || '-'}</td>
+                                    <td style="border:1px solid #e9ecef;background-color:white; padding: 0.5rem !important; width: 100px;">
+                                        <input id="stock_movement_qty_req${key}" class="form-control number-without-negative" autocomplete="off" style="border-radius:0px;" />
+                                    </td>
+                                    <td style="border:1px solid #e9ecef;background-color:white; padding: 0.5rem !important; width: 100px;">
+                                        <input id="stock_movement_balance_req${key}" class="form-control number-without-negative" autocomplete="off" style="border-radius:0px;" readonly />
+                                    </td>
+                                    <td style="border:1px solid #e9ecef;background-color:white; padding: 0.5rem !important; width: 100px;">
+                                        <textarea id="stock_movement_note_req${key}" class="form-control"></textarea>
+                                    </td>
+                                </tr>
+                            `;
+
+                            $('#table_reference_type_detail tbody').append(row);
+
+                            $(`#stock_movement_qty_req${key}`).on('keyup', function() {
+                                let qty_req     = $(this).val().replace(/,/g, '');
+                                let result      = val.QuantityStok - qty_req;
+
+                                if (parseFloat(qty_req) > val.QuantityStok) {
+                                    $(this).val("");
+                                    $(`#balance${key}`).val("");
+                                    ErrorNotif("Qty Request is over !");
+                                } else {
+                                    $(`#balance${key}`).val(result.toFixed(2));
+                                    calculateTotalStockMovement();
+                                }
+
+                                // checkOneLineBudgetContents(key);
+                            });
+
+                            $(`#stock_movement_note_req${key}`).on('keyup', function() {
+                                // var data_index = $(this).data('index');
+
+                                // checkOneLineBudgetContents(data_index);
+                            });
+                        });
+                    }
+                },
+                error: function (textStatus, errorThrown) {
+                }
+            });
+        }
+    // END OF STOCK MOVEMENT TYPE
+
+    $('#tableGetProjectSecond').on('click', 'tbody tr', function() {
+        let sysId       = $(this).find('input[data-trigger="sys_id_project_second"]').val();
+        let projectCode = $(this).find('td:nth-child(2)').text();
+        let projectName = $(this).find('td:nth-child(3)').text();
 
         if (referenceTypeValue.value == "1") {
-            $("#project_id_second").val(sysId);
-            $("#project_code_second").val(projectCode);
-            $("#project_name_second").val(projectName);
+            $("#internal_use_budget_id").val(sysId);
+            $("#internal_use_budget_code").val(projectCode);
+            $("#internal_use_budget_name").val(projectName);
+
+            $("#internal_use_budget_code").css("border", "1px solid #ced4da");
+            $("#internal_use_budget_name").css("border", "1px solid #ced4da");
+            $("#internal_use_budget_message").hide();
 
             getSiteSecond(sysId);
-        } else {
-            $("#project_id_second_stock_movement").val(sysId);
-            $("#project_code_second_stock_movement").val(projectCode);
-            $("#project_name_second_stock_movement").val(projectName);
-        }
-    });
+        } else if (referenceTypeValue.value == "2") {
+            $("#stock_movement_budget_id").val(sysId);
+            $("#stock_movement_budget_code").val(projectCode);
+            $("#stock_movement_budget_name").val(projectName);
 
-    $('#tableGetSiteSecond').on('click', 'tbody tr', function() {
-        getInternalUseDetail();
-    });
-
-    $('#delivery_from').on('input', function(e) {
-        if (e.target.value == deliveryFromDuplicate.value) {
-            $("#deliveryFrom_RefID").val(deliveryFromDuplicateRefID.value);
-        } else {
-            $("#deliveryFrom_RefID").val("");
+            $("#stock_movement_budget_code").css("border", "1px solid #ced4da");
+            $("#stock_movement_budget_name").css("border", "1px solid #ced4da");
+            $("#stock_movement_budget_message").hide();
         }
 
-        $("#delivery_from").css("border", "1px solid #ced4da");
-        $("#deliveryFromMessage").hide();
+        $("#var_combinedBudget_RefID").val(sysId);
+
+        $("#myProjectSecond").modal('toggle');
     });
 
-    $('#delivery_to').on('input', function(e) {
-        if (e.target.value == deliveryToDuplicate.value) {
-            $("#deliveryTo_RefID").val(deliveryToDuplicateRefID.value);
-        } else {
-            $("#deliveryTo_RefID").val("");
-        }
+    $('#tableGetWorkerSecond').on('click', 'tbody tr', function() {
+        let sysId           = $(this).find('input[data-trigger="sys_id_worker_second"]').val();
+        let workerName      = $(this).find('td:nth-child(2)').text();
+        let workerPosition  = $(this).find('td:nth-child(3)').text();
 
-        $("#delivery_to").css("border", "1px solid #ced4da");
-        $("#deliveryToMessage").hide();
+        $("#stock_movement_requester_id").val(sysId);
+        $("#stock_movement_requester_name").val(workerName);
+        $("#stock_movement_requester_position").val(workerPosition);
+
+        $("#stock_movement_requester_position").css("border", "1px solid #ced4da");
+        $("#stock_movement_requester_name").css("border", "1px solid #ced4da");
+        $("#stock_movement_requester_message").hide();
+
+        $("#myWorkerSecond").modal('toggle');
     });
 
-    $('#referenceNumberModal').on('click', 'tbody tr', function() {
-        var table = $('#referenceNumberTable').DataTable();
-        var data = table.row(this).data();
+    $('#tableGetModalWarehouses').on('click', 'tbody tr', function() {
+        let id      = $(this).find('input[data-trigger="sys_id_modal_warehouse"]').val();
+        let name    = $(this).find('td:nth-child(2)').text();
+        let address = $(this).find('td:nth-child(3)').text();
 
-        if (data) {
-            $("#referenceNumberModal").modal('toggle');
+        if (referenceTypeValue.value == "1") {
+            if (deliveryType == "from_internal_use") {
+                $("#internal_use_delivery_from_id").val(id);
+                $("#internal_use_delivery_from_name").val(name);
+                $("#internal_use_delivery_from_address").val(address);
 
-            // $("#reference_id").val(data.sys_ID);
-            // $("#reference_number").val(data.sys_Text);
-            // $("#var_combinedBudget_RefID").val(data.combinedBudget_RefID);
-            // $("#requesterWorkerJobsPosition_RefID").val(data.combinedBudget_RefID);
+                $("#internal_use_delivery_from_name").css("border", "1px solid #ced4da");
+                $("#internal_use_delivery_from_address").css("border", "1px solid #ced4da");
+                $("#internal_use_delivery_from_message").hide();
+            } else if (deliveryType == "to_internal_use") {
+                $("#internal_use_delivery_to_id").val(id);
+                $("#internal_use_delivery_to_name").val(name);
+                $("#internal_use_delivery_to_address").val(address);
 
-            GetReferenceNumberDetail(data.sys_ID, data.sys_Text);
+                $("#internal_use_delivery_to_name").css("border", "1px solid #ced4da");
+                $("#internal_use_delivery_to_address").css("border", "1px solid #ced4da");
+                $("#internal_use_delivery_to_message").hide();
+            }
+        } else if (referenceTypeValue.value == "2") {
+            if (deliveryType == "from_stock_movement") {
+                $("#stock_movement_delivery_from_id").val(id);
+                $("#stock_movement_delivery_from_name").val(name);
+                $("#stock_movement_delivery_from_address").val(address);
+
+                $("#stock_movement_delivery_from_name").css("border", "1px solid #ced4da");
+                $("#stock_movement_delivery_from_address").css("border", "1px solid #ced4da");
+                $("#stock_movement_delivery_from_message").hide();
+
+                getStockDetail(id);
+            } else if (deliveryType == "to_stock_movement") {
+                $("#stock_movement_delivery_to_id").val(id);
+                $("#stock_movement_delivery_to_name").val(name);
+                $("#stock_movement_delivery_to_address").val(address);
+
+                $("#stock_movement_delivery_to_name").css("border", "1px solid #ced4da");
+                $("#stock_movement_delivery_to_address").css("border", "1px solid #ced4da");
+                $("#stock_movement_delivery_to_message").hide();
+            }
         }
 
-
-        // var sysId                   = $(this).find('input[data-trigger="sys_id_reference_number"]').val();
-        // var sysCombineBudgetRefID   = $(this).find('input[data-trigger="sys_combined_budget_RefID"]').val();
-        // var sysRequesterRefID       = $(this).find('input[data-trigger="sys_requester_RefID"]').val();
-        // var referenceNumber         = $(this).find('td:nth-child(2)').text();
-        
-        // $("#reference_id").val(sysId);
-        // $("#var_combinedBudget_RefID").val(sysCombineBudgetRefID);
-        // $("#requesterWorkerJobsPosition_RefID").val(sysRequesterRefID);
-        // $("#reference_number").val(referenceNumber);
-        // GetReferenceNumberDetail(sysId, referenceNumber);
-
-        // $('#referenceNumberModal').modal('hide');
+        $("#myGetModalWarehouses").modal('toggle');
     });
 
     $('#tableGetTransporter tbody').on('click', 'tr', function () {
-        var sysId               = $(this).find('input[data-trigger="sys_id_transporter"]').val();
-        var fax                 = $(this).find('input[data-trigger="fax_transporter"]').val();
-        var phone               = $(this).find('input[data-trigger="phone_transporter"]').val();
-        var email               = $(this).find('input[data-trigger="email_transporter"]').val();
-        var phoneOffice         = $(this).find('input[data-trigger="office_phone_transporter"]').val();
-        var address             = $(this).find('input[data-trigger="address_transporter"]').val();
-        var transporterNames    = $(this).find('td:nth-child(2)').text();
+        let sysId               = $(this).find('input[data-trigger="sys_id_transporter"]').val();
+        let fax                 = $(this).find('input[data-trigger="fax_transporter"]').val();
+        let phone               = $(this).find('input[data-trigger="phone_transporter"]').val();
+        let email               = $(this).find('input[data-trigger="email_transporter"]').val();
+        let phoneOffice         = $(this).find('input[data-trigger="office_phone_transporter"]').val();
+        let address             = $(this).find('input[data-trigger="address_transporter"]').val();
+        let transporterNames    = $(this).find('td:nth-child(2)').text();
 
         $("#transporter_id").val(sysId);
         $("#transporter_name").val(transporterNames);
@@ -815,42 +1217,44 @@
         $("#transporter_address").val(address);
 
         $("#transporter_name").css("border", "1px solid #ced4da");
-        $("#transporterMessage").hide();
+        $("#transporter_message").hide();
     });
 
-    $('#tableGetModalWarehouses').on('click', 'tbody tr', function() {
-        let sysId   = $(this).find('input[data-trigger="sys_id_modal_warehouse"]').val();
-        let name    = $(this).find('td:nth-child(2)').text();
-        let address = $(this).find('td:nth-child(3)').text();
+    $('#purchase_order_delivery_from').on('input', function(e) {
+        let deliveryFromDuplicate       = document.getElementById("purchase_order_delivery_from_duplicate");
+        let deliveryFromDuplicateRefID  = document.getElementById("purchase_order_delivery_from_id_duplicate");
 
-        if (isDeliveryFromStockMovement == "from_internal_use") {
-            $("#delivery_from_id_internal_use").val(sysId);
-            $("#delivery_from_name_internal_use").val(name);
-            $("#delivery_from_address_internal_use").val(address);
-        } else if (isDeliveryFromStockMovement == "to_internal_use") {
-            $("#delivery_to_id_internal_use").val(sysId);
-            $("#delivery_to_name_internal_use").val(name);
-            $("#delivery_to_address_internal_use").val(address);
-        } else if (isDeliveryFromStockMovement == "from_stock_movement") {
-            $("#delivery_from_id_stock_movement").val(sysId);
-            $("#delivery_from_name_stock_movement").val(name);
-            $("#delivery_from_address_stock_movement").val(address);
-            getStockMovementDetail();
-        } else if (isDeliveryFromStockMovement == "to_stock_movement") {
-            $("#delivery_to_id_stock_movement").val(sysId);
-            $("#delivery_to_name_stock_movement").val(name);
-            $("#delivery_to_address_stock_movement").val(address);
+        if (e.target.value) {
+            if (e.target.value == deliveryFromDuplicate.value) {
+                $("#purchase_order_delivery_from_id").val(deliveryFromDuplicateRefID.value);
+            } else {
+                $("#purchase_order_delivery_from_id").val("");
+            }
+
+            $("#purchase_order_delivery_from").css("border", "1px solid #ced4da");
+            $("#purchase_order_delivery_from_message").hide();
+        } else {
+            $("#purchase_order_delivery_from").css("border", "1px solid red");
+            $("#purchase_order_delivery_from_message").show();
         }
-
-        $("#myGetModalWarehouses").modal('toggle');
     });
 
-    $(window).one('load', function(e) {
-        $(".loadingReferenceNumberDetail").hide();
-        $(".errorMessageContainerReferenceNumberDetail").hide();
-        $("#delivery_from").prop("disabled", true);
-        $("#delivery_to").prop("disabled", true);
+    $('#purchase_order_delivery_to').on('input', function(e) {
+        let deliveryToDuplicate         = document.getElementById("purchase_order_delivery_to_duplicate");
+        let deliveryToDuplicateRefID    = document.getElementById("purchase_order_delivery_to_id_duplicate");
+        
+        if (e.target.value) {
+            if (e.target.value == deliveryToDuplicate.value) {
+                $("#purchase_order_delivery_to_id").val(deliveryToDuplicateRefID.value);
+            } else {
+                $("#purchase_order_delivery_to_id").val("");
+            }
 
-        getDocumentType("Delivery Order Form");
+            $("#purchase_order_delivery_to").css("border", "1px solid #ced4da");
+            $("#purchase_order_delivery_to_message").hide();
+        } else {
+            $("#purchase_order_delivery_to").css("border", "1px solid red");
+            $("#purchase_order_delivery_to_message").show();
+        }
     });
 </script>

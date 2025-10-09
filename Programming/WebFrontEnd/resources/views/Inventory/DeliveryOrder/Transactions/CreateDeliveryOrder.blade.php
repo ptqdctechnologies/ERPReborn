@@ -8,8 +8,9 @@
 @include('getFunction.getWorkFlow')
 @include('getFunction.getWarehouses')
 @include('getFunction.getTransporter')
-@include('getFunction.getReferenceNumber')
+@include('getFunction.getPurchaseOrder')
 @include('Inventory.DeliveryOrder.Functions.PopUp.PopUpDoRevision')
+@include('Inventory.DeliveryOrder.Functions.PopUp.PopUpDoSummaryData')
 
 <div class="content-wrapper">
     <section class="content">
@@ -24,68 +25,69 @@
             </div>
 
             @include('Inventory.DeliveryOrder.Functions.Menu.MenuDeliveryOrder')
+
             @if($var == 0)
             <div class="card">
-                <form method="post" enctype="multipart/form-data" action="{{ route('SelectWorkFlow') }}" id="FormSubmitDeliveryOrder">
-                @csrf
-                <input type="hidden" name="DocumentTypeID" id="DocumentTypeID">
-                <input type="hidden" name="var_combinedBudget_RefID" id="var_combinedBudget_RefID">
-                <input type="hidden" name="requesterWorkerJobsPosition_RefID" id="requesterWorkerJobsPosition_RefID">
-
-                <!-- TRANSPORTER DETAIL -->
-                <div class="tab-content px-3 pt-4 pb-2" id="nav-tabContent">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="card">
-                                <!-- HEADER -->
-                                <div class="card-header">
-                                    <label class="card-title">
-                                        Transporter Detail
-                                    </label>
-                                    <div class="card-tools">
-                                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                            <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
-                                        </button>
+                <form method="post" enctype="multipart/form-data" action="{{ route('SelectWorkFlow') }}" id="delivery_order_submit_form">
+                    @csrf
+                    <input type="hidden" name="DocumentTypeID" id="DocumentTypeID" value="<?= $documentType_RefID; ?>">
+                    <input type="hidden" name="var_combinedBudget_RefID" id="var_combinedBudget_RefID">
+                    
+                    <!-- TRANSPORTER DETAIL -->
+                    <div class="tab-content px-3 pt-4 pb-2" id="nav-tabContent">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <!-- HEADER -->
+                                    <div class="card-header">
+                                        <label class="card-title">
+                                            Transporter Detail
+                                        </label>
+                                        <div class="card-tools">
+                                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                                <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
+                                            </button>
+                                        </div>
                                     </div>
-                                </div>
 
-                                @include('Inventory.DeliveryOrder.Functions.Header.HeaderDoDetail')
+                                    @include('Inventory.DeliveryOrder.Functions.Header.HeaderDoDetail')
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- FILE ATTACHMENT -->
-                <div class="tab-content px-3 pb-2" id="nav-tabContent">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="card">
-                                <!-- HEADER -->
-                                <div class="card-header">
-                                    <label class="card-title">
-                                        File Attachment
-                                    </label>
-                                    <div class="card-tools">
-                                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                            <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
-                                        </button>
+                    <!-- FILE ATTACHMENT -->
+                    <div class="tab-content px-3 pb-2" id="nav-tabContent">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <!-- HEADER -->
+                                    <div class="card-header">
+                                        <label class="card-title">
+                                            File Attachment
+                                        </label>
+                                        <div class="card-tools">
+                                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                                <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
+                                            </button>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <!-- BODY -->
-                                <div class="card-body">
-                                    <div class="row py-3">
-                                        <div class="col-lg-5">
-                                            <div class="row">
-                                                <div class="col p-0">
-                                                    <input type="text" id="dataInput_Log_FileUpload" name="dataInput_Log_FileUpload_1" style="display:none">
-                                                    <?php echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxCreateDOM_DivCustom_InputFile(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                                                    $varAPIWebToken,
-                                                    'dataInput_Log_FileUpload',
-                                                    null,
-                                                    'dataInput_Return'
-                                                    ).
-                                                    ''; ?>
+                                    <!-- BODY -->
+                                    <div class="card-body">
+                                        <div class="row py-3">
+                                            <div class="col-lg-5">
+                                                <div class="row">
+                                                    <div class="col p-0">
+                                                        <input type="text" id="dataInput_Log_FileUpload" name="dataInput_Log_FileUpload_1" style="display:none">
+                                                        <?php echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxCreateDOM_DivCustom_InputFile(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                                                        $varAPIWebToken,
+                                                        'dataInput_Log_FileUpload',
+                                                        null,
+                                                        'dataInput_Return'
+                                                        ).
+                                                        ''; ?>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -94,135 +96,100 @@
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- ADD NEW DELIVERY ORDER -->
-                <div class="tab-content px-3 pb-2" id="nav-tabContent">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="card">
-                                <!-- HEADER -->
-                                <div class="card-header">
-                                    <label class="card-title">
-                                        Add New Delivery Order
-                                    </label>
-                                    <div class="card-tools">
-                                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                            <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
-                                        </button>
+                    <!-- DELIVERY ORDER -->
+                    <div class="tab-content px-3 pb-2" id="nav-tabContent">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <!-- HEADER -->
+                                    <div class="card-header">
+                                        <label class="card-title">
+                                            Delivery Order
+                                        </label>
+                                        <div class="card-tools">
+                                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                                <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
+                                            </button>
+                                        </div>
                                     </div>
-                                </div>
 
-                                @include('Inventory.DeliveryOrder.Functions.Header.HeaderDo')
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- REFERENCE DETAIL -->
-                <div class="tab-content px-3 pb-2" id="nav-tabContent">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="card">
-                                <!-- HEADER -->
-                                <div class="card-header">
-                                    <label class="card-title">
-                                        Reference Detail
-                                    </label>
-                                    <div class="card-tools">
-                                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                            <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
-                                        </button>
-                                    </div>
-                                </div>
-
-                                @include('Inventory.DeliveryOrder.Functions.Table.TableReferenceNumberDetail')
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- REMARK -->
-                <div class="tab-content px-3 pb-2" id="nav-tabContent">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="card">
-                                <!-- HEADER -->
-                                <div class="card-header">
-                                    <label class="card-title">
-                                        Remark
-                                    </label>
-                                    <div class="card-tools">
-                                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                            <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
-                                        </button>
-                                    </div>
-                                </div>
-
-                                <!-- CONTENT -->
-                                <div class="card-body">
-                                    <div class="row py-3">
-                                        <textarea name="var_remark" id="remark" class="form-control"></textarea>
-                                    </div>
+                                    @include('Inventory.DeliveryOrder.Functions.Header.HeaderDo')
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- BUTTON -->
-                <div class="tab-content px-3 pb-2" id="nav-tabContent">
-                    <div class="row">
-                        <div class="col">
-                            <button type="button" class="btn btn-default btn-sm float-right" onclick="validationForm()" style="margin-left: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
-                                <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" title="Submit to Advance"> Submit
-                            </button>
+                    <!-- REFERENCE DETAIL -->
+                    <div class="tab-content px-3 pb-2" id="nav-tabContent">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <!-- HEADER -->
+                                    <div class="card-header">
+                                        <label class="card-title">
+                                            Reference Detail
+                                        </label>
+                                        <div class="card-tools">
+                                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                                <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
+                                            </button>
+                                        </div>
+                                    </div>
 
-                            <a onclick="cancelForm('{{ route('DeliveryOrder.index', ['var' => 1]) }}')" class="btn btn-default btn-sm float-right" style="background-color:#e9ecef;border:1px solid #ced4da;">
-                                <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel Advance List Cart"> Cancel
-                            </a>
+                                    @include('Inventory.DeliveryOrder.Functions.Table.TableReferenceNumberDetail')
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
+
+                    <!-- REMARK -->
+                    <div class="tab-content px-3 pb-2" id="nav-tabContent">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <!-- HEADER -->
+                                    <div class="card-header">
+                                        <label class="card-title">
+                                            Remark
+                                        </label>
+                                        <div class="card-tools">
+                                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                                <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <!-- CONTENT -->
+                                    <div class="card-body">
+                                        <div class="row py-3">
+                                            <textarea name="var_remark" id="remark" class="form-control"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- BUTTON -->
+                    <div class="tab-content px-3 pb-2" id="nav-tabContent">
+                        <div class="row">
+                            <div class="col">
+                                <button type="button" class="btn btn-default btn-sm float-right" onclick="validationForm()" style="margin-left: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
+                                    <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" title="Submit to Advance"> Submit
+                                </button>
+
+                                <a onclick="cancelForm('{{ route('DeliveryOrder.index', ['var' => 1]) }}')" class="btn btn-default btn-sm float-right" style="background-color:#e9ecef;border:1px solid #ced4da;">
+                                    <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel Advance List Cart"> Cancel
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </form>
             </div>
             @endif
         </div>
     </section>
-</div>
-
-<div class="modal fade" id="deliveryOrderFormModal" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-lg" role="document" style="height: calc(100vh - 3.5rem); display: flex; align-items: center;">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 style="margin: 0px;font-weight:bold;">Are you sure you want to save this data?</h3>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            </div>
-            <div class="modal-body">
-                <div class="wrapper-budget table-responsive card-body p-0" style="max-height: 200px;">
-                    <table class="table text-nowrap table-sm" id="tableDeliverOrderDetailList" style="border: 1px solid #dee2e6;">
-                        <tbody></tbody>
-                    </table>
-                </div>
-                <div class="card-body">
-                    <table style="float:right;">
-                        <tr>
-                            <th id="GrandTotal"></th>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default btn-sm" onclick="SubmitForm();" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
-                    <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" title="Submit to Advance" /> Yes, save it
-                </button>
-
-                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal" style="background-color:#e9ecef;border:1px solid #ced4da;">
-                    <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel Advance List Cart" /> No, cancel
-                </button>
-            </div>
-        </div>
-    </div>
 </div>
 
 @include('Partials.footer')
