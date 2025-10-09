@@ -350,7 +350,7 @@
             Status
           </label>
           <div class="col-sm-9 col-md-8 col-lg-4 d-flex p-0">
-            <select id="stock_movement_status" name="stock_movement_status" class="form-control">
+            <select id="stock_movement_status" name="stock_movement_status" class="form-control" onchange="stockMovementStatusValue(this);">
               <option disabled selected value="">Select a Type</option>
               <option value="0">Rent</option>
               <option value="1">Permanent</option>

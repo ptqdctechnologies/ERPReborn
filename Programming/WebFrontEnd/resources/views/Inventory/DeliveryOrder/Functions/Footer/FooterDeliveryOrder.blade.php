@@ -41,6 +41,15 @@
         $(`#purchase_order_delivery_from_duplicate`).val("");
         $(`#purchase_order_delivery_from`).val("");
 
+        $("#purchase_order_delivery_from").css("border", "1px solid #ced4da");
+        $("#purchase_order_delivery_from_message").hide();
+
+        $("#purchase_order_delivery_to").css("border", "1px solid #ced4da");
+        $("#purchase_order_delivery_to_message").hide();
+
+        $("#purchase_order_number").css("border", "1px solid #ced4da");
+        $("#purchase_order_message").hide();
+
         // INTERNAL USE
         $(`#internal_use_budget_code`).val("");
         $(`#internal_use_budget_id`).val("");
@@ -55,6 +64,22 @@
         $(`#internal_use_delivery_to_id`).val("");
         $(`#internal_use_delivery_to_address`).val("");
 
+        $("#internal_use_budget_code").css("border", "1px solid #ced4da");
+        $("#internal_use_budget_name").css("border", "1px solid #ced4da");
+        $("#internal_use_budget_message").hide();
+
+        $("#internal_use_site_code").css("border", "1px solid #ced4da");
+        $("#internal_use_site_name").css("border", "1px solid #ced4da");
+        $("#internal_use_site_message").hide();
+
+        $("#internal_use_delivery_from_name").css("border", "1px solid #ced4da");
+        $("#internal_use_delivery_from_address").css("border", "1px solid #ced4da");
+        $("#internal_use_delivery_from_message").hide();
+
+        $("#internal_use_delivery_to_name").css("border", "1px solid #ced4da");
+        $("#internal_use_delivery_to_address").css("border", "1px solid #ced4da");
+        $("#internal_use_delivery_to_message").hide();
+
         // STOCK MOVEMENT
         $(`#stock_movement_budget_code`).val("");
         $(`#stock_movement_budget_id`).val("");
@@ -68,6 +93,25 @@
         $(`#stock_movement_delivery_to_name`).val("");
         $(`#stock_movement_delivery_to_id`).val("");
         $(`#stock_movement_delivery_to_address`).val("");
+
+        $("#stock_movement_budget_code").css("border", "1px solid #ced4da");
+        $("#stock_movement_budget_name").css("border", "1px solid #ced4da");
+        $("#stock_movement_budget_message").hide();
+
+        $("#stock_movement_requester_position").css("border", "1px solid #ced4da");
+        $("#stock_movement_requester_name").css("border", "1px solid #ced4da");
+        $("#stock_movement_requester_message").hide();
+
+        $("#stock_movement_delivery_from_name").css("border", "1px solid #ced4da");
+        $("#stock_movement_delivery_from_address").css("border", "1px solid #ced4da");
+        $("#stock_movement_delivery_from_message").hide();
+
+        $("#stock_movement_delivery_to_name").css("border", "1px solid #ced4da");
+        $("#stock_movement_delivery_to_address").css("border", "1px solid #ced4da");
+        $("#stock_movement_delivery_to_message").hide();
+        
+        $("#stock_movement_status").css("border", "1px solid #ced4da");
+        $("#stock_movement_status_message").hide();
 
         $("#table_reference_type_detail tbody").empty();
 
@@ -103,6 +147,11 @@
             $(".thead-internal-use").css("display", "none");
             $(".thead-stock-movement").css("display", "table-row");
         }
+    }
+
+    function stockMovementStatusValue(source) {
+        $("#stock_movement_status").css("border", "1px solid #ced4da");
+        $("#stock_movement_status_message").hide();
     }
 
     function deliveryTypeTrigger(value) {
