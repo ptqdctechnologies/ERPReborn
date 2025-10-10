@@ -108,8 +108,6 @@
 
         dataStore = dataStore.filter(item => item !== undefined);
 
-        console.log('dataStore', dataStore);
-
         calculateTotal();
     }
 
@@ -125,7 +123,7 @@
             dataStore.push({
                 recordID: parseInt(val.Sys_ID),
                 entities: {
-                    warehouseInboundOrderDetail_RefID: parseInt(val.WarehouseInboundOrder_RefID),
+                    warehouseInboundOrderDetail_RefID: parseInt(val.WarehouseInboundOrderDetail_RefID),
                     quantity: val.QtyWarehouseOutboundOrder,
                     note: val.Remarks
                 }
@@ -134,14 +132,14 @@
             let row = `
                 <tr>
                     <input type="hidden" id="record_RefID${key}" value="${val.Sys_ID}" />
-                    <input type="hidden" id="warehouseInboundOrderDetail_RefID${key}" value="${val.WarehouseInboundOrder_RefID}" />
+                    <input type="hidden" id="warehouseInboundOrderDetail_RefID${key}" value="${val.WarehouseInboundOrderDetail_RefID}" />
 
                     <td style="text-align: center;">${val.CombinedBudgetSectionCode} - ${val.CombinedBudgetSectionName}</td>
                     <td style="text-align: center;">${val.ProductCode}</td>
                     <td style="text-align: center;">${val.ProductName}</td>
                     <td style="text-align: center;">${val.QuantityUnitName}</td>
-                    <td style="text-align: center;">-</td>
-                    <td style="text-align: center;">${decimalFormat(parseFloat(val.QtyWarehouseInboundOrder))}</td>
+                    <td style="text-align: center;">${val.noteWarehouseInboundOrderDetail}</td>
+                    <td style="text-align: center;">${decimalFormat(parseFloat(val.QtyWarehouseInboundOrderDetail))}</td>
                     <td>
                         <input class="form-control number-without-negative" id="qty_return${key}" autocomplete="off" data-default="${decimalFormat(parseFloat(val.QtyWarehouseOutboundOrder))}" value="${decimalFormat(parseFloat(val.QtyWarehouseOutboundOrder))}" style="border-radius:0px;" />
                     </td>
@@ -167,7 +165,7 @@
             let rowList = `
                 <tr>
                     <input type="hidden" id="target_record_id${key}" value="${val.Sys_ID}" />
-                    <input type="hidden" id="target_warehouse_inbound_order_detail_id${key}" value="${val.WarehouseInboundOrder_RefID}" />
+                    <input type="hidden" id="target_warehouse_inbound_order_detail_id${key}" value="${val.WarehouseInboundOrderDetail_RefID}" />
 
                     <td style="text-align: right;padding: 0.8rem;">${val.ProductCode || '-'}</td>
                     <td style="text-align: left;padding: 0.8rem;">${val.ProductName || '-'}</td>
@@ -180,6 +178,61 @@
         });
 
         calculateTotal();
+    }
+
+    function submitForm() {
+        $('#material_return_submit_modal').modal('hide');
+
+        let action = $('#form_submit_material_return').attr("action");
+        let method = $('#form_submit_material_return').attr("method");
+        let form_data = new FormData($('#form_submit_material_return')[0]);
+        form_data.append('material_return_detail', JSON.stringify(dataStore));
+
+        ShowLoading();
+
+        $.ajax({
+            url: action,
+            dataType: 'json',
+            cache: false,
+            contentType: false,
+            processData: false,
+            data: form_data,
+            type: method,
+            success: function(res) {
+                HideLoading();
+
+                if (res.status === 200) {
+                    const swalWithBootstrapButtons = Swal.mixin({
+                        confirmButtonClass: 'btn btn-success btn-sm',
+                        cancelButtonClass: 'btn btn-danger btn-sm',
+                        buttonsStyling: true,
+                    });
+
+                    swalWithBootstrapButtons.fire({
+                        title: 'Successful !',
+                        type: 'success',
+                        html: 'Data has been saved. Your transaction number is ' + '<span style="color:#0046FF;font-weight:bold;">' + res.documentNumber + '</span>',
+                        showCloseButton: false,
+                        showCancelButton: false,
+                        focusConfirm: false,
+                        confirmButtonText: '<span style="color:black;"> OK </span>',
+                        confirmButtonColor: '#4B586A',
+                        confirmButtonColor: '#e9ecef',
+                        reverseButtons: true
+                    }).then((result) => {
+                        cancelForm("{{ route('MaterialReturn.index', ['var' => 1]) }}");
+                    });
+                } else {
+                    ErrorNotif("Data Cancel Inputed");
+                }
+            },
+            error: function(response) {
+                console.log('response error', response);
+                
+                HideLoading();
+                CancelNotif("You don't have access", "{{ route('DebitNote.index', ['var' => 1]) }}");
+            }
+        });
     }
 
     $('#tableGetModalMaterialReturn tbody').on('click', 'tr', function () {

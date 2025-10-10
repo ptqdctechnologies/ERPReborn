@@ -30,39 +30,11 @@ class MaterialReturnController extends Controller
         $this->businessDocumentTypeService  = $businessDocumentTypeService;
     }
 
-    public function GetBusinessDocumentType($businessDocumentName)
-    {
-        try {
-            $response = $this->businessDocumentTypeService->getDetail(
-                [
-                    'parameter'     => [],
-                    'SQLStatement'  => [
-                        'pick'      => null,
-                        'sort'      => null,
-                        'filter'    => "\"Name\" = '$businessDocumentName'",
-                        'paging'    => null
-                    ]
-                ]
-            );
-
-            $documentTypes = $response['data']['data'] ?? [];
-
-            if ($response['metadata']['HTTPStatusCode'] !== 200 || empty($documentTypes)) {
-                return null;
-            }
-
-            return $documentTypes[0]['sys_ID'];
-        } catch (\Throwable $th) {
-            Log::error("GetBusinessDocumentType Debit Note Function Error: " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
-        }
-    }
-
     public function index(Request $request)
     {
         $var                = $request->query('var', 0);
         $varAPIWebToken     = Session::get('SessionLogin');
-        $documentTypeRefID  = $this->GetBusinessDocumentType('Warehouse Outbound Order Form');
+        $documentTypeRefID  = $this->GetBusinessDocumentsType('Warehouse Outbound Order Form');
 
         return view('Inventory.MaterialReturn.Transactions.CreateMaterialReturn', [
             'var'                   => $var,
@@ -107,8 +79,7 @@ class MaterialReturnController extends Controller
 
     public function update(Request $request, $id)
     {
-        $input = $request->all();
-        dd($input);
+        return response()->json($request);
     }
 
     public function List() 
@@ -128,6 +99,29 @@ class MaterialReturnController extends Controller
         }
     }
 
+    public function UpdateRevisionMaterialReturn(Request $request) 
+    {
+        try {
+            $response = $this->materialReturnService->update($request);
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                throw new \Exception('Failed to fetch Update Material Return');
+            }
+
+            $compact = [
+                "documentNumber"    => $response['data'][0]['businessDocument']['documentNumber'],
+                "status"            => $response['metadata']['HTTPStatusCode'],
+                // "status"            => $responseWorkflow['metadata']['HTTPStatusCode']
+            ];
+
+            return response()->json($compact);
+        } catch (\Throwable $th) {
+            Log::error("UpdateRevisionMaterialReturn Material Return Function Error: " . $th->getMessage());
+
+            return response()->json(["status" => 500]);
+        }
+    }
+
     public function RevisionMaterialReturnIndex(Request $request)
     {
         try {
@@ -141,24 +135,25 @@ class MaterialReturnController extends Controller
             $data = $response['data'];
 
             $compact = [
-                'varAPIWebToken'                => $varAPIWebToken,
-                'header'                        => [
-                    'materialReturn_RefID'      => $data[0]['Sys_ID'] ?? '',
-                    'materialReturnNumber'      => '-',
-                    'combinedBudget_RefID'      => $data[0]['CombinedBudget_RefID'] ?? '',
-                    'combinedBudgetCode'        => $data[0]['CombinedBudgetCode'] ?? '',
-                    'combinedBudgetName'        => $data[0]['CombinedBudgetName'] ?? '',
-                    'transporter_RefID'         => '-',
-                    'transporterCode'           => '-',
-                    'transporterName'           => '-',
-                    'transporterAddress'        => '-',
-                    'transporterContactPerson'  => '-',
-                    'transporterHandphone'      => '-',
-                    'transporterPhone'          => '-',
-                    'transporterFax'            => '-',
-                    'remarks'                   => $data[0]['Remarks'] ?? ''
+                'varAPIWebToken'                    => $varAPIWebToken,
+                'header'                            => [
+                    'warehouseOutboundOrder_RefID'  => $data[0]['WarehouseOutboundOrder_RefID'] ?? '',
+                    'materialReturn_RefID'          => $data[0]['Sys_ID'] ?? '',
+                    'materialReturnNumber'          => $data[0]['BusinessDocumentNumber'] ?? '',
+                    'combinedBudget_RefID'          => $data[0]['CombinedBudget_RefID'] ?? '',
+                    'combinedBudgetCode'            => $data[0]['CombinedBudgetCode'] ?? '',
+                    'combinedBudgetName'            => $data[0]['CombinedBudgetName'] ?? '',
+                    'transporter_RefID'             => $data[0]['Transporter_RefID'] ?? '',
+                    'transporterCode'               => $data[0]['TransporterCode'] ?? '',
+                    'transporterName'               => $data[0]['TransporterName'] ?? '',
+                    'transporterAddress'            => $data[0]['TransporterAddress'] ?? '-',
+                    'transporterContactPerson'      => $data[0]['TransporterContactPerson'] ?? '-',
+                    'transporterHandphone'          => $data[0]['TransporterHandphone'] ?? '-',
+                    'transporterPhone'              => $data[0]['TransporterPhone'] ?? '-',
+                    'transporterFax'                => $data[0]['TransporterFax'] ?? '-',
+                    'remarks'                       => $data[0]['Remarks'] ?? ''
                 ],
-                'detail'            => $data
+                'detail'                            => $data
             ];
 
             return view('Inventory.MaterialReturn.Transactions.RevisionMaterialReturn', $compact);

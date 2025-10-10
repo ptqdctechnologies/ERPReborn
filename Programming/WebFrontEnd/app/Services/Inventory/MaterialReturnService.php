@@ -80,5 +80,34 @@ class MaterialReturnService
         );
     }
 
+    public function update(Request $request) 
+    {
+        $sessionToken   = Session::get('SessionLogin');
+        $careerRefID    = Session::get('SessionWorkerCareerInternal_RefID');
 
+        $data           = $request;
+        $detailItems    = json_decode($data['material_return_detail'], true);
+        
+        return Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
+            $sessionToken, 
+            'transaction.update.supplyChain.setWarehouseOutboundOrder', 
+            'latest', 
+            [
+            'recordID' => (int) $data['warehouseOutboundOrder_RefID'],
+            'entities' => [
+                'documentDateTimeTZ'                => date('Y-m-d'),
+                'log_FileUpload_Pointer_RefID'      => null,
+                'requesterWorkerJobsPosition_RefID' => (int) $careerRefID,
+                'transporter_RefID'                 => (int) $data['transporter_id'],
+                'remarks'                           => $data['remarks'],
+                "additionalData"    => [
+                    "itemList"      => [
+                        "items"     => $detailItems
+                        ]
+                    ]
+                ]
+            ]
+        );
+    }
 }
