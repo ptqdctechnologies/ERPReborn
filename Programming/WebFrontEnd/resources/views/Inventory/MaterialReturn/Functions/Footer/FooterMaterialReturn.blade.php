@@ -11,7 +11,7 @@
       }
     });
 
-    document.getElementById('material_receive_details_total').textContent = decimalFormat(total);
+    document.getElementById('material_return_details_total').textContent = decimalFormat(total);
     document.getElementById('material_return_list_total_modal').textContent = `Total: ${decimalFormat(total)}`;
   }
 
