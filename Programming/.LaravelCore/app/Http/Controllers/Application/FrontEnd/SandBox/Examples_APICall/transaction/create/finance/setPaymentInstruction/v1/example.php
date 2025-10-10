@@ -21,7 +21,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         |                     ► http://172.28.0.4/transaction.create.finance.setPaymentInstruction.v1_throughAPIGateway            |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-01-13                                                                                           |
+        | ▪ Last Update     : 2025-10-10                                                                                           |
         | ▪ Creation Date   : 2025-01-13                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -38,37 +38,50 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                     //-----[ METADATA ]-----( START )-----
                         \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                        $varAPIWebToken, 
-                        'transaction.create.finance.setPaymentInstruction', 
+                        $varAPIWebToken,
+                        'transaction.create.finance.setPaymentInstruction',
                         'latest',
                     //-----[ METADATA ]-----(  END  )-----
 
                     //-----[ DATA ]-----( START )-----
                         [
                         'entities' => [
-                            "documentDateTimeTZ" => '2022-03-07',
+                            "documentDateTimeTZ" => '2025-10-09',
                             "log_FileUpload_Pointer_RefID" => NULL,
-                            "requesterWorkerJobsPosition_RefID" => 164000000000497,
+                            "purchaseOrderDetail_RefID" => 86000000000001,
+                            "currency_RefID" => 62000000000001,
+                            "currencySymbol" => 'Rp',
+                            "currencyValue" => 15080000.00,
+                            "currencyExchangeRate" => 1.00,
+                            "supplierInvoiceNumber" => 'INV-DHJ-2025-011',
+                            "supplierBank_RefID" => 126000000000001,
+                            "receiptStatus" => 0,
+                            "contractStatus" => 1,
+                            "vatStatus" => 1,
+                            "vatValue" => 10.00,
+                            "vatNumber" => '01.234.567.8-999.000',
+                            "fatPatDoStatus" => 1,
+                            "assetStatus" => 1,
+                            "assetCategory" => 1,
+                            "depreciationMethod" => 2,
+                            "depreciationRate" => 25.00,
+                            "depreciationCOA_RefID" => 65000000000005,
+                            "deduction" => 0.0,
                             "remarks" => 'My Remarks',
                             "additionalData" => [
                                 "itemList" => [
                                     "items" => [
                                             [
                                             'entities' => [
-                                                'underlying_RefID' => 209000000000001,
-                                                'amountCurrency_RefID' => 62000000000001,
-                                                'amountCurrencyValue' => 30000,
-                                                'amountCurrencyExchangeRate' => 1,
-                                                'remarks' => 'Catatan 1'
-                                                ]                                 
-                                            ],
-                                            [
-                                            'entities' => [
-                                                'underlying_RefID' => 209000000000002,
-                                                'amountCurrency_RefID' => 62000000000001,
-                                                'amountCurrencyValue' => 30000,
-                                                'amountCurrencyExchangeRate' => 1,
-                                                'remarks' => 'Catatan 2'
+                                                "combinedBudgetSectionDetail_RefID" => 169000000000001,
+                                                "chartOfAccount_RefID" => 65000000000005,
+                                                "product_RefID" => 88000000000002,
+                                                "quantityUnit_RefID" => 73000000000001,
+                                                "quantity" => 10,
+                                                "productUnitPriceCurrency_RefID" => 62000000000001,
+                                                "productUnitPriceCurrencyValue" => 200000.00,
+                                                "productUnitPriceCurrencyExchangeRate" => 1,
+                                                "wht" => 2.00
                                                 ]
                                             ],
                                         ]
@@ -79,7 +92,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                     //-----[ DATA ]-----(  END  )-----
                     );
 
-            var_dump($varData);
+            return $varData;
             }
 
 
@@ -127,9 +140,9 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             $varJQueryFunction =
                 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                     //-----[ METADATA ]-----( START )-----
-                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
-                        $varAPIWebToken, 
-                        'transaction.create.finance.setPaymentInstruction', 
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                        $varAPIWebToken,
+                        'transaction.create.finance.setPaymentInstruction',
                         'latest',
                     //-----[ METADATA ]-----(  END  )-----
 
