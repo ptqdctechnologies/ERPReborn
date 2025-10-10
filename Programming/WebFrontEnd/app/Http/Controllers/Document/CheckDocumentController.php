@@ -68,6 +68,7 @@ class CheckDocumentController extends Controller
             }
 
             if (
+                $documentType === 'Account Payable' ||
                 $documentType === 'DO From Internal Use' ||
                 $documentType === 'DO From Stock Movement' ||
                 $documentType === 'Loan Form' ||
@@ -402,6 +403,26 @@ class CheckDocumentController extends Controller
         $DocumentTypeName = $request->input('DocumentTypeName');
 
         switch ($DocumentTypeName) {
+            case "Account Payable":
+                $varData = [
+                    'data' => [
+                        'data' => [
+                            [
+                                'sys_ID'    => 92081956,
+                                'sys_Text'  => 'AP/QDC/2025/000001',
+                                'combinedBudgetCode' => 'Q000196',
+                                'combinedBudgetSectionCode' => 'Q000062 ► 235'
+                            ],
+                            [
+                                'sys_ID'    => 82750194,
+                                'sys_Text'  => 'AP/QDC/2025/000002',
+                                'combinedBudgetCode' => 'Q000196',
+                                'combinedBudgetSectionCode' => 'Q000062 ► 235'
+                            ],
+                        ]
+                    ]
+                ];
+                break;
             case "DO From Internal Use":
                 $varData = [
                     'data' => [
@@ -495,6 +516,26 @@ class CheckDocumentController extends Controller
                             [
                                 'sys_ID'    => 23456781,
                                 'sys_Text'  => 'MOB/QDC/2025/000002',
+                                'combinedBudgetCode' => 'Q000196',
+                                'combinedBudgetSectionCode' => 'Q000062 ► 235'
+                            ],
+                        ]
+                    ]
+                ];
+                break;
+            case "Person Business Trip Settlement Form":
+                $varData = [
+                    'data' => [
+                        'data' => [
+                            [
+                                'sys_ID'    => 12345678,
+                                'sys_Text'  => 'BTStl/QDC/2025/000001',
+                                'combinedBudgetCode' => 'Q000196',
+                                'combinedBudgetSectionCode' => 'Q000062 ► 235'
+                            ],
+                            [
+                                'sys_ID'    => 23456781,
+                                'sys_Text'  => 'BTStl/QDC/2025/000002',
                                 'combinedBudgetCode' => 'Q000196',
                                 'combinedBudgetSectionCode' => 'Q000062 ► 235'
                             ],
