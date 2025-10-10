@@ -44,7 +44,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-01-11                                                                                           |
+        | ▪ Last Update     : 2025-10-09                                                                                           |
         | ▪ Creation Date   : 2025-01-11                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -64,19 +64,19 @@ namespace App\Models\Database\SchData_OLTP_Finance
         |        ----------------------------------------                                                                          |
         |      ▪ (array)  varAdditionalData ► Additional Data                                                                      |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function setDataInsert(
             $varUserSession,
             string $varSysDataAnnotation = null, string $varSysDataValidityStartDateTimeTZ = null, string $varSysDataValidityFinishDateTimeTZ = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, $varSysBaseCurrency_RefID = null,
-            string $varDocumentDateTimeTZ = null, int $varLog_FileUpload_Pointer_RefID = null, int $varRequesterWorkerJobsPosition_RefID = null, string $varRemarks = null,
+            string $varDocumentDateTimeTZ = null, int $varLog_FileUpload_Pointer_RefID = null, int $varPurchaseOrderDetail_RefID = null, int $varCurrency_RefID = null, string $varCurrencySymbol = null, float $varCurrencyValue = null, float $varCurrencyExchangeRate = null, string $varSupplierInvoiceNumber = null, int $varSupplierBank_RefID = null, int $varReceiptStatus = null, int $varContractStatus = null, int $varVatStatus = null, float $varVatValue = null, string $varVatNumber = null, int $varFatPatDoStatus = null, int $varAssetStatus = null, int $varAssetCategory = null, int $varDepreciationMethod = null, float $varDepreciationRate = null, int $varDepreciationCOA_RefID = null, int $varDeduction = null, string $varRemarks = null,
             array $varAdditionalData = []
             )
             {
             $varReturn =
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
+                    $varUserSession,
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                         $varUserSession,
                         parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
@@ -93,11 +93,29 @@ namespace App\Models\Database\SchData_OLTP_Finance
 
                             [$varDocumentDateTimeTZ, 'timestamptz'],
                             [$varLog_FileUpload_Pointer_RefID, 'bigint'],
-                            [$varRequesterWorkerJobsPosition_RefID, 'bigint'],
+                            [$varPurchaseOrderDetail_RefID, 'bigint'],
+                            [$varCurrency_RefID, 'bigint'],
+                            [$varCurrencySymbol, 'varchar'],
+                            [$varCurrencyValue, 'numeric'],
+                            [$varCurrencyExchangeRate, 'numeric'],
+                            [$varSupplierInvoiceNumber, 'varchar'],
+                            [$varSupplierBank_RefID, 'bigint'],
+                            [$varReceiptStatus, 'smallint'],
+                            [$varContractStatus, 'smallint'],
+                            [$varVatStatus, 'smallint'],
+                            [$varVatValue, 'numeric'],
+                            [$varVatNumber, 'varchar'],
+                            [$varFatPatDoStatus, 'smallint'],
+                            [$varAssetStatus, 'smallint'],
+                            [$varAssetCategory, 'smallint'],
+                            [$varDepreciationMethod, 'smallint'],
+                            [$varDepreciationRate, 'numeric'],
+                            [$varDepreciationCOA_RefID, 'bigint'],
+                            [$varDeduction, 'bigint'],
                             [$varRemarks, 'varchar'],
 
                             [
-                                ((count($varAdditionalData) === 0) 
+                                ((count($varAdditionalData) === 0)
                                     ? null
                                     : \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode(
                                         $varUserSession,
@@ -141,7 +159,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         |        ----------------------------------------                                                                          |
         |      ▪ (array)  varAdditionalData ► Additional Data                                                                      |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function setDataUpdate(
@@ -175,7 +193,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
                             [$varRemarks, 'varchar'],
 
                             [
-                                ((count($varAdditionalData) === 0) 
+                                ((count($varAdditionalData) === 0)
                                     ? null
                                     : \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode(
                                         $varUserSession,
