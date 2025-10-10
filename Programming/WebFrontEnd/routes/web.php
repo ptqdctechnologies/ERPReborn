@@ -521,6 +521,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     // MRET
     Route::get('List', 'Inventory\MaterialReturnController@List')->name('MaterialReturn.List');
     Route::post('RevisionMaterialReturnIndex', 'Inventory\MaterialReturnController@RevisionMaterialReturnIndex')->name('MaterialReturn.RevisionMaterialReturnIndex');
+    Route::post('UpdateRevisionMaterialReturn', 'Inventory\MaterialReturnController@UpdateRevisionMaterialReturn')->name('MaterialReturn.UpdateRevisionMaterialReturn');
     Route::get('ReportMatReturnDetail', 'Inventory\MaterialReturnController@ReportMatReturnDetail')->name('Inventory.ReportMatReturnDetail');
     Route::post('ReportMatReturnDetailStore', 'Inventory\MaterialReturnController@ReportMatReturnDetailStore')->name('Inventory.ReportMatReturnDetailStore');
     Route::post('PrintExportReportMatReturnDetail', 'Inventory\MaterialReturnController@PrintExportReportMatReturnDetail')->name('Inventory.PrintExportReportMatReturnDetail');
