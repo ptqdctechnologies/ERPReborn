@@ -7,6 +7,11 @@ class DocumentTypeMapper
     public static function getApiConfig(string $documentType, int $referenceId): ?array
     {
         $mapping = [
+            'Account Payable' => [
+                'key'                       => '',
+                'parameter'                 => [],
+                'businessDocument_RefID'    => (int) 74000000021494,
+            ],
             'Advance Form' => [
                 'key'       => 'transaction.read.dataList.finance.getAdvanceDetail',
                 'parameter' => ['advance_RefID' => (int) $referenceId]
@@ -104,6 +109,29 @@ class DocumentTypeMapper
     public static function formatData(string $documentType, array $dataDetail): ?array
     {
         $mapping = [
+            'Account Payable' => [
+                'dataHeader'    => [
+                    'date'              => null,
+                    'dateUpdate'        => '2025-09-29 15:49:00.113 +0700', // null or '2025-09-29 15:49:00.113 +0700'
+                ],
+                'textAreaFields'    => [
+                    'title'         => 'Remark',
+                    'text'          => '-',
+                ],
+                'components'        => [
+                    'detail'            => 'Components.AccountPayableDetailDocument',
+                    'table'             => 'Components.AccountPayableDetailDocumentTable',
+                    'headerRevision'    => 'Components.AccountPayableDetailDocumentHeaderRevision',
+                    'revision'          => 'Components.AccountPayableDetailDocumentRevision',
+                ],
+                'resubmit'      => [
+                    'url'       => '',
+                    'name'      => '',
+                    'value'     => ''
+                ],
+                'transactionType'        => 'ACCOUNT PAYABLE',
+                'businessDocument_RefID' => '',
+            ],
             'Advance Form'      => [
                 'dataHeader'    => [
                     'advance_RefID'     => $dataDetail['advance_RefID'] ?? '-',
@@ -473,6 +501,8 @@ class DocumentTypeMapper
                     'dateEndTravel'         => '2025-12-20',
                     'brfDate'               => '2025-12-12',
                     'contactPhone'          => '0896734873',
+                    'date'                  => '2025-06-04 10:47:11.993084+07',
+                    'dateUpdate'            => null,
                     'bankAccount'           => 'PT QDC Technologies',
                     'bankName'              => 'BCA',
                     'accountNumber'         => '0063032911',
@@ -764,6 +794,7 @@ class DocumentTypeMapper
     {
         $mapping = [
             'Advance Form'                  => 'Documents.Transactions.LogTransaction.LogTransactionAdvance',
+            'Account Payable'               => 'Documents.Transactions.LogTransaction.LogTransactionAccountPayable',
             'Advance Settlement Form'       => 'Documents.Transactions.LogTransaction.LogTransactionAdvanceSettlement',
             'Credit Note Form'              => 'Documents.Transactions.LogTransaction.LogTransactionCreditNote',
             'Debit Note Form'               => 'Documents.Transactions.LogTransaction.LogTransactionDebitNote',
