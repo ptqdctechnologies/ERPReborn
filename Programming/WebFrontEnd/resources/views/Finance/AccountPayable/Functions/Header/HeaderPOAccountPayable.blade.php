@@ -80,7 +80,7 @@
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div>
                         <div class="input-group">
-                            <textarea id="purchase_order_delivery_from" cols="20" rows="4" class="form-control"></textarea>
+                            <textarea id="purchase_order_delivery_from" cols="20" rows="4" class="form-control" readonly></textarea>
                         </div>
                     </div>
                 </div>
@@ -92,7 +92,7 @@
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div>
                         <div class="input-group">
-                            <textarea id="purchase_order_delivery_to" cols="20" rows="4" class="form-control"></textarea>
+                            <textarea id="purchase_order_delivery_to" cols="20" rows="4" class="form-control" readonly></textarea>
                         </div>
                     </div>
                 </div>
