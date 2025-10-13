@@ -36,18 +36,15 @@ class AdvanceRequestController extends Controller
     // INDEX FUNCTION
     public function index(Request $request)
     {
-        $varAPIWebToken = Session::get('SessionLogin');
-        $var            = 0;
-        if (!empty($_GET['var'])) {
-            $var = $_GET['var'];
-        }
+        $var                = $request->query('var', 0);
+        $varAPIWebToken     = Session::get('SessionLogin');
+        $documentTypeRefID  = $this->GetBusinessDocumentsType('Advance Form');
 
-        $compact = [
-            'var'               => $var,
-            'varAPIWebToken'    => $varAPIWebToken,
-        ];
-
-        return view('Process.Advance.AdvanceRequest.Transactions.CreateAdvanceRequest', $compact);
+        return view('Process.Advance.AdvanceRequest.Transactions.CreateAdvanceRequest', [
+            'var'                   => $var,
+            'varAPIWebToken'        => $varAPIWebToken,
+            'documentType_RefID'    => $documentTypeRefID
+        ]);
     }
 
     // STORE FUNCTION FOR INSERT DATA (NEW FUNCTION)
