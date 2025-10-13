@@ -9,13 +9,14 @@
                     </th>
                 </tr>
                 <tr>
-                    <th style="vertical-align: middle; width: 125px; min-width: 125px; max-width: 125px; left: 0px; z-index: 10;position: sticky; background-color: white;" class="text-center">Remark</th>
-                    <th style="vertical-align: middle; width: 200px; min-width: 200px; max-width: 200px; left: 125px; z-index: 10;position: sticky; background-Barang Rusakcolor: white;" class="text-center"></th>
+                    <th style="vertical-align: middle; width: 125px; min-width: 125px; max-width: 125px; left: 0px; z-index: 10;position: sticky; background-color: white;" class="text-center">VAT (%)</th>
+                    <th style="vertical-align: middle; width: 200px; min-width: 200px; max-width: 200px; left: 125px; z-index: 10;position: sticky; background-color: white;" class="text-center">Remark</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td style="padding: 8px; width: 125px; min-width: 125px; max-width: 125px; position: sticky; background-color: white; left: 0px; z-index: 10;">-</td>
+                    <th style="vertical-align: middle; width: 125px; min-width: 125px; max-width: 125px; left: 0px; z-index: 10;position: sticky; background-color: white;">10.00</th>
+                    <th style="vertical-align: middle; width: 200px; min-width: 200px; max-width: 200px; left: 125px; z-index: 10;position: sticky; background-color: white;">-</th>
                 </tr>
             </tbody>
         </table>
@@ -31,12 +32,14 @@
                     </th>
                 </tr>
                 <tr>
-                    <th class="text-center" style="background-color:#4B586A;color:white;border-right:1px solid #e9ecef;vertical-align: middle;width: 125px; min-width: 125px; max-width: 125px;">Remark</th>
+                    <th class="text-center" style="background-color:#4B586A;color:white;border-right:1px solid #e9ecef;vertical-align: middle;width: 125px; min-width: 125px; max-width: 125px;">VAT (%)</th>
+                    <th class="text-center" style="background-color:#4B586A;color:white;border-right:1px solid #e9ecef;vertical-align: middle;width: 200px; min-width: 200px; max-width: 200px;">Remark</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td style="padding: 8px;width: 125px; min-width: 125px; max-width: 125px;">Mohon Cek Kembali Barangnya Sebelum Dikirim</td>
+                    <td style="padding: 8px;width: 125px; min-width: 125px; max-width: 125px;">15.00</td>
+                    <td style="padding: 8px;width: 200px; min-width: 200px; max-width: 200px;">-</td>
                 </tr>
             </tbody>
         </table>
