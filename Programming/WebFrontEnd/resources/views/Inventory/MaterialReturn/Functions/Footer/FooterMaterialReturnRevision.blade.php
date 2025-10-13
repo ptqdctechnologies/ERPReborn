@@ -154,7 +154,7 @@
             $(`#qty_return${key}`).on('keyup', function() {
               let qty_return  = $(this).val().replace(/,/g, '');
 
-              if (parseFloat(qty_return) > val.QtyWarehouseInboundOrder) {
+              if (parseFloat(qty_return) > val.QtyWarehouseInboundOrderDetail) {
                 $(this).val("");
                 ErrorNotif("Qty Return is over!");
               } 
