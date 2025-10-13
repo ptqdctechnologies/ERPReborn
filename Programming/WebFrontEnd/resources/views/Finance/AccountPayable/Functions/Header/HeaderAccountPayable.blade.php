@@ -116,9 +116,9 @@
                 </div>
             </div>
 
-            <!-- BAST/FAT/PAT/DO ORIGIN -->
+            <!-- FAT/PAT/DO ORIGIN -->
             <div class="row" style="margin-top: 1rem;">
-                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">BAST/FAT/PAT/DO Origin</label>
+                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">FAT/PAT/DO Origin</label>
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div class="form-group d-flex" style="gap: 10%;">
                         <div class="custom-control custom-radio">
