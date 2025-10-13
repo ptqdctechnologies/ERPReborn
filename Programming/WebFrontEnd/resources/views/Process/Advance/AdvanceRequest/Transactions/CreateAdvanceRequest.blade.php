@@ -2,13 +2,13 @@
 @section('main')
 @include('Partials.navbar')
 @include('Partials.sidebar')
-@include('getFunction.getProject')
+@include('getFunction.getProjects')
 @include('getFunction.getAdvance')
-@include('getFunction.getSite')
-@include('getFunction.getWorker')
-@include('getFunction.getBeneficiary')
-@include('getFunction.getBank')
-@include('getFunction.getBankAccount')
+@include('getFunction.getSites')
+@include('getFunction.getRequesters')
+@include('getFunction.getBeneficiaries')
+@include('getFunction.getBanks')
+@include('getFunction.getBanksAccount')
 @include('getFunction.getProduct')
 @include('getFunction.getWorkFlow')
 @include('Process.Advance.AdvanceRequest.Functions.PopUp.PopUpAdvanceRevision')
@@ -32,7 +32,7 @@
       <div class="card">
         <form method="post" enctype="multipart/form-data" action="{{ route('SelectWorkFlow') }}" id="FormSubmitAdvance">
           @csrf
-          <input type="hidden" name="DocumentTypeID" id="DocumentTypeID">
+          <input type="hidden" name="DocumentTypeID" id="DocumentTypeID" value="<?= $documentType_RefID; ?>">
           <input type="hidden" name="var_combinedBudget_RefID" id="var_combinedBudget_RefID">
 
           <!-- BUDGET INFORMATION -->
