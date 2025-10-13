@@ -138,7 +138,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         | ▪ Method Name     : setDataUpdate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-01-11                                                                                           |
+        | ▪ Last Update     : 2025-10-13                                                                                           |
         | ▪ Creation Date   : 2025-01-11                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -166,7 +166,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
             $varUserSession,
             int $varSysID,
             string $varSysDataAnnotation = null, string $varSysDataValidityStartDateTimeTZ = null, string $varSysDataValidityFinishDateTimeTZ = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, $varSysBaseCurrency_RefID = null,
-            string $varDocumentDateTimeTZ = null, int $varLog_FileUpload_Pointer_RefID = null, int $varRequesterWorkerJobsPosition_RefID = null, string $varRemarks = null,
+            string $varDocumentDateTimeTZ = null, int $varLog_FileUpload_Pointer_RefID = null, int $varPurchaseOrderDetail_RefID = null, int $varCurrency_RefID = null, string $varCurrencySymbol = null, float $varCurrencyValue = null, float $varCurrencyExchangeRate = null, string $varSupplierInvoiceNumber = null, int $varSupplierBank_RefID = null, int $varReceiptStatus = null, int $varContractStatus = null, int $varVatStatus = null, float $varVatValue = null, string $varVatNumber = null, int $varFatPatDoStatus = null, int $varAssetStatus = null, int $varAssetCategory = null, int $varDepreciationMethod = null, float $varDepreciationRate = null, int $varDepreciationCOA_RefID = null, int $varDeduction = null, string $varRemarks = null,
             array $varAdditionalData = []
             )
             {
@@ -189,7 +189,25 @@ namespace App\Models\Database\SchData_OLTP_Finance
 
                             [$varDocumentDateTimeTZ, 'timestamptz'],
                             [$varLog_FileUpload_Pointer_RefID, 'bigint'],
-                            [$varRequesterWorkerJobsPosition_RefID, 'bigint'],
+                            [$varPurchaseOrderDetail_RefID, 'bigint'],
+                            [$varCurrency_RefID, 'bigint'],
+                            [$varCurrencySymbol, 'varchar'],
+                            [$varCurrencyValue, 'numeric'],
+                            [$varCurrencyExchangeRate, 'numeric'],
+                            [$varSupplierInvoiceNumber, 'varchar'],
+                            [$varSupplierBank_RefID, 'bigint'],
+                            [$varReceiptStatus, 'smallint'],
+                            [$varContractStatus, 'smallint'],
+                            [$varVatStatus, 'smallint'],
+                            [$varVatValue, 'numeric'],
+                            [$varVatNumber, 'varchar'],
+                            [$varFatPatDoStatus, 'smallint'],
+                            [$varAssetStatus, 'smallint'],
+                            [$varAssetCategory, 'smallint'],
+                            [$varDepreciationMethod, 'smallint'],
+                            [$varDepreciationRate, 'numeric'],
+                            [$varDepreciationCOA_RefID, 'bigint'],
+                            [$varDeduction, 'bigint'],
                             [$varRemarks, 'varchar'],
 
                             [
