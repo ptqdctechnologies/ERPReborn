@@ -139,7 +139,7 @@ class DebitNoteController extends Controller
             }
 
             $data               = $response['data']['data'];
-            $documentTypeRefID  = $this->GetBusinessDocumentType('Debit Note Revision Form');
+            $documentTypeRefID  = $this->GetBusinessDocumentsType('Debit Note Revision Form');
 
             $compact = [
                 'varAPIWebToken'        => $varAPIWebToken,
