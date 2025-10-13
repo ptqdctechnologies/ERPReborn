@@ -14,15 +14,19 @@
             </thead>
 
             <tbody>
-                <tr>
-                    <td style="border:1px solid #4B586A;color:#4B586A;text-align: center;">1</td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;">240 - Cendana Andalas</td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;">2000219</td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;">Site Preparation</td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;">m2</td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;">5.00</td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;">Pecah</td>
-                </tr>
+                <?php $no = 1; $grand_total = 0; ?>
+                <?php foreach ($dataDetails as $dataDetail) { ?>
+                    <?php $grand_total += $dataDetail['QtyWarehouseOutboundOrder'];  ?>
+                    <tr>
+                        <td style="border:1px solid #4B586A;color:#4B586A;text-align: center;"><?= $no++; ?></td>
+                        <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['CombinedBudgetSectionCode']; ?> - <?= $dataDetail['CombinedBudgetSectionName']; ?></td>
+                        <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['ProductCode']; ?></td>
+                        <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['ProductName']; ?></td>
+                        <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['QuantityUnitName']; ?></td>
+                        <td style="border:1px solid #4B586A;color:#4B586A;"><?= number_format($dataDetail['QtyWarehouseOutboundOrder'], 2); ?></td>
+                        <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['Note']; ?></td>
+                    </tr>
+                <?php } ?>
             </tbody>
 
             <tfoot>
@@ -32,7 +36,7 @@
                     </th>
                     <td style="border:1px solid #4B586A;color:#4B586A;">
                         <span id="GrandTotal">
-                            5.00
+                            <?= number_format($grand_total, 2); ?>
                         </span>
                     </td>
                     <td style="border:1px solid #4B586A;color:#4B586A;"></td>

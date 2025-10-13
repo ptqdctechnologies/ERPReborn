@@ -9,6 +9,30 @@ use App\Helpers\ZhtHelper\System\Helper_Environment;
 
 class DeliveryOrderService
 {
+    public function stockDetail($combinedBudget_RefID, $warehouse_RefID)
+    {
+        $sessionToken = Session::get('SessionLogin');
+
+        return Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
+            $sessionToken,
+            'transaction.read.dataList.supplyChain.getStockDetail',
+            'latest',
+            [
+            'parameter'     => [
+                'combinedBudget_RefID'  => (int) $combinedBudget_RefID,
+                'warehouse_RefID'       => (int) $warehouse_RefID
+                ],
+            'SQLStatement'  => [
+                'pick'      => null,
+                'sort'      => null,
+                'filter'    => null,
+                'paging'    => null
+                ]
+            ]
+        );
+    }
+
     public function getDetail($deliveryOrderID) 
     {
         $sessionToken = Session::get('SessionLogin');
@@ -36,13 +60,20 @@ class DeliveryOrderService
     {
         $sessionToken                       = Session::get('SessionLogin');
         $SessionWorkerCareerInternal_RefID  = Session::get('SessionWorkerCareerInternal_RefID');
-        $deliveryOrderData                  = $request->all();
-        $deliveryFromRefID                  = $deliveryOrderData['storeData']['deliveryFrom_RefID'] ? (int) $deliveryOrderData['storeData']['deliveryFrom_RefID'] : null;
-        $deliveryToRefID                    = $deliveryOrderData['storeData']['deliveryTo_RefID'] ? (int) $deliveryOrderData['storeData']['deliveryTo_RefID'] : null;
-        $stockMovementStatus                = isset($deliveryOrderData['storeData']['stock_movement_status']) ? (int) $deliveryOrderData['storeData']['stock_movement_status'] : null;
-        $stockMovementRequester_RefID       = $deliveryOrderData['storeData']['worker_id_stock_movement'] ? (int) $deliveryOrderData['storeData']['worker_id_stock_movement'] : null;
-        $deliveryOrderDetail                = json_decode($deliveryOrderData['storeData']['deliveryOrderDetail'], true);
-        $fileID                             = $deliveryOrderData['storeData']['dataInput_Log_FileUpload_1'] ? (int) $deliveryOrderData['storeData']['dataInput_Log_FileUpload_1'] : null;
+
+        $deliveryOrderData                  = $request->storeData;
+
+        $deliveryDateTimeTZ                 = $deliveryOrderData['delivery_date'] == "null" ? null : $deliveryOrderData['delivery_date'];
+
+        $deliveryFromRefID                  = isset($deliveryOrderData['purchase_order_delivery_from_id']) && $deliveryOrderData['purchase_order_delivery_from_id'] ? (int) $deliveryOrderData['purchase_order_delivery_from_id'] : null;
+        $deliveryToRefID                    = isset($deliveryOrderData['purchase_order_delivery_to_id']) && $deliveryOrderData['purchase_order_delivery_to_id'] ? (int) $deliveryOrderData['purchase_order_delivery_to_id'] : null;
+
+        $stockMovementStatus                = isset($deliveryOrderData['stock_movement_status']) && $deliveryOrderData['stock_movement_status'] ? (int) $deliveryOrderData['stock_movement_status'] : null;
+        $stockMovementRequester_RefID       = isset($deliveryOrderData['stock_movement_requester_id']) && $deliveryOrderData['stock_movement_requester_id'] ? (int) $deliveryOrderData['stock_movement_requester_id'] : null;
+
+        $deliveryOrderDetail                = json_decode($deliveryOrderData['delivery_order_details'], true);
+
+        $fileID                             = $deliveryOrderData['dataInput_Log_FileUpload_1'] ? (int) $deliveryOrderData['dataInput_Log_FileUpload_1'] : null;
 
         return Helper_APICall::setCallAPIGateway(
             Helper_Environment::getUserSessionID_System(),
@@ -54,16 +85,16 @@ class DeliveryOrderService
                     "documentDateTimeTZ"                => date('Y-m-d'),
                     "log_FileUpload_Pointer_RefID"      => $fileID,
                     "requesterWorkerJobsPosition_RefID" => $SessionWorkerCareerInternal_RefID,
-                    "transporter_RefID"                 => (int) $deliveryOrderData['storeData']['transporter_id'],
-                    "deliveryDateTimeTZ"                => $deliveryOrderData['storeData']['delivery_date'],
+                    "transporter_RefID"                 => (int) $deliveryOrderData['transporter_id'],
+                    "deliveryDateTimeTZ"                => $deliveryDateTimeTZ,
                     "deliveryFrom_RefID"                => $deliveryFromRefID,
-                    "deliveryFrom_NonRefID"             => $deliveryOrderData['storeData']['delivery_from'],
+                    "deliveryFrom_NonRefID"             => $deliveryOrderData['purchase_order_delivery_from'] ?? null,
                     "deliveryTo_RefID"                  => $deliveryToRefID,
-                    "deliveryTo_NonRefID"               => $deliveryOrderData['storeData']['delivery_to'],
+                    "deliveryTo_NonRefID"               => $deliveryOrderData['purchase_order_delivery_to'] ?? null,
                     "stockMovementRequester_RefID"      => $stockMovementRequester_RefID, 
                     "stockMovementStatus"               => $stockMovementStatus, // 0 => "RENT", 1 => "PERMANENT", null => Option non-select
-                    "type"                              => (int) $deliveryOrderData['storeData']['reference_type'], // 0 => "PURCHASE_ORDER", 1 => "INTERNAL_USE", 2 => "STOCK_MOVEMENT", null => Option non-select
-                    "remarks"                           => $deliveryOrderData['storeData']['var_remark'],
+                    "type"                              => (int) $deliveryOrderData['reference_type'], // 0 => "PURCHASE_ORDER", 1 => "INTERNAL_USE", 2 => "STOCK_MOVEMENT", null => Option non-select
+                    "remarks"                           => $deliveryOrderData['var_remark'],
                     "additionalData"                    => [
                         "itemList"                      => [
                             "items"                     => $deliveryOrderDetail

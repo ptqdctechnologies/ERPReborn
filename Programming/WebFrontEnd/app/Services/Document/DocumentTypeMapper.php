@@ -7,6 +7,11 @@ class DocumentTypeMapper
     public static function getApiConfig(string $documentType, int $referenceId): ?array
     {
         $mapping = [
+            'Account Payable' => [
+                'key'                       => '',
+                'parameter'                 => [],
+                'businessDocument_RefID'    => (int) 74000000021494,
+            ],
             'Advance Form' => [
                 'key'       => 'transaction.read.dataList.finance.getAdvanceDetail',
                 'parameter' => ['advance_RefID' => (int) $referenceId]
@@ -93,9 +98,8 @@ class DocumentTypeMapper
                 'parameter' => ['warehouseInboundOrder_RefID' => (int) $referenceId]
             ],
             'Warehouse Outbound Order Form' => [
-                'key'                       => '',
-                'parameter'                 => [],
-                'businessDocument_RefID'    => (int) 74000000021494,
+                'key'                       => 'transaction.read.dataList.supplyChain.getWarehouseOutboundOrderDetail',
+                'parameter'                 => ['warehouseOutboundOrder_RefID' => (int) $referenceId]
             ],
         ];
 
@@ -105,6 +109,29 @@ class DocumentTypeMapper
     public static function formatData(string $documentType, array $dataDetail): ?array
     {
         $mapping = [
+            'Account Payable' => [
+                'dataHeader'    => [
+                    'date'              => null,
+                    'dateUpdate'        => '2025-09-29 15:49:00.113 +0700', // null or '2025-09-29 15:49:00.113 +0700'
+                ],
+                'textAreaFields'    => [
+                    'title'         => 'Remark',
+                    'text'          => '-',
+                ],
+                'components'        => [
+                    'detail'            => 'Components.AccountPayableDetailDocument',
+                    'table'             => 'Components.AccountPayableDetailDocumentTable',
+                    'headerRevision'    => 'Components.AccountPayableDetailDocumentHeaderRevision',
+                    'revision'          => 'Components.AccountPayableDetailDocumentRevision',
+                ],
+                'resubmit'      => [
+                    'url'       => '',
+                    'name'      => '',
+                    'value'     => ''
+                ],
+                'transactionType'        => 'ACCOUNT PAYABLE',
+                'businessDocument_RefID' => '',
+            ],
             'Advance Form'      => [
                 'dataHeader'    => [
                     'advance_RefID'     => $dataDetail['advance_RefID'] ?? '-',
@@ -474,6 +501,8 @@ class DocumentTypeMapper
                     'dateEndTravel'         => '2025-12-20',
                     'brfDate'               => '2025-12-12',
                     'contactPhone'          => '0896734873',
+                    'date'                  => '2025-06-04 10:47:11.993084+07',
+                    'dateUpdate'            => null,
                     'bankAccount'           => 'PT QDC Technologies',
                     'bankName'              => 'BCA',
                     'accountNumber'         => '0063032911',
@@ -725,22 +754,22 @@ class DocumentTypeMapper
             ],
             'Warehouse Outbound Order Form' => [
                 'dataHeader'            => [
-                    'materialReturnNumber'      => 'WHOb/QDC/2025/000001',
-                    'date'                      => '2025-09-29 10:31:00.113 +0700',
-                    'dateUpdate'                => '2025-09-29 15:49:00.113 +0700', // null or '2025-09-29 15:49:00.113 +0700'
-                    'budgetCode'                => 'Q00006',
-                    'budgetName'                => 'XL Microcell 2007',
-                    'transporterName'           => 'Aji Irawan',
-                    'transporterContactPerson'  => 'aji.irawan@gmail.com',
-                    'transporterPhone'          => '+62 818-2166-7499-99',
-                    'transporterHandphone'      => '+62 21 791-9123-4 Ext 1417',
-                    'transporterFax'            => '+62 821-1480-0364',
-                    'transporterAddress'        => 'Jl. Letjend Bambang Utoyo',
-                    'fileID'                    => null
+                    'materialReturnNumber'      => $dataDetail['BusinessDocumentNumber'] ?? null,
+                    'date'                      => $dataDetail['Date'] ?? '-',
+                    'dateUpdate'                => $dataDetail['DateUpdate'] ?? null, // null or '2025-09-29 15:49:00.113 +0700'
+                    'budgetCode'                => $dataDetail['CombinedBudgetCode'] ?? null,
+                    'budgetName'                => $dataDetail['CombinedBudgetName'] ?? null,
+                    'transporterName'           => $dataDetail['TransporterName'] ?? '-',
+                    'transporterContactPerson'  => $dataDetail['TransporterContactPerson'] ?? '-',
+                    'transporterPhone'          => $dataDetail['TransporterPhone'] ?? '-',
+                    'transporterHandphone'      => $dataDetail['TransporterHandphone'] ?? '-',
+                    'transporterFax'            => $dataDetail['TransporterFax'] ?? '-',
+                    'transporterAddress'        => $dataDetail['TransporterAddress'] ?? '-',
+                    'fileID'                    => $dataDetail['Log_FileUpload_Pointer_RefID'] ?? null
                 ],
                 'textAreaFields'    => [
                     'title'         => 'Remark',
-                    'text'          => '-',
+                    'text'          => $dataDetail['Remarks'] ?? null
                 ],
                 'components'    => [
                     'detail'            => 'Components.MaterialReturnDetailDocument',
@@ -749,12 +778,12 @@ class DocumentTypeMapper
                     'revision'          => 'Components.MaterialReturnDetailDocumentRevision',
                 ],
                 'resubmit'      => [
-                    'url'       => 'MaterialReceive.RevisionMaterialReceiveIndex',
-                    'name'      => 'modal_material_receive_id',
-                    'value'     => '-',
+                    'url'       => 'MaterialReturn.RevisionMaterialReturnIndex',
+                    'name'      => 'material_return_id',
+                    'value'     => $dataDetail['WarehouseOutboundOrder_RefID'] ?? '-',
                 ],
                 'transactionType'        => 'MATERIAL RETURN',
-                'businessDocument_RefID' => '',
+                'businessDocument_RefID' => $dataDetail['BusinessDocument_RefID'] ?? '',
             ],
         ];
 
@@ -765,6 +794,7 @@ class DocumentTypeMapper
     {
         $mapping = [
             'Advance Form'                  => 'Documents.Transactions.LogTransaction.LogTransactionAdvance',
+            'Account Payable'               => 'Documents.Transactions.LogTransaction.LogTransactionAccountPayable',
             'Advance Settlement Form'       => 'Documents.Transactions.LogTransaction.LogTransactionAdvanceSettlement',
             'Credit Note Form'              => 'Documents.Transactions.LogTransaction.LogTransactionCreditNote',
             'Debit Note Form'               => 'Documents.Transactions.LogTransaction.LogTransactionDebitNote',

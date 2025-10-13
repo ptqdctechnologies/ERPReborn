@@ -68,6 +68,7 @@ class CheckDocumentController extends Controller
             }
 
             if (
+                $documentType === 'Account Payable' ||
                 $documentType === 'DO From Internal Use' ||
                 $documentType === 'DO From Stock Movement' ||
                 $documentType === 'Loan Form' ||
@@ -75,8 +76,7 @@ class CheckDocumentController extends Controller
                 $documentType === 'Modify Budget Form' ||
                 $documentType === 'Person Business Trip Settlement Form' || 
                 $documentType === 'Sales Invoice Form' || 
-                $documentType === 'Sallary Allocation Form' || 
-                $documentType === 'Warehouse Outbound Order Form'
+                $documentType === 'Sallary Allocation Form'
             ) {
                 // JUST FOR TRIGGER, WHEN API KEY NOT READY
                 $responseData = [
@@ -403,6 +403,26 @@ class CheckDocumentController extends Controller
         $DocumentTypeName = $request->input('DocumentTypeName');
 
         switch ($DocumentTypeName) {
+            case "Account Payable":
+                $varData = [
+                    'data' => [
+                        'data' => [
+                            [
+                                'sys_ID'    => 92081956,
+                                'sys_Text'  => 'AP/QDC/2025/000001',
+                                'combinedBudgetCode' => 'Q000196',
+                                'combinedBudgetSectionCode' => 'Q000062 ► 235'
+                            ],
+                            [
+                                'sys_ID'    => 82750194,
+                                'sys_Text'  => 'AP/QDC/2025/000002',
+                                'combinedBudgetCode' => 'Q000196',
+                                'combinedBudgetSectionCode' => 'Q000062 ► 235'
+                            ],
+                        ]
+                    ]
+                ];
+                break;
             case "DO From Internal Use":
                 $varData = [
                     'data' => [
@@ -503,6 +523,26 @@ class CheckDocumentController extends Controller
                     ]
                 ];
                 break;
+            case "Person Business Trip Settlement Form":
+                $varData = [
+                    'data' => [
+                        'data' => [
+                            [
+                                'sys_ID'    => 12345678,
+                                'sys_Text'  => 'BTStl/QDC/2025/000001',
+                                'combinedBudgetCode' => 'Q000196',
+                                'combinedBudgetSectionCode' => 'Q000062 ► 235'
+                            ],
+                            [
+                                'sys_ID'    => 23456781,
+                                'sys_Text'  => 'BTStl/QDC/2025/000002',
+                                'combinedBudgetCode' => 'Q000196',
+                                'combinedBudgetSectionCode' => 'Q000062 ► 235'
+                            ],
+                        ]
+                    ]
+                ];
+                break;
             case "Sallary Allocation Form":
                 $varData = [
                     'data' => [
@@ -516,28 +556,6 @@ class CheckDocumentController extends Controller
                             [
                                 'sys_ID'    => 23456781,
                                 'sys_Text'  => 'SA/QDC/2025/000002',
-                                'combinedBudgetCode' => 'Q000196',
-                                'combinedBudgetSectionCode' => 'Q000062 ► 235'
-                            ],
-                        ]
-                    ]
-                ];
-                break;
-            case "Warehouse Outbound Order Form":
-                $varData = [
-                    'data' => [
-                        'data' => [
-                            [
-                                'sys_ID'    => 47295863,
-                                'sys_Text'  => 'WHOb/QDC/2025/000001',
-                                'combinedBudget_RefID' => 46000000000033,
-                                'combinedBudgetCode' => 'Q000196',
-                                'combinedBudgetSectionCode' => 'Q000062 ► 235'
-                            ],
-                            [
-                                'sys_ID'    => 23456781,
-                                'sys_Text'  => 'WHOb/QDC/2025/000002',
-                                'combinedBudget_RefID' => 46000000000033,
                                 'combinedBudgetCode' => 'Q000196',
                                 'combinedBudgetSectionCode' => 'Q000062 ► 235'
                             ],

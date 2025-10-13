@@ -12,17 +12,17 @@
                     <div>
                         <span style="border-radius:0;" class="input-group-text form-control myTransporter">
                             <a href="javascript:;" id="myTransporterTrigger" data-toggle="modal" data-target="#myTransporter" style="display: block;">
-                                <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="myTransporterTrigger">
+                                <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="myTransporterTrigger" />
                             </a>
                         </span>
                     </div>
                     <div>
-                        <input id="transporter_name" style="border-radius:0;" class="form-control" size="16" readonly>
-                        <input id="transporter_id" style="border-radius:0;" name="transporter_id" class="form-control" hidden>
+                        <input id="transporter_name" class="form-control" style="border-radius:0;" size="16" readonly />
+                        <input id="transporter_id" name="transporter_id" class="form-control" style="border-radius:0;" hidden />
                     </div>
                 </div>
             </div>
-            <div class="row" id="transporterMessage" style="margin-top: .3rem;display: none;">
+            <div class="row" id="transporter_message" style="margin-top: .3rem;display: none;">
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div class="text-red">

@@ -1,13 +1,13 @@
 <div class="card-body">
-  <div class="row py-3" style="gap: 15px;">
+  <div class="row py-3" style="gap: 1rem;">
     <!-- BUDGET CODE -->
     <div class="col-md-12 col-lg-5">
       <div class="row">
-        <label for="project_code_second" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Budget Code</label>
-        <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Budget Code</label>
+        <div class="col-5 d-flex">
           <div>
             <span style="border-radius:0;" class="input-group-text form-control">
-              <a href="javascript:;" id="myProjectSecondTrigger" data-toggle="modal" data-target="#myProjectSecond" style="display: block;">
+              <a href="javascript:;" id="myProjectSecondTrigger" data-toggle="modal" data-target="#myProjects" style="display: block;">
                 <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="myProjectSecondTrigger">
               </a>
 
@@ -16,23 +16,19 @@
               </div>
             </span>
           </div>
-          <div>
-            <input id="project_code_second" style="border-radius:0;" name="project_code" class="form-control" size="17" readonly>
-            <input id="project_id_second" style="border-radius:0;" name="var_combinedBudget_RefID" class="form-control" hidden>
-          </div>
           <div style="flex: 100%;">
             <div class="input-group">
-              <input id="project_name_second" style="border-radius:0;" name="project_code_detail" class="form-control" readonly aria-label="Project Name">
+              <input id="project_name_second" style="border-radius:0; background-color: white;" name="project_code_detail" class="form-control" readonly>
+              <input id="project_code_second" style="border-radius:0;" name="project_code" class="form-control" hidden>
+              <input id="project_id_second" style="border-radius:0;" name="var_combinedBudget_RefID" class="form-control" hidden>
             </div>
           </div>
         </div>
       </div>
       <div class="row" id="budgetMessage" style="margin-top: .3rem;display: none;">
-        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
-        <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
-          <div class="text-red">
-            Budget Code cannot be empty.
-          </div>
+        <label for="project_code_second" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+        <div class="col text-red">
+          Budget Code cannot be empty.
         </div>
       </div>
     </div>
@@ -40,32 +36,28 @@
     <!-- SUB BUDGET CODE -->
     <div class="col-md-12 col-lg-5">
       <div class="row">
-        <label for="site_code_second" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Sub Budget Code</label>
-        <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Sub Budget Code</label>
+        <div class="col-5 d-flex">
           <div>
             <span style="border-radius:0;" class="input-group-text form-control">
-              <a href="javascript:;" id="mySiteCodeSecondTrigger" data-toggle="modal" data-target="#mySiteCodeSecond">
+              <a href="javascript:;" id="mySiteCodeSecondTrigger" data-toggle="modal" data-target="#mySites">
                 <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="mySiteCodeSecondTrigger">
               </a>
             </span>
           </div>
-          <div>
-            <input id="site_code_second" style="border-radius:0;" name="site_code" class="form-control" size="17" readonly>
-            <input id="site_id_second" style="border-radius:0;" name="site_id_second" class="form-control" hidden>
-          </div>
           <div style="flex: 100%;">
             <div class="input-group">
-              <input id="site_name_second" style="border-radius:0;" name="site_code_detail" class="form-control" readonly aria-label="Site Name">
+              <input id="site_name_second" style="border-radius:0; background-color: white;" name="site_code_detail" class="form-control" readonly>
+              <input id="site_code_second" style="border-radius:0;" name="site_code" class="form-control" hidden>
+              <input id="site_id_second" style="border-radius:0;" name="site_id_second" class="form-control" hidden>
             </div>
           </div>
         </div>
       </div>
       <div class="row" id="subBudgetMessage" style="margin-top: .3rem;display: none;">
-        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
-        <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
-          <div class="text-red">
-            Sub Budget Code cannot be empty.
-          </div>
+        <label for="project_code_second" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+        <div class="col text-red">
+          Sub Budget Code cannot be empty.
         </div>
       </div>
     </div>

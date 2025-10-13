@@ -60,16 +60,6 @@
             </div>
         </div>
 
-        <!-- PIC -->
-        <div class="row" style="margin-bottom: 1rem;">
-            <div class="col-4 col-sm-4 col-md-3 col-lg-3 text-bold">
-                VAT 
-            </div>
-            <div class="col">
-                : <?= $dataHeader['vat']; ?>
-            </div>
-        </div>
-
         <!-- CURRENCY -->
         <div class="row">
             <div class="col-4 col-sm-4 col-md-3 col-lg-3 text-bold">

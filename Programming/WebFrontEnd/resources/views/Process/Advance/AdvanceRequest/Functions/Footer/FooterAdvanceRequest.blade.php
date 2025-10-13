@@ -286,6 +286,9 @@
     }
 
     function getBudgetDetails(site_code) {
+        $('#tableGetBudgetDetails tbody').empty();
+        $(".errorMessageContainerBudgetDetails").hide();
+
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -297,8 +300,6 @@
             url: '{!! route("getBudget") !!}?site_code=' + site_code,
             success: function(data) {
                 $(".loadingBudgetDetails").hide();
-                $('#tableGetBudgetDetails tbody').empty();
-                $(".errorMessageContainerBudgetDetails").hide();
 
                 let tbody = $('#tableGetBudgetDetails tbody');
                 tbody.empty();
@@ -596,10 +597,10 @@
         });
     }
 
-    $('#tableGetProjectSecond').on('click', 'tbody tr', async function() {
-        var sysId       = $(this).find('input[data-trigger="sys_id_project_second"]').val();
-        var projectCode = $(this).find('td:nth-child(2)').text();
-        var projectName = $(this).find('td:nth-child(3)').text();
+    $('#tableProjects').on('click', 'tbody tr', async function() {
+        let sysId       = $(this).find('input[data-trigger="sys_id_project"]').val();
+        let projectCode = $(this).find('td:nth-child(2)').text();
+        let projectName = $(this).find('td:nth-child(3)').text();
 
         $("#project_id_second").val("");
         $("#project_code_second").val("");
@@ -611,6 +612,8 @@
         $("#loadingBudget").css({"display":"block"});
         $("#myProjectSecondTrigger").css({"display":"none"});
 
+        $('#myProjects').modal('hide');
+
         try {
             var checkWorkFlow = await checkingWorkflow(sysId, documentTypeID.value);
 
@@ -618,10 +621,12 @@
                 $("#var_combinedBudget_RefID").val(sysId);
                 $("#project_id_second").val(sysId);
                 $("#project_code_second").val(projectCode);
-                $("#project_name_second").val(projectName);
+                $("#project_name_second").val(`${projectCode} - ${projectName}`);
+                $("#project_name_second").css({"background-color":"#e9ecef"});
                 $("#myProjectSecondTrigger").prop("disabled", true);
+                $("#myProjectSecondTrigger").css({"cursor":"not-allowed"});
 
-                getSiteSecond(sysId);
+                getSites(sysId);
                 $("#mySiteCodeSecondTrigger").prop("disabled", false);
             }
 
@@ -634,30 +639,57 @@
         }
     });
 
-    $('#tableGetSiteSecond').on('click', 'tbody tr', function() {
-        var sysId = $(this).find('input[data-trigger="sys_id_site_second"]').val();
+    $('#tableSites').on('click', 'tbody tr', function() {
+        let sysId       = $(this).find('input[data-trigger="sys_id_site"]').val();
+        let siteCode    = $(this).find('td:nth-child(2)').text();
+        let siteName    = $(this).find('td:nth-child(3)').text();
 
-        $("#myWorkerSecondTrigger").prop("disabled", false);
-        $("#myBeneficiarySecondTrigger").prop("disabled", false);
+        $("#site_id_second").val(sysId);
+        $("#site_code_second").val(siteCode);
+        $("#site_name_second").val(`${siteCode} - ${siteName}`);
+
+        $("#myRequestersTrigger").prop("disabled", false);
+        $("#myBeneficiariesTrigger").prop("disabled", false);
 
         $("#site_code_second").css("border", "1px solid #ced4da");
         $("#site_name_second").css("border", "1px solid #ced4da");
+        $("#site_name_second").css({"background-color":"#e9ecef"});
         $("#subBudgetMessage").hide();
 
+        $('#mySites').modal('hide');
+
         getBudgetDetails(sysId);
+
         $(".loadingBudgetDetails").show();
     });
 
-    $('#tableGetWorkerSecond').on('click', 'tbody tr', function() {
+    $('#tableRequesters').on('click', 'tbody tr', function() {
+        let sysId       = $(this).find('input[data-trigger="sys_id_requesters"]').val();
+        let name        = $(this).find('td:nth-child(2)').text();
+        let position    = $(this).find('td:nth-child(3)').text();
+
+        $("#worker_id_second").val(sysId);
+        $("#worker_name_second").val(`${position} - ${name}`);
+        $("#worker_position_second").val(position);
+
+        $('#myRequesters').modal('hide');
+
         $("#worker_position_second").css("border", "1px solid #ced4da");
         $("#worker_name_second").css("border", "1px solid #ced4da");
+        $("#worker_name_second").css({"background-color":"#e9ecef"});
         $("#requesterMessage").hide();
     });
 
-    $('#tableGetBeneficiarySecond').on('click', 'tbody tr', function() {
-        var personRefId = $(this).find('input[data-trigger="person_ref_id_beneficiary_second"]').val();
+    $('#tableBeneficiaries').on('click', 'tbody tr', function() {
+        let sysId           = $(this).find('input[data-trigger="sys_id_beneficiaries"]').val();
+        let personRefId     = $(this).find('input[data-trigger="person_ref_id_beneficiaries"]').val();
+        let personName      = $(this).find('td:nth-child(2)').text();
+        let personPosition  = $(this).find('td:nth-child(3)').text();
 
-        $("#myGetBankSecondTrigger").prop("disabled", false);
+        $("#beneficiary_second_id").val(sysId);
+        $("#beneficiary_second_person_ref_id").val(personRefId);
+        $("#beneficiary_second_person_name").val(`${personPosition} - ${personName}`);
+        $("#beneficiary_second_person_position").val(personPosition);
 
         $("#bank_name_second_name").val("");
         $("#bank_name_second_id").val("");
@@ -669,22 +701,52 @@
 
         $("#beneficiary_second_person_position").css("border", "1px solid #ced4da");
         $("#beneficiary_second_person_name").css("border", "1px solid #ced4da");
+        $("#beneficiary_second_person_name").css({"background-color":"#e9ecef"});
         $("#beneficiaryMessage").hide();
 
-        getBankSecond(personRefId);
+        $("#myBanksTrigger").prop("disabled", false);
+        $("#myBanksAccountTrigger").prop("disabled", true);
+
+        getBanks(personRefId, "AdvanceRequest");
+
+        $('#myBeneficiaries').modal('hide');
     });
 
-    $('#tableGetBankSecond').on('click', 'tbody tr', function() {
-        var sysId                   = $(this).find('input[data-trigger="sys_id_bank_second"]').val();
-        var beneficiaryPersonRefID  = document.getElementById("beneficiary_second_person_ref_id");
+    $('#tableBanks').on('click', 'tbody tr', function() {
+        let sysId               = $(this).find('input[data-trigger="sys_id_banks"]').val();
+        let sysIdBankAccount    = $(this).find('input[data-trigger="sys_id_bank_account"]').val();
+        let bankAcronym         = $(this).find('td:nth-child(2)').text();
+        let bankName            = $(this).find('td:nth-child(3)').text();
 
-        $("#myBankAccountTrigger").prop("disabled", false);
+        $("#bank_name_second_id").val(sysId);
+        $("#bank_name_second_name").val(bankAcronym);
+        $("#bank_name_second_detail").val(`${bankAcronym} - ${bankName}`);
 
         $("#bank_accounts").val("");
         $("#bank_accounts_id").val("");
         $("#bank_accounts_detail").val("");
 
-        getBankAccountData(sysId, beneficiaryPersonRefID.value);
+        $("#bank_name_second_detail").css({"background-color":"#e9ecef"});
+
+        getBanksAccount(sysId, sysIdBankAccount);
+
+        $("#myBanksAccountTrigger").prop("disabled", false);
+
+        $('#myBanks').modal('hide');
+    });
+
+    $('#tableBanksAccount').on('click', 'tbody tr', function() {
+        let sysID       = $(this).find('input[type="hidden"]').val();
+        let bankName    = $(this).find('td:nth-child(2)').text();
+        let bankAccount = $(this).find('td:nth-child(3)').text();
+        let accountName = $(this).find('td:nth-child(4)').text();
+
+        $("#bank_accounts").val(bankAccount);
+        $("#bank_accounts_id").val(sysID);
+        $("#bank_accounts_detail").val(`${bankAccount} - ${accountName}`);
+        $("#bank_accounts_detail").css({"background-color":"#e9ecef"});
+
+        $('#myBanksAccount').modal('hide');
     });
 
     $('#remark').on('input', function(e) {
@@ -698,22 +760,9 @@
         $(".loadingBudgetDetails").hide();
         $(".errorMessageContainerBudgetDetails").hide();
         $("#mySiteCodeSecondTrigger").prop("disabled", true);
-        $("#myWorkerSecondTrigger").prop("disabled", true);
-        $("#myBeneficiarySecondTrigger").prop("disabled", true);
-        $("#myGetBankSecondTrigger").prop("disabled", true);
-        $("#myBankAccountTrigger").prop("disabled", true);
-
-        getDocumentType("Advance Form");
-    });
-
-    const observer = new MutationObserver(() => {
-        const bankNameID                = document.getElementById("bank_name_second_id");
-        const beneficiaryPersonRefID    = document.getElementById("beneficiary_second_person_ref_id");
-        
-        if (bankNameInput.value.trim() !== "") {
-            $("#myBankAccountTrigger").prop("disabled", false);
-
-            getBankAccountData(bankNameID.value, beneficiaryPersonRefID.value);
-        }
+        $("#myRequestersTrigger").prop("disabled", true);
+        $("#myBeneficiariesTrigger").prop("disabled", true);
+        $("#myBanksTrigger").prop("disabled", true);
+        $("#myBanksAccountTrigger").prop("disabled", true);
     });
 </script>

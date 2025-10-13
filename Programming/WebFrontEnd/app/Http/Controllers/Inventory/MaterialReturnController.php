@@ -15,48 +15,26 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
 use App\Helpers\ZhtHelper\System\Helper_Environment;
 use App\Helpers\ZhtHelper\Cache\Helper_Redis;
+use App\Services\Inventory\MaterialReturnService;
 use App\Services\Master\BusinessDocumentType\BusinessDocumentTypeService;
 
 class MaterialReturnController extends Controller
 {
-    public function __construct(BusinessDocumentTypeService $businessDocumentTypeService)
-    {
+    protected $materialReturnService, $businessDocumentTypeService;
+
+    public function __construct(
+        BusinessDocumentTypeService $businessDocumentTypeService, 
+        MaterialReturnService $materialReturnService
+    ) {
+        $this->materialReturnService        = $materialReturnService;
         $this->businessDocumentTypeService  = $businessDocumentTypeService;
-    }
-
-    public function GetBusinessDocumentType($businessDocumentName)
-    {
-        try {
-            $response = $this->businessDocumentTypeService->getDetail(
-                [
-                    'parameter'     => [],
-                    'SQLStatement'  => [
-                        'pick'      => null,
-                        'sort'      => null,
-                        'filter'    => "\"Name\" = '$businessDocumentName'",
-                        'paging'    => null
-                    ]
-                ]
-            );
-
-            $documentTypes = $response['data']['data'] ?? [];
-
-            if ($response['metadata']['HTTPStatusCode'] !== 200 || empty($documentTypes)) {
-                return null;
-            }
-
-            return $documentTypes[0]['sys_ID'];
-        } catch (\Throwable $th) {
-            Log::error("GetBusinessDocumentType Debit Note Function Error: " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
-        }
     }
 
     public function index(Request $request)
     {
         $var                = $request->query('var', 0);
         $varAPIWebToken     = Session::get('SessionLogin');
-        $documentTypeRefID  = $this->GetBusinessDocumentType('Warehouse Outbound Order Form');
+        $documentTypeRefID  = $this->GetBusinessDocumentsType('Warehouse Outbound Order Form');
 
         return view('Inventory.MaterialReturn.Transactions.CreateMaterialReturn', [
             'var'                   => $var,
@@ -67,20 +45,118 @@ class MaterialReturnController extends Controller
 
     public function store(Request $request)
     {
-        $input = $request->all();
-        dd($input);
+        try {
+            $response = $this->materialReturnService->create($request);
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                throw new \Exception('Failed to fetch Create Material Return');
+            }
+
+            // $responseWorkflow = $this->workflowService->submit(
+            //     $response['data']['businessDocument']['businessDocument_RefID'],
+            //     $request->workFlowPath_RefID,
+            //     $request->comment,
+            //     $request->approverEntity,
+            // );
+
+            // if ($responseWorkflow['metadata']['HTTPStatusCode'] !== 200) {
+            //     throw new \Exception('Failed to fetch Submit Workflow Create Material Return');
+            // }
+
+            $compact = [
+                "documentNumber"    => $response['data']['businessDocument']['documentNumber'],
+                "status"            => $response['metadata']['HTTPStatusCode'],
+                // "status"            => $responseWorkflow['metadata']['HTTPStatusCode']
+            ];
+
+            return response()->json($compact);
+        } catch (\Throwable $th) {
+            Log::error("Store Material Return Function Error: " . $th->getMessage());
+
+            return response()->json(["status" => 500]);
+        }
     }
 
     public function update(Request $request, $id)
     {
-        $input = $request->all();
-        dd($input);
+        return response()->json($request);
+    }
+
+    public function List() 
+    {
+        try {
+            $response = $this->materialReturnService->dataPickList();
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                throw new \Exception('Failed to fetch List Material Return');
+            }
+
+            return response()->json($response['data']['data']);
+        } catch (\Throwable $th) {
+            Log::error("List Material Return Function Error: " . $th->getMessage());
+
+            return response()->json([]);
+        }
+    }
+
+    public function UpdateRevisionMaterialReturn(Request $request) 
+    {
+        try {
+            $response = $this->materialReturnService->update($request);
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                throw new \Exception('Failed to fetch Update Material Return');
+            }
+
+            $compact = [
+                "documentNumber"    => $response['data'][0]['businessDocument']['documentNumber'],
+                "status"            => $response['metadata']['HTTPStatusCode'],
+                // "status"            => $responseWorkflow['metadata']['HTTPStatusCode']
+            ];
+
+            return response()->json($compact);
+        } catch (\Throwable $th) {
+            Log::error("UpdateRevisionMaterialReturn Material Return Function Error: " . $th->getMessage());
+
+            return response()->json(["status" => 500]);
+        }
     }
 
     public function RevisionMaterialReturnIndex(Request $request)
     {
         try {
-            return view('Inventory.MaterialReturn.Transactions.RevisionMaterialReturn');
+            $varAPIWebToken = $request->session()->get('SessionLogin');
+            $response       = $this->materialReturnService->getDetail($request->material_return_id);
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                throw new \Exception('Failed to fetch Detail Material Return');
+            }
+
+            $data = $response['data'];
+
+            $compact = [
+                'varAPIWebToken'                    => $varAPIWebToken,
+                'header'                            => [
+                    'warehouseOutboundOrder_RefID'  => $data[0]['WarehouseOutboundOrder_RefID'] ?? '',
+                    'materialReturn_RefID'          => $data[0]['Sys_ID'] ?? '',
+                    'materialReturnNumber'          => $data[0]['BusinessDocumentNumber'] ?? '',
+                    'combinedBudget_RefID'          => $data[0]['CombinedBudget_RefID'] ?? '',
+                    'combinedBudgetCode'            => $data[0]['CombinedBudgetCode'] ?? '',
+                    'combinedBudgetName'            => $data[0]['CombinedBudgetName'] ?? '',
+                    'transporter_RefID'             => $data[0]['Transporter_RefID'] ?? '',
+                    'transporterCode'               => $data[0]['TransporterCode'] ?? '',
+                    'transporterName'               => $data[0]['TransporterName'] ?? '',
+                    'transporterAddress'            => $data[0]['TransporterAddress'] ?? '-',
+                    'transporterContactPerson'      => $data[0]['TransporterContactPerson'] ?? '-',
+                    'transporterHandphone'          => $data[0]['TransporterHandphone'] ?? '-',
+                    'transporterPhone'              => $data[0]['TransporterPhone'] ?? '-',
+                    'transporterFax'                => $data[0]['TransporterFax'] ?? '-',
+                    'remarks'                       => $data[0]['Remarks'] ?? ''
+                ],
+                'detail'                            => $data
+            ];
+
+            return view('Inventory.MaterialReturn.Transactions.RevisionMaterialReturn', $compact);
         } catch (\Throwable $th) {
             Log::error("Error at " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');

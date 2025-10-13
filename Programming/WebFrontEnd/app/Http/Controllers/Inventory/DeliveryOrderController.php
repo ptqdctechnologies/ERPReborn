@@ -159,6 +159,7 @@ class DeliveryOrderController extends Controller
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }
+
     public function ReportDeliveryOrderSummary(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
@@ -181,6 +182,7 @@ class DeliveryOrderController extends Controller
 
         return view('Inventory.DeliveryOrder.Reports.ReportDeliveryOrderSummary', $compact);
     }
+
     public function ReportDeliveryOrderSummaryData($project_code, $site_code, $start_date = null, $end_date = null)
     {        
         try {
@@ -272,80 +274,6 @@ class DeliveryOrderController extends Controller
         }
     }
 
-    // public function ReportDeliveryOrderSummaryData( $project_code, $site_code)
-    // {        
-    //     try {
-    //         Log::error("Error at ",[$project_code, $site_code]);
-
-    //         $varAPIWebToken = Session::get('SessionLogin');
-
-    //         $filteredArray = Helper_APICall::setCallAPIGateway(
-    //             Helper_Environment::getUserSessionID_System(),
-    //             $varAPIWebToken, 
-    //             'report.form.documentForm.supplyChain.getDeliveryOrderSummary', 
-    //             'latest',
-    //             [
-    //                 'parameter' => [
-    //                     'CombinedBudgetCode' =>  $project_code,
-    //                     'CombinedBudgetSectionCode' =>  $site_code,
-    //                     'Warehouse_RefID' => NULL
-    //                 ],
-    //                  'SQLStatement' => [
-    //                     'pick' => null,
-    //                     'sort' => null,
-    //                     'filter' => null,
-    //                     'paging' => null
-    //                     ]
-    //             ]
-    //         );
-            
-    //         Log::error("Error at " ,$filteredArray);
-    //         if ($filteredArray['metadata']['HTTPStatusCode'] !== 200) {
-    //             return redirect()->back()->with('NotFound', 'Process Error');
-
-    //         }
-    //         Session::put("DeliveryOrderReportSummaryDataPDF", $filteredArray['data']['data']);
-    //         Session::put("DeliveryOrderReportSummaryDataExcel", $filteredArray['data']['data']);
-    //         return $filteredArray['data']['data'];
-    //     }
-    //     catch (\Throwable $th) {
-    //         Log::error("Error at " . $th->getMessage());
-    //         return redirect()->back()->with('NotFound', 'Process Error');
-    //     }
-    // }
-
-    // public function ReportDeliveryOrderSummaryStore(Request $request)
-    // {
-    //     // tes;
-    //     try {
-    //         $project_code = $request->project_code_second;
-    //         $site_code = $request->site_id_second;
-
-    //         $statusHeader = "Yes";
-    //         Log::error("Error at " ,[$request->all()]);
-    //         if ($project_code == "" && $site_code == "") {
-    //             Session::forget("DeliveryOrderReportSummaryDataPDF");
-    //             Session::forget("DeliveryOrderReportSummaryDataExcel");
-                
-    //             return redirect()->route('DeliveryOrder.ReportDeliveryOrderSummary')->with('NotFound', 'Cannot Empty');
-    //         }
-
-    //         $compact = $this->ReportDeliveryOrderSummaryData($project_code, $site_code);
-    //         // dd($compact);
-    //         // if ($compact['dataHeader'] == []) {
-    //         //     Session::forget("PDeliveryOrderSummaryReportDataPDF");
-    //         //     Session::forget("PDeliveryOrderSummaryReportDataExcel");
-
-    //         //     return redirect()->back()->with('NotFound', 'Data Not Found');
-    //         // }
-
-    //         return redirect()->route('DeliveryOrder.ReportDeliveryOrderSummary');
-    //     } catch (\Throwable $th) {
-    //         Log::error("Error at " . $th->getMessage());
-    //         return redirect()->back()->with('NotFound', 'Process Error');
-    //     }
-    // }
-
     public function PrintExportReportDeliveryOrderSummary(Request $request)
     {
         try {
@@ -384,21 +312,15 @@ class DeliveryOrderController extends Controller
 
     public function index(Request $request)
     {
+        $var                = $request->query('var', 0);
+        $varAPIWebToken     = Session::get('SessionLogin');
+        $documentTypeRefID  = $this->GetBusinessDocumentsType('Delivery Order Form');
 
-        Session::forget("SessionDeliveryOrderSupplier");
-        Session::forget("SessionDeliveryOrderSupplierID");
-        $varAPIWebToken = $request->session()->get('SessionLogin');
-        $var = 0;
-        if (!empty($_GET['var'])) {
-            $var =  $_GET['var'];
-        }
-        $compact = [
-            'var' => $var,
-            'statusRevisi' => 0,
-            'varAPIWebToken' => $varAPIWebToken
-        ];
-
-        return view('Inventory.DeliveryOrder.Transactions.CreateDeliveryOrder', $compact);
+        return view('Inventory.DeliveryOrder.Transactions.CreateDeliveryOrder', [
+            'var'                   => $var,
+            'varAPIWebToken'        => $varAPIWebToken,
+            'documentType_RefID'    => $documentTypeRefID
+        ]);
     }
 
     public function store(Request $request)
@@ -407,7 +329,7 @@ class DeliveryOrderController extends Controller
             $response = $this->deliveryOrderService->create($request);
 
             if ($response['metadata']['HTTPStatusCode'] !== 200) {
-                return response()->json($response);
+                throw new \Exception('Failed to fetch Create Delivery Order');
             }
 
             $responseWorkflow = $this->workflowService->submit(
@@ -418,7 +340,7 @@ class DeliveryOrderController extends Controller
             );
 
             if ($responseWorkflow['metadata']['HTTPStatusCode'] !== 200) {
-                return response()->json($responseWorkflow);
+                throw new \Exception('Failed to fetch Submit Workflow Create Delivery Order');
             }
 
             $compact = [
@@ -428,8 +350,9 @@ class DeliveryOrderController extends Controller
 
             return response()->json($compact);
         } catch (\Throwable $th) {
-            Log::error("Error at store: " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
+            Log::error("Store Delivery Order Function Error: " . $th->getMessage());
+
+            return response()->json(["status" => 500]);
         }
     }
 
@@ -992,5 +915,22 @@ class DeliveryOrderController extends Controller
         }
 
         return response()->json($collection->all());
+    }
+
+    public function StockDetail(Request $request)
+    {
+        try {
+            $response = $this->deliveryOrderService->stockDetail($request->combinedBudget_RefID, $request->warehouse_RefID);
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                throw new \Exception('Failed to fetch Stock Detail Delivery Order');
+            }
+
+            return response()->json($response['data']);
+        } catch (\Throwable $th) {
+            Log::error("Stock Detail Delivery Order Function Error: " . $th->getMessage());
+
+            return response()->json(["status" => 500]);
+        }
     }
 }

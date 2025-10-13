@@ -486,6 +486,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::resource('DeliveryOrderRequest', 'Inventory\DeliveryOrderRequestController');
 
     // DO
+    Route::get('StockDetail', 'Inventory\DeliveryOrderController@StockDetail')->name('DeliveryOrder.StockDetail');
     Route::post('RevisionDeliveryOrderIndex', 'Inventory\DeliveryOrderController@RevisionDeliveryOrderIndex')->name('DeliveryOrder.RevisionDeliveryOrderIndex');
     Route::get('DeliveryOrderListData', 'Inventory\DeliveryOrderController@DeliveryOrderListData')->name('DeliveryOrder.DeliveryOrderListData');
     Route::get('DeliveryOrderListDataDor', 'Inventory\DeliveryOrderController@DeliveryOrderListDataDor')->name('DeliveryOrder.DeliveryOrderListDataDor');
@@ -518,7 +519,9 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::resource('MaterialReceive', 'Inventory\MaterialReceiveController');
 
     // MRET
+    Route::get('List', 'Inventory\MaterialReturnController@List')->name('MaterialReturn.List');
     Route::post('RevisionMaterialReturnIndex', 'Inventory\MaterialReturnController@RevisionMaterialReturnIndex')->name('MaterialReturn.RevisionMaterialReturnIndex');
+    Route::post('UpdateRevisionMaterialReturn', 'Inventory\MaterialReturnController@UpdateRevisionMaterialReturn')->name('MaterialReturn.UpdateRevisionMaterialReturn');
     Route::get('ReportMatReturnDetail', 'Inventory\MaterialReturnController@ReportMatReturnDetail')->name('Inventory.ReportMatReturnDetail');
     Route::post('ReportMatReturnDetailStore', 'Inventory\MaterialReturnController@ReportMatReturnDetailStore')->name('Inventory.ReportMatReturnDetailStore');
     Route::post('PrintExportReportMatReturnDetail', 'Inventory\MaterialReturnController@PrintExportReportMatReturnDetail')->name('Inventory.PrintExportReportMatReturnDetail');
