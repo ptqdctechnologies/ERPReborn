@@ -52,10 +52,10 @@
                                         <div class="row py-3" style="gap: 15px;">
                                             <!-- LEFT COLUMN -->
                                             <div class="col-md-12 col-lg-5">
-                                                <!-- MATERIAL RECEIVE -->
+                                                <!-- MATERIAL RETURN -->
                                                 <div class="row">
                                                     <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">
-                                                        Material Receive Number
+                                                        Material Return Number
                                                     </label>
                                                     <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                                                         <div>

@@ -69,7 +69,7 @@
                     <tr>
                         @for($n = count($dataDetailGetTransactionHistory[$i]) - 1; $n >= 0; $n--)
                             @if ($n !== count($dataDetailGetTransactionHistory[$i]) - 1)
-                                <td style="padding: 8px;">{{ number_format($dataDetailGetTransactionHistory[$i][$n]['content']['quantity'], 2) }}</td>
+                                <td style="padding: 8px; width: 100px;">{{ number_format($dataDetailGetTransactionHistory[$i][$n]['content']['quantity'], 2) }}</td>
                                 <td style="padding: 8px;">{{ $dataDetailGetTransactionHistory[$i][$n]['content']['remarks'] }}</td>
                             @endif
                         @endfor
