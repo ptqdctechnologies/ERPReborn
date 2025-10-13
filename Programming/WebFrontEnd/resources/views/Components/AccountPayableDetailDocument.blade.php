@@ -11,6 +11,16 @@
             </div>
         </div>
 
+        <!-- PUCHASE ORDER NUMBER -->
+        <div class="row" style="margin-bottom: 1rem;">
+            <div class="col-4 col-sm-4 col-md-3 col-lg-4 text-bold">
+                PO Number
+            </div>
+            <div class="col">
+                : PO/QDC/2025/000001
+            </div>
+        </div>
+
         <!-- SUPPLIER -->
         <div class="row" style="margin-bottom: 1rem;">
             <div class="col-4 col-sm-4 col-md-3 col-lg-4 text-bold">
@@ -21,26 +31,6 @@
             </div>
         </div>
 
-        <!-- CURRENCY -->
-        <div class="row" style="margin-bottom: 1rem;">
-            <div class="col-4 col-sm-4 col-md-3 col-lg-4 text-bold">
-                Currency
-            </div>
-            <div class="col">
-                : IDR
-            </div>
-        </div>
-
-        <!-- PAYMENT TERM -->
-        <div class="row" style="margin-bottom: 1rem;">
-            <div class="col-4 col-sm-4 col-md-3 col-lg-4 text-bold">
-                Payment Term
-            </div>
-            <div class="col">
-                : Cash After Delivery With Advance (Partial Payment)
-            </div>
-        </div>
-
         <!-- SUPPLIER INVOICE NUMBER -->
         <div class="row" style="margin-bottom: 1rem;">
             <div class="col-4 col-sm-4 col-md-3 col-lg-4 text-bold">
@@ -48,6 +38,16 @@
             </div>
             <div class="col">
                 : -
+            </div>
+        </div>
+
+        <!-- CURRENCY -->
+        <div class="row" style="margin-bottom: 1rem;">
+            <div class="col-4 col-sm-4 col-md-3 col-lg-4 text-bold">
+                Currency
+            </div>
+            <div class="col">
+                : IDR
             </div>
         </div>
 
@@ -88,6 +88,36 @@
             </div>
             <div class="col">
                 : Yes
+            </div>
+        </div>
+
+        <!-- VAT ORIGIN -->
+        <div class="row" style="margin-bottom: 1rem;">
+            <div class="col-4 col-sm-4 col-md-3 col-lg-4 text-bold">
+                VAT Origin
+            </div>
+            <div class="col">
+                : Yes
+            </div>
+        </div>
+
+        <!-- VAT (%) -->
+        <div class="row" style="margin-bottom: 1rem;">
+            <div class="col-4 col-sm-4 col-md-3 col-lg-4 text-bold">
+                VAT (%)
+            </div>
+            <div class="col">
+                : 12
+            </div>
+        </div>
+
+        <!-- VAT NUMBER -->
+        <div class="row" style="margin-bottom: 1rem;">
+            <div class="col-4 col-sm-4 col-md-3 col-lg-4 text-bold">
+                VAT Number
+            </div>
+            <div class="col">
+                : -
             </div>
         </div>
     </div>
@@ -148,7 +178,7 @@
         <!-- DEPRECIATION RATE -->
         <div class="row" style="margin-bottom: 1rem;">
             <div class="col-4 col-sm-4 col-md-3 col-lg-4 text-bold">
-                Depreciation Rate
+                Depreciation Rate (%)
             </div>
             <div class="col">
                 : 20
@@ -175,30 +205,10 @@
             </div>
         </div>
 
-        <!-- VAT ORIGIN -->
+        <!-- FILE ATTACHMENT -->
         <div class="row" style="margin-bottom: 1rem;">
             <div class="col-4 col-sm-4 col-md-3 col-lg-4 text-bold">
-                VAT Origin
-            </div>
-            <div class="col">
-                : Yes
-            </div>
-        </div>
-
-        <!-- VAT (%) -->
-        <div class="row" style="margin-bottom: 1rem;">
-            <div class="col-4 col-sm-4 col-md-3 col-lg-4 text-bold">
-                VAT (%)
-            </div>
-            <div class="col">
-                : 12
-            </div>
-        </div>
-
-        <!-- VAT NUMBER -->
-        <div class="row" style="margin-bottom: 1rem;">
-            <div class="col-4 col-sm-4 col-md-3 col-lg-4 text-bold">
-                VAT Number
+                File Attachment
             </div>
             <div class="col">
                 : -
