@@ -23,7 +23,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-01-11                                                                                           |
+        | ▪ Last Update     : 2025-10-13                                                                                           |
         | ▪ Creation Date   : 2025-01-11                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -43,7 +43,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-01-11                                                                                           |
+        | ▪ Last Update     : 2025-10-13                                                                                           |
         | ▪ Creation Date   : 2025-01-11                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -93,18 +93,36 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
 
                                     $varData['entities']['documentDateTimeTZ'],
                                     $varData['entities']['log_FileUpload_Pointer_RefID'],
-                                    $varData['entities']['requesterWorkerJobsPosition_RefID'],
+                                    null,
+                                    null,
+                                    null,
+                                    null,
+                                    null,
+                                    $varData['entities']['supplierInvoiceNumber'],
+                                    $varData['entities']['supplierBank_RefID'],
+                                    $varData['entities']['receiptStatus'],
+                                    $varData['entities']['contractStatus'],
+                                    $varData['entities']['vatStatus'],
+                                    $varData['entities']['vatValue'],
+                                    $varData['entities']['vatNumber'],
+                                    $varData['entities']['fatPatDoStatus'],
+                                    $varData['entities']['assetStatus'],
+                                    $varData['entities']['assetCategory'],
+                                    $varData['entities']['depreciationMethod'],
+                                    $varData['entities']['depreciationRate'],
+                                    $varData['entities']['depreciationCOA_RefID'],
+                                    $varData['entities']['deduction'],
                                     $varData['entities']['remarks'],
 
                                     (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
                                         $varUserSession,
                                         'additionalData',
                                         $varData['entities']
-                                        ) 
+                                        )
                                         ?   (
                                                 (
                                                 !is_null($varData['entities']['additionalData'])
-                                                ) 
+                                                )
                                                 ? $varData['entities']['additionalData']
                                                 : []
                                             )
