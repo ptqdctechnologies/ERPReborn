@@ -676,6 +676,15 @@ class DeliveryOrderController extends Controller
         return response()->json($compact);
     }
 
+    public function FormatText($text) 
+    {
+        $result = strtolower($text);
+        $result = str_replace("_", " ", $result);
+        $result = ucwords($result);
+
+        return $result;
+    }
+
     public function RevisionDeliveryOrderIndex(Request $request)
     {
         try {
@@ -714,6 +723,10 @@ class DeliveryOrderController extends Controller
                     'transporterHandphone'      => $data[0]['transporterHandphone'] ?? '',
                     'transporterAddress'        => $data[0]['transporterAddress'] ?? '',
                     'fileID'                    => $data[0]['log_FileUpload_Pointer_RefID'] ?? null,
+                    'type'                      => $data[0]['type'] ? $this->FormatText($data[0]['type']) : null,
+                    'status'                    => $data[0]['stockMovementStatus'] ? $this->FormatText($data[0]['stockMovementStatus']) : null,
+                    'requesterName'             => $data[0]['stockMovementRequesterName'] ?? null,
+                    'requesterPosition'         => $data[0]['stockMovementRequesterPosition'] ?? null,
                     'remarks'                   => $data[0]['remarks'] ?? '',
                 ],
                 'data'                          => $data

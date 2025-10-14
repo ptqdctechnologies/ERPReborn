@@ -290,7 +290,7 @@
               </span>
             </div>
             <div>
-              <input id="internal_use_delivery_from_name" class="form-control" style="border-radius:0;" size="17" readonly>
+              <input id="internal_use_delivery_from_name" class="form-control" style="border-radius:0;" name="internal_use_delivery_from_name" size="17" readonly>
               <input id="internal_use_delivery_from_id" class="form-control" style="border-radius:0;" name="internal_use_delivery_from_id" hidden>
             </div>
             <div style="flex: 100%;">
@@ -323,7 +323,7 @@
               </span>
             </div>
             <div>
-              <input id="internal_use_delivery_to_name" class="form-control" style="border-radius:0;" size="17" readonly>
+              <input id="internal_use_delivery_to_name" class="form-control" style="border-radius:0;" name="internal_use_delivery_to_name" size="17" readonly>
               <input id="internal_use_delivery_to_id" class="form-control" style="border-radius:0;" name="internal_use_delivery_to_id" hidden>
             </div>
             <div style="flex: 100%;">
@@ -380,7 +380,7 @@
               </span>
             </div>
             <div>
-              <input id="stock_movement_delivery_from_name" style="border-radius:0;" class="form-control" size="17" readonly>
+              <input id="stock_movement_delivery_from_name" style="border-radius:0;" name="stock_movement_delivery_from_name" class="form-control" size="17" readonly>
               <input id="stock_movement_delivery_from_id" style="border-radius:0;" name="stock_movement_delivery_from_id" class="form-control" hidden>
             </div>
             <div style="flex: 100%;">
@@ -413,7 +413,7 @@
               </span>
             </div>
             <div>
-              <input id="stock_movement_delivery_to_name" class="form-control" style="border-radius:0;" size="17" readonly>
+              <input id="stock_movement_delivery_to_name" name="stock_movement_delivery_to_name" class="form-control" style="border-radius:0;" size="17" readonly>
               <input id="stock_movement_delivery_to_id" name="stock_movement_delivery_to_id" class="form-control" style="border-radius:0;" hidden>
             </div>
             <div style="flex: 100%;">
