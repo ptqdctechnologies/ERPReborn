@@ -33,6 +33,31 @@ class AccountPayableController extends Controller
         ]);
     }
 
+    public function store(Request $request) 
+    {
+        try {
+            $response = $this->accountPayableService->create($request);
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                throw new \Exception('Failed to fetch Create Account Payable');
+            }
+
+            $compact = [
+                "documentNumber"    => $response['data']['businessDocument']['documentNumber'],
+                "status"            => $response['metadata']['HTTPStatusCode'],
+                // "status"            => $responseWorkflow['metadata']['HTTPStatusCode'],
+            ];
+
+            return response()->json($compact);
+        } catch (\Throwable $th) {
+            Log::error("Store Account Payable Function Error: " . $th->getMessage());
+
+            return response()->json(["status" => 500]);
+        }
+
+        return response()->json($request->all());
+    }
+
     public function ReportAccountPayableSummary() 
     {
         $isSubmitButton = Session::get('isButtonReportAccountPayableSummary');

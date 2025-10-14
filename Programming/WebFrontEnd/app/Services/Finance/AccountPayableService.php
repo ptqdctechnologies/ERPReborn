@@ -3,6 +3,10 @@
 namespace App\Services\Finance;
 
 use Carbon\Carbon;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
+use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
+use App\Helpers\ZhtHelper\System\Helper_Environment;
 use Exception;
 
 class AccountPayableService
@@ -1845,5 +1849,82 @@ class AccountPayableService
         ];
 
         return $compact;
+    }
+
+    public function create(Request $request): array
+    {
+        $sessionToken   = Session::get('SessionLogin');
+
+        // $data           = $request->storeData;
+        $data                   = $request;
+        $detailItems            = json_decode($data['account_payable_detail'], true);
+        $fileID                 = $data['dataInput_Log_FileUpload_1'] ? (int) $data['dataInput_Log_FileUpload_1'] : null;
+        $vatValue               = $data['vat_origin'] == "yes" ? (float) str_replace(',', '', $data['ppn']) : null;
+        $depreciationRate       = $data['depreciation_rate_percentage'] ? (float) str_replace(',', '', $data['depreciation_rate_percentage']) : null;
+        $depreciationCOARefID   = $data['depreciation_coa_id'] ? (int) $data['depreciation_coa_id'] : null;
+        $deduction              = $data['budget_details_deduction'] ? (float) str_replace(',', '', $data['budget_details_deduction']) : null;
+
+        $receiptStatus = match ($data['receipt_origin']) {
+            'no'        => (int) 0,
+            default     => (int) 1,
+        };
+
+        $contractStatus = match ($data['contract_signed']) {
+            'no'        => (int) 0,
+            default     => (int) 1,
+        };
+
+        $vatStatus = match ($data['vat_origin']) {
+            'no'        => (int) 0,
+            default     => (int) 1,
+        };
+
+        $fatPatDoStatus = match ($data['basft_origin']) {
+            'no'        => (int) 0,
+            default     => (int) 1,
+        };
+
+        $assetStatus = match ($data['asset']) {
+            'no'        => (int) 0,
+            default     => (int) 1,
+        };
+
+        return Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
+            $sessionToken,
+            'transaction.create.finance.setPaymentInstruction',
+            'latest',
+            [
+            'entities' => [
+                "documentDateTimeTZ"            => date('Y-m-d'),
+                "log_FileUpload_Pointer_RefID"  => $fileID,
+                "purchaseOrderDetail_RefID"     => 86000000000270,
+                "currency_RefID"                => 62000000000001,
+                "currencySymbol"                => 'Rp',
+                "currencyValue"                 => 15080000.00,
+                "currencyExchangeRate"          => 1.00,
+                "supplierInvoiceNumber"         => (float) str_replace(',', '', $data['supplier_invoice_number']),
+                "supplierBank_RefID"            => 126000000000001, // Payment Transfer To
+                "receiptStatus"                 => $receiptStatus,
+                "contractStatus"                => $contractStatus,
+                "vatStatus"                     => $vatStatus,
+                "vatValue"                      => $vatValue,
+                "vatNumber"                     => $data['vat_number'],
+                "fatPatDoStatus"                => $fatPatDoStatus,
+                "assetStatus"                   => $assetStatus,
+                "assetCategory"                 => 1, // Category
+                "depreciationMethod"            => (int) $data['depreciation_method'],
+                "depreciationRate"              => $depreciationRate,
+                "depreciationCOA_RefID"         => $depreciationCOARefID,
+                "deduction"                     => $deduction,
+                "remarks"                       => $data['account_payable_notes'],
+                "additionalData"    => [
+                    "itemList"      => [
+                        "items"     => $detailItems
+                        ]
+                    ]
+                ]
+            ]
+        );
     }
 }

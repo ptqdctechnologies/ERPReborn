@@ -9,7 +9,7 @@
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div>
                         <div class="input-group">
-                            <input id="purchase_order_supplier" style="border-radius:0;" class="form-control">
+                            <input id="supplier_invoice_number" name="supplier_invoice_number" style="border-radius:0;" class="form-control number-without-characters">
                         </div>
                     </div>
                 </div>
@@ -53,11 +53,11 @@
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div class="form-group d-flex" style="gap: 10%;">
                         <div class="custom-control custom-radio">
-                            <input class="custom-control-input" type="radio" id="receipt_origin_no" name="receipt_origin">
+                            <input class="custom-control-input" type="radio" id="receipt_origin_no" value="no" name="receipt_origin">
                             <label for="receipt_origin_no" class="custom-control-label" style="padding-top: 35%;">No</label>
                         </div>
                         <div class="custom-control custom-radio">
-                            <input class="custom-control-input" type="radio" id="receipt_origin_yes" name="receipt_origin">
+                            <input class="custom-control-input" type="radio" id="receipt_origin_yes" value="yes" name="receipt_origin">
                             <label for="receipt_origin_yes" class="custom-control-label" style="padding-top: 28%;">Yes</label>
                         </div>
                     </div>
@@ -70,11 +70,11 @@
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div class="form-group d-flex" style="gap: 10%;">
                         <div class="custom-control custom-radio">
-                            <input class="custom-control-input" type="radio" id="contract_signed_no" name="contract_signed">
+                            <input class="custom-control-input" type="radio" id="contract_signed_no" value="no" name="contract_signed">
                             <label for="contract_signed_no" class="custom-control-label" style="padding-top: 35%;">No</label>
                         </div>
                         <div class="custom-control custom-radio">
-                            <input class="custom-control-input" type="radio" id="contract_signed_yes" name="contract_signed">
+                            <input class="custom-control-input" type="radio" id="contract_signed_yes" value="yes" name="contract_signed">
                             <label for="contract_signed_yes" class="custom-control-label" style="padding-top: 28%;">Yes</label>
                         </div>
                     </div>
@@ -96,8 +96,9 @@
                         </div>
                         <div>
                             <select type="text" id="ppn" class="form-control vat-components" name="ppn" onchange="onChangeVAT(this)" style="border-radius:0;width:auto;display:none;">
-                                <option value="No">10%</option>
-                                <option value="Yes">20%</option>
+                                <option disabled selected value="">Sel..</option>
+                                <option value="10">10%</option>
+                                <option value="20">20%</option>
                             </select>
                         </div>
                     </div>
@@ -110,7 +111,7 @@
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div>
                         <div class="input-group">
-                            <input id="vat_number" style="border-radius:0;" class="form-control">
+                            <input id="vat_number" name="vat_number" style="border-radius:0;" class="form-control number-without-characters">
                         </div>
                     </div>
                 </div>
@@ -122,11 +123,11 @@
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div class="form-group d-flex" style="gap: 10%;">
                         <div class="custom-control custom-radio">
-                            <input class="custom-control-input" type="radio" id="basft_origin_no" name="basft_origin">
+                            <input class="custom-control-input" type="radio" id="basft_origin_no" value="no" name="basft_origin">
                             <label for="basft_origin_no" class="custom-control-label" style="padding-top: 35%;">No</label>
                         </div>
                         <div class="custom-control custom-radio">
-                            <input class="custom-control-input" type="radio" id="basft_origin_yes" name="basft_origin">
+                            <input class="custom-control-input" type="radio" id="basft_origin_yes" value="yes" name="basft_origin">
                             <label for="basft_origin_yes" class="custom-control-label" style="padding-top: 28%;">Yes</label>
                         </div>
                     </div>
@@ -139,7 +140,7 @@
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div>
                         <div class="input-group">
-                            <textarea id="notes" cols="20" rows="4" class="form-control"></textarea>
+                            <textarea id="account_payable_notes" name="account_payable_notes" cols="20" rows="4" class="form-control"></textarea>
                         </div>
                     </div>
                 </div>
@@ -222,13 +223,13 @@
                 <div class="col-sm-9 col-md-8 col-lg-4 p-0">
                     <div class="row">
                         <div class="col-4">
-                            <input id="depreciation_rate_percentage" class="form-control" size="8" readonly style="border-radius:0; background-color: white; cursor: default;">
+                            <input id="depreciation_rate_percentage" name="depreciation_rate_percentage" class="form-control number-without-characters" size="8" style="border-radius:0; cursor: default;">
                         </div>
                         <div class="col">
                             <div class="row">
                                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Years</label>
                                 <div class="col-6">
-                                    <input id="depreciation_rate_years" class="form-control" size="8" readonly style="border-radius:0; background-color: white; cursor: default;">
+                                    <input id="depreciation_rate_years" name="depreciation_rate_years" class="form-control number-without-characters" size="8" style="border-radius:0; cursor: default;">
                                 </div>
                             </div>
                         </div>
