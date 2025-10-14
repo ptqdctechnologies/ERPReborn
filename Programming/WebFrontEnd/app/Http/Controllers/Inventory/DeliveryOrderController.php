@@ -751,8 +751,6 @@ class DeliveryOrderController extends Controller
                 'data'                          => $data
             ];
 
-            dump($compact);
-
             return view('Inventory.DeliveryOrder.Transactions.RevisionDeliveryOrder', $compact);
         } catch (\Throwable $th) {
             Log::error("RevisionDeliveryOrderIndex Function Error at " . $th->getMessage());
