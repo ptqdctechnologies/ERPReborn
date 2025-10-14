@@ -10,7 +10,8 @@
         </label>
         <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
           <div>
-            <input style="border-radius:0;" class="form-control" size="20" value="<?= $header['type']; ?>" readonly>
+            <input type="hidden" style="border-radius:0;" class="form-control" size="20" name="reference_RefID" value="<?= $header['type']['id']; ?>">
+            <input style="border-radius:0;" class="form-control" size="20" value="<?= $header['type']['text']; ?>" readonly>
           </div>
         </div>
       </div>
@@ -48,7 +49,7 @@
         </div>
       </div>
 
-      <?php if ($header['type'] == "Stock Movement") { ?>
+      <?php if ($header['type']['text'] == "Stock Movement") { ?>
         <!-- REQUESTER -->
         <div class="row" >
           <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">
@@ -56,6 +57,7 @@
           </label>
           <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
             <div>
+              <input type="hidden" style="border-radius:0;" class="form-control" size="20" name="requester_RefID" value="<?= $header['requesterID']; ?>">
               <input style="border-radius:0;" class="form-control" size="20" value="<?= $header['requesterPosition'] . ' - ' . $header['requesterName']; ?>" readonly>
             </div>
           </div>
@@ -65,7 +67,7 @@
 
     <!-- RIGHT COLUMN -->
     <div class="col-md-12 col-lg-5">
-      <?php if ($header['type'] == "Stock Movement") { ?>
+      <?php if ($header['type']['text'] == "Stock Movement") { ?>
         <!-- STATUS -->
         <div class="row" style="margin-bottom: 1rem;">
           <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">
@@ -73,7 +75,8 @@
           </label>
           <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
             <div>
-              <input style="border-radius:0;" class="form-control" size="20" value="<?= $header['status']; ?>" readonly>
+              <input type="hidden" style="border-radius:0;" class="form-control" size="20" name="status_RefID" value="<?= $header['status']['id']; ?>">
+              <input style="border-radius:0;" class="form-control" size="20" value="<?= $header['status']['text']; ?>" readonly>
             </div>
           </div>
         </div>

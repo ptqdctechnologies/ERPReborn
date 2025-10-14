@@ -126,10 +126,9 @@
 
         for (let row of rows) {
             const recordRefID               = row.querySelector('input[id^="record_RefID"]');
-            const referenceDocumentRefID    = row.querySelector('input[id^="referenceDocument_RefID"]');
-            const quantityUnitRefID         = row.querySelector('input[id^="quantityUnit_RefID"]');
-            const underlyingDetailRefID     = row.querySelector('input[id^="underlyingDetail_RefID"]');
             const productRefID              = row.querySelector('input[id^="product_RefID"]');
+            const quantityUnitRefID         = row.querySelector('input[id^="quantityUnit_RefID"]');
+            const referenceRefID            = row.querySelector('input[id^="reference_ID"]');
             const qtyInput                  = row.querySelector('input[id^="qty_req"]');
             const noteInput                 = row.querySelector('textarea[id^="note"]');
 
@@ -162,11 +161,10 @@
                             dataStore[indexToUpdate] = {
                                 recordID: parseInt(recordRefID.value),
                                 entities: {
-                                    referenceDocument_RefID: parseInt(referenceDocumentRefID.value),
+                                    reference_ID: parseInt(referenceRefID.value),
                                     quantity: parseFloat(qty.replace(/,/g, '')),
                                     quantityUnit_RefID: parseInt(quantityUnitRefID.value),
                                     remarks: note,
-                                    underlyingDetail_RefID: parseInt(underlyingDetailRefID.value),
                                     product_RefID: parseInt(productRefID.value)
                                 },
                             }
@@ -193,11 +191,10 @@
                     dataStore.push({
                         recordID: parseInt(recordRefID.value),
                         entities: {
-                            referenceDocument_RefID: parseInt(referenceDocumentRefID.value),
+                            reference_ID: parseInt(referenceRefID.value),
                             quantity: parseFloat(qty.replace(/,/g, '')),
                             quantityUnit_RefID: parseInt(quantityUnitRefID.value),
                             remarks: note,
-                            underlyingDetail_RefID: parseInt(underlyingDetailRefID.value),
                             product_RefID: parseInt(productRefID.value)
                         },
                     });
@@ -276,12 +273,11 @@
             dataStore.push({
                 recordID: parseInt(val2.deliveryOrderDetail_ID),
                 entities: {
-                    referenceDocument_RefID: parseInt(val2.referenceDocument_RefID),
+                    product_RefID: parseInt(val2.product_RefID),
                     quantity: parseFloat(val2.qtyReq.replace(/,/g, '')),
-                    quantityUnit_RefID: parseInt(val2.quantityUnit_RefID),
+                    quantityUnit_RefID: parseInt(val2.quantityUnit_RefID || 73000000000008),
                     remarks: val2.notes,
-                    underlyingDetail_RefID: parseInt(val2.underlyingDetail_RefID),
-                    product_RefID: parseInt(val2.product_RefID)
+                    reference_ID: parseInt(val2.reference_ID)
                 },
             });
 
@@ -290,10 +286,9 @@
             let row = `
                 <tr>
                     <input id="record_RefID${key}" value="${val2.deliveryOrderDetail_ID}" type="hidden" />
-                    <input id="referenceDocument_RefID${key}" value="${val2.referenceDocument_RefID}" type="hidden" />
-                    <input id="quantityUnit_RefID${key}" value="${val2.quantityUnit_RefID}" type="hidden" />
-                    <input id="underlyingDetail_RefID${key}" value="${val2.underlyingDetail_RefID}" type="hidden" />
                     <input id="product_RefID${key}" value="${val2.product_RefID}" type="hidden" />
+                    <input id="quantityUnit_RefID${key}" value="${val2.quantityUnit_RefID || 73000000000008}" type="hidden" />
+                    <input id="reference_ID${key}" value="${val2.reference_ID}" type="hidden" />
 
                     <td style="text-align: center;border:1px solid #e9ecef;">${val2.combinedBudgetSectionCode} - ${val2.combinedBudgetSectionName}</td>
                     <td style="text-align: center;border:1px solid #e9ecef;">${val2.productCode || '-'}</td>

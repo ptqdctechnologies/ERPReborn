@@ -148,9 +148,21 @@ class DeliveryOrderService
     {
         $varAPIWebToken                     = Session::get('SessionLogin');
         $SessionWorkerCareerInternal_RefID  = Session::get('SessionWorkerCareerInternal_RefID');
-        $revisionDeliveryOrderData          = $request->all();
-        $deliveryOrderDetail                = json_decode($revisionDeliveryOrderData['storeData']['deliveryOrderDetail'], true);
-        $fileID                             = $revisionDeliveryOrderData['storeData']['dataInput_Log_FileUpload_1'] ? (int) $revisionDeliveryOrderData['storeData']['dataInput_Log_FileUpload_1'] : null;
+        $revisionDeliveryOrderData          = $request->storeData;
+        $deliveryOrderDetail                = json_decode($revisionDeliveryOrderData['deliveryOrderDetail'], true);
+        $fileID                             = $revisionDeliveryOrderData['dataInput_Log_FileUpload_1'] ? (int) $revisionDeliveryOrderData['dataInput_Log_FileUpload_1'] : null;
+
+        $referenceType = (int) $revisionDeliveryOrderData['reference_RefID'];
+
+        $stockMovementRequesterRefID = match ($referenceType) {
+            2       => (int) $revisionDeliveryOrderData['requester_RefID'],
+            default => null,
+        };
+
+        $stockMovementStatus = match ($referenceType) {
+            2       => (int) $revisionDeliveryOrderData['status_RefID'],
+            default => null,
+        };
 
         return Helper_APICall::setCallAPIGateway(
             Helper_Environment::getUserSessionID_System(),
@@ -158,21 +170,21 @@ class DeliveryOrderService
             'transaction.update.supplyChain.setDeliveryOrder',
             'latest',
             [
-            'recordID' => (int) $revisionDeliveryOrderData['storeData']['do_id'],
+            'recordID' => (int) $revisionDeliveryOrderData['do_id'],
             'entities' => [
                 "documentDateTimeTZ"                => date('Y-m-d'),
                 "log_FileUpload_Pointer_RefID"      => $fileID,
                 "requesterWorkerJobsPosition_RefID" => (int) $SessionWorkerCareerInternal_RefID,
-                "transporter_RefID"                 => (int) $revisionDeliveryOrderData['storeData']['transporter_id'],
-                "deliveryDateTimeTZ"                => $revisionDeliveryOrderData['storeData']['deliveryDateTime'],
+                "transporter_RefID"                 => (int) $revisionDeliveryOrderData['transporter_id'],
+                "deliveryDateTimeTZ"                => $revisionDeliveryOrderData['deliveryDateTime'],
                 "deliveryFrom_RefID"                => null,
-                "deliveryFrom_NonRefID"             => $revisionDeliveryOrderData['storeData']['delivery_from'],
+                "deliveryFrom_NonRefID"             => $revisionDeliveryOrderData['delivery_from'],
                 "deliveryTo_RefID"                  => null,
-                "deliveryTo_NonRefID"               => $revisionDeliveryOrderData['storeData']['delivery_to'],
-                "stockMovementRequester_RefID"      => $stockMovementRequester_RefID,
-                "stockMovementStatus"               => $stockMovementStatus,
-                "type"                              => (int) $deliveryOrderData['storeData']['reference_type'],
-                "remarks"                           => $revisionDeliveryOrderData['storeData']['var_remark'],
+                "deliveryTo_NonRefID"               => $revisionDeliveryOrderData['delivery_to'],
+                "stockMovementRequester_RefID"      => $stockMovementRequesterRefID,
+                "stockMovementStatus"               => $stockMovementStatus, 
+                "type"                              => $referenceType,
+                "remarks"                           => $revisionDeliveryOrderData['var_remark'],
                 "additionalData"    => [
                     "itemList"      => [
                         "items"     => $deliveryOrderDetail

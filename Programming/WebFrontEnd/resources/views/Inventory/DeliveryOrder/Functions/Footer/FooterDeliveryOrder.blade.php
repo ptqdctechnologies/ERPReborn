@@ -441,6 +441,8 @@
             default:
                 break;
         }
+
+        console.log('dataStore', dataStore);
     }
 
     function validationForm() {

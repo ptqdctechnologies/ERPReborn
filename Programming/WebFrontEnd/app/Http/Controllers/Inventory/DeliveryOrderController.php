@@ -362,22 +362,23 @@ class DeliveryOrderController extends Controller
             $response = $this->deliveryOrderService->updates($request);
 
             if ($response['metadata']['HTTPStatusCode'] !== 200) {
-                return response()->json($response);
+                throw new \Exception('Failed to fetch Revision Delivery Order');
             }
 
-            $responseWorkflow = $this->workflowService->resubmit(
-                $response['data'][0]['businessDocument']['businessDocument_RefID'],
-                $request->comment,
-                $request->approverEntity,
-            );
+            // $responseWorkflow = $this->workflowService->resubmit(
+            //     $response['data'][0]['businessDocument']['businessDocument_RefID'],
+            //     $request->comment,
+            //     $request->approverEntity,
+            // );
 
-            if ($responseWorkflow['metadata']['HTTPStatusCode'] !== 200) {
-                return response()->json($responseWorkflow);
-            }
+            // if ($responseWorkflow['metadata']['HTTPStatusCode'] !== 200) {
+            //     throw new \Exception('Failed to fetch Submit Workflow Revision Delivery Order');
+            // }
 
             $compact = [
                 "documentNumber"    => $response['data'][0]['businessDocument']['documentNumber'],
-                "status"            => $responseWorkflow['metadata']['HTTPStatusCode'],
+                "status"            => $response['metadata']['HTTPStatusCode'],
+                // "status"            => $responseWorkflow['metadata']['HTTPStatusCode'],
             ];
 
             return response()->json($compact);
@@ -682,7 +683,24 @@ class DeliveryOrderController extends Controller
         $result = str_replace("_", " ", $result);
         $result = ucwords($result);
 
-        return $result;
+        
+        if ($text == "PERMANENT" || $text == "RENT") {
+            $resultRefID = match ($text) {
+                "RENT"      => 0,
+                default     => 1,
+            };
+        } else {
+            $resultRefID = match ($text) {
+                "PURCHASE_ORDER"    => 0,
+                "INTERNAL_USE"      => 1,
+                default             => 2,
+            };
+        }
+
+        return [
+            'id'    => $resultRefID,
+            'text'  => $result
+        ];
     }
 
     public function RevisionDeliveryOrderIndex(Request $request)
@@ -701,7 +719,7 @@ class DeliveryOrderController extends Controller
             $compact = [
                 'varAPIWebToken'                => $varAPIWebToken,
                 'header'                        => [
-                    'combinedBudget_RefID'      => $data[0]['combinedBudget_RefID'] ?? '',
+                    'combinedBudget_RefID'      => $data[0]['combinedBudget_RefID'] ?? '46000000000033',
                     'combinedBudgetCode'        => $data[0]['combinedBudgetCode'] ?? '',
                     'combinedBudgetName'        => $data[0]['combinedBudgetName'] ?? '',
                     'combinedBudgetSectionCode' => $data[0]['combinedBudgetSectionCode'] ?? '',
@@ -725,12 +743,15 @@ class DeliveryOrderController extends Controller
                     'fileID'                    => $data[0]['log_FileUpload_Pointer_RefID'] ?? null,
                     'type'                      => $data[0]['type'] ? $this->FormatText($data[0]['type']) : null,
                     'status'                    => $data[0]['stockMovementStatus'] ? $this->FormatText($data[0]['stockMovementStatus']) : null,
+                    'requesterID'               => $data[0]['stockMovementRequester_RefID'] ?? null,
                     'requesterName'             => $data[0]['stockMovementRequesterName'] ?? null,
                     'requesterPosition'         => $data[0]['stockMovementRequesterPosition'] ?? null,
                     'remarks'                   => $data[0]['remarks'] ?? '',
                 ],
                 'data'                          => $data
             ];
+
+            dump($compact);
 
             return view('Inventory.DeliveryOrder.Transactions.RevisionDeliveryOrder', $compact);
         } catch (\Throwable $th) {
