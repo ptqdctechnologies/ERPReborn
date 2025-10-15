@@ -58,6 +58,78 @@ class AccountPayableController extends Controller
         return response()->json($request->all());
     }
 
+    public function DataPickList(Request $request) 
+    {
+        try {
+            $response = $this->accountPayableService->dataPickList();
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                return response()->json($response);
+            }
+
+            return response()->json($response['data']['data']);
+        } catch (\Throwable $th) {
+            Log::error("DataPickList Debit Note Function Error: " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
+    public function RevisionAccountPayable(Request $request) 
+    {
+        try {
+            $varAPIWebToken = Session::get('SessionLogin');
+            $accountPayableRefID  = $request->input('modal_account_payable_id');
+
+            $compact = [
+                'varAPIWebToken'    => $varAPIWebToken,
+                'header'            => [
+                    'purchaseOrder_RefID'           => '',
+                    'purchaseOrderNumber'           => '',
+                    'supplier_RefID'                => '',
+                    'supplierCode'                  => '',
+                    'supplierName'                  => '',
+                    'currency_RefID'                => '',
+                    'currencyISOCode'               => '',
+                    'paymentTerm'                   => '',
+                    'deliveryFrom_RefID'            => '',
+                    'deliveryFrom'                  => '',
+                    'deliveryTo_RefID'              => '',
+                    'deliveryTo'                    => '',
+                    'supplierInvoiceNumber'         => '',
+                    'paymentTransfer_RefID'         => '',
+                    'paymentTransferName'           => '',
+                    'paymentTransferBankCode'       => '',
+                    'paymentTransferAccountNumber'  => '',
+                    'receiptInvoiceOrigin'          => '',
+                    'contractPOSigned'              => '',
+                    'VATOrigin'                     => '',
+                    'VATPercentage'                 => '',
+                    'VATNumber'                     => '',
+                    'FatPatDoOrigin'                => '',
+                    'notes'                         => '',
+                    'asset'                         => '',
+                    'category_RefID'                => '',
+                    'categoryCode'                  => '',
+                    'categoryName'                  => '',
+                    'depreciationMethod_RefID'      => '',
+                    'depreciationRate'              => '',
+                    'depreciationYears'             => '',
+                    'depreciationCOA_RefID'         => '',
+                    'depreciationCOACode'           => '',
+                    'depreciationCOAName'           => '',
+                    'deduction'                     => ''
+                ],
+                'detail'            => []
+            ];
+
+            return view('Finance.AccountPayable.Transactions.RevisionAccountPayable', $compact);
+        } catch (\Throwable $th) {
+            Log::error("Revision Account Payable Function Error: " . $th->getMessage());
+
+            return response()->json(["status" => 500]);
+        }
+    }
+
     public function ReportAccountPayableSummary() 
     {
         $isSubmitButton = Session::get('isButtonReportAccountPayableSummary');

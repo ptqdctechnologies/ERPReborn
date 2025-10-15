@@ -1851,6 +1851,46 @@ class AccountPayableService
         return $compact;
     }
 
+    public function getDetail($advanceRequestID) 
+    {
+        $sessionToken = Session::get('SessionLogin');
+
+        return Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
+            $sessionToken,
+            'transaction.read.dataList.finance.getAdvanceDetail',
+            'latest',
+            [
+                'parameter' => [
+                    'advance_RefID' => (int) $advanceRequestID,
+                ],
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    'filter' => null,
+                    'paging' => null
+                ]
+            ],
+            false
+        );
+    }
+
+    public function dataPickList() 
+    {
+        $sessionToken = Session::get('SessionLogin');
+
+        return Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
+            $sessionToken,
+            'dataPickList.finance.getPaymentInstruction',
+            'latest',
+            [
+                'parameter' => []
+            ],
+            false
+        );
+    }
+
     public function create(Request $request): array
     {
         $sessionToken   = Session::get('SessionLogin');
