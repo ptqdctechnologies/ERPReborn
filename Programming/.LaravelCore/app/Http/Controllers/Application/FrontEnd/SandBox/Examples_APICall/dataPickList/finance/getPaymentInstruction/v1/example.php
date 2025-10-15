@@ -21,7 +21,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\dat
         |                     ► http://172.28.0.4/dataPickList.finance.getPaymentInstruction.v1_throughAPIGateway                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2024-10-17                                                                                           |
+        | ▪ Last Update     : 2025-10-14                                                                                           |
         | ▪ Creation Date   : 2024-10-17                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -43,7 +43,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\dat
                         ]
                     ]
                     );
-            var_dump($varData);
+            return $varData;
             }
 
 

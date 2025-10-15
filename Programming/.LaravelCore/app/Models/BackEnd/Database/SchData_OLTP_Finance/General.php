@@ -3587,7 +3587,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         | ▪ Method Name     : getDataPickList_PaymentInstruction_LatestVersion                                                     |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2024-10-17                                                                                           |
+        | ▪ Last Update     : 2025-10-14                                                                                           |
         | ▪ Creation Date   : 2024-10-17                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Pilihan Data Payment Instruction Versi Terakhir                                   |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -3607,11 +3607,9 @@ namespace App\Models\Database\SchData_OLTP_Finance
                         $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
-                            'SchData-OLTP-Finance.Func_GetDataPickList_PaymentInstruction',
+                            'SchData-OLTP-Finance.Func_GetDataPickList_PaymentInstruction_New',
                             [
-                                [$varSysBranch_RefID, 'bigint'],
-
-                                [FALSE, 'boolean']
+                                [$varSysBranch_RefID, 'bigint']
                             ]
                             )
                         );
