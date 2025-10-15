@@ -43,7 +43,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-10-13                                                                                           |
+        | ▪ Last Update     : 2025-10-15                                                                                           |
         | ▪ Creation Date   : 2025-01-11                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -99,7 +99,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
                                     null,
                                     null,
                                     $varData['entities']['supplierInvoiceNumber'],
-                                    $varData['entities']['supplierBank_RefID'],
+                                    $varData['entities']['supplier_RefID'],
                                     $varData['entities']['receiptStatus'],
                                     $varData['entities']['contractStatus'],
                                     $varData['entities']['vatStatus'],
@@ -113,6 +113,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
                                     $varData['entities']['depreciationCOA_RefID'],
                                     $varData['entities']['deduction'],
                                     $varData['entities']['remarks'],
+                                    $varData['entities']['supplierBankAccount_RefID'],
 
                                     (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
                                         $varUserSession,
