@@ -3,6 +3,19 @@
   <div class="row py-3" style="gap: 15px;">
     <!-- LEFT COLUMN -->
     <div class="col-md-12 col-lg-5">
+      <!-- TYPE -->
+      <div class="row" style="margin-bottom: 1rem;">
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">
+          Type
+        </label>
+        <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+          <div>
+            <input type="hidden" style="border-radius:0;" class="form-control" size="20" name="reference_RefID" value="<?= $header['type']['id']; ?>">
+            <input style="border-radius:0;" class="form-control" size="20" value="<?= $header['type']['text']; ?>" readonly>
+          </div>
+        </div>
+      </div>
+
       <!-- DO NUMBER -->
       <div class="row" style="margin-bottom: 1rem;">
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">
@@ -25,7 +38,7 @@
       </div>
 
       <!-- BUDGET -->
-      <div class="row">
+      <div class="row" style="margin-bottom: 1rem;">
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">
           Budget
         </label>
@@ -35,10 +48,40 @@
           </div>
         </div>
       </div>
-    </div>
+
+      <?php if ($header['type']['text'] == "Stock Movement") { ?>
+        <!-- REQUESTER -->
+        <div class="row" >
+          <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">
+            Requester
+          </label>
+          <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+            <div>
+              <input type="hidden" style="border-radius:0;" class="form-control" size="20" name="requester_RefID" value="<?= $header['requesterID']; ?>">
+              <input style="border-radius:0;" class="form-control" size="20" value="<?= $header['requesterPosition'] . ' - ' . $header['requesterName']; ?>" readonly>
+            </div>
+          </div>
+        </div>
+      <?php } ?>
+      </div>
 
     <!-- RIGHT COLUMN -->
     <div class="col-md-12 col-lg-5">
+      <?php if ($header['type']['text'] == "Stock Movement") { ?>
+        <!-- STATUS -->
+        <div class="row" style="margin-bottom: 1rem;">
+          <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">
+            Status
+          </label>
+          <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+            <div>
+              <input type="hidden" style="border-radius:0;" class="form-control" size="20" name="status_RefID" value="<?= $header['status']['id']; ?>">
+              <input style="border-radius:0;" class="form-control" size="20" value="<?= $header['status']['text']; ?>" readonly>
+            </div>
+          </div>
+        </div>
+      <?php } ?>
+
       <!-- DELIVERY FROM -->
       <div class="row" >
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">

@@ -115,6 +115,8 @@
 
         $("#table_reference_type_detail tbody").empty();
 
+        $("#delivery_order_list_table_modal tbody").empty();
+
         $("#reference_type").css("border", "1px solid #ced4da");
         $("#reference_type_message").hide();
 
@@ -439,6 +441,8 @@
             default:
                 break;
         }
+
+        console.log('dataStore', dataStore);
     }
 
     function validationForm() {

@@ -58,50 +58,89 @@ class DeliveryOrderService
 
     public function create(Request $request): array
     {
-        $sessionToken                       = Session::get('SessionLogin');
-        $SessionWorkerCareerInternal_RefID  = Session::get('SessionWorkerCareerInternal_RefID');
+        $sessionToken                      = Session::get('SessionLogin');
+        $SessionWorkerCareerInternal_RefID = Session::get('SessionWorkerCareerInternal_RefID');
 
-        $deliveryOrderData                  = $request->storeData;
+        $data = $request->storeData;
 
-        $deliveryDateTimeTZ                 = $deliveryOrderData['delivery_date'] == "null" ? null : $deliveryOrderData['delivery_date'];
+        $deliveryDateTimeTZ = $data['delivery_date'] === "null" ? null : $data['delivery_date'];
 
-        $deliveryFromRefID                  = isset($deliveryOrderData['purchase_order_delivery_from_id']) && $deliveryOrderData['purchase_order_delivery_from_id'] ? (int) $deliveryOrderData['purchase_order_delivery_from_id'] : null;
-        $deliveryToRefID                    = isset($deliveryOrderData['purchase_order_delivery_to_id']) && $deliveryOrderData['purchase_order_delivery_to_id'] ? (int) $deliveryOrderData['purchase_order_delivery_to_id'] : null;
+        $poFromRefID        = !empty($data['purchase_order_delivery_from_id']) ? (int) $data['purchase_order_delivery_from_id'] : null;
+        $poToRefID          = !empty($data['purchase_order_delivery_to_id']) ? (int) $data['purchase_order_delivery_to_id'] : null;
+        $poFromNonRefID     = $data['purchase_order_delivery_from'] ?? null;
+        $poToNonRefID       = $data['purchase_order_delivery_to'] ?? null;
 
-        $stockMovementStatus                = isset($deliveryOrderData['stock_movement_status']) && $deliveryOrderData['stock_movement_status'] ? (int) $deliveryOrderData['stock_movement_status'] : null;
-        $stockMovementRequester_RefID       = isset($deliveryOrderData['stock_movement_requester_id']) && $deliveryOrderData['stock_movement_requester_id'] ? (int) $deliveryOrderData['stock_movement_requester_id'] : null;
+        $internalFromRefID  = !empty($data['internal_use_delivery_from_id']) ? (int) $data['internal_use_delivery_from_id'] : null;
+        $internalToRefID    = !empty($data['internal_use_delivery_to_id']) ? (int) $data['internal_use_delivery_to_id'] : null;
+        $internalFromName   = $data['internal_use_delivery_from_name'] ?? null;
+        $internalToName     = $data['internal_use_delivery_to_name'] ?? null;
 
-        $deliveryOrderDetail                = json_decode($deliveryOrderData['delivery_order_details'], true);
+        $stockFromRefID     = !empty($data['stock_movement_delivery_from_id']) ? (int) $data['stock_movement_delivery_from_id'] : null;
+        $stockToRefID       = !empty($data['stock_movement_delivery_to_id']) ? (int) $data['stock_movement_delivery_to_id'] : null;
+        $stockFromName      = $data['stock_movement_delivery_from_name'] ?? null;
+        $stockToName        = $data['stock_movement_delivery_to_name'] ?? null;
 
-        $fileID                             = $deliveryOrderData['dataInput_Log_FileUpload_1'] ? (int) $deliveryOrderData['dataInput_Log_FileUpload_1'] : null;
+        $referenceType = (int) $data['reference_type'];
+
+        $deliveryFromRefID = match ($referenceType) {
+            0 => $poFromRefID,
+            1 => $internalFromRefID,
+            default => $stockFromRefID,
+        };
+
+        $deliveryToRefID = match ($referenceType) {
+            0 => $poToRefID,
+            1 => $internalToRefID,
+            default => $stockToRefID,
+        };
+
+        $deliveryFromNonRefID = match ($referenceType) {
+            0 => $poFromNonRefID,
+            1 => $internalFromName,
+            default => $stockFromName,
+        };
+
+        $deliveryToNonRefID = match ($referenceType) {
+            0 => $poToNonRefID,
+            1 => $internalToName,
+            default => $stockToName,
+        };
+
+        $stockMovementStatus = isset($data['stock_movement_status']) && $data['stock_movement_status'] > -1 ? (int) $data['stock_movement_status'] : null;
+        $stockRequesterRefID = !empty($data['stock_movement_requester_id']) ? (int) $data['stock_movement_requester_id'] : null;
+
+        $deliveryDetails     = json_decode($data['delivery_order_details'], true);
+        $fileID              = !empty($data['dataInput_Log_FileUpload_1']) ? (int) $data['dataInput_Log_FileUpload_1'] : null;
+
+        $payload = [
+            'entities' => [
+                "documentDateTimeTZ"                => date('Y-m-d'),
+                "log_FileUpload_Pointer_RefID"      => $fileID,
+                "requesterWorkerJobsPosition_RefID" => $SessionWorkerCareerInternal_RefID,
+                "transporter_RefID"                 => (int) $data['transporter_id'],
+                "deliveryDateTimeTZ"                => $deliveryDateTimeTZ,
+                "deliveryFrom_RefID"                => $deliveryFromRefID,
+                "deliveryFrom_NonRefID"             => $deliveryFromNonRefID,
+                "deliveryTo_RefID"                  => $deliveryToRefID,
+                "deliveryTo_NonRefID"               => $deliveryToNonRefID,
+                "stockMovementRequester_RefID"      => $stockRequesterRefID,
+                "stockMovementStatus"               => $stockMovementStatus,
+                "type"                              => $referenceType,
+                "remarks"                           => $data['var_remark'],
+                "additionalData"                    => [
+                    "itemList" => [
+                        "items" => $deliveryDetails
+                    ]
+                ]
+            ]
+        ];
 
         return Helper_APICall::setCallAPIGateway(
             Helper_Environment::getUserSessionID_System(),
             $sessionToken,
             'transaction.create.supplyChain.setDeliveryOrder',
             'latest',
-            [
-                'entities' => [
-                    "documentDateTimeTZ"                => date('Y-m-d'),
-                    "log_FileUpload_Pointer_RefID"      => $fileID,
-                    "requesterWorkerJobsPosition_RefID" => $SessionWorkerCareerInternal_RefID,
-                    "transporter_RefID"                 => (int) $deliveryOrderData['transporter_id'],
-                    "deliveryDateTimeTZ"                => $deliveryDateTimeTZ,
-                    "deliveryFrom_RefID"                => $deliveryFromRefID,
-                    "deliveryFrom_NonRefID"             => $deliveryOrderData['purchase_order_delivery_from'] ?? null,
-                    "deliveryTo_RefID"                  => $deliveryToRefID,
-                    "deliveryTo_NonRefID"               => $deliveryOrderData['purchase_order_delivery_to'] ?? null,
-                    "stockMovementRequester_RefID"      => $stockMovementRequester_RefID, 
-                    "stockMovementStatus"               => $stockMovementStatus, // 0 => "RENT", 1 => "PERMANENT", null => Option non-select
-                    "type"                              => (int) $deliveryOrderData['reference_type'], // 0 => "PURCHASE_ORDER", 1 => "INTERNAL_USE", 2 => "STOCK_MOVEMENT", null => Option non-select
-                    "remarks"                           => $deliveryOrderData['var_remark'],
-                    "additionalData"                    => [
-                        "itemList"                      => [
-                            "items"                     => $deliveryOrderDetail
-                        ]
-                    ]
-                ]
-            ]
+            $payload
         );
     }
 
@@ -109,9 +148,21 @@ class DeliveryOrderService
     {
         $varAPIWebToken                     = Session::get('SessionLogin');
         $SessionWorkerCareerInternal_RefID  = Session::get('SessionWorkerCareerInternal_RefID');
-        $revisionDeliveryOrderData          = $request->all();
-        $deliveryOrderDetail                = json_decode($revisionDeliveryOrderData['storeData']['deliveryOrderDetail'], true);
-        $fileID                             = $revisionDeliveryOrderData['storeData']['dataInput_Log_FileUpload_1'] ? (int) $revisionDeliveryOrderData['storeData']['dataInput_Log_FileUpload_1'] : null;
+        $revisionDeliveryOrderData          = $request->storeData;
+        $deliveryOrderDetail                = json_decode($revisionDeliveryOrderData['deliveryOrderDetail'], true);
+        $fileID                             = $revisionDeliveryOrderData['dataInput_Log_FileUpload_1'] ? (int) $revisionDeliveryOrderData['dataInput_Log_FileUpload_1'] : null;
+
+        $referenceType = (int) $revisionDeliveryOrderData['reference_RefID'];
+
+        $stockMovementRequesterRefID = match ($referenceType) {
+            2       => (int) $revisionDeliveryOrderData['requester_RefID'],
+            default => null,
+        };
+
+        $stockMovementStatus = match ($referenceType) {
+            2       => (int) $revisionDeliveryOrderData['status_RefID'],
+            default => null,
+        };
 
         return Helper_APICall::setCallAPIGateway(
             Helper_Environment::getUserSessionID_System(),
@@ -119,21 +170,21 @@ class DeliveryOrderService
             'transaction.update.supplyChain.setDeliveryOrder',
             'latest',
             [
-            'recordID' => (int) $revisionDeliveryOrderData['storeData']['do_id'],
+            'recordID' => (int) $revisionDeliveryOrderData['do_id'],
             'entities' => [
                 "documentDateTimeTZ"                => date('Y-m-d'),
                 "log_FileUpload_Pointer_RefID"      => $fileID,
                 "requesterWorkerJobsPosition_RefID" => (int) $SessionWorkerCareerInternal_RefID,
-                "transporter_RefID"                 => (int) $revisionDeliveryOrderData['storeData']['transporter_id'],
-                "deliveryDateTimeTZ"                => $revisionDeliveryOrderData['storeData']['deliveryDateTime'],
+                "transporter_RefID"                 => (int) $revisionDeliveryOrderData['transporter_id'],
+                "deliveryDateTimeTZ"                => $revisionDeliveryOrderData['deliveryDateTime'],
                 "deliveryFrom_RefID"                => null,
-                "deliveryFrom_NonRefID"             => $revisionDeliveryOrderData['storeData']['delivery_from'],
+                "deliveryFrom_NonRefID"             => $revisionDeliveryOrderData['delivery_from'],
                 "deliveryTo_RefID"                  => null,
-                "deliveryTo_NonRefID"               => $revisionDeliveryOrderData['storeData']['delivery_to'],
-                "stockMovementRequester_RefID"      => $stockMovementRequester_RefID,
-                "stockMovementStatus"               => $stockMovementStatus,
-                "type"                              => (int) $deliveryOrderData['storeData']['reference_type'],
-                "remarks"                           => $revisionDeliveryOrderData['storeData']['var_remark'],
+                "deliveryTo_NonRefID"               => $revisionDeliveryOrderData['delivery_to'],
+                "stockMovementRequester_RefID"      => $stockMovementRequesterRefID,
+                "stockMovementStatus"               => $stockMovementStatus, 
+                "type"                              => $referenceType,
+                "remarks"                           => $revisionDeliveryOrderData['var_remark'],
                 "additionalData"    => [
                     "itemList"      => [
                         "items"     => $deliveryOrderDetail
