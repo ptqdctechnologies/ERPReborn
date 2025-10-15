@@ -395,4 +395,16 @@
             $(this).val("");
         }
     });
+
+    $('#tableAccountPayables').on('click', 'tbody tr', function() {
+        let sysId           = $(this).find('input[data-trigger="sys_id_modal_account_payable"]').val();
+        let trano           = $(this).find('td:nth-child(2)').text();
+        let budgetCode      = $(this).find('td:nth-child(3)').text();
+        let budgetName      = $(this).find('td:nth-child(4)').text();
+
+        $("#modal_account_payable_id").val(sysId);
+        $("#modal_account_payable_document_number").val(trano);
+
+        $('#myAccountPayables').modal('hide');
+    });
 </script>

@@ -2,11 +2,13 @@
 @section('main')
 @include('Partials.navbar')
 @include('Partials.sidebar')
+@include('getFunction.getAccountPayable')
 @include('getFunction.getPurchaseOrder')
 @include('getFunction.getChartOfAccount')
 @include('getFunction.getCategory')
 @include('getFunction.getPaymentTransfer')
-@include('Finance.AccountPayable.Functions.PopUp.PopUpAccountPayable')
+@include('Finance.AccountPayable.Functions.PopUp.PopUpAccountPayableRevision')
+@include('Finance.AccountPayable.Functions.PopUp.PopUpAccountPayableSummaryData')
 
 <div class="content-wrapper">
   <section class="content">
