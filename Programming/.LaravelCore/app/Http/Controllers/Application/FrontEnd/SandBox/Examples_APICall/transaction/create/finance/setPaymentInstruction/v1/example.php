@@ -21,7 +21,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         |                     ► http://172.28.0.4/transaction.create.finance.setPaymentInstruction.v1_throughAPIGateway            |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-10-10                                                                                           |
+        | ▪ Last Update     : 2025-10-15                                                                                           |
         | ▪ Creation Date   : 2025-01-13                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -54,7 +54,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                             "currencyValue" => 15080000.00,
                             "currencyExchangeRate" => 1.00,
                             "supplierInvoiceNumber" => 'INV-DHJ-2025-011',
-                            "supplierBank_RefID" => 126000000000001,
+                            "supplier_RefID" => 126000000000001,
                             "receiptStatus" => 0,
                             "contractStatus" => 1,
                             "vatStatus" => 1,
@@ -68,6 +68,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                             "depreciationCOA_RefID" => 65000000000005,
                             "deduction" => 0.0,
                             "remarks" => 'My Remarks',
+                            "supplierBankAccount_RefID" => 167000000000001,
                             "additionalData" => [
                                 "itemList" => [
                                     "items" => [
