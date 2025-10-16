@@ -8,17 +8,17 @@
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div>
                         <span style="border-radius:0;" class="input-group-text form-control">
-                            <a href="javascript:;" id="supplier_code2" data-toggle="modal" data-target="#mySupplier" class="mySupplier">
+                            <a href="javascript:;" id="supplier_code2" data-toggle="modal" data-target="#mySuppliers" class="mySuppliers">
                                 <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="" />
                             </a>
                         </span>
                     </div>
-                    <div>
+                    <div class="d-none">
                         <input id="supplier_id" name="supplier_id" style="border-radius:0;" class="form-control" readonly hidden>
                         <input id="supplier_code" style="border-radius:0;" class="form-control" readonly>
                     </div>
                     <div style="flex: 100%;">
-                        <input id="supplier_name" style="border-radius:0;" class="form-control" name="projectname" readonly>
+                        <input id="supplier_name" style="border-radius:0;background-color: white;" class="form-control" name="projectname" readonly>
                     </div>
                 </div>
             </div>

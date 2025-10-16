@@ -728,10 +728,21 @@
         });
     }
 
-    $('#tableGetSupplier').on('click', 'tbody tr', function () {
+    $('#tableSuppliers').on('click', 'tbody tr', function () {
+        const sysId     = $(this).find('input[data-trigger="sys_id_supplier"]').val();
+        const code      = $(this).find('td:nth-child(2)').text();
+        const name      = $(this).find('td:nth-child(3)').text();
+        const address   = $(this).find('td:nth-child(4)').text();
+
+        $("#supplier_id").val(sysId);
+        $("#supplier_code").val(code);
+        $("#supplier_name").val(`(${code}) ${name} - ${address}`);
+
         $("#supplier_code").css("border", "1px solid #ced4da");
-        $("#supplier_name").css("border", "1px solid #ced4da");
+        $("#supplier_name").css({"border": "1px solid #ced4da", "background-color":"#e9ecef"});
         $("#supplierMessage").hide();
+
+        $('#mySuppliers').modal('hide');
     });
 
     $('#tableGetModalPurchaseRequisition').on('click', 'tbody tr', function () {
