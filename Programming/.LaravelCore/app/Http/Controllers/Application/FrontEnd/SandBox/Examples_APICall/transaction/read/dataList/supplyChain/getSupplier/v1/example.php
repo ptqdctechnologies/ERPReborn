@@ -21,7 +21,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         |                     ► http://172.28.0.4/transaction.read.dataList.supplyChain.getSupplier.v1_throughAPIGateway           |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-03-13                                                                                           |
+        | ▪ Last Update     : 2025-10-16                                                                                           |
         | ▪ Creation Date   : 2022-10-12                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -44,6 +44,10 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                     'sort' => null,
                     'filter' => null,
                     'paging' => null
+                    // 'pick' => '"Sys_ID"',
+                    // 'sort' => '"Sys_ID" ASC',
+                    // 'filter' => '"Name" = \'Alpine Cool Utama\'',
+                    // 'paging' => "LIMIT 1 OFFSET 0"
                     ]
                 ]
                 );

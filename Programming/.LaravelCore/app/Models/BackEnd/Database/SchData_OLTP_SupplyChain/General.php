@@ -395,7 +395,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         $unique = $collection->unique(function (array $item) {
                             return $item['DeliveryOrderDetail_ID'].$item['ContactNumberType_RefID_TblPerson'];
                         })->whereIn('ContactNumberType_RefID_TblPerson', [223000000000002, 223000000000004, 223000000000005])->toArray();
-                        
+
                         // get contact number list
                         $contactNumbers = [];
                         foreach ($unique as $value2) {
@@ -406,9 +406,9 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             }
                         }
 
-                        $unique2 = $collection->unique('DeliveryOrderDetail_ID')->toArray();                        
+                        $unique2 = $collection->unique('DeliveryOrderDetail_ID')->toArray();
                         $resultArray = $unique2;
-                        
+
                         // Menjumlahkan Quantity WarehouseInboundOrderDetail berdasarkan ID DO Detail tersebut.
                         $qtyWarehouseInboundOrderDetail = [];
                         $listIdDODetail = [];
@@ -534,7 +534,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                                         $varReturn['data'][$idxArray]['transporterFax'] = array_key_exists(223000000000005, $contactNumbers[$value["DeliveryOrderDetail_ID"]]) ? $contactNumbers[$value["DeliveryOrderDetail_ID"]][223000000000005] : null;
                                 }
                             } elseif ((($value["Transporter_RefID"] / 1000000000000) % 10000) === 284) {
-                                $varReturn['data'][$idxArray]['transporterCode'] = $value["TransporterCode_TblTransporter"];                                
+                                $varReturn['data'][$idxArray]['transporterCode'] = $value["TransporterCode_TblTransporter"];
                                 if ((($value["Entity_RefID"] / 1000000000000) % 10000) === 124) {
                                     $varReturn['data'][$idxArray]['transporterName'] = $value["TransporterName_TblInstitutionBranch"];
                                     $varReturn['data'][$idxArray]['transporterAddress'] = $value["TransporterAddress_TblInstitutionBranch"];
@@ -548,19 +548,19 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                                     $varReturn['data'][$idxArray]['transporterName'] = $value["TransporterName_TblPerson"];
                                     $varReturn['data'][$idxArray]['transporterAddress'] = $value["TransporterAddress_TblPerson"];
                                     $varReturn['data'][$idxArray]['transporterContactPerson'] = $value["TransporterContactPerson_TblPerson"];
-                                    if (array_key_exists($value["DeliveryOrderDetail_ID"], $contactNumbers)) {                                        
+                                    if (array_key_exists($value["DeliveryOrderDetail_ID"], $contactNumbers)) {
                                         $varReturn['data'][$idxArray]['transporterHandphone'] = array_key_exists(223000000000002, $contactNumbers[$value["DeliveryOrderDetail_ID"]]) ? $contactNumbers[$value["DeliveryOrderDetail_ID"]][223000000000002] : null;
                                         $varReturn['data'][$idxArray]['transporterPhone'] = array_key_exists(223000000000004, $contactNumbers[$value["DeliveryOrderDetail_ID"]]) ? $contactNumbers[$value["DeliveryOrderDetail_ID"]][223000000000004] : null;
-                                        $varReturn['data'][$idxArray]['transporterFax'] = array_key_exists(223000000000005, $contactNumbers[$value["DeliveryOrderDetail_ID"]]) ? $contactNumbers[$value["DeliveryOrderDetail_ID"]][223000000000005] : null;                                        
+                                        $varReturn['data'][$idxArray]['transporterFax'] = array_key_exists(223000000000005, $contactNumbers[$value["DeliveryOrderDetail_ID"]]) ? $contactNumbers[$value["DeliveryOrderDetail_ID"]][223000000000005] : null;
                                     }
                                 } else {
-                                    $varReturn['data'][$idxArray]['transporterName'] = null;   
-                                    $varReturn['data'][$idxArray]['transporterAddress'] = null;     
-                                    $varReturn['data'][$idxArray]['transporterContactPerson'] = null; 
+                                    $varReturn['data'][$idxArray]['transporterName'] = null;
+                                    $varReturn['data'][$idxArray]['transporterAddress'] = null;
+                                    $varReturn['data'][$idxArray]['transporterContactPerson'] = null;
                                     $varReturn['data'][$idxArray]['transporterHandphone'] = null;
                                     $varReturn['data'][$idxArray]['transporterPhone'] = null;
                                     $varReturn['data'][$idxArray]['transporterFax'] = null;
-                                }  
+                                }
                             } else {
                                 $varReturn['data'][$idxArray]['transporterCode'] = null;
                                 $varReturn['data'][$idxArray]['transporterName'] = null;
@@ -574,7 +574,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             $varReturn['data'][$idxArray]['orderSequence'] = $idxArray + 1;
                             $idxArray++;
                         }
-                        
+
                 return
                     $varReturn;
                 }
@@ -1290,7 +1290,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : getDataList_Supplier                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-03-01                                                                                           |
+        | ▪ Last Update     : 2025-10-16                                                                                           |
         | ▪ Creation Date   : 2022-03-01                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Pemasok                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -1316,7 +1316,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
-                            'SchData-OLTP-SupplyChain.Func_GetDataList_Supplier',
+                            'SchData-OLTP-SupplyChain.Func_GetDataList_Supplier_New',
                             [
                                 [$varSysBranch_RefID, 'bigint'],
 
@@ -1327,15 +1327,6 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             ]
                             )
 		    );
-
-                foreach ($varReturn['data'] as $key => $value) {
-                    $varReturn['data'][$key] = [];
-                    $varReturn['data'][$key]['Sys_ID'] = $value['Sys_ID'];
-                    $varReturn['data'][$key]['Code'] = $value['Code'];
-                    $varReturn['data'][$key]['FullName'] = $value['FullName'];
-                    $varReturn['data'][$key]['Name'] = $value['Name'];
-                    $varReturn['data'][$key]['Address'] = $value['Address'];
-		        }
 
                 return
                     $varReturn;
