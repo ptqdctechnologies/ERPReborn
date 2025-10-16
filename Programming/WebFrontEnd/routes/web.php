@@ -217,6 +217,8 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('getTransporter', 'Function\FunctionController@getTransporter')->name('getTransporter');
 
     // AP
+    Route::get('DataPickList', 'Finance\AccountPayableController@DataPickList')->name('AccountPayable.DataPickList');
+    Route::post('RevisionAccountPayable', 'Finance\AccountPayableController@RevisionAccountPayable')->name('AccountPayable.RevisionAccountPayable');
     Route::get('ReportAccountPayableSummary', 'Finance\AccountPayableController@ReportAccountPayableSummary')->name('AccountPayable.ReportAccountPayableSummary');
     Route::post('ReportAccountPayableSummaryStore', 'Finance\AccountPayableController@ReportAccountPayableSummaryStore')->name('AccountPayable.ReportAccountPayableSummaryStore');
     Route::post('PrintExportReportAccountPayableSummary', 'Finance\AccountPayableController@PrintExportReportAccountPayableSummary')->name('AccountPayable.PrintExportReportAccountPayableSummary');

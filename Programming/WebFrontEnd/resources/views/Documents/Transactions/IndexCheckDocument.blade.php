@@ -159,7 +159,7 @@
             <!-- BUTTON APPROVAL -->
             <div class="col-12 text-right">
               <!-- CANCEL -->
-              <a class="btn btn-default btn-sm" onclick="backButton()" style="background-color:#e9ecef;border:1px solid #ced4da;">
+              <a class="btn btn-default btn-sm" onclick="cancelForm('{{ route('CheckDocument.index', ['var' => 1]) }}')" style="background-color:#e9ecef;border:1px solid #ced4da;">
                 <img src="{{ asset('images/Icon/Pagination/Previous-300-32.png') }}" width="13" alt="" title="Cancel"> Back
               </a>
             </div>

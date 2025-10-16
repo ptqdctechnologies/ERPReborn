@@ -737,6 +737,10 @@
             $('#containerValuePPN').hide();
         }
 
+        $('#startDate').datetimepicker({
+            format: 'YYYY-MM-DD'
+        });
+
         $(".errorPurchaseOrderTable").hide();
 
         getPaymentTerm();

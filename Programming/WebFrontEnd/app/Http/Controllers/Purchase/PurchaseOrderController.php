@@ -1545,8 +1545,6 @@ class PurchaseOrderController extends Controller
             'detail'                => $data
         ];
 
-        // dump($data);
-
         return view('Purchase.PurchaseOrder.Transactions.RevisionPurchaseOrder', $compact);
     }
     /**
