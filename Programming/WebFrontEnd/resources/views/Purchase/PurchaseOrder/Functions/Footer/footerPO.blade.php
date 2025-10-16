@@ -416,7 +416,7 @@
 
         $("#prNumberMessage").hide();
         $("#deliveryToMessage").hide();
-        $("#modal_purchase_requisition_document_numbers").css("border", "1px solid #ced4da");
+        $("#modal_purchase_requisition_document_numbers").css({"border": "1px solid #ced4da", "background-color": "#e9ecef"});
         $("#delivery_to").css("border", "1px solid #ced4da");
     }
 
@@ -787,5 +787,9 @@
         $(".loadingPurchaseOrderTable").hide();
         $(".errorPurchaseOrderTable").hide();
         $("#supplier_code2").prop("disabled", true);
+
+        $('#startDate').datetimepicker({
+            format: 'L'
+        });
     });
 </script>
