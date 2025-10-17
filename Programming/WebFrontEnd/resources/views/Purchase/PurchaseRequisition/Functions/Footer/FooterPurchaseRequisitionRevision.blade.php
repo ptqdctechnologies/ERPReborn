@@ -686,11 +686,6 @@
         });
     }
 
-    function CancelPurchaseRequisition() {
-        ShowLoading();
-        window.location.href = '/PurchaseRequisition?var=1';
-    }
-
     function SubmitForm() {
         $('#purchaseRequestFormModal').modal('hide');
 
@@ -756,7 +751,29 @@
         $("#dateOfDeliveryMessage").hide();
     });
 
+    $('#tableGetModalWarehouses').on('click', 'tbody tr', function() {
+        let id      = $(this).find('input[data-trigger="sys_id_modal_warehouse"]').val();
+        let name    = $(this).find('td:nth-child(2)').text();
+        let address = $(this).find('td:nth-child(3)').text();
+
+        $("#deliver_RefID").val(id);
+        $("#deliverName").val(`${name} - ${address}`);
+        $("#deliverCode").val(name);
+
+        $("#deliverName").css({
+            "background-color": "#e9ecef",
+            "border": "1px solid #ced4da"
+        });
+        $("#deliveryToMessage").hide();
+
+        $("#myGetModalWarehouses").modal('toggle');
+    });
+
     $(window).one('load', function(e) {
+        $('#dateOfDelivery').datetimepicker({
+            format: 'YYYY-MM-DD'
+        });
+
         $(".errorMessageContainerPRDetails").hide();
 
         getDocumentType("Purchase Requisition Revision Form");
