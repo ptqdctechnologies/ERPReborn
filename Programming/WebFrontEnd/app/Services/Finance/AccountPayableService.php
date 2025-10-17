@@ -1851,18 +1851,18 @@ class AccountPayableService
         return $compact;
     }
 
-    public function getDetail($advanceRequestID) 
+    public function getDetail($paymentInstructionRefID) 
     {
         $sessionToken = Session::get('SessionLogin');
 
         return Helper_APICall::setCallAPIGateway(
             Helper_Environment::getUserSessionID_System(),
             $sessionToken,
-            'transaction.read.dataList.finance.getAdvanceDetail',
+            'transaction.read.dataList.finance.getPaymentInstructionDetail',
             'latest',
             [
                 'parameter' => [
-                    'advance_RefID' => (int) $advanceRequestID,
+                    'paymentInstruction_RefID' => (int) $paymentInstructionRefID,
                 ],
                 'SQLStatement' => [
                     'pick' => null,
@@ -1944,7 +1944,7 @@ class AccountPayableService
                 "currencyValue"                 => 15080000.00,
                 "currencyExchangeRate"          => 1.00,
                 "supplierInvoiceNumber"         => (float) str_replace(',', '', $data['supplier_invoice_number']),
-                "supplierBank_RefID"            => 126000000000001, // Payment Transfer To
+                "supplier_RefID"                => 126000000000001, // Payment Transfer To
                 "receiptStatus"                 => $receiptStatus,
                 "contractStatus"                => $contractStatus,
                 "vatStatus"                     => $vatStatus,
@@ -1958,9 +1958,65 @@ class AccountPayableService
                 "depreciationCOA_RefID"         => $depreciationCOARefID,
                 "deduction"                     => $deduction,
                 "remarks"                       => $data['account_payable_notes'],
+                "supplierBankAccount_RefID"     => 167000000000001,
                 "additionalData"    => [
                     "itemList"      => [
                         "items"     => $detailItems
+                        ]
+                    ]
+                ]
+            ]
+        );
+    }
+
+    public function updates(Request $request): array
+    {
+        $sessionToken   = Session::get('SessionLogin');
+
+        return Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken,
+            'transaction.update.finance.setPaymentInstruction',
+            'latest',
+            [
+            'recordID' => 211000000000018,
+            'entities' => [
+                "documentDateTimeTZ"            => date('Y-m-d'),
+                "log_FileUpload_Pointer_RefID"  => NULL,
+                "supplierInvoiceNumber"         => 'INV-DHJ-2025-011',
+                "supplier_RefID"                => 126000000000001,
+                "receiptStatus"                 => 0,
+                "contractStatus"                => 1,
+                "vatStatus"                     => 1,
+                "vatValue"                      => 10.00,
+                "vatNumber"                     => '01.234.567.8-999.000',
+                "fatPatDoStatus"                => 1,
+                "assetStatus"                   => 1,
+                "assetCategory"                 => 1,
+                "depreciationMethod"            => 2,
+                "depreciationRate"              => 25.00,
+                "depreciationCOA_RefID"         => 65000000000005,
+                "deduction"                     => 0.0,
+                "remarks"                       => 'My Remarks',
+                "supplierBankAccount_RefID"     => 167000000000001,
+                'additionalData'    => [
+                    'itemList'      => [
+                        'items'     => [
+                                [
+                                'recordID' => 212000000000010,
+                                'entities' => [
+                                    "combinedBudgetSectionDetail_RefID" => 169000000000001,
+                                    "chartOfAccount_RefID" => 65000000000005,
+                                    "product_RefID" => 88000000000002,
+                                    "quantityUnit_RefID" => 73000000000001,
+                                    "quantity" => 25,
+                                    "productUnitPriceCurrency_RefID" => 62000000000001,
+                                    "productUnitPriceCurrencyValue" => 200000.00,
+                                    "productUnitPriceCurrencyExchangeRate" => 1,
+                                    "wht" => 2.00
+                                    ]
+                                ]
+                            ]
                         ]
                     ]
                 ]
