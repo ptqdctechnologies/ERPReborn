@@ -147,11 +147,15 @@
                     <td style="text-align: center;">${decimalFormat(parseFloat(val.customerOrder))}</td>
                     <td style="text-align: center;">${val.progressCompleted}</td>
                     <td style="text-align: center;">${decimalFormat(parseFloat(val.balance))}</td>
-                    <td style="text-align: center; width: 125px;">
-                        <input class="form-control number-without-negative" id="invoice_value${key}" autocomplete="off" style="border-radius:0px;" />
-                    </td>
+                    <td style="text-align: center;">-</td>
+                    <td style="text-align: center;">-</td>
+                    <td style="text-align: center;">-</td>
+                    <td style="text-align: center;">-</td>
                     <td style="text-align: center; width: 100px; padding-right: 5px !important;">
                         <input class="form-control number-without-negative" id="invoice_progress${key}" autocomplete="off" style="border-radius:0px;" />
+                    </td>
+                    <td style="text-align: center; width: 125px;">
+                        <input class="form-control number-without-negative" id="invoice_value${key}" autocomplete="off" style="border-radius:0px;" />
                     </td>
                 </tr>
             `;
@@ -193,7 +197,7 @@
         try {
             var checkWorkFlow = await checkingWorkflow(sysId, documentTypeID.value);
 
-            if (!checkWorkFlow) {
+            if (checkWorkFlow) {
                 $("#var_combinedBudget_RefID").val(sysId);
                 $("#budget_id").val(sysId);
                 $("#budget_trigger").prop("disabled", true);
