@@ -2,6 +2,7 @@
 @section('main')
 @include('Partials.navbar')
 @include('Partials.sidebar')
+@include('Finance.AccountPayable.Functions.PopUp.PopUpAccountPayableSummaryData')
 
 <div class="content-wrapper">
   <section class="content">

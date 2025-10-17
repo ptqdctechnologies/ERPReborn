@@ -9,8 +9,8 @@
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div>
                         <div class="input-group">
-                            <input id="purchase_order_number" class="form-control" readonly style="border-radius:0; cursor: default;" />
-                            <input id="purchase_order_id" name="purchase_order_id" style="border-radius:0;" class="form-control" hidden />
+                            <input id="purchase_order_number" class="form-control" readonly style="border-radius:0; cursor: default;" value="<?= $header['purchaseOrderNumber']; ?>" />
+                            <input id="purchase_order_id" name="purchase_order_id" style="border-radius:0;" class="form-control" value="<?= $header['purchaseOrder_RefID']; ?>" hidden />
                         </div>
                     </div>
                 </div>
@@ -22,7 +22,8 @@
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div>
                         <div class="input-group">
-                            <input id="purchase_order_supplier" style="border-radius:0;" class="form-control" readonly>
+                            <input id="purchase_order_supplier_id" style="border-radius:0;" class="form-control" value="<?= $header['supplier_RefID']; ?>" hidden>
+                            <input id="purchase_order_supplier" style="border-radius:0;" class="form-control" value="<?= $header['supplierCode'] . ' - ' . $header['supplierName']; ?>" readonly>
                         </div>
                     </div>
                 </div>
@@ -34,7 +35,7 @@
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div>
                         <div class="input-group">
-                            <input id="purchase_order_currency" style="border-radius:0;" class="form-control" readonly>
+                            <input id="purchase_order_currency" style="border-radius:0;" class="form-control" value="<?= $header['currencyISOCode']; ?>" readonly>
                         </div>
                     </div>
                 </div>
@@ -46,7 +47,7 @@
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div>
                         <div class="input-group">
-                            <input id="purchase_order_payment_term" style="border-radius:0;" class="form-control" readonly>
+                            <input id="purchase_order_payment_term" style="border-radius:0;" class="form-control" value="<?= $header['paymentTerm']; ?>" readonly>
                         </div>
                     </div>
                 </div>
@@ -61,7 +62,7 @@
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div>
                         <div class="input-group">
-                            <textarea id="purchase_order_delivery_from" cols="20" rows="4" class="form-control" readonly></textarea>
+                            <textarea id="purchase_order_delivery_from" cols="20" rows="4" class="form-control" readonly><?= $header['deliveryFrom']; ?></textarea>
                         </div>
                     </div>
                 </div>
@@ -73,7 +74,7 @@
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div>
                         <div class="input-group">
-                            <textarea id="purchase_order_delivery_to" cols="20" rows="4" class="form-control" readonly></textarea>
+                            <textarea id="purchase_order_delivery_to" cols="20" rows="4" class="form-control" readonly><?= $header['deliveryTo']; ?></textarea>
                         </div>
                     </div>
                 </div>

@@ -9,7 +9,7 @@
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div>
                         <div class="input-group">
-                            <input id="supplier_invoice_number" name="supplier_invoice_number" style="border-radius:0;" class="form-control number-without-characters">
+                            <input id="supplier_invoice_number" name="supplier_invoice_number" style="border-radius:0;" class="form-control number-without-characters" value="<?= $header['supplierInvoiceNumber']; ?>">
                         </div>
                     </div>
                 </div>
@@ -32,17 +32,9 @@
                     </div>
                     <div>
                         <div class="input-group">
-                            <input id="payment_transfer_number" class="form-control" size="16" readonly style="border-radius:0; background-color: white; cursor: default;">
-                            <input id="payment_transfer_id" name="payment_transfer_id" style="border-radius:0;" class="form-control" hidden>
+                            <input id="payment_transfer_number" class="form-control" size="16" readonly style="border-radius:0; background-color: white; cursor: default;" value="<?= $header['paymentTransferName']; ?>">
+                            <input id="payment_transfer_id" name="payment_transfer_id" style="border-radius:0;" class="form-control" value="<?= $header['paymentTransfer_RefID']; ?>" hidden>
                         </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row" id="purchase_order_message" style="margin-top: .3rem; display: none;">
-                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
-                <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
-                    <div class="text-red">
-                        Purchase Order cannot be empty.
                     </div>
                 </div>
             </div>
@@ -53,11 +45,11 @@
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div class="form-group d-flex" style="gap: 10%;">
                         <div class="custom-control custom-radio">
-                            <input class="custom-control-input" type="radio" id="receipt_origin_no" value="no" name="receipt_origin">
+                            <input class="custom-control-input" type="radio" id="receipt_origin_no" value="no" <?= ($header['receiptInvoiceOrigin'] === 'no') ? 'checked' : ''; ?> name="receipt_origin">
                             <label for="receipt_origin_no" class="custom-control-label" style="padding-top: 35%;">No</label>
                         </div>
                         <div class="custom-control custom-radio">
-                            <input class="custom-control-input" type="radio" id="receipt_origin_yes" value="yes" name="receipt_origin">
+                            <input class="custom-control-input" type="radio" id="receipt_origin_yes" value="yes" <?= ($header['receiptInvoiceOrigin'] === 'yes') ? 'checked' : ''; ?> name="receipt_origin">
                             <label for="receipt_origin_yes" class="custom-control-label" style="padding-top: 28%;">Yes</label>
                         </div>
                     </div>
@@ -70,11 +62,11 @@
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div class="form-group d-flex" style="gap: 10%;">
                         <div class="custom-control custom-radio">
-                            <input class="custom-control-input" type="radio" id="contract_signed_no" value="no" name="contract_signed">
+                            <input class="custom-control-input" type="radio" id="contract_signed_no" value="no" <?= ($header['contractPOSigned'] === 'no') ? 'checked' : ''; ?> name="contract_signed">
                             <label for="contract_signed_no" class="custom-control-label" style="padding-top: 35%;">No</label>
                         </div>
                         <div class="custom-control custom-radio">
-                            <input class="custom-control-input" type="radio" id="contract_signed_yes" value="yes" name="contract_signed">
+                            <input class="custom-control-input" type="radio" id="contract_signed_yes" value="yes" <?= ($header['contractPOSigned'] === 'yes') ? 'checked' : ''; ?> name="contract_signed">
                             <label for="contract_signed_yes" class="custom-control-label" style="padding-top: 28%;">Yes</label>
                         </div>
                     </div>
@@ -87,11 +79,11 @@
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div class="form-group d-flex" style="gap: 10%;">
                         <div class="custom-control custom-radio">
-                            <input class="custom-control-input" type="radio" id="vat_origin_no" name="vat_origin" value="no" onclick="vatValue(this)">
+                            <input class="custom-control-input" type="radio" id="vat_origin_no" name="vat_origin" value="no" <?= ($header['VATOrigin'] === 'no') ? 'checked' : ''; ?> onclick="vatValue(this)">
                             <label for="vat_origin_no" class="custom-control-label" style="padding-top: 35%;">No</label>
                         </div>
                         <div class="custom-control custom-radio">
-                            <input class="custom-control-input" type="radio" id="vat_origin_yes" name="vat_origin" value="yes" onclick="vatValue(this)">
+                            <input class="custom-control-input" type="radio" id="vat_origin_yes" name="vat_origin" value="yes" <?= ($header['VATOrigin'] === 'yes') ? 'checked' : ''; ?> onclick="vatValue(this)">
                             <label for="vat_origin_yes" class="custom-control-label" style="padding-top: 28%;">Yes</label>
                         </div>
                         <div>
@@ -123,11 +115,11 @@
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div class="form-group d-flex" style="gap: 10%;">
                         <div class="custom-control custom-radio">
-                            <input class="custom-control-input" type="radio" id="basft_origin_no" value="no" name="basft_origin">
+                            <input class="custom-control-input" type="radio" id="basft_origin_no" value="no" <?= ($header['FatPatDoOrigin'] === 'no') ? 'checked' : ''; ?> name="basft_origin">
                             <label for="basft_origin_no" class="custom-control-label" style="padding-top: 35%;">No</label>
                         </div>
                         <div class="custom-control custom-radio">
-                            <input class="custom-control-input" type="radio" id="basft_origin_yes" value="yes" name="basft_origin">
+                            <input class="custom-control-input" type="radio" id="basft_origin_yes" value="yes" <?= ($header['FatPatDoOrigin'] === 'yes') ? 'checked' : ''; ?> name="basft_origin">
                             <label for="basft_origin_yes" class="custom-control-label" style="padding-top: 28%;">Yes</label>
                         </div>
                     </div>
@@ -140,7 +132,7 @@
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div>
                         <div class="input-group">
-                            <textarea id="account_payable_notes" name="account_payable_notes" cols="20" rows="4" class="form-control"></textarea>
+                            <textarea id="account_payable_notes" name="account_payable_notes" cols="20" rows="4" class="form-control"><?= $header['notes']; ?></textarea>
                         </div>
                     </div>
                 </div>
@@ -155,11 +147,11 @@
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div class="form-group d-flex" style="gap: 10%;">
                         <div class="custom-control custom-radio">
-                            <input class="custom-control-input" type="radio" id="asset_no" name="asset" value="no" onclick="assetValue(this)">
+                            <input class="custom-control-input" type="radio" id="asset_no" name="asset" value="no" <?= ($header['asset'] === 'no') ? 'checked' : ''; ?> onclick="assetValue(this)">
                             <label for="asset_no" class="custom-control-label" style="padding-top: 35%;">No</label>
                         </div>
                         <div class="custom-control custom-radio">
-                            <input class="custom-control-input" type="radio" id="asset_yes" name="asset" value="yes" onclick="assetValue(this)">
+                            <input class="custom-control-input" type="radio" id="asset_yes" name="asset" value="yes" <?= ($header['asset'] === 'yes') ? 'checked' : ''; ?> onclick="assetValue(this)">
                             <label for="asset_yes" class="custom-control-label" style="padding-top: 28%;">Yes</label>
                         </div>
                     </div>

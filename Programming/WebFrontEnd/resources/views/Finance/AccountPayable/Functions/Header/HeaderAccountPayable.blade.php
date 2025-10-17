@@ -9,7 +9,7 @@
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div>
                         <div class="input-group">
-                            <input id="supplier_invoice_number" name="supplier_invoice_number" style="border-radius:0;" class="form-control number-without-characters">
+                            <input id="supplier_invoice_number" name="supplier_invoice_number" style="border-radius:0;" class="form-control number-without-characters" autocomplete="off">
                         </div>
                     </div>
                 </div>
@@ -111,7 +111,7 @@
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div>
                         <div class="input-group">
-                            <input id="vat_number" name="vat_number" style="border-radius:0;" class="form-control number-without-characters">
+                            <input id="vat_number" name="vat_number" style="border-radius:0;" class="form-control number-without-characters" autocomplete="off">
                         </div>
                     </div>
                 </div>
@@ -140,7 +140,7 @@
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div>
                         <div class="input-group">
-                            <textarea id="account_payable_notes" name="account_payable_notes" cols="20" rows="4" class="form-control"></textarea>
+                            <textarea id="account_payable_notes" name="account_payable_notes" cols="20" rows="4" class="form-control" autocomplete="off"></textarea>
                         </div>
                     </div>
                 </div>
@@ -223,13 +223,13 @@
                 <div class="col-sm-9 col-md-8 col-lg-4 p-0">
                     <div class="row">
                         <div class="col-4">
-                            <input id="depreciation_rate_percentage" name="depreciation_rate_percentage" class="form-control number-without-characters" size="8" style="border-radius:0; cursor: default;">
+                            <input id="depreciation_rate_percentage" name="depreciation_rate_percentage" class="form-control number-without-characters" size="8" autocomplete="off" style="border-radius:0; cursor: default;">
                         </div>
                         <div class="col">
                             <div class="row">
                                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Years</label>
                                 <div class="col-6">
-                                    <input id="depreciation_rate_years" name="depreciation_rate_years" class="form-control number-without-characters" size="8" style="border-radius:0; cursor: default;">
+                                    <input id="depreciation_rate_years" name="depreciation_rate_years" class="form-control number-without-characters" size="8" autocomplete="off" style="border-radius:0; cursor: default;">
                                 </div>
                             </div>
                         </div>
