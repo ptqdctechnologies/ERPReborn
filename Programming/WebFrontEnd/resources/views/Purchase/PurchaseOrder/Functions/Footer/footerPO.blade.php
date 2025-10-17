@@ -588,11 +588,6 @@
         });
     }
 
-    function CancelPurchaseOrder() {
-        ShowLoading();
-        window.location.href = "{{ route('PurchaseOrder.index', ['var' => 1]) }}";
-    }
-
     function SelectWorkFlow(formatData) {
         const swalWithBootstrapButtons = Swal.mixin({
             confirmButtonClass: 'btn btn-success btn-sm',
