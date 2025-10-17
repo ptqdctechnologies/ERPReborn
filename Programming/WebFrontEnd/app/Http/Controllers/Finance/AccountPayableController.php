@@ -74,22 +74,43 @@ class AccountPayableController extends Controller
         }
     }
 
+    public function RadioFormatValue($value) 
+    {
+        $vatStatus = match ($value) {
+            0       => 'no',
+            1       => 'yes',
+            default => null
+        };
+
+        return $vatStatus;
+    }
+
     public function RevisionAccountPayable(Request $request) 
     {
         try {
-            $varAPIWebToken = Session::get('SessionLogin');
-            $accountPayableRefID  = $request->input('modal_account_payable_id');
+            $varAPIWebToken         = Session::get('SessionLogin');
+            $accountPayableRefID    = $request->input('modal_account_payable_id');
+
+            $response = $this->accountPayableService->getDetail($accountPayableRefID);
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                return response()->json($response);
+            }
+
+            $dataAccountPayableDetail = $response['data']['data'];
+
+            // dump($response);
 
             $compact = [
                 'varAPIWebToken'    => $varAPIWebToken,
                 'header'            => [
                     'purchaseOrder_RefID'           => '',
-                    'purchaseOrderNumber'           => '',
+                    'purchaseOrderNumber'           => $dataAccountPayableDetail[0]['PO_Number'] ?? '',
                     'supplier_RefID'                => '',
                     'supplierCode'                  => '',
                     'supplierName'                  => '',
-                    'currency_RefID'                => '',
-                    'currencyISOCode'               => '',
+                    'currency_RefID'                => $dataAccountPayableDetail[0]['Currency_RefID'] ?? '',
+                    'currencyISOCode'               => $dataAccountPayableDetail[0]['CurrencySymbol'] ?? '',
                     'paymentTerm'                   => '',
                     'deliveryFrom_RefID'            => '',
                     'deliveryFrom'                  => '',
@@ -100,27 +121,29 @@ class AccountPayableController extends Controller
                     'paymentTransferName'           => '',
                     'paymentTransferBankCode'       => '',
                     'paymentTransferAccountNumber'  => '',
-                    'receiptInvoiceOrigin'          => '',
-                    'contractPOSigned'              => '',
-                    'VATOrigin'                     => '',
-                    'VATPercentage'                 => '',
-                    'VATNumber'                     => '',
-                    'FatPatDoOrigin'                => '',
-                    'notes'                         => '',
-                    'asset'                         => '',
-                    'category_RefID'                => '',
+                    'receiptInvoiceOrigin'          => $this->RadioFormatValue($dataAccountPayableDetail[0]['ReceiptStatus']) ?? '',
+                    'contractPOSigned'              => $this->RadioFormatValue($dataAccountPayableDetail[0]['ContractStatus']) ?? '',
+                    'VATOrigin'                     => $this->RadioFormatValue($dataAccountPayableDetail[0]['VatStatus']) ?? '',
+                    'VATPercentage'                 => $dataAccountPayableDetail[0]['VatValue'] ?? '',
+                    'VATNumber'                     => $dataAccountPayableDetail[0]['VatNumber'] ?? '',
+                    'FatPatDoOrigin'                => $this->RadioFormatValue($dataAccountPayableDetail[0]['FatPatDoStatus']) ?? '',
+                    'notes'                         => $dataAccountPayableDetail[0]['Notes'] ?? '',
+                    'asset'                         => $this->RadioFormatValue($dataAccountPayableDetail[0]['AssetStatus']) ?? '',
+                    'category_RefID'                => $dataAccountPayableDetail[0]['AssetCategory'] ?? '',
                     'categoryCode'                  => '',
                     'categoryName'                  => '',
-                    'depreciationMethod_RefID'      => '',
-                    'depreciationRate'              => '',
+                    'depreciationMethod_RefID'      => $dataAccountPayableDetail[0]['DepreciationMethod'] ?? '',
+                    'depreciationRate'              => $dataAccountPayableDetail[0]['DepreciationRate'] ?? '',
                     'depreciationYears'             => '',
-                    'depreciationCOA_RefID'         => '',
-                    'depreciationCOACode'           => '',
-                    'depreciationCOAName'           => '',
-                    'deduction'                     => ''
+                    'depreciationCOA_RefID'         => $dataAccountPayableDetail[0]['DepreciationCOA_RefID'] ?? '',
+                    'depreciationCOACode'           => $dataAccountPayableDetail[0]['DepreciationCOA_Code'] ?? '',
+                    'depreciationCOAName'           => $dataAccountPayableDetail[0]['DepreciationCOA_Name'] ?? '',
+                    'deduction'                     => $dataAccountPayableDetail[0]['Deduction'] ?? ''
                 ],
-                'detail'            => []
+                'detail'            => $dataAccountPayableDetail
             ];
+
+            // dump($compact);
 
             return view('Finance.AccountPayable.Transactions.RevisionAccountPayable', $compact);
         } catch (\Throwable $th) {
