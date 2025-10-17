@@ -123,6 +123,7 @@ class DocumentTypeMapper
                     'table'             => 'Components.AccountPayableDetailDocumentTable',
                     'headerRevision'    => 'Components.AccountPayableDetailDocumentHeaderRevision',
                     'revision'          => 'Components.AccountPayableDetailDocumentRevision',
+                    'additional'        => 'Components.AccountPayableDetailDocumentAdditional'
                 ],
                 'resubmit'      => [
                     'url'       => '',
@@ -649,7 +650,7 @@ class DocumentTypeMapper
                 'dataHeader'            => [
                     'vat'           => '-',
                     'date'          => '2025-06-04 10:47:11.993084+07',
-                    'dateUpdate'    => '2025-06-04 10:47:11.993084+07',
+                    'dateUpdate'    => null,
                     'fileID'        => null,
                     'currency'      => 'IDR',
                     'budgetCode'    => 'Q000062',
