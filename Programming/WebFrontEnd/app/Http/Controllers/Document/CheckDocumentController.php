@@ -563,6 +563,26 @@ class CheckDocumentController extends Controller
                     ]
                 ];
                 break;
+            case "Sales Invoice Form":
+                $varData = [
+                    'data' => [
+                        'data' => [
+                            [
+                                'sys_ID'    => 73810928,
+                                'sys_Text'  => 'Inv/QDC/2025/000001',
+                                'combinedBudgetCode' => 'Q000196',
+                                'combinedBudgetSectionCode' => 'Q000062 ► 235'
+                            ],
+                            [
+                                'sys_ID'    => 90381924,
+                                'sys_Text'  => 'Inv/QDC/2025/000002',
+                                'combinedBudgetCode' => 'Q000196',
+                                'combinedBudgetSectionCode' => 'Q000062 ► 235'
+                            ],
+                        ]
+                    ]
+                ];
+                break;
             default:
                 $varAPIWebToken = Session::get('SessionLogin');
                 $varData = Helper_APICall::setCallAPIGateway(
