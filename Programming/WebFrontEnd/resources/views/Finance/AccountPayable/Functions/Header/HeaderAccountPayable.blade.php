@@ -9,15 +9,15 @@
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div>
                         <div class="input-group">
-                            <input id="supplier_invoice_number" name="supplier_invoice_number" style="border-radius:0;" class="form-control number-without-characters" autocomplete="off">
+                            <input id="supplier_invoice_number" name="supplier_invoice_number" style="border-radius:0;" class="form-control" autocomplete="off">
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- PAYMENT TRANSFER TO -->
+            <!-- PAYMENT TO -->
             <div class="row" style="margin-top: 1rem;">
-                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Payment Transfer To</label>
+                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Payment To</label>
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div>
                         <span class="input-group-text form-control" style="border-radius:0;">
