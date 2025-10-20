@@ -13,6 +13,31 @@ class DocumentTypeMapper
         };
     }
 
+    public static function formatText($text) 
+    {
+        $result = strtolower($text);
+        $result = str_replace("_", " ", $result);
+        $result = ucwords($result);
+        
+        if ($text == "PERMANENT" || $text == "RENT") {
+            $resultRefID = match ($text) {
+                "RENT"      => 0,
+                default     => 1,
+            };
+        } else {
+            $resultRefID = match ($text) {
+                "PURCHASE_ORDER"    => 0,
+                "INTERNAL_USE"      => 1,
+                default             => 2,
+            };
+        }
+
+        return [
+            'id'    => $resultRefID,
+            'text'  => $result
+        ];
+    }
+
     public static function getApiConfig(string $documentType, int $referenceId): ?array
     {
         $mapping = [
@@ -294,6 +319,7 @@ class DocumentTypeMapper
                 'dataHeader'    => [
                     'deliveryOrderRefID'        => $dataDetail['deliveryOrder_RefID'] ?? '',
                     'doNumber'                  => $dataDetail['documentNumber'] ?? '-',
+                    'type'                      => self::formatText($dataDetail['type'] ?? null),
                     'date'                      => $dataDetail['sys_Data_Entry_DateTimeTZ'] ?? null,
                     'dateUpdate'                => $dataDetail['sys_Data_Edit_DateTimeTZ'] ?? null,
                     'deliveryFrom'              => $dataDetail['deliveryFrom_NonRefID']['Address'] ?? '-',
@@ -302,6 +328,9 @@ class DocumentTypeMapper
                     'budgetName'                => $dataDetail['combinedBudgetName'] ?? null,
                     'subBudgetCode'             => $dataDetail['combinedBudgetSectionCode'] ?? null,
                     'subBudgetName'             => $dataDetail['combinedBudgetSectionName'] ?? null,
+                    'requesterName'             => $dataDetail['stockMovementRequesterName'] ?? null,
+                    'status'                    => self::formatText($dataDetail['stockMovementStatus'] ?? null),
+                    'requesterPosition'         => $dataDetail['stockMovementRequesterPosition'] ?? null,
                     'fileID'                    => $dataDetail['log_FileUpload_Pointer_RefID'] ?? null,
                     'transporterName'           => $dataDetail['transporterName'] ?? '-',
                     'transporterContactPerson'  => $dataDetail['transporterContactPerson'] ?? '-',
