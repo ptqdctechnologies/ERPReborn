@@ -17,7 +17,7 @@
                 PO Number
             </div>
             <div class="col">
-                : PO/QDC/2025/000001
+                : <?= $dataHeader['poNumber']; ?>
             </div>
         </div>
 
@@ -27,39 +27,91 @@
                 Supplier
             </div>
             <div class="col">
-                : VDR0006 - Alumagada Jaya Mandiri
-            </div>
-        </div>
-
-        <!-- VAT ORIGIN -->
-        <div class="row" style="margin-bottom: 1rem;">
-            <div class="col-4 col-sm-4 col-md-3 col-lg-4 text-bold">
-                VAT Origin
-            </div>
-            <div class="col">
-                : Yes
-            </div>
-        </div>
-
-        <!-- VAT (%) -->
-        <div class="row" style="margin-bottom: 1rem;">
-            <div class="col-4 col-sm-4 col-md-3 col-lg-4 text-bold">
-                VAT (%)
-            </div>
-            <div class="col">
-                : 12
-            </div>
-        </div>
-
-        <!-- VAT NUMBER -->
-        <div class="row" style="margin-bottom: 1rem;">
-            <div class="col-4 col-sm-4 col-md-3 col-lg-4 text-bold">
-                VAT Number
-            </div>
-            <div class="col">
                 : -
             </div>
         </div>
+
+        <?php if (!$dataHeader['dateUpdate']) { ?>
+            <!-- SUPPLIER INVOICE NUMBER -->
+            <div class="row" style="margin-bottom: 1rem;">
+                <div class="col-4 col-sm-4 col-md-3 col-lg-4 text-bold">
+                    Supplier Invoice Number
+                </div>
+                <div class="col">
+                    : <?= $dataHeader['supplierInvoiceNumber']; ?>
+                </div>
+            </div>
+
+            <!-- PAYMENT TO -->
+            <div class="row" style="margin-bottom: 1rem;">
+                <div class="col-4 col-sm-4 col-md-3 col-lg-4 text-bold">
+                    Payment To
+                </div>
+                <div class="col">
+                    : <?= $dataHeader['supplierBankAccountName'] . " - (" . $dataHeader['supplierBankName'] . ") " . $dataHeader['supplierBankAccount']; ?>
+                </div>
+            </div>
+
+            <!-- RECEIPT/INVOICE ORIGIN -->
+            <div class="row" style="margin-bottom: 1rem;">
+                <div class="col-4 col-sm-4 col-md-3 col-lg-4 text-bold">
+                    Receipt/Invoice Origin
+                </div>
+                <div class="col">
+                    : <?= $dataHeader['receiptInvoiceOrigin']; ?>
+                </div>
+            </div>
+
+            <!-- CONTRACT/PO SIGNED -->
+            <div class="row" style="margin-bottom: 1rem;">
+                <div class="col-4 col-sm-4 col-md-3 col-lg-4 text-bold">
+                    Contract/PO Signed
+                </div>
+                <div class="col">
+                    : <?= $dataHeader['contractPOSigned']; ?>
+                </div>
+            </div>
+
+            <!-- VAT ORIGIN -->
+            <div class="row" style="margin-bottom: 1rem;">
+                <div class="col-4 col-sm-4 col-md-3 col-lg-4 text-bold">
+                    VAT Origin
+                </div>
+                <div class="col">
+                    : <?= $dataHeader['VATOrigin']; ?>
+                </div>
+            </div>
+
+            <!-- VAT (%) -->
+            <div class="row" style="margin-bottom: 1rem;">
+                <div class="col-4 col-sm-4 col-md-3 col-lg-4 text-bold">
+                    VAT (%)
+                </div>
+                <div class="col">
+                    : <?= $dataHeader['VATValue']; ?>
+                </div>
+            </div>
+
+            <!-- VAT NUMBER -->
+            <div class="row" style="margin-bottom: 1rem;">
+                <div class="col-4 col-sm-4 col-md-3 col-lg-4 text-bold">
+                    VAT Number
+                </div>
+                <div class="col">
+                    : <?= $dataHeader['VATNumber']; ?>
+                </div>
+            </div>
+
+            <!-- FAT/PAT/DO ORIGIN -->
+            <div class="row" style="margin-bottom: 1rem;">
+                <div class="col-4 col-sm-4 col-md-3 col-lg-4 text-bold">
+                    FAT/PAT/DO Origin
+                </div>
+                <div class="col">
+                    : <?= $dataHeader['FATPATDOOrigin']; ?>
+                </div>
+            </div>
+        <?php } ?>
 
         <!-- FILE ATTACHMENT -->
         <div class="row" style="margin-bottom: 1rem;">
@@ -73,6 +125,7 @@
     </div>
 </div>
 
+<!-- RIGHT COLUMN -->
 <div class="col-12 col-md-5 col-lg-5">
     <div class="form-group">
         <!-- CURRENCY -->
@@ -81,7 +134,7 @@
                 Currency
             </div>
             <div class="col">
-                : IDR
+                : <?= $dataHeader['currency']; ?>
             </div>
         </div>
         
@@ -91,7 +144,7 @@
                 Delivery From
             </div>
             <div class="col">
-                : Alumagada Jaya Mandiri - Jl. Letjend Bambang Utoyo
+                : -
             </div>
         </div>
 
@@ -101,8 +154,70 @@
                 Delivery To
             </div>
             <div class="col">
-                : Head Office - Gudang Mampang
+                : -
             </div>
         </div>
+
+        <?php if (!$dataHeader['dateUpdate']) { ?>
+            <!-- ASSET -->
+            <div class="row" style="margin-bottom: 1rem;">
+                <div class="col-4 col-sm-4 col-md-3 col-lg-4 text-bold">
+                    Asset
+                </div>
+                <div class="col">
+                    : <?= $dataHeader['asset']; ?>
+                </div>
+            </div>
+
+            <!-- CATEGORY -->
+            <div class="row" style="margin-bottom: 1rem;">
+                <div class="col-4 col-sm-4 col-md-3 col-lg-4 text-bold">
+                    Category
+                </div>
+                <div class="col">
+                    : Non Permanen
+                </div>
+            </div>
+
+            <!-- DEPRECIATION METHOD -->
+            <div class="row" style="margin-bottom: 1rem;">
+                <div class="col-4 col-sm-4 col-md-3 col-lg-4 text-bold">
+                    Depreciation Method
+                </div>
+                <div class="col">
+                    : Straight Line
+                </div>
+            </div>
+
+            <!-- DEPRECIATION RATE -->
+            <div class="row" style="margin-bottom: 1rem;">
+                <div class="col-4 col-sm-4 col-md-3 col-lg-4 text-bold">
+                    Depreciation Rate
+                </div>
+                <div class="col">
+                    : 20
+                </div>
+            </div>
+
+            <!-- DEPRECIATION YEARS -->
+            <div class="row" style="margin-bottom: 1rem;">
+                <div class="col-4 col-sm-4 col-md-3 col-lg-4 text-bold">
+                    Depreciation Years
+                </div>
+                <div class="col">
+                    : 3
+                </div>
+            </div>
+
+            <!-- DEPRECIATION COA -->
+            <div class="row">
+                <div class="col-4 col-sm-4 col-md-3 col-lg-4 text-bold">
+                    Depreciation COA
+                </div>
+                <div class="col">
+                    : <?= $dataHeader['depreciationCOACode'] . " - " . $dataHeader['depreciationCOAName']; ?>
+                </div>
+            </div>
+        <?php } ?>
     </div>
 </div>

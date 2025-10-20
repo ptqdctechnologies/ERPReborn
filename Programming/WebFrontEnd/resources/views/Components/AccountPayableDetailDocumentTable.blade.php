@@ -13,14 +13,18 @@
             </thead>
 
             <tbody>
-                <tr>
-                    <td style="border:1px solid #4B586A;color:#4B586A;text-align:center;">1</td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;text-align:center;">2000219 - Site Preparation</td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;text-align:center;">m2</td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;text-align:center;">1.23</td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;text-align:center;">3</td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;text-align:center;">1-1101.01 - Petty Cash (IDR)</td>
-                </tr>
+                <?php $no = 1; $grand_total = 0; ?>
+                <?php foreach ($dataDetails as $dataDetail) { ?>
+                    <?php $grand_total += number_format($dataDetail['Quantity'], 2);  ?>
+                    <tr>
+                        <td style="border:1px solid #4B586A;color:#4B586A;text-align:center;"><?= $no++; ?></td>
+                        <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['ProductCode'] ?? ''; ?> - <?= $dataDetail['ProductName'] ?? ''; ?></td>
+                        <td style="border:1px solid #4B586A;color:#4B586A;text-align:center;"><?= $dataDetail['UOM'] ?? ''; ?></td>
+                        <td style="border:1px solid #4B586A;color:#4B586A;text-align:center;"><?= $dataDetail['Quantity'] ?? ''; ?></td>
+                        <td style="border:1px solid #4B586A;color:#4B586A;text-align:center;"><?= $dataDetail['WHT'] ?? ''; ?></td>
+                        <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['ChartOfAccountCode'] ?? ''; ?> - <?= $dataDetail['ChartOfAccountName'] ?? ''; ?></td>
+                    </tr>
+                <?php } ?>
             </tbody>
 
             <tfoot>
@@ -30,7 +34,7 @@
                     </th>
                     <td style="border:1px solid #4B586A;color:#4B586A;text-align:center;">
                         <span id="GrandTotal">
-                            1.23
+                            <?= number_format($grand_total, 2); ?>
                         </span>
                     </td>
                     <td style="border:1px solid #4B586A;color:#4B586A;"></td>
