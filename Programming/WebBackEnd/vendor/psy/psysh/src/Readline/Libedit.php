@@ -3,7 +3,7 @@
 /*
  * This file is part of Psy Shell.
  *
- * (c) 2012-2023 Justin Hileman
+ * (c) 2012-2025 Justin Hileman
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -108,7 +108,7 @@ class Libedit extends GNUReadline
     {
         // empty line, comment or timestamp
         if (!$line || $line[0] === "\0") {
-            return;
+            return null;
         }
         // if "\0" is found in an entry, then
         // everything from it until the end of line is a comment.
