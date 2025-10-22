@@ -16,6 +16,7 @@
                                             <th>No</th>
                                             <th>Code</th>
                                             <th>Name</th>
+                                            <th>Address</th>
                                             <th>Bank Code</th>
                                             <th>Bank Name</th>
                                             <th>Bank Account</th>
@@ -25,7 +26,7 @@
                                     <tbody></tbody>
                                     <tfoot>
                                         <tr class="loadingGetModalPaymentTransfer">
-                                            <td colspan="7" class="p-0" style="height: 22rem;">
+                                            <td colspan="8" class="p-0" style="height: 22rem;">
                                                 <div class="d-flex flex-column justify-content-center align-items-center py-3">
                                                     <div class="spinner-border" role="status">
                                                         <span class="sr-only">Loading...</span>
@@ -37,7 +38,7 @@
                                             </td>
                                         </tr>
                                         <tr class="errorModalPaymentTransferMessageContainer" style="display: none;">
-                                            <td colspan="7" class="p-0" style="height: 22rem;">
+                                            <td colspan="8" class="p-0" style="height: 22rem;">
                                                 <div class="d-flex flex-column justify-content-center align-items-center py-3">
                                                     <div id="errorModalPaymentTransferMessage" class="mt-3 text-red" style="font-size: 1rem; font-weight: 700;"></div>
                                                 </div>
@@ -55,66 +56,69 @@
 </div>
 
 <script>
-    function getModalPaymentTransfer() {
-        $(".loadingGetModalPaymentTransfer").hide();
+    $(".errorModalPaymentTransferMessageContainer").hide();
 
-        const data = [
-            {
-                id: 0,
-                code: 'VDR0001',
-                name: 'Alumagada Jaya Mandiri',
-                bankCode: 'BRI',
-                bankName: 'Bank Rakyat Indonesia',
-                bankAccount: 'Alumagada Jaya Mandiri',
-                accountNumber: '005301004453305'
-            },
-            {
-                id: 1,
-                code: 'VDR0002',
-                name: 'Alpine Cool Utama',
-                bankCode: 'BCA',
-                bankName: 'Bank Central Asia',
-                bankAccount: 'Alpine Cool Utama',
-                accountNumber: '7150306269'
-            },
-            {
-                id: 2,
-                code: 'VDR0003',
-                name: 'Aledro Duta Jaya',
-                bankCode: 'BNI',
-                bankName: 'Bank Negara Indonesia',
-                bankAccount: 'Aledro Duta Jaya',
-                accountNumber: '8995885888'
-            },
-            {
-                id: 3,
-                code: 'VDR0004',
-                name: 'Aji Perkasa',
-                bankCode: 'BSI',
-                bankName: 'Bank Syariah Indonesia',
-                bankAccount: 'Aji Perkasa',
-                accountNumber: '7240741347'
+    function getPaymentTransfer(supplierID) {
+        $('#tableGetPaymentTransfer tbody').empty();
+        $(".loadingGetModalPaymentTransfer").show();
+        $(".errorModalPaymentTransferMessageContainer").hide();
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
-        ];
+        });
 
-        let no = 1;
-        let table = $('#tableGetPaymentTransfer').DataTable();
-        table.clear();
+        var keys = 0;
+        $.ajax({
+            type: 'GET',
+            url: '{!! route("getSupplier") !!}?supplier_id=' + supplierID,
+            success: function(data) {
+                $(".loadingGetModalPaymentTransfer").hide();
 
-        $.each(data, function(key, val) {
-            table.row.add([
-                no++,
-                val.code || '-',
-                val.name || '-',
-                val.bankCode || '-',
-                val.bankName || '-',
-                val.bankAccount || '-',
-                val.accountNumber || '-'
-            ]).draw();
+                var no = 1;
+                var table = $('#tableGetPaymentTransfer').DataTable();
+                table.clear();
+
+                if (Array.isArray(data) && data.length > 0) {
+                    $.each(data, function(key, val) {
+                        keys += 1;
+                        table.row.add([
+                            '<input id="sys_id_payment' + keys + '" value="' + val.sys_ID + '" data-trigger="sys_id_payment" type="hidden">' + no++,
+                            val.code || '-',
+                            val.name || '-',
+                            val.address || '-',
+                            val.bankCode || '-',
+                            val.bankName || '-',
+                            val.bankAccount || '-',
+                            val.accountNumber || '-',
+                        ]).draw();
+                    });
+
+                    $("#tableGetPaymentTransfer_length").show();
+                    $("#tableGetPaymentTransfer_filter").show();
+                    $("#tableGetPaymentTransfer_info").show();
+                    $("#tableGetPaymentTransfer_paginate").show();
+                } else {
+                    $(".errorModalPaymentTransferMessageContainer").show();
+                    $("#errorModalPaymentTransferMessage").text(`Data not found.`);
+
+                    $("#tableGetPaymentTransfer_length").hide();
+                    $("#tableGetPaymentTransfer_filter").hide();
+                    $("#tableGetPaymentTransfer_info").hide();
+                    $("#tableGetPaymentTransfer_paginate").hide();
+                }
+            },
+            error: function (textStatus, errorThrown) {
+                $('#tableGetPaymentTransfer tbody').empty();
+                $(".loadingGetModalPaymentTransfer").hide();
+                $(".errorModalPaymentTransferMessageContainer").show();
+                $("#errorModalPaymentTransferMessage").text(`[${textStatus.status}] ${textStatus.responseJSON.message}`);
+            }
         });
     }
 
     $(window).one('load', function(e) {
-        getModalPaymentTransfer();
+        getPaymentTransfer();
     });
 </script>
