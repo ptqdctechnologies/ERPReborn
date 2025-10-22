@@ -151,11 +151,11 @@
                     <td style="text-align: center;">-</td>
                     <td style="text-align: center;">-</td>
                     <td style="text-align: center;">-</td>
-                    <td style="text-align: center; width: 100px; padding-right: 5px !important;">
+                    <td style="text-align: center; width: 12%; padding-right: 5px !important;">
                         <input class="form-control number-without-negative" id="invoice_progress${key}" autocomplete="off" style="border-radius:0px;" />
                     </td>
-                    <td style="text-align: center; width: 125px;">
-                        <input class="form-control number-without-negative" id="invoice_value${key}" autocomplete="off" style="border-radius:0px;" />
+                    <td style="text-align: center; padding-right: 5px !important;">
+                        <input class="form-control number-without-negative" id="invoice_value${key}" autocomplete="off" style="border-radius:0px; width: 125px;" />
                     </td>
                 </tr>
             `;
