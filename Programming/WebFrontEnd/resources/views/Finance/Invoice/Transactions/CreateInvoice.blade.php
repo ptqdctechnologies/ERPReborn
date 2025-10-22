@@ -165,11 +165,15 @@
                     <thead>
                       <tr>
                         <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;width: 20%;">Sub Budget</th>
-                        <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;width: 17%;">Customer Order</th>
-                        <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;width: 18%;">Progress Completed (%)</th>
-                        <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;width: 18%;">Balance</th>
-                        <th style="padding-top: 10px;padding-bottom: 10px;background-color:#4B586A;border-right:1px solid #fff;text-align: center;color: white;width: 13%;">Invoice Value</th>
-                        <th style="padding-top: 10px;padding-bottom: 10px;background-color:#4B586A;border-right:1px solid #fff;text-align: center;color: white;width: 12%;padding-right: 0 !important;">Progress (%)</th>
+                        <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;width: 17%;">CO</th>
+                        <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;width: 17%;">Prev. Progress</th>
+                        <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;width: 17%;">Acc. Invoice</th>
+                        <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;width: 17%;">Outs. CO</th>
+                        <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;width: 17%;">Curr. Progress</th>
+                        <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;width: 17%;">Curr. Invoice</th>
+                        <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;width: 18%;">Balance CO</th>
+                        <th style="padding-top: 10px;padding-bottom: 10px;background-color:#4B586A;border-right:1px solid #fff;text-align: center;color: white;width: 12%;padding-right: 5px !important;">Progress (%)</th>
+                        <th style="padding-top: 10px;padding-bottom: 10px;background-color:#4B586A;border-right:1px solid #fff;text-align: center;color: white;width: 12%;padding-right: 5px !important;">Invoice Value</th>
                       </tr>
                     </thead>
                     <tbody></tbody>

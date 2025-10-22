@@ -59,6 +59,15 @@
               </div>
             </div>
 
+            <!-- OTHER ADDITIONAL -->
+            <?php if (isset($components['otherAdditional']) && $dataHeader['dateUpdate']) { ?>
+              <div class="col-12 ShowDocumentList">
+                <div class="card">
+                  @include($components['otherAdditional'])
+                </div>
+              </div>
+            <?php } ?>
+
             <!-- TABLE HEADER LOG HISTORY -->
             <?php if (isset($components['headerRevision']) && $dataHeader['dateUpdate']) { ?>
               <div class="col-12 ShowDocumentList">

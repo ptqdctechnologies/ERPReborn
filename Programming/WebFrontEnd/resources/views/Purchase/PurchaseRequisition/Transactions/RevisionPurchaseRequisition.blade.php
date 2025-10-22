@@ -3,7 +3,7 @@
 @include('Partials.navbar')
 @include('Partials.sidebar')
 @include('getFunction.getProduct')
-@include('getFunction.getDeliverTo')
+@include('getFunction.getWarehouses')
 @include('getFunction.getWorkFlow')
 @include('getFunction.getPurchaseRequisition')
 @include('Purchase.PurchaseRequisition.Functions.PopUp.PopUpPrRevision')
@@ -215,7 +215,7 @@
                   <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" title="Submit to Advance"> Submit
                 </button>
 
-                <a onclick="CancelPurchaseRequisition()" class="btn btn-default btn-sm float-right" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
+                <a onclick="cancelForm('{{ route('PurchaseRequisition.index', ['var' => 1]) }}')" class="btn btn-default btn-sm float-right" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
                   <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel Advance List Cart"> Cancel
                 </a>
               </div>

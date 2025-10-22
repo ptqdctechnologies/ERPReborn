@@ -68,7 +68,6 @@ class CheckDocumentController extends Controller
             }
 
             if (
-                $documentType === 'Account Payable' ||
                 $documentType === 'DO From Internal Use' ||
                 $documentType === 'DO From Stock Movement' ||
                 $documentType === 'Loan Form' ||
@@ -408,7 +407,7 @@ class CheckDocumentController extends Controller
                     'data' => [
                         'data' => [
                             [
-                                'sys_ID'    => 92081956,
+                                'sys_ID'    => 211000000000026,
                                 'sys_Text'  => 'AP/QDC/2025/000001',
                                 'combinedBudgetCode' => 'Q000196',
                                 'combinedBudgetSectionCode' => 'Q000062 ► 235'
@@ -556,6 +555,26 @@ class CheckDocumentController extends Controller
                             [
                                 'sys_ID'    => 23456781,
                                 'sys_Text'  => 'SA/QDC/2025/000002',
+                                'combinedBudgetCode' => 'Q000196',
+                                'combinedBudgetSectionCode' => 'Q000062 ► 235'
+                            ],
+                        ]
+                    ]
+                ];
+                break;
+            case "Sales Invoice Form":
+                $varData = [
+                    'data' => [
+                        'data' => [
+                            [
+                                'sys_ID'    => 73810928,
+                                'sys_Text'  => 'Inv/QDC/2025/000001',
+                                'combinedBudgetCode' => 'Q000196',
+                                'combinedBudgetSectionCode' => 'Q000062 ► 235'
+                            ],
+                            [
+                                'sys_ID'    => 90381924,
+                                'sys_Text'  => 'Inv/QDC/2025/000002',
                                 'combinedBudgetCode' => 'Q000196',
                                 'combinedBudgetSectionCode' => 'Q000062 ► 235'
                             ],

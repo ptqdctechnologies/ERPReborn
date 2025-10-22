@@ -11,6 +11,28 @@
             </div>
         </div>
 
+        <!-- TYPE -->
+        <div class="row" style="margin-bottom: 1rem;">
+            <div class="col-4 col-sm-4 col-md-4 col-lg-3 text-bold">
+                Type
+            </div>
+            <div class="col">
+                : <?= $dataHeader['type']['text'] ?? '-'; ?>
+            </div>
+        </div>
+
+        <?php if ($dataHeader['type']['text'] == "Stock Movement") { ?>
+            <!-- STATUS -->
+            <div class="row" style="margin-bottom: 1rem;">
+                <div class="col-4 col-sm-4 col-md-4 col-lg-3 text-bold">
+                    Status
+                </div>
+                <div class="col">
+                    : <?= $dataHeader['status']['text']; ?>
+                </div>
+            </div>
+        <?php } ?>
+
         <?php if (!isset($dataHeaderTransactionHistory)) { ?>
             <!-- DELIVERY FROM -->
             <div class="row" style="margin-bottom: 1rem;">
@@ -42,15 +64,17 @@
                 </div>
             </div>
 
-            <!-- SUB BUDGET CODE -->
-            <div class="row" style="margin-bottom: 1rem;">
-                <div class="col-4 col-sm-4 col-md-4 col-lg-3 text-bold">
-                    Sub Budget Code
+            <?php if ($dataHeader['type']['text'] == "Stock Movement") { ?>
+                <!-- REQUESTER -->
+                <div class="row" style="margin-bottom: 1rem;">
+                    <div class="col-4 col-sm-4 col-md-4 col-lg-3 text-bold">
+                        Requester
+                    </div>
+                    <div class="col">
+                        : <?= $dataHeader['requesterPosition']; ?> - <?= $dataHeader['requesterName']; ?>
+                    </div>
                 </div>
-                <div class="col">
-                    : <?= isset($dataHeader['subBudgetCode']) && isset($dataHeader['subBudgetName']) ? $dataHeader['subBudgetCode'] . ' - ' . $dataHeader['subBudgetName'] : '-'; ?>
-                </div>
-            </div>
+            <?php } ?>
 
             <!-- FILE ATTACHMENT -->
             <div class="row">
@@ -86,15 +110,17 @@
                 </div>
             </div>
 
-            <!-- SUB BUDGET CODE -->
-            <div class="row" style="margin-bottom: 1rem;">
-                <div class="col-4 col-sm-4 col-md-4 col-lg-3 text-bold">
-                    Sub Budget Code
+            <?php if ($dataHeader['type']['text'] == "Stock Movement") { ?>
+                <!-- REQUESTER -->
+                <div class="row" style="margin-bottom: 1rem;">
+                    <div class="col-4 col-sm-4 col-md-4 col-lg-3 text-bold">
+                        Requester
+                    </div>
+                    <div class="col">
+                        : <?= $dataHeader['requesterPosition']; ?> - <?= $dataHeader['requesterName']; ?>
+                    </div>
                 </div>
-                <div class="col">
-                    : <?= isset($dataHeader['subBudgetCode']) && isset($dataHeader['subBudgetName']) ? $dataHeader['subBudgetCode'] . ' - ' . $dataHeader['subBudgetName'] : '-'; ?>
-                </div>
-            </div>
+            <?php } ?>
         <?php } ?>
     </div>
 </div>

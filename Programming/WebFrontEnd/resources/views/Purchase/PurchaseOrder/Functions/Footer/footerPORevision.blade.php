@@ -505,11 +505,6 @@
         });
     }
 
-    function CancelPurchaseOrder() {
-        ShowLoading();
-        window.location.href = "{{ route('PurchaseOrder.index', ['var' => 1]) }}";
-    }
-
     function viewPurchaseOrderDetail(dataDetail) {
         $(".loadingPurchaseOrderTable").hide();
         $("#purchaseOrderRecord_RefID").val(dataDetail[0].purchaseOrder_RefID);

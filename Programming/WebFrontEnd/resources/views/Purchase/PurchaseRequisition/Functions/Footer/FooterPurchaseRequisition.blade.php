@@ -559,11 +559,6 @@
         });
     }
 
-    function CancelPurchaseRequisition() {
-        ShowLoading();
-        window.location.href = '/PurchaseRequisition?var=1';
-    }
-
     function SubmitForm() {
         $('#purchaseRequestFormModal').modal('hide');
 
@@ -621,8 +616,8 @@
         });
     }
 
-    $('#tableGetProjectSecond').on('click', 'tbody tr', async function() {
-        let sysId           = $(this).find('input[data-trigger="sys_id_project_second"]').val();
+    $('#tableProjects').on('click', 'tbody tr', async function() {
+        let sysId           = $(this).find('input[data-trigger="sys_id_project"]').val();
         let projectCode     = $(this).find('td:nth-child(2)').text();
         let projectName     = $(this).find('td:nth-child(3)').text();
         let documentTypeID  = $("#DocumentTypeID").val();
@@ -637,19 +632,22 @@
         $("#loadingBudget").css({"display":"block"});
         $("#myProjectSecondTrigger").css({"display":"none"});
 
+        $('#myProjects').modal('hide');
+
         try {
             let checkWorkFlow = await checkingWorkflow(sysId, documentTypeID);
 
             if (checkWorkFlow) {
                 $("#project_id_second").val(sysId);
                 $("#project_code_second").val(projectCode);
-                $("#project_name_second").val(projectName);
+                $("#project_name_second").val(`${projectCode} - ${projectName}`);
                 $("#myProjectSecondTrigger").prop("disabled", true);
                 $("#myProjectSecondTrigger").css("cursor", "not-allowed");
+                $("#project_name_second").css("background-color", "#e9ecef");
 
                 $("#var_combinedBudget_RefID").val(sysId);
 
-                getSiteSecond(sysId);
+                getSites(sysId);
                 $("#mySiteCodeSecondTrigger").prop("disabled", false);
             }
 
@@ -662,26 +660,53 @@
         }
     });
 
-    $('#tableGetSiteSecond').on('click', 'tbody tr', function() {
-        let sysId = $(this).find('input[data-trigger="sys_id_site_second"]').val();
+    $('#tableSites').on('click', 'tbody tr', function() {
+        let sysId       = $(this).find('input[data-trigger="sys_id_site"]').val();
+        let siteCode    = $(this).find('td:nth-child(2)').text();
+        let siteName    = $(this).find('td:nth-child(3)').text();
 
-        getBudgetDetails(sysId);
+        $("#site_id_second").val(sysId);
+        $("#site_code_second").val(siteCode);
+        $("#site_name_second").val(`${siteCode} - ${siteName}`);
+
         $("#site_code_second").css("border", "1px solid #ced4da");
         $("#site_name_second").css("border", "1px solid #ced4da");
+        $("#site_name_second").css({"background-color":"#e9ecef"});
         $("#subBudgetMessage").hide();
-        $(".loadingBudgetDetails").show();
+
         $("#deliverModalTrigger").prop("disabled", false);
+
+        $('#mySites').modal('hide');
+
+        getBudgetDetails(sysId);
+
+        $(".loadingBudgetDetails").show();
     });
 
-    $('#tableGetDeliverTo').on('click', 'tbody tr', function() {
-        $("#deliverCode").css("border", "1px solid #ced4da");
-        $("#deliverName").css("border", "1px solid #ced4da");
+    $('#tableGetModalWarehouses').on('click', 'tbody tr', function() {
+        let id      = $(this).find('input[data-trigger="sys_id_modal_warehouse"]').val();
+        let name    = $(this).find('td:nth-child(2)').text();
+        let address = $(this).find('td:nth-child(3)').text();
+
+        $("#deliver_RefID").val(id);
+        $("#deliverName").val(`${name} - ${address}`);
+        $("#deliverCode").val(name);
+
+        $("#deliverName").css({
+            "background-color": "#e9ecef",
+            "border": "1px solid #ced4da"
+        });
         $("#deliveryToMessage").hide();
+
+        $("#myGetModalWarehouses").modal('toggle');
     });
 
-    $('#dateCommance').on('change', function() {
-        $("#dateCommance").css("border", "1px solid #ced4da");
-        $("#dateOfDeliveryMessage").hide();
+    $('#dateCommance').on('keypress', function() {
+        $("#dateCommance").val("");
+    });
+
+    $('#dateCommance').on('keyup', function() {
+        $("#dateCommance").val("");
     });
 
     $(document).on('input', '.number-without-negative', function() {
@@ -701,5 +726,19 @@
         $("#deliveryToMessage").hide();
         $("#dateOfDeliveryMessage").hide();
         $("#budgetDetailsMessage").hide();
+
+        $('#dateOfDelivery').datetimepicker({
+            format: 'L'
+        });
+
+        $('#dateOfDelivery').on('change.datetimepicker', function (e) {
+            if (dateDelivery.value) {
+                $("#dateCommance").css({
+                    "background-color": "#e9ecef",
+                    "border": "1px solid #ced4da"
+                });
+                $("#dateOfDeliveryMessage").hide();
+            }
+        });
     });
 </script>

@@ -4,12 +4,46 @@ namespace App\Services\Document;
 
 class DocumentTypeMapper
 {
+    public static function formatResponse($value) 
+    {
+        return $newFormat = match ($value) {
+            0       => 'no',
+            1       => 'yes',
+            default => null
+        };
+    }
+
+    public static function formatText($text) 
+    {
+        $result = strtolower($text);
+        $result = str_replace("_", " ", $result);
+        $result = ucwords($result);
+        
+        if ($text == "PERMANENT" || $text == "RENT") {
+            $resultRefID = match ($text) {
+                "RENT"      => 0,
+                default     => 1,
+            };
+        } else {
+            $resultRefID = match ($text) {
+                "PURCHASE_ORDER"    => 0,
+                "INTERNAL_USE"      => 1,
+                default             => 2,
+            };
+        }
+
+        return [
+            'id'    => $resultRefID,
+            'text'  => $result
+        ];
+    }
+
     public static function getApiConfig(string $documentType, int $referenceId): ?array
     {
         $mapping = [
             'Account Payable' => [
-                'key'                       => '',
-                'parameter'                 => [],
+                'key'                       => 'transaction.read.dataList.finance.getPaymentInstructionDetail',
+                'parameter'                 => ['paymentInstruction_RefID' => (int) $referenceId],
                 'businessDocument_RefID'    => (int) 74000000021494,
             ],
             'Advance Form' => [
@@ -111,18 +145,39 @@ class DocumentTypeMapper
         $mapping = [
             'Account Payable' => [
                 'dataHeader'    => [
-                    'date'              => null,
-                    'dateUpdate'        => '2025-09-29 15:49:00.113 +0700', // null or '2025-09-29 15:49:00.113 +0700'
+                    'date'                      => $dataDetail['Date'] ?? null,
+                    'dateUpdate'                => $dataDetail['DateUpdate'] ?? null, // null or '2025-09-29 15:49:00.113 +0700'
+                    'poNumber'                  => $dataDetail['PO_Number'] ?? null,
+                    'currency'                  => $dataDetail['CurrencySymbol'] ?? null,
+                    'supplierInvoiceNumber'     => $dataDetail['SupplierInvoiceNumber'] ?? null,
+                    'supplierBankName'          => $dataDetail['SupplierBank_Name'] ?? null, // PAYMENT TO
+                    'supplierBankAccount'       => $dataDetail['SupplierBank_Account'] ?? null, // PAYMENT TO
+                    'supplierBankAccountName'   => $dataDetail['SupplierBank_AccountName'] ?? null, // PAYMENT TO
+                    'receiptInvoiceOrigin'      => self::formatResponse($dataDetail['ReceiptStatus'] ?? null),
+                    'contractPOSigned'          => self::formatResponse($dataDetail['ContractStatus'] ?? null),
+                    'VATOrigin'                 => self::formatResponse($dataDetail['VatStatus'] ?? null),
+                    'VATValue'                  => $dataDetail['VatValue'] ?? null,
+                    'VATNumber'                 => $dataDetail['VatNumber'] ?? null,
+                    'FATPATDOOrigin'            => self::formatResponse($dataDetail['FatPatDoStatus'] ?? null),
+                    'asset'                     => self::formatResponse($dataDetail['AssetStatus'] ?? null),
+                    'category'                  => $dataDetail['AssetCategory'] ?? null,
+                    'depreciationMethod'        => $dataDetail['DepreciationMethod'] ?? null,
+                    'depreciationRate'          => $dataDetail['DepreciationRate'] ?? null,
+                    'depreciationYears'         => $dataDetail['DepreciationYears'] ?? null,
+                    'depreciationCOACode'       => $dataDetail['DepreciationCOA_Code'] ?? null,
+                    'depreciationCOAName'       => $dataDetail['DepreciationCOA_Name'] ?? null,
+                    'deduction'                 => $dataDetail['Deduction'] ?? null,
                 ],
                 'textAreaFields'    => [
                     'title'         => 'Remark',
-                    'text'          => '-',
+                    'text'          => $dataDetail['Notes'] ?? null,
                 ],
                 'components'        => [
                     'detail'            => 'Components.AccountPayableDetailDocument',
                     'table'             => 'Components.AccountPayableDetailDocumentTable',
                     'headerRevision'    => 'Components.AccountPayableDetailDocumentHeaderRevision',
                     'revision'          => 'Components.AccountPayableDetailDocumentRevision',
+                    'otherAdditional'   => 'Components.AccountPayableDetailDocumentAdditional'
                 ],
                 'resubmit'      => [
                     'url'       => '',
@@ -264,6 +319,7 @@ class DocumentTypeMapper
                 'dataHeader'    => [
                     'deliveryOrderRefID'        => $dataDetail['deliveryOrder_RefID'] ?? '',
                     'doNumber'                  => $dataDetail['documentNumber'] ?? '-',
+                    'type'                      => self::formatText($dataDetail['type'] ?? null),
                     'date'                      => $dataDetail['sys_Data_Entry_DateTimeTZ'] ?? null,
                     'dateUpdate'                => $dataDetail['sys_Data_Edit_DateTimeTZ'] ?? null,
                     'deliveryFrom'              => $dataDetail['deliveryFrom_NonRefID']['Address'] ?? '-',
@@ -272,6 +328,9 @@ class DocumentTypeMapper
                     'budgetName'                => $dataDetail['combinedBudgetName'] ?? null,
                     'subBudgetCode'             => $dataDetail['combinedBudgetSectionCode'] ?? null,
                     'subBudgetName'             => $dataDetail['combinedBudgetSectionName'] ?? null,
+                    'requesterName'             => $dataDetail['stockMovementRequesterName'] ?? null,
+                    'status'                    => self::formatText($dataDetail['stockMovementStatus'] ?? null),
+                    'requesterPosition'         => $dataDetail['stockMovementRequesterPosition'] ?? null,
                     'fileID'                    => $dataDetail['log_FileUpload_Pointer_RefID'] ?? null,
                     'transporterName'           => $dataDetail['transporterName'] ?? '-',
                     'transporterContactPerson'  => $dataDetail['transporterContactPerson'] ?? '-',
@@ -649,7 +708,7 @@ class DocumentTypeMapper
                 'dataHeader'            => [
                     'vat'           => '-',
                     'date'          => '2025-06-04 10:47:11.993084+07',
-                    'dateUpdate'    => '2025-06-04 10:47:11.993084+07',
+                    'dateUpdate'    => null,
                     'fileID'        => null,
                     'currency'      => 'IDR',
                     'budgetCode'    => 'Q000062',

@@ -2,9 +2,9 @@
 @section('main')
 @include('Partials.navbar')
 @include('Partials.sidebar')
-@include('getFunction.getProject')
-@include('getFunction.getSite')
-@include('getFunction.getSupplier')
+@include('getFunction.getProjects')
+@include('getFunction.getSites')
+@include('getFunction.getRequesters')
 
 <div class="content-wrapper">
     <section class="content">
@@ -14,35 +14,26 @@
                     <label style="font-size:15px;position:relative;top:7px;color:white;">Report Advance to Advance Settlement</label>
                 </div>
             </div>
+
             <div class="card">
                 <div class="tab-content p-3" id="nav-tabContent">
-                    <!-- FORM -->
-                    
-
-                    @if($statusHeader == "Yes")
                     <div class="row">
-                        @include('Process.Advance.AdvanceToASF.Functions.Header.HeaderReportAdvanceToASF')
-                    </div>
-                    @endif
-                    @if(!empty($dataArftoASF) && isset($dataArftoASF[0]))
-                        <!-- <div class="row">
-                            <div class="col-12">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="row py-2 px-1" style="gap: 1rem;">
-                                            <label class="p-0 text-bold mb-0">Budget</label>
-                                              :  {{ $dataArftoASF[0]['combinedBudgetCode'] }} - {{ $dataArftoASF[0]['combinedBudgetName'] }}
-                                        </div>
+                        <div class="col-12 ShowDocument">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row p-1" style="row-gap: 1rem;">
+                                        @include('Process.Advance.AdvanceToASF.Functions.Header.HeaderReportAdvanceToASF')
                                     </div>
                                 </div>
                             </div>
-                        </div> -->
+                        </div>
 
-                        <!-- TABLE -->
-                        <div class="row">
-                            <div class="col-12">
+                        <?php if (!empty($dataArftoASF) && isset($dataArftoASF[0]) && !empty($dataHeader) && isset($dataHeader['project'])) { ?>
+                            <!-- <div id="table_container" class="col-12" style="display:none;"> -->
+                            <div id="table_container" class="col-12">
                                 <div class="card">
                                     <div class="card-body table-responsive p-0">
+                                        <!-- <table class="table table-head-fixed text-nowrap" id="testing"> -->
                                         <table class="table table-head-fixed text-nowrap" id="DefaultFeatures">
                                             <thead>
                                                 <tr>
@@ -70,71 +61,75 @@
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Advance to Settlement</th>
                                                 </tr>
                                             </thead>
+
                                             <?php
-                                            // Grouping data berdasarkan ARF_Number + ARF_Date
-                                            $groupedData = [];
-                                            foreach ($dataArftoASF as $row) {
-                                                $groupKey = $row['ARF_Number'] . '|' . $row['ARF_Date'];
-                                                if (!isset($groupedData[$groupKey])) {
-                                                    $groupedData[$groupKey] = [];
+                                                $groupedData = [];
+                                                foreach ($dataArftoASF as $row) {
+                                                    $groupKey = $row['ARF_Number'] . '|' . $row['ARF_Date'];
+                                                    if (!isset($groupedData[$groupKey])) {
+                                                        $groupedData[$groupKey] = [];
+                                                    }
+                                                    $groupedData[$groupKey][] = $row;
                                                 }
-                                                $groupedData[$groupKey][] = $row;
-                                            }
 
-                                            $counter = 1;
-                                            $totalAdvance= 0;
-                                            $totalpayment=0;
-                                            $totalexpenseASF=0;
-                                            $totalamountASF=0;
-                                            $totalASF=0;
-                                            $totalarftoPayment=0;
-                                            $totalarftoASF=0;
-                                        ?>
+                                                $counter = 1;
+                                                $totalAdvance= 0;
+                                                $totalpayment=0;
+                                                $totalexpenseASF=0;
+                                                $totalamountASF=0;
+                                                $totalASF=0;
+                                                $totalarftoPayment=0;
+                                                $totalarftoASF=0;
+                                            ?>
 
-                                        <tbody>
-                                            @foreach ($groupedData as $groupKey => $rows)
-                                                <?php
-                                                    $rowspan = count($rows);
-                                                    $firstRow = true;
-                                                ?>
-                                                @foreach ($rows as $dataDetail)
+                                            <tbody>
+                                                <?php foreach ($groupedData as $groupKey => $rows) { ?>
                                                     <?php
-                                                        $totalAdvance += $dataDetail['ARF_Total_IDR'];
-                                                        $totalpayment +=$dataDetail['ARF_Payment'];
-                                                        $totalexpenseASF +=$dataDetail['expense_Claim_IDR'];
-                                                        $totalamountASF +=$dataDetail['amount_Due_Company_IDR'];
-                                                        $totalASF +=$dataDetail['ASF_Total'];
-                                                        $totalarftoPayment +=$dataDetail['advance_ToPayment'];
-                                                        $totalarftoASF +=$dataDetail['advance_ToSettlement'];
+                                                        $rowspan = count($rows);
+                                                        $firstRow = true;
                                                     ?>
-                                                    <tr>
-                                                        <td>{{ $counter++ }}</td>
-                                                        @if ($firstRow)
-                                                            <td rowspan="{{ $rowspan }}">{{ $dataDetail['ARF_Number'] ?: '-' }}</td>
-                                                            <td rowspan="{{ $rowspan }}">{{ $dataDetail['ARF_Date'] ? date('d-m-Y', strtotime($dataDetail['ARF_Date'])) : '-' }}</td>
-                                                            <?php $firstRow = false; ?>
-                                                        @else
-                                                            <td style="display:none"></td>
-                                                            <td style="display:none"></td>
-                                                            <td style="display:none"></td>
-                                                        @endif
-                                                        <td>{{ $dataDetail['ARF_Requester'] }}</td>
-                                                        <td>{{ number_format($dataDetail['ARF_Total_IDR'], 2, '.', ',') }}</td>
-                                                        <td>{{ $dataDetail['ARF_Payment'] ?: '-' }}</td>
-                                                        <td>{{ $dataDetail['ARF_Status'] ?: '-' }}</td>
 
-                                                        <td>{{ $dataDetail['ASF_Number'] ?: '-' }}</td>
-                                                        <td>{{ $dataDetail['ASF_Date'] ? date('d-m-Y', strtotime($dataDetail['ASF_Date'])) : '-' }}</td>
-                                                        <td>{{ $dataDetail['expense_Claim_IDR'] ? number_format($dataDetail['expense_Claim_IDR'], 2, '.', ',') : '-' }}</td>
-                                                        <td>{{ $dataDetail['amount_Due_Company_IDR'] ? number_format($dataDetail['amount_Due_Company_IDR'], 2, '.', ',') : '-' }}</td>
-                                                        <td>{{ $dataDetail['ASF_Total'] ? number_format($dataDetail['ASF_Total'], 2, '.', ',') : '-' }}</td>
-                                                        <td>{{ $dataDetail['ASF_Status'] ?: '-' }}</td>
-                                                        <td>{{ $dataDetail['advance_ToPayment'] ? number_format($dataDetail['advance_ToPayment'], 2, '.', ',') : '-' }}</td>
-                                                        <td>{{ $dataDetail['advance_ToSettlement'] ? number_format($dataDetail['advance_ToSettlement'], 2, '.', ',') : '-' }}</td>
-                                                    </tr>
-                                                @endforeach
-                                        @endforeach
-                                        </tbody>
+                                                    <?php foreach ($rows as $dataDetail) { ?>
+                                                        <?php
+                                                            $totalAdvance       += $dataDetail['ARF_Total_IDR'];
+                                                            $totalpayment       += $dataDetail['ARF_Payment'];
+                                                            $totalexpenseASF    += $dataDetail['expense_Claim_IDR'];
+                                                            $totalamountASF     += $dataDetail['amount_Due_Company_IDR'];
+                                                            $totalASF           += $dataDetail['ASF_Total'];
+                                                            $totalarftoPayment  += $dataDetail['advance_ToPayment'];
+                                                            $totalarftoASF      += $dataDetail['advance_ToSettlement'];
+                                                        ?>
+                                                        <tr>
+                                                            <td><?= $counter++; ?></td>
+                                                            <?php if ($firstRow) { ?>
+                                                                <td rowspan="<?= $rowspan; ?>">
+                                                                    <?= $dataDetail['ARF_Number'] ?: '-'; ?>
+                                                                </td>
+                                                                <td rowspan="<?= $rowspan; ?>">
+                                                                    <?= $dataDetail['ARF_Date'] ? date('d-m-Y', strtotime($dataDetail['ARF_Date'])) : '-'; ?>
+                                                                </td>
+                                                                <?php $firstRow = false; ?>
+                                                            <?php } else { ?>
+                                                                <td style="display:none;"></td>
+                                                                <td style="display:none;"></td>
+                                                                <td style="display:none;"></td>
+                                                            <?php } ?>
+                                                            <td><?= $dataDetail['ARF_Requester']; ?></td>
+                                                            <td><?= number_format($dataDetail['ARF_Total_IDR'], 2, '.', ','); ?></td>
+                                                            <td><?= $dataDetail['ARF_Payment'] ?: '-'; ?></td>
+                                                            <td><?= $dataDetail['ARF_Status'] ?: '-'; ?></td>
+                                                            <td><?= $dataDetail['ASF_Number'] ?: '-'; ?></td>
+                                                            <td><?= $dataDetail['ASF_Date'] ? date('d-m-Y', strtotime($dataDetail['ASF_Date'])) : '-'; ?></td>
+                                                            <td><?= $dataDetail['expense_Claim_IDR'] ? number_format($dataDetail['expense_Claim_IDR'], 2, '.', ',') : '-'; ?></td>
+                                                            <td><?= $dataDetail['amount_Due_Company_IDR'] ? number_format($dataDetail['amount_Due_Company_IDR'], 2, '.', ',') : '-'; ?></td>
+                                                            <td><?= $dataDetail['ASF_Total'] ? number_format($dataDetail['ASF_Total'], 2, '.', ',') : '-'; ?></td>
+                                                            <td><?= $dataDetail['ASF_Status'] ?: '-'; ?></td>
+                                                            <td><?= $dataDetail['advance_ToPayment'] ? number_format($dataDetail['advance_ToPayment'], 2, '.', ',') : '-'; ?></td>
+                                                            <td><?= $dataDetail['advance_ToSettlement'] ? number_format($dataDetail['advance_ToSettlement'], 2, '.', ',') : '-'; ?></td>
+                                                        </tr>
+                                                    <?php } ?>
+                                                <?php } ?>
+                                            </tbody>
                                             <tfoot>
                                                 <tr>
                                                     <th colspan="4" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">GRAND TOTAL</th>
@@ -153,8 +148,8 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    @endif
+                        <?php } ?>
+                    </div>
                 </div>
             </div>
         </div>
