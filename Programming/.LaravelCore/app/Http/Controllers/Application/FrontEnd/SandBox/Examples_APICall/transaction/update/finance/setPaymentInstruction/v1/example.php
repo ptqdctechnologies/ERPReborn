@@ -21,7 +21,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         |                     ► http://172.28.0.4/transaction.update.finance.setPaymentInstruction.v1_throughAPIGateway            |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-10-15                                                                                           |
+        | ▪ Last Update     : 2025-10-20                                                                                           |
         | ▪ Creation Date   : 2025-01-13                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -64,7 +64,6 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                             "depreciationCOA_RefID" => 65000000000005,
                             "deduction" => 0.0,
                             "remarks" => 'My Remarks',
-                            "supplierBankAccount_RefID" => 167000000000001,
                             'additionalData' => [
                                 'itemList' => [
                                     'items' => [
@@ -79,7 +78,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                                 "productUnitPriceCurrency_RefID" => 62000000000001,
                                                 "productUnitPriceCurrencyValue" => 200000.00,
                                                 "productUnitPriceCurrencyExchangeRate" => 1,
-                                                "wht" => 2.00
+                                                "wht" => 2.00,
+                                                "purchaseOrderDetail_RefID" => 86000000000001
                                                 ]
                                             ],
                                         ]
