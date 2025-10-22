@@ -1902,7 +1902,7 @@ class AccountPayableService
         $vatValue               = $data['vat_origin'] == "yes" ? (float) str_replace(',', '', $data['ppn']) : null;
         $depreciationRate       = $data['depreciation_rate_percentage'] ? (float) str_replace(',', '', $data['depreciation_rate_percentage']) : null;
         $depreciationCOARefID   = $data['depreciation_coa_id'] ? (int) $data['depreciation_coa_id'] : null;
-        $deduction              = $data['budget_details_deduction'] ? (float) str_replace(',', '', $data['budget_details_deduction']) : null;
+        $deduction              = $data['budget_details_deduction'] > -1 ? (float) str_replace(',', '', $data['budget_details_deduction']) : null;
 
         $receiptStatus = match ($data['receipt_origin']) {
             'no'        => (int) 0,
@@ -1938,13 +1938,12 @@ class AccountPayableService
             'entities' => [
                 "documentDateTimeTZ"            => date('Y-m-d'),
                 "log_FileUpload_Pointer_RefID"  => $fileID,
-                "purchaseOrderDetail_RefID"     => 86000000000270,
                 "currency_RefID"                => 62000000000001,
                 "currencySymbol"                => 'Rp',
                 "currencyValue"                 => 15080000.00,
                 "currencyExchangeRate"          => 1.00,
-                "supplierInvoiceNumber"         => (float) str_replace(',', '', $data['supplier_invoice_number']),
-                "supplier_RefID"                => 126000000000001, // Payment Transfer To
+                "supplierInvoiceNumber"         => $data['supplier_invoice_number'],
+                "supplier_RefID"                => (int) $data['payment_transfer_id'], 
                 "receiptStatus"                 => $receiptStatus,
                 "contractStatus"                => $contractStatus,
                 "vatStatus"                     => $vatStatus,
@@ -1958,7 +1957,6 @@ class AccountPayableService
                 "depreciationCOA_RefID"         => $depreciationCOARefID,
                 "deduction"                     => $deduction,
                 "remarks"                       => $data['account_payable_notes'],
-                "supplierBankAccount_RefID"     => 167000000000001,
                 "additionalData"    => [
                     "itemList"      => [
                         "items"     => $detailItems

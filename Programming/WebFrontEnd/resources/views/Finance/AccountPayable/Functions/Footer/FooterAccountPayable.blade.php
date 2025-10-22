@@ -60,6 +60,7 @@
         const rows = sourceTable.getElementsByTagName('tr');
 
         for (let row of rows) {
+            const purchaseOrderDetailRefID              = row.querySelector('input[id^="purchaseOrderDetail_RefID"]');
             const combinedBudgetSectionDetailRefID      = row.querySelector('input[id^="combinedBudgetSectionDetail_RefID"]');
             const productRefID                          = row.querySelector('input[id^="product_RefID"]');
             const quantityUnitRefID                     = row.querySelector('input[id^="quantityUnit_RefID"]');
@@ -77,8 +78,8 @@
                 whtInput.value.trim() !== '' &&
                 coaRefID.value.trim() !== ''
             ) {
-                const product = row.children[5].innerText.trim();
-                const uom = row.children[9].innerText.trim();
+                const product = row.children[6].innerText.trim();
+                const uom = row.children[10].innerText.trim();
 
                 const qtyValue      = qtyInput.value.trim();
                 const totalValue    = totalInput.value.trim();
@@ -113,7 +114,8 @@
                             productUnitPriceCurrency_RefID: parseInt(productUnitPriceCurrencyRefID.value),
                             productUnitPriceCurrencyValue: parseFloat(totalValue.replace(/,/g, '')),
                             productUnitPriceCurrencyExchangeRate: parseInt(productUnitPriceCurrencyExchangeRate.value),
-                            wht: parseFloat(whtValue.replace(/,/g, ''))
+                            wht: parseFloat(whtValue.replace(/,/g, '')),
+                            purchaseOrderDetail_RefID: parseInt(purchaseOrderDetailRefID.value),
                         }
                     });
                 }
@@ -149,10 +151,13 @@
                     $("#purchase_order_delivery_to").val(data[0].deliveryTo_NonRefID.Address);
                     $("#purchase_order_delivery_from").val(`${data[0].supplierName} - ${data[0].supplierAddress}`);
 
+                    getPaymentTransfer(data[0].supplier_RefID);
+
                     $.each(data, function(key, val) {
                         let row = `
                             <tr>
-                                <input type="hidden" id="combinedBudgetSectionDetail_RefID[]" value="${val.sys_ID}">
+                                <input type="hidden" id="purchaseOrderDetail_RefID[]" value="${val.sys_ID}">
+                                <input type="hidden" id="combinedBudgetSectionDetail_RefID[]" value="${169000000000041}">
                                 <input type="hidden" id="product_RefID[]" value="${val.product_RefID}">
                                 <input type="hidden" id="quantityUnit_RefID[]" value="${val.quantityUnit_RefID}">
                                 <input type="hidden" id="productUnitPriceCurrency_RefID[]" value="${val.productUnitPriceCurrency_RefID}">
@@ -355,11 +360,13 @@
     });
 
     $('#tableGetPaymentTransfer').on('click', 'tbody tr', async function() {
-        let bankCode        = $(this).find('td:nth-child(4)').text();
-        let bankAccount     = $(this).find('td:nth-child(6)').text();
-        let accountNumber   = $(this).find('td:nth-child(7)').text();
+        let sysId           = $(this).find('input[data-trigger="sys_id_payment"]').val();
+        let bankCode        = $(this).find('td:nth-child(5)').text();
+        let bankAccount     = $(this).find('td:nth-child(7)').text();
+        let accountNumber   = $(this).find('td:nth-child(8)').text();
 
         $(`#payment_transfer_number`).val(`${bankAccount} - (${bankCode}) ${accountNumber}`);
+        $("#payment_transfer_id").val(sysId);
         $(`#payment_transfer_number`).css('background-color', '#e9ecef');
         
         $('#myGetPaymentTransfer').modal('hide');
