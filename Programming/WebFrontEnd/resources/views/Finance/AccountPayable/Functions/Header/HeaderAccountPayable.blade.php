@@ -14,6 +14,14 @@
                     </div>
                 </div>
             </div>
+            <div class="row" id="supplier_invoice_number_message" style="margin-top: .3rem; display: none;">
+                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+                <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                    <div class="text-red">
+                        Supplier Invoice Number cannot be empty.
+                    </div>
+                </div>
+            </div>
 
             <!-- PAYMENT TO -->
             <div class="row" style="margin-top: 1rem;">
@@ -38,11 +46,11 @@
                     </div>
                 </div>
             </div>
-            <div class="row" id="purchase_order_message" style="margin-top: .3rem; display: none;">
+            <div class="row" id="payment_transfer_message" style="margin-top: .3rem; display: none;">
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div class="text-red">
-                        Purchase Order cannot be empty.
+                        Payment To cannot be empty.
                     </div>
                 </div>
             </div>
@@ -63,6 +71,14 @@
                     </div>
                 </div>
             </div>
+            <div class="row" id="receipt_origin_message" style="margin-top: .3rem; display: none;">
+                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+                <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                    <div class="text-red">
+                        Receipt/Invoice Origin cannot be empty.
+                    </div>
+                </div>
+            </div>
 
             <!-- CONTRACT/PO SIGNED -->
             <div class="row" style="margin-top: 1rem;">
@@ -80,8 +96,16 @@
                     </div>
                 </div>
             </div>
+            <div class="row" id="contract_signed_message" style="margin-top: .3rem; display: none;">
+                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+                <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                    <div class="text-red">
+                        Contract/PO Signed cannot be empty.
+                    </div>
+                </div>
+            </div>
 
-            <!-- VAT Origin -->
+            <!-- VAT ORIGIN -->
             <div class="row" style="margin-top: 1rem;">
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">VAT Origin</label>
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
@@ -96,11 +120,19 @@
                         </div>
                         <div>
                             <select type="text" id="ppn" class="form-control vat-components" name="ppn" onchange="onChangeVAT(this)" style="border-radius:0;width:auto;display:none;">
-                                <option disabled selected value="">Sel..</option>
+                                <option disabled selected value="Sel..">Sel..</option>
                                 <option value="10">10%</option>
                                 <option value="20">20%</option>
                             </select>
                         </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="vat_origin_message" style="margin-top: .3rem; display: none;">
+                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+                <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                    <div class="text-red" id="vat_origin_text_message">
+                        VAT Origin cannot be empty.
                     </div>
                 </div>
             </div>
@@ -113,6 +145,14 @@
                         <div class="input-group">
                             <input id="vat_number" name="vat_number" style="border-radius:0;" class="form-control number-without-characters" autocomplete="off">
                         </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="vat_number_message" style="margin-top: .3rem; display: none;">
+                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+                <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                    <div class="text-red">
+                        VAT Number cannot be empty.
                     </div>
                 </div>
             </div>
@@ -133,6 +173,14 @@
                     </div>
                 </div>
             </div>
+            <div class="row" id="basft_origin_message" style="margin-top: .3rem; display: none;">
+                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+                <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                    <div class="text-red">
+                        FAT/PAT/DO Origin cannot be empty.
+                    </div>
+                </div>
+            </div>
 
             <!-- NOTES -->
             <div class="row" style="margin-top: 1rem;">
@@ -142,6 +190,14 @@
                         <div class="input-group">
                             <textarea id="account_payable_notes" name="account_payable_notes" cols="20" rows="4" class="form-control" autocomplete="off"></textarea>
                         </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="account_payable_notes_message" style="margin-top: .3rem; display: none;">
+                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+                <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                    <div class="text-red">
+                        Notes cannot be empty.
                     </div>
                 </div>
             </div>
@@ -162,6 +218,14 @@
                             <input class="custom-control-input" type="radio" id="asset_yes" name="asset" value="yes" onclick="assetValue(this)">
                             <label for="asset_yes" class="custom-control-label" style="padding-top: 28%;">Yes</label>
                         </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="asset_message" style="margin-top: .3rem; display: none;">
+                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+                <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                    <div class="text-red">
+                        Asset cannot be empty.
                     </div>
                 </div>
             </div>
@@ -209,10 +273,18 @@
                 <div class="col-sm-9 col-md-8 col-lg-4 p-0">
                     <div>
                         <select class="form-control" name="depreciation_method" id="depreciation_method" style="border-radius:0;" type="text">
-                            <option disabled selected>Select a Method</option>
+                            <option disabled selected value="Select a Method">Select a Method</option>
                             <option value="0">Straight Line</option>
                             <option value="1">Double Decline</option>
                         </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="depreciation_method_message" style="margin-top: .3rem; display: none;">
+                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+                <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                    <div class="text-red">
+                        Depreciation Method cannot be empty.
                     </div>
                 </div>
             </div>
@@ -233,6 +305,14 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="depreciation_value_message" style="margin-top: .3rem; display: none;">
+                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+                <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                    <div id="depreciation_value_text_message" class="text-red">
+                        Depreciation Rate cannot be empty.
                     </div>
                 </div>
             </div>
@@ -257,6 +337,14 @@
                             <input id="depreciation_coa_number" class="form-control" size="15" readonly style="border-radius:0; background-color: white; cursor: default;">
                             <input id="depreciation_coa_id" name="depreciation_coa_id" style="border-radius:0;" class="form-control" hidden>
                         </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="depreciation_coa_message" style="margin-top: .3rem; display: none;">
+                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+                <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                    <div class="text-red">
+                        Depreciation COA cannot be empty.
                     </div>
                 </div>
             </div>

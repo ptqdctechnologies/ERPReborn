@@ -1,10 +1,20 @@
 <script>
-    let totalTaxBased           = 0;
-    let totalWHT                = 0;
-    let totalDeduction          = 0;
-    let currentIndexPickCOA     = null;
-    let dataStore               = [];
-    const valueVAT              = document.getElementById('ppn');
+    let totalTaxBased                   = 0;
+    let totalWHT                        = 0;
+    let totalDeduction                  = 0;
+    let currentIndexPickCOA             = null;
+    let dataStore                       = [];
+    const purchaseOrderNumber           = document.getElementById("purchase_order_number");
+    const supplierInvoiceNumber         = document.getElementById("supplier_invoice_number");
+    const paymentTransferNumber         = document.getElementById("payment_transfer_number");
+    const valueVAT                      = document.getElementById('ppn');
+    const valueVATNumber                = document.getElementById('vat_number');
+    const notes                         = document.getElementById('account_payable_notes');
+    const categoryNumber                = document.getElementById('category_number');
+    const depreciationMethod            = document.getElementById('depreciation_method');
+    const depreciationRatePercentage    = document.getElementById('depreciation_rate_percentage');
+    const depreciationRateYears         = document.getElementById('depreciation_rate_years');
+    const depreciationCOANumber         = document.getElementById('depreciation_coa_number');
 
     function assetValue(params) {
         if (params.value == "no") {
@@ -124,8 +134,149 @@
     }
 
     function validationForm() {
-        summaryData();
-        $('#account_payable_submit_modal').modal('show');
+        const isPurchaseOrderNumberNotEmpty         = purchaseOrderNumber.value.trim() !== '';
+        const isSupplierInvoiceNumberNotEmpty       = supplierInvoiceNumber.value.trim() !== '';
+        const isPaymentTransferNumberNotEmpty       = paymentTransferNumber.value.trim() !== '';
+        const isReceiptInvoiceOriginNotEmpty        = document.querySelector('input[name="receipt_origin"]:checked');
+        const isContractPOSignedNotEmpty            = document.querySelector('input[name="contract_signed"]:checked');
+        const isVATOriginNotEmpty                   = document.querySelector('input[name="vat_origin"]:checked');
+        const isValueVATNotEmpty                    = valueVAT.value.trim() !== 'Sel..';
+        const isValueVATNumberNotEmpty              = valueVATNumber.value.trim() !== '';
+        const isFATPATDOOriginNotEmpty              = document.querySelector('input[name="basft_origin"]:checked');
+        const isNotesNotEmpty                       = notes.value.trim() !== '';
+        const isAssetNotEmpty                       = document.querySelector('input[name="asset_message"]:checked');
+        const isCategoryNumberNotEmpty              = categoryNumber.value.trim() !== '';
+        const isDepreciationMethodNotEmpty          = depreciationMethod.value.trim() !== 'Select a Method';
+        const isDepreciationRatePercentageNotEmpty  = depreciationRatePercentage.value.trim() !== '';
+        const isDepreciationRateYearsNotEmpty       = depreciationRateYears.value.trim() !== '';
+        const isDepreciationCOANumberNotEmpty       = depreciationCOANumber.value.trim() !== '';
+
+        if (
+            isPurchaseOrderNumberNotEmpty && 
+            isSupplierInvoiceNumberNotEmpty && 
+            isPaymentTransferNumberNotEmpty &&
+            isReceiptInvoiceOriginNotEmpty &&
+            isContractPOSignedNotEmpty &&
+            isVATOriginNotEmpty && 
+            isFATPATDOOriginNotEmpty &&
+            isNotesNotEmpty &&
+            isAssetNotEmpty
+        ) {
+            summaryData();
+            $('#account_payable_submit_modal').modal('show');
+        } else {
+            if (
+                !isPurchaseOrderNumberNotEmpty && 
+                !isSupplierInvoiceNumberNotEmpty && 
+                !isPaymentTransferNumberNotEmpty &&
+                !isReceiptInvoiceOriginNotEmpty && 
+                !isContractPOSignedNotEmpty &&
+                !isVATOriginNotEmpty &&
+                !isFATPATDOOriginNotEmpty &&
+                !isNotesNotEmpty &&
+                !isAssetNotEmpty
+            ) {
+                $("#purchase_order_number").css("border", "1px solid red");
+                $("#supplier_invoice_number").css("border", "1px solid red");
+                $("#payment_transfer_number").css("border", "1px solid red");
+                $("#account_payable_notes").css("border", "1px solid red");
+
+                $("#purchase_order_message").show();
+                $("#supplier_invoice_number_message").show();
+                $("#payment_transfer_message").show();
+                $("#receipt_origin_message").show();
+                $("#contract_signed_message").show();
+                $("#vat_origin_message").show();
+                $("#basft_origin_message").show();
+                $("#account_payable_notes_message").show();
+                $("#asset_message").show();
+                return;
+            }
+            if (!isPurchaseOrderNumberNotEmpty) {
+                $("#purchase_order_number").css("border", "1px solid red");
+                $("#purchase_order_message").show();
+                return;
+            }
+            if (!isSupplierInvoiceNumberNotEmpty) {
+                $("#supplier_invoice_number").css("border", "1px solid red");
+                $("#supplier_invoice_number_message").show();
+                return;
+            }
+            if (!isPaymentTransferNumberNotEmpty) {
+                $("#supplier_invoice_number").css("border", "1px solid red");
+                $("#supplier_invoice_number_message").show();
+                return;
+            }
+            if (!isReceiptInvoiceOriginNotEmpty) {
+                $("#receipt_origin_message").show();
+                return;
+            }
+            if (!isContractPOSignedNotEmpty) {
+                $("#contract_signed_message").show();
+                return;
+            }
+            if (!isVATOriginNotEmpty) {
+                $("#vat_origin_message").show();
+                return;
+            } else {
+                if (isVATOriginNotEmpty.value == "yes") {
+                    if (!isValueVATNotEmpty) {
+                        $("#ppn").css("border", "1px solid red");
+                        $("#vat_origin_message").show();
+                        $("#vat_origin_text_message").text("VAT Value cannot be empty.");
+                        return;
+                    }
+                    if (!isValueVATNumberNotEmpty) {
+                        $("#vat_number").css("border", "1px solid red");
+                        $("#vat_number_message").show();
+                        return;
+                    }
+                }
+            }
+            if (!isFATPATDOOriginNotEmpty) {
+                $("#basft_origin_message").show();
+                return;
+            }
+            if (!isNotesNotEmpty) {
+                $("#account_payable_notes").css("border", "1px solid red");
+                $("#account_payable_notes_message").show();
+                return;
+            }
+            if (!isAssetNotEmpty) {
+                $("#asset_message").show();
+                return;
+            } else {
+                if (isAssetNotEmpty.value == "yes") {
+                    if (!isCategoryNumberNotEmpty) {
+                        $("#category_number").css("border", "1px solid red");
+                        $("#category_message").show();
+                        return;
+                    }isDepreciationCOANumberNotEmpty
+                    if (!isDepreciationMethodNotEmpty) {
+                        $("#depreciation_method").css("border", "1px solid red");
+                        $("#depreciation_method_message").show();
+                        return;
+                    }
+                    if (!isDepreciationRatePercentageNotEmpty) {
+                        $("#depreciation_rate_percentage").css("border", "1px solid red");
+                        $("#depreciation_value_message").show();
+                        $("#depreciation_value_text_message").text("Depreciation Rate cannot be empty.");
+                        return;
+                    }
+                    if (!isDepreciationRateYearsNotEmpty) { 
+                        $("#depreciation_rate_years").css("border", "1px solid red");
+                        $("#depreciation_value_message").show();
+                        $("#depreciation_value_text_message").text("Depreciation Years cannot be empty.");
+                        return;
+                    }
+                    if (!isDepreciationCOANumberNotEmpty) { 
+                        $("#depreciation_coa_number").css("border", "1px solid red");
+                        $("#depreciation_coa_message").show();
+                        return;
+                    }
+                }
+            }
+        }
     }
 
     function getPurchaseOrderDetail(purchaseOrderRefID) {
@@ -142,7 +293,8 @@
                 if (Array.isArray(data) && data.length > 0) {
                     $("#purchase_order_id").val(data[0].purchaseOrder_RefID);
                     $("#purchase_order_number").val(data[0].documentNumber);
-                    $("#purchase_order_number").css({"background-color": "#e9ecef"});
+                    $("#purchase_order_number").css({"background-color": "#e9ecef", "border": "1px solid #ced4da"});
+                    $("#purchase_order_message").hide();
 
                     $("#purchase_order_supplier").val(`${data[0].supplierCode} - ${data[0].supplierName}`);
                     $("#purchase_order_currency").val(data[0].productUnitPriceCurrencyISOCode);
