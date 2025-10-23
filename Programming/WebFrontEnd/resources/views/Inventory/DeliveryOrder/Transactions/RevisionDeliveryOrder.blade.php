@@ -3,7 +3,6 @@
 @include('Partials.navbar')
 @include('Partials.sidebar')
 @include('Inventory.DeliveryOrder.Functions.PopUp.PopUpDoRevision')
-@include('getFunction.getTransporter')
 @include('getFunction.getWorkFlow')
 
 <div class="content-wrapper">

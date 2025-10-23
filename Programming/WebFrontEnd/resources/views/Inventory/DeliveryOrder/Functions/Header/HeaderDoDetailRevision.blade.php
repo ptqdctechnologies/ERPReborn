@@ -13,13 +13,6 @@
                         <input id="transporter_name" style="border-radius:0;" class="form-control" size="20" value="<?= $header['transporterCode'] . (!empty($header['transporterName']) ? ' - ' . $header['transporterName'] : '') ?>" readonly>
                         <input id="transporter_id" style="border-radius:0;" name="transporter_id" class="form-control" value="<?= $header['transporterID']; ?>" hidden>
                     </div>
-                    <div class="input-group-append">
-                        <span style="border-radius:0;" class="input-group-text form-control myTransporter">
-                            <a href="javascript:;" id="myTransporterTrigger" data-toggle="modal" data-target="#myTransporter" style="display: block;">
-                                <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="myTransporterTrigger">
-                            </a>
-                        </span>
-                    </div>
                 </div>
             </div>
 
