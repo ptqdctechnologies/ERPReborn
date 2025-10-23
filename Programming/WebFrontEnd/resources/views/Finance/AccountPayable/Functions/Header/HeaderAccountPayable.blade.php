@@ -119,11 +119,7 @@
                             <label for="vat_origin_yes" class="custom-control-label" style="padding-top: 28%;">Yes</label>
                         </div>
                         <div>
-                            <select type="text" id="ppn" class="form-control vat-components" name="ppn" onchange="onChangeVAT(this)" style="border-radius:0;width:auto;display:none;">
-                                <option disabled selected value="Sel..">Sel..</option>
-                                <option value="10">10%</option>
-                                <option value="20">20%</option>
-                            </select>
+                            <select type="text" id="ppn" class="form-control vat-components" name="ppn" onchange="onChangeVAT(this)" style="border-radius:0;width:auto;display:none;"></select>
                         </div>
                     </div>
                 </div>

@@ -1900,6 +1900,8 @@ class AccountPayableService
         $detailItems            = json_decode($data['account_payable_detail'], true);
         $fileID                 = $data['dataInput_Log_FileUpload_1'] ? (int) $data['dataInput_Log_FileUpload_1'] : null;
         $vatValue               = $data['vat_origin'] == "yes" ? (float) str_replace(',', '', $data['ppn']) : null;
+        $categoryID             = $data['category_id'] ? (int) $data['category_id'] : null;
+        $depreciationMethod     = $data['depreciation_method'] ? (int) $data['depreciation_method'] : null;
         $depreciationRate       = $data['depreciation_rate_percentage'] ? (float) str_replace(',', '', $data['depreciation_rate_percentage']) : null;
         $depreciationCOARefID   = $data['depreciation_coa_id'] ? (int) $data['depreciation_coa_id'] : null;
         $deduction              = $data['budget_details_deduction'] > -1 ? (float) str_replace(',', '', $data['budget_details_deduction']) : null;
@@ -1943,18 +1945,20 @@ class AccountPayableService
                 "currencyValue"                 => 15080000.00,
                 "currencyExchangeRate"          => 1.00,
                 "supplierInvoiceNumber"         => $data['supplier_invoice_number'],
-                "supplier_RefID"                => (int) $data['payment_transfer_id'], 
+                "supplier_RefID"                => (int) $data['payment_transfer_id'],
                 "receiptStatus"                 => $receiptStatus,
                 "contractStatus"                => $contractStatus,
                 "vatStatus"                     => $vatStatus,
-                "vatValue"                      => $vatValue,
+                "vatValue"                      => 10.00, // HERE
+                // "vatNumber"                     => $data['vat_number'],
                 "vatNumber"                     => $data['vat_number'],
                 "fatPatDoStatus"                => $fatPatDoStatus,
                 "assetStatus"                   => $assetStatus,
-                "assetCategory"                 => 1, // Category
-                "depreciationMethod"            => (int) $data['depreciation_method'],
-                "depreciationRate"              => $depreciationRate,
-                "depreciationCOA_RefID"         => $depreciationCOARefID,
+                "assetCategory"                 => $categoryID,
+                "depreciationMethod"            => $depreciationMethod,
+                "depreciationRate"              => 25.00, // HERE
+                // "depreciationRate"              => $depreciationRate,
+                "depreciationCOA_RefID"         => $depreciationCOARefID, 
                 "deduction"                     => $deduction,
                 "remarks"                       => $data['account_payable_notes'],
                 "additionalData"    => [

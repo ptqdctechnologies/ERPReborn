@@ -113,6 +113,34 @@
         document.getElementById('invoice_details_total_vat').textContent = `Total VAT: ${decimalFormat((totalTaxBased * params.value) / 100)}`;
     }
 
+    function getVAT() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: 'GET',
+            url: '{!! route("getVAT") !!}',
+            success: function(data) {
+                if (data && Array.isArray(data)) {
+                    $('#ppn').empty();
+                    $('#ppn').append('<option disabled selected value="Sel..">Sel..</option>');
+
+                    data.forEach(function(project) {
+                        $('#ppn').append('<option value="' + project.sys_PID + '">' + project.tariffFixRate + '</option>');
+                    });
+                } else {
+                    console.log('Data vat not found.');
+                }
+            },
+            error: function (textStatus, errorThrown) {
+                console.log('Function getVAT error: ', textStatus, errorThrown);
+            }
+        });
+    }
+
     function onChangeDepreciationMethod(params) {
         $("#depreciation_method").css("border", "1px solid #ced4da");
         $("#depreciation_method_message").hide();
@@ -772,5 +800,9 @@
         $("#modal_account_payable_document_number").val(trano);
 
         $('#myAccountPayables').modal('hide');
+    });
+
+    $(window).one('load', function(e) {
+        getVAT();
     });
 </script>

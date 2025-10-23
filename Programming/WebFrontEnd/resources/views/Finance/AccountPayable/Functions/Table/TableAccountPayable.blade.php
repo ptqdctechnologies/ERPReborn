@@ -45,7 +45,7 @@
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div>
                         <div class="input-group">
-                            <input id="budget_details_deduction" name="budget_details_deduction" class="form-control number-without-negative" value="<?= isset($header) ? number_format($header['deduction'], 2, '.', ',') : ''; ?>" style="border-radius:0;">
+                            <input id="budget_details_deduction" name="budget_details_deduction" class="form-control number-without-negative" value="<?= isset($header) ? number_format($header['deduction'], 2, '.', ',') : ''; ?>" autocomplete="off" style="border-radius:0;">
                         </div>
                     </div>
                 </div>
