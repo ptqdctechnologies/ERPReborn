@@ -28,6 +28,7 @@
         } else {
             $(".asset-components").css("display", "flex");
         }
+        $("#asset_message").hide();
     }
 
     function vatValue(params) {
@@ -37,10 +38,30 @@
         } else {
             $(".vat-components").css("display", "flex");
         }
+        $("#vat_origin_message").hide();
+    }
+
+    function receiptOriginValue(params) {
+        $("#receipt_origin_message").hide();
+    }
+
+    function contractSignedValue(params) {
+        $("#contract_signed_message").hide();
     }
 
     function onChangeVAT(params) {
+        $("#ppn").css("border", "1px solid #ced4da");
+        $("#vat_origin_message").hide();
         document.getElementById('invoice_details_total_vat').textContent = `Total VAT: ${decimalFormat((totalTaxBased * params.value) / 100)}`;
+    }
+
+    function onChangeDepreciationMethod(params) {
+        $("#depreciation_method").css("border", "1px solid #ced4da");
+        $("#depreciation_method_message").hide();
+    }
+
+    function fatPatDOValue(params) {
+        $("#basft_origin_message").hide();
     }
 
     function pickCOA(index) {
@@ -144,7 +165,7 @@
         const isValueVATNumberNotEmpty              = valueVATNumber.value.trim() !== '';
         const isFATPATDOOriginNotEmpty              = document.querySelector('input[name="basft_origin"]:checked');
         const isNotesNotEmpty                       = notes.value.trim() !== '';
-        const isAssetNotEmpty                       = document.querySelector('input[name="asset_message"]:checked');
+        const isAssetNotEmpty                       = document.querySelector('input[name="asset"]:checked');
         const isCategoryNumberNotEmpty              = categoryNumber.value.trim() !== '';
         const isDepreciationMethodNotEmpty          = depreciationMethod.value.trim() !== 'Select a Method';
         const isDepreciationRatePercentageNotEmpty  = depreciationRatePercentage.value.trim() !== '';
@@ -203,8 +224,8 @@
                 return;
             }
             if (!isPaymentTransferNumberNotEmpty) {
-                $("#supplier_invoice_number").css("border", "1px solid red");
-                $("#supplier_invoice_number_message").show();
+                $("#payment_transfer_number").css("border", "1px solid red");
+                $("#payment_transfer_message").show();
                 return;
             }
             if (!isReceiptInvoiceOriginNotEmpty) {
@@ -251,7 +272,7 @@
                         $("#category_number").css("border", "1px solid red");
                         $("#category_message").show();
                         return;
-                    }isDepreciationCOANumberNotEmpty
+                    }
                     if (!isDepreciationMethodNotEmpty) {
                         $("#depreciation_method").css("border", "1px solid red");
                         $("#depreciation_method_message").show();
@@ -482,6 +503,16 @@
         });
     }
 
+    $('#supplier_invoice_number').on('input', function(e) {
+        if (!e.target.value) {
+            $("#supplier_invoice_number").css("border", "1px solid red");
+            $("#supplier_invoice_number_message").show();
+        } else {
+            $("#supplier_invoice_number").css("border", "1px solid #ced4da");
+            $("#supplier_invoice_number_message").hide();
+        }
+    });
+
     $('#TableSearchPORevision tbody').on('click', 'tr', function () {
         var table = $('#TableSearchPORevision').DataTable();
         var data = table.row(this).data();
@@ -506,7 +537,8 @@
 
         $(`#category_id`).val(sysId);
         $(`#category_number`).val(`${code} - ${name}`);
-        $(`#category_number`).css('background-color', '#e9ecef');
+        $(`#category_number`).css({'background-color': '#e9ecef', 'border': '1px solid #ced4da'});
+        $("#category_message").hide();
         
         $('#myGetCategory').modal('hide');
     });
@@ -519,9 +551,52 @@
 
         $(`#payment_transfer_number`).val(`${bankAccount} - (${bankCode}) ${accountNumber}`);
         $("#payment_transfer_id").val(sysId);
-        $(`#payment_transfer_number`).css('background-color', '#e9ecef');
+        $(`#payment_transfer_number`).css({'background-color': '#e9ecef', 'border': '1px solid #ced4da'});
+        $("#payment_transfer_message").hide();
         
         $('#myGetPaymentTransfer').modal('hide');
+    });
+
+    $('#vat_number').on('input', function(e) {
+        if (!e.target.value) {
+            $("#vat_number").css("border", "1px solid red");
+            $("#vat_number_message").show();
+        } else {
+            $("#vat_number").css("border", "1px solid #ced4da");
+            $("#vat_number_message").hide();
+        }
+    });
+
+    $('#depreciation_rate_percentage').on('input', function(e) {
+        if (!e.target.value) {
+            $("#depreciation_rate_percentage").css("border", "1px solid red");
+            $("#depreciation_value_text_message").text("Depreciation Rate cannot be empty.");
+            $("#depreciation_value_message").show();
+        } else {
+            $("#depreciation_rate_percentage").css("border", "1px solid #ced4da");
+            $("#depreciation_value_message").hide();
+        }
+    });
+
+    $('#depreciation_rate_years').on('input', function(e) {
+        if (!e.target.value) {
+            $("#depreciation_rate_years").css("border", "1px solid red");
+            $("#depreciation_value_text_message").text("Depreciation Years cannot be empty.");
+            $("#depreciation_value_message").show();
+        } else {
+            $("#depreciation_rate_years").css("border", "1px solid #ced4da");
+            $("#depreciation_value_message").hide();
+        }
+    });
+
+    $('#account_payable_notes').on('input', function(e) {
+        if (!e.target.value) {
+            $("#account_payable_notes").css("border", "1px solid red");
+            $("#account_payable_notes_message").show();
+        } else {
+            $("#account_payable_notes").css("border", "1px solid #ced4da");
+            $("#account_payable_notes_message").hide();
+        }
     });
 
     $('#tableGetChartOfAccount').on('click', 'tbody tr', async function() {

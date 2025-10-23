@@ -61,11 +61,11 @@
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div class="form-group d-flex" style="gap: 10%;">
                         <div class="custom-control custom-radio">
-                            <input class="custom-control-input" type="radio" id="receipt_origin_no" value="no" name="receipt_origin">
+                            <input class="custom-control-input" type="radio" id="receipt_origin_no" value="no" name="receipt_origin" onclick="receiptOriginValue(this)">
                             <label for="receipt_origin_no" class="custom-control-label" style="padding-top: 35%;">No</label>
                         </div>
                         <div class="custom-control custom-radio">
-                            <input class="custom-control-input" type="radio" id="receipt_origin_yes" value="yes" name="receipt_origin">
+                            <input class="custom-control-input" type="radio" id="receipt_origin_yes" value="yes" name="receipt_origin" onclick="receiptOriginValue(this)">
                             <label for="receipt_origin_yes" class="custom-control-label" style="padding-top: 28%;">Yes</label>
                         </div>
                     </div>
@@ -86,11 +86,11 @@
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div class="form-group d-flex" style="gap: 10%;">
                         <div class="custom-control custom-radio">
-                            <input class="custom-control-input" type="radio" id="contract_signed_no" value="no" name="contract_signed">
+                            <input class="custom-control-input" type="radio" id="contract_signed_no" value="no" name="contract_signed" onclick="contractSignedValue(this)">
                             <label for="contract_signed_no" class="custom-control-label" style="padding-top: 35%;">No</label>
                         </div>
                         <div class="custom-control custom-radio">
-                            <input class="custom-control-input" type="radio" id="contract_signed_yes" value="yes" name="contract_signed">
+                            <input class="custom-control-input" type="radio" id="contract_signed_yes" value="yes" name="contract_signed" onclick="contractSignedValue(this)">
                             <label for="contract_signed_yes" class="custom-control-label" style="padding-top: 28%;">Yes</label>
                         </div>
                     </div>
@@ -163,11 +163,11 @@
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div class="form-group d-flex" style="gap: 10%;">
                         <div class="custom-control custom-radio">
-                            <input class="custom-control-input" type="radio" id="basft_origin_no" value="no" name="basft_origin">
+                            <input class="custom-control-input" type="radio" id="basft_origin_no" value="no" name="basft_origin" onclick="fatPatDOValue(this)">
                             <label for="basft_origin_no" class="custom-control-label" style="padding-top: 35%;">No</label>
                         </div>
                         <div class="custom-control custom-radio">
-                            <input class="custom-control-input" type="radio" id="basft_origin_yes" value="yes" name="basft_origin">
+                            <input class="custom-control-input" type="radio" id="basft_origin_yes" value="yes" name="basft_origin" onclick="fatPatDOValue(this)">
                             <label for="basft_origin_yes" class="custom-control-label" style="padding-top: 28%;">Yes</label>
                         </div>
                     </div>
@@ -272,7 +272,7 @@
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Depreciation Method</label>
                 <div class="col-sm-9 col-md-8 col-lg-4 p-0">
                     <div>
-                        <select class="form-control" name="depreciation_method" id="depreciation_method" style="border-radius:0;" type="text">
+                        <select class="form-control" name="depreciation_method" id="depreciation_method" style="border-radius:0;" type="text" onchange="onChangeDepreciationMethod(this)">
                             <option disabled selected value="Select a Method">Select a Method</option>
                             <option value="0">Straight Line</option>
                             <option value="1">Double Decline</option>
