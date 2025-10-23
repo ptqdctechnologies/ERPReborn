@@ -116,7 +116,7 @@ class AccountPayableController extends Controller
                     'deliveryFrom'                  => '',
                     'deliveryTo_RefID'              => '',
                     'deliveryTo'                    => '',
-                    'supplierInvoiceNumber'         => '',
+                    'supplierInvoiceNumber'         => $dataAccountPayableDetail[0]['SupplierInvoiceNumber'] ?? '',
                     'paymentTransfer_RefID'         => '',
                     'paymentTransferName'           => '',
                     'paymentTransferBankCode'       => '',
