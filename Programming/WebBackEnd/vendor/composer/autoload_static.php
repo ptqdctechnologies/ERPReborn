@@ -4388,6 +4388,8 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'Aws\\RAM\\RAMClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/RAM/RAMClient.php',
         'Aws\\RDSDataService\\Exception\\RDSDataServiceException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/RDSDataService/Exception/RDSDataServiceException.php',
         'Aws\\RDSDataService\\RDSDataServiceClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/RDSDataService/RDSDataServiceClient.php',
+        'Aws\\RTBFabric\\Exception\\RTBFabricException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/RTBFabric/Exception/RTBFabricException.php',
+        'Aws\\RTBFabric\\RTBFabricClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/RTBFabric/RTBFabricClient.php',
         'Aws\\Rds\\AuthTokenGenerator' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Rds/AuthTokenGenerator.php',
         'Aws\\Rds\\Exception\\RdsException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Rds/Exception/RdsException.php',
         'Aws\\Rds\\RdsClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Rds/RdsClient.php',

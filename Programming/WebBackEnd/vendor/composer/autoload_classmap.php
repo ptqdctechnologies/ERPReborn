@@ -3701,6 +3701,8 @@ return array(
     'Aws\\RAM\\RAMClient' => $vendorDir . '/aws/aws-sdk-php/src/RAM/RAMClient.php',
     'Aws\\RDSDataService\\Exception\\RDSDataServiceException' => $vendorDir . '/aws/aws-sdk-php/src/RDSDataService/Exception/RDSDataServiceException.php',
     'Aws\\RDSDataService\\RDSDataServiceClient' => $vendorDir . '/aws/aws-sdk-php/src/RDSDataService/RDSDataServiceClient.php',
+    'Aws\\RTBFabric\\Exception\\RTBFabricException' => $vendorDir . '/aws/aws-sdk-php/src/RTBFabric/Exception/RTBFabricException.php',
+    'Aws\\RTBFabric\\RTBFabricClient' => $vendorDir . '/aws/aws-sdk-php/src/RTBFabric/RTBFabricClient.php',
     'Aws\\Rds\\AuthTokenGenerator' => $vendorDir . '/aws/aws-sdk-php/src/Rds/AuthTokenGenerator.php',
     'Aws\\Rds\\Exception\\RdsException' => $vendorDir . '/aws/aws-sdk-php/src/Rds/Exception/RdsException.php',
     'Aws\\Rds\\RdsClient' => $vendorDir . '/aws/aws-sdk-php/src/Rds/RdsClient.php',
