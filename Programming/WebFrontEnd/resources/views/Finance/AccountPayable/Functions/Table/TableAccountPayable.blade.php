@@ -37,7 +37,7 @@
 <div class="card-body">
     <div class="row">
         <div class="col">
-            <div class="text-red" id="invoice_details_message" style="display: none; margin-bottom: 1rem;">
+            <div class="row text-red" id="invoice_details_message" style="display: none; margin-bottom: 1rem;">
                 Please input at least one item.
             </div>
             <div class="row">

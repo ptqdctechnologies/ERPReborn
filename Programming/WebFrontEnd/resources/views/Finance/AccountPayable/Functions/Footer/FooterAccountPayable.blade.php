@@ -16,6 +16,63 @@
     const depreciationRateYears         = document.getElementById('depreciation_rate_years');
     const depreciationCOANumber         = document.getElementById('depreciation_coa_number');
 
+    function checkOneLineBudgetContents(indexInput) {
+        const rows = document.querySelectorAll("#invoice_details_table tbody tr");
+        let hasFullRow = false;
+
+        rows.forEach((row, index) => {
+            const qty   = document.getElementById(`qty_ap${index}`)?.value.trim();
+            const wht   = document.getElementById(`wht${index}`)?.value.trim();
+            const coa   = document.getElementById(`coa_name${index}`)?.value.trim();
+
+            if (qty !== "" && wht !== "" && coa !== "") {
+                hasFullRow = true;
+            }
+        });
+
+        rows.forEach((row, index) => {
+            const qtyEl = document.getElementById(`qty_ap${index}`);
+            const whtEl = document.getElementById(`wht${index}`);
+            const coaEl = document.getElementById(`coa_name${index}`);
+
+            if (hasFullRow) {
+                $(qtyEl).css("border", "1px solid #ced4da");
+                $(whtEl).css("border", "1px solid #ced4da");
+                $(coaEl).css("border", "1px solid #ced4da");
+                $("#invoice_details_message").hide();
+            } else {
+                if (indexInput > -1) {
+                    if (indexInput == index) {
+                        if (qtyEl.value.trim() != "" || whtEl.value.trim() != "") {
+                            $(qtyEl).css("border", "1px solid red");
+                            $(whtEl).css("border", "1px solid red");
+                            $(coaEl).css("border", "1px solid red");
+                            $("#invoice_details_message").show();
+                        } else {
+                            $(qtyEl).css("border", "1px solid #ced4da");
+                            $(whtEl).css("border", "1px solid #ced4da");
+                            $(coaEl).css("border", "1px solid #ced4da");
+                            $("#invoice_details_message").hide();
+                        }
+                    }
+
+                    if (indexInput != index && (qtyEl.value.trim() == "" && whtEl.value.trim() == "")) {
+                        $(qtyEl).css("border", "1px solid #ced4da");
+                        $(whtEl).css("border", "1px solid #ced4da");
+                        $(coaEl).css("border", "1px solid #ced4da");
+                    } 
+                } else {
+                    $(qtyEl).css("border", "1px solid red");
+                    $(whtEl).css("border", "1px solid red");
+                    $(coaEl).css("border", "1px solid red");
+                    $("#invoice_details_message").show();
+                }
+            }
+        });
+
+        return hasFullRow;
+    }
+
     function assetValue(params) {
         if (params.value == "no") {
             $(".asset-components").css("display", "none");
@@ -172,6 +229,7 @@
         const isDepreciationRatePercentageNotEmpty  = depreciationRatePercentage.value.trim() !== '';
         const isDepreciationRateYearsNotEmpty       = depreciationRateYears.value.trim() !== '';
         const isDepreciationCOANumberNotEmpty       = depreciationCOANumber.value.trim() !== '';
+        const isTableNotEmpty                       = checkOneLineBudgetContents();
 
         if (
             isPurchaseOrderNumberNotEmpty && 
@@ -182,7 +240,8 @@
             isVATOriginNotEmpty && 
             isFATPATDOOriginNotEmpty &&
             isNotesNotEmpty &&
-            isAssetNotEmpty
+            isAssetNotEmpty &&
+            isTableNotEmpty
         ) {
             if (isVATOriginNotEmpty.value == "yes") {
                 if (!isValueVATNotEmpty) {
@@ -196,7 +255,6 @@
                     isValid = false;
                 }
             } 
-            
             if (isAssetNotEmpty.value == "yes") {
                 if (!isCategoryNumberNotEmpty) {
                     $("#category_number").css("border", "1px solid red");
@@ -222,7 +280,6 @@
                     isValid = false;
                 }
             } 
-
             if (isValid) {
                 if (
                     (isVATOriginNotEmpty.value === "no" && isAssetNotEmpty.value === "no") ||
@@ -351,6 +408,10 @@
                     }
                 }
             }
+            if (!isTableNotEmpty) {
+                $("#invoice_details_message").show();
+                return;
+            }
         }
     }
 
@@ -440,10 +501,10 @@
 
                                     document.getElementById('invoice_details_total_wht').textContent = `Total WHT: ${currencyTotal(result)}`;
                                 }
-                                
                             }
 
                             calculateTotal();
+                            checkOneLineBudgetContents(key);
                         });
 
                         $(`#wht${key}`).on('input', function () {
@@ -462,6 +523,8 @@
                                     document.getElementById('invoice_details_total_wht').textContent = `Total WHT: ${currencyTotal(result)}`;
                                 }
                             }
+
+                            checkOneLineBudgetContents(key);
                         });
                     });
                 } else {
@@ -667,6 +730,7 @@
             $(`#coa_id${currentIndexPickCOA}`).val(sysId);
             $(`#coa_name${currentIndexPickCOA}`).val(`${code} - ${name}`);
             $(`#coa_name${currentIndexPickCOA}`).css({"background-color": "#e9ecef"});
+            checkOneLineBudgetContents(currentIndexPickCOA);
 
             currentIndexPickCOA = null;
         }
