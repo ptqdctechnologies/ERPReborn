@@ -155,6 +155,7 @@
     }
 
     function validationForm() {
+        let isValid                                 = true;
         const isPurchaseOrderNumberNotEmpty         = purchaseOrderNumber.value.trim() !== '';
         const isSupplierInvoiceNumberNotEmpty       = supplierInvoiceNumber.value.trim() !== '';
         const isPaymentTransferNumberNotEmpty       = paymentTransferNumber.value.trim() !== '';
@@ -183,8 +184,61 @@
             isNotesNotEmpty &&
             isAssetNotEmpty
         ) {
-            summaryData();
-            $('#account_payable_submit_modal').modal('show');
+            if (isVATOriginNotEmpty.value == "yes") {
+                if (!isValueVATNotEmpty) {
+                    $("#ppn").css("border", "1px solid red");
+                    $("#vat_origin_message").show();
+                    $("#vat_origin_text_message").text("VAT Value cannot be empty.");
+                    isValid = false;
+                } else if (!isValueVATNumberNotEmpty) {
+                    $("#vat_number").css("border", "1px solid red");
+                    $("#vat_number_message").show();
+                    isValid = false;
+                }
+            } 
+            
+            if (isAssetNotEmpty.value == "yes") {
+                if (!isCategoryNumberNotEmpty) {
+                    $("#category_number").css("border", "1px solid red");
+                    $("#category_message").show();
+                    isValid = false;
+                } else if (!isDepreciationMethodNotEmpty) {
+                    $("#depreciation_method").css("border", "1px solid red");
+                    $("#depreciation_method_message").show();
+                    isValid = false;
+                } else if (!isDepreciationRatePercentageNotEmpty) {
+                    $("#depreciation_rate_percentage").css("border", "1px solid red");
+                    $("#depreciation_value_message").show();
+                    $("#depreciation_value_text_message").text("Depreciation Rate cannot be empty.");
+                    isValid = false;
+                } else if (!isDepreciationRateYearsNotEmpty) { 
+                    $("#depreciation_rate_years").css("border", "1px solid red");
+                    $("#depreciation_value_message").show();
+                    $("#depreciation_value_text_message").text("Depreciation Years cannot be empty.");
+                    isValid = false;
+                } else if (!isDepreciationCOANumberNotEmpty) { 
+                    $("#depreciation_coa_number").css("border", "1px solid red");
+                    $("#depreciation_coa_message").show();
+                    isValid = false;
+                }
+            } 
+
+            if (isValid) {
+                if (
+                    (isVATOriginNotEmpty.value === "no" && isAssetNotEmpty.value === "no") ||
+                    (isVATOriginNotEmpty.value === "yes" && isAssetNotEmpty.value === "no" && isValueVATNotEmpty && isValueVATNumberNotEmpty) ||
+                    (isVATOriginNotEmpty.value === "no" && isAssetNotEmpty.value === "yes" && 
+                    isCategoryNumberNotEmpty && isDepreciationMethodNotEmpty && 
+                    isDepreciationRatePercentageNotEmpty && isDepreciationRateYearsNotEmpty && isDepreciationCOANumberNotEmpty) ||
+                    (isVATOriginNotEmpty.value === "yes" && isAssetNotEmpty.value === "yes" &&
+                    isValueVATNotEmpty && isValueVATNumberNotEmpty &&
+                    isCategoryNumberNotEmpty && isDepreciationMethodNotEmpty &&
+                    isDepreciationRatePercentageNotEmpty && isDepreciationRateYearsNotEmpty && isDepreciationCOANumberNotEmpty)
+                ) {
+                    summaryData();
+                    $('#account_payable_submit_modal').modal('show');
+                }
+            }
         } else {
             if (
                 !isPurchaseOrderNumberNotEmpty && 
@@ -607,7 +661,8 @@
         if (currentIndexPickCOA === null) {
             $(`#depreciation_coa_id`).val(sysId);
             $(`#depreciation_coa_number`).val(`${code} - ${name}`);
-            $(`#depreciation_coa_number`).css({"background-color": "#e9ecef"});
+            $(`#depreciation_coa_number`).css({"background-color": "#e9ecef", "border": "1px solid #ced4da"});
+            $(`#depreciation_coa_message`).hide();
         } else {
             $(`#coa_id${currentIndexPickCOA}`).val(sysId);
             $(`#coa_name${currentIndexPickCOA}`).val(`${code} - ${name}`);
