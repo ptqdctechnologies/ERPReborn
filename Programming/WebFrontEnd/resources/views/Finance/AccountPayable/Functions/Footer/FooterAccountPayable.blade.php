@@ -15,6 +15,7 @@
     const depreciationRatePercentage    = document.getElementById('depreciation_rate_percentage');
     const depreciationRateYears         = document.getElementById('depreciation_rate_years');
     const depreciationCOANumber         = document.getElementById('depreciation_coa_number');
+    const deductionValue                = document.getElementById('budget_details_deduction');
 
     function checkOneLineBudgetContents(indexInput) {
         const rows = document.querySelectorAll("#invoice_details_table tbody tr");
@@ -230,6 +231,7 @@
         const isDepreciationRateYearsNotEmpty       = depreciationRateYears.value.trim() !== '';
         const isDepreciationCOANumberNotEmpty       = depreciationCOANumber.value.trim() !== '';
         const isTableNotEmpty                       = checkOneLineBudgetContents();
+        const isDeductionValueNotEmpty              = deductionValue.value.trim() !== '';
 
         if (
             isPurchaseOrderNumberNotEmpty && 
@@ -312,6 +314,7 @@
                 $("#supplier_invoice_number").css("border", "1px solid red");
                 $("#payment_transfer_number").css("border", "1px solid red");
                 $("#account_payable_notes").css("border", "1px solid red");
+                $("#budget_details_deduction").css("border", "1px solid red");
 
                 $("#purchase_order_message").show();
                 $("#supplier_invoice_number_message").show();
@@ -322,6 +325,7 @@
                 $("#basft_origin_message").show();
                 $("#account_payable_notes_message").show();
                 $("#asset_message").show();
+                $("#budget_details_deduction_message").show();
                 return;
             }
             if (!isPurchaseOrderNumberNotEmpty) {
@@ -410,6 +414,11 @@
             }
             if (!isTableNotEmpty) {
                 $("#invoice_details_message").show();
+                return;
+            }
+            if (!isDeductionValueNotEmpty) {
+                $("#budget_details_deduction").css("border", "1px solid red");
+                $("#budget_details_deduction_message").show();
                 return;
             }
         }
@@ -744,8 +753,12 @@
         if (val <= totalTaxBased) {
             totalDeduction = val;
             $(`#invoice_details_vat`).text(`Total Deduction: ${currencyTotal(val)}`);
+            $("#budget_details_deduction").css("border", "1px solid #ced4da");
+            $("#budget_details_deduction_message").hide();
         } else {
             $(this).val("");
+            $("#budget_details_deduction").css("border", "1px solid red");
+            $("#budget_details_deduction_message").show();
         }
     });
 

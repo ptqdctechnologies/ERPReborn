@@ -50,6 +50,14 @@
                     </div>
                 </div>
             </div>
+            <div class="row" id="budget_details_deduction_message" style="margin-top: .3rem; display: none;">
+                <label class="col-sm-3 col-md-4 col-lg-2 col-form-label p-0"></label>
+                <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                    <div class="text-red">
+                        Deduction cannot be empty.
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="col" style="margin-right: 20px; font-size: 0.77rem; color: #212529; font-weight: 600;">
             <div id="invoice_details_total" class="col text-right" style="margin-bottom: 0.6rem;">
