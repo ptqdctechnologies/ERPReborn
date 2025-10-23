@@ -159,7 +159,7 @@
             </div>
 
             <!-- CATEGORY -->
-            <div class="row asset-components" style="margin-top: 1rem; display: none;">
+            <div class="row asset-components" style="margin-top: 1rem; display: <?= ($header['asset'] === 'yes') ? 'flex' : 'none'; ?>;">
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Category</label>
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 align-items-center">
                     <div>
@@ -196,7 +196,7 @@
             </div>
 
             <!-- DEPRECIATION METHOD -->
-            <div class="row asset-components" style="margin-top: 1rem; display: none;">
+            <div class="row asset-components" style="margin-top: 1rem; display: <?= ($header['asset'] === 'yes') ? 'flex' : 'none'; ?>;">
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Depreciation Method</label>
                 <div class="col-sm-9 col-md-8 col-lg-4 p-0">
                     <div>
@@ -210,7 +210,7 @@
             </div>
 
             <!-- DEPRECIATION RATE -->
-            <div class="row asset-components" style="margin-top: 1rem; display: none;">
+            <div class="row asset-components" style="margin-top: 1rem; display: <?= ($header['asset'] === 'yes') ? 'flex' : 'none'; ?>;">
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Depreciation Rate</label>
                 <div class="col-sm-9 col-md-8 col-lg-4 p-0">
                     <div class="row">
@@ -230,7 +230,7 @@
             </div>
 
             <!-- DEPRECIATION COA -->
-            <div class="row asset-components" style="margin-top: 1rem; display: none;">
+            <div class="row asset-components" style="margin-top: 1rem; display: <?= ($header['asset'] === 'yes') ? 'flex' : 'none'; ?>;">
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Depreciation COA</label>
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div>
