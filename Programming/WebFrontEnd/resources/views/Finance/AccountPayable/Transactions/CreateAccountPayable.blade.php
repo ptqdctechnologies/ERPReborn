@@ -2,6 +2,7 @@
 @section('main')
 @include('Partials.navbar')
 @include('Partials.sidebar')
+@include('getFunction.getWorkFlow')
 @include('getFunction.getAccountPayable')
 @include('getFunction.getPurchaseOrder')
 @include('getFunction.getChartOfAccount')
@@ -26,7 +27,7 @@
 
       @if($var == 0)
       <div class="card">
-        <form method="POST" action="{{ route('AccountPayable.store') }}" id="form_submit_account_payable">
+        <form method="POST" action="{{ route('SelectWorkFlow') }}" id="form_submit_account_payable">
         @csrf
           <input type="hidden" name="DocumentTypeID" id="DocumentTypeID" value="<?= $documentType_RefID; ?>">
           <input type="hidden" name="var_combinedBudget_RefID" id="var_combinedBudget_RefID">

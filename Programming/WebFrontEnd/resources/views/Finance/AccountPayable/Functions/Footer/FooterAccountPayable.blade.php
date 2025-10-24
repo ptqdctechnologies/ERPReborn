@@ -464,6 +464,8 @@
             url: '{!! route("getPurchaseOrderDetail") !!}?purchase_order_id=' + purchaseOrderRefID,
             success: async function(data) {
                 if (Array.isArray(data) && data.length > 0) {
+                    $("#var_combinedBudget_RefID").val(data[0].combinedBudget_RefID);
+
                     $("#purchase_order_id").val(data[0].purchaseOrder_RefID);
                     $("#purchase_order_number").val(data[0].documentNumber);
                     $("#purchase_order_number").css({"background-color": "#e9ecef", "border": "1px solid #ced4da"});
@@ -548,9 +550,6 @@
                             let val         = this.value.replace(/[^\d]/g, '');
                             let total_ap    = $(`#total_ap${key}`).val().replace(/,/g, '');
 
-                            console.log('val', val);
-                            console.log('parseInt(val)', parseInt(val));
-
                             if (parseInt(val) > 100) {
                                 $(this).val("");
                                 document.getElementById('invoice_details_total_wht').textContent = "Total WHT: 0.00";
@@ -576,6 +575,79 @@
         });
     }
 
+    function selectWorkFlow(formatData) {
+        const swalWithBootstrapButtons = Swal.mixin({
+            confirmButtonClass: 'btn btn-success btn-sm',
+            cancelButtonClass: 'btn btn-danger btn-sm',
+            buttonsStyling: true,
+        });
+
+        swalWithBootstrapButtons.fire({
+            title: 'Comment',
+            text: "Please write your comment here",
+            type: 'question',
+            input: 'textarea',
+            showCloseButton: false,
+            showCancelButton: true,
+            focusConfirm: false,
+            cancelButtonText: '<span style="color:black;"> Cancel </span>',
+            confirmButtonText: '<span style="color:black;"> OK </span>',
+            cancelButtonColor: '#DDDAD0',
+            confirmButtonColor: '#DDDAD0',
+            reverseButtons: true
+        }).then((result) => {
+            if ('value' in result) {
+                ShowLoading();
+                accountPayableStore({...formatData, comment: result.value});
+            }
+        });
+    }
+
+    function accountPayableStore(formatData) {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: 'POST',
+            data: formatData,
+            url: '{{ route("AccountPayable.store") }}',
+            success: function(res) {
+                HideLoading();
+
+                if (res.status == 200) {
+                    const swalWithBootstrapButtonsss = Swal.mixin({
+                        confirmButtonClass: 'btn btn-success btn-sm',
+                        cancelButtonClass: 'btn btn-danger btn-sm',
+                        buttonsStyling: true,
+                    });
+
+                    swalWithBootstrapButtonsss.fire({
+                        title: 'Successful !',
+                        type: 'success',
+                        html: 'Data has been saved. Your transaction number is ' + '<span style="color:#0046FF;font-weight:bold;">' + res.documentNumber + '</span>',
+                        showCloseButton: false,
+                        showCancelButton: false,
+                        focusConfirm: false,
+                        confirmButtonText: '<span style="color:black;"> OK </span>',
+                        confirmButtonColor: '#4B586A',
+                        confirmButtonColor: '#e9ecef',
+                        reverseButtons: true
+                    }).then((result) => {
+                        window.location.href = "{{ route('AccountPayable.index', ['var' => 1]) }}";
+                    });
+                } else {
+                    ErrorNotif("Data Cancel Inputed");
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.log('error', jqXHR, textStatus, errorThrown);
+            }
+        });
+    }
+
     function submitForm() {
         $('#account_payable_submit_modal').modal('hide');
 
@@ -587,76 +659,47 @@
         ShowLoading();
 
         $.ajax({
-        url: action,
-        dataType: 'json',
-        cache: false,
-        contentType: false,
-        processData: false,
-        data: form_data,
-        type: method,
-        // success: function(response) {
-        success: function(res) {
-            HideLoading();
+            url: action,
+            dataType: 'json',
+            cache: false,
+            contentType: false,
+            processData: false,
+            data: form_data,
+            type: method,
+            success: function(response) {
+                HideLoading();
 
-            console.log('res', res);
+                if (response.message == "WorkflowError") {
+                    CancelNotif("You don't have access", "{{ route('AccountPayable.index', ['var' => 1]) }}");
+                } else if (response.message == "MoreThanOne") {
+                    $('#getWorkFlow').modal('toggle');
 
-            if (res.status === 200) {
-                const swalWithBootstrapButtons = Swal.mixin({
-                    confirmButtonClass: 'btn btn-success btn-sm',
-                    cancelButtonClass: 'btn btn-danger btn-sm',
-                    buttonsStyling: true,
-                });
+                    let t = $('#tableGetWorkFlow').DataTable();
+                    t.clear();
+                    $.each(response.data, function(key, val) {
+                        t.row.add([
+                            '<td><span data-dismiss="modal" onclick="SelectWorkFlow(\'' + val.Sys_ID + '\', \'' + val.NextApprover_RefID + '\', \'' + response.approverEntity_RefID + '\', \'' + response.documentTypeID + '\');"><img src="{{ asset("AdminLTE-master/dist/img/add.png") }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></span></td>',
+                            '<td style="border:1px solid #e9ecef;">' + val.FullApproverPath + '</td></tr></tbody>'
+                        ]).draw();
+                    });
+                } else {
+                    const formatData = {
+                        workFlowPath_RefID: response.workFlowPath_RefID, 
+                        nextApprover: response.nextApprover_RefID, 
+                        approverEntity: response.approverEntity_RefID, 
+                        documentTypeID: response.documentTypeID,
+                        storeData: response.storeData
+                    };
 
-                swalWithBootstrapButtons.fire({
-                    title: 'Successful !',
-                    type: 'success',
-                    html: 'Data has been saved. Your transaction number is ' + '<span style="color:#0046FF;font-weight:bold;">' + res.documentNumber + '</span>',
-                    showCloseButton: false,
-                    showCancelButton: false,
-                    focusConfirm: false,
-                    confirmButtonText: '<span style="color:black;"> OK </span>',
-                    confirmButtonColor: '#4B586A',
-                    confirmButtonColor: '#e9ecef',
-                    reverseButtons: true
-                }).then((result) => {
-                    cancelForm("{{ route('AccountPayable.index', ['var' => 1]) }}");
-                });
-            } else {
-                ErrorNotif("Data Cancel Inputed");
+                    selectWorkFlow(formatData);
+                }
+            },
+            error: function(response) {
+                console.log('response error', response);
+                
+                HideLoading();
+                CancelNotif("You don't have access", "{{ route('AccountPayable.index', ['var' => 1]) }}");
             }
-
-            // if (response.message == "WorkflowError") {
-            //   CancelNotif("You don't have access", '/MaterialReturn?var=1');
-            // } else if (response.message == "MoreThanOne") {
-            //   $('#getWorkFlow').modal('toggle');
-
-            //   let t = $('#tableGetWorkFlow').DataTable();
-            //   t.clear();
-            //   $.each(response.data, function(key, val) {
-            //     t.row.add([
-            //       '<td><span data-dismiss="modal" onclick="SelectWorkFlow(\'' + val.Sys_ID + '\', \'' + val.NextApprover_RefID + '\', \'' + response.approverEntity_RefID + '\', \'' + response.documentTypeID + '\');"><img src="{{ asset("AdminLTE-master/dist/img/add.png") }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></span></td>',
-            //       '<td style="border:1px solid #e9ecef;">' + val.FullApproverPath + '</td></tr></tbody>'
-            //     ]).draw();
-            //   });
-            // } else {
-            //   const formatData = {
-            //     workFlowPath_RefID: response.workFlowPath_RefID, 
-            //     nextApprover: response.nextApprover_RefID, 
-            //     approverEntity: response.approverEntity_RefID, 
-            //     documentTypeID: response.documentTypeID,
-            //     storeData: response.storeData
-            //   };
-
-            //   selectWorkFlow(formatData);
-            // }
-        },
-        error: function(response) {
-            console.log('response error', response);
-            
-            HideLoading();
-
-            CancelNotif("You don't have access", '/AccountPayable?var=1');
-        }
         });
     }
 
