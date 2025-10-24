@@ -180,9 +180,9 @@ class DocumentTypeMapper
                     'otherAdditional'   => 'Components.AccountPayableDetailDocumentAdditional'
                 ],
                 'resubmit'      => [
-                    'url'       => '',
-                    'name'      => '',
-                    'value'     => ''
+                    'url'       => 'AccountPayable.RevisionAccountPayable',
+                    'name'      => 'modal_account_payable_id',
+                    'value'     => 211000000000095
                 ],
                 'transactionType'        => 'ACCOUNT PAYABLE',
                 'businessDocument_RefID' => '',
