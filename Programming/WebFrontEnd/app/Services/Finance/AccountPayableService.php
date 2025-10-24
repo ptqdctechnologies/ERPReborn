@@ -1895,8 +1895,7 @@ class AccountPayableService
     {
         $sessionToken   = Session::get('SessionLogin');
 
-        // $data           = $request->storeData;
-        $data                   = $request;
+        $data                   = $request->storeData;
         $detailItems            = json_decode($data['account_payable_detail'], true);
         $fileID                 = $data['dataInput_Log_FileUpload_1'] ? (int) $data['dataInput_Log_FileUpload_1'] : null;
         $vatValue               = $data['vat_origin'] == "yes" ? (float) str_replace(',', '', $data['ppn']) : null;
