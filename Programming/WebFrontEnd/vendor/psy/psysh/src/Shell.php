@@ -3,7 +3,7 @@
 /*
  * This file is part of Psy Shell.
  *
- * (c) 2012-2023 Justin Hileman
+ * (c) 2012-2025 Justin Hileman
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -15,10 +15,12 @@ use Psy\CodeCleaner\NoReturnValue;
 use Psy\Exception\BreakException;
 use Psy\Exception\ErrorException;
 use Psy\Exception\Exception as PsyException;
+use Psy\Exception\InterruptException;
 use Psy\Exception\RuntimeException;
 use Psy\Exception\ThrowUpException;
 use Psy\ExecutionLoop\ProcessForker;
 use Psy\ExecutionLoop\RunkitReloader;
+use Psy\ExecutionLoop\SignalHandler;
 use Psy\Formatter\TraceFormatter;
 use Psy\Input\ShellInput;
 use Psy\Input\SilentInput;
@@ -27,6 +29,7 @@ use Psy\Readline\Readline;
 use Psy\TabCompletion\AutoCompleter;
 use Psy\TabCompletion\Matcher;
 use Psy\TabCompletion\Matcher\CommandsMatcher;
+use Psy\VarDumper\Presenter;
 use Psy\VarDumper\PresenterAware;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Command\Command as BaseCommand;
@@ -53,7 +56,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class Shell extends Application
 {
-    const VERSION = 'v0.12.12';
+    const VERSION = 'v0.12.13';
 
     private Configuration $config;
     private CodeCleaner $cleaner;
@@ -65,6 +68,7 @@ class Shell extends Application
     private $code = null;
     private array $codeBuffer = [];
     private bool $codeBufferOpen = false;
+    private bool $codeLooksLikeAction = false;
     private array $codeStack;
     private string $stdoutBuffer;
     private Context $context;
@@ -101,6 +105,50 @@ class Shell extends Application
 
         // Register the current shell session's config with \Psy\info
         \Psy\info($this->config);
+
+        $this->warmAutoloader();
+    }
+
+    /**
+     * Warm the autoloader by loading classes at startup.
+     *
+     * This improves tab completion by making classes available via get_declared_classes()
+     * rather than maintaining a separate list of available classes.
+     */
+    private function warmAutoloader(): void
+    {
+        $warmers = $this->config->getAutoloadWarmers();
+        if (empty($warmers)) {
+            return;
+        }
+
+        $output = $this->config->getOutput();
+        if ($output instanceof ConsoleOutput) {
+            $output = $output->getErrorOutput();
+        }
+
+        $start = \microtime(true);
+        $loadedCount = 0;
+
+        foreach ($warmers as $warmer) {
+            try {
+                $loadedCount += $warmer->warm();
+            } catch (\Throwable $e) {
+                $output->writeln($this->formatException($e), OutputInterface::VERBOSITY_DEBUG);
+            }
+        }
+
+        $message = \sprintf(
+            '<whisper>Autoload warming: loaded %d classes in %.1fms</whisper>',
+            $loadedCount,
+            (\microtime(true) - $start) * 1000
+        );
+
+        $output->writeln($message, OutputInterface::VERBOSITY_DEBUG);
+
+        if (!\class_exists('Composer\\ClassMapGenerator\\ClassMapGenerator', false)) {
+            $output->writeln('<whisper>Autoload warming works best with composer/class-map-generator installed</whisper>');
+        }
     }
 
     /**
@@ -165,6 +213,10 @@ class Shell extends Application
         if ($ret = parent::add($command)) {
             if ($ret instanceof ContextAware) {
                 $ret->setContext($this->context);
+            }
+
+            if ($ret instanceof CodeCleanerAware) {
+                $ret->setCodeCleaner($this->cleaner);
             }
 
             if ($ret instanceof PresenterAware) {
@@ -263,6 +315,10 @@ class Shell extends Application
 
         if (ProcessForker::isSupported() && $this->config->usePcntl()) {
             $listeners[] = new ProcessForker();
+        } elseif (SignalHandler::isSupported()) {
+            // Only use SignalHandler when process forking is disabled
+            // ProcessForker handles SIGINT in the parent process, which is cleaner
+            $listeners[] = new SignalHandler();
         }
 
         if (RunkitReloader::isSupported()) {
@@ -331,6 +387,9 @@ class Shell extends Application
 
         try {
             return parent::run($input, $output);
+        } catch (BreakException $e) {
+            // BreakException from ProcessForker or exit() - return its exit code
+            return $e->getCode();
         } catch (\Throwable $e) {
             $this->writeException($e);
         }
@@ -384,15 +443,16 @@ class Shell extends Application
             $this->beforeRun();
             $this->loadIncludes();
             $loop = new ExecutionLoopClosure($this);
-            $loop->execute();
-            $this->afterRun();
+            $exitCode = $loop->execute();
+            $this->afterRun($exitCode ?? 0);
+
+            return $exitCode ?? 0;
         } catch (ThrowUpException $e) {
             throw $e->getPrevious();
         } catch (BreakException $e) {
             // The ProcessForker throws a BreakException to finish the main thread.
+            return $e->getCode();
         }
-
-        return 0;
     }
 
     /**
@@ -426,12 +486,20 @@ class Shell extends Application
             $this->getInput(false);
         }
 
-        if ($this->hasCode()) {
-            $ret = $this->execute($this->flushCode());
-            $this->writeReturnValue($ret, $rawOutput);
+        try {
+            if ($this->hasCode()) {
+                $ret = $this->execute($this->flushCode());
+                $this->writeReturnValue($ret, $rawOutput);
+            }
+        } catch (BreakException $e) {
+            // User called exit() in non-interactive mode
+            $this->afterRun($e->getCode());
+            $this->nonInteractive = false;
+
+            return $e->getCode();
         }
 
-        $this->afterRun();
+        $this->afterRun(0);
         $this->nonInteractive = false;
 
         return 0;
@@ -628,18 +696,20 @@ class Shell extends Application
      */
     public function afterLoop()
     {
-        foreach ($this->loopListeners as $listener) {
+        foreach (\array_reverse($this->loopListeners) as $listener) {
             $listener->afterLoop($this);
         }
     }
 
     /**
      * Run execution loop listers after the shell session.
+     *
+     * @param int $exitCode Exit code from the execution loop
      */
-    protected function afterRun()
+    protected function afterRun(int $exitCode = 0)
     {
-        foreach ($this->loopListeners as $listener) {
-            $listener->afterRun($this);
+        foreach (\array_reverse($this->loopListeners) as $listener) {
+            $listener->afterRun($this, $exitCode);
         }
     }
 
@@ -839,6 +909,8 @@ class Shell extends Application
      */
     public function addCode(string $code, bool $silent = false)
     {
+        $this->codeLooksLikeAction = false;
+
         try {
             // Code lines ending in \ keep the buffer open
             if (\substr(\rtrim($code), -1) === '\\') {
@@ -850,6 +922,11 @@ class Shell extends Application
 
             $this->codeBuffer[] = $silent ? new SilentInput($code) : $code;
             $this->code = $this->cleaner->clean($this->codeBuffer, $this->config->requireSemicolons());
+
+            if (!$silent && $this->code !== false) {
+                $this->codeLooksLikeAction = $this->cleaner->codeLooksLikeAction($this->codeBuffer);
+                $this->writeCleanerMessages();
+            }
         } catch (\Throwable $e) {
             // Add failed code blocks to the readline history.
             $this->addCodeBufferToHistory();
@@ -978,6 +1055,25 @@ class Shell extends Application
     }
 
     /**
+     * Whisper messages from CodeCleaner passes.
+     */
+    private function writeCleanerMessages(): void
+    {
+        if (!isset($this->output)) {
+            return;
+        }
+
+        $output = $this->output;
+        if ($output instanceof ConsoleOutput) {
+            $output = $output->getErrorOutput();
+        }
+
+        foreach ($this->cleaner->getMessages() as $message) {
+            $output->writeln(\sprintf('<whisper>%s</whisper>', OutputFormatter::escape($message)));
+        }
+    }
+
+    /**
      * Reset the current code buffer.
      *
      * This should be run after evaluating user input, catching exceptions, or
@@ -1021,6 +1117,8 @@ class Shell extends Application
 
             return $code;
         }
+
+        return null;
     }
 
     /**
@@ -1089,6 +1187,8 @@ class Shell extends Application
         if ($namespace = $this->cleaner->getNamespace()) {
             return \implode('\\', $namespace);
         }
+
+        return null;
     }
 
     /**
@@ -1170,7 +1270,8 @@ class Shell extends Application
         } else {
             $prompt = $this->config->theme()->returnValue();
             $indent = \str_repeat(' ', \strlen($prompt));
-            $formatted = $this->presentValue($ret);
+            // Use concise output for actions, full output for inspection
+            $formatted = $this->presentValue($ret, $this->codeLooksLikeAction);
             $formattedRetValue = \sprintf('<whisper>%s</whisper>', $prompt);
 
             $formatted = $formattedRetValue.\str_replace(\PHP_EOL, \PHP_EOL.$indent, $formatted);
@@ -1259,6 +1360,8 @@ class Shell extends Application
 
         if ($e instanceof BreakException) {
             return \sprintf('%s<info> INFO </info> %s.', $indent, \rtrim($e->getRawMessage(), '.'));
+        } elseif ($e instanceof InterruptException) {
+            return \sprintf('%s<warning> INTERRUPT </warning> %s.', $indent, $e->getRawMessage());
         } elseif ($e instanceof PsyException) {
             $message = $e->getLine() > 1
                 ? \sprintf('%s in %s on line %d', $e->getRawMessage(), $e->getFile(), $e->getLine())
@@ -1400,6 +1503,9 @@ class Shell extends Application
 
         try {
             return $closure->execute();
+        } catch (BreakException $_e) {
+            // Re-throw BreakException so it can propagate exit codes
+            throw $_e;
         } catch (\Throwable $_e) {
             $this->writeException($_e);
         }
@@ -1456,12 +1562,13 @@ class Shell extends Application
      * @see Presenter::present
      *
      * @param mixed $val
+     * @param bool  $concise Present as a reference rather than a full value
      *
      * @return string Formatted value
      */
-    protected function presentValue($val): string
+    protected function presentValue($val, $concise = false): string
     {
-        return $this->config->getPresenter()->present($val);
+        return $this->config->getPresenter()->present($val, $concise ? 0 : 5, $concise ? 0 : Presenter::VERBOSE);
     }
 
     /**
@@ -1477,6 +1584,8 @@ class Shell extends Application
         if ($name = $input->getFirstArgument()) {
             return $this->get($name);
         }
+
+        return null;
     }
 
     /**

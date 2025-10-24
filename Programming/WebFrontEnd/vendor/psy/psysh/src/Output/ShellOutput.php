@@ -3,7 +3,7 @@
 /*
  * This file is part of Psy Shell.
  *
- * (c) 2012-2023 Justin Hileman
+ * (c) 2012-2025 Justin Hileman
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -11,6 +11,7 @@
 
 namespace Psy\Output;
 
+use Psy\Formatter\SignatureFormatter;
 use Symfony\Component\Console\Formatter\OutputFormatter;
 use Symfony\Component\Console\Formatter\OutputFormatterInterface;
 use Symfony\Component\Console\Output\ConsoleOutput;
@@ -187,6 +188,9 @@ class ShellOutput extends ConsoleOutput
         $useGrayFallback = !$this->grayExists();
         $this->theme->applyStyles($this->getFormatter(), $useGrayFallback);
         $this->theme->applyErrorStyles($this->getErrorOutput()->getFormatter(), $useGrayFallback);
+
+        // Set inline styles for SignatureFormatter hyperlinks
+        SignatureFormatter::setStyles($this->theme->getInlineStyles($useGrayFallback));
     }
 
     /**

@@ -3,7 +3,7 @@
 /*
  * This file is part of Psy Shell.
  *
- * (c) 2012-2023 Justin Hileman
+ * (c) 2012-2025 Justin Hileman
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -11,7 +11,9 @@
 
 namespace Psy;
 
+use Psy\Exception\BreakException;
 use Psy\ExecutionLoop\ProcessForker;
+use Psy\Util\DependencyChecker;
 use Psy\VersionUpdater\GitHubChecker;
 use Psy\VersionUpdater\Installer;
 use Psy\VersionUpdater\SelfUpdate;
@@ -134,7 +136,7 @@ if (!\function_exists('Psy\\info')) {
         if ($config !== null) {
             $lastConfig = $config;
 
-            return;
+            return null;
         }
 
         $prettyPath = function ($path) {
@@ -243,15 +245,15 @@ if (!\function_exists('Psy\\info')) {
         ];
 
         $pcntl = [
-            'pcntl available' => ProcessForker::isPcntlSupported(),
-            'posix available' => ProcessForker::isPosixSupported(),
+            'pcntl available' => DependencyChecker::functionsAvailable(ProcessForker::PCNTL_FUNCTIONS),
+            'posix available' => DependencyChecker::functionsAvailable(ProcessForker::POSIX_FUNCTIONS),
         ];
 
-        if ($disabledPcntl = ProcessForker::disabledPcntlFunctions()) {
+        if ($disabledPcntl = DependencyChecker::functionsDisabled(ProcessForker::PCNTL_FUNCTIONS)) {
             $pcntl['disabled pcntl functions'] = $disabledPcntl;
         }
 
-        if ($disabledPosix = ProcessForker::disabledPosixFunctions()) {
+        if ($disabledPosix = DependencyChecker::functionsDisabled(ProcessForker::POSIX_FUNCTIONS)) {
             $pcntl['disabled posix functions'] = $disabledPosix;
         }
 
@@ -301,6 +303,65 @@ if (!\function_exists('Psy\\info')) {
             'bracketed paste'        => $config->useBracketedPaste(),
         ];
 
+        $warmers = $config->getAutoloadWarmers();
+        $autoload = [
+            'autoload warming enabled' => !empty($warmers),
+            'warmers configured'       => \count($warmers),
+        ];
+
+        if (!empty($warmers)) {
+            $autoload['warmer types'] = \array_map('get_class', $warmers);
+
+            // Add extended info for ComposerAutoloadWarmer
+            foreach ($warmers as $warmer) {
+                if ($warmer instanceof TabCompletion\AutoloadWarmer\ComposerAutoloadWarmer) {
+                    try {
+                        $autoload['composer warmer config'] = [
+                            'include vendor' => Sudo::fetchProperty($warmer, 'includeVendor'),
+                            'include tests'  => Sudo::fetchProperty($warmer, 'includeTests'),
+                            'vendor dir'     => Sudo::fetchProperty($warmer, 'vendorDir'),
+                            'phar prefix'    => Sudo::fetchProperty($warmer, 'pharPrefix'),
+                        ];
+
+                        $includeNamespaces = Sudo::fetchProperty($warmer, 'includeNamespaces');
+                        $excludeNamespaces = Sudo::fetchProperty($warmer, 'excludeNamespaces');
+                        $includeVendorNamespaces = Sudo::fetchProperty($warmer, 'includeVendorNamespaces');
+                        $excludeVendorNamespaces = Sudo::fetchProperty($warmer, 'excludeVendorNamespaces');
+
+                        if (!empty($includeNamespaces)) {
+                            $autoload['composer warmer config']['include namespaces'] = $includeNamespaces;
+                        }
+                        if (!empty($excludeNamespaces)) {
+                            $autoload['composer warmer config']['exclude namespaces'] = $excludeNamespaces;
+                        }
+                        if (!empty($includeVendorNamespaces)) {
+                            $autoload['composer warmer config']['include vendor namespaces'] = $includeVendorNamespaces;
+                        }
+                        if (!empty($excludeVendorNamespaces)) {
+                            $autoload['composer warmer config']['exclude vendor namespaces'] = $excludeVendorNamespaces;
+                        }
+                    } catch (\ReflectionException $e) {
+                        // shrug
+                    }
+                    break; // Only show info for the first ComposerAutoloadWarmer
+                }
+            }
+        }
+
+        $implicitUse = [];
+        $implicitUseConfig = $config->getImplicitUse();
+        if (\is_array($implicitUseConfig)) {
+            if (!empty($implicitUseConfig['includeNamespaces'])) {
+                $implicitUse['include namespaces'] = $implicitUseConfig['includeNamespaces'];
+            }
+            if (!empty($implicitUseConfig['excludeNamespaces'])) {
+                $implicitUse['exclude namespaces'] = $implicitUseConfig['excludeNamespaces'];
+            }
+        }
+        if (empty($implicitUse)) {
+            $implicitUse = false;
+        }
+
         // Shenanigans, but totally justified.
         try {
             if ($shell = Sudo::fetchProperty($config, 'shell')) {
@@ -332,7 +393,24 @@ if (!\function_exists('Psy\\info')) {
 
         // @todo Show Presenter / custom casters.
 
-        return \array_merge($shellInfo, $core, \compact('updates', 'pcntl', 'input', 'readline', 'output', 'history', 'docs', 'autocomplete'));
+        return \array_merge(
+            $shellInfo,
+            $core,
+            \compact(
+                'updates',
+                'pcntl',
+                'input',
+                'readline',
+                'output',
+                'history',
+                'docs',
+                'autocomplete',
+                'autoload'
+            ),
+            [
+                'implicit use' => $implicitUse,
+            ],
+        );
     }
 }
 
@@ -381,6 +459,7 @@ if (!\function_exists('Psy\\bin')) {
                     new InputOption('help', 'h', InputOption::VALUE_NONE),
                     new InputOption('version', 'V', InputOption::VALUE_NONE),
                     new InputOption('self-update', 'u', InputOption::VALUE_NONE),
+                    new InputOption('info', null, InputOption::VALUE_NONE),
 
                     new InputArgument('include', InputArgument::IS_ARRAY),
                 ])));
@@ -414,6 +493,7 @@ Options:
   -h, --help            Display this help message.
   -c, --config FILE     Use an alternate PsySH config file location.
       --cwd PATH        Use an alternate working directory.
+      --info            Display PsySH environment and configuration info.
   -V, --version         Display the PsySH version.
 
 EOL;
@@ -432,6 +512,7 @@ EOL;
       --compact         Run PsySH with compact output.
   -q, --quiet           Shhhhhh.
   -v|vv|vvv, --verbose  Increase the verbosity of messages.
+      --warm-autoload   Enable autoload warming for better tab completion.
       --yolo            Run PsySH without input validation. You don't want this.
 
 EOL;
@@ -442,6 +523,23 @@ EOL;
             // Handle --version
             if ($input->getOption('version')) {
                 echo Shell::getVersionHeader($config->useUnicode()).\PHP_EOL;
+                exit(0);
+            }
+
+            // Handle --info
+            if ($input->getOption('info')) {
+                // Store config for info() function
+                info($config);
+                $infoData = info();
+
+                // Format and display the info
+                $output = $config->getOutput();
+                if ($config->rawOutput()) {
+                    $output->writeln(\var_export($infoData, true));
+                } else {
+                    $presenter = $config->getPresenter();
+                    $output->writeln($presenter->present($infoData));
+                }
                 exit(0);
             }
 
@@ -463,15 +561,17 @@ EOL;
 
             try {
                 // And go!
-                $shell->run();
+                $exitCode = $shell->run();
+                if ($exitCode !== 0) {
+                    exit($exitCode);
+                }
+            } catch (BreakException $e) {
+                // BreakException can escape if thrown before the execution loop starts
+                // (though it shouldn't in normal operation)
+                exit($e->getCode());
             } catch (\Throwable $e) {
                 \fwrite(\STDERR, $e->getMessage().\PHP_EOL);
-
-                // @todo this triggers the "exited unexpectedly" logic in the
-                // ForkingLoop, so we can't exit(1) after starting the shell...
-                // fix this :)
-
-                // exit(1);
+                exit(1);
             }
         };
     }

@@ -3,7 +3,7 @@
 /*
  * This file is part of Psy Shell.
  *
- * (c) 2012-2023 Justin Hileman
+ * (c) 2012-2025 Justin Hileman
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -14,6 +14,7 @@ namespace Psy;
 use Psy\Exception\DeprecatedException;
 use Psy\Exception\RuntimeException;
 use Psy\ExecutionLoop\ProcessForker;
+use Psy\Formatter\SignatureFormatter;
 use Psy\Output\OutputPager;
 use Psy\Output\ShellOutput;
 use Psy\Output\Theme;
@@ -59,6 +60,7 @@ class Configuration
         'formatterStyles',
         'historyFile',
         'historySize',
+        'implicitUse',
         'interactiveMode',
         'manualDbFile',
         'pager',
@@ -76,6 +78,7 @@ class Configuration
         'useTabCompletion',
         'useUnicode',
         'verbosity',
+        'warmAutoload',
         'warnOnMultipleConfigs',
         'yolo',
     ];
@@ -104,6 +107,8 @@ class Configuration
     private ?bool $useUnicode = null;
     private ?bool $useTabCompletion = null;
     private array $newMatchers = [];
+    private ?array $autoloadWarmers = null;
+    private $implicitUse = false;
     private int $errorLoggingLevel = \E_ALL;
     private bool $warnOnMultipleConfigs = false;
     private string $colorMode = self::COLOR_MODE_AUTO;
@@ -218,6 +223,11 @@ class Configuration
             }
         }
 
+        // Handle --warm-autoload
+        if (self::getOptionFromInput($input, ['warm-autoload'])) {
+            $config->setWarmAutoload(true);
+        }
+
         // Handle --yolo
         if (self::getOptionFromInput($input, ['yolo'])) {
             $config->setYolo(true);
@@ -316,7 +326,7 @@ class Configuration
                 case 'vvvvvvv':
                     return self::VERBOSITY_DEBUG;
                 default: // implicitly normal, config file default wins
-                    return;
+                    return null;
             }
         }
 
@@ -341,6 +351,8 @@ class Configuration
         if ($input->hasParameterOption('-v', true) || $input->hasParameterOption('--verbose=1', true) || $input->hasParameterOption('--verbose', true)) {
             return self::VERBOSITY_VERBOSE;
         }
+
+        return null;
     }
 
     /**
@@ -375,6 +387,8 @@ class Configuration
             new InputOption('self-update', 'u', InputOption::VALUE_NONE, 'Update to the latest version'),
 
             new InputOption('yolo', null, InputOption::VALUE_NONE, 'Run PsySH with minimal input validation. You probably don\'t want this.'),
+            new InputOption('warm-autoload', null, InputOption::VALUE_NONE, 'Enable autoload warming for better tab completion.'),
+            new InputOption('info', null, InputOption::VALUE_NONE, 'Display PsySH environment and configuration info.'),
         ];
     }
 
@@ -439,6 +453,8 @@ class Configuration
 
             return $files[0];
         }
+
+        return null;
     }
 
     /**
@@ -456,6 +472,8 @@ class Configuration
         if (@\is_file($localConfig)) {
             return $localConfig;
         }
+
+        return null;
     }
 
     /**
@@ -1071,7 +1089,7 @@ class Configuration
     public function getCodeCleaner(): CodeCleaner
     {
         if (!isset($this->cleaner)) {
-            $this->cleaner = new CodeCleaner(null, null, null, $this->yolo(), $this->strictTypes());
+            $this->cleaner = new CodeCleaner(null, null, null, $this->yolo(), $this->strictTypes(), $this->implicitUse);
         }
 
         return $this->cleaner;
@@ -1181,7 +1199,7 @@ class Configuration
             // output stream to figure out if it's piped or not, so create it
             // first, then update after we have a stream.
             $decorated = $this->getOutputDecorated();
-            if ($decorated !== null) {
+            if ($decorated !== null && $this->output !== null) {
                 $this->output->setDecorated($decorated);
             }
         }
@@ -1350,6 +1368,158 @@ class Configuration
     }
 
     /**
+     * Configure autoload warming.
+     *
+     * @param bool|array $config False to disable, true for defaults, or array for custom config
+     */
+    public function setWarmAutoload($config): void
+    {
+        if (!\is_bool($config) && !\is_array($config)) {
+            throw new \InvalidArgumentException('warmAutoload must be a boolean or configuration array');
+        }
+
+        // Parse and store warmers immediately
+        $this->autoloadWarmers = $this->parseWarmAutoloadConfig($config);
+    }
+
+    /**
+     * Get configured autoload warmers.
+     *
+     * If no warmers are explicitly configured, returns a default ComposerAutoloadWarmer
+     * with smart settings that work for most projects.
+     *
+     * To disable autoload warming, set 'warmAutoload' to false.
+     *
+     * @return TabCompletion\AutoloadWarmer\AutoloadWarmerInterface[]
+     */
+    public function getAutoloadWarmers(): array
+    {
+        if ($this->autoloadWarmers === null) {
+            $this->autoloadWarmers = $this->parseWarmAutoloadConfig(false);
+        }
+
+        return $this->autoloadWarmers;
+    }
+
+    /**
+     * Parse warmAutoload configuration into autoload warmers.
+     *
+     * Accepts three types of configuration:
+     * - true: Enable with default ComposerAutoloadWarmer
+     * - false: Disable warming entirely (default)
+     * - array: Custom configuration for ComposerAutoloadWarmer and/or custom warmers
+     *
+     * When a config array is provided:
+     * - Empty array [] disables warming
+     * - 'warmers' key provides custom warmer instances
+     * - Other keys configure a ComposerAutoloadWarmer (implicitly enables)
+     * - Both can be combined: custom warmers + configured ComposerAutoloadWarmer
+     *
+     * @param bool|array $config Configuration value
+     *
+     * @return TabCompletion\AutoloadWarmer\AutoloadWarmerInterface[]
+     */
+    private function parseWarmAutoloadConfig($config): array
+    {
+        // false = disable entirely
+        if ($config === false) {
+            return [];
+        }
+
+        // true = use default ComposerAutoloadWarmer
+        if ($config === true) {
+            return [new TabCompletion\AutoloadWarmer\ComposerAutoloadWarmer()];
+        }
+
+        // array = custom configuration
+        if (!\is_array($config)) {
+            throw new \InvalidArgumentException('warmAutoload must be a boolean or configuration array');
+        }
+
+        $warmers = [];
+
+        // Extract explicit warmers if provided
+        if (isset($config['warmers'])) {
+            $explicitWarmers = $config['warmers'];
+            if (!\is_array($explicitWarmers)) {
+                throw new \InvalidArgumentException('warmAutoload[\'warmers\'] must be an array');
+            }
+
+            foreach ($explicitWarmers as $warmer) {
+                if (!$warmer instanceof TabCompletion\AutoloadWarmer\AutoloadWarmerInterface) {
+                    throw new \InvalidArgumentException('Autoload warmers must implement AutoloadWarmerInterface');
+                }
+                $warmers[] = $warmer;
+            }
+
+            unset($config['warmers']);
+        }
+
+        // If there are remaining config options, create a ComposerAutoloadWarmer with them
+        if (!empty($config)) {
+            $warmers[] = new TabCompletion\AutoloadWarmer\ComposerAutoloadWarmer($config);
+        }
+
+        return $warmers;
+    }
+
+    /**
+     * Set implicit use statement configuration.
+     *
+     * Automatically adds use statements for unqualified class references when
+     * a single, non-ambiguous match is found among currently defined classes,
+     * interfaces, and traits within the configured namespaces.
+     *
+     * Works great with autoload warming (--warm-autoload) to pre-load classes
+     * for better resolution. Also works with dynamically defined classes.
+     *
+     * Examples:
+     *
+     *     // Disable implicit use (default)
+     *     $config->setImplicitUse(false);
+     *
+     *     // Enable for specific namespaces
+     *     $config->setImplicitUse([
+     *         'includeNamespaces' => ['App\\', 'Domain\\'],
+     *     ]);
+     *
+     *     // Enable with exclusions
+     *     $config->setImplicitUse([
+     *         'includeNamespaces' => ['App\\'],
+     *         'excludeNamespaces' => ['App\\Legacy\\'],
+     *     ]);
+     *
+     * Note: At least one of includeNamespaces or excludeNamespaces must be provided.
+     * If neither is provided, implicit use effectively does nothing.
+     *
+     * @param false|array $config False to disable, or array with includeNamespaces/excludeNamespaces
+     */
+    public function setImplicitUse($config): void
+    {
+        if ($config === false) {
+            $this->implicitUse = false;
+
+            return;
+        }
+
+        if (!\is_array($config)) {
+            throw new \InvalidArgumentException('implicitUse must be false or a configuration array with includeNamespaces and/or excludeNamespaces');
+        }
+
+        $this->implicitUse = $config;
+    }
+
+    /**
+     * Get implicit use configuration.
+     *
+     * @return bool|array Implicit use configuration
+     */
+    public function getImplicitUse()
+    {
+        return $this->implicitUse;
+    }
+
+    /**
      * @deprecated Use `addMatchers` instead
      *
      * @param array $matchers
@@ -1401,6 +1571,9 @@ class Configuration
         $this->shell = $shell;
         $this->doAddCommands();
         $this->doAddMatchers();
+
+        // Configure SignatureFormatter for hyperlinks
+        SignatureFormatter::setManualDb($this->getManualDb());
     }
 
     /**
@@ -1414,6 +1587,9 @@ class Configuration
     public function setManualDbFile(string $filename)
     {
         $this->manualDbFile = (string) $filename;
+
+        // Reconfigure SignatureFormatter with new manual database
+        SignatureFormatter::setManualDb($this->getManualDb());
     }
 
     /**
@@ -1436,6 +1612,8 @@ class Configuration
 
             return $this->manualDbFile = $files[0];
         }
+
+        return null;
     }
 
     /**

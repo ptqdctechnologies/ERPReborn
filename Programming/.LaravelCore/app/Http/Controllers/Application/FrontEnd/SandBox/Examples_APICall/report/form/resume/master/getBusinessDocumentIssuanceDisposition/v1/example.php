@@ -29,37 +29,44 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
         */
         public function throughAPIGateway($varAPIWebToken)
             {
-            //---Parameter Set---
+            //-----[ PARAMETER SET ]-----
             if (!$varAPIWebToken) {
                 $varAPIWebToken =
                     \App\Helpers\ZhtHelper\System\Helper_Environment::getAPIWebToken_System();
                 }
 
-            //---Core---
+            //-----[ CORE ]-----
             $varData =
                 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                    $varAPIWebToken, 
-                    'report.form.resume.master.getBusinessDocumentIssuanceDisposition', 
-                    'latest',
-                    [
-                    'parameter' => [
-                        'recordID' => 164000000000196,
-                        'dataFilter' => [
-                            'businessDocumentNumber' => 'Adv/QDC/2023/000126',
-                            'businessDocumentType_RefID' => NULL,
-                            'combinedBudget_RefID' => NULL
-/*                        
-                            'businessDocumentNumber' => 'Adv/QDC/2023/000098',
-                            'businessDocumentType_RefID' => 77000000000057,
-                            'combinedBudget_RefID' => 46000000000033
-*/
-                            ]                            
+                    //-----[ METADATA ]-----( START )-----
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                        $varAPIWebToken, 
+                        'report.form.resume.master.getBusinessDocumentIssuanceDisposition', 
+                        'latest',
+                    //-----[ METADATA ]-----(  END  )-----
+
+                    //-----[ DATA ]---------( START )-----
+                        [
+                        'parameter' => [
+                            'recordID' => 164000000000196,
+                            'dataFilter' => [
+                                'businessDocumentNumber' => 'Adv/QDC/2023/000126',
+                                'businessDocumentType_RefID' => NULL,
+                                'combinedBudget_RefID' => NULL
+    /*                        
+                                'businessDocumentNumber' => 'Adv/QDC/2023/000098',
+                                'businessDocumentType_RefID' => 77000000000057,
+                                'combinedBudget_RefID' => 46000000000033
+    */
+                                ]                            
+                            ]
                         ]
-                    ]
+                    //-----[ DATA ]---------(  END  )-----
                     );
 
-            var_dump($varData);
+            //-----[ DATA RETURN ]-----
+            return
+                $varData;
             }
 
         /*
