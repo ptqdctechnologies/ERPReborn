@@ -545,8 +545,11 @@
                         });
 
                         $(`#wht${key}`).on('input', function () {
-                            let val         = this.value.replace(/[^\d]/g, '').slice(0, 3);
+                            let val         = this.value.replace(/[^\d]/g, '');
                             let total_ap    = $(`#total_ap${key}`).val().replace(/,/g, '');
+
+                            console.log('val', val);
+                            console.log('parseInt(val)', parseInt(val));
 
                             if (parseInt(val) > 100) {
                                 $(this).val("");

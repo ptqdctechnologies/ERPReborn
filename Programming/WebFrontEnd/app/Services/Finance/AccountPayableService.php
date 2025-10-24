@@ -1950,7 +1950,7 @@ class AccountPayableService
                 "contractStatus"                => $contractStatus,
                 "vatStatus"                     => $vatStatus,
                 "vatValue"                      => 10.00, // HERE
-                // "vatNumber"                     => $data['vat_number'],
+                // "vatValue"                     => $data['vat_number'],
                 "vatNumber"                     => $data['vat_number'],
                 "fatPatDoStatus"                => $fatPatDoStatus,
                 "assetStatus"                   => $assetStatus,
@@ -1975,50 +1975,68 @@ class AccountPayableService
     {
         $sessionToken   = Session::get('SessionLogin');
 
+        $data                   = $request;
+        $detailItems            = json_decode($data['account_payable_detail'], true);
+        $fileID                 = $data['dataInput_Log_FileUpload_1'] ? (int) $data['dataInput_Log_FileUpload_1'] : null;
+        $categoryID             = $data['category_id'] ? (int) $data['category_id'] : null;
+        $depreciationMethod     = $data['depreciation_method'] ? (int) $data['depreciation_method'] : null;
+        $depreciationRate       = $data['depreciation_rate_percentage'] ? (float) str_replace(',', '', $data['depreciation_rate_percentage']) : null;
+        $depreciationCOARefID   = $data['depreciation_coa_id'] ? (int) $data['depreciation_coa_id'] : null;
+        $deduction              = $data['budget_details_deduction'] > -1 ? (float) str_replace(',', '', $data['budget_details_deduction']) : null;
+
+        $receiptStatus = match ($data['receipt_origin']) {
+            'no'        => (int) 0,
+            default     => (int) 1,
+        };
+
+        $contractStatus = match ($data['contract_signed']) {
+            'no'        => (int) 0,
+            default     => (int) 1,
+        };
+
+        $vatStatus = match ($data['vat_origin']) {
+            'no'        => (int) 0,
+            default     => (int) 1,
+        };
+
+        $fatPatDoStatus = match ($data['basft_origin']) {
+            'no'        => (int) 0,
+            default     => (int) 1,
+        };
+
+        $assetStatus = match ($data['asset']) {
+            'no'        => (int) 0,
+            default     => (int) 1,
+        };
+
         return Helper_APICall::setCallAPIGateway(
             Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
+            $sessionToken,
             'transaction.update.finance.setPaymentInstruction',
             'latest',
             [
-            'recordID' => 211000000000018,
+            'recordID' => 211000000000095,
             'entities' => [
                 "documentDateTimeTZ"            => date('Y-m-d'),
-                "log_FileUpload_Pointer_RefID"  => NULL,
-                "supplierInvoiceNumber"         => 'INV-DHJ-2025-011',
+                "log_FileUpload_Pointer_RefID"  => $fileID,
+                "supplierInvoiceNumber"         => $data['supplier_invoice_number'],
                 "supplier_RefID"                => 126000000000001,
-                "receiptStatus"                 => 0,
-                "contractStatus"                => 1,
-                "vatStatus"                     => 1,
+                "receiptStatus"                 => $receiptStatus,
+                "contractStatus"                => $contractStatus,
+                "vatStatus"                     => $vatStatus,
                 "vatValue"                      => 10.00,
-                "vatNumber"                     => '01.234.567.8-999.000',
-                "fatPatDoStatus"                => 1,
-                "assetStatus"                   => 1,
-                "assetCategory"                 => 1,
-                "depreciationMethod"            => 2,
+                "vatNumber"                     => $data['vat_number'],
+                "fatPatDoStatus"                => $fatPatDoStatus,
+                "assetStatus"                   => $assetStatus,
+                "assetCategory"                 => $categoryID,
+                "depreciationMethod"            => $depreciationMethod,
                 "depreciationRate"              => 25.00,
-                "depreciationCOA_RefID"         => 65000000000005,
-                "deduction"                     => 0.0,
-                "remarks"                       => 'My Remarks',
-                "supplierBankAccount_RefID"     => 167000000000001,
+                "depreciationCOA_RefID"         => $depreciationCOARefID,
+                "deduction"                     => $deduction,
+                "remarks"                       => $data['account_payable_notes'],
                 'additionalData'    => [
                     'itemList'      => [
-                        'items'     => [
-                                [
-                                'recordID' => 212000000000010,
-                                'entities' => [
-                                    "combinedBudgetSectionDetail_RefID" => 169000000000001,
-                                    "chartOfAccount_RefID" => 65000000000005,
-                                    "product_RefID" => 88000000000002,
-                                    "quantityUnit_RefID" => 73000000000001,
-                                    "quantity" => 25,
-                                    "productUnitPriceCurrency_RefID" => 62000000000001,
-                                    "productUnitPriceCurrencyValue" => 200000.00,
-                                    "productUnitPriceCurrencyExchangeRate" => 1,
-                                    "wht" => 2.00
-                                    ]
-                                ]
-                            ]
+                        'items'     => $detailItems
                         ]
                     ]
                 ]

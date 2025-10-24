@@ -9,7 +9,7 @@
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div>
                         <div class="input-group">
-                            <input id="supplier_invoice_number" name="supplier_invoice_number" style="border-radius:0;" class="form-control number-without-characters" value="<?= $header['supplierInvoiceNumber']; ?>">
+                            <input id="supplier_invoice_number" name="supplier_invoice_number" style="border-radius:0;" class="form-control" value="<?= $header['supplierInvoiceNumber']; ?>">
                         </div>
                     </div>
                 </div>
@@ -87,10 +87,11 @@
                             <label for="vat_origin_yes" class="custom-control-label" style="padding-top: 28%;">Yes</label>
                         </div>
                         <div>
-                            <select type="text" id="ppn" class="form-control vat-components" name="ppn" onchange="onChangeVAT(this)" style="border-radius:0;width:auto;display:none;">
-                                <option disabled selected value="">Sel..</option>
+                            <input hidden id="ppnValue" value="<?= $header['VATPercentage']; ?>" />
+                            <select type="text" id="ppn" class="form-control vat-components" name="ppn" onchange="onChangeVAT(this)" style="border-radius: 0; width: auto; display: <?= ($header['VATOrigin'] === 'yes') ? 'flex' : 'none'; ?>;">
+                                <!-- <option disabled selected value="">Sel..</option>
                                 <option value="10">10%</option>
-                                <option value="20">20%</option>
+                                <option value="20">20%</option> -->
                             </select>
                         </div>
                     </div>
@@ -98,12 +99,12 @@
             </div>
 
             <!-- VAT NUMBER -->
-            <div class="row vat-components" style="margin-top: 1rem; display:none;">
+            <div class="row vat-components" style="margin-top: 1rem; display: <?= ($header['VATOrigin'] === 'yes') ? 'flex' : 'none'; ?>;">
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">VAT Number</label>
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div>
                         <div class="input-group">
-                            <input id="vat_number" name="vat_number" style="border-radius:0;" class="form-control number-without-characters">
+                            <input id="vat_number" name="vat_number" style="border-radius:0;" class="form-control number-without-characters" value="<?= $header['VATNumber']; ?>">
                         </div>
                     </div>
                 </div>
@@ -175,8 +176,8 @@
                     </div>
                     <div>
                         <div class="input-group">
-                            <input id="category_number" class="form-control" size="15" readonly style="border-radius:0; background-color: white; cursor: default;">
-                            <input id="category_id" name="category_id" style="border-radius:0;" class="form-control" hidden>
+                            <input id="category_number" class="form-control" size="15" value="<?= $header['categoryCode'] . ' - ' .$header['categoryName']; ?>" readonly style="border-radius:0; background-color: white; cursor: default;">
+                            <input id="category_id" name="category_id" style="border-radius:0;" class="form-control" value="<?= $header['category_RefID']; ?>" hidden>
                         </div>
                     </div>
                     <div class="ml-1">
@@ -215,13 +216,13 @@
                 <div class="col-sm-9 col-md-8 col-lg-4 p-0">
                     <div class="row">
                         <div class="col-4">
-                            <input id="depreciation_rate_percentage" name="depreciation_rate_percentage" class="form-control number-without-characters" size="8" style="border-radius:0; cursor: default;">
+                            <input id="depreciation_rate_percentage" name="depreciation_rate_percentage" class="form-control number-without-characters" size="8" value="<?= $header['depreciationRate']; ?>" style="border-radius:0; cursor: default;">
                         </div>
                         <div class="col">
                             <div class="row">
                                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Years</label>
                                 <div class="col-6">
-                                    <input id="depreciation_rate_years" name="depreciation_rate_years" class="form-control number-without-characters" size="8" style="border-radius:0; cursor: default;">
+                                    <input id="depreciation_rate_years" name="depreciation_rate_years" class="form-control number-without-characters" size="8" value="<?= $header['depreciationYears']; ?>" style="border-radius:0; cursor: default;">
                                 </div>
                             </div>
                         </div>
@@ -246,8 +247,8 @@
                     </div>
                     <div>
                         <div class="input-group">
-                            <input id="depreciation_coa_number" class="form-control" size="15" readonly style="border-radius:0; background-color: white; cursor: default;">
-                            <input id="depreciation_coa_id" name="depreciation_coa_id" style="border-radius:0;" class="form-control" hidden>
+                            <input id="depreciation_coa_number" class="form-control" size="15" value="<?= $header['depreciationCOACode'] . ' - ' . $header['depreciationCOAName']; ?>" readonly style="border-radius:0; background-color: white; cursor: default;">
+                            <input id="depreciation_coa_id" name="depreciation_coa_id" value="<?= $header['depreciationCOA_RefID']; ?>" style="border-radius:0;" class="form-control" hidden>
                         </div>
                     </div>
                 </div>

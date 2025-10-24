@@ -58,6 +58,29 @@ class AccountPayableController extends Controller
         return response()->json($request->all());
     }
 
+    public function UpdatesRevisionAccountPayable(Request $request)
+    {
+        try {
+            $response = $this->accountPayableService->updates($request);
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                throw new \Exception('Failed to fetch Update Account Payable');
+            }
+
+            $compact = [
+                "documentNumber"    => $response['data'][0]['businessDocument']['documentNumber'],
+                "status"            => $response['metadata']['HTTPStatusCode'],
+                // "status"            => $responseWorkflow['metadata']['HTTPStatusCode'],
+            ];
+
+            return response()->json($compact);
+        } catch (\Throwable $th) {
+            Log::error("Update Account Payable Function Error: " . $th->getMessage());
+
+            return response()->json(["status" => 500]);
+        }
+    }
+
     public function DataPickList(Request $request) 
     {
         try {
@@ -124,7 +147,7 @@ class AccountPayableController extends Controller
                     'receiptInvoiceOrigin'          => $this->RadioFormatValue($dataAccountPayableDetail[0]['ReceiptStatus']) ?? '',
                     'contractPOSigned'              => $this->RadioFormatValue($dataAccountPayableDetail[0]['ContractStatus']) ?? '',
                     'VATOrigin'                     => $this->RadioFormatValue($dataAccountPayableDetail[0]['VatStatus']) ?? '',
-                    'VATPercentage'                 => $dataAccountPayableDetail[0]['VatValue'] ?? '',
+                    'VATPercentage'                 => (int) $dataAccountPayableDetail[0]['VatValue'] ?? '',
                     'VATNumber'                     => $dataAccountPayableDetail[0]['VatNumber'] ?? '',
                     'FatPatDoOrigin'                => $this->RadioFormatValue($dataAccountPayableDetail[0]['FatPatDoStatus']) ?? '',
                     'notes'                         => $dataAccountPayableDetail[0]['Notes'] ?? '',
@@ -143,7 +166,7 @@ class AccountPayableController extends Controller
                 'detail'            => $dataAccountPayableDetail
             ];
 
-            // dump($compact);
+            dump($compact);
 
             return view('Finance.AccountPayable.Transactions.RevisionAccountPayable', $compact);
         } catch (\Throwable $th) {
