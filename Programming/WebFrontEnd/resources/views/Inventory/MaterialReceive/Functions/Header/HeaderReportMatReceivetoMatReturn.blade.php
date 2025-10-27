@@ -1,5 +1,5 @@
 <div class="card">
-    <form method="post" action="{{ route('Inventory.ReportMatReturnSummaryStore') }}" id="FormSubmitReportMaterialReturnSummary">
+    <form method="post" action="{{ route('Inventory.ReportMatReceivetoMatReturnStore') }}" id="FormSubmitReportMaterialReturnSummary">
     @csrf
     <div class="card-body">
         <div class="row">
@@ -50,7 +50,7 @@
                 <div class="form-group">
                     <table>
                         <tr>
-                            <th style="padding-top: 7px;"><label style="text-wrap-mode: nowrap;">Transporter&nbsp;</label></th>
+                            <th style="padding-top: 7px;"><label style="text-wrap-mode: nowrap;">Material Return Number&nbsp;</label></th>
                             <td>
                                 <div class="input-group">
                                     <input id="warehouse_id2" style="border-radius:0;" class="form-control" name="sub_budget_id2" type="hidden">

@@ -23,10 +23,10 @@
       @include('Process.Loan.Functions.Menu.MenuLoan')
       @if($var == 0)
       <div class="card">
-        <form method="post" action="{{ route('SelectWorkFlow') }}" id="FormSubmitPurchaseRequisition">
+        <form method="post" action="{{ route('CreateLoan') }}" id="FormCreateLoan">
         @csrf
-          <input type="hidden" name="DocumentTypeID" id="DocumentTypeID">
-          <input type="hidden" name="var_combinedBudget_RefID" id="var_combinedBudget_RefID">
+          <!-- <input type="hidden" name="DocumentTypeID" id="DocumentTypeID">
+          <input type="hidden" name="var_combinedBudget_RefID" id="var_combinedBudget_RefID"> -->
 
           <!-- ADD NEW PURCHASE REQUEST -->
           <div class="tab-content px-3 pt-4 pb-2" id="nav-tabContent">
@@ -115,6 +115,4 @@
 </div>
 
 @include('Partials.footer')
-@include('Purchase.PurchaseRequisition.Functions.Footer.FooterPurchaseRequisition')
-@include('Process.DebitNote.Functions.Footer.FooterCreateDebitNote')
 @endsection

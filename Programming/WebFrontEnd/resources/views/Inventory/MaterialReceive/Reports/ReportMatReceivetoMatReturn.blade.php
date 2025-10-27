@@ -12,17 +12,33 @@
         <div class="container-fluid">
             <div class="row mb-1" style="background-color:#4B586A;">
                 <div class="col-sm-6" style="height:30px;">
-                    <label style="font-size:15px;position:relative;top:7px;color:white;">Material Return Summary Report</label>
+                    <label style="font-size:15px;position:relative;top:7px;color:white;">Report Material Receive to Material Return</label>
                 </div>
             </div>
             <div class="card">
                 <div class="tab-content p-3" id="nav-tabContent">
                     <div class="row">
                         <div class="col-12 ShowDocument">
-                            @include('Inventory.MaterialReturn.Functions.Header.HeaderReportMaterialReturnSummary')
+                            @include('Inventory.MaterialReceive.Functions.Header.HeaderReportMatReceivetoMatReturn')
                         </div>
                         <?php if ($dataReport) { ?>
-                            
+                            <!-- <div class="col-12 ShowTableReportAdvanceSummary">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <table>
+                                                    <tr>
+                                                        <th style="padding-top: 7px;"><label>Budget&nbsp;</label></th>
+                                                        <td><b>:</b></td>
+                                                        <td><b><?= $dataReport['dataHeader']['budget']; ?></b></td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> -->
                             <div class="col-12 ShowTableReportAdvanceSummary">
                                 <div class="card">
                                     <!-- DETAIL -->
@@ -31,16 +47,13 @@
                                             <thead>
                                                 <tr>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">No</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Material Receive Number</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Date</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Budget</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Receive At</th>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Material Return Number</th>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Date</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Material Receive Number</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Budget</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Return From</th>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Return To</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Transporter</th>
-                                                    <!-- <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Receive At</th> -->
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Remark</th>
-                                                </tr>
                                             </thead>
                                             <tbody>
                                                 <?php foreach ($dataReport['dataDetail'] as $dataDetail) { ?>
@@ -52,8 +65,6 @@
                                                         <td><?= $dataDetail['destinationCode'] . ' - ' . $dataDetail['destinationName']; ?></td>
                                                         <td><?= $dataDetail['total']; ?></td>
                                                         <td><?= $dataDetail['uom']; ?></td>
-                                                        <td><?= $dataDetail['remark']; ?></td>
-                                                        <td>-</td>
                                                     </tr>
                                                 <?php } ?>
                                             </tbody>
@@ -80,5 +91,5 @@
 </div>
 
 @include('Partials.footer')
-@include('Inventory.MaterialReturn.Functions.Footer.FooterReportMatReturnSummary')
+@include('Inventory.MaterialReceive.Functions.Footer.FooterReportMatReceivetoMatReturn')
 @endsection

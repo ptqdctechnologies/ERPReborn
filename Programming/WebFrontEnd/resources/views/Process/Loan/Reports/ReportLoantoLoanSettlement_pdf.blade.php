@@ -1,15 +1,6 @@
 @extends('Partials.app')
 @section('main')
 
-<!-- <style>
-  table,
-  th,
-  td {
-    border: 1px solid #ced4da;
-    border-collapse: collapse;
-  }
-</style> -->
-
 <div class="content-wrapper">
   <section class="content">
     <div class="container-fluid">
