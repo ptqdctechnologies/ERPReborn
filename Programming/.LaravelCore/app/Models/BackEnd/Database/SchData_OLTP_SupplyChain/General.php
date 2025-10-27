@@ -352,7 +352,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : getDataList_DeliveryOrderDetail_LatestVersion                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2025-10-21                                                                                           |
+        | ▪ Last Update     : 2025-10-24                                                                                           |
         | ▪ Creation Date   : 2025-03-27                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Detail Pesanan Pengiriman (DO) Versi Terakhir                                     |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -512,6 +512,24 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                                 $varReturn['data'][$idxArray]['combinedBudgetSectionName'] = $value["CombinedBudgetSectionName_TblCombinedBudget"];
                                 $varReturn['data'][$idxArray]['combinedBudget_RefID'] = $value["CombinedBudget_RefID_TblCombinedBudget"];
                                 $varReturn['data'][$idxArray]['combinedBudgetSection_RefID'] = $value["CombinedBudgetSection_RefID_TblCombinedBudget"];
+                            } elseif ((($value["UnderlyingDetail_RefID"] / 1000000000000) % 10000) === 173) {
+                                $value["Type"] === 1 || $value["Type"] === 2 ? $varReturn['data'][$idxArray]['quantity'] = $value["Quantity_TblWarehouseInboundDetail"] - ($value["Quantity_WarehouseOutboundDetail"] + $value["QtyReq"]) : $varReturn['data'][$idxArray]['quantity'] = 0;
+                                $varReturn['data'][$idxArray]['quantityUnit_RefID'] = $value["QuantityUnit_RefID_TblWarehouseInboundDetail"];
+                                $varReturn['data'][$idxArray]['productUnitPriceCurrency_RefID'] = $value["ProductUnitPriceCurrency_RefID_TblWarehouseInboundDetail"];
+                                $varReturn['data'][$idxArray]['productUnitPriceBaseCurrencyValue'] = $value["ProductUnitPriceBaseCurrencyValue_TblWarehouseInboundDetail"];
+                                $varReturn['data'][$idxArray]['productUnitPriceFinalCurrency_RefID'] = $value["ProductUnitPriceFinalCurrency_RefID_TblWarehouseInboundDetail"];
+                                $varReturn['data'][$idxArray]['productUnitPriceCurrencyExchangeRate'] = $value["ProductUnitPriceCurrencyExchangeRate_TblWarehouseInboundDetail"];
+                                $varReturn['data'][$idxArray]['priceCurrency_RefID'] = $value["PriceCurrency_RefID_TblWarehouseInboundDetail"];
+                                $varReturn['data'][$idxArray]['priceBaseCurrencyValue'] = $value["PriceBaseCurrencyValue_TblWarehouseInboundDetail"];
+                                $varReturn['data'][$idxArray]['quantityUnitName'] = $value["QuantityUnitName_StockMove"];
+                                $varReturn['data'][$idxArray]['productUnitPriceCurrencyISOCode'] = $value["ISOCode_StockMove"];
+                                $varReturn['data'][$idxArray]['combinedBudgetSectionDetail_RefID'] = $value["CombinedBudgetSectionDetail_RefID_StockMove"];
+                                $varReturn['data'][$idxArray]['combinedBudgetCode'] = $value["CombinedBudgetCode_StockMove"];
+                                $varReturn['data'][$idxArray]['combinedBudgetName'] = $value["CombinedBudgetName_StockMove"];
+                                $varReturn['data'][$idxArray]['combinedBudgetSectionCode'] = $value["CombinedBudgetSectionCode_StockMove"];
+                                $varReturn['data'][$idxArray]['combinedBudgetSectionName'] = $value["CombinedBudgetSectionName_StockMove"];
+                                $varReturn['data'][$idxArray]['combinedBudget_RefID'] = $value["CombinedBudget_RefID_StockMove"];
+                                $varReturn['data'][$idxArray]['combinedBudgetSection_RefID'] = $value["CombinedBudgetSection_RefID_StockMove"];
                             } else {
                                 $varReturn['data'][$idxArray]['quantity'] = null;
                                 $varReturn['data'][$idxArray]['quantityUnit_RefID'] = null;
@@ -523,6 +541,13 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                                 $varReturn['data'][$idxArray]['priceBaseCurrencyValue'] = null;
                                 $varReturn['data'][$idxArray]['quantityUnitName'] = null;
                                 $varReturn['data'][$idxArray]['productUnitPriceCurrencyISOCode'] = null;
+                                $varReturn['data'][$idxArray]['combinedBudgetSectionDetail_RefID'] = null;
+                                $varReturn['data'][$idxArray]['combinedBudgetCode'] = null;
+                                $varReturn['data'][$idxArray]['combinedBudgetName'] = null;
+                                $varReturn['data'][$idxArray]['combinedBudgetSectionCode'] = null;
+                                $varReturn['data'][$idxArray]['combinedBudgetSectionName'] = null;
+                                $varReturn['data'][$idxArray]['combinedBudget_RefID'] = null;
+                                $varReturn['data'][$idxArray]['combinedBudgetSection_RefID'] = null;
                             }
                             $varReturn['data'][$idxArray]['businessDocumentType_RefID'] = $value["BusinessDocumentType_RefID"];
                             $varReturn['data'][$idxArray]['businessDocumentType_Name'] = $value["BusinessDocumentType_Name"];
