@@ -106,7 +106,7 @@
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Bank Account</label>
         <div for="bank_accounts" class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
           <div>
-            <input id="bank_accounts" style="border-radius:0;" name="bank_account" class="form-control number-without-characters" size="17" autocomplete="off" readonly aria-label="Bank Accounts">
+            <input id="bank_accounts" style="border-radius:0;" name="bank_account" class="form-control" readonly/>
             <input id="bank_accounts_id" style="border-radius:0;" class="form-control" name="bank_account_id" hidden>
           </div>
           <div>
@@ -117,7 +117,7 @@
             </span>
           </div>
           <div style="flex: 100%;">
-            <input id="bank_accounts_detail" style="border-radius:0;" class="form-control" name="bank_account_detail" autocomplete="off" readonly aria-label="Bank Accounts Name">
+            <input id="bank_accounts_detail" style="border-radius:0;" class="form-control" readonly />
           </div>
         </div>
       </div>
@@ -161,10 +161,12 @@
       <!-- COA -->
       <div class="row" style="margin-top: 1rem;">
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">COA</label>
-        <div for="bank_accounts1" class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+        <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
           <div>
-            <input id="bank_accounts1" style="border-radius:0;" name="bank_account" class="form-control number-without-characters" size="17" autocomplete="off" readonly aria-label="Bank Accounts">
-            <input id="bank_accounts_id1" style="border-radius:0;" class="form-control" name="bank_account_id" hidden>
+            <div>
+            <input id="coa_RefID" name="coa_RefID" style="border-radius:0;" class="form-control" readonly hidden>
+            <input id="coaCode" style="border-radius:0;" class="form-control" readonly>
+          </div>
           </div>
           <div>
             <span style="border-radius:0;" class="input-group-text form-control">
@@ -174,7 +176,7 @@
             </span>
           </div> 
           <div style="flex: 100%;">
-            <input id="bank_accounts_detail1" style="border-radius:0;" class="form-control" name="bank_account_detail" autocomplete="off" readonly aria-label="Bank Accounts Name">
+            <input id="coaName" style="border-radius:0;" class="form-control" name="bank_account_detail" autocomplete="off" readonly aria-label="Bank Accounts Name">
           </div>
         </div>
       </div>

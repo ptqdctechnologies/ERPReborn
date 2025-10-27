@@ -391,6 +391,8 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     // Route::post('ReportLoanDetailStore', 'Process\Loan\LoanController@ReportLoanDetailStore')->name('Loan.ReportLoanDetailStore');
     // Route::post('PrintExportReportLoanDetail', 'Process\Loan\LoanController@PrintExportReportLoanDetail')->name('Loan.PrintExportReportLoanDetail');
     // Route::resource('AdvanceRequest', 'Process\Advance\AdvanceRequestController');
+
+    Route::post('/Loan/Create', [App\Http\Controllers\Process\Loan\LoanController::class, 'CreateLoan'])->name('CreateLoan');
     Route::resource('Loan', 'Process\Loan\LoanController');
 
     // LOAN SETTLEMENT
@@ -513,11 +515,16 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::post('MaterialReceiveDetail', 'Inventory\MaterialReceiveController@MaterialReceiveDetail')->name('MaterialReceive.Detail');
     Route::post('RevisionMaterialReceiveIndex', 'Inventory\MaterialReceiveController@RevisionMaterialReceiveIndex')->name('MaterialReceive.RevisionMaterialReceiveIndex');
     Route::get('MaterialReceiveList', 'Inventory\MaterialReceiveController@MaterialReceiveList')->name('MaterialReceive.MaterialReceiveList');
-    Route::post('SearchDeliveryOrder', 'Inventory\MaterialReceiveController@SearchDeliveryOrder')->name('MaterialReceive.SearchDeliveryOrder');
+    Route::post('SearchDteliveryOrder', 'Inventory\MaterialReceiveController@SearchDeliveryOrder')->name('MaterialReceive.SearchDeliveryOrder');
     Route::post('UpdateMaterialReceive', 'Inventory\MaterialReceiveController@UpdateMaterialReceive')->name('MaterialReceive.UpdateMaterialReceive');
     Route::get('ReportMaterialReceiveSummary', 'Inventory\MaterialReceiveController@ReportMaterialReceiveSummary')->name('MaterialReceive.ReportMaterialReceiveSummary');
     Route::post('ReportMaterialReceiveSummaryStore', 'Inventory\MaterialReceiveController@ReportMaterialReceiveSummaryStore')->name('MaterialReceive.ReportMaterialReceiveSummaryStore');
     Route::post('PrintExportReportMaterialReceiveSummary', 'Inventory\MaterialReceiveController@PrintExportReportMaterialReceiveSummary')->name('MaterialReceive.PrintExportReportMaterialReceiveSummary');
+    
+     Route::get('ReportMatReceivetoMatReturn', 'Inventory\MaterialReceiveController@ReportMatReceivetoMatReturn')->name('Inventory.ReportMatReceivetoMatReturn');
+    Route::post('ReportMatReceivetoMatReturnStore', 'Inventory\MaterialReceiveController@ReportMatReceivetoMatReturnStore')->name('Inventory.ReportMatReceivetoMatReturnStore');
+    Route::post('PrintExportReportMatReceivetoMatReturn', 'Inventory\MaterialReceiveController@PrintExportReportMatReceivetoMatReturn')->name('Inventory.PrintExportReportMatReceivetoMatReturn');
+    
     Route::resource('MaterialReceive', 'Inventory\MaterialReceiveController');
 
     // MRET
