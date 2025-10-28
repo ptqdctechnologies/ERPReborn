@@ -164,7 +164,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\DataWarehouse\Engines\
                         [
                         'GoodsIdentity_RefID' => 17000000000006,
                         'Device' => 'Solution.x601',
-                        'HostIP' => '192.168.1.203',
+                        'HostIP' => '192.168.0.14',
+                        //'HostIP' => '192.168.1.203',
                         'HostPort' => 4370,
                         'SerialNumber' => 'AEYU202860040',
                         'TimeZoneOffset' => '+07'
@@ -173,7 +174,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\DataWarehouse\Engines\
                         [
                         'GoodsIdentity_RefID' => 17000000000007,
                         'Device' => 'Solution.x601',
-                        'HostIP' => '192.168.1.201',
+                        'HostIP' => '192.168.0.13',
+                        //'HostIP' => '192.168.1.201',
                         'HostPort' => 4370,
                         'SerialNumber' => 'AEYU202860056',
                         'TimeZoneOffset' => '+07'
