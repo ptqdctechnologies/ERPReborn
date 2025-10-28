@@ -11,13 +11,13 @@
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div>
                         <span style="border-radius:0;" class="input-group-text form-control myTransporter">
-                            <a href="javascript:;" id="myTransporterTrigger" data-toggle="modal" data-target="#myTransporter" style="display: block;">
+                            <a href="javascript:;" id="myTransporterTrigger" data-toggle="modal" data-target="#myTransporters" style="display: block;">
                                 <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="myTransporterTrigger" />
                             </a>
                         </span>
                     </div>
                     <div>
-                        <input id="transporter_name" class="form-control" style="border-radius:0;" size="16" readonly />
+                        <input id="transporter_name" class="form-control" style="border-radius: 0; background-color: white;" size="16" readonly />
                         <input id="transporter_id" name="transporter_id" class="form-control" style="border-radius:0;" hidden />
                     </div>
                 </div>
