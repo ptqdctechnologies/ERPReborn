@@ -31,7 +31,7 @@
           <input type="hidden" name="DocumentTypeID" id="DocumentTypeID">
           <input type="hidden" name="var_combinedBudget_RefID" id="var_combinedBudget_RefID">
 
-          <!-- ADD NEW PURCHASE REQUEST -->
+          <!-- BUDGET INFORMATION -->
           <div class="tab-content px-3 pt-4 pb-2" id="nav-tabContent">
             <div class="row">
               <div class="col-12">
@@ -39,7 +39,7 @@
                   <!-- HEADER -->
                   <div class="card-header">
                     <label class="card-title">
-                      Add New Purchase Request
+                      Budget Information
                     </label>
                     <div class="card-tools">
                       <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -54,7 +54,7 @@
             </div>
           </div>
 
-          <!-- PURCHASE REQUEST DETAIL -->
+          <!-- PURCHASE REQUEST -->
           <div class="tab-content px-3 pb-2" id="nav-tabContent">
             <div class="row">
               <div class="col-12">
@@ -62,7 +62,7 @@
                   <!-- HEADER -->
                   <div class="card-header">
                     <label class="card-title">
-                      Purchase Request Detail
+                      Purchase Request
                     </label>
                     <div class="card-tools">
                       <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -118,7 +118,7 @@
             </div>
           </div>
 
-          <!-- BUDGET DETAILS -->
+          <!-- PURCHASE REQUEST DETAILS -->
           <div class="tab-content px-3 pb-2" id="nav-tabContent">
             <div class="row">
               <div class="col-12">
@@ -126,7 +126,7 @@
                   <!-- HEADER -->
                   <div class="card-header">
                     <label class="card-title">
-                      Budget Details
+                      Purchase Request Details
                     </label>
                     <div class="card-tools">
                       <button type="button" class="btn btn-tool" data-card-widget="collapse">
