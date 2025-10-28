@@ -56,7 +56,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class Shell extends Application
 {
-    const VERSION = 'v0.12.13';
+    const VERSION = 'v0.12.14';
 
     private Configuration $config;
     private CodeCleaner $cleaner;
@@ -313,6 +313,10 @@ class Shell extends Application
     {
         $listeners = [];
 
+        if ($inputLogger = $this->config->getInputLogger()) {
+            $listeners[] = $inputLogger;
+        }
+
         if (ProcessForker::isSupported() && $this->config->usePcntl()) {
             $listeners[] = new ProcessForker();
         } elseif (SignalHandler::isSupported()) {
@@ -323,6 +327,10 @@ class Shell extends Application
 
         if (RunkitReloader::isSupported()) {
             $listeners[] = new RunkitReloader();
+        }
+
+        if ($executionLogger = $this->config->getExecutionLogger()) {
+            $listeners[] = $executionLogger;
         }
 
         return $listeners;
@@ -437,6 +445,7 @@ class Shell extends Application
 
         $this->output->writeln($this->getHeader());
         $this->writeVersionInfo();
+        $this->writeManualUpdateInfo();
         $this->writeStartupMessage();
 
         try {
@@ -473,6 +482,7 @@ class Shell extends Application
         if (!$rawOutput && !$this->config->outputIsPiped()) {
             $this->output->writeln($this->getHeader());
             $this->writeVersionInfo();
+            $this->writeManualUpdateInfo();
             $this->writeStartupMessage();
         }
 
@@ -998,6 +1008,10 @@ class Shell extends Application
             throw new \InvalidArgumentException('Command not found: '.$input);
         }
 
+        if ($logger = $this->config->getLogger()) {
+            $logger->logCommand($input);
+        }
+
         $input = new ShellInput(\str_replace('\\', '\\\\', \rtrim($input, " \t\n\r\0\x0B;")));
 
         if (!$input->hasParameterOption(['--help', '-h'])) {
@@ -1495,6 +1509,11 @@ class Shell extends Application
     public function execute(string $code, bool $throwExceptions = false)
     {
         $this->setCode($code, true);
+
+        if ($logger = $this->config->getLogger()) {
+            $logger->logExecute($code);
+        }
+
         $closure = new ExecutionClosure($this);
 
         if ($throwExceptions) {
@@ -1700,11 +1719,23 @@ class Shell extends Application
     /**
      * Get a PHP manual database instance.
      *
+     * @deprecated Use getManual() instead for unified access to all manual formats
+     *
      * @return \PDO|null
      */
     public function getManualDb()
     {
         return $this->config->getManualDb();
+    }
+
+    /**
+     * Get a PHP manual loader.
+     *
+     * @return Manual\ManualInterface|null
+     */
+    public function getManual()
+    {
+        return $this->config->getManual();
     }
 
     /**
@@ -1762,6 +1793,25 @@ class Shell extends Application
             }
         } catch (\InvalidArgumentException $e) {
             $this->output->writeln($e->getMessage());
+        }
+    }
+
+    /**
+     * Check for manual updates and write notification if available.
+     */
+    protected function writeManualUpdateInfo()
+    {
+        if (\PHP_SAPI !== 'cli') {
+            return;
+        }
+
+        try {
+            $checker = $this->config->getManualChecker();
+            if ($checker && !$checker->isLatest()) {
+                $this->output->writeln(\sprintf('<whisper>New PHP manual is available (latest: %s). Update with `--update-manual`</whisper>', $checker->getLatest()));
+            }
+        } catch (\Exception $e) {
+            // Silently ignore manual update check failures
         }
     }
 

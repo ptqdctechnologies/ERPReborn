@@ -4104,17 +4104,17 @@
         },
         {
             "name": "phpoffice/phpspreadsheet",
-            "version": "1.30.0",
-            "version_normalized": "1.30.0.0",
+            "version": "1.30.1",
+            "version_normalized": "1.30.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPOffice/PhpSpreadsheet.git",
-                "reference": "2f39286e0136673778b7a142b3f0d141e43d1714"
+                "reference": "fa8257a579ec623473eabfe49731de5967306c4c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPOffice/PhpSpreadsheet/zipball/2f39286e0136673778b7a142b3f0d141e43d1714",
-                "reference": "2f39286e0136673778b7a142b3f0d141e43d1714",
+                "url": "https://api.github.com/repos/PHPOffice/PhpSpreadsheet/zipball/fa8257a579ec623473eabfe49731de5967306c4c",
+                "reference": "fa8257a579ec623473eabfe49731de5967306c4c",
                 "shasum": ""
             },
             "require": {
@@ -4136,7 +4136,7 @@
                 "maennchen/zipstream-php": "^2.1 || ^3.0",
                 "markbaker/complex": "^3.0",
                 "markbaker/matrix": "^3.0",
-                "php": "^7.4 || ^8.0",
+                "php": ">=7.4.0 <8.5.0",
                 "psr/http-client": "^1.0",
                 "psr/http-factory": "^1.0",
                 "psr/simple-cache": "^1.0 || ^2.0 || ^3.0"
@@ -4161,7 +4161,7 @@
                 "mpdf/mpdf": "Option for rendering PDF with PDF Writer",
                 "tecnickcom/tcpdf": "Option for rendering PDF with PDF Writer"
             },
-            "time": "2025-08-10T06:28:02+00:00",
+            "time": "2025-10-26T16:01:04+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -4207,7 +4207,7 @@
             ],
             "support": {
                 "issues": "https://github.com/PHPOffice/PhpSpreadsheet/issues",
-                "source": "https://github.com/PHPOffice/PhpSpreadsheet/tree/1.30.0"
+                "source": "https://github.com/PHPOffice/PhpSpreadsheet/tree/1.30.1"
             },
             "install-path": "../phpoffice/phpspreadsheet"
         },
@@ -5254,17 +5254,17 @@
         },
         {
             "name": "psy/psysh",
-            "version": "v0.12.13",
-            "version_normalized": "0.12.13.0",
+            "version": "v0.12.14",
+            "version_normalized": "0.12.14.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bobthecow/psysh.git",
-                "reference": "d86c2f750e72017a5cdb1b9f1cef468a5cbacd1e"
+                "reference": "95c29b3756a23855a30566b745d218bee690bef2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bobthecow/psysh/zipball/d86c2f750e72017a5cdb1b9f1cef468a5cbacd1e",
-                "reference": "d86c2f750e72017a5cdb1b9f1cef468a5cbacd1e",
+                "url": "https://api.github.com/repos/bobthecow/psysh/zipball/95c29b3756a23855a30566b745d218bee690bef2",
+                "reference": "95c29b3756a23855a30566b745d218bee690bef2",
                 "shasum": ""
             },
             "require": {
@@ -5285,10 +5285,9 @@
             "suggest": {
                 "composer/class-map-generator": "Improved tab completion performance with better class discovery.",
                 "ext-pcntl": "Enabling the PCNTL extension makes PsySH a lot happier :)",
-                "ext-pdo-sqlite": "The doc command requires SQLite to work.",
                 "ext-posix": "If you have PCNTL, you'll want the POSIX extension as well."
             },
-            "time": "2025-10-20T22:48:29+00:00",
+            "time": "2025-10-27T17:15:31+00:00",
             "bin": [
                 "bin/psysh"
             ],
@@ -5331,7 +5330,7 @@
             ],
             "support": {
                 "issues": "https://github.com/bobthecow/psysh/issues",
-                "source": "https://github.com/bobthecow/psysh/tree/v0.12.13"
+                "source": "https://github.com/bobthecow/psysh/tree/v0.12.14"
             },
             "install-path": "../psy/psysh"
         },

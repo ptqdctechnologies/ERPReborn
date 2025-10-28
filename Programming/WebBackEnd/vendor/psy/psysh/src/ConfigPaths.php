@@ -185,6 +185,32 @@ class ConfigPaths
     }
 
     /**
+     * Get the current home data directory.
+     *
+     * Returns the highest precedence home data directory which actually
+     * exists and is writable. If none of them exists, returns the highest
+     * precedence home data directory.
+     */
+    public function currentDataDir(): ?string
+    {
+        if ($this->dataDir !== null) {
+            return $this->dataDir;
+        }
+
+        $dataDirs = $this->dataDirs();
+
+        // Find first writable directory
+        foreach ($dataDirs as $dir) {
+            if (@\is_dir($dir) && @\is_writable($dir)) {
+                return $dir;
+            }
+        }
+
+        // Return first (user) directory even if it doesn't exist yet
+        return $dataDirs[0] ?? null;
+    }
+
+    /**
      * Find real data files in config directories.
      *
      * @param string[] $names Config file names
@@ -309,6 +335,44 @@ class ConfigPaths
         }
 
         return $files;
+    }
+
+    /**
+     * Make a path prettier by replacing cwd with . or home directory with ~.
+     *
+     * @param string|mixed $path       Path to prettify
+     * @param string|null  $relativeTo Directory to make path relative to (defaults to cwd)
+     * @param string|null  $homeDir    Home directory to replace with ~ (defaults to actual home)
+     *
+     * @return string|mixed Pretty path, or original value if not a string
+     */
+    public static function prettyPath($path, ?string $relativeTo = null, ?string $homeDir = null)
+    {
+        if (!\is_string($path)) {
+            return $path;
+        }
+
+        $path = \strtr($path, '\\', '/');
+
+        // Try replacing relativeTo directory first (more specific)
+        $relativeTo = $relativeTo ?: \getcwd();
+        if ($relativeTo !== false) {
+            $relativeTo = \rtrim(\strtr($relativeTo, '\\', '/'), '/').'/';
+            if (\str_starts_with($path, $relativeTo)) {
+                return './'.\substr($path, \strlen($relativeTo));
+            }
+        }
+
+        // Fall back to replacing home directory
+        $homeDir = $homeDir ?: (new self())->homeDir();
+        if ($homeDir && $homeDir !== '/') {
+            $homeDir = \rtrim(\strtr($homeDir, '\\', '/'), '/').'/';
+            if (\str_starts_with($path, $homeDir)) {
+                return '~/'.\substr($path, \strlen($homeDir));
+            }
+        }
+
+        return $path;
     }
 
     /**
