@@ -5,26 +5,28 @@ namespace App\Http\Controllers\Finance;
 use App\Http\Controllers\ExportExcel\Finance\ExportReportAccountPayableSummary;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Services\Finance\AccountPayableService;
 use Illuminate\Support\Facades\Session;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Log;
+use App\Services\Finance\AccountPayableService;
+use App\Services\WorkflowService;
 
 class AccountPayableController extends Controller
 {
     protected $accountPayableService;
 
-    public function __construct(AccountPayableService $accountPayableService)
+    public function __construct(AccountPayableService $accountPayableService, WorkflowService $workflowService)
     {
         $this->accountPayableService    = $accountPayableService;
+        $this->workflowService          = $workflowService;
     }
 
     public function index(Request $request) 
     {
         $var                = $request->query('var', 0);
         $varAPIWebToken     = Session::get('SessionLogin');
-        $documentTypeRefID  = $this->GetBusinessDocumentsType('');
+        $documentTypeRefID  = $this->GetBusinessDocumentsType('Payment Instruction Form');
 
         return view('Finance.AccountPayable.Transactions.CreateAccountPayable', [
             'var'                   => $var,
@@ -42,10 +44,20 @@ class AccountPayableController extends Controller
                 throw new \Exception('Failed to fetch Create Account Payable');
             }
 
+            $responseWorkflow = $this->workflowService->submit(
+                $response['data']['businessDocument']['businessDocument_RefID'],
+                $request->workFlowPath_RefID,
+                $request->comment,
+                $request->approverEntity,
+            );
+
+            if ($responseWorkflow['metadata']['HTTPStatusCode'] !== 200) {
+                throw new \Exception('Failed to fetch Submit Workflow Create Account Payable');
+            }
+
             $compact = [
                 "documentNumber"    => $response['data']['businessDocument']['documentNumber'],
-                "status"            => $response['metadata']['HTTPStatusCode'],
-                // "status"            => $responseWorkflow['metadata']['HTTPStatusCode'],
+                "status"            => $responseWorkflow['metadata']['HTTPStatusCode'],
             ];
 
             return response()->json($compact);
@@ -56,6 +68,29 @@ class AccountPayableController extends Controller
         }
 
         return response()->json($request->all());
+    }
+
+    public function UpdatesRevisionAccountPayable(Request $request)
+    {
+        try {
+            $response = $this->accountPayableService->updates($request);
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                throw new \Exception('Failed to fetch Update Account Payable');
+            }
+
+            $compact = [
+                "documentNumber"    => $response['data'][0]['businessDocument']['documentNumber'],
+                "status"            => $response['metadata']['HTTPStatusCode'],
+                // "status"            => $responseWorkflow['metadata']['HTTPStatusCode'],
+            ];
+
+            return response()->json($compact);
+        } catch (\Throwable $th) {
+            Log::error("Update Account Payable Function Error: " . $th->getMessage());
+
+            return response()->json(["status" => 500]);
+        }
     }
 
     public function DataPickList(Request $request) 
@@ -116,7 +151,7 @@ class AccountPayableController extends Controller
                     'deliveryFrom'                  => '',
                     'deliveryTo_RefID'              => '',
                     'deliveryTo'                    => '',
-                    'supplierInvoiceNumber'         => '',
+                    'supplierInvoiceNumber'         => $dataAccountPayableDetail[0]['SupplierInvoiceNumber'] ?? '',
                     'paymentTransfer_RefID'         => '',
                     'paymentTransferName'           => '',
                     'paymentTransferBankCode'       => '',
@@ -124,7 +159,7 @@ class AccountPayableController extends Controller
                     'receiptInvoiceOrigin'          => $this->RadioFormatValue($dataAccountPayableDetail[0]['ReceiptStatus']) ?? '',
                     'contractPOSigned'              => $this->RadioFormatValue($dataAccountPayableDetail[0]['ContractStatus']) ?? '',
                     'VATOrigin'                     => $this->RadioFormatValue($dataAccountPayableDetail[0]['VatStatus']) ?? '',
-                    'VATPercentage'                 => $dataAccountPayableDetail[0]['VatValue'] ?? '',
+                    'VATPercentage'                 => (int) $dataAccountPayableDetail[0]['VatValue'] ?? '',
                     'VATNumber'                     => $dataAccountPayableDetail[0]['VatNumber'] ?? '',
                     'FatPatDoOrigin'                => $this->RadioFormatValue($dataAccountPayableDetail[0]['FatPatDoStatus']) ?? '',
                     'notes'                         => $dataAccountPayableDetail[0]['Notes'] ?? '',

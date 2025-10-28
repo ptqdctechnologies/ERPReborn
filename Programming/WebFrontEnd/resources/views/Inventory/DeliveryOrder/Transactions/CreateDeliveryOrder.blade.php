@@ -7,7 +7,7 @@
 @include('getFunction.getProject')
 @include('getFunction.getWorkFlow')
 @include('getFunction.getWarehouses')
-@include('getFunction.getTransporter')
+@include('getFunction.getTransporters')
 @include('getFunction.getPurchaseOrder')
 @include('Inventory.DeliveryOrder.Functions.PopUp.PopUpDoRevision')
 @include('Inventory.DeliveryOrder.Functions.PopUp.PopUpDoSummaryData')

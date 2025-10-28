@@ -1252,26 +1252,50 @@
         $("#myGetModalWarehouses").modal('toggle');
     });
 
-    $('#tableGetTransporter tbody').on('click', 'tr', function () {
-        let sysId               = $(this).find('input[data-trigger="sys_id_transporter"]').val();
-        let fax                 = $(this).find('input[data-trigger="fax_transporter"]').val();
-        let phone               = $(this).find('input[data-trigger="phone_transporter"]').val();
-        let email               = $(this).find('input[data-trigger="email_transporter"]').val();
-        let phoneOffice         = $(this).find('input[data-trigger="office_phone_transporter"]').val();
-        let address             = $(this).find('input[data-trigger="address_transporter"]').val();
-        let transporterNames    = $(this).find('td:nth-child(2)').text();
+    $('#tableTransporters tbody').on('click', 'tr', function () {
+        let sysId           = $(this).find('input[data-trigger="sys_id_transporters"]').val();
+        let address         = $(this).find('input[data-trigger="address_transporters"]').val();
+        let mobilePhone     = $(this).find('input[data-trigger="mobile_phone_transporters"]').val();
+        let officePhone     = $(this).find('input[data-trigger="office_phone_transporters"]').val();
+        let fax             = $(this).find('input[data-trigger="fax_transporters"]').val();
+        let email           = $(this).find('input[data-trigger="email_transporters"]').val();
+        let code            = $(this).find('td:nth-child(2)').text();
+        let name            = $(this).find('td:nth-child(3)').text();
 
         $("#transporter_id").val(sysId);
-        $("#transporter_name").val(transporterNames);
-        $("#transporter_phone").val(phone);
+        $("#transporter_name").val(`${code} - ${name}`);
+        $("#transporter_phone").val(officePhone);
         $("#transporter_fax").val(fax);
         $("#transporter_contact").val(email);
-        $("#transporter_handphone").val(phoneOffice);
+        $("#transporter_handphone").val(mobilePhone);
         $("#transporter_address").val(address);
 
-        $("#transporter_name").css("border", "1px solid #ced4da");
+        $("#transporter_name").css({"border": "1px solid #ced4da", "background-color": "#e9ecef"});
         $("#transporter_message").hide();
+
+        $("#myTransporters").modal('toggle');
     });
+
+    // $('#tableGetTransporter tbody').on('click', 'tr', function () {
+    //     let sysId               = $(this).find('input[data-trigger="sys_id_transporter"]').val();
+    //     let fax                 = $(this).find('input[data-trigger="fax_transporter"]').val();
+    //     let phone               = $(this).find('input[data-trigger="phone_transporter"]').val();
+    //     let email               = $(this).find('input[data-trigger="email_transporter"]').val();
+    //     let phoneOffice         = $(this).find('input[data-trigger="office_phone_transporter"]').val();
+    //     let address             = $(this).find('input[data-trigger="address_transporter"]').val();
+    //     let transporterNames    = $(this).find('td:nth-child(2)').text();
+
+    //     $("#transporter_id").val(sysId);
+    //     $("#transporter_name").val(transporterNames);
+    //     $("#transporter_phone").val(phone);
+    //     $("#transporter_fax").val(fax);
+    //     $("#transporter_contact").val(email);
+    //     $("#transporter_handphone").val(phoneOffice);
+    //     $("#transporter_address").val(address);
+
+    //     $("#transporter_name").css("border", "1px solid #ced4da");
+    //     $("#transporter_message").hide();
+    // });
 
     $('#purchase_order_delivery_from').on('input', function(e) {
         let deliveryFromDuplicate       = document.getElementById("purchase_order_delivery_from_duplicate");

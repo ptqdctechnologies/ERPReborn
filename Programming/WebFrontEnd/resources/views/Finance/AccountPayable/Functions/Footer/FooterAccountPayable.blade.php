@@ -1,10 +1,78 @@
 <script>
-    let totalTaxBased           = 0;
-    let totalWHT                = 0;
-    let totalDeduction          = 0;
-    let currentIndexPickCOA     = null;
-    let dataStore               = [];
-    const valueVAT              = document.getElementById('ppn');
+    let totalTaxBased                   = 0;
+    let totalWHT                        = 0;
+    let totalDeduction                  = 0;
+    let currentIndexPickCOA             = null;
+    let dataStore                       = [];
+    const purchaseOrderNumber           = document.getElementById("purchase_order_number");
+    const supplierInvoiceNumber         = document.getElementById("supplier_invoice_number");
+    const paymentTransferNumber         = document.getElementById("payment_transfer_number");
+    const valueVAT                      = document.getElementById('ppn');
+    const valueVATNumber                = document.getElementById('vat_number');
+    const notes                         = document.getElementById('account_payable_notes');
+    const categoryNumber                = document.getElementById('category_number');
+    const depreciationMethod            = document.getElementById('depreciation_method');
+    const depreciationRatePercentage    = document.getElementById('depreciation_rate_percentage');
+    const depreciationRateYears         = document.getElementById('depreciation_rate_years');
+    const depreciationCOANumber         = document.getElementById('depreciation_coa_number');
+    const deductionValue                = document.getElementById('budget_details_deduction');
+
+    function checkOneLineBudgetContents(indexInput) {
+        const rows = document.querySelectorAll("#invoice_details_table tbody tr");
+        let hasFullRow = false;
+
+        rows.forEach((row, index) => {
+            const qty   = document.getElementById(`qty_ap${index}`)?.value.trim();
+            const wht   = document.getElementById(`wht${index}`)?.value.trim();
+            const coa   = document.getElementById(`coa_name${index}`)?.value.trim();
+
+            if (qty !== "" && wht !== "" && coa !== "") {
+                hasFullRow = true;
+            }
+        });
+
+        rows.forEach((row, index) => {
+            const qtyEl = document.getElementById(`qty_ap${index}`);
+            const whtEl = document.getElementById(`wht${index}`);
+            const coaEl = document.getElementById(`coa_name${index}`);
+
+            if (hasFullRow) {
+                $(qtyEl).css("border", "1px solid #ced4da");
+                $(whtEl).css("border", "1px solid #ced4da");
+                $(coaEl).css("border", "1px solid #ced4da");
+                $("#invoice_details_message").hide();
+            } else {
+                if (indexInput > -1) {
+                    if (indexInput == index) {
+                        if (qtyEl.value.trim() != "" || whtEl.value.trim() != "") {
+                            $(qtyEl).css("border", "1px solid red");
+                            $(whtEl).css("border", "1px solid red");
+                            $(coaEl).css("border", "1px solid red");
+                            $("#invoice_details_message").show();
+                        } else {
+                            $(qtyEl).css("border", "1px solid #ced4da");
+                            $(whtEl).css("border", "1px solid #ced4da");
+                            $(coaEl).css("border", "1px solid #ced4da");
+                            $("#invoice_details_message").hide();
+                        }
+                    }
+
+                    if (indexInput != index && (qtyEl.value.trim() == "" && whtEl.value.trim() == "")) {
+                        $(qtyEl).css("border", "1px solid #ced4da");
+                        $(whtEl).css("border", "1px solid #ced4da");
+                        $(coaEl).css("border", "1px solid #ced4da");
+                    } 
+                } else {
+                    $(qtyEl).css("border", "1px solid red");
+                    $(whtEl).css("border", "1px solid red");
+                    $(coaEl).css("border", "1px solid red");
+                    $("#invoice_details_message").show();
+                }
+            }
+        });
+
+        return hasFullRow;
+    }
 
     function assetValue(params) {
         if (params.value == "no") {
@@ -18,6 +86,7 @@
         } else {
             $(".asset-components").css("display", "flex");
         }
+        $("#asset_message").hide();
     }
 
     function vatValue(params) {
@@ -27,10 +96,58 @@
         } else {
             $(".vat-components").css("display", "flex");
         }
+        $("#vat_origin_message").hide();
+    }
+
+    function receiptOriginValue(params) {
+        $("#receipt_origin_message").hide();
+    }
+
+    function contractSignedValue(params) {
+        $("#contract_signed_message").hide();
     }
 
     function onChangeVAT(params) {
+        $("#ppn").css("border", "1px solid #ced4da");
+        $("#vat_origin_message").hide();
         document.getElementById('invoice_details_total_vat').textContent = `Total VAT: ${decimalFormat((totalTaxBased * params.value) / 100)}`;
+    }
+
+    function getVAT() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: 'GET',
+            url: '{!! route("getVAT") !!}',
+            success: function(data) {
+                if (data && Array.isArray(data)) {
+                    $('#ppn').empty();
+                    $('#ppn').append('<option disabled selected value="Sel..">Sel..</option>');
+
+                    data.forEach(function(project) {
+                        $('#ppn').append('<option value="' + project.sys_PID + '">' + project.tariffFixRate + '</option>');
+                    });
+                } else {
+                    console.log('Data vat not found.');
+                }
+            },
+            error: function (textStatus, errorThrown) {
+                console.log('Function getVAT error: ', textStatus, errorThrown);
+            }
+        });
+    }
+
+    function onChangeDepreciationMethod(params) {
+        $("#depreciation_method").css("border", "1px solid #ced4da");
+        $("#depreciation_method_message").hide();
+    }
+
+    function fatPatDOValue(params) {
+        $("#basft_origin_message").hide();
     }
 
     function pickCOA(index) {
@@ -60,6 +177,7 @@
         const rows = sourceTable.getElementsByTagName('tr');
 
         for (let row of rows) {
+            const purchaseOrderDetailRefID              = row.querySelector('input[id^="purchaseOrderDetail_RefID"]');
             const combinedBudgetSectionDetailRefID      = row.querySelector('input[id^="combinedBudgetSectionDetail_RefID"]');
             const productRefID                          = row.querySelector('input[id^="product_RefID"]');
             const quantityUnitRefID                     = row.querySelector('input[id^="quantityUnit_RefID"]');
@@ -77,8 +195,8 @@
                 whtInput.value.trim() !== '' &&
                 coaRefID.value.trim() !== ''
             ) {
-                const product = row.children[5].innerText.trim();
-                const uom = row.children[9].innerText.trim();
+                const product = row.children[6].innerText.trim();
+                const uom = row.children[10].innerText.trim();
 
                 const qtyValue      = qtyInput.value.trim();
                 const totalValue    = totalInput.value.trim();
@@ -113,7 +231,8 @@
                             productUnitPriceCurrency_RefID: parseInt(productUnitPriceCurrencyRefID.value),
                             productUnitPriceCurrencyValue: parseFloat(totalValue.replace(/,/g, '')),
                             productUnitPriceCurrencyExchangeRate: parseInt(productUnitPriceCurrencyExchangeRate.value),
-                            wht: parseFloat(whtValue.replace(/,/g, ''))
+                            wht: parseFloat(whtValue.replace(/,/g, '')),
+                            purchaseOrderDetail_RefID: parseInt(purchaseOrderDetailRefID.value),
                         }
                     });
                 }
@@ -122,8 +241,215 @@
     }
 
     function validationForm() {
-        summaryData();
-        $('#account_payable_submit_modal').modal('show');
+        let isValid                                 = true;
+        const isPurchaseOrderNumberNotEmpty         = purchaseOrderNumber.value.trim() !== '';
+        const isSupplierInvoiceNumberNotEmpty       = supplierInvoiceNumber.value.trim() !== '';
+        const isPaymentTransferNumberNotEmpty       = paymentTransferNumber.value.trim() !== '';
+        const isReceiptInvoiceOriginNotEmpty        = document.querySelector('input[name="receipt_origin"]:checked');
+        const isContractPOSignedNotEmpty            = document.querySelector('input[name="contract_signed"]:checked');
+        const isVATOriginNotEmpty                   = document.querySelector('input[name="vat_origin"]:checked');
+        const isValueVATNotEmpty                    = valueVAT.value.trim() !== 'Sel..';
+        const isValueVATNumberNotEmpty              = valueVATNumber.value.trim() !== '';
+        const isFATPATDOOriginNotEmpty              = document.querySelector('input[name="basft_origin"]:checked');
+        const isNotesNotEmpty                       = notes.value.trim() !== '';
+        const isAssetNotEmpty                       = document.querySelector('input[name="asset"]:checked');
+        const isCategoryNumberNotEmpty              = categoryNumber.value.trim() !== '';
+        const isDepreciationMethodNotEmpty          = depreciationMethod.value.trim() !== 'Select a Method';
+        const isDepreciationRatePercentageNotEmpty  = depreciationRatePercentage.value.trim() !== '';
+        const isDepreciationRateYearsNotEmpty       = depreciationRateYears.value.trim() !== '';
+        const isDepreciationCOANumberNotEmpty       = depreciationCOANumber.value.trim() !== '';
+        const isTableNotEmpty                       = checkOneLineBudgetContents();
+        const isDeductionValueNotEmpty              = deductionValue.value.trim() !== '';
+
+        if (
+            isPurchaseOrderNumberNotEmpty && 
+            isSupplierInvoiceNumberNotEmpty && 
+            isPaymentTransferNumberNotEmpty &&
+            isReceiptInvoiceOriginNotEmpty &&
+            isContractPOSignedNotEmpty &&
+            isVATOriginNotEmpty && 
+            isFATPATDOOriginNotEmpty &&
+            isNotesNotEmpty &&
+            isAssetNotEmpty &&
+            isTableNotEmpty
+        ) {
+            if (isVATOriginNotEmpty.value == "yes") {
+                if (!isValueVATNotEmpty) {
+                    $("#ppn").css("border", "1px solid red");
+                    $("#vat_origin_message").show();
+                    $("#vat_origin_text_message").text("VAT Value cannot be empty.");
+                    isValid = false;
+                } else if (!isValueVATNumberNotEmpty) {
+                    $("#vat_number").css("border", "1px solid red");
+                    $("#vat_number_message").show();
+                    isValid = false;
+                }
+            } 
+            if (isAssetNotEmpty.value == "yes") {
+                if (!isCategoryNumberNotEmpty) {
+                    $("#category_number").css("border", "1px solid red");
+                    $("#category_message").show();
+                    isValid = false;
+                } else if (!isDepreciationMethodNotEmpty) {
+                    $("#depreciation_method").css("border", "1px solid red");
+                    $("#depreciation_method_message").show();
+                    isValid = false;
+                } else if (!isDepreciationRatePercentageNotEmpty) {
+                    $("#depreciation_rate_percentage").css("border", "1px solid red");
+                    $("#depreciation_value_message").show();
+                    $("#depreciation_value_text_message").text("Depreciation Rate cannot be empty.");
+                    isValid = false;
+                } else if (!isDepreciationRateYearsNotEmpty) { 
+                    $("#depreciation_rate_years").css("border", "1px solid red");
+                    $("#depreciation_value_message").show();
+                    $("#depreciation_value_text_message").text("Depreciation Years cannot be empty.");
+                    isValid = false;
+                } else if (!isDepreciationCOANumberNotEmpty) { 
+                    $("#depreciation_coa_number").css("border", "1px solid red");
+                    $("#depreciation_coa_message").show();
+                    isValid = false;
+                }
+            } 
+            if (isValid) {
+                if (
+                    (isVATOriginNotEmpty.value === "no" && isAssetNotEmpty.value === "no") ||
+                    (isVATOriginNotEmpty.value === "yes" && isAssetNotEmpty.value === "no" && isValueVATNotEmpty && isValueVATNumberNotEmpty) ||
+                    (isVATOriginNotEmpty.value === "no" && isAssetNotEmpty.value === "yes" && 
+                    isCategoryNumberNotEmpty && isDepreciationMethodNotEmpty && 
+                    isDepreciationRatePercentageNotEmpty && isDepreciationRateYearsNotEmpty && isDepreciationCOANumberNotEmpty) ||
+                    (isVATOriginNotEmpty.value === "yes" && isAssetNotEmpty.value === "yes" &&
+                    isValueVATNotEmpty && isValueVATNumberNotEmpty &&
+                    isCategoryNumberNotEmpty && isDepreciationMethodNotEmpty &&
+                    isDepreciationRatePercentageNotEmpty && isDepreciationRateYearsNotEmpty && isDepreciationCOANumberNotEmpty)
+                ) {
+                    summaryData();
+                    $('#account_payable_submit_modal').modal('show');
+                }
+            }
+        } else {
+            if (
+                !isPurchaseOrderNumberNotEmpty && 
+                !isSupplierInvoiceNumberNotEmpty && 
+                !isPaymentTransferNumberNotEmpty &&
+                !isReceiptInvoiceOriginNotEmpty && 
+                !isContractPOSignedNotEmpty &&
+                !isVATOriginNotEmpty &&
+                !isFATPATDOOriginNotEmpty &&
+                !isNotesNotEmpty &&
+                !isAssetNotEmpty
+            ) {
+                $("#purchase_order_number").css("border", "1px solid red");
+                $("#supplier_invoice_number").css("border", "1px solid red");
+                $("#payment_transfer_number").css("border", "1px solid red");
+                $("#account_payable_notes").css("border", "1px solid red");
+                $("#budget_details_deduction").css("border", "1px solid red");
+
+                $("#purchase_order_message").show();
+                $("#supplier_invoice_number_message").show();
+                $("#payment_transfer_message").show();
+                $("#receipt_origin_message").show();
+                $("#contract_signed_message").show();
+                $("#vat_origin_message").show();
+                $("#basft_origin_message").show();
+                $("#account_payable_notes_message").show();
+                $("#asset_message").show();
+                $("#budget_details_deduction_message").show();
+                return;
+            }
+            if (!isPurchaseOrderNumberNotEmpty) {
+                $("#purchase_order_number").css("border", "1px solid red");
+                $("#purchase_order_message").show();
+                return;
+            }
+            if (!isSupplierInvoiceNumberNotEmpty) {
+                $("#supplier_invoice_number").css("border", "1px solid red");
+                $("#supplier_invoice_number_message").show();
+                return;
+            }
+            if (!isPaymentTransferNumberNotEmpty) {
+                $("#payment_transfer_number").css("border", "1px solid red");
+                $("#payment_transfer_message").show();
+                return;
+            }
+            if (!isReceiptInvoiceOriginNotEmpty) {
+                $("#receipt_origin_message").show();
+                return;
+            }
+            if (!isContractPOSignedNotEmpty) {
+                $("#contract_signed_message").show();
+                return;
+            }
+            if (!isVATOriginNotEmpty) {
+                $("#vat_origin_message").show();
+                return;
+            } else {
+                if (isVATOriginNotEmpty.value == "yes") {
+                    if (!isValueVATNotEmpty) {
+                        $("#ppn").css("border", "1px solid red");
+                        $("#vat_origin_message").show();
+                        $("#vat_origin_text_message").text("VAT Value cannot be empty.");
+                        return;
+                    }
+                    if (!isValueVATNumberNotEmpty) {
+                        $("#vat_number").css("border", "1px solid red");
+                        $("#vat_number_message").show();
+                        return;
+                    }
+                }
+            }
+            if (!isFATPATDOOriginNotEmpty) {
+                $("#basft_origin_message").show();
+                return;
+            }
+            if (!isNotesNotEmpty) {
+                $("#account_payable_notes").css("border", "1px solid red");
+                $("#account_payable_notes_message").show();
+                return;
+            }
+            if (!isAssetNotEmpty) {
+                $("#asset_message").show();
+                return;
+            } else {
+                if (isAssetNotEmpty.value == "yes") {
+                    if (!isCategoryNumberNotEmpty) {
+                        $("#category_number").css("border", "1px solid red");
+                        $("#category_message").show();
+                        return;
+                    }
+                    if (!isDepreciationMethodNotEmpty) {
+                        $("#depreciation_method").css("border", "1px solid red");
+                        $("#depreciation_method_message").show();
+                        return;
+                    }
+                    if (!isDepreciationRatePercentageNotEmpty) {
+                        $("#depreciation_rate_percentage").css("border", "1px solid red");
+                        $("#depreciation_value_message").show();
+                        $("#depreciation_value_text_message").text("Depreciation Rate cannot be empty.");
+                        return;
+                    }
+                    if (!isDepreciationRateYearsNotEmpty) { 
+                        $("#depreciation_rate_years").css("border", "1px solid red");
+                        $("#depreciation_value_message").show();
+                        $("#depreciation_value_text_message").text("Depreciation Years cannot be empty.");
+                        return;
+                    }
+                    if (!isDepreciationCOANumberNotEmpty) { 
+                        $("#depreciation_coa_number").css("border", "1px solid red");
+                        $("#depreciation_coa_message").show();
+                        return;
+                    }
+                }
+            }
+            if (!isTableNotEmpty) {
+                $("#invoice_details_message").show();
+                return;
+            }
+            if (!isDeductionValueNotEmpty) {
+                $("#budget_details_deduction").css("border", "1px solid red");
+                $("#budget_details_deduction_message").show();
+                return;
+            }
+        }
     }
 
     function getPurchaseOrderDetail(purchaseOrderRefID) {
@@ -138,9 +464,12 @@
             url: '{!! route("getPurchaseOrderDetail") !!}?purchase_order_id=' + purchaseOrderRefID,
             success: async function(data) {
                 if (Array.isArray(data) && data.length > 0) {
+                    $("#var_combinedBudget_RefID").val(data[0].combinedBudget_RefID);
+
                     $("#purchase_order_id").val(data[0].purchaseOrder_RefID);
                     $("#purchase_order_number").val(data[0].documentNumber);
-                    $("#purchase_order_number").css({"background-color": "#e9ecef"});
+                    $("#purchase_order_number").css({"background-color": "#e9ecef", "border": "1px solid #ced4da"});
+                    $("#purchase_order_message").hide();
 
                     $("#purchase_order_supplier").val(`${data[0].supplierCode} - ${data[0].supplierName}`);
                     $("#purchase_order_currency").val(data[0].productUnitPriceCurrencyISOCode);
@@ -149,10 +478,13 @@
                     $("#purchase_order_delivery_to").val(data[0].deliveryTo_NonRefID.Address);
                     $("#purchase_order_delivery_from").val(`${data[0].supplierName} - ${data[0].supplierAddress}`);
 
+                    getPaymentTransfer(data[0].supplier_RefID);
+
                     $.each(data, function(key, val) {
                         let row = `
                             <tr>
-                                <input type="hidden" id="combinedBudgetSectionDetail_RefID[]" value="${val.sys_ID}">
+                                <input type="hidden" id="purchaseOrderDetail_RefID[]" value="${val.sys_ID}">
+                                <input type="hidden" id="combinedBudgetSectionDetail_RefID[]" value="${169000000000041}">
                                 <input type="hidden" id="product_RefID[]" value="${val.product_RefID}">
                                 <input type="hidden" id="quantityUnit_RefID[]" value="${val.quantityUnit_RefID}">
                                 <input type="hidden" id="productUnitPriceCurrency_RefID[]" value="${val.productUnitPriceCurrency_RefID}">
@@ -208,14 +540,14 @@
 
                                     document.getElementById('invoice_details_total_wht').textContent = `Total WHT: ${currencyTotal(result)}`;
                                 }
-                                
                             }
 
                             calculateTotal();
+                            checkOneLineBudgetContents(key);
                         });
 
                         $(`#wht${key}`).on('input', function () {
-                            let val         = this.value.replace(/[^\d]/g, '').slice(0, 3);
+                            let val         = this.value.replace(/[^\d]/g, '');
                             let total_ap    = $(`#total_ap${key}`).val().replace(/,/g, '');
 
                             if (parseInt(val) > 100) {
@@ -230,6 +562,8 @@
                                     document.getElementById('invoice_details_total_wht').textContent = `Total WHT: ${currencyTotal(result)}`;
                                 }
                             }
+
+                            checkOneLineBudgetContents(key);
                         });
                     });
                 } else {
@@ -237,6 +571,79 @@
                 }
             },
             error: function (textStatus, errorThrown) {
+            }
+        });
+    }
+
+    function selectWorkFlow(formatData) {
+        const swalWithBootstrapButtons = Swal.mixin({
+            confirmButtonClass: 'btn btn-success btn-sm',
+            cancelButtonClass: 'btn btn-danger btn-sm',
+            buttonsStyling: true,
+        });
+
+        swalWithBootstrapButtons.fire({
+            title: 'Comment',
+            text: "Please write your comment here",
+            type: 'question',
+            input: 'textarea',
+            showCloseButton: false,
+            showCancelButton: true,
+            focusConfirm: false,
+            cancelButtonText: '<span style="color:black;"> Cancel </span>',
+            confirmButtonText: '<span style="color:black;"> OK </span>',
+            cancelButtonColor: '#DDDAD0',
+            confirmButtonColor: '#DDDAD0',
+            reverseButtons: true
+        }).then((result) => {
+            if ('value' in result) {
+                ShowLoading();
+                accountPayableStore({...formatData, comment: result.value});
+            }
+        });
+    }
+
+    function accountPayableStore(formatData) {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: 'POST',
+            data: formatData,
+            url: '{{ route("AccountPayable.store") }}',
+            success: function(res) {
+                HideLoading();
+
+                if (res.status == 200) {
+                    const swalWithBootstrapButtonsss = Swal.mixin({
+                        confirmButtonClass: 'btn btn-success btn-sm',
+                        cancelButtonClass: 'btn btn-danger btn-sm',
+                        buttonsStyling: true,
+                    });
+
+                    swalWithBootstrapButtonsss.fire({
+                        title: 'Successful !',
+                        type: 'success',
+                        html: 'Data has been saved. Your transaction number is ' + '<span style="color:#0046FF;font-weight:bold;">' + res.documentNumber + '</span>',
+                        showCloseButton: false,
+                        showCancelButton: false,
+                        focusConfirm: false,
+                        confirmButtonText: '<span style="color:black;"> OK </span>',
+                        confirmButtonColor: '#4B586A',
+                        confirmButtonColor: '#e9ecef',
+                        reverseButtons: true
+                    }).then((result) => {
+                        window.location.href = "{{ route('AccountPayable.index', ['var' => 1]) }}";
+                    });
+                } else {
+                    ErrorNotif("Data Cancel Inputed");
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.log('error', jqXHR, textStatus, errorThrown);
             }
         });
     }
@@ -252,78 +659,59 @@
         ShowLoading();
 
         $.ajax({
-        url: action,
-        dataType: 'json',
-        cache: false,
-        contentType: false,
-        processData: false,
-        data: form_data,
-        type: method,
-        // success: function(response) {
-        success: function(res) {
-            HideLoading();
+            url: action,
+            dataType: 'json',
+            cache: false,
+            contentType: false,
+            processData: false,
+            data: form_data,
+            type: method,
+            success: function(response) {
+                HideLoading();
 
-            console.log('res', res);
+                if (response.message == "WorkflowError") {
+                    CancelNotif("You don't have access", "{{ route('AccountPayable.index', ['var' => 1]) }}");
+                } else if (response.message == "MoreThanOne") {
+                    $('#getWorkFlow').modal('toggle');
 
-            if (res.status === 200) {
-                const swalWithBootstrapButtons = Swal.mixin({
-                    confirmButtonClass: 'btn btn-success btn-sm',
-                    cancelButtonClass: 'btn btn-danger btn-sm',
-                    buttonsStyling: true,
-                });
+                    let t = $('#tableGetWorkFlow').DataTable();
+                    t.clear();
+                    $.each(response.data, function(key, val) {
+                        t.row.add([
+                            '<td><span data-dismiss="modal" onclick="SelectWorkFlow(\'' + val.Sys_ID + '\', \'' + val.NextApprover_RefID + '\', \'' + response.approverEntity_RefID + '\', \'' + response.documentTypeID + '\');"><img src="{{ asset("AdminLTE-master/dist/img/add.png") }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></span></td>',
+                            '<td style="border:1px solid #e9ecef;">' + val.FullApproverPath + '</td></tr></tbody>'
+                        ]).draw();
+                    });
+                } else {
+                    const formatData = {
+                        workFlowPath_RefID: response.workFlowPath_RefID, 
+                        nextApprover: response.nextApprover_RefID, 
+                        approverEntity: response.approverEntity_RefID, 
+                        documentTypeID: response.documentTypeID,
+                        storeData: response.storeData
+                    };
 
-                swalWithBootstrapButtons.fire({
-                    title: 'Successful !',
-                    type: 'success',
-                    html: 'Data has been saved. Your transaction number is ' + '<span style="color:#0046FF;font-weight:bold;">' + res.documentNumber + '</span>',
-                    showCloseButton: false,
-                    showCancelButton: false,
-                    focusConfirm: false,
-                    confirmButtonText: '<span style="color:black;"> OK </span>',
-                    confirmButtonColor: '#4B586A',
-                    confirmButtonColor: '#e9ecef',
-                    reverseButtons: true
-                }).then((result) => {
-                    cancelForm("{{ route('AccountPayable.index', ['var' => 1]) }}");
-                });
-            } else {
-                ErrorNotif("Data Cancel Inputed");
+                    selectWorkFlow(formatData);
+                }
+            },
+            error: function(response) {
+                console.log('response error', response);
+                
+                HideLoading();
+                CancelNotif("You don't have access", "{{ route('AccountPayable.index', ['var' => 1]) }}");
             }
-
-            // if (response.message == "WorkflowError") {
-            //   CancelNotif("You don't have access", '/MaterialReturn?var=1');
-            // } else if (response.message == "MoreThanOne") {
-            //   $('#getWorkFlow').modal('toggle');
-
-            //   let t = $('#tableGetWorkFlow').DataTable();
-            //   t.clear();
-            //   $.each(response.data, function(key, val) {
-            //     t.row.add([
-            //       '<td><span data-dismiss="modal" onclick="SelectWorkFlow(\'' + val.Sys_ID + '\', \'' + val.NextApprover_RefID + '\', \'' + response.approverEntity_RefID + '\', \'' + response.documentTypeID + '\');"><img src="{{ asset("AdminLTE-master/dist/img/add.png") }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></span></td>',
-            //       '<td style="border:1px solid #e9ecef;">' + val.FullApproverPath + '</td></tr></tbody>'
-            //     ]).draw();
-            //   });
-            // } else {
-            //   const formatData = {
-            //     workFlowPath_RefID: response.workFlowPath_RefID, 
-            //     nextApprover: response.nextApprover_RefID, 
-            //     approverEntity: response.approverEntity_RefID, 
-            //     documentTypeID: response.documentTypeID,
-            //     storeData: response.storeData
-            //   };
-
-            //   selectWorkFlow(formatData);
-            // }
-        },
-        error: function(response) {
-            console.log('response error', response);
-            
-            HideLoading();
-
-            CancelNotif("You don't have access", '/AccountPayable?var=1');
-        }
         });
     }
+
+    $('#supplier_invoice_number').on('input', function(e) {
+        if (!e.target.value) {
+            $("#supplier_invoice_number").css("border", "1px solid red");
+            $("#supplier_invoice_number_message").show();
+        } else {
+            $("#supplier_invoice_number").css("border", "1px solid #ced4da");
+            $("#supplier_invoice_number_message").hide();
+        }
+    });
 
     $('#TableSearchPORevision tbody').on('click', 'tr', function () {
         var table = $('#TableSearchPORevision').DataTable();
@@ -349,20 +737,66 @@
 
         $(`#category_id`).val(sysId);
         $(`#category_number`).val(`${code} - ${name}`);
-        $(`#category_number`).css('background-color', '#e9ecef');
+        $(`#category_number`).css({'background-color': '#e9ecef', 'border': '1px solid #ced4da'});
+        $("#category_message").hide();
         
         $('#myGetCategory').modal('hide');
     });
 
     $('#tableGetPaymentTransfer').on('click', 'tbody tr', async function() {
-        let bankCode        = $(this).find('td:nth-child(4)').text();
-        let bankAccount     = $(this).find('td:nth-child(6)').text();
-        let accountNumber   = $(this).find('td:nth-child(7)').text();
+        let sysId           = $(this).find('input[data-trigger="sys_id_payment"]').val();
+        let bankCode        = $(this).find('td:nth-child(5)').text();
+        let bankAccount     = $(this).find('td:nth-child(7)').text();
+        let accountNumber   = $(this).find('td:nth-child(8)').text();
 
         $(`#payment_transfer_number`).val(`${bankAccount} - (${bankCode}) ${accountNumber}`);
-        $(`#payment_transfer_number`).css('background-color', '#e9ecef');
+        $("#payment_transfer_id").val(sysId);
+        $(`#payment_transfer_number`).css({'background-color': '#e9ecef', 'border': '1px solid #ced4da'});
+        $("#payment_transfer_message").hide();
         
         $('#myGetPaymentTransfer').modal('hide');
+    });
+
+    $('#vat_number').on('input', function(e) {
+        if (!e.target.value) {
+            $("#vat_number").css("border", "1px solid red");
+            $("#vat_number_message").show();
+        } else {
+            $("#vat_number").css("border", "1px solid #ced4da");
+            $("#vat_number_message").hide();
+        }
+    });
+
+    $('#depreciation_rate_percentage').on('input', function(e) {
+        if (!e.target.value) {
+            $("#depreciation_rate_percentage").css("border", "1px solid red");
+            $("#depreciation_value_text_message").text("Depreciation Rate cannot be empty.");
+            $("#depreciation_value_message").show();
+        } else {
+            $("#depreciation_rate_percentage").css("border", "1px solid #ced4da");
+            $("#depreciation_value_message").hide();
+        }
+    });
+
+    $('#depreciation_rate_years').on('input', function(e) {
+        if (!e.target.value) {
+            $("#depreciation_rate_years").css("border", "1px solid red");
+            $("#depreciation_value_text_message").text("Depreciation Years cannot be empty.");
+            $("#depreciation_value_message").show();
+        } else {
+            $("#depreciation_rate_years").css("border", "1px solid #ced4da");
+            $("#depreciation_value_message").hide();
+        }
+    });
+
+    $('#account_payable_notes').on('input', function(e) {
+        if (!e.target.value) {
+            $("#account_payable_notes").css("border", "1px solid red");
+            $("#account_payable_notes_message").show();
+        } else {
+            $("#account_payable_notes").css("border", "1px solid #ced4da");
+            $("#account_payable_notes_message").hide();
+        }
     });
 
     $('#tableGetChartOfAccount').on('click', 'tbody tr', async function() {
@@ -373,11 +807,13 @@
         if (currentIndexPickCOA === null) {
             $(`#depreciation_coa_id`).val(sysId);
             $(`#depreciation_coa_number`).val(`${code} - ${name}`);
-            $(`#depreciation_coa_number`).css({"background-color": "#e9ecef"});
+            $(`#depreciation_coa_number`).css({"background-color": "#e9ecef", "border": "1px solid #ced4da"});
+            $(`#depreciation_coa_message`).hide();
         } else {
             $(`#coa_id${currentIndexPickCOA}`).val(sysId);
             $(`#coa_name${currentIndexPickCOA}`).val(`${code} - ${name}`);
             $(`#coa_name${currentIndexPickCOA}`).css({"background-color": "#e9ecef"});
+            checkOneLineBudgetContents(currentIndexPickCOA);
 
             currentIndexPickCOA = null;
         }
@@ -391,8 +827,12 @@
         if (val <= totalTaxBased) {
             totalDeduction = val;
             $(`#invoice_details_vat`).text(`Total Deduction: ${currencyTotal(val)}`);
+            $("#budget_details_deduction").css("border", "1px solid #ced4da");
+            $("#budget_details_deduction_message").hide();
         } else {
             $(this).val("");
+            $("#budget_details_deduction").css("border", "1px solid red");
+            $("#budget_details_deduction_message").show();
         }
     });
 
@@ -406,5 +846,9 @@
         $("#modal_account_payable_document_number").val(trano);
 
         $('#myAccountPayables').modal('hide');
+    });
+
+    $(window).one('load', function(e) {
+        getVAT();
     });
 </script>

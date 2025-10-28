@@ -37,7 +37,7 @@
 <div class="card-body">
     <div class="row">
         <div class="col">
-            <div class="text-red" id="invoice_details_message" style="display: none; margin-bottom: 1rem;">
+            <div class="row text-red" id="invoice_details_message" style="display: none; margin-bottom: 1rem;">
                 Please input at least one item.
             </div>
             <div class="row">
@@ -45,8 +45,16 @@
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div>
                         <div class="input-group">
-                            <input id="budget_details_deduction" name="budget_details_deduction" class="form-control number-without-negative" value="<?= isset($header) ? number_format($header['deduction'], 2, '.', ',') : ''; ?>" style="border-radius:0;">
+                            <input id="budget_details_deduction" name="budget_details_deduction" class="form-control number-without-negative" value="<?= isset($header) ? number_format($header['deduction'], 2, '.', ',') : ''; ?>" autocomplete="off" style="border-radius:0;">
                         </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="budget_details_deduction_message" style="margin-top: .3rem; display: none;">
+                <label class="col-sm-3 col-md-4 col-lg-2 col-form-label p-0"></label>
+                <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                    <div class="text-red">
+                        Deduction cannot be empty.
                     </div>
                 </div>
             </div>
