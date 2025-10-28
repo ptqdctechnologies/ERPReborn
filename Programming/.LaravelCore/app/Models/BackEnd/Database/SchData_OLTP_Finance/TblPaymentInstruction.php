@@ -70,7 +70,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         public function setDataInsert(
             $varUserSession,
             string $varSysDataAnnotation = null, string $varSysDataValidityStartDateTimeTZ = null, string $varSysDataValidityFinishDateTimeTZ = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, $varSysBaseCurrency_RefID = null,
-            string $varDocumentDateTimeTZ = null, int $varLog_FileUpload_Pointer_RefID = null, int $varCurrency_RefID = null, string $varCurrencySymbol = null, float $varCurrencyValue = null, float $varCurrencyExchangeRate = null, string $varSupplierInvoiceNumber = null, int $varSupplier_RefID = null, int $varReceiptStatus = null, int $varContractStatus = null, int $varVatStatus = null, float $varVatValue = null, string $varVatNumber = null, int $varFatPatDoStatus = null, int $varAssetStatus = null, int $varAssetCategory = null, int $varDepreciationMethod = null, float $varDepreciationRate = null, int $varDepreciationCOA_RefID = null, int $varDeduction = null, string $varRemarks = null,
+            string $varDocumentDateTimeTZ = null, int $varLog_FileUpload_Pointer_RefID = null, int $varCurrency_RefID = null, string $varCurrencySymbol = null, int $varCurrencyValue = null, int $varCurrencyExchangeRate = null, string $varSupplierInvoiceNumber = null, int $varSupplier_RefID = null, int $varReceiptStatus = null, int $varContractStatus = null, int $varVatStatus = null, int $varVatValue = null, string $varVatNumber = null, int $varFatPatDoStatus = null, int $varAssetStatus = null, int $varAssetCategory = null, int $varDepreciationMethod = null, int $varDepreciationRate = null, int $varDepreciationCOA_RefID = null, int $varDeduction = null, string $varRemarks = null,
             array $varAdditionalData = []
             )
             {
@@ -95,20 +95,20 @@ namespace App\Models\Database\SchData_OLTP_Finance
                             [$varLog_FileUpload_Pointer_RefID, 'bigint'],
                             [$varCurrency_RefID, 'bigint'],
                             [$varCurrencySymbol, 'varchar'],
-                            [$varCurrencyValue, 'numeric'],
-                            [$varCurrencyExchangeRate, 'numeric'],
+                            [$varCurrencyValue, 'bigint'],
+                            [$varCurrencyExchangeRate, 'bigint'],
                             [$varSupplierInvoiceNumber, 'varchar'],
                             [$varSupplier_RefID, 'bigint'],
                             [$varReceiptStatus, 'smallint'],
                             [$varContractStatus, 'smallint'],
                             [$varVatStatus, 'smallint'],
-                            [$varVatValue, 'numeric'],
+                            [$varVatValue, 'bigint'],
                             [$varVatNumber, 'varchar'],
                             [$varFatPatDoStatus, 'smallint'],
                             [$varAssetStatus, 'smallint'],
                             [$varAssetCategory, 'smallint'],
                             [$varDepreciationMethod, 'smallint'],
-                            [$varDepreciationRate, 'numeric'],
+                            [$varDepreciationRate, 'bigint'],
                             [$varDepreciationCOA_RefID, 'bigint'],
                             [$varDeduction, 'bigint'],
                             [$varRemarks, 'varchar'],
