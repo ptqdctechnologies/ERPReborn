@@ -13,10 +13,12 @@ namespace Psy;
 
 use Psy\Exception\BreakException;
 use Psy\ExecutionLoop\ProcessForker;
+use Psy\ManualUpdater\ManualUpdate;
 use Psy\Util\DependencyChecker;
 use Psy\VersionUpdater\GitHubChecker;
 use Psy\VersionUpdater\Installer;
 use Psy\VersionUpdater\SelfUpdate;
+use Symfony\Component\Console\Formatter\OutputFormatter;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputDefinition;
@@ -139,22 +141,6 @@ if (!\function_exists('Psy\\info')) {
             return null;
         }
 
-        $prettyPath = function ($path) {
-            return $path;
-        };
-
-        $homeDir = (new ConfigPaths())->homeDir();
-        if ($homeDir && $homeDir = \rtrim($homeDir, '/')) {
-            $homePattern = '#^'.\preg_quote($homeDir, '#').'/#';
-            $prettyPath = function ($path) use ($homePattern) {
-                if (\is_string($path)) {
-                    return \preg_replace($homePattern, '~/', $path);
-                } else {
-                    return $path;
-                }
-            };
-        }
-
         $config = $lastConfig ?: new Configuration();
         $configEnv = (isset($_SERVER['PSYSH_CONFIG']) && $_SERVER['PSYSH_CONFIG']) ? $_SERVER['PSYSH_CONFIG'] : false;
         if ($configEnv === false && \PHP_SAPI === 'cli-server') {
@@ -173,9 +159,9 @@ if (!\function_exists('Psy\\info')) {
             'strict types'        => $config->strictTypes(),
             'error logging level' => $config->errorLoggingLevel(),
             'config file'         => [
-                'default config file' => $prettyPath($config->getConfigFile()),
-                'local config file'   => $prettyPath($config->getLocalConfigFile()),
-                'PSYSH_CONFIG env'    => $prettyPath($configEnv),
+                'default config file' => ConfigPaths::prettyPath($config->getConfigFile()),
+                'local config file'   => ConfigPaths::prettyPath($config->getLocalConfigFile()),
+                'PSYSH_CONFIG env'    => ConfigPaths::prettyPath($configEnv),
             ],
             // 'config dir'  => $config->getConfigDir(),
             // 'data dir'    => $config->getDataDir(),
@@ -196,7 +182,7 @@ if (!\function_exists('Psy\\info')) {
             'update available'       => $updateAvailable,
             'latest release version' => $latest,
             'update check interval'  => $config->getUpdateCheck(),
-            'update cache file'      => $prettyPath($config->getUpdateCheckCacheFile()),
+            'update cache file'      => ConfigPaths::prettyPath($config->getUpdateCheckCacheFile()),
         ];
 
         $input = [
@@ -260,41 +246,37 @@ if (!\function_exists('Psy\\info')) {
         $pcntl['use pcntl'] = $config->usePcntl();
 
         $history = [
-            'history file'     => $prettyPath($config->getHistoryFile()),
+            'history file'     => ConfigPaths::prettyPath($config->getHistoryFile()),
             'history size'     => $config->getHistorySize(),
             'erase duplicates' => $config->getEraseDuplicates(),
         ];
 
-        $docs = [
-            'manual db file'   => $prettyPath($config->getManualDbFile()),
-            'sqlite available' => true,
-        ];
+        $manualDbFile = $config->getManualDbFile();
+        $manual = $config->getManual();
 
-        try {
-            if ($db = $config->getManualDb()) {
-                if ($q = $db->query('SELECT * FROM meta;')) {
-                    $q->setFetchMode(\PDO::FETCH_KEY_PAIR);
-                    $meta = $q->fetchAll();
+        // If we have a manual but no db file path, it's bundled in the PHAR
+        if ($manual && !$manualDbFile && \Phar::running(false)) {
+            $docs = [
+                'manual db file' => '<bundled>',
+            ];
+        } else {
+            $docs = [
+                'manual db file' => ConfigPaths::prettyPath($manualDbFile),
+            ];
+        }
 
-                    foreach ($meta as $key => $val) {
-                        switch ($key) {
-                            case 'built_at':
-                                $d = new \DateTime('@'.$val);
-                                $val = $d->format(\DateTime::RFC2822);
-                                break;
-                        }
-                        $key = 'db '.\str_replace('_', ' ', $key);
-                        $docs[$key] = $val;
-                    }
-                } else {
-                    $docs['db schema'] = '0.1.0';
+        if ($manual) {
+            $meta = $manual->getMeta();
+
+            foreach ($meta as $key => $val) {
+                switch ($key) {
+                    case 'built_at':
+                        $d = new \DateTime('@'.$val);
+                        $val = $d->format(\DateTime::RFC2822);
+                        break;
                 }
-            }
-        } catch (Exception\RuntimeException $e) {
-            if ($e->getMessage() === 'SQLite PDO driver not found') {
-                $docs['sqlite available'] = false;
-            } else {
-                throw $e;
+                $key = 'manual '.\str_replace('_', ' ', $key);
+                $docs[$key] = $val;
             }
         }
 
@@ -459,6 +441,7 @@ if (!\function_exists('Psy\\bin')) {
                     new InputOption('help', 'h', InputOption::VALUE_NONE),
                     new InputOption('version', 'V', InputOption::VALUE_NONE),
                     new InputOption('self-update', 'u', InputOption::VALUE_NONE),
+                    new InputOption('update-manual', null, InputOption::VALUE_OPTIONAL, '', false),
                     new InputOption('info', null, InputOption::VALUE_NONE),
 
                     new InputArgument('include', InputArgument::IS_ARRAY),
@@ -475,6 +458,17 @@ if (!\function_exists('Psy\\bin')) {
 
             // Handle --help
             if (!isset($config) || $usageException !== null || $input->getOption('help')) {
+                // Determine if we should use colors
+                $useColors = true;
+                if ($input->hasParameterOption(['--no-color'])) {
+                    $useColors = false;
+                } elseif (!$input->hasParameterOption(['--color']) && !\stream_isatty(\STDOUT)) {
+                    $useColors = false;
+                }
+
+                // Create output formatter for proper tag rendering
+                $formatter = new OutputFormatter($useColors);
+
                 if ($usageException !== null) {
                     echo $usageException->getMessage().\PHP_EOL.\PHP_EOL;
                 }
@@ -483,39 +477,56 @@ if (!\function_exists('Psy\\bin')) {
                 $argv = isset($_SERVER['argv']) ? $_SERVER['argv'] : [];
                 $name = $argv ? \basename(\reset($argv)) : 'psysh';
 
-                echo <<<EOL
+                $selfUpdateOption = $shellIsPhar ? "\n  <info>-u, --self-update</info>       Install a newer version if available" : '';
+
+                $helpText = <<<EOL
 $version
 
-Usage:
-  $name [--version] [--help] [files...]
+<comment>Description:</>
+  A runtime developer console, interactive debugger and REPL for PHP
 
-Options:
-  -h, --help            Display this help message.
-  -c, --config FILE     Use an alternate PsySH config file location.
-      --cwd PATH        Use an alternate working directory.
-      --info            Display PsySH environment and configuration info.
-  -V, --version         Display the PsySH version.
+<comment>Usage:</>
+  $name [options] [--] [<files>...]
+
+<comment>Arguments:</>
+  <info>files</info>                   PHP file(s) to load before starting the shell
+
+<comment>Options:</>
+  <info>-h, --help</info>              Display this help message
+      <info>--info</info>              Display PsySH environment and configuration info
+  <info>-V, --version</info>           Display the PsySH version{$selfUpdateOption}
+      <info>--update-manual[=LANG]</info> Download and install the latest PHP manual (optional language code)
+
+      <info>--warm-autoload</info>     Enable autoload warming for better tab completion
+      <info>--yolo</info>              Run PsySH without input validation (you don't want this)
+
+  <info>-c, --config=FILE</info>       Use an alternate PsySH config file location
+      <info>--cwd=PATH</info>          Use an alternate working directory
+      <info>--color|--no-color</info>  Force (or disable with --no-color) colors in output
+  <info>-i, --interactive</info>       Force PsySH to run in interactive mode
+  <info>-n, --no-interactive</info>    Run PsySH without interactive input (requires input from stdin)
+  <info>-r, --raw-output</info>        Print var_export-style return values (for non-interactive input)
+      <info>--compact</info>           Run PsySH with compact output
+  <info>-q, --quiet</info>             Shhhhhh
+  <info>-v|vv|vvv, --verbose</info>    Increase the verbosity of messages
+
+<comment>Help:</>
+  PsySH is an interactive runtime developer console for PHP. Use it as a REPL
+  for quick experiments, or drop into your code with <info>eval(\Psy\sh());</info> or
+  <info>\Psy\debug();</info> to inspect application state and debug interactively.
+
+  For more information, see <info>https://psysh.org</info>
+
+  <comment>Examples:</>
+
+  $name                            <comment># Start interactive shell</comment>
+  $name -c ~/.config/psysh.php     <comment># Use custom config</comment>
+  $name --warm-autoload            <comment># Enable autoload warming</comment>
+  $name index.php                  <comment># Load file before starting</comment>
 
 EOL;
-                if ($shellIsPhar) {
-                    echo <<<EOL
-  -u, --self-update     Install a newer version if available.
 
-EOL;
-                }
-                echo <<<EOL
-      --color           Force colors in output.
-      --no-color        Disable colors in output.
-  -i, --interactive     Force PsySH to run in interactive mode.
-  -n, --no-interactive  Run PsySH without interactive input. Requires input from stdin.
-  -r, --raw-output      Print var_export-style return values (for non-interactive input)
-      --compact         Run PsySH with compact output.
-  -q, --quiet           Shhhhhh.
-  -v|vv|vvv, --verbose  Increase the verbosity of messages.
-      --warm-autoload   Enable autoload warming for better tab completion.
-      --yolo            Run PsySH without input validation. You don't want this.
-
-EOL;
+                echo $formatter->format($helpText);
 
                 exit($usageException === null ? 0 : 1);
             }
@@ -551,6 +562,13 @@ EOL;
                 }
                 $selfUpdate = new SelfUpdate(new GitHubChecker(), new Installer());
                 $result = $selfUpdate->run($input, $config->getOutput());
+                exit($result);
+            }
+
+            // Handle --update-manual
+            if ($input->getOption('update-manual') !== false) {
+                $manualUpdate = ManualUpdate::fromConfig($config, $input);
+                $result = $manualUpdate->run($input, $config->getOutput());
                 exit($result);
             }
 

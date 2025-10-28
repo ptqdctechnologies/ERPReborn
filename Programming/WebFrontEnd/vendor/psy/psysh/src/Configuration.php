@@ -13,8 +13,14 @@ namespace Psy;
 
 use Psy\Exception\DeprecatedException;
 use Psy\Exception\RuntimeException;
+use Psy\ExecutionLoop\ExecutionLoggingListener;
+use Psy\ExecutionLoop\InputLoggingListener;
 use Psy\ExecutionLoop\ProcessForker;
 use Psy\Formatter\SignatureFormatter;
+use Psy\Logger\CallbackLogger;
+use Psy\Manual\ManualInterface;
+use Psy\Manual\V2Manual;
+use Psy\Manual\V3Manual;
 use Psy\Output\OutputPager;
 use Psy\Output\ShellOutput;
 use Psy\Output\Theme;
@@ -62,6 +68,7 @@ class Configuration
         'historySize',
         'implicitUse',
         'interactiveMode',
+        'logging',
         'manualDbFile',
         'pager',
         'prompt',
@@ -72,6 +79,7 @@ class Configuration
         'strictTypes',
         'theme',
         'updateCheck',
+        'updateManualCheck',
         'useBracketedPaste',
         'usePcntl',
         'useReadline',
@@ -109,11 +117,13 @@ class Configuration
     private array $newMatchers = [];
     private ?array $autoloadWarmers = null;
     private $implicitUse = false;
+    private ?ShellLogger $logger = null;
     private int $errorLoggingLevel = \E_ALL;
     private bool $warnOnMultipleConfigs = false;
     private string $colorMode = self::COLOR_MODE_AUTO;
     private string $interactiveMode = self::INTERACTIVE_MODE_AUTO;
     private ?string $updateCheck = null;
+    private ?string $updateManualCheck = null;
     private ?string $startupMessage = null;
     private bool $forceArrayIndexes = false;
     /** @deprecated */
@@ -130,6 +140,7 @@ class Configuration
     /** @var string|OutputPager|false|null */
     private $pager = null;
     private ?\PDO $manualDb = null;
+    private ?ManualInterface $manual = null;
     private ?Presenter $presenter = null;
     private ?AutoCompleter $autoCompleter = null;
     private ?Checker $checker = null;
@@ -447,7 +458,8 @@ class Configuration
 
         if (!empty($files)) {
             if ($this->warnOnMultipleConfigs && \count($files) > 1) {
-                $msg = \sprintf('Multiple configuration files found: %s. Using %s', \implode(', ', $files), $files[0]);
+                $prettyFiles = \array_map([ConfigPaths::class, 'prettyPath'], $files);
+                $msg = \sprintf('Multiple configuration files found: %s. Using %s', \implode(', ', $prettyFiles), $prettyFiles[0]);
                 \trigger_error($msg, \E_USER_NOTICE);
             }
 
@@ -528,7 +540,7 @@ class Configuration
     public function loadConfigFile(string $file)
     {
         if (!\is_file($file)) {
-            throw new \InvalidArgumentException(\sprintf('Invalid configuration file specified, %s does not exist', $file));
+            throw new \InvalidArgumentException(\sprintf('Invalid configuration file specified, %s does not exist', ConfigPaths::prettyPath($file)));
         }
 
         $__psysh_config_file__ = $file;
@@ -686,7 +698,8 @@ class Configuration
 
         if (!empty($files)) {
             if ($this->warnOnMultipleConfigs && \count($files) > 1) {
-                $msg = \sprintf('Multiple history files found: %s. Using %s', \implode(', ', $files), $files[0]);
+                $prettyFiles = \array_map([ConfigPaths::class, 'prettyPath'], $files);
+                $msg = \sprintf('Multiple history files found: %s. Using %s', \implode(', ', $prettyFiles), $prettyFiles[0]);
                 \trigger_error($msg, \E_USER_NOTICE);
             }
 
@@ -1520,6 +1533,164 @@ class Configuration
     }
 
     /**
+     * Configure logging.
+     *
+     * Logs PsySH input, commands, and executed code to the provided logger.
+     * Accepts a PSR-3 logger, a simple callback, or an array for more control
+     * over log levels.
+     *
+     * Examples:
+     *
+     *     // Simple callback logging
+     *     $config->setLogging(function ($kind, $data) {
+     *         $line = sprintf("[%s] %s\n", $kind, $data);
+     *         file_put_contents('/tmp/psysh.log', $line, FILE_APPEND);
+     *     });
+     *
+     *     // PSR-3 logger with defaults (input=info, command=info, execute=debug)
+     *     $config->setLogging($psrLogger);
+     *
+     *     // Set single level for all event types
+     *     $config->setLogging([
+     *         'logger' => $psrLogger,
+     *         'level' => 'debug',
+     *     ]);
+     *
+     *     // Granular control over each event type
+     *     $config->setLogging([
+     *         'logger' => $psrLogger,
+     *         'level' => [
+     *             'input'   => 'info',
+     *             'command' => false, // disable logging
+     *             'execute' => 'debug',
+     *         ],
+     *     ]);
+     *
+     * @param \Psr\Log\LoggerInterface|callable|array $logging
+     */
+    public function setLogging($logging): void
+    {
+        $this->logger = $this->parseLoggingConfig($logging);
+    }
+
+    /**
+     * Get a ShellLogger instance if logging is configured.
+     *
+     * @return ShellLogger|null
+     */
+    public function getLogger(): ?ShellLogger
+    {
+        return $this->logger;
+    }
+
+    /**
+     * Get an InputLoggingListener if input logging is enabled.
+     *
+     * @return InputLoggingListener|null
+     */
+    public function getInputLogger(): ?InputLoggingListener
+    {
+        $logger = $this->getLogger();
+        if ($logger === null || $logger->isInputDisabled()) {
+            return null;
+        }
+
+        return new InputLoggingListener($logger);
+    }
+
+    /**
+     * Get an ExecutionLoggingListener if execution logging is enabled.
+     *
+     * @return ExecutionLoggingListener|null
+     */
+    public function getExecutionLogger(): ?ExecutionLoggingListener
+    {
+        $logger = $this->getLogger();
+        if ($logger === null || $logger->isExecuteDisabled()) {
+            return null;
+        }
+
+        return new ExecutionLoggingListener($logger);
+    }
+
+    /**
+     * Parse logging configuration.
+     *
+     * @param \Psr\Log\LoggerInterface|Logger\CallbackLogger|callable|array $config
+     *
+     * @return ShellLogger
+     */
+    private function parseLoggingConfig($config): ShellLogger
+    {
+        if (!\is_array($config)) {
+            $config = ['logger' => $config];
+        }
+
+        if (!isset($config['logger'])) {
+            throw new \InvalidArgumentException('Logging config array must include a "logger" key');
+        }
+
+        $logger = $config['logger'];
+
+        if (\is_callable($logger)) {
+            $logger = new CallbackLogger($logger);
+        }
+
+        if (!$this->isLogger($logger)) {
+            throw new \InvalidArgumentException('Logging "logger" must be a logger instance or callable');
+        }
+
+        $defaults = [
+            'input'   => 'info',
+            'command' => 'info',
+            'execute' => 'debug',
+        ];
+
+        if (isset($config['level'])) {
+            $level = $config['level'];
+
+            // String: apply same level to all types
+            if (\is_string($level)) {
+                $levels = [
+                    'input'   => $level,
+                    'command' => $level,
+                    'execute' => $level,
+                ];
+            } elseif (\is_array($level)) {
+                // Array: granular per-type levels
+                $levels = [
+                    'input'   => $level['input'] ?? $defaults['input'],
+                    'command' => $level['command'] ?? $defaults['command'],
+                    'execute' => $level['execute'] ?? $defaults['execute'],
+                ];
+            } else {
+                throw new \InvalidArgumentException('Logging "level" must be a string or array');
+            }
+        } else {
+            $levels = $defaults;
+        }
+
+        return new ShellLogger($logger, $levels);
+    }
+
+    /**
+     * Check if a value is a valid logger instance.
+     *
+     * @param mixed $logger
+     *
+     * @return bool
+     */
+    private function isLogger($logger): bool
+    {
+        if ($logger instanceof CallbackLogger) {
+            return true;
+        }
+
+        // Safe check for LoggerInterface without requiring psr/log as a dependency
+        return \interface_exists('Psr\Log\LoggerInterface') && $logger instanceof \Psr\Log\LoggerInterface;
+    }
+
+    /**
      * @deprecated Use `addMatchers` instead
      *
      * @param array $matchers
@@ -1573,7 +1744,7 @@ class Configuration
         $this->doAddMatchers();
 
         // Configure SignatureFormatter for hyperlinks
-        SignatureFormatter::setManualDb($this->getManualDb());
+        SignatureFormatter::setManual($this->getManual());
     }
 
     /**
@@ -1589,13 +1760,17 @@ class Configuration
         $this->manualDbFile = (string) $filename;
 
         // Reconfigure SignatureFormatter with new manual database
-        SignatureFormatter::setManualDb($this->getManualDb());
+        SignatureFormatter::setManual($this->getManual());
     }
 
     /**
      * Get the current PHP manual database file.
      *
-     * @return string|null Default: '~/.local/share/psysh/php_manual.sqlite'
+     * Searches for manual files in order of preference:
+     *  1. php_manual.php (v3 format)
+     *  2. php_manual.sqlite (v2 format, legacy)
+     *
+     * @return string|null Default: '~/.local/share/psysh/php_manual.*'
      */
     public function getManualDbFile()
     {
@@ -1603,10 +1778,12 @@ class Configuration
             return $this->manualDbFile;
         }
 
-        $files = $this->configPaths->dataFiles(['php_manual.sqlite']);
+        // Prefer v3 format over v2
+        $files = $this->configPaths->dataFiles(['php_manual.php', 'php_manual.sqlite']);
         if (!empty($files)) {
             if ($this->warnOnMultipleConfigs && \count($files) > 1) {
-                $msg = \sprintf('Multiple manual database files found: %s. Using %s', \implode(', ', $files), $files[0]);
+                $prettyFiles = \array_map([ConfigPaths::class, 'prettyPath'], $files);
+                $msg = \sprintf('Multiple manual database files found: %s. Using %s', \implode(', ', $prettyFiles), $prettyFiles[0]);
                 \trigger_error($msg, \E_USER_NOTICE);
             }
 
@@ -1619,13 +1796,15 @@ class Configuration
     /**
      * Get a PHP manual database connection.
      *
+     * @deprecated Use getManual() instead for unified access to all manual formats
+     *
      * @return \PDO|null
      */
     public function getManualDb()
     {
         if (!isset($this->manualDb)) {
             $dbFile = $this->getManualDbFile();
-            if ($dbFile !== null && \is_file($dbFile)) {
+            if ($dbFile !== null && \is_file($dbFile) && \str_ends_with($dbFile, '.sqlite')) {
                 try {
                     $this->manualDb = new \PDO('sqlite:'.$dbFile);
                 } catch (\PDOException $e) {
@@ -1639,6 +1818,117 @@ class Configuration
         }
 
         return $this->manualDb;
+    }
+
+    /**
+     * Get a PHP manual instance.
+     *
+     * Automatically detects the manual format and returns the appropriate manual type.
+     * Supports v2 (SQLite) and v3 (PHP) formats.
+     *
+     * @return ManualInterface|null
+     */
+    public function getManual()
+    {
+        if (!isset($this->manual)) {
+            $this->manual = $this->loadManual();
+        }
+
+        return $this->manual;
+    }
+
+    /**
+     * Load manual from filesystem or bundled Phar, preferring newest English version.
+     *
+     * Priority:
+     *  1. Explicit config: if user configured a specific file, use it
+     *  2. Local non-English: user downloaded a specific language
+     *  3. Newest English: compare local vs bundled
+     *
+     * @return ManualInterface|null
+     */
+    private function loadManual()
+    {
+        // Priority 1: If user explicitly configured a manual file, use it
+        if (isset($this->manualDbFile)) {
+            $manual = $this->loadManualFromFile($this->manualDbFile);
+            if ($manual !== null) {
+                return $manual;
+            }
+        }
+
+        // Check filesystem locations (auto-discovered)
+        $localFile = $this->getManualDbFile();
+        $localManual = null;
+        $localMeta = null;
+
+        if ($localFile !== null && \is_file($localFile)) {
+            $localManual = $this->loadManualFromFile($localFile);
+            if ($localManual !== null) {
+                $localMeta = $localManual->getMeta();
+            }
+        }
+
+        // Check bundled manual in Phar
+        $bundledManual = null;
+        $bundledMeta = null;
+
+        if (\Phar::running(false)) {
+            $bundledFile = 'phar://'.\Phar::running(false).'/php_manual.php';
+            if (\is_file($bundledFile)) {
+                $bundledManual = $this->loadManualFromFile($bundledFile);
+                if ($bundledManual !== null) {
+                    $bundledMeta = $bundledManual->getMeta();
+                }
+            }
+        }
+
+        // Priority 2: If local exists and is not English, use local (user wants that language)
+        // Priority 3: Otherwise, use newest English (compare local vs bundled)
+
+        if ($localManual !== null) {
+            $localLang = $localMeta['lang'] ?? 'en';
+
+            // Non-English local manual takes priority
+            if ($localLang !== 'en') {
+                return $localManual;
+            }
+
+            // Both are English, pick newest
+            $localTimestamp = $localMeta['built_at'] ?? 0;
+            $bundledTimestamp = $bundledMeta['built_at'] ?? 0;
+
+            if ($localTimestamp >= $bundledTimestamp) {
+                return $localManual;
+            } else {
+                return $bundledManual;
+            }
+        }
+
+        // No local manual, use bundled if available
+        return $bundledManual;
+    }
+
+    /**
+     * Load a manual from a file path.
+     *
+     * @param string $file
+     *
+     * @return ManualInterface|null
+     */
+    private function loadManualFromFile(string $file)
+    {
+        // Detect format by extension
+        if (\str_ends_with($file, '.php')) {
+            return new V3Manual($file);
+        } elseif (\str_ends_with($file, '.sqlite')) {
+            // Legacy v2 format
+            if ($db = $this->getManualDb()) {
+                return new V2Manual($db);
+            }
+        }
+
+        return null;
     }
 
     /**
@@ -1842,6 +2132,144 @@ class Configuration
         }
 
         return ConfigPaths::touchFileWithMkdir($configDir.'/update_check.json');
+    }
+
+    /**
+     * Get the current manual update check interval.
+     *
+     * One of 'always', 'daily', 'weekly', 'monthly' or 'never'. If none is
+     * explicitly set, default to 'weekly'.
+     */
+    public function getUpdateManualCheck(): string
+    {
+        return isset($this->updateManualCheck) ? $this->updateManualCheck : ManualUpdater\Checker::WEEKLY;
+    }
+
+    /**
+     * Set the manual update check interval.
+     *
+     * @throws \InvalidArgumentException if the update check interval is unknown
+     *
+     * @param string $interval
+     */
+    public function setUpdateManualCheck(string $interval)
+    {
+        $validIntervals = [
+            ManualUpdater\Checker::ALWAYS,
+            ManualUpdater\Checker::DAILY,
+            ManualUpdater\Checker::WEEKLY,
+            ManualUpdater\Checker::MONTHLY,
+            ManualUpdater\Checker::NEVER,
+        ];
+
+        if (!\in_array($interval, $validIntervals)) {
+            throw new \InvalidArgumentException('Invalid manual update check interval: '.$interval);
+        }
+
+        $this->updateManualCheck = $interval;
+    }
+
+    /**
+     * Get a manual update checker.
+     *
+     * If none has been explicitly defined, this will create a new instance.
+     *
+     * @param string|null $lang   Override language (otherwise uses current manual's language or 'en')
+     * @param bool        $always Force immediate check, ignoring interval setting
+     *
+     * @return ManualUpdater\Checker|null
+     */
+    public function getManualChecker(?string $lang = null, bool $always = false): ?ManualUpdater\Checker
+    {
+        // Get current manual info
+        $manualFile = $this->getManualDbFile();
+        $currentMeta = null;
+        if ($manualFile && \file_exists($manualFile)) {
+            $manual = $this->getManual();
+            if ($manual) {
+                $currentMeta = $manual->getMeta();
+            }
+        }
+
+        $currentVersion = $currentMeta['version'] ?? null;
+        $currentLang = $currentMeta['lang'] ?? null;
+
+        // Determine language (priority: explicit param, current manual, default to English)
+        if ($lang === null) {
+            $lang = $currentLang ?? 'en';
+        }
+
+        // Determine format from current manual file extension, default to v3
+        $format = 'php';
+        if ($manualFile && \str_ends_with($manualFile, '.sqlite')) {
+            $format = 'sqlite';
+        }
+
+        $interval = $always ? ManualUpdater\Checker::ALWAYS : $this->getUpdateManualCheck();
+        switch ($interval) {
+            case ManualUpdater\Checker::ALWAYS:
+                // Use GH CLI if available, otherwise GitHub API
+                if (\shell_exec('which gh 2>/dev/null')) {
+                    return new ManualUpdater\GhChecker($lang, $format, $currentVersion, $currentLang);
+                }
+
+                return new ManualUpdater\GitHubChecker($lang, $format, $currentVersion, $currentLang);
+
+            case ManualUpdater\Checker::DAILY:
+            case ManualUpdater\Checker::WEEKLY:
+            case ManualUpdater\Checker::MONTHLY:
+                $checkFile = $this->getManualUpdateCheckCacheFile();
+                if ($checkFile === false) {
+                    return null; // No writable cache file
+                }
+
+                // Create base checker (GH CLI or GitHub API)
+                if (\shell_exec('which gh 2>/dev/null')) {
+                    $baseChecker = new ManualUpdater\GhChecker($lang, $format, $currentVersion, $currentLang);
+                } else {
+                    $baseChecker = new ManualUpdater\GitHubChecker($lang, $format, $currentVersion, $currentLang);
+                }
+
+                return new ManualUpdater\IntervalChecker($baseChecker, $checkFile, $interval);
+
+            case ManualUpdater\Checker::NEVER:
+            default:
+                return null;
+        }
+    }
+
+    /**
+     * Get a cache file path for the manual update checker.
+     *
+     * @return string|false Return false if config file/directory is not writable
+     */
+    public function getManualUpdateCheckCacheFile()
+    {
+        $configDir = $this->configPaths->currentConfigDir();
+        if ($configDir === null) {
+            return false;
+        }
+
+        return ConfigPaths::touchFileWithMkdir($configDir.'/manual_update_check.json');
+    }
+
+    /**
+     * Get the manual installation directory path.
+     *
+     * @return string|false Return false if data directory is not writable
+     */
+    public function getManualInstallDir()
+    {
+        $dataDir = $this->configPaths->currentDataDir();
+        if ($dataDir === null) {
+            return false;
+        }
+
+        if (!ConfigPaths::ensureDir($dataDir)) {
+            return false;
+        }
+
+        return $dataDir;
     }
 
     /**
