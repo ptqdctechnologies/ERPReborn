@@ -115,9 +115,14 @@ class Batch
     public $finishedAt = null;
 
     /**
-     * Create a new request batch instance.
+     * The maximum number of concurrent requests.
      *
-     * @return void
+     * @var int|null
+     */
+    protected $concurrencyLimit = null;
+
+    /**
+     * Create a new request batch instance.
      */
     public function __construct(?Factory $factory = null)
     {
@@ -211,6 +216,19 @@ class Batch
     }
 
     /**
+     * Set the maximum number of concurrent requests.
+     *
+     * @param  int  $limit
+     * @return Batch
+     */
+    public function concurrency(int $limit): self
+    {
+        $this->concurrencyLimit = $limit;
+
+        return $this;
+    }
+
+    /**
      * Defer the batch to run in the background after the current task has finished.
      *
      * @return \Illuminate\Support\Defer\DeferredCallback
@@ -246,7 +264,7 @@ class Batch
         }
 
         if (! empty($promises)) {
-            (new EachPromise($promises, [
+            $eachPromiseOptions = [
                 'fulfilled' => function ($result, $key) use (&$results) {
                     $results[$key] = $result;
 
@@ -287,7 +305,13 @@ class Batch
 
                     return $reason;
                 },
-            ]))->promise()->wait();
+            ];
+
+            if ($this->concurrencyLimit !== null) {
+                $eachPromiseOptions['concurrency'] = $this->concurrencyLimit;
+            }
+
+            (new EachPromise($promises, $eachPromiseOptions))->promise()->wait();
         }
 
         // Before returning the results, we must ensure that the results are sorted
