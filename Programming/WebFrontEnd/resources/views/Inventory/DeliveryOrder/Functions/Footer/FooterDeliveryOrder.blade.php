@@ -75,14 +75,20 @@
 
         $("#internal_use_site_code").css("border", "1px solid #ced4da");
         $("#internal_use_site_name").css({"border": "1px solid #ced4da", "background-color": "#fff"});
+        $("#internal_use_site_trigger").css("cursor", "not-allowed");
+        $("#internal_use_site_trigger").prop("disabled", true);
         $("#internal_use_site_message").hide();
 
         $("#internal_use_delivery_from_name").css("border", "1px solid #ced4da");
         $("#internal_use_delivery_from_address").css({"border": "1px solid #ced4da", "background-color": "#fff"});
+        $("#internal_use_delivery_from_trigger").css("cursor", "not-allowed");
+        $("#internal_use_delivery_from_trigger").prop("disabled", true);
         $("#internal_use_delivery_from_message").hide();
 
         $("#internal_use_delivery_to_name").css("border", "1px solid #ced4da");
         $("#internal_use_delivery_to_address").css({"border": "1px solid #ced4da", "background-color": "#fff"});
+        $("#internal_use_delivery_to_trigger").css("cursor", "not-allowed");
+        $("#internal_use_delivery_to_trigger").prop("disabled", true);
         $("#internal_use_delivery_to_message").hide();
 
         // STOCK MOVEMENT
@@ -105,14 +111,20 @@
 
         $("#stock_movement_requester_position").css("border", "1px solid #ced4da");
         $("#stock_movement_requester_name").css({"border": "1px solid #ced4da", "background-color": "#fff"});
+        $("#stock_movement_requester_trigger").css("cursor", "not-allowed");
+        $("#stock_movement_requester_trigger").prop("disabled", true);
         $("#stock_movement_requester_message").hide();
 
         $("#stock_movement_delivery_from_name").css("border", "1px solid #ced4da");
         $("#stock_movement_delivery_from_address").css({"border": "1px solid #ced4da", "background-color": "#fff"});
+        $("#stock_movement_delivery_from_trigger").css("cursor", "not-allowed");
+        $("#stock_movement_delivery_from_trigger").prop("disabled", true);
         $("#stock_movement_delivery_from_message").hide();
 
         $("#stock_movement_delivery_to_name").css("border", "1px solid #ced4da");
         $("#stock_movement_delivery_to_address").css({"border": "1px solid #ced4da", "background-color": "#fff"});
+        $("#stock_movement_delivery_to_trigger").css("cursor", "not-allowed");
+        $("#stock_movement_delivery_to_trigger").prop("disabled", true);
         $("#stock_movement_delivery_to_message").hide();
         
         $("#stock_movement_status").css("border", "1px solid #ced4da");
@@ -1189,6 +1201,15 @@
             $("#internal_use_budget_name").css({"border": "1px solid #ced4da", "background-color": "#e9ecef"});
             $("#internal_use_budget_message").hide();
 
+            $("#internal_use_site_trigger").css("cursor", "pointer");
+            $("#internal_use_site_trigger").prop("disabled", false);
+
+            $("#internal_use_delivery_from_trigger").css("cursor", "pointer");
+            $("#internal_use_delivery_from_trigger").prop("disabled", false);
+            
+            $("#internal_use_delivery_to_trigger").css("cursor", "pointer");
+            $("#internal_use_delivery_to_trigger").prop("disabled", false);
+
             getSiteSecond(sysId);
         } else if (referenceTypeValue.value == "2") {
             $("#stock_movement_budget_id").val(sysId);
@@ -1198,6 +1219,15 @@
             $("#stock_movement_budget_code").css("border", "1px solid #ced4da");
             $("#stock_movement_budget_name").css({"border": "1px solid #ced4da", "background-color": "#e9ecef"});
             $("#stock_movement_budget_message").hide();
+
+            $("#stock_movement_requester_trigger").css("cursor", "pointer");
+            $("#stock_movement_requester_trigger").prop("disabled", false);
+
+            $("#stock_movement_delivery_from_trigger").css("cursor", "pointer");
+            $("#stock_movement_delivery_from_trigger").prop("disabled", false);
+
+            $("#stock_movement_delivery_to_trigger").css("cursor", "pointer");
+            $("#stock_movement_delivery_to_trigger").prop("disabled", false);
         }
 
         $("#var_combinedBudget_RefID").val(sysId);
