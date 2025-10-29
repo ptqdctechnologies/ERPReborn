@@ -41,13 +41,18 @@
         $(`#purchase_order_delivery_from_duplicate`).val("");
         $(`#purchase_order_delivery_from`).val("");
 
-        $("#purchase_order_delivery_from").css("border", "1px solid #ced4da");
+        $(`#purchase_order_delivery_to_id_duplicate`).val("");
+        $(`#purchase_order_delivery_to_id`).val("");
+        $(`#purchase_order_delivery_to_duplicate`).val("");
+        $(`#purchase_order_delivery_to`).val("");
+
+        $("#purchase_order_delivery_from").css({"border": "1px solid #ced4da", "background-color": "#e9ecef"});
         $("#purchase_order_delivery_from_message").hide();
 
-        $("#purchase_order_delivery_to").css("border", "1px solid #ced4da");
+        $("#purchase_order_delivery_to").css({"border": "1px solid #ced4da", "background-color": "#e9ecef"});
         $("#purchase_order_delivery_to_message").hide();
 
-        $("#purchase_order_number").css("border", "1px solid #ced4da");
+        $("#purchase_order_number").css({"border": "1px solid #ced4da", "background-color": "#fff"});
         $("#purchase_order_message").hide();
 
         // INTERNAL USE
@@ -65,19 +70,19 @@
         $(`#internal_use_delivery_to_address`).val("");
 
         $("#internal_use_budget_code").css("border", "1px solid #ced4da");
-        $("#internal_use_budget_name").css("border", "1px solid #ced4da");
+        $("#internal_use_budget_name").css({"border": "1px solid #ced4da", "background-color": "#fff"});
         $("#internal_use_budget_message").hide();
 
         $("#internal_use_site_code").css("border", "1px solid #ced4da");
-        $("#internal_use_site_name").css("border", "1px solid #ced4da");
+        $("#internal_use_site_name").css({"border": "1px solid #ced4da", "background-color": "#fff"});
         $("#internal_use_site_message").hide();
 
         $("#internal_use_delivery_from_name").css("border", "1px solid #ced4da");
-        $("#internal_use_delivery_from_address").css("border", "1px solid #ced4da");
+        $("#internal_use_delivery_from_address").css({"border": "1px solid #ced4da", "background-color": "#fff"});
         $("#internal_use_delivery_from_message").hide();
 
         $("#internal_use_delivery_to_name").css("border", "1px solid #ced4da");
-        $("#internal_use_delivery_to_address").css("border", "1px solid #ced4da");
+        $("#internal_use_delivery_to_address").css({"border": "1px solid #ced4da", "background-color": "#fff"});
         $("#internal_use_delivery_to_message").hide();
 
         // STOCK MOVEMENT
@@ -95,19 +100,19 @@
         $(`#stock_movement_delivery_to_address`).val("");
 
         $("#stock_movement_budget_code").css("border", "1px solid #ced4da");
-        $("#stock_movement_budget_name").css("border", "1px solid #ced4da");
+        $("#stock_movement_budget_name").css({"border": "1px solid #ced4da", "background-color": "#fff"});
         $("#stock_movement_budget_message").hide();
 
         $("#stock_movement_requester_position").css("border", "1px solid #ced4da");
-        $("#stock_movement_requester_name").css("border", "1px solid #ced4da");
+        $("#stock_movement_requester_name").css({"border": "1px solid #ced4da", "background-color": "#fff"});
         $("#stock_movement_requester_message").hide();
 
         $("#stock_movement_delivery_from_name").css("border", "1px solid #ced4da");
-        $("#stock_movement_delivery_from_address").css("border", "1px solid #ced4da");
+        $("#stock_movement_delivery_from_address").css({"border": "1px solid #ced4da", "background-color": "#fff"});
         $("#stock_movement_delivery_from_message").hide();
 
         $("#stock_movement_delivery_to_name").css("border", "1px solid #ced4da");
-        $("#stock_movement_delivery_to_address").css("border", "1px solid #ced4da");
+        $("#stock_movement_delivery_to_address").css({"border": "1px solid #ced4da", "background-color": "#fff"});
         $("#stock_movement_delivery_to_message").hide();
         
         $("#stock_movement_status").css("border", "1px solid #ced4da");
@@ -441,8 +446,6 @@
             default:
                 break;
         }
-
-        console.log('dataStore', dataStore);
     }
 
     function validationForm() {
@@ -687,8 +690,6 @@
             success: function(res) {
                 HideLoading();
 
-                console.log('res', res);
-
                 if (res.status === 200) {
                     const swalWithBootstrapButtons = Swal.mixin({
                         confirmButtonClass: 'btn btn-success btn-sm',
@@ -883,8 +884,10 @@
                         $("#purchase_order_delivery_to").css("border", "1px solid #ced4da");
                         $("#purchase_order_delivery_to_message").hide();
 
-                        $("#purchase_order_number").css("border", "1px solid #ced4da");
+                        $("#purchase_order_number").css({"border": "1px solid #ced4da", "background-color": "#e9ecef"});
                         $("#purchase_order_message").hide();
+
+                        $("#loading-purchase-order").hide();
 
                         let modifyColumn = `<td rowspan="${data.length}" style="text-align: center; padding: 10px !important;">${purchaseOrderNumber}</td>`;
 
@@ -955,6 +958,8 @@
             let table   = $('#TableSearchPORevision').DataTable();
             let data    = table.row(this).data();
 
+            $("#loading-purchase-order").show();
+            
             if (data) {
                 $("#mySearchPO").modal('toggle');
 
@@ -992,6 +997,9 @@
                 url: '{!! route("getBudget") !!}?site_code=' + site_code,
                 success: function(data) {
                     if (Array.isArray(data) && data.length > 0) {
+                        $('#table_reference_type_detail tbody').show();
+                        $("#loading-internal-use").hide();
+
                         $.each(data, function(key, val) {
                             if (val.product_RefID) {
                                 let row = `
@@ -1061,11 +1069,14 @@
 
             $("#internal_use_site_id").val(sysId);
             $("#internal_use_site_code").val(siteCode);
-            $("#internal_use_site_name").val(siteName);
+            $("#internal_use_site_name").val(`${siteCode} - ${siteName}`);
 
             $("#internal_use_site_code").css("border", "1px solid #ced4da");
-            $("#internal_use_site_name").css("border", "1px solid #ced4da");
+            $("#internal_use_site_name").css({"border": "1px solid #ced4da", "background-color": "#e9ecef"});
             $("#internal_use_site_message").hide();
+
+            $("#loading-internal-use").show();
+            $('#table_reference_type_detail tbody').hide();
 
             getBudgetDetails(sysId);
 
@@ -1090,6 +1101,9 @@
         function getStockDetail(deliveryFrom_RefID) {
             let stockMovementBudget_RefID = document.getElementById("stock_movement_budget_id");
 
+            $("#loading-stock-movement").show();
+            $('#table_reference_type_detail tbody').empty();
+
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -1100,6 +1114,8 @@
                 type: 'GET',
                 url: '{!! route("DeliveryOrder.StockDetail") !!}?combinedBudget_RefID=' + stockMovementBudget_RefID.value + '&warehouse_RefID=' + deliveryFrom_RefID,
                 success: async function(data) {
+                    $("#loading-stock-movement").hide();
+
                     if (Array.isArray(data) && data.length > 0) {
                         $('#table_reference_type_detail tbody').empty();
 
@@ -1153,6 +1169,7 @@
                     }
                 },
                 error: function (textStatus, errorThrown) {
+                    $("#loading-stock-movement").hide();
                 }
             });
         }
@@ -1166,20 +1183,20 @@
         if (referenceTypeValue.value == "1") {
             $("#internal_use_budget_id").val(sysId);
             $("#internal_use_budget_code").val(projectCode);
-            $("#internal_use_budget_name").val(projectName);
+            $("#internal_use_budget_name").val(`${projectCode} - ${projectName}`);
 
             $("#internal_use_budget_code").css("border", "1px solid #ced4da");
-            $("#internal_use_budget_name").css("border", "1px solid #ced4da");
+            $("#internal_use_budget_name").css({"border": "1px solid #ced4da", "background-color": "#e9ecef"});
             $("#internal_use_budget_message").hide();
 
             getSiteSecond(sysId);
         } else if (referenceTypeValue.value == "2") {
             $("#stock_movement_budget_id").val(sysId);
             $("#stock_movement_budget_code").val(projectCode);
-            $("#stock_movement_budget_name").val(projectName);
+            $("#stock_movement_budget_name").val(`${projectCode} - ${projectName}`);
 
             $("#stock_movement_budget_code").css("border", "1px solid #ced4da");
-            $("#stock_movement_budget_name").css("border", "1px solid #ced4da");
+            $("#stock_movement_budget_name").css({"border": "1px solid #ced4da", "background-color": "#e9ecef"});
             $("#stock_movement_budget_message").hide();
         }
 
@@ -1194,11 +1211,11 @@
         let workerPosition  = $(this).find('td:nth-child(3)').text();
 
         $("#stock_movement_requester_id").val(sysId);
-        $("#stock_movement_requester_name").val(workerName);
         $("#stock_movement_requester_position").val(workerPosition);
+        $("#stock_movement_requester_name").val(`${workerPosition} - ${workerName}`);
 
         $("#stock_movement_requester_position").css("border", "1px solid #ced4da");
-        $("#stock_movement_requester_name").css("border", "1px solid #ced4da");
+        $("#stock_movement_requester_name").css({"border": "1px solid #ced4da", "background-color": "#e9ecef"});
         $("#stock_movement_requester_message").hide();
 
         $("#myWorkerSecond").modal('toggle');
@@ -1213,38 +1230,38 @@
             if (deliveryType == "from_internal_use") {
                 $("#internal_use_delivery_from_id").val(id);
                 $("#internal_use_delivery_from_name").val(name);
-                $("#internal_use_delivery_from_address").val(address);
+                $("#internal_use_delivery_from_address").val(`${name} - ${address}`);
 
                 $("#internal_use_delivery_from_name").css("border", "1px solid #ced4da");
-                $("#internal_use_delivery_from_address").css("border", "1px solid #ced4da");
+                $("#internal_use_delivery_from_address").css({"border": "1px solid #ced4da", "background-color": "#e9ecef"});
                 $("#internal_use_delivery_from_message").hide();
             } else if (deliveryType == "to_internal_use") {
                 $("#internal_use_delivery_to_id").val(id);
                 $("#internal_use_delivery_to_name").val(name);
-                $("#internal_use_delivery_to_address").val(address);
+                $("#internal_use_delivery_to_address").val(`${name} - ${address}`);
 
                 $("#internal_use_delivery_to_name").css("border", "1px solid #ced4da");
-                $("#internal_use_delivery_to_address").css("border", "1px solid #ced4da");
+                $("#internal_use_delivery_to_address").css({"border": "1px solid #ced4da", "background-color": "#e9ecef"});
                 $("#internal_use_delivery_to_message").hide();
             }
         } else if (referenceTypeValue.value == "2") {
             if (deliveryType == "from_stock_movement") {
                 $("#stock_movement_delivery_from_id").val(id);
                 $("#stock_movement_delivery_from_name").val(name);
-                $("#stock_movement_delivery_from_address").val(address);
+                $("#stock_movement_delivery_from_address").val(`${name} - ${address}`);
 
                 $("#stock_movement_delivery_from_name").css("border", "1px solid #ced4da");
-                $("#stock_movement_delivery_from_address").css("border", "1px solid #ced4da");
+                $("#stock_movement_delivery_from_address").css({"border": "1px solid #ced4da", "background-color": "#e9ecef"});
                 $("#stock_movement_delivery_from_message").hide();
 
                 getStockDetail(id);
             } else if (deliveryType == "to_stock_movement") {
                 $("#stock_movement_delivery_to_id").val(id);
                 $("#stock_movement_delivery_to_name").val(name);
-                $("#stock_movement_delivery_to_address").val(address);
+                $("#stock_movement_delivery_to_address").val(`${name} - ${address}`);
 
                 $("#stock_movement_delivery_to_name").css("border", "1px solid #ced4da");
-                $("#stock_movement_delivery_to_address").css("border", "1px solid #ced4da");
+                $("#stock_movement_delivery_to_address").css({"border": "1px solid #ced4da", "background-color": "#e9ecef"});
                 $("#stock_movement_delivery_to_message").hide();
             }
         }
@@ -1275,27 +1292,6 @@
 
         $("#myTransporters").modal('toggle');
     });
-
-    // $('#tableGetTransporter tbody').on('click', 'tr', function () {
-    //     let sysId               = $(this).find('input[data-trigger="sys_id_transporter"]').val();
-    //     let fax                 = $(this).find('input[data-trigger="fax_transporter"]').val();
-    //     let phone               = $(this).find('input[data-trigger="phone_transporter"]').val();
-    //     let email               = $(this).find('input[data-trigger="email_transporter"]').val();
-    //     let phoneOffice         = $(this).find('input[data-trigger="office_phone_transporter"]').val();
-    //     let address             = $(this).find('input[data-trigger="address_transporter"]').val();
-    //     let transporterNames    = $(this).find('td:nth-child(2)').text();
-
-    //     $("#transporter_id").val(sysId);
-    //     $("#transporter_name").val(transporterNames);
-    //     $("#transporter_phone").val(phone);
-    //     $("#transporter_fax").val(fax);
-    //     $("#transporter_contact").val(email);
-    //     $("#transporter_handphone").val(phoneOffice);
-    //     $("#transporter_address").val(address);
-
-    //     $("#transporter_name").css("border", "1px solid #ced4da");
-    //     $("#transporter_message").hide();
-    // });
 
     $('#purchase_order_delivery_from').on('input', function(e) {
         let deliveryFromDuplicate       = document.getElementById("purchase_order_delivery_from_duplicate");

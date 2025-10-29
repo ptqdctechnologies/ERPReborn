@@ -50,6 +50,70 @@
             </tr>
         </thead>
         <tbody></tbody>
+        <tfoot>
+            <tr id="loading-purchase-order" style="display: none;">
+                <td colspan="10" class="p-0" style="border: 0px; height: 150px;">
+                    <div class="d-flex flex-column justify-content-center align-items-center py-3">
+                        <div class="spinner-border" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                        <div class="mt-3" style="font-size: 0.75rem; font-weight: 700;">
+                            Loading...
+                        </div>
+                    </div>
+                </td>
+            </tr>
+
+            <tr id="message-container-purchase-order" style="display: none;">
+                <td colspan="10" class="p-0" style="border: 0px;">
+                    <div class="d-flex flex-column justify-content-center align-items-center py-3">
+                        <div id="message-purchase-order" class="mt-3 text-red" style="font-size: 1rem; font-weight: 700;"></div>
+                    </div>
+                </td>
+            </tr>
+
+            <tr id="loading-internal-use" style="display: none;">
+                <td colspan="14" class="p-0" style="border: 0px; height: 150px;">
+                    <div class="d-flex flex-column justify-content-center align-items-center py-3">
+                        <div class="spinner-border" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                        <div class="mt-3" style="font-size: 0.75rem; font-weight: 700;">
+                            Loading...
+                        </div>
+                    </div>
+                </td>
+            </tr>
+
+            <tr id="message-container-internal-use" style="display: none;">
+                <td colspan="14" class="p-0" style="border: 0px;">
+                    <div class="d-flex flex-column justify-content-center align-items-center py-3">
+                        <div id="message-internal-use" class="mt-3 text-red" style="font-size: 1rem; font-weight: 700;"></div>
+                    </div>
+                </td>
+            </tr>
+
+            <tr id="loading-stock-movement" style="display: none;">
+                <td colspan="11" class="p-0" style="border: 0px; height: 150px;">
+                    <div class="d-flex flex-column justify-content-center align-items-center py-3">
+                        <div class="spinner-border" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                        <div class="mt-3" style="font-size: 0.75rem; font-weight: 700;">
+                            Loading...
+                        </div>
+                    </div>
+                </td>
+            </tr>
+
+            <tr id="message-container-stock-movement" style="display: none;">
+                <td colspan="11" class="p-0" style="border: 0px;">
+                    <div class="d-flex flex-column justify-content-center align-items-center py-3">
+                        <div id="message-stock-movement" class="mt-3 text-red" style="font-size: 1rem; font-weight: 700;"></div>
+                    </div>
+                </td>
+            </tr>
+        </tfoot>
     </table>
 </div>
 
