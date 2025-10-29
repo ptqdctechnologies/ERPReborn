@@ -107,7 +107,7 @@
 
     function updateGrandTotal() {
         let total = 0;
-        const rows = document.querySelectorAll('#tableDeliverOrderDetailList tbody tr');
+        const rows = document.querySelectorAll('#delivery_order_list_table_modal tbody tr');
 
         rows.forEach(row => {
             const totalCell = row.children[5];
@@ -115,12 +115,12 @@
             total += value;
         });
 
-        document.getElementById('GrandTotal').innerText = `Total: ${total}`;
+        document.getElementById('delivery_order_list_total_modal').innerText = `Total: ${total}`;
     }
 
     function summaryData() {
         const sourceTable = document.getElementById('tableReferenceNumberDetail').getElementsByTagName('tbody')[0];
-        const targetTable = document.getElementById('tableDeliverOrderDetailList').getElementsByTagName('tbody')[0];
+        const targetTable = document.getElementById('delivery_order_list_table_modal').getElementsByTagName('tbody')[0];
 
         const rows = sourceTable.getElementsByTagName('tr');
 
@@ -227,7 +227,7 @@
         const isInputNotEmpty           = validateQtyAndPriceWithHighlight();
 
         if (isDeliveryFromNotEmpty && isDeliveryToNotEmpty && isTableNotEmpty && isInputNotEmpty) {
-            $('#deliveryOrderFormModal').modal('show');
+            $('#delivery_order_submit_modal').modal('show');
             summaryData();
         } else {
             if (!isDeliveryFromNotEmpty && !isDeliveryToNotEmpty && !isTableNotEmpty) {
@@ -264,7 +264,7 @@
         let tbody = $('#tableReferenceNumberDetail tbody');
         tbody.empty();
 
-        let tbodyList = $('#tableDeliverOrderDetailList tbody');
+        let tbodyList = $('#delivery_order_list_table_modal tbody');
         tbodyList.empty();
 
         $.each(dataDetail, function(key, val2) {
@@ -283,30 +283,87 @@
 
             let balanced = parseFloat(val2.quantity) - parseFloat(val2.qtyReq);
 
-            let row = `
-                <tr>
-                    <input id="record_RefID${key}" value="${val2.deliveryOrderDetail_ID}" type="hidden" />
-                    <input id="product_RefID${key}" value="${val2.product_RefID}" type="hidden" />
-                    <input id="quantityUnit_RefID${key}" value="${val2.quantityUnit_RefID || 73000000000008}" type="hidden" />
-                    <input id="reference_ID${key}" value="${val2.reference_ID}" type="hidden" />
+            let row = null;
 
-                    <td style="text-align: center;border:1px solid #e9ecef;">${val2.combinedBudgetSectionCode} - ${val2.combinedBudgetSectionName}</td>
-                    <td style="text-align: center;border:1px solid #e9ecef;">${val2.productCode || '-'}</td>
-                    <td style="text-align: center;border:1px solid #e9ecef;">${val2.productName || '-'}</td>
-                    <td style="text-align: center;border:1px solid #e9ecef;">${val2.quantityUnitName || '-'}</td>
-                    <td style="text-align: center;border:1px solid #e9ecef;">${val2.quantity || '-'}</td>
-                    <td style="text-align: center;border:1px solid #e9ecef;">${val2.qtyAvail || '-'}</td>
-                    <td style="border:1px solid #e9ecef;background-color:white; padding: 0.5rem !important; width: 100px;">
-                        <input class="form-control number-without-negative" id="qty_req${key}" data-index=${key} data-quantity=${val2.qtyReq || 0} autocomplete="off" value=${val2.qtyReq || 0} style="border-radius:0px;" />
-                    </td>
-                    <td style="border:1px solid #e9ecef;background-color:white; padding: 0.5rem !important; width: 100px;">
-                        <input class="form-control number-without-negative" id="balance${key}" autocomplete="off" style="border-radius:0px;" value="${currencyTotal(balanced || 0)}" disabled />
-                    </td>
-                    <td style="border:1px solid #e9ecef;background-color:white; padding: 0.5rem !important; width: 150px;">
-                        <textarea id="note${key}" class="form-control">${val2.notes || ''}</textarea>
-                    </td>
-                </tr>
-            `;
+            if (dataDetail[0].type == "PURCHASE_ORDER") {
+                row = `
+                    <tr>
+                        <input id="record_RefID${key}" value="${val2.deliveryOrderDetail_ID}" type="hidden" />
+                        <input id="product_RefID${key}" value="${val2.product_RefID}" type="hidden" />
+                        <input id="quantityUnit_RefID${key}" value="${val2.quantityUnit_RefID || 73000000000008}" type="hidden" />
+                        <input id="reference_ID${key}" value="${val2.reference_ID}" type="hidden" />
+
+                        <td style="text-align: center;border:1px solid #e9ecef;">${val2.combinedBudgetSectionCode} - ${val2.combinedBudgetSectionName}</td>
+                        <td style="text-align: center;border:1px solid #e9ecef;">${val2.productCode || '-'}</td>
+                        <td style="text-align: center;border:1px solid #e9ecef;">${val2.productName || '-'}</td>
+                        <td style="text-align: center;border:1px solid #e9ecef;">${val2.quantityUnitName || '-'}</td>
+                        <td style="text-align: center;border:1px solid #e9ecef;">${val2.quantity || '-'}</td>
+                        <td style="text-align: center;border:1px solid #e9ecef;">${val2.qtyAvail || '-'}</td>
+                        <td style="border:1px solid #e9ecef;background-color:white; padding: 0.5rem !important; width: 100px;">
+                            <input class="form-control number-without-negative" id="qty_req${key}" data-index=${key} data-quantity=${val2.qtyReq || 0} autocomplete="off" value=${val2.qtyReq || 0} style="border-radius:0px;" />
+                        </td>
+                        <td style="border:1px solid #e9ecef;background-color:white; padding: 0.5rem !important; width: 100px;">
+                            <input class="form-control number-without-negative" id="balance${key}" autocomplete="off" style="border-radius:0px;" value="${currencyTotal(balanced || 0)}" disabled />
+                        </td>
+                        <td style="border:1px solid #e9ecef;background-color:white; padding: 0.5rem !important; width: 150px;">
+                            <textarea id="note${key}" class="form-control">${val2.notes || ''}</textarea>
+                        </td>
+                    </tr>
+                `;
+            } else if (dataDetail[0].type == "INTERNAL_USE") {
+                row = `
+                    <tr>
+                        <input id="record_RefID${key}" value="${val2.deliveryOrderDetail_ID}" type="hidden" />
+                        <input id="product_RefID${key}" value="${val2.product_RefID}" type="hidden" />
+                        <input id="quantityUnit_RefID${key}" value="${val2.quantityUnit_RefID || 73000000000008}" type="hidden" />
+                        <input id="reference_ID${key}" value="${val2.reference_ID}" type="hidden" />
+
+                        <td style="text-align: center;border:1px solid #e9ecef;">${val2.combinedBudgetSectionCode} - ${val2.combinedBudgetSectionName}</td>
+                        <td style="text-align: center;border:1px solid #e9ecef;">${val2.productCode || '-'}</td>
+                        <td style="text-align: center;border:1px solid #e9ecef;">${val2.productName || '-'}</td>
+                        <td style="text-align: center;border:1px solid #e9ecef;">${val2.quantityUnitName || '-'}</td>
+                        <td style="text-align: center;border:1px solid #e9ecef;">-</td>
+                        <td style="text-align: center;border:1px solid #e9ecef;">-</td>
+                        <td style="text-align: center;border:1px solid #e9ecef;">-</td>
+                        <td style="text-align: center;border:1px solid #e9ecef;">-</td>
+                        <td style="text-align: center;border:1px solid #e9ecef;">-</td>
+                        <td style="text-align: center;border:1px solid #e9ecef;">-</td>
+                        <td style="text-align: center;border:1px solid #e9ecef;">-</td>
+                        <td style="border:1px solid #e9ecef;background-color:white; padding: 0.5rem !important; width: 100px;">
+                            <input class="form-control number-without-negative" id="qty_req${key}" data-index=${key} data-quantity=${val2.qtyReq || 0} autocomplete="off" value=${val2.qtyReq || 0} style="border-radius:0px;" />
+                        </td>
+                        <td style="border:1px solid #e9ecef;background-color:white; padding: 0.5rem !important; width: 100px;">
+                            <input class="form-control number-without-negative" id="balance${key}" autocomplete="off" style="border-radius:0px;" value="0.00" disabled />
+                        </td>
+                        <td style="border:1px solid #e9ecef;background-color:white; padding: 0.5rem !important; width: 150px;">
+                            <textarea id="note${key}" class="form-control">${val2.notes || ''}</textarea>
+                        </td>
+                    </tr>
+                `;
+            } else {
+                row = `
+                    <tr>
+                        <input id="record_RefID${key}" value="${val2.deliveryOrderDetail_ID}" type="hidden" />
+                        <input id="product_RefID${key}" value="${val2.product_RefID}" type="hidden" />
+                        <input id="quantityUnit_RefID${key}" value="${val2.quantityUnit_RefID || 73000000000008}" type="hidden" />
+                        <input id="reference_ID${key}" value="${val2.reference_ID}" type="hidden" />
+
+                        <td style="text-align: center;border:1px solid #e9ecef;">${val2.productCode || '-'}</td>
+                        <td style="text-align: center;border:1px solid #e9ecef;">${val2.productName || '-'}</td>
+                        <td style="text-align: center;border:1px solid #e9ecef;">${val2.quantityUnitName || '-'}</td>
+                        <td style="text-align: center;border:1px solid #e9ecef;">-</td>
+                        <td style="border:1px solid #e9ecef;background-color:white; padding: 0.5rem !important; width: 100px;">
+                            <input class="form-control number-without-negative" id="qty_req${key}" data-index=${key} data-quantity=${val2.qtyReq || 0} autocomplete="off" value=${val2.qtyReq || 0} style="border-radius:0px;" />
+                        </td>
+                        <td style="border:1px solid #e9ecef;background-color:white; padding: 0.5rem !important; width: 100px;">
+                            <input class="form-control number-without-negative" id="balance${key}" autocomplete="off" style="border-radius:0px;" value="0.00" disabled />
+                        </td>
+                        <td style="border:1px solid #e9ecef;background-color:white; padding: 0.5rem !important; width: 150px;">
+                            <textarea id="note${key}" class="form-control">${val2.notes || ''}</textarea>
+                        </td>
+                    </tr>
+                `;
+            }
 
             tbody.append(row);
 
@@ -354,7 +411,7 @@
         $("#deliveryOrderDetail").val(JSON.stringify(dataStore));
 
         document.getElementById('TotalReferenceNumber').textContent = currencyTotal(totalRefNumberDetail);
-        document.getElementById('GrandTotal').textContent = currencyTotal(totalRefNumberDetail);
+        document.getElementById('delivery_order_list_total_modal').textContent = currencyTotal(totalRefNumberDetail);
     }
 
     function SelectWorkFlow(formatData) {
@@ -432,8 +489,8 @@
         });
     }
 
-    function SubmitForm() {
-        $('#deliveryOrderFormModal').modal('hide');
+    function submitForm() {
+        $('#delivery_order_submit_modal').modal('hide');
 
         var action = $('#FormRevisionDeliveryOrder').attr("action");
         var method = $('#FormRevisionDeliveryOrder').attr("method");
