@@ -40,6 +40,25 @@
                         "minimum": 1,
                         "maximum": 9223372036854775807
                         },
+                    "pagination": {
+                        "type": "object",
+                        "properties": {
+                            "pageSize": {
+                                "type": [ "integer", "null" ],
+                                "minimum": 1,
+                                "maximum": 9223372036854775807
+                                },
+                            "pageShow": {
+                                "type": [ "integer", "null" ],
+                                "minimum": 1,
+                                "maximum": 9223372036854775807
+                                }
+                            },
+                        "required": [
+                            "pageSize",
+                            "pageShow"
+                            ]
+                        },
                     "dataFilter": {
                         "type": "object",
                         "properties": {
@@ -68,6 +87,7 @@
                     },
                 "required": [
                     "recordID",
+                    "pagination",
                     "dataFilter"
                     ]
                 }

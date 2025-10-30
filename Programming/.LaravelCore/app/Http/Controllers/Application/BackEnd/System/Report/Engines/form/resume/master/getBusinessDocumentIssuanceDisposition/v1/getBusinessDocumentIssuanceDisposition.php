@@ -80,6 +80,29 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\re
 
                                     (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
                                         $varUserSession,
+                                        'pageSize',
+                                        $varData['parameter']['pagination']
+                                        ) ? (
+                                            (!is_null($varData['parameter']['pagination']['pageSize'])) 
+                                                ? $varData['parameter']['pagination']['pageSize'] 
+                                                : null
+                                                ) 
+                                            : null
+                                    ),
+                                    (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
+                                        $varUserSession,
+                                        'pageShow',
+                                        $varData['parameter']['pagination']
+                                        ) ? (
+                                            (!is_null($varData['parameter']['pagination']['pageShow'])) 
+                                                ? $varData['parameter']['pagination']['pageShow'] 
+                                                : null
+                                                ) 
+                                            : null
+                                    ),
+
+                                    (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
+                                        $varUserSession,
                                         'businessDocumentNumber',
                                         $varData['parameter']['dataFilter']
                                         ) ? (
@@ -113,7 +136,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\re
                                             : null
                                     )
 
-                                    )
+                                    ),
+                                FALSE
                                 )
                             ))
                             {
