@@ -21,7 +21,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
         |                     ► http://172.28.0.4/report.form.documentForm.finance.getAdvanceToAdvanceSettlementSummary.v1_throughAPIGateway |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-07-30                                                                                           |
+        | ▪ Last Update     : 2025-10-30                                                                                           |
         | ▪ Creation Date   : 2025-07-30                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -39,12 +39,16 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
                 'latest',
                 [
                 'parameter' => [
-                    // 'CombinedBudgetCode' => 'Q000062',
-                    // 'CombinedBudgetSectionCode' => '235',
-                    // 'RequesterWorkerJobsPosition_RefID' => 164000000000559
-                    'CombinedBudgetCode' => NULL,
-                    'CombinedBudgetSectionCode' => NULL,
-                    'RequesterWorkerJobsPosition_RefID' => NULL     // ARF Requester
+                    'CombinedBudgetCode' => 'Q000062',
+                    'CombinedBudgetSectionCode' => '235',
+                    'RequesterWorkerJobsPosition_RefID' => 164000000000559,
+                    'StartDate' => '2025-02-25',
+                    'EndDate' => '2025-03-04',
+                    // 'CombinedBudgetCode' => NULL,
+                    // 'CombinedBudgetSectionCode' => NULL,
+                    // 'RequesterWorkerJobsPosition_RefID' => NULL,     // ARF Requester
+                    // 'StartDate' => NULL,
+                    // 'EndDate' => NULL,
                     ]
                 ]
                 );
