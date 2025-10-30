@@ -215,6 +215,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('getSubMenu', 'Function\FunctionController@getSubMenu')->name('getSubMenu');
     Route::get('getOneSubMenu', 'Function\FunctionController@getOneSubMenu')->name('getOneSubMenu');
     Route::get('getTransporter', 'Function\FunctionController@getTransporter')->name('getTransporter');
+    Route::get('getListTransactionByDocumentTypeID', 'Function\FunctionController@getListTransactionByDocumentTypeID')->name('getListTransactionByDocumentTypeID');
 
     // AP
     Route::get('DataPickList', 'Finance\AccountPayableController@DataPickList')->name('AccountPayable.DataPickList');
@@ -224,6 +225,9 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::post('ReportAccountPayableSummaryStore', 'Finance\AccountPayableController@ReportAccountPayableSummaryStore')->name('AccountPayable.ReportAccountPayableSummaryStore');
     Route::post('PrintExportReportAccountPayableSummary', 'Finance\AccountPayableController@PrintExportReportAccountPayableSummary')->name('AccountPayable.PrintExportReportAccountPayableSummary');
     Route::resource('AccountPayable', 'Finance\AccountPayableController');
+
+    // JOURNAL
+    Route::resource('Journal', 'Finance\JournalController');
 
     // ARF 
     Route::get('AdvanceListData', 'Process\Advance\AdvanceRequestController@AdvanceListData')->name('AdvanceRequest.AdvanceListData');
