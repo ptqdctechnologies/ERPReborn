@@ -2,6 +2,8 @@
 @section('main')
 @include('Partials.navbar')
 @include('Partials.sidebar')
+@include('getFunction.getChartOfAccount')
+@include('getFunction.getAllTransactions')
 
 <div class="content-wrapper">
     <section class="content">

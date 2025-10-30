@@ -1,20 +1,26 @@
 <script>
-    // Array utama penampung data baris
-    let journalDetails  = [];
-    let totalCredit     = 0;
-    let totalDebit      = 0;
+    let journalDetails              = [];
+    let totalCredit                 = 0;
+    let totalDebit                  = 0;
+    let currentIndexPickCOA         = null;
+    let currentIndexPickRefNumber   = null;
 
-    // Inisialisasi tabel pertama kali
-    function detailCashBank() {
-        journalDetails = []; // kosongkan array
-        addRow(); // buat baris pertama
+    function pickRefNumber(index) {
+        currentIndexPickRefNumber = index;
     }
 
-    // Tambah baris baru
+    function pickCOA(index) {
+        currentIndexPickCOA = index;
+    }
+
+    function detailCashBank() {
+        journalDetails = [];
+        addRow();
+    }
+
     function addRow() {
         const tbody = document.getElementById("journal_details_table_body");
 
-        // buat objek kosong untuk data baris baru
         const newRow = {
             ref_number_id: "",
             ref_number_name: "",
@@ -27,20 +33,16 @@
             coa_name: ""
         };
 
-        // push ke array utama
         journalDetails.push(newRow);
 
-        // render ulang tabel
         renderTable();
     }
 
-    // Hapus baris
     function removeRow(index) {
         journalDetails.splice(index, 1);
         renderTable();
     }
 
-    // Update value dari input ke array
     function updateField(index, field, value) {
         journalDetails[index][field] = value;
 
@@ -48,7 +50,6 @@
             totalDebitCredit();
         }
         
-        // console.log('index, field, value', index, field, value);
         // console.log("Updated:", journalDetails); // untuk debugging
     }
 
@@ -93,7 +94,6 @@
         document.getElementById('journal_details_table_total').textContent  = currencyTotal(totalPayment);
     }
 
-    // Render ulang isi tbody
     function renderTable() {
         const tbody = document.getElementById("journal_details_table_body");
         tbody.innerHTML = "";
@@ -124,13 +124,15 @@
                     <div class="input-group">
                         <div class="input-group-append">
                             <span class="input-group-text form-control" style="cursor:pointer;">
-                                <a data-toggle="modal" data-target="#"><i class="fas fa-search"></i></a>
+                                <a data-toggle="modal" data-target="${index === journalDetails.length - 1 ? '#' : '#myAllTransactions'}" onclick="pickRefNumber(${index})">
+                                    <i class="fas fa-search"></i>
+                                </a>
                             </span>
                         </div>
                         <input type="hidden" id="ref_number_id_${index}" value="${row.ref_number_id}">
                         <input type="text" id="ref_number_name_${index}" class="form-control" readonly
                             value="${row.ref_number_name}"
-                            onchange="updateField(${index}, 'ref_number_name', this.value)">
+                            onchange="updateField(${index}, 'ref_number_name', this.value)" style="background-color: ${index === journalDetails.length - 1 ? '' : 'white'};">
                     </div>
                 </td>
 
@@ -159,14 +161,14 @@
                     <div class="input-group">
                         <div class="input-group-append">
                             <span class="input-group-text form-control" style="cursor:pointer;">
-                                <a data-toggle="modal" data-target="#">
+                                <a data-toggle="modal" data-target="${index === journalDetails.length - 1 ? '#' : '#myGetChartOfAccount'}" onclick="pickCOA(${index})">
                                     <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="box" />
                                 </a>
                             </span>
                         </div>
                         <input type="hidden" id="coa_id_${index}" value="${row.coa_id}">
                         <input type="text" id="coa_name_${index}" class="form-control" readonly
-                            value="${row.coa_name}" onchange="updateField(${index}, 'coa_name', this.value)">
+                            value="${row.coa_name}" onchange="updateField(${index}, 'coa_name', this.value)" style="background-color: ${index === journalDetails.length - 1 ? '' : 'white'};">
                     </div>
                 </td>
 
@@ -196,12 +198,11 @@
         });
     }
 
-    // 🔹 Contoh kirim data ke controller (via AJAX Laravel)
     function submitJournalDetails() {
         console.log("Data siap dikirim:", journalDetails);
 
         $.ajax({
-            url: '/cashbank/save',  // ganti dengan route kamu
+            url: '/cashbank/save',  
             method: 'POST',
             data: {
                 _token: '{{ csrf_token() }}',
@@ -216,7 +217,37 @@
         });
     }
 
-    // Jalankan saat halaman load
+    $('#tableAllTransactions').on('click', 'tbody tr', function() {
+        let sysId   = $(this).find('input[data-trigger="sys_id_transaction"]').val();
+        let trano   = $(this).find('td:nth-child(2)').text();
+        let project = $(this).find('td:nth-child(3)').text();
+        let site    = $(this).find('td:nth-child(4)').text();
+
+        $(`#ref_number_id_${currentIndexPickRefNumber}`).val(sysId);
+        $(`#ref_number_name_${currentIndexPickRefNumber}`).val(trano);
+        $(`#ref_number_name_${currentIndexPickRefNumber}`).css('background-color', '#e9ecef');
+        
+        updateField(currentIndexPickRefNumber, 'ref_number_id', sysId);
+        updateField(currentIndexPickRefNumber, 'ref_number_name', trano);
+
+        $('#myAllTransactions').modal('hide');
+    });
+
+    $('#tableGetChartOfAccount').on('click', 'tbody tr', async function() {
+        let sysId = $(this).find('input[data-trigger="sys_id_modal_coa"]').val();
+        let code  = $(this).find('td:nth-child(2)').text();
+        let name  = $(this).find('td:nth-child(3)').text();
+        
+        $(`#coa_id_${currentIndexPickCOA}`).val(sysId);
+        $(`#coa_name_${currentIndexPickCOA}`).val(`${code} - ${name}`);
+        $(`#coa_name_${currentIndexPickCOA}`).css('background-color', '#e9ecef');
+
+        updateField(currentIndexPickCOA, 'coa_id', sysId);
+        updateField(currentIndexPickCOA, 'coa_name', `${code} - ${name}`);
+        
+        $('#myGetChartOfAccount').modal('hide');
+    });
+
     $(window).one('load', function() {
         detailCashBank();
     });
