@@ -4528,8 +4528,8 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getReport_Form_Resume_BusinessDocumentIssuanceDisposition                                            |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2023-06-20                                                                                           |
+        | ▪ Version         : 1.0001.0000000                                                                                       |
+        | ▪ Last Update     : 2025-10-30                                                                                           |
         | ▪ Creation Date   : 2023-06-20                                                                                           |
         | ▪ Description     : Mendapatkan Laporan Form - Disposisi Penerbitan Dokumen Bisnis                                       |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -4537,6 +4537,13 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ▪ (int)    varSysID ► Record ID                                                                                     |
+        |      ------------------------------                                                                                      |
+        |      ▪ (int)    varPagination_PageSize ► Pagination Page Size                                                            |
+        |      ▪ (int)    varPagination_PageShow ► Pagination Page Show                                                            |
+        |      ------------------------------                                                                                      |
+        |      ▪ (string) varBusinessDocumentNumber ► Business Document Number                                                     |
+        |      ▪ (int)    varBusinessDocumentType_RefID ► Business Document Type Reference ID                                      |
+        |      ▪ (int)    varCombinedBudget_RefID ► Combined Budget Reference ID                                                   |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -4544,6 +4551,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         public function getReport_Form_Resume_BusinessDocumentIssuanceDisposition(
             $varUserSession, int $varSysBranch_RefID,
             int $varSysID,
+            int $varPagination_PageSize = null, int $varPagination_PageShow = null,
             string $varBusinessDocumentNumber = null, int $varBusinessDocumentType_RefID = null, int $varCombinedBudget_RefID = null)
             {
             try {
@@ -4557,18 +4565,24 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varSysBranch_RefID, 'bigint'],
                                 [$varSysID, 'bigint'],
 
+                                [$varPagination_PageSize, 'bigint'],
+                                [$varPagination_PageShow, 'bigint'],
+
                                 [$varBusinessDocumentNumber, 'varchar'],
                                 [$varBusinessDocumentType_RefID, 'bigint'],
                                 [$varCombinedBudget_RefID, 'bigint']
                             ]
                             )
                         );
-
-                return [
+               
+                $varReturn['data'] = 
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
-                        $varReturn['data'][0]['Func_GetReport_Resume_BusinessDocumentIssuanceDisposition'])
-                    ];
+                        $varReturn['data'][0]['Func_GetReport_Resume_BusinessDocumentIssuanceDisposition']
+                        );
+
+                return
+                     $varReturn;
                 }
 
             catch (\Exception $ex) {

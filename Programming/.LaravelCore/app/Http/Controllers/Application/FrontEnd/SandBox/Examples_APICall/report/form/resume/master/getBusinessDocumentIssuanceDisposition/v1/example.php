@@ -48,12 +48,17 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
                     //-----[ DATA ]---------( START )-----
                         [
                         'parameter' => [
-                            'recordID' => 164000000000196,
+                            'recordID' => 4000000000399,
+                            'pagination' => [
+                                'pageSize' => 20000,
+                                'pageShow' => 1
+                                ],
                             'dataFilter' => [
-                                'businessDocumentNumber' => 'Adv/QDC/2023/000126',
+                                'businessDocumentNumber' => 'Adv/QDC', 
                                 'businessDocumentType_RefID' => NULL,
                                 'combinedBudget_RefID' => NULL
     /*                        
+     * //'Adv/QDC',
                                 'businessDocumentNumber' => 'Adv/QDC/2023/000098',
                                 'businessDocumentType_RefID' => 77000000000057,
                                 'combinedBudget_RefID' => 46000000000033
