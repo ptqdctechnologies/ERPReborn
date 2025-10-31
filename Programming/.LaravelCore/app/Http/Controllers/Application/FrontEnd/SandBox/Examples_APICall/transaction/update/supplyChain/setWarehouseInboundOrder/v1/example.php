@@ -23,7 +23,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         |                       transaction.update.supplyChain.setWarehouseInboundOrder.v1_throughAPIGateway                       |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-09-04                                                                                           |
+        | ▪ Last Update     : 2025-10-31                                                                                           |
         | ▪ Creation Date   : 2022-07-27                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -67,7 +67,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                         "productUnitPriceCurrency_RefID" => 62000000000001,
                                         "productUnitPriceCurrencyExchangeRate" => 1,
                                         "productUnitPriceCurrencyValue" => 25000,
-                                        'remarks' => 'Catatan Update - 3B'
+                                        'remarks' => 'Catatan Update - 3B',
+                                        "combinedBudgetSectionDetail_RefID" => 169000000000037,
                                         ]
                                     ],
                                     [
@@ -80,7 +81,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                         "productUnitPriceCurrency_RefID" => 62000000000001,
                                         "productUnitPriceCurrencyExchangeRate" => 1,
                                         "productUnitPriceCurrencyValue" => 30000,
-                                        'remarks' => 'Catatan Update - 4B'
+                                        'remarks' => 'Catatan Update - 4B',
+                                        "combinedBudgetSectionDetail_RefID" => 169000000000037,
                                         ]
                                     ],
                                 ]
