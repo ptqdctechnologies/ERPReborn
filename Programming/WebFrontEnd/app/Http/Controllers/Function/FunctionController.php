@@ -940,6 +940,37 @@ class FunctionController extends Controller
         }
     }
 
+    // businessDocumentType_RefID
+
+    public function getListTransactionByDocumentTypeID(Request $request)
+    {
+        try {
+            $varAPIWebToken             = Session::get('SessionLogin');
+            $businessDocumentTypeRefID  = $request->input('businessDocumentTypeRef_ID');
+
+            $response = Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'dataPickList.master.getBusinessDocumentFormLatestVersion', 
+                'latest', 
+                [
+                    'parameter' => [
+                        'businessDocumentType_RefID' => (int) $businessDocumentTypeRefID
+                    ]
+                ]
+            );
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                return response()->json($response);
+            }
+
+            return response()->json($response['data']['data']);
+        } catch (\Throwable $th) {
+            Log::error("Error at getCustomerList: " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
     public function getInvoiceList(Request $request)
     {
         try {

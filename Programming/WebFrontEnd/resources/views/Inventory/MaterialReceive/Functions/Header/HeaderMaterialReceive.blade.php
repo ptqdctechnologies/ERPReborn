@@ -17,8 +17,8 @@
                         </span>
                     </div>
                     <div>
-                        <input id="delivery_order_code" style="border-radius:0;" class="form-control" size="19" readonly>
                         <input id="delivery_order_id" style="border-radius:0;" name="delivery_order_id" class="form-control" hidden>
+                        <input id="delivery_order_code" style="border-radius:0; background-color: white;" class="form-control" size="19" readonly>
                     </div>
                 </div>
             </div>
@@ -45,7 +45,7 @@
                                 </span>
                             </div>
 
-                            <input type="text" size="19" id="receive_date" name="receive_date" class="form-control datetimepicker-input" data-target="#startDate" style="height: 21.8px;border-radius:0;background-color:#e9ecef;">
+                            <input type="text" size="19" id="receive_date" name="receive_date" class="form-control datetimepicker-input" data-target="#startDate" style="height: 21.8px;border-radius:0;background-color:#fff;">
                         </div>
                     </div>
                 </div>
@@ -72,13 +72,11 @@
                             </a>
                         </span>
                     </div>
-                    <div>
-                        <input hidden type="text" id="warehouse_id" name="warehouse_id" />
-                        <textarea disabled id="warehouse_name" rows="3" style="border-radius:0;" class="form-control"></textarea>
-                    </div>
                     <div style="flex: 100%;">
                         <div class="input-group">
-                            <textarea disabled id="warehouse_address" rows="3" style="border-radius:0;" class="form-control"></textarea>
+                            <input hidden type="text" id="warehouse_id" name="warehouse_id" />
+                            <textarea id="warehouse_name" class="form-control" style="border-radius:0;" rows="3" hidden></textarea>
+                            <textarea disabled id="warehouse_address" class="form-control" style="border-radius:0; background-color: white;" rows="3"></textarea>
                         </div>
                     </div>
                 </div>
@@ -173,8 +171,8 @@
                 </div>
             </div>
             <div class="row" id="deliveryFromMessage" style="margin-top: .3rem;display: none;">
-                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
-                <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                <label class="col-sm-3 col-md-4 col-lg-3 col-form-label p-0"></label>
+                <div class="col-sm-9 col-md-8 col-lg-6 p-0">
                     <div class="text-red">
                         Delivery From cannot be empty.
                     </div>
@@ -196,8 +194,8 @@
                 </div>
             </div>
             <div class="row" id="deliveryToMessage" style="margin-top: .3rem;display: none;">
-                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
-                <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                <label class="col-sm-3 col-md-4 col-lg-3 col-form-label p-0"></label>
+                <div class="col-sm-9 col-md-8 col-lg-6 p-0">
                     <div class="text-red">
                         Delivery To cannot be empty.
                     </div>

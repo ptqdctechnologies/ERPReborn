@@ -2,7 +2,8 @@
     let dataStore                           = [];
     const deliveryOrderCode                 = document.getElementById("delivery_order_code");
     const receiveDate                       = document.getElementById("receive_date");
-    const tableMaterialReceiveLists         = document.querySelector("#tableMaterialReceiveList tbody");
+    const receiveIn                         = document.getElementById("warehouse_id");
+    const tableMaterialReceiveLists         = document.querySelector("#material_receive_list_table_modal tbody");
 
     const addressDeliveryOrderFrom          = document.getElementById("address_delivery_order_from");
     const addressDeliveryOrderFromDuplicate = document.getElementById("address_delivery_order_from_duplicate");
@@ -27,14 +28,14 @@
 
     function updateGrandTotal() {
         let total = 0;
-        const rows = document.querySelectorAll('#tableMaterialReceiveList tbody tr');
+        const rows = document.querySelectorAll('#material_receive_list_table_modal tbody tr');
         rows.forEach(row => {
             const totalCell = row.children[4];
             const value = parseFloat(totalCell.innerText.replace(/,/g, '')) || 0;
             total += value;
         });
 
-        document.getElementById('GrandTotal').innerText = `Total ${decimalFormat(total)}`;
+        document.getElementById('material_receive_list_total_modal').innerText = `Total ${decimalFormat(total)}`;
     }
 
     function checkOneLineBudgetContents(indexInput) {
@@ -89,7 +90,7 @@
 
     function summaryData() {
         const sourceTable = document.getElementById('tableMaterialReceiveDetail').getElementsByTagName('tbody')[0];
-        const targetTable = document.getElementById('tableMaterialReceiveList').getElementsByTagName('tbody')[0];
+        const targetTable = document.getElementById('material_receive_list_table_modal').getElementsByTagName('tbody')[0];
 
         const rows = sourceTable.getElementsByTagName('tr');
 
@@ -185,22 +186,25 @@
     function validationForm() {
         const isDeliveryOrderCodeNotEmpty           = deliveryOrderCode.value.trim() !== '';
         const isReceiveDateNotEmpty                 = receiveDate.value.trim() !== '';
+        const isReceiveInNotEmpty                   = receiveIn.value.trim() !== '';
         const isAddressDeliveryOrderFromNotEmpty    = addressDeliveryOrderFrom.value.trim() !== '';
         const isAddressDeliveryOrderToNotEmpty      = addressDeliveryOrderTo.value.trim() !== '';
         const isTableNotEmpty                       = checkOneLineBudgetContents();
 
-        if (isDeliveryOrderCodeNotEmpty && isReceiveDateNotEmpty && isAddressDeliveryOrderFromNotEmpty && isAddressDeliveryOrderToNotEmpty && isTableNotEmpty) {
-            $('#materialReceiveFormModal').modal('show');
+        if (isDeliveryOrderCodeNotEmpty && isReceiveDateNotEmpty && isReceiveInNotEmpty && isAddressDeliveryOrderFromNotEmpty && isAddressDeliveryOrderToNotEmpty && isTableNotEmpty) {
+            $('#material_receive_submit_modal').modal('show');
             summaryData();
         } else {
-            if (!isDeliveryOrderCodeNotEmpty && !isReceiveDateNotEmpty && !isAddressDeliveryOrderFromNotEmpty && !isAddressDeliveryOrderToNotEmpty) {
+            if (!isDeliveryOrderCodeNotEmpty && !isReceiveDateNotEmpty && !isReceiveInNotEmpty && !isAddressDeliveryOrderFromNotEmpty && !isAddressDeliveryOrderToNotEmpty) {
                 $("#delivery_order_code").css("border", "1px solid red");
                 $("#receive_date").css("border", "1px solid red");
+                $("#warehouse_address").css("border", "1px solid red");
                 $("#address_delivery_order_from").css("border", "1px solid red");
                 $("#address_delivery_order_to").css("border", "1px solid red");
 
                 $("#deliveryOrderMessage").show();
                 $("#receiveDateMessage").show();
+                $("#receiveInMessage").show();
                 $("#deliveryFromMessage").show();
                 $("#deliveryToMessage").show();
                 return;
@@ -213,6 +217,11 @@
             if (!isReceiveDateNotEmpty) {
                 $("#receive_date").css("border", "1px solid red");
                 $("#receiveDateMessage").show();
+                return;
+            }
+            if (!isReceiveInNotEmpty) {
+                $("#warehouse_address").css("border", "1px solid red");
+                $("#receiveInMessage").show();
                 return;
             }
             if (!isAddressDeliveryOrderFromNotEmpty) {
@@ -454,8 +463,8 @@
         window.location.href = "{{ route('MaterialReceive.index', ['var' => 1]) }}";
     }
 
-    function SubmitForm() {
-        $('#materialReceiveFormModal').modal('hide');
+    function submitForm() {
+        $('#material_receive_submit_modal').modal('hide');
 
         let action = $('#FormSubmitMaterialReceive').attr("action");
         let method = $('#FormSubmitMaterialReceive').attr("method");
@@ -510,10 +519,10 @@
     }
 
     $('#tableGetDeliveryOrder').on('click', 'tbody tr', function() {
-        var sysId       = $(this).find('input[data-trigger="sys_id_delivery_order"]').val();
-        var projectCode = $(this).find('td:nth-child(2)').text();
+        let sysId       = $(this).find('input[data-trigger="sys_id_delivery_order"]').val();
+        let projectCode = $(this).find('td:nth-child(2)').text();
 
-        $("#delivery_order_code").css("border", "1px solid #ced4da");
+        $("#delivery_order_code").css({"border": "1px solid #ced4da", "background-color": "#e9ecef"});
         $("#deliveryOrderMessage").hide();
         GetDeliveryOrderDetail(sysId, projectCode);
     });
@@ -525,7 +534,9 @@
 
         $("#warehouse_id").val(sysId);
         $("#warehouse_name").val(name);
-        $("#warehouse_address").val(address);
+        $("#warehouse_address").val(`${name} - ${address}`);
+        $("#warehouse_address").css({"border": "1px solid #ced4da", "background-color": "#e9ecef"});
+        $("#receiveInMessage").hide();
 
         $("#myGetModalWarehouses").modal('toggle');
     });
@@ -554,6 +565,16 @@
 
         $('#startDate').datetimepicker({
             format: 'L'
+        });
+
+        $('#startDate').on('change.datetimepicker', function (e) {
+            if (receiveDate.value) {
+                $("#receive_date").css({
+                    "background-color": "#e9ecef",
+                    "border": "1px solid #ced4da"
+                });
+                $("#receiveDateMessage").hide();
+            }
         });
     });
 </script>

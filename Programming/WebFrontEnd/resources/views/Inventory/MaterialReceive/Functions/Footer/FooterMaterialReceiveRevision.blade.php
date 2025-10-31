@@ -81,14 +81,14 @@
 
     function updateGrandTotal() {
         let total = 0;
-        const rows = document.querySelectorAll('#tableMaterialReceiveList tbody tr');
+        const rows = document.querySelectorAll('#material_receive_list_table_modal tbody tr');
         rows.forEach(row => {
             const totalCell = row.children[6];
             const value = parseFloat(totalCell.innerText.replace(/,/g, '')) || 0;
             total += value;
         });
 
-        document.getElementById('GrandTotal').innerText = `Total: ${decimalFormat(total)}`;
+        document.getElementById('material_receive_list_total_modal').innerText = `Total: ${decimalFormat(total)}`;
     }
 
     function checkOneLineBudgetContents(indexInput) {
@@ -143,7 +143,7 @@
 
     function summaryData() {
         const sourceTable = document.getElementById('tableMaterialReceiveDetail').getElementsByTagName('tbody')[0];
-        const targetTable = document.getElementById('tableMaterialReceiveList').getElementsByTagName('tbody')[0];
+        const targetTable = document.getElementById('material_receive_list_table_modal').getElementsByTagName('tbody')[0];
 
         const rows = sourceTable.getElementsByTagName('tr');
 
@@ -258,7 +258,7 @@
         const isInputNotEmpty           = validateQtyAndPriceWithHighlight();
 
         if (isReceiveDateNotEmpty && isDeliveryFromNotEmpty && isDeliveryToNotEmpty && isTableNotEmpty && isInputNotEmpty) {
-            $('#materialReceiveFormModal').modal('show');
+            $('#material_receive_submit_modal').modal('show');
             summaryData();
         } else {
             if (!isReceiveDateNotEmpty && !isDeliveryFromNotEmpty && !isDeliveryToNotEmpty) {
@@ -300,7 +300,7 @@
         let tbody = $('#tableMaterialReceiveDetail tbody');
         tbody.empty();
 
-        let tbodyList = $('#tableMaterialReceiveList tbody');
+        let tbodyList = $('#material_receive_list_table_modal tbody');
         tbodyList.empty();
 
         let totalRequest = 0;
@@ -464,7 +464,7 @@
     }
 
     function submitForm() {
-        $('#materialReceiveFormModal').modal('hide');
+        $('#material_receive_submit_modal').modal('hide');
 
         let action = $('#FormSubmitRevisionMaterialReceive').attr("action");
         let method = $('#FormSubmitRevisionMaterialReceive').attr("method");

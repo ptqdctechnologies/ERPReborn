@@ -41,7 +41,7 @@
               </span>
             </div>
             <div>
-              <input id="purchase_order_number" style="border-radius:0;" class="form-control" size="20" readonly>
+              <input id="purchase_order_number" style="border-radius:0; background-color: white;" class="form-control" readonly>
               <input id="purchase_order_id" style="border-radius:0;" name="purchase_order_id" class="form-control" hidden>
             </div>
           </div>
@@ -87,13 +87,9 @@
               </span>
             </div>
             <div>
-              <input id="internal_use_budget_code" style="border-radius:0;" class="form-control" size="17" readonly>
               <input id="internal_use_budget_id" name="internal_use_budget_id" style="border-radius:0;" class="form-control" hidden>
-            </div>
-            <div style="flex: 100%;">
-              <div class="input-group">
-                <input id="internal_use_budget_name" style="border-radius:0;" class="form-control" readonly>
-              </div>
+              <input id="internal_use_budget_code" style="border-radius:0;" class="form-control" hidden>
+              <input id="internal_use_budget_name" style="border-radius:0; background-color: white;" class="form-control" readonly>
             </div>
           </div>
         </div>
@@ -120,13 +116,9 @@
               </span>
             </div>
             <div>
-              <input id="internal_use_site_code" class="form-control" style="border-radius:0;" size="17" readonly>
-              <input id="internal_use_site_id" class="form-control" name="internal_use_site_id" style="border-radius:0;" hidden>
-            </div>
-            <div style="flex: 100%;">
-              <div class="input-group">
-                <input id="internal_use_site_name" style="border-radius:0;" class="form-control" readonly>
-              </div>
+              <input id="internal_use_site_id" class="form-control" style="border-radius:0;" name="internal_use_site_id" hidden>
+              <input id="internal_use_site_code" class="form-control" style="border-radius:0;" hidden>
+              <input id="internal_use_site_name" class="form-control" style="border-radius:0; background-color: white;" readonly>
             </div>
           </div>
         </div>
@@ -159,13 +151,9 @@
               </span>
             </div>
             <div>
-              <input id="stock_movement_budget_code" style="border-radius:0;" class="form-control" size="17" readonly>
-              <input id="stock_movement_budget_id" name="stock_movement_budget_id" style="border-radius:0;" class="form-control" hidden>
-            </div>
-            <div style="flex: 100%;">
-              <div class="input-group">
-                <input id="stock_movement_budget_name" style="border-radius:0;" class="form-control" readonly>
-              </div>
+              <input id="stock_movement_budget_id" class="form-control" style="border-radius:0;" name="stock_movement_budget_id" hidden>
+              <input id="stock_movement_budget_code" class="form-control" style="border-radius:0;" hidden>
+              <input id="stock_movement_budget_name" class="form-control" style="border-radius:0; background-color: white;" readonly>
             </div>
           </div>
         </div>
@@ -192,13 +180,9 @@
               </span>
             </div>
             <div>
-              <input id="stock_movement_requester_position" style="border-radius:0;" class="form-control" size="17" readonly>
-              <input id="stock_movement_requester_id" style="border-radius:0;" name="stock_movement_requester_id" class="form-control" hidden>
-            </div>
-            <div style="flex: 100%;">
-              <div class="input-group">
-                <input id="stock_movement_requester_name" style="border-radius:0;" class="form-control" readonly>
-              </div>
+              <input id="stock_movement_requester_id" class="form-control" style="border-radius:0;" name="stock_movement_requester_id" hidden>
+              <input id="stock_movement_requester_position" class="form-control" style="border-radius:0;" hidden>
+              <input id="stock_movement_requester_name" class="form-control" style="border-radius:0; background-color: white;" readonly>
             </div>
           </div>
         </div>
@@ -290,13 +274,9 @@
               </span>
             </div>
             <div>
-              <input id="internal_use_delivery_from_name" class="form-control" style="border-radius:0;" name="internal_use_delivery_from_name" size="17" readonly>
               <input id="internal_use_delivery_from_id" class="form-control" style="border-radius:0;" name="internal_use_delivery_from_id" hidden>
-            </div>
-            <div style="flex: 100%;">
-              <div class="input-group">
-                <input id="internal_use_delivery_from_address" class="form-control" style="border-radius:0;" readonly>
-              </div>
+              <input id="internal_use_delivery_from_name" class="form-control" style="border-radius:0;" name="internal_use_delivery_from_name" hidden>
+              <input id="internal_use_delivery_from_address" class="form-control" style="border-radius:0; background-color: white;" readonly>
             </div>
           </div>
         </div>
@@ -323,13 +303,9 @@
               </span>
             </div>
             <div>
-              <input id="internal_use_delivery_to_name" class="form-control" style="border-radius:0;" name="internal_use_delivery_to_name" size="17" readonly>
               <input id="internal_use_delivery_to_id" class="form-control" style="border-radius:0;" name="internal_use_delivery_to_id" hidden>
-            </div>
-            <div style="flex: 100%;">
-              <div class="input-group">
-                <input id="internal_use_delivery_to_address" class="form-control" style="border-radius:0;" readonly>
-              </div>
+              <input id="internal_use_delivery_to_name" class="form-control" style="border-radius:0;" name="internal_use_delivery_to_name" hidden>
+              <input id="internal_use_delivery_to_address" class="form-control" style="border-radius:0; background-color: white;" readonly>
             </div>
           </div>
         </div>
@@ -380,13 +356,9 @@
               </span>
             </div>
             <div>
-              <input id="stock_movement_delivery_from_name" style="border-radius:0;" name="stock_movement_delivery_from_name" class="form-control" size="17" readonly>
-              <input id="stock_movement_delivery_from_id" style="border-radius:0;" name="stock_movement_delivery_from_id" class="form-control" hidden>
-            </div>
-            <div style="flex: 100%;">
-              <div class="input-group">
-                <input id="stock_movement_delivery_from_address" style="border-radius:0;" class="form-control" readonly>
-              </div>
+              <input id="stock_movement_delivery_from_id" class="form-control" style="border-radius:0;" name="stock_movement_delivery_from_id" hidden>
+              <input id="stock_movement_delivery_from_name" class="form-control" style="border-radius:0;" name="stock_movement_delivery_from_name" hidden>
+              <input id="stock_movement_delivery_from_address" class="form-control" style="border-radius:0; background-color: white;" readonly>
             </div>
           </div>
         </div>
@@ -413,13 +385,9 @@
               </span>
             </div>
             <div>
-              <input id="stock_movement_delivery_to_name" name="stock_movement_delivery_to_name" class="form-control" style="border-radius:0;" size="17" readonly>
-              <input id="stock_movement_delivery_to_id" name="stock_movement_delivery_to_id" class="form-control" style="border-radius:0;" hidden>
-            </div>
-            <div style="flex: 100%;">
-              <div class="input-group">
-                <input id="stock_movement_delivery_to_address" class="form-control" style="border-radius:0;" readonly>
-              </div>
+              <input id="stock_movement_delivery_to_id" class="form-control" name="stock_movement_delivery_to_id" style="border-radius:0;" hidden>
+              <input id="stock_movement_delivery_to_name" class="form-control" name="stock_movement_delivery_to_name" style="border-radius:0;" hidden>
+              <input id="stock_movement_delivery_to_address" class="form-control" style="border-radius: 0; background-color: white;" readonly>
             </div>
           </div>
         </div>
