@@ -31,3 +31,12 @@
         </div>
     </div>
 </div>
+
+<!-- PREVIEW MODAL OPSIONAL -->
+<div class="modal fade" id="previewModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content p-3 text-center">
+            <img id="previewImage" src="" alt="Preview">
+        </div>
+    </div>
+</div>

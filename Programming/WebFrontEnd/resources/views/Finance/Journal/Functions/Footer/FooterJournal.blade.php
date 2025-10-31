@@ -1,9 +1,11 @@
 <script>
+    let dummyBeginningBalance       = 5000000000;
     let journalDetails              = [];
     let totalCredit                 = 0;
     let totalDebit                  = 0;
     let currentIndexPickCOA         = null;
     let currentIndexPickRefNumber   = null;
+    const dateDelivery              = document.getElementById("journal_date");
 
     function pickRefNumber(index) {
         currentIndexPickRefNumber = index;
@@ -30,7 +32,9 @@
             payment: "",
             balance: "",
             coa_id: "",
-            coa_name: ""
+            coa_name: "",
+            attachment: null,
+            attachment_url: ""
         };
 
         journalDetails.push(newRow);
@@ -50,7 +54,33 @@
             totalDebitCredit();
         }
         
-        // console.log("Updated:", journalDetails); // untuk debugging
+        console.log("Updated:", journalDetails); // untuk debugging
+    }
+
+    // 🔹 Upload file
+    function handleFileUpload(index, input) {
+        const file = input.files[0];
+        if (!file) return;
+
+        const fileUrl = URL.createObjectURL(file);
+        journalDetails[index].attachment = file;
+        journalDetails[index].attachment_url = fileUrl;
+
+        renderTable(); // refresh tampilan supaya preview muncul
+    }
+
+    // 🔹 Preview file (jika gambar)
+    function previewAttachment(url) {
+        const modalImg = document.getElementById("previewImage");
+        modalImg.src = url;
+        $("#previewModal").modal("show");
+    }
+
+    // 🔹 Hapus file yang diupload
+    function deleteAttachment(index) {
+        journalDetails[index].attachment = null;
+        journalDetails[index].attachment_url = "";
+        renderTable();
     }
 
     function totalDebitCredit() {
@@ -74,20 +104,29 @@
         let totalCashOut    = 0;
         let totalCashIn     = 0;
         let totalPayment    = 0;
+        let isTypeNotEmpty  = false;
 
         document.querySelectorAll('input[id^="payment"]').forEach(function(input, index) {
             let value = parseFloat(input.value.replace(/,/g, ''));
             if (!isNaN(value)) {
                 if (journalDetails[index].debit_credit === "CREDIT") {
                     totalCashIn += value;
+                    isTypeNotEmpty =  true;
                 } 
                 if (journalDetails[index].debit_credit === "DEBIT") {
                     totalCashOut += value;
+                    isTypeNotEmpty =  true;
                 }
 
                 totalPayment += value;
             }
         });
+
+        let totalEndingBalance = parseFloat(dummyBeginningBalance) - parseFloat(totalCashOut) + parseFloat(totalCashIn);
+
+        if (isTypeNotEmpty) {
+            document.getElementById('nominal_ending_balance').textContent   = `IDR ${currencyTotal(totalEndingBalance)}`;
+        }
 
         document.getElementById('nominal_cash_out').textContent             = `IDR ${currencyTotal(totalCashOut)}`;
         document.getElementById('nominal_cash_in').textContent              = `IDR ${currencyTotal(totalCashIn)}`;
@@ -172,14 +211,27 @@
                     </div>
                 </td>
 
-                <td>
-                    <div class="input-group justify-content-center">
-                        <div class="input-group-append">
-                            <span class="input-group-text form-control" style="cursor:pointer;">
-                                <a data-toggle="modal" data-target="#"><i class="fas fa-paperclip"></i></a>
-                            </span>
-                        </div>
-                    </div>
+                <td style="text-align:center;">
+                    ${row.attachment_url ? 
+                        `
+                            <div>
+                                ${row.attachment.type.startsWith('image/') ? 
+                                    `<img src="${row.attachment_url}" onclick="previewAttachment('${row.attachment_url}')" style="width:40px;height:40px;object-fit:cover;cursor:pointer;border-radius:4px;border:1px solid #ccc;" />` :
+                                    `<a href="${row.attachment_url}" target="_blank" style="font-size:12px;">${row.attachment.name}</a>`
+                                }
+                                <div style="cursor:pointer;color:red;margin-top:3px;font-size:12px;" onclick="deleteAttachment(${index})">
+                                    <i class="fas fa-trash"></i> Delete
+                                </div>
+                            </div>
+                        ` : 
+                        `
+                            <label class="btn btn-sm mb-0" style="cursor:pointer; background-color: #e9ecef; border: 1px solid #ced4da;">
+                                <i class="fas fa-paperclip"></i>
+                                <input ${index === journalDetails.length - 1 ? 'disabled' : ''} type="file" accept="image/*,.pdf,.doc,.docx" 
+                                    style="display:none;" onchange="handleFileUpload(${index}, this)">
+                            </label>
+                        `
+                    }
                 </td>
             `;
 
@@ -248,7 +300,45 @@
         $('#myGetChartOfAccount').modal('hide');
     });
 
+    $('#tableBanksAccount').on('click', 'tbody tr', function() {
+        let sysID       = $(this).find('input[type="hidden"]').val();
+        let bankName    = $(this).find('td:nth-child(2)').text();
+        let bankAccount = $(this).find('td:nth-child(3)').text();
+        let accountName = $(this).find('td:nth-child(4)').text();
+
+        $("#bank_accounts_id").val(sysID);
+        $("#bank_accounts_name").val(`(${bankName}) ${bankAccount} - ${accountName}`);
+        $("#bank_accounts_name").css({"background-color":"#e9ecef"});
+
+        $('#myBanksAccount').modal('hide');
+    });
+
+    $('#journal_date').on('keypress', function() {
+        $("#journal_date").val("");
+    });
+
+    $('#journal_date').on('keyup', function() {
+        $("#journal_date").val("");
+    });
+
     $(window).one('load', function() {
         detailCashBank();
+        getBanksAccount("", "");
+
+        $('#nominal_beginning_balance').text(`IDR ${currencyTotal(dummyBeginningBalance)}`);
+
+        $('#dateOfJournal').datetimepicker({
+            format: 'L'
+        });
+
+        $('#dateOfJournal').on('change.datetimepicker', function (e) {
+            if (dateDelivery.value) {
+                $("#journal_date").css({
+                    "background-color": "#e9ecef",
+                    "border": "1px solid #ced4da"
+                });
+                // $("#dateOfDeliveryMessage").hide();
+            }
+        });
     });
 </script>
