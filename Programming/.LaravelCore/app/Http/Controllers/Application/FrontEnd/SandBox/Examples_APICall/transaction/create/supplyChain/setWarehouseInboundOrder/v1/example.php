@@ -21,7 +21,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         |                     ► http://172.28.0.4/transaction.create.supplyChain.setWarehouseInboundOrder.v1_throughAPIGateway     |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-09-04                                                                                           |
+        | ▪ Last Update     : 2025-10-31                                                                                           |
         | ▪ Creation Date   : 2025-04-15                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -67,6 +67,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                             "productUnitPriceCurrencyExchangeRate" => 1,
                                             "productUnitPriceCurrencyValue" => 25000,
                                             'remarks' => 'Catatan Detail - 11',
+                                            "combinedBudgetSectionDetail_RefID" => 169000000000037,
                                             ]
                                         ],
                                         [
@@ -79,6 +80,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                             "productUnitPriceCurrencyExchangeRate" => 1,
                                             "productUnitPriceCurrencyValue" => 30000,
                                             'remarks' => 'Catatan Detail - 22',
+                                            "combinedBudgetSectionDetail_RefID" => 169000000000037,
                                             ]
                                         ],
                                     ]
