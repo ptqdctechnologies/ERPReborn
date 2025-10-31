@@ -4560,7 +4560,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                         $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
-                            'SchData-OLTP-Master.Func_GetReport_Resume_BusinessDocumentIssuanceDisposition',
+                            'SchData-OLTP-Master.Func_GetReport_Resume_BusDocIssuanceDisposition',
                             [
                                 [$varSysBranch_RefID, 'bigint'],
                                 [$varSysID, 'bigint'],
@@ -4578,7 +4578,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                 $varReturn['data'] = 
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
-                        $varReturn['data'][0]['Func_GetReport_Resume_BusinessDocumentIssuanceDisposition']
+                        $varReturn['data'][0]['Func_GetReport_Resume_BusDocIssuanceDisposition']
                         );
 
                 return

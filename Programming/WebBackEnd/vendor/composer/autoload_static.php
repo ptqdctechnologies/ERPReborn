@@ -495,7 +495,8 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         ),
         'Nette\\' => 
         array (
-            0 => __DIR__ . '/..' . '/nette/utils/src',
+            0 => __DIR__ . '/..' . '/nette/schema/src',
+            1 => __DIR__ . '/..' . '/nette/utils/src',
         ),
         'NcJoes\\OfficeConverter\\' => 
         array (
