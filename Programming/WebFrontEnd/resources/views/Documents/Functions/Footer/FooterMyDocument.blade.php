@@ -41,68 +41,163 @@
     }
 
     // MY DOCUMENT SHOW DATA TABLE
-    function successDataMyDocument(data) {
-        $('#TableMyDocument').find('tbody').empty();
-        $(".loadingGetMyDocument").hide();
+    // function successDataMyDocument(data) {
+    //     $('#TableMyDocument').find('tbody').empty();
+    //     $(".loadingGetMyDocument").hide();
         
-        var keys = 0;
-        var no = 1;
-        var tableMyDocument = $('.TableMyDocument').DataTable();
-        tableMyDocument.clear();
+    //     var keys = 0;
+    //     var no = 1;
+    //     var tableMyDocument = $('.TableMyDocument').DataTable();
+    //     tableMyDocument.clear();
 
-        $.each(data, function(key, val) {
-            const dateMyDocument = dateFns.format(dateFns.parse(val.entities.businessDocumentDateTimeTZ, "yyyy-MM-dd hh:mm:ss"), 'DD-MM-YYYY HH:mm');
-            const statusMyDocument = val.entities.previousWorkFlowPathActionName == "Rejection To Resubmit" ? "Reject" : val.entities.previousWorkFlowPathActionName;
-            const workFlowPathSubmitterRemarks = val.entities.workFlowPathSubmitterRemarks == "undefined" || !val.entities.workFlowPathSubmitterRemarks ? '-' : val.entities.workFlowPathSubmitterRemarks;
+    //     $.each(data, function(key, val) {
+    //         const dateMyDocument = dateFns.format(dateFns.parse(val.entities.businessDocumentDateTimeTZ, "yyyy-MM-dd hh:mm:ss"), 'DD-MM-YYYY HH:mm');
+    //         const statusMyDocument = val.entities.previousWorkFlowPathActionName == "Rejection To Resubmit" ? "Reject" : val.entities.previousWorkFlowPathActionName;
+    //         const workFlowPathSubmitterRemarks = val.entities.workFlowPathSubmitterRemarks == "undefined" || !val.entities.workFlowPathSubmitterRemarks ? '-' : val.entities.workFlowPathSubmitterRemarks;
 
-            keys += 1;
-            tableMyDocument.row.add([
-                no++,
-                `<form method="POST" action="{{ route('CheckDocument.ShowDocumentByID') }}" style="display:inline;">
-                    @csrf
-                    <input type="hidden" name="formDocumentNumber_RefID" value="${val.entities.formDocumentNumber_RefID}">
-                    <input type="hidden" name="businessDocumentTypeName" value="${val.entities.businessDocumentTypeName}">
-                    <input type="hidden" name="businessDocument_RefID" value="${val.entities.businessDocument_RefID}">
-                    <a href="javascript:;" onclick="ShowLoading(); this.closest('form').submit();" style="color: blue; text-decoration: underline; cursor: pointer;">${val.entities.businessDocumentNumber}</a>
-                </form>`,
-                val.entities.combinedBudgetCode[0],
-                val.entities.previousWorkFlowPathApproverName || '-',
-                dateMyDocument,
-                statusMyDocument,
-                '<div style="text-wrap: wrap;">' + workFlowPathSubmitterRemarks || '-' + '</div>',
-            ]).draw();
-        });
+    //         keys += 1;
+    //         tableMyDocument.row.add([
+    //             no++,
+    //             `<form method="POST" action="{{ route('CheckDocument.ShowDocumentByID') }}" style="display:inline;">
+    //                 @csrf
+    //                 <input type="hidden" name="formDocumentNumber_RefID" value="${val.entities.formDocumentNumber_RefID}">
+    //                 <input type="hidden" name="businessDocumentTypeName" value="${val.entities.businessDocumentTypeName}">
+    //                 <input type="hidden" name="businessDocument_RefID" value="${val.entities.businessDocument_RefID}">
+    //                 <a href="javascript:;" onclick="ShowLoading(); this.closest('form').submit();" style="color: blue; text-decoration: underline; cursor: pointer;">${val.entities.businessDocumentNumber}</a>
+    //             </form>`,
+    //             val.entities.combinedBudgetCode[0],
+    //             val.entities.previousWorkFlowPathApproverName || '-',
+    //             dateMyDocument,
+    //             statusMyDocument,
+    //             '<div style="text-wrap: wrap;">' + workFlowPathSubmitterRemarks || '-' + '</div>',
+    //         ]).draw();
+    //     });
 
-        $("#TableMyDocument_filter").hide();
-    }
+    //     $("#TableMyDocument_filter").hide();
+    // }
 
     // GET DATA MY DOCUMENT
-    function getDataMyDocument() {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
+    // function getDataMyDocument() {
+    //     $.ajaxSetup({
+    //         headers: {
+    //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //         }
+    //     });
 
-        $.ajax({
-            type: 'GET',
-            url: '{!! route("MyDocument.ShowMyDocumentListData") !!}',
-            success: function(data) {
-                if (Array.isArray(data) && data.length > 0) {
-                    successDataMyDocument(data);
-                } else {
+    //     $.ajax({
+    //         type: 'GET',
+    //         url: '{!! route("MyDocument.ShowMyDocumentListData") !!}',
+    //         success: function(data) {
+    //             if (Array.isArray(data) && data.length > 0) {
+    //                 successDataMyDocument(data);
+    //             } else {
+    //                 $('#TableMyDocument').find('tbody').empty();
+    //                 $(".loadingGetMyDocument").hide();
+    //                 $(".errorMessageMyDocumentContainer").show();
+    //                 $("#errorMessageMyDocument").text('No data available in table');
+    //             }
+    //         },
+    //         error: function(response) {
+    //             $('#TableMyDocument').find('tbody').empty();
+    //             $(".loadingGetMyDocument").hide();
+
+    //             ErrorNotif("Error!");
+    //         },
+    //     });
+    // }
+
+    function getDataMyDocument() {
+        $('#TableMyDocument').DataTable({
+            processing: true,
+            serverSide: true,
+            destroy: true,
+            info: true,
+            paging: true,
+            searching: true,
+            lengthChange: true,
+            pageLength: 10,
+            ajax: {
+                url: '{!! route("MyDocument.ShowMyDocumentListData") !!}',
+                type: 'GET',
+                data: function (d) {
+                    return d;
+                },
+                beforeSend: function () {
+                    $('#TableMyDocument').find('tbody').empty();
+                    $(".loadingGetMyDocument").show();
+                    $(".errorMessageMyDocumentContainer").hide();
+                },
+                complete: function () {
+                    $(".loadingGetMyDocument").hide();
+                    // errorMessageMyDocumentContainer
+                },
+                error: function (xhr, error, thrown) {
                     $('#TableMyDocument').find('tbody').empty();
                     $(".loadingGetMyDocument").hide();
                     $(".errorMessageMyDocumentContainer").show();
                     $("#errorMessageMyDocument").text('No data available in table');
                 }
             },
-            error: function(response) {
-                $('#TableMyDocument').find('tbody').empty();
-                $(".loadingGetMyDocument").hide();
+            columns: [
+                {
+                    data: null,
+                    render: function (data, type, row, meta) {
+                        // console.log('data', data);
+                        
+                        return meta.row + meta.settings._iDisplayStart + 1;
+                    },
+                    className: "align-middle text-center"
+                },
+                {
+                    data: null,
+                    render: function (data) {
+                        return `
+                            <form method="POST" action="{{ route('CheckDocument.ShowDocumentByID') }}" style="display:inline;">
+                            @csrf
+                                <input type="hidden" name="formDocumentNumber_RefID" value="${data.entities.documentForm_RefID}">
+                                <input type="hidden" name="businessDocumentTypeName" value="${data.entities.businessDocumentTypeName}">
+                                <input type="hidden" name="businessDocument_RefID" value="${data.entities.businessDocument_RefID}">
+                                <a href="javascript:;" onclick="ShowLoading(); this.closest('form').submit();" style="color: blue; text-decoration: underline; cursor: pointer;">${data.entities.documentNumber}</a>
+                            </form>
+                        `;
+                    },
+                    className: "align-middle"
+                },
+                {
+                    data: 'entities.combinedBudgetName',
+                    defaultContent: '-',
+                    className: "align-middle"
+                },
+                {
+                    data: 'entities.latestApproverEntityName',
+                    defaultContent: '-',
+                    className: "align-middle"
+                },
+                {
+                    data: null,
+                    render: function (data) {
+                        const dateMyDocument = dateFns.format(dateFns.parse(data.entities.documentDateTimeTZ, "yyyy-MM-dd hh:mm:ss"), 'YYYY-MM-DD'); // 'DD-MM-YYYY HH:mm'
 
-                ErrorNotif("Error!");
-            },
+                        return dateMyDocument;
+                    },
+                    className: "align-middle"
+                },
+                {
+                    data: null,
+                    render: function (data) {
+                        const statusMyDocument = data.entities.latestWorkFlowPathActionName == "Rejection To Resubmit" ? "Reject" : data.entities.latestWorkFlowPathActionName;
+
+                        return statusMyDocument;
+                    },
+                    defaultContent: '-',
+                    className: "align-middle"
+                },
+                {
+                    data: 'entities.latestRemarks',
+                    defaultContent: '-',
+                    className: "align-middle"
+                }
+            ]
         });
     }
 

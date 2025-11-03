@@ -19,6 +19,8 @@ class MyDocumentController extends Controller
 {
     public function index(Request $request)
     {
+        // dump(session()->all());
+
         return view('Documents.Transactions.IndexMyDocument');
     }
 
@@ -94,9 +96,25 @@ class MyDocumentController extends Controller
     public function ShowMyDocumentListData(Request $request)
     {
         try {
-            $varAPIWebToken = Session::get('SessionLogin');
-            $SessionWorkerCareerInternal_RefID = Session::get('SessionWorkerCareerInternal_RefID');
-            $dataAPIReport = [];
+            $varAPIWebToken     = Session::get('SessionLogin');
+            $sessionUserRefID   = Session::get('SessionUser_RefID');
+            $dataAPIReport      = [];
+
+            $start  = $request->input('start', 0);
+            $length = $request->input('length', 10);
+            $page   = ($start / $length) + 1; 
+
+            $searchValue = $request->input('search.value');
+            $filter = null;
+
+            // Log::error("request: ", $request->all());
+
+            // Log::error("here: ", [
+            //     'start'         => $start,
+            //     'length'        => $length,
+            //     'page'          => $page,
+            //     'searchValue'   => $start
+            // ]);
 
             $apiResponse = Helper_APICall::setCallAPIGateway(
                 Helper_Environment::getUserSessionID_System(),
@@ -104,12 +122,16 @@ class MyDocumentController extends Controller
                 'report.form.resume.master.getBusinessDocumentIssuanceDisposition',
                 'latest',
                 [
-                    'parameter' => [
-                        'recordID' => (int) $SessionWorkerCareerInternal_RefID,
-                        'dataFilter' => [
-                            'businessDocumentNumber' => null,
-                            'businessDocumentType_RefID' => null,
-                            'combinedBudget_RefID' => null
+                    'parameter'         => [
+                        'recordID'      => (int) $sessionUserRefID,
+                        'pagination'    => [
+                            'pageSize'  => (int) $length,
+                            'pageShow'  => (int) $page
+                        ],
+                        'dataFilter'                        => [
+                            'businessDocumentNumber'        => null,
+                            'businessDocumentType_RefID'    => null,
+                            'combinedBudget_RefID'          => null
                         ]
                     ]
                 ],
@@ -117,12 +139,20 @@ class MyDocumentController extends Controller
             );
             
             if (isset($apiResponse['metadata']) && $apiResponse['metadata']['HTTPStatusCode'] == 200) {
-                $dataAPIReport = $apiResponse['data'][0]['document']['content']['itemList']['ungrouped'];
+                $dataAPIReport = $apiResponse['data']['data']['document']['content']['itemList']['ungrouped'];
             } else {
                 throw new \Exception("API call failed with response: " . json_encode($apiResponse['data']['message']));
             }
 
-            return response()->json($dataAPIReport);
+            $totalRecords = $apiResponse['data']['data']['document']['header']['dataCount'];
+
+            return response()->json([
+                'draw'              => intval($request->input('draw')),
+                'recordsTotal'      => $totalRecords,
+                'recordsFiltered'   => $totalRecords,
+                'data'              => $dataAPIReport
+            ]);
+            // return response()->json($dataAPIReport);
         } catch (\Exception $th) {
             Log::error("Error at ShowMyDocumentListData: " . $th->getMessage());
 

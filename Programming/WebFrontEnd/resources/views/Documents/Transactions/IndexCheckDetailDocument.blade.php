@@ -168,10 +168,10 @@
             <!-- BUTTON APPROVAL -->
             <div class="col-12 text-right">
               <!-- CANCEL -->
-              <a href="/MyDocument" class="btn btn-default btn-sm" style="background-color:#e9ecef;border:1px solid #ced4da;">
+              <a class="btn btn-default btn-sm" onclick="cancelForm('{{ route('MyDocument.index') }}')" style="background-color:#e9ecef;border:1px solid #ced4da;">
                 <img src="{{ asset('images/Icon/Pagination/Previous-300-32.png') }}" width="13" alt="" title="Cancel"> Cancel
               </a>
-
+              
               <?php if ($statusApprover == "RESUBMIT") { ?>
                 <!-- RESUBMIT -->
                 <button class="btn btn-default btn-sm btn-resubmit" style="background-color:#e9ecef;border:1px solid #ced4da;margin-right:10px;">
