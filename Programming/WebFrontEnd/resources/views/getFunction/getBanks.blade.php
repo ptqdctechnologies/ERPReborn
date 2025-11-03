@@ -99,6 +99,11 @@
                         $("#bank_name_second_detail").css({"background-color":"#e9ecef"});
                         getBanksAccount(data[0].Bank_RefID, person_refID);
                     }
+                    if (transactionType == "Reimbursement") {
+                        $("#myBankAccountTrigger").prop("disabled", false);
+                        $("#bank_name_second_detail").css({"background-color":"#e9ecef"});
+                        getBanksAccount(data[0].Bank_RefID, person_refID);
+                    }
                 } else {
                     $("#bank_accounts_third_popup").prop("disabled", true);
                 }
