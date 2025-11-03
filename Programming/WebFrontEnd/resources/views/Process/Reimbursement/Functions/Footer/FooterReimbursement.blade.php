@@ -512,8 +512,8 @@
         });
     }
 
-    $('#tableGetProjectSecond').on('click', 'tbody tr', async function() {
-        let sysId           = $(this).find('input[data-trigger="sys_id_project_second"]').val();
+    $('#tableProjects').on('click', 'tbody tr', async function() {
+        let sysId           = $(this).find('input[data-trigger="sys_id_project"]').val();
         let projectCode     = $(this).find('td:nth-child(2)').text();
         let projectName     = $(this).find('td:nth-child(3)').text();
         let documentTypeID  = $("#DocumentTypeID").val();
@@ -525,22 +525,24 @@
         // $("#loadingBudget").css({"display":"block"});
         // $("#myProjectSecondTrigger").css({"display":"none"});
 
+        $('#myProjects').modal('hide');
+
         // try {
         //     let checkWorkFlow = await checkingWorkflow(sysId, documentTypeID);
 
         //     if (!checkWorkFlow) {
                 $("#project_id_second").val(sysId);
                 $("#project_code_second").val(projectCode);
-                $("#project_name_second").val(projectName);
+                $("#project_name_second").val(`${projectCode} - ${projectName}`);
                 $("#myProjectSecondTrigger").prop("disabled", true);
                 $("#myProjectSecondTrigger").css("cursor", "not-allowed");
                 $("#project_code_second").css("border", "1px solid #ced4da");
-                $("#project_name_second").css("border", "1px solid #ced4da");
+                $("#project_name_second").css({"border": "1px solid #ced4da", "background-color": "#e9ecef"});
                 $("#budgetMessage").hide();
 
                 $("#var_combinedBudget_RefID").val(sysId);
 
-                getSiteSecond(sysId);
+                getSites(sysId);
                 $("#mySiteCodeSecondTrigger").prop("disabled", false);
         //     }
 
@@ -553,15 +555,62 @@
         // }
     });
 
-    $('#tableGetSiteSecond').on('click', 'tbody tr', function() {
-        let sysId = $(this).find('input[data-trigger="sys_id_site_second"]').val();
+    $('#tableSites').on('click', 'tbody tr', function() {
+        let sysId       = $(this).find('input[data-trigger="sys_id_site"]').val();
+        let siteCode    = $(this).find('td:nth-child(2)').text();
+        let siteName    = $(this).find('td:nth-child(3)').text();
+
+        $("#site_id_second").val(sysId);
+        $("#site_code_second").val(siteCode);
+        $("#site_name_second").val(`${siteCode} - ${siteName}`);
+
+        $("#site_code_second").css("border", "1px solid #ced4da");
+        $("#site_name_second").css({"border": "1px solid #ced4da", "background-color": "#e9ecef"});
+        $("#subBudgetMessage").hide();
+
+        $('#mySites').modal('hide');
 
         getBudgetDetails(sysId);
-        $("#site_code_second").css("border", "1px solid #ced4da");
-        $("#site_name_second").css("border", "1px solid #ced4da");
-        $("#subBudgetMessage").hide();
+
         $(".loadingBudgetDetails").show();
-        $("#deliverModalTrigger").prop("disabled", false);
+    });
+
+    $('#tableBeneficiaries').on('click', 'tbody tr', function() {
+        let sysId           = $(this).find('input[data-trigger="sys_id_beneficiaries"]').val();
+        let personRefId     = $(this).find('input[data-trigger="person_ref_id_beneficiaries"]').val();
+        let personName      = $(this).find('td:nth-child(2)').text();
+        let personPosition  = $(this).find('td:nth-child(3)').text();
+
+        $("#beneficiary_second_id").val(sysId);
+        $("#beneficiary_second_person_ref_id").val(personRefId);
+        $("#beneficiary_second_person_name").val(`${personPosition} - ${personName}`);
+        $("#beneficiary_second_person_position").val(personPosition);
+
+        $("#bank_name_second_name").val("");
+        $("#bank_name_second_id").val("");
+        $("#bank_name_second_detail").val("");
+
+        $("#bank_accounts").val("");
+        $("#bank_accounts_id").val("");
+        $("#bank_accounts_detail").val("");
+
+        $("#beneficiary_second_person_position").css("border", "1px solid #ced4da");
+        $("#beneficiary_second_person_name").css({"border": "1px solid #ced4da", "background-color": "#e9ecef"});
+        $("#beneficiaryMessage").hide();
+
+        $("#bank_name_second_name").css("border", "1px solid #ced4da");
+        $("#bank_name_second_detail").css("border", "1px solid #ced4da");
+        $("#bankNameMessage").hide();
+
+        $("#bank_accounts").css("border", "1px solid #ced4da");
+        $("#bank_accounts_detail").css("border", "1px solid #ced4da");
+        $("#bankAccountMessage").hide();
+
+        $("#myGetBankSecondTrigger").prop("disabled", false);
+
+        getBanks(personRefId, "Reimbursement");
+
+        $('#myBeneficiaries').modal('hide');
     });
 
     $('#tableGetBeneficiarySecond').on('click', 'tbody tr', function() {
@@ -592,27 +641,45 @@
         getBankSecond(personRefId);
     });
 
-    $('#tableGetBankSecond').on('click', 'tbody tr', function() {
-        var sysId                   = $(this).find('input[data-trigger="sys_id_bank_second"]').val();
-        var beneficiaryPersonRefID  = document.getElementById("beneficiary_second_person_ref_id");
+    $('#tableBanks').on('click', 'tbody tr', function() {
+        let sysId                       = $(this).find('input[data-trigger="sys_id_banks"]').val();
+        let sysIdBankAccount            = $(this).find('input[data-trigger="sys_id_bank_account"]').val();
+        let bankAcronym                 = $(this).find('td:nth-child(2)').text();
+        let bankName                    = $(this).find('td:nth-child(3)').text();
+        const beneficiaryPersonRefID    = document.getElementById("beneficiary_second_person_ref_id");
 
-        $("#myBankAccountTrigger").prop("disabled", false);
+        $("#bank_name_second_id").val(sysId);
+        $("#bank_name_second_name").val(bankAcronym);
+        $("#bank_name_second_detail").val(`${bankAcronym} - ${bankName}`);
 
         $("#bank_accounts").val("");
         $("#bank_accounts_id").val("");
         $("#bank_accounts_detail").val("");
 
         $("#bank_name_second_name").css("border", "1px solid #ced4da");
-        $("#bank_name_second_detail").css("border", "1px solid #ced4da");
+        $("#bank_name_second_detail").css({"background-color":"#e9ecef", "border": "1px solid #ced4da"});
         $("#bankNameMessage").hide();
 
-        getBankAccountData(sysId, beneficiaryPersonRefID.value);
+        $("#myBankAccountTrigger").prop("disabled", false);
+
+        getBanksAccount(sysId, sysIdBankAccount);
+
+        $('#myBanks').modal('hide');
     });
-    
-    $('#tableGetBankAccount').on('click', 'tbody tr', function() {
-        $("#bank_accounts").css("border", "1px solid #ced4da");
-        $("#bank_accounts_detail").css("border", "1px solid #ced4da");
+
+    $('#tableBanksAccount').on('click', 'tbody tr', function() {
+        let sysID       = $(this).find('input[type="hidden"]').val();
+        let bankName    = $(this).find('td:nth-child(2)').text();
+        let bankAccount = $(this).find('td:nth-child(3)').text();
+        let accountName = $(this).find('td:nth-child(4)').text();
+
+        $("#bank_accounts").val(bankAccount);
+        $("#bank_accounts_id").val(sysID);
+        $("#bank_accounts_detail").val(`${bankAccount} - ${accountName}`);
+        $("#bank_accounts_detail").css({"background-color":"#e9ecef", "border": "1px solid #ced4da"});
         $("#bankAccountMessage").hide();
+
+        $('#myBanksAccount').modal('hide');
     });
 
     $('#tableGetModalReimbursement').on('click', 'tbody tr', function() {
@@ -625,13 +692,14 @@
     });
 
     $('#tableGetCustomer').on('click', 'tbody tr', function() {
-        var sysId   = $(this).find('input[data-trigger="sys_id_modal_customer"]').val();
-        var code    = $(this).find('td:nth-child(2)').text();
-        var name    = $(this).find('td:nth-child(3)').text();
+        let sysId   = $(this).find('input[data-trigger="sys_id_modal_customer"]').val();
+        let code    = $(this).find('td:nth-child(2)').text();
+        let name    = $(this).find('td:nth-child(3)').text();
 
         $("#customer_id").val(sysId);
         $("#customer_code").val(code);
-        $('#customer_name').val(name);
+        $('#customer_name').val(`${code} - ${name}`);
+        $("#customer_name").css({"background-color":"#e9ecef", "border": "1px solid #ced4da"});
         $('#myCustomer').modal('hide');
     });
 
