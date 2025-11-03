@@ -29,27 +29,34 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
         */
         public function throughAPIGateway($varAPIWebToken)
             {
-            //---Parameter Set---
+            //-----[ PARAMETER SET ]-----
             if (!$varAPIWebToken) {
                 $varAPIWebToken =
                     \App\Helpers\ZhtHelper\System\Helper_Environment::getAPIWebToken_System();
                 }
 
-            //---Core---
+            //-----[ CORE ]-----
             $varData =
                 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                    $varAPIWebToken, 
-                    'report.form.resume.master.getBusinessDocumentIssuanceDispositionCount', 
-                    'latest',
-                    [
-                    'parameter' => [
-                        'recordID' => 164000000000196    
+                    //-----[ METADATA ]-----( START )-----
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                        $varAPIWebToken, 
+                        'report.form.resume.master.getBusinessDocumentIssuanceDispositionCount', 
+                        'latest',
+                    //-----[ METADATA ]-----(  END  )-----
+
+                    //-----[ DATA ]---------( START )---
+                        [
+                        'parameter' => [
+                            'recordID' => 4000000000399    
+                            ]
                         ]
-                    ]
+                    //-----[ DATA ]---------(  END  )-----
                     );
 
-            var_dump($varData);
+            //-----[ DATA RETURN ]-----
+            return
+                $varData;
             }
 
         /*
