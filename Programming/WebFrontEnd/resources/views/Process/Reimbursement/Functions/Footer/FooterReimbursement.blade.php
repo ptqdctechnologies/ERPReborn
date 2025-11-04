@@ -613,34 +613,6 @@
         $('#myBeneficiaries').modal('hide');
     });
 
-    $('#tableGetBeneficiarySecond').on('click', 'tbody tr', function() {
-        var personRefId = $(this).find('input[data-trigger="person_ref_id_beneficiary_second"]').val();
-
-        $("#myGetBankSecondTrigger").prop("disabled", false);
-
-        $("#bank_name_second_name").val("");
-        $("#bank_name_second_id").val("");
-        $("#bank_name_second_detail").val("");
-
-        $("#bank_accounts").val("");
-        $("#bank_accounts_id").val("");
-        $("#bank_accounts_detail").val("");
-
-        $("#beneficiary_second_person_position").css("border", "1px solid #ced4da");
-        $("#beneficiary_second_person_name").css("border", "1px solid #ced4da");
-        $("#beneficiaryMessage").hide();
-
-        $("#bank_name_second_name").css("border", "1px solid #ced4da");
-        $("#bank_name_second_detail").css("border", "1px solid #ced4da");
-        $("#bankNameMessage").hide();
-
-        $("#bank_accounts").css("border", "1px solid #ced4da");
-        $("#bank_accounts_detail").css("border", "1px solid #ced4da");
-        $("#bankAccountMessage").hide();
-
-        getBankSecond(personRefId);
-    });
-
     $('#tableBanks').on('click', 'tbody tr', function() {
         let sysId                       = $(this).find('input[data-trigger="sys_id_banks"]').val();
         let sysIdBankAccount            = $(this).find('input[data-trigger="sys_id_bank_account"]').val();
@@ -700,6 +672,7 @@
         $("#customer_code").val(code);
         $('#customer_name').val(`${code} - ${name}`);
         $("#customer_name").css({"background-color":"#e9ecef", "border": "1px solid #ced4da"});
+        $('#customerMessage').hide();
         $('#myCustomer').modal('hide');
     });
 

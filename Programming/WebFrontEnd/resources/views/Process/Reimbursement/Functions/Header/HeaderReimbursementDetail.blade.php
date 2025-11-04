@@ -3,7 +3,7 @@
     <div class="col-md-12 col-lg-5">
       <!-- CUSTOMER -->
       <div class="row">
-        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Customer</label>
+        <label class="col-sm-3 col-md-4 col-lg-3 col-form-label p-0">Customer</label>
         <div class="col-5 d-flex">
           <div>
             <span style="border-radius:0;" class="input-group-text form-control">
@@ -20,7 +20,7 @@
         </div>
       </div>
       <div class="row" id="customerMessage" style="margin-top: .3rem; display: none;">
-        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+        <label class="col-sm-3 col-md-4 col-lg-3 col-form-label p-0"></label>
         <div class="col-5 d-flex">
           <div class="text-red">
             Customer cannot be empty.
