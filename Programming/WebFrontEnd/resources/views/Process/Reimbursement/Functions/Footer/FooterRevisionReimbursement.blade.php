@@ -569,10 +569,16 @@
         $('#myCustomer').modal('hide');
     });
 
-    $('#tableGetBeneficiarySecond').on('click', 'tbody tr', function() {
-        var personRefId = $(this).find('input[data-trigger="person_ref_id_beneficiary_second"]').val();
+    $('#tableBeneficiaries').on('click', 'tbody tr', function() {
+        let sysId           = $(this).find('input[data-trigger="sys_id_beneficiaries"]').val();
+        let personRefId     = $(this).find('input[data-trigger="person_ref_id_beneficiaries"]').val();
+        let personName      = $(this).find('td:nth-child(2)').text();
+        let personPosition  = $(this).find('td:nth-child(3)').text();
 
-        $("#myGetBankSecondTrigger").prop("disabled", false);
+        $("#beneficiary_second_id").val(sysId);
+        $("#beneficiary_second_person_ref_id").val(personRefId);
+        $("#beneficiary_second_person_name").val(`${personPosition} - ${personName}`);
+        $("#beneficiary_second_person_position").val(personPosition);
 
         $("#bank_name_second_name").val("");
         $("#bank_name_second_id").val("");
@@ -583,7 +589,7 @@
         $("#bank_accounts_detail").val("");
 
         $("#beneficiary_second_person_position").css("border", "1px solid #ced4da");
-        $("#beneficiary_second_person_name").css("border", "1px solid #ced4da");
+        $("#beneficiary_second_person_name").css({"border": "1px solid #ced4da", "background-color": "#e9ecef"});
         $("#beneficiaryMessage").hide();
 
         $("#bank_name_second_name").css("border", "1px solid #ced4da");
@@ -594,30 +600,52 @@
         $("#bank_accounts_detail").css("border", "1px solid #ced4da");
         $("#bankAccountMessage").hide();
 
-        getBankSecond(personRefId);
+        $("#myGetBankSecondTrigger").prop("disabled", false);
+
+        getBanks(personRefId, "Reimbursement");
+
+        $('#myBeneficiaries').modal('hide');
     });
 
-    $('#tableGetBankSecond').on('click', 'tbody tr', function() {
-        var sysId                   = $(this).find('input[data-trigger="sys_id_bank_second"]').val();
-        var beneficiaryPersonRefID  = document.getElementById("beneficiary_second_person_ref_id");
+    $('#tableBanks').on('click', 'tbody tr', function() {
+        let sysId                       = $(this).find('input[data-trigger="sys_id_banks"]').val();
+        let sysIdBankAccount            = $(this).find('input[data-trigger="sys_id_bank_account"]').val();
+        let bankAcronym                 = $(this).find('td:nth-child(2)').text();
+        let bankName                    = $(this).find('td:nth-child(3)').text();
+        const beneficiaryPersonRefID    = document.getElementById("beneficiary_second_person_ref_id");
 
-        $("#myBankAccountTrigger").prop("disabled", false);
+        $("#bank_name_second_id").val(sysId);
+        $("#bank_name_second_name").val(bankAcronym);
+        $("#bank_name_second_detail").val(`${bankAcronym} - ${bankName}`);
 
         $("#bank_accounts").val("");
         $("#bank_accounts_id").val("");
         $("#bank_accounts_detail").val("");
 
         $("#bank_name_second_name").css("border", "1px solid #ced4da");
-        $("#bank_name_second_detail").css("border", "1px solid #ced4da");
+        $("#bank_name_second_detail").css({"background-color":"#e9ecef", "border": "1px solid #ced4da"});
         $("#bankNameMessage").hide();
 
-        getBankAccountData(sysId, beneficiaryPersonRefID.value);
+        $("#myBankAccountTrigger").prop("disabled", false);
+
+        getBanksAccount(sysId, sysIdBankAccount);
+
+        $('#myBanks').modal('hide');
     });
-    
-    $('#tableGetBankAccount').on('click', 'tbody tr', function() {
-        $("#bank_accounts").css("border", "1px solid #ced4da");
-        $("#bank_accounts_detail").css("border", "1px solid #ced4da");
+
+    $('#tableBanksAccount').on('click', 'tbody tr', function() {
+        let sysID       = $(this).find('input[type="hidden"]').val();
+        let bankName    = $(this).find('td:nth-child(2)').text();
+        let bankAccount = $(this).find('td:nth-child(3)').text();
+        let accountName = $(this).find('td:nth-child(4)').text();
+
+        $("#bank_accounts").val(bankAccount);
+        $("#bank_accounts_id").val(sysID);
+        $("#bank_accounts_detail").val(`${bankAccount} - ${accountName}`);
+        $("#bank_accounts_detail").css({"background-color":"#e9ecef", "border": "1px solid #ced4da"});
         $("#bankAccountMessage").hide();
+
+        $('#myBanksAccount').modal('hide');
     });
 
     $('#tableGetModalReimbursement').on('click', 'tbody tr', function() {

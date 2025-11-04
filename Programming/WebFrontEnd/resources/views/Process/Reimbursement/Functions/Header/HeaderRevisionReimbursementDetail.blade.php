@@ -28,7 +28,7 @@
         <div class="col-5 d-flex">
           <div>
             <span style="border-radius:0;" class="input-group-text form-control">
-              <a href="javascript:;" id="myBeneficiarySecondTrigger" data-toggle="modal" data-target="#myBeneficiarySecond">
+              <a href="javascript:;" id="myBeneficiarySecondTrigger" data-toggle="modal" data-target="#myBeneficiaries">
                 <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="">
               </a>
             </span>
@@ -44,18 +44,18 @@
 
       <!-- BANK NAME -->
       <div class="row" style="margin-top: 1rem;">
-        <label for="bank_name_second_name" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Bank Name</label>
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Bank Name</label>
         <div class="col-5 d-flex">
           <div>
             <span style="border-radius:0;" class="input-group-text form-control">
-              <a href="javascript:;" id="myGetBankSecondTrigger" data-toggle="modal" data-target="#myGetBankSecond" class="myGetBankSecond">
+              <a href="javascript:;" id="myGetBankSecondTrigger" data-toggle="modal" data-target="#myBanks">
                 <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="">
               </a>
             </span>
           </div>
           <div style="flex: 100%;">
-            <input id="bank_name_second_name" class="form-control" style="border-radius:0;" readonly value="<?= $header['beneficiaryBankAcronym'] . " - " . $header['beneficiaryBankName']; ?>" />
-            <input id="bank_name_second_detail" class="form-control" style="border-radius:0;" hidden value="<?= $header['beneficiaryBankName']; ?>" />
+            <input id="bank_name_second_detail" class="form-control" style="border-radius:0;" readonly value="<?= $header['beneficiaryBankAcronym'] . " - " . $header['beneficiaryBankName']; ?>" />
+            <input id="bank_name_second_name" class="form-control" style="border-radius:0;" hidden value="<?= $header['beneficiaryBankAcronym']; ?>" />
             <input id="bank_name_second_id" class="form-control" style="border-radius:0;" hidden value="<?= $header['beneficiaryBank_RefID']; ?>" name="bank_code" />
           </div>
         </div>
@@ -67,14 +67,14 @@
         <div class="col-5 d-flex">
           <div>
             <span style="border-radius:0;" class="input-group-text form-control">
-              <a href="javascript:;" id="myBankAccountTrigger" data-toggle="modal" data-target="#myBankAccount" class="myBankAccount">
+              <a href="javascript:;" id="myBankAccountTrigger" data-toggle="modal" data-target="#myBanksAccount">
                 <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="">
               </a>
             </span>
           </div>
           <div style="flex: 100%;">
-            <input id="bank_accounts" class="form-control" style="border-radius:0;" readonly value="<?= $header['beneficiaryBankAccountNumber'] . " - " . $header['beneficiaryBankAccountName']; ?>" />
-            <input id="bank_accounts_detail" class="form-control" style="border-radius:0;" hidden value="<?= $header['beneficiaryBankAccountName']; ?>" />
+            <input id="bank_accounts_detail" class="form-control" style="border-radius:0;" readonly value="<?= $header['beneficiaryBankAccountNumber'] . " - " . $header['beneficiaryBankAccountName']; ?>" />
+            <input id="bank_accounts" class="form-control" style="border-radius:0;" hidden value="<?= $header['beneficiaryBankAccountNumber']; ?>" />
             <input id="bank_accounts_id" class="form-control" style="border-radius:0;" hidden value="<?= $header['beneficiaryBankAccount_RefID']; ?>" name="bank_account_id" />
           </div>
         </div>
