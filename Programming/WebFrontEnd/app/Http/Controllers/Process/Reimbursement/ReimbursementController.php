@@ -100,10 +100,10 @@ class ReimbursementController extends Controller
             $response       = $this->reimbursementService->getDetail($request->modal_reimbursement_id);
 
             if ($response['metadata']['HTTPStatusCode'] !== 200) {
-                return response()->json($response);
+                throw new \Exception('Failed to fetch Detail Reimbursement');
             }
 
-            $data           = $response['data']['data'];
+            $data = $response['data']['data'];
 
             $compact = [
                 'varAPIWebToken'    => $varAPIWebToken,
