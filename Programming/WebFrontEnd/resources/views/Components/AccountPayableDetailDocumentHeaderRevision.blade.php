@@ -11,12 +11,12 @@
                 <tr>
                     <th style="vertical-align: middle; position: sticky; background-color: white;" class="text-center">Supp. Inv.</th>
                     <th style="vertical-align: middle; position: sticky; background-color: white;" class="text-center">Payment To</th>
-                    <th style="vertical-align: middle; position: sticky; background-color: white;" class="text-center">Rept./Inv.</th>
+                    <th style="vertical-align: middle; position: sticky; background-color: white;" class="text-center">Rept./ Inv.</th>
                     <th style="vertical-align: middle; position: sticky; background-color: white;" class="text-center">Cont. Sign.</th>
-                    <th style="vertical-align: middle; position: sticky; background-color: white;" class="text-center">FAT/PAT</th>
                     <th style="vertical-align: middle; position: sticky; background-color: white;" class="text-center">VAT</th>
                     <th style="vertical-align: middle; position: sticky; background-color: white;" class="text-center">VAT (%)</th>
                     <th style="vertical-align: middle; position: sticky; background-color: white;" class="text-center">VAT Num.</th>
+                    <th style="vertical-align: middle; position: sticky; background-color: white;" class="text-center">FAT/PAT</th>
                     <th style="vertical-align: middle; position: sticky; background-color: white;" class="text-center">Notes</th>
                 </tr>
             </thead>
@@ -24,13 +24,13 @@
                 <tr>
                     <td style="padding: 8px; width: 100px; min-width: 100px; max-width: 100px; position: sticky; background-color: white;">-</td>
                     <td style="padding: 8px; width: 100px; min-width: 100px; max-width: 100px; position: sticky; background-color: white;">-</td>
+                    <td style="padding: 8px; width: 50px; min-width: 50px; max-width: 50px; position: sticky; background-color: white;">Yes</td>
+                    <td style="padding: 8px; width: 50px; min-width: 50px; max-width: 50px; position: sticky; background-color: white;">Yes</td>
+                    <td style="padding: 8px; width: 50px; min-width: 50px; max-width: 50px; position: sticky; background-color: white;">Yes</td>
+                    <td style="padding: 8px; width: 50px; min-width: 50px; max-width: 50px; position: sticky; background-color: white;">100</td>
                     <td style="padding: 8px; width: 100px; min-width: 100px; max-width: 100px; position: sticky; background-color: white;">-</td>
-                    <td style="padding: 8px; width: 100px; min-width: 100px; max-width: 100px; position: sticky; background-color: white;">-</td>
-                    <td style="padding: 8px; width: 100px; min-width: 100px; max-width: 100px; position: sticky; background-color: white;">-</td>
-                    <td style="padding: 8px; width: 100px; min-width: 100px; max-width: 100px; position: sticky; background-color: white;">-</td>
-                    <td style="padding: 8px; width: 100px; min-width: 100px; max-width: 100px; position: sticky; background-color: white;">-</td>
-                    <td style="padding: 8px; width: 100px; min-width: 100px; max-width: 100px; position: sticky; background-color: white;">-</td>
-                    <td style="padding: 8px; width: 100px; min-width: 100px; max-width: 100px; position: sticky; background-color: white;">-</td>
+                    <td style="padding: 8px; width: 50px; min-width: 50px; max-width: 50px; position: sticky; background-color: white;">Yes</td>
+                    <td style="padding: 8px; width: 125px; min-width: 125px; max-width: 125px; position: sticky; background-color: white;">-</td>
                 </tr>
             </tbody>
         </table>
@@ -48,7 +48,7 @@
                 <tr>
                     <th class="text-center" style="background-color:#4B586A;color:white;border-right:1px solid #e9ecef;vertical-align: middle;">Supp. Inv.</th>
                     <th class="text-center" style="background-color:#4B586A;color:white;border-right:1px solid #e9ecef;vertical-align: middle;">Payment To</th>
-                    <th class="text-center" style="background-color:#4B586A;color:white;border-right:1px solid #e9ecef;vertical-align: middle;">Rept./Inv.</th>
+                    <th class="text-center" style="background-color:#4B586A;color:white;border-right:1px solid #e9ecef;vertical-align: middle;">Rept./ <br /> Inv.</th>
                     <th class="text-center" style="background-color:#4B586A;color:white;border-right:1px solid #e9ecef;vertical-align: middle;">Cont. Sign.</th>
                     <th class="text-center" style="background-color:#4B586A;color:white;border-right:1px solid #e9ecef;vertical-align: middle;">FAT/PAT</th>
                     <th class="text-center" style="background-color:#4B586A;color:white;border-right:1px solid #e9ecef;vertical-align: middle;">VAT</th>

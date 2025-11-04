@@ -143,7 +143,7 @@
             $("#businessDocumentNumber").val("");
 
             const validate = await checkingWorkflow(sysIdDocumentType, sysIdCombinedBudget);
-            if (validate) {
+            if (!validate) {
                 $('.mySearchCheckDocument').show();
                 $('#loadingDocTracking').hide();
 
