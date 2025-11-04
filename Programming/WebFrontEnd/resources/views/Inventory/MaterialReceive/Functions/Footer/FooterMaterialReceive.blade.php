@@ -97,6 +97,7 @@
         for (let row of rows) {
             const deliveryOrderDetail_RefID             = row.querySelector('input[id^="delivery_order_detail_id"]');
             const product_RefID                         = row.querySelector('input[id^="product_RefID"]');
+            const combinedBudgetSectionDetailRefID      = row.querySelector('input[id^="combinedBudgetSectionDetail_RefID"]');
             const quantityUnit_RefID                    = row.querySelector('input[id^="quantityUnit_RefID"]');
             const productUnitPriceCurrency_RefID        = row.querySelector('input[id^="productUnitPriceCurrency_RefID"]');
             const productUnitPriceCurrencyExchangeRate  = row.querySelector('input[id^="productUnitPriceCurrencyExchangeRate"]');
@@ -142,7 +143,8 @@
                                     quantityUnit_RefID: parseInt(quantityUnit_RefID.value),
                                     productUnitPriceCurrency_RefID: parseInt(productUnitPriceCurrency_RefID.value),
                                     productUnitPriceCurrencyExchangeRate: parseInt(productUnitPriceCurrencyExchangeRate.value),
-                                    productUnitPriceCurrencyValue: parseFloat(price.replace(/,/g, ''))
+                                    productUnitPriceCurrencyValue: parseFloat(price.replace(/,/g, '')),
+                                    combinedBudgetSectionDetail_RefID: parseInt(combinedBudgetSectionDetailRefID.value)
                                 }
                             };
                         }
@@ -171,7 +173,8 @@
                             quantityUnit_RefID: parseInt(quantityUnit_RefID.value),
                             productUnitPriceCurrency_RefID: parseInt(productUnitPriceCurrency_RefID.value),
                             productUnitPriceCurrencyExchangeRate: parseInt(productUnitPriceCurrencyExchangeRate.value),
-                            productUnitPriceCurrencyValue: parseFloat(price.replace(/,/g, ''))
+                            productUnitPriceCurrencyValue: parseFloat(price.replace(/,/g, '')),
+                            combinedBudgetSectionDetail_RefID: parseInt(combinedBudgetSectionDetailRefID.value)
                         }
                     });
                 }
@@ -337,6 +340,8 @@
                                 <td style="text-align: center; width: 150px; padding: 0.5rem !important;">
                                     <textarea id="note${key}" class="form-control" data-default=""></textarea>
                                 </td>
+
+                                <input id="combinedBudgetSectionDetail_RefID${key}" value="${val2.combinedBudgetSectionDetail_RefID}" type="hidden" />
                             </tr>
                         `;
 
