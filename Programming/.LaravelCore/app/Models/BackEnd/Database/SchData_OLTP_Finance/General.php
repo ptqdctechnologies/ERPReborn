@@ -180,6 +180,132 @@ namespace App\Models\Database\SchData_OLTP_Finance
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getReport_Form_DataList_Advance_LatestVersion                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2025-11-05                                                                                           |
+        | ▪ Creation Date   : 2025-11-05                                                                                           |
+        | ▪ Description     : Mendapatkan Laporan Form - Daftar Uang Muka (Advance) Versi Terakhir                                 |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |      ------------------------------                                                                                      |
+        |      ▪ (int)    varPagination_PageSize ► Pagination Page Size                                                            |
+        |      ▪ (int)    varPagination_PageShow ► Pagination Page Show                                                            |
+        |      ------------------------------                                                                                      |
+        |      ▪ (string) varBusinessDocumentNumber ► Business Document Number                                                     |
+        |      ▪ (int)    varCombinedBudget_RefID ► Combined Budget Reference ID                                                   |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getReport_Form_DataList_Advance_LatestVersion(
+            $varUserSession, int $varSysBranch_RefID,
+            int $varPagination_PageSize = null, int $varPagination_PageShow = null,
+            string $varBusinessDocumentNumber = null, int $varCombinedBudget_RefID = null)
+            {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession,
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Finance.Func_GetReport_DataList_Advance',
+                            [
+                                [$varSysBranch_RefID, 'bigint'],
+
+                                [$varPagination_PageSize, 'bigint'],
+                                [$varPagination_PageShow, 'bigint'],
+
+                                [$varBusinessDocumentNumber, 'varchar'],
+                                [$varCombinedBudget_RefID, 'bigint']
+                            ]
+                            )
+                        );
+               
+                $varReturn['data'] = 
+                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                        $varUserSession,
+                        $varReturn['data'][0]['Func_GetReport_DataList_Advance']
+                        );
+
+                return
+                     $varReturn;
+                }
+
+            catch (\Exception $ex) {
+                return
+                    [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getReport_Form_DataList_AdvanceSettlement_LatestVersion                                              |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2025-11-05                                                                                           |
+        | ▪ Creation Date   : 2025-11-05                                                                                           |
+        | ▪ Description     : Mendapatkan Laporan Form - Daftar Uang Muka (Advance) Versi Terakhir                                 |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |      ------------------------------                                                                                      |
+        |      ▪ (int)    varPagination_PageSize ► Pagination Page Size                                                            |
+        |      ▪ (int)    varPagination_PageShow ► Pagination Page Show                                                            |
+        |      ------------------------------                                                                                      |
+        |      ▪ (string) varBusinessDocumentNumber ► Business Document Number                                                     |
+        |      ▪ (int)    varCombinedBudget_RefID ► Combined Budget Reference ID                                                   |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getReport_Form_DataList_AdvanceSettlement_LatestVersion(
+            $varUserSession, int $varSysBranch_RefID,
+            int $varPagination_PageSize = null, int $varPagination_PageShow = null,
+            string $varBusinessDocumentNumber = null, int $varCombinedBudget_RefID = null)
+            {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession,
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Finance.Func_GetReport_DataList_AdvanceSettlement',
+                            [
+                                [$varSysBranch_RefID, 'bigint'],
+
+                                [$varPagination_PageSize, 'bigint'],
+                                [$varPagination_PageShow, 'bigint'],
+
+                                [$varBusinessDocumentNumber, 'varchar'],
+                                [$varCombinedBudget_RefID, 'bigint']
+                            ]
+                            )
+                        );
+               
+                $varReturn['data'] = 
+                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                        $varUserSession,
+                        $varReturn['data'][0]['Func_GetReport_DataList_AdvanceSettlement']
+                        );
+
+                return
+                     $varReturn;
+                }
+
+            catch (\Exception $ex) {
+                return
+                    [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getDataList_Advance_LatestVersion                                                                    |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000001                                                                                       |
