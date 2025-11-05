@@ -72,7 +72,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\re
                         if (!($varDataSend = 
                             \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead(
                                 $varUserSession,
-                                (new \App\Models\Database\SchData_OLTP_Master\General())->getReport_Form_Resume_BusinessDocumentIssuanceDisposition(
+                                (new \App\Models\Database\SchData_OLTP_Master\General())->getReport_Form_DataList_BusinessDocumentIssuanceDisposition(
                                     $varUserSession,
                                     (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
 

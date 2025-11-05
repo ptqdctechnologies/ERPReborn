@@ -448,7 +448,7 @@ namespace App\Models\Database\SchSysConfig
                         $varUserSession, 
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
-                            'SchSysConfig.Func_General_GetBusDocWorkFlowPathApprovementHistory',
+                            'SchSysConfig.Func_General_GetBusDocWorkFlowPathApprovementHistoryxxx',
                             [
                                 [$varSysBranch_RefID, 'bigint' ],
 

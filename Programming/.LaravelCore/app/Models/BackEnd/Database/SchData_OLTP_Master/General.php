@@ -4526,7 +4526,7 @@ namespace App\Models\Database\SchData_OLTP_Master
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getReport_Form_Resume_BusinessDocumentIssuanceDisposition                                            |
+        | ▪ Method Name     : getReport_Form_DataList_BusinessDocumentIssuanceDisposition                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0001.0000000                                                                                       |
         | ▪ Last Update     : 2025-10-30                                                                                           |
@@ -4548,7 +4548,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function getReport_Form_Resume_BusinessDocumentIssuanceDisposition(
+        public function getReport_Form_DataList_BusinessDocumentIssuanceDisposition(
             $varUserSession, int $varSysBranch_RefID,
             int $varSysID,
             int $varPagination_PageSize = null, int $varPagination_PageShow = null,
@@ -4560,7 +4560,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                         $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
-                            'SchData-OLTP-Master.Func_GetReport_Resume_BusDocIssuanceDisposition',
+                            'SchData-OLTP-Master.Func_GetReport_DataList_BusDocIssuanceDisposition',
                             [
                                 [$varSysBranch_RefID, 'bigint'],
                                 [$varSysID, 'bigint'],
@@ -4578,7 +4578,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                 $varReturn['data'] = 
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
-                        $varReturn['data'][0]['Func_GetReport_Resume_BusDocIssuanceDisposition']
+                        $varReturn['data'][0]['Func_GetReport_DataList_BusDocIssuanceDisposition']
                         );
 
                 return
