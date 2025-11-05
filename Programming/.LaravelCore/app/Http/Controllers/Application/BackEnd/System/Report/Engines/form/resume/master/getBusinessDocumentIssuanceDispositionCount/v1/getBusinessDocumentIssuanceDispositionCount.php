@@ -6,7 +6,7 @@
 | ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\resume\master                                |
 |                \getBusinessDocumentIssuanceDispositionCount\v1                                                                   |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2023 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2023 - 2025 Zheta (teguhpjs@gmail.com)                                                                              |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 
@@ -45,7 +45,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\re
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2023-09-25                                                                                           |
+        | ▪ Last Update     : 2025-11-03                                                                                           |
         | ▪ Creation Date   : 2023-09-25                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -58,42 +58,14 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\re
         */
         function main($varUserSession, $varData)
             {
-            /*
-            $userSessionID = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
-            $branchID = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($userSessionID)['branchID'];
-            $workerCareerInternal_RefID = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($userSessionID)['userIdentities']['workerCareerInternal_RefID'];
-
-            $varTTL = 86400; // 24 Jam
-
-            if ($workerCareerInternal_RefID != 0) {
-                $varDataCount =
-                    (new \App\Models\Database\SchData_OLTP_Master\General())->getReport_Form_Resume_BusinessDocumentIssuanceDispositionCount(
-                        $userSessionID,
-                        $branchID,
-                        $workerCareerInternal_RefID
-                    );
-
-                \App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(
-                    $userSessionID,
-                    "RedisGetMyDocument" . $workerCareerInternal_RefID,
-                    json_encode($varDataCount[0]['document']['content']['dataCount']),
-                    $varTTL
-                );
-            } else {
-                \App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(
-                    $userSessionID,
-                    "RedisGetMyDocument" . $workerCareerInternal_RefID,
-                    json_encode(0),
-                    $varTTL
-                );
-            }
-
-            return [];
-            */
-
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
+
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Report Form - Resume - Business Document Issuance Disposition Count Form (version 1)');
+                $varSysDataProcess =
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__,
+                        'Get Report Form - Resume - Business Document Issuance Disposition Count Form (version 1)'
+                        );
+
                 try {
                     //-----[ MAIN CODE ]----------------------------------------------------------------------------( START POINT )-----
                     try {

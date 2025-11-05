@@ -1,0 +1,88 @@
+{
+"title": "JSON Request Schema",
+"description": "JSON Request Schema of report.form.dataList.finance.getAdvance (version 1)",
+"type": "object",
+"properties": {
+    "metadata": {
+        "type": "object",
+        "properties": {
+            "API": {
+                "type": "object",
+                "properties": {
+                    "key": {
+                        "type": "string",
+                        "enum": [ "report.form.dataList.finance.getAdvance" ]
+                        },
+                    "version": {
+                        "type": [ "integer", "string" ],
+                        "minimum": 1,
+                        "minLength": 1
+                        }
+                    },
+                "required": [
+                    "key",
+                    "version"
+                    ]
+                }
+            },
+        "required": [
+            "API"
+            ]
+        },
+    "data": {
+        "type": "object",
+        "properties": {
+            "parameter": {
+                "type": "object",
+                "properties": {
+                    "pagination": {
+                        "type": "object",
+                        "properties": {
+                            "pageSize": {
+                                "type": [ "integer", "null" ],
+                                "minimum": 1,
+                                "maximum": 9223372036854775807
+                                },
+                            "pageShow": {
+                                "type": [ "integer", "null" ],
+                                "minimum": 1,
+                                "maximum": 9223372036854775807
+                                }
+                            },
+                        "required": [
+                            "pageSize",
+                            "pageShow"
+                            ]
+                        },
+                    "dataFilter": {
+                        "type": "object",
+                        "properties": {
+                            "businessDocumentNumber": {
+                                "type": [ "string", "null" ],
+                                "minLength": 1,
+                                "maxLength": 32
+                                },
+                            "combinedBudget_RefID": {
+                                "type": [ "integer", "null" ],
+                                "minimum": 1,
+                                "maximum": 9223372036854775807
+                                }
+                            }
+                        }
+                    },
+                "required": [
+                    "pagination",
+                    "dataFilter"
+                    ]
+                }
+            },
+        "required": [
+            "parameter"
+            ]
+        }
+    },
+"required": [
+    "metadata",
+    "data"
+    ]
+}

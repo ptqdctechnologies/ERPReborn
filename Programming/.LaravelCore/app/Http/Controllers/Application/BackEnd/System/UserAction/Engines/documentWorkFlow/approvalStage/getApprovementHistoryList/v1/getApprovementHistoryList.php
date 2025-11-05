@@ -6,7 +6,7 @@
 | ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\UserAction\Engines\documentWorkFlow\approvalStage                |
 |                \getApprovementHistoryList\v1                                                                                     |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2023 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2023 - 2025 Zheta (teguhpjs@gmail.com)                                                                              |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 
