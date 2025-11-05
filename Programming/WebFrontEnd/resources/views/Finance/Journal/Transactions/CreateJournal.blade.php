@@ -23,7 +23,7 @@
             @if($var == 0)
             <!-- CONTENT -->
             <div class="card">
-                <!-- CASH & BANK -->
+                <!-- JOURNAL -->
                 <div class="tab-content px-3 pt-4 pb-2" id="nav-tabContent">
                     <div class="row">
                         <div class="col-12">
@@ -31,7 +31,7 @@
                                 <!-- TITLE -->
                                 <div class="card-header">
                                     <label class="card-title">
-                                        Cash & Bank
+                                        Journal
                                     </label>
                                     <div class="card-tools">
                                         <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -46,7 +46,7 @@
                     </div>
                 </div>
 
-                <!-- DETAIL CASH & BANK -->
+                <!-- DETAIL JOURNAL -->
                 <div class="tab-content px-3 pb-2" id="nav-tabContent">
                     <div class="row">
                         <div class="col-12">
@@ -54,7 +54,7 @@
                                 <!-- HEADER -->
                                 <div class="card-header">
                                     <label class="card-title">
-                                        Detail Cash & Bank
+                                        Detail Journal
                                     </label>
                                     <div class="card-tools">
                                         <button type="button" class="btn btn-tool" data-card-widget="collapse">
