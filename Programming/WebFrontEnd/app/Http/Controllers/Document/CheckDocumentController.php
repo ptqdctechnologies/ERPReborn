@@ -312,7 +312,7 @@ class CheckDocumentController extends Controller
             $transDetail_RefID          = $request->input('formDocumentNumber_RefID');
             $businessDocumentTypeName   = $request->input('businessDocumentTypeName');
             $businessDocument_RefID     = $request->input('businessDocument_RefID');
-            $sourceData                 = "NO";
+            $sourceData                 = 0; // "NO"
 
             // dd([
             //     'transDetail_RefID' => $transDetail_RefID,
@@ -328,6 +328,8 @@ class CheckDocumentController extends Controller
                 'businessDocumentTypeName'  => $businessDocumentTypeName,
                 'transDetail_RefID'         => $transDetail_RefID,
             ]);
+
+            // dd($collection);
 
             if (count($collection['dataDetail']) === 0) {
                 return redirect()->back()->with('error', 'Data Not Found');

@@ -324,7 +324,11 @@
                     let totalBudget = val2.quantity * val2.priceBaseCurrencyValue;
                     let productColumn = `
                         <td style="text-align: center;">${val2.productCode}</td>
-                        <td style="text-align: center;">${val2.productName}</td>
+                        <td style="text-align: left;">
+                            <div style="overflow: hidden;white-space: nowrap;text-overflow: ellipsis;width: 150px;">
+                                ${val2.productName}
+                            </div>
+                        </td>
                     `;
 
                     if (val2.productName === "Unspecified Product") {

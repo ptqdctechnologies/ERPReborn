@@ -126,6 +126,8 @@
 
         if (isTypeNotEmpty) {
             document.getElementById('nominal_ending_balance').textContent   = `IDR ${currencyTotal(totalEndingBalance)}`;
+        } else {
+            document.getElementById('nominal_ending_balance').textContent   = `IDR 0.00`;
         }
 
         document.getElementById('nominal_cash_out').textContent             = `IDR ${currencyTotal(totalCashOut)}`;
@@ -139,101 +141,137 @@
 
         journalDetails.forEach((row, index) => {
             const tr = document.createElement("tr");
-            tr.innerHTML = `
-                <td style="text-align: center; padding-left: 4px !important;">
-                    <div class="d-flex justify-content-center">
-                        <!-- ICON MINUS -->
-                        <div class="icon-minus d-flex align-items-center justify-content-center" 
-                            style="width:20px;height:20px;border-radius:100%;background-color:red;margin:2px;cursor:pointer;display:${index === journalDetails.length - 1 ? 'none !important' : 'flex'};"
-                            onclick="removeRow(${index})">
-                            <i class="fas fa-minus" style="color:#fff;"></i>
-                        </div>
-
-                        <!-- ICON PLUS -->
-                        <div class="icon-plus d-flex align-items-center justify-content-center" 
-                            style="width:20px;height:20px;border-radius:100%;background-color:#4B586A;margin:2px;cursor:pointer;
-                            display:${index === journalDetails.length - 1 ? 'flex' : 'none !important'};"
-                            onclick="addRow()">
-                            <i class="fas fa-plus" style="color:#fff;"></i>
-                        </div>
-                    </div>
-                </td>
-
-                <td>
-                    <div class="input-group">
-                        <div class="input-group-append">
-                            <span class="input-group-text form-control" style="cursor:pointer;">
-                                <a data-toggle="modal" data-target="${index === journalDetails.length - 1 ? '#' : '#myAllTransactions'}" onclick="pickRefNumber(${index})">
-                                    <i class="fas fa-search"></i>
-                                </a>
-                            </span>
-                        </div>
-                        <input type="hidden" id="ref_number_id_${index}" value="${row.ref_number_id}">
-                        <input type="text" id="ref_number_name_${index}" class="form-control" readonly
-                            value="${row.ref_number_name}"
-                            onchange="updateField(${index}, 'ref_number_name', this.value)" style="background-color: ${index === journalDetails.length - 1 ? '' : 'white'};">
-                    </div>
-                </td>
-
-                <td>
-                    <select ${index === journalDetails.length - 1 ? 'disabled' : ''} class="form-control" id="debit_credit_${index}"
-                        onchange="updateField(${index}, 'debit_credit', this.value)">
-                        <option disabled ${row.debit_credit === '' ? 'selected' : ''}>Select a ...</option>
-                        <option value="DEBIT" ${row.debit_credit === 'DEBIT' ? 'selected' : ''}>DB</option>
-                        <option value="CREDIT" ${row.debit_credit === 'CREDIT' ? 'selected' : ''}>CR</option>
-                    </select>
-                </td>
-
-                <td><input type="number" class="form-control" readonly
-                    value="${row.value}" onchange="updateField(${index}, 'value', this.value)"></td>
-
-                <td><input type="number" class="form-control" readonly
-                    value="${row.unpaid}" onchange="updateField(${index}, 'unpaid', this.value)"></td>
-
-                <td><input id="payment${index}" class="form-control number-without-negative" autocomplete="off"
-                    value="${row.payment}" onchange="updateField(${index}, 'payment', this.value.replace(/,/g, ''))" ${index === journalDetails.length - 1 ? 'readonly' : ''}></td>
-
-                <td><input type="number" class="form-control" readonly
-                    value="${row.balance}" onchange="updateField(${index}, 'balance', this.value)"></td>
-
-                <td>
-                    <div class="input-group">
-                        <div class="input-group-append">
-                            <span class="input-group-text form-control" style="cursor:pointer;">
-                                <a data-toggle="modal" data-target="${index === journalDetails.length - 1 ? '#' : '#myGetChartOfAccount'}" onclick="pickCOA(${index})">
-                                    <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="box" />
-                                </a>
-                            </span>
-                        </div>
-                        <input type="hidden" id="coa_id_${index}" value="${row.coa_id}">
-                        <input type="text" id="coa_name_${index}" class="form-control" readonly
-                            value="${row.coa_name}" onchange="updateField(${index}, 'coa_name', this.value)" style="background-color: ${index === journalDetails.length - 1 ? '' : 'white'};">
-                    </div>
-                </td>
-
-                <td style="text-align:center;">
-                    ${row.attachment_url ? 
-                        `
-                            <div>
-                                ${row.attachment.type.startsWith('image/') ? 
-                                    `<img src="${row.attachment_url}" onclick="previewAttachment('${row.attachment_url}')" style="width:40px;height:40px;object-fit:cover;cursor:pointer;border-radius:4px;border:1px solid #ccc;" />` :
-                                    `<a href="${row.attachment_url}" target="_blank" style="font-size:12px;">${row.attachment.name}</a>`
-                                }
-                                <div style="cursor:pointer;color:red;margin-top:3px;font-size:12px;" onclick="deleteAttachment(${index})">
-                                    <i class="fas fa-trash"></i> Delete
-                                </div>
+            if (index === journalDetails.length - 1) {
+                tr.innerHTML = `
+                    <td style="text-align: center; padding-left: 4px !important;">
+                        <div class="d-flex justify-content-center">
+                            <!-- ICON PLUS -->
+                            <div class="icon-plus d-flex align-items-center justify-content-center" 
+                                style="width:20px;height:20px;border-radius:100%;background-color:#4B586A;margin:2px;cursor:pointer;
+                                display:${index === journalDetails.length - 1 ? 'flex' : 'none !important'};"
+                                onclick="addRow()">
+                                <i class="fas fa-plus" style="color:#fff;"></i>
                             </div>
-                        ` : 
-                        `
-                            <label class="btn btn-sm mb-0" style="cursor:pointer; background-color: #e9ecef; border: 1px solid #ced4da;">
-                                <i class="fas fa-paperclip"></i>
-                                <input ${index === journalDetails.length - 1 ? 'disabled' : ''} type="file" accept="image/*,.pdf,.doc,.docx" 
-                                    style="display:none;" onchange="handleFileUpload(${index}, this)">
-                            </label>
-                        `
-                    }
-                </td>
-            `;
+                        </div>
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                `;
+            } else {
+                tr.innerHTML = `
+                    <td style="text-align: center; padding-left: 4px !important;">
+                        <div class="d-flex justify-content-center">
+                            <!-- ICON MINUS -->
+                            <div class="icon-minus d-flex align-items-center justify-content-center" 
+                                style="width:20px;height:20px;border-radius:100%;background-color:red;margin:2px;cursor:pointer;display:${index === journalDetails.length - 1 ? 'none !important' : 'flex'};"
+                                onclick="{removeRow(${index});totalDebitCredit();totalPayments();}">
+                                <i class="fas fa-minus" style="color:#fff;"></i>
+                            </div>
+                        </div>
+                    </td>
+    
+                    <td>
+                        <div class="input-group">
+                            <div class="input-group-append">
+                                <span class="input-group-text form-control" style="cursor:pointer;">
+                                    <a data-toggle="modal" data-target="${index === journalDetails.length - 1 ? '#' : '#myAllTransactions'}" onclick="pickRefNumber(${index})">
+                                        <i class="fas fa-search"></i>
+                                    </a>
+                                </span>
+                            </div>
+                            <input type="hidden" id="ref_number_id_${index}" value="${row.ref_number_id}">
+                            <input type="text" id="ref_number_name_${index}" class="form-control" readonly
+                                value="${row.ref_number_name}"
+                                onchange="updateField(${index}, 'ref_number_name', this.value)" style="background-color: ${index === journalDetails.length - 1 ? '' : 'white'};">
+                        </div>
+                    </td>
+    
+                    <td>
+                        <select ${index === journalDetails.length - 1 ? 'disabled' : ''} class="form-control" id="debit_credit_${index}"
+                            onchange="updateField(${index}, 'debit_credit', this.value)">
+                            <option disabled ${row.debit_credit === '' ? 'selected' : ''}>Select a ...</option>
+                            <option value="DEBIT" ${row.debit_credit === 'DEBIT' ? 'selected' : ''}>DB</option>
+                            <option value="CREDIT" ${row.debit_credit === 'CREDIT' ? 'selected' : ''}>CR</option>
+                        </select>
+                    </td>
+    
+                    <td><input type="number" class="form-control" readonly
+                        value="${row.value}" onchange="updateField(${index}, 'value', this.value)"></td>
+    
+                    <td><input type="number" class="form-control" readonly
+                        value="${row.unpaid}" onchange="updateField(${index}, 'unpaid', this.value)"></td>
+    
+                    <td><input id="payment${index}" class="form-control number-without-negative" autocomplete="off"
+                        value="${row.payment}" onchange="updateField(${index}, 'payment', this.value.replace(/,/g, ''))" ${index === journalDetails.length - 1 ? 'readonly' : ''}></td>
+    
+                    <td><input type="number" class="form-control" readonly
+                        value="${row.balance}" onchange="updateField(${index}, 'balance', this.value)"></td>
+    
+                    <td>
+                        <div class="input-group">
+                            <div class="input-group-append">
+                                <span class="input-group-text form-control" style="cursor:pointer;">
+                                    <a data-toggle="modal" data-target="${index === journalDetails.length - 1 ? '#' : '#myGetChartOfAccount'}" onclick="pickCOA(${index})">
+                                        <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="box" />
+                                    </a>
+                                </span>
+                            </div>
+                            <input type="hidden" id="coa_id_${index}" value="${row.coa_id}">
+                            <input type="text" id="coa_name_${index}" class="form-control" readonly
+                                value="${row.coa_name}" onchange="updateField(${index}, 'coa_name', this.value)" style="background-color: ${index === journalDetails.length - 1 ? '' : 'white'};">
+                        </div>
+                    </td>
+    
+                    <td style="text-align:center;padding-right:unset;">
+                        ${row.attachment_url ? 
+                            `
+                                <div class="d-flex align-items-center" style="gap: 6px;">
+                                    <div style="cursor:pointer;color:red;font-size:12px;" onclick="deleteAttachment(${index})">
+                                        <i class="fas fa-trash"></i>
+                                    </div>
+                                    <a href="${row.attachment_url}" target="_blank" style="font-size:12px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;width: 50px;">${row.attachment.name}</a>
+                                </div>
+                            ` : 
+                            `
+                                <label class="btn btn-sm mb-0" style="cursor:pointer; background-color: #e9ecef; border: 1px solid #ced4da;">
+                                    <i class="fas fa-paperclip"></i>
+                                    <input ${index === journalDetails.length - 1 ? 'disabled' : ''} type="file" accept="image/*,.pdf,.doc,.docx" 
+                                        style="display:none;" onchange="handleFileUpload(${index}, this)">
+                                </label>
+                            `
+                        }
+                    </td>
+                `;
+                
+                // <td style="text-align:center;">
+                //     ${row.attachment_url ? 
+                //         `
+                //             <div>
+                //                 ${row.attachment.type.startsWith('image/') ? 
+                //                     `<img src="${row.attachment_url}" onclick="previewAttachment('${row.attachment_url}')" style="width:40px;height:40px;object-fit:cover;cursor:pointer;border-radius:4px;border:1px solid #ccc;" />` :
+                //                     `<a href="${row.attachment_url}" target="_blank" style="font-size:12px;">${row.attachment.name}</a>`
+                //                 }
+                //                 <div style="cursor:pointer;color:red;margin-top:3px;font-size:12px;" onclick="deleteAttachment(${index})">
+                //                     <i class="fas fa-trash"></i> Delete
+                //                 </div>
+                //             </div>
+                //         ` : 
+                //         `
+                //             <label class="btn btn-sm mb-0" style="cursor:pointer; background-color: #e9ecef; border: 1px solid #ced4da;">
+                //                 <i class="fas fa-paperclip"></i>
+                //                 <input ${index === journalDetails.length - 1 ? 'disabled' : ''} type="file" accept="image/*,.pdf,.doc,.docx" 
+                //                     style="display:none;" onchange="handleFileUpload(${index}, this)">
+                //             </label>
+                //         `
+                //     }
+                // </td>
+            }
 
             tbody.appendChild(tr);
 

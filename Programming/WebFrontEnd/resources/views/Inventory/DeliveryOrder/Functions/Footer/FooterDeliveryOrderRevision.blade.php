@@ -290,7 +290,7 @@
                     <tr>
                         <input id="record_RefID${key}" value="${val2.deliveryOrderDetail_ID}" type="hidden" />
                         <input id="product_RefID${key}" value="${val2.product_RefID}" type="hidden" />
-                        <input id="quantityUnit_RefID${key}" value="${val2.quantityUnit_RefID || 73000000000008}" type="hidden" />
+                        <input id="quantityUnit_RefID${key}" value="${val2.quantityUnit_RefID}" type="hidden" />
                         <input id="reference_ID${key}" value="${val2.reference_ID}" type="hidden" />
 
                         <td style="text-align: center;border:1px solid #e9ecef;">${val2.combinedBudgetSectionCode} - ${val2.combinedBudgetSectionName}</td>
@@ -315,7 +315,7 @@
                     <tr>
                         <input id="record_RefID${key}" value="${val2.deliveryOrderDetail_ID}" type="hidden" />
                         <input id="product_RefID${key}" value="${val2.product_RefID}" type="hidden" />
-                        <input id="quantityUnit_RefID${key}" value="${val2.quantityUnit_RefID || 73000000000008}" type="hidden" />
+                        <input id="quantityUnit_RefID${key}" value="${val2.quantityUnit_RefID}" type="hidden" />
                         <input id="reference_ID${key}" value="${val2.reference_ID}" type="hidden" />
 
                         <td style="text-align: center;border:1px solid #e9ecef;">${val2.combinedBudgetSectionCode} - ${val2.combinedBudgetSectionName}</td>
@@ -345,13 +345,13 @@
                     <tr>
                         <input id="record_RefID${key}" value="${val2.deliveryOrderDetail_ID}" type="hidden" />
                         <input id="product_RefID${key}" value="${val2.product_RefID}" type="hidden" />
-                        <input id="quantityUnit_RefID${key}" value="${val2.quantityUnit_RefID || 73000000000008}" type="hidden" />
+                        <input id="quantityUnit_RefID${key}" value="${val2.quantityUnit_RefID}" type="hidden" />
                         <input id="reference_ID${key}" value="${val2.reference_ID}" type="hidden" />
 
                         <td style="text-align: center;border:1px solid #e9ecef;">${val2.productCode || '-'}</td>
                         <td style="text-align: center;border:1px solid #e9ecef;">${val2.productName || '-'}</td>
                         <td style="text-align: center;border:1px solid #e9ecef;">${val2.quantityUnitName || '-'}</td>
-                        <td style="text-align: center;border:1px solid #e9ecef;">-</td>
+                        <td style="text-align: center;border:1px solid #e9ecef;">${currencyTotal(val2.quantity) || '-'}</td>
                         <td style="border:1px solid #e9ecef;background-color:white; padding: 0.5rem !important; width: 100px;">
                             <input class="form-control number-without-negative" id="qty_req${key}" data-index=${key} data-quantity=${val2.qtyReq || 0} autocomplete="off" value=${val2.qtyReq || 0} style="border-radius:0px;" />
                         </td>

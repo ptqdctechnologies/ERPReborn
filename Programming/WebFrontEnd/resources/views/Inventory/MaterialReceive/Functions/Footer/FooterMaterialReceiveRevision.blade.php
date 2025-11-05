@@ -148,13 +148,14 @@
         const rows = sourceTable.getElementsByTagName('tr');
 
         for (let row of rows) {
-            const recordRefID                   = row.querySelector('input[id^="record_RefID"]');
-            const deliveryOrderDetailRefID      = row.querySelector('input[id^="deliveryOrderDetail_RefID"]');
-            const productRefID                  = row.querySelector('input[id^="product_RefID"]');
-            const quantityUnitRefID             = row.querySelector('input[id^="quantityUnit_RefID"]');
-            const productUnitPriceCurrencyRefID = row.querySelector('input[id^="productUnitPriceCurrency_RefID"]');
-            const qtyInput                      = row.querySelector('input[id^="qty_req"]');
-            const noteInput                     = row.querySelector('textarea[id^="note"]');
+            const recordRefID                       = row.querySelector('input[id^="record_RefID"]');
+            const combinedBudgetSectionDetailRefID  = row.querySelector('input[id^="combinedBudgetSectionDetail_RefID"]');
+            const deliveryOrderDetailRefID          = row.querySelector('input[id^="deliveryOrderDetail_RefID"]');
+            const productRefID                      = row.querySelector('input[id^="product_RefID"]');
+            const quantityUnitRefID                 = row.querySelector('input[id^="quantityUnit_RefID"]');
+            const productUnitPriceCurrencyRefID     = row.querySelector('input[id^="productUnitPriceCurrency_RefID"]');
+            const qtyInput                          = row.querySelector('input[id^="qty_req"]');
+            const noteInput                         = row.querySelector('textarea[id^="note"]');
 
             if (
                 qtyInput && noteInput &&
@@ -192,7 +193,8 @@
                                     productUnitPriceCurrency_RefID: parseInt(productUnitPriceCurrencyRefID.value),
                                     productUnitPriceCurrencyExchangeRate: parseFloat(1),
                                     productUnitPriceCurrencyValue: parseFloat(0),
-                                    remarks: note
+                                    remarks: note,
+                                    combinedBudgetSectionDetail_RefID: parseInt(combinedBudgetSectionDetailRefID.value)
                                 }
                             };
                         }
@@ -225,7 +227,8 @@
                             productUnitPriceCurrency_RefID: parseInt(productUnitPriceCurrencyRefID.value),
                             productUnitPriceCurrencyExchangeRate: parseFloat(1),
                             productUnitPriceCurrencyValue: parseFloat(0),
-                            remarks: note
+                            remarks: note,
+                            combinedBudgetSectionDetail_RefID: parseInt(combinedBudgetSectionDetailRefID.value)
                         }
                     });
                 }
@@ -318,7 +321,8 @@
                     productUnitPriceCurrency_RefID: parseInt(val2.sys_BaseCurrency_RefID),
                     productUnitPriceCurrencyExchangeRate: parseFloat(1),
                     productUnitPriceCurrencyValue: parseFloat(0),
-                    remarks: val2.note
+                    remarks: val2.note,
+                    combinedBudgetSectionDetail_RefID: val2.combinedBudgetSectionDetail_RefID
                 }
             });
 
@@ -343,6 +347,7 @@
                     <input id="product_RefID${key}" value="${val2.product_RefID}" type="hidden" />
                     <input id="quantityUnit_RefID${key}" value="${val2.quantityUnit_RefID}" type="hidden" />
                     <input id="productUnitPriceCurrency_RefID${key}" value="${val2.sys_BaseCurrency_RefID}" type="hidden" />
+                    <input id="combinedBudgetSectionDetail_RefID${key}" value="${val2.combinedBudgetSectionDetail_RefID}" type="hidden" />
                 </tr>
             `;
 

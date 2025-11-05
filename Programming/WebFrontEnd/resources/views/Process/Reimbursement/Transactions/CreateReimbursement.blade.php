@@ -2,12 +2,12 @@
 @section('main')
 @include('Partials.navbar')
 @include('Partials.sidebar')
-@include('getFunction.getProject')
-@include('getFunction.getSite')
+@include('getFunction.getProjects')
+@include('getFunction.getSites')
 @include('getFunction.getCustomer')
-@include('getFunction.getBeneficiary')
-@include('getFunction.getBank')
-@include('getFunction.getBankAccount')
+@include('getFunction.getBeneficiaries')
+@include('getFunction.getBanks')
+@include('getFunction.getBanksAccount')
 @include('getFunction.getWorkFlow')
 @include('getFunction.getReimbursement')
 @include('Process.Reimbursement.Functions.PopUp.PopUpRemRevision')
@@ -265,12 +265,12 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" id="submitRem" class="btn btn-default btn-sm" onclick="submitForm();" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
-                    <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" title="Submit to Rem"> Yes, save it
-                </button>
-
                 <button type="button" class="btn btn-default btn-sm" data-dismiss="modal" style="background-color:#e9ecef;border:1px solid #ced4da;">
                     <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel Rem List Cart"> No, cancel
+                </button>
+
+                <button type="button" id="submitRem" class="btn btn-default btn-sm" onclick="submitForm();" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
+                    <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" title="Submit to Rem"> Yes, save it
                 </button>
             </div>
         </div>

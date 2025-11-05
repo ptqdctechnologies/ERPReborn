@@ -719,7 +719,7 @@ class DeliveryOrderController extends Controller
             $compact = [
                 'varAPIWebToken'                => $varAPIWebToken,
                 'header'                        => [
-                    'combinedBudget_RefID'      => $data[0]['combinedBudget_RefID'] ?? '46000000000033',
+                    'combinedBudget_RefID'      => $data[0]['combinedBudget_RefID'] ?? '',
                     'combinedBudgetCode'        => $data[0]['combinedBudgetCode'] ?? '',
                     'combinedBudgetName'        => $data[0]['combinedBudgetName'] ?? '',
                     'combinedBudgetSectionCode' => $data[0]['combinedBudgetSectionCode'] ?? '',
