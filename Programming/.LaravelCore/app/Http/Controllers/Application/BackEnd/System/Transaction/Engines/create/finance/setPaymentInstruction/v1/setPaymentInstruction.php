@@ -43,7 +43,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0001.0000000                                                                                       |
-        | ▪ Last Update     : 2025-10-20                                                                                           |
+        | ▪ Last Update     : 2025-11-05                                                                                           |
         | ▪ Creation Date   : 2025-01-11                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -105,9 +105,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
                                     $varData['entities']['vatNumber'],
                                     $varData['entities']['fatPatDoStatus'],
                                     $varData['entities']['assetStatus'],
-                                    $varData['entities']['assetCategory'],
-                                    $varData['entities']['depreciationMethod'],
-                                    $varData['entities']['depreciationRate'],
+                                    $varData['entities']['depreciationAssetCategory_RefID'],
                                     $varData['entities']['depreciationCOA_RefID'],
                                     $varData['entities']['deduction'],
                                     $varData['entities']['remarks'],
