@@ -52,71 +52,58 @@
 
 <script>
     function getModalCategory() {
-        $(".loadingGetModalCategory").hide();
+        $('#tableGetCategory tbody').empty();
+        $(".loadingGetModalCategory").show();
+        $(".errorModalCategoryMessageContainer").hide();
 
-        const data = [
-            {
-                id: 0,
-                code: 'CTG - 001',
-                name: 'Category 1'
-            },
-            {
-                id: 1,
-                code: 'CTG - 002',
-                name: 'Category 2'
-            },
-            {
-                id: 2,
-                code: 'CTG - 003',
-                name: 'Category 3'
-            },
-            {
-                id: 3,
-                code: 'CTG - 004',
-                name: 'Category 4'
-            },
-            {
-                id: 4,
-                code: 'CTG - 005',
-                name: 'Category 5'
-            },
-            {
-                id: 5,
-                code: 'CTG - 006',
-                name: 'Category 6'
-            },
-            {
-                id: 6,
-                code: 'CTG - 007',
-                name: 'Category 7'
-            },
-            {
-                id: 7,
-                code: 'CTG - 008',
-                name: 'Category 8'
-            },
-            {
-                id: 8,
-                code: 'CTG - Non Permanen',
-                name: 'Non Permanen'
-            },
-            {
-                id: 9,
-                code: 'CTG - Permanen',
-                name: 'Permanen'
-            },
-        ];
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
 
-        let no = 1;
-        let table = $('#tableGetCategory').DataTable();
-        table.clear();
+        var keys = 0;
+        $.ajax({
+            type: 'GET',
+            url: '{!! route("getAssetCategory") !!}',
+            success: function(data) {
+                $(".loadingGetModalCategory").hide();
 
-        $.each(data, function(key, val) {
-            table.row.add([
-                no++,
-                val.code || '-',
-                val.name || '-',
-            ]).draw();
+                var no = 1;
+                var table = $('#tableGetCategory').DataTable();
+                table.clear();
+
+                if (Array.isArray(data) && data.length > 0) {
+                    $.each(data, function(key, val) {
+                        keys += 1;
+                        table.row.add([
+                            '<input id="sys_id_category' + keys + '" value="' + val.sys_ID + '" data-trigger="sys_id_category" type="hidden">' + no++,
+                            val.code || '-',
+                            val.name || '-',
+                        ]).draw();
+                    });
+
+                    $("#tableGetCategory_length").show();
+                    $("#tableGetCategory_filter").show();
+                    $("#tableGetCategory_info").show();
+                    $("#tableGetCategory_paginate").show();
+                } else {
+                    $('#tableGetCategory tbody').empty();
+                    $(".errorModalCategoryMessageContainer").show();
+                    $("#errorModalCategoryMessage").text(`Data not found.`);
+
+                    $("#tableGetCategory_length").hide();
+                    $("#tableGetCategory_filter").hide();
+                    $("#tableGetCategory_info").hide();
+                    $("#tableGetCategory_paginate").hide();
+                }
+            },
+            error: function (textStatus, errorThrown) {
+                $('#tableGetCategory tbody').empty();
+                $(".loadingGetModalCategory").hide();
+                $(".errorModalCategoryMessageContainer").show();
+                $("#errorModalCategoryMessage").text(`[${textStatus.status}] ${textStatus.responseJSON.message}`);
+            }
         });
     }
 
