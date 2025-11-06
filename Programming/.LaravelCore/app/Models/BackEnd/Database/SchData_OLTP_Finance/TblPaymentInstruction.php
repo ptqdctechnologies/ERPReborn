@@ -44,7 +44,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-11-05                                                                                           |
+        | ▪ Last Update     : 2025-11-06                                                                                           |
         | ▪ Creation Date   : 2025-01-11                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -70,7 +70,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         public function setDataInsert(
             $varUserSession,
             string $varSysDataAnnotation = null, string $varSysDataValidityStartDateTimeTZ = null, string $varSysDataValidityFinishDateTimeTZ = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, $varSysBaseCurrency_RefID = null,
-            string $varDocumentDateTimeTZ = null, int $varLog_FileUpload_Pointer_RefID = null, int $varCurrency_RefID = null, string $varCurrencySymbol = null, int $varCurrencyValue = null, int $varCurrencyExchangeRate = null, string $varSupplierInvoiceNumber = null, int $varSupplier_RefID = null, int $varReceiptStatus = null, int $varContractStatus = null, int $varVatStatus = null, int $varVatValue = null, string $varVatNumber = null, int $varFatPatDoStatus = null, int $varAssetStatus = null, int $varDepreciationAssetCategory_RefID = null, int $varDepreciationCOA_RefID = null, int $varDeduction = null, string $varRemarks = null,
+            string $varDocumentDateTimeTZ = null, int $varLog_FileUpload_Pointer_RefID = null, int $varCurrency_RefID = null, string $varCurrencySymbol = null, int $varCurrencyValue = null, int $varCurrencyExchangeRate = null, string $varSupplierInvoiceNumber = null, int $varSupplier_RefID = null, int $varReceiptStatus = null, int $varContractStatus = null, int $varVatStatus = null, float $varVatValue = 0, string $varVatNumber = null, int $varFatPatDoStatus = null, int $varAssetStatus = null, int $varDepreciationAssetCategory_RefID = null, float $varPeriod = 0, float $varRate = 0, int $varDepreciationCOA_RefID = null, int $varDeduction = null, string $varRemarks = null,
             array $varAdditionalData = []
             )
             {
@@ -102,11 +102,13 @@ namespace App\Models\Database\SchData_OLTP_Finance
                             [$varReceiptStatus, 'smallint'],
                             [$varContractStatus, 'smallint'],
                             [$varVatStatus, 'smallint'],
-                            [$varVatValue, 'bigint'],
+                            [$varVatValue, 'numeric'],
                             [$varVatNumber, 'varchar'],
                             [$varFatPatDoStatus, 'smallint'],
                             [$varAssetStatus, 'smallint'],
                             [$varDepreciationAssetCategory_RefID, 'bigint'],
+                            [$varPeriod, 'numeric'],
+                            [$varRate, 'numeric'],
                             [$varDepreciationCOA_RefID, 'bigint'],
                             [$varDeduction, 'bigint'],
                             [$varRemarks, 'varchar'],
@@ -199,7 +201,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
                             [$varVatNumber, 'varchar'],
                             [$varFatPatDoStatus, 'smallint'],
                             [$varAssetStatus, 'smallint'],
-                            [$varDepreciationAssetCategory_RefID, 'bigint'],                            
+                            [$varDepreciationAssetCategory_RefID, 'bigint'],
                             [$varDepreciationCOA_RefID, 'bigint'],
                             [$varDeduction, 'bigint'],
                             [$varRemarks, 'varchar'],
