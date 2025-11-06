@@ -43,7 +43,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0001.0000000                                                                                       |
-        | ▪ Last Update     : 2025-11-05                                                                                           |
+        | ▪ Last Update     : 2025-11-06                                                                                           |
         | ▪ Creation Date   : 2025-01-11                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -106,6 +106,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
                                     $varData['entities']['fatPatDoStatus'],
                                     $varData['entities']['assetStatus'],
                                     $varData['entities']['depreciationAssetCategory_RefID'],
+                                    $varData['entities']['period'],
+                                    $varData['entities']['rate'],
                                     $varData['entities']['depreciationCOA_RefID'],
                                     $varData['entities']['deduction'],
                                     $varData['entities']['remarks'],
