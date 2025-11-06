@@ -10,6 +10,7 @@
     const valueVAT                      = document.getElementById('ppn');
     const valueVATNumber                = document.getElementById('vat_number');
     const notes                         = document.getElementById('account_payable_notes');
+    const categoryID                    = document.getElementById('category_id');
     const categoryNumber                = document.getElementById('category_number');
     const depreciationMethod            = document.getElementById('depreciation_method');
     const depreciationRatePercentage    = document.getElementById('depreciation_rate_percentage');
@@ -17,6 +18,62 @@
     const depreciationCOANumber         = document.getElementById('depreciation_coa_number');
     const deductionValue                = document.getElementById('budget_details_deduction');
 
+    function getDepreciationMethod() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: 'GET',
+            url: '{!! route("getDepreciationMethod") !!}',
+            success: function(data) {
+                $('#containerLoadingDepreciationMethod').hide();
+
+                if (data && Array.isArray(data)) {
+                    $('#containerDepreciationMethod').show();
+
+                    $('#depreciation_method').empty();
+                    $('#depreciation_method').append('<option disabled selected value="Select a Method">Select a Method</option>');
+
+                    data.forEach(function(val) {
+                        $('#depreciation_method').append('<option value="' + val.sys_ID + '">' + val.name + '</option>');
+                    });
+                } else {
+                    console.log('Data depreciation method not found.');
+                }
+            },
+            error: function (textStatus, errorThrown) {
+                console.log('Function getDepreciationMethod error: ', textStatus, errorThrown);
+            }
+        });
+    }
+
+    function getDepreciationRateYears(categoryID, depreciationMethodID) {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: 'GET',
+            url: '{!! route("getDepreciationRateYears") !!}?assetCategoryRef_ID=' + categoryID + '&depreciationMethodRef_ID=' + depreciationMethodID,
+            success: function(data) {
+                if (data && Array.isArray(data)) {
+                    $('#depreciation_rate_percentage').val(data[0]?.rate);
+                    $('#depreciation_rate_years').val(data[0]?.period);
+                } else {
+                    console.log('Data depreciation rate years not found.');
+                }
+            },
+            error: function (textStatus, errorThrown) {
+                console.log('Function getDepreciationRateYears error: ', textStatus, errorThrown);
+            }
+        });
+    }
+    
     function checkOneLineBudgetContents(indexInput) {
         const rows = document.querySelectorAll("#invoice_details_table tbody tr");
         let hasFullRow = false;
@@ -85,6 +142,7 @@
             $("#depreciation_coa_id").val("");
         } else {
             $(".asset-components").css("display", "flex");
+            getDepreciationMethod();
         }
         $("#asset_message").hide();
     }
@@ -139,11 +197,6 @@
                 console.log('Function getVAT error: ', textStatus, errorThrown);
             }
         });
-    }
-
-    function onChangeDepreciationMethod(params) {
-        $("#depreciation_method").css("border", "1px solid #ced4da");
-        $("#depreciation_method_message").hide();
     }
 
     function fatPatDOValue(params) {
@@ -731,7 +784,7 @@
     });
 
     $('#tableGetCategory').on('click', 'tbody tr', async function() {
-        let sysId = $(this).find('input[data-trigger="sys_id_modal_coa"]').val();
+        let sysId = $(this).find('input[data-trigger="sys_id_category"]').val();
         let code  = $(this).find('td:nth-child(2)').text();
         let name  = $(this).find('td:nth-child(3)').text();
 
@@ -741,6 +794,10 @@
         $("#category_message").hide();
         
         $('#myGetCategory').modal('hide');
+
+        if (depreciationMethod.value != "Select a Method") {
+            getDepreciationRateYears(sysId, depreciationMethod.value);
+        }
     });
 
     $('#tableGetPaymentTransfer').on('click', 'tbody tr', async function() {
@@ -846,6 +903,19 @@
         $("#modal_account_payable_document_number").val(trano);
 
         $('#myAccountPayables').modal('hide');
+    });
+
+    $('#depreciation_method').on('change', function(e) {
+        const value = e.target.value;
+
+        if (value) {
+            if (categoryID.value) {
+                getDepreciationRateYears(categoryID.value, value);
+            }
+
+            $("#depreciation_method_message").hide();
+            $("#depreciation_method").css("border", "1px solid #ced4da");
+        }
     });
 
     $(window).one('load', function(e) {

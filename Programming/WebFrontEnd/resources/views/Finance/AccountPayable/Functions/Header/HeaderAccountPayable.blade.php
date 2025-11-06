@@ -267,12 +267,15 @@
             <div class="row asset-components" style="margin-top: 1rem; display: none;">
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Depreciation Method</label>
                 <div class="col-sm-9 col-md-8 col-lg-4 p-0">
-                    <div>
-                        <select class="form-control" name="depreciation_method" id="depreciation_method" style="border-radius:0;" type="text" onchange="onChangeDepreciationMethod(this)">
-                            <option disabled selected value="Select a Method">Select a Method</option>
-                            <option value="0">Straight Line</option>
-                            <option value="1">Double Decline</option>
-                        </select>
+                    <div id="containerDepreciationMethod" style="display: none;">
+                        <select class="form-control" name="depreciation_method" id="depreciation_method" style="border-radius:0;" type="text"></select>
+                    </div>
+                    <div id="containerLoadingDepreciationMethod">
+                        <div class="d-flex flex-column justify-content-center">
+                            <div class="spinner-border spinner-border-sm" role="status">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
