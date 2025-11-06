@@ -21,7 +21,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         |                     ► http://172.28.0.4/transaction.update.finance.setPaymentInstruction.v1_throughAPIGateway            |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-11-05                                                                                           |
+        | ▪ Last Update     : 2025-11-06                                                                                           |
         | ▪ Creation Date   : 2025-01-13                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -54,13 +54,15 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                             "receiptStatus" => 0,
                             "contractStatus" => 1,
                             "vatStatus" => 1,
-                            "vatValue" => 10.00,
+                            "vatValue" => 10,
                             "vatNumber" => '01.234.567.8-999.000',
                             "fatPatDoStatus" => 1,
                             "assetStatus" => 1,
                             "depreciationAssetCategory_RefID" => 299000000000007,
+                            "period" => 16,
+                            "rate" => 6.25,
                             "depreciationCOA_RefID" => 65000000000005,
-                            "deduction" => 0.0,
+                            "deduction" => 0,
                             "remarks" => 'My Remarks',
                             'additionalData' => [
                                 'itemList' => [
