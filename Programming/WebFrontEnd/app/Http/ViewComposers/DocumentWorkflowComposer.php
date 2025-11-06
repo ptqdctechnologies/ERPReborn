@@ -36,7 +36,8 @@ class DocumentWorkflowComposer
             );
 
             if (isset($apiResponse['metadata']['HTTPStatusCode']) && $apiResponse['metadata']['HTTPStatusCode'] === 200) {
-                $dataAPIResponse = $apiResponse['data'][0]['document']['content']['dataCount'];
+                //$dataAPIResponse = $apiResponse['data']['data'][0]['document']['content']['dataCount'];
+                $dataAPIResponse = $apiResponse['data']['data']['document']['content']['businessDocumentFormCount'];
 
                 Helper_Redis::setValue(
                     $varAPIWebToken, 
