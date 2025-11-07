@@ -133,9 +133,9 @@ class BusinessTripService
                                                     'entities' => [
                                                         'paymentMethod_RefID'                   => 175000000000004,
                                                         'amountCurrency_RefID'                  => 62000000000001,
-                                                        'amountCurrencyValue'                   => (float) str_replace(',', '', $data['vendor_amount']),
+                                                        'amountCurrencyValue'                   => $data['vendor_amount'] ? (float) str_replace(',', '', $data['vendor_amount']) : null,
                                                         'amountCurrencyExchangeRate'            => 1,
-                                                        'paymentFundingDestination_RefID'       => (int) $data['vendor_bank_account'],
+                                                        'paymentFundingDestination_RefID'       => $data['vendor_bank_account'] ? (int) $data['vendor_bank_account'] : null,
                                                         'beneficiaryWorkerJobsPosition_RefID'   => null
                                                         ]
                                                     ],
@@ -144,9 +144,9 @@ class BusinessTripService
                                                     'entities' => [
                                                         'paymentMethod_RefID'                   => 175000000000005,
                                                         'amountCurrency_RefID'                  => 62000000000001,
-                                                        'amountCurrencyValue'                   => (float) str_replace(',', '', $data['corp_amount']),
-                                                        'amountCurrencyExchangeRate'            => 1,
-                                                        'paymentFundingDestination_RefID'       => (int) $data['corp_bank_account'],
+                                                        'amountCurrencyValue'                   => $data['corp_amount'] ? (float) str_replace(',', '', $data['corp_amount']) : null,
+                                                        'amountCurrencyExchangeRate'            => 1, 
+                                                        'paymentFundingDestination_RefID'       => $data['corp_bank_account'] ? (int) $data['corp_bank_account'] : null,
                                                         'beneficiaryWorkerJobsPosition_RefID'   => null
                                                         ]
                                                     ],
@@ -155,10 +155,10 @@ class BusinessTripService
                                                     'entities' => [
                                                         'paymentMethod_RefID'                   => 175000000000004,
                                                         'amountCurrency_RefID'                  => 62000000000001,
-                                                        'amountCurrencyValue'                   => (float) str_replace(',', '', $data['other_amount']),
+                                                        'amountCurrencyValue'                   => $data['other_amount'] ? (float) str_replace(',', '', $data['other_amount']) : null,
                                                         'amountCurrencyExchangeRate'            => 1,
-                                                        'paymentFundingDestination_RefID'       => (int) $data['other_bank_account'],
-                                                        'beneficiaryWorkerJobsPosition_RefID'   => (int) $data['other_beneficiary'],
+                                                        'paymentFundingDestination_RefID'       => $data['other_bank_account'] ? (int) $data['other_bank_account'] : null,
+                                                        'beneficiaryWorkerJobsPosition_RefID'   => $data['other_beneficiary'] ? (int) $data['other_beneficiary'] : null,
                                                         ]
                                                     ]
                                                 ]

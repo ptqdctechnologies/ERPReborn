@@ -89,19 +89,22 @@
                     $("#bank_name_second_id").val(data[0].Bank_RefID);
                     $("#bank_name_second_name").val(data[0].BankAcronym);
                     $("#bank_name_second_detail").val(`${data[0].BankAcronym} - ${data[0].BankName}`);
-
+                    
                     $("#bank_accounts_third").val(data[0].AccountNumber);
                     $("#bank_accounts_third_id").val(data[0].Sys_PID);
                     $("#bank_accounts_third_detail").val(data[0].AccountName);
                     
                     if (transactionType == "AdvanceRequest") {
                         $("#myBanksAccountTrigger").prop("disabled", false);
-                        $("#bank_name_second_detail").css({"background-color":"#e9ecef"});
+                        $("#bank_name_second_detail").css({"background-color":"#e9ecef", "border": "1px solid #ced4da"});
                         getBanksAccount(data[0].Bank_RefID, person_refID);
-                    }
-                    if (transactionType == "Reimbursement") {
+                    } else if (transactionType == "Reimbursement") {
                         $("#myBankAccountTrigger").prop("disabled", false);
-                        $("#bank_name_second_detail").css({"background-color":"#e9ecef"});
+                        $("#bank_name_second_detail").css({"background-color":"#e9ecef", "border": "1px solid #ced4da"});
+                        getBanksAccount(data[0].Bank_RefID, person_refID);
+                    } else if (transactionType == "BusinessTripRequest") {
+                        $("#bank_accounts_third_popup").prop("disabled", false);
+                        $("#bank_name_second_detail").css({"background-color":"#e9ecef", "border": "1px solid #ced4da"});
                         getBanksAccount(data[0].Bank_RefID, person_refID);
                     }
                 } else {

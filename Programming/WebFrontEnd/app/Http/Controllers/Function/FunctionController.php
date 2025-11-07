@@ -1624,4 +1624,92 @@ class FunctionController extends Controller
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }
+
+    public function getAssetCategory(Request $request)
+    {
+        try {
+            $varAPIWebToken = Session::get('SessionLogin');
+
+            $varData = Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'dataPickList.accounting.getAssetCategory', 
+                'latest',
+                [
+                'parameter' => [
+                    ]
+                ]
+            );
+
+            if ($varData['metadata']['HTTPStatusCode'] !== 200) {
+                throw new \Exception('Failed to fetch Get Asset Category');
+            }
+
+            return response()->json($varData['data']['data']);
+        } catch (\Throwable $th) {
+            Log::error("Error at getAssetCategory: " . $th->getMessage());
+
+            return response()->json([]);
+        }
+    }
+
+    public function getDepreciationMethod(Request $request)
+    {
+        try {
+            $varAPIWebToken = Session::get('SessionLogin');
+
+            $varData = Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'dataPickList.accounting.getDepreciationMethod', 
+                'latest',
+                [
+                'parameter' => [
+                    ]
+                ]
+            );
+
+            if ($varData['metadata']['HTTPStatusCode'] !== 200) {
+                throw new \Exception('Failed to fetch Get Depreciation Method');
+            }
+
+            return response()->json($varData['data']['data']);
+        } catch (\Throwable $th) {
+            Log::error("Error at getDepreciationMethod: " . $th->getMessage());
+
+            return response()->json([]);
+        }
+    }
+
+    public function getDepreciationRateYears(Request $request)
+    {
+        try {
+            $varAPIWebToken             = Session::get('SessionLogin');
+            $assetCategoryRefID         = $request->assetCategoryRef_ID;
+            $depreciationMethodRefID    = $request->depreciationMethodRef_ID;
+
+            $varData = Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'dataPickList.accounting.getDepreciationRateYears', 
+                'latest',
+                [
+                'parameter' => [
+                    'assetCategory_RefID'       => (int) $assetCategoryRefID,
+                    'depreciationMethod_RefID'  => (int) $depreciationMethodRefID
+                    ]
+                ]
+            );
+
+            if ($varData['metadata']['HTTPStatusCode'] !== 200) {
+                throw new \Exception('Failed to fetch Get Depreciation Rate Years');
+            }
+
+            return response()->json($varData['data']['data']);
+        } catch (\Throwable $th) {
+            Log::error("Error at getDepreciationRateYears: " . $th->getMessage());
+
+            return response()->json([]);
+        }
+    }
 }
