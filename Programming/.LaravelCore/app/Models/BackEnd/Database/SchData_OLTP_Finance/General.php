@@ -714,7 +714,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         | ▪ Method Name     : getDataList_PaymentInstructionDetail_LatestVersion                                                   |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2025-10-15                                                                                           |
+        | ▪ Last Update     : 2025-11-07                                                                                           |
         | ▪ Creation Date   : 2025-10-15                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Detail Credit Note Versi Terakhir                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -745,9 +745,72 @@ namespace App\Models\Database\SchData_OLTP_Finance
                             ]
                             )
                         );
+                    $resultArray = $varReturn['data'];
+
+                    // Description: Generate API.
+                    $varReturn['data'] = [];
+                    $idxArray = 0;
+                    foreach ($resultArray as $key => $value) {
+                        $varReturn['data'][$idxArray]['documentNumber'] = $value["DocumentNumber"];
+                        $varReturn['data'][$idxArray]['date'] = $value["Date"];
+                        $varReturn['data'][$idxArray]['pO_Number'] = $value["PO_Number"];
+                        $varReturn['data'][$idxArray]['currency_RefID'] = $value["Currency_RefID"];
+                        $varReturn['data'][$idxArray]['currencySymbol'] = $value["CurrencySymbol"];
+                        $varReturn['data'][$idxArray]['currencyValue'] = $value["CurrencyValue"];
+                        $varReturn['data'][$idxArray]['currencyExchangeRate'] = $value["CurrencyExchangeRate"];
+                        $varReturn['data'][$idxArray]['log_FileUpload_Pointer_RefID'] = $value["Log_FileUpload_Pointer_RefID"];
+                        $varReturn['data'][$idxArray]['supplierInvoiceNumber'] = $value["SupplierInvoiceNumber"];
+                        $varReturn['data'][$idxArray]['supplierBank_Name'] = $value["SupplierBank_Name"];
+                        $varReturn['data'][$idxArray]['supplierBank_Account'] = $value["SupplierBank_Account"];
+                        $varReturn['data'][$idxArray]['supplierBank_AccountName'] = $value["SupplierBank_AccountName"];
+                        $varReturn['data'][$idxArray]['receiptStatus'] = $value["ReceiptStatus"];
+                        $varReturn['data'][$idxArray]['contractStatus'] = $value["ContractStatus"];
+                        $varReturn['data'][$idxArray]['vatStatus'] = $value["VatStatus"];
+                        $varReturn['data'][$idxArray]['vatValue'] = $value["VatValue"];
+                        $varReturn['data'][$idxArray]['vatNumber'] = $value["VatNumber"];
+                        $varReturn['data'][$idxArray]['fatPatDoStatus'] = $value["FatPatDoStatus"];
+                        $varReturn['data'][$idxArray]['assetStatus'] = $value["AssetStatus"];
+                        $varReturn['data'][$idxArray]['assetCategory'] = $value["AssetCategory"];
+                        $varReturn['data'][$idxArray]['depreciationMethod'] = $value["DepreciationMethod"];
+                        $varReturn['data'][$idxArray]['depreciationRate'] = $value["DepreciationRate"];
+                        $varReturn['data'][$idxArray]['depreciationCOA_RefID'] = $value["DepreciationCOA_RefID"];
+                        $varReturn['data'][$idxArray]['depreciationCOA_Code'] = $value["DepreciationCOA_Code"];
+                        $varReturn['data'][$idxArray]['depreciationCOA_Name'] = $value["DepreciationCOA_Name"];
+                        $varReturn['data'][$idxArray]['deduction'] = $value["Deduction"];
+                        $varReturn['data'][$idxArray]['totalAP'] = $value["TotalAP"];
+                        $varReturn['data'][$idxArray]['notes'] = $value["Notes"];
+                        $varReturn['data'][$idxArray]['combinedBudgetSectionDetail_RefID'] = $value["CombinedBudgetSectionDetail_RefID"];
+                        $varReturn['data'][$idxArray]['product_RefID'] = $value["Product_RefID"];
+                        $varReturn['data'][$idxArray]['productName'] = $value["ProductName"];
+                        $varReturn['data'][$idxArray]['productCode'] = $value["ProductCode"];
+                        $varReturn['data'][$idxArray]['quantity'] = $value["Quantity"];
+                        $varReturn['data'][$idxArray]['uOM'] = $value["UOM"];
+                        $varReturn['data'][$idxArray]['productUnitPriceCurrencyValue'] = $value["ProductUnitPriceCurrencyValue"];
+                        $varReturn['data'][$idxArray]['productUnitPriceCurrencyExchangeRate'] = $value["ProductUnitPriceCurrencyExchangeRate"];
+                        $varReturn['data'][$idxArray]['productUnitPriceBaseCurrencyValue'] = $value["ProductUnitPriceBaseCurrencyValue"];
+                        $varReturn['data'][$idxArray]['wHT'] = $value["WHT"];
+                        $varReturn['data'][$idxArray]['total'] = $value["Total"];
+                        $varReturn['data'][$idxArray]['chartOfAccount_RefID'] = $value["ChartOfAccount_RefID"];
+                        $varReturn['data'][$idxArray]['chartOfAccountCode'] = $value["ChartOfAccountCode"];
+                        $varReturn['data'][$idxArray]['chartOfAccountName'] = $value["ChartOfAccountName"];
+                        $varReturn['data'][$idxArray]['businessDocument_RefID'] = $value["BusinessDocument_RefID"];
+                        $varReturn['data'][$idxArray]['dateUpdate'] = $value["DateUpdate"];
+                        $varReturn['data'][$idxArray]['supplier_RefID'] = $value["Supplier_RefID"];
+                        $varReturn['data'][$idxArray]['supplierName'] = $value["SupplierName"];
+                        $varReturn['data'][$idxArray]['supplierCode'] = $value["SupplierCode"];
+                        $varReturn['data'][$idxArray]['purchaseOrderDetail_RefID'] = $value["PurchaseOrderDetail_RefID"];
+                        $varReturn['data'][$idxArray]['purchaseOrderDetailQuantity'] = $value["PurchaseOrderDetailQuantity"];
+                        $varReturn['data'][$idxArray]['purchaseOrderDetailPrice'] = $value["PurchaseOrderDetailPrice"];
+                        $varReturn['data'][$idxArray]['paymentTerm'] = $value["PaymentTerm"];
+                        $varReturn['data'][$idxArray]['purchaseOrderDeliveryTo'] = json_decode($value["PurchaseOrderDeliveryTo"]);
+                        $varReturn['data'][$idxArray]['depreciationYears'] = $value["DepreciationYears"];
+                        $varReturn['data'][$idxArray]['assetCategoryName'] = $value["AssetCategoryName"];
+                        $varReturn['data'][$idxArray]['assetCategoryCode'] = $value["AssetCategoryCode"];
+                        $idxArray++;
+                    }
 
                 return
-                    $varReturn;
+                    $varReturn['data'];
                 }
 
             catch (\Exception $ex) {
