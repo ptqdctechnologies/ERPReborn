@@ -1,17 +1,15 @@
 <script>
-  // var currentModalSource = '';
-  const initialValue = 0;
-  const totalBusinessTrip = [];
+  const initialValue          = 0;
+  const totalBusinessTrip     = [];
+  const searchBudgetBtn       = document.getElementById('budget_detail_search');
+  const bankNameVendorID      = document.getElementById('bank_list_code');
+  const bankNameCorpCardID    = document.getElementById('bank_list_second_code');
 
+  let labelPayment            = '';
   let documentTypeID          = document.getElementById("DocumentTypeID");
   let currenctBudgetSelection = 0;
   let date                    = new Date();
   let today                   = new Date(date.setMonth(date.getMonth() - 3));
-
-  // Utility function
-  function getElement(id) {
-    return document.getElementById(id);
-  }
 
   const validation = {
     sectionOne: {
@@ -34,23 +32,30 @@
       totalPayment: getElement("total_payment"),
       directToVendor: getElement("direct_to_vendor"),
       bankListCode: getElement("bank_list_code"),
-      bankAccountsID: getElement("bank_accounts_id"),
+      bankAccountsID: getElement("bank_accountss_id"),
       byCorpCard: getElement("by_corp_card"),
       bankListSecondCode: getElement("bank_list_second_code"),
       bankAccountsIDSecond: getElement("bank_accounts_id_second"),
       toOther: getElement("to_other"),
       beneficiarySecondID: getElement("beneficiary_second_id"),
-      bankListThirdCode: getElement("bank_list_third_code"),
-      bankAccountsThirdID: getElement("bank_accounts_third_id")
+      bankListThirdCode: getElement("bank_name_second_id"),
+      bankAccountsThirdID: getElement("bank_accounts_id")
     }
   };
 
-  document.getElementById('dateCommance').setAttribute('min', today.toISOString().split('T')[0]);
-  document.getElementById('dateEnd').setAttribute('min', today.toISOString().split('T')[0]);
+  function changeLabelPayment(val) {
+    labelPayment = val;
 
-  document.getElementById("direct_to_vendor").addEventListener("input", calculateTotalPayment);
-  document.getElementById("by_corp_card").addEventListener("input", calculateTotalPayment);
-  document.getElementById("to_other").addEventListener("input", calculateTotalPayment);
+    if (val == 'bank_account_vendor') {
+      getBanksAccount(bankNameVendorID.value);
+    } else if (val == 'bank_account_corp_card') {
+      getBanksAccount(bankNameCorpCardID.value);
+    }
+  }
+
+  function getElement(id) {
+    return document.getElementById(id);
+  }
 
   function isNotEmpty(value) {
     return value && value.trim() !== '';
@@ -71,11 +76,9 @@
     if (totalBrf > 0 && total > totalBrf) {
       const activeInput = document.activeElement;
 
-      // Reset input yang sedang aktif
       if (activeInput && activeInput.tagName === "INPUT") {
         activeInput.value = "0.00";
 
-        // Kurangi total dengan nilai yang tadi diinput agar total_payment tetap valid
         if (activeInput === directToVendorInput) {
           total -= directToVendor;
           directToVendor = 0;
@@ -88,7 +91,6 @@
         }
       }
 
-      // Update total_payment dengan total valid setelah koreksi
       document.getElementById("total_payment").value = total.toLocaleString('en-US', {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2
@@ -100,7 +102,6 @@
 
       Swal.fire("Error", `Total Payment is over`, "error");
     } else {
-      // Total valid
       document.getElementById("total_payment").value = total.toLocaleString('en-US', {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2
@@ -111,7 +112,6 @@
     }
   }
 
-  // FUNGSI UNTUK MENANGANI CHECKBOX PADA BUDGET DETAILS TABLE
   function handleCheckboxSelection() {
     const checkboxes = document.querySelectorAll('#budgetTable tbody input[type="checkbox"]');
     
@@ -138,13 +138,11 @@
     });
   }
 
-  // FUNGSI UNTUK MENGUBAH STRING ANGKA DENGAN FORMAT KE NUMBER
   function parseFormattedNumber(value) {
     if (!value) return 0;
     return parseFloat(value.replace(/,/g, ''));
   }
 
-  // FUNGSI UNTUK MENDAPATKAN DATA BARIS YANG DICENTANG DAN MENYIMPAN KE INPUT
   function getSelectedRowData() {
     const selectedCheckbox              = document.querySelector('#budgetTable tbody input[type="checkbox"]:checked');
     const budgetDetailsInput            = document.getElementById('budgetDetailsData');
@@ -199,14 +197,11 @@
     let total = 0;
     const container = document.getElementById('travel-fares-container');
 
-    // Ambil semua input di dalam container yang bukan type="hidden"
     const inputs = container.querySelectorAll('input:not([type="hidden"])');
 
     inputs.forEach(input => {
-      // Ambil nilai dan ubah menjadi float
       const value = parseCurrency(input.value);
 
-      // Cek apakah nilai adalah angka yang valid dan tambahkan ke total
       if (!isNaN(value)) {
         total += value;
       }
@@ -480,7 +475,7 @@
       isNotEmpty(validation.sectionFour.totalBusinessTrips.value) &&
       result
   }
-  
+
   function isSectionNotValid() {
     return !isNotEmpty(validation.sectionOne.budgetID.value) && 
       !isNotEmpty(validation.sectionOne.subBudgetID.value) &&
@@ -625,8 +620,8 @@
           } 
 
           if (!isNotEmpty(validation.sectionFour.bankAccountsID.value)) {
-            $("#bank_accounts").css("border", "1px solid red");
-            $("#bank_accounts_detail").css("border", "1px solid red");
+            $("#bank_accountss").css("border", "1px solid red");
+            $("#bank_accountss_detail").css("border", "1px solid red");
             $("#bankAccountVendorMessage").show();
 
             return;
@@ -683,16 +678,16 @@
           }
 
           if (!isNotEmpty(validation.sectionFour.bankListThirdCode.value)) {
-            $("#bank_list_third_name").css("border", "1px solid red");
-            $("#bank_list_third_detail").css("border", "1px solid red");
+            $("#bank_name_second_name").css("border", "1px solid red");
+            $("#bank_name_second_detail").css("border", "1px solid red");
             $("#bankNameToOtherMessage").show();
 
             return;
           }
 
           if (!isNotEmpty(validation.sectionFour.bankAccountsThirdID.value)) {
-            $("#bank_accounts_third").css("border", "1px solid red");
-            $("#bank_accounts_third_detail").css("border", "1px solid red");
+            $("#bank_accounts").css("border", "1px solid red");
+            $("#bank_accounts_detail").css("border", "1px solid red");
             $("#bankAccountToOtherMessage").show();
 
             return;
@@ -714,91 +709,7 @@
     }
   }
 
-  $("#myWorker").prop("disabled", true);
-  $("#requester_popup").prop("disabled", true);
-  $("#mySiteCodeSecondTrigger").prop("disabled", true);
-  $("#dateEnd").prop("disabled", true);
-  $("#dateEnd").css("background-color", "white");
-  $(".loading").hide();
-
-  // DIRECT TO VENDOR
-  $("#bank_list_popup_vendor").prop("disabled", true);
-  $("#bank_accounts_popup_vendor").prop("disabled", true);
-
-  // BY CORP CARD
-  $("#bank_list_popup_corp_card").prop("disabled", true);
-  $("#bank_accounts_popup_corp_card").prop("disabled", true);
-
-  // TO OTHER
-  $("#beneficiary_second_popup").prop("disabled", true);
-  $("#bank_list_popup_second").prop("disabled", true);
-  $("#bank_accounts_third_popup").prop("disabled", true);
-
-  // BUDGET CODE
-  $('#tableGetProjectSecond').on('click', 'tbody tr', async function() {
-    var sysId       = $(this).find('input[data-trigger="sys_id_project_second"]').val();
-    var projectCode = $(this).find('td:nth-child(2)').text();
-    var projectName = $(this).find('td:nth-child(3)').text();
-
-    $("#project_id_second").val("");
-    $("#project_code_second").val("");
-    $("#project_name_second").val("");
-
-    $("#loadingBudget").show();
-    $("#myProjectSecondTrigger").hide();
-
-    try {
-      var checkWorkFlow = await checkingWorkflow(sysId, documentTypeID.value);
-
-      if (checkWorkFlow) {
-        $("#var_combinedBudget_RefID").val(sysId);
-        $("#project_id_second").val(sysId);
-        $("#project_code_second").val(projectCode);
-        $("#project_name_second").val(projectName);
-        $("#myProjectSecondTrigger").prop("disabled", true);
-
-        getSiteSecond(sysId);
-        $("#mySiteCodeSecondTrigger").prop("disabled", false);
-
-        $("#project_code_second").css("border", "1px solid #ced4da");
-        $("#project_name_second").css("border", "1px solid #ced4da");
-        $("#budgetMessage").hide();
-      }
-
-      $("#loadingBudget").hide();
-      $("#myProjectSecondTrigger").show();
-    } catch (error) {
-      console.error('Error checking workflow:', error);
-      $("#loadingBudget").hide();
-      $("#myProjectSecondTrigger").show();
-
-      Swal.fire("Error", "Error Checking Workflow", "error");
-    }
-  });
-
-  // SUB BUDGET CODE
-  $('#tableGetSiteSecond').on('click', 'tbody tr', function() {
-    var sysId = $(this).find('input[data-trigger="sys_id_site_second"]').val();
-
-    $("#budgetDetailsData").val("");
-    $("#myWorker").prop("disabled", false);
-    $("#requester_popup").prop("disabled", false);
-    $("#beneficiary_second_popup").prop("disabled", false);
-    $("#bank_name_popup").prop("disabled", false);
-    $("#bank_account_popup").prop("disabled", false);
-    $("#bank_list_popup_vendor").prop("disabled", false);
-    $("#bank_list_popup_corp_card").prop("disabled", false);
-    $('table#budgetTable tbody').empty();
-    $(".loading").show();
-
-    $('#mySiteCodeSecond').modal('hide');
-
-    $("#site_code_second").css("border", "1px solid #ced4da");
-    $("#site_name_second").css("border", "1px solid #ced4da");
-    $("#subBudgetMessage").hide();
-
-    const searchBudgetBtn = document.getElementById('budget_detail_search');
-
+  function getBudgetDetails(site_id) {
     $.ajaxSetup({
       headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -807,7 +718,7 @@
 
     $.ajax({
       type: 'GET',
-      url: '{!! route("getBudget") !!}?site_code=' + sysId,
+      url: '{!! route("getBudget") !!}?site_code=' + site_id,
       success: function(data) {
         $(".loading").hide();
         searchBudgetBtn.style.display = 'block';
@@ -835,6 +746,7 @@
               <td id="product_name${key}" style="text-align: center;text-wrap: auto;" name="product_name">${val2.productName}</td>
             `;
           }
+
           var html = 
             '<tr>' +
               '<td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">' +
@@ -857,11 +769,64 @@
         });
 
         handleCheckboxSelection();
+      },
+    });
+  }
+
+  function SubmitForm() {
+    $('#businessTripRequestFormModal').modal('hide');
+    const action = $('#FormSubmitBusinessTrip').attr("action");
+    const method = $('#FormSubmitBusinessTrip').attr("method");
+    const form_data = new FormData($('#FormSubmitBusinessTrip')[0]);
+
+    ShowLoading();
+
+    $.ajax({
+      url: action,
+      dataType: 'json',
+      cache: false,
+      contentType: false,
+      processData: false,
+      data: form_data,
+      type: method,
+      success: function(response) {
+        HideLoading();
+
+        if (response.message == "WorkflowError") {
+          $("#submitArf").prop("disabled", false);
+
+          CancelNotif("You don't have access", '/BusinessTripRequest?var=1');
+        } else if (response.message == "MoreThanOne") {
+          $('#getWorkFlow').modal('toggle');
+
+          var t = $('#tableGetWorkFlow').DataTable();
+          t.clear();
+          $.each(response.data, function(key, val) {
+            t.row.add([
+              '<td><span data-dismiss="modal" onclick="SelectWorkFlow(\'' + val.Sys_ID + '\', \'' + val.NextApprover_RefID + '\', \'' + response.approverEntity_RefID + '\', \'' + response.documentTypeID + '\');"><img src="{{ asset("AdminLTE-master/dist/img/add.png") }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></span></td>',
+              '<td style="border:1px solid #e9ecef;">' + val.FullApproverPath + '</td></tr></tbody>'
+            ]).draw();
+          });
+        } else {
+          const formatData = {
+            workFlowPath_RefID: response.workFlowPath_RefID, 
+            nextApprover: response.nextApprover_RefID, 
+            approverEntity: response.approverEntity_RefID, 
+            documentTypeID: response.documentTypeID,
+            storeData: response.storeData
+          };
+
+          SelectWorkFlow(formatData);
+        }
+      },
+      error: function(response) {
+        HideLoading();
+        CancelNotif("You don't have access", '/BusinessTripRequest?var=1');
+        console.log('error response', response);
       }
     });
-  });
+  }
 
-  // SEARCH BUDGET DETAILS
   $('#budget_detail_search').on('input', function() {
     const searchValue = $(this).val().toLowerCase();
     
@@ -880,20 +845,104 @@
     });
   });
 
-  // SEARCH BUDGET DETAILS
   $('#budget_detail_search').on('change', function() {
     if ($(this).val() === '') {
       $('#budgetTable tbody tr').show();
     }
   });
 
-  $('#tableGetWorker').on('click', 'tbody tr', function() {
-    $("#requester_detail").css("border", "1px solid #ced4da");
-    $("#requester").css("border", "1px solid #ced4da");
-    $("#requesterMessage").hide();
+  $('#tableProjects').on('click', 'tbody tr', async function() {
+    let sysId       = $(this).find('input[data-trigger="sys_id_project"]').val();
+    let projectCode = $(this).find('td:nth-child(2)').text();
+    let projectName = $(this).find('td:nth-child(3)').text();
+
+    $("#project_id_second").val("");
+    $("#project_code_second").val("");
+    $("#project_name_second").val("");
+
+    $("#loadingBudget").show();
+    $("#myProjectSecondTrigger").hide();
+
+    $('#myProjects').modal('hide');
+
+    try {
+      let checkWorkFlow = await checkingWorkflow(sysId, documentTypeID.value);
+
+      if (checkWorkFlow) {
+        $("#var_combinedBudget_RefID").val(sysId);
+        $("#project_id_second").val(sysId);
+        $("#project_code_second").val(projectCode);
+        $("#project_name_second").val(`${projectCode} - ${projectName}`);
+        $("#myProjectSecondTrigger").prop("disabled", true);
+        $("#myProjectSecondTrigger").css("cursor", "not-allowed");
+
+        getSites(sysId);
+        $("#mySiteCodeSecondTrigger").prop("disabled", false);
+
+        $("#project_code_second").css("border", "1px solid #ced4da");
+        $("#project_name_second").css({"background-color":"#e9ecef", "border": "1px solid #ced4da"});
+        $("#budgetMessage").hide();
+      }
+
+      $("#loadingBudget").hide();
+      $("#myProjectSecondTrigger").show();
+    } catch (error) {
+      console.error('Error checking workflow:', error);
+      $("#loadingBudget").hide();
+      $("#myProjectSecondTrigger").show();
+
+      Swal.fire("Error", "Error Checking Workflow", "error");
+    }
   });
 
-  // DATE COMMANCE
+  $('#tableSites').on('click', 'tbody tr', function() {
+    let sysId       = $(this).find('input[data-trigger="sys_id_site"]').val();
+    let siteCode    = $(this).find('td:nth-child(2)').text();
+    let siteName    = $(this).find('td:nth-child(3)').text();
+    
+    $("#myWorker").prop("disabled", false);
+    $("#requester_popup").prop("disabled", false);
+    $("#beneficiary_second_popup").prop("disabled", false);
+    $("#bank_name_popup").prop("disabled", false);
+    $("#bank_account_popup").prop("disabled", false);
+    $("#bank_list_popup_vendor").prop("disabled", false);
+    $("#bank_list_popup_corp_card").prop("disabled", false);
+
+    $("#budgetDetailsData").val("");
+
+    $('table#budgetTable tbody').empty();
+    $(".loading").show();
+
+    getBudgetDetails(sysId);
+
+    $("#site_id_second").val(sysId);
+    $("#site_code_second").val(siteCode);
+    $("#site_name_second").val(`${siteCode} - ${siteName}`);
+
+    $("#site_code_second").css("border", "1px solid #ced4da");
+    $("#site_name_second").css({"background-color":"#e9ecef", "border": "1px solid #ced4da"});
+    $("#subBudgetMessage").hide();
+
+    $('#mySites').modal('hide');
+  });
+
+  $('#tableRequesters').on('click', 'tbody tr', function() {
+    const sysId         = $(this).find('input[data-trigger="sys_id_requesters"]').val();
+    const contactPhone  = $(this).find('input[data-trigger="contact_phone_requesters"]').val().split(',').map(v => v.trim().replace(/;$/, ''));
+    const name          = $(this).find('td:nth-child(2)').text();
+    const position      = $(this).find('td:nth-child(3)').text();
+    
+    $("#requester_id").val(sysId);
+    $("#requester").val(`${position} - ${name}`);
+    $("#requester").css({"background-color":"#e9ecef", "border": "1px solid #ced4da"});
+    $("#requester_detail").val(position);
+    $("#requester_detail").css("border", "1px solid #ced4da");
+    $("#contactPhone").val(contactPhone[3] || '-');
+    $("#requesterMessage").hide();
+
+    $('#myRequesters').modal('hide');
+  });
+
   $('#dateCommance').change(function() {
     $("#dateEnd").prop("disabled", false);
     var dateCommance = new Date($("#dateCommance").val());
@@ -903,7 +952,6 @@
     $("#dateCommenceTravelMessage").hide();
   });
 
-  // DATE END
   $('#dateEnd').change(function() {
     $("#dateEnd").css("border", "1px solid #ced4da");
     $("#dateEndTravelMessage").hide();
@@ -938,24 +986,107 @@
       $("#reasonToTravelMessage").show();
     }
   });
-  
-  // ========== VENDOR ==========
-  // GET BANK ACCOUNT VENDOR KETIKA MODAL BANK NAME VENDOR KE CLOSE
-  // $('#myGetBankList').on('hidden.bs.modal', function () {
-  //   console.log('sono');
-    
-  //   const bankVendorID = document.getElementById('bank_list_code');
-  //   const bankAccountsID = document.getElementById('bank_accounts_id');
 
-  //   // CEK APAKAH BANK NAME VENDOR SUDAH TERISI
-  //   if (bankVendorID.value && !bankAccountsID.value) {
-  //     $("#bank_accounts_popup_vendor").prop("disabled", false);
-  //     $("#bank_accounts").removeAttr("readonly");
-  //     $("#bank_accounts_detail").removeAttr("readonly");
+  $('#tableBeneficiaries').on('click', 'tbody tr', function() {
+    let sysId           = $(this).find('input[data-trigger="sys_id_beneficiaries"]').val();
+    let personRefId     = $(this).find('input[data-trigger="person_ref_id_beneficiaries"]').val();
+    let personName      = $(this).find('td:nth-child(2)').text();
+    let personPosition  = $(this).find('td:nth-child(3)').text();
 
-  //     getBankAccountData(bankVendorID.value);
-  //   }
-  // });
+    $("#beneficiary_second_id").val(sysId);
+    $("#beneficiary_second_person_ref_id").val(personRefId);
+    $("#beneficiary_second_person_name").val(`${personPosition} - ${personName}`);
+    $("#beneficiary_second_person_position").val(personPosition);
+
+    $("#bank_list_popup_second").prop("disabled", false);
+
+    $("#beneficiary_second_person_position").css("border", "1px solid #ced4da");
+    $("#beneficiary_second_person_name").css({"background-color":"#e9ecef", "border": "1px solid #ced4da"});
+    $("#beneficiaryToOtherMessage").hide();
+
+    getBanks(personRefId, "BusinessTripRequest");
+
+    $('#myBeneficiaries').modal('hide');
+  });
+
+  $('#tableGetBankList').on('click', 'tbody tr', function() {
+    let sysId         = $(this).find('input[type="hidden"]').val();
+    let bankAcronym   = $(this).find('td:nth-child(2)').text();
+    let bankFullName  = $(this).find('td:nth-child(3)').text();
+
+    if (labelPayment == "bank_name_vendor") {
+      $("#bank_list_code").val(sysId);
+      $("#bank_list_name").val(bankAcronym);
+      $("#bank_list_detail").val(`${bankAcronym} - ${bankFullName}`);
+      $("#bank_list_detail").css({"background-color":"#e9ecef", "border": "1px solid #ced4da"});
+
+      $("#bank_accountss").val("");
+      $("#bank_accounts_duplicate").val("");
+      $("#bank_accountss_id").val("");
+      $("#bank_accounts_duplicate_id").val("");
+      $("#bank_accountss_detail").val("");
+      $("#bank_accounts_duplicate_detail").val("");
+
+      $("#bank_accounts_popup_vendor").prop("disabled", false);
+
+      getBanksAccount(sysId);
+
+      $("#bankNameVendorMessage").hide();
+    } else if (labelPayment == "bank_name_corp_card") {
+      $("#bank_list_second_code").val(sysId);
+      $("#bank_list_second_name").val(bankAcronym);
+      $("#bank_list_second_detail").val(`${bankAcronym} - ${bankFullName}`);
+      $("#bank_list_second_detail").css({"background-color":"#e9ecef", "border": "1px solid #ced4da"});
+
+      $("#bank_accounts_second").val("");
+      $("#bank_accounts_duplicate_second").val("");
+      $("#bank_accounts_id_second").val("");
+      $("#bank_accounts_duplicate_id_second").val("");
+      $("#bank_accounts_detail_second").val("");
+      $("#bank_accounts_detail_duplicate_second").val("");
+
+      $("#bank_accounts_popup_corp_card").prop("disabled", false);
+
+      getBanksAccount(sysId);
+
+      $("#bankNameCorpCardMessage").hide();
+    }
+
+    $('#myGetBankList').modal('hide');
+  });
+
+  $('#tableBanksAccount').on('click', 'tbody tr', function() {
+    const sysID       = $(this).find('input[type="hidden"]').val();
+    const bankName    = $(this).find('td:nth-child(2)').text();
+    const bankAccount = $(this).find('td:nth-child(3)').text();
+    const accountName = $(this).find('td:nth-child(4)').text();
+
+    if (labelPayment == "bank_account_vendor") {
+      $("#bank_accountss").val(`${bankAccount} - ${accountName}`);
+      $("#bank_accounts_duplicate").val(`${bankAccount} - ${accountName}`);
+      $("#bank_accountss_id").val(sysID);
+      $("#bank_accounts_duplicate_id").val(sysID);
+      $("#bank_accountss_detail").val(bankAccount);
+      $("#bank_accounts_duplicate_detail").val(bankAccount);
+
+      $("#bankAccountVendorMessage").hide();
+
+      $("#bank_accountss").css({"background-color":"#e9ecef", "border": "1px solid #ced4da"});
+    } else if (labelPayment == "bank_account_corp_card") {
+      $("#bank_accounts_second").val(bankAccount);
+      $("#bank_accounts_duplicate_second").val(bankAccount);
+      $("#bank_accounts_id_second").val(sysID);
+      $("#bank_accounts_duplicate_id_second").val(sysID);
+      $("#bank_accounts_detail_second").val(`${bankAccount} - ${accountName}`);
+      $("#bank_accounts_detail_duplicate_second").val(`${bankAccount} - ${accountName}`);
+
+      $("#bankAccountCorpCardMessage").hide();
+
+      $("#bank_accounts_detail_second").css({"background-color":"#e9ecef", "border": "1px solid #ced4da"});
+    }
+
+    $('#myBanksAccount').modal('hide');
+  });
 
   $('#direct_to_vendor').on('input', function(e) {
     if (e.target.value) {
@@ -964,167 +1095,12 @@
     }
   });
 
-  // KETIKA MODAL BANK NAME VENDOR DIPILIH, MAKA MENGHAPUS VALUE BANK ACCOUNT VENDOR
-  $('#tableGetBankList').on('click', 'tbody tr', function() {
-    const bankVendorID = document.getElementById('bank_list_code');
-    const bankAccountsID = document.getElementById('bank_accounts_id');
-
-    $("#bank_accounts_popup_vendor").prop("disabled", false);
-    $("#bank_accounts").val("");
-    $("#bank_accounts_id").val("");
-    $("#bank_accounts_detail").val("");
-    getBankAccountData(bankVendorID.value);
-
-    $("#bank_list_name").css("border", "1px solid #ced4da");
-    $("#bank_list_detail").css("border", "1px solid #ced4da");
-    $("#bankNameVendorMessage").hide();
-
-    // CEK APAKAH BANK NAME VENDOR SUDAH TERISI
-    // if (bankVendorID.value && !bankAccountsID.value) {
-      // $("#bank_accounts").removeAttr("readonly");
-      // $("#bank_accounts_detail").removeAttr("readonly");
-    // } else {
-    // }
-  });
-
-  // MENAMBAHKAN READ-ONLY PADA KOMPONEN BANK ACCOUNT VENDOR
-  $('#tableGetBankAccount').on('click', 'tbody tr', function() {
-    var sysID       = $(this).find('input[type="hidden"]').val();
-    var bankAccount = $(this).find('td:nth-child(3)').text();
-    var accountName = $(this).find('td:nth-child(4)').text();
-
-    $("#bank_accounts_duplicate_id").val(sysID);
-    $("#bank_accounts_duplicate").val(bankAccount);
-    $("#bank_accounts_duplicate_detail").val(accountName);
-
-    $("#bank_accounts").css("border", "1px solid #ced4da");
-    $("#bank_accounts_detail").css("border", "1px solid #ced4da");
-    $("#bankAccountVendorMessage").hide();
-  });
-
-  // $('#bank_accounts').on('input', function() {
-  //   var bankAccount                 = document.getElementById('bank_accounts');
-  //   var bankAccountDuplicate        = document.getElementById('bank_accounts_duplicate');
-  //   var bankAccountDuplicateId      = document.getElementById('bank_accounts_duplicate_id');
-  //   var bankAccountDetail           = document.getElementById('bank_accounts_detail');
-  //   var bankAccountDuplicateDetail  = document.getElementById('bank_accounts_duplicate_detail');
-
-  //   if (bankAccount.value !== bankAccountDuplicate.value || bankAccountDetail.value !== bankAccountDuplicateDetail.value) {
-  //     $("#bank_accounts_id").val("");
-  //   } else {
-  //     $("#bank_accounts_id").val(bankAccountDuplicateId.value);
-  //   }
-  // });
-
-  // $('#bank_accounts_detail').on('input', function() {
-  //   var bankAccountDetail           = document.getElementById('bank_accounts_detail');
-  //   var bankAccountDuplicateDetail  = document.getElementById('bank_accounts_duplicate_detail');
-  //   var bankAccountDuplicateId      = document.getElementById('bank_accounts_duplicate_id');
-  //   var bankAccount                 = document.getElementById('bank_accounts');
-  //   var bankAccountDuplicate        = document.getElementById('bank_accounts_duplicate');
-
-  //   if (bankAccountDetail.value !== bankAccountDuplicateDetail.value || bankAccount.value !== bankAccountDuplicate.value) {
-  //     $("#bank_accounts_id").val("");
-  //   } else {
-  //     $("#bank_accounts_id").val(bankAccountDuplicateId.value);
-  //   }
-  // });
-  // ========== VENDOR ==========
-
-  // ========== CORP CARD ==========
-  // GET BANK ACCOUNT CORP CARD KETIKA MODAL BANK NAME CORP CARD KE CLOSE
-  // $('#myGetBankListSecond').on('hidden.bs.modal', function () {
-  //   const bankCorpCardID = document.getElementById('bank_list_second_code');
-  //   const bankAccountsCorpCardID = document.getElementById('bank_accounts_id_second');
-
-  //   // CEK APAKAH BANK NAME CORP CARD SUDAH TERISI
-  //   if (bankCorpCardID.value && !bankAccountsCorpCardID.value) {
-  //     $("#bank_accounts_popup_corp_card").prop("disabled", false);
-  //     $("#bank_accounts_second").removeAttr("readonly");
-  //     $("#bank_accounts_detail_second").removeAttr("readonly");
-
-  //     getBankAccountData(bankCorpCardID.value, "second_modal");
-  //   }
-  // });
-
   $('#by_corp_card').on('input', function(e) {
     if (e.target.value) {
       $("#by_corp_card").css("border", "1px solid #ced4da");
       $("#byCorpCardMessage").hide();
     }
   });
-
-  // KETIKA MODAL BANK NAME CORP CARD DIPILIH, MAKA MENGHAPUS VALUE BANK ACCOUNT CORP CARD
-  $('#tableGetBankListSecond').on('click', 'tbody tr', function() {
-    const bankCorpCardID = document.getElementById('bank_list_second_code');
-    const bankAccountsCorpCardID = document.getElementById('bank_accounts_id_second');
-
-    $("#bank_accounts_popup_corp_card").prop("disabled", false);
-    $("#bank_accounts_second").val("");
-    $("#bank_accounts_id_second").val("");
-    $("#bank_accounts_detail_second").val("");
-
-    getBankAccountData(bankCorpCardID.value, "second_modal");
-
-    $("#bank_list_second_name").css("border", "1px solid #ced4da");
-    $("#bank_list_second_detail").css("border", "1px solid #ced4da");
-    $("#bankNameCorpCardMessage").hide();
-  });
-
-  // MENAMBAHKAN READ-ONLY PADA KOMPONEN BANK ACCOUNT CORP CARD
-  $('#tableGetBankAccountSecond').on('click', 'tbody tr', function() {
-    var sysID       = $(this).find('input[type="hidden"]').val();
-    var bankAccount = $(this).find('td:nth-child(3)').text();
-    var accountName = $(this).find('td:nth-child(4)').text();
-
-    $("#bank_accounts_duplicate_id_second").val(sysID);
-    $("#bank_accounts_duplicate_second").val(bankAccount);
-    $("#bank_accounts_detail_duplicate_second").val(accountName);
-
-    $("#bank_accounts_second").css("border", "1px solid #ced4da");
-    $("#bank_accounts_detail_second").css("border", "1px solid #ced4da");
-    $("#bankAccountCorpCardMessage").hide();
-  });
-
-  // $('#bank_accounts_second').on('input', function() {
-  //   var bankAccountSecond                 = document.getElementById('bank_accounts_second');
-  //   var bankAccountSecondDuplicate        = document.getElementById('bank_accounts_duplicate_second');
-  //   var bankAccountSecondDuplicateId      = document.getElementById('bank_accounts_duplicate_id_second');
-  //   var bankAccountDetailSecond           = document.getElementById('bank_accounts_detail_second');
-  //   var bankAccountDuplicateDetailSecond  = document.getElementById('bank_accounts_detail_duplicate_second');
-
-  //   if (bankAccountSecond.value !== bankAccountSecondDuplicate.value || bankAccountDetailSecond.value !== bankAccountDuplicateDetailSecond.value) {
-  //     $("#bank_accounts_id_second").val("");
-  //   } else {
-  //     $("#bank_accounts_id_second").val(bankAccountSecondDuplicateId.value);
-  //   }
-  // });
-
-  // $('#bank_accounts_detail_second').on('input', function() {
-  //   var bankAccountDetailSecond           = document.getElementById('bank_accounts_detail_second');
-  //   var bankAccountDuplicateDetailSecond  = document.getElementById('bank_accounts_detail_duplicate_second');
-  //   var bankAccountDuplicateIdSecond      = document.getElementById('bank_accounts_duplicate_id_second');
-  //   var bankAccountSecond                 = document.getElementById('bank_accounts_second');
-  //   var bankAccountSecondDuplicate        = document.getElementById('bank_accounts_duplicate_second');
-
-  //   if (bankAccountDetailSecond.value !== bankAccountDuplicateDetailSecond.value || bankAccountSecond.value !== bankAccountSecondDuplicate.value) {
-  //     $("#bank_accounts_id_second").val("");
-  //   } else {
-  //     $("#bank_accounts_id_second").val(bankAccountDuplicateIdSecond.value);
-  //   }
-  // });
-  // ========== CORP CARD ==========
-
-  // ========== TO OTHER ==========
-  // $('#myBeneficiarySecond').on('hidden.bs.modal', function () {
-  //   const beneficiaryRefID = document.getElementById('beneficiary_second_id');
-  //   const beneficiaryPersonRefID = document.getElementById('beneficiary_second_person_ref_id');
-
-  //   if (beneficiaryRefID.value && beneficiaryPersonRefID.value) {
-  //     $("#bank_list_popup_second").prop("disabled", false);
-  //     // $("#bank_accounts_third_popup").prop("disabled", false);
-  //   }
-  // });
 
   $('#to_other').on('input', function(e) {
     if (e.target.value) {
@@ -1133,204 +1109,34 @@
     }
   });
 
-  $('#tableGetBeneficiarySecond').on('click', 'tbody tr', function() {
-    $("#bank_list_popup_second").prop("disabled", false);
-
-    $("#beneficiary_second_person_position").css("border", "1px solid #ced4da");
-    $("#beneficiary_second_person_name").css("border", "1px solid #ced4da");
-    $("#beneficiaryToOtherMessage").hide();
-
-    // const bankCorpCardID = document.getElementById('beneficiary_second_person_ref_id');
-    
-    // if (bankCorpCardID.value) {
-    //   // $("#bank_list_third_name").val("");
-    //   // $("#bank_list_third_code").val("");
-    //   // $("#bank_list_third_detail").val("");
-
-    //   // $("#bank_accounts_third").val("");
-    //   // $("#bank_accounts_third_id").val("");
-    //   // $("#bank_accounts_third_detail").val("");
-    // }
-
-    // adjustInputSize(document.getElementById("beneficiary_second_person_position"), "string");
-  });
-
-  // $('#myGetBankListThird').on('hidden.bs.modal', function () {
-  //   const bankListThirdCode = document.getElementById('bank_list_third_code');
-
-  //   if (bankListThirdCode.value) {
-  //     getBankAccountData(bankListThirdCode.value,'third_modal');
-
-  //     $("#bank_accounts_third").val("");
-  //     $("#bank_accounts_third_id").val("");
-  //     $("#bank_accounts_third_detail").val("");
-
-  //     $("#bank_accounts_third").removeAttr("readonly");
-  //     $("#bank_accounts_third_detail").removeAttr("readonly");
-
-  //     $("#bank_accounts_third_popup").prop("disabled", false);
-  //   }
-  // });
-
-  $('#tableGetBankAccountThird').on('click', 'tbody tr', function() {
-    var sysID       = $(this).find('input[type="hidden"]').val();
-    var bankAccount = $(this).find('td:nth-child(3)').text();
-    var accountName = $(this).find('td:nth-child(4)').text();
-    var bankListThirdCode = document.getElementById('bank_list_third_code');
-
-    $("#bank_accounts_duplicate_third_id").val(sysID);
-    $("#bank_accounts_duplicate_third").val(bankAccount);
-    $("#bank_accounts_duplicate_third_detail").val(accountName);
-
-    $("#bank_accounts_third").css("border", "1px solid #ced4da");
-    $("#bank_accounts_third_detail").css("border", "1px solid #ced4da");
-    $("#bankAccountToOtherMessage").hide();
-  });
-
-  // $('#bank_accounts_third').on('input', function() {
-  //   var bankAccountThird                  = document.getElementById('bank_accounts_third');
-  //   var bankAccountThirdDuplicate         = document.getElementById('bank_accounts_duplicate_third');
-  //   var bankAccountThirdDuplicateId       = document.getElementById('bank_accounts_duplicate_third_id');
-  //   var bankAccountDetailThird            = document.getElementById('bank_accounts_third_detail');
-  //   var bankAccountDuplicateDetailThird   = document.getElementById('bank_accounts_duplicate_third_detail');
-
-  //   if (bankAccountThird.value !== bankAccountThirdDuplicate.value || bankAccountDetailThird.value !== bankAccountDuplicateDetailThird.value) {
-  //     $("#bank_accounts_third_id").val("");
-  //   } else {
-  //     $("#bank_accounts_third_id").val(bankAccountThirdDuplicateId.value);
-  //   }
-  // });
-
-  // $('#bank_accounts_third_detail').on('input', function() {
-  //   var bankAccountDetailThird           = document.getElementById('bank_accounts_third_detail');
-  //   var bankAccountDuplicateDetailThird  = document.getElementById('bank_accounts_duplicate_third_detail');
-  //   var bankAccountDuplicateIdThird      = document.getElementById('bank_accounts_duplicate_third_id');
-  //   var bankAccountThird                 = document.getElementById('bank_accounts_third');
-  //   var bankAccountThirdDuplicate        = document.getElementById('bank_accounts_duplicate_third');
-
-  //   if (bankAccountDetailThird.value !== bankAccountDuplicateDetailThird.value || bankAccountThird.value !== bankAccountThirdDuplicate.value) {
-  //     $("#bank_accounts_third_id").val("");
-  //   } else {
-  //     $("#bank_accounts_third_id").val(bankAccountDuplicateIdThird.value);
-  //   }
-  // });
-
-  // $('#myGetBankSecond').on('hidden.bs.modal', function () {
-  //   const bank_RefID = document.getElementById('bank_name_second_id');
-  //   const person_RefID = document.getElementById('beneficiary_second_person_ref_id');
-
-  //   if (bank_RefID.value && person_RefID.value) {
-  //     getBankAccountData(bank_RefID.value, "third_modal", person_RefID.value);
-  //   }
-  // });
-
-  $('#tableGetBankListThird').on('click', 'tbody tr', function() {
-    const bankListThirdCode = document.getElementById('bank_list_third_code');
-    
-    $("#bank_accounts_third_popup").prop("disabled", false);
-    $("#bank_accounts_third").val("");
-    $("#bank_accounts_third_id").val("");
-    $("#bank_accounts_third_detail").val("");
-    getBankAccountData(bankListThirdCode.value,'third_modal');
-
-    $("#bank_list_third_name").css("border", "1px solid #ced4da");
-    $("#bank_list_third_detail").css("border", "1px solid #ced4da");
-    $("#bankNameToOtherMessage").hide();
-  });
-  // ========== TO OTHER ==========
-
-  // SUBMIT FORM
-  // $("#FormSubmitBusinessTrip").on("submit", function(e) {
-  function SubmitForm() {
-    // e.preventDefault();
-
-    // const swalWithBootstrapButtons = Swal.mixin({
-    //   confirmButtonClass: 'btn btn-success',
-    //   cancelButtonClass: 'btn btn-danger',
-    //   buttonsStyling: true,
-    // });
-
-    // swalWithBootstrapButtons.fire({
-    //   title: 'Are you sure?',
-    //   text: "Please confirm to save this data.",
-    //   type: 'question',
-    //   showCancelButton: true,
-    //   confirmButtonText: 'Yes, submit it!',
-    //   cancelButtonText: 'No, cancel!',
-    //   reverseButtons: true
-    // }).then((result) => {
-    //   if (result.value) {
-        // var action = $(this).attr("action");
-        // var method = $(this).attr("method");
-        // var form_data = new FormData($(this)[0]); 
-        // var form = $(this);
-
-        $('#businessTripRequestFormModal').modal('hide');
-        var action = $('#FormSubmitBusinessTrip').attr("action");
-        var method = $('#FormSubmitBusinessTrip').attr("method");
-        var form_data = new FormData($('#FormSubmitBusinessTrip')[0]);
-
-        ShowLoading();
-
-        $.ajax({
-          url: action,
-          dataType: 'json',
-          cache: false,
-          contentType: false,
-          processData: false,
-          data: form_data,
-          type: method,
-          success: function(response) {
-            HideLoading();
-
-            if (response.message == "WorkflowError") {
-              $("#submitArf").prop("disabled", false);
-
-              CancelNotif("You don't have access", '/BusinessTripRequest?var=1');
-            } else if (response.message == "MoreThanOne") {
-              $('#getWorkFlow').modal('toggle');
-
-              var t = $('#tableGetWorkFlow').DataTable();
-              t.clear();
-              $.each(response.data, function(key, val) {
-                t.row.add([
-                  '<td><span data-dismiss="modal" onclick="SelectWorkFlow(\'' + val.Sys_ID + '\', \'' + val.NextApprover_RefID + '\', \'' + response.approverEntity_RefID + '\', \'' + response.documentTypeID + '\');"><img src="{{ asset("AdminLTE-master/dist/img/add.png") }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></span></td>',
-                  '<td style="border:1px solid #e9ecef;">' + val.FullApproverPath + '</td></tr></tbody>'
-                ]).draw();
-              });
-            } else {
-              const formatData = {
-                workFlowPath_RefID: response.workFlowPath_RefID, 
-                nextApprover: response.nextApprover_RefID, 
-                approverEntity: response.approverEntity_RefID, 
-                documentTypeID: response.documentTypeID,
-                storeData: response.storeData
-              };
-
-              SelectWorkFlow(formatData);
-            }
-          },
-          error: function(response) {
-            HideLoading();
-            // $("#submitArf").prop("disabled", false);
-            CancelNotif("You don't have access", '/BusinessTripRequest?var=1');
-            console.log('error response', response);
-          }
-        });
-      // } else if (result.dismiss === Swal.DismissReason.cancel) {
-      //   HideLoading();
-      //   CancelNotif("Data Cancel Inputed", '/BusinessTripRequest?var=1');
-      // }
-  }
-  //   });
-  // }
-  // });
-
-  $(document).on('input', '.number-without-negative', function() {
-    allowNumbersWithoutNegative(this);
-  });
-
   $(window).one('load', function(e) {
+    document.getElementById('dateCommance').setAttribute('min', today.toISOString().split('T')[0]);
+    document.getElementById('dateEnd').setAttribute('min', today.toISOString().split('T')[0]);
+
+    document.getElementById("direct_to_vendor").addEventListener("input", calculateTotalPayment);
+    document.getElementById("by_corp_card").addEventListener("input", calculateTotalPayment);
+    document.getElementById("to_other").addEventListener("input", calculateTotalPayment);
+
+    $("#myWorker").prop("disabled", true);
+    $("#requester_popup").prop("disabled", true);
+    $("#mySiteCodeSecondTrigger").prop("disabled", true);
+    $("#dateEnd").prop("disabled", true);
+    $("#dateEnd").css("background-color", "white");
+    $(".loading").hide();
+
+    // DIRECT TO VENDOR
+    $("#bank_list_popup_vendor").prop("disabled", true);
+    $("#bank_accounts_popup_vendor").prop("disabled", true);
+
+    // BY CORP CARD
+    $("#bank_list_popup_corp_card").prop("disabled", true);
+    $("#bank_accounts_popup_corp_card").prop("disabled", true);
+
+    // TO OTHER
+    $("#beneficiary_second_popup").prop("disabled", true);
+    $("#bank_list_popup_second").prop("disabled", true);
+    $("#bank_accounts_third_popup").prop("disabled", true);
+
     getDocumentType("Person Business Trip Form");
     getBusinessTripCostComponentEntityNew();
   });
