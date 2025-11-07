@@ -81,7 +81,7 @@
                         keys += 1;
                         table.row.add([
                             '<input id="sys_id_requesters' + keys + '" value="' + val.sys_ID + '" data-trigger="sys_id_requesters" type="hidden">' + no++,
-                            val.personName || '-',
+                            '<input id="contact_phone_requesters' + keys + '" value="' + val.contactNumber + '" data-trigger="contact_phone_requesters" type="hidden">' + val.personName || '-',
                             val.organizationalJobPositionName || '-',
                         ]).draw();
                     });
