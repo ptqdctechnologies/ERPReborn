@@ -61,7 +61,7 @@ class BusinessTripRequestController extends Controller
             $response = $this->businessTripService->create($request);
 
             if ($response['metadata']['HTTPStatusCode'] !== 200) {
-                return response()->json($response);
+                throw new \Exception('Failed to fetch Create Business Trip Request');
             }
 
             $responseWorkflow = $this->workflowService->submit(
@@ -72,7 +72,7 @@ class BusinessTripRequestController extends Controller
             );
 
             if ($responseWorkflow['metadata']['HTTPStatusCode'] !== 200) {
-                return response()->json($responseWorkflow);
+                throw new \Exception('Failed to fetch Submit Workflow Business Trip Request');
             }
 
             $compact = [
@@ -83,7 +83,8 @@ class BusinessTripRequestController extends Controller
             return response()->json($compact);
         } catch (\Throwable $th) {
             Log::error("Store Business Trip Request Function Error: " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
+            
+            return response()->json(["status" => 500]);
         }
     }
 
