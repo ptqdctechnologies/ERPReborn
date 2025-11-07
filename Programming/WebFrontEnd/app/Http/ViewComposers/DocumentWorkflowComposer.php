@@ -15,7 +15,7 @@ class DocumentWorkflowComposer
 {
     public function compose(View $view)
     {
-        $SessionWorkerCareerInternal_RefID =  Session::get('SessionWorkerCareerInternal_RefID');
+        $SessionWorkerCareerInternal_RefID =  Session::get('SessionUser_RefID'); // ID User (460X)
 
         if (Redis::get("RedisGetMyDocument" . $SessionWorkerCareerInternal_RefID) == null) {
             $redisTTL = 300; // 24 Jam
