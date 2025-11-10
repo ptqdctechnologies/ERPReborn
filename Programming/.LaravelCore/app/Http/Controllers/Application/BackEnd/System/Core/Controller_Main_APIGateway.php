@@ -207,12 +207,13 @@ die();
                                     $varProcessExecutionStartDateTime
                                     );
 
-                            $varProcessAPIClosureStartDateTimeTZString =
+                            $varProcessAPIClosureFinishDateTimeTZString =
                                 \App\Helpers\ZhtHelper\General\Helper_DateTime::getTimeStampTZConvert_PHPDateTimeToDateTimeTZString(
                                     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                                     (new \DateTime())
                                     );
 
+                            
                             if ($varDataSend['data']['process']['DBMS']['executionTime']['interval'] == null)
                                 {
                                 $varDataSend['data']['process']['API']['executionTime'] = [
@@ -220,10 +221,10 @@ die();
                                         \App\Helpers\ZhtHelper\General\Helper_DateTime::getDifferenceOfDateTimeTZString(
                                             $varUserSession,
                                             $varProcessAPIPreliminarilyStartDateTimeTZString,
-                                            $varProcessAPIClosureStartDateTimeTZString
+                                            $varProcessAPIClosureFinishDateTimeTZString
                                             ),
                                     'startDateTimeTZ' => $varProcessAPIPreliminarilyStartDateTimeTZString,
-                                    'finishDateTimeTZ' => $varProcessAPIClosureStartDateTimeTZString
+                                    'finishDateTimeTZ' => $varProcessAPIClosureFinishDateTimeTZString
                                     ];
 
                                 $varDataSend['data']['process']['overAll']['executionTime'] = [
@@ -247,14 +248,14 @@ die();
                                             \App\Helpers\ZhtHelper\General\Helper_DateTime::getDifferenceOfDateTimeTZString(
                                                 $varUserSession,
                                                 $varProcessAPIPreliminarilyStartDateTimeTZString,
-                                                $varProcessAPIClosureStartDateTimeTZString
+                                                $varProcessAPIClosureFinishDateTimeTZString
                                                 ),
                                             $varDataSend['data']['process']['DBMS']['executionTime']['interval']
                                             ),
                                     'preliminarilyStartDateTimeTZ' => $varProcessAPIPreliminarilyStartDateTimeTZString,
                                     'preliminarilyFinishDateTimeTZ' => $varDataSend['data']['process']['DBMS']['executionTime']['startDateTimeTZ'],
                                     'closureStartDateTimeTZ' => $varDataSend['data']['process']['DBMS']['executionTime']['finishDateTimeTZ'],
-                                    'closureFinishDateTimeTZ' => $varProcessAPIClosureStartDateTimeTZString
+                                    'closureFinishDateTimeTZ' => $varProcessAPIClosureFinishDateTimeTZString
                                     ];
 
                                 $varDataSend['data']['process']['overAll']['executionTime'] = [

@@ -525,23 +525,34 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                                 $varProcessExecutionStartDateTime
                                 );
 
-                        $varProcessAPIClosureStartDateTimeTZString =
+                        $varProcessAPIClosureFinishDateTimeTZString =
                             \App\Helpers\ZhtHelper\General\Helper_DateTime::getTimeStampTZConvert_PHPDateTimeToDateTimeTZString(
                                 $varUserSession,
                                 (new \DateTime())
                                 );
 
                         $varResponseData['data']['process']['others']['executionTime'] = [
-                            'interval' =>
+                            'interval' => NULL,
+                                /*
+                                \App\Helpers\ZhtHelper\General\Helper_DateTime::getDifferenceOfDateTimeTZString(
+                                    $varUserSession,
+                                    $varResponseData['data']['process']['others']['executionTime']['preliminarilyStartDateTimeTZ'],
+                                    $varResponseData['data']['process']['others']['executionTime']['closureFinishDateTimeTZ']
+                                    ),
+                                */
+                                //$varResponseData['data']['process']['API']['executionTime']['interval'],
+                                /*
                                 \App\Helpers\ZhtHelper\General\Helper_DateTime::getDifferenceOfIntervalString(
                                     $varUserSession,
                                     \App\Helpers\ZhtHelper\General\Helper_DateTime::getDifferenceOfDateTimeTZString(
                                         $varUserSession,
                                         $varProcessAPIPreliminarilyStartDateTimeTZString,
-                                        $varProcessAPIClosureStartDateTimeTZString
+                                        $varProcessAPIClosureFinishDateTimeTZString
                                         ),
                                     $varResponseData['data']['process']['overAll']['executionTime']['interval']
                                     ),
+                                
+                                */
                             'preliminarilyStartDateTimeTZ' => $varProcessAPIPreliminarilyStartDateTimeTZString,
                             'preliminarilyFinishDateTimeTZ' => 
                                 (                            
@@ -569,16 +580,38 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                                     :
                                     $varResponseData['data']['process']['API']['executionTime']['closureFinishDateTimeTZ']
                                 ),
-                            'closureFinishDateTimeTZ' => $varProcessAPIClosureStartDateTimeTZString
+                            'closureFinishDateTimeTZ' => $varProcessAPIClosureFinishDateTimeTZString
                             ];
+
+                        $varResponseData['data']['process']['others']['executionTime']['interval'] = 
+                            \App\Helpers\ZhtHelper\General\Helper_DateTime::getDifferenceOfIntervalString(
+                                $varUserSession,
+                                \App\Helpers\ZhtHelper\General\Helper_DateTime::getDifferenceOfIntervalString(
+                                    $varUserSession,
+                                    \App\Helpers\ZhtHelper\General\Helper_DateTime::getDifferenceOfDateTimeTZString(
+                                        $varUserSession,
+                                        $varResponseData['data']['process']['others']['executionTime']['preliminarilyStartDateTimeTZ'],
+                                        $varResponseData['data']['process']['others']['executionTime']['closureFinishDateTimeTZ']
+                                        ),
+                                    $varResponseData['data']['process']['DBMS']['executionTime']['interval']
+                                    ),
+                                $varResponseData['data']['process']['API']['executionTime']['interval']
+                                );
 
                         $varResponseData['data']['process']['overAll']['executionTime'] = [
                             'interval' =>
+                                \App\Helpers\ZhtHelper\General\Helper_DateTime::getDifferenceOfDateTimeTZString(
+                                    $varUserSession,
+                                    $varResponseData['data']['process']['others']['executionTime']['preliminarilyStartDateTimeTZ'],
+                                    $varResponseData['data']['process']['others']['executionTime']['closureFinishDateTimeTZ']
+                                    ),
+                                /*
                                 \App\Helpers\ZhtHelper\General\Helper_DateTime::getAdditionOfIntervalString(
                                     $varUserSession,
                                     $varResponseData['data']['process']['overAll']['executionTime']['interval'],
                                     $varResponseData['data']['process']['others']['executionTime']['interval']
                                     ),
+                                */
                             'startDateTimeTZ' => $varResponseData['data']['process']['others']['executionTime']['preliminarilyStartDateTimeTZ'],
                             'finishDateTimeTZ' => $varResponseData['data']['process']['others']['executionTime']['closureFinishDateTimeTZ']
                             ];
