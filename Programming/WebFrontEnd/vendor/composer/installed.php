@@ -536,9 +536,9 @@
             'dev_requirement' => false,
         ),
         'league/flysystem-local' => array(
-            'pretty_version' => '3.30.0',
-            'version' => '3.30.0.0',
-            'reference' => '6691915f77c7fb69adfb87dcd550052dc184ee10',
+            'pretty_version' => '3.30.2',
+            'version' => '3.30.2.0',
+            'reference' => 'ab4f9d0d672f601b102936aa728801dd1a11968d',
             'type' => 'library',
             'install_path' => __DIR__ . '/../league/flysystem-local',
             'aliases' => array(),
