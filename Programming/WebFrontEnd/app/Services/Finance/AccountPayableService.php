@@ -1977,9 +1977,11 @@ class AccountPayableService
         $data                   = $request;
         $detailItems            = json_decode($data['account_payable_detail'], true);
         $fileID                 = $data['dataInput_Log_FileUpload_1'] ? (int) $data['dataInput_Log_FileUpload_1'] : null;
+        $vatValue               = $data['vat_origin'] == "yes" ? (float) str_replace(',', '', $data['ppn']) : 0;
         $categoryID             = $data['category_id'] ? (int) $data['category_id'] : null;
         $depreciationMethod     = $data['depreciation_method'] ? (int) $data['depreciation_method'] : null;
         $depreciationRate       = $data['depreciation_rate_percentage'] ? (float) str_replace(',', '', $data['depreciation_rate_percentage']) : null;
+        $depreciationYears      = $data['depreciation_rate_years'] ? (float) str_replace(',', '', $data['depreciation_rate_years']) : null;
         $depreciationCOARefID   = $data['depreciation_coa_id'] ? (int) $data['depreciation_coa_id'] : null;
         $deduction              = $data['budget_details_deduction'] > -1 ? (float) str_replace(',', '', $data['budget_details_deduction']) : null;
 
@@ -2019,11 +2021,11 @@ class AccountPayableService
                 "documentDateTimeTZ"            => date('Y-m-d'),
                 "log_FileUpload_Pointer_RefID"  => $fileID,
                 "supplierInvoiceNumber"         => $data['supplier_invoice_number'],
-                "supplier_RefID"                => 126000000000001,
+                "supplier_RefID"                => (int) $data['payment_transfer_id'], 
                 "receiptStatus"                 => $receiptStatus,
                 "contractStatus"                => $contractStatus,
                 "vatStatus"                     => $vatStatus,
-                "vatValue"                      => 10.00,
+                "vatValue"                      => $vatValue,
                 "vatNumber"                     => $data['vat_number'],
                 "fatPatDoStatus"                => $fatPatDoStatus,
                 "assetStatus"                   => $assetStatus,
@@ -2031,9 +2033,9 @@ class AccountPayableService
                 // "depreciationMethod"            => $depreciationMethod,
                 // "depreciationRate"              => 25.00,
                 "depreciationAssetCategory_RefID" => 299000000000007,
-                "period"                        => 16,
-                "rate"                          => 6.25,
-                "depreciationCOA_RefID"         => null,
+                "period"                        => $depreciationYears,
+                "rate"                          => $depreciationRate,
+                "depreciationCOA_RefID"         => $depreciationCOARefID,
                 "deduction"                     => $deduction,
                 "remarks"                       => $data['account_payable_notes'],
                 'additionalData'    => [
