@@ -943,11 +943,18 @@ namespace App\Helpers\ZhtHelper\Database
                                         );
                                 $varTempExplode = explode('+', $varDataTemp['data'][0]['now']);
 
+                                /*
                                 $varReturn['process']['DBMS']['executionTime']['startDateTimeTZ'] = (
                                     str_pad($varTempExplode[0], 26, '0', STR_PAD_RIGHT).
                                     ((($varTempExplode[1] * 1) < 0) ? '-' : '+').
                                     $varTempExplode[1]
                                     );
+                                */
+                                $varReturn['process']['DBMS']['executionTime']['startDateTimeTZ'] =
+                                    \App\Helpers\ZhtHelper\General\Helper_DateTime::getTimeStampTZConvert_PHPDateTimeToDateTimeTZString(
+                                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                                        (new \DateTime())
+                                        );
 
                                 unset($varDataTemp);
 
@@ -981,20 +988,35 @@ namespace App\Helpers\ZhtHelper\Database
                                         );
                                 
                                 //---> Inisialisasi : varReturn[process][DBMS][finishDateTimeTZ]
+                                /*
                                 $varTempExplode = explode('+', $varDataTemp['data'][0]['FinishDateTimeTZ']);
                                 $varReturn['process']['DBMS']['executionTime']['finishDateTimeTZ'] = (
                                     str_pad($varTempExplode[0], 26, '0', STR_PAD_RIGHT).
                                     ((($varTempExplode[1] * 1) < 0) ? '-' : '+').
                                     $varTempExplode[1]
                                     );
+                                */
+                                $varReturn['process']['DBMS']['executionTime']['finishDateTimeTZ'] =
+                                    \App\Helpers\ZhtHelper\General\Helper_DateTime::getTimeStampTZConvert_PHPDateTimeToDateTimeTZString(
+                                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                                        (new \DateTime())
+                                        );
 
                                 //---> Inisialisasi : varReturn[process][DBMS][executionInterval]
+                                /*
                                 $varTempExplode = explode('.', $varDataTemp['data'][0]['ExecutionInterval']);                                
                                 $varReturn['process']['DBMS']['executionTime']['interval'] = (
                                     $varTempExplode[0].
                                     '.'.
                                      str_pad($varTempExplode[1], 6, '0', STR_PAD_RIGHT)
                                     );
+                                */
+                                $varReturn['process']['DBMS']['executionTime']['interval'] = 
+                                     \App\Helpers\ZhtHelper\General\Helper_DateTime::getDifferenceOfDateTimeTZString(
+                                        $varUserSession,
+                                        $varReturn['process']['DBMS']['executionTime']['startDateTimeTZ'],
+                                        $varReturn['process']['DBMS']['executionTime']['finishDateTimeTZ']
+                                        );
                                 
                                 unset($varDataTemp);
                                 }

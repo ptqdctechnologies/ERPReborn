@@ -4371,8 +4371,8 @@ namespace App\Models\Database\SchData_OLTP_Finance
                         $varReturn['data'][0]['Func_GetReport_DocForm_Advance']
                         );
 
-                $varReturn['rowCount'] =
-                    count($varReturn['data']);
+                //$varReturn['rowCount'] =
+                //    count($varReturn['data']);
 
                 return
                     $varReturn;
