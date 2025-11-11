@@ -4,6 +4,9 @@
     let totalDeduction                  = 0;
     let currentIndexPickCOA             = null;
     let dataStore                       = [];
+    let depreciationRateYearsIDValue    = 0;
+    let depreciationRateValue           = 0;
+    let depreciationYearsValue          = 0;
     const purchaseOrderNumber           = document.getElementById("purchase_order_number");
     const supplierInvoiceNumber         = document.getElementById("supplier_invoice_number");
     const paymentTransferNumber         = document.getElementById("payment_transfer_number");
@@ -62,7 +65,14 @@
             url: '{!! route("getDepreciationRateYears") !!}?assetCategoryRef_ID=' + categoryID + '&depreciationMethodRef_ID=' + depreciationMethodID,
             success: function(data) {
                 if (data && Array.isArray(data)) {
+                    depreciationRateYearsIDValue = data[0]?.sys_ID;
+                    depreciationRateValue = data[0]?.rate;
+                    depreciationYearsValue = data[0]?.period;
+
+                    $('#depreciation_rate_years_id').val(data[0]?.sys_ID);
+                    $("#depreciation_rate_percentage").removeAttr("readonly");
                     $('#depreciation_rate_percentage').val(data[0]?.rate);
+                    $("#depreciation_rate_years").removeAttr("readonly");
                     $('#depreciation_rate_years').val(data[0]?.period);
                 } else {
                     console.log('Data depreciation rate years not found.');
@@ -187,7 +197,7 @@
                     $('#ppn').append('<option disabled selected value="Sel..">Sel..</option>');
 
                     data.forEach(function(project) {
-                        $('#ppn').append('<option value="' + project.sys_PID + '">' + project.tariffFixRate + '</option>');
+                        $('#ppn').append('<option value="' + project.tariffFixRate + '">' + project.tariffFixRate + '</option>');
                     });
                 } else {
                     console.log('Data vat not found.');
@@ -825,22 +835,42 @@
     });
 
     $('#depreciation_rate_percentage').on('input', function(e) {
-        if (!e.target.value) {
+        const val = e.target.value;
+        
+        if (!val) {
             $("#depreciation_rate_percentage").css("border", "1px solid red");
             $("#depreciation_value_text_message").text("Depreciation Rate cannot be empty.");
             $("#depreciation_value_message").show();
         } else {
+            if (val != depreciationRateValue) {
+                $("#depreciation_rate_years_id").val("");
+            } else {
+                if (depreciationRateYears.value == depreciationYearsValue) {
+                    $("#depreciation_rate_years_id").val(depreciationRateYearsIDValue);
+                }
+            }
+
             $("#depreciation_rate_percentage").css("border", "1px solid #ced4da");
             $("#depreciation_value_message").hide();
         }
     });
 
     $('#depreciation_rate_years').on('input', function(e) {
-        if (!e.target.value) {
+        const val = e.target.value;
+
+        if (!val) {
             $("#depreciation_rate_years").css("border", "1px solid red");
             $("#depreciation_value_text_message").text("Depreciation Years cannot be empty.");
             $("#depreciation_value_message").show();
         } else {
+            if (val != depreciationYearsValue) {
+                $("#depreciation_rate_years_id").val("");
+            } else {
+                if (depreciationRatePercentage.value == depreciationRateValue) {
+                    $("#depreciation_rate_years_id").val(depreciationRateYearsIDValue);
+                }
+            }
+
             $("#depreciation_rate_years").css("border", "1px solid #ced4da");
             $("#depreciation_value_message").hide();
         }
