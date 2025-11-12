@@ -345,7 +345,11 @@
                                     </div>
                                 </div>
                             </td>
-                            <td id="product_name${key}" style="text-align: center;text-wrap: auto;" name="product_name">${val2.productName}</td>
+                            <td id="product_name${key}" style="text-align: left;" name="product_name">
+                                <div style="overflow: hidden;white-space: nowrap;text-overflow: ellipsis;width: 150px;">
+                                    ${val2.productName}
+                                </div>
+                            </td>
                         `;
                         isUnspecified = 'disabled';
                         balanced = '-';

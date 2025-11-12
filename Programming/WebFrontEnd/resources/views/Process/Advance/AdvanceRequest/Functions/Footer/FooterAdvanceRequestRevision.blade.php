@@ -357,7 +357,11 @@
                         <input id="productUnitPriceCurrencyExchangeRate${key}" value="1" type="hidden" />
 
                         <td style="text-align: center;">${val2.productCode}</td>
-                        <td style="text-align: center;">${val2.productName}</td>
+                        <td style="text-align: left;">
+                            <div style="overflow: hidden;white-space: nowrap;text-overflow: ellipsis;width: 150px;">
+                                ${val2.productName}
+                            </div>
+                        </td>
                     `;
 
                     let componentsInput = `
@@ -400,7 +404,11 @@
                                     </div>
                                 </div>
                             </td>
-                            <td id="product_name${key}" style="text-align: center;text-wrap: auto;" name="product_name" data-default="${val2.productName}">${val2.productName}</td>
+                            <td id="product_name${key}" style="text-align: left;" name="product_name" data-default="${val2.productName}">
+                                <div style="overflow: hidden;white-space: nowrap;text-overflow: ellipsis;width: 150px;">
+                                    ${val2.productName}
+                                </div>
+                            </td>
                         `;
                     } else if (!val2.product_RefID && findDataMiscellaneous) {
                         isUnspecified = 'disabled';
@@ -429,7 +437,11 @@
                                     </div>
                                 </div>
                             </td>
-                            <td id="product_name${key}" style="text-align: center;text-wrap: auto;" name="product_name" data-default="${findDataMiscellaneous.productName}">${findDataMiscellaneous.productName}</td>
+                            <td id="product_name${key}" style="text-align: left;" name="product_name" data-default="${findDataMiscellaneous.productName}">
+                                <div style="overflow: hidden;white-space: nowrap;text-overflow: ellipsis;width: 150px;">
+                                    ${findDataMiscellaneous.productName}
+                                </div>
+                            </td>
                         `;
 
                         componentsInput = `
@@ -461,7 +473,11 @@
                             <input id="productUnitPriceCurrencyExchangeRate${key}" value="${findDataDetail.productUnitPriceCurrencyExchangeRate}" type="hidden" />
 
                             <td style="text-align: center;">${val2.productCode}</td>
-                            <td style="text-align: center;">${val2.productName}</td>
+                            <td style="text-align: left;">
+                                <div style="overflow: hidden;white-space: nowrap;text-overflow: ellipsis;width: 150px;">
+                                    ${val2.productName}
+                                </div>
+                            </td>
                         `;
 
                         componentsInput = `

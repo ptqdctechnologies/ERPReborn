@@ -7,7 +7,7 @@
                 AP Number
             </div>
             <div class="col">
-                : AP/QDC/2025/000001
+                : <?= $dataHeader['documentNumber']; ?>
             </div>
         </div>
 
@@ -27,7 +27,7 @@
                 Supplier
             </div>
             <div class="col">
-                : -
+                : <?= $dataHeader['supplierCode']; ?> - <?= $dataHeader['supplierName']; ?>
             </div>
         </div>
 
@@ -144,7 +144,7 @@
                 Delivery From
             </div>
             <div class="col">
-                : -
+                : <?= $dataHeader['supplierCode']; ?> - <?= $dataHeader['supplierName']; ?>
             </div>
         </div>
 
@@ -175,7 +175,7 @@
                     Category
                 </div>
                 <div class="col">
-                    : Non Permanen
+                    : <?= $dataHeader['assetCategoryCode']; ?> - <?= $dataHeader['assetCategoryName']; ?>
                 </div>
             </div>
 
@@ -185,7 +185,7 @@
                     Depreciation Method
                 </div>
                 <div class="col">
-                    : Straight Line
+                    : <?= $dataHeader['depreciationMethod']; ?>
                 </div>
             </div>
 
@@ -195,7 +195,7 @@
                     Depreciation Rate
                 </div>
                 <div class="col">
-                    : 20
+                    : <?= $dataHeader['depreciationRate']; ?>
                 </div>
             </div>
 
@@ -205,7 +205,7 @@
                     Depreciation Years
                 </div>
                 <div class="col">
-                    : 3
+                    : <?= $dataHeader['depreciationYears']; ?>
                 </div>
             </div>
 
