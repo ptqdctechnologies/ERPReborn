@@ -4879,6 +4879,53 @@ namespace App\Models\Database\SchData_OLTP_Finance
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getReport_Form_DocumentForm_PaymentInstructionSummary                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2025-11-12                                                                                           |
+        | ▪ Creation Date   : 2025-11-12                                                                                           |
+        | ▪ Description     : Mendapatkan Laporan Form - Form Dokumen Advance To Advance Settlement Summary                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |      ▪ (string)    varCombinedBudgetCode ► Combined Budget Code                                                          |
+        |      ▪ (string)    varCombinedBudgetSectionCode ► Combined Budget Section Code                                           |
+        |      ▪ (int)    varSupplier_RefID ► Supplier_RefID                                                                       |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getReport_Form_DocumentForm_PaymentInstructionSummary(
+            $varUserSession, int $varSysBranch_RefID, string  $varCombinedBudgetCode = null, string $varCombinedBudgetSectionCode = null, int $varSupplier_RefID = null, string  $varStartDate = null, string  $varEndDate = null,
+            )
+            {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession,
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Finance.Func_GetReport_DocForm_PaymentInstructionSummary',
+                            [
+                                [$varCombinedBudgetCode, 'varchar' ],
+                                [$varCombinedBudgetSectionCode, 'varchar' ],
+                                [$varSupplier_RefID, 'bigint' ],
+                                [$varStartDate, 'varchar'],
+                                [$varEndDate, 'varchar'],
+                            ]
+                            )
+                        );
+                return $varReturn;
+                }
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getReport_Form_DocumentForm_DebitNote                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
