@@ -411,6 +411,8 @@
 
                     let modifyColumn = `<td rowspan="${result.length}" style="text-align: center; padding: 10px !important;">${advanceNumber}</td>`;
 
+                    $('#advance_number').css({"background": "#e9ecef", "border": "1px solid #ced4da"})
+
                     $.each(result, function(key, val2) {
                         let row = `
                             <tr>
@@ -421,7 +423,11 @@
                                 ${key === 0 ? modifyColumn : `<td style="text-align: center; padding: 10px !important; display: none;">${advanceNumber}</td>`}
                                 <td style="text-align: center; padding: 10px !important;">${val2.combinedBudgetSectionCode + ' - ' + val2.combinedBudgetSectionName}</td>
                                 <td style="text-align: center; padding: 10px !important;">${val2.productCode}</td>
-                                <td style="text-align: center; padding: 10px !important;">${val2.productName}</td>
+                                <td style="text-align: left; padding: 10px !important;">
+                                    <div style="overflow: hidden;white-space: nowrap;text-overflow: ellipsis;width: 150px;">
+                                        ${val2.productName}
+                                    </div>
+                                </td>
                                 <td style="text-align: center; padding: 10px !important;">${val2.quantityUnitName}</td>
                                 <td style="text-align: center; padding: 10px !important;">${val2.productUnitPriceCurrencyISOCode}</td>
                                 <td style="text-align: center; padding: 10px !important;">${currencyTotal(val2.quantity)}</td>

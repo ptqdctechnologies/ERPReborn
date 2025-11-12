@@ -359,7 +359,7 @@
                     <td style="text-align: center;border:1px solid #e9ecef;">${val2.ARFNumber || '-'}</td>
                     <td style="text-align: center;border:1px solid #e9ecef;">${val2.combinedBudgetSectionCode + ' - ' + val2.combinedBudgetSectionName}</td>
                     <td style="text-align: center;border:1px solid #e9ecef;">${val2.productCode || '-'}</td>
-                    <td style="text-align: center;border:1px solid #e9ecef;">
+                    <td style="text-align: left;border:1px solid #e9ecef;">
                         <div style="overflow: hidden;white-space: nowrap;text-overflow: ellipsis;width: 150px;">
                             ${val2.productName || '-'}
                         </div>
