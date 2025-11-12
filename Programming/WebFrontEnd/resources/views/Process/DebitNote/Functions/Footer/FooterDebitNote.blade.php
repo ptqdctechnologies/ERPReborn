@@ -139,6 +139,7 @@
         
         $(`#debit_note_coa_id${currentIndexPickCOA}`).val(sysId);
         $(`#debit_note_coa_name${currentIndexPickCOA}`).val(`${code} - ${name}`);
+        $(`#debit_note_coa_name${currentIndexPickCOA}`).css({"background-color":"#e9ecef", "border": "1px solid #ced4da"});
         
         $('#myGetChartOfAccount').modal('hide');
     });

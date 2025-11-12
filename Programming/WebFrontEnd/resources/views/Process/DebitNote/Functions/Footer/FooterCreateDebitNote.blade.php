@@ -181,7 +181,7 @@
                 $('#debit_note_reference_id').val(refNumberID);
                 $('#debit_note_reference_number').val(refNumber);
                 
-                $("#debit_note_reference_number").css("border", "1px solid #ced4da");
+                $("#debit_note_reference_number").css({"background-color":"#e9ecef", "border": "1px solid #ced4da"});
                 $("#debit_note_reference_message").hide();
 
                 $("#debit_note_loading_table").hide();
