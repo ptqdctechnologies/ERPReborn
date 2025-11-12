@@ -91,6 +91,10 @@ class DocumentTypeMapper
                 'parameter'                 => [],
                 'businessDocument_RefID'    => (int) 74000000021494,
             ],
+            'Payment Instruction Form'  => [
+                'key'       => 'transaction.read.dataList.finance.getPaymentInstructionDetail',
+                'parameter' => ['paymentInstruction_RefID' => (int) $referenceId]
+            ],
             'Person Business Trip Form' => [
                 'key'                       => 'transaction.read.dataList.humanResource.getPersonBusinessTripSequence',
                 'parameter'                 => ['personBusinessTrip_RefID' => (int) $referenceId],
@@ -499,6 +503,56 @@ class DocumentTypeMapper
                 'transactionType'        => 'MODIFY BUDGET',
                 'businessDocument_RefID' => '',
             ],
+            'Payment Instruction Form' => [
+                'dataHeader'    => [
+                    'documentNumber'            => $dataDetail['documentNumber'] ?? null,
+                    'date'                      => $dataDetail['date'] ?? null,
+                    'dateUpdate'                => $dataDetail['dateUpdate'] ?? null, // null or '2025-09-29 15:49:00.113 +0700'
+                    'poNumber'                  => $dataDetail['pO_Number'] ?? '-',
+                    'currency'                  => $dataDetail['currencySymbol'] ?? null,
+                    'supplierCode'              => $dataDetail['supplierCode'] ?? null,
+                    'supplierName'              => $dataDetail['supplierName'] ?? null,
+                    'supplierInvoiceNumber'     => $dataDetail['supplierInvoiceNumber'] ?? null,
+                    'supplierBankName'          => $dataDetail['supplierBank_Name'] ?? null, // PAYMENT TO
+                    'supplierBankAccount'       => $dataDetail['supplierBank_Account'] ?? null, // PAYMENT TO
+                    'supplierBankAccountName'   => $dataDetail['supplierBank_AccountName'] ?? null, // PAYMENT TO
+                    'receiptInvoiceOrigin'      => self::formatResponse($dataDetail['receiptStatus'] ?? null),
+                    'contractPOSigned'          => self::formatResponse($dataDetail['contractStatus'] ?? null),
+                    'VATOrigin'                 => self::formatResponse($dataDetail['vatStatus'] ?? null),
+                    'VATValue'                  => $dataDetail['vatValue'] ?? null,
+                    'VATNumber'                 => $dataDetail['vatNumber'] ?? null,
+                    'FATPATDOOrigin'            => self::formatResponse($dataDetail['fatPatDoStatus'] ?? null),
+                    'asset'                     => self::formatResponse($dataDetail['assetStatus'] ?? null),
+                    'category'                  => $dataDetail['assetCategory'] ?? null,
+                    'depreciationMethod'        => $dataDetail['depreciationMethod'] ?? null,
+                    'depreciationRate'          => $dataDetail['depreciationRate'] ?? null,
+                    'depreciationYears'         => $dataDetail['depreciationYears'] ?? null,
+                    'depreciationCOACode'       => $dataDetail['depreciationCOA_Code'] ?? null,
+                    'depreciationCOAName'       => $dataDetail['depreciationCOA_Name'] ?? null,
+                    'deduction'                 => $dataDetail['deduction'] ?? null,
+                    'assetCategoryCode'         => $dataDetail['assetCategoryCode'] ?? null,
+                    'assetCategoryName'         => $dataDetail['assetCategoryName'] ?? null,
+                    'assetCategoryName'         => $dataDetail['assetCategoryName'] ?? null,
+                ],
+                'textAreaFields'    => [
+                    'title'         => 'Remark',
+                    'text'          => $dataDetail['notes'] ?? null,
+                ],
+                'components'        => [
+                    'detail'            => 'Components.AccountPayableDetailDocument',
+                    'table'             => 'Components.AccountPayableDetailDocumentTable',
+                    'headerRevision'    => 'Components.AccountPayableDetailDocumentHeaderRevision',
+                    'revision'          => 'Components.AccountPayableDetailDocumentRevision',
+                    'otherAdditional'   => 'Components.AccountPayableDetailDocumentAdditional'
+                ],
+                'resubmit'      => [
+                    'url'       => 'AccountPayable.RevisionAccountPayable',
+                    'name'      => 'modal_account_payable_id',
+                    'value'     => 211000000000095
+                ],
+                'transactionType'        => 'ACCOUNT PAYABLE',
+                'businessDocument_RefID' => '',
+            ],
             'Person Business Trip Form' => [
                 'dataHeader'            => [
                     'btNumber'              => $dataDetail['documentNumber'] ?? '-',
@@ -858,6 +912,7 @@ class DocumentTypeMapper
             'Credit Note Form'              => 'Documents.Transactions.LogTransaction.LogTransactionCreditNote',
             'Debit Note Form'               => 'Documents.Transactions.LogTransaction.LogTransactionDebitNote',
             'Delivery Order Form'           => 'Documents.Transactions.LogTransaction.LogTransactionDeliveryOrder',
+            'Payment Instruction Form'      => 'Documents.Transactions.LogTransaction.LogTransactionAccountPayable',
             'Purchase Order Form'           => 'Documents.Transactions.LogTransaction.LogTransactionPurchaseOrder',
             'Purchase Requisition Form'     => 'Documents.Transactions.LogTransaction.LogTransactionPurchaseRequisition',
             'Reimbursement Form'            => 'Documents.Transactions.LogTransaction.LogTransactionReimbursement',
