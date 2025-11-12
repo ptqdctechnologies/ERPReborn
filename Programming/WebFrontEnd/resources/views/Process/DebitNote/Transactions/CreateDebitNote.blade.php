@@ -65,7 +65,7 @@
                                                         </div>
                                                         <div>
                                                             <div class="input-group">
-                                                                <input id="debit_note_reference_number" style="border-radius:0;" class="form-control" readonly>
+                                                                <input id="debit_note_reference_number" style="border-radius:0; background: white;" class="form-control" readonly>
                                                                 <input id="debit_note_reference_id" name="debit_note_reference_id" style="border-radius:0;" class="form-control" hidden>
                                                             </div>
                                                         </div>

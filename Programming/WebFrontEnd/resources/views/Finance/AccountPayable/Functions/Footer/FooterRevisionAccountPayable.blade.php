@@ -4,8 +4,74 @@
     let totalDeduction          = 0;
     let currentIndexPickCOA     = null;
     let dataStore               = [];
+    const depreciationMethod    = document.getElementById('depreciation_method');
+    const paymentTransferID     = document.getElementById('payment_transfer_id');
     const defaultValueVAT       = document.getElementById('ppnValue');
+    const categoryID            = document.getElementById('category_id');
     const valueVAT              = document.getElementById('ppn');
+
+    function getDepreciationMethod() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: 'GET',
+            url: '{!! route("getDepreciationMethod") !!}',
+            success: function(data) {
+                $('#containerLoadingDepreciationMethod').hide();
+
+                if (data && Array.isArray(data)) {
+                    $('#containerDepreciationMethod').show();
+
+                    $('#depreciation_method').empty();
+                    $('#depreciation_method').append('<option disabled selected value="Select a Method">Select a Method</option>');
+
+                    data.forEach(function(val) {
+                        $('#depreciation_method').append('<option value="' + val.sys_ID + '">' + val.name + '</option>');
+                    });
+                } else {
+                    console.log('Data depreciation method not found.');
+                }
+            },
+            error: function (textStatus, errorThrown) {
+                console.log('Function getDepreciationMethod error: ', textStatus, errorThrown);
+            }
+        });
+    }
+
+    function getDepreciationRateYears(categoryID, depreciationMethodID) {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: 'GET',
+            url: '{!! route("getDepreciationRateYears") !!}?assetCategoryRef_ID=' + categoryID + '&depreciationMethodRef_ID=' + depreciationMethodID,
+            success: function(data) {
+                if (data && Array.isArray(data)) {
+                    depreciationRateYearsIDValue = data[0]?.sys_ID;
+                    depreciationRateValue = data[0]?.rate;
+                    depreciationYearsValue = data[0]?.period;
+
+                    $('#depreciation_rate_years_id').val(data[0]?.sys_ID);
+                    $("#depreciation_rate_percentage").removeAttr("readonly");
+                    $('#depreciation_rate_percentage').val(data[0]?.rate);
+                    $("#depreciation_rate_years").removeAttr("readonly");
+                    $('#depreciation_rate_years').val(data[0]?.period);
+                } else {
+                    console.log('Data depreciation rate years not found.');
+                }
+            },
+            error: function (textStatus, errorThrown) {
+                console.log('Function getDepreciationRateYears error: ', textStatus, errorThrown);
+            }
+        });
+    }
 
     function assetValue(params) {
         if (params.value == "no") {
@@ -380,6 +446,10 @@
         $(`#category_number`).css('background-color', '#e9ecef');
         
         $('#myGetCategory').modal('hide');
+
+        if (depreciationMethod.value != "Select a Method") {
+            getDepreciationRateYears(sysId, depreciationMethod.value);
+        }
     });
 
     $('#tableGetPaymentTransfer').on('click', 'tbody tr', async function() {
@@ -436,8 +506,23 @@
         $('#myAccountPayables').modal('hide');
     });
 
+    $('#depreciation_method').on('change', function(e) {
+        const value = e.target.value;
+
+        if (value) {
+            if (categoryID.value) {
+                getDepreciationRateYears(categoryID.value, value);
+            }
+
+            $("#depreciation_method_message").hide();
+            $("#depreciation_method").css("border", "1px solid #ced4da");
+        }
+    });
+
     $(window).one('load', function(e) {
         getVAT();
         getAccountPayableDetails();
+        getPaymentTransfer(paymentTransferID.value);
+        getDepreciationMethod();
     });
 </script>

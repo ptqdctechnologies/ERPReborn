@@ -522,7 +522,7 @@
         var sysId = $(this).find('input[data-trigger="sys_id_modal_invoice"]').val();
         var trano = $(this).find('td:nth-child(2)').text();
         
-        $("#invoice_number").css("border", "1px solid #ced4da");
+        $("#invoice_number").css({"background-color":"#e9ecef", "border": "1px solid #ced4da"});
 
         $("#invoice_id").val(sysId);
         $("#invoice_number").val(trano);

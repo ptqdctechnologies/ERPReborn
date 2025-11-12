@@ -68,7 +68,7 @@
                                                         </div>
                                                         <div>
                                                             <div class="input-group">
-                                                                <input id="invoice_number" style="border-radius:0;" class="form-control" readonly>
+                                                                <input id="invoice_number" style="border-radius:0; background: white;" class="form-control" readonly>
                                                                 <input id="invoice_id" name="invoice_id" style="border-radius:0;" class="form-control" hidden>
                                                             </div>
                                                         </div>

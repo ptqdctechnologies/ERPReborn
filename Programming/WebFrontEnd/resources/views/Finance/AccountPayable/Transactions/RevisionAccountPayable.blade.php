@@ -2,6 +2,8 @@
 @section('main')
 @include('Partials.navbar')
 @include('Partials.sidebar')
+@include('getFunction.getCategory')
+@include('getFunction.getAccountPayable')
 @include('getFunction.getChartOfAccount')
 @include('getFunction.getPaymentTransfer')
 @include('Finance.AccountPayable.Functions.PopUp.PopUpAccountPayableSummaryData')

@@ -134,27 +134,27 @@ class AccountPayableController extends Controller
 
             $dataAccountPayableDetail = $response['data']['data'];
 
-            // dump($response);
+            // dump($dataAccountPayableDetail);
 
             $compact = [
                 'varAPIWebToken'    => $varAPIWebToken,
                 'header'            => [
-                    'purchaseOrder_RefID'           => '',
+                    'accountPayable_RefID'          => '',
                     'purchaseOrderNumber'           => $dataAccountPayableDetail[0]['PO_Number'] ?? '',
-                    'supplier_RefID'                => '',
-                    'supplierCode'                  => '',
-                    'supplierName'                  => '',
+                    'supplier_RefID'                => $dataAccountPayableDetail[0]['Supplier_RefID'] ?? '',
+                    'supplierCode'                  => $dataAccountPayableDetail[0]['SupplierCode'] ?? '',
+                    'supplierName'                  => $dataAccountPayableDetail[0]['SupplierName'] ?? '',
                     'currency_RefID'                => $dataAccountPayableDetail[0]['Currency_RefID'] ?? '',
                     'currencyISOCode'               => $dataAccountPayableDetail[0]['CurrencySymbol'] ?? '',
-                    'paymentTerm'                   => '',
+                    'paymentTerm'                   => $dataAccountPayableDetail[0]['PaymentTerm'] ?? '',
                     'deliveryFrom_RefID'            => '',
-                    'deliveryFrom'                  => '',
+                    'deliveryFrom'                  => $dataAccountPayableDetail[0]['SupplierName'] ?? '',
                     'deliveryTo_RefID'              => '',
-                    'deliveryTo'                    => '',
+                    'deliveryTo'                    => $dataAccountPayableDetail[0]['PurchaseOrderDeliveryTo'] ?? '',
                     'supplierInvoiceNumber'         => $dataAccountPayableDetail[0]['SupplierInvoiceNumber'] ?? '',
-                    'paymentTransfer_RefID'         => '',
-                    'paymentTransferName'           => '',
-                    'paymentTransferBankCode'       => '',
+                    'paymentTransfer_RefID'         => $dataAccountPayableDetail[0]['Supplier_RefID'] ?? '',
+                    'paymentTransferName'           => $dataAccountPayableDetail[0]['SupplierBank_AccountName'] ?? '',
+                    'paymentTransferBankCode'       => $dataAccountPayableDetail[0]['Supplier_RefID'] ?? '',
                     'paymentTransferAccountNumber'  => '',
                     'receiptInvoiceOrigin'          => $this->RadioFormatValue($dataAccountPayableDetail[0]['ReceiptStatus']) ?? '',
                     'contractPOSigned'              => $this->RadioFormatValue($dataAccountPayableDetail[0]['ContractStatus']) ?? '',
@@ -165,11 +165,11 @@ class AccountPayableController extends Controller
                     'notes'                         => $dataAccountPayableDetail[0]['Notes'] ?? '',
                     'asset'                         => $this->RadioFormatValue($dataAccountPayableDetail[0]['AssetStatus']) ?? '',
                     'category_RefID'                => $dataAccountPayableDetail[0]['AssetCategory'] ?? '',
-                    'categoryCode'                  => '',
-                    'categoryName'                  => '',
+                    'categoryCode'                  => $dataAccountPayableDetail[0]['AssetCategoryCode'] ?? '',
+                    'categoryName'                  => $dataAccountPayableDetail[0]['AssetCategoryName'] ?? '',
                     'depreciationMethod_RefID'      => $dataAccountPayableDetail[0]['DepreciationMethod'] ?? '',
                     'depreciationRate'              => $dataAccountPayableDetail[0]['DepreciationRate'] ?? '',
-                    'depreciationYears'             => '',
+                    'depreciationYears'             => $dataAccountPayableDetail[0]['DepreciationYears'] ?? '',
                     'depreciationCOA_RefID'         => $dataAccountPayableDetail[0]['DepreciationCOA_RefID'] ?? '',
                     'depreciationCOACode'           => $dataAccountPayableDetail[0]['DepreciationCOA_Code'] ?? '',
                     'depreciationCOAName'           => $dataAccountPayableDetail[0]['DepreciationCOA_Name'] ?? '',

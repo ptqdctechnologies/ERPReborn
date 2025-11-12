@@ -10,7 +10,6 @@
                     <div>
                         <div class="input-group">
                             <input id="purchase_order_number" class="form-control" readonly style="border-radius:0; cursor: default;" value="<?= $header['purchaseOrderNumber']; ?>" />
-                            <input id="purchase_order_id" name="purchase_order_id" style="border-radius:0;" class="form-control" value="<?= $header['purchaseOrder_RefID']; ?>" hidden />
                         </div>
                     </div>
                 </div>

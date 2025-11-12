@@ -97,7 +97,7 @@
                                 </td>
                                 <td>
                                     <div>
-                                        <?= $dataReport[0]['deliveryFrom_NonRefID']['Address']; ?>
+                                        <?= $dataReport[0]['deliveryFrom_NonRefID']['Address'] ?? '-'; ?>
                                     </div>
                                 </td>
                             </tr>
@@ -163,7 +163,7 @@
                                 </td>
                                 <td>
                                     <div>
-                                        <?= $dataReport[0]['deliveryTo_NonRefID']['Address']; ?>
+                                        <?= $dataReport[0]['deliveryTo_NonRefID']['Address'] ?? '-'; ?>
                                     </div>
                                 </td>
                             </tr>
@@ -478,7 +478,7 @@
 
                 <div style="height: 16px;"></div>
 
-                <tr style="border-top: 1px solid black;height: 20px; font-size: 12px; font-weight: bold;">
+                <tr style="border-top: 1px solid black;height: 20px; font-size: 12px; font-weight: bold; display: none;">
                     <td colspan="<?= $dataReport[0]['type'] == "PURCHASE_ORDER" ? 5 : ($dataReport[0]['type'] == "INTERNAL_USE" ? 4 : 3); ?>">
                         <div style="margin: 4px 0px 16px 0px;">Total</div>
                     </td>
@@ -500,7 +500,7 @@
                     <td style="vertical-align: top;">
                         <div style="vertical-align: top; padding: 0px 8px;">
                             <div style="text-align: center; font-weight: bold; font-size: 12px;">
-                                Approved by Director
+                                Approved by
                             </div>
                             <div style="margin-top: 24px;">
                                 <table style="width: 100%; height: 2%;">
@@ -522,7 +522,7 @@
                                     Redi
                                 </div>
                                 <div style="font-size: 10px;">
-                                    Date: <?= date('j F Y'); ?>
+                                    Date: <?php date('j F Y'); ?>
                                 </div>
                             </div>
                         </div>
@@ -530,7 +530,7 @@
                     <td style="vertical-align: top;">
                         <div style="vertical-align: top; padding: 0 8px;">
                             <div style="text-align: center; font-weight: bold; font-size: 12px;">
-                                Accepted by Vendor
+                                Accepted by
                             </div>
                             <div style="margin-top: 24px;">
                                 <table style="width: 100%; height: 2%;">
@@ -552,7 +552,7 @@
                                     Redi
                                 </div>
                                 <div style="font-size: 10px;">
-                                    Date: <?= date('j F Y'); ?>
+                                    Date: <?php date('j F Y'); ?>
                                 </div>
                             </div>
                         </div>
