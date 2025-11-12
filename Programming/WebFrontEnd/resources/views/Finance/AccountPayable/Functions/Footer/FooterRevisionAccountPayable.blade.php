@@ -154,45 +154,45 @@
 
         $.each(dataTable, function(key, val) {
             dataStore.push({
-                recordID: 212000000000067,
+                recordID: 212000000000121,
                 entities: {
-                    combinedBudgetSectionDetail_RefID: parseInt(val.CombinedBudgetSectionDetail_RefID),
-                    chartOfAccount_RefID: parseInt(val.ChartOfAccount_RefID),
-                    product_RefID: parseInt(val.Product_RefID),
+                    combinedBudgetSectionDetail_RefID: parseInt(val.combinedBudgetSectionDetail_RefID),
+                    chartOfAccount_RefID: parseInt(val.chartOfAccount_RefID),
+                    product_RefID: parseInt(val.product_RefID),
                     quantityUnit_RefID: 73000000000001,
-                    quantity: parseFloat(val.Quantity.replace(/,/g, '')),
+                    quantity: parseFloat(val.quantity.replace(/,/g, '')),
                     productUnitPriceCurrency_RefID: 62000000000001,
-                    productUnitPriceCurrencyValue: parseFloat(val.ProductUnitPriceCurrencyValue.replace(/,/g, '')),
-                    productUnitPriceCurrencyExchangeRate: parseFloat(val.ProductUnitPriceBaseCurrencyValue.replace(/,/g, '')),
-                    wht: parseFloat(val.WHT.replace(/,/g, '')),
-                    purchaseOrderDetail_RefID: 86000000000282
+                    productUnitPriceCurrencyValue: parseFloat(val.productUnitPriceCurrencyValue.replace(/,/g, '')),
+                    productUnitPriceCurrencyExchangeRate: parseFloat(val.productUnitPriceBaseCurrencyValue.replace(/,/g, '')),
+                    wht: parseFloat(val.wHT.replace(/,/g, '')),
+                    purchaseOrderDetail_RefID: parseInt(val.purchaseOrderDetail_RefID)
                 }
             });
 
             let row = `
                 <tr>
-                    <input type="hidden" id="record_RefID${key}" value="${212000000000067}" />
-                    <input type="hidden" id="combinedBudgetSectionDetail_RefID${key}" value="${val.CombinedBudgetSectionDetail_RefID}" />
-                    <input type="hidden" id="product_RefID${key}" value="${val.Product_RefID}" />
+                    <input type="hidden" id="record_RefID${key}" value="${212000000000121}" />
+                    <input type="hidden" id="combinedBudgetSectionDetail_RefID${key}" value="${val.combinedBudgetSectionDetail_RefID}" />
+                    <input type="hidden" id="product_RefID${key}" value="${val.product_RefID}" />
                     <input type="hidden" id="quantityUnit_RefID${key}" value="${73000000000001}" />
                     <input type="hidden" id="productUnitPriceCurrency_RefID${key}" value="${62000000000001}" />
-                    <input type="hidden" id="productUnitPriceCurrencyExchangeRate${key}" value="${val.ProductUnitPriceBaseCurrencyValue}" />
-                    <input type="hidden" id="purchaseOrderDetail_RefID${key}" value="${86000000000282}" />
+                    <input type="hidden" id="productUnitPriceCurrencyExchangeRate${key}" value="${val.productUnitPriceBaseCurrencyValue}" />
+                    <input type="hidden" id="purchaseOrderDetail_RefID${key}" value="${val.purchaseOrderDetail_RefID}" />
 
-                    <td style="text-align: center;">${val.ProductCode} - ${val.ProductName}</td>
+                    <td style="text-align: center;">${val.productCode} - ${val.productName}</td>
                     <td style="text-align: center;">-</td>
                     <td style="text-align: center;">-</td>
                     <td style="text-align: center;">-</td>
-                    <td style="text-align: center;">${val.UOM}</td>
+                    <td style="text-align: center;">${val.uOM}</td>
                     <td style="text-align: center;">-</td>
                     <td style="border:1px solid #e9ecef;background-color:white; padding: 0.5rem !important; width: 100px;">
-                        <input id="qty_ap${key}" class="form-control number-without-negative" data-index=${key} autocomplete="off" style="border-radius:0px;" value="${decimalFormat(parseFloat(val.Quantity))}" />
+                        <input id="qty_ap${key}" class="form-control number-without-negative" data-index=${key} autocomplete="off" style="border-radius:0px;" value="${decimalFormat(parseFloat(val.quantity))}" />
                     </td>
                     <td style="border:1px solid #e9ecef;background-color:white; padding: 0.5rem !important; width: 100px;">
-                        <input id="total_ap${key}" class="form-control number-without-negative" data-index=${key} autocomplete="off" style="border-radius:0px;" value="${decimalFormat(parseFloat(val.ProductUnitPriceCurrencyValue))}" readonly />
+                        <input id="total_ap${key}" class="form-control number-without-negative" data-index=${key} autocomplete="off" style="border-radius:0px;" value="${decimalFormat(parseFloat(val.productUnitPriceCurrencyValue))}" readonly />
                     </td>
                     <td style="border:1px solid #e9ecef;background-color:white; padding: 0.5rem !important; width: 100px;">
-                        <input id="wht${key}" class="form-control number-without-negative" data-index=${key} autocomplete="off" style="border-radius:0px;" value="${decimalFormat(parseFloat(val.WHT))}" />
+                        <input id="wht${key}" class="form-control number-without-negative" data-index=${key} autocomplete="off" style="border-radius:0px;" value="${decimalFormat(parseFloat(val.wHT))}" />
                     </td>
                     <td>
                         <div class="input-group">
@@ -203,8 +203,8 @@
                                     </a>
                                 </span>
                             </div>
-                            <input id="coa_id${key}" style="border-radius:0;width:130px;" class="form-control" value="${val.ChartOfAccount_RefID}" hidden />
-                            <input id="coa_name${key}" style="border-radius:0;width:130px;" class="form-control" value="${val.ChartOfAccountCode} - ${val.ChartOfAccountName}" readonly />
+                            <input id="coa_id${key}" style="border-radius:0;width:130px;" class="form-control" value="${val.chartOfAccount_RefID}" hidden />
+                            <input id="coa_name${key}" style="border-radius:0;width:130px;" class="form-control" value="${val.chartOfAccountCode} - ${val.chartOfAccountName}" readonly />
                         </div>
                     </td>
                 </tr>
@@ -215,7 +215,7 @@
             $(`#qty_ap${key}`).on('keyup', function() {
                 let qty_ap      = $(this).val().replace(/,/g, '');
                 let wht_ap      = $(`#wht${key}`).val().replace(/,/g, '');
-                let total_ap    = parseFloat(qty_ap || 0) * val.ProductUnitPriceBaseCurrencyValue;
+                let total_ap    = parseFloat(qty_ap || 0) * val.productUnitPriceBaseCurrencyValue;
 
                 if (parseFloat(qty_ap) > val.qtyAvail) {
                     $(this).val("");
@@ -255,15 +255,15 @@
 
             let rowList = `
                 <tr>
-                    <input type="hidden" id="target_record_id[]" value="${212000000000067}" />
-                    <input type="hidden" id="target_purchase_order_detail_id[]" value="${86000000000282}" />
+                    <input type="hidden" id="target_record_id[]" value="${212000000000121}" />
+                    <input type="hidden" id="target_purchase_order_detail_id[]" value="${val.purchaseOrderDetail_RefID}" />
 
-                    <td style="text-align: left;padding: 0.8rem 0.5rem;">${val.ProductCode} - ${val.ProductName}</td>
-                    <td style="text-align: right;padding: 0.8rem 0.5rem;">${val.UOM}</td>
-                    <td style="text-align: right;padding: 0.8rem 0.5rem;">${decimalFormat(val.Quantity)}</td>
-                    <td style="text-align: right;padding: 0.8rem 0.5rem;">${decimalFormat(val.ProductUnitPriceCurrencyValue)}</td>
-                    <td style="text-align: right;padding: 0.8rem 0.5rem;">${decimalFormat(val.WHT)}</td>
-                    <td style="text-align: right;padding: 0.8rem 0.5rem;">${val.ChartOfAccountCode} - ${val.ChartOfAccountName}</td>
+                    <td style="text-align: left;padding: 0.8rem 0.5rem;">${val.productCode} - ${val.productName}</td>
+                    <td style="text-align: right;padding: 0.8rem 0.5rem;">${val.uOM}</td>
+                    <td style="text-align: right;padding: 0.8rem 0.5rem;">${decimalFormat(val.quantity)}</td>
+                    <td style="text-align: right;padding: 0.8rem 0.5rem;">${decimalFormat(val.productUnitPriceCurrencyValue)}</td>
+                    <td style="text-align: right;padding: 0.8rem 0.5rem;">${decimalFormat(val.wHT)}</td>
+                    <td style="text-align: right;padding: 0.8rem 0.5rem;">${val.chartOfAccountCode} - ${val.chartOfAccountName}</td>
                 </tr>
             `;
 
