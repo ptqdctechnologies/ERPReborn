@@ -15,14 +15,14 @@
             <tbody>
                 <?php $no = 1; $grand_total = 0; ?>
                 <?php foreach ($dataDetails as $dataDetail) { ?>
-                    <?php $grand_total += number_format($dataDetail['Quantity'], 2);  ?>
+                    <?php $grand_total += number_format($dataDetail['quantity'] ?? 0, 2);  ?>
                     <tr>
                         <td style="border:1px solid #4B586A;color:#4B586A;text-align:center;"><?= $no++; ?></td>
-                        <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['ProductCode'] ?? ''; ?> - <?= $dataDetail['ProductName'] ?? ''; ?></td>
-                        <td style="border:1px solid #4B586A;color:#4B586A;text-align:center;"><?= $dataDetail['UOM'] ?? ''; ?></td>
-                        <td style="border:1px solid #4B586A;color:#4B586A;text-align:center;"><?= $dataDetail['Quantity'] ?? ''; ?></td>
-                        <td style="border:1px solid #4B586A;color:#4B586A;text-align:center;"><?= $dataDetail['WHT'] ?? ''; ?></td>
-                        <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['ChartOfAccountCode'] ?? ''; ?> - <?= $dataDetail['ChartOfAccountName'] ?? ''; ?></td>
+                        <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['productCode'] ?? ''; ?> - <?= $dataDetail['productName'] ?? ''; ?></td>
+                        <td style="border:1px solid #4B586A;color:#4B586A;text-align:center;"><?= $dataDetail['uOM'] ?? ''; ?></td>
+                        <td style="border:1px solid #4B586A;color:#4B586A;text-align:center;"><?= $dataDetail['quantity'] ?? ''; ?></td>
+                        <td style="border:1px solid #4B586A;color:#4B586A;text-align:center;"><?= $dataDetail['wHT'] ?? ''; ?></td>
+                        <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['chartOfAccountCode'] ?? ''; ?> - <?= $dataDetail['chartOfAccountName'] ?? ''; ?></td>
                     </tr>
                 <?php } ?>
             </tbody>

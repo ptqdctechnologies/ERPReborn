@@ -4,9 +4,17 @@
         <table class="table table-striped table-hover table-sm">
             <thead>
                 <tr>
-                    <th class="text-center" colspan="7" style="vertical-align: middle;left: 0px;z-index: 10;line-height: normal;position: sticky;background: #FFF;">
-                        Rev 1 (Actual) - <br /> ( 2025-09-30 10:31 )
-                    </th>
+                    @if(sizeof($dataHeaderTransactionHistory))
+                        @for($i = count($dataHeaderTransactionHistory) - 1; $i >= 0; $i--)
+                            <?php $entryDateTime = $dataHeaderTransactionHistory[$i]['content']['sys_Data_Entry_DateTimeTZ']; $editDateTime = $dataHeaderTransactionHistory[$i]['content']['sys_Data_Edit_DateTimeTZ']; ?>
+
+                            @if ($i === count($dataHeaderTransactionHistory) - 1)
+                                <th class="text-center" colspan="7" style="vertical-align: middle;left: 0px;z-index: 10;line-height: normal;position: sticky;background: #FFF;">
+                                    Rev {{ $i }} (Actual) - {{ $dataHeaderTransactionHistory[count($dataHeaderTransactionHistory) - 1]['submitterWorkerName'] }} <br /> ( {{ date('Y-m-d', strtotime($dataHeaderTransactionHistory[count($dataHeaderTransactionHistory) - 1]['content']['sys_Data_Edit_DateTimeTZ'])) }} {{ date('H:i', strtotime($dataHeaderTransactionHistory[count($dataHeaderTransactionHistory) - 1]['content']['sys_Data_Edit_DateTimeTZ'])) }} )
+                                </th>
+                            @endif
+                        @endfor
+                    @endif
                 </tr>
                 <tr>
                     <th class="text-center" style="vertical-align: middle; width: 170px; min-width: 170px; max-width: 170px; left: 0px; z-index: 10;position: sticky; background-color: white;">Product</th>
@@ -18,11 +26,13 @@
             </thead>
             <tbody>
                 <tr>
-                    <td style="padding: 8px; width: 170px; min-width: 170px; max-width: 170px; position: sticky; background-color: white; left: 0px; z-index: 10;">240 - Cendana Andalas</td>
-                    <td style="padding: 8px; width: 145px; min-width: 145px; max-width: 145px; position: sticky; background-color: white; left: 170px; z-index: 10;">1,000,000,000.00</td>
-                    <td style="padding: 8px; width: 145px; min-width: 145px; max-width: 145px; position: sticky; background-color: white; left: 315px; z-index: 10;">275,000,000.00</td>
-                    <td style="padding: 8px; width: 110px; min-width: 110px; max-width: 110px; position: sticky; background-color: white; left: 460px; z-index: 10;">30</td>
-                    <td style="padding: 8px; width: 110px; min-width: 110px; max-width: 110px; position: sticky; background-color: white; left: 570px; z-index: 10;">1-1101.01 - Petty Cash (IDR)</td>
+                    @for($i = count($dataDetailGetTransactionHistory) - 1; $i >= 0; $i--)
+                        <td style="padding: 8px; width: 170px; min-width: 170px; max-width: 170px; position: sticky; background-color: white; left: 0px; z-index: 10;">{{ $dataDetailGetTransactionHistory[$i][count($dataDetailGetTransactionHistory[$i]) - 1]['productName'] }}</td>
+                        <td style="padding: 8px; width: 145px; min-width: 145px; max-width: 145px; position: sticky; background-color: white; left: 170px; z-index: 10;">{{ $dataDetailGetTransactionHistory[$i][count($dataDetailGetTransactionHistory[$i]) - 1]['quantityUnitName'] }}</td>
+                        <td style="padding: 8px; width: 145px; min-width: 145px; max-width: 145px; position: sticky; background-color: white; left: 315px; z-index: 10;">{{ $dataDetailGetTransactionHistory[$i][count($dataDetailGetTransactionHistory[$i]) - 1]['content']['quantity'] }}</td>
+                        <td style="padding: 8px; width: 110px; min-width: 110px; max-width: 110px; position: sticky; background-color: white; left: 460px; z-index: 10;">{{ $dataDetailGetTransactionHistory[$i][count($dataDetailGetTransactionHistory[$i]) - 1]['content']['WHT'] }}</td>
+                        <td style="padding: 8px; width: 110px; min-width: 110px; max-width: 110px; position: sticky; background-color: white; left: 570px; z-index: 10;">-</td>
+                    @endfor
                 </tr>
             </tbody>
         </table>
@@ -33,22 +43,38 @@
         <table class="table table-striped table-hover table-sm">
             <thead>
                 <tr>
-                    <th class="text-center" colspan="3" style="background-color:#4B586A;color:white;border-right:1px solid #e9ecef;line-height: normal;vertical-align: middle; min-width: 320px;">
-                        Original - <br /> ( 2025-09-29 10:31 )
-                    </th>
+                    @if(sizeof($dataHeaderTransactionHistory))
+                        @for($i = count($dataHeaderTransactionHistory) - 1; $i >= 0; $i--)
+                            <?php $entryDateTime = $dataHeaderTransactionHistory[$i]['content']['sys_Data_Entry_DateTimeTZ']; $editDateTime = $dataHeaderTransactionHistory[$i]['content']['sys_Data_Edit_DateTimeTZ']; ?>
+
+                            @if ($i !== count($dataHeaderTransactionHistory) - 1)
+                                <th class="text-center" colspan="3" style="background-color:#4B586A;color:white;border-right:1px solid #e9ecef;line-height: normal;vertical-align: middle; min-width: 320px;">
+                                    {{ !empty($editDateTime) ? 'Rev ' . $i : 'Original' }} - {{ $dataHeaderTransactionHistory[$i]['submitterWorkerName'] }} <br /> ( {{ !empty($editDateTime) ? date('Y-m-d', strtotime($editDateTime)) . " " . date('H:i', strtotime($editDateTime)) : date('Y-m-d', strtotime($entryDateTime)) . " " . date('H:i', strtotime($entryDateTime)) }} )
+                                </th>
+                            @endif
+                        @endfor
+                    @endif
                 </tr>
                 <tr>
-                    <th class="text-center" style="background-color:#4B586A;color:white;border-right:1px solid #e9ecef;vertical-align: middle;width: 80px; min-width: 80px; max-width: 80px;">Qty</th>
-                    <th class="text-center" style="background-color:#4B586A;color:white;border-right:1px solid #e9ecef;vertical-align: middle;width: 125px; min-width: 125px; max-width: 125px;">WHT (%)</th>
-                    <th class="text-center" style="background-color:#4B586A;color:white;border-right:1px solid #e9ecef;vertical-align: middle;width: 125px; min-width: 125px; max-width: 125px;">COA</th>
+                    @for($i = 1; $i < count($dataDetailGetTransactionHistory[0]); $i++)
+                        <th class="text-center" style="background-color:#4B586A;color:white;border-right:1px solid #e9ecef;vertical-align: middle;width: 80px; min-width: 80px; max-width: 80px;">Qty</th>
+                        <th class="text-center" style="background-color:#4B586A;color:white;border-right:1px solid #e9ecef;vertical-align: middle;width: 125px; min-width: 125px; max-width: 125px;">WHT (%)</th>
+                        <th class="text-center" style="background-color:#4B586A;color:white;border-right:1px solid #e9ecef;vertical-align: middle;width: 125px; min-width: 125px; max-width: 125px;">COA</th>
+                    @endfor
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td style="padding: 8px;width: 80px; min-width: 80px; max-width: 80px;">25,000,000.00</td>
-                    <td style="padding: 8px;width: 125px; min-width: 125px; max-width: 125px;">17</td>
-                    <td style="padding: 8px;width: 125px; min-width: 125px; max-width: 125px;">6-3006.01 - Sales Call Expense (IDR)</td>
-                </tr>
+                @for($i = count($dataDetailGetTransactionHistory) - 1; $i >= 0; $i--)
+                    <tr>
+                        @for($n = count($dataDetailGetTransactionHistory[$i]) - 1; $n >= 0; $n--)
+                            @if ($n !== count($dataDetailGetTransactionHistory[$i]) - 1)
+                                <td style="padding: 8px;width: 80px; min-width: 80px; max-width: 80px;">{{ number_format($dataDetailGetTransactionHistory[$i][$n]['content']['quantity'], 2) }}</td>
+                                <td style="padding: 8px;width: 125px; min-width: 125px; max-width: 125px;">{{ number_format($dataDetailGetTransactionHistory[$i][$n]['content']['WHT'], 2) }}</td>
+                                <td style="padding: 8px;width: 125px; min-width: 125px; max-width: 125px;">-</td>
+                            @endif
+                        @endfor
+                    </tr>
+                @endfor
             </tbody>
         </table>
     </div>
