@@ -205,7 +205,7 @@ class DocumentTypeMapper
                     'cnNumber'          => $dataDetail['BusinessDocumentNumber'] ?? '',
                     'date'              => $dataDetail['Date'] ?? '',
                     'dateUpdate'        => $dataDetail['DateUpdate'] ?? null,
-                    'fileID'            => $dataDetail['Log_FileUpload_Pointer_RefID'] ?? '',
+                    'fileID'            => $dataDetail['Log_FileUpload_Pointer_RefID'] ?? null, 
                     'budgetCode'        => $dataDetail['CombinedBudgetCode'] ?? '',
                     'budgetName'        => $dataDetail['CombinedBudgetName'] ?? '',
                     'subBudgetCode'     => $dataDetail['CombinedBudgetSectionCode'] ?? '',
