@@ -61,16 +61,6 @@ class DocumentTypeMapper
                 'key'       => 'transaction.read.dataList.supplyChain.getDeliveryOrderDetail',
                 'parameter' => ['deliveryOrder_RefID' => (int) $referenceId],
             ],
-            'DO From Internal Use' => [
-                'key'                       => '',
-                'parameter'                 => [],
-                'businessDocument_RefID'    => (int) 74000000021494,
-            ],
-            'DO From Stock Movement' => [
-                'key'                       => '',
-                'parameter'                 => [],
-                'businessDocument_RefID'    => (int) 74000000021494,
-            ],
             'Loan Form' => [
                 'key'                       => '',
                 'parameter'                 => [],
@@ -307,78 +297,6 @@ class DocumentTypeMapper
                 'resubmit'      => [
                     'url'       => 'DeliveryOrder.RevisionDeliveryOrderIndex',
                     'name'      => 'do_RefID',
-                    'value'     => $dataDetail['deliveryOrder_RefID'] ?? ''
-                ],
-                'transactionType'        => 'DELIVERY ORDER',
-                'businessDocument_RefID' => $dataDetail['businessDocument_RefID'] ?? '',
-            ],
-            'DO From Internal Use'   => [
-                'dataHeader'    => [
-                    'deliveryOrderRefID'        => $dataDetail['deliveryOrder_RefID'] ?? '',
-                    'doNumber'                  => $dataDetail['documentNumber'] ?? '-',
-                    'date'                      => $dataDetail['sys_Data_Entry_DateTimeTZ'] ?? null,
-                    'dateUpdate'                => $dataDetail['sys_Data_Edit_DateTimeTZ'] ?? null,
-                    'deliveryFrom'              => $dataDetail['deliveryFrom_NonRefID']['Address'] ?? '(VDR0005) Alpine Cool Utama - Jl. Pangeran jayakarta No. 87',
-                    'deliveryTo'                => $dataDetail['deliveryTo_NonRefID']['Address'] ?? 'Head Office - Gudang Mampang',
-                    'budgetCode'                => $dataDetail['combinedBudgetCode'] ?? 'Q000062',
-                    'budgetName'                => $dataDetail['combinedBudgetName'] ?? 'XL Microcell 2007',
-                    'subBudgetCode'             => $dataDetail['combinedBudgetSectionCode'] ?? '240',
-                    'subBudgetName'             => $dataDetail['combinedBudgetSectionName'] ?? 'Cendana Andalas',
-                    'fileID'                    => $dataDetail['log_FileUpload_Pointer_RefID'] ?? null,
-                    'transporterName'           => $dataDetail['transporterName'] ?? 'Alumagada Jaya Mandiri',
-                    'transporterContactPerson'  => $dataDetail['transporterContactPerson'] ?? 'alumagada.mandiri@gmail.com',
-                    'transporterPhone'          => $dataDetail['transporterPhone'] ?? '+62 818-2166-7499-99',
-                    'transporterHandphone'      => $dataDetail['transporterHandphone'] ?? '+62 21 791-9123-4 Ext 1417',
-                    'transporterFax'            => $dataDetail['transporterFax'] ?? '+62 821-1480-0364',
-                    'transporterAddress'        => $dataDetail['transporterAddress'] ?? '-',
-                ],
-                'textAreaFields'    => [
-                    'title'         => 'Remark',
-                    'text'          => $dataDetail['remarks'] ?? '-',
-                ],
-                'components'    => [
-                    'detail'    => 'Components.DeliveryOrderFromInternalUseDetailDocument',
-                    'table'     => 'Components.DeliveryOrderFromInternalUseDetailDocumentTable',
-                ],
-                'resubmit'      => [
-                    'url'       => '',
-                    'name'      => '',
-                    'value'     => $dataDetail['deliveryOrder_RefID'] ?? ''
-                ],
-                'transactionType'        => 'DELIVERY ORDER',
-                'businessDocument_RefID' => $dataDetail['businessDocument_RefID'] ?? '',
-            ],
-            'DO From Stock Movement'   => [
-                'dataHeader'    => [
-                    'deliveryOrderRefID'        => $dataDetail['deliveryOrder_RefID'] ?? '',
-                    'doNumber'                  => $dataDetail['documentNumber'] ?? '-',
-                    'date'                      => $dataDetail['sys_Data_Entry_DateTimeTZ'] ?? null,
-                    'dateUpdate'                => $dataDetail['sys_Data_Edit_DateTimeTZ'] ?? null,
-                    'deliveryFrom'              => $dataDetail['deliveryFrom_NonRefID']['Address'] ?? '(VDR0005) Alpine Cool Utama - Jl. Pangeran jayakarta No. 87',
-                    'deliveryTo'                => $dataDetail['deliveryTo_NonRefID']['Address'] ?? 'Head Office - Gudang Mampang',
-                    'budgetCode'                => $dataDetail['combinedBudgetCode'] ?? 'Q000062',
-                    'budgetName'                => $dataDetail['combinedBudgetName'] ?? 'XL Microcell 2007',
-                    'subBudgetCode'             => $dataDetail['combinedBudgetSectionCode'] ?? '240',
-                    'subBudgetName'             => $dataDetail['combinedBudgetSectionName'] ?? 'Cendana Andalas',
-                    'fileID'                    => $dataDetail['log_FileUpload_Pointer_RefID'] ?? null,
-                    'transporterName'           => $dataDetail['transporterName'] ?? 'Alumagada Jaya Mandiri',
-                    'transporterContactPerson'  => $dataDetail['transporterContactPerson'] ?? 'alumagada.mandiri@gmail.com',
-                    'transporterPhone'          => $dataDetail['transporterPhone'] ?? '+62 818-2166-7499-99',
-                    'transporterHandphone'      => $dataDetail['transporterHandphone'] ?? '+62 21 791-9123-4 Ext 1417',
-                    'transporterFax'            => $dataDetail['transporterFax'] ?? '+62 821-1480-0364',
-                    'transporterAddress'        => $dataDetail['transporterAddress'] ?? '-',
-                ],
-                'textAreaFields'    => [
-                    'title'         => 'Remark',
-                    'text'          => $dataDetail['remarks'] ?? '-',
-                ],
-                'components'    => [
-                    'detail'    => 'Components.DeliveryOrderFromStockMovementDetailDocument',
-                    'table'     => 'Components.DeliveryOrderFromStockMovementDetailDocumentTable',
-                ],
-                'resubmit'      => [
-                    'url'       => '',
-                    'name'      => '',
                     'value'     => $dataDetail['deliveryOrder_RefID'] ?? ''
                 ],
                 'transactionType'        => 'DELIVERY ORDER',
