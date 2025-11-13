@@ -232,16 +232,25 @@ class AccountPayableController extends Controller
 
             $response = $this->accountPayableService->summaryReport($project, $site, $supplier, $date);
 
-            if ($response === null) {
-                return redirect()->back()->with('NotFound', 'Data Not Found');
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                throw new \Exception('Failed to fetch Report Account Payable Summary');
             }
 
+            $compact = [
+                'project'   => $project,
+                'site'      => $site,
+                'supplier'  => $supplier,
+                'date'      => $date,
+                'data'      => $response['data']['data']
+            ];
+
             Session::put("isButtonReportAccountPayableSummary", true);
-            Session::put("dataReportAccountPayableSummary", $response);
+            Session::put("dataReportAccountPayableSummary", $compact);
 
             return redirect()->route('AccountPayable.ReportAccountPayableSummary');
         } catch (\Throwable $th) {
-            Log::error("Store Account Payable Function Error: " . $th->getMessage());
+            Log::error("Report Account Payable Summary Store Function Error: " . $th->getMessage());
+            
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }
