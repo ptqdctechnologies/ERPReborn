@@ -660,6 +660,7 @@ class DocumentTypeMapper
                 'dataHeader'            => [
                     'pic'           => 'Suyanto',
                     'date'          => '2025-06-04 10:47:11.993084+07',
+                    'dateUpdate'    => null,
                     'currency'      => 'IDR',
                     'budgetCode'    => 'Q000062',
                     'budgetName'    => 'XL Microcell 2007',
