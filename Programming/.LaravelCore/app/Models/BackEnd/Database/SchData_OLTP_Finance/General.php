@@ -223,8 +223,8 @@ namespace App\Models\Database\SchData_OLTP_Finance
                             ]
                             )
                         );
-               
-                $varReturn['data'] = 
+
+                $varReturn['data'] =
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetReport_DataList_Advance']
@@ -286,8 +286,8 @@ namespace App\Models\Database\SchData_OLTP_Finance
                             ]
                             )
                         );
-               
-                $varReturn['data'] = 
+
+                $varReturn['data'] =
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetReport_DataList_AdvanceSettlement']
@@ -714,7 +714,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         | ▪ Method Name     : getDataList_PaymentInstructionDetail_LatestVersion                                                   |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2025-11-07                                                                                           |
+        | ▪ Last Update     : 2025-11-13                                                                                           |
         | ▪ Creation Date   : 2025-10-15                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Detail Credit Note Versi Terakhir                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -753,7 +753,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
                     foreach ($resultArray as $key => $value) {
                         $varReturn['data'][$idxArray]['documentNumber'] = $value["DocumentNumber"];
                         $varReturn['data'][$idxArray]['date'] = $value["Date"];
-                        $varReturn['data'][$idxArray]['pO_Number'] = $value["PO_Number"];
+                        $varReturn['data'][$idxArray]['po_Number'] = $value["PO_Number"];
                         $varReturn['data'][$idxArray]['currency_RefID'] = $value["Currency_RefID"];
                         $varReturn['data'][$idxArray]['currencySymbol'] = $value["CurrencySymbol"];
                         $varReturn['data'][$idxArray]['currencyValue'] = $value["CurrencyValue"];
@@ -784,11 +784,11 @@ namespace App\Models\Database\SchData_OLTP_Finance
                         $varReturn['data'][$idxArray]['productName'] = $value["ProductName"];
                         $varReturn['data'][$idxArray]['productCode'] = $value["ProductCode"];
                         $varReturn['data'][$idxArray]['quantity'] = $value["Quantity"];
-                        $varReturn['data'][$idxArray]['uOM'] = $value["UOM"];
+                        $varReturn['data'][$idxArray]['uom'] = $value["UOM"];
                         $varReturn['data'][$idxArray]['productUnitPriceCurrencyValue'] = $value["ProductUnitPriceCurrencyValue"];
                         $varReturn['data'][$idxArray]['productUnitPriceCurrencyExchangeRate'] = $value["ProductUnitPriceCurrencyExchangeRate"];
                         $varReturn['data'][$idxArray]['productUnitPriceBaseCurrencyValue'] = $value["ProductUnitPriceBaseCurrencyValue"];
-                        $varReturn['data'][$idxArray]['wHT'] = $value["WHT"];
+                        $varReturn['data'][$idxArray]['wht'] = $value["WHT"];
                         $varReturn['data'][$idxArray]['total'] = $value["Total"];
                         $varReturn['data'][$idxArray]['chartOfAccount_RefID'] = $value["ChartOfAccount_RefID"];
                         $varReturn['data'][$idxArray]['chartOfAccountCode'] = $value["ChartOfAccountCode"];
@@ -806,6 +806,16 @@ namespace App\Models\Database\SchData_OLTP_Finance
                         $varReturn['data'][$idxArray]['depreciationYears'] = $value["DepreciationYears"];
                         $varReturn['data'][$idxArray]['assetCategoryName'] = $value["AssetCategoryName"];
                         $varReturn['data'][$idxArray]['assetCategoryCode'] = $value["AssetCategoryCode"];
+                        $varReturn['data'][$idxArray]['sys_ID'] = $value["Sys_ID"];
+                        $varReturn['data'][$idxArray]['paymentInstruction_RefID'] = $value["PaymentInstruction_RefID"];
+                        $varReturn['data'][$idxArray]['assetCategory_RefID'] = $value["AssetCategory_RefID"];
+                        $varReturn['data'][$idxArray]['depreciationMethod_RefID'] = $value["DepreciationMethod_RefID"];
+                        $varReturn['data'][$idxArray]['depreciationAssetCategory_RefID'] = $value["DepreciationAssetCategory_RefID"];
+                        $varReturn['data'][$idxArray]['supplierAddress'] = $value["SupplierAddress"];
+                        $varReturn['data'][$idxArray]['supplierBank_Code'] = $value["SupplierBank_Code"];
+                        $varReturn['data'][$idxArray]['supplierBank_AccountNumber'] = $value["SupplierBank_AccountNumber"];
+                        $varReturn['data'][$idxArray]['quantityUnit_RefID'] = $value["QuantityUnit_RefID"];
+                        $varReturn['data'][$idxArray]['productUnitPriceCurrency_RefID'] = $value["ProductUnitPriceCurrency_RefID"];
                         $idxArray++;
                     }
 
