@@ -41,11 +41,6 @@ class DocumentTypeMapper
     public static function getApiConfig(string $documentType, int $referenceId): ?array
     {
         $mapping = [
-            'Account Payable' => [
-                'key'                       => 'transaction.read.dataList.finance.getPaymentInstructionDetail',
-                'parameter'                 => ['paymentInstruction_RefID' => (int) $referenceId],
-                'businessDocument_RefID'    => (int) 74000000021494,
-            ],
             'Advance Form' => [
                 'key'       => 'transaction.read.dataList.finance.getAdvanceDetail',
                 'parameter' => ['advance_RefID' => (int) $referenceId]
@@ -65,16 +60,6 @@ class DocumentTypeMapper
             'Delivery Order Form' => [
                 'key'       => 'transaction.read.dataList.supplyChain.getDeliveryOrderDetail',
                 'parameter' => ['deliveryOrder_RefID' => (int) $referenceId],
-            ],
-            'DO From Internal Use' => [
-                'key'                       => '',
-                'parameter'                 => [],
-                'businessDocument_RefID'    => (int) 74000000021494,
-            ],
-            'DO From Stock Movement' => [
-                'key'                       => '',
-                'parameter'                 => [],
-                'businessDocument_RefID'    => (int) 74000000021494,
             ],
             'Loan Form' => [
                 'key'                       => '',
@@ -147,50 +132,6 @@ class DocumentTypeMapper
     public static function formatData(string $documentType, array $dataDetail): ?array
     {
         $mapping = [
-            'Account Payable' => [
-                'dataHeader'    => [
-                    'date'                      => $dataDetail['Date'] ?? null,
-                    'dateUpdate'                => $dataDetail['DateUpdate'] ?? null, // null or '2025-09-29 15:49:00.113 +0700'
-                    'poNumber'                  => $dataDetail['PO_Number'] ?? null,
-                    'currency'                  => $dataDetail['CurrencySymbol'] ?? null,
-                    'supplierInvoiceNumber'     => $dataDetail['SupplierInvoiceNumber'] ?? null,
-                    'supplierBankName'          => $dataDetail['SupplierBank_Name'] ?? null, // PAYMENT TO
-                    'supplierBankAccount'       => $dataDetail['SupplierBank_Account'] ?? null, // PAYMENT TO
-                    'supplierBankAccountName'   => $dataDetail['SupplierBank_AccountName'] ?? null, // PAYMENT TO
-                    'receiptInvoiceOrigin'      => self::formatResponse($dataDetail['ReceiptStatus'] ?? null),
-                    'contractPOSigned'          => self::formatResponse($dataDetail['ContractStatus'] ?? null),
-                    'VATOrigin'                 => self::formatResponse($dataDetail['VatStatus'] ?? null),
-                    'VATValue'                  => $dataDetail['VatValue'] ?? null,
-                    'VATNumber'                 => $dataDetail['VatNumber'] ?? null,
-                    'FATPATDOOrigin'            => self::formatResponse($dataDetail['FatPatDoStatus'] ?? null),
-                    'asset'                     => self::formatResponse($dataDetail['AssetStatus'] ?? null),
-                    'category'                  => $dataDetail['AssetCategory'] ?? null,
-                    'depreciationMethod'        => $dataDetail['DepreciationMethod'] ?? null,
-                    'depreciationRate'          => $dataDetail['DepreciationRate'] ?? null,
-                    'depreciationYears'         => $dataDetail['DepreciationYears'] ?? null,
-                    'depreciationCOACode'       => $dataDetail['DepreciationCOA_Code'] ?? null,
-                    'depreciationCOAName'       => $dataDetail['DepreciationCOA_Name'] ?? null,
-                    'deduction'                 => $dataDetail['Deduction'] ?? null,
-                ],
-                'textAreaFields'    => [
-                    'title'         => 'Remark',
-                    'text'          => $dataDetail['Notes'] ?? null,
-                ],
-                'components'        => [
-                    'detail'            => 'Components.AccountPayableDetailDocument',
-                    'table'             => 'Components.AccountPayableDetailDocumentTable',
-                    'headerRevision'    => 'Components.AccountPayableDetailDocumentHeaderRevision',
-                    'revision'          => 'Components.AccountPayableDetailDocumentRevision',
-                    'otherAdditional'   => 'Components.AccountPayableDetailDocumentAdditional'
-                ],
-                'resubmit'      => [
-                    'url'       => 'AccountPayable.RevisionAccountPayable',
-                    'name'      => 'modal_account_payable_id',
-                    'value'     => 211000000000095
-                ],
-                'transactionType'        => 'ACCOUNT PAYABLE',
-                'businessDocument_RefID' => '',
-            ],
             'Advance Form'      => [
                 'dataHeader'    => [
                     'advance_RefID'     => $dataDetail['advance_RefID'] ?? '-',
@@ -264,7 +205,7 @@ class DocumentTypeMapper
                     'cnNumber'          => $dataDetail['BusinessDocumentNumber'] ?? '',
                     'date'              => $dataDetail['Date'] ?? '',
                     'dateUpdate'        => $dataDetail['DateUpdate'] ?? null,
-                    'fileID'            => $dataDetail['Log_FileUpload_Pointer_RefID'] ?? '',
+                    'fileID'            => $dataDetail['Log_FileUpload_Pointer_RefID'] ?? null, 
                     'budgetCode'        => $dataDetail['CombinedBudgetCode'] ?? '',
                     'budgetName'        => $dataDetail['CombinedBudgetName'] ?? '',
                     'subBudgetCode'     => $dataDetail['CombinedBudgetSectionCode'] ?? '',
@@ -356,78 +297,6 @@ class DocumentTypeMapper
                 'resubmit'      => [
                     'url'       => 'DeliveryOrder.RevisionDeliveryOrderIndex',
                     'name'      => 'do_RefID',
-                    'value'     => $dataDetail['deliveryOrder_RefID'] ?? ''
-                ],
-                'transactionType'        => 'DELIVERY ORDER',
-                'businessDocument_RefID' => $dataDetail['businessDocument_RefID'] ?? '',
-            ],
-            'DO From Internal Use'   => [
-                'dataHeader'    => [
-                    'deliveryOrderRefID'        => $dataDetail['deliveryOrder_RefID'] ?? '',
-                    'doNumber'                  => $dataDetail['documentNumber'] ?? '-',
-                    'date'                      => $dataDetail['sys_Data_Entry_DateTimeTZ'] ?? null,
-                    'dateUpdate'                => $dataDetail['sys_Data_Edit_DateTimeTZ'] ?? null,
-                    'deliveryFrom'              => $dataDetail['deliveryFrom_NonRefID']['Address'] ?? '(VDR0005) Alpine Cool Utama - Jl. Pangeran jayakarta No. 87',
-                    'deliveryTo'                => $dataDetail['deliveryTo_NonRefID']['Address'] ?? 'Head Office - Gudang Mampang',
-                    'budgetCode'                => $dataDetail['combinedBudgetCode'] ?? 'Q000062',
-                    'budgetName'                => $dataDetail['combinedBudgetName'] ?? 'XL Microcell 2007',
-                    'subBudgetCode'             => $dataDetail['combinedBudgetSectionCode'] ?? '240',
-                    'subBudgetName'             => $dataDetail['combinedBudgetSectionName'] ?? 'Cendana Andalas',
-                    'fileID'                    => $dataDetail['log_FileUpload_Pointer_RefID'] ?? null,
-                    'transporterName'           => $dataDetail['transporterName'] ?? 'Alumagada Jaya Mandiri',
-                    'transporterContactPerson'  => $dataDetail['transporterContactPerson'] ?? 'alumagada.mandiri@gmail.com',
-                    'transporterPhone'          => $dataDetail['transporterPhone'] ?? '+62 818-2166-7499-99',
-                    'transporterHandphone'      => $dataDetail['transporterHandphone'] ?? '+62 21 791-9123-4 Ext 1417',
-                    'transporterFax'            => $dataDetail['transporterFax'] ?? '+62 821-1480-0364',
-                    'transporterAddress'        => $dataDetail['transporterAddress'] ?? '-',
-                ],
-                'textAreaFields'    => [
-                    'title'         => 'Remark',
-                    'text'          => $dataDetail['remarks'] ?? '-',
-                ],
-                'components'    => [
-                    'detail'    => 'Components.DeliveryOrderFromInternalUseDetailDocument',
-                    'table'     => 'Components.DeliveryOrderFromInternalUseDetailDocumentTable',
-                ],
-                'resubmit'      => [
-                    'url'       => '',
-                    'name'      => '',
-                    'value'     => $dataDetail['deliveryOrder_RefID'] ?? ''
-                ],
-                'transactionType'        => 'DELIVERY ORDER',
-                'businessDocument_RefID' => $dataDetail['businessDocument_RefID'] ?? '',
-            ],
-            'DO From Stock Movement'   => [
-                'dataHeader'    => [
-                    'deliveryOrderRefID'        => $dataDetail['deliveryOrder_RefID'] ?? '',
-                    'doNumber'                  => $dataDetail['documentNumber'] ?? '-',
-                    'date'                      => $dataDetail['sys_Data_Entry_DateTimeTZ'] ?? null,
-                    'dateUpdate'                => $dataDetail['sys_Data_Edit_DateTimeTZ'] ?? null,
-                    'deliveryFrom'              => $dataDetail['deliveryFrom_NonRefID']['Address'] ?? '(VDR0005) Alpine Cool Utama - Jl. Pangeran jayakarta No. 87',
-                    'deliveryTo'                => $dataDetail['deliveryTo_NonRefID']['Address'] ?? 'Head Office - Gudang Mampang',
-                    'budgetCode'                => $dataDetail['combinedBudgetCode'] ?? 'Q000062',
-                    'budgetName'                => $dataDetail['combinedBudgetName'] ?? 'XL Microcell 2007',
-                    'subBudgetCode'             => $dataDetail['combinedBudgetSectionCode'] ?? '240',
-                    'subBudgetName'             => $dataDetail['combinedBudgetSectionName'] ?? 'Cendana Andalas',
-                    'fileID'                    => $dataDetail['log_FileUpload_Pointer_RefID'] ?? null,
-                    'transporterName'           => $dataDetail['transporterName'] ?? 'Alumagada Jaya Mandiri',
-                    'transporterContactPerson'  => $dataDetail['transporterContactPerson'] ?? 'alumagada.mandiri@gmail.com',
-                    'transporterPhone'          => $dataDetail['transporterPhone'] ?? '+62 818-2166-7499-99',
-                    'transporterHandphone'      => $dataDetail['transporterHandphone'] ?? '+62 21 791-9123-4 Ext 1417',
-                    'transporterFax'            => $dataDetail['transporterFax'] ?? '+62 821-1480-0364',
-                    'transporterAddress'        => $dataDetail['transporterAddress'] ?? '-',
-                ],
-                'textAreaFields'    => [
-                    'title'         => 'Remark',
-                    'text'          => $dataDetail['remarks'] ?? '-',
-                ],
-                'components'    => [
-                    'detail'    => 'Components.DeliveryOrderFromStockMovementDetailDocument',
-                    'table'     => 'Components.DeliveryOrderFromStockMovementDetailDocumentTable',
-                ],
-                'resubmit'      => [
-                    'url'       => '',
-                    'name'      => '',
                     'value'     => $dataDetail['deliveryOrder_RefID'] ?? ''
                 ],
                 'transactionType'        => 'DELIVERY ORDER',
@@ -791,6 +660,7 @@ class DocumentTypeMapper
                 'dataHeader'            => [
                     'pic'           => 'Suyanto',
                     'date'          => '2025-06-04 10:47:11.993084+07',
+                    'dateUpdate'    => null,
                     'currency'      => 'IDR',
                     'budgetCode'    => 'Q000062',
                     'budgetName'    => 'XL Microcell 2007',
@@ -907,7 +777,6 @@ class DocumentTypeMapper
     {
         $mapping = [
             'Advance Form'                  => 'Documents.Transactions.LogTransaction.LogTransactionAdvance',
-            'Account Payable'               => 'Documents.Transactions.LogTransaction.LogTransactionAccountPayable',
             'Advance Settlement Form'       => 'Documents.Transactions.LogTransaction.LogTransactionAdvanceSettlement',
             'Credit Note Form'              => 'Documents.Transactions.LogTransaction.LogTransactionCreditNote',
             'Debit Note Form'               => 'Documents.Transactions.LogTransaction.LogTransactionDebitNote',
@@ -923,4 +792,12 @@ class DocumentTypeMapper
 
         return $mapping[$documentType] ?? null;
     }
+
+// - Loan
+// - Loan Settlement
+// - Modify Budget
+// - Reimbursement
+// - Sallary Allocation
+// - Timesheet
+
 }

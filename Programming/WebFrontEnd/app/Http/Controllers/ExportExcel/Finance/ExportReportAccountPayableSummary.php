@@ -22,16 +22,16 @@ class ExportReportAccountPayableSummary implements FromCollection, WithHeadings,
         foreach ($data['data'] as $item) {
             $filteredData[] = [
                 'No'                    => $counter++,
-                'AP Number'             => $item['number'] ?? null,
-                'Date'                  => $item['date'] ?? null,
-                'Sub Budget'            => $item['sub_budget'] ?? null,
-                'Supplier'              => $item['supplier'] ?? null,
-                'Total IDR'             => $item['total_idr'] ?? null,
-                'Total Other Currency'  => $item['total_other_currency'] ?? null,
-                'Total Equivalent IDR'  => $item['total_equivalent_idr'] ?? null,
-                'Tax Invoice Number'    => $item['tax_invoice_number'] ?? null,
-                'Submitter'             => $item['submitter'] ?? null,
-                'Status'                => $item['status'] ?? null,
+                'AP Number'             => $item['documentNumber'] ?? '-',
+                'Date'                  => $item['sys_Data_Entry_DateTimeTZ'] ?? '-',
+                'Sub Budget'            => ($item['combinedBudgetSectionCode'] ?? '') . ' - ' . ($item['combinedBudgetSectionName'] ?? ''),
+                'Supplier'              => ($item['supplierCode'] ?? '') . ' - ' . ($item['supplierName'] ?? ''),
+                'Total IDR'             => isset($item['totalIDR']) ? (string)$item['totalIDR'] : '0',
+                'Total Other Currency'  => isset($item['totalOtherCurrency']) ? (string)$item['totalOtherCurrency'] : '0',
+                'Total Equivalent IDR'  => isset($item['totalEquivalentIDR']) ? (string)$item['totalEquivalentIDR'] : '0',
+                'Tax Invoice Number'    => $item['supplierInvoiceNumber'] ?? 0,
+                'Submitter'             => $item['requesterName'] ?? '-',
+                'Status'                => $item['workflowStatus'] ?? '-',
             ];
         }
 
@@ -180,9 +180,9 @@ class ExportReportAccountPayableSummary implements FromCollection, WithHeadings,
 
         $sheet->insertNewRowBefore($totalCell + 8, 1);
         $sheet->setCellValue('A' . $totalCell + 8, "GRAND TOTAL");
-        $sheet->setCellValue('F' . $totalCell + 8, $datas['totalIDR']);
-        $sheet->setCellValue('G' . $totalCell + 8, $datas['totalOtherCurrency']);
-        $sheet->setCellValue('H' . $totalCell + 8, $datas['totalEquivalentIDR']);
+        $sheet->setCellValue('F' . $totalCell + 8, collect($datas['data'])->sum('totalIDR'));
+        $sheet->setCellValue('G' . $totalCell + 8, collect($datas['data'])->sum('totalOtherCurrency'));
+        $sheet->setCellValue('H' . $totalCell + 8, collect($datas['data'])->sum('totalEquivalentIDR'));
         $sheet->mergeCells('A' . $totalCell + 8 . ':' . 'E' . $totalCell + 8);
         $sheet->mergeCells('I' . $totalCell + 8 . ':' . 'K' . $totalCell + 8);
     }

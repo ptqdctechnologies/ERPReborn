@@ -68,8 +68,6 @@ class CheckDocumentController extends Controller
             }
 
             if (
-                $documentType === 'DO From Internal Use' ||
-                $documentType === 'DO From Stock Movement' ||
                 $documentType === 'Loan Form' ||
                 $documentType === 'Loan Settlement Form' ||
                 $documentType === 'Modify Budget Form' ||
@@ -404,66 +402,6 @@ class CheckDocumentController extends Controller
         $DocumentTypeName = $request->input('DocumentTypeName');
 
         switch ($DocumentTypeName) {
-            case "Account Payable":
-                $varData = [
-                    'data' => [
-                        'data' => [
-                            [
-                                'sys_ID'    => 211000000000026,
-                                'sys_Text'  => 'AP/QDC/2025/000001',
-                                'combinedBudgetCode' => 'Q000196',
-                                'combinedBudgetSectionCode' => 'Q000062 ► 235'
-                            ],
-                            [
-                                'sys_ID'    => 82750194,
-                                'sys_Text'  => 'AP/QDC/2025/000002',
-                                'combinedBudgetCode' => 'Q000196',
-                                'combinedBudgetSectionCode' => 'Q000062 ► 235'
-                            ],
-                        ]
-                    ]
-                ];
-                break;
-            case "DO From Internal Use":
-                $varData = [
-                    'data' => [
-                        'data' => [
-                            [
-                                'sys_ID'    => 12345678,
-                                'sys_Text'  => 'DOI/QDC/2025/000001',
-                                'combinedBudgetCode' => 'Q000196',
-                                'combinedBudgetSectionCode' => 'Q000062 ► 235'
-                            ],
-                            [
-                                'sys_ID'    => 23456781,
-                                'sys_Text'  => 'DOI/QDC/2025/000002',
-                                'combinedBudgetCode' => 'Q000196',
-                                'combinedBudgetSectionCode' => 'Q000062 ► 235'
-                            ],
-                        ]
-                    ]
-                ];
-                break;
-            case "DO From Stock Movement":
-                $varData = [
-                    'data' => [
-                        'data' => [
-                            [
-                                'sys_ID'    => 12345678,
-                                'sys_Text'  => 'DOS/QDC/2025/000001',
-                                'combinedBudgetCode' => 'Q000196',
-                                'combinedBudgetSectionCode' => 'Q000062 ► 235'
-                            ],
-                            [
-                                'sys_ID'    => 23456781,
-                                'sys_Text'  => 'DOS/QDC/2025/000002',
-                                'combinedBudgetCode' => 'Q000196',
-                                'combinedBudgetSectionCode' => 'Q000062 ► 235'
-                            ],
-                        ]
-                    ]
-                ];
-                break;
             case "Loan Form":
                 $varData = [
                     'data' => [

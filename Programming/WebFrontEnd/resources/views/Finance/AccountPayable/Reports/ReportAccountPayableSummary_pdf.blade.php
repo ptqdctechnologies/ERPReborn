@@ -168,8 +168,9 @@
                     </td>
                 </tr>
 
-                <?php $counter = 1; ?>
+                <?php $counter = 1; $grandTotalIDR = 0; $grandTotalOtherCurrency = 0; $grandTotalEquivalentIDR = 0; ?>
                 <?php foreach ($dataReport['data'] as $data) { ?>
+                    <?php $grandTotalIDR += $data['totalIDR']; $grandTotalOtherCurrency += $data['totalOtherCurrency']; $grandTotalEquivalentIDR += $data['totalEquivalentIDR']; ?>
                     <tr>
                         <td>
                             <div style="margin-top: 4px; font-size: 12px;">
@@ -178,52 +179,52 @@
                         </td>
                         <td>
                             <div style="margin-top: 4px; font-size: 12px;">
-                                <?= $data['number']; ?>
+                                <?= $data['documentNumber'] ?? '-'; ?>
                             </div>
                         </td>
                         <td>
                             <div style="margin-top: 4px; font-size: 12px;">
-                                <?= $data['date']; ?>
+                                <?= $data['sys_Data_Entry_DateTimeTZ'] ?? '-'; ?>
                             </div>
                         </td>
                         <td>
                             <div style="margin-top: 4px; font-size: 12px;">
-                                <?= $data['sub_budget']; ?>
+                                <?= $data['combinedBudgetSectionCode'] ?? ''; ?> - <?= $data['combinedBudgetSectionName'] ?? ''; ?>
                             </div>
                         </td>
                         <td>
                             <div style="margin-top: 4px; font-size: 12px;">
-                                <?= $data['supplier']; ?>
+                                <?= $data['supplierCode'] ?? ''; ?> - <?= $data['supplierName'] ?? ''; ?>
                             </div>
                         </td>
                         <td>
                             <div style="margin-top: 4px; font-size: 12px;">
-                                <?= number_format($data['total_idr'], 2); ?>
+                                <?= number_format($data['totalIDR'] ?? 0, 2); ?>
                             </div>
                         </td>
                         <td>
                             <div style="margin-top: 4px; font-size: 12px;">
-                                <?= number_format($data['total_other_currency'], 2); ?>
+                                <?= number_format($data['totalOtherCurrency'] ?? 0, 2); ?>
                             </div>
                         </td>
                         <td>
                             <div style="margin-top: 4px; font-size: 12px;">
-                                <?= number_format($data['total_equivalent_idr'], 2); ?>
+                                <?= number_format($data['totalEquivalentIDR'] ?? 0, 2); ?>
                             </div>
                         </td>
                         <td>
                             <div style="margin-top: 4px; font-size: 12px;">
-                                <?= $data['tax_invoice_number']; ?>
+                                <?= $data['supplierInvoiceNumber'] ?? '-'; ?>
                             </div>
                         </td>
                         <td>
                             <div style="margin-top: 4px; font-size: 12px;">
-                                <?= $data['submitter']; ?>
+                                <?= $data['requesterName'] ?? '-'; ?>
                             </div>
                         </td>
                         <td>
                             <div style="margin-top: 4px; font-size: 12px;">
-                                <?= $data['status']; ?>
+                                <?= $data['workflowStatus'] ?? '-'; ?>
                             </div>
                         </td>
                     </tr>
@@ -234,13 +235,13 @@
                         <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">GRAND TOTAL</div>
                     </td>
                     <td style="height: 20px; text-align: left;">
-                        <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"><?= number_format($dataReport['totalIDR'], 2); ?></div>
+                        <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"><?= number_format($grandTotalIDR, 2); ?></div>
                     </td>
                     <td style="height: 20px; text-align: left;">
-                        <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"><?= number_format($dataReport['totalOtherCurrency'], 2); ?></div>
+                        <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"><?= number_format($grandTotalOtherCurrency, 2); ?></div>
                     </td>
                     <td style="height: 20px; text-align: left;">
-                        <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"><?= number_format($dataReport['totalEquivalentIDR'], 2); ?></div>
+                        <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"><?= number_format($grandTotalEquivalentIDR, 2); ?></div>
                     </td>
                     <td style="height: 20px; text-align: left;" colspan="3">
                     </td>

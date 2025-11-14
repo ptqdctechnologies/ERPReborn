@@ -75,30 +75,6 @@
                     </div>
                 </div>
             <?php } ?>
-
-            <!-- FILE ATTACHMENT -->
-            <div class="row">
-                <div class="col-4 col-sm-4 col-md-4 col-lg-3 text-bold">
-                    File Attachment
-                </div>
-                <div class="col d-flex" style="gap: .2rem;">
-                    <div>
-                        :
-                    </div>
-                    <?php if ($dataHeader['fileID']) { ?>
-                        <input type="text" id="dataInput_Log_FileUpload_1" name="dataInput_Log_FileUpload_1" style="display:none">
-                        <?php echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxCreateDOM_DivCustom_InputFile(
-                            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                            $varAPIWebToken,
-                            'dataInput_Log_FileUpload',
-                            $dataHeader['fileID']
-                            ).
-                            ''; ?>
-                    <?php } else { ?>
-                        <div>-</div>
-                    <?php } ?>
-                </div>
-            </div>
         <?php } else { ?>
             <!-- BUDGET CODE -->
             <div class="row" style="margin-bottom: 1rem;">
@@ -122,6 +98,30 @@
                 </div>
             <?php } ?>
         <?php } ?>
+
+        <!-- FILE ATTACHMENT -->
+        <div class="row">
+            <div class="col-4 col-sm-4 col-md-4 col-lg-3 text-bold">
+                File Attachment
+            </div>
+            <div class="col d-flex" style="gap: .2rem;">
+                <div>
+                    :
+                </div>
+                <?php if ($dataHeader['fileID']) { ?>
+                    <input type="text" id="dataInput_Log_FileUpload_1" name="dataInput_Log_FileUpload_1" style="display:none">
+                    <?php echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxCreateDOM_DivCustom_InputFile(
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                        $varAPIWebToken,
+                        'dataInput_Log_FileUpload',
+                        $dataHeader['fileID']
+                        ).
+                        ''; ?>
+                <?php } else { ?>
+                    <div>-</div>
+                <?php } ?>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -221,30 +221,6 @@
                 </form>
             </div>
         <?php } else { ?>
-            <!-- FILE ATTACHMENT -->
-            <div class="row" style="margin-bottom: 1rem;">
-                <div class="col-4 col-sm-4 col-md-4 col-lg-4 text-bold">
-                    File Attachment
-                </div>
-                <div class="col d-flex" style="gap: .2rem;">
-                    <div>
-                        :
-                    </div>
-                    <?php if ($dataHeader['fileID']) { ?>
-                        <input type="text" id="dataInput_Log_FileUpload_1" name="dataInput_Log_FileUpload_1" style="display:none">
-                        <?php echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxCreateDOM_DivCustom_InputFile(
-                            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                            $varAPIWebToken,
-                            'dataInput_Log_FileUpload',
-                            $dataHeader['fileID']
-                            ).
-                            ''; ?>
-                    <?php } else { ?>
-                        <div>-</div>
-                    <?php } ?>
-                </div>
-            </div>
-
             <!-- EXPORT -->
             <div class="row">
                 <div class="col-4 col-sm-4 col-md-4 col-lg-4 text-bold">

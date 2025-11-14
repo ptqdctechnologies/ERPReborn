@@ -48,29 +48,30 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <?php $counter = 1; ?>
+                                                <?php $counter = 1; $grandTotalIDR = 0; $grandTotalOtherCurrency = 0; $grandTotalEquivalentIDR = 0; ?>
                                                 <?php foreach ($dataReport['data'] as $data) { ?>
+                                                    <?php $grandTotalIDR += $data['totalIDR']; $grandTotalOtherCurrency += $data['totalOtherCurrency']; $grandTotalEquivalentIDR += $data['totalEquivalentIDR']; ?>
                                                     <tr>
                                                         <td class="text-center"><?= $counter++; ?></td>
-                                                        <td><?= $data['number']; ?></td>
-                                                        <td><?= $data['date']; ?></td>
-                                                        <td><?= $data['sub_budget']; ?></td>
-                                                        <td><?= $data['supplier']; ?></td>
-                                                        <td><?= number_format($data['total_idr'], 2); ?></td>
-                                                        <td><?= number_format($data['total_other_currency'], 2); ?></td>
-                                                        <td><?= number_format($data['total_equivalent_idr'], 2); ?></td>
-                                                        <td><?= $data['tax_invoice_number']; ?></td>
-                                                        <td><?= $data['submitter']; ?></td>
-                                                        <td><?= $data['status']; ?></td>
+                                                        <td><?= $data['documentNumber'] ?? '-'; ?></td>
+                                                        <td><?= $data['sys_Data_Entry_DateTimeTZ'] ?? '-'; ?></td>
+                                                        <td><?= $data['combinedBudgetSectionCode'] ?? ''; ?> - <?= $data['combinedBudgetSectionName'] ?? ''; ?></td>
+                                                        <td><?= $data['supplierCode'] ?? ''; ?> - <?= $data['supplierName'] ?? ''; ?></td>
+                                                        <td><?= number_format($data['totalIDR'] ?? 0, 2); ?></td>
+                                                        <td><?= number_format($data['totalOtherCurrency'] ?? 0, 2); ?></td>
+                                                        <td><?= number_format($data['totalEquivalentIDR'] ?? 0, 2); ?></td>
+                                                        <td><?= $data['supplierInvoiceNumber'] ?? '-'; ?></td>
+                                                        <td><?= $data['requesterName'] ?? '-'; ?></td>
+                                                        <td><?= $data['workflowStatus'] ?? '-'; ?></td>
                                                     </tr>
                                                 <?php } ?>
                                             </tbody>
                                             <tfoot>
                                                 <tr>
                                                     <th colspan="5" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">GRAND TOTAL</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format($dataReport['totalIDR'], 2); ?></th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format($dataReport['totalOtherCurrency'], 2); ?></th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format($dataReport['totalEquivalentIDR'], 2); ?></th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format($grandTotalIDR, 2); ?></th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format($grandTotalOtherCurrency, 2); ?></th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format($grandTotalEquivalentIDR, 2); ?></th>
                                                     <th colspan="3" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"></th>
                                                 </tr>
                                             </tfoot>

@@ -85,9 +85,9 @@ class Controller extends BaseController
             $Sys_ID_Advance = 0;
             if (isset($dataInput['Sys_ID_Advance'])) {
                 $Sys_ID_Advance = $dataInput['Sys_ID_Advance'];
-                Session::put('dataInputUpdate' . $DocumentTypeID . $dataInput['Sys_ID_Advance'], $dataInput);
+                // Session::put('dataInputUpdate' . $DocumentTypeID . $dataInput['Sys_ID_Advance'], $dataInput);
             } else {
-                Session::put('dataInputStore' . $DocumentTypeID, $dataInput);
+                // Session::put('dataInputStore' . $DocumentTypeID, $dataInput);
             }
 
             // if (Redis::get("BusinessDocumentTypeWorkFlowPath" . $DocumentTypeID) == null) {

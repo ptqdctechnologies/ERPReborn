@@ -35,7 +35,7 @@
     </div>
 
     <!-- Kolom Scroll -->
-    <div class="table-scroll" style="overflow-x: auto;">
+    <div class="table-scroll" style="overflow-x: auto; width: 100%;">
         <table class="table table-striped table-hover table-sm">
             <thead>
                 <tr>
