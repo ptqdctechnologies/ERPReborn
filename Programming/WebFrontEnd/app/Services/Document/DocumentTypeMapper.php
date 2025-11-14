@@ -792,4 +792,12 @@ class DocumentTypeMapper
 
         return $mapping[$documentType] ?? null;
     }
+
+// - Loan
+// - Loan Settlement
+// - Modify Budget
+// - Reimbursement
+// - Sallary Allocation
+// - Timesheet
+
 }
