@@ -72,7 +72,7 @@
                         <th class="text-center" style="background-color:#4B586A;color:white;border-right:1px solid #e9ecef;vertical-align: middle;width: 50px; min-width: 50px; max-width: 50px;">Asset</th>
                         <th class="text-center" style="background-color:#4B586A;color:white;border-right:1px solid #e9ecef;vertical-align: middle;width: 100px; min-width: 100px; max-width: 100px;">Category</th>
                         <th class="text-center" style="background-color:#4B586A;color:white;border-right:1px solid #e9ecef;vertical-align: middle;width: 130px; min-width: 130px; max-width: 130px;">Method</th>
-                        <th class="text-center" style="background-color:#4B586A;color:white;border-right:1px solid #e9ecef;vertical-align: middle;width: 130px; min-width: 130px; max-width: 130px;">Rate</th>
+                        <th class="text-center" style="background-color:#4B586A;color:white;border-right:1px solid #e9ecef;vertical-align: middle;width: 130px; min-width: 130px; max-width: 130px;">Rate (%)</th>
                         <th class="text-center" style="background-color:#4B586A;color:white;border-right:1px solid #e9ecef;vertical-align: middle;width: 120px; min-width: 120px; max-width: 120px;">Years</th>
                         <th class="text-center" style="background-color:#4B586A;color:white;border-right:1px solid #e9ecef;vertical-align: middle;width: 130px; min-width: 130px; max-width: 130px;">COA</th>
                     @endfor
