@@ -74,6 +74,9 @@
                     $('#depreciation_rate_percentage').val(data[0]?.rate);
                     $("#depreciation_rate_years").removeAttr("readonly");
                     $('#depreciation_rate_years').val(data[0]?.period);
+
+                    $("#containerDepreciationRate").show();
+                    $("#containerLoadingDepreciationRate").hide();
                 } else {
                     console.log('Data depreciation rate years not found.');
                 }
@@ -150,9 +153,9 @@
             $("#depreciation_rate_years").val("");
             $("#depreciation_coa_number").val("");
             $("#depreciation_coa_id").val("");
+            $("#depreciation_method").val("Select a Method");
         } else {
             $(".asset-components").css("display", "flex");
-            getDepreciationMethod();
         }
         $("#asset_message").hide();
     }
@@ -806,6 +809,8 @@
         $('#myGetCategory').modal('hide');
 
         if (depreciationMethod.value != "Select a Method") {
+            $("#containerDepreciationRate").hide();
+            $("#containerLoadingDepreciationRate").show();
             getDepreciationRateYears(sysId, depreciationMethod.value);
         }
     });
@@ -843,7 +848,7 @@
             $("#depreciation_value_message").show();
         } else {
             if (val != depreciationRateValue) {
-                $("#depreciation_rate_years_id").val("");
+                // $("#depreciation_rate_years_id").val("");
             } else {
                 if (depreciationRateYears.value == depreciationYearsValue) {
                     $("#depreciation_rate_years_id").val(depreciationRateYearsIDValue);
@@ -864,7 +869,7 @@
             $("#depreciation_value_message").show();
         } else {
             if (val != depreciationYearsValue) {
-                $("#depreciation_rate_years_id").val("");
+                // $("#depreciation_rate_years_id").val("");
             } else {
                 if (depreciationRatePercentage.value == depreciationRateValue) {
                     $("#depreciation_rate_years_id").val(depreciationRateYearsIDValue);
@@ -940,6 +945,8 @@
 
         if (value) {
             if (categoryID.value) {
+                $("#containerDepreciationRate").hide();
+                $("#containerLoadingDepreciationRate").show();
                 getDepreciationRateYears(categoryID.value, value);
             }
 
@@ -950,5 +957,6 @@
 
     $(window).one('load', function(e) {
         getVAT();
+        getDepreciationMethod();
     });
 </script>

@@ -7,8 +7,8 @@ class DocumentTypeMapper
     public static function formatResponse($value) 
     {
         return $newFormat = match ($value) {
-            0       => 'no',
-            1       => 'yes',
+            0       => 'No',
+            1       => 'Yes',
             default => null
         };
     }
@@ -377,7 +377,7 @@ class DocumentTypeMapper
                     'documentNumber'            => $dataDetail['documentNumber'] ?? null,
                     'date'                      => $dataDetail['date'] ?? null,
                     'dateUpdate'                => $dataDetail['dateUpdate'] ?? null, // null or '2025-09-29 15:49:00.113 +0700'
-                    'poNumber'                  => $dataDetail['pO_Number'] ?? '-',
+                    'poNumber'                  => $dataDetail['po_Number'] ?? '-',
                     'currency'                  => $dataDetail['currencySymbol'] ?? null,
                     'supplierCode'              => $dataDetail['supplierCode'] ?? null,
                     'supplierName'              => $dataDetail['supplierName'] ?? null,
@@ -400,8 +400,7 @@ class DocumentTypeMapper
                     'depreciationCOAName'       => $dataDetail['depreciationCOA_Name'] ?? null,
                     'deduction'                 => $dataDetail['deduction'] ?? null,
                     'assetCategoryCode'         => $dataDetail['assetCategoryCode'] ?? null,
-                    'assetCategoryName'         => $dataDetail['assetCategoryName'] ?? null,
-                    'assetCategoryName'         => $dataDetail['assetCategoryName'] ?? null,
+                    'assetCategoryName'         => $dataDetail['assetCategoryName'] ?? null
                 ],
                 'textAreaFields'    => [
                     'title'         => 'Remark',
@@ -417,7 +416,7 @@ class DocumentTypeMapper
                 'resubmit'      => [
                     'url'       => 'AccountPayable.RevisionAccountPayable',
                     'name'      => 'modal_account_payable_id',
-                    'value'     => 211000000000095
+                    'value'     => $dataDetail['paymentInstruction_RefID'] ?? '-',
                 ],
                 'transactionType'        => 'ACCOUNT PAYABLE',
                 'businessDocument_RefID' => '',

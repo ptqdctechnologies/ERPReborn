@@ -292,7 +292,7 @@
             <div class="row asset-components" style="margin-top: 1rem; display: none;">
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Depreciation Rate</label>
                 <div class="col-sm-9 col-md-8 col-lg-4 p-0">
-                    <div class="row">
+                    <div class="row" id="containerDepreciationRate">
                         <div class="col-4">
                             <input id="depreciation_rate_percentage" name="depreciation_rate_percentage" class="form-control number-without-negative" size="8" autocomplete="off" style="border-radius:0; cursor: default;" readonly>
                             <input id="depreciation_rate_years_id" name="depreciation_rate_years_id" hidden>
@@ -303,6 +303,13 @@
                                 <div class="col-6">
                                     <input id="depreciation_rate_years" name="depreciation_rate_years" class="form-control number-without-characters" size="8" autocomplete="off" style="border-radius:0; cursor: default;" readonly>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row m-0" id="containerLoadingDepreciationRate" style="display: none;">
+                        <div class="d-flex flex-column justify-content-center">
+                            <div class="spinner-border spinner-border-sm" role="status">
+                                <span class="sr-only">Loading...</span>
                             </div>
                         </div>
                     </div>

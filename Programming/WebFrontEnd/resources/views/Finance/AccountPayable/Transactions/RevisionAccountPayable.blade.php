@@ -2,10 +2,12 @@
 @section('main')
 @include('Partials.navbar')
 @include('Partials.sidebar')
+@include('getFunction.getWorkFlow')
 @include('getFunction.getCategory')
 @include('getFunction.getAccountPayable')
 @include('getFunction.getChartOfAccount')
 @include('getFunction.getPaymentTransfer')
+@include('Finance.AccountPayable.Functions.PopUp.PopUpAccountPayableRevision')
 @include('Finance.AccountPayable.Functions.PopUp.PopUpAccountPayableSummaryData')
 
 <div class="content-wrapper">
@@ -23,8 +25,11 @@
       @include('Finance.AccountPayable.Functions.Menu.MenuAccountPayable')
 
       <div class="card">
-        <form method="POST" action="{{ route('AccountPayable.UpdatesRevisionAccountPayable') }}" id="form_revision_account_payable">
+        <form method="POST" action="{{ route('SelectWorkFlow') }}" id="form_revision_account_payable">
         @csrf
+          <input type="hidden" name="DocumentTypeID" id="DocumentTypeID" value="<?= $documentTypeRefID; ?>">
+          <input type="hidden" name="var_combinedBudget_RefID" id="var_combinedBudget_RefID" value="46000000000033">
+
           <!-- PO INFORMATION -->
           <div class="tab-content px-3 pt-4 pb-2" id="nav-tabContent">
             <div class="row">

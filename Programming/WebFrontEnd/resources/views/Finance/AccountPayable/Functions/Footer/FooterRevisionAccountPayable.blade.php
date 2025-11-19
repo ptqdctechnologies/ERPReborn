@@ -4,9 +4,11 @@
     let totalDeduction          = 0;
     let currentIndexPickCOA     = null;
     let dataStore               = [];
+    const accountPayableID      = {!! json_encode($header['accountPayable_RefID'] ?? []) !!};
     const depreciationMethod    = document.getElementById('depreciation_method');
     const paymentTransferID     = document.getElementById('payment_transfer_id');
     const defaultValueVAT       = document.getElementById('ppnValue');
+    const depreciationMethodIDs = document.getElementById('depreciation_method_id');
     const categoryID            = document.getElementById('category_id');
     const valueVAT              = document.getElementById('ppn');
 
@@ -30,7 +32,8 @@
                     $('#depreciation_method').append('<option disabled selected value="Select a Method">Select a Method</option>');
 
                     data.forEach(function(val) {
-                        $('#depreciation_method').append('<option value="' + val.sys_ID + '">' + val.name + '</option>');
+                        let isSelected = val.sys_ID == depreciationMethodIDs.value ? ' selected ' : ' ';
+                        $('#depreciation_method').append('<option' + isSelected + 'value="' + val.sys_ID + '">' + val.name + '</option>');
                     });
                 } else {
                     console.log('Data depreciation method not found.');
@@ -63,6 +66,9 @@
                     $('#depreciation_rate_percentage').val(data[0]?.rate);
                     $("#depreciation_rate_years").removeAttr("readonly");
                     $('#depreciation_rate_years').val(data[0]?.period);
+
+                    $("#containerDepreciationRate").show();
+                    $("#containerLoadingDepreciationRate").hide();
                 } else {
                     console.log('Data depreciation rate years not found.');
                 }
@@ -76,15 +82,17 @@
     function assetValue(params) {
         if (params.value == "no") {
             $(".asset-components").css("display", "none");
-            $("#category_number").val("");
-            $("#category_id").val("");
-            $("#depreciation_rate_percentage").val("");
-            $("#depreciation_rate_years").val("");
-            $("#depreciation_coa_number").val("");
-            $("#depreciation_coa_id").val("");
         } else {
             $(".asset-components").css("display", "flex");
         }
+
+        $("#category_number").val("");
+        $("#category_id").val("");
+        $("#depreciation_rate_percentage").val("");
+        $("#depreciation_rate_years").val("");
+        $("#depreciation_coa_number").val("");
+        $("#depreciation_coa_id").val("");
+        $("#depreciation_method").val("Select a Method");
     }
 
     function vatValue(params) {
@@ -94,6 +102,9 @@
         } else {
             $(".vat-components").css("display", "flex");
         }
+
+        $("#ppn").val("Sel..");
+        $("#vat_number").val("");
     }
 
     function onChangeVAT(params) {
@@ -117,7 +128,7 @@
 
                     data.forEach(function(project) {
                         let isSelected = project.tariffFixRate == defaultValueVAT.value ? ' selected ' : ' ';
-                        $('#ppn').append('<option' + isSelected + 'value="' + project.sys_PID + '">' + project.tariffFixRate + '</option>');
+                        $('#ppn').append('<option' + isSelected + 'value="' + project.tariffFixRate + '">' + project.tariffFixRate + '</option>');
                     });
                 } else {
                     console.log('Data vat not found.');
@@ -154,36 +165,36 @@
 
         $.each(dataTable, function(key, val) {
             dataStore.push({
-                recordID: 212000000000121,
+                recordID: parseInt(val.sys_ID),
                 entities: {
                     combinedBudgetSectionDetail_RefID: parseInt(val.combinedBudgetSectionDetail_RefID),
                     chartOfAccount_RefID: parseInt(val.chartOfAccount_RefID),
                     product_RefID: parseInt(val.product_RefID),
-                    quantityUnit_RefID: 73000000000001,
+                    quantityUnit_RefID: parseInt(val.quantityUnit_RefID),
                     quantity: parseFloat(val.quantity.replace(/,/g, '')),
-                    productUnitPriceCurrency_RefID: 62000000000001,
+                    productUnitPriceCurrency_RefID: parseInt(val.productUnitPriceCurrency_RefID),
                     productUnitPriceCurrencyValue: parseFloat(val.productUnitPriceCurrencyValue.replace(/,/g, '')),
                     productUnitPriceCurrencyExchangeRate: parseFloat(val.productUnitPriceBaseCurrencyValue.replace(/,/g, '')),
-                    wht: parseFloat(val.wHT.replace(/,/g, '')),
+                    wht: parseFloat(val.wht.replace(/,/g, '')),
                     purchaseOrderDetail_RefID: parseInt(val.purchaseOrderDetail_RefID)
                 }
             });
 
             let row = `
                 <tr>
-                    <input type="hidden" id="record_RefID${key}" value="${212000000000121}" />
+                    <input type="hidden" id="record_RefID${key}" value="${val.sys_ID}" />
                     <input type="hidden" id="combinedBudgetSectionDetail_RefID${key}" value="${val.combinedBudgetSectionDetail_RefID}" />
                     <input type="hidden" id="product_RefID${key}" value="${val.product_RefID}" />
-                    <input type="hidden" id="quantityUnit_RefID${key}" value="${73000000000001}" />
-                    <input type="hidden" id="productUnitPriceCurrency_RefID${key}" value="${62000000000001}" />
+                    <input type="hidden" id="quantityUnit_RefID${key}" value="${val.quantityUnit_RefID}" />
+                    <input type="hidden" id="productUnitPriceCurrency_RefID${key}" value="${val.productUnitPriceCurrency_RefID}" />
                     <input type="hidden" id="productUnitPriceCurrencyExchangeRate${key}" value="${val.productUnitPriceBaseCurrencyValue}" />
                     <input type="hidden" id="purchaseOrderDetail_RefID${key}" value="${val.purchaseOrderDetail_RefID}" />
 
                     <td style="text-align: center;">${val.productCode} - ${val.productName}</td>
+                    <td style="text-align: center;">${val.purchaseOrderDetailQuantity ?? '-'}</td>
                     <td style="text-align: center;">-</td>
-                    <td style="text-align: center;">-</td>
-                    <td style="text-align: center;">-</td>
-                    <td style="text-align: center;">${val.uOM}</td>
+                    <td style="text-align: center;">${val.purchaseOrderDetailPrice  ?? '-'}</td>
+                    <td style="text-align: center;">${val.uom}</td>
                     <td style="text-align: center;">-</td>
                     <td style="border:1px solid #e9ecef;background-color:white; padding: 0.5rem !important; width: 100px;">
                         <input id="qty_ap${key}" class="form-control number-without-negative" data-index=${key} autocomplete="off" style="border-radius:0px;" value="${decimalFormat(parseFloat(val.quantity))}" />
@@ -192,7 +203,7 @@
                         <input id="total_ap${key}" class="form-control number-without-negative" data-index=${key} autocomplete="off" style="border-radius:0px;" value="${decimalFormat(parseFloat(val.productUnitPriceCurrencyValue))}" readonly />
                     </td>
                     <td style="border:1px solid #e9ecef;background-color:white; padding: 0.5rem !important; width: 100px;">
-                        <input id="wht${key}" class="form-control number-without-negative" data-index=${key} autocomplete="off" style="border-radius:0px;" value="${decimalFormat(parseFloat(val.wHT))}" />
+                        <input id="wht${key}" class="form-control number-without-negative" data-index=${key} autocomplete="off" style="border-radius:0px;" value="${decimalFormat(parseFloat(val.wht))}" />
                     </td>
                     <td>
                         <div class="input-group">
@@ -255,14 +266,14 @@
 
             let rowList = `
                 <tr>
-                    <input type="hidden" id="target_record_id[]" value="${212000000000121}" />
+                    <input type="hidden" id="target_record_id[]" value="${val.sys_ID}" />
                     <input type="hidden" id="target_purchase_order_detail_id[]" value="${val.purchaseOrderDetail_RefID}" />
 
                     <td style="text-align: left;padding: 0.8rem 0.5rem;">${val.productCode} - ${val.productName}</td>
-                    <td style="text-align: right;padding: 0.8rem 0.5rem;">${val.uOM}</td>
+                    <td style="text-align: right;padding: 0.8rem 0.5rem;">${val.uom}</td>
                     <td style="text-align: right;padding: 0.8rem 0.5rem;">${decimalFormat(val.quantity)}</td>
                     <td style="text-align: right;padding: 0.8rem 0.5rem;">${decimalFormat(val.productUnitPriceCurrencyValue)}</td>
-                    <td style="text-align: right;padding: 0.8rem 0.5rem;">${decimalFormat(val.wHT)}</td>
+                    <td style="text-align: right;padding: 0.8rem 0.5rem;">${decimalFormat(val.wht)}</td>
                     <td style="text-align: right;padding: 0.8rem 0.5rem;">${val.chartOfAccountCode} - ${val.chartOfAccountName}</td>
                 </tr>
             `;
@@ -380,35 +391,56 @@
         $('#account_payable_submit_modal').modal('show');
     }
 
-    function submitForm() {
-        $('#account_payable_submit_modal').modal('hide');
+    function selectWorkFlow(formatData) {
+        const swalWithBootstrapButtons = Swal.mixin({
+            confirmButtonClass: 'btn btn-success btn-sm',
+            cancelButtonClass: 'btn btn-danger btn-sm',
+            buttonsStyling: true,
+        });
 
-        let action = $('#form_revision_account_payable').attr("action");
-        let method = $('#form_revision_account_payable').attr("method");
-        let form_data = new FormData($('#form_revision_account_payable')[0]);
-        form_data.append('account_payable_detail', JSON.stringify(dataStore));
+        swalWithBootstrapButtons.fire({
+            title: 'Comment',
+            text: "Please write your comment here",
+            type: 'question',
+            input: 'textarea',
+            showCloseButton: false,
+            showCancelButton: true,
+            focusConfirm: false,
+            cancelButtonText: '<span style="color:black;"> Cancel </span>',
+            confirmButtonText: '<span style="color:black;"> OK </span>',
+            cancelButtonColor: '#DDDAD0',
+            confirmButtonColor: '#DDDAD0',
+            reverseButtons: true
+        }).then((result) => {
+            if ('value' in result) {
+                ShowLoading();
+                accountPayableRevision({...formatData, comment: result.value});
+            }
+        });
+    }
 
-        ShowLoading();
+    function accountPayableRevision(formatData) {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
 
         $.ajax({
-            url: action,
-            dataType: 'json',
-            cache: false,
-            contentType: false,
-            processData: false,
-            data: form_data,
-            type: method,
+            type: 'POST',
+            data: formatData,
+            url: '{{ route("AccountPayable.UpdatesRevisionAccountPayable") }}',
             success: function(res) {
                 HideLoading();
 
-                if (res.status === 200) {
-                    const swalWithBootstrapButtons = Swal.mixin({
+                if (res.status == 200) {
+                    const swalWithBootstrapButtonsss = Swal.mixin({
                         confirmButtonClass: 'btn btn-success btn-sm',
                         cancelButtonClass: 'btn btn-danger btn-sm',
                         buttonsStyling: true,
                     });
 
-                    swalWithBootstrapButtons.fire({
+                    swalWithBootstrapButtonsss.fire({
                         title: 'Successful !',
                         type: 'success',
                         html: 'Data has been saved. Your transaction number is ' + '<span style="color:#0046FF;font-weight:bold;">' + res.documentNumber + '</span>',
@@ -420,24 +452,76 @@
                         confirmButtonColor: '#e9ecef',
                         reverseButtons: true
                     }).then((result) => {
-                        cancelForm("{{ route('AccountPayable.index', ['var' => 1]) }}");
+                        window.location.href = "{{ route('AccountPayable.index', ['var' => 1]) }}";
                     });
                 } else {
                     ErrorNotif("Data Cancel Inputed");
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.log('error', jqXHR, textStatus, errorThrown);
+            }
+        });
+    }
+
+    function submitForm() {
+        $('#account_payable_submit_modal').modal('hide');
+
+        let action = $('#form_revision_account_payable').attr("action");
+        let method = $('#form_revision_account_payable').attr("method");
+        let form_data = new FormData($('#form_revision_account_payable')[0]);
+        form_data.append('account_payable_detail', JSON.stringify(dataStore));
+        form_data.append('account_payable_id', accountPayableID);
+
+        ShowLoading();
+
+        $.ajax({
+            url: action,
+            dataType: 'json',
+            cache: false,
+            contentType: false,
+            processData: false,
+            data: form_data,
+            type: method,
+            success: function(response) {
+                HideLoading();
+
+                if (response.message == "WorkflowError") {
+                    CancelNotif("You don't have access", "{{ route('AccountPayable.index', ['var' => 1]) }}");
+                } else if (response.message == "MoreThanOne") {
+                    $('#getWorkFlow').modal('toggle');
+
+                    let t = $('#tableGetWorkFlow').DataTable();
+                    t.clear();
+                    $.each(response.data, function(key, val) {
+                        t.row.add([
+                            '<td><span data-dismiss="modal" onclick="SelectWorkFlow(\'' + val.Sys_ID + '\', \'' + val.NextApprover_RefID + '\', \'' + response.approverEntity_RefID + '\', \'' + response.documentTypeID + '\');"><img src="{{ asset("AdminLTE-master/dist/img/add.png") }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></span></td>',
+                            '<td style="border:1px solid #e9ecef;">' + val.FullApproverPath + '</td></tr></tbody>'
+                        ]).draw();
+                    });
+                } else {
+                    const formatData = {
+                        workFlowPath_RefID: response.workFlowPath_RefID, 
+                        nextApprover: response.nextApprover_RefID, 
+                        approverEntity: response.approverEntity_RefID, 
+                        documentTypeID: response.documentTypeID,
+                        storeData: response.storeData
+                    };
+
+                    selectWorkFlow(formatData);
                 }
             },
             error: function(response) {
                 console.log('response error', response);
                 
                 HideLoading();
-
-                CancelNotif("You don't have access", '/AccountPayable?var=1');
+                CancelNotif("You don't have access", "{{ route('AccountPayable.index', ['var' => 1]) }}");
             }
         });
     }
 
     $('#tableGetCategory').on('click', 'tbody tr', async function() {
-        let sysId = $(this).find('input[data-trigger="sys_id_modal_coa"]').val();
+        let sysId = $(this).find('input[data-trigger="sys_id_category"]').val();
         let code  = $(this).find('td:nth-child(2)').text();
         let name  = $(this).find('td:nth-child(3)').text();
 
@@ -448,6 +532,8 @@
         $('#myGetCategory').modal('hide');
 
         if (depreciationMethod.value != "Select a Method") {
+            $("#containerDepreciationRate").hide();
+            $("#containerLoadingDepreciationRate").show();
             getDepreciationRateYears(sysId, depreciationMethod.value);
         }
     });
@@ -511,6 +597,8 @@
 
         if (value) {
             if (categoryID.value) {
+                $("#containerDepreciationRate").hide();
+                $("#containerLoadingDepreciationRate").show();
                 getDepreciationRateYears(categoryID.value, value);
             }
 

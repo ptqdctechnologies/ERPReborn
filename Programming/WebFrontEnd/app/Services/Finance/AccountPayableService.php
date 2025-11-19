@@ -88,7 +88,7 @@ class AccountPayableService
         $vatValue                   = $data['vat_origin'] == "yes" ? (float) str_replace(',', '', $data['ppn']) : 0;
         $categoryID                 = $data['category_id'] ? (int) $data['category_id'] : null; // 297x
         $depreciationMethod         = isset($data['depreciation_method']) && $data['depreciation_method'] ? (int) $data['depreciation_method'] : null; // 298x
-        $depreciationRateYearsID    = $data['depreciation_rate_years_id'] ? (float) str_replace(',', '', $data['depreciation_rate_years_id']) : null; // 299x
+        $depreciationRateYearsID    = $data['depreciation_rate_years_id'] ? (int) str_replace(',', '', $data['depreciation_rate_years_id']) : null; // 299x
         $depreciationRate           = $data['depreciation_rate_percentage'] ? (float) str_replace(',', '', $data['depreciation_rate_percentage']) : 0;
         $depreciationYears          = $data['depreciation_rate_years'] ? (float) str_replace(',', '', $data['depreciation_rate_years']) : 0;
         $depreciationCOARefID       = $data['depreciation_coa_id'] ? (int) $data['depreciation_coa_id'] : null;
@@ -161,16 +161,17 @@ class AccountPayableService
     {
         $sessionToken   = Session::get('SessionLogin');
 
-        $data                   = $request;
-        $detailItems            = json_decode($data['account_payable_detail'], true);
-        $fileID                 = $data['dataInput_Log_FileUpload_1'] ? (int) $data['dataInput_Log_FileUpload_1'] : null;
-        $vatValue               = $data['vat_origin'] == "yes" ? (float) str_replace(',', '', $data['ppn']) : 0;
-        $categoryID             = $data['category_id'] ? (int) $data['category_id'] : null;
-        $depreciationMethod     = $data['depreciation_method'] ? (int) $data['depreciation_method'] : null;
-        $depreciationRate       = $data['depreciation_rate_percentage'] ? (float) str_replace(',', '', $data['depreciation_rate_percentage']) : null;
-        $depreciationYears      = $data['depreciation_rate_years'] ? (float) str_replace(',', '', $data['depreciation_rate_years']) : null;
-        $depreciationCOARefID   = $data['depreciation_coa_id'] ? (int) $data['depreciation_coa_id'] : null;
-        $deduction              = $data['budget_details_deduction'] > -1 ? (float) str_replace(',', '', $data['budget_details_deduction']) : null;
+        $data                       = $request->storeData;
+        $detailItems                = json_decode($data['account_payable_detail'], true);
+        $fileID                     = $data['dataInput_Log_FileUpload_1'] ? (int) $data['dataInput_Log_FileUpload_1'] : null;
+        $vatValue                   = $data['vat_origin'] == "yes" ? (float) str_replace(',', '', $data['ppn']) : 0;
+        $categoryID                 = $data['category_id'] ? (int) $data['category_id'] : null;
+        $depreciationMethod         = isset($data['depreciation_method']) ? (int) $data['depreciation_method'] : null;
+        $depreciationRateYearsID    = $data['depreciation_rate_years_id'] ? (int) str_replace(',', '', $data['depreciation_rate_years_id']) : null; // 299x
+        $depreciationRate           = $data['depreciation_rate_percentage'] ? (float) str_replace(',', '', $data['depreciation_rate_percentage']) : 0;
+        $depreciationYears          = $data['depreciation_rate_years'] ? (float) str_replace(',', '', $data['depreciation_rate_years']) : 0;
+        $depreciationCOARefID       = $data['depreciation_coa_id'] ? (int) $data['depreciation_coa_id'] : null;
+        $deduction                  = $data['budget_details_deduction'] > -1 ? (float) str_replace(',', '', $data['budget_details_deduction']) : null;
 
         $receiptStatus = match ($data['receipt_origin']) {
             'no'        => (int) 0,
@@ -203,28 +204,25 @@ class AccountPayableService
             'transaction.update.finance.setPaymentInstruction',
             'latest',
             [
-            'recordID' => 211000000000161,
+            'recordID' => (int) $data['account_payable_id'],
             'entities' => [
-                "documentDateTimeTZ"            => date('Y-m-d'),
-                "log_FileUpload_Pointer_RefID"  => $fileID,
-                "supplierInvoiceNumber"         => $data['supplier_invoice_number'],
-                "supplier_RefID"                => (int) $data['payment_transfer_id'], 
-                "receiptStatus"                 => $receiptStatus,
-                "contractStatus"                => $contractStatus,
-                "vatStatus"                     => $vatStatus,
-                "vatValue"                      => $vatValue,
-                "vatNumber"                     => $data['vat_number'],
-                "fatPatDoStatus"                => $fatPatDoStatus,
-                "assetStatus"                   => $assetStatus,
-                // "assetCategory"                 => $categoryID,
-                // "depreciationMethod"            => $depreciationMethod,
-                // "depreciationRate"              => 25.00,
-                "depreciationAssetCategory_RefID" => 299000000000007,
-                "period"                        => $depreciationYears,
-                "rate"                          => $depreciationRate,
-                "depreciationCOA_RefID"         => $depreciationCOARefID,
-                "deduction"                     => $deduction,
-                "remarks"                       => $data['account_payable_notes'],
+                "documentDateTimeTZ"                => date('Y-m-d'),
+                "log_FileUpload_Pointer_RefID"      => $fileID,
+                "supplierInvoiceNumber"             => $data['supplier_invoice_number'],
+                "supplier_RefID"                    => (int) $data['payment_transfer_id'], 
+                "receiptStatus"                     => $receiptStatus,
+                "contractStatus"                    => $contractStatus,
+                "vatStatus"                         => $vatStatus,
+                "vatValue"                          => $vatValue,
+                "vatNumber"                         => $data['vat_number'],
+                "fatPatDoStatus"                    => $fatPatDoStatus,
+                "assetStatus"                       => $assetStatus,
+                "depreciationAssetCategory_RefID"   => $depreciationRateYearsID,
+                "period"                            => $depreciationYears,
+                "rate"                              => $depreciationRate,
+                "depreciationCOA_RefID"             => $depreciationCOARefID,
+                "deduction"                         => $deduction,
+                "remarks"                           => $data['account_payable_notes'],
                 'additionalData'    => [
                     'itemList'      => [
                         'items'     => $detailItems

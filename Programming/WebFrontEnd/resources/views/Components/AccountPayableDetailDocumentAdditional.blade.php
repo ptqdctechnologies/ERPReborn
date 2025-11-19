@@ -82,11 +82,11 @@
                 <tr>
                     @for($i = count($dataHeaderTransactionHistory) - 1; $i >= 0; $i--)
                         @if ($i !== count($dataHeaderTransactionHistory) - 1)
-                            <td style="padding: 8px;width: 50px; min-width: 50px; max-width: 50px;">{{ $dataHeaderTransactionHistory[count($dataHeaderTransactionHistory) - 1]['content']['assetStatus'] == "0" ? "No" : "Yes" }}</td>
+                            <td style="padding: 8px;width: 50px; min-width: 50px; max-width: 50px;">{{ $dataHeaderTransactionHistory[$i]['content']['assetStatus'] == "0" ? "No" : "Yes" }}</td>
                             <td style="padding: 8px;width: 100px; min-width: 100px; max-width: 100px;">-</td>
                             <td style="padding: 8px;width: 130px; min-width: 130px; max-width: 130px;">-</td>
-                            <td style="padding: 8px;width: 130px; min-width: 130px; max-width: 130px;">{{ $dataHeaderTransactionHistory[count($dataHeaderTransactionHistory) - 1]['content']['rate'] }}</td>
-                            <td style="padding: 8px;width: 120px; min-width: 120px; max-width: 120px;">{{ $dataHeaderTransactionHistory[count($dataHeaderTransactionHistory) - 1]['content']['period'] }}</td>
+                            <td style="padding: 8px;width: 130px; min-width: 130px; max-width: 130px;">{{ $dataHeaderTransactionHistory[$i]['content']['rate'] }}</td>
+                            <td style="padding: 8px;width: 120px; min-width: 120px; max-width: 120px;">{{ $dataHeaderTransactionHistory[$i]['content']['period'] }}</td>
                             <td style="padding: 8px;width: 130px; min-width: 130px; max-width: 130px;">-</td>
                         @endif
                     @endfor
