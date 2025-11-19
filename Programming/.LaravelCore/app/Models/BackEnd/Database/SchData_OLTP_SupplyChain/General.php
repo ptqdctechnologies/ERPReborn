@@ -3766,7 +3766,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : getDataPickList_WarehouseInboundOrder                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-06-04                                                                                           |
+        | ▪ Last Update     : 2025-11-19                                                                                           |
         | ▪ Creation Date   : 2025-06-04                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Pilihan Data Gudang                                                               |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -3786,7 +3786,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
-                            'SchData-OLTP-SupplyChain.Func_GetDataList_WarehouseInboundOrder_New',
+                            'SchData-OLTP-SupplyChain.Func_GetDataPickList_WarehouseInboundOrder_New',
                             [
                                 [$varSysBranch_RefID, 'bigint']
                             ]
