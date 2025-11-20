@@ -1,5 +1,6 @@
 <script>
     let totalTaxBased                   = 0;
+    let totalVAT                        = 0;
     let totalWHT                        = 0;
     let totalDeduction                  = 0;
     let currentIndexPickCOA             = null;
@@ -162,7 +163,10 @@
 
     function vatValue(params) {
         if (params.value == "no") {
+            totalVAT = 0;
             $(".vat-components").css("display", "none");
+            $("#vat_number").val("");
+            $("#ppn").val("Sel..");
             $("#invoice_details_total_vat").text(`Total VAT: 0.00`);
         } else {
             $(".vat-components").css("display", "flex");
@@ -222,6 +226,7 @@
 
     function calculateTotal() {
         let total = 0;
+        let valueVatFix = isNaN(valueVAT.value) ? 0 : valueVAT.value;
         
         document.querySelectorAll('input[id^="total_ap"]').forEach(function(input) {
             let value = parseFloat(input.value.replace(/,/g, ''));
@@ -231,9 +236,10 @@
         });
 
         totalTaxBased = total;
+        totalVAT = (total * valueVatFix) / 100;
         
         document.getElementById('invoice_details_total').textContent = `Total Tax Based: ${decimalFormat(total)}`;
-        document.getElementById('invoice_details_total_vat').textContent = `Total VAT: ${decimalFormat((total * valueVAT.value) / 100)}`;
+        document.getElementById('invoice_details_total_vat').textContent = `Total VAT: ${decimalFormat(totalVAT)}`;
     }
 
     function summaryData() {
@@ -922,9 +928,12 @@
             $("#budget_details_deduction").css("border", "1px solid #ced4da");
             $("#budget_details_deduction_message").hide();
         } else {
+            totalDeduction = 0;
             $(this).val("");
+            $(`#invoice_details_vat`).text(`Total Deduction: 0.00`);
             $("#budget_details_deduction").css("border", "1px solid red");
             $("#budget_details_deduction_message").show();
+            ErrorNotif("Deduction is over!");
         }
     });
 
