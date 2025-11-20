@@ -22,6 +22,18 @@
     const depreciationCOANumber         = document.getElementById('depreciation_coa_number');
     const deductionValue                = document.getElementById('budget_details_deduction');
 
+    function calculateGrandTotal() {
+        let result = (
+            (parseFloat(totalTaxBased)   || 0) +
+            (parseFloat(totalVAT)        || 0)
+        ) - (
+            (parseFloat(totalWHT)        || 0) +
+            (parseFloat(totalDeduction)  || 0)
+        );
+
+        $("#invoice_details_grand_total").text(`Grand Total: ${decimalFormat(result)}`);
+    }
+
     function getDepreciationMethod() {
         $.ajaxSetup({
             headers: {
@@ -159,6 +171,7 @@
             $(".asset-components").css("display", "flex");
         }
         $("#asset_message").hide();
+        calculateGrandTotal();
     }
 
     function vatValue(params) {
@@ -168,6 +181,7 @@
             $("#vat_number").val("");
             $("#ppn").val("Sel..");
             $("#invoice_details_total_vat").text(`Total VAT: 0.00`);
+            calculateGrandTotal();
         } else {
             $(".vat-components").css("display", "flex");
         }
@@ -183,9 +197,11 @@
     }
 
     function onChangeVAT(params) {
+        totalVAT = (totalTaxBased * params.value) / 100;
         $("#ppn").css("border", "1px solid #ced4da");
         $("#vat_origin_message").hide();
-        document.getElementById('invoice_details_total_vat').textContent = `Total VAT: ${decimalFormat((totalTaxBased * params.value) / 100)}`;
+        document.getElementById('invoice_details_total_vat').textContent = `Total VAT: ${decimalFormat(totalVAT)}`;
+        calculateGrandTotal();
     }
 
     function getVAT() {
@@ -613,8 +629,9 @@
                                     document.getElementById('invoice_details_total_wht').textContent = `Total WHT: ${currencyTotal(result)}`;
                                 }
                             }
-
+                            
                             calculateTotal();
+                            calculateGrandTotal();
                             checkOneLineBudgetContents(key);
                         });
 
@@ -635,6 +652,7 @@
                                 }
                             }
 
+                            calculateGrandTotal();
                             checkOneLineBudgetContents(key);
                         });
                     });
@@ -935,6 +953,8 @@
             $("#budget_details_deduction_message").show();
             ErrorNotif("Deduction is over!");
         }
+
+        calculateGrandTotal();
     });
 
     $('#tableAccountPayables').on('click', 'tbody tr', function() {
