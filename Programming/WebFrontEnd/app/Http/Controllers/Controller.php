@@ -19,6 +19,20 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
+    public function GetBusinessDocumentsTypeFromRedis($businessDocumentName) 
+    {
+        $sessionUserRefID           = Session::get('SessionUser_RefID');
+        $dataBusinessDocumentsType  = json_decode(Helper_Redis::getValue($sessionUserRefID, 'BusinessDocumentType'), true);
+
+        $result = null;
+        if (!empty($dataBusinessDocumentsType)) {
+            $result = collect($dataBusinessDocumentsType)->firstWhere('name', $businessDocumentName);
+            $result = $result['sys_ID'];
+        }
+
+        return $result;
+    }
+
     public function GetBusinessDocumentsType($businessDocumentName)
     {
         try {
