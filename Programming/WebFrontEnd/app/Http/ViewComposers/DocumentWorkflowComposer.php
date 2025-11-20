@@ -18,38 +18,40 @@ class DocumentWorkflowComposer
     {
         try {
             $varAPIWebToken     = Session::get('SessionLogin');
-            $sessionUserRefID   =  Session::get('SessionUser_RefID');
+            $sessionUserRefID   = Session::get('SessionUser_RefID');
+            $cacheKey           = 'BusinessDocumentType';
+            $cacheTTL           = 86400; // 24 hrs
 
-            $response = Helper_APICall::setCallAPIGateway(
-                Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken,
-                'report.form.resume.master.getBusinessDocumentIssuanceDispositionCount',
-                'latest',
-                [
-                    'parameter'     => [
-                        'recordID'  => (int) $sessionUserRefID
-                    ]
-                ],
-                false
-            );
+            $cachedData = Helper_Redis::getValue(Helper_Environment::getUserSessionID_System(), $cacheKey);
 
-            if ($response['metadata']['HTTPStatusCode'] !== 200) {
-                throw new \Exception('Failed to fetch Business Document Issuance Disposition Count');
+            if (!$cachedData) {
+                $response = Helper_APICall::setCallAPIGateway(
+                    Helper_Environment::getUserSessionID_System(),
+                    $varAPIWebToken,
+                    'transaction.read.dataList.master.getBusinessDocumentType',
+                    'latest',
+                    [
+                        'parameter'     => [],
+                        'SQLStatement'  => [
+                            'pick'      => null,
+                            'sort'      => null,
+                            'filter'    => null,
+                            'paging'    => null
+                        ]
+                    ],
+                    false
+                );
+
+                if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                    Helper_Redis::setValue($sessionUserRefID, $cacheKey, json_encode([]), $cacheTTL);
+
+                    throw new \Exception('Failed to fetch Business Document Issuance Disposition Count');
+                }
+
+                Helper_Redis::setValue($sessionUserRefID, $cacheKey, json_encode($response['data']['data']), $cacheTTL);
             }
-
-            $compact = [
-                'CountDocumentWorkflowComposer' => $response['data']['data']['document']['content']['businessDocumentFormCount']
-            ];
-
-            $view->with($compact);
         } catch (\Throwable $th) {
             Log::error("Document Workflow Composer Compose Function Error: " . $th->getMessage());
-
-            $compact = [
-                'CountDocumentWorkflowComposer' => '-'
-            ];
-
-            $view->with($compact);
         }
     }
 }
