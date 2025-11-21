@@ -311,8 +311,8 @@
 
         totalVAT = (totalTaxBased * vatValueOrigin) / 100;
 
-        $('#invoice_details_total').text(`Total Tax Based: ${totalTaxBased}`);
-        $('#invoice_details_total_vat').text(`Total Tax Based: ${currencyTotal(totalVAT)}`);
+        $('#invoice_details_total').text(`Total Tax Based: ${currencyTotal(totalTaxBased)}`);
+        $('#invoice_details_total_vat').text(`Total VAT: ${currencyTotal(totalVAT)}`);
         $('#invoice_details_total_wht').text(`Total WHT: ${currencyTotal(totalWHT)}`);
         $('#invoice_details_total_deduction').text(`Total Deduction: ${currencyTotal(totalDeduction)}`);
 
