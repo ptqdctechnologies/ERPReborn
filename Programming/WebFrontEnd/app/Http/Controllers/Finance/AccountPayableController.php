@@ -140,7 +140,7 @@ class AccountPayableController extends Controller
 
             $compact = [
                 'varAPIWebToken'        => $varAPIWebToken,
-                'documentTypeRefID'    => $documentTypeRefID,
+                'documentTypeRefID'     => $documentTypeRefID,
                 'header'                => [
                     'accountPayable_RefID'          => $dataAccountPayableDetail[0]['paymentInstruction_RefID'] ?? '',
                     'purchaseOrderNumber'           => $dataAccountPayableDetail[0]['po_Number'] ?? '',
@@ -179,7 +179,7 @@ class AccountPayableController extends Controller
                     'depreciationRateYears_RefID'   => $dataAccountPayableDetail[0]['depreciationAssetCategory_RefID'] ?? '',
                     'deduction'                     => $dataAccountPayableDetail[0]['deduction'] ?? ''
                 ],
-                'detail'            => $dataAccountPayableDetail
+                'detail'                => $dataAccountPayableDetail
             ];
 
             // dump($compact);

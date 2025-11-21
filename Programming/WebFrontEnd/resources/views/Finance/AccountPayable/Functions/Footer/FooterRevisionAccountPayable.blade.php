@@ -1,16 +1,30 @@
 <script>
     let totalTaxBased           = 0;
+    let totalVAT                = 0;
     let totalWHT                = 0;
-    let totalDeduction          = 0;
+    let totalDeduction          = {!! json_encode($header['deduction'] ?? []) !!};;
     let currentIndexPickCOA     = null;
     let dataStore               = [];
     const accountPayableID      = {!! json_encode($header['accountPayable_RefID'] ?? []) !!};
+    const vatValueOrigin        = {!! json_encode($header['VATPercentage'] ?? []) !!};
     const depreciationMethod    = document.getElementById('depreciation_method');
     const paymentTransferID     = document.getElementById('payment_transfer_id');
     const defaultValueVAT       = document.getElementById('ppnValue');
     const depreciationMethodIDs = document.getElementById('depreciation_method_id');
     const categoryID            = document.getElementById('category_id');
     const valueVAT              = document.getElementById('ppn');
+
+    function calculateGrandTotal() {
+        let result = (
+            (parseFloat(totalTaxBased)   || 0) +
+            (parseFloat(totalVAT)        || 0)
+        ) - (
+            (parseFloat(totalWHT)        || 0) +
+            (parseFloat(totalDeduction)  || 0)
+        );
+
+        $("#invoice_details_grand_total").text(`Grand Total: ${decimalFormat(result)}`);
+    }
 
     function getDepreciationMethod() {
         $.ajaxSetup({
@@ -93,12 +107,14 @@
         $("#depreciation_coa_number").val("");
         $("#depreciation_coa_id").val("");
         $("#depreciation_method").val("Select a Method");
+        calculateGrandTotal();
     }
 
     function vatValue(params) {
         if (params.value == "no") {
             $(".vat-components").css("display", "none");
             $("#invoice_details_total_vat").text(`Total VAT: 0.00`);
+            calculateGrandTotal();
         } else {
             $(".vat-components").css("display", "flex");
         }
@@ -108,7 +124,10 @@
     }
 
     function onChangeVAT(params) {
+        totalVAT = (totalTaxBased * params.value) / 100;
+        $("#ppn").css("border", "1px solid #ced4da");
         document.getElementById('invoice_details_total_vat').textContent = `Total VAT: ${decimalFormat((totalTaxBased * params.value) / 100)}`;
+        calculateGrandTotal();
     }
 
     function getVAT() {
@@ -146,6 +165,7 @@
 
     function calculateTotal() {
         let total = 0;
+        let valueVatFix = isNaN(valueVAT.value) ? 0 : valueVAT.value;
         
         document.querySelectorAll('input[id^="total_ap"]').forEach(function(input) {
             let value = parseFloat(input.value.replace(/,/g, ''));
@@ -155,15 +175,19 @@
         });
 
         totalTaxBased = total;
+        totalVAT = (total * valueVatFix) / 100;
         
         document.getElementById('invoice_details_total').textContent = `Total Tax Based: ${decimalFormat(total)}`;
-        document.getElementById('invoice_details_total_vat').textContent = `Total VAT: ${decimalFormat((total * valueVAT.value) / 100)}`;
+        document.getElementById('invoice_details_total_vat').textContent = `Total VAT: ${decimalFormat(totalVAT)}`;
     }
 
     function getAccountPayableDetails() {
         const dataTable = {!! json_encode($detail ?? []) !!};
 
         $.each(dataTable, function(key, val) {
+            totalTaxBased += (val.quantity ?? 0) * (val.purchaseOrderDetailPrice ?? 0);
+            totalWHT += ((val.wht ?? 0) * totalTaxBased) / 100;
+
             dataStore.push({
                 recordID: parseInt(val.sys_ID),
                 entities: {
@@ -180,6 +204,7 @@
                 }
             });
 
+            let total = (val.purchaseOrderDetailQuantity ?? 0) * (val.purchaseOrderDetailPrice ?? 0);
             let row = `
                 <tr>
                     <input type="hidden" id="record_RefID${key}" value="${val.sys_ID}" />
@@ -190,12 +215,12 @@
                     <input type="hidden" id="productUnitPriceCurrencyExchangeRate${key}" value="${val.productUnitPriceBaseCurrencyValue}" />
                     <input type="hidden" id="purchaseOrderDetail_RefID${key}" value="${val.purchaseOrderDetail_RefID}" />
 
-                    <td style="text-align: center;">${val.productCode} - ${val.productName}</td>
-                    <td style="text-align: center;">${val.purchaseOrderDetailQuantity ?? '-'}</td>
+                    <td style="text-align: center;">${val.productCode ?? ''} - ${val.productName ?? ''}</td>
+                    <td style="text-align: center;">${currencyTotal(val.purchaseOrderDetailQuantity ?? 0)}</td>
                     <td style="text-align: center;">-</td>
-                    <td style="text-align: center;">${val.purchaseOrderDetailPrice  ?? '-'}</td>
-                    <td style="text-align: center;">${val.uom}</td>
-                    <td style="text-align: center;">-</td>
+                    <td style="text-align: center;">${currencyTotal(val.purchaseOrderDetailPrice ?? 0)}</td>
+                    <td style="text-align: center;">${val.uom ?? '-'}</td>
+                    <td style="text-align: center;">${currencyTotal(total)}</td>
                     <td style="border:1px solid #e9ecef;background-color:white; padding: 0.5rem !important; width: 100px;">
                         <input id="qty_ap${key}" class="form-control number-without-negative" data-index=${key} autocomplete="off" style="border-radius:0px;" value="${decimalFormat(parseFloat(val.quantity))}" />
                     </td>
@@ -226,7 +251,7 @@
             $(`#qty_ap${key}`).on('keyup', function() {
                 let qty_ap      = $(this).val().replace(/,/g, '');
                 let wht_ap      = $(`#wht${key}`).val().replace(/,/g, '');
-                let total_ap    = parseFloat(qty_ap || 0) * val.productUnitPriceBaseCurrencyValue;
+                let total_ap    = parseFloat(qty_ap || 0) * val.purchaseOrderDetailPrice;
 
                 if (parseFloat(qty_ap) > val.qtyAvail) {
                     $(this).val("");
@@ -244,6 +269,7 @@
                 }
 
                 calculateTotal();
+                calculateGrandTotal();
             });
 
             $(`#wht${key}`).on('input', function () {
@@ -262,6 +288,8 @@
                         document.getElementById('invoice_details_total_wht').textContent = `Total WHT: ${currencyTotal(result)}`;
                     }
                 }
+
+                calculateGrandTotal();
             });
 
             let rowList = `
@@ -280,6 +308,15 @@
 
             $('#account_payable_details_table tbody').append(rowList);
         });
+
+        totalVAT = (totalTaxBased * vatValueOrigin) / 100;
+
+        $('#invoice_details_total').text(`Total Tax Based: ${totalTaxBased}`);
+        $('#invoice_details_total_vat').text(`Total Tax Based: ${currencyTotal(totalVAT)}`);
+        $('#invoice_details_total_wht').text(`Total WHT: ${currencyTotal(totalWHT)}`);
+        $('#invoice_details_total_deduction').text(`Total Deduction: ${currencyTotal(totalDeduction)}`);
+
+        calculateGrandTotal();
     }
 
     function summaryData() {
@@ -574,10 +611,13 @@
         
         if (val <= totalTaxBased) {
             totalDeduction = val;
-            $(`#invoice_details_vat`).text(`Total Deduction: ${currencyTotal(val)}`);
+            $(`#invoice_details_total_deduction`).text(`Total Deduction: ${currencyTotal(val)}`);
         } else {
+            totalDeduction = 0;
             $(this).val("");
         }
+
+        calculateGrandTotal();
     });
 
     $('#tableAccountPayables').on('click', 'tbody tr', function() {

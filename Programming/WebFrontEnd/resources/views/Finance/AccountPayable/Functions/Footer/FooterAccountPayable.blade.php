@@ -942,13 +942,13 @@
         
         if (val <= totalTaxBased) {
             totalDeduction = val;
-            $(`#invoice_details_vat`).text(`Total Deduction: ${currencyTotal(val)}`);
+            $(`#invoice_details_total_deduction`).text(`Total Deduction: ${currencyTotal(val)}`);
             $("#budget_details_deduction").css("border", "1px solid #ced4da");
             $("#budget_details_deduction_message").hide();
         } else {
             totalDeduction = 0;
             $(this).val("");
-            $(`#invoice_details_vat`).text(`Total Deduction: 0.00`);
+            $(`#invoice_details_total_deduction`).text(`Total Deduction: 0.00`);
             $("#budget_details_deduction").css("border", "1px solid red");
             $("#budget_details_deduction_message").show();
             ErrorNotif("Deduction is over!");
