@@ -39,16 +39,15 @@
         <div class="col-5 d-flex">
           <div>
             <span style="border-radius:0;" class="input-group-text form-control">
-              <a href="javascript:;" id="mySiteCodeSecondTrigger" data-toggle="modal" data-target="#mySites">
-                <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="mySiteCodeSecondTrigger">
+              <a href="javascript:;" id="myCurrenciesTrigger" data-toggle="modal" data-target="#myCurrencies">
+                <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="myCurrenciesTrigger">
               </a>
             </span>
           </div>
           <div style="flex: 100%;">
             <div class="input-group">
-              <input id="site_name_second" style="border-radius:0; background-color: white;" name="site_code_detail" class="form-control" readonly>
-              <input id="site_code_second" style="border-radius:0;" name="site_code" class="form-control" hidden>
-              <input id="site_id_second" style="border-radius:0;" name="site_id_second" class="form-control" hidden>
+              <input type="text" id="currency_name" class="form-control" readonly style="border-radius:0; background-color: white;">
+              <input type="hidden" id="currency_id" class="form-control" style="border-radius:0;" name="currency_id">
             </div>
           </div>
         </div>

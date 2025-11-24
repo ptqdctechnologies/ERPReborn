@@ -167,6 +167,30 @@
         });
     });
 
+    $('#tableProjects').on('click', 'tbody tr', async function() {
+        let sysId   = $(this).find('input[data-trigger="sys_id_project"]').val();
+        let code    = $(this).find('td:nth-child(2)').text();
+        let name    = $(this).find('td:nth-child(3)').text();
+
+        $("#project_id").val(sysId);
+        $("#project_name").val(`${code} - ${name}`);
+        $("#project_name").css('background-color', '#e9ecef');
+
+        $('#myProjects').modal('hide');
+    });
+
+    $('#tableCurrencies').on('click', 'tbody tr', async function() {
+        let sysId   = $(this).find('input[data-trigger="sys_id_currencies"]').val();
+        let code    = $(this).find('td:nth-child(2)').text();
+        let name    = $(this).find('td:nth-child(3)').text();
+
+        $("#currency_id").val(sysId);
+        $("#currency_name").val(`${code} - ${name}`);
+        $("#currency_name").css('background-color', '#e9ecef');
+
+        $('#myCurrencies').modal('hide');
+    });
+
     $(window).one('load', function() {
         detailAddManual();
     });
