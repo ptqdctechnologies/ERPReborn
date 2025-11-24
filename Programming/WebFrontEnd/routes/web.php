@@ -557,9 +557,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::post('revisionMaterialReceive', 'logisticMaterialReceive@revisionMaterialReceive')->name('MR.revisionMaterialReceive');
     Route::get('createMaterialReceive', 'logisticMaterialReceive@index')->name('MR.createMaterialReceive');
 
-    // CO
-    Route::get('CO', 'Sales\CO\controllerSalesCo@index')->name('CO.index');
-    Route::get('revisionCo', 'Sales\CO\controllerSalesCo@revisionCo')->name('CO.revisionCo');
+    // CUSTOMER ORDER
 
     // SETTING
     Route::get('ColorMode', 'Setting\Mode\ColorModeController@ColorMode')->name('ColorMode');
