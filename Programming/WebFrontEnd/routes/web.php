@@ -230,6 +230,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::resource('AccountPayable', 'Finance\AccountPayableController');
 
     // JOURNAL
+    Route::get('ReportPaymentJournal', 'Finance\JournalController@ReportPaymentJournal')->name('Journal.ReportPaymentJournal');
     Route::resource('Journal', 'Finance\JournalController');
 
     // ARF 
