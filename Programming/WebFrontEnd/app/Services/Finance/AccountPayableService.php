@@ -28,7 +28,7 @@ class AccountPayableService
             'latest',
             [
             'parameter' => [
-                'CombinedBudgetCode'        => $project['code'],
+                'CombinedBudgetCode'        => $project['code'] ? $project['code'] : NULL,
                 'CombinedBudgetSectionCode' => $site['code'] ? $site['code'] : NULL,
                 'Supplier_RefID'            => $supplier['id'] ? (int) $supplier['id'] : NULL,
                 'StartDate'                 => $date ? $startDate : NULL,
