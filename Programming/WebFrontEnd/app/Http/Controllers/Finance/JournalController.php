@@ -18,4 +18,9 @@ class JournalController extends Controller
             'varAPIWebToken'        => $varAPIWebToken
         ]);
     }
+
+    public function ReportPaymentJournal(Request $request) 
+    {
+        return view('Finance.Journal.Reports.ReportJournalSummary');
+    }
 }
