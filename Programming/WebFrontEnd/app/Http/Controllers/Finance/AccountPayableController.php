@@ -227,12 +227,12 @@ class AccountPayableController extends Controller
 
             $date = $request->input('date');
 
-            if (!$project['id']) {
-                Session::forget("isButtonReportAccountPayableSummary");
-                Session::forget("dataReportAccountPayableSummary");
+            // if (!$project['id']) {
+            //     Session::forget("isButtonReportAccountPayableSummary");
+            //     Session::forget("dataReportAccountPayableSummary");
 
-                return redirect()->route('AccountPayable.ReportAccountPayableSummary')->with('NotFound', 'Budget Cannot Be Empty');
-            }
+            //     return redirect()->route('AccountPayable.ReportAccountPayableSummary')->with('NotFound', 'Budget Cannot Be Empty');
+            // }
 
             $response = $this->accountPayableService->summaryReport($project, $site, $supplier, $date);
 
