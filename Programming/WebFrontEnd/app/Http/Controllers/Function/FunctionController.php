@@ -1051,9 +1051,10 @@ class FunctionController extends Controller
 
     public function getCurrency(Request $request)
     {
-        if (Redis::get("Currency") == null) {
+        try {
             $varAPIWebToken = Session::get('SessionLogin');
-            $varDataCurrency = Helper_APICall::setCallAPIGateway(
+
+            $response = Helper_APICall::setCallAPIGateway(
                 Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken, 
                 'transaction.read.dataList.master.getCurrency', 
@@ -1069,19 +1070,16 @@ class FunctionController extends Controller
                 ]
             );
 
-            Redis::set("Currency", json_encode($varDataCurrency));
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                throw new \Exception('Failed to fetch Get Currency');
+            }
+
+            return response()->json($response['data']);
+        } catch (\Throwable $th) {
+            Log::error("Error at getCurrency: " . $th->getMessage());
+
+            return response()->json([]);
         }
-
-        $DataCurrency = json_decode(
-            Helper_Redis::getValue(
-                Helper_Environment::getUserSessionID_System(),
-                "Currency"
-            ),
-            true
-        );
-
-        // return response()->json($DataCurrency['data']['data']);
-        return response()->json($DataCurrency['data']);
     }
 
     public function getAdvance(Request $request) 
