@@ -19,9 +19,9 @@
                     <tr>
                         <td style="border:1px solid #4B586A;color:#4B586A;text-align:center;"><?= $no++; ?></td>
                         <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['productCode'] ?? ''; ?> - <?= $dataDetail['productName'] ?? ''; ?></td>
-                        <td style="border:1px solid #4B586A;color:#4B586A;text-align:center;"><?= $dataDetail['uOM'] ?? ''; ?></td>
+                        <td style="border:1px solid #4B586A;color:#4B586A;text-align:center;"><?= $dataDetail['uom'] ?? ''; ?></td>
                         <td style="border:1px solid #4B586A;color:#4B586A;text-align:center;"><?= $dataDetail['quantity'] ?? ''; ?></td>
-                        <td style="border:1px solid #4B586A;color:#4B586A;text-align:center;"><?= $dataDetail['wHT'] ?? ''; ?></td>
+                        <td style="border:1px solid #4B586A;color:#4B586A;text-align:center;"><?= $dataDetail['wht'] ?? ''; ?></td>
                         <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['chartOfAccountCode'] ?? ''; ?> - <?= $dataDetail['chartOfAccountName'] ?? ''; ?></td>
                     </tr>
                 <?php } ?>

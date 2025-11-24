@@ -66,7 +66,7 @@ Route::get('FlushCache', 'Auth\LoginController@FlushCache')->name('FlushCache');
 Route::get('SessionCheckingLogout', 'Auth\LoginController@SessionCheckingLogout')->name('SessionCheckingLogout');
 Route::get('SessionCheckingRedis', 'Auth\LoginController@SessionCheckingRedis')->name('SessionCheckingRedis');
 
-Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], function () {    
+Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], function () {   
     // LOGOUT
     Route::get('logout', 'Auth\LoginController@logout')->name('logout');
     Route::get('SessionCheckingLogout', 'Auth\LoginController@SessionCheckingLogout')->name('SessionCheckingLogout');
@@ -230,6 +230,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::resource('AccountPayable', 'Finance\AccountPayableController');
 
     // JOURNAL
+    Route::get('ReportPaymentJournal', 'Finance\JournalController@ReportPaymentJournal')->name('Journal.ReportPaymentJournal');
     Route::resource('Journal', 'Finance\JournalController');
 
     // ARF 
@@ -556,9 +557,10 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::post('revisionMaterialReceive', 'logisticMaterialReceive@revisionMaterialReceive')->name('MR.revisionMaterialReceive');
     Route::get('createMaterialReceive', 'logisticMaterialReceive@index')->name('MR.createMaterialReceive');
 
-    // CO
-    Route::get('CO', 'Sales\CO\controllerSalesCo@index')->name('CO.index');
-    Route::get('revisionCo', 'Sales\CO\controllerSalesCo@revisionCo')->name('CO.revisionCo');
+    // CUSTOMER ORDER
+    Route::get('CustomerOrder/Download', 'Sales\CustomerOrderController@download')->name('CustomerOrder.Download');
+    Route::post('CustomerOrder/Import', 'Sales\CustomerOrderController@import')->name('CustomerOrder.Import');
+    Route::resource('CustomerOrder', 'Sales\CustomerOrderController');
 
     // SETTING
     Route::get('ColorMode', 'Setting\Mode\ColorModeController@ColorMode')->name('ColorMode');

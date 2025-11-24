@@ -812,7 +812,5 @@
     $(window).one('load', function(e) {
         GetARFNumberDetail(dataTable);
         getBudgetDetails(siteCode.value, dataTable);
-
-        getDocumentType("Advance Settlement Form");
     });
 </script>

@@ -1,5 +1,6 @@
 <script>
     let totalTaxBased                   = 0;
+    let totalVAT                        = 0;
     let totalWHT                        = 0;
     let totalDeduction                  = 0;
     let currentIndexPickCOA             = null;
@@ -20,6 +21,18 @@
     const depreciationRateYears         = document.getElementById('depreciation_rate_years');
     const depreciationCOANumber         = document.getElementById('depreciation_coa_number');
     const deductionValue                = document.getElementById('budget_details_deduction');
+
+    function calculateGrandTotal() {
+        let result = (
+            (parseFloat(totalTaxBased)   || 0) +
+            (parseFloat(totalVAT)        || 0)
+        ) - (
+            (parseFloat(totalWHT)        || 0) +
+            (parseFloat(totalDeduction)  || 0)
+        );
+
+        $("#invoice_details_grand_total").text(`Grand Total: ${decimalFormat(result)}`);
+    }
 
     function getDepreciationMethod() {
         $.ajaxSetup({
@@ -74,6 +87,9 @@
                     $('#depreciation_rate_percentage').val(data[0]?.rate);
                     $("#depreciation_rate_years").removeAttr("readonly");
                     $('#depreciation_rate_years').val(data[0]?.period);
+
+                    $("#containerDepreciationRate").show();
+                    $("#containerLoadingDepreciationRate").hide();
                 } else {
                     console.log('Data depreciation rate years not found.');
                 }
@@ -150,17 +166,22 @@
             $("#depreciation_rate_years").val("");
             $("#depreciation_coa_number").val("");
             $("#depreciation_coa_id").val("");
+            $("#depreciation_method").val("Select a Method");
         } else {
             $(".asset-components").css("display", "flex");
-            getDepreciationMethod();
         }
         $("#asset_message").hide();
+        calculateGrandTotal();
     }
 
     function vatValue(params) {
         if (params.value == "no") {
+            totalVAT = 0;
             $(".vat-components").css("display", "none");
+            $("#vat_number").val("");
+            $("#ppn").val("Sel..");
             $("#invoice_details_total_vat").text(`Total VAT: 0.00`);
+            calculateGrandTotal();
         } else {
             $(".vat-components").css("display", "flex");
         }
@@ -176,9 +197,11 @@
     }
 
     function onChangeVAT(params) {
+        totalVAT = (totalTaxBased * params.value) / 100;
         $("#ppn").css("border", "1px solid #ced4da");
         $("#vat_origin_message").hide();
-        document.getElementById('invoice_details_total_vat').textContent = `Total VAT: ${decimalFormat((totalTaxBased * params.value) / 100)}`;
+        document.getElementById('invoice_details_total_vat').textContent = `Total VAT: ${decimalFormat(totalVAT)}`;
+        calculateGrandTotal();
     }
 
     function getVAT() {
@@ -219,6 +242,7 @@
 
     function calculateTotal() {
         let total = 0;
+        let valueVatFix = isNaN(valueVAT.value) ? 0 : valueVAT.value;
         
         document.querySelectorAll('input[id^="total_ap"]').forEach(function(input) {
             let value = parseFloat(input.value.replace(/,/g, ''));
@@ -228,9 +252,10 @@
         });
 
         totalTaxBased = total;
+        totalVAT = (total * valueVatFix) / 100;
         
         document.getElementById('invoice_details_total').textContent = `Total Tax Based: ${decimalFormat(total)}`;
-        document.getElementById('invoice_details_total_vat').textContent = `Total VAT: ${decimalFormat((total * valueVAT.value) / 100)}`;
+        document.getElementById('invoice_details_total_vat').textContent = `Total VAT: ${decimalFormat(totalVAT)}`;
     }
 
     function summaryData() {
@@ -604,8 +629,9 @@
                                     document.getElementById('invoice_details_total_wht').textContent = `Total WHT: ${currencyTotal(result)}`;
                                 }
                             }
-
+                            
                             calculateTotal();
+                            calculateGrandTotal();
                             checkOneLineBudgetContents(key);
                         });
 
@@ -626,6 +652,7 @@
                                 }
                             }
 
+                            calculateGrandTotal();
                             checkOneLineBudgetContents(key);
                         });
                     });
@@ -806,6 +833,8 @@
         $('#myGetCategory').modal('hide');
 
         if (depreciationMethod.value != "Select a Method") {
+            $("#containerDepreciationRate").hide();
+            $("#containerLoadingDepreciationRate").show();
             getDepreciationRateYears(sysId, depreciationMethod.value);
         }
     });
@@ -843,7 +872,7 @@
             $("#depreciation_value_message").show();
         } else {
             if (val != depreciationRateValue) {
-                $("#depreciation_rate_years_id").val("");
+                // $("#depreciation_rate_years_id").val("");
             } else {
                 if (depreciationRateYears.value == depreciationYearsValue) {
                     $("#depreciation_rate_years_id").val(depreciationRateYearsIDValue);
@@ -864,7 +893,7 @@
             $("#depreciation_value_message").show();
         } else {
             if (val != depreciationYearsValue) {
-                $("#depreciation_rate_years_id").val("");
+                // $("#depreciation_rate_years_id").val("");
             } else {
                 if (depreciationRatePercentage.value == depreciationRateValue) {
                     $("#depreciation_rate_years_id").val(depreciationRateYearsIDValue);
@@ -913,14 +942,19 @@
         
         if (val <= totalTaxBased) {
             totalDeduction = val;
-            $(`#invoice_details_vat`).text(`Total Deduction: ${currencyTotal(val)}`);
+            $(`#invoice_details_total_deduction`).text(`Total Deduction: ${currencyTotal(val)}`);
             $("#budget_details_deduction").css("border", "1px solid #ced4da");
             $("#budget_details_deduction_message").hide();
         } else {
+            totalDeduction = 0;
             $(this).val("");
+            $(`#invoice_details_total_deduction`).text(`Total Deduction: 0.00`);
             $("#budget_details_deduction").css("border", "1px solid red");
             $("#budget_details_deduction_message").show();
+            ErrorNotif("Deduction is over!");
         }
+
+        calculateGrandTotal();
     });
 
     $('#tableAccountPayables').on('click', 'tbody tr', function() {
@@ -940,6 +974,8 @@
 
         if (value) {
             if (categoryID.value) {
+                $("#containerDepreciationRate").hide();
+                $("#containerLoadingDepreciationRate").show();
                 getDepreciationRateYears(categoryID.value, value);
             }
 
@@ -950,5 +986,6 @@
 
     $(window).one('load', function(e) {
         getVAT();
+        getDepreciationMethod();
     });
 </script>

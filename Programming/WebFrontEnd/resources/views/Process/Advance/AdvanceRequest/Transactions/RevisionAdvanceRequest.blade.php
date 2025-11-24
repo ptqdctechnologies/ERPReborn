@@ -24,7 +24,7 @@
       <div class="card">
         <form method="POST" action="{{ route('SelectWorkFlow') }}" id="FormUpdateAdvance">
           @csrf
-          <input type="hidden" name="DocumentTypeID" id="DocumentTypeID">
+          <input type="hidden" name="DocumentTypeID" id="DocumentTypeID" value="<?= $documentTypeRefID; ?>">
           <input type="hidden" name="var_combinedBudget_RefID" id="var_combinedBudget_RefID" value="<?= $headerAdvanceRevision['budgetCodeId']; ?>">
           <input type="hidden" name="advanceRequestID" id="advanceRequestID" value="<?= $advance_RefID; ?>">
 

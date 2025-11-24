@@ -32,7 +32,7 @@
                     </div>
                     <div>
                         <div class="input-group">
-                            <input id="payment_transfer_number" class="form-control" size="16" readonly style="border-radius:0; background-color: white; cursor: default;" value="<?= $header['paymentTransferName']; ?>">
+                            <input id="payment_transfer_number" class="form-control" size="16" readonly style="border-radius:0; cursor: default;" value="<?= $header['paymentTransferName']; ?> - (<?= $header['paymentTransferBankCode']; ?>) <?= $header['paymentTransferAccountNumber']; ?>">
                             <input id="payment_transfer_id" name="payment_transfer_id" style="border-radius:0;" class="form-control" value="<?= $header['paymentTransfer_RefID']; ?>" hidden>
                         </div>
                     </div>
@@ -176,7 +176,7 @@
                     </div>
                     <div>
                         <div class="input-group">
-                            <input id="category_number" class="form-control" size="15" value="<?= $header['categoryCode'] . ' - ' .$header['categoryName']; ?>" readonly style="border-radius:0; background-color: white; cursor: default;">
+                            <input id="category_number" class="form-control" size="15" value="<?= $header['categoryCode'] . ' - ' .$header['categoryName']; ?>" readonly style="border-radius:0; background-color: <?= $header['category_RefID'] ? '' : 'white'; ?>; cursor: default;">
                             <input id="category_id" name="category_id" style="border-radius:0;" class="form-control" value="<?= $header['category_RefID']; ?>" hidden>
                         </div>
                     </div>
@@ -201,6 +201,7 @@
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Depreciation Method</label>
                 <div class="col-sm-9 col-md-8 col-lg-4 p-0">
                     <div id="containerDepreciationMethod" style="display: none;">
+                        <input hidden id="depreciation_method_id" value="<?= $header['depreciationMethod_RefID']; ?>" />
                         <select class="form-control" name="depreciation_method" id="depreciation_method" style="border-radius:0;" type="text"></select>
                     </div>
                     <div id="containerLoadingDepreciationMethod">
@@ -217,16 +218,24 @@
             <div class="row asset-components" style="margin-top: 1rem; display: <?= ($header['asset'] === 'yes') ? 'flex' : 'none'; ?>;">
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Depreciation Rate</label>
                 <div class="col-sm-9 col-md-8 col-lg-4 p-0">
-                    <div class="row">
+                    <div class="row" id="containerDepreciationRate">
                         <div class="col-4">
-                            <input id="depreciation_rate_percentage" name="depreciation_rate_percentage" class="form-control number-without-characters" size="8" value="<?= $header['depreciationRate']; ?>" style="border-radius:0; cursor: default;">
+                            <input id="depreciation_rate_percentage" name="depreciation_rate_percentage" class="form-control number-without-characters" size="8" <?= $header['depreciationRate'] ? '' : 'readonly'; ?> value="<?= $header['depreciationRate']; ?>" style="border-radius:0; cursor: default;">
+                            <input id="depreciation_rate_years_id" name="depreciation_rate_years_id" hidden value="<?= $header['depreciationRateYears_RefID']; ?>">
                         </div>
                         <div class="col">
                             <div class="row">
                                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Years</label>
                                 <div class="col-6">
-                                    <input id="depreciation_rate_years" name="depreciation_rate_years" class="form-control number-without-characters" size="8" value="<?= $header['depreciationYears']; ?>" style="border-radius:0; cursor: default;">
+                                    <input id="depreciation_rate_years" name="depreciation_rate_years" class="form-control number-without-characters" size="8" <?= $header['depreciationYears'] ? '' : 'readonly'; ?> value="<?= $header['depreciationYears']; ?>" style="border-radius:0; cursor: default;">
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row m-0" id="containerLoadingDepreciationRate" style="display: none;">
+                        <div class="d-flex flex-column justify-content-center">
+                            <div class="spinner-border spinner-border-sm" role="status">
+                                <span class="sr-only">Loading...</span>
                             </div>
                         </div>
                     </div>
@@ -250,7 +259,7 @@
                     </div>
                     <div>
                         <div class="input-group">
-                            <input id="depreciation_coa_number" class="form-control" size="15" value="<?= $header['depreciationCOACode'] . ' - ' . $header['depreciationCOAName']; ?>" readonly style="border-radius:0; background-color: white; cursor: default;">
+                            <input id="depreciation_coa_number" class="form-control" size="15" value="<?= $header['depreciationCOACode'] . ' - ' . $header['depreciationCOAName']; ?>" readonly style="border-radius:0; background-color: <?= $header['depreciationCOA_RefID'] ? '' : 'white'; ?>; cursor: default;">
                             <input id="depreciation_coa_id" name="depreciation_coa_id" value="<?= $header['depreciationCOA_RefID']; ?>" style="border-radius:0;" class="form-control" hidden>
                         </div>
                     </div>

@@ -20,7 +20,7 @@
                                             <div class="input-group">
                                                 <form id="editForm" action="{{ route('AccountPayable.RevisionAccountPayable') }}" method="POST">
                                                     @csrf
-                                                    <input id="modal_account_payable_id" style="border-radius:0;" name="modal_account_payable_id" type="hidden" class="form-control">
+                                                    <input id="modal_account_payable_id" style="border-radius:0;" name="modal_account_payable_id" type="hidden" class="form-control" value="211000000000166">
                                                 </form>
 
                                                 <div class="input-group-append" style="cursor: pointer;">

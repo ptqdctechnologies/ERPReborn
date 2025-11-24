@@ -69,18 +69,18 @@
             <div id="invoice_details_total_wht" class="col text-right" style="margin-bottom: 0.6rem;">
                 Total WHT: 0.00
             </div>
-            <div id="invoice_details_vat" class="col text-right" style="margin-bottom: 0.6rem;">
+            <div id="invoice_details_total_deduction" class="col text-right" style="margin-bottom: 0.6rem;">
                 Total Deduction: 0.00
             </div>
         </div>
     </div>
-
+    
     <hr class="m-0" />
     
     <div class="row">
         <div class="col"></div>
         <div class="col" style="margin-right: 20px; font-size: 0.77rem; color: #212529; font-weight: 600;">
-            <div id="invoice_details_total" class="col text-right" style="margin-top: 0.6rem;">
+            <div id="invoice_details_grand_total" class="col text-right" style="margin-top: 0.6rem;">
                 Grand Total: 0.00
             </div>
         </div>
