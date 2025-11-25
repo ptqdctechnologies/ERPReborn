@@ -26,17 +26,10 @@
         const tbody = document.getElementById("table_tbody_add_manually");
 
         const newRow = {
-            ref_number_id: "",
-            ref_number_name: "",
-            debit_credit: "",
+            sub_budget_id: "",
+            sub_budget_name: "",
             value: "",
-            unpaid: "",
-            payment: "",
-            balance: "",
-            coa_id: "",
-            coa_name: "",
-            attachment: null,
-            attachment_url: ""
+            note: "",
         };
 
         dataAddManual.push(newRow);
@@ -51,10 +44,6 @@
 
     function updateField(index, field, value) {
         dataAddManual[index][field] = value;
-
-        if (field == "debit_credit") {
-            totalDebitCredit();
-        }
         
         console.log("Updated:", dataAddManual); // untuk debugging
     }
@@ -89,50 +78,34 @@
                             <!-- ICON MINUS -->
                             <div class="icon-minus d-flex align-items-center justify-content-center" 
                                 style="width:20px;height:20px;border-radius:100%;background-color:red;margin:2px;cursor:pointer;display:${index === dataAddManual.length - 1 ? 'none !important' : 'flex'};"
-                                onclick="{removeRow(${index});totalDebitCredit();totalPayments();}">
+                                onclick="removeRow(${index})">
                                 <i class="fas fa-minus" style="color:#fff;"></i>
                             </div>
                         </div>
                     </td>
-    
                     <td>
                         <div class="input-group">
                             <div class="input-group-append">
                                 <span class="input-group-text form-control" style="cursor:pointer;">
-                                    <a data-toggle="modal" data-target="${index === dataAddManual.length - 1 ? '#' : '#myAllTransactions'}" onclick="pickRefNumber(${index})">
-                                        <i class="fas fa-search"></i>
+                                    <a href="javascript:;" data-toggle="modal" data-target="#mySites" onclick="pickSubBudget(${index})" style="color: #000;">
+                                        <i class="fas fa-gift"></i>
                                     </a>
                                 </span>
                             </div>
-                            <input type="hidden" id="ref_number_id_${index}" value="${row.ref_number_id}">
-                            <input type="text" id="ref_number_name_${index}" class="form-control" readonly
-                                value="${row.ref_number_name}"
-                                onchange="updateField(${index}, 'ref_number_name', this.value)" style="background-color: ${index === dataAddManual.length - 1 ? '' : 'white'};">
+                            <input type="hidden" id="sub_budget_id${index}" value="${row.sub_budget_id}">
+                            <input type="text" id="sub_budget_name${index}" class="form-control" readonly value="${row.sub_budget_name}" onchange="updateField(${index}, 'sub_budget_name', this.value)" style="background-color: white;">
                         </div>
                     </td>
-    
                     <td>
-                        <input type="text" id="value_${index}" class="form-control" value="${row.ref_number_name}" onchange="updateField(${index}, 'ref_number_name', this.value)">
+                        <input type="text" id="value${index}" class="form-control form-control number-without-negative" value="${row.value}" onchange="updateField(${index}, 'value', this.value)">
                     </td>
-    
                     <td>
-                        <input type="number" class="form-control" readonly value="${row.value}" onchange="updateField(${index}, 'value', this.value)">
+                        <textarea id="note${index}" class="form-control" onchange="updateField(${index}, 'note', this.value)">${row.note}</textarea>
                     </td>
                 `;
             }
 
             tbody.appendChild(tr);
-
-            $(`#debit_credit_${index}`).on('change', function() {
-                totalPayments();
-            });
-
-            $(`#payment${index}`).on('keyup', function() {
-                let payment     = $(this).val().replace(/,/g, '');
-                let typePayment = $(`#debit_credit_${index}`).val();
-
-                totalPayments();
-            });
         });
     }
 
@@ -247,7 +220,7 @@
                                     <div class="input-group">
                                         <div class="input-group-append">
                                             <span style="border-radius:0;cursor:pointer;" class="input-group-text form-control">
-                                                <a data-toggle="modal" data-target="#mySites" onclick="pickSubBudget(${index})">
+                                                <a href="javascript:;" data-toggle="modal" data-target="#mySites" onclick="pickSubBudget(${index})">
                                                     <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="box${index}">
                                                 </a>
                                             </span>
@@ -347,6 +320,9 @@
         $(`#sub_budget_id${indexSubBudget}`).val(sysId);
         $(`#sub_budget_name${indexSubBudget}`).val(`${siteCode} - ${siteName}`);
         $(`#sub_budget_name${indexSubBudget}`).css('border', '1px solid #ced4da');
+
+        updateField(indexSubBudget, 'sub_budget_id', sysId);
+        updateField(indexSubBudget, 'sub_budget_name', `${siteCode} - ${siteName}`);
 
         $('#mySites').modal('hide');
     });
