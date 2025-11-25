@@ -3,6 +3,7 @@
 @include('Partials.navbar')
 @include('Partials.sidebar')
 @include('getFunction.getProjects')
+@include('getFunction.getSites')
 @include('getFunction.getCurrencies')
 
 <div class="content-wrapper">

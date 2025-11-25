@@ -1,5 +1,7 @@
 <script>
-    let dataAddManual = [];
+    let data            = [];
+    let dataAddManual   = [];
+    let indexSubBudget  = null;
 
     function detailAddManual() {
         dataAddManual = [];
@@ -134,6 +136,44 @@
         });
     }
 
+    function findByName(nameToFind) {
+        const normalizeString = (str) => {
+            return str
+                .toLowerCase()                   // Mengubah menjadi lowercase
+                .trim()                           // Menghapus spasi ekstra
+                .replace(/[^\w\s]/g, '');         // Menghapus simbol selain huruf dan angka
+        };
+
+        return data.find(item => normalizeString(item.name) == normalizeString(nameToFind));
+    }
+
+    function convertSubBudgetToVariable() {
+        const rows = document.querySelectorAll('#tableSites tbody tr');
+
+        rows.forEach(row => {
+            const cells = row.querySelectorAll('td');
+            const sys_id = row.querySelector('input').value; // Ambil sys_id dari input
+            const code = cells[1].textContent.trim(); // Ambil kode dari kolom kedua
+            const name = cells[2].textContent.trim(); // Ambil nama dari kolom ketiga
+
+            // Tambahkan objek ke dalam array
+            data.push({
+                sys_id: sys_id,
+                code: parseInt(code), // Pastikan code adalah angka
+                name: name
+            });
+        });
+    }
+
+    function pickSubBudget(index) {
+        indexSubBudget = index;
+    }
+
+    function submitJournalDetails() {
+        // const testing = document.getElementById(`sub_budget_name${indexSubBudget}`);
+        // console.log('testing', testing.value);
+    }
+
     $('#excel_file').on('change', function() {
         let fileName = this.files[0].name;
         $('#excel_name').val(fileName);
@@ -154,14 +194,66 @@
             success: function(res) {
                 $('#table_import_from_excel tbody').empty(); // bersihkan table
 
-                res.rows.slice(1).forEach(row => {
-                    $('#table_import_from_excel tbody').append(`
-                        <tr>
-                            <td>${row[1]}</td>
-                            <td>${row[2]}</td>
-                            <td>${row[3]}</td>
-                        </tr>
-                    `);
+                res.rows.slice(1).forEach((row, index) => {
+                    const result = findByName(row[1]);
+
+                    if (result) {
+                        $('#table_import_from_excel tbody').append(`
+                            <tr>
+                                <td>
+                                    <div class="input-group">
+                                        <div class="input-group-append">
+                                            <span style="border-radius:0;cursor:pointer;" class="input-group-text form-control">
+                                                <a data-toggle="modal" data-target="#mySites" onclick="pickSubBudget(${index})">
+                                                    <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="box${index}">
+                                                </a>
+                                            </span>
+                                        </div>
+                                        <input id="sub_budget_id${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" hidden value="${result.sys_id}" />
+                                        <input id="sub_budget_name${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" readonly value="${result.code} - ${result.name}" />
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="input-group">
+                                        <input class="form-control number-without-negative" id="price_req${index}" autocomplete="off" style="border-radius:0px;" value="${row[2]}" />
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="input-group">
+                                        <textarea id="note${index}" class="form-control">${row[3]}</textarea>
+                                    </div>
+                                </td>
+                            </tr>
+                        `);
+                    } else {
+                        $('#table_import_from_excel tbody').append(`
+                            <tr>
+                                <td>
+                                    <div class="input-group">
+                                        <div class="input-group-append">
+                                            <span style="border-radius:0;cursor:pointer;" class="input-group-text form-control">
+                                                <a data-toggle="modal" data-target="#mySites" onclick="pickSubBudget(${index})">
+                                                    <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="box${index}">
+                                                </a>
+                                            </span>
+                                        </div>
+                                        <input id="sub_budget_id${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" hidden />
+                                        <input id="sub_budget_name${index}" style="border-radius:0;width:130px;background-color:white;border-color:red;" class="form-control" readonly value="${row[1]}" />
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="input-group">
+                                        <input class="form-control number-without-negative" id="price_req${index}" autocomplete="off" style="border-radius:0px;" value="${row[2]}" />
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="input-group">
+                                        <textarea id="note${index}" class="form-control">${row[3]}</textarea>
+                                    </div>
+                                </td>
+                            </tr>
+                        `);
+                    }
                 });
             }
         });
@@ -177,6 +269,22 @@
         $("#project_name").css('background-color', '#e9ecef');
 
         $('#myProjects').modal('hide');
+
+        getSites(sysId);
+    });
+
+    $('#tableSites').on('click', 'tbody tr', function() {
+        if (indexSubBudget === null) return;
+
+        let sysId       = $(this).find('input[data-trigger="sys_id_site"]').val();
+        let siteCode    = $(this).find('td:nth-child(2)').text();
+        let siteName    = $(this).find('td:nth-child(3)').text();
+
+        $(`#sub_budget_id${indexSubBudget}`).val(sysId);
+        $(`#sub_budget_name${indexSubBudget}`).val(`${siteCode} - ${siteName}`);
+        $(`#sub_budget_name${indexSubBudget}`).css('border', '1px solid #ced4da');
+
+        $('#mySites').modal('hide');
     });
 
     $('#tableCurrencies').on('click', 'tbody tr', async function() {

@@ -5,7 +5,7 @@
       <div class="row">
         <label class="col-sm-3 col-md-4 col-lg-3 col-form-label p-0">CO File</label>
         <div class="col-5 d-flex">
-          <div>
+          <div onclick="convertSubBudgetToVariable()">
             <span class="input-group-text form-control" style="border-radius: 0;">
               <label id="uploadCOFile" style="display: block;margin-bottom: 0; cursor: pointer;">
                 <i class="fas fa-paperclip"></i>
