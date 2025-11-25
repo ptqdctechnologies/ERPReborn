@@ -72,13 +72,13 @@
               <table>
                 <tr>
                   <td>
-                    <button class="btn btn-default btn-sm" type="submit">
+                    <button class="btn btn-default btn-sm" type="submit" onclick="ShowLoading()">
                       <img src="{{ asset('AdminLTE-master/dist/img/backwards.png') }}" width="12" alt="" title="Show"> Show
                     </button>
                   </td>
                  </form>
 
-                  <form method="post" enctype="multipart/form-data" action="{{ route('AdvanceSettlement.PrintExportReportAdvanceSettlementSummary') }}">
+                  <form method="post" enctype="multipart/form-data" action="{{ route('AdvanceSettlement.PrintExportReportAdvanceSettlementSummary') }}" id="exportForm">
                     @csrf
                     <td>
                       <select name="print_type" id="print_type" class="form-control">
@@ -87,7 +87,7 @@
                       </select>
                     </td>
                     <td>
-                      <button class="btn btn-default btn-sm" type="submit">
+                      <button class="btn btn-default btn-sm" type="submit" onclick="showLoadingAndSubmit(event)">
                         <img src="{{ asset('AdminLTE-master/dist/img/printer.png') }}" width="17" alt="">
                       </button>
                     </td>
