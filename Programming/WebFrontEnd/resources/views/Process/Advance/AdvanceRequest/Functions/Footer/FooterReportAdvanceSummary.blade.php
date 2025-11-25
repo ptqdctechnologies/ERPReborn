@@ -6,6 +6,17 @@
 
 
 <script>
+    function showLoadingAndSubmit(event) {
+        event.preventDefault(); 
+
+        document.getElementById('exportForm').submit();
+        ShowLoading();
+
+        setTimeout(function() {
+            HideLoading();
+        }, 2000);
+    }
+    
     $('#tableGetProject tbody').on('click', 'tr', function() {
 
 
