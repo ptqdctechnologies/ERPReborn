@@ -215,7 +215,7 @@
                                 </td>
                                 <td>
                                     <div class="input-group">
-                                        <input class="form-control number-without-negative" id="price_req${index}" autocomplete="off" style="border-radius:0px;" value="${row[2]}" />
+                                        <input class="form-control number-without-negative" id="price_req${index}" autocomplete="off" style="border-radius:0px;" value="${currencyTotal(row[2])}" />
                                     </div>
                                 </td>
                                 <td>
@@ -243,7 +243,7 @@
                                 </td>
                                 <td>
                                     <div class="input-group">
-                                        <input class="form-control number-without-negative" id="price_req${index}" autocomplete="off" style="border-radius:0px;" value="${row[2]}" />
+                                        <input class="form-control number-without-negative" id="price_req${index}" autocomplete="off" style="border-radius:0px;" value="${currencyTotal(row[2])}" />
                                     </div>
                                 </td>
                                 <td>
@@ -267,10 +267,31 @@
         $("#project_id").val(sysId);
         $("#project_name").val(`${code} - ${name}`);
         $("#project_name").css('background-color', '#e9ecef');
+        
+        $("#type_import_from_excel").prop("disabled", false);
+        $("#type_add_manually").prop("disabled", false);
+
+        $("#myProjectsTrigger").prop("disabled", true);
+        $("#myProjectsTrigger").css("cursor", "not-allowed");
 
         $('#myProjects').modal('hide');
 
         getSites(sysId);
+    });
+
+    $('#tableCurrencies').on('click', 'tbody tr', async function() {
+        let sysId   = $(this).find('input[data-trigger="sys_id_currencies"]').val();
+        let code    = $(this).find('td:nth-child(2)').text();
+        let name    = $(this).find('td:nth-child(3)').text();
+
+        $("#currency_id").val(sysId);
+        $("#currency_name").val(`${code} - ${name}`);
+        $("#currency_name").css('background-color', '#e9ecef');
+
+        $("#myCurrenciesTrigger").prop("disabled", true);
+        $("#myCurrenciesTrigger").css("cursor", "not-allowed");
+
+        $('#myCurrencies').modal('hide');
     });
 
     $('#tableSites').on('click', 'tbody tr', function() {
@@ -285,18 +306,6 @@
         $(`#sub_budget_name${indexSubBudget}`).css('border', '1px solid #ced4da');
 
         $('#mySites').modal('hide');
-    });
-
-    $('#tableCurrencies').on('click', 'tbody tr', async function() {
-        let sysId   = $(this).find('input[data-trigger="sys_id_currencies"]').val();
-        let code    = $(this).find('td:nth-child(2)').text();
-        let name    = $(this).find('td:nth-child(3)').text();
-
-        $("#currency_id").val(sysId);
-        $("#currency_name").val(`${code} - ${name}`);
-        $("#currency_name").css('background-color', '#e9ecef');
-
-        $('#myCurrencies').modal('hide');
     });
 
     $(window).one('load', function() {

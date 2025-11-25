@@ -5,10 +5,10 @@
       <div class="row">
         <label class="col-sm-3 col-md-4 col-lg-3 col-form-label p-0">Budget Code</label>
         <div class="col-5 d-flex">
-          <div>
+          <div id="myProjectsTriggerContainer">
             <span style="border-radius:0;" class="input-group-text form-control">
-              <a href="javascript:;" id="myProjectSecondTrigger" data-toggle="modal" data-target="#myProjects" style="display: block;">
-                <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="myProjectSecondTrigger">
+              <a href="javascript:;" id="myProjectsTrigger" data-toggle="modal" data-target="#myProjects" style="display: block;">
+                <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="myProjectsTriggers">
               </a>
 
               <div id="loadingBudget" class="spinner-border spinner-border-sm" role="status" style="display: none;">
@@ -65,13 +65,13 @@
       <div class="row">
         <div class="form-group d-flex" style="gap: 20%;">
           <div class="custom-control custom-radio" style="min-width: max-content;">
-            <input type="radio" id="type_import_from_excel" class="custom-control-input" name="type_customer_order" value="type_import_from_excel" onclick="typeValue(this)">
+            <input type="radio" id="type_import_from_excel" class="custom-control-input" name="type_customer_order" value="type_import_from_excel" disabled onclick="typeValue(this)">
             <label for="type_import_from_excel" class="custom-control-label">
               <div style="margin-top: 6%;">Import from Excel</div>
             </label>
           </div>
           <div class="custom-control custom-radio" style="min-width: max-content;">
-            <input type="radio" id="type_add_manually" class="custom-control-input" name="type_customer_order" value="type_add_manually" onclick="typeValue(this)">
+            <input type="radio" id="type_add_manually" class="custom-control-input" name="type_customer_order" value="type_add_manually" disabled onclick="typeValue(this)">
             <label for="type_add_manually" class="custom-control-label">
               <div style="margin-top: 6%;">Add Manually</div>
             </label>
