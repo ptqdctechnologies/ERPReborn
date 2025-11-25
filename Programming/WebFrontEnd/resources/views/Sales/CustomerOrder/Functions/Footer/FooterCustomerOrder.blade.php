@@ -147,21 +147,64 @@
         return data.find(item => normalizeString(item.name) == normalizeString(nameToFind));
     }
 
-    function convertSubBudgetToVariable() {
-        const rows = document.querySelectorAll('#tableSites tbody tr');
+    function convertSubBudgetToVariable(Project_RefID) {
+        $('#tableSites tbody').empty();
+        $(".loadingSites").show();
+        $(".errorSitesMessageContainer").hide();
 
-        rows.forEach(row => {
-            const cells = row.querySelectorAll('td');
-            const sys_id = row.querySelector('input').value; // Ambil sys_id dari input
-            const code = cells[1].textContent.trim(); // Ambil kode dari kolom kedua
-            const name = cells[2].textContent.trim(); // Ambil nama dari kolom ketiga
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        
+        var keys = 0;
+        $.ajax({
+            type: 'GET',
+            url: '{!! route("getNewSite") !!}?project_code=' + Project_RefID,
+            success: function(response) {
+                $(".loadingSites").hide();
 
-            // Tambahkan objek ke dalam array
-            data.push({
-                sys_id: sys_id,
-                code: parseInt(code), // Pastikan code adalah angka
-                name: name
-            });
+                var no = 1;
+                var table = $('#tableSites').DataTable();
+                table.clear();
+
+                if (Array.isArray(response) && response.length > 0) {
+                    $.each(response, function(key, val) {
+                        keys += 1;
+                        table.row.add([
+                            '<input id="sys_id_site' + keys + '" value="' + val.Sys_ID + '" data-trigger="sys_id_site" type="hidden">' + no++,
+                            val.Code || '-',
+                            val.Name || '-',
+                        ]).draw();
+
+                        data.push({
+                            sys_id: val.Sys_ID,
+                            code: val.Code,
+                            name: val.Name
+                        });
+                    });
+
+                    $("#tableSites_length").show();
+                    $("#tableSites_filter").show();
+                    $("#tableSites_info").show();
+                    $("#tableSites_paginate").show();
+                } else {
+                    $(".errorSitesMessageContainer").show();
+                    $("#errorSitesMessage").text(`No Data Available in Table.`);
+
+                    $("#tableSites_length").hide();
+                    $("#tableSites_filter").hide();
+                    $("#tableSites_info").hide();
+                    $("#tableSites_paginate").hide();
+                }
+            },
+            error: function (textStatus, errorThrown) {
+                $('#tableSites tbody').empty();
+                $(".loadingSites").hide();
+                $(".errorSitesMessageContainer").show();
+                $("#errorSitesMessage").text(`[${textStatus.status}] ${textStatus.responseJSON.message}`);
+            }
         });
     }
 
@@ -259,7 +302,7 @@
         });
     });
 
-    $('#tableProjects').on('click', 'tbody tr', async function() {
+    $('#tableProjects').on('click', 'tbody tr', function() {
         let sysId   = $(this).find('input[data-trigger="sys_id_project"]').val();
         let code    = $(this).find('td:nth-child(2)').text();
         let name    = $(this).find('td:nth-child(3)').text();
@@ -276,10 +319,10 @@
 
         $('#myProjects').modal('hide');
 
-        getSites(sysId);
+        convertSubBudgetToVariable(sysId);
     });
 
-    $('#tableCurrencies').on('click', 'tbody tr', async function() {
+    $('#tableCurrencies').on('click', 'tbody tr', function() {
         let sysId   = $(this).find('input[data-trigger="sys_id_currencies"]').val();
         let code    = $(this).find('td:nth-child(2)').text();
         let name    = $(this).find('td:nth-child(3)').text();
