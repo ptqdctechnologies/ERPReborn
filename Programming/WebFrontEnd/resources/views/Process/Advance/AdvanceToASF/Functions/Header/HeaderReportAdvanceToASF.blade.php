@@ -102,7 +102,7 @@
         </select>
       </div>
       <div class="col-sm-9 col-md-8 col-lg-7 p-0">
-        <button class="btn btn-default btn-sm" type="submit">
+        <button class="btn btn-default btn-sm" type="submit" onclick="showLoadingAndSubmit(event)">
           <span>
             <img src="{{ asset('AdminLTE-master/dist/img/printer.png') }}" width="17" alt="" />
           </span>
