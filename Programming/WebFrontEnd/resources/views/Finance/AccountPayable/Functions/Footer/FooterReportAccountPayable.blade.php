@@ -1,4 +1,15 @@
 <script>
+    function showLoadingAndSubmit(event) {
+        event.preventDefault(); 
+
+        document.getElementById('exportForm').submit();
+        ShowLoading();
+
+        setTimeout(function() {
+            HideLoading();
+        }, 2000);
+    }
+    
     $("#mySiteCodeSecondTrigger").prop("disabled", true);
 
     $('#tableGetProjectSecond').on('click', 'tbody tr', function() {
