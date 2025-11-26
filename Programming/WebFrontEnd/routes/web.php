@@ -558,6 +558,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('createMaterialReceive', 'logisticMaterialReceive@index')->name('MR.createMaterialReceive');
 
     // CUSTOMER ORDER
+    Route::get('ReportCustomerOrderSummary', 'Sales\CustomerOrderController@ReportCustomerOrderSummary')->name('CustomerOrder.ReportSummary');
     Route::post('CustomerOrderRevision', 'Sales\CustomerOrderController@Revision')->name('CustomerOrder.Revision');
     Route::get('CustomerOrderDownload', 'Sales\CustomerOrderController@download')->name('CustomerOrder.Download');
     Route::post('CustomerOrderImport', 'Sales\CustomerOrderController@import')->name('CustomerOrder.Import');
