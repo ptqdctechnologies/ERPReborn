@@ -352,7 +352,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : getDataList_DeliveryOrderDetail_LatestVersion                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2025-10-24                                                                                           |
+        | ▪ Last Update     : 2025-11-25                                                                                           |
         | ▪ Creation Date   : 2025-03-27                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Detail Pesanan Pengiriman (DO) Versi Terakhir                                     |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -513,7 +513,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                                 $varReturn['data'][$idxArray]['combinedBudget_RefID'] = $value["CombinedBudget_RefID_TblCombinedBudget"];
                                 $varReturn['data'][$idxArray]['combinedBudgetSection_RefID'] = $value["CombinedBudgetSection_RefID_TblCombinedBudget"];
                             } elseif ((($value["UnderlyingDetail_RefID"] / 1000000000000) % 10000) === 173) {
-                                $value["Type"] === 1 || $value["Type"] === 2 ? $varReturn['data'][$idxArray]['quantity'] = $value["Quantity_TblWarehouseInboundDetail"] - ($value["Quantity_WarehouseOutboundDetail"] + $value["QtyReq"]) : $varReturn['data'][$idxArray]['quantity'] = 0;
+                                $varReturn['data'][$idxArray]['quantity'] = $value["Type"] === 1 || $value["Type"] === 2 ? $value["Quantity_TblWarehouseInboundDetail"] - ($value["Quantity_WarehouseOutboundDetail"] + $value["QtyReq"]) : 0;
                                 $varReturn['data'][$idxArray]['quantityUnit_RefID'] = $value["QuantityUnit_RefID_TblWarehouseInboundDetail"];
                                 $varReturn['data'][$idxArray]['productUnitPriceCurrency_RefID'] = $value["ProductUnitPriceCurrency_RefID_TblWarehouseInboundDetail"];
                                 $varReturn['data'][$idxArray]['productUnitPriceBaseCurrencyValue'] = $value["ProductUnitPriceBaseCurrencyValue_TblWarehouseInboundDetail"];
@@ -602,6 +602,12 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                                 $varReturn['data'][$idxArray]['transporterFax'] = null;
                             }
                             $varReturn['data'][$idxArray]['qtyAvail'] = in_array($value["DeliveryOrderDetail_ID"], $listIdDODetail) ? round($value["QtyReq"] - $qtyWarehouseInboundOrderDetail[$value["DeliveryOrderDetail_ID"]]["Qty"], 2) : null;
+                            $varReturn['data'][$idxArray]['purchaseOrderNumber'] = $value["DocumentNumber_TblPurchaseOrder"];
+                            $varReturn['data'][$idxArray]['qtyBudget'] = $value["Quantity_CombinedBudget_New"];
+                            $varReturn['data'][$idxArray]['qtyAvailBudget'] = $value["QtyAvailBudget"];
+                            $varReturn['data'][$idxArray]['priceBudget'] = $value["UnitPriceCurrencyValue_CombinedBudget_New"];
+                            $varReturn['data'][$idxArray]['qtyStock'] = $value["Type"] === 1 ? $value["Quantity_TblWarehouseInboundDetail"] - ($value["Quantity_WarehouseOutboundDetail"] + $value["QtyReq"]) : 0;
+                            $varReturn['data'][$idxArray]['stockPrice'] = $value["StockPrice"];
                             $varReturn['data'][$idxArray]['orderSequence'] = $idxArray + 1;
                             $idxArray++;
                         }
