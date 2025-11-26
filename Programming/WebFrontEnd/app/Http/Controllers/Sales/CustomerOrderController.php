@@ -64,4 +64,9 @@ class CustomerOrderController extends Controller
             //throw $th;
         }
     }
+
+    public function ReportCustomerOrderSummary(Request $request) 
+    {
+        return view('Sales.CustomerOrder.Reports.ReportCustomerOrderSummary');
+    }
 }
