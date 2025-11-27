@@ -212,11 +212,23 @@
     //     });
     // }
 
+    function showLoadingAndSubmit(event) {
+        event.preventDefault(); 
+
+        document.getElementById('exportForm').submit();
+        ShowLoading();
+
+        setTimeout(function() {
+            HideLoading();
+        }, 2000);
+    }
+
     function validationForm(params) {
         const isProjectIDNotEmpty = projectID.value.trim() !== '';
 
         if (isProjectIDNotEmpty) {
             // advanceToASFStore();
+            ShowLoading();
             $('#reportAdvanceToASFForm').submit();
         } else {
             $("#project_name").css("border", "1px solid red");

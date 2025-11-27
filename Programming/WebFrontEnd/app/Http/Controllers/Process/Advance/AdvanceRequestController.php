@@ -18,6 +18,7 @@ use App\Helpers\ZhtHelper\System\Helper_Environment;
 use App\Helpers\ZhtHelper\Cache\Helper_Redis;
 use App\Services\Process\Advance\AdvanceRequestService;
 use App\Services\WorkflowService;
+use Carbon\Carbon;
 
 class AdvanceRequestController extends Controller
 {
@@ -658,22 +659,24 @@ class AdvanceRequestController extends Controller
             $requesterID    = $request->requester_id;
             $date           = $request->date;
 
+            if ($date) {
+                $dates      = explode(' - ', $date);
+                $startDate  = Carbon::createFromFormat('m/d/Y', trim($dates[0]))->startOfDay()->format('Y-m-d');
+                $endDate    = Carbon::createFromFormat('m/d/Y', trim($dates[1]))->endOfDay()->format('Y-m-d');
+            }
+
             $response = Helper_APICall::setCallAPIGateway(
                 Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken, 
                 'report.form.documentForm.finance.getAdvanceToAdvanceSettlementSummary', 
                 'latest',
                 [
-                    'parameter' => [
-                        'CombinedBudgetCode'                => $projectCode,
+                    'parameter'     => [
+                        'CombinedBudgetCode'                => $projectCode ?? null,
                         'CombinedBudgetSectionCode'         => $siteCode ?? null,
-                        'RequesterWorkerJobsPosition_RefID' => $requesterID ?? null 
-                    ],
-                    'SQLStatement' => [
-                        'pick' => null,
-                        'sort' => null,
-                        'filter' => null,
-                        'paging' => null
+                        'RequesterWorkerJobsPosition_RefID' => $requesterID ?? null,
+                        'StartDate'                         => $date ? $startDate : NULL,
+                        'EndDate'                           => $date ? $endDate : NULL,
                     ]
                 ]
             );

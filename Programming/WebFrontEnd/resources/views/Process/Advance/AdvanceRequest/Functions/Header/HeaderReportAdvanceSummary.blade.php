@@ -1,141 +1,108 @@
-<div class="col-12 ShowDocument">
-  <div class="card">
-    <form method="post" enctype="multipart/form-data" action="{{ route('AdvanceRequest.ReportAdvanceSummaryStore') }}" id="FormSubmitReportAdvanceSummary">
-      @csrf
-      <div class="card-body">
-        <div class="row">
-          <div class="col-md-2">
-            <div class="form-group">
-              <table>
-                <tr>
-                  <th style="padding-top: 7px;"><label>Budget&nbsp;</label></th>
-                  <td>
-                    <div class="input-group">
-                      <input id="project_id" hidden name="project_id">
-                      <input id="project_code" style="border-radius:0;background-color:white;" data-toggle="modal" data-target="#myProject" class="form-control myProject" readonly name="project_code">
-                      <div class="input-group-append">
-                        <span style="border-radius:0;" class="input-group-text form-control">
-                          <a href="#" id="project_code_popup" data-toggle="modal" data-target="#myProject" class="myProject"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
-                        </span>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-              </table>
+<div class="col-sm-12 col-md-12 col-lg-3">
+    <!-- BUDGET -->
+    <div class="row p-0 align-items-center" style="margin-bottom: 1rem;">
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Budget</label>
+        <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
+            <div>
+                <span id="myProjectsTrigger" class="input-group-text form-control" data-toggle="modal" data-target="#myProjects" style="border-radius:0;cursor:pointer;">
+                    <i class="fas fa-gift"></i>
+                </span>
             </div>
-          </div>
-          <div class="col-md-2">
-            <div class="form-group">
-              <table>
-                <tr>
-                  <th style="padding-top: 7px;"><label>Sub&nbsp;Budget&nbsp;</label></th>
-                  <td>
-                    <div class="input-group">
-                      <input id="site_id" hidden name="site_id">
-                      <input id="site_code" style="border-radius:0;background-color:white;" data-toggle="modal" data-target="#mySiteCode" class="form-control mySiteCode" readonly name="site_code">
-                      <div class="input-group-append">
-                        <span style="border-radius:0;" class="input-group-text form-control">
-                          <a href="#" id="site_code_popup" data-toggle="modal" data-target="#mySiteCode" class="mySiteCode"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
-                        </span>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-              </table>
+            <div>
+                <input type="text" id="budget_name" class="form-control" style="border-radius:0;background-color:white;" name="budget_name" readonly />
+                <input type="hidden" id="budget_id" class="form-control" style="border-radius:0;" name="budget_id" />
             </div>
-          </div>
-          <div class="col-md-2">
-            <div class="form-group">
-              <table>
-                <tr>
-                  <th style="padding-top: 7px;"><label>Requester&nbsp;</label></th>
-                  <td>
-                    <div class="input-group">
-                      <input id="requester_id" hidden name="requester_id">
-                      <input id="requester" style="border-radius:0;background-color:white;" data-toggle="modal" data-target="#myWorker" class="form-control myWorker" readonly name="Requester">
-                      <div class="input-group-append">
-                        <span style="border-radius:0;" class="input-group-text form-control">
-                          <a href="#" id="requester_popup" data-toggle="modal" data-target="#myWorker" class="myWorker"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
-                        </span>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-              </table>
-            </div>
-          </div>
-          <div class="col-md-2">
-            <div class="form-group">
-              <table>
-                <tr>
-                  <th style="padding-top: 7px;"><label>Beneficiary&nbsp;</label></th>
-                  <td>
-                    <div class="input-group">
-                      <input id="beneficiary_id" hidden name="beneficiary_id">
-                      <input id="beneficiary" style="border-radius:0;background-color:white;" data-toggle="modal" data-target="#myBeneficiary" class="form-control myBeneficiary" readonly name="beneficiary">
-                      <div class="input-group-append">
-                        <span style="border-radius:0;" class="input-group-text form-control">
-                          <a href="#" id="beneficiary_popup" data-toggle="modal" data-target="#myBeneficiary" class="myBeneficiary"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
-                        </span>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-              </table>
-            </div>
-          </div>
-          <div class="col-md-2">
-            <div class="form-group">
-              <table>
-                <tr>
-                  <th style="padding-top: 7px;"><label>Date</label></th>
-                  <td>
-                    <div class="input-group">
-                        <input readonly type="text" class="form-control" id="reservation" name="date" value="<?= $dataReport['date'] ?? ''; ?>" />
-                        <div class="input-group-prepend" style="margin-right: 0px; width: 27.78px;cursor: pointer;height: 21.8px;">
-                            <span class="input-group-text" id="reservation-icon">
-                                <i class="far fa-calendar-alt" style="width: 13px; height: 13px;"></i>
-                            </span>
-                        </div>
-                    </div>
-                  </td>
-                </tr>
-              </table>
-            </div>
-          </div>
-          <div class="col-md-2">
-            <div class="form-group">
-              <table>
-                <tr>
-                  <td>
-                    <button class="btn btn-default btn-sm" type="submit">
-                      <img src="{{ asset('AdminLTE-master/dist/img/backwards.png') }}" width="12" alt="" title="Show"> Show
-                    </button>
-                    &nbsp;&nbsp;&nbsp;
-                  </td>
-                 </form>
-
-                  <form method="post" enctype="multipart/form-data" action="{{ route('AdvanceRequest.PrintExportReportAdvanceSummary') }}" id="FormSubmitReportAdvanceSummary">
-                    @csrf
-                    <td>
-                      <select name="print_type" id="print_type" class="form-control">
-                        <option value="PDF">Export PDF</option>
-                        <option value="Excel">Export Excel</option>
-                      </select>
-                    </td>
-                    <td>
-                      <button class="btn btn-default btn-sm" type="submit">
-                        <img src="{{ asset('AdminLTE-master/dist/img/printer.png') }}" width="17" alt="" title="Print">
-                      </button>
-                    </td>
-
-                  </form>
-                </tr>
-              </table>
-            </div>
-          </div>
-
         </div>
-      </div>
-  </div>
+    </div>
+
+    <!-- SUB BUDGET -->
+    <div class="row p-0 align-items-center">
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Sub Budget</label>
+        <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
+            <div>
+                <span id="mySitesTrigger" class="input-group-text form-control" data-toggle="modal" data-target="#mySites" style="border-radius:0;cursor:pointer;">
+                    <i class="fas fa-gift"></i>
+                </span>
+            </div>
+            <div>
+                <input type="text" id="sub_budget_name" class="form-control" style="border-radius:0;background-color:white;" name="sub_budget_name" readonly />
+                <input type="hidden" id="sub_budget_id" class="form-control" style="border-radius:0;" name="sub_budget_id" />
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-sm-12 col-md-12 col-lg-3">
+    <!-- REQUESTER -->
+    <div class="row p-0 align-items-center" style="margin-bottom: 1rem;">
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Requester</label>
+        <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
+            <div>
+                <span id="myRequestersTrigger" class="input-group-text form-control" data-toggle="modal" data-target="#myRequesters" style="border-radius:0;cursor:pointer;">
+                    <i class="fas fa-gift"></i>
+                </span>
+            </div>
+            <div>
+                <input type="text" id="requester_name" class="form-control" style="border-radius:0;background-color:white;" name="requester_name" readonly />
+                <input type="hidden" id="requester_id" class="form-control" style="border-radius:0;" name="requester_id" />
+            </div>
+        </div>
+    </div>
+
+    <!-- BENEFICIARY -->
+    <div class="row p-0 align-items-center">
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Beneficiary</label>
+        <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
+            <div>
+                <span id="myBeneficiariesTrigger" class="input-group-text form-control" data-toggle="modal" data-target="#myBeneficiaries" style="border-radius:0;cursor:pointer;">
+                    <i class="fas fa-gift"></i>
+                </span>
+            </div>
+            <div>
+                <input type="text" id="beneficiary_name" class="form-control" style="border-radius:0;background-color:white;" name="beneficiary_name" readonly />
+                <input type="hidden" id="beneficiary_id" class="form-control" style="border-radius:0;" name="beneficiary_id" />
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-sm-12 col-md-12 col-lg-3">
+    <!-- DATE -->
+    <div class="row p-0 align-items-center">
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Date</label>
+        <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
+            <div>
+                <div class="input-group" id="advance_summary_date_range_container">
+                    <div class="input-group-prepend" style="margin-right: 0px; width: 27.78px;cursor: pointer;height: 21.8px;">
+                        <span class="input-group-text" id="advance_summary_date_range_container_icon">
+                            <i class="far fa-calendar-alt" style="width: 13px; height: 13px;"></i>
+                        </span>
+                    </div>
+                    <input readonly type="text" class="form-control" style="height: 21.8px;border-radius:0;background-color:white;" id="advance_summary_date_range" name="advance_summary_date_range" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-sm-12 col-md-12 col-lg-3 d-flex flex-column flex-column-reverse">
+    <!-- SUBMIT -->
+    <div class="align-items-center justify-content-sm-end justify-content-md-end justify-content-lg-start row p-0">
+        <button class="btn btn-default btn-sm" type="submit" style="margin-top: -5px;">
+            <img src="{{ asset('AdminLTE-master/dist/img/backwards.png') }}" width="12" alt="show" title="Show">
+            Show
+        </button>
+    </div>
+
+    <!-- EXPORT -->
+    <div class="align-items-center justify-content-sm-end justify-content-md-end justify-content-lg-start row align-items-center p-0" style="margin-bottom: 1rem; gap: 0.5rem;">
+        <div>
+            <select name="print_type" id="print_type" class="form-control">
+                <option value="PDF">Export PDF</option>
+                <option value="Excel">Export Excel</option>
+            </select>
+        </div>
+        <button class="btn btn-default btn-sm" type="submit">
+            <span>
+                <img src="{{ asset('AdminLTE-master/dist/img/printer.png') }}" width="17" alt="" />
+            </span>
+        </button>
+    </div>
 </div>

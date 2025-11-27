@@ -85,7 +85,7 @@
 <div class="col-sm-12 col-md-12 col-lg-4 d-flex flex-column flex-column-reverse">
         <!-- SUBMIT -->
         <div class="align-items-center justify-content-sm-end justify-content-md-end justify-content-lg-start row p-0">
-            <button class="btn btn-default btn-sm" type="submit" style="margin-top: -5px;">
+            <button class="btn btn-default btn-sm" type="submit" style="margin-top: -5px;" onclick="ShowLoading()">
                 <img src="{{ asset('AdminLTE-master/dist/img/backwards.png') }}" width="12" alt="show" title="Show">
                 Show
             </button>
@@ -93,7 +93,7 @@
     </form>
 
     <!-- EXPORT -->
-    <form method="post" action="{{ route('AccountPayable.PrintExportReportAccountPayableSummary') }}">
+    <form method="post" action="{{ route('AccountPayable.PrintExportReportAccountPayableSummary') }}" id="exportForm">
     @csrf
         <div class="align-items-center justify-content-sm-end justify-content-md-end justify-content-lg-start row align-items-center p-0" style="margin-bottom: 1rem; gap: 0.5rem;">
             <div>
@@ -102,7 +102,7 @@
                     <option value="Excel">Export Excel</option>
                 </select>
             </div>
-            <button class="btn btn-default btn-sm" type="submit">
+            <button class="btn btn-default btn-sm" type="submit" onclick="showLoadingAndSubmit(event)">
                 <span>
                     <img src="{{ asset('AdminLTE-master/dist/img/printer.png') }}" width="17" alt="" />
                 </span>
