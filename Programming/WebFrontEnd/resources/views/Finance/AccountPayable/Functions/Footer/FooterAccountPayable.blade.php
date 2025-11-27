@@ -295,11 +295,39 @@
                 const existingRows  = targetTable.getElementsByTagName('tr');
 
                 for (let targetRow of existingRows) {
+                    const targetPurchaseOrderID = targetRow.children[0].value;
+
+                    if (targetPurchaseOrderID == purchaseOrderDetailRefID.value) {
+                        targetRow.children[3].innerText = decimalFormat(qtyValue);
+                        targetRow.children[4].innerText = decimalFormat(totalValue);
+                        targetRow.children[5].innerText = decimalFormat(whtValue);
+                        targetRow.children[6].innerText = coaValue;
+                        found = true;
+
+                        const indexToUpdate = dataStore.findIndex(item => item.entities.purchaseOrderDetail_RefID == purchaseOrderDetailRefID.value);
+                        if (indexToUpdate !== -1) {
+                            dataStore[indexToUpdate] = {
+                                entities: {
+                                    combinedBudgetSectionDetail_RefID: parseInt(combinedBudgetSectionDetailRefID.value),
+                                    chartOfAccount_RefID: parseInt(coaRefID.value),
+                                    product_RefID: parseInt(productRefID.value),
+                                    quantityUnit_RefID: parseInt(quantityUnitRefID.value),
+                                    quantity: parseFloat(qtyValue.replace(/,/g, '')),
+                                    productUnitPriceCurrency_RefID: parseInt(productUnitPriceCurrencyRefID.value),
+                                    productUnitPriceCurrencyValue: parseFloat(totalValue.replace(/,/g, '')),
+                                    productUnitPriceCurrencyExchangeRate: parseInt(productUnitPriceCurrencyExchangeRate.value),
+                                    wht: parseFloat(whtValue.replace(/,/g, '')),
+                                    purchaseOrderDetail_RefID: parseInt(purchaseOrderDetailRefID.value)
+                                }
+                            };
+                        }
+                    }
                 }
 
                 if (!found) {
                     const newRow = document.createElement('tr');
                     newRow.innerHTML = `
+                        <input type="hidden" name="purchaseOrderDetail_RefID[]" value="${purchaseOrderDetailRefID.value}">
                         <td style="text-align: left;padding: 0.8rem 0.5rem;">${product}</td>
                         <td style="text-align: right;padding: 0.8rem 0.5rem;">${uom}</td>
                         <td style="text-align: right;padding: 0.8rem 0.5rem;">${decimalFormat(qtyValue)}</td>
@@ -324,6 +352,21 @@
                         }
                     });
                 }
+            } else {
+                const existingRows = targetTable.getElementsByTagName('tr');
+
+                for (let targetRow of existingRows) {
+                    const targetPurchaseOrderID = targetRow.children[0].value;
+
+                    if (targetPurchaseOrderID == purchaseOrderDetailRefID.value) {
+                        targetRow.remove();
+                        break;
+                    }
+                }
+
+                dataStore = dataStore.filter(item => {
+                    return !(item.entities.purchaseOrderDetail_RefID == purchaseOrderDetailRefID.value);
+                });
             }
         }
     }
