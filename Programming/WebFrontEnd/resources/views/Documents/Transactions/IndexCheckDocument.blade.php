@@ -79,18 +79,25 @@
               </div>
             <?php } ?>
 
-            <!-- TABLE DOC TRACKING & LOG HISTORY -->
-            <div class="col-12 ShowDocumentList">
-              <div class="card">
-                <div class="card-body p-0">
-                  <?php if (isset($components['revision']) && isset($dataHeader['dateUpdate'])) { ?>
+            <?php if (isset($components['revision']) && isset($dataHeader['dateUpdate'])) { ?>
+              <div class="col-12 ShowDocumentList">
+                <div class="card">
+                  <div class="card-body p-0">
                     @include($components['revision'])
-                  <?php } else { ?>
-                    @include($components['table'])
-                  <?php } ?>
+                  </div>
                 </div>
               </div>
-            </div>
+            <?php } else { ?>
+              <?php if (isset($components['table'])) { ?>
+                <div class="col-12 ShowDocumentList">
+                  <div class="card">
+                    <div class="card-body p-0">
+                      @include($components['table'])
+                    </div>
+                  </div>
+                </div>
+              <?php } ?>
+            <?php } ?>
 
             <!-- ADDITIONAL -->
             <?php if (isset($components['additional'])) { ?>
