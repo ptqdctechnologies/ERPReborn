@@ -32,7 +32,7 @@
                 Creditors
             </div>
             <div class="col">
-                : PT Qdc Technologies
+                : PT QDC Technologies
             </div>
         </div>
 
