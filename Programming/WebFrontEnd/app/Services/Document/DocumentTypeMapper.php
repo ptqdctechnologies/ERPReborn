@@ -339,6 +339,7 @@ class DocumentTypeMapper
             ],
             'Loan Settlement Form' => [
                 'dataHeader'    => [
+                    'dateUpdate'    => null,
                     'loanSettlementNumber' => 'LNS/QDC/2025/000001',
                 ],
                 'dataAdditional'        => [
@@ -687,11 +688,14 @@ class DocumentTypeMapper
             ],
             'Sales Order Form' => [
                 'dataHeader'    => [
-                    'currency'  => 'IDR'
+                    'dateUpdate'    => '2025-09-29 15:49:00.113 +0700', // '2025-09-29 15:49:00.113 +0700'
+                    'currency'      => 'IDR',
                 ],
                 'components'    => [
-                    'detail'    => 'Components.CustomerOrderDetailDocument',
-                    'table'     => 'Components.CustomerOrderDetailDocumentTable',
+                    'detail'            => 'Components.CustomerOrderDetailDocument',
+                    'table'             => 'Components.CustomerOrderDetailDocumentTable',
+                    // 'headerRevision'    => 'Components.CustomerOrderDetailDocumentHeaderRevision',
+                    'revision'          => 'Components.CustomerOrderDetailDocumentRevision',
                 ],
                 'resubmit'  => [
                     'url'   => 'CustomerOrder.Revision',
@@ -806,7 +810,7 @@ class DocumentTypeMapper
             'Purchase Requisition Form'     => 'Documents.Transactions.LogTransaction.LogTransactionPurchaseRequisition',
             'Reimbursement Form'            => 'Documents.Transactions.LogTransaction.LogTransactionReimbursement',
             'Sales Invoice Form'            => 'Documents.Transactions.LogTransaction.LogTransactionInvoice',
-            'Sales Order Form'              => 'Documents.Transactions.LogTransaction.LogTransactionInvoice',
+            'Sales Order Form'              => 'Documents.Transactions.LogTransaction.LogTransactionCustomerOrder',
             'Warehouse Inbound Order Form'  => 'Documents.Transactions.LogTransaction.LogTransactionMaterialReceive',
             'Warehouse Outbound Order Form' => 'Documents.Transactions.LogTransaction.LogTransactionMaterialReturn'
         ];
