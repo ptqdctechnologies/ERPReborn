@@ -142,6 +142,7 @@ class AccountPayableController extends Controller
                 'varAPIWebToken'        => $varAPIWebToken,
                 'documentTypeRefID'     => $documentTypeRefID,
                 'header'                => [
+                    'combinedBudgetRefID'           => $dataAccountPayableDetail[0]['combinedBudget_RefID'] ?? '',
                     'accountPayable_RefID'          => $dataAccountPayableDetail[0]['paymentInstruction_RefID'] ?? '',
                     'purchaseOrderNumber'           => $dataAccountPayableDetail[0]['po_Number'] ?? '',
                     'supplier_RefID'                => $dataAccountPayableDetail[0]['supplier_RefID'] ?? '',

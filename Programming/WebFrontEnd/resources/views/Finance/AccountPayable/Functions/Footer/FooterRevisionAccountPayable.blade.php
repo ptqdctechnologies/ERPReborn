@@ -217,7 +217,7 @@
 
                     <td style="text-align: center;">${val.productCode ?? ''} - ${val.productName ?? ''}</td>
                     <td style="text-align: center;">${currencyTotal(val.purchaseOrderDetailQuantity ?? 0)}</td>
-                    <td style="text-align: center;">-</td>
+                    <td style="text-align: center;">${currencyTotal(val.potoAPQuantityAvail ?? 0)}</td>
                     <td style="text-align: center;">${currencyTotal(val.purchaseOrderDetailPrice ?? 0)}</td>
                     <td style="text-align: center;">${val.uom ?? '-'}</td>
                     <td style="text-align: center;">${currencyTotal(total)}</td>
