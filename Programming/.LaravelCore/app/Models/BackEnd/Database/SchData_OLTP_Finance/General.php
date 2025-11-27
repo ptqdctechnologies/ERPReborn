@@ -714,7 +714,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         | ▪ Method Name     : getDataList_PaymentInstructionDetail_LatestVersion                                                   |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2025-11-13                                                                                           |
+        | ▪ Last Update     : 2025-11-26                                                                                           |
         | ▪ Creation Date   : 2025-10-15                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Detail Credit Note Versi Terakhir                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -746,6 +746,19 @@ namespace App\Models\Database\SchData_OLTP_Finance
                             )
                         );
                     $resultArray = $varReturn['data'];
+
+                    // Description: Menjumlahkan Quantity AP Detail berdasarkan ID PO Detail yg sama.
+                    $qtyAPDetail = [];
+                    $listIdAPDetail = [];
+                    foreach ($resultArray as $key => $value) {
+                        if (in_array($value["Sys_ID"], $listIdAPDetail)) {
+                            $qtyAPDetail[$value["Sys_ID"]]["Qty"] = (float) $qtyAPDetail[$value["Sys_ID"]]["Qty"] + (float) $value["Quantity"];
+                        } else {
+                            array_push($listIdAPDetail, $value["Sys_ID"]);
+                            $qtyAPDetail[$value["Sys_ID"]]["Sys_ID"] = $value["Sys_ID"];
+                            $qtyAPDetail[$value["Sys_ID"]]["Qty"] = $value["Quantity"];
+                        }
+                    }
 
                     // Description: Generate API.
                     $varReturn['data'] = [];
@@ -816,6 +829,8 @@ namespace App\Models\Database\SchData_OLTP_Finance
                         $varReturn['data'][$idxArray]['supplierBank_AccountNumber'] = $value["SupplierBank_AccountNumber"];
                         $varReturn['data'][$idxArray]['quantityUnit_RefID'] = $value["QuantityUnit_RefID"];
                         $varReturn['data'][$idxArray]['productUnitPriceCurrency_RefID'] = $value["ProductUnitPriceCurrency_RefID"];
+                        $varReturn['data'][$idxArray]['combinedBudget_RefID'] = $value["CombinedBudget_RefID"];
+                        $varReturn['data'][$idxArray]['potoAPQuantityAvail'] = in_array($value["Sys_ID"], $listIdAPDetail) ? round($value["PurchaseOrderDetailQuantity"] - $qtyAPDetail[$value["Sys_ID"]]["Qty"], 2) : null;
                         $idxArray++;
                     }
 
