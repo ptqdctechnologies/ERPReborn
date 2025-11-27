@@ -73,7 +73,8 @@ class CheckDocumentController extends Controller
                 $documentType === 'Modify Budget Form' ||
                 $documentType === 'Person Business Trip Settlement Form' || 
                 $documentType === 'Sales Invoice Form' || 
-                $documentType === 'Sallary Allocation Form'
+                $documentType === 'Sallary Allocation Form' ||
+                $documentType === 'Sales Order Form'
             ) {
                 // JUST FOR TRIGGER, WHEN API KEY NOT READY
                 $responseData = [
@@ -294,7 +295,7 @@ class CheckDocumentController extends Controller
                 'dataDetails'                   => $collection['dataDetail'],
             ] + $formatData + $compactTransactionHistory;
 
-            // dump($compact);
+            // dd($compact);
 
             return view('Documents.Transactions.IndexCheckDocument', $compact);
         } catch (\Throwable $th) {
@@ -515,6 +516,26 @@ class CheckDocumentController extends Controller
                             [
                                 'sys_ID'    => 90381924,
                                 'sys_Text'  => 'Inv/QDC/2025/000002',
+                                'combinedBudgetCode' => 'Q000196',
+                                'combinedBudgetSectionCode' => 'Q000062 ► 235'
+                            ],
+                        ]
+                    ]
+                ];
+                break;
+            case "Sales Order Form":
+                $varData = [
+                    'data' => [
+                        'data' => [
+                            [
+                                'sys_ID'    => 73810928,
+                                'sys_Text'  => 'SO/QDC/2025/000001',
+                                'combinedBudgetCode' => 'Q000196',
+                                'combinedBudgetSectionCode' => 'Q000062 ► 235'
+                            ],
+                            [
+                                'sys_ID'    => 90381924,
+                                'sys_Text'  => 'SO/QDC/2025/000002',
                                 'combinedBudgetCode' => 'Q000196',
                                 'combinedBudgetSectionCode' => 'Q000062 ► 235'
                             ],

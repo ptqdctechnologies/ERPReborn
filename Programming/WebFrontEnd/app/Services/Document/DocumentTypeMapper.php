@@ -111,6 +111,11 @@ class DocumentTypeMapper
                 'parameter'                 => [],
                 'businessDocument_RefID'    => (int) 74000000021494,
             ],
+            'Sales Order Form' => [
+                'key'                       => '',
+                'parameter'                 => [],
+                'businessDocument_RefID'    => (int) 74000000021494,
+            ],
             'Timesheet Form' => [
                 'key'                       => 'transaction.read.dataList.humanResource.getPersonWorkTimeSheetActivity',
                 'parameter'                 => ['personWorkTimeSheet_RefID' => (int) $referenceId],
@@ -680,6 +685,22 @@ class DocumentTypeMapper
                 'transactionType'        => 'SALLARY ALLOCATION',
                 'businessDocument_RefID' => '',
             ],
+            'Sales Order Form' => [
+                'dataHeader'    => [
+                    'currency'  => 'IDR'
+                ],
+                'components'    => [
+                    'detail'    => 'Components.CustomerOrderDetailDocument',
+                    'table'     => 'Components.CustomerOrderDetailDocumentTable',
+                ],
+                'resubmit'  => [
+                    'url'   => 'CustomerOrder.Revision',
+                    'name'  => '',
+                    'value' => '',
+                ],
+                'transactionType'        => 'CUSTOMER ORDER',
+                'businessDocument_RefID' => '',
+            ],
             'Timesheet Form' => [
                 'dataHeader'        => [
                     'date'              => $dataDetail['date'] ?? null,
@@ -785,6 +806,7 @@ class DocumentTypeMapper
             'Purchase Requisition Form'     => 'Documents.Transactions.LogTransaction.LogTransactionPurchaseRequisition',
             'Reimbursement Form'            => 'Documents.Transactions.LogTransaction.LogTransactionReimbursement',
             'Sales Invoice Form'            => 'Documents.Transactions.LogTransaction.LogTransactionInvoice',
+            'Sales Order Form'              => 'Documents.Transactions.LogTransaction.LogTransactionInvoice',
             'Warehouse Inbound Order Form'  => 'Documents.Transactions.LogTransaction.LogTransactionMaterialReceive',
             'Warehouse Outbound Order Form' => 'Documents.Transactions.LogTransaction.LogTransactionMaterialReturn'
         ];
