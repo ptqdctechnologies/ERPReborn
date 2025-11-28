@@ -159,7 +159,8 @@
                         @if($statusDocument == 0)
                           Waiting {{ $dataWorkFlows[count($dataWorkFlows)-1]['workFlowPathActionName'] }} from {{ $dataWorkFlows[count($dataWorkFlows)-1]['nextApproverEntityName'] }}
                         @elseif($statusDocument == 1)
-                          Final Approved
+                          <!-- Final Approved -->
+                          Waiting Grace Kurniawan
                         @elseif($statusDocument == 2)
                           Document Doesn't Has Workflow
                         @endif
