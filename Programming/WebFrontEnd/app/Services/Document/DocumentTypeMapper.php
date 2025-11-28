@@ -690,6 +690,7 @@ class DocumentTypeMapper
                 'dataHeader'    => [
                     'dateUpdate'    => '2025-09-29 15:49:00.113 +0700', // '2025-09-29 15:49:00.113 +0700'
                     'currency'      => 'IDR',
+                    'fileID'        => null,
                 ],
                 'components'    => [
                     'detail'            => 'Components.CustomerOrderDetailDocument',
