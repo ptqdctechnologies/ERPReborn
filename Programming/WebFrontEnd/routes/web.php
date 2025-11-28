@@ -562,6 +562,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     // CUSTOMER ORDER
     Route::get('ReportCustomerOrderToInvoice', 'Sales\CustomerOrderController@ReportCustomerOrderToInvoice')->name('CustomerOrder.ReportCustomerOrderToInvoice');
     Route::get('ReportCustomerOrderSummary', 'Sales\CustomerOrderController@ReportCustomerOrderSummary')->name('CustomerOrder.ReportSummary');
+    Route::post('ReportCustomerOrderSummaryStore', 'Sales\CustomerOrderController@ReportCustomerOrderSummaryStore')->name('CustomerOrder.ReportSummaryStore');
     Route::post('CustomerOrderRevision', 'Sales\CustomerOrderController@Revision')->name('CustomerOrder.Revision');
     Route::get('CustomerOrderDownload', 'Sales\CustomerOrderController@download')->name('CustomerOrder.Download');
     Route::post('CustomerOrderImport', 'Sales\CustomerOrderController@import')->name('CustomerOrder.Import');
