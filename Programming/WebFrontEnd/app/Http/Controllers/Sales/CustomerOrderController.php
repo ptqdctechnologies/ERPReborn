@@ -8,9 +8,17 @@ use Illuminate\Support\Facades\Session;
 use App\Imports\CustomerOrderImport;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Log;
+use App\Services\Sales\CustomerOrderService;
 
 class CustomerOrderController extends Controller
 {
+    protected $customerOrderService;
+
+    public function __construct(CustomerOrderService $customerOrderService)
+    {
+        $this->customerOrderService = $customerOrderService;
+    }
+
     public function download() 
     {
         $file = public_path('files/template-customer-order.xlsx');
@@ -67,7 +75,44 @@ class CustomerOrderController extends Controller
 
     public function ReportCustomerOrderSummary(Request $request) 
     {
-        return view('Sales.CustomerOrder.Reports.ReportCustomerOrderSummary');
+        $isSubmitButton = Session::get('isButtonReportCustomerOrderSummary');
+        $dataSummary    = $isSubmitButton ? Session::get('dataReportCustomerOrderSummary') : [];
+
+        return view('Sales.CustomerOrder.Reports.ReportCustomerOrderSummary', [
+            'dataSummary' => $dataSummary
+        ]);
+    }
+
+    public function ReportCustomerOrderSummaryStore(Request $request) 
+    {
+        try {
+            $project = [
+                'id'    => $request->budget_id,
+                'name'  => $request->budget_name,
+            ];
+
+            $site = [
+                'id'    => $request->sub_budget_id,
+                'name'  => $request->sub_budget_name,
+            ];
+
+            $date = $request->customer_order_date_range;
+
+            $response = $this->customerOrderService->summaryReport($project, $site, $date);
+
+            if ($response === null) {
+                throw new \Exception('Failed to fetch Report Customer Order Summary');
+            }
+
+            Session::put("isButtonReportCustomerOrderSummary", true);
+            Session::put("dataReportCustomerOrderSummary", $response);
+
+            return redirect()->route('CustomerOrder.ReportSummary');
+        } catch (\Throwable $th) {
+            Log::error("Report Customer Order Summary Store Function Error: " . $th->getMessage());
+            
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
     }
 
     public function ReportCustomerOrderToInvoice(Request $request)
