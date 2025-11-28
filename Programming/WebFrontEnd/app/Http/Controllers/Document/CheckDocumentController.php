@@ -152,7 +152,7 @@ class CheckDocumentController extends Controller
                 return [
                     [
                         'remarks' => 'ini data dummy', 
-                        'workFlowPathActionName' => 'Rejection To Resubmit',
+                        'workFlowPathActionName' => 'Submitted',
                         'approvalDateTimeTZ' => '2025-09-29 10:31:00.113 +0700',
                         'approverEntityName' => 'Teguh Pratama Januzir Sukin',
                         'approverEntityFullJobPositionTitle' => 'Manager'
@@ -537,13 +537,13 @@ class CheckDocumentController extends Controller
                         'data' => [
                             [
                                 'sys_ID'    => 73810928,
-                                'sys_Text'  => 'SO/QDC/2025/000001',
+                                'sys_Text'  => 'CO/QDC/2025/000001',
                                 'combinedBudgetCode' => 'Q000196',
                                 'combinedBudgetSectionCode' => 'Q000062 ► 235'
                             ],
                             [
                                 'sys_ID'    => 90381924,
-                                'sys_Text'  => 'SO/QDC/2025/000002',
+                                'sys_Text'  => 'CO/QDC/2025/000002',
                                 'combinedBudgetCode' => 'Q000196',
                                 'combinedBudgetSectionCode' => 'Q000062 ► 235'
                             ],
