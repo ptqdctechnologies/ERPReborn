@@ -1,5 +1,5 @@
 <div class="col-sm-12 col-md-12 col-lg-3">
-    <form id="formReportAccountPayable" method="post" action="{{ route('AccountPayable.ReportAccountPayableSummaryStore') }}">
+    <form id="formReportCustomerOrderSummary" method="post" action="{{ route('CustomerOrder.ReportSummaryStore') }}">
         @csrf
         <!-- BUDGET -->
         <div class="row p-0 align-items-center" style="margin-bottom: 1rem;">
