@@ -382,7 +382,7 @@
         const isValueVATNotEmpty                    = valueVAT.value.trim() !== 'Sel..';
         const isValueVATNumberNotEmpty              = valueVATNumber.value.trim() !== '';
         const isFATPATDOOriginNotEmpty              = document.querySelector('input[name="basft_origin"]:checked');
-        const isNotesNotEmpty                       = notes.value.trim() !== '';
+        // const isNotesNotEmpty                       = notes.value.trim() !== '';
         const isAssetNotEmpty                       = document.querySelector('input[name="asset"]:checked');
         const isCategoryNumberNotEmpty              = categoryNumber.value.trim() !== '';
         const isDepreciationMethodNotEmpty          = depreciationMethod.value.trim() !== 'Select a Method';
@@ -400,7 +400,7 @@
             isContractPOSignedNotEmpty &&
             isVATOriginNotEmpty && 
             isFATPATDOOriginNotEmpty &&
-            isNotesNotEmpty &&
+            // isNotesNotEmpty &&
             isAssetNotEmpty &&
             isTableNotEmpty
         ) {
@@ -466,13 +466,13 @@
                 !isContractPOSignedNotEmpty &&
                 !isVATOriginNotEmpty &&
                 !isFATPATDOOriginNotEmpty &&
-                !isNotesNotEmpty &&
+                // !isNotesNotEmpty &&
                 !isAssetNotEmpty
             ) {
                 $("#purchase_order_number").css("border", "1px solid red");
                 $("#supplier_invoice_number").css("border", "1px solid red");
                 $("#payment_transfer_number").css("border", "1px solid red");
-                $("#account_payable_notes").css("border", "1px solid red");
+                // $("#account_payable_notes").css("border", "1px solid red");
                 $("#budget_details_deduction").css("border", "1px solid red");
 
                 $("#purchase_order_message").show();
@@ -482,7 +482,7 @@
                 $("#contract_signed_message").show();
                 $("#vat_origin_message").show();
                 $("#basft_origin_message").show();
-                $("#account_payable_notes_message").show();
+                // $("#account_payable_notes_message").show();
                 $("#asset_message").show();
                 $("#budget_details_deduction_message").show();
                 return;
@@ -532,11 +532,11 @@
                 $("#basft_origin_message").show();
                 return;
             }
-            if (!isNotesNotEmpty) {
-                $("#account_payable_notes").css("border", "1px solid red");
-                $("#account_payable_notes_message").show();
-                return;
-            }
+            // if (!isNotesNotEmpty) {
+            //     $("#account_payable_notes").css("border", "1px solid red");
+            //     $("#account_payable_notes_message").show();
+            //     return;
+            // }
             if (!isAssetNotEmpty) {
                 $("#asset_message").show();
                 return;
@@ -950,11 +950,11 @@
 
     $('#account_payable_notes').on('input', function(e) {
         if (!e.target.value) {
-            $("#account_payable_notes").css("border", "1px solid red");
-            $("#account_payable_notes_message").show();
+            // $("#account_payable_notes").css("border", "1px solid red");
+            // $("#account_payable_notes_message").show();
         } else {
             $("#account_payable_notes").css("border", "1px solid #ced4da");
-            $("#account_payable_notes_message").hide();
+            // $("#account_payable_notes_message").hide();
         }
     });
 
