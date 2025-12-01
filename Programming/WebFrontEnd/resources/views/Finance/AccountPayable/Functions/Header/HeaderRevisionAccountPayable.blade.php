@@ -14,6 +14,14 @@
                     </div>
                 </div>
             </div>
+            <div class="row" id="supplier_invoice_number_message" style="margin-top: .3rem; display: none;">
+                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+                <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                    <div class="text-red">
+                        Supplier Invoice Number cannot be empty.
+                    </div>
+                </div>
+            </div>
 
             <!-- PAYMENT TO -->
             <div class="row" style="margin-top: 1rem;">
@@ -38,6 +46,14 @@
                     </div>
                 </div>
             </div>
+            <div class="row" id="payment_transfer_message" style="margin-top: .3rem; display: none;">
+                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+                <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                    <div class="text-red">
+                        Payment To cannot be empty.
+                    </div>
+                </div>
+            </div>
 
             <!-- RECEIPT/INVOICE ORIGIN -->
             <div class="row" style="margin-top: 1rem;">
@@ -52,6 +68,14 @@
                             <input class="custom-control-input" type="radio" id="receipt_origin_yes" value="yes" <?= ($header['receiptInvoiceOrigin'] === 'yes') ? 'checked' : ''; ?> name="receipt_origin">
                             <label for="receipt_origin_yes" class="custom-control-label" style="padding-top: 28%;">Yes</label>
                         </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="receipt_origin_message" style="margin-top: .3rem; display: none;">
+                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+                <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                    <div class="text-red">
+                        Receipt/Invoice Origin cannot be empty.
                     </div>
                 </div>
             </div>
@@ -72,6 +96,14 @@
                     </div>
                 </div>
             </div>
+            <div class="row" id="contract_signed_message" style="margin-top: .3rem; display: none;">
+                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+                <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                    <div class="text-red">
+                        Contract/PO Signed cannot be empty.
+                    </div>
+                </div>
+            </div>
 
             <!-- VAT Origin -->
             <div class="row" style="margin-top: 1rem;">
@@ -88,12 +120,16 @@
                         </div>
                         <div>
                             <input hidden id="ppnValue" value="<?= $header['VATPercentage']; ?>" />
-                            <select type="text" id="ppn" class="form-control vat-components" name="ppn" onchange="onChangeVAT(this)" style="border-radius: 0; width: auto; display: <?= ($header['VATOrigin'] === 'yes') ? 'flex' : 'none'; ?>;">
-                                <!-- <option disabled selected value="">Sel..</option>
-                                <option value="10">10%</option>
-                                <option value="20">20%</option> -->
-                            </select>
+                            <select type="text" id="ppn" class="form-control vat-components" name="ppn" onchange="onChangeVAT(this)" style="border-radius: 0; width: auto; display: <?= ($header['VATOrigin'] === 'yes') ? 'flex' : 'none'; ?>;"></select>
                         </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="vat_origin_message" style="margin-top: .3rem; display: none;">
+                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+                <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                    <div class="text-red" id="vat_origin_text_message">
+                        VAT Origin cannot be empty.
                     </div>
                 </div>
             </div>
@@ -106,6 +142,14 @@
                         <div class="input-group">
                             <input id="vat_number" name="vat_number" style="border-radius:0;" class="form-control number-without-characters" value="<?= $header['VATNumber']; ?>">
                         </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="vat_number_message" style="margin-top: .3rem; display: none;">
+                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+                <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                    <div class="text-red">
+                        VAT Number cannot be empty.
                     </div>
                 </div>
             </div>
@@ -123,6 +167,14 @@
                             <input class="custom-control-input" type="radio" id="basft_origin_yes" value="yes" <?= ($header['FatPatDoOrigin'] === 'yes') ? 'checked' : ''; ?> name="basft_origin">
                             <label for="basft_origin_yes" class="custom-control-label" style="padding-top: 28%;">Yes</label>
                         </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="basft_origin_message" style="margin-top: .3rem; display: none;">
+                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+                <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                    <div class="text-red">
+                        FAT/PAT/DO Origin cannot be empty.
                     </div>
                 </div>
             </div>
@@ -155,6 +207,14 @@
                             <input class="custom-control-input" type="radio" id="asset_yes" name="asset" value="yes" <?= ($header['asset'] === 'yes') ? 'checked' : ''; ?> onclick="assetValue(this)">
                             <label for="asset_yes" class="custom-control-label" style="padding-top: 28%;">Yes</label>
                         </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="asset_message" style="margin-top: .3rem; display: none;">
+                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+                <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                    <div class="text-red">
+                        Asset cannot be empty.
                     </div>
                 </div>
             </div>
@@ -213,6 +273,14 @@
                     </div>
                 </div>
             </div>
+            <div class="row" id="depreciation_method_message" style="margin-top: .3rem; display: none;">
+                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+                <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                    <div class="text-red">
+                        Depreciation Method cannot be empty.
+                    </div>
+                </div>
+            </div>
 
             <!-- DEPRECIATION RATE -->
             <div class="row asset-components" style="margin-top: 1rem; display: <?= ($header['asset'] === 'yes') ? 'flex' : 'none'; ?>;">
@@ -241,6 +309,14 @@
                     </div>
                 </div>
             </div>
+            <div class="row" id="depreciation_value_message" style="margin-top: .3rem; display: none;">
+                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+                <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                    <div id="depreciation_value_text_message" class="text-red">
+                        Depreciation Rate cannot be empty.
+                    </div>
+                </div>
+            </div>
 
             <!-- DEPRECIATION COA -->
             <div class="row asset-components" style="margin-top: 1rem; display: <?= ($header['asset'] === 'yes') ? 'flex' : 'none'; ?>;">
@@ -262,6 +338,14 @@
                             <input id="depreciation_coa_number" class="form-control" size="15" value="<?= $header['depreciationCOACode'] . ' - ' . $header['depreciationCOAName']; ?>" readonly style="border-radius:0; background-color: <?= $header['depreciationCOA_RefID'] ? '' : 'white'; ?>; cursor: default;">
                             <input id="depreciation_coa_id" name="depreciation_coa_id" value="<?= $header['depreciationCOA_RefID']; ?>" style="border-radius:0;" class="form-control" hidden>
                         </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="depreciation_coa_message" style="margin-top: .3rem; display: none;">
+                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+                <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                    <div class="text-red">
+                        Depreciation COA cannot be empty.
                     </div>
                 </div>
             </div>
