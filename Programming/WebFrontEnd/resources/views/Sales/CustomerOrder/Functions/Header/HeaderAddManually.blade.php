@@ -43,7 +43,7 @@
       </div>
     </div>
     <div class="col text-right" style="margin-right: 20px; font-size: 0.77rem; color: #212529; font-weight: 600;">
-      Total : <span id="import_total">0.00</span>
+      Total : <span id="manually_total">0.00</span>
     </div>
   </div>
 </div>

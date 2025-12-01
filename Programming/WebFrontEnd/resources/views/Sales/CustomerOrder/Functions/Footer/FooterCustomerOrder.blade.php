@@ -22,19 +22,25 @@
             $('#excel_file').val("");
         }
         $('#import_total').text("0.00");
+        $('#manually_total').text("0.00");
     }
 
     function calculateTotal() {
         let total = 0;
-        
+
         document.querySelectorAll('input[id^="value"]').forEach(function(input) {
             let value = parseFloat(input.value.replace(/,/g, '')); // Mengambil nilai dan menghilangkan koma
+            
             if (!isNaN(value)) {
                 total += value;
             }
         });
 
         document.getElementById('import_total').textContent = total.toLocaleString('en-US', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        });
+        document.getElementById('manually_total').textContent = total.toLocaleString('en-US', {
             minimumFractionDigits: 2,
             maximumFractionDigits: 2
         });
@@ -62,7 +68,7 @@
 
     function updateField(index, field, value) {
         dataAddManual[index][field] = value;
-        
+
         console.log("Updated:", dataAddManual); // untuk debugging
     }
 
@@ -115,7 +121,7 @@
                         </div>
                     </td>
                     <td>
-                        <input type="text" id="value${index}" class="form-control form-control number-without-negative" value="${row.value}" onchange="updateField(${index}, 'value', this.value)">
+                        <input type="text" id="value${index}" class="form-control form-control number-without-negative" value="${row.value}" onkeyup="calculateTotal()" onchange="updateField(${index}, 'value', this.value)">
                     </td>
                     <td>
                         <textarea id="note${index}" class="form-control" onchange="updateField(${index}, 'note', this.value)">${row.note}</textarea>
@@ -252,7 +258,7 @@
                                 </td>
                                 <td>
                                     <div class="input-group">
-                                        <input class="form-control number-without-negative" id="value${index}" autocomplete="off" style="border-radius:0px;" value="${currencyTotal(row[3] ?? 0)}" />
+                                        <input class="form-control number-without-negative" id="value${index}" autocomplete="off" style="border-radius:0px;" onkeyup="calculateTotal()" value="${currencyTotal(row[3] ?? 0)}" />
                                     </div>
                                 </td>
                                 <td>
@@ -280,7 +286,7 @@
                                 </td>
                                 <td>
                                     <div class="input-group">
-                                        <input class="form-control number-without-negative" id="value${index}" autocomplete="off" style="border-radius:0px;" value="${currencyTotal(row[3] ?? 0)}" />
+                                        <input class="form-control number-without-negative" id="value${index}" autocomplete="off" style="border-radius:0px;" onkeyup="calculateTotal()" value="${currencyTotal(row[3] ?? 0)}" />
                                     </div>
                                 </td>
                                 <td>
@@ -291,10 +297,6 @@
                             </tr>
                         `);
                     }
-
-                    $(`#value${index}`).on('keyup', function() {
-                        calculateTotal();
-                    });
                 });
 
                 $('#import_total').text(currencyTotal(total));
@@ -377,5 +379,4 @@
     $(window).one('load', function() {
         detailAddManual();
     });
-
 </script>
