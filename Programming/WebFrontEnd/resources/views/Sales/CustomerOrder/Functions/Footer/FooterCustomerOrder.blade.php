@@ -21,6 +21,23 @@
             $('#excel_name').val("");
             $('#excel_file').val("");
         }
+        $('#import_total').text("0.00");
+    }
+
+    function calculateTotal() {
+        let total = 0;
+        
+        document.querySelectorAll('input[id^="value"]').forEach(function(input) {
+            let value = parseFloat(input.value.replace(/,/g, '')); // Mengambil nilai dan menghilangkan koma
+            if (!isNaN(value)) {
+                total += value;
+            }
+        });
+
+        document.getElementById('import_total').textContent = total.toLocaleString('en-US', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        });
     }
 
     function addRow() {
@@ -110,7 +127,7 @@
         });
     }
 
-    function findByName(nameToFind) {
+    function findByCode(codeToFind) {
         const normalizeString = (str) => {
             return str
                 .toLowerCase()                   // Mengubah menjadi lowercase
@@ -118,7 +135,8 @@
                 .replace(/[^\w\s]/g, '');         // Menghapus simbol selain huruf dan angka
         };
 
-        return data.find(item => normalizeString(item.name) == normalizeString(nameToFind));
+        return data.find(item => item.code == codeToFind);
+        // return data.find(item => normalizeString(item.code) == normalizeString(codeToFind));
     }
 
     function convertSubBudgetToVariable(Project_RefID) {
@@ -209,10 +227,12 @@
             processData: false,
             contentType: false,
             success: function(res) {
+                let total = 0;
                 $('#table_import_from_excel tbody').empty(); // bersihkan table
 
                 res.rows.slice(1).forEach((row, index) => {
-                    const result = findByName(row[1]);
+                    total += parseFloat(row[3]);
+                    const result = findByCode(row[1]);
 
                     if (result) {
                         $('#table_import_from_excel tbody').append(`
@@ -232,12 +252,12 @@
                                 </td>
                                 <td>
                                     <div class="input-group">
-                                        <input class="form-control number-without-negative" id="price_req${index}" autocomplete="off" style="border-radius:0px;" value="${currencyTotal(row[2])}" />
+                                        <input class="form-control number-without-negative" id="value${index}" autocomplete="off" style="border-radius:0px;" value="${currencyTotal(row[3] ?? 0)}" />
                                     </div>
                                 </td>
                                 <td>
                                     <div class="input-group">
-                                        <textarea id="note${index}" class="form-control">${row[3]}</textarea>
+                                        <textarea id="note${index}" class="form-control">${row[4] ?? ''}</textarea>
                                     </div>
                                 </td>
                             </tr>
@@ -255,23 +275,29 @@
                                             </span>
                                         </div>
                                         <input id="sub_budget_id${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" hidden />
-                                        <input id="sub_budget_name${index}" style="border-radius:0;width:130px;background-color:white;border-color:red;" class="form-control" readonly value="${row[1]}" />
+                                        <input id="sub_budget_name${index}" style="border-radius:0;width:130px;background-color:white;border-color:red;" class="form-control" readonly value="${row[1] ?? ''} - ${row[2] ?? ''}" />
                                     </div>
                                 </td>
                                 <td>
                                     <div class="input-group">
-                                        <input class="form-control number-without-negative" id="price_req${index}" autocomplete="off" style="border-radius:0px;" value="${currencyTotal(row[2])}" />
+                                        <input class="form-control number-without-negative" id="value${index}" autocomplete="off" style="border-radius:0px;" value="${currencyTotal(row[3] ?? 0)}" />
                                     </div>
                                 </td>
                                 <td>
                                     <div class="input-group">
-                                        <textarea id="note${index}" class="form-control">${row[3]}</textarea>
+                                        <textarea id="note${index}" class="form-control">${row[4] ?? ''}</textarea>
                                     </div>
                                 </td>
                             </tr>
                         `);
                     }
+
+                    $(`#value${index}`).on('keyup', function() {
+                        calculateTotal();
+                    });
                 });
+
+                $('#import_total').text(currencyTotal(total));
             }
         });
     });
