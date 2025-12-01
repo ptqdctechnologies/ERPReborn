@@ -41,9 +41,45 @@
               </tr>
             </thead>
             <tbody></tbody>
+            <tfoot>
+              <tr class="loading_import" style="display: none;">
+                <td colspan="3" class="p-0" style="border: 0px; height: 150px;">
+                  <div class="d-flex flex-column justify-content-center align-items-center py-3">
+                    <div class="spinner-border" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="mt-3" style="font-size: 0.75rem; font-weight: 700;">
+                      Loading...
+                    </div>
+                  </div>
+                </td>
+              </tr>
+
+              <tr class="error_message_import_container" style="display: none;">
+                <td colspan="3" class="p-0" style="border: 0px;">
+                  <div class="d-flex flex-column justify-content-center align-items-center py-3">
+                    <div id="error_message_import" class="mt-3 text-red" style="font-size: 1rem; font-weight: 700;"></div>
+                  </div>
+                </td>
+              </tr>
+            </tfoot>
           </table>
         </div>
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="card-body">
+  <div class="row">
+    <div class="col">
+      <div class="text-red" id="import_message" style="display: none;">
+        Please input at least one item.
+      </div>
+    </div>
+    <div class="col text-right" style="margin-right: 20px; font-size: 0.77rem; color: #212529; font-weight: 600;">
+      Total : <span id="import_total">0.00</span>
     </div>
   </div>
 </div>
