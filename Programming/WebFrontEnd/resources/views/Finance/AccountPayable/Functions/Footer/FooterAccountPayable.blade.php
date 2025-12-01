@@ -295,11 +295,39 @@
                 const existingRows  = targetTable.getElementsByTagName('tr');
 
                 for (let targetRow of existingRows) {
+                    const targetPurchaseOrderID = targetRow.children[0].value;
+
+                    if (targetPurchaseOrderID == purchaseOrderDetailRefID.value) {
+                        targetRow.children[3].innerText = decimalFormat(qtyValue);
+                        targetRow.children[4].innerText = decimalFormat(totalValue);
+                        targetRow.children[5].innerText = decimalFormat(whtValue);
+                        targetRow.children[6].innerText = coaValue;
+                        found = true;
+
+                        const indexToUpdate = dataStore.findIndex(item => item.entities.purchaseOrderDetail_RefID == purchaseOrderDetailRefID.value);
+                        if (indexToUpdate !== -1) {
+                            dataStore[indexToUpdate] = {
+                                entities: {
+                                    combinedBudgetSectionDetail_RefID: parseInt(combinedBudgetSectionDetailRefID.value),
+                                    chartOfAccount_RefID: parseInt(coaRefID.value),
+                                    product_RefID: parseInt(productRefID.value),
+                                    quantityUnit_RefID: parseInt(quantityUnitRefID.value),
+                                    quantity: parseFloat(qtyValue.replace(/,/g, '')),
+                                    productUnitPriceCurrency_RefID: parseInt(productUnitPriceCurrencyRefID.value),
+                                    productUnitPriceCurrencyValue: parseFloat(totalValue.replace(/,/g, '')),
+                                    productUnitPriceCurrencyExchangeRate: parseInt(productUnitPriceCurrencyExchangeRate.value),
+                                    wht: parseFloat(whtValue.replace(/,/g, '')),
+                                    purchaseOrderDetail_RefID: parseInt(purchaseOrderDetailRefID.value)
+                                }
+                            };
+                        }
+                    }
                 }
 
                 if (!found) {
                     const newRow = document.createElement('tr');
                     newRow.innerHTML = `
+                        <input type="hidden" name="purchaseOrderDetail_RefID[]" value="${purchaseOrderDetailRefID.value}">
                         <td style="text-align: left;padding: 0.8rem 0.5rem;">${product}</td>
                         <td style="text-align: right;padding: 0.8rem 0.5rem;">${uom}</td>
                         <td style="text-align: right;padding: 0.8rem 0.5rem;">${decimalFormat(qtyValue)}</td>
@@ -324,6 +352,21 @@
                         }
                     });
                 }
+            } else {
+                const existingRows = targetTable.getElementsByTagName('tr');
+
+                for (let targetRow of existingRows) {
+                    const targetPurchaseOrderID = targetRow.children[0].value;
+
+                    if (targetPurchaseOrderID == purchaseOrderDetailRefID.value) {
+                        targetRow.remove();
+                        break;
+                    }
+                }
+
+                dataStore = dataStore.filter(item => {
+                    return !(item.entities.purchaseOrderDetail_RefID == purchaseOrderDetailRefID.value);
+                });
             }
         }
     }
@@ -339,7 +382,7 @@
         const isValueVATNotEmpty                    = valueVAT.value.trim() !== 'Sel..';
         const isValueVATNumberNotEmpty              = valueVATNumber.value.trim() !== '';
         const isFATPATDOOriginNotEmpty              = document.querySelector('input[name="basft_origin"]:checked');
-        const isNotesNotEmpty                       = notes.value.trim() !== '';
+        // const isNotesNotEmpty                       = notes.value.trim() !== '';
         const isAssetNotEmpty                       = document.querySelector('input[name="asset"]:checked');
         const isCategoryNumberNotEmpty              = categoryNumber.value.trim() !== '';
         const isDepreciationMethodNotEmpty          = depreciationMethod.value.trim() !== 'Select a Method';
@@ -357,7 +400,7 @@
             isContractPOSignedNotEmpty &&
             isVATOriginNotEmpty && 
             isFATPATDOOriginNotEmpty &&
-            isNotesNotEmpty &&
+            // isNotesNotEmpty &&
             isAssetNotEmpty &&
             isTableNotEmpty
         ) {
@@ -423,13 +466,13 @@
                 !isContractPOSignedNotEmpty &&
                 !isVATOriginNotEmpty &&
                 !isFATPATDOOriginNotEmpty &&
-                !isNotesNotEmpty &&
+                // !isNotesNotEmpty &&
                 !isAssetNotEmpty
             ) {
                 $("#purchase_order_number").css("border", "1px solid red");
                 $("#supplier_invoice_number").css("border", "1px solid red");
                 $("#payment_transfer_number").css("border", "1px solid red");
-                $("#account_payable_notes").css("border", "1px solid red");
+                // $("#account_payable_notes").css("border", "1px solid red");
                 $("#budget_details_deduction").css("border", "1px solid red");
 
                 $("#purchase_order_message").show();
@@ -439,7 +482,7 @@
                 $("#contract_signed_message").show();
                 $("#vat_origin_message").show();
                 $("#basft_origin_message").show();
-                $("#account_payable_notes_message").show();
+                // $("#account_payable_notes_message").show();
                 $("#asset_message").show();
                 $("#budget_details_deduction_message").show();
                 return;
@@ -489,11 +532,11 @@
                 $("#basft_origin_message").show();
                 return;
             }
-            if (!isNotesNotEmpty) {
-                $("#account_payable_notes").css("border", "1px solid red");
-                $("#account_payable_notes_message").show();
-                return;
-            }
+            // if (!isNotesNotEmpty) {
+            //     $("#account_payable_notes").css("border", "1px solid red");
+            //     $("#account_payable_notes_message").show();
+            //     return;
+            // }
             if (!isAssetNotEmpty) {
                 $("#asset_message").show();
                 return;
@@ -907,11 +950,11 @@
 
     $('#account_payable_notes').on('input', function(e) {
         if (!e.target.value) {
-            $("#account_payable_notes").css("border", "1px solid red");
-            $("#account_payable_notes_message").show();
+            // $("#account_payable_notes").css("border", "1px solid red");
+            // $("#account_payable_notes_message").show();
         } else {
             $("#account_payable_notes").css("border", "1px solid #ced4da");
-            $("#account_payable_notes_message").hide();
+            // $("#account_payable_notes_message").hide();
         }
     });
 

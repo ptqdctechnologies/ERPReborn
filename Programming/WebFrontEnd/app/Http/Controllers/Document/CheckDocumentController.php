@@ -58,13 +58,13 @@ class CheckDocumentController extends Controller
             $referenceId    = isset($request['transDetail_RefID']) ? (int) $request['transDetail_RefID'] : null;
 
             if (!$referenceId || !$documentType) {
-                return redirect()->back()->with('NotFound', 'Invalid request data.');
+                throw new \Exception('Invalid request data.');
             }
 
             $apiConfig = DocumentTypeMapper::getApiConfig($documentType, $referenceId);
 
             if (!$apiConfig) {
-                return redirect()->back()->with('NotFound', 'Unsupported document type.');
+                throw new \Exception('Unsupported document type.');
             }
 
             if (
@@ -73,7 +73,8 @@ class CheckDocumentController extends Controller
                 $documentType === 'Modify Budget Form' ||
                 $documentType === 'Person Business Trip Settlement Form' || 
                 $documentType === 'Sales Invoice Form' || 
-                $documentType === 'Sallary Allocation Form'
+                $documentType === 'Sallary Allocation Form' || 
+                $documentType === 'Sales Order Form'
             ) {
                 // JUST FOR TRIGGER, WHEN API KEY NOT READY
                 $responseData = [
@@ -106,7 +107,7 @@ class CheckDocumentController extends Controller
             }
 
             if ($responseData['metadata']['HTTPStatusCode'] !== 200) {
-                return redirect()->back()->with('NotFound', value: 'API Error.');
+                throw new \Exception('API Error.');
             }
 
             $dataDetail             = $responseData['data']['data'] ?? $responseData['data'] ?? [];
@@ -120,7 +121,13 @@ class CheckDocumentController extends Controller
             return $compact;
         } catch (\Throwable $th) {
             Log::error("Error at getDetailTransactionNumber: " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
+
+            $compact = [
+                'dataDetail'            => [],
+                'businessDocumentRefID' => 0,
+            ];
+
+            return $compact;
         }
     }
 
@@ -145,7 +152,7 @@ class CheckDocumentController extends Controller
                 return [
                     [
                         'remarks' => 'ini data dummy', 
-                        'workFlowPathActionName' => 'Rejection To Resubmit',
+                        'workFlowPathActionName' => 'Submitted',
                         'approvalDateTimeTZ' => '2025-09-29 10:31:00.113 +0700',
                         'approverEntityName' => 'Teguh Pratama Januzir Sukin',
                         'approverEntityFullJobPositionTitle' => 'Manager'
@@ -159,7 +166,8 @@ class CheckDocumentController extends Controller
             return $responseData['data'];
         } catch (\Throwable $th) {
             Log::error("Error at getWorkflowHistory: " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');//throw $th;
+
+            return [];
         }
     }
 
@@ -211,7 +219,7 @@ class CheckDocumentController extends Controller
             // ]);
 
             if (!$businessDocumentNumber || !$businessDocumentTypeName || !$transDetail_RefID) {
-                return redirect()->back()->with('error', 'Data Not Found');
+                throw new \Exception('Failed to find Document Number.');
             }
 
             $collection = $this->getDetailTransactionNumber([
@@ -222,7 +230,7 @@ class CheckDocumentController extends Controller
             // dd($collection);
 
             if (count($collection['dataDetail']) === 0) {
-                return redirect()->back()->with('error', 'Data Not Found');
+                throw new \Exception('Failed to fetch Detail Document Number.');
             }
 
             $workflowHistory = $this->getWorkflowHistory($collection['businessDocumentRefID']);
@@ -230,7 +238,7 @@ class CheckDocumentController extends Controller
             // dd($workflowHistory);
 
             if (count($workflowHistory) === 0) {
-                return redirect()->back()->with('error', 'Data Not Found');
+                throw new \Exception('Failed to fetch Workflow History.');
             }
 
             // dd($collection, $workflowHistory);
@@ -252,7 +260,7 @@ class CheckDocumentController extends Controller
                 $responseGetTransactionHistory = $this->checkDocumentService->getTransactionHistory($transDetail_RefID);
 
                 if ($responseGetTransactionHistory['metadata']['HTTPStatusCode'] !== 200) {
-                    return redirect()->back()->with('error', 'Data Not Found');
+                    throw new \Exception('Failed to fetch Transaction History.');
                 }
 
                 $urlGetTransactionHistory = DocumentTypeMapper::getHistoryPage($businessDocumentTypeName);
@@ -260,7 +268,7 @@ class CheckDocumentController extends Controller
                 // dd($urlGetTransactionHistory);
 
                 if (!$urlGetTransactionHistory) {
-                    return redirect()->back()->with('NotFound', 'Page Not Found');
+                    throw new \Exception('Failed to find Transaction History Page.');
                 }
 
                 $collectionGetTransactionHistory = collect($responseGetTransactionHistory['data']['data'])->sort();
@@ -294,12 +302,13 @@ class CheckDocumentController extends Controller
                 'dataDetails'                   => $collection['dataDetail'],
             ] + $formatData + $compactTransactionHistory;
 
-            // dump($compact);
+            // dd($compact);
 
             return view('Documents.Transactions.IndexCheckDocument', $compact);
         } catch (\Throwable $th) {
             Log::error("Error at ShowDocument: " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
+
+            return redirect()->route('CheckDocument.index')->with('NotFound', 'Data Not Found');
         }
     }
 
@@ -515,6 +524,26 @@ class CheckDocumentController extends Controller
                             [
                                 'sys_ID'    => 90381924,
                                 'sys_Text'  => 'Inv/QDC/2025/000002',
+                                'combinedBudgetCode' => 'Q000196',
+                                'combinedBudgetSectionCode' => 'Q000062 ► 235'
+                            ],
+                        ]
+                    ]
+                ];
+                break;
+            case "Sales Order Form":
+                $varData = [
+                    'data' => [
+                        'data' => [
+                            [
+                                'sys_ID'    => 73810928,
+                                'sys_Text'  => 'CO/QDC/2025/000001',
+                                'combinedBudgetCode' => 'Q000196',
+                                'combinedBudgetSectionCode' => 'Q000062 ► 235'
+                            ],
+                            [
+                                'sys_ID'    => 90381924,
+                                'sys_Text'  => 'CO/QDC/2025/000002',
                                 'combinedBudgetCode' => 'Q000196',
                                 'combinedBudgetSectionCode' => 'Q000062 ► 235'
                             ],

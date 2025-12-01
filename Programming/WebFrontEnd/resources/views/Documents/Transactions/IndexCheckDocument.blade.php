@@ -79,18 +79,25 @@
               </div>
             <?php } ?>
 
-            <!-- TABLE DOC TRACKING & LOG HISTORY -->
-            <div class="col-12 ShowDocumentList">
-              <div class="card">
-                <div class="card-body p-0">
-                  <?php if (isset($components['revision']) && isset($dataHeader['dateUpdate'])) { ?>
+            <?php if (isset($components['revision']) && isset($dataHeader['dateUpdate'])) { ?>
+              <div class="col-12 ShowDocumentList">
+                <div class="card">
+                  <div class="card-body p-0">
                     @include($components['revision'])
-                  <?php } else { ?>
-                    @include($components['table'])
-                  <?php } ?>
+                  </div>
                 </div>
               </div>
-            </div>
+            <?php } else { ?>
+              <?php if (isset($components['table'])) { ?>
+                <div class="col-12 ShowDocumentList">
+                  <div class="card">
+                    <div class="card-body p-0">
+                      @include($components['table'])
+                    </div>
+                  </div>
+                </div>
+              <?php } ?>
+            <?php } ?>
 
             <!-- ADDITIONAL -->
             <?php if (isset($components['additional'])) { ?>
@@ -152,7 +159,8 @@
                         @if($statusDocument == 0)
                           Waiting {{ $dataWorkFlows[count($dataWorkFlows)-1]['workFlowPathActionName'] }} from {{ $dataWorkFlows[count($dataWorkFlows)-1]['nextApproverEntityName'] }}
                         @elseif($statusDocument == 1)
-                          Final Approved
+                          <!-- Final Approved -->
+                          Waiting Grace Kurniawan
                         @elseif($statusDocument == 2)
                           Document Doesn't Has Workflow
                         @endif

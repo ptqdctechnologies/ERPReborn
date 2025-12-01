@@ -14,6 +14,7 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
 use App\Helpers\ZhtHelper\System\Helper_Environment;
 use App\Services\Budget\BudgetService;
+use App\Imports\BudgetImport;
 
 class BudgetController extends Controller
 {
@@ -28,27 +29,41 @@ class BudgetController extends Controller
         $this->budgetService = $budgetService;
     }
 
+    public function Download() 
+    {
+        $file = public_path('files/template-budget.xlsx');
+        
+        return response()->download($file);
+    }
+
+    public function Import(Request $request) 
+    {
+        $request->validate([
+            'excel_file' => 'required|mimes:xlsx,xls'
+        ]);
+
+        $import = new BudgetImport;
+        $data = Excel::toCollection($import, $request->file('excel_file'));
+
+        $rows = $data[0];
+
+        return response()->json([
+            'status' => true,
+            'rows' => $rows,
+        ]);
+    }
+
     public function index(Request $request)
     {
-        $varAPIWebToken = $request->session()->get('SessionLogin');
+        $var                = $request->query('var', 0);
+        $varAPIWebToken     = Session::get('SessionLogin');
+        // $documentTypeRefID  = $this->GetBusinessDocumentsTypeFromRedis('Sales Order Form');
 
-        $varData = Helper_APICall::setCallAPIGateway(
-        Helper_Environment::getUserSessionID_System(),
-        $varAPIWebToken, 
-        'transaction.read.dataList.budgeting.getBudget', 
-        'latest', 
-        [
-        'parameter' => null,
-        'SQLStatement' => [
-            'pick' => null,
-            'sort' => null,
-            'filter' => null,
-            'paging' => null
-            ]
-        ]
-        );
-        // dd($varData);
-        return view('Budget.Budget.Transactions.index', ['data' => $varData['data']]);
+        return view('Budget.Budget.Transactions.CreateBudget', [
+            'var'                   => $var,
+            'varAPIWebToken'        => $varAPIWebToken,
+            // 'documentType_RefID'    => $documentTypeRefID
+        ]);
     }
 
     public function ModifyBudget(Request $request) {

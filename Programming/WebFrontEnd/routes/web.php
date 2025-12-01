@@ -143,7 +143,9 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('ReportModifyBudgetDetail', 'Budget\BudgetController@ReportModifyBudgetDetail')->name('Budget.ReportModifyBudgetDetail');
     Route::post('ReportModifyBudgetDetailStore', 'Budget\BudgetController@ReportModifyBudgetDetailStore')->name('Budget.ReportModifyBudgetDetailStore');
     Route::post('PrintExportReportModifyBudgetDetail', 'Budget\BudgetController@PrintExportReportModifyBudgetDetail')->name('Budget.PrintExportReportModifyBudgetDetail');
-    Route::resource('Budget', 'BudgetController');
+    Route::post('BudgetImport', 'Budget\BudgetController@Import')->name('Budget.Import');
+    Route::get('BudgetDownload', 'Budget\BudgetController@Download')->name('Budget.Download');
+    Route::resource('Budget', 'Budget\BudgetController');
     // Budget Expense
     Route::get('BudgetExpense/GetBudget', 'BudgetExpenseController@GetBudget')->name('BudgetExpense.GetBudget');
     Route::resource('BudgetExpense', 'BudgetExpenseController');
@@ -560,6 +562,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     // CUSTOMER ORDER
     Route::get('ReportCustomerOrderToInvoice', 'Sales\CustomerOrderController@ReportCustomerOrderToInvoice')->name('CustomerOrder.ReportCustomerOrderToInvoice');
     Route::get('ReportCustomerOrderSummary', 'Sales\CustomerOrderController@ReportCustomerOrderSummary')->name('CustomerOrder.ReportSummary');
+    Route::post('ReportCustomerOrderSummaryStore', 'Sales\CustomerOrderController@ReportCustomerOrderSummaryStore')->name('CustomerOrder.ReportSummaryStore');
     Route::post('CustomerOrderRevision', 'Sales\CustomerOrderController@Revision')->name('CustomerOrder.Revision');
     Route::get('CustomerOrderDownload', 'Sales\CustomerOrderController@download')->name('CustomerOrder.Download');
     Route::post('CustomerOrderImport', 'Sales\CustomerOrderController@import')->name('CustomerOrder.Import');
