@@ -5,6 +5,8 @@
     let totalDeduction                  = {!! json_encode($header['deduction'] ?? []) !!};;
     let currentIndexPickCOA             = null;
     let dataStore                       = [];
+    let depreciationRateValue           = 0;
+    let depreciationYearsValue          = 0;
     const supplierInvoiceNumber         = document.getElementById("supplier_invoice_number");
     const paymentTransferNumber         = document.getElementById("payment_transfer_number");
     const valueVAT                      = document.getElementById('ppn');
@@ -316,9 +318,10 @@
             $(`#qty_ap${key}`).on('keyup', function() {
                 let qty_ap      = $(this).val().replace(/,/g, '');
                 let wht_ap      = $(`#wht${key}`).val().replace(/,/g, '');
+                let results     = parseFloat(val.potoAPQuantityAvail) + parseFloat(val.quantity);
                 let total_ap    = parseFloat(qty_ap || 0) * val.purchaseOrderDetailPrice;
 
-                if (parseFloat(qty_ap) > val.qtyAvail) {
+                if (parseFloat(qty_ap) > results) {
                     $(this).val("");
                     ErrorNotif("Qty AP is over!");
                 } else {
@@ -335,6 +338,7 @@
 
                 calculateTotal();
                 calculateGrandTotal();
+                checkOneLineBudgetContents(key);
             });
 
             $(`#wht${key}`).on('input', function () {
@@ -355,6 +359,7 @@
                 }
 
                 calculateGrandTotal();
+                checkOneLineBudgetContents(key);
             });
 
             let rowList = `
@@ -808,6 +813,68 @@
             }
         });
     }
+
+    $('#supplier_invoice_number').on('input', function(e) {
+        if (!e.target.value) {
+            $("#supplier_invoice_number").css("border", "1px solid red");
+            $("#supplier_invoice_number_message").show();
+        } else {
+            $("#supplier_invoice_number").css("border", "1px solid #ced4da");
+            $("#supplier_invoice_number_message").hide();
+        }
+    });
+
+    $('#vat_number').on('input', function(e) {
+        if (!e.target.value) {
+            $("#vat_number").css("border", "1px solid red");
+            $("#vat_number_message").show();
+        } else {
+            $("#vat_number").css("border", "1px solid #ced4da");
+            $("#vat_number_message").hide();
+        }
+    });
+
+    $('#depreciation_rate_percentage').on('input', function(e) {
+        const val = e.target.value;
+        
+        if (!val) {
+            $("#depreciation_rate_percentage").css("border", "1px solid red");
+            $("#depreciation_value_text_message").text("Depreciation Rate cannot be empty.");
+            $("#depreciation_value_message").show();
+        } else {
+            if (val != depreciationRateValue) {
+                // $("#depreciation_rate_years_id").val("");
+            } else {
+                if (depreciationRateYears.value == depreciationYearsValue) {
+                    $("#depreciation_rate_years_id").val(depreciationRateYearsIDValue);
+                }
+            }
+
+            $("#depreciation_rate_percentage").css("border", "1px solid #ced4da");
+            $("#depreciation_value_message").hide();
+        }
+    });
+
+    $('#depreciation_rate_years').on('input', function(e) {
+        const val = e.target.value;
+
+        if (!val) {
+            $("#depreciation_rate_years").css("border", "1px solid red");
+            $("#depreciation_value_text_message").text("Depreciation Years cannot be empty.");
+            $("#depreciation_value_message").show();
+        } else {
+            if (val != depreciationYearsValue) {
+                // $("#depreciation_rate_years_id").val("");
+            } else {
+                if (depreciationRatePercentage.value == depreciationRateValue) {
+                    $("#depreciation_rate_years_id").val(depreciationRateYearsIDValue);
+                }
+            }
+
+            $("#depreciation_rate_years").css("border", "1px solid #ced4da");
+            $("#depreciation_value_message").hide();
+        }
+    });
 
     $('#tableGetCategory').on('click', 'tbody tr', async function() {
         let sysId = $(this).find('input[data-trigger="sys_id_category"]').val();
