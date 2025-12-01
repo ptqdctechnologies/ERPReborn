@@ -2,6 +2,7 @@
     let data            = [];
     let dataAddManual   = [];
     let indexSubBudget  = null;
+    let documentTypeID  = document.getElementById("DocumentTypeID");
 
     function detailAddManual() {
         dataAddManual = [];
@@ -275,24 +276,44 @@
         });
     });
 
-    $('#tableProjects').on('click', 'tbody tr', function() {
+    $('#tableProjects').on('click', 'tbody tr', async function() {
         let sysId   = $(this).find('input[data-trigger="sys_id_project"]').val();
         let code    = $(this).find('td:nth-child(2)').text();
         let name    = $(this).find('td:nth-child(3)').text();
 
-        $("#project_id").val(sysId);
-        $("#project_name").val(`${code} - ${name}`);
-        $("#project_name").css('background-color', '#e9ecef');
+        $("#project_id").val("");
+        $("#project_name").val("");
         
-        $("#type_import_from_excel").prop("disabled", false);
-        $("#type_add_manually").prop("disabled", false);
-
-        $("#myProjectsTrigger").prop("disabled", true);
-        $("#myProjectsTrigger").css("cursor", "not-allowed");
+        $("#project_name").css("border", "1px solid #ced4da");
+        $("#budgetMessage").hide();
+        $("#loadingBudget").css({"display":"block"});
+        $("#myProjectsTrigger").css({"display":"none"});
 
         $('#myProjects').modal('hide');
 
-        convertSubBudgetToVariable(sysId);
+        try {
+            var checkWorkFlow = await checkingWorkflow(sysId, documentTypeID.value);
+
+            if (checkWorkFlow) {
+                $("#var_combinedBudget_RefID").val(sysId);
+                $("#project_id").val(sysId);
+                $("#project_name").val(`${code} - ${name}`);
+                $("#project_name").css('background-color', '#e9ecef');
+                
+                convertSubBudgetToVariable(sysId);
+                $("#type_import_from_excel").prop("disabled", false);
+                $("#type_add_manually").prop("disabled", false);
+                $("#myProjectsTrigger").prop("disabled", true);
+                $("#myProjectsTrigger").css("cursor", "not-allowed");
+            }
+            
+            $("#loadingBudget").css({"display":"none"});
+            $("#myProjectsTrigger").css({"display":"block"});
+        } catch (error) {
+            console.error('Error checking workflow:', error);
+
+            Swal.fire("Error", "Error Checking Workflow", "error");
+        }
     });
 
     $('#tableCurrencies').on('click', 'tbody tr', function() {
