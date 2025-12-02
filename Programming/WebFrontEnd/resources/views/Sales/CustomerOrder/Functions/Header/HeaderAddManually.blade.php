@@ -38,7 +38,7 @@
 <div class="card-body">
   <div class="row">
     <div class="col">
-      <div class="text-red" id="import_message" style="display: none;">
+      <div class="text-red" id="manually_message" style="display: none;">
         Please input at least one item.
       </div>
     </div>

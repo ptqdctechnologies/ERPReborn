@@ -24,8 +24,8 @@
           </div>
         </div>
       </div>
-      <div class="row" id="budgetMessage" style="margin-top: .3rem;display: none;">
-        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+      <div class="row" id="project_message" style="margin-top: .3rem;display: none;">
+        <label class="col-sm-3 col-md-4 col-lg-3 col-form-label p-0"></label>
         <div class="col text-red">
           Budget Code cannot be empty.
         </div>
@@ -52,10 +52,10 @@
           </div>
         </div>
       </div>
-      <div class="row" id="subBudgetMessage" style="margin-top: .3rem;display: none;">
-        <label for="project_code_second" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+      <div class="row" id="currency_message" style="margin-top: .3rem;display: none;">
+        <label class="col-sm-3 col-md-4 col-lg-3 col-form-label p-0"></label>
         <div class="col text-red">
-          Sub Budget Code cannot be empty.
+          Currency cannot be empty.
         </div>
       </div>
     </div>
@@ -76,6 +76,11 @@
               <div style="margin-top: 6%;">Add Manually</div>
             </label>
           </div>
+        </div>
+      </div>
+      <div class="row" id="type_message" style="margin-top: .3rem; display: none;">
+        <div class="col text-red p-0">
+          Customer Order Type cannot be empty.
         </div>
       </div>
     </div>

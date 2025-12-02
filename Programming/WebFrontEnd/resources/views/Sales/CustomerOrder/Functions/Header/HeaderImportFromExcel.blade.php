@@ -22,9 +22,15 @@
       </div>
       <div class="row" style="margin-top: .3rem;">
         <label class="col-sm-3 col-md-4 col-lg-3 col-form-label p-0"></label>
-        <a href="{{ route('CustomerOrder.Download') }}" class="col">
+        <a href="{{ route('CustomerOrder.Download') }}" class="col" style="max-width: fit-content;">
           Download Template
         </a>
+      </div>
+      <div class="row" id="co_file_message" style="margin-top: .3rem;display: none;">
+        <label class="col-sm-3 col-md-4 col-lg-3 col-form-label p-0"></label>
+        <div class="col text-red">
+          CO File cannot be empty.
+        </div>
       </div>
     </div>
 
@@ -75,7 +81,7 @@
   <div class="row">
     <div class="col">
       <div class="text-red" id="import_message" style="display: none;">
-        Please input at least one item.
+        Please review your selected item.
       </div>
     </div>
     <div class="col text-right" style="margin-right: 20px; font-size: 0.77rem; color: #212529; font-weight: 600;">
