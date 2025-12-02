@@ -11,7 +11,7 @@
                 <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="myProjectsTriggers">
               </a>
 
-              <div id="loadingBudget" class="spinner-border spinner-border-sm" role="status" style="display: none;">
+              <div id="project_loading" class="spinner-border spinner-border-sm" role="status" style="display: none;">
                 <span class="sr-only">Loading...</span>
               </div>
             </span>

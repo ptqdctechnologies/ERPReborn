@@ -26,6 +26,7 @@
         }
         $('#import_total').text("0.00");
         $('#manually_total').text("0.00");
+        $('#type_message').hide();
     }
 
     function calculateTotal() {
@@ -395,6 +396,9 @@
         formData.append("excel_file", this.files[0]);
         formData.append("_token", "{{ csrf_token() }}");
 
+        $("#excel_name").css("border", "1px solid #ced4da");
+        $('#co_file_message').hide();
+
         $.ajax({
             url: "{{ route('CustomerOrder.Import') }}",
             type: "POST",
@@ -402,7 +406,7 @@
             processData: false,
             contentType: false,
             success: function(res) {
-                $('#table_import_from_excel tbody').empty(); // bersihkan table
+                $('#table_import_from_excel tbody').empty();
 
                 res.rows.slice(1).forEach((row, index) => {
                     const result = findByCode(row[1]);
@@ -474,8 +478,8 @@
         $("#project_name").val("");
         
         $("#project_name").css("border", "1px solid #ced4da");
-        $("#budgetMessage").hide();
-        $("#loadingBudget").css({"display":"block"});
+        $("#project_message").hide();
+        $("#project_loading").css({"display":"block"});
         $("#myProjectsTrigger").css({"display":"none"});
 
         $('#myProjects').modal('hide');
@@ -496,7 +500,7 @@
                 $("#myProjectsTrigger").css("cursor", "not-allowed");
             }
             
-            $("#loadingBudget").css({"display":"none"});
+            $("#project_loading").css({"display":"none"});
             $("#myProjectsTrigger").css({"display":"block"});
         } catch (error) {
             console.error('Error checking workflow:', error);
@@ -512,7 +516,8 @@
 
         $("#currency_id").val(sysId);
         $("#currency_name").val(`${code} - ${name}`);
-        $("#currency_name").css('background-color', '#e9ecef');
+        $("#currency_name").css({"background-color": "#e9ecef", "border": "1px solid #ced4da"});
+        $("#currency_message").hide();
 
         $("#myCurrenciesTrigger").prop("disabled", true);
         $("#myCurrenciesTrigger").css("cursor", "not-allowed");
