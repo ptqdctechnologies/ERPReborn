@@ -3,7 +3,7 @@
     let dataAddManual   = [];
     let indexSubBudget  = null;
 
-    function findByName(nameToFind) {
+    function findByCode(codeToFind) {
         const normalizeString = (str) => {
             return str
                 .toLowerCase()                   // Mengubah menjadi lowercase
@@ -11,7 +11,8 @@
                 .replace(/[^\w\s]/g, '');         // Menghapus simbol selain huruf dan angka
         };
 
-        return data.find(item => normalizeString(item.name) == normalizeString(nameToFind));
+        return data.find(item => item.code == codeToFind);
+        // return data.find(item => normalizeString(item.name) == normalizeString(codeToFind));
     }
 
     function convertSubBudgetToVariable(Project_RefID) {
@@ -105,7 +106,7 @@
                 $('#table_import_from_excel tbody').empty();
 
                 res.rows.slice(1).forEach((row, index) => {
-                    const result = findByName(row[1]);
+                    const result = findByCode(row[1]);
 
                     if (result) {
                         $('#table_import_from_excel tbody').append(`
@@ -133,7 +134,7 @@
                                             </span>
                                         </div>
                                         <input id="work_id${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" hidden />
-                                        <input id="work_name${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" readonly />
+                                        <input id="work_name${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" readonly value="${row[3] ?? ''} - ${row[4] ?? ''}" />
                                     </div>
                                 </td>
                                 <td>
@@ -146,7 +147,7 @@
                                             </span>
                                         </div>
                                         <input id="product_id${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" hidden />
-                                        <input id="product_name${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" readonly />
+                                        <input id="product_name${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" readonly value="${row[5] ?? ''} - ${row[6] ?? ''}" />
                                     </div>
                                 </td>
                                 <td>
@@ -159,22 +160,22 @@
                                             </span>
                                         </div>
                                         <input id="currency_id${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" hidden />
-                                        <input id="currency_name${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" readonly />
+                                        <input id="currency_name${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" readonly value="${row[7] ?? ''} - ${row[8] ?? ''}" />
                                     </div>
                                 </td>
                                 <td>
                                     <div class="input-group">
-                                        <input class="form-control number-without-negative" id="qty${index}" autocomplete="off" style="border-radius:0px;" value="${currencyTotal(row[5])}" />
+                                        <input class="form-control number-without-negative" id="qty${index}" autocomplete="off" style="border-radius:0px;" value="${currencyTotal(row[9])}" />
                                     </div>
                                 </td>
                                 <td>
                                     <div class="input-group">
-                                        <input class="form-control number-without-negative" id="price${index}" autocomplete="off" style="border-radius:0px;" value="${currencyTotal(row[6])}" />
+                                        <input class="form-control number-without-negative" id="price${index}" autocomplete="off" style="border-radius:0px;" value="${currencyTotal(row[10])}" />
                                     </div>
                                 </td>
                                 <td style="padding-right:5px;">
                                     <div class="input-group">
-                                        <input class="form-control number-without-negative" id="total${index}" autocomplete="off" style="border-radius:0px;" value="${currencyTotal(row[7])}" />
+                                        <input class="form-control number-without-negative" id="total${index}" autocomplete="off" style="border-radius:0px;" value="${currencyTotal(row[11])}" />
                                     </div>
                                 </td>
                             </tr>
@@ -192,7 +193,7 @@
                                             </span>
                                         </div>
                                         <input id="sub_budget_id${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" hidden />
-                                        <input id="sub_budget_name${index}" style="border-radius:0;width:130px;background-color:white;border-color:red;" class="form-control" readonly value="${row[1]}" />
+                                        <input id="sub_budget_name${index}" style="border-radius:0;width:130px;background-color:white;border-color:red;" class="form-control" readonly value="${row[1] ?? ''} - ${row[2] ?? ''}" />
                                     </div>
                                 </td>
                                 <td>
@@ -205,7 +206,7 @@
                                             </span>
                                         </div>
                                         <input id="work_id${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" hidden />
-                                        <input id="work_name${index}" style="border-radius:0;width:130px;background-color:white;border-color:red;" class="form-control" readonly value="${row[2]}" />
+                                        <input id="work_name${index}" style="border-radius:0;width:130px;background-color:white;border-color:red;" class="form-control" readonly value="${row[3] ?? ''} - ${row[4] ?? ''}" />
                                     </div>
                                 </td>
                                 <td>
@@ -218,7 +219,7 @@
                                             </span>
                                         </div>
                                         <input id="product_id${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" hidden />
-                                        <input id="product_name${index}" style="border-radius:0;width:130px;background-color:white;border-color:red;" class="form-control" readonly value="${row[3]}" />
+                                        <input id="product_name${index}" style="border-radius:0;width:130px;background-color:white;border-color:red;" class="form-control" readonly value="${row[5] ?? ''} - ${row[6] ?? ''}" />
                                     </div>
                                 </td>
                                 <td>
@@ -231,22 +232,22 @@
                                             </span>
                                         </div>
                                         <input id="currency_id${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" hidden />
-                                        <input id="currency_name${index}" style="border-radius:0;width:130px;background-color:white;border-color:red;" class="form-control" readonly value="${row[4]}" />
+                                        <input id="currency_name${index}" style="border-radius:0;width:130px;background-color:white;border-color:red;" class="form-control" readonly value="${row[7] ?? ''} - ${row[8] ?? ''}" />
                                     </div>
                                 </td>
                                 <td>
                                     <div class="input-group">
-                                        <input class="form-control number-without-negative" id="qty${index}" autocomplete="off" style="border-radius:0px;" value="${currencyTotal(row[5])}" />
+                                        <input class="form-control number-without-negative" id="qty${index}" autocomplete="off" style="border-radius:0px;" value="${currencyTotal(row[9])}" />
                                     </div>
                                 </td>
                                 <td>
                                     <div class="input-group">
-                                        <input class="form-control number-without-negative" id="price${index}" autocomplete="off" style="border-radius:0px;" value="${currencyTotal(row[6])}" />
+                                        <input class="form-control number-without-negative" id="price${index}" autocomplete="off" style="border-radius:0px;" value="${currencyTotal(row[10])}" />
                                     </div>
                                 </td>
                                 <td style="padding-right:5px;">
                                     <div class="input-group">
-                                        <input class="form-control number-without-negative" id="total${index}" autocomplete="off" style="border-radius:0px;" value="${currencyTotal(row[7])}" />
+                                        <input class="form-control number-without-negative" id="total${index}" autocomplete="off" style="border-radius:0px;" value="${currencyTotal(row[11])}" />
                                     </div>
                                 </td>
                             </tr>
