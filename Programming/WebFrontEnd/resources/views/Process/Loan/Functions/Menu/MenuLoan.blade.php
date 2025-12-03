@@ -18,10 +18,11 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link myPopUpArfRevision" data-toggle="modal" data-target="#myPopUpArfRevision" style="color:white;padding-bottom:10px;cursor:pointer">
+                                    <a class="nav-link myPopUpLoanRevision" data-toggle="modal" data-target="#myPopUpLoanRevision" style="color:white;padding-bottom:10px;cursor:pointer">
                                         <i class="far fa-file nav-icon-sm"> Revision Loan Request</i>
                                     </a>
                                 </li>
+                                
                             </ul>
                         </li>
                     </ul>
@@ -30,42 +31,3 @@
         </div>
     </div>
 </div>
-
-<script> 
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
-
-    // $(function() {
-        // $('.myPopUpArfRevision').on('click', function(e) {
-        $(window).one('load', function(e) {
-            e.preventDefault();
-
-            var keys = 0;
-
-            $.ajax({
-                type: 'GET',
-                url: '{!! route("getAdvance") !!}',
-                success: function(data) {
-                    var no = 1; t = $('#TableSearchArfRevision').DataTable();
-                    t.clear();
-                    $.each(data, function(key, val) {
-                        keys += 1;
-                        t.row.add([
-                            '<tbody><tr><input id="sys_id_advance_revision' + keys + '" value="' + val.sys_ID + '" type="hidden"><td>' + no++ + '</td>',
-                            '<td>' + val.documentNumber + '</td>',
-                            '<td>' + val.combinedBudgetCode + '</td>',
-                            '<td>' + val.combinedBudgetName + '</td>',
-                            '<td>' + val.combinedBudgetSectionCode + '</td>',
-                            '<td>' + val.combinedBudgetSectionName + '</td></tr></tbody>'
-                        ]).draw();
-
-                    });
-                }
-            });
-        });
-
-    // });
-</script>

@@ -7,6 +7,9 @@
 @include('getFunction.getSupplier')
 @include('getFunction.getBankList')
 @include('getFunction.getBankAccount')
+@include('getFunction.getLoans')
+@include('Process.Loan.Functions.Popup.PopUpLoanRevision')
+@include('Process.Loan.Functions.Table.tableLoanRevision')
 
 <div class="content-wrapper">
   <section class="content">
@@ -51,7 +54,6 @@
             </div>
           </div>
 
-         
           <!-- FILE ATTACHMENT -->
           <div class="tab-content px-3 pb-2" id="nav-tabContent">
             <div class="row">
@@ -101,7 +103,7 @@
                   <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel Advance List Cart"> Cancel
                 </a>
 
-                <button class="btn btn-default btn-sm float-right" type="submit" id="submitPR" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
+                <button class="btn btn-default btn-sm float-right" type="button" id="submitPR" onclick="submitForm()" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
                   <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" title="Submit to Advance"> Submit
                 </button>
               </div>
@@ -115,4 +117,5 @@
 </div>
 
 @include('Partials.footer')
+@include('Process.Loan.Functions.Footer.FooterLoan')
 @endsection
