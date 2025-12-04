@@ -219,6 +219,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('getTransporter', 'Function\FunctionController@getTransporter')->name('getTransporter');
     Route::get('getListTransactionByDocumentTypeID', 'Function\FunctionController@getListTransactionByDocumentTypeID')->name('getListTransactionByDocumentTypeID');
     Route::get('getAssetCategory', 'Function\FunctionController@getAssetCategory')->name('getAssetCategory');
+    Route::get('getWorks', 'Function\FunctionController@getWorks')->name('getWorks');
     Route::get('getDepreciationMethod', 'Function\FunctionController@getDepreciationMethod')->name('getDepreciationMethod');
     Route::get('getDepreciationRateYears', 'Function\FunctionController@getDepreciationRateYears')->name('getDepreciationRateYears');
 
