@@ -1,13 +1,15 @@
 <script>
-    let data            = [];
-    let dataProducts    = [];
-    let dataWorks       = [];
-    let dataCurrencies  = [];
-    let dataAddManual   = [];
-    let indexSubBudget  = null;
-    let indexWork       = null;
-    let indexProduct    = null;
-    let indexCurrency   = null;
+    let data                    = [];
+    let dataProducts            = [];
+    let dataWorks               = [];
+    let dataCurrencies          = [];
+    let dataAddManual           = [];
+    let indexSubBudget          = null;
+    let indexWork               = null;
+    let indexProduct            = null;
+    let indexCurrency           = null;
+    let indexStartDate          = null;
+    let groupingDataExcelByWork = [];
 
     function findSubBudgetByCode(codeToFind) {
         // const normalizeString = (str) => {
@@ -20,7 +22,7 @@
         return data.find(item => item.code == codeToFind);
     }
 
-    function findWorkByISOCode(codeToFind) {
+    function findWorkByCode(codeToFind) {
         // const normalizeString = (str) => {
         //     return str
         //         .toLowerCase()                   // Mengubah menjadi lowercase
@@ -213,6 +215,88 @@
         indexCurrency = index;
     }
 
+    function pickStartDate(index) {
+        indexCurrency = index;
+    }
+
+    function showTimeline() {
+        Object.values(groupingDataExcelByWork).forEach((row, index) => {
+            $('#table_timeline tbody').append(`
+                <tr>
+                    <td style="padding: 5px;">
+                        <input id="timeline_work_name${index}" style="border-radius:0;" class="form-control" readonly value="${row[3]} - ${row[4]}" />
+                    </td>
+                    <td style="padding: 5px;">
+                        <div class="input-group date" id="dateOfDelivery${index}" data-target-input="nearest" style="flex-wrap: nowrap;">
+                            <div>
+                                <div class="input-group-append" data-target="#dateOfDelivery${index}" data-toggle="datetimepicker" style="width: 27.78px; height: 21.8px;">
+                                    <div class="input-group-text" style="border-radius: unset; justify-content: center; width: inherit;">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="flex: 100%;">
+                                <input type="text" class="form-control datetimepicker-input" name="dateCommance" id="dateCommance${index}" onkeydown="return false" data-target="#dateOfDelivery${index}" autocomplete="off" style="border-radius: unset;" />
+                            </div>
+                        </div>
+                    </td>
+                    <td style="padding: 5px;">
+                        <div class="input-group date" id="dateOfDeliveryEnd${index}" data-target-input="nearest" style="flex-wrap: nowrap;">
+                            <div>
+                                <div class="input-group-append" data-target="#dateOfDeliveryEnd${index}" data-toggle="datetimepicker" style="width: 27.78px; height: 21.8px;">
+                                    <div class="input-group-text" style="border-radius: unset; justify-content: center; width: inherit;">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="flex: 100%;">
+                                <input type="text" class="form-control datetimepicker-input" name="dateCommanceEnd" id="dateCommanceEnd${index}" onkeydown="return false" data-target="#dateOfDeliveryEnd${index}" autocomplete="off" style="border-radius: unset;" />
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            `);
+
+            $(`#dateOfDelivery${index}`).datetimepicker({
+                format: 'L',
+                widgetPositioning: {
+                    horizontal: 'auto',
+                    vertical: 'bottom'
+                }
+            });
+
+            $(`#dateOfDelivery${index}`).on('change.datetimepicker', function (e) {
+                const dateDelivery = document.getElementById(`dateCommance${index}`);
+
+                if (dateDelivery.value) {
+                    $(`#dateCommance${index}`).css({
+                        "background-color": "#e9ecef",
+                        "border": "1px solid #ced4da"
+                    });
+                }
+            });
+
+            $(`#dateOfDeliveryEnd${index}`).datetimepicker({
+                format: 'L',
+                widgetPositioning: {
+                    horizontal: 'auto',
+                    vertical: 'bottom'
+                }
+            });
+
+            $(`#dateOfDeliveryEnd${index}`).on('change.datetimepicker', function (e) {
+                const dateDelivery = document.getElementById(`dateCommanceEnd${index}`);
+
+                if (dateDelivery.value) {
+                    $(`#dateCommanceEnd${index}`).css({
+                        "background-color": "#e9ecef",
+                        "border": "1px solid #ced4da"
+                    });
+                }
+            });
+        });
+    }
+
     function submitJournalDetails() {
         // const testing = document.getElementById(`sub_budget_name${indexSubBudget}`);
         // console.log('testing', testing.value);
@@ -238,9 +322,22 @@
             success: function(res) {
                 $('#table_import_from_excel tbody').empty();
 
+                groupingDataExcelByWork = res.rows.slice(1).reduce((acc, currentItem) => {
+                    const key           = currentItem[3]; 
+                    const validateValue = findWorkByCode(currentItem[3]);
+
+                    if (!acc[key] && validateValue) {
+                        acc[key] = currentItem;
+                    }
+
+                    return acc;
+                }, {});
+
+                console.log('groupingDataExcelByWork', Object.values(groupingDataExcelByWork));
+
                 res.rows.slice(1).forEach((row, index) => {
                     const validateSubBudget = findSubBudgetByCode(row[1]);
-                    const validateWork      = findWorkByISOCode(row[3]);
+                    const validateWork      = findWorkByCode(row[3]);
                     const validateProduct   = findProductByCode(row[5]);
                     const validateCurrency  = findCurrencyByISOCode(row[7]);
 
@@ -361,6 +458,8 @@
                         </tr>
                     `);
                 });
+
+                showTimeline();
             }
         });
         
