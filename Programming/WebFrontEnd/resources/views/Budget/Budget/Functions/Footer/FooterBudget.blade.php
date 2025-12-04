@@ -12,7 +12,6 @@
         };
 
         return data.find(item => item.code == codeToFind);
-        // return data.find(item => normalizeString(item.name) == normalizeString(codeToFind));
     }
 
     function convertSubBudgetToVariable(Project_RefID) {
@@ -74,6 +73,9 @@
                 $("#errorSitesMessage").text(`[${textStatus.status}] ${textStatus.responseJSON.message}`);
             }
         });
+    }
+
+    function convertProductToVariable() {
     }
 
     function pickSubBudget(index) {
@@ -141,7 +143,7 @@
                                     <div class="input-group">
                                         <div class="input-group-append">
                                             <span style="border-radius:0;cursor:pointer;" class="input-group-text form-control">
-                                                <a href="javascript:;" data-toggle="modal" data-target="#mySites" onclick="pickSubBudget(${index})">
+                                                <a href="javascript:;" data-toggle="modal" data-target="#myProductss" onclick="pickSubBudget(${index}); getProductss();">
                                                     <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="box${index}">
                                                 </a>
                                             </span>
@@ -213,7 +215,7 @@
                                     <div class="input-group">
                                         <div class="input-group-append">
                                             <span style="border-radius:0;cursor:pointer;" class="input-group-text form-control">
-                                                <a data-toggle="modal" data-target="#mySites" onclick="pickSubBudget(${index})">
+                                                <a data-toggle="modal" data-target="#myProductss" onclick="pickSubBudget(${index}); getProductss();">
                                                     <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="box${index}">
                                                 </a>
                                             </span>
