@@ -75,14 +75,47 @@
                 table.clear();
 
                 if (Array.isArray(data.data) && data.data.length > 0) {
-                    $.each(data.data, function(key, val) {
-                        keys += 1;
-                        table.row.add([
-                            '<input id="sys_id_currencies' + keys + '" value="' + val.sys_ID + '" data-trigger="sys_id_currencies" type="hidden">' + no++,
-                            val.ISOCode || '-',
-                            val.name || '-',
-                        ]).draw();
+                    dataCurrencies = data.data; // USE IN BUDGET PAGE
+
+                    // $.each(data.data, function(key, val) {
+                    //     keys += 1;
+                    //     table.row.add([
+                    //         '<input id="sys_id_currencies' + keys + '" value="' + val.sys_ID + '" data-trigger="sys_id_currencies" type="hidden">' + no++,
+                    //         val.ISOCode || '-',
+                    //         val.name || '-',
+                    //     ]).draw();
+                    // });
+
+                    $('#tableCurrencies').DataTable({
+                        destroy: true,
+                        data: data.data,
+                        deferRender: true,
+                        scrollCollapse: true,
+                        scroller: true,
+                        columns: [
+                            {
+                                data: null,
+                                render: function (data, type, row, meta) {
+                                    return '<td class="align-middle text-center">' +
+                                        '<input id="sys_id_currencies' + (meta.row + 1) + '" value="' + data.sys_ID + '" data-trigger="sys_id_currencies" type="hidden">' +
+                                        (meta.row + 1) +
+                                    '</td>';
+                                }
+                            },
+                            {
+                                data: 'ISOCode',
+                                defaultContent: '-',
+                                className: "align-middle"
+                            },
+                            {
+                                data: 'name',
+                                defaultContent: '-',
+                                className: "align-middle text-wrap"
+                            }
+                        ]
                     });
+
+                    $('#tableCurrencies').css("width", "100%");
 
                     $("#tableCurrencies_length").show();
                     $("#tableCurrencies_filter").show();
