@@ -1,17 +1,30 @@
 <script>
     let data            = [];
+    let dataProducts    = [];
     let dataAddManual   = [];
     let indexSubBudget  = null;
+    let indexProduct    = null;
 
-    function findByCode(codeToFind) {
-        const normalizeString = (str) => {
-            return str
-                .toLowerCase()                   // Mengubah menjadi lowercase
-                .trim()                           // Menghapus spasi ekstra
-                .replace(/[^\w\s]/g, '');         // Menghapus simbol selain huruf dan angka
-        };
+    function findSubBudgetByCode(codeToFind) {
+        // const normalizeString = (str) => {
+        //     return str
+        //         .toLowerCase()                   // Mengubah menjadi lowercase
+        //         .trim()                           // Menghapus spasi ekstra
+        //         .replace(/[^\w\s]/g, '');         // Menghapus simbol selain huruf dan angka
+        // };
 
         return data.find(item => item.code == codeToFind);
+    }
+
+    function findProductByCode(codeToFind) {
+        // const normalizeString = (str) => {
+        //     return str
+        //         .toLowerCase()                   // Mengubah menjadi lowercase
+        //         .trim()                           // Menghapus spasi ekstra
+        //         .replace(/[^\w\s]/g, '');         // Menghapus simbol selain huruf dan angka
+        // };
+
+        return dataProducts.find(item => item.code == codeToFind);
     }
 
     function convertSubBudgetToVariable(Project_RefID) {
@@ -76,10 +89,94 @@
     }
 
     function convertProductToVariable() {
+        $('#tableGetProductss tbody').empty();
+        $(".loadingGetModalProductss").show();
+        $(".errorModalProductssMessageContainer").hide();
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: 'GET',
+            url: '{!! route("getProduct") !!}',
+            success: function(data) {
+                $(".loadingGetModalProductss").hide();
+
+                var table = $('#tableGetProductss').DataTable();
+                table.clear();
+
+                if (Array.isArray(data.data.data) && data.data.data.length > 0) {
+                    dataProducts = data.data.data;
+
+                    $('#tableGetProductss').DataTable({
+                        destroy: true,
+                        data: data.data.data,
+                        deferRender: true,
+                        scrollCollapse: true,
+                        scroller: true,
+                        columns: [
+                            {
+                                data: null,
+                                render: function (data, type, row, meta) {
+                                    return '<td class="align-middle text-center">' +
+                                        '<input id="sys_id_product' + (meta.row + 1) + '" value="' + data.sys_ID + '" data-trigger="sys_id_productss" type="hidden">' +
+                                        (meta.row + 1) +
+                                    '</td>';
+                                }
+                            },
+                            {
+                                data: 'code',
+                                defaultContent: '-',
+                                className: "align-middle"
+                            },
+                            {
+                                data: 'name',
+                                defaultContent: '-',
+                                className: "align-middle text-wrap"
+                            },
+                            {
+                                data: 'quantityUnitName',
+                                defaultContent: '-',
+                                className: "align-middle"
+                            }
+                        ]
+                    });
+
+                    $('#tableGetProductss').css("width", "revert-layer");
+
+                    $("#tableGetProductss_length").show();
+                    $("#tableGetProductss_filter").show();
+                    $("#tableGetProductss_info").show();
+                    $("#tableGetProductss_paginate").show();
+                } else {
+                    $('#tableGetProductss tbody').empty();
+                    $(".errorModalProductssMessageContainer").show();
+                    $("#errorModalProductssMessage").text(`Data not found.`);
+
+                    $("#tableGetProductss_length").hide();
+                    $("#tableGetProductss_filter").hide();
+                    $("#tableGetProductss_info").hide();
+                    $("#tableGetProductss_paginate").hide();
+                }
+            },
+            error: function (textStatus, errorThrown) {
+                $('#tableGetProductss tbody').empty();
+                $(".loadingGetModalProductss").hide();
+                $(".errorModalProductssMessageContainer").show();
+                $("#errorModalProductssMessage").text(`[${textStatus.status}] ${textStatus.responseJSON.message}`);
+            }
+        });
     }
 
     function pickSubBudget(index) {
         indexSubBudget = index;
+    }
+
+    function pickProduct(index) {
+        indexProduct = index;
     }
 
     function submitJournalDetails() {
@@ -108,153 +205,107 @@
                 $('#table_import_from_excel tbody').empty();
 
                 res.rows.slice(1).forEach((row, index) => {
-                    const result = findByCode(row[1]);
+                    const validateSubBudget = findSubBudgetByCode(row[1]);
+                    const validateProduct = findProductByCode(row[5]);
 
-                    if (result) {
-                        $('#table_import_from_excel tbody').append(`
-                            <tr>
-                                <td style="padding: 5px;">
-                                    <div class="input-group">
-                                        <div class="input-group-append">
-                                            <span style="border-radius:0;cursor:pointer;" class="input-group-text form-control">
-                                                <a href="javascript:;" data-toggle="modal" data-target="#mySites" onclick="pickSubBudget(${index})">
-                                                    <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="box${index}">
-                                                </a>
-                                            </span>
-                                        </div>
-                                        <input id="sub_budget_id${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" hidden value="${result.sys_id}" />
-                                        <input id="sub_budget_name${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" readonly value="${result.code} - ${result.name}" />
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="input-group">
-                                        <div class="input-group-append">
-                                            <span style="border-radius:0;cursor:pointer;" class="input-group-text form-control">
-                                                <a href="javascript:;" data-toggle="modal" data-target="#mySites" onclick="pickSubBudget(${index})">
-                                                    <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="box${index}">
-                                                </a>
-                                            </span>
-                                        </div>
-                                        <input id="work_id${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" hidden />
-                                        <input id="work_name${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" readonly value="${row[3] ?? ''} - ${row[4] ?? ''}" />
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="input-group">
-                                        <div class="input-group-append">
-                                            <span style="border-radius:0;cursor:pointer;" class="input-group-text form-control">
-                                                <a href="javascript:;" data-toggle="modal" data-target="#myProductss" onclick="pickSubBudget(${index}); getProductss();">
-                                                    <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="box${index}">
-                                                </a>
-                                            </span>
-                                        </div>
-                                        <input id="product_id${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" hidden />
-                                        <input id="product_name${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" readonly value="${row[5] ?? ''} - ${row[6] ?? ''}" />
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="input-group">
-                                        <div class="input-group-append">
-                                            <span style="border-radius:0;cursor:pointer;" class="input-group-text form-control">
-                                                <a href="javascript:;" data-toggle="modal" data-target="#mySites" onclick="pickSubBudget(${index})">
-                                                    <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="box${index}">
-                                                </a>
-                                            </span>
-                                        </div>
-                                        <input id="currency_id${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" hidden />
-                                        <input id="currency_name${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" readonly value="${row[7] ?? ''} - ${row[8] ?? ''}" />
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="input-group">
-                                        <input class="form-control number-without-negative" id="qty${index}" autocomplete="off" style="border-radius:0px;" value="${currencyTotal(row[9])}" />
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="input-group">
-                                        <input class="form-control number-without-negative" id="price${index}" autocomplete="off" style="border-radius:0px;" value="${currencyTotal(row[10])}" />
-                                    </div>
-                                </td>
-                                <td style="padding-right:5px;">
-                                    <div class="input-group">
-                                        <input class="form-control number-without-negative" id="total${index}" autocomplete="off" style="border-radius:0px;" value="${currencyTotal(row[11])}" />
-                                    </div>
-                                </td>
-                            </tr>
-                        `);
-                    } else {
-                        $('#table_import_from_excel tbody').append(`
-                            <tr>
-                                <td style="padding: 5px;">
-                                    <div class="input-group">
-                                        <div class="input-group-append">
-                                            <span style="border-radius:0;cursor:pointer;" class="input-group-text form-control">
-                                                <a data-toggle="modal" data-target="#mySites" onclick="pickSubBudget(${index})">
-                                                    <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="box${index}">
-                                                </a>
-                                            </span>
-                                        </div>
-                                        <input id="sub_budget_id${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" hidden />
-                                        <input id="sub_budget_name${index}" style="border-radius:0;width:130px;background-color:white;border-color:red;" class="form-control" readonly value="${row[1] ?? ''} - ${row[2] ?? ''}" />
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="input-group">
-                                        <div class="input-group-append">
-                                            <span style="border-radius:0;cursor:pointer;" class="input-group-text form-control">
-                                                <a data-toggle="modal" data-target="#mySites" onclick="pickSubBudget(${index})">
-                                                    <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="box${index}">
-                                                </a>
-                                            </span>
-                                        </div>
-                                        <input id="work_id${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" hidden />
-                                        <input id="work_name${index}" style="border-radius:0;width:130px;background-color:white;border-color:red;" class="form-control" readonly value="${row[3] ?? ''} - ${row[4] ?? ''}" />
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="input-group">
-                                        <div class="input-group-append">
-                                            <span style="border-radius:0;cursor:pointer;" class="input-group-text form-control">
-                                                <a data-toggle="modal" data-target="#myProductss" onclick="pickSubBudget(${index}); getProductss();">
-                                                    <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="box${index}">
-                                                </a>
-                                            </span>
-                                        </div>
-                                        <input id="product_id${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" hidden />
-                                        <input id="product_name${index}" style="border-radius:0;width:130px;background-color:white;border-color:red;" class="form-control" readonly value="${row[5] ?? ''} - ${row[6] ?? ''}" />
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="input-group">
-                                        <div class="input-group-append">
-                                            <span style="border-radius:0;cursor:pointer;" class="input-group-text form-control">
-                                                <a data-toggle="modal" data-target="#mySites" onclick="pickSubBudget(${index})">
-                                                    <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="box${index}">
-                                                </a>
-                                            </span>
-                                        </div>
-                                        <input id="currency_id${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" hidden />
-                                        <input id="currency_name${index}" style="border-radius:0;width:130px;background-color:white;border-color:red;" class="form-control" readonly value="${row[7] ?? ''} - ${row[8] ?? ''}" />
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="input-group">
-                                        <input class="form-control number-without-negative" id="qty${index}" autocomplete="off" style="border-radius:0px;" value="${currencyTotal(row[9])}" />
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="input-group">
-                                        <input class="form-control number-without-negative" id="price${index}" autocomplete="off" style="border-radius:0px;" value="${currencyTotal(row[10])}" />
-                                    </div>
-                                </td>
-                                <td style="padding-right:5px;">
-                                    <div class="input-group">
-                                        <input class="form-control number-without-negative" id="total${index}" autocomplete="off" style="border-radius:0px;" value="${currencyTotal(row[11])}" />
-                                    </div>
-                                </td>
-                            </tr>
-                        `);
+                    let componentSubBudget = `
+                        <input id="sub_budget_id${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" hidden />
+                        <input id="sub_budget_name${index}" style="border-radius:0;width:130px;background-color:white;border-color:red;" class="form-control" readonly value="${row[1] ?? ''} - ${row[2] ?? ''}" />
+                    `;
+                    let componentWork = ``;
+                    let componentProduct = `
+                        <input id="product_id${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" hidden />
+                        <input id="product_name${index}" style="border-radius:0;width:130px;background-color:white;border-color:red;" class="form-control" readonly value="${row[5] ?? ''} - ${row[6] ?? ''}" />
+                    `;
+                    let componentCurrency = ``;
+
+                    if (validateSubBudget) {
+                        componentSubBudget = `
+                            <input id="sub_budget_id${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" hidden value="${validateSubBudget.sys_id}" />
+                            <input id="sub_budget_name${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" readonly value="${validateSubBudget.code} - ${validateSubBudget.name}" />
+                        `;
                     }
+
+                    if (validateProduct) {
+                        componentProduct = `
+                            <input id="product_id${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" hidden value="${validateProduct.sys_id}" />
+                            <input id="product_name${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" readonly value="${validateProduct.code} - ${validateProduct.name}" />
+                        `;
+                    }
+
+                    $('#table_import_from_excel tbody').append(`
+                        <tr>
+                            <td style="padding: 5px;">
+                                <div class="input-group">
+                                    <div class="input-group-append">
+                                        <span style="border-radius:0;cursor:pointer;" class="input-group-text form-control">
+                                            <a data-toggle="modal" data-target="#mySites" onclick="pickSubBudget(${index})">
+                                                <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="box${index}">
+                                            </a>
+                                        </span>
+                                    </div>
+                                    ${componentSubBudget}
+                                </div>
+                            </td>
+
+                            <td style="padding: 5px;">
+                                <div class="input-group">
+                                    <div class="input-group-append">
+                                        <span style="border-radius:0;cursor:pointer;" class="input-group-text form-control">
+                                            <a href="javascript:;" data-toggle="modal" data-target="#mySites" onclick="pickSubBudget(${index})">
+                                                <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="box${index}">
+                                            </a>
+                                        </span>
+                                    </div>
+                                    <input id="work_id${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" hidden />
+                                    <input id="work_name${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" readonly value="${row[3] ?? ''} - ${row[4] ?? ''}" />
+                                </div>
+                            </td>
+
+                            <td style="padding: 5px;">
+                                <div class="input-group">
+                                    <div class="input-group-append">
+                                        <span style="border-radius:0;cursor:pointer;" class="input-group-text form-control">
+                                            <a href="javascript:;" data-toggle="modal" data-target="#myProductss" onclick="pickProduct(${index});">
+                                                <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="box${index}">
+                                            </a>
+                                        </span>
+                                    </div>
+                                    ${componentProduct}
+                                </div>
+                            </td>
+
+                            <td style="padding: 5px;">
+                                <div class="input-group">
+                                    <div class="input-group-append">
+                                        <span style="border-radius:0;cursor:pointer;" class="input-group-text form-control">
+                                            <a href="javascript:;" data-toggle="modal" data-target="#mySites" onclick="pickSubBudget(${index})">
+                                                <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="box${index}">
+                                            </a>
+                                        </span>
+                                    </div>
+                                    <input id="currency_id${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" hidden />
+                                    <input id="currency_name${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" readonly value="${row[7] ?? ''} - ${row[8] ?? ''}" />
+                                </div>
+                            </td>
+
+                            <td style="padding: 5px;">
+                                <div class="input-group">
+                                    <input class="form-control number-without-negative" id="qty${index}" autocomplete="off" style="border-radius:0px;" value="${currencyTotal(row[9])}" />
+                                </div>
+                            </td>
+                            <td style="padding: 5px;">
+                                <div class="input-group">
+                                    <input class="form-control number-without-negative" id="price${index}" autocomplete="off" style="border-radius:0px;" value="${currencyTotal(row[10])}" />
+                                </div>
+                            </td>
+                            <td style="padding-right:5px;">
+                                <div class="input-group">
+                                    <input class="form-control number-without-negative" id="total${index}" autocomplete="off" style="border-radius:0px;" value="${currencyTotal(row[11])}" />
+                                </div>
+                            </td>
+                        </tr>
+                    `);
                 });
             }
         });
@@ -315,9 +366,28 @@
         $('#mySites').modal('hide');
     });
 
+    $('#tableGetProductss tbody').on('click', 'tr', function () {
+        if (indexProduct === null) return;
+
+        const table = $('#tableGetProductss').DataTable();
+        const data  = table.row(this).data();
+
+        if (data) {
+            $("#myProductss").modal('toggle');
+
+            const productRefID  = data.sys_ID;
+            const productCode   = data.code;
+            const productName   = data.name;
+
+            $(`#product_id${indexProduct}`).val(productRefID);
+            $(`#product_name${indexProduct}`).val(`${productCode ?? ''} - ${productName ?? ''}`);
+            $(`#product_name${indexProduct}`).css("border", "1px solid #ced4da");
+        }
+    });
+
     $(window).one('load', function() {
         $("#excel_file").prop("disabled", true);
         $("#uploadBudgetFile").css("cursor", "not-allowed");
+        convertProductToVariable();
     });
-
 </script>
