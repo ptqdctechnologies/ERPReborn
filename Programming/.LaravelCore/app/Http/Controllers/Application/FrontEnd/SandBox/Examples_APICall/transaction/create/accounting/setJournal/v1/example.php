@@ -20,7 +20,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         |                     ► http://172.28.0.4/transaction.create.accounting.setJournal.v1_throughAPIGateway                    |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2024-05-07                                                                                           |
+        | ▪ Last Update     : 2025-12-02                                                                                           |
         | ▪ Creation Date   : 2024-05-07                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -34,42 +34,96 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
              $varData =
                 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                    $varAPIWebToken, 
-                    'transaction.create.accounting.setJournal', 
-                    'latest', 
+                    $varAPIWebToken,
+                    'transaction.create.accounting.setJournal',
+                    'latest',
                     [
                     'entities' => [
-                        'journalCode' => 'TRX001',
-                        'journalDateTimeTZ' => '2022-03-07 09:00:00+07',
-                        'posterWorkerJobsPosition_RefID' => null,
-                        'postingDateTimeTZ' => null,
-                        'annotation' => 'catatan',
+                        'documentDateTimeTZ' => '2025-12-02',
+                        "bankAccount_RefID" => 167000000000004,
+                        "combinedBudgetSectionDetail_RefID" => 169000000000001,
+                        'journalDateTimeTZ' => '2025-12-02 11:30:45+07',
                         'additionalData' => [
                             'itemList' => [
                                 'items' => [
                                         [
-                                        'recordID' => null,
                                         'entities' => [
-                                            'journalDetailDateTimeTZ' => '2024-05-07 07:30:00 +07',
-                                            'chartOfAccountLinkage_RefID' => 237000000000001,
-                                            'underlying_RefID' => 213000000000001,
-                                            'accountingEntryRecordType_RefID' => 214000000000001,
+                                            'chartOfAccount_RefID' => 65000000000005,
+                                            'accountingEntryRecordType_RefID' => 214000000000001,   // 214000000000001 => "Debit", 214000000000002 => "Credit"
                                             'amountCurrency_RefID' => 62000000000001,
                                             'amountCurrencyValue' => 50000,
                                             'amountCurrencyExchangeRate' => 1,
                                             'quantityUnit_RefID' => 73000000000001,
-                                            'quantity' => 10.00,
-                                            'annotation' => 'catatan',
-                                            'codeOfBudgeting_RefID' => null                               
-                                            ]                                   
+                                            'quantity' => 10.00
+                                            ]
                                         ],
                                     ]
-                                ]
+                                ],
+                            "cashDisbursementItemList" => [
+                                "items" => [
+                                        [
+                                        "entities" => [
+                                            'documentDateTimeTZ' => '2025-12-02',
+                                            'log_FileUpload_Pointer_RefID' => null,
+                                            "combinedBudgetSectionDetail_RefID" => 169000000000001,
+                                            'beneficiaryBankAccount_RefID' => 167000000000001,
+                                            'chartOfAccount_RefID' => 65000000000005,
+                                            'amountCurrency_RefID' => 62000000000001,
+                                            'amountCurrencyValue' => 50000,
+                                            'amountCurrencyExchangeRate' => 1,
+                                            "remarks" => 'Catatan 1'
+                                            ]
+                                        ],
+                                        [
+                                        "entities" => [
+                                            'documentDateTimeTZ' => '2025-12-02',
+                                            'log_FileUpload_Pointer_RefID' => null,
+                                            "combinedBudgetSectionDetail_RefID" => 169000000000001,
+                                            'beneficiaryBankAccount_RefID' => 167000000000001,
+                                            'chartOfAccount_RefID' => 65000000000005,
+                                            'amountCurrency_RefID' => 62000000000001,
+                                            'amountCurrencyValue' => 50000,
+                                            'amountCurrencyExchangeRate' => 1,
+                                            "remarks" => 'Catatan 1'
+                                            ]
+                                        ]
+                                    ]
+                                ],
+                            "cashReceiptItemList" => [
+                                "items" => [
+                                        [
+                                        "entities" => [
+                                            'documentDateTimeTZ' => '2025-12-02',
+                                            'log_FileUpload_Pointer_RefID' => null,
+                                            "combinedBudgetSectionDetail_RefID" => 169000000000001,
+                                            'senderBankAccount_RefID' => 167000000000001,
+                                            'chartOfAccount_RefID' => 65000000000005,
+                                            'amountCurrency_RefID' => 62000000000001,
+                                            'amountCurrencyValue' => 50000,
+                                            'amountCurrencyExchangeRate' => 1,
+                                            "remarks" => 'Catatan 1'
+                                            ]
+                                        ],
+                                        [
+                                        "entities" => [
+                                            'documentDateTimeTZ' => '2025-12-02',
+                                            'log_FileUpload_Pointer_RefID' => null,
+                                            "combinedBudgetSectionDetail_RefID" => 169000000000001,
+                                            'senderBankAccount_RefID' => 167000000000001,
+                                            'chartOfAccount_RefID' => 65000000000005,
+                                            'amountCurrency_RefID' => 62000000000001,
+                                            'amountCurrencyValue' => 50000,
+                                            'amountCurrencyExchangeRate' => 1,
+                                            "remarks" => 'Catatan 1'
+                                            ]
+                                        ]
+                                    ]
+                                ],
                             ]
                         ]
                     ]
                     );
-            var_dump($varData);
+            return $varData;
             }
 
 
@@ -113,10 +167,10 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             echo '</table><br>';
             $varJQueryFunction =
                 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
-                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
-                    $varAPIWebToken, 
-                    'transaction.create.accounting.setJournal', 
-                    'latest', 
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                    $varAPIWebToken,
+                    'transaction.create.accounting.setJournal',
+                    'latest',
                     '{'.
                         '"entities" : {'.
                             '"journalCode" : document.getElementById("dataInput_JournalCode").value, '.
@@ -148,7 +202,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                 '}'.
                             '}'.
                     '}'
-                    ); 
+                    );
             echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
             dd($varJQueryFunction);
             }
