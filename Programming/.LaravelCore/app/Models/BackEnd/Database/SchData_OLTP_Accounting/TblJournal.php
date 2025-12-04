@@ -23,7 +23,7 @@ namespace App\Models\Database\SchData_OLTP_Accounting
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-09-10                                                                                           |
+        | ▪ Last Update     : 2025-12-02                                                                                           |
         | ▪ Creation Date   : 2020-09-10                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -44,7 +44,7 @@ namespace App\Models\Database\SchData_OLTP_Accounting
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0001.0000000                                                                                       |
-        | ▪ Last Update     : 2024-05-02                                                                                           |
+        | ▪ Last Update     : 2025-12-02                                                                                           |
         | ▪ Creation Date   : 2020-09-10                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -62,34 +62,36 @@ namespace App\Models\Database\SchData_OLTP_Accounting
         |        ----------------------------------------                                                                          |
         |      ▪ (array)  varAdditionalData ► Additional Data                                                                      |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function setDataInsert(
-            $varUserSession, 
-            string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            string $varJournalCode = null, string $varJournalDateTimeTZ = null, int $varPosterWorkerJobsPosition_RefID = null, $varvarPostingDateTimeTZ = null, string $varAnnotation = null,
+            $varUserSession,
+            string $varSysDataAnnotation = null, string $varSysDataValidityStartDateTimeTZ = null, string $varSysDataValidityFinishDateTimeTZ = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
+            string $varDocumentDateTimeTZ = null, int $varBankAccount_RefID = null, int $varCombinedBudgetSectionDetail_RefID = null, string $varJournalDateTimeTZ = null,
             array $varAdditionalData = [])
             {
             $varReturn =
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
+                    $varUserSession,
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                         $varUserSession,
-                        parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
+                        parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET_NEW',
                         [
                             [$varUserSession, 'bigint'],
                             [null, 'bigint'],
+
                             [$varSysDataAnnotation, 'varchar'],
+                            [$varSysDataValidityStartDateTimeTZ, 'timestamptz'],
+                            [$varSysDataValidityFinishDateTimeTZ, 'timestamptz'],
                             [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                             [$varSysBranch_RefID, 'bigint'],
                             [$varSysBaseCurrency_RefID, 'bigint'],
 
-                            [$varJournalCode, 'varchar'],
+                            [$varDocumentDateTimeTZ, 'timestamptz'],
+                            [$varBankAccount_RefID, 'bigint'],
+                            [$varCombinedBudgetSectionDetail_RefID, 'bigint'],
                             [$varJournalDateTimeTZ, 'timestamptz'],
-                            [$varPosterWorkerJobsPosition_RefID, 'bigint'],
-                            [$varvarPostingDateTimeTZ, 'timestamptz'],
-                            [$varAnnotation, 'varchar'],
 
                             [((count($varAdditionalData) === 0) ? null : \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varAdditionalData)), 'json']
                         ]
@@ -126,18 +128,18 @@ namespace App\Models\Database\SchData_OLTP_Accounting
         |        ----------------------------------------                                                                          |
         |      ▪ (array)  varAdditionalData ► Additional Data                                                                      |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function setDataUpdate(
-            $varUserSession, 
-            int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null,  int $varSysBaseCurrency_RefID = null, 
+            $varUserSession,
+            int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null,  int $varSysBaseCurrency_RefID = null,
             string $varJournalCode = null, string $varJournalDateTimeTZ = null, int $varPosterWorkerJobsPosition_RefID = null, $varvarPostingDateTimeTZ = null, string $varAnnotation = null,
             array $varAdditionalData = [])
             {
             $varReturn =
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
+                    $varUserSession,
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                         $varUserSession,
                         parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
