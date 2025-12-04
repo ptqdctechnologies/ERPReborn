@@ -4,12 +4,13 @@
     let dataWorks               = [];
     let dataCurrencies          = [];
     let dataAddManual           = [];
+    let dataExcel               = [];
+    let dataTimelineDate        = [];
     let indexSubBudget          = null;
     let indexWork               = null;
     let indexProduct            = null;
     let indexCurrency           = null;
     let indexStartDate          = null;
-    let groupingDataExcelByWork = [];
 
     function findSubBudgetByCode(codeToFind) {
         // const normalizeString = (str) => {
@@ -220,6 +221,17 @@
     }
 
     function showTimeline() {
+        const groupingDataExcelByWork = dataExcel.reduce((acc, currentItem) => {
+            const key           = currentItem[3]; 
+            const validateValue = findWorkByCode(currentItem[3]);
+
+            if (!acc[key] && validateValue) {
+                acc[key] = currentItem;
+            }
+
+            return acc;
+        }, {});
+
         Object.values(groupingDataExcelByWork).forEach((row, index) => {
             $('#table_timeline tbody').append(`
                 <tr>
@@ -269,6 +281,12 @@
                 const dateDelivery = document.getElementById(`dateCommance${index}`);
 
                 if (dateDelivery.value) {
+                    dataTimelineDate[index] = {
+                        ...dataTimelineDate[index],
+                        code: row[3],
+                        start: dateDelivery.value
+                    };
+
                     $(`#dateCommance${index}`).css({
                         "background-color": "#e9ecef",
                         "border": "1px solid #ced4da"
@@ -285,9 +303,15 @@
             });
 
             $(`#dateOfDeliveryEnd${index}`).on('change.datetimepicker', function (e) {
-                const dateDelivery = document.getElementById(`dateCommanceEnd${index}`);
+                const dateDeliveryEnd = document.getElementById(`dateCommanceEnd${index}`);
 
-                if (dateDelivery.value) {
+                if (dateDeliveryEnd.value) {
+                    dataTimelineDate[index] = {
+                        ...dataTimelineDate[index],
+                        code: row[3],
+                        end: dateDeliveryEnd.value
+                    };
+
                     $(`#dateCommanceEnd${index}`).css({
                         "background-color": "#e9ecef",
                         "border": "1px solid #ced4da"
@@ -322,18 +346,7 @@
             success: function(res) {
                 $('#table_import_from_excel tbody').empty();
 
-                groupingDataExcelByWork = res.rows.slice(1).reduce((acc, currentItem) => {
-                    const key           = currentItem[3]; 
-                    const validateValue = findWorkByCode(currentItem[3]);
-
-                    if (!acc[key] && validateValue) {
-                        acc[key] = currentItem;
-                    }
-
-                    return acc;
-                }, {});
-
-                console.log('groupingDataExcelByWork', Object.values(groupingDataExcelByWork));
+                dataExcel = res.rows.slice(1);
 
                 res.rows.slice(1).forEach((row, index) => {
                     const validateSubBudget = findSubBudgetByCode(row[1]);
@@ -535,6 +548,15 @@
             $(`#work_id${indexWork}`).val(workRefID);
             $(`#work_name${indexWork}`).val(`${workCode ?? ''} - ${workName ?? ''}`);
             $(`#work_name${indexWork}`).css("border", "1px solid #ced4da");
+
+            const findDataExcelByCode = dataExcel.find(item => item[3] !== workCode);
+
+            if (findDataExcelByCode) {
+                dataExcel[indexWork][3] = workCode;
+                dataExcel[indexWork][4] = workName;
+            }
+
+            showTimeline();
         }
     });
 
