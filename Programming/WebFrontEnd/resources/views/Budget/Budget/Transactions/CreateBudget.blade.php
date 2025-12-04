@@ -5,6 +5,7 @@
 @include('getFunction.getProjects')
 @include('getFunction.getSites')
 @include('getFunction.getProductss')
+@include('getFunction.getCurrencies')
 
 <div class="content-wrapper">
     <section class="content">

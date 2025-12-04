@@ -2,8 +2,10 @@
     let data            = [];
     let dataProducts    = [];
     let dataAddManual   = [];
+    let dataCurrencies  = [];
     let indexSubBudget  = null;
     let indexProduct    = null;
+    let indexCurrency   = null;
 
     function findSubBudgetByCode(codeToFind) {
         // const normalizeString = (str) => {
@@ -25,6 +27,17 @@
         // };
 
         return dataProducts.find(item => item.code == codeToFind);
+    }
+
+    function findCurrencyByISOCode(codeToFind) {
+        // const normalizeString = (str) => {
+        //     return str
+        //         .toLowerCase()                   // Mengubah menjadi lowercase
+        //         .trim()                           // Menghapus spasi ekstra
+        //         .replace(/[^\w\s]/g, '');         // Menghapus simbol selain huruf dan angka
+        // };
+
+        return dataCurrencies.find(item => item.ISOCode == codeToFind);
     }
 
     function convertSubBudgetToVariable(Project_RefID) {
@@ -179,6 +192,10 @@
         indexProduct = index;
     }
 
+    function pickCurrency(index) {
+        indexCurrency = index;
+    }
+
     function submitJournalDetails() {
         // const testing = document.getElementById(`sub_budget_name${indexSubBudget}`);
         // console.log('testing', testing.value);
@@ -207,6 +224,7 @@
                 res.rows.slice(1).forEach((row, index) => {
                     const validateSubBudget = findSubBudgetByCode(row[1]);
                     const validateProduct = findProductByCode(row[5]);
+                    const validateCurrency = findCurrencyByISOCode(row[7]);
 
                     let componentSubBudget = `
                         <input id="sub_budget_id${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" hidden />
@@ -217,7 +235,10 @@
                         <input id="product_id${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" hidden />
                         <input id="product_name${index}" style="border-radius:0;width:130px;background-color:white;border-color:red;" class="form-control" readonly value="${row[5] ?? ''} - ${row[6] ?? ''}" />
                     `;
-                    let componentCurrency = ``;
+                    let componentCurrency = `
+                        <input id="currency_id${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" hidden />
+                        <input id="currency_name${index}" style="border-radius:0;width:130px;background-color:white;border-color:red;" class="form-control" readonly value="${row[7] ?? ''} - ${row[8] ?? ''}" />
+                    `;
 
                     if (validateSubBudget) {
                         componentSubBudget = `
@@ -228,8 +249,15 @@
 
                     if (validateProduct) {
                         componentProduct = `
-                            <input id="product_id${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" hidden value="${validateProduct.sys_id}" />
+                            <input id="product_id${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" hidden value="${validateProduct.sys_ID}" />
                             <input id="product_name${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" readonly value="${validateProduct.code} - ${validateProduct.name}" />
+                        `;
+                    }
+
+                    if (validateCurrency) {
+                        componentCurrency = `
+                            <input id="currency_id${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" hidden value="${validateCurrency.sys_ID}" />
+                            <input id="currency_name${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" readonly value="${validateCurrency.ISOCode} - ${validateCurrency.name}" />
                         `;
                     }
 
@@ -279,13 +307,12 @@
                                 <div class="input-group">
                                     <div class="input-group-append">
                                         <span style="border-radius:0;cursor:pointer;" class="input-group-text form-control">
-                                            <a href="javascript:;" data-toggle="modal" data-target="#mySites" onclick="pickSubBudget(${index})">
+                                            <a href="javascript:;" data-toggle="modal" data-target="#myCurrencies" onclick="pickCurrency(${index})">
                                                 <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="box${index}">
                                             </a>
                                         </span>
                                     </div>
-                                    <input id="currency_id${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" hidden />
-                                    <input id="currency_name${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" readonly value="${row[7] ?? ''} - ${row[8] ?? ''}" />
+                                    ${componentCurrency}
                                 </div>
                             </td>
 
@@ -369,19 +396,38 @@
     $('#tableGetProductss tbody').on('click', 'tr', function () {
         if (indexProduct === null) return;
 
-        const table = $('#tableGetProductss').DataTable();
-        const data  = table.row(this).data();
+        const table     = $('#tableGetProductss').DataTable();
+        const dataRow   = table.row(this).data();
 
-        if (data) {
+        if (dataRow) {
             $("#myProductss").modal('toggle');
 
-            const productRefID  = data.sys_ID;
-            const productCode   = data.code;
-            const productName   = data.name;
+            const productRefID  = dataRow.sys_ID;
+            const productCode   = dataRow.code;
+            const productName   = dataRow.name;
 
             $(`#product_id${indexProduct}`).val(productRefID);
             $(`#product_name${indexProduct}`).val(`${productCode ?? ''} - ${productName ?? ''}`);
             $(`#product_name${indexProduct}`).css("border", "1px solid #ced4da");
+        }
+    });
+
+    $('#tableCurrencies tbody').on('click', 'tr', function () {
+        if (indexCurrency === null) return;
+
+        const table     = $('#tableCurrencies').DataTable();
+        const dataRow   = table.row(this).data();
+
+        if (dataRow) {
+            $("#myCurrencies").modal('toggle');
+
+            const currencyRefID     = dataRow.sys_ID;
+            const currencyISOCode   = dataRow.ISOCode;
+            const currencyName      = dataRow.name;
+
+            $(`#currency_id${indexCurrency}`).val(currencyRefID);
+            $(`#currency_name${indexCurrency}`).val(`${currencyISOCode ?? ''} - ${currencyName ?? ''}`);
+            $(`#currency_name${indexCurrency}`).css("border", "1px solid #ced4da");
         }
     });
 
