@@ -56,6 +56,17 @@
         return dataCurrencies.find(item => item.ISOCode == codeToFind);
     }
 
+    function findTimelineDateByCode(codeToFind) {
+        // const normalizeString = (str) => {
+        //     return str
+        //         .toLowerCase()                   // Mengubah menjadi lowercase
+        //         .trim()                           // Menghapus spasi ekstra
+        //         .replace(/[^\w\s]/g, '');         // Menghapus simbol selain huruf dan angka
+        // };
+
+        return dataTimelineDate.find(item => item && item.code == codeToFind);
+    }
+
     function convertSubBudgetToVariable(Project_RefID) {
         $('#tableSites tbody').empty();
         $(".loadingSites").show();
@@ -221,6 +232,8 @@
     }
 
     function showTimeline() {
+        $('#table_timeline tbody').empty();
+
         const groupingDataExcelByWork = dataExcel.reduce((acc, currentItem) => {
             const key           = currentItem[3]; 
             const validateValue = findWorkByCode(currentItem[3]);
@@ -233,6 +246,26 @@
         }, {});
 
         Object.values(groupingDataExcelByWork).forEach((row, index) => {
+            const findDate = findTimelineDateByCode(row[3]);
+
+            let componentStartDate = `
+                <input type="text" class="form-control datetimepicker-input" name="dateCommance" id="dateCommance${index}" onkeydown="return false" data-target="#dateOfDelivery${index}" autocomplete="off" style="border-radius: unset;" />
+            `;
+
+            let componentEndDate = `
+                <input type="text" class="form-control datetimepicker-input" name="dateCommanceEnd" id="dateCommanceEnd${index}" onkeydown="return false" data-target="#dateOfDeliveryEnd${index}" autocomplete="off" style="border-radius: unset;" />
+            `;
+
+            if (findDate) {
+                componentStartDate = `
+                    <input type="text" class="form-control datetimepicker-input" name="dateCommance" id="dateCommance${index}" onkeydown="return false" data-target="#dateOfDelivery${index}" value="${findDate.start}" autocomplete="off" style="border-radius: unset; background-color: #E9ECEF;" />
+                `;
+
+                componentEndDate = `
+                    <input type="text" class="form-control datetimepicker-input" name="dateCommanceEnd" id="dateCommanceEnd${index}" onkeydown="return false" data-target="#dateOfDeliveryEnd${index}" value="${findDate.end}" autocomplete="off" style="border-radius: unset; background-color: #E9ECEF;" />
+                `;
+            }
+
             $('#table_timeline tbody').append(`
                 <tr>
                     <td style="padding: 5px;">
@@ -248,7 +281,7 @@
                                 </div>
                             </div>
                             <div style="flex: 100%;">
-                                <input type="text" class="form-control datetimepicker-input" name="dateCommance" id="dateCommance${index}" onkeydown="return false" data-target="#dateOfDelivery${index}" autocomplete="off" style="border-radius: unset;" />
+                                ${componentStartDate}
                             </div>
                         </div>
                     </td>
@@ -262,7 +295,7 @@
                                 </div>
                             </div>
                             <div style="flex: 100%;">
-                                <input type="text" class="form-control datetimepicker-input" name="dateCommanceEnd" id="dateCommanceEnd${index}" onkeydown="return false" data-target="#dateOfDeliveryEnd${index}" autocomplete="off" style="border-radius: unset;" />
+                                ${componentEndDate}
                             </div>
                         </div>
                     </td>
