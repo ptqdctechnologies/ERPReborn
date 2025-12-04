@@ -1,9 +1,11 @@
 <script>
     let data            = [];
     let dataProducts    = [];
-    let dataAddManual   = [];
+    let dataWorks       = [];
     let dataCurrencies  = [];
+    let dataAddManual   = [];
     let indexSubBudget  = null;
+    let indexWork       = null;
     let indexProduct    = null;
     let indexCurrency   = null;
 
@@ -16,6 +18,17 @@
         // };
 
         return data.find(item => item.code == codeToFind);
+    }
+
+    function findWorkByISOCode(codeToFind) {
+        // const normalizeString = (str) => {
+        //     return str
+        //         .toLowerCase()                   // Mengubah menjadi lowercase
+        //         .trim()                           // Menghapus spasi ekstra
+        //         .replace(/[^\w\s]/g, '');         // Menghapus simbol selain huruf dan angka
+        // };
+
+        return dataWorks.find(item => item.code == codeToFind);
     }
 
     function findProductByCode(codeToFind) {
@@ -188,6 +201,10 @@
         indexSubBudget = index;
     }
 
+    function pickWork(index) {
+        indexWork = index;
+    }
+
     function pickProduct(index) {
         indexProduct = index;
     }
@@ -223,14 +240,18 @@
 
                 res.rows.slice(1).forEach((row, index) => {
                     const validateSubBudget = findSubBudgetByCode(row[1]);
-                    const validateProduct = findProductByCode(row[5]);
-                    const validateCurrency = findCurrencyByISOCode(row[7]);
+                    const validateWork      = findWorkByISOCode(row[3]);
+                    const validateProduct   = findProductByCode(row[5]);
+                    const validateCurrency  = findCurrencyByISOCode(row[7]);
 
                     let componentSubBudget = `
                         <input id="sub_budget_id${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" hidden />
                         <input id="sub_budget_name${index}" style="border-radius:0;width:130px;background-color:white;border-color:red;" class="form-control" readonly value="${row[1] ?? ''} - ${row[2] ?? ''}" />
                     `;
-                    let componentWork = ``;
+                    let componentWork = `
+                        <input id="work_id${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" hidden />
+                        <input id="work_name${index}" style="border-radius:0;width:130px;background-color:white;border-color:red;" class="form-control" readonly value="${row[3] ?? ''} - ${row[4] ?? ''}" />
+                    `;
                     let componentProduct = `
                         <input id="product_id${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" hidden />
                         <input id="product_name${index}" style="border-radius:0;width:130px;background-color:white;border-color:red;" class="form-control" readonly value="${row[5] ?? ''} - ${row[6] ?? ''}" />
@@ -244,6 +265,13 @@
                         componentSubBudget = `
                             <input id="sub_budget_id${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" hidden value="${validateSubBudget.sys_id}" />
                             <input id="sub_budget_name${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" readonly value="${validateSubBudget.code} - ${validateSubBudget.name}" />
+                        `;
+                    }
+
+                    if (validateWork) {
+                        componentWork = `
+                            <input id="work_id${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" hidden value="${validateWork.id}" />
+                            <input id="work_name${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" readonly value="${validateWork.code} - ${validateWork.name}" />
                         `;
                     }
 
@@ -280,13 +308,12 @@
                                 <div class="input-group">
                                     <div class="input-group-append">
                                         <span style="border-radius:0;cursor:pointer;" class="input-group-text form-control">
-                                            <a href="javascript:;" data-toggle="modal" data-target="#mySites" onclick="pickSubBudget(${index})">
+                                            <a href="javascript:;" data-toggle="modal" data-target="#myWorks" onclick="pickWork(${index})">
                                                 <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="box${index}">
                                             </a>
                                         </span>
                                     </div>
-                                    <input id="work_id${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" hidden />
-                                    <input id="work_name${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" readonly value="${row[3] ?? ''} - ${row[4] ?? ''}" />
+                                    ${componentWork}
                                 </div>
                             </td>
 
@@ -391,6 +418,25 @@
         $(`#sub_budget_name${indexSubBudget}`).css('border', '1px solid #ced4da');
 
         $('#mySites').modal('hide');
+    });
+
+    $('#tableWorks tbody').on('click', 'tr', function () {
+        if (indexWork === null) return;
+
+        const table     = $('#tableWorks').DataTable();
+        const dataRow   = table.row(this).data();
+
+        if (dataRow) {
+            $("#myWorks").modal('toggle');
+
+            const workRefID = dataRow.id;
+            const workCode  = dataRow.code;
+            const workName  = dataRow.name;
+
+            $(`#work_id${indexWork}`).val(workRefID);
+            $(`#work_name${indexWork}`).val(`${workCode ?? ''} - ${workName ?? ''}`);
+            $(`#work_name${indexWork}`).css("border", "1px solid #ced4da");
+        }
     });
 
     $('#tableGetProductss tbody').on('click', 'tr', function () {
