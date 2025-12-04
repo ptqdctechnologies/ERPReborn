@@ -96,7 +96,7 @@
                                 data: null,
                                 render: function (data, type, row, meta) {
                                     return '<td class="align-middle text-center">' +
-                                        '<input id="sys_id_product' + (meta.row + 1) + '" value="' + data.sys_ID + '" data-trigger="sys_id_productss" type="hidden">' +
+                                        '<input id="sys_id_product' + (meta.row + 1) + '" value="' + data.sys_ID + '" data-trigger="sys_id_product" type="hidden">' +
                                         (meta.row + 1) +
                                     '</td>';
                                 }
@@ -119,7 +119,7 @@
                         ]
                     });
 
-                    $('#tableGetProductss').css("width", "revert-layer");
+                    $('#tableGetProductss').css("width", "100%");
 
                     $("#tableGetProductss_length").show();
                     $("#tableGetProductss_filter").show();
