@@ -314,11 +314,16 @@
                 const dateDelivery = document.getElementById(`dateCommance${index}`);
 
                 if (dateDelivery.value) {
-                    dataTimelineDate[index] = {
-                        ...dataTimelineDate[index],
-                        code: row[3],
-                        start: dateDelivery.value
-                    };
+                    const existingIndex = dataTimelineDate.findIndex(item => item.code === row[3]);
+
+                    if (existingIndex !== -1) {
+                        dataTimelineDate[existingIndex].start = dateDelivery.value;
+                    } else {
+                        dataTimelineDate.push({
+                            code: row[3],
+                            start: dateDelivery.value
+                        });
+                    }
 
                     $(`#dateCommance${index}`).css({
                         "background-color": "#e9ecef",
@@ -339,11 +344,16 @@
                 const dateDeliveryEnd = document.getElementById(`dateCommanceEnd${index}`);
 
                 if (dateDeliveryEnd.value) {
-                    dataTimelineDate[index] = {
-                        ...dataTimelineDate[index],
-                        code: row[3],
-                        end: dateDeliveryEnd.value
-                    };
+                    const existingIndex = dataTimelineDate.findIndex(item => item.code === row[3]);
+
+                    if (existingIndex !== -1) {
+                        dataTimelineDate[existingIndex].end = dateDeliveryEnd.value;
+                    } else {
+                        dataTimelineDate.push({
+                            code: row[3],
+                            end: dateDeliveryEnd.value
+                        });
+                    }
 
                     $(`#dateCommanceEnd${index}`).css({
                         "background-color": "#e9ecef",
