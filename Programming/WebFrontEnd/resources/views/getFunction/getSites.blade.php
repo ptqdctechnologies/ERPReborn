@@ -65,26 +65,57 @@
             }
         });
         
-        var keys = 0;
+        // var keys = 0;
         $.ajax({
             type: 'GET',
             url: '{!! route("getNewSite") !!}?project_code=' + Project_RefID,
             success: function(data) {
                 $(".loadingSites").hide();
 
-                var no = 1;
+                // var no = 1;
                 var table = $('#tableSites').DataTable();
                 table.clear();
 
                 if (Array.isArray(data) && data.length > 0) {
-                    $.each(data, function(key, val) {
-                        keys += 1;
-                        table.row.add([
-                            '<input id="sys_id_site' + keys + '" value="' + val.Sys_ID + '" data-trigger="sys_id_site" type="hidden">' + no++,
-                            val.Code || '-',
-                            val.Name || '-',
-                        ]).draw();
+                    // $.each(data, function(key, val) {
+                    //     keys += 1;
+                    //     table.row.add([
+                    //         '<input id="sys_id_site' + keys + '" value="' + val.Sys_ID + '" data-trigger="sys_id_site" type="hidden">' + no++,
+                    //         val.Code || '-',
+                    //         val.Name || '-',
+                    //     ]).draw();
+                    // });
+
+                    $('#tableSites').DataTable({
+                        destroy: true,
+                        data: data,
+                        deferRender: true,
+                        scrollCollapse: true,
+                        scroller: true,
+                        columns: [
+                            {
+                                data: null,
+                                render: function (data, type, row, meta) {
+                                    return '<td class="align-middle text-center">' +
+                                        '<input id="sys_id_site' + (meta.row + 1) + '" value="' + data.Sys_ID + '" data-trigger="sys_id_site" type="hidden">' +
+                                        (meta.row + 1) +
+                                    '</td>';
+                                }
+                            },
+                            {
+                                data: 'Code',
+                                defaultContent: '-',
+                                className: "align-middle text-wrap"
+                            },
+                            {
+                                data: 'Name',
+                                defaultContent: '-',
+                                className: "align-middle text-wrap"
+                            },
+                        ]
                     });
+
+                    $('#tableSites').css("width", "100%");
 
                     $("#tableSites_length").show();
                     $("#tableSites_filter").show();
