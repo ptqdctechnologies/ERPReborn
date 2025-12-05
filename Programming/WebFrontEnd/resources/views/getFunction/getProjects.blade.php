@@ -65,26 +65,57 @@
             }
         });
 
-        var keys = 0;
+        // var keys = 0;
         $.ajax({
             type: 'GET',
             url: '{!! route("getNewProject") !!}',
             success: function(data) {
                 $(".loadingProjects").hide();
 
-                var no = 1;
+                // var no = 1;
                 var table = $('#tableProjects').DataTable();
                 table.clear();
 
                 if (Array.isArray(data) && data.length > 0) {
-                    $.each(data, function(key, val) {
-                        keys += 1;
-                        table.row.add([
-                            '<input id="sys_id_project' + keys + '" value="' + val.sys_ID + '" data-trigger="sys_id_project" type="hidden">' + no++,
-                            val.code || '-',
-                            val.name || '-',
-                        ]).draw();
+                    // $.each(data, function(key, val) {
+                    //     keys += 1;
+                    //     table.row.add([
+                    //         '<input id="sys_id_project' + keys + '" value="' + val.sys_ID + '" data-trigger="sys_id_project" type="hidden">' + no++,
+                    //         val.code || '-',
+                    //         val.name || '-',
+                    //     ]).draw();
+                    // });
+
+                    $('#tableProjects').DataTable({
+                        destroy: true,
+                        data: data,
+                        deferRender: true,
+                        scrollCollapse: true,
+                        scroller: true,
+                        columns: [
+                            {
+                                data: null,
+                                render: function (data, type, row, meta) {
+                                    return '<td class="align-middle text-center">' +
+                                        '<input id="sys_id_project' + (meta.row + 1) + '" value="' + data.sys_ID + '" data-trigger="sys_id_project" type="hidden">' +
+                                        (meta.row + 1) +
+                                    '</td>';
+                                }
+                            },
+                            {
+                                data: 'code',
+                                defaultContent: '-',
+                                className: "align-middle text-wrap"
+                            },
+                            {
+                                data: 'name',
+                                defaultContent: '-',
+                                className: "align-middle text-wrap"
+                            },
+                        ],
                     });
+
+                    $('#tableProjects').css("width", "100%");
 
                     $("#tableProjects_length").show();
                     $("#tableProjects_filter").show();
