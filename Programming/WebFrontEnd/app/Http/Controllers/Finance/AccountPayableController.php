@@ -66,8 +66,6 @@ class AccountPayableController extends Controller
 
             return response()->json(["status" => 500]);
         }
-
-        return response()->json($request->all());
     }
 
     public function UpdatesRevisionAccountPayable(Request $request)
