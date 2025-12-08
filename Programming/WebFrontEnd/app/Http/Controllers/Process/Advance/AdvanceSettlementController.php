@@ -120,11 +120,11 @@ class AdvanceSettlementController extends Controller
 
             return response()->json($compact);
         } catch (\Throwable $th) {
-            Log::error("Report Advance Settlement Summary Store " . $th->getMessage());
+            Log::error("Report Advance Settlement Summary Store Function Error:" . $th->getMessage());
 
             $compact = [
                 'status'    => 500,
-                'data'      => []
+                'message'   => $th->getMessage()
             ];
 
             return response()->json($compact);
@@ -134,36 +134,35 @@ class AdvanceSettlementController extends Controller
     public function PrintExportReportAdvanceSettlementSummary(Request $request)
     {
         try {
-            $dataPDF = Session::get("AdvanceSettlementReportSummaryDataPDF");
-            $dataExcel = Session::get("AdvanceSettlementReportSummaryDataExcel");
+            $dataAdvanceSettlementSummary = json_decode($request->dataReport, true);
+            $type = $request->printType;
 
-            
-            if ($dataPDF && $dataExcel) {
-                $print_type = $request->print_type;
-                if ($print_type == "PDF") {
-                    $dataASF = Session::get("AdvanceSettlementReportSummaryDataPDF");
-                    // dd($dataASF);
-
-                    $pdf = PDF::loadView('Process.Advance.AdvanceSettlement.Reports.ReportAdvanceSettlementSummary_pdf', ['dataASF' => $dataASF])->setPaper('a4', 'landscape');
+            if ($dataAdvanceSettlementSummary) {
+                if ($type === "PDF") {
+                    $pdf = PDF::loadView('Process.Advance.AdvanceSettlement.Reports.ReportAdvanceSettlementSummary_pdf', ['dataASF' => $dataAdvanceSettlementSummary])
+                        ->setPaper('a4', 'landscape');
+                    
                     $pdf->output();
-                    $dom_pdf = $pdf->getDomPDF();
-
-                    $canvas = $dom_pdf ->get_canvas();
-                    $width = $canvas->get_width();
-                    $height = $canvas->get_height();
+                    $dom_pdf    = $pdf->getDomPDF();
+                    $canvas     = $dom_pdf->get_canvas();
+                    $width      = $canvas->get_width();
+                    $height     = $canvas->get_height();
                     $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
                     $canvas->page_text(34, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
 
                     return $pdf->download('Export Report Advance Settlement Summary.pdf');
-                } else if ($print_type == "Excel") {
-                    return Excel::download(new ExportReportAdvanceSettlementSummary, 'Export Report Advance Settlement Summary.xlsx');
+                } else if ($type === "EXCEL") {
+                    return Excel::download(new ExportReportAdvanceSettlementSummary($dataAdvanceSettlementSummary), 'Export Report Advance Settlement Summary.xlsx');
+                } else {
+                    throw new \Exception('Failed to Export Advance Settlement Summary Report');
                 }
             } else {
-                return redirect()->route('AdvanceSettlement.ReportAdvanceSettlementSummary')->with('NotFound', 'Data Cannot Empty');
+                throw new \Exception('Advance Settlement Summary Data is Empty');
             }
         } catch (\Throwable $th) {
-            Log::error("Error at " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
+            Log::error("Print Export Report Advance Settlement Summary Function Error: " . $th->getMessage());
+
+            return response()->json(['statusCode' => 400]);
         }
     }
 
