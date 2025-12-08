@@ -55,7 +55,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class Shell extends Application
 {
-    const VERSION = 'v0.12.15';
+    const VERSION = 'v0.12.16';
 
     private Configuration $config;
     private CodeCleaner $cleaner;
@@ -200,7 +200,7 @@ class Shell extends Application
     /**
      * Adds a command object.
      *
-     * {@inheritdoc}
+     * @deprecated since Symfony Console 7.4, use addCommand() instead
      *
      * @param BaseCommand $command A Symfony Console Command object
      *
@@ -208,7 +208,27 @@ class Shell extends Application
      */
     public function add(BaseCommand $command): BaseCommand
     {
-        if ($ret = parent::add($command)) {
+        return $this->addCommand($command);
+    }
+
+    /**
+     * Adds a command object.
+     *
+     * @param BaseCommand|callable $command A Symfony Console Command object or callable
+     *
+     * @return BaseCommand|null The registered command, or null
+     */
+    public function addCommand($command): ?BaseCommand
+    {
+        // For Symfony Console < 7.4, use parent::add()
+        if (\method_exists(Application::class, 'addCommand')) {
+            /** @phan-suppress-next-line PhanUndeclaredStaticMethod (Symfony Console 7.4+) */
+            $ret = parent::addCommand($command);
+        } else {
+            $ret = parent::add($command);
+        }
+
+        if ($ret) {
             if ($ret instanceof ContextAware) {
                 $ret->setContext($this->context);
             }
