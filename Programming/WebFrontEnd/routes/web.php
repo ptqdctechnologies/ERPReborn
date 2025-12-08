@@ -405,7 +405,6 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     // Route::post('PrintExportReportLoanDetail', 'Process\Loan\LoanController@PrintExportReportLoanDetail')->name('Loan.PrintExportReportLoanDetail');
     // Route::resource('AdvanceRequest', 'Process\Advance\AdvanceRequestController');
 
-    Route::post('/Loan/Create', 'Process\Loan\LoanController@CreateLoan')->name('CreateLoan');
     Route::post('/loan/revision', 'Process\Loan\LoanController@RevisionLoanIndex')->name('Loan.RevisionLoanIndex');
     Route::resource('Loan', 'Process\Loan\LoanController');
 
