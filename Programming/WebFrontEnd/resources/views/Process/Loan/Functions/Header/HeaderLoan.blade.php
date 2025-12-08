@@ -1,182 +1,245 @@
 <div class="card-body">
   <div class="row py-3" style="gap: 1rem;">
-    <!-- KOLOM KIRI -->
+    <!-- LEFT -->
     <div class="col-md-12 col-lg-5">
-      <!-- Loan Type -->
-      <div class="row" style="margin-bottom: 1rem;">
+      <!-- LOAN TYPE -->
+      <div class="row">
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Loan Type</label>
-        <div class="col-5 d-flex">
-          <select id="loanType" name="loanType" class="form-control" style="border-radius:0;">
-            <option value="">-- Select Loan Type --</option>
-            <option value="lender">Lender</option>
-            <option value="borrower">Borrower</option>
-          </select>
+        <div class="col-5 p-0">
+          <div id="container_loan_type">
+            <select id="loan_type" class="form-control" name="loan_type" style="border-radius:0;">
+              <option value="select_loan_type" selected disabled>Select Loan Type</option>
+              <option value="lender">Lender</option>
+              <option value="borrower">Borrower</option>
+            </select>
+          </div>
         </div>
       </div>
-      
-      <!-- Creditor -->
-      <div class="row" style="margin-bottom: 1rem;">
+      <div class="row" id="loan_type_message" style="margin-top: .3rem; display: none;">
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+        <div class="col-5 p-0 text-red">
+          Loan Type cannot be empty.
+        </div>
+      </div>
+
+      <!-- CREDITOR -->
+      <div class="row" style="margin-top: 1rem;">
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Creditor</label>
-        <div class="col-5 d-flex">
+        <div class="col-5 d-flex p-0">
           <div>
-            <span style="border-radius:0;" class="input-group-text form-control">
-              <a href="javascript:;" data-toggle="modal" data-target="#mySupplier" 
-                class="mySupplier" data-type="creditor">
-                <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="" />
-              </a>
+            <span id="creditor_trigger" class="input-group-text form-control" data-toggle="modal" data-target="#mySuppliers" onclick="chooseSupplierBy('creditor')" style="border-radius:0;cursor:pointer;">
+              <i class="fas fa-gift"></i>
             </span>
           </div>
           <div style="flex: 100%;">
-              <input id="creditor_id" name="creditor_id" style="border-radius:0;" class="form-control" readonly hidden>
-              <input id="creditor_code" style="border-radius:0;" class="form-control" readonly>
-              <input id="creditor_name" style="border-radius:0;" class="form-control" readonly hidden>
+            <div class="input-group">
+              <input type="hidden" id="creditor_id" class="form-control" name="creditor_id" style="border-radius:0;" />
+              <input type="text" id="creditor_name" class="form-control" style="border-radius:0;background:white;" readonly />
+            </div>
           </div>
         </div>
       </div>
+      <div class="row" id="creditor_message" style="margin-top: .3rem; display: none;">
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+        <div class="col-5 p-0 text-red">
+          Creditor cannot be empty.
+        </div>
+      </div>
 
-      <!-- Debitor -->
-      <div class="row" style="margin-bottom: 1rem;">
+      <!-- DEBITOR -->
+      <div class="row" style="margin-top: 1rem;">
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Debitor</label>
-        <div class="col-5 d-flex">
+        <div class="col-5 d-flex p-0">
           <div>
-            <span style="border-radius:0;" class="input-group-text form-control">
-              <a href="javascript:;" data-toggle="modal" data-target="#mySupplier" 
-                class="mySupplier" data-type="debitor">
-                <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="" />
-              </a>
+            <span id="debitor_trigger" class="input-group-text form-control" data-toggle="modal" data-target="#mySuppliers" onclick="chooseSupplierBy('debitor')" style="border-radius:0;cursor:pointer;">
+              <i class="fas fa-gift"></i>
             </span>
           </div>
           <div style="flex: 100%;">
-              <input id="debitor_id" name="debitor_id" style="border-radius:0;" class="form-control" readonly hidden>
-              <input id="debitor_code" style="border-radius:0;" class="form-control" readonly>
-              <input id="debitor_name" style="border-radius:0;" class="form-control" readonly hidden>
+            <div class="input-group">
+              <input type="hidden" id="debitor_id" class="form-control" name="debitor_id" style="border-radius:0;" />
+              <input type="text" id="debitor_name" class="form-control" style="border-radius:0;background:white;" readonly />
+            </div>
           </div>
         </div>
       </div>
+      <div class="row" id="debitor_message" style="margin-top: .3rem; display: none;">
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+        <div class="col-5 p-0 text-red">
+          Debitor cannot be empty.
+        </div>
+      </div>
 
-      <!-- Currency -->
-      <div class="row" style="margin-bottom: 1rem;">
+      <!-- CURRENCY -->
+      <div class="row" style="margin-top: 1rem;">
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Currency</label>
-        <div class="col-5 d-flex">
+        <div class="col-5 d-flex p-0">
           <div>
-            <span style="border-radius:0;" class="input-group-text form-control">
-              <a href="javascript:;" id="tes2Trigger" data-toggle="modal" data-target="#myCurrency" class="myCurrency">
-                <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="" />
-              </a>
+            <span id="currency_trigger" class="input-group-text form-control" data-toggle="modal" data-target="#myCurrencies" style="border-radius:0;cursor:pointer;">
+              <i class="fas fa-gift"></i>
             </span>
           </div>
           <div style="flex: 100%;">
-            <input id="deliver_RefID" name="deliver_RefID" style="border-radius:0;" class="form-control" readonly hidden>
-            <input id="deliverCode" style="border-radius:0;" class="form-control" readonly>
-            <input id="deliverName" style="border-radius:0;" class="form-control" readonly hidden>
+            <div class="input-group">
+              <input type="hidden" id="currency_id" class="form-control" name="currency_id" style="border-radius:0;" />
+              <input type="text" id="currency_name" class="form-control" style="border-radius:0;background:white;" readonly />
+            </div>
           </div>
         </div>
       </div>
-
-
-      <!-- Bank Name -->
-       <div class="row" style="margin-bottom: 1rem;">
-        <label for="bank_name_second_name" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Bank Name</label>
-        <div class="col-5 d-flex">
-        <div>
-          <span style="border-radius:0;" class="input-group-text form-control">
-            <a href="javascript:;" id="bank_list_popup_vendor" data-toggle="modal" data-target="#myGetBankList" class="myGetBankList">
-              <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="">
-            </a>
-          </span>
-        </div>                 
-        <div style="flex: 100%;">
-          <input id="bank_list_name" style="border-radius:0;" class="form-control" readonly />
-          <input id="bank_list_code" name="vendor_bank_name" style="border-radius:0;" class="form-control" hidden />
-          <input id="bank_list_detail" style="border-radius:0;" class="form-control" readonly hidden/>
-        </div>
+      <div class="row" id="currency_message" style="margin-top: .3rem; display: none;">
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+        <div class="col-5 p-0 text-red">
+          Currency cannot be empty.
         </div>
       </div>
 
-      <!-- Bank Account -->
-       <div class="row" style="margin-top: 1rem;">
+      <!-- BANK NAME -->
+      <div class="row" style="margin-top: 1rem;">
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Bank Name</label>
+        <div class="col-5 d-flex p-0">
+          <div>
+            <span id="bank_name_trigger" class="input-group-text form-control" data-toggle="modal" data-target="#myGetBankList" style="border-radius:0;cursor:pointer;">
+              <i class="fas fa-gift"></i>
+            </span>
+          </div>
+          <div style="flex: 100%;">
+            <div class="input-group">
+              <input type="hidden" id="bank_name_id" class="form-control" name="bank_name_id" style="border-radius:0;" />
+              <input type="text" id="bank_name" class="form-control" style="border-radius:0;background:white;" readonly />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row" id="bank_name_message" style="margin-top: .3rem; display: none;">
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+        <div class="col-5 p-0 text-red">
+          Bank Name cannot be empty.
+        </div>
+      </div>
+
+      <!-- BANK ACCOUNT -->
+      <div class="row" style="margin-top: 1rem;">
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Bank Account</label>
-        <div class="col-5 d-flex">
+        <div class="col-5 d-flex p-0">
           <div>
-            
-          </div>
-          <div>
-            <span style="border-radius:0;" class="input-group-text form-control">
-              <a href="javascript:;" id="myBankAccountTrigger" data-toggle="modal" data-target="#myBankAccount" class="myBankAccount">
-                <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="">
-              </a>
+            <span id="bank_account_trigger" class="input-group-text form-control" data-toggle="modal" data-target="#myBanksAccount" style="border-radius:0;cursor:pointer;">
+              <i class="fas fa-gift"></i>
             </span>
           </div>
           <div style="flex: 100%;">
-            <input id="bank_accounts" style="border-radius:0;" name="bank_account" class="form-control" readonly/>
-            <input id="bank_accounts_id" style="border-radius:0;" class="form-control" name="bank_account_id" hidden>
-            <input id="bank_accounts_detail" style="border-radius:0;" class="form-control" readonly hidden />
+            <div class="input-group">
+              <input type="hidden" id="bank_account_id" class="form-control" name="bank_account_id" style="border-radius:0;" />
+              <input type="text" id="bank_account_name" class="form-control" style="border-radius:0;background:white;" readonly />
+            </div>
           </div>
+        </div>
+      </div>
+      <div class="row" id="bank_account_message" style="margin-top: .3rem; display: none;">
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+        <div class="col-5 p-0 text-red">
+          Bank Account cannot be empty.
         </div>
       </div>
     </div>
 
-    <!-- KOLOM KANAN -->
+    <!-- RIGHT -->
     <div class="col-md-12 col-lg-5">
-    
-      <!-- Principle Loan -->
+      <!-- PRINCIPLE LOAN -->
       <div class="row">
-        <label for="principle_loan" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Principle Loan</label>
-        <div class="col-5 d-flex">
-          <input id="principle_loan" name="principle_loan" class="form-control" style="border-radius:0;">
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Principle Loan</label>
+        <div class="col-5 p-0">
+          <input type="text" id="principle_loan" value="" class="form-control" style="border-radius:0;" />
+        </div>
+      </div>
+      <div class="row" id="principle_loan_message" style="margin-top: .3rem; display: none;">
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+        <div class="col-5 p-0 text-red">
+          Principle Loan cannot be empty.
         </div>
       </div>
 
-      <!-- Landing Rate -->
+      <!-- LANDING RATE -->
       <div class="row" style="margin-top: 1rem;">
-        <label for="landing_rate" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Landing Rate</label>
-        <div class="col-5 d-flex">
-          <input id="landing_rate" name="landing_rate" type="text" class="form-control" style="border-radius:0;">
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Landing Rate</label>
+        <div class="col-5 p-0">
+          <input type="text" id="landing_rate" value="" class="form-control" style="border-radius:0;" />
+        </div>
+      </div>
+      <div class="row" id="landing_rate_message" style="margin-top: .3rem; display: none;">
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+        <div class="col-5 p-0 text-red">
+          Landing Rate cannot be empty.
         </div>
       </div>
 
-      <!-- Total Loan -->
+      <!-- TOTAL LOAN -->
       <div class="row" style="margin-top: 1rem;">
-        <label for="total_loan" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Total Loan</label>
-        <div class="col-5 d-flex">
-          <input id="total_loan" name="total_loan" type="text" class="form-control" style="border-radius:0;">
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Total Loan</label>
+        <div class="col-5 p-0">
+          <input type="text" id="total_loan" value="" class="form-control" style="border-radius:0;" />
+        </div>
+      </div>
+      <div class="row" id="total_loan_message" style="margin-top: .3rem; display: none;">
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+        <div class="col-5 p-0 text-red">
+          Total Loan cannot be empty.
         </div>
       </div>
 
-      <!-- Loan Term -->
+      <!-- LOAN TERM -->
       <div class="row" style="margin-top: 1rem;">
-        <label for="loan_term" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Loan Term</label>
-        <div class="col-5 d-flex">
-          <input id="loan_term" name="loan_term" type="text" class="form-control" style="border-radius:0;">
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Loan Term</label>
+        <div class="col-5 p-0">
+          <input type="text" id="loan_term" value="" class="form-control" style="border-radius:0;" />
+        </div>
+      </div>
+      <div class="row" id="loan_term_message" style="margin-top: .3rem; display: none;">
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+        <div class="col-5 p-0 text-red">
+          Loan Term cannot be empty.
         </div>
       </div>
 
       <!-- COA -->
       <div class="row" style="margin-top: 1rem;">
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">COA</label>
-        <div class="col-5 d-flex">
+        <div class="col-5 d-flex p-0">
           <div>
-            <span style="border-radius:0;" class="input-group-text form-control">
-              <a href="javascript:;" id="" data-toggle="modal" data-target="#myGetChartOfAccount" class="myGetChartOfAccount">
-                <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="">
-              </a>
+            <span id="coa_trigger" class="input-group-text form-control" data-toggle="modal" data-target="#myGetChartOfAccount" style="border-radius:0;cursor:pointer;">
+              <i class="fas fa-gift"></i>
             </span>
-          </div> 
+          </div>
           <div style="flex: 100%;">
-            <input id="coa_RefID" name="coa_RefID" style="border-radius:0;" class="form-control" readonly hidden>
-            <input id="coaCode" style="border-radius:0;" class="form-control" readonly>
-            <input id="coaName" style="border-radius:0;" class="form-control" name="bank_account_detail" autocomplete="off" readonly aria-label="Bank Accounts Name" hidden>
+            <div class="input-group">
+              <input type="hidden" id="coa_id" class="form-control" name="coa_id" style="border-radius:0;" />
+              <input type="text" id="coa_name" class="form-control" style="border-radius:0;background:white;" readonly />
+            </div>
           </div>
         </div>
       </div>
+      <div class="row" id="coa_message" style="margin-top: .3rem; display: none;">
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+        <div class="col-5 p-0 text-red">
+          COA cannot be empty.
+        </div>
+      </div>
 
-      <!-- Remark -->
+      <!-- REMARK -->
       <div class="row" style="margin-top: 1rem;">
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Remark</label>
-        <div class="col-5 d-flex">
-          <div style="flex: 100%;">
-            <textarea id="notes" name="notes" rows="3" style="border-radius:0;" class="form-control"></textarea>
+        <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+          <div>
+            <div class="input-group">
+              <textarea id="remark" cols="25" rows="4" class="form-control" name="" autocomplete="off"></textarea>
+            </div>
           </div>
+        </div>
+      </div>
+      <div class="row" id="remark_message" style="margin-top: .3rem; display: none;">
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+        <div class="col-5 p-0 text-red">
+          Remark cannot be empty.
         </div>
       </div>
     </div>
