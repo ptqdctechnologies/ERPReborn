@@ -66,28 +66,64 @@
             }
         });
 
-        var keys = 0;
+        // var keys = 0;
         $.ajax({
             type: 'GET',
             url: '{!! route("getBankAccount") !!}?bank_RefID=' + bank_RefID + '&person_RefID=' + person_RefID,
             success: function(data) {
                 $(".loadingBanksAccount").hide();
 
-                var no = 1;
+                // var no = 1;
                 var tableBankAccount = $('#tableBanksAccount').DataTable();
 
                 tableBankAccount.clear();
 
                 if (Array.isArray(data) && data.length > 0) {
-                    $.each(data, function(key, val) {                      
-                        keys += 1;
-                        tableBankAccount.row.add([
-                            no++,
-                            '<input id="sys_id_banks_account' + keys + '" value="' + val.sys_ID + '" type="hidden">' + val.bankAcronym || '-',
-                            val.accountNumber || '-',
-                            val.accountName || '-',
-                        ]).draw();
+                    // $.each(data, function(key, val) {                      
+                    //     keys += 1;
+                    //     tableBankAccount.row.add([
+                    //         no++,
+                    //         '<input id="sys_id_banks_account' + keys + '" value="' + val.sys_ID + '" type="hidden">' + val.bankAcronym || '-',
+                    //         val.accountNumber || '-',
+                    //         val.accountName || '-',
+                    //     ]).draw();
+                    // });
+
+                    $('#tableBanksAccount').DataTable({
+                        destroy: true,
+                        data: data,
+                        deferRender: true,
+                        scrollCollapse: true,
+                        scroller: true,
+                        columns: [
+                            {
+                                data: null,
+                                render: function (data, type, row, meta) {
+                                    return '<td class="align-middle text-center">' +
+                                        '<input id="sys_id_bank_account_list' + (meta.row + 1) + '" value="' + data.sys_ID + '" data-trigger="sys_id_bank_account_list" type="hidden">' +
+                                        (meta.row + 1) +
+                                    '</td>';
+                                }
+                            },
+                            {
+                                data: 'bankAcronym',
+                                defaultContent: '-',
+                                className: "align-middle"
+                            },
+                            {
+                                data: 'accountNumber',
+                                defaultContent: '-',
+                                className: "align-middle"
+                            },
+                            {
+                                data: 'accountName',
+                                defaultContent: '-',
+                                className: "align-middle"
+                            }
+                        ]
                     });
+
+                    $('#tableBanksAccount').css("width", "100%");
 
                     if (data.length === 1) {
                         $("#bank_accounts").val(data[0].accountNumber);
@@ -96,10 +132,10 @@
                         $("#bank_accounts_detail").css({"background-color":"#e9ecef"});
                     }
 
-                    $("#tableBanksAccount_length").show();
-                    $("#tableBanksAccount_filter").show();
-                    $("#tableBanksAccount_info").show();
-                    $("#tableBanksAccount_paginate").show();
+                    // $("#tableBanksAccount_length").show();
+                    // $("#tableBanksAccount_filter").show();
+                    // $("#tableBanksAccount_info").show();
+                    // $("#tableBanksAccount_paginate").show();
                 } else {
                     $(".errorBanksAccountMessageContainer").show();
                     $("#errorBanksAccountMessage").text(`Data not found.`);
