@@ -16,7 +16,7 @@
 <body>
   <div class="card-body table-responsive p-0">
     <div style="text-align: right; font-size: 14px;"><?= date('F j, Y'); ?></div>
-    <div style="text-align: center; font-size: 20px; font-weight: bold;">Advance Settlement Report Summary</div>
+    <div style="text-align: center; font-size: 20px; font-weight: bold;">Advance Settlement Summary Report</div>
     <div style="text-align: right; font-size: 14px;"><?= date('h:i A'); ?></div>
 
     <!-- HEADER -->
