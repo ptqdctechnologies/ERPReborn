@@ -66,32 +66,68 @@
             }
         });
 
-        var keys = 0;
+        // var keys = 0;
         $.ajax({
             type: 'GET',
             url: '{!! route("getSupplier") !!}',
             success: function(data) {
                 $(".loadingSuppliers").hide();
 
-                var no = 1;
+                // var no = 1;
                 var table = $('#tableSuppliers').DataTable();
                 table.clear();
 
                 if (Array.isArray(data) && data.length > 0) {
-                    $.each(data, function(key, val) {
-                        keys += 1;
-                        table.row.add([
-                            '<input id="sys_id_supplier' + keys + '" value="' + val.sys_ID + '" data-trigger="sys_id_supplier" type="hidden">' + no++,
-                            val.code || '-',
-                            val.name || '-',
-                            val.address || '-',
-                        ]).draw();
+                    // $.each(data, function(key, val) {
+                    //     keys += 1;
+                    //     table.row.add([
+                    //         '<input id="sys_id_supplier' + keys + '" value="' + val.sys_ID + '" data-trigger="sys_id_supplier" type="hidden">' + no++,
+                    //         val.code || '-',
+                    //         val.name || '-',
+                    //         val.address || '-',
+                    //     ]).draw();
+                    // });
+
+                    $('#tableSuppliers').DataTable({
+                        destroy: true,
+                        data: data,
+                        deferRender: true,
+                        scrollCollapse: true,
+                        scroller: true,
+                        columns: [
+                            {
+                                data: null,
+                                render: function (data, type, row, meta) {
+                                    return '<td class="align-middle text-center">' +
+                                        '<input id="sys_id_supplier' + (meta.row + 1) + '" value="' + data.sys_ID + '" data-trigger="sys_id_supplier" type="hidden">' +
+                                        (meta.row + 1) +
+                                    '</td>';
+                                }
+                            },
+                            {
+                                data: 'code',
+                                defaultContent: '-',
+                                className: "align-middle"
+                            },
+                            {
+                                data: 'name',
+                                defaultContent: '-',
+                                className: "align-middle"
+                            },
+                            {
+                                data: 'address',
+                                defaultContent: '-',
+                                className: "align-middle"
+                            }
+                        ]
                     });
 
-                    $("#tableSuppliers_length").show();
-                    $("#tableSuppliers_filter").show();
-                    $("#tableSuppliers_info").show();
-                    $("#tableSuppliers_paginate").show();
+                    $('#tableSuppliers').css("width", "100%");
+
+                    // $("#tableSuppliers_length").show();
+                    // $("#tableSuppliers_filter").show();
+                    // $("#tableSuppliers_info").show();
+                    // $("#tableSuppliers_paginate").show();
                 } else {
                     $(".errorSuppliersMessageContainer").show();
                     $("#errorSuppliersMessage").text(`Data not found.`);
