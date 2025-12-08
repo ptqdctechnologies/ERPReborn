@@ -149,7 +149,7 @@ Referensi (12 Agustus 2024) : https://docs.docker.com/engine/install/fedora/
 **Icha Mailinda** | <em>FrontEnd Developer Coordinator</em>
 
 ![Team-FrontEndDeveloper](https://i.ibb.co/RyRHf8f/Team-Suyanto.jpg)
-**Suyanto** | <em>FrontEnd Developer (26 December 2019 - Now)</em>
+**Suyanto** | <em>FrontEnd Developer (26 December 2019 - 3 December 2025)</em>
 
 ![Team-FrontEndDeveloper](https://i.ibb.co.com/C8NGZL3/Team-Wisnu-Trenggono-Wirayuda.jpg)
 **Wisnu Trenggono Wirayuda** | <em>FrontEnd Developer (15 June 2024 - Now)</em>
