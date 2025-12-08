@@ -13,9 +13,16 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class ExportReportAdvanceSettlementSummary implements FromCollection, WithHeadings, ShouldAutoSize, WithStyles
 {
+    protected $dataAdvanceSettlementSummary;
+
+    public function __construct($dataAdvanceSettlementSummary)
+    {
+        $this->dataAdvanceSettlementSummary = $dataAdvanceSettlementSummary;
+    }
+
     public function collection()
     {
-        $data = Session::get("AdvanceSettlementReportSummaryDataExcel");
+        $data = $this->dataAdvanceSettlementSummary;
 
         $filteredData = [];
         $counter = 1;
@@ -43,7 +50,7 @@ class ExportReportAdvanceSettlementSummary implements FromCollection, WithHeadin
 
     public function headings(): array
     {
-        $data = Session::get("AdvanceSettlementReportSummaryDataExcel");
+        $data = $this->dataAdvanceSettlementSummary;
 
         return [
             [date('F j, Y')],
@@ -154,42 +161,41 @@ class ExportReportAdvanceSettlementSummary implements FromCollection, WithHeadin
             ],
         ];
 
-        // $datas = Session::get("AdvanceSettlementReportSummaryDataExcel");
-        // $totalCell = count($datas['dataDetail']);
-        // $lastCell = 'A7:I' . $totalCell + 6;
-        // $sheet->getStyle($lastCell)->applyFromArray($styleArrayContent);
+        $datas      = $this->dataAdvanceSettlementSummary;
+        $totalCell  = count($datas);
+        $lastCell   = 'A7:I' . $totalCell + 6;
+        $sheet->getStyle($lastCell)->applyFromArray($styleArrayContent);
 
-        // $totalExpense   = $datas['totalExpense'];
-        // $totalAmount    = $datas['totalAmount'];
-        // $total          = $datas['total'];
+        $totalExpense   = 0;
+        $totalAmount    = 0;
+        $total          = 0;
 
-        // $sheet->insertNewRowBefore($totalCell + 7, 1);
-        // $sheet->setCellValue('A' . $totalCell + 7, "GRAND TOTAL");
-        // $sheet->setCellValue('E' . $totalCell + 7, $totalExpense);
-        // $sheet->setCellValue('F' . $totalCell + 7, $totalAmount);
-        // $sheet->setCellValue('G' . $totalCell + 7, $total);
-        // $sheet->mergeCells('A' . $totalCell + 7 . ':' . 'D' . $totalCell + 7);
+        $sheet->insertNewRowBefore($totalCell + 7, 1);
+        $sheet->setCellValue('A' . $totalCell + 7, "GRAND TOTAL");
+        $sheet->setCellValue('E' . $totalCell + 7, $totalExpense);
+        $sheet->setCellValue('F' . $totalCell + 7, $totalAmount);
+        $sheet->setCellValue('G' . $totalCell + 7, $total);
+        $sheet->mergeCells('A' . $totalCell + 7 . ':' . 'D' . $totalCell + 7);
 
-        // $styleArrayFooter = [
-        //     'font' => [
-        //         'bold' => true,
-        //         'color' => [
-        //             'rgb' => '000000',
-        //         ],
-        //     ],
-        //     'alignment' => [
-        //         'horizontal' => Alignment::HORIZONTAL_CENTER,
-        //     ],
-        //     'fill' => [
-        //         'fillType' => 'solid',
-        //         'rotation' => 0,
-        //         'color' => [
-        //             'rgb' => 'E9ECEF',
-        //         ],
-        //     ],
-        // ];
+        $styleArrayFooter = [
+            'font' => [
+                'bold' => true,
+                'color' => [
+                    'rgb' => '000000',
+                ],
+            ],
+            'alignment' => [
+                'horizontal' => Alignment::HORIZONTAL_CENTER,
+            ],
+            'fill' => [
+                'fillType' => 'solid',
+                'rotation' => 0,
+                'color' => [
+                    'rgb' => 'E9ECEF',
+                ],
+            ],
+        ];
 
-        // $sheet->getStyle('A' . $totalCell + 7 . ':' . 'I' . $totalCell + 7)->applyFromArray($styleArrayFooter);
-
+        $sheet->getStyle('A' . $totalCell + 7 . ':' . 'I' . $totalCell + 7)->applyFromArray($styleArrayFooter);
     }
 }
