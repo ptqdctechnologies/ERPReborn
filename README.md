@@ -139,29 +139,29 @@ Referensi (12 Agustus 2024) : https://docs.docker.com/engine/install/fedora/
  
 <h3>Development Team</h3>
    
-![Team-ProjectManager](https://i.ibb.co/LdBfhDH/Teguh-Pratama-Januzir-S.jpg)
+![Team-ProjectManager](https://i.ibb.co.com/B2sTW7Jx/Team-Teguh-Pratama-Januzir-S.jpg)
 **Teguh Pratama Januzir S** | <em>Project Manager</em>
    
-![Team-ProjectConsultant](https://i.ibb.co/f48Hppb/Team-Bherly-Novrandy.jpg)
+![Team-ProjectConsultant](https://i.ibb.co.com/4gKJFP39/Team-Bherly-Novrandy.jpg)
 **Bherly Novrandy** | <em>Project Consultant</em>
 
-![Team-FrontEndAndBackEndDeveloperCoordinator](https://i.ibb.co/WtK1wky/Team-Icha-Mailinda.jpg)
+![Team-FrontEndAndBackEndDeveloperCoordinator](https://i.ibb.co.com/FG42yjQ/Team-Icha-Mailinda.jpg)
 **Icha Mailinda** | <em>FrontEnd Developer Coordinator</em>
 
-![Team-FrontEndDeveloper](https://i.ibb.co/RyRHf8f/Team-Suyanto.jpg)
+![Team-FrontEndDeveloper](https://i.ibb.co.com/Y4qCg530/Team-Suyanto.jpg)
 **Suyanto** | <em>FrontEnd Developer (26 December 2019 - 3 December 2025)</em>
 
-![Team-FrontEndDeveloper](https://i.ibb.co.com/C8NGZL3/Team-Wisnu-Trenggono-Wirayuda.jpg)
+![Team-FrontEndDeveloper](https://i.ibb.co.com/MDHfgNVY/Team-Wisnu-Trenggono.jpg)
 **Wisnu Trenggono Wirayuda** | <em>FrontEnd Developer (15 June 2024 - Now)</em>
 
-![Team-FrontEndDeveloper](https://i.ibb.co/ZJ6J72b/Team-Aldi-Mulyadi.jpg)
+![Team-FrontEndDeveloper](https://i.ibb.co.com/SwfwLRqD/Team-Aldi-Mulyadi.jpg)
 **Aldi Mulyadi** | <em>FullStack Developer (14 October 2020 - 14 June 2024)</em>
 
 ![Team-BackEndDeveloper](https://i.ibb.co.com/KXTWQyF/Team-Muhammad-Rizal.jpg)
 **Muhammad Rizal** | <em>BackEnd Developer (23 January 2025 - Now)</em>
 
-![Team-DatabaseEngineer](https://i.ibb.co/LdBfhDH/Teguh-Pratama-Januzir-S.jpg)
+![Team-DatabaseEngineer](https://i.ibb.co.com/B2sTW7Jx/Team-Teguh-Pratama-Januzir-S.jpg)
 **Teguh Pratama Januzir S** | <em>BackEnd Developer Coordinator And Database Engineer</em>
 
-![Team-SystemAdministrator](https://i.ibb.co/zn7vX0K/Team-Zainudin-Anwar.jpg)
+![Team-SystemAdministrator](https://i.ibb.co.com/cpj6ty0/Team-Zainudin-Anwar.jpg)
 **Zainudin Anwar** | <em>System Administrator (9 August 2019 - Now)</em>
