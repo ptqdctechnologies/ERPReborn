@@ -333,6 +333,7 @@ class ProcessForker extends AbstractListener
             }
 
             // worker didn't exit cleanly, we'll need to have another go
+            // @phan-suppress-next-line PhanPossiblyInfiniteRecursionSameParams - recursion exits via posix_kill above
             $this->createSavegame();
         }
     }
@@ -387,7 +388,7 @@ class ProcessForker extends AbstractListener
                 continue;
             }
 
-            if (\version_compare(\PHP_VERSION, '8.1', '>=') && $value instanceof \UnitEnum) {
+            if (\PHP_VERSION_ID >= 80100 && $value instanceof \UnitEnum) {
                 // Enums defined in the REPL session can't be unserialized.
                 $ref = new \ReflectionObject($value);
                 if (\strpos($ref->getFileName(), ": eval()'d code") !== false) {

@@ -38,7 +38,7 @@ class TraceCommand extends Command
     /**
      * {@inheritdoc}
      */
-    protected function configure()
+    protected function configure(): void
     {
         list($grep, $insensitive, $invert) = FilterOptions::getOptions();
 
@@ -87,7 +87,7 @@ HELP
      * Psy from the trace.
      *
      * @param \Throwable $e          The exception or error with a backtrace
-     * @param int        $count      (default: PHP_INT_MAX)
+     * @param int|null   $count      (default: PHP_INT_MAX)
      * @param bool       $includePsy (default: true)
      *
      * @return array Formatted stacktrace lines

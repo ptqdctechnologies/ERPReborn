@@ -212,6 +212,21 @@ class QueueManager implements FactoryContract, MonitorContract
     }
 
     /**
+     * Pause a queue by its connection and name for a given amount of time.
+     *
+     * @param  string  $connection
+     * @param  string  $queue
+     * @param  \DateTimeInterface|\DateInterval|int  $ttl
+     * @return void
+     */
+    public function pauseFor($connection, $queue, $ttl)
+    {
+        $this->app['cache']
+            ->store()
+            ->put("illuminate:queue:paused:{$connection}:{$queue}", true, $ttl);
+    }
+
+    /**
      * Resume a paused queue by its connection and name.
      *
      * @param  string  $connection
@@ -237,6 +252,19 @@ class QueueManager implements FactoryContract, MonitorContract
         return (bool) $this->app['cache']
             ->store()
             ->get("illuminate:queue:paused:{$connection}:{$queue}", false);
+    }
+
+    /**
+     * Indicate that queue workers should not poll for restart or pause signals.
+     *
+     * This prevents the workers from hitting the application cache to determine if they need to pause or restart.
+     *
+     * @return void
+     */
+    public function withoutInterruptionPolling()
+    {
+        Worker::$restartable = false;
+        Worker::$pausable = false;
     }
 
     /**
