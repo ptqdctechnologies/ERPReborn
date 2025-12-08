@@ -1,17 +1,70 @@
 <script>
-    let data            = [];
-    let dataAddManual   = [];
-    let indexSubBudget  = null;
+    let data                    = [];
+    let dataProducts            = [];
+    let dataWorks               = [];
+    let dataCurrencies          = [];
+    let dataAddManual           = [];
+    let dataExcel               = [];
+    let dataTimelineDate        = [];
+    let indexSubBudget          = null;
+    let indexWork               = null;
+    let indexProduct            = null;
+    let indexCurrency           = null;
+    let indexStartDate          = null;
 
-    function findByName(nameToFind) {
-        const normalizeString = (str) => {
-            return str
-                .toLowerCase()                   // Mengubah menjadi lowercase
-                .trim()                           // Menghapus spasi ekstra
-                .replace(/[^\w\s]/g, '');         // Menghapus simbol selain huruf dan angka
-        };
+    function findSubBudgetByCode(codeToFind) {
+        // const normalizeString = (str) => {
+        //     return str
+        //         .toLowerCase()                   // Mengubah menjadi lowercase
+        //         .trim()                           // Menghapus spasi ekstra
+        //         .replace(/[^\w\s]/g, '');         // Menghapus simbol selain huruf dan angka
+        // };
 
-        return data.find(item => normalizeString(item.name) == normalizeString(nameToFind));
+        return data.find(item => item.code == codeToFind);
+    }
+
+    function findWorkByCode(codeToFind) {
+        // const normalizeString = (str) => {
+        //     return str
+        //         .toLowerCase()                   // Mengubah menjadi lowercase
+        //         .trim()                           // Menghapus spasi ekstra
+        //         .replace(/[^\w\s]/g, '');         // Menghapus simbol selain huruf dan angka
+        // };
+
+        return dataWorks.find(item => item.code == codeToFind);
+    }
+
+    function findProductByCode(codeToFind) {
+        // const normalizeString = (str) => {
+        //     return str
+        //         .toLowerCase()                   // Mengubah menjadi lowercase
+        //         .trim()                           // Menghapus spasi ekstra
+        //         .replace(/[^\w\s]/g, '');         // Menghapus simbol selain huruf dan angka
+        // };
+
+        return dataProducts.find(item => item.code == codeToFind);
+    }
+
+    function findCurrencyByISOCode(codeToFind) {
+        // const normalizeString = (str) => {
+        //     return str
+        //         .toLowerCase()                   // Mengubah menjadi lowercase
+        //         .trim()                           // Menghapus spasi ekstra
+        //         .replace(/[^\w\s]/g, '');         // Menghapus simbol selain huruf dan angka
+        // };
+
+        return dataCurrencies.find(item => item.ISOCode == codeToFind);
+    }
+
+    function findTimelineDateByCode(codeToFind) {
+        // const normalizeString = (str) => {
+        //     return str
+        //         .toLowerCase()                   // Mengubah menjadi lowercase
+        //         .trim()                           // Menghapus spasi ekstra
+        //         .replace(/[^\w\s]/g, '');         // Menghapus simbol selain huruf dan angka
+        // };
+
+        return dataTimelineDate.find(item => item && item.code == codeToFind);
     }
 
     function convertSubBudgetToVariable(Project_RefID) {
@@ -75,8 +128,240 @@
         });
     }
 
+    function convertProductToVariable() {
+        $('#tableGetProductss tbody').empty();
+        $(".loadingGetModalProductss").show();
+        $(".errorModalProductssMessageContainer").hide();
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: 'GET',
+            url: '{!! route("getProduct") !!}',
+            success: function(data) {
+                $(".loadingGetModalProductss").hide();
+
+                var table = $('#tableGetProductss').DataTable();
+                table.clear();
+
+                if (Array.isArray(data.data.data) && data.data.data.length > 0) {
+                    dataProducts = data.data.data;
+
+                    $('#tableGetProductss').DataTable({
+                        destroy: true,
+                        data: data.data.data,
+                        deferRender: true,
+                        scrollCollapse: true,
+                        scroller: true,
+                        columns: [
+                            {
+                                data: null,
+                                render: function (data, type, row, meta) {
+                                    return '<td class="align-middle text-center">' +
+                                        '<input id="sys_id_product' + (meta.row + 1) + '" value="' + data.sys_ID + '" data-trigger="sys_id_productss" type="hidden">' +
+                                        (meta.row + 1) +
+                                    '</td>';
+                                }
+                            },
+                            {
+                                data: 'code',
+                                defaultContent: '-',
+                                className: "align-middle"
+                            },
+                            {
+                                data: 'name',
+                                defaultContent: '-',
+                                className: "align-middle text-wrap"
+                            },
+                            {
+                                data: 'quantityUnitName',
+                                defaultContent: '-',
+                                className: "align-middle"
+                            }
+                        ]
+                    });
+
+                    $('#tableGetProductss').css("width", "revert-layer");
+
+                    $("#tableGetProductss_length").show();
+                    $("#tableGetProductss_filter").show();
+                    $("#tableGetProductss_info").show();
+                    $("#tableGetProductss_paginate").show();
+                } else {
+                    $('#tableGetProductss tbody').empty();
+                    $(".errorModalProductssMessageContainer").show();
+                    $("#errorModalProductssMessage").text(`Data not found.`);
+
+                    $("#tableGetProductss_length").hide();
+                    $("#tableGetProductss_filter").hide();
+                    $("#tableGetProductss_info").hide();
+                    $("#tableGetProductss_paginate").hide();
+                }
+            },
+            error: function (textStatus, errorThrown) {
+                $('#tableGetProductss tbody').empty();
+                $(".loadingGetModalProductss").hide();
+                $(".errorModalProductssMessageContainer").show();
+                $("#errorModalProductssMessage").text(`[${textStatus.status}] ${textStatus.responseJSON.message}`);
+            }
+        });
+    }
+
     function pickSubBudget(index) {
         indexSubBudget = index;
+    }
+
+    function pickWork(index) {
+        indexWork = index;
+    }
+
+    function pickProduct(index) {
+        indexProduct = index;
+    }
+
+    function pickCurrency(index) {
+        indexCurrency = index;
+    }
+
+    function pickStartDate(index) {
+        indexCurrency = index;
+    }
+
+    function showTimeline() {
+        $('#table_timeline tbody').empty();
+
+        const groupingDataExcelByWork = dataExcel.reduce((acc, currentItem) => {
+            const key           = currentItem[3]; 
+            const validateValue = findWorkByCode(currentItem[3]);
+
+            if (!acc[key] && validateValue) {
+                acc[key] = currentItem;
+            }
+
+            return acc;
+        }, {});
+
+        Object.values(groupingDataExcelByWork).forEach((row, index) => {
+            const findDate = findTimelineDateByCode(row[3]);
+
+            let componentStartDate = `
+                <input type="text" class="form-control datetimepicker-input" name="dateCommance" id="dateCommance${index}" onkeydown="return false" data-target="#dateOfDelivery${index}" autocomplete="off" style="border-radius: unset;" />
+            `;
+
+            let componentEndDate = `
+                <input type="text" class="form-control datetimepicker-input" name="dateCommanceEnd" id="dateCommanceEnd${index}" onkeydown="return false" data-target="#dateOfDeliveryEnd${index}" autocomplete="off" style="border-radius: unset;" />
+            `;
+
+            if (findDate) {
+                componentStartDate = `
+                    <input type="text" class="form-control datetimepicker-input" name="dateCommance" id="dateCommance${index}" onkeydown="return false" data-target="#dateOfDelivery${index}" value="${findDate.start}" autocomplete="off" style="border-radius: unset; background-color: #E9ECEF;" />
+                `;
+
+                componentEndDate = `
+                    <input type="text" class="form-control datetimepicker-input" name="dateCommanceEnd" id="dateCommanceEnd${index}" onkeydown="return false" data-target="#dateOfDeliveryEnd${index}" value="${findDate.end}" autocomplete="off" style="border-radius: unset; background-color: #E9ECEF;" />
+                `;
+            }
+
+            $('#table_timeline tbody').append(`
+                <tr>
+                    <td style="padding: 5px;">
+                        <input id="timeline_work_name${index}" style="border-radius:0;" class="form-control" readonly value="${row[3]} - ${row[4]}" />
+                    </td>
+                    <td style="padding: 5px;">
+                        <div class="input-group date" id="dateOfDelivery${index}" data-target-input="nearest" style="flex-wrap: nowrap;">
+                            <div>
+                                <div class="input-group-append" data-target="#dateOfDelivery${index}" data-toggle="datetimepicker" style="width: 27.78px; height: 21.8px;">
+                                    <div class="input-group-text" style="border-radius: unset; justify-content: center; width: inherit;">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="flex: 100%;">
+                                ${componentStartDate}
+                            </div>
+                        </div>
+                    </td>
+                    <td style="padding: 5px;">
+                        <div class="input-group date" id="dateOfDeliveryEnd${index}" data-target-input="nearest" style="flex-wrap: nowrap;">
+                            <div>
+                                <div class="input-group-append" data-target="#dateOfDeliveryEnd${index}" data-toggle="datetimepicker" style="width: 27.78px; height: 21.8px;">
+                                    <div class="input-group-text" style="border-radius: unset; justify-content: center; width: inherit;">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="flex: 100%;">
+                                ${componentEndDate}
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            `);
+
+            $(`#dateOfDelivery${index}`).datetimepicker({
+                format: 'L',
+                widgetPositioning: {
+                    horizontal: 'auto',
+                    vertical: 'bottom'
+                }
+            });
+
+            $(`#dateOfDelivery${index}`).on('change.datetimepicker', function (e) {
+                const dateDelivery = document.getElementById(`dateCommance${index}`);
+
+                if (dateDelivery.value) {
+                    const existingIndex = dataTimelineDate.findIndex(item => item.code === row[3]);
+
+                    if (existingIndex !== -1) {
+                        dataTimelineDate[existingIndex].start = dateDelivery.value;
+                    } else {
+                        dataTimelineDate.push({
+                            code: row[3],
+                            start: dateDelivery.value
+                        });
+                    }
+
+                    $(`#dateCommance${index}`).css({
+                        "background-color": "#e9ecef",
+                        "border": "1px solid #ced4da"
+                    });
+                }
+            });
+
+            $(`#dateOfDeliveryEnd${index}`).datetimepicker({
+                format: 'L',
+                widgetPositioning: {
+                    horizontal: 'auto',
+                    vertical: 'bottom'
+                }
+            });
+
+            $(`#dateOfDeliveryEnd${index}`).on('change.datetimepicker', function (e) {
+                const dateDeliveryEnd = document.getElementById(`dateCommanceEnd${index}`);
+
+                if (dateDeliveryEnd.value) {
+                    const existingIndex = dataTimelineDate.findIndex(item => item.code === row[3]);
+
+                    if (existingIndex !== -1) {
+                        dataTimelineDate[existingIndex].end = dateDeliveryEnd.value;
+                    } else {
+                        dataTimelineDate.push({
+                            code: row[3],
+                            end: dateDeliveryEnd.value
+                        });
+                    }
+
+                    $(`#dateCommanceEnd${index}`).css({
+                        "background-color": "#e9ecef",
+                        "border": "1px solid #ced4da"
+                    });
+                }
+            });
+        });
     }
 
     function submitJournalDetails() {
@@ -104,155 +389,133 @@
             success: function(res) {
                 $('#table_import_from_excel tbody').empty();
 
-                res.rows.slice(1).forEach((row, index) => {
-                    const result = findByName(row[1]);
+                dataExcel = res.rows.slice(1);
 
-                    if (result) {
-                        $('#table_import_from_excel tbody').append(`
-                            <tr>
-                                <td style="padding: 5px;">
-                                    <div class="input-group">
-                                        <div class="input-group-append">
-                                            <span style="border-radius:0;cursor:pointer;" class="input-group-text form-control">
-                                                <a href="javascript:;" data-toggle="modal" data-target="#mySites" onclick="pickSubBudget(${index})">
-                                                    <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="box${index}">
-                                                </a>
-                                            </span>
-                                        </div>
-                                        <input id="sub_budget_id${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" hidden value="${result.sys_id}" />
-                                        <input id="sub_budget_name${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" readonly value="${result.code} - ${result.name}" />
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="input-group">
-                                        <div class="input-group-append">
-                                            <span style="border-radius:0;cursor:pointer;" class="input-group-text form-control">
-                                                <a href="javascript:;" data-toggle="modal" data-target="#mySites" onclick="pickSubBudget(${index})">
-                                                    <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="box${index}">
-                                                </a>
-                                            </span>
-                                        </div>
-                                        <input id="work_id${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" hidden />
-                                        <input id="work_name${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" readonly />
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="input-group">
-                                        <div class="input-group-append">
-                                            <span style="border-radius:0;cursor:pointer;" class="input-group-text form-control">
-                                                <a href="javascript:;" data-toggle="modal" data-target="#mySites" onclick="pickSubBudget(${index})">
-                                                    <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="box${index}">
-                                                </a>
-                                            </span>
-                                        </div>
-                                        <input id="product_id${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" hidden />
-                                        <input id="product_name${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" readonly />
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="input-group">
-                                        <div class="input-group-append">
-                                            <span style="border-radius:0;cursor:pointer;" class="input-group-text form-control">
-                                                <a href="javascript:;" data-toggle="modal" data-target="#mySites" onclick="pickSubBudget(${index})">
-                                                    <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="box${index}">
-                                                </a>
-                                            </span>
-                                        </div>
-                                        <input id="currency_id${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" hidden />
-                                        <input id="currency_name${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" readonly />
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="input-group">
-                                        <input class="form-control number-without-negative" id="qty${index}" autocomplete="off" style="border-radius:0px;" value="${currencyTotal(row[5])}" />
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="input-group">
-                                        <input class="form-control number-without-negative" id="price${index}" autocomplete="off" style="border-radius:0px;" value="${currencyTotal(row[6])}" />
-                                    </div>
-                                </td>
-                                <td style="padding-right:5px;">
-                                    <div class="input-group">
-                                        <input class="form-control number-without-negative" id="total${index}" autocomplete="off" style="border-radius:0px;" value="${currencyTotal(row[7])}" />
-                                    </div>
-                                </td>
-                            </tr>
-                        `);
-                    } else {
-                        $('#table_import_from_excel tbody').append(`
-                            <tr>
-                                <td style="padding: 5px;">
-                                    <div class="input-group">
-                                        <div class="input-group-append">
-                                            <span style="border-radius:0;cursor:pointer;" class="input-group-text form-control">
-                                                <a data-toggle="modal" data-target="#mySites" onclick="pickSubBudget(${index})">
-                                                    <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="box${index}">
-                                                </a>
-                                            </span>
-                                        </div>
-                                        <input id="sub_budget_id${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" hidden />
-                                        <input id="sub_budget_name${index}" style="border-radius:0;width:130px;background-color:white;border-color:red;" class="form-control" readonly value="${row[1]}" />
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="input-group">
-                                        <div class="input-group-append">
-                                            <span style="border-radius:0;cursor:pointer;" class="input-group-text form-control">
-                                                <a data-toggle="modal" data-target="#mySites" onclick="pickSubBudget(${index})">
-                                                    <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="box${index}">
-                                                </a>
-                                            </span>
-                                        </div>
-                                        <input id="work_id${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" hidden />
-                                        <input id="work_name${index}" style="border-radius:0;width:130px;background-color:white;border-color:red;" class="form-control" readonly value="${row[2]}" />
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="input-group">
-                                        <div class="input-group-append">
-                                            <span style="border-radius:0;cursor:pointer;" class="input-group-text form-control">
-                                                <a data-toggle="modal" data-target="#mySites" onclick="pickSubBudget(${index})">
-                                                    <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="box${index}">
-                                                </a>
-                                            </span>
-                                        </div>
-                                        <input id="product_id${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" hidden />
-                                        <input id="product_name${index}" style="border-radius:0;width:130px;background-color:white;border-color:red;" class="form-control" readonly value="${row[3]}" />
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="input-group">
-                                        <div class="input-group-append">
-                                            <span style="border-radius:0;cursor:pointer;" class="input-group-text form-control">
-                                                <a data-toggle="modal" data-target="#mySites" onclick="pickSubBudget(${index})">
-                                                    <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="box${index}">
-                                                </a>
-                                            </span>
-                                        </div>
-                                        <input id="currency_id${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" hidden />
-                                        <input id="currency_name${index}" style="border-radius:0;width:130px;background-color:white;border-color:red;" class="form-control" readonly value="${row[4]}" />
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="input-group">
-                                        <input class="form-control number-without-negative" id="qty${index}" autocomplete="off" style="border-radius:0px;" value="${currencyTotal(row[5])}" />
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="input-group">
-                                        <input class="form-control number-without-negative" id="price${index}" autocomplete="off" style="border-radius:0px;" value="${currencyTotal(row[6])}" />
-                                    </div>
-                                </td>
-                                <td style="padding-right:5px;">
-                                    <div class="input-group">
-                                        <input class="form-control number-without-negative" id="total${index}" autocomplete="off" style="border-radius:0px;" value="${currencyTotal(row[7])}" />
-                                    </div>
-                                </td>
-                            </tr>
-                        `);
+                res.rows.slice(1).forEach((row, index) => {
+                    const validateSubBudget = findSubBudgetByCode(row[1]);
+                    const validateWork      = findWorkByCode(row[3]);
+                    const validateProduct   = findProductByCode(row[5]);
+                    const validateCurrency  = findCurrencyByISOCode(row[7]);
+
+                    let componentSubBudget = `
+                        <input id="sub_budget_id${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" hidden />
+                        <input id="sub_budget_name${index}" style="border-radius:0;width:130px;background-color:white;border-color:red;" class="form-control" readonly value="${row[1] ?? ''} - ${row[2] ?? ''}" />
+                    `;
+                    let componentWork = `
+                        <input id="work_id${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" hidden />
+                        <input id="work_name${index}" style="border-radius:0;width:130px;background-color:white;border-color:red;" class="form-control" readonly value="${row[3] ?? ''} - ${row[4] ?? ''}" />
+                    `;
+                    let componentProduct = `
+                        <input id="product_id${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" hidden />
+                        <input id="product_name${index}" style="border-radius:0;width:130px;background-color:white;border-color:red;" class="form-control" readonly value="${row[5] ?? ''} - ${row[6] ?? ''}" />
+                    `;
+                    let componentCurrency = `
+                        <input id="currency_id${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" hidden />
+                        <input id="currency_name${index}" style="border-radius:0;width:130px;background-color:white;border-color:red;" class="form-control" readonly value="${row[7] ?? ''} - ${row[8] ?? ''}" />
+                    `;
+
+                    if (validateSubBudget) {
+                        componentSubBudget = `
+                            <input id="sub_budget_id${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" hidden value="${validateSubBudget.sys_id}" />
+                            <input id="sub_budget_name${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" readonly value="${validateSubBudget.code} - ${validateSubBudget.name}" />
+                        `;
                     }
+
+                    if (validateWork) {
+                        componentWork = `
+                            <input id="work_id${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" hidden value="${validateWork.id}" />
+                            <input id="work_name${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" readonly value="${validateWork.code} - ${validateWork.name}" />
+                        `;
+                    }
+
+                    if (validateProduct) {
+                        componentProduct = `
+                            <input id="product_id${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" hidden value="${validateProduct.sys_ID}" />
+                            <input id="product_name${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" readonly value="${validateProduct.code} - ${validateProduct.name}" />
+                        `;
+                    }
+
+                    if (validateCurrency) {
+                        componentCurrency = `
+                            <input id="currency_id${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" hidden value="${validateCurrency.sys_ID}" />
+                            <input id="currency_name${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" readonly value="${validateCurrency.ISOCode} - ${validateCurrency.name}" />
+                        `;
+                    }
+
+                    $('#table_import_from_excel tbody').append(`
+                        <tr>
+                            <td style="padding: 5px;">
+                                <div class="input-group">
+                                    <div class="input-group-append">
+                                        <span style="border-radius:0;cursor:pointer;" class="input-group-text form-control">
+                                            <a data-toggle="modal" data-target="#mySites" onclick="pickSubBudget(${index})">
+                                                <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="box${index}">
+                                            </a>
+                                        </span>
+                                    </div>
+                                    ${componentSubBudget}
+                                </div>
+                            </td>
+
+                            <td style="padding: 5px;">
+                                <div class="input-group">
+                                    <div class="input-group-append">
+                                        <span style="border-radius:0;cursor:pointer;" class="input-group-text form-control">
+                                            <a href="javascript:;" data-toggle="modal" data-target="#myWorks" onclick="pickWork(${index})">
+                                                <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="box${index}">
+                                            </a>
+                                        </span>
+                                    </div>
+                                    ${componentWork}
+                                </div>
+                            </td>
+
+                            <td style="padding: 5px;">
+                                <div class="input-group">
+                                    <div class="input-group-append">
+                                        <span style="border-radius:0;cursor:pointer;" class="input-group-text form-control">
+                                            <a href="javascript:;" data-toggle="modal" data-target="#myProductss" onclick="pickProduct(${index});">
+                                                <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="box${index}">
+                                            </a>
+                                        </span>
+                                    </div>
+                                    ${componentProduct}
+                                </div>
+                            </td>
+
+                            <td style="padding: 5px;">
+                                <div class="input-group">
+                                    <div class="input-group-append">
+                                        <span style="border-radius:0;cursor:pointer;" class="input-group-text form-control">
+                                            <a href="javascript:;" data-toggle="modal" data-target="#myCurrencies" onclick="pickCurrency(${index})">
+                                                <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="box${index}">
+                                            </a>
+                                        </span>
+                                    </div>
+                                    ${componentCurrency}
+                                </div>
+                            </td>
+
+                            <td style="padding: 5px;">
+                                <div class="input-group">
+                                    <input class="form-control number-without-negative" id="qty${index}" autocomplete="off" style="border-radius:0px;" value="${currencyTotal(row[9])}" />
+                                </div>
+                            </td>
+                            <td style="padding: 5px;">
+                                <div class="input-group">
+                                    <input class="form-control number-without-negative" id="price${index}" autocomplete="off" style="border-radius:0px;" value="${currencyTotal(row[10])}" />
+                                </div>
+                            </td>
+                            <td style="padding-right:5px;">
+                                <div class="input-group">
+                                    <input class="form-control number-without-negative" id="total${index}" autocomplete="off" style="border-radius:0px;" value="${currencyTotal(row[11])}" />
+                                </div>
+                            </td>
+                        </tr>
+                    `);
                 });
+
+                showTimeline();
             }
         });
         
@@ -312,9 +575,75 @@
         $('#mySites').modal('hide');
     });
 
+    $('#tableWorks tbody').on('click', 'tr', function () {
+        if (indexWork === null) return;
+
+        const table     = $('#tableWorks').DataTable();
+        const dataRow   = table.row(this).data();
+
+        if (dataRow) {
+            $("#myWorks").modal('toggle');
+
+            const workRefID = dataRow.id;
+            const workCode  = dataRow.code;
+            const workName  = dataRow.name;
+
+            $(`#work_id${indexWork}`).val(workRefID);
+            $(`#work_name${indexWork}`).val(`${workCode ?? ''} - ${workName ?? ''}`);
+            $(`#work_name${indexWork}`).css("border", "1px solid #ced4da");
+
+            const findDataExcelByCode = dataExcel.find(item => item[3] !== workCode);
+
+            if (findDataExcelByCode) {
+                dataExcel[indexWork][3] = workCode;
+                dataExcel[indexWork][4] = workName;
+            }
+
+            showTimeline();
+        }
+    });
+
+    $('#tableGetProductss tbody').on('click', 'tr', function () {
+        if (indexProduct === null) return;
+
+        const table     = $('#tableGetProductss').DataTable();
+        const dataRow   = table.row(this).data();
+
+        if (dataRow) {
+            $("#myProductss").modal('toggle');
+
+            const productRefID  = dataRow.sys_ID;
+            const productCode   = dataRow.code;
+            const productName   = dataRow.name;
+
+            $(`#product_id${indexProduct}`).val(productRefID);
+            $(`#product_name${indexProduct}`).val(`${productCode ?? ''} - ${productName ?? ''}`);
+            $(`#product_name${indexProduct}`).css("border", "1px solid #ced4da");
+        }
+    });
+
+    $('#tableCurrencies tbody').on('click', 'tr', function () {
+        if (indexCurrency === null) return;
+
+        const table     = $('#tableCurrencies').DataTable();
+        const dataRow   = table.row(this).data();
+
+        if (dataRow) {
+            $("#myCurrencies").modal('toggle');
+
+            const currencyRefID     = dataRow.sys_ID;
+            const currencyISOCode   = dataRow.ISOCode;
+            const currencyName      = dataRow.name;
+
+            $(`#currency_id${indexCurrency}`).val(currencyRefID);
+            $(`#currency_name${indexCurrency}`).val(`${currencyISOCode ?? ''} - ${currencyName ?? ''}`);
+            $(`#currency_name${indexCurrency}`).css("border", "1px solid #ced4da");
+        }
+    });
+
     $(window).one('load', function() {
         $("#excel_file").prop("disabled", true);
         $("#uploadBudgetFile").css("cursor", "not-allowed");
+        convertProductToVariable();
     });
-
 </script>

@@ -1,8 +1,8 @@
-<div id="myCurrencies" class="modal fade" role="dialog" aria-labelledby="contohModalScrollableTitle" aria-hidden="true">
+<div id="myWorks" class="modal fade" role="dialog" aria-labelledby="contohModalScrollableTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title text-bold">Choose Currency</h4>
+                <label class="card-title">Choose Work</label>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
@@ -10,7 +10,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body table-responsive p-0" style="height: 400px;">
-                                <table class="table table-head-fixed text-nowrap" id="tableCurrencies">
+                                <table class="table table-head-fixed text-nowrap" id="tableWorks">
                                     <thead>
                                         <tr>
                                             <th>No</th>
@@ -20,7 +20,7 @@
                                     </thead>
                                     <tbody></tbody>
                                     <tfoot>
-                                        <tr class="loadingCurrencies">
+                                        <tr class="loadingGetModalWorks">
                                             <td colspan="3" class="p-0" style="height: 22rem;">
                                                 <div class="d-flex flex-column justify-content-center align-items-center py-3">
                                                     <div class="spinner-border" role="status">
@@ -32,10 +32,10 @@
                                                 </div>
                                             </td>
                                         </tr>
-                                        <tr class="errorCurrenciesMessageContainer" style="display: none;">
+                                        <tr class="errorModalWorksMessageContainer" style="display: none;">
                                             <td colspan="3" class="p-0" style="height: 22rem;">
                                                 <div class="d-flex flex-column justify-content-center align-items-center py-3">
-                                                    <div id="errorCurrenciesMessage" class="mt-3 text-red" style="font-size: 1rem; font-weight: 700;"></div>
+                                                    <div id="errorModalWorksMessage" class="mt-3 text-red" style="font-size: 1rem; font-weight: 700;"></div>
                                                 </div>
                                             </td>
                                         </tr>
@@ -51,10 +51,10 @@
 </div>
 
 <script>
-    function getCurrencies() {
-        $('#tableCurrencies tbody').empty();
-        $(".loadingCurrencies").show();
-        $(".errorCurrenciesMessageContainer").hide();
+    function getModalWorks() {
+        $('#tableWorks tbody').empty();
+        $(".loadingGetModalWorks").show();
+        $(".errorModalWorksMessageContainer").hide();
 
         $.ajaxSetup({
             headers: {
@@ -63,32 +63,31 @@
         });
 
         var keys = 0;
-
         $.ajax({
             type: 'GET',
-            url: '{!! route("getCurrency") !!}',
+            url: '{!! route("getWorks") !!}',
             success: function(data) {
-                $(".loadingCurrencies").hide();
+                $(".loadingGetModalWorks").hide();
 
                 var no = 1;
-                var table = $('#tableCurrencies').DataTable();
+                var table = $('#tableWorks').DataTable();
                 table.clear();
 
-                if (Array.isArray(data.data) && data.data.length > 0) {
-                    dataCurrencies = data.data; // USE IN BUDGET PAGE
-
-                    // $.each(data.data, function(key, val) {
+                if (Array.isArray(data) && data.length > 0) {
+                    // $.each(data, function(key, val) {
                     //     keys += 1;
                     //     table.row.add([
-                    //         '<input id="sys_id_currencies' + keys + '" value="' + val.sys_ID + '" data-trigger="sys_id_currencies" type="hidden">' + no++,
-                    //         val.ISOCode || '-',
+                    //         '<input id="sys_id_work' + keys + '" value="' + val.id + '" data-trigger="sys_id_work" type="hidden">' + no++,
+                    //         val.code || '-',
                     //         val.name || '-',
                     //     ]).draw();
                     // });
 
-                    $('#tableCurrencies').DataTable({
+                    dataWorks = data; // USE IN BUDGET PAGE
+
+                    $('#tableWorks').DataTable({
                         destroy: true,
-                        data: data.data,
+                        data: data,
                         deferRender: true,
                         scrollCollapse: true,
                         scroller: true,
@@ -97,13 +96,13 @@
                                 data: null,
                                 render: function (data, type, row, meta) {
                                     return '<td class="align-middle text-center">' +
-                                        '<input id="sys_id_currencies' + (meta.row + 1) + '" value="' + data.sys_ID + '" data-trigger="sys_id_currencies" type="hidden">' +
+                                        '<input id="sys_id_work' + (meta.row + 1) + '" value="' + data.id + '" type="hidden">' +
                                         (meta.row + 1) +
                                     '</td>';
                                 }
                             },
                             {
-                                data: 'ISOCode',
+                                data: 'code',
                                 defaultContent: '-',
                                 className: "align-middle"
                             },
@@ -115,32 +114,33 @@
                         ]
                     });
 
-                    $('#tableCurrencies').css("width", "100%");
+                    $("#tableWorks").css("width", "100%");
 
-                    $("#tableCurrencies_length").show();
-                    $("#tableCurrencies_filter").show();
-                    $("#tableCurrencies_info").show();
-                    $("#tableCurrencies_paginate").show();
+                    $("#tableWorks_length").show();
+                    $("#tableWorks_filter").show();
+                    $("#tableWorks_info").show();
+                    $("#tableWorks_paginate").show();
                 } else {
-                    $(".errorCurrenciesMessageContainer").show();
-                    $("#errorCurrenciesMessage").text(`Data not found.`);
+                    $('#tableWorks tbody').empty();
+                    $(".errorModalWorksMessageContainer").show();
+                    $("#errorModalWorksMessage").text(`Data not found.`);
 
-                    $("#tableCurrencies_length").hide();
-                    $("#tableCurrencies_filter").hide();
-                    $("#tableCurrencies_info").hide();
-                    $("#tableCurrencies_paginate").hide();
+                    $("#tableWorks_length").hide();
+                    $("#tableWorks_filter").hide();
+                    $("#tableWorks_info").hide();
+                    $("#tableWorks_paginate").hide();
                 }
             },
             error: function (textStatus, errorThrown) {
-                $('#tableCurrencies tbody').empty();
-                $(".loadingCurrencies").hide();
-                $(".errorCurrenciesMessageContainer").show();
-                $("#errorCurrenciesMessage").text(`[${textStatus.status}] ${textStatus.responseJSON.message}`);
+                $('#tableWorks tbody').empty();
+                $(".loadingGetModalWorks").hide();
+                $(".errorModalWorksMessageContainer").show();
+                $("#errorModalWorksMessage").text(`[${textStatus.status}] ${textStatus.responseJSON.message}`);
             }
         });
     }
 
     $(window).one('load', function(e) {
-        getCurrencies();
+        getModalWorks();
     });
 </script>

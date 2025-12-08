@@ -4,6 +4,9 @@
 @include('Partials.sidebar')
 @include('getFunction.getProjects')
 @include('getFunction.getSites')
+@include('getFunction.getWorks')
+@include('getFunction.getProductss')
+@include('getFunction.getCurrencies')
 
 <div class="content-wrapper">
     <section class="content">

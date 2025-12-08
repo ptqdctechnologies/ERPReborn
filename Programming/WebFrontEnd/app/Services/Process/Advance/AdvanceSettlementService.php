@@ -108,4 +108,28 @@ class AdvanceSettlementService
             ]
         );
     }
+
+    public function getAdvanceSettlementSummary($budget, $subBudget) 
+    {
+        $sessionToken = Session::get('SessionLogin');
+
+        return Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
+            $sessionToken, 
+            'report.form.documentForm.finance.getAdvanceSettlementSummary', 
+            'latest',
+            [
+                'parameter'     => [
+                    'CombinedBudgetCode'        => $budget,
+                    'CombinedBudgetSectionCode' => $subBudget
+                ],
+                'SQLStatement'  => [
+                    'pick'      => null,
+                    'sort'      => null,
+                    'filter'    => null,
+                    'paging'    => null
+                ]
+            ]
+        );
+    }
 }

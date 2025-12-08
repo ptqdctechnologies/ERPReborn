@@ -2,6 +2,10 @@
     let data            = [];
     let dataAddManual   = [];
     let indexSubBudget  = null;
+    let documentTypeID  = document.getElementById("DocumentTypeID");
+    const budgetID      = document.getElementById("project_id");
+    const currencyID    = document.getElementById("currency_id");
+    const coFile        = document.getElementById("excel_name");
 
     function detailAddManual() {
         dataAddManual = [];
@@ -20,6 +24,137 @@
             $('#excel_name').val("");
             $('#excel_file').val("");
         }
+        $('#import_total').text("0.00");
+        $('#manually_total').text("0.00");
+        $('#type_message').hide();
+    }
+
+    function calculateTotal() {
+        let total = 0;
+
+        document.querySelectorAll('input[id^="value"]').forEach(function(input) {
+            let value = parseFloat(input.value.replace(/,/g, '')); // Mengambil nilai dan menghilangkan koma
+
+            if (!isNaN(value)) {
+                total += value;
+            }
+        });
+
+        document.getElementById('import_total').textContent = total.toLocaleString('en-US', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        });
+        document.getElementById('manually_total').textContent = total.toLocaleString('en-US', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        });
+    }
+
+    function checkOneLineImportContents(indexInput) {
+        const rows = document.querySelectorAll("#table_import_from_excel tbody tr");
+        let hasFullRow = false;
+
+        rows.forEach((row, index) => {
+            const qty   = document.getElementById(`sub_budget_name${index}`)?.value.trim();
+            const wht   = document.getElementById(`value${index}`)?.value.trim();
+
+            if (qty !== "" && wht !== "") {
+                hasFullRow = true;
+            }
+        });
+
+        rows.forEach((row, index) => {
+            const qtyEl = document.getElementById(`sub_budget_name${index}`);
+            const whtEl = document.getElementById(`value${index}`);
+
+            if (hasFullRow) {
+                $(qtyEl).css("border", "1px solid #ced4da");
+                $(whtEl).css("border", "1px solid #ced4da");
+                $("#import_message").hide();
+            } else {
+                if (indexInput > -1) {
+                    if (indexInput == index) {
+                        if (qtyEl.value.trim() != "" || whtEl.value.trim() != "") {
+                            $(qtyEl).css("border", "1px solid red");
+                            $(whtEl).css("border", "1px solid red");
+                            $("#import_message").show();
+                        } else {
+                            $(qtyEl).css("border", "1px solid #ced4da");
+                            $(whtEl).css("border", "1px solid #ced4da");
+                            $("#import_message").hide();
+                        }
+                    }
+
+                    if (indexInput != index && (qtyEl.value.trim() == "" && whtEl.value.trim() == "")) {
+                        $(qtyEl).css("border", "1px solid #ced4da");
+                        $(whtEl).css("border", "1px solid #ced4da");
+                    } 
+                } else {
+                    $(qtyEl).css("border", "1px solid red");
+                    $(whtEl).css("border", "1px solid red");
+                    $("#import_message").show();
+                }
+            }
+        });
+
+        return hasFullRow;
+    }
+
+    function checkOneLineManuallyContents(indexInput) {
+        const rows = document.querySelectorAll("#table_add_manually tbody tr");
+        let hasFullRow = false;
+
+        rows.forEach((row, index) => {
+            const qty   = document.getElementById(`sub_budget_name${index}`)?.value.trim();
+            const wht   = document.getElementById(`value${index}`)?.value.trim();
+            // const coa   = document.getElementById(`coa_name${index}`)?.value.trim();
+
+            if (qty !== "" && wht !== "") {
+                hasFullRow = true;
+            }
+        });
+
+        rows.forEach((row, index) => {
+            const qtyEl = document.getElementById(`sub_budget_name${index}`);
+            const whtEl = document.getElementById(`value${index}`);
+            // const coaEl = document.getElementById(`coa_name${index}`);
+
+            if (hasFullRow) {
+                $(qtyEl).css("border", "1px solid #ced4da");
+                $(whtEl).css("border", "1px solid #ced4da");
+                // $(coaEl).css("border", "1px solid #ced4da");
+                $("#manually_message").hide();
+            } else {
+                if (indexInput > -1) {
+                    if (indexInput == index) {
+                        if (qtyEl.value.trim() != "" || whtEl.value.trim() != "") {
+                            $(qtyEl).css("border", "1px solid red");
+                            $(whtEl).css("border", "1px solid red");
+                            // $(coaEl).css("border", "1px solid red");
+                            $("#manually_message").show();
+                        } else {
+                            $(qtyEl).css("border", "1px solid #ced4da");
+                            $(whtEl).css("border", "1px solid #ced4da");
+                            // $(coaEl).css("border", "1px solid #ced4da");
+                            $("#manually_message").hide();
+                        }
+                    }
+
+                    if (indexInput != index && (qtyEl.value.trim() == "" && whtEl.value.trim() == "")) {
+                        $(qtyEl).css("border", "1px solid #ced4da");
+                        $(whtEl).css("border", "1px solid #ced4da");
+                        // $(coaEl).css("border", "1px solid #ced4da");
+                    } 
+                } else {
+                    $(qtyEl).css("border", "1px solid red");
+                    $(whtEl).css("border", "1px solid red");
+                    // $(coaEl).css("border", "1px solid red");
+                    $("#manually_message").show();
+                }
+            }
+        });
+
+        return hasFullRow;
     }
 
     function addRow() {
@@ -44,7 +179,7 @@
 
     function updateField(index, field, value) {
         dataAddManual[index][field] = value;
-        
+
         console.log("Updated:", dataAddManual); // untuk debugging
     }
 
@@ -97,7 +232,7 @@
                         </div>
                     </td>
                     <td>
-                        <input type="text" id="value${index}" class="form-control form-control number-without-negative" value="${row.value}" onchange="updateField(${index}, 'value', this.value)">
+                        <input type="text" id="value${index}" class="form-control form-control number-without-negative" value="${row.value}" onkeyup="calculateTotal()" onchange="updateField(${index}, 'value', this.value)">
                     </td>
                     <td>
                         <textarea id="note${index}" class="form-control" onchange="updateField(${index}, 'note', this.value)">${row.note}</textarea>
@@ -109,7 +244,7 @@
         });
     }
 
-    function findByName(nameToFind) {
+    function findByCode(codeToFind) {
         const normalizeString = (str) => {
             return str
                 .toLowerCase()                   // Mengubah menjadi lowercase
@@ -117,7 +252,8 @@
                 .replace(/[^\w\s]/g, '');         // Menghapus simbol selain huruf dan angka
         };
 
-        return data.find(item => normalizeString(item.name) == normalizeString(nameToFind));
+        return data.find(item => item.code == codeToFind);
+        // return data.find(item => normalizeString(item.code) == normalizeString(codeToFind));
     }
 
     function convertSubBudgetToVariable(Project_RefID) {
@@ -185,9 +321,68 @@
         indexSubBudget = index;
     }
 
-    function submitJournalDetails() {
-        // const testing = document.getElementById(`sub_budget_name${indexSubBudget}`);
-        // console.log('testing', testing.value);
+    function validationForm() {
+        let isValid                         = true;
+        const isBudgetIDNotEmpty            = budgetID.value.trim() !== '';
+        const isCurrencyIDNotEmpty          = currencyID.value.trim() !== '';
+        const isCustomerOrderTypeNotEmpty   = document.querySelector('input[name="type_customer_order"]:checked');
+        const isCOFileNotEmpty              = coFile.value.trim() !== '';
+        const isTableImportNotEmpty         = checkOneLineImportContents();
+        const isTableManuallyNotEmpty       = checkOneLineManuallyContents();
+        
+        if (
+            isBudgetIDNotEmpty &&
+            isCurrencyIDNotEmpty && 
+            isCustomerOrderTypeNotEmpty
+        ) {
+            if (isCustomerOrderTypeNotEmpty.value === "type_import_from_excel") {
+                if (!isCOFileNotEmpty) {
+                    $("#excel_name").css("border", "1px solid red");
+                    $("#co_file_message").show();
+                    isValid = false;
+                }
+                if (!isTableImportNotEmpty) {
+                    $("#import_message").show();
+                    isValid = false;
+                }
+            } else {
+                if (!isTableManuallyNotEmpty) {
+                    $("#manually_message").show();
+                    isValid = false;
+                }
+            }
+            if (isValid) {
+                // HERE
+            }
+        } else {
+            if (
+                !isBudgetIDNotEmpty &&
+                !isCurrencyIDNotEmpty && 
+                !isCustomerOrderTypeNotEmpty
+            ) {
+                $("#project_name").css("border", "1px solid red");
+                $("#currency_name").css("border", "1px solid red");
+
+                $("#project_message").show();
+                $("#currency_message").show();
+                $("#type_message").show();
+                return;
+            } 
+            if (!isBudgetIDNotEmpty) {
+                $("#project_name").css("border", "1px solid red");
+                $("#project_message").show();
+                return;
+            }
+            if (!isCurrencyIDNotEmpty) {
+                $("#currency_name").css("border", "1px solid red");
+                $("#currency_message").show();
+                return;
+            }
+            if (!isCustomerOrderTypeNotEmpty) {
+                $("#type_message").show();
+                return;
+            } 
+        }
     }
 
     $('#excel_file').on('change', function() {
@@ -201,6 +396,9 @@
         formData.append("excel_file", this.files[0]);
         formData.append("_token", "{{ csrf_token() }}");
 
+        $("#excel_name").css("border", "1px solid #ced4da");
+        $('#co_file_message').hide();
+
         $.ajax({
             url: "{{ route('CustomerOrder.Import') }}",
             type: "POST",
@@ -208,91 +406,107 @@
             processData: false,
             contentType: false,
             success: function(res) {
-                $('#table_import_from_excel tbody').empty(); // bersihkan table
+                $('#table_import_from_excel tbody').empty();
 
                 res.rows.slice(1).forEach((row, index) => {
-                    const result = findByName(row[1]);
+                    const result = findByCode(row[1]);
+
+                    let subBudgetContent = `
+                        <td>
+                            <div class="input-group">
+                                <div class="input-group-append">
+                                    <span style="border-radius:0;cursor:pointer;" class="input-group-text form-control">
+                                        <a data-toggle="modal" data-target="#mySites" onclick="pickSubBudget(${index})">
+                                            <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="box${index}">
+                                        </a>
+                                    </span>
+                                </div>
+                                <input id="sub_budget_id${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" hidden />
+                                <input id="sub_budget_code${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" hidden value="${row[1] ?? ''}" />
+                                <input id="sub_budget_name${index}" style="border-radius:0;width:130px;background-color:white;border-color:red;" class="form-control" data-invalid="true" readonly value="${row[1] ?? ''} - ${row[2] ?? ''}" />
+                            </div>
+                        </td>
+                    `;
 
                     if (result) {
-                        $('#table_import_from_excel tbody').append(`
-                            <tr>
-                                <td>
-                                    <div class="input-group">
-                                        <div class="input-group-append">
-                                            <span style="border-radius:0;cursor:pointer;" class="input-group-text form-control">
-                                                <a href="javascript:;" data-toggle="modal" data-target="#mySites" onclick="pickSubBudget(${index})">
-                                                    <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="box${index}">
-                                                </a>
-                                            </span>
-                                        </div>
-                                        <input id="sub_budget_id${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" hidden value="${result.sys_id}" />
-                                        <input id="sub_budget_name${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" readonly value="${result.code} - ${result.name}" />
+                        subBudgetContent = `
+                            <td>
+                                <div class="input-group">
+                                    <div class="input-group-append">
+                                        <span style="border-radius:0;cursor:pointer;" class="input-group-text form-control">
+                                            <a href="javascript:;" data-toggle="modal" data-target="#mySites" onclick="pickSubBudget(${index})">
+                                                <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="box${index}">
+                                            </a>
+                                        </span>
                                     </div>
-                                </td>
-                                <td>
-                                    <div class="input-group">
-                                        <input class="form-control number-without-negative" id="price_req${index}" autocomplete="off" style="border-radius:0px;" value="${currencyTotal(row[2])}" />
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="input-group">
-                                        <textarea id="note${index}" class="form-control">${row[3]}</textarea>
-                                    </div>
-                                </td>
-                            </tr>
-                        `);
-                    } else {
-                        $('#table_import_from_excel tbody').append(`
-                            <tr>
-                                <td>
-                                    <div class="input-group">
-                                        <div class="input-group-append">
-                                            <span style="border-radius:0;cursor:pointer;" class="input-group-text form-control">
-                                                <a data-toggle="modal" data-target="#mySites" onclick="pickSubBudget(${index})">
-                                                    <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="box${index}">
-                                                </a>
-                                            </span>
-                                        </div>
-                                        <input id="sub_budget_id${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" hidden />
-                                        <input id="sub_budget_name${index}" style="border-radius:0;width:130px;background-color:white;border-color:red;" class="form-control" readonly value="${row[1]}" />
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="input-group">
-                                        <input class="form-control number-without-negative" id="price_req${index}" autocomplete="off" style="border-radius:0px;" value="${currencyTotal(row[2])}" />
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="input-group">
-                                        <textarea id="note${index}" class="form-control">${row[3]}</textarea>
-                                    </div>
-                                </td>
-                            </tr>
-                        `);
+                                    <input id="sub_budget_id${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" hidden value="${result.sys_id}" />
+                                    <input id="sub_budget_code${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" hidden value="${result.code}" />
+                                    <input id="sub_budget_name${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" data-invalid="true" readonly value="${result.code} - ${result.name}" />
+                                </div>
+                            </td>
+                        `;
                     }
+
+                    $('#table_import_from_excel tbody').append(`
+                        <tr>
+                            ${subBudgetContent}
+                            <td>
+                                <div class="input-group">
+                                    <input class="form-control number-without-negative" id="value${index}" autocomplete="off" style="border-radius:0px;" onchange="checkOneLineImportContents(${index})" onkeyup="calculateTotal()" value="${row[3] ? currencyTotal(row[3]) : ''}" />
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    <textarea id="note${index}" class="form-control">${row[4] ?? ''}</textarea>
+                                </div>
+                            </td>
+                        </tr>
+                    `);
                 });
+
+                calculateTotal();
             }
         });
     });
 
-    $('#tableProjects').on('click', 'tbody tr', function() {
+    $('#tableProjects').on('click', 'tbody tr', async function() {
         let sysId   = $(this).find('input[data-trigger="sys_id_project"]').val();
         let code    = $(this).find('td:nth-child(2)').text();
         let name    = $(this).find('td:nth-child(3)').text();
 
-        $("#project_id").val(sysId);
-        $("#project_name").val(`${code} - ${name}`);
-        $("#project_name").css('background-color', '#e9ecef');
+        $("#project_id").val("");
+        $("#project_name").val("");
         
-        $("#type_import_from_excel").prop("disabled", false);
-        $("#type_add_manually").prop("disabled", false);
-
-        $("#myProjectsTrigger").prop("disabled", true);
-        $("#myProjectsTrigger").css("cursor", "not-allowed");
+        $("#project_name").css("border", "1px solid #ced4da");
+        $("#project_message").hide();
+        $("#project_loading").css({"display":"block"});
+        $("#myProjectsTrigger").css({"display":"none"});
 
         $('#myProjects').modal('hide');
 
-        convertSubBudgetToVariable(sysId);
+        try {
+            var checkWorkFlow = await checkingWorkflow(sysId, documentTypeID.value);
+
+            if (checkWorkFlow) {
+                $("#var_combinedBudget_RefID").val(sysId);
+                $("#project_id").val(sysId);
+                $("#project_name").val(`${code} - ${name}`);
+                $("#project_name").css('background-color', '#e9ecef');
+                
+                convertSubBudgetToVariable(sysId);
+                $("#type_import_from_excel").prop("disabled", false);
+                $("#type_add_manually").prop("disabled", false);
+                $("#myProjectsTrigger").prop("disabled", true);
+                $("#myProjectsTrigger").css("cursor", "not-allowed");
+            }
+            
+            $("#project_loading").css({"display":"none"});
+            $("#myProjectsTrigger").css({"display":"block"});
+        } catch (error) {
+            console.error('Error checking workflow:', error);
+
+            Swal.fire("Error", "Error Checking Workflow", "error");
+        }
     });
 
     $('#tableCurrencies').on('click', 'tbody tr', function() {
@@ -302,7 +516,8 @@
 
         $("#currency_id").val(sysId);
         $("#currency_name").val(`${code} - ${name}`);
-        $("#currency_name").css('background-color', '#e9ecef');
+        $("#currency_name").css({"background-color": "#e9ecef", "border": "1px solid #ced4da"});
+        $("#currency_message").hide();
 
         $("#myCurrenciesTrigger").prop("disabled", true);
         $("#myCurrenciesTrigger").css("cursor", "not-allowed");
@@ -320,6 +535,7 @@
         $(`#sub_budget_id${indexSubBudget}`).val(sysId);
         $(`#sub_budget_name${indexSubBudget}`).val(`${siteCode} - ${siteName}`);
         $(`#sub_budget_name${indexSubBudget}`).css('border', '1px solid #ced4da');
+        $(`#sub_budget_name${indexSubBudget}`).attr('data-invalid', 'false');
 
         updateField(indexSubBudget, 'sub_budget_id', sysId);
         updateField(indexSubBudget, 'sub_budget_name', `${siteCode} - ${siteName}`);
@@ -330,5 +546,4 @@
     $(window).one('load', function() {
         detailAddManual();
     });
-
 </script>

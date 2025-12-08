@@ -22,7 +22,7 @@
       </div>
       <div class="row" style="margin-top: .3rem;">
         <label class="col-sm-3 col-md-4 col-lg-3 col-form-label p-0"></label>
-        <a href="{{ route('Budget.Download') }}" class="col">
+        <a href="{{ route('Budget.Download') }}" class="col" style="max-width: fit-content;">
           Download Template
         </a>
       </div>

@@ -1684,6 +1684,62 @@ class FunctionController extends Controller
         }
     }
 
+    public function getWorks(Request $request)
+    {
+        return response()->json([
+            [
+                "id"    => 1,
+                "code"  => 8231,
+                "name"  => "Pondasi"
+            ],
+            [
+                "id"    => 2,
+                "code"  => 8232,
+                "name"  => "Dinding"
+            ],
+            [
+                "id"    => 3,
+                "code"  => 8233,
+                "name"  => "Atap"
+            ],
+            [
+                "id"    => 4,
+                "code"  => 8234,
+                "name"  => "Plafon"
+            ],
+            [
+                "id"    => 5,
+                "code"  => 8235,
+                "name"  => "Lantai"
+            ],
+            [
+                "id"    => 6,
+                "code"  => 8236,
+                "name"  => "Pintu"
+            ],
+            [
+                "id"    => 7,
+                "code"  => 8237,
+                "name"  => "Jendela"
+            ],
+            [
+                "id"    => 8,
+                "code"  => 8238,
+                "name"  => "Kusen"
+            ],
+            [
+                "id"    => 9,
+                "code"  => 8239,
+                "name"  => "Keramik"
+            ],
+            [
+                "id"    => 10,
+                "code"  => 8240,
+                "name"  => "Cat"
+            ]
+        ]);
+    }
+
     public function getDepreciationMethod(Request $request)
     {
         try {

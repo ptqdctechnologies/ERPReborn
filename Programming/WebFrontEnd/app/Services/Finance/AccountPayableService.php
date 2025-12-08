@@ -92,7 +92,7 @@ class AccountPayableService
         $depreciationRate           = $data['depreciation_rate_percentage'] ? (float) str_replace(',', '', $data['depreciation_rate_percentage']) : 0;
         $depreciationYears          = $data['depreciation_rate_years'] ? (float) str_replace(',', '', $data['depreciation_rate_years']) : 0;
         $depreciationCOARefID       = $data['depreciation_coa_id'] ? (int) $data['depreciation_coa_id'] : null;
-        $deduction                  = $data['budget_details_deduction'] > -1 ? (float) str_replace(',', '', $data['budget_details_deduction']) : null;
+        $deduction                  = $data['budget_details_deduction'] > -1 ? (float) str_replace(',', '', $data['budget_details_deduction']) : 0;
 
         $receiptStatus = match ($data['receipt_origin']) {
             'no'        => (int) 0,
@@ -171,7 +171,7 @@ class AccountPayableService
         $depreciationRate           = $data['depreciation_rate_percentage'] ? (float) str_replace(',', '', $data['depreciation_rate_percentage']) : 0;
         $depreciationYears          = $data['depreciation_rate_years'] ? (float) str_replace(',', '', $data['depreciation_rate_years']) : 0;
         $depreciationCOARefID       = $data['depreciation_coa_id'] ? (int) $data['depreciation_coa_id'] : null;
-        $deduction                  = $data['budget_details_deduction'] > -1 ? (float) str_replace(',', '', $data['budget_details_deduction']) : null;
+        $deduction                  = $data['budget_details_deduction'] > -1 ? (float) str_replace(',', '', $data['budget_details_deduction']) : 0;
 
         $receiptStatus = match ($data['receipt_origin']) {
             'no'        => (int) 0,
