@@ -1,4 +1,5 @@
 <script>
+    let dataReport      = []; 
     const budgetID      = document.getElementById("budget_id");
     const budgetName    = document.getElementById("budget_name");
     const budgetCode    = document.getElementById("budget_code");
@@ -6,6 +7,7 @@
     const subBudgetName = document.getElementById("site_name");
     const subBudgetCode = document.getElementById("site_code");
     const asfDate       = document.getElementById("asfDate");
+    const printType     = document.getElementById("print_type");
 
     function getDataReport() {
         ShowLoading();
@@ -32,8 +34,9 @@
             success: function(response) {
                 HideLoading();
 
-                if (response.status == 200) {
+                if (response.status === 200) {
                     let data = response.data;
+                    dataReport = JSON.stringify(data);
 
                     let totalExpenseClaim       = 0;
                     let totalAmountDueCompany   = 0;
@@ -150,11 +153,56 @@
                     $('#table_summary').css("width", "100%");
                     $('#table_container').css("display", "block");
                 } else {
-
+                    ErrorNotif(response.message);
                 }
             },
             error: function(xhr, status, error) {
                 HideLoading();
+                ErrorNotif("An error occurred while processing the received data. Please try again later.");
+                console.log('xhr, status, error', xhr, status, error);
+            }
+        });
+    }
+
+    function exportDataReport() {
+        ShowLoading();
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            url: '{!! route("AdvanceSettlement.PrintExportReportAdvanceSettlementSummary") !!}',
+            type: 'POST',
+            data: {
+                dataReport,
+                printType: printType.value
+            },
+            xhrFields: { 
+                responseType: 'blob'
+            },
+            success: function(response) {
+                HideLoading();
+
+                var blob = new Blob([response], { type: response.type });
+                var link = document.createElement('a');
+                link.href = window.URL.createObjectURL(blob);
+
+                if (response.type === "application/pdf") {
+                    link.download = "Export Report Advance Settlement Summary.pdf";
+                } else {
+                    link.download = "Export Report Advance Settlement Summary.xlsx";
+                }
+
+                link.click();
+
+                window.URL.revokeObjectURL(link.href);
+            },
+            error: function(xhr, status, error) {
+                HideLoading();
+                ErrorNotif("An error occurred while processing the received data. Please try again later.");
                 console.log('xhr, status, error', xhr, status, error);
             }
         });
@@ -193,26 +241,21 @@
             autoUpdateInput: false,
             maxDate: moment(),
             locale: {
-                cancelLabel: 'Clear'    // label tombol batal
+                cancelLabel: 'Clear'
             }
         });
 
-        // Saat tanggal dipilih, isi manual ke input
         $('#asfDate').on('apply.daterangepicker', function(ev, picker) {
             $("#asfDate").css('background-color', '#e9ecef');
 
             $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
         });
 
-        // Saat tombol cancel ditekan, kosongkan input
         $('#asfDate').on('cancel.daterangepicker', function(ev, picker) {
-            console.log('sana');
             $(this).val('');
         });
 
-        // Tambahkan trigger agar klik ikon memunculkan datepicker
         $('#asfDate-icon').on('click', function () {
-            console.log('sono');
             $('#asfDate').trigger('click');
         });
     });

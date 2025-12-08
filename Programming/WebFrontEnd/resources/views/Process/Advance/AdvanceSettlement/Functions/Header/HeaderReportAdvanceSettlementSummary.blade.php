@@ -4,11 +4,6 @@
     <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Budget</label>
     <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
       <div>
-        <input type="text" id="budget_name" class="form-control" name="budget_name" readonly style="border-radius:0;background:white;" />
-        <input type="hidden" id="budget_id" class="form-control" name="budget_id" style="border-radius:0;" />
-        <input type="hidden" id="budget_code" class="form-control" name="budget_code" style="border-radius:0;" />
-      </div>
-      <div>
         <span id="myProjectsTrigger" class="input-group-text form-control" data-toggle="modal" data-target="#myProjects" style="border-radius:0;cursor:pointer;">
           <i class="fas fa-gift"></i>
 
@@ -16,6 +11,11 @@
             <span class="sr-only">Loading...</span>
           </div>
         </span>
+      </div>
+      <div>
+        <input type="text" id="budget_name" class="form-control" name="budget_name" readonly style="border-radius:0;background:white;" />
+        <input type="hidden" id="budget_id" class="form-control" name="budget_id" style="border-radius:0;" />
+        <input type="hidden" id="budget_code" class="form-control" name="budget_code" style="border-radius:0;" />
       </div>
     </div>
   </div>
@@ -25,14 +25,14 @@
     <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Sub Budget</label>
     <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
       <div>
-        <input type="text" id="site_name" class="form-control" name="site_name" readonly style="border-radius:0;background:white;" />
-        <input type="hidden" id="site_id" class="form-control" name="site_id" style="border-radius:0;" />
-        <input type="hidden" id="site_code" class="form-control" name="site_code" style="border-radius:0;" />
-      </div>
-      <div>
         <span id="mySitesTrigger" class="input-group-text form-control" data-toggle="modal" data-target="#mySites" style="border-radius:0;cursor:pointer;">
           <i class="fas fa-gift"></i>
         </span>
+      </div>
+      <div>
+        <input type="text" id="site_name" class="form-control" name="site_name" readonly style="border-radius:0;background:white;" />
+        <input type="hidden" id="site_id" class="form-control" name="site_id" style="border-radius:0;" />
+        <input type="hidden" id="site_code" class="form-control" name="site_code" style="border-radius:0;" />
       </div>
     </div>
   </div>
@@ -44,12 +44,12 @@
     <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
       <div>
         <div class="input-group">
-          <input readonly type="text" class="form-control" id="asfDate" name="date" style="height: 21.8px;border-radius:0;background:white;" />
           <div class="input-group-prepend" style="margin-right: 0px; width: 27.78px;cursor: pointer;height: 21.8px;">
             <span class="input-group-text" id="asfDate-icon">
               <i class="far fa-calendar-alt" style="width: 13px; height: 13px;"></i>
             </span>
           </div>
+          <input readonly type="text" class="form-control" id="asfDate" name="date" style="height: 21.8px;border-radius:0;background:white;" />
         </div>
       </div>
     </div>
@@ -69,10 +69,10 @@
     <div>
       <select name="print_type" id="print_type" class="form-control">
         <option value="PDF">Export PDF</option>
-        <option value="Excel">Export Excel</option>
+        <option value="EXCEL">Export Excel</option>
       </select>
     </div>
-    <button class="btn btn-default btn-sm" type="submit" onclick="showLoadingAndSubmit(event)">
+    <button class="btn btn-default btn-sm" type="submit" onclick="exportDataReport()">
       <span>
         <img src="{{ asset('AdminLTE-master/dist/img/printer.png') }}" width="17" alt="" />
       </span>
