@@ -776,7 +776,6 @@
 
         $(".errorMessageContainerPRDetails").hide();
 
-        getDocumentType("Purchase Requisition Revision Form");
         getBudget(siteCode.value, dataTable);
     });
 </script>
