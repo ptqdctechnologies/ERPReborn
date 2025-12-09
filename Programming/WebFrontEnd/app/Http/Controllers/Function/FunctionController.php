@@ -1796,13 +1796,52 @@ class FunctionController extends Controller
                 if ($response['metadata']['HTTPStatusCode'] !== 200) {
                     Helper_Redis::setValue($sessionUserRefID, $cacheKey, json_encode([]), $cacheTTL);
 
-                    throw new \Exception('Failed to fetch Business Document Issuance Disposition Count');
+                    throw new \Exception('Failed to fetch Get Business Document Type Send Redis');
                 }
 
                 Helper_Redis::setValue($sessionUserRefID, $cacheKey, json_encode($response['data']['data']), $cacheTTL);
             }
         } catch (\Throwable $th) {
-            Log::error("Document Workflow Composer Compose Function Error: " . $th->getMessage());
+            Log::error("Get Business Document Type Send Redis Function Error: " . $th->getMessage());
+        }
+    }
+
+    public function getBusinessDocumentIssuanceDispositionCount()
+    {
+        try {
+            $varAPIWebToken     = Session::get('SessionLogin');
+            $sessionUserRefID   = Session::get('SessionUser_RefID');
+
+            $response = Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken,
+                'report.form.resume.master.getBusinessDocumentIssuanceDispositionCount',
+                'latest',
+                [
+                    'parameter'     => [
+                        'recordID'  => (int) $sessionUserRefID
+                    ]
+                ],
+                false
+            );
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                throw new \Exception('Failed to fetch Business Document Issuance Disposition Count');
+            }
+
+            $compact = [
+                'CountDocumentWorkflowComposer' => $response['data']['data']['document']['content']['businessDocumentFormCount']
+            ];
+
+            return response()->json($compact);
+        } catch (\Throwable $th) {
+            Log::error("Get Business Document Issuance Disposition Count Function Error: " . $th->getMessage());
+
+            $compact = [
+                'CountDocumentWorkflowComposer' => '-'
+            ];
+
+            return response()->json($compact);
         }
     }
 }
