@@ -61,6 +61,11 @@ class LoanController extends Controller
         }
     }
 
+    public function RevisionLoan(Request $request)
+    {
+        
+    }
+
     public function ReportLoantoLoanSettlement(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
