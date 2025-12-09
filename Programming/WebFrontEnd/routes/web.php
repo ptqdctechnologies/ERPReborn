@@ -222,7 +222,8 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('getWorks', 'Function\FunctionController@getWorks')->name('getWorks');
     Route::get('getDepreciationMethod', 'Function\FunctionController@getDepreciationMethod')->name('getDepreciationMethod');
     Route::get('getDepreciationRateYears', 'Function\FunctionController@getDepreciationRateYears')->name('getDepreciationRateYears');
-
+    Route::get('getBusinessDocumentTypeSendRedis', 'Function\FunctionController@getBusinessDocumentTypeSendRedis')->name('getBusinessDocumentTypeSendRedis');
+    
     // AP
     Route::get('DataPickList', 'Finance\AccountPayableController@DataPickList')->name('AccountPayable.DataPickList');
     Route::post('RevisionAccountPayable', 'Finance\AccountPayableController@RevisionAccountPayable')->name('AccountPayable.RevisionAccountPayable');
