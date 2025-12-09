@@ -9,7 +9,7 @@
 @include('getFunction.getSuppliers')
 @include('getFunction.getLoans')
 @include('getFunction.getWorkFlow')
-@include('Process.Loan.Functions.PopUp.PopUpLoanRevision')
+@include('Process.Loan.Functions.Popup.PopUpLoanRevision')
 
 <div class="content-wrapper">
   <section class="content">
