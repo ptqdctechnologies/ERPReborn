@@ -70,23 +70,49 @@
             success: function(data) {
                 $(".loadingLoans").hide();
 
-                var no = 1;
+                // var no = 1;
                 var table = $('#tableLoans').DataTable();
                 table.clear();
 
                 if (Array.isArray(data) && data.length > 0) {
-                    $.each(data, function(key, val) {
-                        keys += 1;
-                        table.row.add([
-                            '<input id="sys_id_loans' + keys + '" value="' + val.sys_ID + '" data-trigger="sys_id_loans" type="hidden">' + no++,
-                            val.sys_Text || '-',
-                        ]).draw();
+                    // $.each(data, function(key, val) {
+                    //     keys += 1;
+                    //     table.row.add([
+                    //         '<input id="sys_id_loans' + keys + '" value="' + val.sys_ID + '" data-trigger="sys_id_loans" type="hidden">' + no++,
+                    //         val.sys_Text || '-',
+                    //     ]).draw();
+                    // });
+
+                    $('#tableLoans').DataTable({
+                        destroy: true,
+                        data: data,
+                        deferRender: true,
+                        scrollCollapse: true,
+                        scroller: true,
+                        columns: [
+                            {
+                                data: null,
+                                render: function (data, type, row, meta) {
+                                    return '<td class="align-middle text-center">' +
+                                        '<input id="sys_id_loans' + (meta.row + 1) + '" value="' + data.sys_ID + '" data-trigger="sys_id_loans" type="hidden">' +
+                                        (meta.row + 1) +
+                                    '</td>';
+                                }
+                            },
+                            {
+                                data: 'sys_Text',
+                                defaultContent: '-',
+                                className: "align-middle"
+                            }
+                        ]
                     });
 
-                    $("#tableLoans_length").show();
-                    $("#tableLoans_filter").show();
-                    $("#tableLoans_info").show();
-                    $("#tableLoans_paginate").show();
+                    $('#tableLoans').css("width", "100%");
+
+                    // $("#tableLoans_length").show();
+                    // $("#tableLoans_filter").show();
+                    // $("#tableLoans_info").show();
+                    // $("#tableLoans_paginate").show();
                 } else {
                     $('#tableLoans tbody').empty();
 
