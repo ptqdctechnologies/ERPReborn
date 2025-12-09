@@ -93,30 +93,80 @@ class MyDocumentController extends Controller
         return response()->json($collection);
     }
 
+    // public function ShowMyDocumentListData(Request $request)
+    // {
+    //     try {
+    //         $varAPIWebToken     = Session::get('SessionLogin');
+    //         $sessionUserRefID   = Session::get('SessionUser_RefID');
+    //         $dataAPIReport      = [];
+
+    //         $start  = $request->input('start', 0);
+    //         $length = $request->input('length', 10);
+    //         $page   = ($start / $length) + 1; 
+
+    //         $searchValue = $request->input('search.value');
+    //         $filter = null;
+
+    //         // Log::error("request: ", $request->all());
+
+    //         // Log::error("here: ", [
+    //         //     'start'         => $start,
+    //         //     'length'        => $length,
+    //         //     'page'          => $page,
+    //         //     'searchValue'   => $start
+    //         // ]);
+
+    //         $apiResponse = Helper_APICall::setCallAPIGateway(
+    //             Helper_Environment::getUserSessionID_System(),
+    //             $varAPIWebToken,
+    //             'report.form.resume.master.getBusinessDocumentIssuanceDisposition',
+    //             'latest',
+    //             [
+    //                 'parameter'         => [
+    //                     'recordID'      => (int) $sessionUserRefID,
+    //                     'pagination'    => [
+    //                         'pageSize'  => (int) $length,
+    //                         'pageShow'  => (int) $page
+    //                     ],
+    //                     'dataFilter'                        => [
+    //                         'businessDocumentNumber'        => null,
+    //                         'businessDocumentType_RefID'    => null,
+    //                         'combinedBudget_RefID'          => null
+    //                     ]
+    //                 ]
+    //             ],
+    //             false
+    //         );
+            
+    //         if (isset($apiResponse['metadata']) && $apiResponse['metadata']['HTTPStatusCode'] == 200) {
+    //             $dataAPIReport = $apiResponse['data']['data']['document']['content']['itemList']['ungrouped'];
+    //         } else {
+    //             throw new \Exception("API call failed with response: " . json_encode($apiResponse['data']['message']));
+    //         }
+
+    //         $totalRecords = $apiResponse['data']['data']['document']['header']['dataCount'];
+
+    //         return response()->json([
+    //             'draw'              => intval($request->input('draw')),
+    //             'recordsTotal'      => $totalRecords,
+    //             'recordsFiltered'   => $totalRecords,
+    //             'data'              => $dataAPIReport
+    //         ]);
+    //         // return response()->json($dataAPIReport);
+    //     } catch (\Exception $th) {
+    //         Log::error("Error at ShowMyDocumentListData: " . $th->getMessage());
+
+    //         return response()->json(['error' => 'Process Error'], 500);
+    //     }
+    // }
+
     public function ShowMyDocumentListData(Request $request)
     {
         try {
             $varAPIWebToken     = Session::get('SessionLogin');
             $sessionUserRefID   = Session::get('SessionUser_RefID');
-            $dataAPIReport      = [];
 
-            $start  = $request->input('start', 0);
-            $length = $request->input('length', 10);
-            $page   = ($start / $length) + 1; 
-
-            $searchValue = $request->input('search.value');
-            $filter = null;
-
-            // Log::error("request: ", $request->all());
-
-            // Log::error("here: ", [
-            //     'start'         => $start,
-            //     'length'        => $length,
-            //     'page'          => $page,
-            //     'searchValue'   => $start
-            // ]);
-
-            $apiResponse = Helper_APICall::setCallAPIGateway(
+            $response = Helper_APICall::setCallAPIGateway(
                 Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken,
                 'report.form.resume.master.getBusinessDocumentIssuanceDisposition',
@@ -125,68 +175,27 @@ class MyDocumentController extends Controller
                     'parameter'         => [
                         'recordID'      => (int) $sessionUserRefID,
                         'pagination'    => [
-                            'pageSize'  => (int) $length,
-                            'pageShow'  => (int) $page
+                            'pageSize'  => 9999,
+                            'pageShow'  => 1
                         ],
-                        'dataFilter'                        => [
+                        'dataFilter'    => [
                             'businessDocumentNumber'        => null,
                             'businessDocumentType_RefID'    => null,
                             'combinedBudget_RefID'          => null
                         ]
                     ]
-                ],
-                false
+                ]
             );
-            
-            if (isset($apiResponse['metadata']) && $apiResponse['metadata']['HTTPStatusCode'] == 200) {
-                $dataAPIReport = $apiResponse['data']['data']['document']['content']['itemList']['ungrouped'];
-            } else {
-                throw new \Exception("API call failed with response: " . json_encode($apiResponse['data']['message']));
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                throw new \Exception('Failed to fetch Business Document Issuance Disposition');
             }
 
-            $totalRecords = $apiResponse['data']['data']['document']['header']['dataCount'];
+            return response()->json($response['data']['data']['document']['content']['itemList']['ungrouped']);
+        } catch (\Throwable $th) {
+            Log::error("Store Advance Request Function Error: " . $th->getMessage());
 
-            return response()->json([
-                'draw'              => intval($request->input('draw')),
-                'recordsTotal'      => $totalRecords,
-                'recordsFiltered'   => $totalRecords,
-                'data'              => $dataAPIReport
-            ]);
-            // return response()->json($dataAPIReport);
-        } catch (\Exception $th) {
-            Log::error("Error at ShowMyDocumentListData: " . $th->getMessage());
-
-            return response()->json(['error' => 'Process Error'], 500);
+            return response()->json([]);
         }
     }
-
-    // public function ShowMyDocumentListData(Request $request)
-    // {
-    //     $SessionWorkerCareerInternal_RefID = Session::get('SessionWorkerCareerInternal_RefID');
-    //     $varAPIWebToken = Session::get('SessionLogin'); 
-
-    //     if (Redis::get("ShowMyDocumentListData" . $SessionWorkerCareerInternal_RefID) == null) {
-    //         Helper_APICall::setCallAPIGateway(
-    //             Helper_Environment::getUserSessionID_System(),
-    //             $varAPIWebToken,
-    //             'report.form.resume.master.getBusinessDocumentIssuanceDisposition',
-    //             'latest',
-    //             [
-    //                 'parameter' => [
-    //                     'recordID' => (int)$SessionWorkerCareerInternal_RefID,
-    //                     'dataFilter' => [
-    //                         'businessDocumentNumber' => null,
-    //                         'businessDocumentType_RefID' => null,
-    //                         'combinedBudget_RefID' => null
-    //                     ]
-    //                 ]
-    //             ],
-    //             false
-    //         );
-    //     }
-
-    //     $filteredArray = $this->CustomeFormatData();
-
-    //     return response()->json($filteredArray);
-    // }
 }
