@@ -24,10 +24,11 @@
       @if($var == 0)
       <!-- CONTENT -->
       <div class="card">
-        <form method="POST" action="{{ route('SelectWorkFlow') }}" id="formSubmitLoan">
+        <!-- <form method="POST" action="{{ route('SelectWorkFlow') }}" id="loan_form"> -->
+        <form method="POST" action="{{ route('Loan.store') }}" id="loan_form">
           @csrf
           <input type="hidden" name="DocumentTypeID" id="DocumentTypeID" value="<?= $documentType_RefID; ?>">
-          <input type="hidden" name="var_combinedBudget_RefID" id="var_combinedBudget_RefID">
+          <input type="hidden" name="var_combinedBudget_RefID" id="var_combinedBudget_RefID" value="46000000000033">
 
           <!-- LOAN DETAILS -->
           <div class="tab-content px-3 pt-4 pb-2" id="nav-tabContent">

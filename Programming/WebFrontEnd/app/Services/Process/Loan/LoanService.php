@@ -13,7 +13,7 @@ class LoanService
     {
         $sessionToken   = Session::get('SessionLogin');
 
-        $data           = $request->storeData;
+        $data           = $request;
         $fileID         = $data['dataInput_Log_FileUpload_1'] ? (int) $data['dataInput_Log_FileUpload_1'] : null;
 
         return Helper_APICall::setCallAPIGateway(
@@ -24,23 +24,23 @@ class LoanService
             [
             'entities' => [
                 "documentDateTimeTZ"            => date('Y-m-d'),
-                "creditor_RefID"                => 166000000000001,
-                "debitor_RefID"                 => 25000000000001,
-                "bankAccount_RefID"             => 167000000000004,
-                "loanTerm"                      => 365,
+                "creditor_RefID"                => $data['creditor_id'],
+                "debitor_RefID"                 => $data['debitor_id'],
+                "bankAccount_RefID"             => $data['bank_account_id'],
+                "loanTerm"                      => $data['loan_term'],
                 "log_FileUpload_Pointer_RefID"  => $fileID,
-                "notes"                         => "My Notes 1",
+                "notes"                         => $data['remark'],
                 "additionalData"    => [
                     "itemList"      => [
                         "items"     => [
                                 [
                                 "entities"      => [
-                                    "principleLoan"                     => 1000000000,
-                                    "lendingRate"                       => 10,
-                                    "currency_RefID"                    => 62000000000001,
+                                    "principleLoan"                     => $data['principle_loan'],
+                                    "lendingRate"                       => $data['landing_rate'],
+                                    "currency_RefID"                    => $data['currency_id'],
                                     "currencyExchangeRate"              => 1,
-                                    "chartOfAccount_RefID"              => 65000000000005,
-                                    "combinedBudgetSectionDetail_RefID" => 169000000000024,
+                                    "chartOfAccount_RefID"              => $data['coa_id'],
+                                    "combinedBudgetSectionDetail_RefID" => null,
                                     ]
                                 ]
                             ]

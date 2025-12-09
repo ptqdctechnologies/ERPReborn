@@ -16,9 +16,15 @@ use App\Helpers\ZhtHelper\System\Helper_Environment;
 use App\Helpers\ZhtHelper\Cache\Helper_Redis;
 use Maatwebsite\Excel\Facades\Excel;
 use Barryvdh\DomPDF\Facade\Pdf;
+use App\Services\Process\Loan\LoanService;
 
 class LoanController extends Controller
 {
+    public function __construct(LoanService $loanService)
+    {
+        $this->loanService  = $loanService;
+    }
+
     public function index(Request $request)
     {
         $var                = $request->query('var', 0);
@@ -30,6 +36,29 @@ class LoanController extends Controller
             'varAPIWebToken'        => $varAPIWebToken,
             'documentType_RefID'    => $documentTypeRefID
         ]);
+    }
+
+    public function store(Request $request) 
+    {
+        try {
+            $response = $this->loanService->create($request);
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                throw new \Exception('Failed to fetch Create Loan');
+            }
+
+            $compact = [
+                "documentNumber"    => $response['data']['businessDocument']['documentNumber'],
+                "status"            => $response['metadata']['HTTPStatusCode'],
+                // "status"            => $responseWorkflow['metadata']['HTTPStatusCode'],
+            ];
+
+            return response()->json($compact);
+        } catch (\Throwable $th) {
+            Log::error("Store Loan Function Error: " . $th->getMessage());
+
+            return response()->json(["status" => 500]);
+        }
     }
 
     public function ReportLoantoLoanSettlement(Request $request)

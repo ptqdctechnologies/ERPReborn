@@ -1,8 +1,65 @@
 <script>
-    let clickedBy = "";
+    let clickedBy   = "";
+    let dataStore   = [];
 
     function chooseSupplierBy(params) {
         clickedBy = params;
+    }
+
+    function submitForm() {
+        let action = $('#loan_form').attr("action");
+        let method = $('#loan_form').attr("method");
+        let form_data = new FormData($('#loan_form')[0]);
+
+        ShowLoading();
+
+        $.ajax({
+            url: action,
+            dataType: 'json',
+            cache: false,
+            contentType: false,
+            processData: false,
+            data: form_data,
+            type: method,
+            success: function(res) {
+                HideLoading();
+
+                if (res.status === 200) {
+                    const swalWithBootstrapButtons = Swal.mixin({
+                        confirmButtonClass: 'btn btn-success btn-sm',
+                        cancelButtonClass: 'btn btn-danger btn-sm',
+                        buttonsStyling: true,
+                    });
+
+                    swalWithBootstrapButtons.fire({
+                        title: 'Successful !',
+                        type: 'success',
+                        html: 'Data has been saved. Your transaction number is ' + '<span style="color:#0046FF;font-weight:bold;">' + res.documentNumber + '</span>',
+                        showCloseButton: false,
+                        showCancelButton: false,
+                        focusConfirm: false,
+                        confirmButtonText: '<span style="color:black;"> OK </span>',
+                        confirmButtonColor: '#4B586A',
+                        confirmButtonColor: '#e9ecef',
+                        reverseButtons: true
+                    }).then((result) => {
+                        cancelForm("{{ route('Loan.index', ['var' => 1]) }}");
+                    });
+                } else {
+                    ErrorNotif("Process Error");
+                }
+            },
+            error: function(response) {
+                console.log('response error', response);
+                
+                HideLoading();
+                // CancelNotif("You don't have access", "{{ route('Loan.index', ['var' => 1]) }}");
+            }
+        });
+    }
+
+    function validationForm() {
+        submitForm();
     }
 
     $('#tableSuppliers').on('click', 'tbody tr', function() {
@@ -58,7 +115,7 @@
     });
 
     $('#tableBanksAccount').on('click', 'tbody tr', function() {
-        let sysId           = $(this).find('input[data-trigger="sys_id_bank_list"]').val();
+        let sysId           = $(this).find('input[data-trigger="sys_id_bank_account_list"]').val();
         let acronym         = $(this).find('td:nth-child(2)').text();
         let accountNumber   = $(this).find('td:nth-child(3)').text();
         let accountName     = $(this).find('td:nth-child(4)').text();

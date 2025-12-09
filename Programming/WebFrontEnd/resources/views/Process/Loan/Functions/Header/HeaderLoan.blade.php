@@ -149,7 +149,7 @@
       <div class="row">
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Principle Loan</label>
         <div class="col-5 p-0">
-          <input type="text" id="principle_loan" value="" class="form-control" style="border-radius:0;" />
+          <input type="text" id="principle_loan" name="principle_loan" class="form-control" style="border-radius:0;" />
         </div>
       </div>
       <div class="row" id="principle_loan_message" style="margin-top: .3rem; display: none;">
@@ -163,7 +163,7 @@
       <div class="row" style="margin-top: 1rem;">
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Landing Rate</label>
         <div class="col-5 p-0">
-          <input type="text" id="landing_rate" value="" class="form-control" style="border-radius:0;" />
+          <input type="text" id="landing_rate" name="landing_rate" class="form-control" style="border-radius:0;" />
         </div>
       </div>
       <div class="row" id="landing_rate_message" style="margin-top: .3rem; display: none;">
@@ -177,7 +177,7 @@
       <div class="row" style="margin-top: 1rem;">
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Total Loan</label>
         <div class="col-5 p-0">
-          <input type="text" id="total_loan" value="" class="form-control" style="border-radius:0;" />
+          <input type="text" id="total_loan" name="total_loan" class="form-control" style="border-radius:0;" />
         </div>
       </div>
       <div class="row" id="total_loan_message" style="margin-top: .3rem; display: none;">
@@ -191,7 +191,7 @@
       <div class="row" style="margin-top: 1rem;">
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Loan Term</label>
         <div class="col-5 p-0">
-          <input type="text" id="loan_term" value="" class="form-control" style="border-radius:0;" />
+          <input type="text" id="loan_term" name="loan_term" class="form-control" style="border-radius:0;" />
         </div>
       </div>
       <div class="row" id="loan_term_message" style="margin-top: .3rem; display: none;">
@@ -231,7 +231,7 @@
         <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
           <div>
             <div class="input-group">
-              <textarea id="remark" cols="25" rows="4" class="form-control" name="" autocomplete="off"></textarea>
+              <textarea id="remark" cols="25" rows="4" class="form-control" name="remark" autocomplete="off"></textarea>
             </div>
           </div>
         </div>
