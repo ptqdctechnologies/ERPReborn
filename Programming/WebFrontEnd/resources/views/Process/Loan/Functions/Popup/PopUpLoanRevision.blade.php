@@ -13,26 +13,24 @@
                             <div class="form-group">
                                 <table>
                                     <tr>
-                                        <td><label>Revision Number&nbsp;</label></td>
+                                        <td>
+                                            <label>Revision Number&nbsp;</label>
+                                        </td>
                                         <td>
                                             <div class="input-group">
-
-                                                <form id="editLoanForm" action="{{ route('Loan.RevisionLoanIndex') }}" method="POST">
+                                                <form id="editForm" action="{{ route('Loan.RevisionLoan') }}" method="POST">
                                                     @csrf
-                                                    <input id="modal_loan_id" name="modal_loan_id" type="hidden">
+                                                    <input id="modal_loan_id" style="border-radius:0;" name="modal_loan_id" type="hidden" class="form-control">
                                                 </form>
 
                                                 <div class="input-group-append" style="cursor: pointer;">
-                                                    <span class="input-group-text form-control" id="modal_loan_document_number_icon">
+                                                    <span style="border-radius:0;" class="input-group-text form-control" id="modal_loan_document_number_icon">
                                                         <a data-toggle="modal" data-target="#myLoans">
-                                                            <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13">
+                                                            <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="">
                                                         </a>
                                                     </span>
                                                 </div>
-
-                                                <input id="modal_loan_document_number" 
-                                                       name="modal_loan_document_number" 
-                                                       type="text" class="form-control" readonly required>
+                                                <input required="" id="modal_loan_document_number" style="border-radius:0;" name="modal_loan_document_number" type="text" class="form-control" required readonly>
                                             </div>
                                         </td>
                                     </tr>
@@ -40,17 +38,13 @@
                             </div>
                         </div>
                     </div>
-
-                    <a class="btn btn-sm btn-loan-cancel" data-dismiss="modal"
-                        style="margin-left: 38%;background-color:#e9ecef;border:1px solid #ced4da;">
-                        <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13"> Cancel
+                    <a class="btn btn-sm btn-cancel" data-dismiss="modal" style="margin-left: 38%;background-color:#e9ecef;border:1px solid #ced4da;">
+                        <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel"> Cancel
                     </a>
-
-                    <a class="btn btn-sm btn-loan-edit" style="background-color:#e9ecef;border:1px solid #ced4da;">
-                        <img src="{{ asset('AdminLTE-master/dist/img/edit.png') }}" width="13"> Edit
+                    <a class="btn btn-sm btn-edit" style="background-color:#e9ecef;border:1px solid #ced4da;">
+                        <img src="{{ asset('AdminLTE-master/dist/img/edit.png') }}" width="13" alt="" title="Edit"> Edit
                     </a>
                 </div>
-
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
         </div>
@@ -58,60 +52,21 @@
 </div>
 
 <script>
+    $('.btn-edit').on('click', function() {
+        var loanRefID = $('#modal_loan_id').val();
 
-var tableLoan = $('#TableSearchLoanRevision').DataTable({
-    processing: true,
-    serverSide: false,
-    paging: true,
-    searching: true
-});
+        if (loanRefID) {
+            ShowLoading();
 
-// $('#modal_loan_document_number_icon').on('click', function() {
+            $('#editForm').submit();
+        } else {
+            $('#modal_loan_document_number').focus();
+            $('#modal_loan_document_number').css("border", "1px solid red");
+        }
+    });
 
-//     $.ajax({
-//         type: 'GET',
-//         url: '{{ route("getLoanList") }}',
-//         success: function(data) {
-//             console.log(data);
-
-//             tableLoan.clear();
-//             var no = 1;
-
-//             $.each(data.data, function(key, val) {
-
-//                 tableLoan.row.add([
-//                     '<input type="hidden" value="'+ val.sys_ID +'">'+ (no++),
-//                     val.sys_Text,
-//                     val.combinedBudgetCode,
-//                     val.combinedBudgetName
-//                 ]);
-//             });
-
-//             tableLoan.draw();
-//         }
-//     });
-
-// });
-</script>
-<script>
-    $('.btn-loan-edit').on('click', function() {
-    var refID = $('#modal_loan_id').val();
-
-    if (refID) {
-        ShowLoading();
-        $('#editLoanForm').submit();
-    } 
-    else {
-        $('#modal_loan_document_number').focus()
-            .css("border", "1px solid red");
-        $('#modal_loan_document_number_icon')
-            .css("border", "1px solid red");
-    }
-});
-
-$('.btn-loan-cancel').on('click', function() {
-    $('#modal_loan_id').val("");
-    $('#modal_loan_document_number').val("");
-});
-
+    $('.btn-cancel').on('click', function() {
+        $('#modal_loan_id').val("");
+        $('#modal_loan_document_number').val("");
+    });
 </script>

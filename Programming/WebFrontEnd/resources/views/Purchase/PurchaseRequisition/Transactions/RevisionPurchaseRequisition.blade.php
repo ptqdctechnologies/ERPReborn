@@ -25,7 +25,7 @@
       <div class="card">
         <form method="POST" action="{{ route('SelectWorkFlow') }}" id="FormRevisionPurchaseRequest">
           @csrf
-          <input type="hidden" name="DocumentTypeID" id="DocumentTypeID">
+          <input type="hidden" name="DocumentTypeID" id="DocumentTypeID" value="<?= $documentTypeRefID; ?>">
           <input type="hidden" name="var_combinedBudget_RefID" id="var_combinedBudget_RefID" value="<?= $header['budgetID']; ?>">
           <input type="hidden" name="purchaseRequestID" id="purchaseRequestID" value="<?= $header['purchaseRequestID']; ?>">
 

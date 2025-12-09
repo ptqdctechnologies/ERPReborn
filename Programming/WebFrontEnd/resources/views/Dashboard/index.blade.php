@@ -20,4 +20,5 @@
   </section>
 </div>
 @include('Partials.footer')
+@include('Dashboard.footerDashboard')
 @endsection

@@ -714,8 +714,6 @@
     });
 
     $(window).one('load', function(e) {
-        getDocumentType("Purchase Requisition Form");
-
         $(".loadingBudgetDetails").hide();
         $(".errorMessageContainerBudgetDetails").hide();
         $("#deliverModalTrigger").prop("disabled", true);

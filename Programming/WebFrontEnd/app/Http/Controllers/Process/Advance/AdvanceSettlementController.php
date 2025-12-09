@@ -168,22 +168,15 @@ class AdvanceSettlementController extends Controller
 
     public function index(Request $request)
     {
-        $varAPIWebToken = Session::get('SessionLogin');
-        Session::forget("SessionAdvanceSetllementBeneficiary");
-        Session::forget("SessionAdvanceSetllementBeneficiaryID");
+        $var                = $request->query('var', 0);
+        $varAPIWebToken     = Session::get('SessionLogin');
+        $documentTypeRefID  = $this->GetBusinessDocumentsTypeFromRedis('Advance Settlement Form');
 
-        $var = 0;
-        if (!empty($_GET['var'])) {
-            $var =  $_GET['var'];
-        }
-
-        $compact = [
-            'var' => $var,
-            'varAPIWebToken' => $varAPIWebToken,
-            'statusRevisi' => 0,
-        ];
-
-        return view('Process.Advance.AdvanceSettlement.Transactions.CreateAdvanceSettlement', $compact);
+        return view('Process.Advance.AdvanceSettlement.Transactions.CreateAdvanceSettlement', [
+            'var'                   => $var,
+            'varAPIWebToken'        => $varAPIWebToken,
+            'documentType_RefID'    => $documentTypeRefID
+        ]);
     }
 
     public function store(Request $request)
@@ -379,8 +372,9 @@ class AdvanceSettlementController extends Controller
     public function RevisionAdvanceSettlementIndex(Request $request)
     {
         try {
-            $varAPIWebToken = Session::get('SessionLogin');
-            $advanceSettlementID = $request->input('advance_settlement_id');
+            $varAPIWebToken         = Session::get('SessionLogin');
+            $advanceSettlementID    = $request->input('advance_settlement_id');
+            $documentTypeRefID      = $this->GetBusinessDocumentsTypeFromRedis('Advance Settlement Revision Form');
 
             $response = $this->advanceSettlementService->getDetail($advanceSettlementID);
 
@@ -391,16 +385,17 @@ class AdvanceSettlementController extends Controller
             $data = $response['data']['data'];
 
             $compact = [
-                'advanceNumber'     => $data[0]['documentNumber'] ?? '-',
-                'budget'            => $data[0]['combinedBudgetCode'] . ' - ' . $data[0]['combinedBudgetName'],
-                'subBudget'         => $data[0]['combinedBudgetSectionCode'] . ' - ' . $data[0]['combinedBudgetSectionName'],
-                'beneficiaryName'   => $data[0]['beneficiaryName'] ?? '-',
-                'bankName'          => $data[0]['bankName'] ?? '-',
-                'bankAccount'       => $data[0]['bankAccount'] ?? '-',
-                'fileID'            => $data[0]['log_FileUpload_Pointer_RefID'] ?? null,
-                'remark'            => $data[0]['remarks'] ?? '-',
-                'dataDetail'        => $data,
-                'varAPIWebToken'    => $varAPIWebToken,
+                'documentType_RefID'    => $documentTypeRefID,
+                'advanceNumber'         => $data[0]['documentNumber'] ?? '-',
+                'budget'                => $data[0]['combinedBudgetCode'] . ' - ' . $data[0]['combinedBudgetName'],
+                'subBudget'             => $data[0]['combinedBudgetSectionCode'] . ' - ' . $data[0]['combinedBudgetSectionName'],
+                'beneficiaryName'       => $data[0]['beneficiaryName'] ?? '-',
+                'bankName'              => $data[0]['bankName'] ?? '-',
+                'bankAccount'           => $data[0]['bankAccount'] ?? '-',
+                'fileID'                => $data[0]['log_FileUpload_Pointer_RefID'] ?? null,
+                'remark'                => $data[0]['remarks'] ?? '-',
+                'dataDetail'            => $data,
+                'varAPIWebToken'        => $varAPIWebToken
             ];
 
             return view('Process.Advance.AdvanceSettlement.Transactions.RevisionAdvanceSettlement', $compact);

@@ -75,19 +75,50 @@
                 table.clear();
 
                 if (Array.isArray(data.data) && data.data.length > 0) {
-                    $.each(data.data, function(key, val) {
-                        keys += 1;
-                        table.row.add([
-                            '<input id="sys_id_bank_list' + keys + '" value="' + val.sys_ID + '" type="hidden">' + no++,
-                            val.acronym || '-',
-                            val.name || '-'
-                        ]).draw();
+                    // $.each(data.data, function(key, val) {
+                    //     keys += 1;
+                    //     table.row.add([
+                    //         '<input id="sys_id_bank_list' + keys + '" value="' + val.sys_ID + '" type="hidden">' + no++,
+                    //         val.acronym || '-',
+                    //         val.name || '-'
+                    //     ]).draw();
+                    // });
+
+                    // $("#tableGetBankList_length").show();
+                    // $("#tableGetBankList_filter").show();
+                    // $("#tableGetBankList_info").show();
+                    // $("#tableGetBankList_paginate").show();
+
+                    $('#tableGetBankList').DataTable({
+                        destroy: true,
+                        data: data.data,
+                        deferRender: true,
+                        scrollCollapse: true,
+                        scroller: true,
+                        columns: [
+                            {
+                                data: null,
+                                render: function (data, type, row, meta) {
+                                    return '<td class="align-middle text-center">' +
+                                        '<input id="sys_id_bank_list' + (meta.row + 1) + '" value="' + data.sys_ID + '" data-trigger="sys_id_bank_list" type="hidden">' +
+                                        (meta.row + 1) +
+                                    '</td>';
+                                }
+                            },
+                            {
+                                data: 'acronym',
+                                defaultContent: '-',
+                                className: "align-middle"
+                            },
+                            {
+                                data: 'name',
+                                defaultContent: '-',
+                                className: "align-middle"
+                            }
+                        ]
                     });
 
-                    $("#tableGetBankList_length").show();
-                    $("#tableGetBankList_filter").show();
-                    $("#tableGetBankList_info").show();
-                    $("#tableGetBankList_paginate").show();
+                    $('#tableGetBankList').css("width", "100%");
                 } else {
                     $(".errorMessageContainer").show();
                     $("#errorMessage").text(`Data not found.`);

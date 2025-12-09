@@ -209,7 +209,6 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('getWarehouse', 'Function\FunctionController@getWarehouse')->name('getWarehouse');
     Route::get('getBusinessTripCostComponentEntity', 'Function\FunctionController@getBusinessTripCostComponentEntity')->name('getBusinessTripCostComponentEntity');
     Route::get('getDocumentType', 'Function\FunctionController@getDocumentType')->name('getDocumentType');
-    Route::get('getPrivilageMenu', 'Function\FunctionController@getPrivilageMenu')->name('getPrivilageMenu');
     Route::get('getCurrency', 'Function\FunctionController@getCurrency')->name('getCurrency');
     Route::get('getDepartement', 'Function\FunctionController@getDepartement')->name('getDepartement');
     Route::get('getBusinessTripList', 'Function\FunctionController@getBusinessTripList')->name('getBusinessTripList');
@@ -223,7 +222,9 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('getWorks', 'Function\FunctionController@getWorks')->name('getWorks');
     Route::get('getDepreciationMethod', 'Function\FunctionController@getDepreciationMethod')->name('getDepreciationMethod');
     Route::get('getDepreciationRateYears', 'Function\FunctionController@getDepreciationRateYears')->name('getDepreciationRateYears');
-
+    Route::get('getBusinessDocumentTypeSendRedis', 'Function\FunctionController@getBusinessDocumentTypeSendRedis')->name('getBusinessDocumentTypeSendRedis');
+    Route::get('getBusinessDocumentIssuanceDispositionCount', 'Function\FunctionController@getBusinessDocumentIssuanceDispositionCount')->name('getBusinessDocumentIssuanceDispositionCount');
+    
     // AP
     Route::get('DataPickList', 'Finance\AccountPayableController@DataPickList')->name('AccountPayable.DataPickList');
     Route::post('RevisionAccountPayable', 'Finance\AccountPayableController@RevisionAccountPayable')->name('AccountPayable.RevisionAccountPayable');
@@ -405,8 +406,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     // Route::post('PrintExportReportLoanDetail', 'Process\Loan\LoanController@PrintExportReportLoanDetail')->name('Loan.PrintExportReportLoanDetail');
     // Route::resource('AdvanceRequest', 'Process\Advance\AdvanceRequestController');
 
-    Route::post('/Loan/Create', 'Process\Loan\LoanController@CreateLoan')->name('CreateLoan');
-    Route::post('/loan/revision', 'Process\Loan\LoanController@RevisionLoanIndex')->name('Loan.RevisionLoanIndex');
+    Route::get('RevisionLoan', 'Process\Loan\LoanController@RevisionLoan')->name('Loan.RevisionLoan');
     Route::resource('Loan', 'Process\Loan\LoanController');
 
     // LOAN SETTLEMENT

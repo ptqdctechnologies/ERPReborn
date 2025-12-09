@@ -734,7 +734,5 @@
         $(".loadingAdvanceSettlementTable").hide();
         $(".errorAdvanceSettlementTable").hide();
         $("#advance-details-add").prop("disabled", true);
-
-        getDocumentType("Advance Settlement Form");
     });
 </script>

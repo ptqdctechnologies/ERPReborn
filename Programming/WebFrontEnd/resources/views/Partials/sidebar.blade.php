@@ -106,10 +106,13 @@
     <div class="user-panel mt-0 pb-0 mb-0 d-flex sidebar-{{ $ColorMode }}-primary" style="text-align:center;height:20%;border-top:2px white solid;">
         <div class="card-body sidebar">
             <hr>
-            <a href="#" class="d-block" style="font-size:15px;">
-                <h1><b>{{ $CountDocumentWorkflowComposer ?? '-' }}</b></h1>
+            <a href="javascript:;" class="d-block" style="font-size:15px;">
+                <h1><b id="document_count" style="display: none;">0</b></h1>
+                <div id="loading_document_count" class="spinner-border spinner-border-sm" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
             </a>
-            <a href="#" class="d-block" style="font-size:15px;">
+            <a href="javascript:;" class="d-block" style="font-size:15px;">
                 <h5>Document to Process</h5>
             </a>
             <a href="{{ route('MyDocument.index') }}">

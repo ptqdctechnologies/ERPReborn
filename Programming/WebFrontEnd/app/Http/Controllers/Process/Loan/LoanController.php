@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Http\Controllers\Process\Loan;
 
 use App\Http\Controllers\ExportExcel\Process\ExportReportLoanDetail;
@@ -17,106 +16,54 @@ use App\Helpers\ZhtHelper\System\Helper_Environment;
 use App\Helpers\ZhtHelper\Cache\Helper_Redis;
 use Maatwebsite\Excel\Facades\Excel;
 use Barryvdh\DomPDF\Facade\Pdf;
+use App\Services\Process\Loan\LoanService;
 
 class LoanController extends Controller
 {
+    public function __construct(LoanService $loanService)
+    {
+        $this->loanService  = $loanService;
+    }
+
     public function index(Request $request)
     {
-        $varAPIWebToken = Session::get('SessionLogin');
-        $var            = 0;
-        if (!empty($_GET['var'])) {
-            $var = $_GET['var'];
-        }
+        $var                = $request->query('var', 0);
+        $varAPIWebToken     = Session::get('SessionLogin');
+        $documentTypeRefID  = $this->GetBusinessDocumentsTypeFromRedis('Loan Form');
 
-        $compact = [
-            'var'               => $var,
-            'varAPIWebToken'    => $varAPIWebToken,
-        ];
-
-        return view('Process.Loan.Transactions.CreateLoan', $compact);
+        return view('Process.Loan.Transactions.CreateLoan', [
+            'var'                   => $var,
+            'varAPIWebToken'        => $varAPIWebToken,
+            'documentType_RefID'    => $documentTypeRefID
+        ]);
     }
-    
-    public function CreateLoan(Request $request)
+
+    public function store(Request $request) 
     {
         try {
-            
-            $varAPIWebToken = Session::get('SessionLogin');
-            // dd($varAPIWebToken);
-            // dd($request->all());
-            // ===========================
-            // 1. Ambil data dari FORM
-            // ===========================
-            $creditor     = $request->creditor_id;
-            $debitor      = $request->debitor_id;
-            $currency     = $request->deliver_RefID;
-            $bankAccount  = $request->bank_account_id;
-            $principle    = $request->principle_loan;
-            $lendingRate  = $request->landing_rate;
-            $totalLoan    = $request->total_loan;
-            $loanTerm     = $request->loan_term;
-            $coa          = $request->coa_RefID;
-            $notes        = $request->notes;
+            $response = $this->loanService->create($request);
 
-            // File upload pointer dari JS helper
-            $fileUploadRefID = $request->dataInput_Log_FileUpload_1;
-
-            // ===========================
-            // 2. Bangun PAYLOAD API
-            // ===========================
-
-            $payload = [
-                'entities' => [
-                    "documentDateTimeTZ"            => date('Y-m-d'),
-                    "creditor_RefID"                => (int) $creditor,
-                    "debitor_RefID"                 => (int) $debitor,
-                    "bankAccount_RefID"             => (int) $bankAccount,
-                    "loanTerm"                      => (int) $loanTerm,
-                    "log_FileUpload_Pointer_RefID"  => $fileUploadRefID ? (int)$fileUploadRefID : null,
-                    "notes"                         => $notes,
-                    "additionalData" => [
-                        "itemList" => [
-                            "items" => [
-                                [
-                                    "entities" => [
-                                        "principleLoan"                    => (float) $principle,
-                                        "lendingRate"                      => (float) $lendingRate,
-                                        "currency_RefID"                   => (int) $currency,
-                                        "currencyExchangeRate"             => 1,
-                                        "chartOfAccount_RefID"             => (int) $coa,
-                                        "combinedBudgetSectionDetail_RefID" => 169000000000024
-                                    ]
-                                ]
-                            ]
-                        ]
-                    ]
-                ]
-            ];
-
-            // dd($payload);
-
-
-            // ===========================
-            // 3. Call API Gateway
-            // ===========================
-            $APIResponse = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken,
-                'transaction.create.finance.setLoan',
-                'latest',
-                $payload
-            );
-
-            // dd($payload);
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                throw new \Exception('Failed to fetch Create Loan');
+            }
 
             $compact = [
-                "documentNumber"    => $APIResponse['data']['businessDocument']['documentNumber'],
-                "status"            => $APIResponse['metadata']['HTTPStatusCode'],
+                "documentNumber"    => $response['data']['businessDocument']['documentNumber'],
+                "status"            => $response['metadata']['HTTPStatusCode'],
+                // "status"            => $responseWorkflow['metadata']['HTTPStatusCode'],
             ];
 
             return response()->json($compact);
-        } catch (\Exception $e) {
+        } catch (\Throwable $th) {
+            Log::error("Store Loan Function Error: " . $th->getMessage());
+
             return response()->json(["status" => 500]);
         }
+    }
+
+    public function RevisionLoan(Request $request)
+    {
+        
     }
 
     public function ReportLoantoLoanSettlement(Request $request)

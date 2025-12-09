@@ -722,3 +722,33 @@
     $('[data-toggle="popover"]').popover()
   });
 </script>
+
+<script>
+  function getBusinessDocumentIssuanceDispositionCount() {
+    $.ajaxSetup({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+    });
+
+    $.ajax({
+      type: 'GET',
+      url: '{!! route("getBusinessDocumentIssuanceDispositionCount") !!}',
+      success: function(response) {
+        $("#document_count").text(response.CountDocumentWorkflowComposer);
+        $("#document_count").show();
+        $("#loading_document_count").hide();
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+        console.log('jqXHR, textStatus, errorThrown', jqXHR, textStatus, errorThrown);
+        $("#document_count").text(response.CountDocumentWorkflowComposer);
+        $("#document_count").show();
+        $("#loading_document_count").hide();
+      }
+    });
+  }
+
+  $(window).one('load', function(e) {
+    getBusinessDocumentIssuanceDispositionCount();
+  });
+</script>

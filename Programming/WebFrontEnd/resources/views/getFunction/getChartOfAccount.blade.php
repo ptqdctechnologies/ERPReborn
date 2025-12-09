@@ -68,18 +68,49 @@
             success: function(data) {
                 $(".loadingGetModalChartOfAccount").hide();
 
-                let no = 1;
+                // let no = 1;
                 let table = $('#tableGetChartOfAccount').DataTable();
                 table.clear();
 
                 if (Array.isArray(data) && data.length > 0) {
-                    $.each(data, function(key, val) {
-                        table.row.add([
-                            '<input data-trigger="sys_id_modal_coa" value="' + val.sys_ID + '" type="hidden">' + no++,
-                            val.code || '-',
-                            val.name || '-',
-                        ]).draw();
+                    // $.each(data, function(key, val) {
+                    //     table.row.add([
+                    //         '<input data-trigger="sys_id_modal_coa" value="' + val.sys_ID + '" type="hidden">' + no++,
+                    //         val.code || '-',
+                    //         val.name || '-',
+                    //     ]).draw();
+                    // });
+
+                    $('#tableGetChartOfAccount').DataTable({
+                        destroy: true,
+                        data: data,
+                        deferRender: true,
+                        scrollCollapse: true,
+                        scroller: true,
+                        columns: [
+                            {
+                                data: null,
+                                render: function (data, type, row, meta) {
+                                    return '<td class="align-middle text-center">' +
+                                        '<input id="sys_id_modal_coa' + (meta.row + 1) + '" value="' + data.sys_ID + '" data-trigger="sys_id_modal_coa" type="hidden">' +
+                                        (meta.row + 1) +
+                                    '</td>';
+                                }
+                            },
+                            {
+                                data: 'code',
+                                defaultContent: '-',
+                                className: "align-middle"
+                            },
+                            {
+                                data: 'name',
+                                defaultContent: '-',
+                                className: "align-middle"
+                            }
+                        ]
                     });
+
+                    $('#tableGetChartOfAccount').css("width", "100%");
                 } else {
                     $(".errorModalChartOfAccountMessageContainer").show();
                     $("#errorModalChartOfAccountMessage").text(`Data not found.`);
