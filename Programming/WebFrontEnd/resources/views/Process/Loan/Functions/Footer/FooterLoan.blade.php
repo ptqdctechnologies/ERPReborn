@@ -140,4 +140,15 @@
 
         $("#myGetChartOfAccount").modal('toggle');
     });
+
+    $('#tableLoans').on('click', 'tbody tr', function() {
+        let sysId = $(this).find('input[data-trigger="sys_id_loans"]').val();
+        let name  = $(this).find('td:nth-child(2)').text();
+
+        $(`#modal_loan_id`).val(sysId);
+        $(`#modal_loan_document_number`).val(name);
+        $(`#modal_loan_document_number`).css({'background-color': '#e9ecef', 'border': '1px solid #ced4da'});
+        
+        $("#myLoans").modal('toggle');
+    });
 </script>
