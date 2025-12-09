@@ -673,6 +673,5 @@
 
     $(window).on('load', function() {
         getDetailAdvanceSettlement(dataTable);
-        getDocumentType("Advance Settlement Form");
     });
 </script>

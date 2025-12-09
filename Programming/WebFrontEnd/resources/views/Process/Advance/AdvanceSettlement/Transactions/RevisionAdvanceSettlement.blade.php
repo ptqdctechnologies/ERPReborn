@@ -24,7 +24,7 @@
       <div class="card" style="position:relative;bottom:10px;">
         <form method="POST" action="{{ route('SelectWorkFlow') }}" id="FormRevisionAdvanceSettlement">
           @csrf
-          <input type="hidden" name="DocumentTypeID" id="DocumentTypeID">
+          <input type="hidden" name="DocumentTypeID" id="DocumentTypeID" value="<?= $documentType_RefID; ?>">
           <input type="hidden" name="var_combinedBudget_RefID" id="var_combinedBudget_RefID">
 
           <!-- ADVANCE SETTLEMENT -->
