@@ -95,7 +95,7 @@ class AdvanceRequestController extends Controller
         try {
             $varAPIWebToken     = Session::get('SessionLogin');
             $advance_RefID      = $request->input('modal_advance_id');
-            $documentTypeRefID  = $this->GetBusinessDocumentsTypeFromRedis('Advance Settlement Form');
+            $documentTypeRefID  = $this->GetBusinessDocumentsTypeFromRedis('Advance Revision Form');
 
             $response = $this->advanceRequestService->getDetail($advance_RefID);
 
