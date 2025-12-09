@@ -4857,6 +4857,57 @@ namespace App\Models\Database\SchData_OLTP_Finance
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getReport_Form_DocumentForm_AdvanceSummary                                                           |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2025-12-09                                                                                           |
+        | ▪ Creation Date   : 2025-12-09                                                                                           |
+        | ▪ Description     : Mendapatkan Laporan Form - Form Dokumen Advance Summary                                              |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |      ▪ (string)    varCombinedBudgetCode ► Combined Budget Code                                                          |
+        |      ▪ (string)    varCombinedBudgetSectionCode ► Combined Budget Section Code                                           |
+        |      ▪ (int)    varRequesterWorkerJobsPosition_RefID ► RequesterWorkerJobsPosition_RefID                                 |
+        |      ▪ (int)    varBeneficiaryWorkerJobsPosition_RefID ► BeneficiaryWorkerJobsPosition_RefID                             |
+        |      ▪ (int)    varStartDate ► StartDate                                                                                 |
+        |      ▪ (int)    varEndDate ► EndDate                                                                                     |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getReport_Form_DocumentForm_AdvanceSummary_New(
+            $varUserSession, int $varSysBranch_RefID, string  $varCombinedBudgetCode = null, string $varCombinedBudgetSectionCode = null, int $varRequesterWorkerJobsPosition_RefID = null, int $varBeneficiaryWorkerJobsPosition_RefID = null, string  $varStartDate = null, string  $varEndDate = null,
+            )
+            {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession,
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Finance.Func_GetReport_DocForm_AdvanceSummary',
+                            [
+                                [$varCombinedBudgetCode, 'varchar' ],
+                                [$varCombinedBudgetSectionCode, 'varchar' ],
+                                [$varRequesterWorkerJobsPosition_RefID, 'bigint' ],
+                                [$varBeneficiaryWorkerJobsPosition_RefID, 'bigint' ],
+                                [$varStartDate, 'varchar'],
+                                [$varEndDate, 'varchar'],
+                            ]
+                            )
+                        );
+                return $varReturn;
+                }
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getReport_Form_DocumentForm_AdvanceToAdvanceSettlementSummary                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
