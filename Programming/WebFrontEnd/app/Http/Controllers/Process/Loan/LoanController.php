@@ -70,7 +70,7 @@ class LoanController extends Controller
 
             $response = $this->loanService->getDetail($loanRefID);
 
-            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+            if ($response['metadata']['HTTPStatusCode'] === 200) {
                 throw new \Exception('Failed to fetch Detail Loan');
             }
 
@@ -104,8 +104,7 @@ class LoanController extends Controller
         } catch (\Throwable $th) {
             Log::error("Revision Loan Function Error: " . $th->getMessage());
 
-            session()->flash('NotFound', 'Process Error');
-            return redirect()->route('Loan.index', ['var' => 1]);
+            return redirect()->route('Loan.index', ['var' => 1])->with('NotFound', 'Process Error');
         }
     }
 
