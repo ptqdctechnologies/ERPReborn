@@ -1,0 +1,40 @@
+# The Caddyfile is an easy way to configure FrankenPHP and the Caddy web server.
+#
+# https://frankenphp.dev/docs/config
+# https://caddyserver.com/docs/caddyfile
+
+#{
+#       skip_install_trust 
+
+#       {$CADDY_GLOBAL_OPTIONS}
+
+#       frankenphp {
+#               {$FRANKENPHP_CONFIG}
+#       }
+#}
+{$CADDY_GLOBAL_OPTIONS}
+
+#:80, :443 {
+#localhost:50080, http://172.28.0.30:80 {
+#172.28.0.30:80 {
+:80 {
+	#protocols h1
+	# Set the webroot to the public/ directory
+	root public/
+	# Enable compression (optional)
+	encode zstd br gzip
+	# Execute PHP files in the current directory and serve assets
+	php_server {
+		try_files {path} index.php
+		#worker /var/www/html/WebBackEnd/public/index.php
+	}
+	log {
+		output stdout
+		format json
+	}
+	#tls
+}
+
+{$CADDY_EXTRA_CONFIG}
+
+import Caddyfile.d/*.caddyfile

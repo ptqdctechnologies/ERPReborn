@@ -23,6 +23,8 @@ sudo docker exec -it php-apache-backend /bin/bash -c "cd /var/www/html/WebBackEn
 #sudo docker exec -it php-apache-frontend /bin/bash -c "cd /var/www/html/WebFrontEnd; php artisan config:clear; php artisan route:clear; php artisan cache:clear; composer dump-autoload; cd -; ";
 sudo docker exec -it php-apache-frontend /bin/bash -c "cd /var/www/html/WebFrontEnd; php artisan config:clear; php artisan route:clear; php artisan cache:clear; composer dump-autoload; php artisan config:cache; cd -; ";
 
+sudo docker exec -it php-backend-franken /bin/bash -c "cd /var/www/html/WebBackEnd; php artisan config:clear; php artisan route:clear; php artisan cache:clear; composer dump-autoload; php artisan config:cache; cd -; ";
+
 #php artisan route:cache
 #php artisan config:cache
 #php artisan optimize

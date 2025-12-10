@@ -1,500 +1,72 @@
-version: '3.8'
-
-
 #---> Docker Services
 services:
+
   #---> Services : PostgreSQL Database
-  db-postgresql:
-    container_name: 'postgresql'
-    #image: 'postgres'
-    image: 'erp-reborn-postgresql'
-    restart: 'unless-stopped'
-    ports:
-      - '15432:5432'
-      - '13306:3306'
-    networks:
-      app-network:
-        ipv4_address: '172.28.0.2'
-    volumes:
-      - './.ProjectCore/PermanentStorage/PostgreSQL/root/.bash_history:/root/.bash_history'
-      #- 'volume-mysql:/var/lib/mysql'
-      - './.ProjectCore/PermanentStorage/PostgreSQL/var/lib/mysql/:/var/lib/mysql'
-      - './.ProjectCore/Temp/MySQL/:/var/lib/mysql/temp'
-      #- 'volume-postgresql:/var/lib/postgresql/data'
-      #- './.ProjectCore/PermanentStorage/PostgreSQL/var/lib/postgresql/data/:/var/lib/postgresql/data'
-      - './.ProjectCore/PermanentStorage/PostgreSQL/var/lib/postgresql/18/docker/:/var/lib/postgresql/18/docker'
-        #- './.ProjectCore/Temp/PostgreSQL/:/var/lib/postgresql/temp'
-      - './../ERPReborn-TemporaryStorage/BindMount/PostgreSQL/Temp/:/var/lib/postgresql/temp'
-      - './.ProjectCore/Configuration/Docker/PostgreSQL/Script.ServiceRestart.sh:/usr/local/bin/Script.ServiceRestart.sh'
-      - './Database/Structure/PostgreSQL/:/zhtConf/databaseStructure'
-      #- './.ProjectCore/Configuration/Docker/PostgreSQL/System/var/lib/postgresql/data/postgresql.conf:/var/lib/postgresql/data/postgresql.conf'
-      - './.ProjectCore/Configuration/Docker/PostgreSQL/System/var/lib/postgresql/18/docker/postgresql.conf:/var/lib/postgresql/18/docker/postgresql.conf'
-      #- './.ProjectCore/Configuration/Docker/PostgreSQL/System/var/lib/postgresql/data/pg_hba.conf:/var/lib/postgresql/data/pg_hba.conf'
-      - './.ProjectCore/Configuration/Docker/PostgreSQL/System/var/lib/postgresql/18/docker/pg_hba.conf:/var/lib/postgresql/18/docker/pg_hba.conf'
-        #command: bash -c "Script.ServiceRestart.sh && tail -f /dev/null"
-        #    command: nohup Script.ServiceRestart.sh & && sleep infinity
-    environment:
-      TZ: 'Asia/Jakarta'
-      PGDATA: '/var/lib/postgresql/18/docker'
-      POSTGRES_DB: 'postgres'
-      POSTGRES_USER: 'postgres'
-      POSTGRES_PASSWORD: '748159263'
-      MYSQL_DATABASE: 'db'
-      MYSQL_USER: 'SysEngine'
-      MYSQL_PASSWORD: '748159263'
-      MYSQL_ROOT_PASSWORD: '748159263'
-        #TZ: 'GMT+7'
-        #PGTZ: 'GMT+7'
-      #PG_MODE=primary
-      #PG_PRIMARY_USER=postgres
-      #PG_PRIMARY_PASSWORD=yoursecurepassword
-      #PG_DATABASE=testdb
-      #PG_USER=yourusername
-      #PG_PASSWORD=yoursecurepassword
-      #PG_ROOT_PASSWORD=yoursecurepassword
-      #PG_PRIMARY_PORT=5432
-  
-  
-  #---> Services : PHP Apache BackEnd
-  php-apache-backend:
-    container_name: 'php-apache-backend'
-    build:
-      context: '.'
-      dockerfile: './.ProjectCore/Configuration/Docker/PHPApacheBackEnd/Dockerfile'
-    image: 'erp-reborn-phpapache-backend'
-    depends_on:
-      - 'db-postgresql'
-      - 'redis'
-      #- 'minio-node01'
-      #- 'minio-node02'
-      #- 'minio-node03'
-      #- 'minio-node04'
-    restart: 'unless-stopped'
-    tty: 'true'
-    ports:
-      - '10080:80'
-      - '10443:443'
-    networks:
-      app-network:
-        ipv4_address: '172.28.0.3'
-    volumes:
-      - './.ProjectCore/PermanentStorage/PHPApacheBackEnd/root/.bash_history:/root/.bash_history'
-      #- './:/var/www/html'
-      - './Programming/.LaravelCore:/var/www/html/.LaravelCore'
-      - './Programming/WebBackEnd:/var/www/html/WebBackEnd'
-      - './.ProjectCore/PermanentStorage/LocalStorage/WebBackEnd:/var/www/html/WebBackEnd/storage/app/Application'
-        #- './.ProjectCore/PermanentStorage/PHPApacheBackEnd/zhtConf/log/scheduledTask:/zhtConf/log/scheduledTask'
-      - './.ProjectCore/PermanentStorage/PHPApacheBackEnd/zhtConf/log/lastSession/cron.d:/zhtConf/log/lastSession/cron.d'
-      - './.ProjectCore/PermanentStorage/PHPApacheBackEnd/zhtConf/log/lastSession/scheduledTask:/zhtConf/log/lastSession/scheduledTask'
-      - './.ProjectCore/PermanentStorage/PHPApacheBackEnd/zhtConf/tmp/download:/zhtConf/tmp/download'
-      - './.ProjectCore/PermanentStorage/PHPApacheBackEnd/zhtConf/Script:/zhtConf/Script'
-      - './.ProjectCore/Configuration/Docker/PHPApacheBackEnd/System/etc/odbc.ini:/etc/odbc.ini'
-        #- './.ProjectCore/Configuration/Docker/PHPApacheBackEnd/System/etc/cron.d:/etc/cron.d'
-        #- './.ProjectCore/Configuration/Docker/PHPApacheBackEnd/System/etc/cron.d/cron_Script_ImportFile_SCP_SwingBarrierGate_sh:/etc/cron.d/cron_Script_ImportFile_SCP_SwingBarrierGate_sh'
-        #- './.ProjectCore/Configuration/Docker/PHPApacheBackEnd/System/etc/cron.d/cron_Script_Laravel_ArtisanScheduleRun_sh:/etc/cron.d/cron_Script_Laravel_ArtisanScheduleRun_sh'
-        #- './.ProjectCore/Configuration/Docker/PHPApacheBackEnd/System/etc/cron.d/cron.Script.Laravel.ArtisanScheduleRun.sh:/etc/cron.d/cron.Script.Laravel.ArtisanScheduleRun.sh'
-      - './.ProjectCore/Configuration/Docker/PHPApacheBackEnd/Script.ServiceRestart.sh:/usr/local/bin/Script.ServiceRestart.sh'
-      - './Programming/.SystemCore/SSLCertificate/ERPRebornLocalhost.crt:/etc/ssl/certs/ERPRebornLocalhost.crt'
-      - './Programming/.SystemCore/SSLCertificate/ERPRebornLocalhost.key:/etc/ssl/private/ERPRebornLocalhost.key' 
-#    links:
-#      - 'db-postgresql'
-    environment:
-      APP_FULL_BASE_URL: 'https://localhost:10433'
-      COMPOSER_MEMORY_LIMIT: -1
-
-#      - COMPOSER_MEMORY_LIMIT=-1
-#      DB_CONNECTION: 'pgsql'
-#      DB_HOST: 'db-postgresql'
-#      DB_PORT: 5432
-#      DB_DATABASE: 'dbERPReborn'
-#      DB_USERNAME: 'SysEngine'
-#      DB_PASSWORD: '748159263'
-
-  #---> Services : PHP Apache FrontEnd
-  php-apache-frontend:
-    container_name: 'php-apache-frontend'
-    build:
-      context: '.'
-      dockerfile: './.ProjectCore/Configuration/Docker/PHPApacheFrontEnd/Dockerfile'
-    image: 'erp-reborn-phpapache-frontend'
-    depends_on:
-      - 'php-apache-backend'
-    restart: 'unless-stopped'
-    tty: 'true'
-    ports:
-      - '20080:80'
-      - '20443:443'
-    networks:
-      app-network:
-        ipv4_address: '172.28.0.4'
-    volumes:
-      - './Programming/.LaravelCore:/var/www/html/.LaravelCore'
-      - './Programming/WebFrontEnd:/var/www/html/WebFrontEnd'
-      - './.ProjectCore/PermanentStorage/LocalStorage/WebFrontEnd:/var/www/html/WebFrontEnd/storage/app/Application'
-      - './Programming/.SystemCore/SSLCertificate/ERPRebornLocalhost.crt:/etc/ssl/certs/ERPRebornLocalhost.crt'
-      - './Programming/.SystemCore/SSLCertificate/ERPRebornLocalhost.key:/etc/ssl/private/ERPRebornLocalhost.key'
-    environment:
-      APP_FULL_BASE_URL: 'https://localhost:20433'
-
-
-  #---> Services : Redis
-  redis:
-    container_name: 'redis'
-    image: 'erp-reborn-redis'
-    restart: 'unless-stopped'
-    ports:
-      - '16379:6379'
-    networks:
-      app-network:
-        ipv4_address: '172.28.0.5'
-    volumes:
-      #- './.ZhtData/Redis/data/:/data'
-      - 'volume-redis:/data'
-
-
-  #---> Services : Samba
-  samba:
-    container_name: 'samba'
-    image: 'erp-reborn-samba'
-    restart: 'unless-stopped'
-    ports:
-      - '10053:53'
-      - '10053:53/udp'
-      - '10088:88'
-      - '10088:88/udp'
-      - '10135:135'
-      - '10137:137'
-      - '10138:138/udp'
-      - '10139:139'
-      - '10389:389'
-      - '10389:389/udp'
-      - '10445:445'
-      - '10464:464'
-      - '10464:464/udp'
-      - '10636:636'
-      - '11024:1024'
-      - '11025:1025'
-      - '11026:1026'
-      - '11027:1027'
-      - '11028:1028'
-      - '11029:1029'
-      - '11030:1030'
-      - '11031:1031'
-      - '11032:1032'
-      - '11033:1033'
-      - '11034:1034'
-      - '11035:1035'
-      - '11036:1036'
-      - '11037:1037'
-      - '11038:1038'
-      - '11039:1039'
-      - '11040:1040'
-      - '11041:1041'
-      - '11042:1042'
-      - '11043:1043'
-      - '11044:1044'
-      - '13268:3268'
-      - '13269:3269'
-    networks:
-      app-network:
-        ipv4_address: '172.28.0.7'
-    volumes:
-      #- './.ProjectCore/PermanentStorage/Samba/etc/localtime:/etc/localtime:ro'
-      - './.ProjectCore/PermanentStorage/Samba/data:/var/lib/samba'
-      - './.ProjectCore/PermanentStorage/Samba/config/samba:/etc/samba/external'
-      - './.ProjectCore/Configuration/Docker/Samba/Script.ServiceRestart.sh:/usr/local/bin/Script.ServiceRestart.sh'
-    environment:
-      - DOMAIN=QDC-FILES.QDC.CO.ID
-      - DOMAINPASS=qu1d151t3chn0aNbOcPdQeRfSgThUiVjWkXlYmZ
-        #- JOIN=true
-      - DNSFORWARDER=192.168.1.1
-        #- MULTISITE=true
-      - NOCOMPLEXITY=true
-      - INSECURELDAP=false
-      - HOSTIP=172.28.0.7
-    dns_search:
-      - qdc.co.id
-    hostname: localdc
-    cap_add:
-      - NET_ADMIN
-    privileged: true
-    tty: true
-
-
-#---> Services : Grafana
-  grafana:
-    container_name: 'grafana'
-    image: 'erp-reborn-monitoring-grafana:latest'
-    depends_on:
-      - 'db-postgresql'
-      #- 'minio-node01'
-      - 'pgadmin4'
-      - 'php-apache-backend'
-      - 'php-apache-frontend'
-      - 'redis'
-    restart: 'unless-stopped'
-    ports:
-      - '13000:3000'
-    networks:
-      app-network:
-        ipv4_address: '172.28.0.110'
-    volumes:
-      #- './.ProjectCore/PermanentStorage/Grafana/etc/grafana/provisioning:/etc/grafana/provisioning'
-      - './.ProjectCore/PermanentStorage/Grafana/var/lib/grafana/:/var/lib/grafana'
-      - './.ProjectCore/PermanentStorage/Grafana/var/log/grafana/:/var/log/grafana'
-      - './.ProjectCore/Configuration/Docker/Grafana/System/etc/grafana/grafana.ini:/etc/grafana/grafana.ini'
-
-
-#---> Services : Percona
-  percona:
-    container_name: 'percona'
-    image: 'erp-reborn-monitoring-percona:latest'
-    restart: 'always'
-    #restart: 'unless-stopped'
-    ports:
-      - '40080:8080'
-      - '40443:8443'
-    networks:
-      app-network:
-        ipv4_address: '172.28.0.111'
-    volumes:
-      #- 'volume-percona:/srv'
-      - './.ProjectCore/PermanentStorage/Percona/srv/:/srv'
-    environment:
-      PMM_AGENT_SERVER_USERNAME: 'admin'
-      PMM_AGENT_SERVER_PASSWORD: 'admin'
-      PMM_AGENT_SERVER_INSECURE_TLS: 1
-      PMM_AGENT_SETUP: 1
-      PMM_DEBUG: 1
-      PMM_TRACE: 1
-
-
-  #---> Services : NodeJS
-  #nodejs:
-  #  container_name: 'nodejs'
-  #  image: 'erp-reborn-nodejs'
-  #  #depends_on:
+  #db-postgresql:
+  #  container_name: 'postgresql'
+  #  image: 'erp-reborn-postgresql'
   #  restart: 'unless-stopped'
   #  ports:
-  #    - '23000:3000'
+  #    - '15432:5432'
+  #    - '13306:3306'
   #  networks:
   #    app-network:
-  #      ipv4_address: '172.28.0.103'
-    #volumes:
-      #- './.ProjectCore/PermanentStorage/Grafana/etc/grafana/provisioning:/etc/grafana/provisioning'
-      #- './.ProjectCore/PermanentStorage/Grafana/var/lib/grafana/:/var/lib/grafana'
-      #- './.ProjectCore/PermanentStorage/Grafana/var/log/grafana/:/var/log/grafana'
-
-  #---> Services : Minio
-  #minio-node01:
-  #  container_name: 'minio-node01'
-  #  image: 'erp-reborn-minio'
-  #  depends_on:
-  #    - 'db-postgresql'
-  #    - 'redis'
-  #  ports:
-  #    - '19000:9000'
-  #  networks:
-  #    app-network:
-  #      ipv4_address: '172.28.0.9'
+  #      ipv4_address: '172.28.0.2'
   #  volumes:
-  #    - './.ProjectCore/PermanentStorage/MinIO/Node-01/Disk-01/:/data01'
-  #    #- 'volume-minio-node01-disk01:/data01'
+  #    - './.ProjectCore/Configuration/Docker/PostgreSQL/Script.ServiceRestart.sh:/usr/local/bin/Script.ServiceRestart.sh'
+  #    - './.ProjectCore/Configuration/Docker/PostgreSQL/System/var/lib/postgresql/18/docker/postgresql.conf:/var/lib/postgresql/18/docker/postgresql.conf'
+  #    - './.ProjectCore/Configuration/Docker/PostgreSQL/System/var/lib/postgresql/18/docker/pg_hba.conf:/var/lib/postgresql/18/docker/pg_hba.conf'
+  #    - './.ProjectCore/PermanentStorage/PostgreSQL/root/.bash_history:/root/.bash_history'
+  #    - './.ProjectCore/PermanentStorage/PostgreSQL/var/lib/mysql/:/var/lib/mysql'
+  #    - './.ProjectCore/PermanentStorage/PostgreSQL/var/lib/postgresql/18/docker/:/var/lib/postgresql/18/docker'
+  #    - './.ProjectCore/Temp/MySQL/:/var/lib/mysql/temp'
+  #    - './../ERPReborn-TemporaryStorage/BindMount/PostgreSQL/Temp/:/var/lib/postgresql/temp'
+  #    - './Database/Structure/PostgreSQL/:/zhtConf/databaseStructure'
   #  environment:
   #    TZ: 'Asia/Jakarta'
-  #    MINIO_FORCE_NEW_KEYS: 'yes'
-  #    #MINIO_ACCESS_KEY: 'pt.qdc.technologies@gmail.com'
-  #    #MINIO_SECRET_KEY: 'qu1d151t3chn0'
-  #    MINIO_ROOT_USER: 'pt.qdc.technologies@gmail.com'
-  #    MINIO_ROOT_PASSWORD: 'qu1d151t3chn0'
-  #    MINIO_DISTRIBUTED_MODE_ENABLED: 'yes'
-  #    MINIO_DISTRIBUTED_NODES: 'minio-node01,minio-node02,minio-node03,minio-node04'
-  #    MINIO_SKIP_CLIENT: 'yes'
-  #  command: server http://172.28.0.9/data01 http://172.28.0.10/data01 http://172.28.0.11/data01 http://172.28.0.12/data01 --console-address ":9001"
-  #  healthcheck:
-  #    test: ["CMD", "curl", "-f", "http://172.28.0.9:9000/minio/health/live"]
-  #    interval: 30s
-  #    timeout: 20s
-  #    retries: 3
-  #  ulimits:
-  #    nproc: 65535
-  #    nofile:
-  #      soft: 4096
-  #      hard: 4096
-  #  restart: always
+  #    PGDATA: '/var/lib/postgresql/18/docker'
+  #    POSTGRES_DB: 'postgres'
+  #    POSTGRES_USER: 'postgres'
+  #    POSTGRES_PASSWORD: '748159263'
+  #    MYSQL_DATABASE: 'db'
+  #    MYSQL_USER: 'SysEngine'
+  #    MYSQL_PASSWORD: '748159263'
+  #    MYSQL_ROOT_PASSWORD: '748159263'
 
 
-  #minio-node02:
-  #  container_name: 'minio-node02'
-  #  image: 'erp-reborn-minio'
-  #  depends_on:
-  #    - 'minio-node01'
-  #  ports:
-  #   - '29000:9000'
-  #  networks:
-  #    app-network:
-  #      ipv4_address: '172.28.0.10'
-  #  volumes:
-  #    - './.ProjectCore/PermanentStorage/MinIO/Node-02/Disk-01/:/data01'
-  #    #- 'volume-minio-node02-disk01:/data01'
-  #  environment:
-  #    TZ: 'Asia/Jakarta'
-  #    MINIO_FORCE_NEW_KEYS: 'yes'
-  #    #MINIO_ACCESS_KEY: 'pt.qdc.technologies@gmail.com'
-  #    #MINIO_SECRET_KEY: 'qu1d151t3chn0'
-  #    MINIO_ROOT_USER: 'pt.qdc.technologies@gmail.com'
-  #    MINIO_ROOT_PASSWORD: 'qu1d151t3chn0'
-  #    MINIO_DISTRIBUTED_MODE_ENABLED: 'yes'
-  #    MINIO_DISTRIBUTED_NODES: 'minio-node01,minio-node02,minio-node03,minio-node04'
-  #    MINIO_SKIP_CLIENT: 'yes'
-  #  command: server http://172.28.0.9/data01 http://172.28.0.10/data01 http://172.28.0.11/data01 http://172.28.0.12/data01 --console-address ":9001"
-  #  healthcheck:
-  #    test: ["CMD", "curl", "-f", "http://172.28.0.10:9000/minio/health/live"]
-  #    interval: 30s
-  #    timeout: 20s
-  #    retries: 3
-  #  ulimits:
-  #    nproc: 65535
-  #    nofile:
-  #      soft: 4096
-  #      hard: 4096
-  #  restart: always
 
-
-  #minio-node03:
-  #  container_name: 'minio-node03'
-  #  image: 'erp-reborn-minio'
-  #  depends_on:
-  #    - 'minio-node01'
-  #    - 'minio-node02'
-  #  ports:
-  #    - '39000:9000'
-  #  networks:
-  #    app-network:
-  #      ipv4_address: '172.28.0.11'
-  #  volumes:
-  #    - './.ProjectCore/PermanentStorage/MinIO/Node-03/Disk-01/:/data01'
-  #    #- 'volume-minio-node03-disk01:/data01'
-  #  environment:
-  #    TZ: 'Asia/Jakarta'
-  #    MINIO_FORCE_NEW_KEYS: 'yes'
-  #    #MINIO_ACCESS_KEY: 'pt.qdc.technologies@gmail.com'
-  #    #MINIO_SECRET_KEY: 'qu1d151t3chn0'
-  #    MINIO_ROOT_USER: 'pt.qdc.technologies@gmail.com'
-  #    MINIO_ROOT_PASSWORD: 'qu1d151t3chn0'
-  #    MINIO_DISTRIBUTED_MODE_ENABLED: 'yes'
-  #    MINIO_DISTRIBUTED_NODES: 'minio-node01,minio-node02,minio-node03,minio-node04'
-  #    MINIO_SKIP_CLIENT: 'yes'
-  #  command: server http://172.28.0.9/data01 http://172.28.0.10/data01 http://172.28.0.11/data01 http://172.28.0.12/data01 --console-address ":9001"
-  #  healthcheck:
-  #    test: ["CMD", "curl", "-f", "http://172.28.0.11:9000/minio/health/live"]
-  #    interval: 30s
-  #    timeout: 20s
-  #    retries: 3
-  #  ulimits:
-  #    nproc: 65535
-  #    nofile:
-  #      soft: 4096
-  #      hard: 4096
-  #  restart: always
-
-
-  #minio-node04:
-  #  container_name: 'minio-node04'
-  #  image: 'erp-reborn-minio'
-  #  depends_on:
-  #    - 'minio-node01'
-  #    - 'minio-node02'
-  #    - 'minio-node03'
-  #  ports:
-  #    - '49000:9000'
-  #  networks:
-  #    app-network:
-  #      ipv4_address: '172.28.0.12'
-  #  volumes:
-  #    - './.ProjectCore/PermanentStorage/MinIO/Node-04/Disk-01/:/data01'
-  #    #- 'volume-minio-node04-disk01:/data01'
-  #  environment:
-  #    TZ: 'Asia/Jakarta'
-  #    MINIO_FORCE_NEW_KEYS: 'yes'
-  #    #MINIO_ACCESS_KEY: 'pt.qdc.technologies@gmail.com'
-  #    #MINIO_SECRET_KEY: 'qu1d151t3chn0'
-  #    MINIO_ROOT_USER: 'pt.qdc.technologies@gmail.com'
-  #    MINIO_ROOT_PASSWORD: 'qu1d151t3chn0'
-  #    MINIO_DISTRIBUTED_MODE_ENABLED: 'yes'
-  #    MINIO_DISTRIBUTED_NODES: 'minio-node01,minio-node02,minio-node03,minio-node04'
-  #    MINIO_SKIP_CLIENT: 'yes'  
-  #  command: server http://172.28.0.9/data01 http://172.28.0.10/data01 http://172.28.0.11/data01 http://172.28.0.12/data01 --console-address ":9001"
-  #  healthcheck:
-  #    test: ["CMD", "curl", "-f", "http://172.28.0.12:9000/minio/health/live"]
-  #    interval: 30s
-  #    timeout: 20s
-  #    retries: 3
-  #  ulimits:
-  #    nproc: 65535
-  #    nofile:
-  #      soft: 4096
-  #      hard: 4096
-  #  restart: always
-
-
-  #---> Services : PGAdmin4
-  pgadmin4:
-    container_name: 'pgadmin4'
-      #image: 'dpage/pgadmin4:latest'
-      #image: 'dpage/pgadmin4:5.2'
-    image: 'erp-reborn-devtools-pgadmin4'
-    depends_on:
-      - 'db-postgresql'
+  #---> Services : PHP BackEnd Franken
+  php-backend-franken:
+    container_name: 'php-backend-franken'
+    image: 'erp-reborn-php-backend-laraveloctane-frankenphp'
+    build:
+      context: '.'
+      dockerfile: './.ProjectCore/Configuration/Docker/PHPBackEnd_LaravelOctane_FrankenPHP/Dockerfile'
     restart: 'unless-stopped'
+    tty: 'true'
+    #entrypoint: 'php artisan octane:start --server=frankenphp --port=8888 --caddyfile=/var/www/html/WebBackEnd/Caddyfile_LaravelOctane'
     ports:
-      - '15050:80'
+      - '50080:80'
+      - '50443:443'
     networks:
       app-network:
-        ipv4_address: '172.28.0.100'
+        ipv4_address: '172.28.0.30'
     volumes:
-      - 'volume-pgadmin4:/var/lib/pgadmin'
+      #- './Programming/.LaravelCore:/app/public/.LaravelCore'
+      #- './Programming/WebBackEnd_Franken:/app/public/WebBackEnd'
+      #- './Programming/WebBackEnd_Franken:/app/public'
+      #- './.ProjectCore/Configuration/Docker/PHPBackEnd_Franken/System/etc/caddy/Caddyfile:/etc/caddy/Caddyfile'
+      - './.ProjectCore/Configuration/Docker/PHPBackEnd_LaravelOctane_FrankenPHP/System/etc/frankenphp/Caddyfile:/etc/frankenphp/Caddyfile'
+      - './.ProjectCore/Configuration/Docker/PHPBackEnd_LaravelOctane_FrankenPHP/System/zhtConf/DataVolume/CaddyData:/data'
+      - './.ProjectCore/Configuration/Docker/PHPBackEnd_LaravelOctane_FrankenPHP/System/zhtConf/DataVolume/CaddyConfig:/config'
+      - './Programming/WebBackEnd_LaravelOctane_FrankenPHP:/var/www/html/WebBackEnd'
     environment:
-      PGADMIN_DEFAULT_EMAIL: 'pt.qdc.technologies@gmail.com'
-      PGADMIN_DEFAULT_PASSWORD: 'qu1d151t3chn0'
+      SERVER_NAME: ':80'
+      SERVER_ROOT: '/var/www/html/WebBackEnd'
+      FRANKENPHP_CONFIG: 'worker ./public/index.php --watch'
+    working_dir: '/var/www/html/WebBackEnd'
 
 
-  #---> Services : OpenProject
-  openproject:
-    container_name: 'openproject'
-    image: 'erp-reborn-devtools-openproject'
-    restart: 'unless-stopped'
-    ports:
-      - '25432:5432'
-      - '30080:80'
-    environment:
-      OPENPROJECT_HTTPS: 'false'
-#      RAILS_CACHE_STORE: 'memcache'
-#      OPENPROJECT_CACHE__MEMCACHE__SERVER: "cache:11211"
-#      OPENPROJECT_RAILS__RELATIVE__URL__ROOT: "${OPENPROJECT_RAILS__RELATIVE__URL__ROOT:-}"
-      SECRET_KEY_BASE: 'secret'
-#      HOST__NAME: 'openproject.erpreborn.qdc.co.id'
-      HOST__NAME: '172.28.0.101'
-      RAILS_MIN_THREADS: 8
-      RAILS_MAX_THREADS: 32
-#dikali 8
-#      RUBY_THREAD_VM_STACK_SIZE: 8388608
-#      RUBY_FIBER_MACHINE_STACK_SIZE: 4194304
-        #      RUBY_THREAD_MACHINE_STACK_SIZE: 8388608
-        #      RUBY_FIBER_VM_STACK_SIZE: 1048576
-        #      RUBY_FIBER_MACHINE_STACK_SIZE: 1048576
-#      DATABASE_URL: 'postgresql://SysEngine:748159263@192.168.0.24:5432/dbERPReborn-Documentation-OpenProject'
-#      DATABASE_URL: "${192.168.0.24:-postgres://SysEngine:748159263@db/openproject?pool=20&encoding=unicode&reconnect=true}"
-      DATABASE_URL: 'postgresql://SysEngine:748159263@192.168.0.27:5432/dbERPReborn-Documentation-OpenProject'
-#      DATABASE_URL: "${DATABASE_URL:-postgres://SysEngine:748159263@db/openproject?pool=20&encoding=unicode&reconnect=true}"
-    networks:
-      app-network:
-        ipv4_address: '172.28.0.102'
-    volumes:
-      - './.ProjectCore/PermanentStorage/OpenProject/var/lib/openproject/pgdata/:/var/openproject/pgdata'
-      - './.ProjectCore/PermanentStorage/OpenProject/var/lib/openproject/assets/:/var/openproject/assets'
-      - './../ERPReborn-TemporaryStorage/BindMount/OpenProject/Temp/:/var/openproject/temp'
-#      - './.ProjectCore/PermanentStorage/OpenProject/zhtConf/Script:/zhtConf/Script'
 
 
 #---> Docker Volumes
