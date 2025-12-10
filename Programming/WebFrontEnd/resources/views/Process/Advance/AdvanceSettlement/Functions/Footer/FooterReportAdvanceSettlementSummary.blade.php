@@ -34,7 +34,7 @@
             success: function(response) {
                 HideLoading();
 
-                if (response.status === 200) {
+                if (response.status === 200 && response.data[0]) {
                     let data = response.data;
                     dataReport = JSON.stringify(data);
 
@@ -153,7 +153,10 @@
                     $('#table_summary').css("width", "100%");
                     $('#table_container').css("display", "block");
                 } else {
-                    ErrorNotif(response.message);
+                    $('#table_container').hide();  // This will hide the table
+                    $('#table_summary tbody').empty();  // Optional: Empty the table's body
+                    $('#table_summary tfoot').empty();  // Optional: Empty the table's body
+                    ErrorNotif("Error");
                 }
             },
             error: function(xhr, status, error) {
