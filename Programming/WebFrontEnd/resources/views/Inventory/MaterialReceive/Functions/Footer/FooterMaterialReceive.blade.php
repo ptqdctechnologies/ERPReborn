@@ -255,6 +255,8 @@
     function GetDeliveryOrderDetail(delivery_order_id, delivery_order_number) {
         $("#tableMaterialReceiveDetail tbody").hide();
         $(".loadingMaterialReceiveDetail").show();
+        $("#delivery_order_trigger").hide();
+        $("#delivery_order_loading").show();
 
         $.ajaxSetup({
             headers: {
@@ -277,13 +279,22 @@
 
                         if (!checkWorkFlow) {
                             $(".loadingMaterialReceiveDetail").hide();
+                            $("#delivery_order_trigger").show();
+                            $("#delivery_order_loading").hide();
                             return;
                         }
                     }
 
+                    $("#delivery_order_trigger").show();
+                    $("#delivery_order_loading").hide();
+                    $("#delivery_order_id").val(delivery_order_id);
+                    $("#delivery_order_code").val(delivery_order_number);
                     $("#transporterRefID").val(data[0].transporter_RefID);
                     $("#deliveryDateTimeTZ").val(data[0].deliveryDateTimeTZ);
                     $("#var_combinedBudget_RefID").val(data[0].combinedBudget_RefID);
+
+                    $("#delivery_order_code").css({"border": "1px solid #ced4da", "background-color": "#e9ecef"});
+                    $("#deliveryOrderMessage").hide();
 
                     $("#do_type").val(formatLabel(data[0].type));
                     $("#budget_value").val(data[0].combinedBudgetCode + ' - ' + data[0].combinedBudgetName);
@@ -527,9 +538,9 @@
         let sysId       = $(this).find('input[data-trigger="sys_id_delivery_order"]').val();
         let projectCode = $(this).find('td:nth-child(2)').text();
 
-        $("#delivery_order_code").css({"border": "1px solid #ced4da", "background-color": "#e9ecef"});
-        $("#deliveryOrderMessage").hide();
         GetDeliveryOrderDetail(sysId, projectCode);
+
+        $("#myDeliveryOrder").modal('toggle');
     });
 
     $('#tableGetModalWarehouses').on('click', 'tbody tr', function() {
@@ -563,8 +574,6 @@
     });
 
     $(window).one('load', function(e) {
-        getDocumentType("Warehouse Inbound Order Form");
-
         $(".loadingMaterialReceiveDetail").hide();
         $(".errorMessageContainerMaterialReceiveDetail").hide();
 
