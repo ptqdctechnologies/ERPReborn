@@ -1440,68 +1440,56 @@ class PurchaseOrderController extends Controller
 
     public function RevisionPurchaseOrderIndex(Request $request)
     {
-        $varAPIWebToken     = $request->session()->get('SessionLogin');
-        $purchaseOrderID    = $request->purchaseOrder_RefID;
-        // $request->session()->forget("SessionPurchaseRequisition");
+        try {
+            $varAPIWebToken     = Session::get('SessionLogin');
+            $purchaseOrderID    = $request->purchaseOrder_RefID;
+            $documentTypeRefID  = $this->GetBusinessDocumentsTypeFromRedis('Purchase Order Revision Form');
 
-        $varData = Helper_APICall::setCallAPIGateway(
-            Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'transaction.read.dataList.supplyChain.getPurchaseOrderDetail',
-            'latest',
-            [
-            'parameter' => [
-                'purchaseOrder_RefID' => (int) $purchaseOrderID
+            $response = $this->purchaseOrderService->getDetail($purchaseOrderID);
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                throw new \Exception('Failed to fetch Detail Purchase Order');
+            }
+
+            $dataPODetail   = $response['data'];
+            $dateOfDelivery = $dataPODetail[0]['deliveryDateTimeTZ'] ? Carbon::parse($dataPODetail[0]['deliveryDateTimeTZ'])->toDateString() : '';
+
+            $compact = [
+                'varAPIWebToken'        => $varAPIWebToken,
+                'documentTypeRefID'     => $documentTypeRefID,
+                'header'                => [
+                    'budgetID'                      => $dataPODetail[0]['combinedBudget_RefID'] ?? '',
+                    'budgetValue'                   => $dataPODetail[0]['combinedBudgetCode'] . ' - ' . $dataPODetail[0]['combinedBudgetName'],
+                    'subBudgetValue'                => $dataPODetail[0]['combinedBudgetSectionCode'] . ' - ' . $dataPODetail[0]['combinedBudgetSectionName'],
+                    'poNumberID'                    => $dataPODetail[0]['purchaseOrder_RefID'] ?? '',
+                    'poNumber'                      => $dataPODetail[0]['documentNumber'] ?? '',
+                    'deliveryDateTime'              => $dateOfDelivery,
+                    'deliveryTo'                    => $dataPODetail[0]['deliveryTo_NonRefID']['Address'] ?? '',
+                    'deliveryToID'                  => $dataPODetail[0]['deliveryTo_RefID'] ?? '',
+                    'supplierID'                    => $dataPODetail[0]['supplier_RefID'] ?? '-',
+                    'supplierName'                  => $dataPODetail[0]['supplierName'] ?? '',
+                    'supplierCode'                  => $dataPODetail[0]['supplierCode'] ?? '',
+                    'supplierAddress'               => $dataPODetail[0]['supplierAddress'] ?? '',
+                    'downPayment'                   => (int) $dataPODetail[0]['downPayment'] ?? '',
+                    'termOfPaymentID'               => $dataPODetail[0]['termOfPayment_RefID'] ?? '',
+                    'paymentNotes'                  => $dataPODetail[0]['paymentNotes'] ?? '',
+                    'remarkPO'                      => $dataPODetail[0]['remarks'] ?? '',
+                    'internalNote'                  => $dataPODetail[0]['internalNotes'] ?? '',
+                    'fileID'                        => $dataPODetail[0]['log_FileUpload_Pointer_RefID'] ?? null,
+                    'vatValue'                      => $dataPODetail[0]['vatRatio'] ?? null,
+                    'isVATSelected'                 => $dataPODetail[0]['vatRatio'] != "0.00" ? 'selected' : '',
+                    'transactionTaxDetailRefID'     => $dataPODetail[0]['transactionTaxDetail_RefID'] ?? ''
                 ],
-            'SQLStatement' => [
-                'pick' => null,
-                'sort' => null,
-                'filter' => null,
-                'paging' => null
-                ]
-            ]
-        );
+                'detail'                => $dataPODetail
+            ];
 
-        if ($varData['metadata']['HTTPStatusCode'] !== 200) {
-            return response()->json($varData);
+            return view('Purchase.PurchaseOrder.Transactions.RevisionPurchaseOrder', $compact);
+        } catch (\Throwable $th) {
+            Log::error("Revision Purchase Order Index Function Error: " . $th->getMessage());
+
+            session()->flash('NotFound', 'Process Error');
+            return redirect()->route('PurchaseOrder.index', ['var' => 1]);
         }
-
-        // dd($varData);
-
-        $data = $varData['data'];
-        $dateOfDelivery = $data[0]['deliveryDateTimeTZ'] ? Carbon::parse($data[0]['deliveryDateTimeTZ'])->toDateString() : '';
-
-        // dump($data);
-
-        $compact = [
-            'varAPIWebToken'        => $varAPIWebToken,
-            'header'                => [
-                'budgetID'                      => $data[0]['combinedBudget_RefID'] ?? '',
-                'budgetValue'                   => $data[0]['combinedBudgetCode'] . ' - ' . $data[0]['combinedBudgetName'],
-                'subBudgetValue'                => $data[0]['combinedBudgetSectionCode'] . ' - ' . $data[0]['combinedBudgetSectionName'],
-                'poNumberID'                    => $data[0]['purchaseOrder_RefID'] ?? '',
-                'poNumber'                      => $data[0]['documentNumber'] ?? '',
-                'deliveryDateTime'              => $dateOfDelivery,
-                'deliveryTo'                    => $data[0]['deliveryTo_NonRefID']['Address'] ?? '',
-                'deliveryToID'                  => $data[0]['deliveryTo_RefID'] ?? '',
-                'supplierID'                    => $data[0]['supplier_RefID'] ?? '-',
-                'supplierName'                  => $data[0]['supplierName'] ?? '',
-                'supplierCode'                  => $data[0]['supplierCode'] ?? '',
-                'supplierAddress'               => $data[0]['supplierAddress'] ?? '',
-                'downPayment'                   => (int) $data[0]['downPayment'] ?? '',
-                'termOfPaymentID'               => $data[0]['termOfPayment_RefID'] ?? '',
-                'paymentNotes'                  => $data[0]['paymentNotes'] ?? '',
-                'remarkPO'                      => $data[0]['remarks'] ?? '',
-                'internalNote'                  => $data[0]['internalNotes'] ?? '',
-                'fileID'                        => $data[0]['log_FileUpload_Pointer_RefID'] ?? null,
-                'vatValue'                      => $data[0]['vatRatio'] ?? null,
-                'isVATSelected'                 => $data[0]['vatRatio'] != "0.00" ? 'selected' : '',
-                'transactionTaxDetailRefID'     => $data[0]['transactionTaxDetail_RefID'] ?? ''
-            ],
-            'detail'                => $data
-        ];
-
-        return view('Purchase.PurchaseOrder.Transactions.RevisionPurchaseOrder', $compact);
     }
     
     public function create()

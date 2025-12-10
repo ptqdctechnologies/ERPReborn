@@ -740,7 +740,6 @@
 
         getPaymentTerm();
         getVAT();
-        getDocumentType("Purchase Order Revision Form");
         viewPurchaseOrderDetail(dataTable);
     });
 </script>
