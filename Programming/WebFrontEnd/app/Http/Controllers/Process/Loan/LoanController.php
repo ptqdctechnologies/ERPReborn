@@ -70,7 +70,7 @@ class LoanController extends Controller
 
             $response = $this->loanService->getDetail($loanRefID);
 
-            if ($response['metadata']['HTTPStatusCode'] === 200) {
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
                 throw new \Exception('Failed to fetch Detail Loan');
             }
 
