@@ -776,7 +776,6 @@
     $(window).one('load', function(e) {
         getPaymentTerm();
         getVAT();
-        getDocumentType("Purchase Order Form");
 
         $('#containerValuePPN').hide();
         $(".loadingPurchaseOrderTable").hide();

@@ -19,12 +19,6 @@ use App\Services\WorkflowService;
 
 class PurchaseOrderController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-
     protected $purchaseOrderService, $workflowService;
 
     public function __construct(PurchaseOrderService $purchaseOrderService, WorkflowService $workflowService)
@@ -32,6 +26,7 @@ class PurchaseOrderController extends Controller
         $this->purchaseOrderService = $purchaseOrderService;
         $this->workflowService = $workflowService;
     }
+
     public function ReportPurchaseOrderSummary(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
@@ -55,9 +50,8 @@ class PurchaseOrderController extends Controller
         return view('Purchase.PurchaseOrder.Reports.ReportPurchaseOrderSummary', $compact);
     }
 
-    public function ReportPurchaseOrderSummaryData( $project_code, $site_code){
-        
-            
+    public function ReportPurchaseOrderSummaryData( $project_code, $site_code)
+    {
         try {
             Log::error("Error at ",[$project_code, $site_code]);
 
@@ -130,6 +124,7 @@ class PurchaseOrderController extends Controller
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }
+
     public function PrintExportReportPurchaseOrderSummary(Request $request)
     {
         try {
@@ -165,44 +160,6 @@ class PurchaseOrderController extends Controller
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }
-    // public function PrintExportReportPurchaseOrderSummary(Request $request) 
-    // {
-    //     try {
-    //         $dataReport = Session::get("dataReportPurchaseOrderSummary");
-    //         $print_type = $request->print_type;
-    //         $project_code_second_trigger = $request->project_code_second_trigger;
-
-    //         if ($project_code_second_trigger == null) {
-    //             Session::forget("isButtonReportPurchaseOrderSummarySubmit");
-    //             Session::forget("dataReportPurchaseOrderSummary");
-
-    //             return redirect()->route('PurchaseOrder.ReportPurchaseOrderSummary')->with('NotFound', 'Budget, & Sub Budget Cannot Empty');
-    //         }
-
-    //         if ($dataReport) {
-    //             if ($print_type === "PDF") {
-    //                 $pdf = PDF::loadView('Purchase.PurchaseOrder.Reports.ReportPurchaseOrderSummary_pdf', ['dataReport' => $dataReport])->setPaper('a4', 'landscape');
-    //                 $pdf->output();
-    //                 $dom_pdf = $pdf->getDomPDF();
-
-    //                 $canvas = $dom_pdf ->get_canvas();
-    //                 $width = $canvas->get_width();
-    //                 $height = $canvas->get_height();
-    //                 $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
-    //                 $canvas->page_text(34, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
-
-    //                 return $pdf->download('Export Report Purchase Order Summary.pdf');
-    //             } else {
-    //                 return Excel::download(new ExportReportPurchaseOrderSummary, 'Export Report Purchase Order Summary.xlsx');
-    //             }
-    //         } else {
-    //             return redirect()->route('PurchaseOrder.ReportPurchaseOrderSummary')->with('NotFound', 'Budget, & Sub Budget Cannot Empty');
-    //         }
-    //     } catch (\Throwable $th) {
-    //         Log::error("PrintExportReportPurchaseOrderSummary Error at " . $th->getMessage());
-    //         return redirect()->back()->with('NotFound', 'Process Error');
-    //     }
-    // }
 
     public function ReportPOtoAP(Request $request)
     {
@@ -682,20 +639,15 @@ class PurchaseOrderController extends Controller
 
     public function index(Request $request)
     {
-        $varAPIWebToken = $request->session()->get('SessionLogin');
-        $request->session()->forget("SessionPurchaseOrderPrNumber");
-        $request->session()->forget("SessionPurchaseOrder");
-        $var = 0;
-        if (!empty($_GET['var'])) {
-            $var =  $_GET['var'];
-        }
-        $compact = [
-            'varAPIWebToken' => $varAPIWebToken,
-            'var' => $var,
-            'statusRevisi' => 1,
-        ];
+        $var                = $request->query('var', 0);
+        $varAPIWebToken     = Session::get('SessionLogin');
+        $documentTypeRefID  = $this->GetBusinessDocumentsTypeFromRedis('Purchase Order Form');
 
-        return view('Purchase.PurchaseOrder.Transactions.CreatePurchaseOrder', $compact);
+        return view('Purchase.PurchaseOrder.Transactions.CreatePurchaseOrder', [
+            'var'                   => $var,
+            'varAPIWebToken'        => $varAPIWebToken,
+            'documentType_RefID'    => $documentTypeRefID
+        ]);
     }
     
     public function ReportPoDetail(Request $request)
@@ -811,7 +763,8 @@ class PurchaseOrderController extends Controller
         }
     }
 
-    public function ReportPurchaseOrderDetailStore(Request $request) {
+    public function ReportPurchaseOrderDetailStore(Request $request) 
+    {
         try {
             $budgetID       = $request->budget_id;
             $subBudgetID    = $request->sub_budget_id;
@@ -849,7 +802,8 @@ class PurchaseOrderController extends Controller
         }
     }
 
-    public function PrintExportReportPurchaseOrderDetail(Request $request) {
+    public function PrintExportReportPurchaseOrderDetail(Request $request) 
+    {
         try {
             $dataReport = Session::get("dataReportPODetail");
 
@@ -1222,7 +1176,8 @@ class PurchaseOrderController extends Controller
         }
     }
 
-    public function ReportCFSStore(Request $request) {
+    public function ReportCFSStore(Request $request) 
+    {
         try {
             $budgetID       = $request->budget_id;
             $budgetName     = $request->budget_name;
@@ -1261,7 +1216,8 @@ class PurchaseOrderController extends Controller
         }
     }
 
-    public function PrintExportReportCFS(Request $request) {
+    public function PrintExportReportCFS(Request $request) 
+    {
         try {
             $dataReport = Session::get("dataReportCFS");
 
@@ -1547,22 +1503,12 @@ class PurchaseOrderController extends Controller
 
         return view('Purchase.PurchaseOrder.Transactions.RevisionPurchaseOrder', $compact);
     }
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         try {
@@ -1596,35 +1542,16 @@ class PurchaseOrderController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function UpdatePurchaseOrder(Request $request)
     {
         try {
@@ -1658,16 +1585,11 @@ class PurchaseOrderController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         //
     }
+
     public function revisionAsfIndex(Request $request)
     {   
         $varAPIWebToken = $request->session()->get('SessionLogin');
