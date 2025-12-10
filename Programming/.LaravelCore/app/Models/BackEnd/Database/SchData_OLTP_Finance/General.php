@@ -4506,11 +4506,11 @@ namespace App\Models\Database\SchData_OLTP_Finance
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getReport_Form_DocumentForm_AdvanceSettlementSummary                                               |
+        | ▪ Method Name     : getReport_Form_DocumentForm_AdvanceSettlementSummary                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-07-17                                                                                           |
-        | ▪ Creation Date   : 2025-07-17                                                                                           |
+        | ▪ Last Update     : 2025-12-10                                                                                           |
+        | ▪ Creation Date   : 2025-12-10                                                                                           |
         | ▪ Description     : Mendapatkan Laporan Form - Form Dokumen Permintaan Pembelian (Purchase Requisition)                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -4518,12 +4518,14 @@ namespace App\Models\Database\SchData_OLTP_Finance
         |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ▪ (string)    varCombinedBudgetCode ► Combined Budget Code                                                          |
         |      ▪ (string)    varCombinedBudgetSectionCode ► Combined Budget Section Code                                           |
+        |      ▪ (string)    varStartDate ► Start Date                                                                             |
+        |      ▪ (string)    varEndDate ► End Date                                                                                 |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_DocumentForm_AdvanceSettlementSummary(
-            $varUserSession, int $varSysBranch_RefID, string  $varCombinedBudgetCode = null, string $varCombinedBudgetSectionCode = null, int $varSupplier_RefID = null
+            $varUserSession, int $varSysBranch_RefID, string  $varCombinedBudgetCode = null, string $varCombinedBudgetSectionCode = null, string  $varStartDate = null, string  $varEndDate = null,
             )
             {
             try {
@@ -4536,6 +4538,8 @@ namespace App\Models\Database\SchData_OLTP_Finance
                             [
                                 [$varCombinedBudgetCode, 'varchar' ],
                                 [$varCombinedBudgetSectionCode, 'varchar' ],
+                                [$varStartDate, 'varchar'],
+                                [$varEndDate, 'varchar'],
                             ]
                             )
                         );

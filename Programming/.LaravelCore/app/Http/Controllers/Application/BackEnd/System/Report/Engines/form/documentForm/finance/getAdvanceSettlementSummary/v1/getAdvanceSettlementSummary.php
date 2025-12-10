@@ -3,18 +3,18 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\documentForm\finance                     |
-|                \getAdvanceSettlementSummary\v1                                                                                        |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\documentForm\finance                         |
+|                \getAdvanceSettlementSummary\v1                                                                                   |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2025 ijonk7 (rizal.devapps@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2025 ijonk7 (rizal.devapps@gmail.com)                                                                               |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\documentForm\finance\getAdvanceSettlementSummary\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : getAdvanceSettlementSummary                                                                                       |
-    | ▪ Description : Menangani API report.form.documentForm.finance.getAdvanceSettlementSummary Version 1                          |
+    | ▪ Class Name  : getAdvanceSettlementSummary                                                                                  |
+    | ▪ Description : Menangani API report.form.documentForm.finance.getAdvanceSettlementSummary Version 1                         |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
     class getAdvanceSettlementSummary extends \App\Http\Controllers\Controller
@@ -24,8 +24,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\do
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Create date     : 2025-07-17                                                                                           |
-        | ▪ Last Update     : 2025-07-17                                                                                           |
+        | ▪ Create date     : 2025-12-10                                                                                           |
+        | ▪ Last Update     : 2025-12-10                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -44,8 +44,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\do
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Create date     : 2025-07-17                                                                                           |
-        | ▪ Last Update     : 2025-07-17                                                                                           |
+        | ▪ Create date     : 2025-12-10                                                                                           |
+        | ▪ Last Update     : 2025-12-10                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -67,7 +67,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\do
                             $varUserSession, 
                             (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
                             $varData['parameter']['CombinedBudgetCode'],
-                            $varData['parameter']['CombinedBudgetSectionCode']
+                            $varData['parameter']['CombinedBudgetSectionCode'],
+                            $varData['parameter']['StartDate'],
+                            $varData['parameter']['EndDate']
                             ))))
                             {
                             throw new \Exception();
