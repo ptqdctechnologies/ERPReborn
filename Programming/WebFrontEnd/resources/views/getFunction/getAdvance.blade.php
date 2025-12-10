@@ -70,37 +70,93 @@
             }
         });
 
-        var keys = 0;
+        // var keys = 0;
         $.ajax({
             type: 'GET',
             url: '{!! route("getAdvance") !!}?project_id=' + project_id + '&site_id=' + site_id,
             success: function(data) {
                 $(".loadingGetModalAdvance").hide();
-                var no = 1;
+                // var no = 1;
                 var table = $('#tableGetModalAdvance').DataTable();
                 table.clear();
 
                 if (Array.isArray(data) && data.length > 0) {
-                    $.each(data, function(key, val) {
-                        keys += 1;
-                        table.row.add([
-                            '<input id="sys_id_modal_advance' + keys + '" value="' + val.sys_ID + '" data-trigger="sys_id_modal_advance" type="hidden">' + no++,
-                            val.sys_Text || '-',
-                            val.beneficiaryWorkerName || '-',
-                            // '<input value="' + val.beneficiaryBankAccountName + '" data-trigger="beneficiary_bank_account_name" type="hidden">' + val.sys_Text || '-',
-                            // '<input value="' + val.combinedBudget_RefID + '" data-trigger="combinedBudget_RefID" type="hidden">' + val.beneficiaryWorkerName || '-',
-                            val.requesterWorkerName || '-',
-                            val.combinedBudgetCode || '-',
-                            val.combinedBudgetName || '-',
-                            val.combinedBudgetSectionCode || '-',
-                            val.combinedBudgetSectionName || '-',
-                        ]).draw();
+                    // $.each(data, function(key, val) {
+                    //     keys += 1;
+                    //     table.row.add([
+                    //         '<input id="sys_id_modal_advance' + keys + '" value="' + val.sys_ID + '" data-trigger="sys_id_modal_advance" type="hidden">' + no++,
+                    //         val.sys_Text || '-',
+                    //         val.beneficiaryWorkerName || '-',
+                    //         // '<input value="' + val.beneficiaryBankAccountName + '" data-trigger="beneficiary_bank_account_name" type="hidden">' + val.sys_Text || '-',
+                    //         // '<input value="' + val.combinedBudget_RefID + '" data-trigger="combinedBudget_RefID" type="hidden">' + val.beneficiaryWorkerName || '-',
+                    //         val.requesterWorkerName || '-',
+                    //         val.combinedBudgetCode || '-',
+                    //         val.combinedBudgetName || '-',
+                    //         val.combinedBudgetSectionCode || '-',
+                    //         val.combinedBudgetSectionName || '-',
+                    //     ]).draw();
+                    // });
+
+                    $('#tableGetModalAdvance').DataTable({
+                        destroy: true,
+                        data: data,
+                        deferRender: true,
+                        scrollCollapse: true,
+                        scroller: true,
+                        columns: [
+                            {
+                                data: null,
+                                render: function (data, type, row, meta) {
+                                    return '<td class="align-middle text-center">' +
+                                        '<input id="sys_id_modal_advance' + (meta.row + 1) + '" value="' + data.sys_ID + '" data-trigger="sys_id_modal_advance" type="hidden">' +
+                                        (meta.row + 1) +
+                                    '</td>';
+                                }
+                            },
+                            {
+                                data: 'sys_Text',
+                                defaultContent: '-',
+                                className: "align-middle"
+                            },
+                            {
+                                data: 'beneficiaryWorkerName',
+                                defaultContent: '-',
+                                className: "align-middle"
+                            },
+                            {
+                                data: 'requesterWorkerName',
+                                defaultContent: '-',
+                                className: "align-middle"
+                            },
+                            {
+                                data: 'combinedBudgetCode',
+                                defaultContent: '-',
+                                className: "align-middle"
+                            },
+                            {
+                                data: 'combinedBudgetName',
+                                defaultContent: '-',
+                                className: "align-middle"
+                            },
+                            {
+                                data: 'combinedBudgetSectionCode',
+                                defaultContent: '-',
+                                className: "align-middle"
+                            },
+                            {
+                                data: 'combinedBudgetSectionName',
+                                defaultContent: '-',
+                                className: "align-middle"
+                            }
+                        ]
                     });
 
-                    $("#tableGetModalAdvance_length").show();
-                    $("#tableGetModalAdvance_filter").show();
-                    $("#tableGetModalAdvance_info").show();
-                    $("#tableGetModalAdvance_paginate").show();
+                    $('#tableGetModalAdvance').css("width", "100%");
+
+                    // $("#tableGetModalAdvance_length").show();
+                    // $("#tableGetModalAdvance_filter").show();
+                    // $("#tableGetModalAdvance_info").show();
+                    // $("#tableGetModalAdvance_paginate").show();
                 } else {
                     $(".errorModalAdvanceMessageContainerSecond").show();
                     $("#errorModalAdvanceMessageSecond").text(`Data not found.`);
