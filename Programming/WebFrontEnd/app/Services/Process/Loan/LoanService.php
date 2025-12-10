@@ -9,6 +9,30 @@ use App\Helpers\ZhtHelper\System\Helper_Environment;
 
 class LoanService
 {
+    public function getDetail($loanID) 
+    {
+        $sessionToken = Session::get('SessionLogin');
+
+        return Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
+            $sessionToken,
+            'transaction.read.dataList.finance.getLoanDetail',
+            'latest',
+            [
+                'parameter' => [
+                    'loan_RefID' => (int) $loanID,
+                ],
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    'filter' => null,
+                    'paging' => null
+                ]
+            ],
+            false
+        );
+    }
+
     public function create(Request $request)
     {
         $sessionToken   = Session::get('SessionLogin');
