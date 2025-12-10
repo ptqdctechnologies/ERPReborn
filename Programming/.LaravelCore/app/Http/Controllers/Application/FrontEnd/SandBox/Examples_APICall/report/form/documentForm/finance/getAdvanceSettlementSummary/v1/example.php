@@ -4,11 +4,11 @@
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category    : Example - API Call Controller                                                                                    |
 | ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\report\form\documentForm\finance             |
-|                 \getAdvanceSettlementSummary\v1                                                                                       |
-| ▪ API Key     : report.form.documentForm.finance.getAdvanceSettlementSummary                                                         |
+|                 \getAdvanceSettlementSummary\v1                                                                                  |
+| ▪ API Key     : report.form.documentForm.finance.getAdvanceSettlementSummary                                                     |
 | ▪ API Version : 1                                                                                                                |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2025 ijonk7 (rizal.devapps@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2025 ijonk7 (rizal.devapps@gmail.com)                                                                               |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\report\form\documentForm\finance\getAdvanceSettlementSummary\v1
@@ -21,8 +21,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
         |                     ► http://172.28.0.4/report.form.documentForm.finance.getAdvanceSettlementSummary.v1_throughAPIGateway |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-07-17                                                                                           |
-        | ▪ Creation Date   : 2025-07-17                                                                                           |
+        | ▪ Last Update     : 2025-12-10                                                                                           |
+        | ▪ Creation Date   : 2025-12-10                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function throughAPIGateway($varAPIWebToken)
@@ -40,9 +40,13 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
                 [
                 'parameter' => [
                     'CombinedBudgetCode' => 'Q000062',
-                    'CombinedBudgetSectionCode' => '240'
+                    'CombinedBudgetSectionCode' => '235',
+                    'StartDate' => '2025-01-01',
+                    'EndDate' => '2025-12-10',
                     // 'CombinedBudgetCode' => NULL,
-                    // 'CombinedBudgetSectionCode' => NULL
+                    // 'CombinedBudgetSectionCode' => NULL,
+                    // 'StartDate' => NULL,
+                    // 'EndDate' => NULL,
                     ]
                 ]
                 );
