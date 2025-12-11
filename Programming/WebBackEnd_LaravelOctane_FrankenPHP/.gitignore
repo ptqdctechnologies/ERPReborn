@@ -1,8 +1,8 @@
 *.log
 .DS_Store
-.env
+#.env
 .env.backup
-.env.production
+#.env.production
 .phpactor.json
 .phpunit.result.cache
 /.fleet
@@ -18,7 +18,7 @@
 /public/storage
 /storage/*.key
 /storage/pail
-/vendor
+#/vendor
 Homestead.json
 Homestead.yaml
 Thumbs.db
