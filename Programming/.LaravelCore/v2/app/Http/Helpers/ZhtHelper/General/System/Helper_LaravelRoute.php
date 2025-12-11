@@ -5,7 +5,7 @@
 | ▪ Category   : Laravel Helpers                                                                                                   |
 | ▪ Name Space : \App\Http\Helpers\ZhtHelper\General\System                                                                        |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2020 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2020 - 2025 Zheta (teguhpjs@gmail.com)                                                                              |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 
@@ -27,7 +27,7 @@ namespace App\Http\Helpers\ZhtHelper\General\System
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.000000                                                                                       |
+        | ▪ Version         : 1.0000.000000                                                                                        |
         | ▪ Last Update     : 2020-07-17                                                                                           |
         | ▪ Creation Date   : 2020-07-17                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
@@ -95,7 +95,7 @@ namespace App\Http\Helpers\ZhtHelper\General\System
         | ▪ Method Name     : setRoute                                                                                             |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2020-07-17                                                                                           |
+        | ▪ Last Update     : 2025-12-11                                                                                           |
         | ▪ Creation Date   : 2020-07-17                                                                                           |
         | ▪ Description     : Menetapkan routing laravel untuk View                                                                |
         |                                                                                                                          |
@@ -153,7 +153,7 @@ namespace App\Http\Helpers\ZhtHelper\General\System
         | ▪ Method Name     : setRouteForController                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2020-07-17                                                                                           |
+        | ▪ Last Update     : 2025-12-11                                                                                           |
         | ▪ Creation Date   : 2020-07-17                                                                                           |
         | ▪ Description     : Menetapkan routing laravel untuk Controller                                                          |
         |                                                                                                                          |
@@ -240,7 +240,7 @@ namespace App\Http\Helpers\ZhtHelper\General\System
         | ▪ Method Name     : setRouteForView                                                                                      |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2020-07-17                                                                                           |
+        | ▪ Last Update     : 2025-12-11                                                                                           |
         | ▪ Description     : Menetapkan routing laravel untuk View                                                                |
         |                                                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+

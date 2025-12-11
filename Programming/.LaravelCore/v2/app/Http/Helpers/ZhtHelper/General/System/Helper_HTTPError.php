@@ -5,7 +5,7 @@
 | ▪ Category   : Laravel Helpers                                                                                                   |
 | ▪ Name Space : \App\Http\Helpers\ZhtHelper\General\System                                                                        |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2020 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2020 - 2025 Zheta (teguhpjs@gmail.com)                                                                              |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 
@@ -63,8 +63,8 @@ namespace App\Http\Helpers\ZhtHelper\General\System
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setHTTPErrorPageDisplay                                                                              |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-08-21                                                                                           |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2025-12-11                                                                                           |
         | ▪ Creation Date   : 2020-08-21                                                                                           |
         | ▪ Description     : Mengeset tampilan halaman customized HTTP Error                                                      |
         +--------------------------------------------------------------------------------------------------------------------------+
