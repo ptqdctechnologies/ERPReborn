@@ -67,34 +67,79 @@
             }
         });
 
-        var keys = 0;
+        // var keys = 0;
         $.ajax({
             type: 'GET',
             url: '{!! route("getPurchaseRequisitionList") !!}',
             success: function(data) {
                 $(".loadingGetModalPurchaseRequisition").hide();
 
-                var no = 1;
+                // var no = 1;
                 var table = $('#tableGetModalPurchaseRequisition').DataTable();
                 table.clear();
 
                 if (Array.isArray(data) && data.length > 0) {
-                    $.each(data, function(key, val) {
-                        keys += 1;
-                        table.row.add([
-                            '<input id="sys_id_modal_purchase_requisition' + keys + '" value="' + val.sys_ID + '" data-trigger="sys_id_modal_purchase_requisition" type="hidden">' + no++,
-                            '<input id="sys_id_combinedBudget_purchase_requisition' + keys + '" value="' + val.combinedBudget_RefID + '" data-trigger="sys_id_combinedBudget_purchase_requisition" type="hidden">' + val.sys_Text || '-',
-                            val.combinedBudgetCode || '-',
-                            val.combinedBudgetName || '-',
-                            val.combinedBudgetSectionCode || '-',
-                            val.combinedBudgetSectionName || '-',
-                        ]).draw();
+                    // $.each(data, function(key, val) {
+                    //     keys += 1;
+                    //     table.row.add([
+                    //         '<input id="sys_id_modal_purchase_requisition' + keys + '" value="' + val.sys_ID + '" data-trigger="sys_id_modal_purchase_requisition" type="hidden">' + no++,
+                    //         '<input id="sys_id_combinedBudget_purchase_requisition' + keys + '" value="' + val.combinedBudget_RefID + '" data-trigger="sys_id_combinedBudget_purchase_requisition" type="hidden">' + val.sys_Text || '-',
+                    //         val.combinedBudgetCode || '-',
+                    //         val.combinedBudgetName || '-',
+                    //         val.combinedBudgetSectionCode || '-',
+                    //         val.combinedBudgetSectionName || '-',
+                    //     ]).draw();
+                    // });
+
+                    $('#tableGetProductss').DataTable({
+                        destroy: true,
+                        data: data,
+                        deferRender: true,
+                        scrollCollapse: true,
+                        scroller: true,
+                        columns: [
+                            {
+                                data: null,
+                                render: function (data, type, row, meta) {
+                                    return '<td class="align-middle text-center">' +
+                                        '<input id="sys_id_modal_purchase_requisition' + (meta.row + 1) + '" value="' + data.sys_ID + '" data-trigger="sys_id_modal_purchase_requisition" type="hidden">' +
+                                        '<input id="sys_id_combinedBudget_purchase_requisition' + (meta.row + 1) + '" value="' + data.combinedBudget_RefID + '" data-trigger="sys_id_combinedBudget_purchase_requisition" type="hidden">' +
+                                        (meta.row + 1) +
+                                    '</td>';
+                                }
+                            },
+                            {
+                                data: 'sys_Text',
+                                defaultContent: '-',
+                                className: "align-middle"
+                            },
+                            {
+                                data: 'combinedBudgetCode',
+                                defaultContent: '-',
+                                className: "align-middle"
+                            },
+                            {
+                                data: 'combinedBudgetName',
+                                defaultContent: '-',
+                                className: "align-middle"
+                            },
+                            {
+                                data: 'combinedBudgetSectionCode',
+                                defaultContent: '-',
+                                className: "align-middle"
+                            },
+                            {
+                                data: 'combinedBudgetSectionName',
+                                defaultContent: '-',
+                                className: "align-middle"
+                            },
+                        ]
                     });
 
-                    $("#tableGetModalPurchaseRequisition_length").show();
-                    $("#tableGetModalPurchaseRequisition_filter").show();
-                    $("#tableGetModalPurchaseRequisition_info").show();
-                    $("#tableGetModalPurchaseRequisition_paginate").show();
+                    // $("#tableGetModalPurchaseRequisition_length").show();
+                    // $("#tableGetModalPurchaseRequisition_filter").show();
+                    // $("#tableGetModalPurchaseRequisition_info").show();
+                    // $("#tableGetModalPurchaseRequisition_paginate").show();
                 } else {
                     $(".errorModalPurchaseRequisitionMessageContainerSecond").show();
                     $("#errorModalPurchaseRequisitionMessageSecond").text(`Data not found.`);
