@@ -781,6 +781,8 @@ class ComposerStaticInit4777ac8be87279a9bc33657bc88e4d86
         'AWS\\CRT\\Options' => __DIR__ . '/..' . '/aws/aws-crt-php/src/AWS/CRT/Options.php',
         'App\\Http\\Controllers\\Application\\BackEnd\\System\\Notification\\Engines\\webDisplayPage\\getPHPInformation\\v1\\getPHPInformation' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/Notification/Engines/webDisplayPage/getPHPInformation/v1/getPHPInformation.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
+        'App\\Http\\Helpers\\ZhtHelper\\General\\System\\Helper_HTTPError' => __DIR__ . '/../..' . '/app/Http/Helpers/ZhtHelper/General/System/Helper_HTTPError.php',
+        'App\\Http\\Helpers\\ZhtHelper\\General\\System\\Helper_LaravelRoute' => __DIR__ . '/../..' . '/app/Http/Helpers/ZhtHelper/General/System/Helper_LaravelRoute.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',

@@ -31,6 +31,8 @@ return array(
     'AWS\\CRT\\Options' => $vendorDir . '/aws/aws-crt-php/src/AWS/CRT/Options.php',
     'App\\Http\\Controllers\\Application\\BackEnd\\System\\Notification\\Engines\\webDisplayPage\\getPHPInformation\\v1\\getPHPInformation' => $baseDir . '/app/Http/Controllers/Application/BackEnd/System/Notification/Engines/webDisplayPage/getPHPInformation/v1/getPHPInformation.php',
     'App\\Http\\Controllers\\Controller' => $baseDir . '/app/Http/Controllers/Controller.php',
+    'App\\Http\\Helpers\\ZhtHelper\\General\\System\\Helper_HTTPError' => $baseDir . '/app/Http/Helpers/ZhtHelper/General/System/Helper_HTTPError.php',
+    'App\\Http\\Helpers\\ZhtHelper\\General\\System\\Helper_LaravelRoute' => $baseDir . '/app/Http/Helpers/ZhtHelper/General/System/Helper_LaravelRoute.php',
     'App\\Models\\User' => $baseDir . '/app/Models/User.php',
     'App\\Providers\\AppServiceProvider' => $baseDir . '/app/Providers/AppServiceProvider.php',
     'Attribute' => $vendorDir . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
