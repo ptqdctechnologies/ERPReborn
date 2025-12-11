@@ -4,7 +4,7 @@
 
 
 ```diff
-It's not just an ordinary ERP
+More than an ordinary ERP
 ```
 
 **ERP Reborn** merupakan proyek sistem Enterprise Resource Planning yang digunakan oleh PT QDC Technologies (diinisiasi sejak akhir tahun 2020)
@@ -165,3 +165,25 @@ Referensi (12 Agustus 2024) : https://docs.docker.com/engine/install/fedora/
 
 ![Team-SystemAdministrator](https://i.ibb.co.com/cpj6ty0/Team-Zainudin-Anwar.jpg)
 **Zainudin Anwar** | <em>System Administrator (9 August 2019 - Now)</em>
+
+
+<h3>Vendors</h3>
+
+<table style="border: none; border-collapse: collapse;">
+   <tr style="border: none;">
+      <td style="border: none;">
+         <img width="50" height="50" alt="Logo-GitHub" title="GitHub" src="https://github.com/user-attachments/assets/0dae0d97-ec37-4403-a5e5-ba384306059a" />
+         <img width="50" height="50" alt="Logo-Git" title="Git" src="https://github.com/user-attachments/assets/b85b0f03-28a5-4a4b-b85f-a3928b685c10" />
+         <img width="50" height="50" alt="Logo-Docker" title="Docker" src="https://github.com/user-attachments/assets/79c025d5-9e11-44e3-85c6-f2d85f519bd4" />
+         <img width="50" height="50" alt="Logo-FrankenPHP" title="FrankenPHP" src="https://github.com/user-attachments/assets/d599fa70-120e-4944-b857-634387e70170" />
+         <img width="50" height="50" alt="Logo-Laravel" title="Laravel" src="https://github.com/user-attachments/assets/cf38dc68-8c85-4515-97f2-062450ee9b82" />
+         <img width="50" height="50" alt="Logo-LaravelOctane" title="Laravel Octane" src="https://github.com/user-attachments/assets/55ad239f-2c38-4fec-a40c-161606781e33" />
+         <img width="50" height="50" alt="Logo-PostgreSQL" title="PostgreSQL" src="https://github.com/user-attachments/assets/b34b1454-5d58-4f5f-ae4b-cdf2db038055" />
+         <img width="50" height="50" alt="Logo-MinIO" title="MinIO" src="https://github.com/user-attachments/assets/1f9857ea-1336-488c-9981-61d96498dc6a" />
+         <img width="50" height="50" alt="Logo-Redis" title="Redis" src="https://github.com/user-attachments/assets/eadf4038-7ced-41e3-b2da-864d7c65dffa" />
+      </td>
+   </tr>
+</table>
+
+
+
