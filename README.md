@@ -4,7 +4,7 @@
 
 
 ```diff
-It's not just an ordinary ERP
+More than an ordinary ERP
 ```
 
 **ERP Reborn** merupakan proyek sistem Enterprise Resource Planning yang digunakan oleh PT QDC Technologies (diinisiasi sejak akhir tahun 2020)
@@ -165,3 +165,6 @@ Referensi (12 Agustus 2024) : https://docs.docker.com/engine/install/fedora/
 
 ![Team-SystemAdministrator](https://i.ibb.co.com/cpj6ty0/Team-Zainudin-Anwar.jpg)
 **Zainudin Anwar** | <em>System Administrator (9 August 2019 - Now)</em>
+
+<h3>Vendors</h3>
+![Vendor-GitHub](https://i.ibb.co.com/SDJNn2CL/Logo-Git-Hub.png)
