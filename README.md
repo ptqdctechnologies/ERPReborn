@@ -178,10 +178,12 @@ Referensi (12 Agustus 2024) : https://docs.docker.com/engine/install/fedora/
          <img width="50" height="50" alt="Logo-FrankenPHP" title="FrankenPHP" src="https://github.com/user-attachments/assets/d599fa70-120e-4944-b857-634387e70170" />
          <img width="50" height="50" alt="Logo-Laravel" title="Laravel" src="https://github.com/user-attachments/assets/cf38dc68-8c85-4515-97f2-062450ee9b82" />
          <img width="50" height="50" alt="Logo-LaravelOctane" title="Laravel Octane" src="https://github.com/user-attachments/assets/55ad239f-2c38-4fec-a40c-161606781e33" />
+         <img width="50" height="50" alt="Logo-PostgreSQL" title="PostgreSQL" src="https://github.com/user-attachments/assets/b34b1454-5d58-4f5f-ae4b-cdf2db038055" />
          <img width="50" height="50" alt="Logo-MinIO" title="MinIO" src="https://github.com/user-attachments/assets/1f9857ea-1336-488c-9981-61d96498dc6a" />
          <img width="50" height="50" alt="Logo-Redis" title="Redis" src="https://github.com/user-attachments/assets/eadf4038-7ced-41e3-b2da-864d7c65dffa" />
       </td>
    </tr>
 </table>
+
 
 
