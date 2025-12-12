@@ -26,127 +26,6 @@ class AdvanceSettlementController extends Controller
         $this->advanceSettlementService = $advanceSettlementService;
         $this->workflowService = $workflowService;
     }
-    
-    public function ReportAdvanceSettlementSummary(Request $request)
-    {
-        return view('Process.Advance.AdvanceSettlement.Reports.ReportAdvanceSettlementSummary');
-    }
-
-    public function ReportAdvanceSettlementSummaryData( $project_code, $site_code){
-        
-            
-        try {
-            // Log::error("Error at ",[$project_code, $site_code]);
-
-            $varAPIWebToken = Session::get('SessionLogin');
-
-            $filteredArray = Helper_APICall::setCallAPIGateway(
-                Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'report.form.documentForm.finance.getAdvanceSettlementSummary', 
-                'latest',
-                [
-                    'parameter' => [
-                        'CombinedBudgetCode' =>  $project_code,
-                        'CombinedBudgetSectionCode' =>  $site_code,
-                    ],
-                    'SQLStatement' => [
-                        'pick' => null,
-                        'sort' => null,
-                        'filter' => null,
-                        'paging' => null
-                    ]
-                ]
-            );
-            // dd($filteredArray);
-            Log::error("Error at " ,$filteredArray);
-            if ($filteredArray['metadata']['HTTPStatusCode'] !== 200) {
-                return redirect()->back()->with('NotFound', 'Process Error');
-
-            }
-            Session::put("AdvanceSettlementReportSummaryDataPDF", $filteredArray['data']['data']);
-            Session::put("AdvanceSettlementReportSummaryDataExcel", $filteredArray['data']['data']);
-            return $filteredArray['data']['data'];
-        }
-        catch (\Throwable $th) {
-            Log::error("Error at " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
-        }
-    }
-
-    public function ReportAdvanceSettlementSummaryStore(Request $request)
-    {
-        try {
-            $date       = $request->asfDate;
-            $budget     = [
-                "id"    => $request->budget_id,
-                "name"  => $request->budget_name,
-                "code"  => $request->budget_code,
-            ];
-            $subBudget  = [
-                "id"    => $request->site_id,
-                "name"  => $request->site_name,
-                "code"  => $request->site_code,
-            ];
-            
-            $response = $this->advanceSettlementService->getAdvanceSettlementSummary($budget['code'], $subBudget['code']);
-            
-            if ($response['metadata']['HTTPStatusCode'] !== 200) {
-                throw new \Exception('Failed to fetch Advance Settlement Summary Report');
-            }
-
-            $compact = [
-                'status'    => $response['metadata']['HTTPStatusCode'],
-                'data'      => $response['data']['data']
-            ];
-
-            return response()->json($compact);
-        } catch (\Throwable $th) {
-            Log::error("Report Advance Settlement Summary Store Function Error:" . $th->getMessage());
-
-            $compact = [
-                'status'    => 500,
-                'message'   => $th->getMessage()
-            ];
-
-            return response()->json($compact);
-        }
-    }
-
-    public function PrintExportReportAdvanceSettlementSummary(Request $request)
-    {
-        try {
-            $dataAdvanceSettlementSummary = json_decode($request->dataReport, true);
-            $type = $request->printType;
-
-            if ($dataAdvanceSettlementSummary) {
-                if ($type === "PDF") {
-                    $pdf = PDF::loadView('Process.Advance.AdvanceSettlement.Reports.ReportAdvanceSettlementSummary_pdf', ['dataASF' => $dataAdvanceSettlementSummary])
-                        ->setPaper('a4', 'landscape');
-                    
-                    $pdf->output();
-                    $dom_pdf    = $pdf->getDomPDF();
-                    $canvas     = $dom_pdf->get_canvas();
-                    $width      = $canvas->get_width();
-                    $height     = $canvas->get_height();
-                    $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
-                    $canvas->page_text(34, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
-
-                    return $pdf->download('Export Report Advance Settlement Summary.pdf');
-                } else if ($type === "EXCEL") {
-                    return Excel::download(new ExportReportAdvanceSettlementSummary($dataAdvanceSettlementSummary), 'Export Report Advance Settlement Summary.xlsx');
-                } else {
-                    throw new \Exception('Failed to Export Advance Settlement Summary Report');
-                }
-            } else {
-                throw new \Exception('Advance Settlement Summary Data is Empty');
-            }
-        } catch (\Throwable $th) {
-            Log::error("Print Export Report Advance Settlement Summary Function Error: " . $th->getMessage());
-
-            return response()->json(['statusCode' => 400]);
-        }
-    }
 
     public function index(Request $request)
     {
@@ -225,76 +104,6 @@ class AdvanceSettlementController extends Controller
 
             return response()->json(["status" => 500]);
         }
-    }
-
-    public function SearchAdvanceRequest(Request $request)
-    {
-        Session::forget("SessionAdvanceSetllementBeneficiary");
-        Session::forget("SessionAdvanceSetllementBeneficiaryID");
-        if (Redis::get("DataListAdvance") == null) {
-            $varAPIWebToken = Session::get('SessionLogin');
-            Helper_APICall::setCallAPIGateway(
-                Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken,
-                'transaction.read.dataList.finance.getAdvance',
-                'latest',
-                [
-                    'parameter' => null,
-                    'SQLStatement' => [
-                        'pick' => null,
-                        'sort' => null,
-                        'filter' => null,
-                        'paging' => null
-                    ]
-                ],
-                false
-            );
-        }
-
-        $DataListAdvance = json_decode(
-            Helper_Redis::getValue(
-                Helper_Environment::getUserSessionID_System(),
-                "DataListAdvance"
-            ),
-            true
-        );
-
-        $collection = collect($DataListAdvance);
-
-        $budget_code = $request->input('budget_code');
-        $sub_budget_code = $request->input('sub_budget_code');
-        $requester = $request->input('requester');
-        $benificiary = $request->input('benificiary');
-        $trano = $request->input('trano');
-
-        if ($budget_code != "") {
-            $collection = $collection->filter(function ($item) use ($budget_code) {
-                return strpos($item['CombinedBudgetCode'], $budget_code) !== false;
-            });
-        }
-        if ($sub_budget_code != "") {
-            $collection = $collection->filter(function ($item) use ($sub_budget_code) {
-                return strpos($item['CombinedBudgetSectionCode'], $sub_budget_code) !== false;
-            });
-        }
-        if ($requester != "") {
-            $collection = $collection->filter(function ($item) use ($requester) {
-                return strpos($item['RequesterWorkerName'], $requester) !== false;
-            });
-        }
-
-        if ($benificiary != "") {
-            $collection = $collection->filter(function ($item) use ($benificiary) {
-                return strpos($item['BeneficiaryWorkerName'], $benificiary) !== false;
-            });
-        }
-        if ($trano != "") {
-            $collection = $collection->filter(function ($item) use ($trano) {
-                return strpos($item['DocumentNumber'], $trano) !== false;
-            });
-        }
-
-        return response()->json($collection->all());
     }
 
     public function AdvanceSettlementListData(Request $request)
@@ -536,6 +345,85 @@ class AdvanceSettlementController extends Controller
         } catch (\Throwable $th) {
             Log::error("PrintExportReportAdvanceSettlementDetail Function Error at " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
+    public function ReportAdvanceSettlementSummary(Request $request)
+    {
+        return view('Process.Advance.AdvanceSettlement.Reports.ReportAdvanceSettlementSummary');
+    }
+
+    public function ReportAdvanceSettlementSummaryStore(Request $request)
+    {
+        try {
+            $date       = $request->asfDate;
+            $budget     = [
+                "id"    => $request->budget_id,
+                "name"  => $request->budget_name,
+                "code"  => $request->budget_code,
+            ];
+            $subBudget  = [
+                "id"    => $request->site_id,
+                "name"  => $request->site_name,
+                "code"  => $request->site_code,
+            ];
+            
+            $response = $this->advanceSettlementService->getAdvanceSettlementSummary($budget['code'], $subBudget['code']);
+            
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                throw new \Exception('Failed to fetch Advance Settlement Summary Report');
+            }
+
+            $compact = [
+                'status'    => $response['metadata']['HTTPStatusCode'],
+                'data'      => $response['data']['data']
+            ];
+
+            return response()->json($compact);
+        } catch (\Throwable $th) {
+            Log::error("Report Advance Settlement Summary Store Function Error:" . $th->getMessage());
+
+            $compact = [
+                'status'    => 500,
+                'message'   => $th->getMessage()
+            ];
+
+            return response()->json($compact);
+        }
+    }
+
+    public function PrintExportReportAdvanceSettlementSummary(Request $request)
+    {
+        try {
+            $dataAdvanceSettlementSummary = json_decode($request->dataReport, true);
+            $type = $request->printType;
+
+            if ($dataAdvanceSettlementSummary) {
+                if ($type === "PDF") {
+                    $pdf = PDF::loadView('Process.Advance.AdvanceSettlement.Reports.ReportAdvanceSettlementSummary_pdf', ['dataASF' => $dataAdvanceSettlementSummary])
+                        ->setPaper('a4', 'landscape');
+                    
+                    $pdf->output();
+                    $dom_pdf    = $pdf->getDomPDF();
+                    $canvas     = $dom_pdf->get_canvas();
+                    $width      = $canvas->get_width();
+                    $height     = $canvas->get_height();
+                    $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
+                    $canvas->page_text(34, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
+
+                    return $pdf->download('Export Report Advance Settlement Summary.pdf');
+                } else if ($type === "EXCEL") {
+                    return Excel::download(new ExportReportAdvanceSettlementSummary($dataAdvanceSettlementSummary), 'Export Report Advance Settlement Summary.xlsx');
+                } else {
+                    throw new \Exception('Failed to Export Advance Settlement Summary Report');
+                }
+            } else {
+                throw new \Exception('Advance Settlement Summary Data is Empty');
+            }
+        } catch (\Throwable $th) {
+            Log::error("Print Export Report Advance Settlement Summary Function Error: " . $th->getMessage());
+
+            return response()->json(['statusCode' => 400]);
         }
     }
 }
