@@ -19,8 +19,8 @@
         });
 
         $.ajax({
-            url: '{!! route("AdvanceSettlement.ReportAdvanceSettlementSummaryStore") !!}',
             type: 'POST',
+            url: '{!! route("AdvanceSettlement.ReportAdvanceSettlementSummaryStore") !!}',
             data: {
                 budget_id: budgetID.value,
                 budget_name: budgetName.value,
@@ -32,8 +32,6 @@
             },
             dataType: 'json',
             success: function(response) {
-                HideLoading();
-
                 if (response.status === 200 && response.data[0]) {
                     let data = response.data;
                     dataReport = JSON.stringify(data);
@@ -158,6 +156,8 @@
                     $('#table_summary tfoot').empty();  // Optional: Empty the table's body
                     ErrorNotif("Error");
                 }
+
+                HideLoading();
             },
             error: function(xhr, status, error) {
                 HideLoading();
@@ -187,8 +187,6 @@
                 responseType: 'blob'
             },
             success: function(response) {
-                HideLoading();
-
                 var blob = new Blob([response], { type: response.type });
                 var link = document.createElement('a');
                 link.href = window.URL.createObjectURL(blob);
@@ -202,6 +200,8 @@
                 link.click();
 
                 window.URL.revokeObjectURL(link.href);
+
+                HideLoading();
             },
             error: function(xhr, status, error) {
                 HideLoading();
