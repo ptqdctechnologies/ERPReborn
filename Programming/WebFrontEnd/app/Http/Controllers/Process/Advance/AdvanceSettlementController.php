@@ -29,25 +29,7 @@ class AdvanceSettlementController extends Controller
     
     public function ReportAdvanceSettlementSummary(Request $request)
     {
-        $varAPIWebToken = $request->session()->get('SessionLogin');
-        $request->session()->forget("SessionAdvanceSettlementNumber");
-        $dataASF = Session::get("AdvanceSettlementReportSummaryDataPDF");
-
-        if (!empty($_GET['var'])) {
-            $var =  $_GET['var'];
-        }
-        $compact = [
-            'varAPIWebToken' => $varAPIWebToken,
-            'statusRevisi' => 1,
-            'statusHeader' => "Yes",
-            'statusDetail' => 1,
-            'dataHeader' => [],
-            'dataASF' => $dataASF
-        
-        ];
-        // dump($compact);
-
-        return view('Process.Advance.AdvanceSettlement.Reports.ReportAdvanceSettlementSummary', $compact);
+        return view('Process.Advance.AdvanceSettlement.Reports.ReportAdvanceSettlementSummary');
     }
 
     public function ReportAdvanceSettlementSummaryData( $project_code, $site_code){
