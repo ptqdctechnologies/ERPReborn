@@ -287,32 +287,6 @@ class BusinessTripRequestController extends Controller
         }
     }
 
-    public function BusinessTripRequestListCartRevision(Request $request)
-    {
-
-        $varAPIWebToken = $request->session()->get('SessionLogin');
-        $advance_RefID = $request->input('advance_RefID');
-
-        $varData = Helper_APICall::setCallAPIGateway(
-        Helper_Environment::getUserSessionID_System(),
-        $varAPIWebToken, 
-        'transaction.read.dataList.finance.getAdvanceDetail', 
-        'latest', 
-        [
-        'parameter' => [
-            'advance_RefID' => (int) $advance_RefID,
-            ],
-        'SQLStatement' => [
-            'pick' => null,
-            'sort' => null,
-            'filter' => null,
-            'paging' => null
-            ]
-        ]
-        );
-        return response()->json($varData['data']);
-    }
-
     public function ReportBusinessTripRequestSummary(Request $request)
     {
         try {
