@@ -49,6 +49,11 @@ class DocumentTypeMapper
                 'key'       => 'transaction.read.dataList.finance.getAdvanceSettlementDetail',
                 'parameter' => ['advanceSettlement_RefID' => (int) $referenceId]
             ],
+            'Budget Form' => [
+                'key'                       => '',
+                'parameter'                 => [],
+                'businessDocument_RefID'    => (int) 74000000021494,
+            ],
             'Credit Note Form' => [
                 'key'       => 'transaction.read.dataList.finance.getCreditNoteDetail',
                 'parameter' => ['creditNote_RefID' => (int) $referenceId]
@@ -204,6 +209,26 @@ class DocumentTypeMapper
                 ],
                 'transactionType'        => 'ADVANCE SETTLEMENT',
                 'businessDocument_RefID' => $dataDetail['businessDocument_RefID'] ?? '-',
+            ],
+            'Budget Form' => [
+                'dataHeader' => [
+                    'date' => null,
+                    'dateUpdate' => null,
+                ],
+                'components'            => [
+                    'detail'            => 'Components.BudgetDetailDocument',
+                    'table'             => 'Components.BudgetDetailDocumentTable',
+                    'headerRevision'    => 'Components.BudgetDetailDocumentHeaderRevision',
+                    'revision'          => 'Components.BudgetDetailDocumentRevision',
+                    'additional'        => 'Components.BudgetDetailDocumentAdditional'
+                ],
+                'resubmit'      => [
+                    'url'       => 'Budget.RevisionBudget',
+                    'name'      => '',
+                    'value'     => '-'
+                ],
+                'transactionType'       => 'BUDGET',
+                'businessDocument_RefID' => '',
             ],
             'Credit Note Form'          => [
                 'dataHeader'            => [
@@ -803,6 +828,7 @@ class DocumentTypeMapper
         $mapping = [
             'Advance Form'                  => 'Documents.Transactions.LogTransaction.LogTransactionAdvance',
             'Advance Settlement Form'       => 'Documents.Transactions.LogTransaction.LogTransactionAdvanceSettlement',
+            'Budget Form'                   => 'Documents.Transactions.LogTransaction.LogTransactionBudget',
             'Credit Note Form'              => 'Documents.Transactions.LogTransaction.LogTransactionCreditNote',
             'Debit Note Form'               => 'Documents.Transactions.LogTransaction.LogTransactionDebitNote',
             'Delivery Order Form'           => 'Documents.Transactions.LogTransaction.LogTransactionDeliveryOrder',

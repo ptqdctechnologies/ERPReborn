@@ -68,6 +68,7 @@ class CheckDocumentController extends Controller
             }
 
             if (
+                $documentType === 'Budget Form' ||
                 $documentType === 'Loan Form' ||
                 $documentType === 'Loan Settlement Form' ||
                 $documentType === 'Modify Budget Form' ||
@@ -411,6 +412,26 @@ class CheckDocumentController extends Controller
         $DocumentTypeName = $request->input('DocumentTypeName');
 
         switch ($DocumentTypeName) {
+            case "Budget Form":
+                $varData = [
+                    'data' => [
+                        'data' => [
+                            [
+                                'sys_ID'    => 12345678,
+                                'sys_Text'  => 'BDT/QDC/2025/000001',
+                                'combinedBudgetCode' => 'Q000196',
+                                'combinedBudgetSectionCode' => 'Q000062 ► 235'
+                            ],
+                            [
+                                'sys_ID'    => 23456781,
+                                'sys_Text'  => 'BDT/QDC/2025/000002',
+                                'combinedBudgetCode' => 'Q000196',
+                                'combinedBudgetSectionCode' => 'Q000062 ► 235'
+                            ],
+                        ]
+                    ]
+                ];
+                break;
             case "Loan Form":
                 $varData = [
                     'data' => [
