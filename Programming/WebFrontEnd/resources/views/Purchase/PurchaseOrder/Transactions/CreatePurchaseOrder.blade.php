@@ -30,7 +30,7 @@
             <input type="hidden" name="var_combinedBudget_RefID" id="var_combinedBudget_RefID">
             <input type="hidden" name="tariffCurrencyValue" id="tariffCurrencyValue">
 
-            <!-- ADD NEW PURCHASE ORDER -->
+            <!-- CREATE NEW PURCHASE ORDER DETAIL -->
             <div class="tab-content px-3 pt-4 pb-2" id="nav-tabContent">
               <div class="row">
                 <div class="col-12">
@@ -38,7 +38,7 @@
                     <!-- HEADER -->
                     <div class="card-header">
                       <label class="card-title">
-                        Add New Purchase Order
+                        Create New Purchase Order Detail
                       </label>
                       <div class="card-tools">
                         <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -47,30 +47,7 @@
                       </div>
                     </div>
 
-                    @include('Purchase.PurchaseOrder.Functions.Header.headerPO2')
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- PURCHASE ORDER DETAIL -->
-            <div class="tab-content px-3 pb-2" id="nav-tabContent">
-              <div class="row">
-                <div class="col-12">
-                  <div class="card">
-                    <!-- HEADER -->
-                    <div class="card-header">
-                      <label class="card-title">
-                        Purchase Order Detail
-                      </label>
-                      <div class="card-tools">
-                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                          <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
-                        </button>
-                      </div>
-                    </div>
-
-                    @include('Purchase.PurchaseOrder.Functions.Table.tablePRDetail')
+                    @include('Purchase.PurchaseOrder.Functions.Header.headerPO')
                   </div>
                 </div>
               </div>
@@ -117,7 +94,7 @@
               </div>
             </div>
 
-            <!-- CREATE NEW PURCHASE ORDER DETAIL -->
+            <!-- ADD NEW PURCHASE ORDER -->
             <div class="tab-content px-3 pb-2" id="nav-tabContent">
               <div class="row">
                 <div class="col-12">
@@ -125,7 +102,7 @@
                     <!-- HEADER -->
                     <div class="card-header">
                       <label class="card-title">
-                        Create New Purchase Order Detail
+                        Add New Purchase Order
                       </label>
                       <div class="card-tools">
                         <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -134,7 +111,30 @@
                       </div>
                     </div>
 
-                    @include('Purchase.PurchaseOrder.Functions.Header.headerPO')
+                    @include('Purchase.PurchaseOrder.Functions.Header.headerPO2')
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- PURCHASE ORDER DETAIL -->
+            <div class="tab-content px-3 pb-2" id="nav-tabContent">
+              <div class="row">
+                <div class="col-12">
+                  <div class="card">
+                    <!-- HEADER -->
+                    <div class="card-header">
+                      <label class="card-title">
+                        Purchase Order Detail
+                      </label>
+                      <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                          <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
+                        </button>
+                      </div>
+                    </div>
+
+                    @include('Purchase.PurchaseOrder.Functions.Table.tablePRDetail')
                   </div>
                 </div>
               </div>
