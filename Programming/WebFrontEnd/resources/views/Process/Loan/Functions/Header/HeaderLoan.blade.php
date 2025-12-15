@@ -9,8 +9,8 @@
           <div id="container_loan_type">
             <select id="loan_type" class="form-control" name="loan_type" style="border-radius:0;">
               <option value="select_loan_type" selected disabled>Select Loan Type</option>
-              <option value="lender">Lender</option>
-              <option value="borrower">Borrower</option>
+              <option value="LENDING">Lending</option>
+              <option value="BORROWING">Borrowing</option>
             </select>
           </div>
         </div>
@@ -147,7 +147,7 @@
     <div class="col-md-12 col-lg-5">
       <!-- PRINCIPLE LOAN -->
       <div class="row">
-        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Principle Loan</label>
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Loan Principle</label>
         <div class="col-5 p-0">
           <input type="text" id="principle_loan" name="principle_loan" class="form-control" style="border-radius:0;" />
         </div>
@@ -159,17 +159,17 @@
         </div>
       </div>
 
-      <!-- LANDING RATE -->
+      <!-- LENDING RATE -->
       <div class="row" style="margin-top: 1rem;">
-        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Landing Rate</label>
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Lending Rate</label>
         <div class="col-5 p-0">
-          <input type="text" id="landing_rate" name="landing_rate" class="form-control" style="border-radius:0;" />
+          <input type="text" id="lending_rate" name="lending_rate" class="form-control" style="border-radius:0;" />
         </div>
       </div>
-      <div class="row" id="landing_rate_message" style="margin-top: .3rem; display: none;">
+      <div class="row" id="lending_rate_message" style="margin-top: .3rem; display: none;">
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
         <div class="col-5 p-0 text-red">
-          Landing Rate cannot be empty.
+          Lending Rate cannot be empty.
         </div>
       </div>
 
