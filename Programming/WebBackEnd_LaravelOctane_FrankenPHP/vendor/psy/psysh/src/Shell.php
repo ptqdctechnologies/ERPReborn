@@ -21,6 +21,7 @@ use Psy\Exception\ThrowUpException;
 use Psy\ExecutionLoop\ProcessForker;
 use Psy\ExecutionLoop\RunkitReloader;
 use Psy\ExecutionLoop\SignalHandler;
+use Psy\ExecutionLoop\UopzReloader;
 use Psy\Formatter\TraceFormatter;
 use Psy\Input\ShellInput;
 use Psy\Input\SilentInput;
@@ -55,7 +56,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class Shell extends Application
 {
-    const VERSION = 'v0.12.16';
+    const VERSION = 'v0.12.17';
 
     private Configuration $config;
     private CodeCleaner $cleaner;
@@ -278,7 +279,7 @@ class Shell extends Application
         $doc = new Command\DocCommand();
         $doc->setConfiguration($this->config);
 
-        return [
+        $commands = [
             new Command\HelpCommand(),
             new Command\ListCommand(),
             new Command\DumpCommand(),
@@ -297,6 +298,15 @@ class Shell extends Application
             $hist,
             new Command\ExitCommand(),
         ];
+
+        // Only add yolo command if UopzReloader is supported
+        if (UopzReloader::isSupported()) {
+            $yolo = new Command\YoloCommand();
+            $yolo->setReadline($this->readline);
+            $commands[] = $yolo;
+        }
+
+        return $commands;
     }
 
     /**
@@ -348,6 +358,8 @@ class Shell extends Application
 
         if (RunkitReloader::isSupported()) {
             $listeners[] = new RunkitReloader();
+        } elseif (UopzReloader::isSupported()) {
+            $listeners[] = new UopzReloader();
         }
 
         if ($executionLogger = $this->config->getExecutionLogger()) {
@@ -355,6 +367,20 @@ class Shell extends Application
         }
 
         return $listeners;
+    }
+
+    /**
+     * Enable or disable force-reload mode for code reloaders.
+     *
+     * Used by the `yolo` command to bypass safety warnings when reloading code.
+     */
+    public function setForceReload(bool $force): void
+    {
+        foreach ($this->loopListeners as $listener) {
+            if (\method_exists($listener, 'setForceReload')) {
+                $listener->setForceReload($force);
+            }
+        }
     }
 
     /**
@@ -666,6 +692,12 @@ class Shell extends Application
      */
     protected function beforeRun()
     {
+        foreach ($this->loopListeners as $listener) {
+            if ($listener instanceof OutputAware) {
+                $listener->setOutput($this->output);
+            }
+        }
+
         foreach ($this->loopListeners as $listener) {
             $listener->beforeRun($this);
         }
