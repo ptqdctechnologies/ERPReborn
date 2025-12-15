@@ -72,6 +72,14 @@ namespace App\Http\Controllers\Application\BackEnd\System\Notification\Engines\w
             //return
             //    "Hello from MyController!";
             
+            //echo $_SERVER['FRANKENPHP_WORKER'];
+/*
+if (isset($_SERVER['FRANKENPHP_WORKER'])) {
+    echo " (Mode Worker)";
+} else {
+    echo " (Mode Klasik)";
+}
+*/
             return
                 phpinfo();
             }

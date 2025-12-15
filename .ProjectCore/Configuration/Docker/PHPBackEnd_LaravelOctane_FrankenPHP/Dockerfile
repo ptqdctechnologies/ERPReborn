@@ -178,10 +178,12 @@ COPY ./.ProjectCore/Configuration/Docker/PHPApacheBackEnd/System/etc/ImageMagick
 RUN apt-get install -y \
     libnss3-tools
 
+#RUN chown -R www-data:www-data storage bootstrap/cache
+
 #---> Release Port
 EXPOSE 80
 EXPOSE 443
-
+EXPOSE 8000
 
 #---> ZhtConf Folder
 RUN mkdir -p /zhtConf/tmp/processSign

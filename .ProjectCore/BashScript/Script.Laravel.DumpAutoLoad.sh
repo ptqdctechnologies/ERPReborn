@@ -23,22 +23,18 @@ sudo docker exec -it php-apache-backend /bin/bash -c "cd /var/www/html/WebBackEn
 #sudo docker exec -it php-apache-frontend /bin/bash -c "cd /var/www/html/WebFrontEnd; php artisan config:clear; php artisan route:clear; php artisan cache:clear; composer dump-autoload; cd -; ";
 sudo docker exec -it php-apache-frontend /bin/bash -c "cd /var/www/html/WebFrontEnd; php artisan config:clear; php artisan route:clear; php artisan cache:clear; composer dump-autoload; php artisan config:cache; cd -; ";
 
-sudo docker exec -it php-backend-frankenPHP /bin/bash -c "cd /var/www/html/WebBackEnd; php artisan config:clear; php artisan route:clear; php artisan cache:clear; composer dump-autoload; php artisan config:cache; php artisan route:cache; cd -; ";
-
-#php artisan route:cache
-#php artisan config:cache
-#php artisan optimize
-
-#cd ./Programming/WebBackEnd;
-#sudo php artisan route:clear;
-#sudo php artisan config:clear;
-#sudo php artisan cache:clear;
-#composer dump-autoload;
-#cd -;
-
-#cd ./Programming/WebFrontEnd; 
-#sudo php artisan route:clear;
-#sudo php artisan config:clear;
-#sudo php artisan cache:clear;
-#composer dump-autoload; 
-#cd -;
+sudo docker exec -it php-backend-frankenPHP /bin/bash -c "
+	cd /var/www/html/WebBackEnd; \
+	php artisan config:clear; \
+	php artisan route:clear; \
+	php artisan cache:clear; \
+	php artisan view:clear; \
+	php artisan event:clear; \
+	composer dump-autoload --optimize; \
+	php artisan config:cache; \
+	php artisan route:cache; \
+	php artisan view:cache; \
+	php artisan event:cache; \
+	php artisan optimize; \
+	cd -;
+	";

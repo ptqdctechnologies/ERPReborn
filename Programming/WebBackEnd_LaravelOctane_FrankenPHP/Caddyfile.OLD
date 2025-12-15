@@ -1,0 +1,16 @@
+# Global options
+#{$CADDY_GLOBAL_OPTIONS}
+#email teguhpjs@gmail.com
+
+localhost {
+	tls internal
+
+	# Enable compression (optional)
+	encode zstd br gzip
+
+	php_server
+}
+
+{$CADDY_EXTRA_CONFIG}
+
+import Caddyfile.d/*.caddyfile
