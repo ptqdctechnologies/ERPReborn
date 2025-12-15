@@ -118,7 +118,7 @@
         </div>
       </div>
 
-      <!-- BANK ACCOUNT -->
+      <!-- ACCOUNT NUMBER -->
       <div class="row" style="margin-top: 1rem;">
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Account Number</label>
         <div class="col-5 d-flex p-0">
@@ -145,9 +145,24 @@
 
     <!-- RIGHT -->
     <div class="col-md-12 col-lg-5">
-      <!-- PRINCIPLE LOAN -->
+      <!-- DATE OF DELIVERY -->
       <div class="row">
-        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Loan Principle</label>
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Loan Date</label>
+        <div class="col-5 p-0 input-group date" id="loanDate" data-target-input="nearest" style="flex-wrap: nowrap;">
+          <div>
+            <div class="input-group-append" data-target="#loanDate" data-toggle="datetimepicker" style="width: 27.78px; height: 21.8px;">
+              <div class="input-group-text" style="border-radius: unset; justify-content: center; width: inherit;"><i class="fa fa-calendar"></i></div>
+            </div>
+          </div>
+          <div style="flex: 100%;">
+            <input type="text" class="form-control datetimepicker-input" name="loanDate" id="loanDate" data-target="#loanDate" autocomplete="off" style="border-radius: unset;" />
+          </div>
+        </div>
+      </div>
+      
+      <!-- PRINCIPLE LOAN -->
+      <div class="row" style="margin-top: 1rem;">
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Principle Loan</label>
         <div class="col-5 p-0">
           <input type="text" id="principle_loan" name="principle_loan" class="form-control" style="border-radius:0;" />
         </div>
