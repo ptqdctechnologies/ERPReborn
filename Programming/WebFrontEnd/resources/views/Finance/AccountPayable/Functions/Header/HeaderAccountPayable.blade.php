@@ -200,14 +200,14 @@
         </div>
 
         <!-- RIGHT -->
-        <div class="col-md-12 col-lg-5">
+        <div class="col-md-12 col-lg-5 invisible">
             <!-- ASSET -->
             <div class="row">
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Asset</label>
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div class="form-group d-flex" style="gap: 10%;">
                         <div class="custom-control custom-radio">
-                            <input class="custom-control-input" type="radio" id="asset_no" name="asset" value="no" onclick="assetValue(this)">
+                            <input class="custom-control-input" type="radio" id="asset_no" name="asset" value="no" checked onclick="assetValue(this)">
                             <label for="asset_no" class="custom-control-label" style="padding-top: 35%;">No</label>
                         </div>
                         <div class="custom-control custom-radio">
