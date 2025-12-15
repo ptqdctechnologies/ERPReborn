@@ -14,7 +14,7 @@ namespace App\Http\Helpers\ZhtHelper\BackEnd\Database
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
     | ▪ Class Name  : Helper_MySQL                                                                                                 |
-    | ▪ Description : Menangani segala hal yang terkait Active Directory dari Aplikasi                                             |
+    | ▪ Description : Menangani segala hal yang terkait Database MySQL                                                             |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
     class Helper_MySQL

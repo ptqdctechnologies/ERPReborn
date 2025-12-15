@@ -25,6 +25,7 @@ sudo dnf -y install docker-compose;
 ./BashScript/Script.Docker.BuildPermanentStorage.LocalStorage.sh;
 ./BashScript/Script.Docker.BuildPermanentStorage.MinIO.sh;
 ./BashScript/Script.Docker.BuildPermanentStorage.PHPApacheBackEnd.sh;
+./BashScript/Script.Docker.BuildPermanentStorage.PHPBackEnd_LaravelOctane_FrankenPHP.sh
 ./BashScript/Script.Docker.BuildPermanentStorage.Samba.sh;
 ./BashScript/Script.Docker.BuildPermanentStorage.OpenProject.sh;
 ./BashScript/Script.Docker.BuildPermanentStorage.Grafana.sh;
@@ -42,6 +43,7 @@ sudo dnf -y install docker-compose;
 ./BashScript/Script.Docker.BuildImage.MinIO.sh;
 ./BashScript/Script.Docker.BuildImage.PHPApacheBackEnd.sh;
 ./BashScript/Script.Docker.BuildImage.PHPApacheFrontEnd.sh;
+./BashScript/Script.Docker.BuildImage.PHPBackEnd_LaravelOctane_FrankenPHP.sh;
 ./BashScript/Script.Docker.BuildImage.PGAdmin4.sh;
 ./BashScript/Script.Docker.BuildImage.OpenProject.sh;
 ./BashScript/Script.Docker.BuildImage.Grafana.sh;

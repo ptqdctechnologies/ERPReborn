@@ -10,6 +10,7 @@
         "dragonmantank/cron-expression": "^3.6",
         "elibyy/tcpdf-laravel": "^11.5",
         "guzzlehttp/guzzle": "^7.10",
+        "illuminate/contracts": "*",
         "intervention/httpauth": "^5.0",
         "laravel/framework": "^12.0",
         "laravel/octane": "^2.13",
@@ -20,8 +21,12 @@
         "league/flysystem": "^3.30",
         "league/flysystem-aws-s3-v3": "^3.30",
         "maatwebsite/excel": "^3.1",
+        "monolog/monolog": "*",
         "ncjoes/office-converter": "^1.0",
+        "nesbot/carbon": "^3.11",
+        "nunomaduro/collision": "^8.8",
         "predis/predis": "^3.3",
+        "runtime/frankenphp-symfony": "^0.2.0",
         "spatie/laravel-ignition": "^2.9",
         "swaggest/json-schema": "^0.12.43",
         "symfony/console": "^7.4",
@@ -40,7 +45,6 @@
         "laravel/pint": "^1.24",
         "laravel/sail": "^1.41",
         "mockery/mockery": "^1.6",
-        "nunomaduro/collision": "^8.6",
         "phpunit/phpunit": "^11.5.3"
     },
     "autoload": {
@@ -111,7 +115,8 @@
         "sort-packages": true,
         "allow-plugins": {
             "pestphp/pest-plugin": true,
-            "php-http/discovery": true
+            "php-http/discovery": true,
+            "symfony/runtime": true
         }
     },
     "minimum-stability": "stable",

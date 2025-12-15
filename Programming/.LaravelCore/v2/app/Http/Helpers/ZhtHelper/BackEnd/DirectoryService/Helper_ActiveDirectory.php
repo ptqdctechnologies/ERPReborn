@@ -14,7 +14,7 @@ namespace App\Http\Helpers\ZhtHelper\BackEnd\DirectoryService
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
     | ▪ Class Name  : Helper_ActiveDirectory                                                                                       |
-    | ▪ Description : Menangani segala hal yang terkait Active Directory dari Aplikasi                                             |
+    | ▪ Description : Menangani segala hal yang terkait Active Directory                                                           |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
     class Helper_ActiveDirectory

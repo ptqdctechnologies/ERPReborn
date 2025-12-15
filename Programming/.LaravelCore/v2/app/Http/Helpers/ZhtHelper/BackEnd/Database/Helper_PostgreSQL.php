@@ -14,7 +14,7 @@ namespace App\Http\Helpers\ZhtHelper\BackEnd\Database
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
     | ▪ Class Name  : Helper_PostgreSQL                                                                                            |
-    | ▪ Description : Menangani segala hal yang terkait Active Directory dari Aplikasi                                             |
+    | ▪ Description : Menangani segala hal yang terkait Database PostgreSQL                                                        |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
     class Helper_PostgreSQL

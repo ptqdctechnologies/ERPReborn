@@ -3,18 +3,18 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : Laravel Helpers                                                                                                   |
-| ▪ Name Space : \App\Http\Helpers\ZhtHelper\BackEnd\Database                                                                      |
+| ▪ Name Space : \App\Http\Helpers\ZhtHelper\BackEnd\Cache                                                                         |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2025 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 
-namespace App\Http\Helpers\ZhtHelper\BackEnd\Database
+namespace App\Http\Helpers\ZhtHelper\BackEnd\Cache
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
     | ▪ Class Name  : Helper_Redis                                                                                                 |
-    | ▪ Description : Menangani segala hal yang terkait Active Directory dari Aplikasi                                             |
+    | ▪ Description : Menangani segala hal yang terkait Cache Redis                                                                |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
     class Helper_Redis

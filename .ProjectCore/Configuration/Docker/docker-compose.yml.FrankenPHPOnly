@@ -1,0 +1,89 @@
+#---> Docker Services
+services:
+
+  #---> Services : PHP BackEnd Laravel Octane FrankenPHP
+  php-backend-franken:
+    container_name: 'php-backend-frankenPHP'
+    image: 'erp-reborn-php-backend-laraveloctane-frankenphp'
+    build:
+      context: '.'
+      dockerfile: './.ProjectCore/Configuration/Docker/PHPBackEnd_LaravelOctane_FrankenPHP/Dockerfile'
+    restart: 'unless-stopped'
+    tty: 'true'
+    ports:
+      - '50080:80'
+      - '50443:443'
+    networks:
+      app-network:
+        ipv4_address: '172.28.0.30'
+    volumes:
+      - './.ProjectCore/PermanentStorage/PHPBackEnd_LaravelOctane_FrankenPHP/root/.bash_history:/root/.bash_history'
+      - './.ProjectCore/Configuration/Docker/PHPBackEnd_LaravelOctane_FrankenPHP/System/etc/frankenphp/Caddyfile:/etc/frankenphp/Caddyfile'
+      - './.ProjectCore/Configuration/Docker/PHPBackEnd_LaravelOctane_FrankenPHP/System/etc/caddy/Caddyfile:/etc/caddy/Caddyfile'
+      - './.ProjectCore/Configuration/Docker/PHPBackEnd_LaravelOctane_FrankenPHP/System/zhtConf/dataVolume/caddyData:/data'
+      - './.ProjectCore/Configuration/Docker/PHPBackEnd_LaravelOctane_FrankenPHP/System/zhtConf/dataVolume/caddyConfig:/config'
+      - './Programming/.LaravelCore:/var/www/html/.LaravelCore'
+      - './Programming/WebBackEnd_LaravelOctane_FrankenPHP:/var/www/html/WebBackEnd'
+      - './.ProjectCore/Configuration/Docker/PHPBackEnd_LaravelOctane_FrankenPHP/System/usr/local/etc/php/php.ini-development:/usr/local/etc/php/php.ini'
+    environment:
+      SERVER_NAME: ':80'
+      SERVER_ROOT: '/var/www/html/WebBackEnd'
+      #FRANKENPHP_CONFIG: 'worker ./public/index.php --num 8 --watch="/var/www/html/WebBackEnd/app/**/*.php" --max_consecutive_failures 20'
+      APP_RUNTIME: 'Runtime\\FrankenPhpSymfony\\Runtime'
+    working_dir: '/var/www/html/WebBackEnd'
+    command: 'php artisan octane:frankenphp --workers=8 --caddyfile="/var/www/html/WebBackEnd/Caddyfile" --max-requests=1000 --watch'
+    #command: 'php artisan octane:frankenphp --workers=8 --caddyfile="/etc/frankenphp/Caddyfile"'
+
+#---> Docker Volumes
+volumes:
+  volume-mysql:
+    external: true
+  volume-percona:
+    external: true
+  volume-postgresql:
+    external: true
+  volume-pgadmin4:
+    external: true
+  volume-redis:
+    external: true
+  volume-minio-node01-disk01:
+    external: true
+#  volume-minio-node01-disk02:
+#    external: true
+#  volume-minio-node01-disk03:
+#    external: true
+#  volume-minio-node01-disk04:
+#    external: true
+  volume-minio-node02-disk01:
+    external: true
+#  volume-minio-node02-disk02:
+#    external: true
+#  volume-minio-node02-disk03:
+#   external: true
+#  volume-minio-node02-disk04:
+#    external: true
+  volume-minio-node03-disk01:
+    external: true
+#  volume-minio-node03-disk02:
+#    external: true
+#  volume-minio-node03-disk03:
+#    external: true
+#  volume-minio-node03-disk04:
+#    external: true
+  volume-minio-node04-disk01:
+    external: true
+#  volume-minio-node04-disk02:
+#    external: true
+#  volume-minio-node04-disk03:
+#    external: true
+#  volume-minio-node04-disk04:
+#    external: true
+
+
+#---> Docker Networks
+networks:
+  app-network:
+    ipam:
+      driver: 'default'
+      config:
+       - subnet: '172.28.0.0/16'
