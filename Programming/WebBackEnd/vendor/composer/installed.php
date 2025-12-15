@@ -20,9 +20,9 @@
             'dev_requirement' => false,
         ),
         'aws/aws-sdk-php' => array(
-            'pretty_version' => '3.367.0',
-            'version' => '3.367.0.0',
-            'reference' => '6ce549c3efe117e76f1f878ae8463d95b838ef9d',
+            'pretty_version' => '3.367.2',
+            'version' => '3.367.2.0',
+            'reference' => '3dc26d6f26a4d6380d82b2be4d8ae80fefb23d71',
             'type' => 'library',
             'install_path' => __DIR__ . '/../aws/aws-sdk-php',
             'aliases' => array(),
@@ -993,9 +993,9 @@
             ),
         ),
         'psy/psysh' => array(
-            'pretty_version' => 'v0.12.16',
-            'version' => '0.12.16.0',
-            'reference' => 'ee6d5028be4774f56c6c2c85ec4e6bc9acfe6b67',
+            'pretty_version' => 'v0.12.17',
+            'version' => '0.12.17.0',
+            'reference' => '85fbbd9f3064e157fc21fe4362b2b5c19f2ea631',
             'type' => 'library',
             'install_path' => __DIR__ . '/../psy/psysh',
             'aliases' => array(),
@@ -1020,9 +1020,9 @@
             'dev_requirement' => false,
         ),
         'ramsey/uuid' => array(
-            'pretty_version' => '4.9.1',
-            'version' => '4.9.1.0',
-            'reference' => '81f941f6f729b1e3ceea61d9d014f8b6c6800440',
+            'pretty_version' => '4.9.2',
+            'version' => '4.9.2.0',
+            'reference' => '8429c78ca35a09f27565311b98101e2826affde0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../ramsey/uuid',
             'aliases' => array(),
@@ -1031,7 +1031,7 @@
         'rhumsaa/uuid' => array(
             'dev_requirement' => false,
             'replaced' => array(
-                0 => '4.9.1',
+                0 => '4.9.2',
             ),
         ),
         'sebastian/cli-parser' => array(
@@ -1266,9 +1266,9 @@
             'dev_requirement' => false,
         ),
         'symfony/css-selector' => array(
-            'pretty_version' => 'v7.4.0',
-            'version' => '7.4.0.0',
-            'reference' => 'ab862f478513e7ca2fe9ec117a6f01a8da6e1135',
+            'pretty_version' => 'v8.0.0',
+            'version' => '8.0.0.0',
+            'reference' => '6225bd458c53ecdee056214cb4a2ffaf58bd592b',
             'type' => 'library',
             'install_path' => __DIR__ . '/../symfony/css-selector',
             'aliases' => array(),
@@ -1611,9 +1611,9 @@
             'dev_requirement' => true,
         ),
         'tijsverkoyen/css-to-inline-styles' => array(
-            'pretty_version' => 'v2.3.0',
-            'version' => '2.3.0.0',
-            'reference' => '0d72ac1c00084279c1816675284073c5a337c20d',
+            'pretty_version' => 'v2.4.0',
+            'version' => '2.4.0.0',
+            'reference' => 'f0292ccf0ec75843d65027214426b6b163b48b41',
             'type' => 'library',
             'install_path' => __DIR__ . '/../tijsverkoyen/css-to-inline-styles',
             'aliases' => array(),
