@@ -137,6 +137,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::post('revisionSupplier', 'Register\SupplierController@revisionSupplier')->name('supplier.revisionSupplier');
     // Budget
     Route::get('ModifyBudget', 'Budget\BudgetController@ModifyBudget')->name('Budget.ModifyBudget');
+    Route::post('RevisionBudget', 'Budget\BudgetController@RevisionBudget')->name('Budget.RevisionBudget');
     Route::post('PreviewModifyBudget', 'Budget\BudgetController@PreviewModifyBudget')->name('Budget.PreviewModifyBudget');
     Route::post('ModifyBudget', 'Budget\BudgetController@ModifyBudgetPost')->name('Budget.ModifyBudgetPost');
     Route::get('ReportModifyBudgetSummary', 'Budget\BudgetController@ReportModifyBudgetSummary')->name('Budget.ReportModifyBudgetSummary');

@@ -7,6 +7,7 @@
 @include('getFunction.getWorks')
 @include('getFunction.getProductss')
 @include('getFunction.getCurrencies')
+@include('Budget.Budget.Functions.PopUp.PopUpBudgetRevision')
 
 <div class="content-wrapper">
     <section class="content">

@@ -57,16 +57,37 @@ class BudgetController extends Controller
     {
         $var                = $request->query('var', 0);
         $varAPIWebToken     = Session::get('SessionLogin');
-        // $documentTypeRefID  = $this->GetBusinessDocumentsTypeFromRedis('Sales Order Form');
+        $documentTypeRefID  = $this->GetBusinessDocumentsTypeFromRedis('Budget Form');
 
         return view('Budget.Budget.Transactions.CreateBudget', [
             'var'                   => $var,
             'varAPIWebToken'        => $varAPIWebToken,
-            // 'documentType_RefID'    => $documentTypeRefID
+            'documentType_RefID'    => $documentTypeRefID
         ]);
     }
 
-    public function ModifyBudget(Request $request) {
+    public function RevisionBudget(Request $request)
+    {
+        try {
+            $varAPIWebToken     = Session::get('SessionLogin');
+            $loanRefID          = $request->input('modal_budget_id');
+            $documentTypeRefID  = $this->GetBusinessDocumentsTypeFromRedis('Budget Revision Form');
+
+            $compact = [
+                'varAPIWebToken'            => $varAPIWebToken,
+                'documentTypeRefID'         => $documentTypeRefID,
+            ];
+
+            return view('Budget.Budget.Transactions.RevisionBudget', $compact);
+        } catch (\Throwable $th) {
+            Log::error("Revision Budget Function Error: " . $th->getMessage());
+
+            return redirect()->route('Budget.index', ['var' => 1])->with('NotFound', 'Process Error');
+        }
+    }
+
+    public function ModifyBudget(Request $request) 
+    {
         $varAPIWebToken = $request->session()->get('SessionLogin');
 
         // dd($varAPIWebToken);
@@ -78,7 +99,8 @@ class BudgetController extends Controller
         return view('Budget.Budget.Transactions.ModifyBudget', $compact);
     }
 
-    public function ModifyBudgetPost(Request $request) {
+    public function ModifyBudgetPost(Request $request) 
+    {
         try {
             $varAPIWebToken     = $request->session()->get('SessionLogin');
 
@@ -114,7 +136,8 @@ class BudgetController extends Controller
         }
     }
 
-    public function PreviewModifyBudget(Request $request) {
+    public function PreviewModifyBudget(Request $request) 
+    {
         try {
             $varAPIWebToken         = $request->session()->get('SessionLogin');
             $PIC                    = $request->session()->get("SessionLoginName");
@@ -478,7 +501,8 @@ class BudgetController extends Controller
         }
     }
 
-    public function PrintExportReportModifyBudgetDetail(Request $request) {
+    public function PrintExportReportModifyBudgetDetail(Request $request) 
+    {
         try {
             $dataReport = Cache::get('dataReportModifyBudgetDetail');
 
