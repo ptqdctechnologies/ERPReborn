@@ -289,20 +289,6 @@ class Controller extends BaseController
         }
     }
 
-    // public function FunctionResetRedisAdvance()
-    // {
-    //     try {
-    //         Redis::del("DataListAdvance");
-    //         Redis::del("DataListAdvanceDetailComplex");
-    //         Redis::del("ReportAdvanceSummary");
-
-    //         return true;
-    //     } catch (\Throwable $th) {
-    //         Log::error("Error at " . $th->getMessage());
-    //         return redirect()->back()->with('NotFound', 'Process Error');
-    //     }
-    // }
-
     public function FunctionResetRedisDocumentApproval($nextApprover_RefID, $businessDocument_RefID)
     {
         try {
@@ -414,5 +400,50 @@ class Controller extends BaseController
         } 
         
         return $existingRedisData;
+    }
+
+    public function GetWorkflow(Request $request) 
+    {
+        try {
+            $varAPIWebToken             = Session::get('SessionLogin');
+            $workerCareerInternalRefID  = Session::get('SessionWorkerCareerInternal_RefID');
+            $businessDocumentTypeRefID  = $request->businessDocumentType_RefID;
+            $combinedBudgetRefID        = $request->combinedBudget_RefID;
+
+            $response = Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken,
+                'userAction.documentWorkFlow.general.getBusinessDocumentTypeWorkFlowPathBySubmitterEntityIDAndCombinedBudgetID',
+                'latest',
+                [
+                    'parameter' => [
+                        'businessDocumentType_RefID'    => (int) $businessDocumentTypeRefID,
+                        'submitterEntity_RefID'         => (int) $workerCareerInternalRefID,
+                        'combinedBudget_RefID'          => (int) $combinedBudgetRefID
+                    ]
+                ],
+                false
+            );
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                throw new \Exception('Failed to fetch Business Document Type WorkFlow Path By Submitter EntityID And CombinedBudgetID');
+            }
+
+            $compact = [
+                'status'    => $response['metadata']['HTTPStatusCode'],
+                'data'      => $response['data']
+            ];
+
+            return response()->json($compact);
+        } catch (\Throwable $th) {
+            Log::error("Get Workflow Function Error " . $th->getMessage());
+
+            $compact = [
+                'status'    => 500,
+                'data'      => []
+            ];
+
+            return response()->json($compact);
+        }
     }
 }

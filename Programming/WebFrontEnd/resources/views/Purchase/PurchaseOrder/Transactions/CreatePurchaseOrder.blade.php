@@ -26,7 +26,7 @@
         <div class="card">
           <form method="post" action="{{ route('SelectWorkFlow') }}" id="FormSubmitPurchaseOrder">
           @csrf
-            <input type="hidden" name="DocumentTypeID" id="DocumentTypeID">
+            <input type="hidden" name="DocumentTypeID" id="DocumentTypeID" value="<?= $documentType_RefID; ?>">
             <input type="hidden" name="var_combinedBudget_RefID" id="var_combinedBudget_RefID">
             <input type="hidden" name="tariffCurrencyValue" id="tariffCurrencyValue">
 

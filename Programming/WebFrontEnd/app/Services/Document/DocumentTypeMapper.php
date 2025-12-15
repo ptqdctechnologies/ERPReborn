@@ -320,7 +320,7 @@ class DocumentTypeMapper
                     'landingRate'   => 20000.32,
                     'totalRate'     => 30233.94,
                     'loanTerm'      => '-',
-                    'COA'           => 50234.26,
+                    'COA'           => '100021 - Bank',
                 ],
                 'textAreaFields'    => [
                     'title'         => 'Notes',

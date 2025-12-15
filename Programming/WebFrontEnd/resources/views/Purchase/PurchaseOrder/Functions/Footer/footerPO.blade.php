@@ -423,6 +423,8 @@
     function getDetailPurchaseRequisition(purchase_requisition_number, purchase_requisition_id) {
         $("#tablePurchaseOrderDetail tbody").hide();
         $(".loadingPurchaseOrderTable").show();
+        $("#loading_workflow").show();
+        $("#purchaseRequisitionTrigger").hide();
 
         $.ajaxSetup({
             headers: {
@@ -441,11 +443,16 @@
                         var checkWorkFlow = await checkingWorkflow(data[0].combinedBudget_RefID, documentTypeID.value);
 
                         if (!checkWorkFlow) {
+                            $("#purchaseRequisitionTrigger").show();
+                            $("#loading_workflow").hide();
                             $(".loadingPurchaseOrderTable").hide();
                             return;
                         }
                     }
 
+                    $("#purchaseRequisitionTrigger").show();
+                    $("#loading_workflow").hide();
+                    $("#purchaseRequisitionTrigger").show();
                     $(".loadingPurchaseOrderTable").hide();
                     $("#tablePurchaseOrderDetail tbody").show();
 
@@ -776,7 +783,6 @@
     $(window).one('load', function(e) {
         getPaymentTerm();
         getVAT();
-        getDocumentType("Purchase Order Form");
 
         $('#containerValuePPN').hide();
         $(".loadingPurchaseOrderTable").hide();

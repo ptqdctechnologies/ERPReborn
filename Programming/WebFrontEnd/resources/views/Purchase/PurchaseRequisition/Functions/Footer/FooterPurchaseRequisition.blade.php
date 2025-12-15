@@ -1,9 +1,19 @@
 <script>
     let dataStore                   = [];
+    let totalNextApprover           = 0;
+    let dataWorkflow                = {
+        workFlowPathRefID: null,
+        approverEntityRefID: null,
+        comment: null
+    };
+    const documentTypeID            = document.getElementById("DocumentTypeID");
     const budgetCode                = document.getElementById("project_code_second");
     const siteCode                  = document.getElementById("site_code_second");
+    const deliverID                 = document.getElementById("deliver_RefID");
     const deliverCode               = document.getElementById("deliverCode");
     const dateDelivery              = document.getElementById("dateCommance");
+    const notes                     = document.getElementById("notes");
+    const fileID                    = document.getElementById("dataInput_Log_FileUpload");
 
     function checkOneLineBudgetContents(indexInput) {
         const rows = document.querySelectorAll("#tableGetBudgetDetails tbody tr");
@@ -485,35 +495,7 @@
         });
     }
 
-    function SelectWorkFlow(formatData) {
-        const swalWithBootstrapButtons = Swal.mixin({
-            confirmButtonClass: 'btn btn-success btn-sm',
-            cancelButtonClass: 'btn btn-danger btn-sm',
-            buttonsStyling: true,
-        });
-
-        swalWithBootstrapButtons.fire({
-            title: 'Comment',
-            text: "Please write your comment here",
-            type: 'question',
-            input: 'textarea',
-            showCloseButton: false,
-            showCancelButton: true,
-            focusConfirm: false,
-            cancelButtonText: '<span style="color:black;"> Cancel </span>',
-            confirmButtonText: '<span style="color:black;"> OK </span>',
-            cancelButtonColor: '#DDDAD0',
-            confirmButtonColor: '#DDDAD0',
-            reverseButtons: true
-        }).then((result) => {
-            if ('value' in result) {
-                ShowLoading();
-                PurchaseRequisitionStore({...formatData, comment: result.value});
-            }
-        });
-    }
-
-    function PurchaseRequisitionStore(formatData) {
+    function PurchaseRequisitionStore() {
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -522,10 +504,23 @@
 
         $.ajax({
             type: 'POST',
-            data: formatData,
+            data: {
+                workFlowPath_RefID: dataWorkflow.workFlowPathRefID,
+                approverEntity: dataWorkflow.approverEntityRefID, 
+                comment: dataWorkflow.comment,
+                storeData: {
+                    dataInput_Log_FileUpload_1: fileID.value,
+                    notes: notes.value,
+                    deliver_RefID: deliverID.value,
+                    dateCommance: dateDelivery.value,
+                    purchaseRequisitionDetail: JSON.stringify(dataStore)
+                }
+            },
             url: '{{ route("PurchaseRequisition.store") }}',
             success: function(res) {
                 HideLoading();
+
+                console.log('res', res);
 
                 if (res.status === 200) {
                     const swalWithBootstrapButtons = Swal.mixin({
@@ -559,68 +554,100 @@
         });
     }
 
-    function SubmitForm() {
-        $('#purchaseRequestFormModal').modal('hide');
+    function commentWorkflow() {
+        const swalWithBootstrapButtons = Swal.mixin({
+            confirmButtonClass: 'btn btn-success btn-sm',
+            cancelButtonClass: 'btn btn-danger btn-sm',
+            buttonsStyling: true,
+        });
 
-        let action = $('#FormSubmitPurchaseRequisition').attr("action");
-        let method = $('#FormSubmitPurchaseRequisition').attr("method");
-        let form_data = new FormData($('#FormSubmitPurchaseRequisition')[0]);
-        form_data.append('purchaseRequisitionDetail', JSON.stringify(dataStore));
-
-        ShowLoading();
-
-        $.ajax({
-            url: action,
-            dataType: 'json',
-            cache: false,
-            contentType: false,
-            processData: false,
-            data: form_data,
-            type: method,
-            success: function(response) {
-                HideLoading();
-
-                if (response.message == "WorkflowError") {
-                    $("#submitPR").prop("disabled", false);
-                    CancelNotif("You don't have access", '/PurchaseRequisition?var=1');
-                } else if (response.message == "MoreThanOne") {
-                    $('#getWorkFlow').modal('toggle');
-
-                    let t = $('#tableGetWorkFlow').DataTable();
-                    t.clear();
-                    $.each(response.data, function(key, val) {
-                        t.row.add([
-                            '<td><span data-dismiss="modal" onclick="SelectWorkFlow(\'' + val.Sys_ID + '\', \'' + val.NextApprover_RefID + '\', \'' + response.approverEntity_RefID + '\', \'' + response.documentTypeID + '\');"><img src="{{ asset("AdminLTE-master/dist/img/add.png") }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></span></td>',
-                            '<td style="border:1px solid #e9ecef;">' + val.FullApproverPath + '</td></tr></tbody>'
-                        ]).draw();
-                    });
-                } else {
-                    const formatData = {
-                        workFlowPath_RefID: response.workFlowPath_RefID, 
-                        nextApprover: response.nextApprover_RefID, 
-                        approverEntity: response.approverEntity_RefID, 
-                        documentTypeID: response.documentTypeID,
-                        storeData: response.storeData
-                    };
-
-                    SelectWorkFlow(formatData);
-                }
-            },
-            error: function(response) {
-                console.log('response error', response);
-                
-                HideLoading();
-                $("#submitPR").prop("disabled", false);
-                CancelNotif("You don't have access", '/PurchaseRequisition?var=1');
+        swalWithBootstrapButtons.fire({
+            title: 'Comment',
+            text: "Please write your comment here",
+            type: 'question',
+            input: 'textarea',
+            showCloseButton: false,
+            showCancelButton: true,
+            focusConfirm: false,
+            cancelButtonText: '<span style="color:black;"> Cancel </span>',
+            confirmButtonText: '<span style="color:black;"> OK </span>',
+            cancelButtonColor: '#DDDAD0',
+            confirmButtonColor: '#DDDAD0',
+            reverseButtons: true
+        }).then((result) => {
+            if ('value' in result) {
+                dataWorkflow.comment = result.value;
+                ShowLoading();
+                PurchaseRequisitionStore();
             }
         });
     }
 
-    $('#tableProjects').on('click', 'tbody tr', async function() {
+    function SubmitForm() {
+        $('#purchaseRequestFormModal').modal('hide');
+
+        $('#purchaseRequestFormModal').on('hidden.bs.modal', function () {
+            if (totalNextApprover > 1) {
+                $('#myWorkflows').modal('show');
+            } else {
+                commentWorkflow();
+            }
+        });
+    }
+
+    function getWorkflow(combinedBudgetRefID, combinedBudgetCode, combinedBudgetName) {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: 'POST',
+            data: {
+                businessDocumentType_RefID: documentTypeID.value,
+                combinedBudget_RefID: combinedBudgetRefID
+            },
+            url: '{!! route("GetWorkflow") !!}',
+            success: function(response) {
+                if (response.status === 200) {
+                    totalNextApprover = response.data[0].nextApproverPath.length;
+                    dataWorkflow.workFlowPathRefID = response.data[0].sys_ID;
+                    dataWorkflow.approverEntityRefID = response.data[0].submitterEntity_RefID;
+
+                    getWorkflows(response.data[0].nextApproverPath);
+
+                    $("#var_combinedBudget_RefID").val(combinedBudgetRefID);
+                    $("#project_id_second").val(combinedBudgetRefID);
+                    $("#project_code_second").val(combinedBudgetCode);
+                    $("#project_name_second").val(`${combinedBudgetCode} - ${combinedBudgetName}`);
+                    $("#project_name_second").css({"background-color":"#e9ecef"});
+                    $("#myProjectSecondTrigger").prop("disabled", true);
+                    $("#myProjectSecondTrigger").css({"cursor":"not-allowed"});
+
+                    getSites(combinedBudgetRefID);
+                    $("#mySiteCodeSecondTrigger").prop("disabled", false);
+                } else {
+                    Swal.fire("Error", "Workflow Error", "error");
+                }
+
+                $("#loadingBudget").css({"display":"none"});
+                $("#myProjectSecondTrigger").css({"display":"block"});
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.log('jqXHR, textStatus, errorThrown', jqXHR, textStatus, errorThrown);
+                Swal.fire("Error", "Data Error", "error");
+
+                $("#loadingBudget").css({"display":"none"});
+                $("#myProjectSecondTrigger").css({"display":"block"});
+            }
+        });
+    }
+
+    $('#tableProjects').on('click', 'tbody tr', function() {
         let sysId           = $(this).find('input[data-trigger="sys_id_project"]').val();
         let projectCode     = $(this).find('td:nth-child(2)').text();
         let projectName     = $(this).find('td:nth-child(3)').text();
-        let documentTypeID  = $("#DocumentTypeID").val();
 
         $("#project_id_second").val("");
         $("#project_code_second").val("");
@@ -632,32 +659,46 @@
         $("#loadingBudget").css({"display":"block"});
         $("#myProjectSecondTrigger").css({"display":"none"});
 
-        $('#myProjects').modal('hide');
+        getWorkflow(sysId, projectCode, projectName);
 
-        try {
-            let checkWorkFlow = await checkingWorkflow(sysId, documentTypeID);
+        $("#myProjects").modal('toggle');
 
-            if (checkWorkFlow) {
-                $("#project_id_second").val(sysId);
-                $("#project_code_second").val(projectCode);
-                $("#project_name_second").val(`${projectCode} - ${projectName}`);
-                $("#myProjectSecondTrigger").prop("disabled", true);
-                $("#myProjectSecondTrigger").css("cursor", "not-allowed");
-                $("#project_name_second").css("background-color", "#e9ecef");
+        // $("#project_id_second").val("");
+        // $("#project_code_second").val("");
+        // $("#project_name_second").val("");
 
-                $("#var_combinedBudget_RefID").val(sysId);
+        // $("#project_code_second").css("border", "1px solid #ced4da");
+        // $("#project_name_second").css("border", "1px solid #ced4da");
+        // $("#budgetMessage").hide();
+        // $("#loadingBudget").css({"display":"block"});
+        // $("#myProjectSecondTrigger").css({"display":"none"});
 
-                getSites(sysId);
-                $("#mySiteCodeSecondTrigger").prop("disabled", false);
-            }
+        // $('#myProjects').modal('hide');
 
-            $("#loadingBudget").css({"display":"none"});
-            $("#myProjectSecondTrigger").css({"display":"block"});
-        } catch (error) {
-            console.error('Error checking workflow:', error);
+        // try {
+        //     let checkWorkFlow = await checkingWorkflow(sysId, documentTypeID);
 
-            Swal.fire("Error", "Error Checking Workflow", "error");
-        }
+        //     if (checkWorkFlow) {
+        //         $("#project_id_second").val(sysId);
+        //         $("#project_code_second").val(projectCode);
+        //         $("#project_name_second").val(`${projectCode} - ${projectName}`);
+        //         $("#myProjectSecondTrigger").prop("disabled", true);
+        //         $("#myProjectSecondTrigger").css("cursor", "not-allowed");
+        //         $("#project_name_second").css("background-color", "#e9ecef");
+
+        //         $("#var_combinedBudget_RefID").val(sysId);
+
+        //         getSites(sysId);
+        //         $("#mySiteCodeSecondTrigger").prop("disabled", false);
+        //     }
+
+        //     $("#loadingBudget").css({"display":"none"});
+        //     $("#myProjectSecondTrigger").css({"display":"block"});
+        // } catch (error) {
+        //     console.error('Error checking workflow:', error);
+
+        //     Swal.fire("Error", "Error Checking Workflow", "error");
+        // }
     });
 
     $('#tableSites').on('click', 'tbody tr', function() {
@@ -707,6 +748,22 @@
 
     $('#dateCommance').on('keyup', function() {
         $("#dateCommance").val("");
+    });
+
+    $('#tableWorkflows').on('click', 'tbody tr', function() {
+        const sysId             = $(this).find('input[data-trigger="sys_id_approver"]').val();
+        const workflowName      = $(this).find('td:nth-child(2)').text();
+        const workflowPosition  = $(this).find('td:nth-child(3)').text();
+
+        // dataWorkflow.approverEntityRefID = sysId;
+
+        $("#myWorkflows").modal('toggle');
+
+        $('#myWorkflows').on('hidden.bs.modal', function () {
+            commentWorkflow();
+        });
+
+        // console.log('dataWorkflow', dataWorkflow);
     });
 
     $(document).on('input', '.number-without-negative', function() {

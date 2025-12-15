@@ -11,9 +11,13 @@
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div>
                         <span style="border-radius:0;" class="input-group-text form-control">
-                            <a href="javascript:;" id="deliveryOrderTrigger" data-toggle="modal" data-target="#myDeliveryOrder" style="display: block;">
-                                <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="deliveryOrderTrigger">
+                            <a href="javascript:;" id="delivery_order_trigger" data-toggle="modal" data-target="#myDeliveryOrder" style="display: block;">
+                                <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="delivery_order_trigger">
                             </a>
+
+                            <div id="delivery_order_loading" class="spinner-border spinner-border-sm" role="status" style="display: none;">
+                                <span class="sr-only">Loading...</span>
+                            </div>
                         </span>
                     </div>
                     <div>

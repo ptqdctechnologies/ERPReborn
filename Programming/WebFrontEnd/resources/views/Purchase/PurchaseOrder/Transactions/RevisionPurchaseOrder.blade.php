@@ -23,14 +23,37 @@
       <div class="card">
         <form method="post" action="{{ route('SelectWorkFlow') }}" id="FormSubmitRevisionPurchaseOrder">
         @csrf
-          <input type="hidden" name="DocumentTypeID" id="DocumentTypeID" />
+          <input type="hidden" name="DocumentTypeID" id="DocumentTypeID" value="<?= $documentTypeRefID; ?>" />
           <input type="hidden" name="var_combinedBudget_RefID" id="var_combinedBudget_RefID" value="<?= $header['budgetID']; ?>" />
           <input type="hidden" name="purchaseOrderRecord_RefID" id="purchaseOrderRecord_RefID" />
           <input type="hidden" name="tariffCurrencyValue" id="tariffCurrencyValue" />
           <input type="hidden" name="transactionTaxDetail_RefID" id="transactionTaxDetail_RefID" value="<?= $header['transactionTaxDetailRefID']; ?>" />
 
-          <!-- PURCHASE ORDER DETAIL -->
+          <!-- PURCHASE ORDER -->
           <div class="tab-content px-3 pt-4 pb-2" id="nav-tabContent">
+            <div class="row">
+              <div class="col-12">
+                <div class="card">
+                  <!-- HEADER -->
+                  <div class="card-header">
+                    <label class="card-title">
+                      Purchase Order
+                    </label>
+                    <div class="card-tools">
+                      <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                        <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
+                      </button>
+                    </div>
+                  </div>
+
+                  @include('Purchase.PurchaseOrder.Functions.Header.headerPO2Revision')
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- PURCHASE ORDER DETAIL -->
+          <div class="tab-content px-3 pb-2" id="nav-tabContent">
             <div class="row">
               <div class="col-12">
                 <div class="card">
@@ -46,7 +69,7 @@
                     </div>
                   </div>
 
-                  @include('Purchase.PurchaseOrder.Functions.Header.headerPORevision')
+                  @include('Purchase.PurchaseOrder.Functions.Table.tableRevisionPRDetail')
                 </div>
               </div>
             </div>
@@ -98,29 +121,6 @@
             </div>
           </div>
 
-          <!-- PURCHASE ORDER -->
-          <div class="tab-content px-3 pb-2" id="nav-tabContent">
-            <div class="row">
-              <div class="col-12">
-                <div class="card">
-                  <!-- HEADER -->
-                  <div class="card-header">
-                    <label class="card-title">
-                      Purchase Order
-                    </label>
-                    <div class="card-tools">
-                      <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                        <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
-                      </button>
-                    </div>
-                  </div>
-
-                  @include('Purchase.PurchaseOrder.Functions.Header.headerPO2Revision')
-                </div>
-              </div>
-            </div>
-          </div>
-
           <!-- PURCHASE ORDER DETAIL -->
           <div class="tab-content px-3 pb-2" id="nav-tabContent">
             <div class="row">
@@ -138,7 +138,7 @@
                     </div>
                   </div>
 
-                  @include('Purchase.PurchaseOrder.Functions.Table.tableRevisionPRDetail')
+                  @include('Purchase.PurchaseOrder.Functions.Header.headerPORevision')
                 </div>
               </div>
             </div>

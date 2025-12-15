@@ -251,7 +251,8 @@ class MaterialReceiveController extends Controller
         }
     }
 
-    public function PrintExportReportMatReceivetoMatReturn(Request $request) {
+    public function PrintExportReportMatReceivetoMatReturn(Request $request) 
+    {
         try {
             $dataReport = Session::get("dataReportMaterialReturn");
 
@@ -302,9 +303,8 @@ class MaterialReceiveController extends Controller
         return view('Inventory.MaterialReceive.Reports.ReportMaterialReceiveSummary', $compact);
     }
 
-    public function ReportMaterialReceiveSummaryData( $project_code){
-        
-            
+    public function ReportMaterialReceiveSummaryData( $project_code)
+    {
         try {
             // Log::error("Error at ",[$project_code]);
 
@@ -415,23 +415,15 @@ class MaterialReceiveController extends Controller
 
     public function index(Request $request)
     {
+        $var                = $request->query('var', 0);
+        $varAPIWebToken     = Session::get('SessionLogin');
+        $documentTypeRefID  = $this->GetBusinessDocumentsTypeFromRedis('Warehouse Inbound Order Form');
 
-        $varAPIWebToken = $request->session()->get('SessionLogin');
-        $request->session()->forget("SessionMaterialReceive");
-
-        $var = 0;
-        if (!empty($_GET['var'])) {
-            $var =  $_GET['var'];
-        }
-        $compact = [
-            'var' => $var,
-            'varAPIWebToken' => $varAPIWebToken,
-            'statusAdvanceRevisi' => 0,
-            'statusPrRevisi' => 0,
-            'statusPr' => 0,
-            'statusRevisi' => 0,
-        ];
-        return view('Inventory.MaterialReceive.Transactions.CreateMaterialReceive', $compact);
+        return view('Inventory.MaterialReceive.Transactions.CreateMaterialReceive', [
+            'var'                   => $var,
+            'varAPIWebToken'        => $varAPIWebToken,
+            'documentType_RefID'    => $documentTypeRefID
+        ]);
     }
 
     public function store(Request $request)
@@ -634,8 +626,6 @@ class MaterialReceiveController extends Controller
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }
-
-    
 
     public function SearchDeliveryOrder(Request $request)
     {

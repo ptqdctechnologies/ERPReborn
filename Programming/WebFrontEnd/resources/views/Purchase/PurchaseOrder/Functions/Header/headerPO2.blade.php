@@ -11,6 +11,10 @@
               <a href="javascript:;" id="purchaseRequisitionTrigger" data-toggle="modal" data-target="#purchaseRequisitionModal" style="display: block;">
                 <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="purchaseRequisitionTrigger">
               </a>
+
+              <div id="loading_workflow" class="spinner-border spinner-border-sm" role="status" style="display: none;">
+                <span class="sr-only">Loading...</span>
+              </div>
             </span>
           </div>
           <div style="flex: 100%;">

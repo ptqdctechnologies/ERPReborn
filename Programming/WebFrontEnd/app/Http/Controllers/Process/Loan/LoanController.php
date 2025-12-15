@@ -63,7 +63,49 @@ class LoanController extends Controller
 
     public function RevisionLoan(Request $request)
     {
-        
+        try {
+            $varAPIWebToken     = Session::get('SessionLogin');
+            $loanRefID          = $request->input('modal_loan_id');
+            $documentTypeRefID  = $this->GetBusinessDocumentsTypeFromRedis('Loan Form');
+
+            $response = $this->loanService->getDetail($loanRefID);
+
+            if ($response['metadata']['HTTPStatusCode'] === 200) {
+                throw new \Exception('Failed to fetch Detail Loan');
+            }
+
+            $dataLoanDetail = $response['data']['data'];
+
+            $compact = [
+                'varAPIWebToken'            => $varAPIWebToken,
+                'documentTypeRefID'         => $documentTypeRefID,
+                'loanRefID'                 => '',
+                'header'                    => [
+                    'combinedBudgetRefID'   => '',
+                    'creditorRefID'         => $dataLoanDetail[0]['Creditor_RefID'] ?? '',
+                    'creditorName'          => $dataLoanDetail[0]['CreditorName'] ?? '',
+                    'debitorRefID'          => $dataLoanDetail[0]['Debitor_RefID'] ?? '',
+                    'debitorName'           => $dataLoanDetail[0]['DebitorName'] ?? '',
+                    'currencyRefID'         => $dataLoanDetail[0]['Currency_RefID'] ?? '',
+                    'currencyCode'          => $dataLoanDetail[0]['ISOCode'] ?? '',
+                    'currencyExchangeRate'  => $dataLoanDetail[0]['CurrencyExchangeRate'] ?? '',
+                    'principleLoan'         => $dataLoanDetail[0]['PrincipleLoan'] ?? '',
+                    'lendingRate'           => $dataLoanDetail[0]['LendingRate'] ?? '',
+                    'remark'                => $dataLoanDetail[0]['Notes'] ?? '',
+                    'coaName'               => $dataLoanDetail[0]['COA_Name'] ?? '',
+                    'coaCode'               => $dataLoanDetail[0]['COA_Code'] ?? '',
+                ]
+            ];
+
+            return view('Process.Loan.Transactions.RevisionLoan', [
+                'varAPIWebToken'        => $varAPIWebToken,
+                'documentType_RefID'    => $documentTypeRefID
+            ]);
+        } catch (\Throwable $th) {
+            Log::error("Revision Loan Function Error: " . $th->getMessage());
+
+            return redirect()->route('Loan.index', ['var' => 1])->with('NotFound', 'Process Error');
+        }
     }
 
     public function ReportLoantoLoanSettlement(Request $request)

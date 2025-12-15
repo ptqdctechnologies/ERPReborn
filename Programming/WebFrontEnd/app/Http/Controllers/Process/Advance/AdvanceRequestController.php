@@ -241,123 +241,51 @@ class AdvanceRequestController extends Controller
 
     public function ReportAdvanceSummary(Request $request)
     {
-        try {
-            Session::put("AdvanceSummaryReportIsSubmit", "No");
-
-            $varAPIWebToken = Session::get('SessionLogin');
-
-            $compact = [
-                'varAPIWebToken' => $varAPIWebToken,
-                'statusRevisi' => 0,
-            ];
-
-            return view('Process.Advance.AdvanceRequest.Reports.ReportAdvanceSummary', $compact);
-        } catch (\Throwable $th) {
-            Log::error("Error at " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
-        }
+        return view('Process.Advance.AdvanceRequest.Reports.ReportAdvanceSummary');
     }
 
     public function ReportAdvanceSummaryStore(Request $request)
     {
         try {
-            $varAPIWebToken = Session::get('SessionLogin');
-            // if (Redis::get("ReportAdvanceSummary") == null) {
-                Helper_APICall::setCallAPIGateway(
-                    Helper_Environment::getUserSessionID_System(),
-                    $varAPIWebToken,
-                    'report.form.documentForm.finance.getReportAdvanceSummary',
-                    'latest',
-                    [
-                        'parameter' => [
-                            'dataFilter' => [
-                                'budgetID' => 1,
-                                'subBudgetID' => 1,
-                                'workID' => 1,
-                                'productID' => 1,
-                                'beneficiaryID' => 1,
-                            ]
-                        ]
-                    ],
-                    false
-                );
-            // }
+            $date           = $request->arfDate;
+            $requester      = $request->requester_id;
+            $beneficiary    = $request->requester_id;
+            $budget         = [
+                "id"        => $request->budget_id,
+                "code"      => $request->budget_code,
+            ];
+            $subBudget      = [
+                "id"        => $request->site_id,
+                "code"      => $request->site_code,
+            ];
 
-            $DataReportAdvanceSummary = json_decode(
-                Helper_Redis::getValue(
-                    Helper_Environment::getUserSessionID_System(),
-                    "ReportAdvanceSummary"
-                ),
-                true
+            $response = $this->advanceRequestService->getAdvanceSummary(
+                $budget['code'], 
+                $subBudget['code'], 
+                $requester,
+                $beneficiary,
+                $date
             );
 
-            $collection = collect($DataReportAdvanceSummary);
-
-            $project_id = $request->project_id;
-            $site_id = $request->site_id;
-            // $work_id = $request->work_id;
-            $requester_id = $request->requester_id;
-            $beneficiary_id = $request->beneficiary_id;
-
-            if ($project_id != "") {
-                $collection = $collection->where('CombinedBudget_RefID', $project_id);
-            }
-            if ($site_id != "") {
-                $collection = $collection->where('CombinedBudgetSection_RefID', $site_id);
-            }
-            if ($requester_id != "") {
-                $collection = $collection->where('RequesterWorkerJobsPosition_RefID', $requester_id);
-            }
-            if ($beneficiary_id != "") {
-                $collection = $collection->where('BeneficiaryWorkerJobsPosition_RefID', $beneficiary_id);
-            }
-            // if ($work_id != "") {
-            //     $work_id = null;
-            // }
-
-            $collection = $collection->all();
-
-            $varDataExcel = [];
-            $varDataProject = [];
-            $i = 0;
-            $total = 0;
-            foreach ($collection as $collections) {
-
-                $total +=  $collections['TotalAdvance'];
-
-                $varDataProject[0]['projectCode'] = $collections['CombinedBudgetCode'];
-                $varDataProject[0]['projectName'] = $collections['CombinedBudgetName'];
-
-                $varDataExcel[$i]['no'] = $i + 1;
-                $varDataExcel[$i]['documentNumber'] = $collections['DocumentNumber'];
-                $varDataExcel[$i]['subBudget'] = $collections['CombinedBudgetSectionName'];
-                $varDataExcel[$i]['date'] = date('d-m-Y', strtotime($collections['DocumentDateTimeTZ']));
-                $varDataExcel[$i]['requester'] = $collections['RequesterWorkerName'];
-                $varDataExcel[$i]['beneficiary'] = $collections['BeneficiaryWorkerName'];
-                $varDataExcel[$i]['total_idr'] = number_format($collections['TotalAdvance'], 2);
-                $varDataExcel[$i]['total_other'] = number_format($collections['TotalAdvance'], 2);
-                $varDataExcel[$i]['total_equivalent'] = number_format($collections['TotalAdvance'], 2);
-                // $varDataExcel[$i]['currency'] = $collections['CurrencyName'];
-                $varDataExcel[$i]['remark'] = ucfirst(trans($collections['remark']));
-
-                $i++;
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                throw new \Exception('Failed to fetch Advance Summary Report');
             }
 
             $compact = [
-                'data' => $collection,
-                'varDataExcel' => $varDataExcel,
-                'varDataProject' => $varDataProject
+                'status'    => $response['metadata']['HTTPStatusCode'],
+                'data'      => $response['data']['data']
             ];
-
-            Session::put("AdvanceSummaryReportDataPDF", $compact);
-            Session::put("AdvanceSummaryReportDataExcel", $compact['varDataExcel']);
-            Session::put("AdvanceSummaryReportTotal", number_format($total, 2));
-            Session::put("AdvanceSummaryReportIsSubmit", "Yes");
-
+            
             return response()->json($compact);
         } catch (\Throwable $th) {
-            Log::error("Error at " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
+            Log::error("Report Advance Summary Store Function Error:" . $th->getMessage());
+
+            $compact = [
+                'status'    => 500,
+                'message'   => $th->getMessage()
+            ];
+
+            return response()->json($compact);
         }
     }
 
@@ -757,24 +685,6 @@ class AdvanceRequestController extends Controller
             } else {
                 return redirect()->route('AdvanceRequest.ReportAdvanceToASF')->with('NotFound', 'Data Cannot Empty');
             }
-        } catch (\Throwable $th) {
-            Log::error("Error at " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
-        }
-    }
-
-    public function ReportAdvanceSummaryDetailID(Request $request, $id)
-    {
-        try {
-
-            Session::put("AdvanceSummaryReportDetailIsSubmit", "Yes");
-            $advance_RefID = $id;
-            $advance_number = "";
-            $statusHeader = "No";
-
-            $compact = $this->ReportAdvanceSummaryDetailData($advance_RefID, $advance_number, $statusHeader);
-
-            return view('Process.Advance.AdvanceRequest.Reports.ReportAdvanceSummaryDetail', $compact);
         } catch (\Throwable $th) {
             Log::error("Error at " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');

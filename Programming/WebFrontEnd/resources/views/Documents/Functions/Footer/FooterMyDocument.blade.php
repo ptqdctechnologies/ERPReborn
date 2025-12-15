@@ -271,6 +271,6 @@
     // ON LOAD PAGE
     $(window).one('load', function(e) {
         getDataMyDocument();
-        // optionDocumentType();
+        optionDocumentType();
     });
 </script>

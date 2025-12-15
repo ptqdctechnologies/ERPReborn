@@ -17,8 +17,6 @@
                                             <th>Trano</th>
                                             <th>Budget Code</th>
                                             <th>Budget Name</th>
-                                            {{-- <th>Sub Budget Code</th>
-                                            <th>Sub Budget Name</th> --}}
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -68,34 +66,51 @@
             }
         });
 
-        var keys = 0;
         $.ajax({
             type: 'GET',
             url: '{!! route("getDeliveryOrderList") !!}',
             success: function(data) {
                 $(".loadingGetDeliveryOrder").hide();
 
-                var no = 1;
                 var table = $('#tableGetDeliveryOrder').DataTable();
                 table.clear();
 
                 if (Array.isArray(data) && data.length > 0) {
-                    $.each(data, function(key, val) {
-                        keys += 1;
-                        table.row.add([
-                            '<input id="sys_id_delivery_order' + keys + '" value="' + val.sys_ID + '" data-trigger="sys_id_delivery_order" type="hidden">' + no++,
-                            val.sys_Text || '-',
-                            val.combinedBudgetCode || '-',
-                            val.combinedBudgetName || '-',
-                            // val.combinedBudgetSectionCode || '-',
-                            // val.combinedBudgetSectionName || '-'
-                        ]).draw();
+                    $('#tableGetDeliveryOrder').DataTable({
+                        destroy: true,
+                        data: data,
+                        deferRender: true,
+                        scrollCollapse: true,
+                        scroller: true,
+                        columns: [
+                            {
+                                data: null,
+                                render: function (data, type, row, meta) {
+                                    return '<td class="align-middle text-center">' +
+                                        '<input id="sys_id_delivery_order' + (meta.row + 1) + '" value="' + data.sys_ID + '" data-trigger="sys_id_delivery_order" type="hidden">' +
+                                        (meta.row + 1) +
+                                    '</td>';
+                                }
+                            },
+                            {
+                                data: 'sys_Text',
+                                defaultContent: '-',
+                                className: "align-middle"
+                            },
+                            {
+                                data: 'combinedBudgetCode',
+                                defaultContent: '-',
+                                className: "align-middle"
+                            },
+                            {
+                                data: 'combinedBudgetName',
+                                defaultContent: '-',
+                                className: "align-middle"
+                            },
+                        ]
                     });
 
-                    $("#tableGetDeliveryOrder_length").show();
-                    $("#tableGetDeliveryOrder_filter").show();
-                    $("#tableGetDeliveryOrder_info").show();
-                    $("#tableGetDeliveryOrder_paginate").show();
+                    $('#tableGetDeliveryOrder').css("width", "100%");
                 } else {
                     $(".errorDeliveryOrderMessageContainerSecond").show();
                     $("#errorDeliveryOrderMessageSecond").text(`Data not found.`);
@@ -117,15 +132,5 @@
 
     $(window).one('load', function(e) {
         getDeliveryOrder();
-    });
-
-    $('#tableGetDeliveryOrder').on('click', 'tbody tr', function() {
-        var sysId                       = $(this).find('input[data-trigger="sys_id_delivery_order"]').val();
-        var projectCode                 = $(this).find('td:nth-child(2)').text();
-
-        $("#delivery_order_id").val(sysId);
-        $("#delivery_order_code").val(projectCode);
-
-        $('#myDeliveryOrder').modal('hide');
     });
 </script>
