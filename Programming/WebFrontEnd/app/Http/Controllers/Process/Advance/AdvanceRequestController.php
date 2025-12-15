@@ -690,22 +690,4 @@ class AdvanceRequestController extends Controller
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }
-
-    public function ReportAdvanceSummaryDetailID(Request $request, $id)
-    {
-        try {
-
-            Session::put("AdvanceSummaryReportDetailIsSubmit", "Yes");
-            $advance_RefID = $id;
-            $advance_number = "";
-            $statusHeader = "No";
-
-            $compact = $this->ReportAdvanceSummaryDetailData($advance_RefID, $advance_number, $statusHeader);
-
-            return view('Process.Advance.AdvanceRequest.Reports.ReportAdvanceSummaryDetail', $compact);
-        } catch (\Throwable $th) {
-            Log::error("Error at " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
-        }
-    }
 }
