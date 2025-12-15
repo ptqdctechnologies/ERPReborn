@@ -329,7 +329,7 @@
                                                                 </td>
                                                             </tr>
                                                             <tr>
-                                                                <td><label>Bank Account Name</label></td>
+                                                                <td><label>Account Number Name</label></td>
                                                                 <td>
                                                                     <div class="input-group">
                                                                         <input id="department" style="border-radius:0;" type="text" class="form-control">
@@ -337,7 +337,7 @@
                                                                 </td>
                                                             </tr>
                                                             <tr>
-                                                                <td><label>Bank Account Number</label></td>
+                                                                <td><label>Account Number Number</label></td>
                                                                 <td>
                                                                     <div class="input-group">
                                                                         <input id="department" style="border-radius:0;" type="text" class="form-control">

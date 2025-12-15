@@ -494,7 +494,7 @@
 
                             <!-- BANK ACCOUNT -->
                             <div class="row mt-0 mx-0">
-                              <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Bank Account</label>
+                              <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Account Number</label>
                               <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                                 <div>
                                   <span style="border-radius:0;" class="input-group-text form-control">
@@ -581,7 +581,7 @@
 
                             <!-- BANK ACCOUNT -->
                             <div class="row mt-0 mx-0">
-                              <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Bank Account</label>
+                              <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Account Number</label>
                               <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                                 <div>
                                   <span style="border-radius:0;" class="input-group-text form-control">
@@ -698,7 +698,7 @@
 
                             <!-- BANK ACCOUNT -->
                             <div class="row mt-0 mx-0">
-                              <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Bank Account</label>
+                              <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Account Number</label>
                               <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                                 <div>
                                   <span style="border-radius:0;" class="input-group-text form-control">

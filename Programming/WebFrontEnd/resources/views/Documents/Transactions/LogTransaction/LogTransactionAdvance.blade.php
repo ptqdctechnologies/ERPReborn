@@ -59,7 +59,7 @@
                                                     <th style="vertical-align: middle; width: 125px; min-width: 125px; max-width: 125px; left: 0px; z-index: 10;" class="text-center">Requester</th>
                                                     <th style="vertical-align: middle; width: 125px; min-width: 125px; max-width: 125px; left: 125px; z-index: 10;" class="text-center">Beneficiary</th>
                                                     <th style="vertical-align: middle; width: 125px; min-width: 125px; max-width: 125px; left: 250px; z-index: 10;" class="text-center">Bank Name</th>
-                                                    <th style="vertical-align: middle; width: 125px; min-width: 125px; max-width: 125px; left: 375px; z-index: 10;" class="text-center">Bank Account</th>
+                                                    <th style="vertical-align: middle; width: 125px; min-width: 125px; max-width: 125px; left: 375px; z-index: 10;" class="text-center">Account Number</th>
                                                     <th style="vertical-align: middle; width: 70px; min-width: 70px; max-width: 70px; left: 500px; z-index: 10;" class="text-center">Currency</th>
                                                     <th style="vertical-align: middle; width: 250px; min-width: 250px; max-width: 250px; left: 570px; z-index: 10;" class="text-center">Remark</th>
 
@@ -67,7 +67,7 @@
                                                         <th class="text-center" style="width: 125px; min-width: 125px; max-width: 125px;background-color:#4B586A;color:white;border-right:1px solid #e9ecef;vertical-align: middle;">Requester</th>
                                                         <th class="text-center" style="width: 125px; min-width: 125px; max-width: 125px;background-color:#4B586A;color:white;border-right:1px solid #e9ecef;vertical-align: middle;">Beneficiary</th>
                                                         <th class="text-center" style="width: 125px; min-width: 125px; max-width: 125px;background-color:#4B586A;color:white;border-right:1px solid #e9ecef;vertical-align: middle;text-wrap-mode: nowrap;">Bank Name</th>
-                                                        <th class="text-center" style="width: 125px; min-width: 125px; max-width: 125px;background-color:#4B586A;color:white;border-right:1px solid #e9ecef;vertical-align: middle;text-wrap-mode: nowrap;">Bank Account</th>
+                                                        <th class="text-center" style="width: 125px; min-width: 125px; max-width: 125px;background-color:#4B586A;color:white;border-right:1px solid #e9ecef;vertical-align: middle;text-wrap-mode: nowrap;">Account Number</th>
                                                         <th class="text-center" style="background-color:#4B586A;color:white;border-right:1px solid #e9ecef;vertical-align: middle;width: 250px; min-width: 250px; max-width: 250px;">Remark</th>
                                                     @endfor
                                                 </tr>

@@ -120,7 +120,7 @@
 
       <!-- BANK ACCOUNT -->
       <div class="row" style="margin-top: 1rem;">
-        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Bank Account</label>
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Account Number</label>
         <div class="col-5 d-flex p-0">
           <div>
             <span id="bank_account_trigger" class="input-group-text form-control" data-toggle="modal" data-target="#myBanksAccount" style="border-radius:0;cursor:pointer;">

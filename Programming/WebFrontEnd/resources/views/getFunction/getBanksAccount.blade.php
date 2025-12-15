@@ -15,7 +15,7 @@
                                         <tr>
                                             <th>No</th>
                                             <th>Bank Name</th>
-                                            <th>Bank Account</th>
+                                            <th>Account Number</th>
                                             <th>Account Name</th>
                                         </tr>
                                     </thead>

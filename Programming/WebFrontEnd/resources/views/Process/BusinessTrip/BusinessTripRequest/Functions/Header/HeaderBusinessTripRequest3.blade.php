@@ -172,7 +172,7 @@
 
                     <!-- BANK ACCOUNT -->
                     <div class="row mx-0" style="margin-top: 1rem;">
-                        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Bank Account</label>
+                        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Account Number</label>
                         <div class="col-5 d-flex">
                             <div onclick="changeLabelPayment('bank_account_vendor')">
                                 <span style="border-radius:0;" class="input-group-text form-control">
@@ -257,7 +257,7 @@
 
                     <!-- BANK ACCOUNT -->
                     <div class="row mx-0" style="margin-top: 1rem;">
-                        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Bank Account</label>
+                        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Account Number</label>
                         <div class="col-5 d-flex">
                             <div onclick="changeLabelPayment('bank_account_corp_card')">
                                 <span style="border-radius:0;" class="input-group-text form-control">
@@ -371,7 +371,7 @@
 
                     <!-- BANK ACCOUNT -->
                     <div class="row mx-0" style="margin-top: 1rem;">
-                        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Bank Account</label>
+                        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Account Number</label>
                         <div class="col-5 d-flex">
                             <div onclick="changeLabelPayment('bank_account_other')">
                                 <span style="border-radius:0;" class="input-group-text form-control">

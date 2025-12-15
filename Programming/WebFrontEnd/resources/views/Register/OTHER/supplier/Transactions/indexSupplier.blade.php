@@ -37,8 +37,8 @@
                                                 <th>Director</th>
                                                 <th>Status</th>
                                                 <th>Bank Name</th>
-                                                <th>Bank Account</th>
-                                                <th>Bank Account Name</th>
+                                                <th>Account Number</th>
+                                                <th>Account Number Name</th>
                                                 <th>NPWP</th>
                                                 <th>Jenis Supplier</th>
                                                 <th>Sub Jenis Supplier</th>
