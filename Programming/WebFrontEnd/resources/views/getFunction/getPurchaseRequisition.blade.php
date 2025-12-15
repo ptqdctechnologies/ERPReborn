@@ -91,7 +91,7 @@
                     //     ]).draw();
                     // });
 
-                    $('#tableGetProductss').DataTable({
+                    $('#tableGetModalPurchaseRequisition').DataTable({
                         destroy: true,
                         data: data,
                         deferRender: true,
@@ -135,6 +135,8 @@
                             },
                         ]
                     });
+
+                    $('#tableGetModalPurchaseRequisition').css("width", "100%");
 
                     // $("#tableGetModalPurchaseRequisition_length").show();
                     // $("#tableGetModalPurchaseRequisition_filter").show();
