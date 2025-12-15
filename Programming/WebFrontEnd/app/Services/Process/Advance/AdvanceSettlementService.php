@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
 use App\Helpers\ZhtHelper\System\Helper_Environment;
+use Carbon\Carbon;
 
 class AdvanceSettlementService
 {
@@ -109,9 +110,15 @@ class AdvanceSettlementService
         );
     }
 
-    public function getAdvanceSettlementSummary($budget, $subBudget) 
+    public function getAdvanceSettlementSummary($budget, $subBudget, $date) 
     {
         $sessionToken = Session::get('SessionLogin');
+
+        if ($date) {
+            $dates      = explode(' - ', $date);
+            $startDate  = Carbon::createFromFormat('m/d/Y', trim($dates[0]))->startOfDay()->format('Y-m-d');
+            $endDate    = Carbon::createFromFormat('m/d/Y', trim($dates[1]))->endOfDay()->format('Y-m-d');
+        }
 
         return Helper_APICall::setCallAPIGateway(
             Helper_Environment::getUserSessionID_System(),
@@ -121,13 +128,9 @@ class AdvanceSettlementService
             [
                 'parameter'     => [
                     'CombinedBudgetCode'        => $budget,
-                    'CombinedBudgetSectionCode' => $subBudget
-                ],
-                'SQLStatement'  => [
-                    'pick'      => null,
-                    'sort'      => null,
-                    'filter'    => null,
-                    'paging'    => null
+                    'CombinedBudgetSectionCode' => $subBudget ? $subBudget : NULL,
+                    'StartDate'                 => $date ? $startDate : NULL,
+                    'EndDate'                   => $date ? $endDate : NULL
                 ]
             ]
         );
