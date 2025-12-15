@@ -103,7 +103,7 @@
                 COA
             </div>
             <div class="col">
-                : <?= number_format($dataHeader['COA'], 2); ?>
+                : <?= $dataHeader['COA']; ?>
             </div>
         </div>
     </div>
