@@ -160,17 +160,17 @@
         </div>
       </div>
       
-      <!-- PRINCIPLE LOAN -->
+      <!-- LOAN PRINCIPLE -->
       <div class="row" style="margin-top: 1rem;">
-        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Principle Loan</label>
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Loan Principle</label>
         <div class="col-5 p-0">
-          <input type="text" id="principle_loan" name="principle_loan" class="form-control" style="border-radius:0;" />
+          <input type="text" id="principle_loan" name="principle_loan" class="form-control number-without-characters" style="border-radius:0;" />
         </div>
       </div>
       <div class="row" id="principle_loan_message" style="margin-top: .3rem; display: none;">
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
         <div class="col-5 p-0 text-red">
-          Principle Loan cannot be empty.
+          Loan Principle cannot be empty.
         </div>
       </div>
 
@@ -178,7 +178,7 @@
       <div class="row" style="margin-top: 1rem;">
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Lending Rate</label>
         <div class="col-5 p-0">
-          <input type="text" id="lending_rate" name="lending_rate" class="form-control" style="border-radius:0;" />
+          <input type="text" id="lending_rate" name="lending_rate" class="form-control number-without-characters" style="border-radius:0;" />
         </div>
       </div>
       <div class="row" id="lending_rate_message" style="margin-top: .3rem; display: none;">
@@ -188,17 +188,17 @@
         </div>
       </div>
 
-      <!-- TOTAL LOAN -->
+      <!-- LOAN TOTAL -->
       <div class="row" style="margin-top: 1rem;">
-        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Total Loan</label>
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Loan Total</label>
         <div class="col-5 p-0">
-          <input type="text" id="total_loan" name="total_loan" class="form-control" style="border-radius:0;" />
+          <input type="text" id="total_loan" name="total_loan" class="form-control number-without-characters" style="border-radius:0;" />
         </div>
       </div>
       <div class="row" id="total_loan_message" style="margin-top: .3rem; display: none;">
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
         <div class="col-5 p-0 text-red">
-          Total Loan cannot be empty.
+          Loan Total cannot be empty.
         </div>
       </div>
 
@@ -206,7 +206,7 @@
       <div class="row" style="margin-top: 1rem;">
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Loan Term</label>
         <div class="col-5 p-0">
-          <input type="text" id="loan_term" name="loan_term" class="form-control" style="border-radius:0;" />
+          <input type="text" id="loan_term" name="loan_term" class="form-control number-without-characters" style="border-radius:0;" />
         </div>
       </div>
       <div class="row" id="loan_term_message" style="margin-top: .3rem; display: none;">

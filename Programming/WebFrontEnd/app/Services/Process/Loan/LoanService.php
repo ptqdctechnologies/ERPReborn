@@ -48,10 +48,10 @@ class LoanService
             [
             'entities' => [
                 "documentDateTimeTZ"            => date('Y-m-d'),
-                "creditor_RefID"                => $data['creditor_id'],
-                "debitor_RefID"                 => $data['debitor_id'],
-                "bankAccount_RefID"             => $data['bank_account_id'],
-                "loanTerm"                      => $data['loan_term'],
+                "creditor_RefID"                => (int) $data['creditor_id'],
+                "debitor_RefID"                 => (int) $data['debitor_id'],
+                "bankAccount_RefID"             => (int) $data['bank_account_id'],
+                "loanTerm"                      => (int) $data['loan_term'],
                 "log_FileUpload_Pointer_RefID"  => $fileID,
                 "notes"                         => $data['remark'],
                 "additionalData"    => [
@@ -59,11 +59,11 @@ class LoanService
                         "items"     => [
                                 [
                                 "entities"      => [
-                                    "principleLoan"                     => $data['principle_loan'],
-                                    "lendingRate"                       => $data['landing_rate'],
-                                    "currency_RefID"                    => $data['currency_id'],
+                                    "principleLoan"                     => (int) $data['principle_loan'],
+                                    "lendingRate"                       => (int) $data['landing_rate'],
+                                    "currency_RefID"                    => (int) $data['currency_id'],
                                     "currencyExchangeRate"              => 1,
-                                    "chartOfAccount_RefID"              => $data['coa_id'],
+                                    "chartOfAccount_RefID"              => (int) $data['coa_id'],
                                     "combinedBudgetSectionDetail_RefID" => null,
                                     ]
                                 ]
