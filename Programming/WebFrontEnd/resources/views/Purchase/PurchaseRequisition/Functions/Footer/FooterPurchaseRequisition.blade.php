@@ -323,7 +323,11 @@
                     let totalBudget = val2.quantity * val2.priceBaseCurrencyValue;
                     let productColumn = `
                         <td style="text-align: center;">${val2.productCode}</td>
-                        <td style="text-align: center;">${val2.productName}</td>
+                        <td style="text-align: left;">
+                            <div style="overflow: hidden;white-space: nowrap;text-overflow: ellipsis;width: 150px;">
+                                ${val2.productName}
+                            </div>
+                        </td>
                     `;
 
                     if (val2.productName === "Unspecified Product") {
@@ -366,17 +370,24 @@
                             <td style="text-align: center;">${currencyTotal(val2.priceBaseCurrencyValue)}</td>
                             <td style="text-align: center;">${currencyTotal(totalBudget)}</td>
                             <td style="text-align: center;">${val2.priceBaseCurrencyISOCode}</td>
-                            <td class="sticky-col fifth-col-pr" style="border:1px solid #e9ecef;background-color:white;">
+                            <td class="sticky-col sixth-col-pr" style="border:1px solid #e9ecef;background-color:white;">
                                 <input class="form-control number-without-negative" id="qty_req${key}" autocomplete="off" style="border-radius:0px;" ${isUnspecified} />
                             </td>
-                            <td class="sticky-col forth-col-pr" style="border:1px solid #e9ecef;background-color:white;">
+                            <td class="sticky-col fifth-col-pr" style="border:1px solid #e9ecef;background-color:white;">
                                 <input class="form-control number-without-negative" id="price_req${key}" autocomplete="off" style="border-radius:0px;" ${isUnspecified} />
                             </td>
-                            <td class="sticky-col third-col-pr" style="border:1px solid #e9ecef;background-color:white;">
+                            <td class="sticky-col forth-col-pr" style="border:1px solid #e9ecef;background-color:white;">
                                 <input class="form-control number-without-negative" id="total_req${key}" autocomplete="off" style="border-radius:0px;" readonly />
                             </td>
+                            <td class="sticky-col third-col-pr" style="border:1px solid #e9ecef;background-color:white;">
+                                <input class="form-control number-without-negative" id="balanced_qty${key}" autocomplete="off" style="border-radius:0px;" data-default="${balanced}" value="${balanced}" readonly />
+                            </td>
                             <td class="sticky-col second-col-pr" style="border:1px solid #e9ecef;background-color:white;">
-                                <input class="form-control number-without-negative" id="balanced_qty${key}" autocomplete="off" style="border-radius:0px;width:90px;" data-default="${balanced}" value="${balanced}" readonly />
+                                <select id="is_asset${key}" class="form-control">
+                                    <option value="" selected disabled>Select a...</option>
+                                    <option value="NO">No</option>
+                                    <option value="YES">Yes</option>
+                                </select>
                             </td>
                             <td class="sticky-col first-col-pr" style="border:1px solid #e9ecef;background-color:white;">
                                 <textarea id="remark${key}" class="form-control"></textarea>

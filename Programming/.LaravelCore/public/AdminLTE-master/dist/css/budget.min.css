@@ -260,30 +260,37 @@
   }
 
   .second-col-pr {
-    width: 125px;
-    min-width: 125px;
-    max-width: 125px;
-    right: 126px;
+    width: 85px;
+    min-width: 85px;
+    max-width: 85px;
+    right: 125px;
   }
 
   .third-col-pr {
-    width: 125px;
-    min-width: 125px;
-    max-width: 125px;
-    right: 252px;
+    width: 100px;
+    min-width: 100px;
+    max-width: 100px;
+    right: 210px;
   }
 
   .forth-col-pr {
     width: 125px;
     min-width: 125px;
     max-width: 125px;
-    right: 378px;
+    right: 310px;
   }
 
   .fifth-col-pr {
-    width: 70px;
-    min-width: 70px;
-    max-width: 70px;
-    right: 504px;
+    width: 125px;
+    min-width: 125px;
+    max-width: 125px;
+    right: 435px;
+  }
+  
+  .sixth-col-pr {
+    width: 100px;
+    min-width: 100px;
+    max-width: 100px;
+    right: 560px;
   }
 }
