@@ -98,10 +98,10 @@
         <div>
             <select name="print_type" id="print_type" class="form-control">
                 <option value="PDF">Export PDF</option>
-                <option value="Excel">Export Excel</option>
+                <option value="EXCEL">Export Excel</option>
             </select>
         </div>
-        <button type="button" class="btn btn-default btn-sm">
+        <button type="button" class="btn btn-default btn-sm" onclick="exportDataReport()">
             <span>
                 <img src="{{ asset('AdminLTE-master/dist/img/printer.png') }}" width="17" alt="" />
             </span>

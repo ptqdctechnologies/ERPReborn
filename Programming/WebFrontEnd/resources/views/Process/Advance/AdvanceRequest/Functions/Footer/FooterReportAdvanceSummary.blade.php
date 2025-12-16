@@ -7,6 +7,7 @@
     const requesterID   = document.getElementById("requester_id");
     const beneficiaryID = document.getElementById("beneficiary_id");
     const arfDate       = document.getElementById("advance_summary_date_range");
+    const printType     = document.getElementById("print_type");
 
     function getDataReport() {
         ShowLoading();
@@ -117,11 +118,55 @@
                     $('#table_summary').css("width", "100%");
                     $('#table_container').css("display", "block");
                 } else {
-                    $('#table_container').hide();  // This will hide the table
-                    $('#table_summary tbody').empty();  // Optional: Empty the table's body
-                    $('#table_summary tfoot').empty();  // Optional: Empty the table's body
+                    $('#table_container').hide(); 
+                    $('#table_summary tbody').empty();
+                    $('#table_summary tfoot').empty();
                     ErrorNotif("Error");
                 }
+
+                HideLoading();
+            },
+            error: function(xhr, status, error) {
+                HideLoading();
+                ErrorNotif("An error occurred while processing the received data. Please try again later.");
+                console.log('xhr, status, error', xhr, status, error);
+            }
+        });
+    }
+
+    function exportDataReport() {
+        ShowLoading();
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            url: '{!! route("AdvanceRequest.PrintExportReportAdvanceSummary") !!}',
+            type: 'POST',
+            data: {
+                dataReport,
+                printType: printType.value
+            },
+            xhrFields: { 
+                responseType: 'blob'
+            },
+            success: function(response) {
+                var blob = new Blob([response], { type: response.type });
+                var link = document.createElement('a');
+                link.href = window.URL.createObjectURL(blob);
+
+                if (response.type === "application/pdf") {
+                    link.download = "Export Report Advance Summary.pdf";
+                } else {
+                    link.download = "Export Report Advance Summary.xlsx";
+                }
+
+                link.click();
+
+                window.URL.revokeObjectURL(link.href);
 
                 HideLoading();
             },
