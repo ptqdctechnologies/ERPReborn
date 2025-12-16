@@ -86,6 +86,7 @@ if (isset($_SERVER['FRANKENPHP_WORKER'])) {
             $varUserSession = 11;
             
             /*
+            // LDAP
             $varUserName = 'teguh.pratama';
             $varUserPassword = 'teguhpratama1234';
             if (
@@ -112,10 +113,14 @@ if (isset($_SERVER['FRANKENPHP_WORKER'])) {
             echo $varSignLoginSuccess;
             */
             
-            \App\Http\Helpers\ZhtHelper\BackEnd\Database\Helper_PostgreSQL::getQueryExecution(
+            /*
+            // DATABASE
+            $x = \App\Http\Helpers\ZhtHelper\BackEnd\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession,
                 'SELECT NOW();'    
                 );
+            var_dump($x);
+            */
 
             return
                 phpinfo();

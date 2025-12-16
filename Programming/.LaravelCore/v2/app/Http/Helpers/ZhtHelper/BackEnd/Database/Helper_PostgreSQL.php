@@ -99,7 +99,7 @@ namespace App\Http\Helpers\ZhtHelper\BackEnd\Database
 
                     $varData = [];
                     $varNotice = null;
-                    foreach($varDataFetch as $row)
+                    foreach ($varDataFetch as $row)
                         {
                         $varData[] = (array) $row;
                         $i++;
@@ -109,7 +109,211 @@ namespace App\Http\Helpers\ZhtHelper\BackEnd\Database
                     $varReturn['Notice'] = null;
                     $varReturn['rowCount']=$i;
 
-                    unset($varData);
+                    unset ($varData);
+                    }
+
+                catch (\Exception $ex) {
+                    }
+
+            //---> Data Return
+                return
+                    $varReturn;
+            }
+
+
+        /*
+        ┌───────────────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────┐
+        │ ▪ Method Name     │ getArrayFromQueryExecutionDataFetch_UsingPGSQLConnection                                             │
+        ├───────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
+        │ ▪ Version         │ 1.0000.0000004                                                                                       │
+        │ ▪ Last Update     │ 2025-12-16                                                                                           │
+        │ ▪ Creation Date   │ 2023-05-03                                                                                           │
+        │ ▪ Description     │ Mengambil data berbentuk Array dari database sesuai syntax query (varSQLQuery) melalui koneksi       │
+        │                   │ PgSql\Connection                                                                                     │
+        ├───────────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────┤
+        │ ▪ Input Variable  :                                                                                                      │
+        │      ▪ (mixed)  varUserSession                                                                                           │
+        │      ▪ (string) varSQLQuery                                                                                              │
+        │      ------------------------------                                                                                      │
+        │ ▪ Output Variable :                                                                                                      │
+        │      ▪ (array) $varDataFetch                                                                                             │
+        ├──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+        │ ▪ Linked Function :                                                                                                      │
+        │      ▪ \App\Http\Helpers\ZhtHelper\BackEnd\Database\Helper_PostgreSQL::                                                  │
+        │           getArrayFromQueryExecutionDataFetch_UsingLaravelConnection                                                     │
+        │              ($varUserSession, $varSQLQuery)                                                                             │
+        │      ▪ \App\Http\Helpers\ZhtHelper\BackEnd\Database\Helper_PostgreSQL::                                                  │
+        │           getBooleanConvertion                                                                                           │
+        │              ($varUserSession, $varData)                                                                                 │
+        └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+        */
+        private static function getArrayFromQueryExecutionDataFetch_UsingPGSQLConnection (
+            $varUserSession, string $varSQLQuery
+            )
+            {
+            //---> Data Initialization
+                $varReturn = false;
+
+            //---> Data Process
+                try {
+                    $varConfig =
+                        (array) (\Illuminate\Support\Facades\DB::getConfig());
+                    
+                    if (!is_null ($varConfig))
+                        {
+                        $varConnectionString = 
+                            'host='.$varConfig['host'].' '.
+                            'port='.$varConfig['port'].' '.
+                            'dbname='.$varConfig['database'].' '.
+                            'user='.$varConfig['username'].' '.
+                            'password='.$varConfig['password'];
+                        //var_dump($varConnectionString);
+                        
+                        $i=0;
+                        $varData = [];
+                        $varNotice = null;
+                        if ($DBConnection = pg_connect ($varConnectionString))
+                            {
+                            pg_last_notice (
+                                $DBConnection,
+                                PGSQL_NOTICE_CLEAR
+                                );
+
+                            $varResult =
+                                pg_query (
+                                    $DBConnection,
+                                    $varSQLQuery
+                                    );
+
+                            $varNotice =
+                                pg_last_notice (
+                                    $DBConnection,
+                                    PGSQL_NOTICE_ALL
+                                    );
+
+                            //---> Field Type Initializing
+                            unset ($varFieldType);
+
+                            for ($j=0, $jMax = pg_num_fields ($varResult); $j!=$jMax; $j++)
+                                {
+                                $varFieldType[$j] =
+                                    pg_field_type (
+                                        $varResult,
+                                        $j
+                                        );
+                                }
+
+                            while ($row = pg_fetch_assoc ($varResult)) {
+                                $varDataContent = null;
+                                $varData[$i] = $row;
+                                $j = 0;
+                                foreach ($varData[$i] as $key => $value)
+                                    {
+                                    $varData[$i][$key] = $value;
+//                                    echo "<br><br><br>";
+//                                    var_dump($key);
+//                                    var_dump($value);
+
+                                    $varData[$i][$key] = null;
+                                    switch ($varFieldType[$j++])
+                                        {
+                                        case 'bool':
+                                            $varData[$i][$key] =
+                                                self::getBooleanConvertion (
+                                                    $varUserSession,
+                                                    $value
+                                                    );
+                                            break;
+                                        case 'int2':
+                                        case 'int4':
+                                        case 'int8':
+                                            if (!is_null($value))
+                                                {
+                                                $varData[$i][$key] = (int) $value;
+                                                }
+                                            break;
+                                        case 'float4':
+                                        case 'float8':
+                                            if (!is_null($value))
+                                                {
+                                                $varData[$i][$key] = (float) $value;
+                                                }
+                                            break;
+                                        case 'varchar':
+                                        default:
+                                            if (!is_null($value))
+                                                {
+                                                $varData[$i][$key] = $value;
+                                                }
+                                            break;
+                                        }
+                                    }
+                                $i++;
+                                }
+
+                            pg_close (
+                                $DBConnection
+                                );
+                            }
+
+                        $varReturn['data'] = $varData;
+                        $varReturn['notice'] = $varNotice;
+                        $varReturn['rowCount']=$i;
+                        }
+                    else
+                        {
+                        $varDataTemp =
+                            self::getArrayFromQueryExecutionDataFetch_UsingLaravelConnection (
+                                $varUserSession,
+                                $varSQLQuery
+                                );
+
+                        $varReturn['data'] = $varDataTemp['data'];
+                        $varReturn['notice'] = $varDataTemp['notice'];
+                        $varReturn['rowCount'] = $varDataTemp['rowCount'];                        
+                        }
+                    }
+
+                catch (\Exception $ex) {
+                    }
+
+            //---> Data Return
+                return
+                    $varReturn;
+            }
+
+
+        /*
+        ┌───────────────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────┐
+        │ ▪ Method Name     │ getBooleanConvertion                                                                                 │
+        ├───────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
+        │ ▪ Version         │ 1.0000.0000001                                                                                       │
+        │ ▪ Last Update     │ 2025-12-16                                                                                           │
+        │ ▪ Creation Date   │ 2023-05-03                                                                                           │
+        │ ▪ Description     │ Mendapatkan konversi Boolean PHP dari data Boolean PostgreSQL (varData)                              │
+        ├───────────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────┤
+        │ ▪ Input Variable  :                                                                                                      │
+        │      ▪ (mixed)  varUserSession                                                                                           │
+        │      ▪ (string) varSQLQuery                                                                                              │
+        │      ------------------------------                                                                                      │
+        │ ▪ Output Variable :                                                                                                      │
+        │      ▪ (bool)   varReturn                                                                                                │
+        ├──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+        │ ▪ Linked Function :                                                                                                      │
+        │      ▪                                                                                                                   │
+        └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+        */
+        public static function getBooleanConvertion($varUserSession, $varData)
+            {
+            //---> Data Initialization
+                $varReturn = true;
+
+            //---> Data Process
+                try {
+                    if ((strcmp ($varData, 'f') == 0) OR ((boolean) $varData == false))
+                        {
+                        $varReturn = false;
+                        }
                     }
 
                 catch (\Exception $ex) {
@@ -136,9 +340,20 @@ namespace App\Http\Helpers\ZhtHelper\BackEnd\Database
         │      ------------------------------                                                                                      │
         │ ▪ Output Variable :                                                                                                      │
         │      ▪ (array) varReturn                                                                                                 │
-        ├───────────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────┤
+        ├──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
         │ ▪ Linked Function :                                                                                                      │
-        │      ▪                                                                                                                   │
+        │      ▪ \App\Http\Helpers\ZhtHelper\BackEnd\Database\Helper_PostgreSQL::                                                  │
+        │           getArrayFromQueryExecutionDataFetch_UsingPGSQLConnection                                                       │
+        │              ($varUserSession, $varSQLQuery)                                                                             │
+        │      ▪ \App\Http\Helpers\ZhtHelper\BackEnd\Database\Helper_PostgreSQL::                                                  │
+        │           getResourceAvailabilityStatus                                                                                  │
+        │              ($varUserSession)                                                                                           │
+        │      ▪ \App\Http\Helpers\ZhtHelper\General\Utilities\Helper_DateTime::                                                   │
+        │           getDifferenceOfDateTimeTZString                                                                                │
+        │              ($varUserSession, $varSQLQuery, $varFinishDateTimeTZ)                                                       │
+        │      ▪ \App\Http\Helpers\ZhtHelper\General\Utilities\Helper_DateTime::                                                   │
+        │           getTimeStampTZConvert_PHPDateTimeToDateTimeTZString                                                            │
+        │              ($varUserSession, $varPHPDateTime, $varTimeZoneOffset)                                                      │
         └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
         */
         public static function getQueryExecution (
@@ -187,12 +402,40 @@ namespace App\Http\Helpers\ZhtHelper\BackEnd\Database
 
                             $varReturn['process']['DBMS']['executionTime']['startDateTimeTZ'] =
                                 \App\Http\Helpers\ZhtHelper\General\Utilities\Helper_DateTime::getTimeStampTZConvert_PHPDateTimeToDateTimeTZString(
-                                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                                    //\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                                    $varUserSession,
                                     (new \DateTime())
                                     );
 
-                                
-                        dd($varDataTemp);
+                        //---> Inisialisasi [Data], [RowCount], [Notice]
+                            //$varDataTemp = self::getArrayFromQueryExecutionDataFetch_UsingLaravelConnection($varUserSession, $varSQLQuery);
+                            $varDataTemp = 
+                                self::getArrayFromQueryExecutionDataFetch_UsingPGSQLConnection(
+                                    $varUserSession,
+                                    $varSQLQuery
+                                    );
+
+                            $varReturn['data'] = $varDataTemp['data'];
+                            $varReturn['rowCount'] = $varDataTemp['rowCount'];
+                            $varReturn['notice'] = $varDataTemp['notice'];
+
+                            unset($varDataTemp);
+
+                        //---> Inisialisasi : varReturn[process][DBMS][finishDateTimeTZ]
+                            $varReturn['process']['DBMS']['executionTime']['finishDateTimeTZ'] =
+                                \App\Http\Helpers\ZhtHelper\General\Utilities\Helper_DateTime::getTimeStampTZConvert_PHPDateTimeToDateTimeTZString(
+                                    //\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                                    $varUserSession,
+                                    (new \DateTime())
+                                    );
+
+                        //---> Inisialisasi : varReturn[process][DBMS][executionInterval]
+                            $varReturn['process']['DBMS']['executionTime']['interval'] = 
+                                \App\Http\Helpers\ZhtHelper\General\Utilities\Helper_DateTime::getDifferenceOfDateTimeTZString (
+                                    $varUserSession,
+                                    $varReturn['process']['DBMS']['executionTime']['startDateTimeTZ'],
+                                    $varReturn['process']['DBMS']['executionTime']['finishDateTimeTZ']
+                                    );
                         }
                     }
 

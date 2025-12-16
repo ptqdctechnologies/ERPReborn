@@ -57,7 +57,159 @@ namespace App\Http\Helpers\ZhtHelper\General\Utilities
         public function __destruct()
             {
             }
-        
+
+
+        /*
+        ┌───────────────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────┐
+        │ ▪ Method Name     │ getDifferenceOfDateTimeTZString                                                                      │
+        ├───────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
+        │ ▪ Version         │ 1.0000.0000001                                                                                       │
+        │ ▪ Last Update     │ 2025-12-16                                                                                           │
+        │ ▪ Creation Date   │ 2025-09-12                                                                                           │
+        │ ▪ Description     │ Mendapatkan Interval Date Time String With Timezone                                                  │
+        ├───────────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────┤
+        │ ▪ Input Variable  :                                                                                                      │
+        │      ▪ (mixed)  varUserSession ► User Session                                                                            │
+        │      ▪ (string) varStartDateTimeTZ ► Start DateTimeTZ                                                                    │
+        │      ▪ (string) varFinishDateTimeTZ ► Finish DateTimeTZ                                                                  │
+        │      ------------------------------                                                                                      │
+        │ ▪ Output Variable :                                                                                                      │
+        │      ▪ (void)                                                                                                            │
+        ├──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+        │ ▪ Linked Function :                                                                                                      │
+        │      ▪                                                                                                                   │
+        └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+        */
+        public static function getDifferenceOfDateTimeTZString (
+            $varUserSession, string $varStartDateTimeTZ, string $varFinishDateTimeTZ
+            )
+            {
+            //---> Data Initialization
+                $varReturn = null;
+
+            //---> Data Process
+                try {
+                    $varStartDateTimeTZ =
+                        str_replace (
+                            'T',
+                            ' ',
+                            $varStartDateTimeTZ
+                            );
+
+                    $varFinishDateTimeTZ =
+                        str_replace (
+                            'T',
+                            ' ',
+                            $varFinishDateTimeTZ
+                            );
+
+                    $varStartDateTimeArray =
+                        explode (
+                            '.',
+                            $varStartDateTimeTZ
+                            );
+
+                    $varFinishDateTimeArray =
+                        explode (
+                            '.',
+                            $varFinishDateTimeTZ
+                            );
+
+                    try {
+                        $varStartDateTimeOffset = (
+                            1 * (float) explode('+', $varStartDateTimeArray[1])[1]
+                            );
+
+                        $varStartDateTimeMicroSecond = (
+                            (float) ('0.'.explode('+', $varStartDateTimeArray[1])[0])
+                            );
+                        }
+
+                    catch (\Exception $ex) {
+                        try {
+                            $varStartDateTimeOffset = (
+                                -1 * (float) explode('-', $varStartDateTimeArray[1])[1]
+                                );
+                            $varStartDateTimeMicroSecond = (
+                                (float) ('0.'.explode('-', $varStartDateTimeArray[1])[0])
+                                );
+                            }
+
+                        catch (\Exception $ex) {
+                            $varStartDateTimeOffset = (
+                                (float) 0
+                                );
+                            $varStartDateTimeMicroSecond = (
+                                (float) 0
+                                );
+                            }
+                        }
+
+                    try {
+                        $varFinishDateTimeOffset = (
+                            1 * (float) explode('+', $varFinishDateTimeArray[1])[1]
+                            );
+                        $varFinishDateTimeMicroSecond = (
+                            (float) ('0.'.explode('+', $varFinishDateTimeArray[1])[0])
+                            );
+                        }
+
+                    catch (\Exception $ex) {
+                        try {
+                            $varFinishDateTimeOffset = (
+                                -1 * (float) explode('-', $varFinishDateTimeArray[1])[1]
+                                );
+                            $varFinishDateTimeMicroSecond = (
+                                (float) ('0.'.explode('-', $varFinishDateTimeArray[1])[0])
+                                );
+                            }
+
+                        catch (\Exception $ex) {
+                            $varFinishDateTimeOffset = (float) 0;
+                            $varFinishDateTimeMicroSecond = (float) 0;
+                            }
+                        }
+
+                    $varUniversalSecondsDifference = (
+                            (
+                                ((((float) (self::getUnixTime($varUserSession, $varFinishDateTimeArray[0]) + ($varFinishDateTimeOffset * 3600))) + $varFinishDateTimeMicroSecond) * 1000000)
+                                -
+                                ((((float) (self::getUnixTime($varUserSession, $varStartDateTimeArray[0]) + ($varStartDateTimeOffset * 3600))) + $varStartDateTimeMicroSecond) * 1000000)
+                            ) / 1000000
+                        );
+                    //dd($varUniversalSecondsDifference);
+
+                    $varIntervalRemain = $varUniversalSecondsDifference;
+                    $varHoursDifference = ((int) $varIntervalRemain - ((int) $varIntervalRemain % 3600)) / 3600;
+                    $varIntervalRemain = $varIntervalRemain - ($varHoursDifference * 3600);
+                    $varMinutesDifference = ((int) $varIntervalRemain - ((int) $varIntervalRemain % 60)) / 60;
+                    $varIntervalRemain = $varIntervalRemain - ($varMinutesDifference * 60);
+                    $varSecondsDifference = (int) $varIntervalRemain;
+
+                    try {
+                        $varMicroSecondsDifference = (explode('.', $varUniversalSecondsDifference)[1]);
+                        }
+
+                    catch (\Exception $ex) {
+                        $varMicroSecondsDifference = 0;
+                        }
+
+                    $varReturn = (
+                        str_pad($varHoursDifference, 2, '0', STR_PAD_LEFT).':'.
+                        str_pad($varMinutesDifference, 2, '0', STR_PAD_LEFT).':'.
+                        str_pad($varSecondsDifference, 2, '0', STR_PAD_LEFT).'.'.
+                        str_pad($varMicroSecondsDifference, 6, '0', STR_PAD_RIGHT)
+                        );
+                    }
+
+                catch (\Exception $ex) {
+                    }
+
+            //---> Data Return
+                return
+                    $varReturn;
+            }
+
 
         /*
         ┌───────────────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────┐
@@ -80,7 +232,7 @@ namespace App\Http\Helpers\ZhtHelper\General\Utilities
         │      ▪                                                                                                                   │
         └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
         */
-        public static function getTimeStampTZConvert_PHPDateTimeToDateTimeTZString(
+        public static function getTimeStampTZConvert_PHPDateTimeToDateTimeTZString (
             $varUserSession, \DateTime $varPHPDateTime,
             int $varTimeZoneOffset = null
             )
@@ -138,82 +290,180 @@ namespace App\Http\Helpers\ZhtHelper\General\Utilities
             string $varZone = null
             )
             {
-            if (!$varZone)
-                {
-                $varZone =
-                    'Asia/Jakarta';
-                }
-            else
-                {
+            //---> Data Initialization
+                $varReturn = null;
+
+            //---> Data Process
                 try {
-                    $varTemp =
-                        explode (
-                            ':',
-                            $varZone
-                            );
+                    if (!$varZone)
+                        {
+                        $varZone =
+                            'Asia/Jakarta';
+                        }
+                    else
+                        {
+                        try {
+                            $varTemp =
+                                explode (
+                                    ':',
+                                    $varZone
+                                    );
 
-                    $varReturn = (
-                        str_pad($varTemp[0], 2, '0', STR_PAD_LEFT).
-                        ':'.
-                        str_pad($varTemp[1], 2, '0', STR_PAD_LEFT)
-                        );
-                    } 
+                            $varReturn = (
+                                str_pad($varTemp[0], 2, '0', STR_PAD_LEFT).
+                                ':'.
+                                str_pad($varTemp[1], 2, '0', STR_PAD_LEFT)
+                                );
+                            } 
 
-                catch (\Exception $ex) {
-                    try {
-                        $varReturn = (
-                            str_pad (
-                                ((int) ($varTemp[0]) * 1),
-                                2,
-                                '0',
-                                STR_PAD_LEFT
-                                ).
-                            ':'.
-                            '00'
-                            );                                    
+                        catch (\Exception $ex) {
+                            try {
+                                $varReturn = (
+                                    str_pad (
+                                        ((int) ($varTemp[0]) * 1),
+                                        2,
+                                        '0',
+                                        STR_PAD_LEFT
+                                        ).
+                                    ':'.
+                                    '00'
+                                    );                                    
+                                }
+
+                            catch (\Exception $ex) {
+                                $varReturn = null;
+                                }
+                            }
                         }
 
-                    catch (\Exception $ex) {
-                        $varReturn = null;
+                    if ($varReturn == null) {
+                        $varLocalDateTimeZone =
+                            new \DateTimeZone(
+                               $varZone
+                               );
+
+                        $varDateTimeLocal =
+                            new \DateTime (
+                               "now",
+                               $varLocalDateTimeZone
+                               );
+
+                        $varRemainInSeconds =
+                            ($varLocalDateTimeZone->getOffset($varDateTimeLocal));
+
+                        //$varRemainInSeconds += (30 * 60);
+
+                        $varHoursTimeOffset = 
+                            (int) ($varRemainInSeconds / (60*60));
+
+                        $varRemainInSeconds = 
+                            $varRemainInSeconds - ($varHoursTimeOffset * (60 * 60));
+
+                        $varMinutesTimeOffset = 
+                            (int) ($varRemainInSeconds / 60);
+
+                        $varRemainInSeconds = 
+                            $varRemainInSeconds - ($varMinutesTimeOffset * (60));
+
+                        $varReturn = (
+                            str_pad ($varHoursTimeOffset, 2, '0', STR_PAD_LEFT).
+                            ':'.
+                            str_pad ($varMinutesTimeOffset, 2, '0', STR_PAD_LEFT)
+                            );
                         }
                     }
-                }
+                catch (\Exception $ex) {
+                    }
 
-            if ($varReturn == null) {
-                 $varLocalDateTimeZone =
-                     new \DateTimeZone (
-                        $varZone
-                        );
+            //---> Data Return
+                return
+                    $varReturn;
+            }
 
-                 $varDateTimeLocal =
-                     new \DateTime (
-                        "now",
-                        $varLocalDateTimeZone
-                        );
 
-                 $varRemainInSeconds =
-                     ($varLocalDateTimeZone->getOffset($varDateTimeLocal));
+        /*
+        ┌───────────────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────┐
+        │ ▪ Method Name     │ getUnixTime                                                                                          │
+        ├───────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
+        │ ▪ Version         │ 1.0000.0000002                                                                                       │
+        │ ▪ Last Update     │ 2025-12-16                                                                                           │
+        │ ▪ Creation Date   │ 2020-08-03                                                                                           │
+        │ ▪ Description     │ Mendapatkan UnixTime                                                                                 │
+        ├───────────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────┤
+        │ ▪ Input Variable  :                                                                                                      │
+        │      ▪ (mixed)  varUserSession ► User Session                                                                            │
+        │      ------------------------------                                                                                      │
+        │      ▪ (string) varDateTimeString ► Date Time String                                                                     │
+        │ ▪ Output Variable :                                                                                                      │
+        |      ▪ (int)    varReturn                                                                                                |
+        ├──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+        │ ▪ Linked Function :                                                                                                      │
+        │      ▪                                                                                                                   │
+        └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+        */
+        public static function getUnixTime($varUserSession, string $varDateTimeString=null)
+            {
+            //---> Data Initialization
+                $varReturn = null;
 
-                 //$varRemainInSeconds += (30 * 60);
+            //---> Data Process
+                try {
+                    if (!$varDateTimeString)
+                        {
+                        $varReturn = time();
+                        }
+                    else
+                        {
+                        try {
+                            $varMicroSecond =
+                                str_replace (
+                                    ' ',
+                                    '',
+                                    (
+                                    explode (
+                                        '-',
+                                        (
+                                        explode (
+                                            '+',
+                                            (
+                                            explode (
+                                                '.',
+                                                $varDateTimeString
+                                                )
+                                            )[1]
+                                            )
+                                        )[0]
+                                        )
+                                    )[0]
+                                    );                            
+                            }
 
-                 $varHoursTimeOffset = 
-                     (int) ($varRemainInSeconds / (60*60));
+                        catch (\Exception $ex) {
+                            $varMicroSecond = null;
+                            }
 
-                 $varRemainInSeconds = 
-                     $varRemainInSeconds - ($varHoursTimeOffset * (60 * 60));
+                        $varReturn =
+                            strtotime (
+                                $varDateTimeString
+                                ).
+                            (
+                            !$varMicroSecond
+                            ? 
+                            ''
+                            :
+                            '.'.
+                            $varMicroSecond
+                            );
+                        //$varReturn=strtotime($varDateTimeString);
+                        }
+                    }
 
-                 $varMinutesTimeOffset = 
-                     (int) ($varRemainInSeconds / 60);
+                catch (\Exception $ex) {
+                    }
 
-                 $varRemainInSeconds = 
-                     $varRemainInSeconds - ($varMinutesTimeOffset * (60));
-
-                 $varReturn = (
-                     str_pad ($varHoursTimeOffset, 2, '0', STR_PAD_LEFT).
-                     ':'.
-                     str_pad ($varMinutesTimeOffset, 2, '0', STR_PAD_LEFT)
-                     );
-                 }
+            //---> Data Return
+                return
+                    $varReturn;
             }
         }
     }
