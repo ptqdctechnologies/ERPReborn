@@ -506,13 +506,18 @@
                                 ${key === 0 ? modifyColumn : ''}
                                 <td style="text-align: center; padding: 10px !important;">${val2.combinedBudgetSectionCode + ' - ' + val2.combinedBudgetSectionName}</td>
                                 <td style="text-align: center; padding: 10px !important;">${val2.productCode}</td>
-                                <td style="text-align: center; padding: 10px !important;">${val2.productName}</td>
+                                <td style="text-align: center; padding: 10px !important;">
+                                    <div style="overflow: hidden;white-space: nowrap;text-overflow: ellipsis;width: 150px;">
+                                        ${val2.productName}
+                                    </div>
+                                </td>
                                 <td style="text-align: center; padding: 10px !important;">${currencyTotal(val2.quantity)}</td>
                                 <td style="text-align: center; padding: 10px !important;">${currencyTotal(val2.qtyAvail)}</td>
                                 <td style="text-align: center; padding: 10px !important;">${val2.quantityUnitName}</td>
                                 <td style="text-align: center; padding: 10px !important;">${currencyTotal(val2.productUnitPriceBaseCurrencyValue)}</td>
                                 <td style="text-align: center; padding: 10px !important;">${currencyTotal(val2.quantity * val2.productUnitPriceBaseCurrencyValue)}</td>
                                 <td style="text-align: center; padding: 10px !important;">${val2.productUnitPriceCurrencyISOCode}</td>
+                                <td style="text-align: center; padding: 10px !important;">-</td>
                                 <td class="sticky-col fifth-col-pr" style="border:1px solid #e9ecef;background-color:white;">
                                     <input class="form-control number-without-negative" id="qty_req${indexPurchaseOrder}" data-index=${indexPurchaseOrder} data-total-request=${val2.priceBaseCurrencyValue} data-default="" autocomplete="off" style="border-radius:0px;" />
                                 </td>
@@ -525,7 +530,7 @@
                                 <td class="sticky-col second-col-pr" style="border:1px solid #e9ecef;background-color:white;">
                                     <input class="form-control number-without-negative" id="balance${indexPurchaseOrder}" data-default="" autocomplete="off" style="border-radius:0px;" disabled />
                                 </td>
-                                <td class="sticky-col first-col-pr" style="border:1px solid #e9ecef;background-color:white;">
+                                <td class="sticky-col first-col-pr" style="border:1px solid #e9ecef;background-color:white;padding:.70rem;">
                                     <textarea id="note${indexPurchaseOrder}" data-default="" class="form-control"></textarea>
                                 </td>
                             </tr>
