@@ -177,6 +177,57 @@ namespace App\Http\Helpers\ZhtHelper\General\System
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getBackEndConfigEnvironment                                                                          |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-08-05                                                                                           |
+        | ▪ Description     : Mencari nilai Konfigurasi Environment Back End sesuai Kunci Parameter (varKey)                       |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (string) varKey ► Parameter                                                                                       |
+        |      ------------------------------                                                                                      |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (string) varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Linked Function :                                                                                                      |
+        |      ▪                                                                                                                   |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getBackEndConfigEnvironment (
+            $varUserSession, string $varKey
+            )
+            {
+            //---> Data Initialization
+                $varReturn = null;
+
+            //---> Data Process
+                try {
+                    $varReturn =
+                        self::getConfigEnvironment (
+                            $varUserSession,
+                            $varKey,
+                            '/config/Application/BackEnd/environment.txt'
+                            );
+
+                    if (is_numeric ($varReturn) == true)
+                        {
+                        $varReturn =
+                            ($varReturn * 1);
+                        }
+                    }
+
+                catch (\Exception $ex) {
+                    }
+
+            //---> Data Return
+                return
+                    $varReturn;
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getConfigEnvironment                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000001                                                                                       |
