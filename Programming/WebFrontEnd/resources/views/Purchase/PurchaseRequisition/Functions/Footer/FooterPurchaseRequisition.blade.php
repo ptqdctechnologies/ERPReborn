@@ -6,6 +6,7 @@
         approverEntityRefID: null,
         comment: null
     };
+    let triggerButtonModal          = null;
     const documentTypeID            = document.getElementById("DocumentTypeID");
     const budgetCode                = document.getElementById("project_code_second");
     const siteCode                  = document.getElementById("site_code_second");
@@ -594,14 +595,17 @@
         });
     }
 
-    function SubmitForm() {
+    function SubmitForm(value) {
+        triggerButtonModal = value;
         $('#purchaseRequestFormModal').modal('hide');
 
-        $('#purchaseRequestFormModal').on('hidden.bs.modal', function () {
-            if (totalNextApprover > 1) {
-                $('#myWorkflows').modal('show');
-            } else {
-                commentWorkflow();
+        $('#purchaseRequestFormModal').on('hidden.bs.modal', function (e) {
+            if (triggerButtonModal === "SUBMIT") {
+                if (totalNextApprover > 1) {
+                    $('#myWorkflows').modal('show');
+                } else {
+                    commentWorkflow();
+                }
             }
         });
     }
