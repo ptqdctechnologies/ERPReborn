@@ -3,6 +3,7 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use App\Exceptions\InvalidOrderException;
 
 //return \Illuminate\Foundation\Application::configure(basePath: dirname(__DIR__))
 //    Application::configure(basePath: dirname(__DIR__))
@@ -27,6 +28,8 @@ return
             }
             )
         ->withExceptions(function (Exceptions $exceptions): void {
-            //
+            $exceptions->report(function (InvalidOrderException $e) {
+                // ...
+            });
             }
             )->create();

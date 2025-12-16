@@ -80,6 +80,48 @@ if (isset($_SERVER['FRANKENPHP_WORKER'])) {
     echo " (Mode Klasik)";
 }
 */
+//echo \App\Http\Helpers\ZhtHelper\General\Utilities\Helper_EncodeDecode::getBase64Encode(11, 'abcdef');
+//echo \App\Http\Helpers\ZhtHelper\General\Utilities\Helper_Network::getCurrentProtocol(11);
+
+            $varUserSession = 11;
+            
+            /*
+            // LDAP
+            $varUserName = 'teguh.pratama';
+            $varUserPassword = 'teguhpratama1234';
+            if (
+               \App\Http\Helpers\ZhtHelper\BackEnd\DirectoryService\Helper_ActiveDirectory::getAuthenticationBySAMAccountName(
+                    $varUserSession,
+                    \App\Http\Helpers\ZhtHelper\General\System\Helper_Environment::getBackEndConfigEnvironment(
+                        $varUserSession,
+                        'LDAP_HOST'
+                        ),
+                    \App\Http\Helpers\ZhtHelper\General\System\Helper_Environment::getBackEndConfigEnvironment(
+                        $varUserSession,
+                        'LDAP_PORT'
+                        ),
+                    \App\Http\Helpers\ZhtHelper\General\System\Helper_Environment::getBackEndConfigEnvironment(
+                        $varUserSession,
+                        'LDAP_BASEDN'
+                        ),
+                    $varUserName,
+                    $varUserPassword
+                    ) == true
+                ) {
+                $varSignLoginSuccess = true;
+                }
+            echo $varSignLoginSuccess;
+            */
+            
+            /*
+            // DATABASE
+            $x = \App\Http\Helpers\ZhtHelper\BackEnd\Database\Helper_PostgreSQL::getQueryExecution(
+                $varUserSession,
+                'SELECT NOW();'    
+                );
+            var_dump($x);
+            */
+
             return
                 phpinfo();
             }

@@ -87,6 +87,7 @@ namespace App\Http\Helpers\ZhtHelper\General\System
                     $varArrayErrorMessage[1] = '<b><i>'.$varArrayErrorMessage[1].'</i></b>';
                     $varErrorMessage = implode('►', $varArrayErrorMessage);                    
                     }
+
                 catch (\Exception $ex) {
                     $varErrorMessage = '►'.'<b><i>'.$varErrorMessage.'</i></b>';
                     }
