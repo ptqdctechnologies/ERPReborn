@@ -98,8 +98,7 @@ namespace App\Http\Helpers\ZhtHelper\General\Utilities
                             'https://'
                             :
                             'http://'
-                        )
-                        ;
+                        );
 
                     $varReturn =
                         $varProtocol;

@@ -11,7 +11,8 @@
 	}
 
 	log {
-		output stdout
+		#output stdout
+		output stderr
 		format json
 	}
 }

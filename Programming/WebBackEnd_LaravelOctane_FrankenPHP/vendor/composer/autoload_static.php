@@ -818,6 +818,7 @@ class ComposerStaticInitf3f23b9bfc4c5027395f1f35d83d1125
         'App\\Http\\Helpers\\ZhtHelper\\General\\Utilities\\Helper_DateTime' => __DIR__ . '/../..' . '/app/Http/Helpers/ZhtHelper/General/Utilities/Helper_DateTime.php',
         'App\\Http\\Helpers\\ZhtHelper\\General\\Utilities\\Helper_EncodeDecode' => __DIR__ . '/../..' . '/app/Http/Helpers/ZhtHelper/General/Utilities/Helper_EncodeDecode.php',
         'App\\Http\\Helpers\\ZhtHelper\\General\\Utilities\\Helper_EncryptDecrypt' => __DIR__ . '/../..' . '/app/Http/Helpers/ZhtHelper/General/Utilities/Helper_EncryptDecrypt.php',
+        'App\\Http\\Helpers\\ZhtHelper\\General\\Utilities\\Helper_Network' => __DIR__ . '/../..' . '/app/Http/Helpers/ZhtHelper/General/Utilities/Helper_Network.php',
         'App\\Http\\Helpers\\ZhtHelper\\General\\Utilities\\Helper_String' => __DIR__ . '/../..' . '/app/Http/Helpers/ZhtHelper/General/Utilities/Helper_String.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',

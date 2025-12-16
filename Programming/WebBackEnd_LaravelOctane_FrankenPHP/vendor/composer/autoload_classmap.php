@@ -43,6 +43,7 @@ return array(
     'App\\Http\\Helpers\\ZhtHelper\\General\\Utilities\\Helper_DateTime' => $baseDir . '/app/Http/Helpers/ZhtHelper/General/Utilities/Helper_DateTime.php',
     'App\\Http\\Helpers\\ZhtHelper\\General\\Utilities\\Helper_EncodeDecode' => $baseDir . '/app/Http/Helpers/ZhtHelper/General/Utilities/Helper_EncodeDecode.php',
     'App\\Http\\Helpers\\ZhtHelper\\General\\Utilities\\Helper_EncryptDecrypt' => $baseDir . '/app/Http/Helpers/ZhtHelper/General/Utilities/Helper_EncryptDecrypt.php',
+    'App\\Http\\Helpers\\ZhtHelper\\General\\Utilities\\Helper_Network' => $baseDir . '/app/Http/Helpers/ZhtHelper/General/Utilities/Helper_Network.php',
     'App\\Http\\Helpers\\ZhtHelper\\General\\Utilities\\Helper_String' => $baseDir . '/app/Http/Helpers/ZhtHelper/General/Utilities/Helper_String.php',
     'App\\Models\\User' => $baseDir . '/app/Models/User.php',
     'App\\Providers\\AppServiceProvider' => $baseDir . '/app/Providers/AppServiceProvider.php',
