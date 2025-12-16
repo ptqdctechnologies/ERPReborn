@@ -21,7 +21,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         |                     ► http://172.28.0.4/transaction.update.supplyChain.setPurchaseRequisition.v1_throughAPIGateway       |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0001.0000000                                                                                       |
-        | ▪ Last Update     : 2025-05-13                                                                                           |
+        | ▪ Last Update     : 2025-12-16                                                                                           |
         | ▪ Creation Date   : 2022-07-27                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -38,8 +38,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                     //-----[ METADATA ]-----( START )-----
                         \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                        $varAPIWebToken, 
-                        'transaction.update.supplyChain.setPurchaseRequisition', 
+                        $varAPIWebToken,
+                        'transaction.update.supplyChain.setPurchaseRequisition',
                         'latest',
                     //-----[ METADATA ]-----(  END  )-----
 
@@ -68,8 +68,9 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                                 "productUnitPriceCurrency_RefID" => 62000000000001,
                                                 "productUnitPriceCurrencyValue" => 30000,
                                                 "productUnitPriceCurrencyExchangeRate" => 1,
+                                                "asset" => 0,       // 0 => "NO", 1 => "YES"
                                                 "remarks" => 'Catatan Pertama Revisi'
-                                                ]                                   
+                                                ]
                                             ],
                                             [
                                             "recordID" => 84000000000109,
@@ -81,6 +82,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                                 "productUnitPriceCurrency_RefID" => 62000000000001,
                                                 "productUnitPriceCurrencyValue" => 30000,
                                                 "productUnitPriceCurrencyExchangeRate" => 1,
+                                                "asset" => 0,       // 0 => "NO", 1 => "YES"
                                                 "remarks" => 'Catatan Kedua Revisi'
                                                 ]
                                             ],
@@ -153,9 +155,9 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             $varJQueryFunction =
                 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                     //-----[ METADATA ]-----( START )-----
-                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
-                        $varAPIWebToken, 
-                        'transaction.update.supplyChain.setPurchaseRequisition', 
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                        $varAPIWebToken,
+                        'transaction.update.supplyChain.setPurchaseRequisition',
                         'latest',
                     //-----[ METADATA ]-----(  END  )-----
 
