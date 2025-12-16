@@ -13,19 +13,19 @@ namespace App\Http\Helpers\ZhtHelper\General\Utilities
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : Helper_Datatype                                                                                              |
-    | ▪ Description : Menangani segala hal yang terkait Tipe Data                                                                  |
+    | ▪ Class Name  : Helper_Network                                                                                               |
+    | ▪ Description : Menangani segala hal yang terkait Jaringan                                                                   |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class Helper_Datatype
+    class Helper_Network
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.000000                                                                                        |
-        | ▪ Last Update     : 2025-12-15                                                                                           |
-        | ▪ Creation Date   : 2025-12-15                                                                                           |
+        | ▪ Last Update     : 2025-12-11                                                                                           |
+        | ▪ Creation Date   : 2025-12-11                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -44,8 +44,8 @@ namespace App\Http\Helpers\ZhtHelper\General\Utilities
         | ▪ Method Name     : __destruct                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-12-15                                                                                           |
-        | ▪ Creation Date   : 2025-12-15                                                                                           |
+        | ▪ Last Update     : 2025-12-11                                                                                           |
+        | ▪ Creation Date   : 2025-12-11                                                                                           |
         | ▪ Description     : System's Default Destructor                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -61,37 +61,50 @@ namespace App\Http\Helpers\ZhtHelper\General\Utilities
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : isJSON                                                                                               |
+        | ▪ Method Name     : getCurrentProtocol                                                                                   |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000001                                                                                       |
         | ▪ Last Update     : 2025-12-15                                                                                           |
-        | ▪ Creation Date   : 2020-08-03                                                                                           |
-        | ▪ Description     : Mengecek apakah suatu data (varDataJSON) termasuk dalam kategori JSON                                |
+        | ▪ Creation Date   : 2020-07-29                                                                                           |
+        | ▪ Description     : Mendapatkan Protocol Server yang sedang diakses oleh browser (HTTP atau HTTPS)                       |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (string) varData ► Data yang akan diperiksa validitasnya                                                          |
         |      ------------------------------                                                                                      |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (bool) varReturn                                                                                                  |
+        |      ▪ (string) varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Linked Function :                                                                                                      |
+        |      ▪                                                                                                                   |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public static function isJSON(
-            $varUserSession, string $varData
+        public static function getCurrentProtocol (
+            $varUserSession
             )
             {
             //---> Data Initialization
-                $varReturn = (bool) null;
+                $varReturn = null;
 
             //---> Data Process
                 try {
+                    $varProtocol =
+                        (
+                            (
+                            stripos (
+                                $_SERVER['SERVER_PROTOCOL'],
+                                'https'
+                                ) === 0
+                            ) ?
+                            'https://'
+                            :
+                            'http://'
+                        )
+                        ;
+
                     $varReturn =
-                        \PHPUnit\Framework\isJson(
-                            varData
-                            );
+                        $varProtocol;
                     }
+
                 catch (\Exception $ex) {
                     }
 

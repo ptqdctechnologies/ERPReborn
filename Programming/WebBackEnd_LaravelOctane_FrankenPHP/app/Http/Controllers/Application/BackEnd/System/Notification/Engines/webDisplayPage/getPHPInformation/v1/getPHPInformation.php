@@ -80,6 +80,8 @@ if (isset($_SERVER['FRANKENPHP_WORKER'])) {
     echo " (Mode Klasik)";
 }
 */
+echo \App\Http\Helpers\ZhtHelper\General\Utilities\Helper_EncodeDecode::getBase64Encode(11, 'abcdef');
+echo \App\Http\Helpers\ZhtHelper\General\Utilities\Helper_Network::getCurrentProtocol(11);
             return
                 phpinfo();
             }

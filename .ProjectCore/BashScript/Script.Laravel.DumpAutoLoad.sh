@@ -30,7 +30,6 @@ sudo docker exec -it php-backend-frankenPHP /bin/bash -c "
 	php artisan cache:clear; \
 	php artisan view:clear; \
 	php artisan event:clear; \
-	# composer dump-autoload --optimize; \
 	php artisan config:cache; \
 	php artisan route:cache; \
 	php artisan view:cache; \
@@ -40,3 +39,4 @@ sudo docker exec -it php-backend-frankenPHP /bin/bash -c "
 	";
 
 
+	# composer dump-autoload --optimize; \

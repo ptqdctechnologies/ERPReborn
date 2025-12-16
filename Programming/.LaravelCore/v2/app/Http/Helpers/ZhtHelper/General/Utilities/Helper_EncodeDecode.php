@@ -79,7 +79,7 @@ namespace App\Http\Helpers\ZhtHelper\General\Utilities
         |      ▪                                                                                                                   |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public static function getBase64Decode(
+        public static function getBase64Decode (
             $varUserSession, string $varEncodedData
             )
             {
@@ -93,6 +93,7 @@ namespace App\Http\Helpers\ZhtHelper\General\Utilities
                             $varEncodedData
                             );
                     }
+
                 catch (\Exception $ex) {
                     }
 
@@ -122,7 +123,7 @@ namespace App\Http\Helpers\ZhtHelper\General\Utilities
         |      ▪                                                                                                                   |
         +--------------------------------------------------------------------------------------------------------------------------+
         */  
-        public static function getBase64Encode(
+        public static function getBase64Encode (
             $varUserSession, string $varPlainData
             )
             {
@@ -136,6 +137,7 @@ namespace App\Http\Helpers\ZhtHelper\General\Utilities
                             $varPlainData
                             );
                     }
+
                 catch (\Exception $ex) {
                     }
 
@@ -164,10 +166,10 @@ namespace App\Http\Helpers\ZhtHelper\General\Utilities
         |      ▪ (string) varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Linked Function :                                                                                                      |
-        |      ▪ App\Http\Helpers\ZhtHelper\getBase64Decode($varUserSession, $varEncodedData)                                      |
+        |      ▪ \App\Http\Helpers\ZhtHelper\getBase64Decode($varUserSession, $varEncodedData)                                     |
         +--------------------------------------------------------------------------------------------------------------------------+
         */     
-        public static function getBase64DecodeWithoutSlashCharacter(
+        public static function getBase64DecodeWithoutSlashCharacter (
             $varUserSession, string $varEncodedData,
             string $varReplacementCharacter = null
             )
@@ -191,6 +193,7 @@ namespace App\Http\Helpers\ZhtHelper\General\Utilities
                                 )
                             );
                     }
+
                 catch (\Exception $ex) {
                     }
 
@@ -219,10 +222,10 @@ namespace App\Http\Helpers\ZhtHelper\General\Utilities
         |      ▪ (string) varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Linked Function :                                                                                                      |
-        |      ▪ App\Http\Helpers\ZhtHelper\getBase64Encode($varUserSession, $varPlainData)                                        |
+        |      ▪ \App\Http\Helpers\ZhtHelper\getBase64Encode($varUserSession, $varPlainData)                                       |
         +--------------------------------------------------------------------------------------------------------------------------+
         */  
-        public static function getBase64EncodeWithoutSlashCharacter(
+        public static function getBase64EncodeWithoutSlashCharacter (
             $varUserSession, string $varPlainData,
             string $varReplacementCharacter = null
             )
@@ -246,6 +249,7 @@ namespace App\Http\Helpers\ZhtHelper\General\Utilities
                                 )
                             );
                     }
+
                 catch (\Exception $ex) {
                     }
 
@@ -272,10 +276,10 @@ namespace App\Http\Helpers\ZhtHelper\General\Utilities
         |      ▪ (string) varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Linked Function :                                                                                                      |
-        |      ▪ App\Http\Helpers\ZhtHelper\getBase64Encode($varUserSession, $varPlainData)                                        |
+        |      ▪ \App\Http\Helpers\ZhtHelper\getBase64Encode($varUserSession, $varPlainData)                                       |
         +--------------------------------------------------------------------------------------------------------------------------+
         */  
-        public static function getBase64URLEncode(
+        public static function getBase64URLEncode (
             $varUserSession, $varPlainData
             )
             {
@@ -294,6 +298,7 @@ namespace App\Http\Helpers\ZhtHelper\General\Utilities
                                 )
                             );
                     }
+
                 catch (\Exception $ex) {
                     }
 
@@ -322,7 +327,7 @@ namespace App\Http\Helpers\ZhtHelper\General\Utilities
         | ▪ Linked Function :                                                                                                      |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public static function getHTMLEncode(
+        public static function getHTMLEncode (
             $varUserSession, array $varDataArray
             )
             {
@@ -343,6 +348,7 @@ namespace App\Http\Helpers\ZhtHelper\General\Utilities
                     $varReturn =
                         $varDataArray;
                     }
+
                 catch (\Exception $ex) {
                     }
 
@@ -371,7 +377,7 @@ namespace App\Http\Helpers\ZhtHelper\General\Utilities
         | ▪ Linked Function :                                                                                                      |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public static function getJSONDecode(
+        public static function getJSONDecode (
             $varUserSession, string $varEncodedData
             )
             {
@@ -387,6 +393,7 @@ namespace App\Http\Helpers\ZhtHelper\General\Utilities
                             JSON_UNESCAPED_UNICODE
                             );
                     }
+
                 catch (\Exception $ex) {
                     }
 
@@ -415,7 +422,9 @@ namespace App\Http\Helpers\ZhtHelper\General\Utilities
         | ▪ Linked Function :                                                                                                      |
         +--------------------------------------------------------------------------------------------------------------------------+
         */  
-        public static function getJSONEncode($varUserSession, string $varPlainData)
+        public static function getJSONEncode (
+            $varUserSession, string $varPlainData
+            )
             {
             //---> Data Initialization
                 $varReturn = null;
@@ -428,6 +437,7 @@ namespace App\Http\Helpers\ZhtHelper\General\Utilities
                             true
                             );
                     }
+
                 catch (\Exception $ex) {
                     }
 
@@ -456,7 +466,9 @@ namespace App\Http\Helpers\ZhtHelper\General\Utilities
         | ▪ Linked Function :                                                                                                      |
         +--------------------------------------------------------------------------------------------------------------------------+
         */            
-        public static function getUTF8Encode($varUserSession, string $varPlainData)
+        public static function getUTF8Encode (
+            $varUserSession, string $varPlainData
+            )
             {
             //---> Data Initialization
                 $varReturn = null;
@@ -468,6 +480,7 @@ namespace App\Http\Helpers\ZhtHelper\General\Utilities
                             $varPlainData
                             );
                     }
+
                 catch (\Exception $ex) {
                     }
 
