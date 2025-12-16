@@ -194,7 +194,12 @@ namespace App\Http\Helpers\ZhtHelper\General\System
         |      ▪ (string) varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Linked Function :                                                                                                      |
-        |      ▪                                                                                                                   |
+        |      ▪ \App\Http\Helpers\ZhtHelper\General\Utilities\Helper_Array::isKeyExist                                            |
+        |           ($varUserSession, string $varPath)                                                                             |
+        |      ▪ \App\Http\Helpers\ZhtHelper\General\Utilities\Helper_File::getAutoMatchFilePath                                   |
+        |           ($varUserSession, string $varPrefix, string $varPostfix)                                                       |
+        |      ▪ \App\Http\Helpers\ZhtHelper\General\Utilities\Helper_File::getFileContent                                         |
+        |           ($varUserSession, string $varPath)                                                                             |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         private static function getConfigEnvironment (
@@ -207,11 +212,11 @@ namespace App\Http\Helpers\ZhtHelper\General\System
             //---> Data Process
                 try {
                     $varFileContent =
-                        \App\Helpers\ZhtHelper\General\Helper_File::getFileContent (
-                            $varUserSession, 
-                            \App\Helpers\ZhtHelper\General\Helper_File::getAutoMatchFilePath (
+                        \App\Http\Helpers\ZhtHelper\General\Utilities\Helper_File::getFileContent(
+                            $varUserSession,
+                            \App\Http\Helpers\ZhtHelper\General\Utilities\Helper_File::getAutoMatchFilePath (
                                 $varUserSession,
-                                getcwd().'/',
+                                (getcwd().'/'),
                                 $varPostfix
                                 )
                             );
@@ -224,7 +229,7 @@ namespace App\Http\Helpers\ZhtHelper\General\System
 
                     for ($i=0; $i != count($varArrayTemp); $i++)
                         {
-                        if (strlen($varArrayTemp[$i])>0)
+                        if (strlen ($varArrayTemp[$i]) > 0)
                             {
                             $varArrayTemp2 =
                                 explode(
@@ -250,7 +255,7 @@ namespace App\Http\Helpers\ZhtHelper\General\System
                             }
                         }
 
-                    if (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist (
+                    if (\App\Http\Helpers\ZhtHelper\General\Utilities\Helper_Array::isKeyExist (
                         $varUserSession,
                         $varKey,
                         $varData
@@ -269,6 +274,5 @@ namespace App\Http\Helpers\ZhtHelper\General\System
                 return
                     $varReturn;
             }
-
         }
     }
