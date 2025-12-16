@@ -220,7 +220,6 @@ class DocumentTypeMapper
                     'table'             => 'Components.BudgetDetailDocumentTable',
                     'headerRevision'    => 'Components.BudgetDetailDocumentHeaderRevision',
                     'revision'          => 'Components.BudgetDetailDocumentRevision',
-                    'additional'        => 'Components.BudgetDetailDocumentAdditional'
                 ],
                 'resubmit'      => [
                     'url'       => 'Budget.RevisionBudget',
