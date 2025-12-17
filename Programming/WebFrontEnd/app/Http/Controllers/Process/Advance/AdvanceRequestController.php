@@ -249,7 +249,7 @@ class AdvanceRequestController extends Controller
         try {
             $date           = $request->arfDate;
             $requester      = $request->requester_id;
-            $beneficiary    = $request->requester_id;
+            $beneficiary    = $request->beneficiary_id;
             $budget         = [
                 "id"        => $request->budget_id,
                 "code"      => $request->budget_code,
@@ -292,44 +292,35 @@ class AdvanceRequestController extends Controller
     public function PrintExportReportAdvanceSummary(Request $request)
     {
         try {
+            $dataAdvanceSummary = json_decode($request->dataReport, true);
+            $type = $request->printType;
 
-            $isSubmit = Session::get("AdvanceSummaryReportIsSubmit");
-            if ($isSubmit == "Yes") {
-                $print_type = $request->print_type;
-                if ($print_type == "PDF") {
+            if ($dataAdvanceSummary) {
+                if ($type === "PDF") {
+                    $pdf = PDF::loadView('Process.Advance.AdvanceRequest.Reports.ReportAdvanceSummary_pdf', ['dataARF' => $dataAdvanceSummary])
+                        ->setPaper('a4', 'landscape');
 
-                    $dataAdvance = Session::get("AdvanceSummaryReportDataPDF");
-
-                    // $data = [
-                    //     'title' => 'ADVANCE REQUEST SUMMARY',
-                    //     'date' => date('d/m/Y H:m:s'),
-                    //     // 'projectCode' => $dataAdvance['varDataProject'][0]['projectCode'],
-                    //     // 'projectName' => $dataAdvance['varDataProject'][0]['projectName'],
-                    //     'printedBy' => Session::get('SessionLoginName'),
-                    //     'data' => $dataAdvance
-                    // ];
-
-                    $pdf = PDF::loadView('Process.Advance.AdvanceRequest.Reports.PrintReportAdvanceSummary', $dataAdvance);
                     $pdf->output();
-                    $dom_pdf = $pdf->getDomPDF();
-
-                    $canvas = $dom_pdf ->get_canvas();
-                    $width = $canvas->get_width();
-                    $height = $canvas->get_height();
+                    $dom_pdf    = $pdf->getDomPDF();
+                    $canvas     = $dom_pdf ->get_canvas();
+                    $width      = $canvas->get_width();
+                    $height     = $canvas->get_height();
                     $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
                     $canvas->page_text(34, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
 
                     return $pdf->download('Export Report Advance Summary.pdf');
-                } else if ($print_type == "Excel") {
-
-                    return Excel::download(new ExportReportAdvanceSummary, 'Export Report Advance Summary.xlsx');
+                } else if ($type === "EXCEL") {
+                    return Excel::download(new ExportReportAdvanceSummary($dataAdvanceSummary), 'Export Report Advance Summary.xlsx');
+                } else {
+                    throw new \Exception('Failed to Export Advance Summary Report');
                 }
             } else {
-                return redirect()->route('AdvanceRequest.ReportAdvanceSummary')->with('NotFound', 'Data Cannot Empty');
+                throw new \Exception('Advance Summary Data is Empty');
             }
         } catch (\Throwable $th) {
-            Log::error("Error at " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
+            Log::error("Print Export Report Advance Summary Function Error: " . $th->getMessage());
+
+            return response()->json(['statusCode' => 400]);
         }
     }
 
@@ -535,9 +526,8 @@ class AdvanceRequestController extends Controller
         return view('Process.Advance.AdvanceToASF.Reports.ReportAdvanceToASF', $compact);
     }
 
-    public function ReportAdvanceToASFData( $project_code){
-        
-            
+    public function ReportAdvanceToASFData( $project_code)
+    {
         try {
             // Log::error("Error at ",[$project_code, $site_code]);
 

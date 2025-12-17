@@ -40,7 +40,7 @@
                     </div>
                     <div>
                         <div class="input-group">
-                            <input id="payment_transfer_number" class="form-control" size="16" readonly style="border-radius:0; background-color: white; cursor: default;">
+                            <input id="payment_transfer_number" class="form-control" size="16" readonly style="border-radius:0; cursor: default;">
                             <input id="payment_transfer_id" name="payment_transfer_id" style="border-radius:0;" class="form-control" hidden>
                         </div>
                     </div>

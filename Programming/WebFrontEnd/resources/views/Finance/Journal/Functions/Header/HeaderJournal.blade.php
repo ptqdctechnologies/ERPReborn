@@ -7,7 +7,7 @@
             <div class="row" style="gap: 1rem;">
                 <div class="col">
                     <div class="row">
-                        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Bank Account</label>
+                        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Account Number</label>
                         <div class="col d-flex">
                             <div>
                                 <span style="border-radius:0;" class="input-group-text form-control">
@@ -99,7 +99,7 @@
 <!-- LEFT COLUMN -->
 <!-- <div class="col-md-12 col-lg-5">
     <div class="row">
-        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Bank Account</label>
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Account Number</label>
         <div class="col-5 d-flex">
             <div>
                 <span style="border-radius:0;" class="input-group-text form-control">

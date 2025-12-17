@@ -8,6 +8,7 @@
     let depreciationRateYearsIDValue    = 0;
     let depreciationRateValue           = 0;
     let depreciationYearsValue          = 0;
+    let indexPurchaseOrder              = 0;
     const purchaseOrderNumber           = document.getElementById("purchase_order_number");
     const supplierInvoiceNumber         = document.getElementById("supplier_invoice_number");
     const paymentTransferNumber         = document.getElementById("payment_transfer_number");
@@ -609,6 +610,9 @@
                     $("#purchase_order_delivery_to").val(data[0].deliveryTo_NonRefID.Address);
                     $("#purchase_order_delivery_from").val(`${data[0].supplierName} - ${data[0].supplierAddress}`);
 
+                    $("#invoice_details_table tbody").show();
+                    // $("#purchase_order_trigger").prop("disabled", true);
+
                     getPaymentTransfer(data[0].supplier_RefID);
 
                     $.each(data, function(key, val) {
@@ -627,26 +631,27 @@
                                 <td style="text-align: center;">${currencyTotal(val.productUnitPriceBaseCurrencyValue)}</td>
                                 <td style="text-align: center;">${val.quantityUnitName}</td>
                                 <td style="text-align: center;">${currencyTotal(val.quantity * val.productUnitPriceBaseCurrencyValue)}</td>
+                                <td style="text-align: center;">-</td>
                                 <td style="border:1px solid #e9ecef;background-color:white; padding: 0.5rem !important; width: 100px;">
-                                    <input id="qty_ap${key}" class="form-control number-without-negative" data-index=${key} autocomplete="off" style="border-radius:0px;" />
+                                    <input id="qty_ap${indexPurchaseOrder}" class="form-control number-without-negative" data-index=${indexPurchaseOrder} autocomplete="off" style="border-radius:0px;" />
                                 </td>
                                 <td style="border:1px solid #e9ecef;background-color:white; padding: 0.5rem !important; width: 100px;">
-                                    <input id="total_ap${key}" class="form-control number-without-negative" data-index=${key} autocomplete="off" style="border-radius:0px;" readonly />
+                                    <input id="total_ap${indexPurchaseOrder}" class="form-control number-without-negative" data-index=${indexPurchaseOrder} autocomplete="off" style="border-radius:0px;" readonly />
                                 </td>
                                 <td style="border:1px solid #e9ecef;background-color:white; padding: 0.5rem !important; width: 100px;">
-                                    <input id="wht${key}" class="form-control number-without-negative" data-index=${key} autocomplete="off" style="border-radius:0px;" />
+                                    <input id="wht${indexPurchaseOrder}" class="form-control number-without-negative" data-index=${indexPurchaseOrder} autocomplete="off" style="border-radius:0px;" />
                                 </td>
                                 <td>
                                     <div class="input-group">
                                         <div class="input-group-append">
                                             <span style="border-radius:0;cursor:pointer;" class="input-group-text form-control">
-                                                <a data-toggle="modal" data-target="#myGetChartOfAccount" onclick="pickCOA(${key})">
+                                                <a data-toggle="modal" data-target="#myGetChartOfAccount" onclick="pickCOA(${indexPurchaseOrder})">
                                                     <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="">
                                                 </a>
                                             </span>
                                         </div>
-                                        <input id="coa_id${key}" style="border-radius:0;width:130px;background-color:white;" class="form-control" hidden />
-                                        <input id="coa_name${key}" style="border-radius:0;width:130px;background-color:white;" class="form-control" readonly />
+                                        <input id="coa_id${indexPurchaseOrder}" style="border-radius:0;width:130px;background-color:white;" class="form-control" hidden />
+                                        <input id="coa_name${indexPurchaseOrder}" style="border-radius:0;width:130px;background-color:white;" class="form-control" readonly />
                                     </div>
                                 </td>
                             </tr>
@@ -654,16 +659,17 @@
 
                         $('#invoice_details_table tbody').append(row);
 
-                        $(`#qty_ap${key}`).on('keyup', function() {
+                        $(`#qty_ap${indexPurchaseOrder}`).on('keyup', function() {
                             let qty_ap      = $(this).val().replace(/,/g, '');
-                            let wht_ap      = $(`#wht${key}`).val().replace(/,/g, '');
+                            let data_index  = $(this).data('index');
+                            let wht_ap      = $(`#wht${data_index}`).val().replace(/,/g, '');
                             let total_ap    = parseFloat(qty_ap || 0) * val.productUnitPriceBaseCurrencyValue;
 
                             if (parseFloat(qty_ap) > val.qtyAvail) {
                                 $(this).val("");
                                 ErrorNotif("Qty AP is over!");
                             } else {
-                                $(`#total_ap${key}`).val(currencyTotal(total_ap));
+                                $(`#total_ap${data_index}`).val(currencyTotal(total_ap));
 
                                 if (wht_ap) {
                                     let result = (total_ap * wht_ap) / 100;
@@ -675,12 +681,13 @@
                             
                             calculateTotal();
                             calculateGrandTotal();
-                            checkOneLineBudgetContents(key);
+                            checkOneLineBudgetContents(data_index);
                         });
 
-                        $(`#wht${key}`).on('input', function () {
+                        $(`#wht${indexPurchaseOrder}`).on('input', function () {
                             let val         = this.value.replace(/[^\d]/g, '');
-                            let total_ap    = $(`#total_ap${key}`).val().replace(/,/g, '');
+                            let data_index  = $(this).data('index');
+                            let total_ap    = $(`#total_ap${data_index}`).val().replace(/,/g, '');
 
                             if (parseInt(val) > 100) {
                                 $(this).val("");
@@ -696,14 +703,20 @@
                             }
 
                             calculateGrandTotal();
-                            checkOneLineBudgetContents(key);
+                            checkOneLineBudgetContents(data_index);
                         });
+
+                        indexPurchaseOrder += 1;
                     });
                 } else {
-                    
+                    ErrorNotif("Error!");
                 }
+
+                $("#invoice_loading_table").hide();
             },
             error: function (textStatus, errorThrown) {
+                ErrorNotif("Error!");
+                $("#invoice_loading_table").hide();
             }
         });
     }
@@ -850,6 +863,9 @@
         var table = $('#TableSearchPORevision').DataTable();
         var data = table.row(this).data();
 
+        $("#invoice_loading_table").show();
+        $("#invoice_details_table tbody").hide();
+
         if (data) {
             $("#mySearchPO").modal('toggle');
 
@@ -884,13 +900,22 @@
 
     $('#tableGetPaymentTransfer').on('click', 'tbody tr', async function() {
         let sysId           = $(this).find('input[data-trigger="sys_id_payment"]').val();
+        let name            = $(this).find('td:nth-child(3)').text();
         let bankCode        = $(this).find('td:nth-child(5)').text();
         let bankAccount     = $(this).find('td:nth-child(7)').text();
         let accountNumber   = $(this).find('td:nth-child(8)').text();
 
-        $(`#payment_transfer_number`).val(`${bankAccount} - (${bankCode}) ${accountNumber}`);
-        $("#payment_transfer_id").val(sysId);
-        $(`#payment_transfer_number`).css({'background-color': '#e9ecef', 'border': '1px solid #ced4da'});
+        if (name === "Others") {
+            $(`#payment_transfer_number`).removeAttr("readonly");
+            $(`#payment_transfer_number`).val("");
+            $("#payment_transfer_id").val("");
+            $(`#payment_transfer_number`).css({'background-color': '#fff'});
+        } else {
+            $(`#payment_transfer_number`).val(`${bankAccount} - (${bankCode}) ${accountNumber}`);
+            $("#payment_transfer_id").val(sysId);
+            $(`#payment_transfer_number`).css({'background-color': '#e9ecef', 'border': '1px solid #ced4da'});
+        }
+        
         $("#payment_transfer_message").hide();
         
         $('#myGetPaymentTransfer').modal('hide');

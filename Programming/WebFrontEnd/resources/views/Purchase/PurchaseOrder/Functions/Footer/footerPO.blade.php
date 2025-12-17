@@ -6,6 +6,7 @@
     let msrIDList                   = [];
     const combinedBudgetTrigger     = document.getElementById("var_combinedBudget_RefID");
     const msrNumber                 = document.getElementById("modal_purchase_requisition_document_numbers");
+    const dateOfDelivery            = document.getElementById("dateOfDelivery");
     const deliveryTo                = document.getElementById("delivery_to");
     const deliveryToDuplicate       = document.getElementById("deliveryToDuplicate");
     const deliveryToDuplicateRefID  = document.getElementById("deliveryToDuplicate_RefID");
@@ -248,6 +249,7 @@
     }
 
     function validationForm() {
+        const isDateOfDeliveryNotEmpty              = dateOfDelivery.value.trim() !== '';
         const isMSRNumberNotEmpty                   = msrNumber.value.trim() !== '';
         const isDeliveryToNotEmpty                  = deliveryTo.value.trim() !== '';
         const isSupplierCodeNotEmpty                = supplierCode.value.trim() !== '';
@@ -255,24 +257,31 @@
         const isTermOfPaymentOptionValueNotEmpty    = termOfPaymentOption.value.trim() !== 'Select a TOP';
         const isTableNotEmpty                       = checkOneLineBudgetContents();
 
-        if (isMSRNumberNotEmpty && isDeliveryToNotEmpty && isSupplierCodeNotEmpty && isDownPaymentValueNotEmpty && isTermOfPaymentOptionValueNotEmpty && isTableNotEmpty) {
+        if (isDateOfDeliveryNotEmpty && isMSRNumberNotEmpty && isDeliveryToNotEmpty && isSupplierCodeNotEmpty && isDownPaymentValueNotEmpty && isTermOfPaymentOptionValueNotEmpty && isTableNotEmpty) {
             $('#purchaseOrderFormModal').modal('show');
             summaryData();
         } else {
-            if (!isMSRNumberNotEmpty && !isDeliveryToNotEmpty && !isSupplierCodeNotEmpty && !isDownPaymentValueNotEmpty && !isTermOfPaymentOptionValueNotEmpty && !isTableNotEmpty) {
+            if (!isDateOfDeliveryNotEmpty && !isMSRNumberNotEmpty && !isDeliveryToNotEmpty && !isSupplierCodeNotEmpty && !isDownPaymentValueNotEmpty && !isTermOfPaymentOptionValueNotEmpty && !isTableNotEmpty) {
                 $("#modal_purchase_requisition_document_numbers").css("border", "1px solid red");
                 $("#delivery_to").css("border", "1px solid red");
                 $("#supplier_code").css("border", "1px solid red");
                 $("#supplier_name").css("border", "1px solid red");
                 $("#downPaymentValue").css("border", "1px solid red");
                 $("#termOfPaymentOption").css("border", "1px solid red");
+                $("#dateOfDelivery").css("border", "1px solid red");
 
                 $("#prNumberMessage").show();
+                $("#dateOfDeliveryMessage").show();
                 $("#deliveryToMessage").show();
                 $("#supplierMessage").show();
                 $("#dpMessage").show();
                 $("#topMessage").show();
                 $("#purchaseOrderDetailMessage").show();
+                return;
+            }
+            if (!isDateOfDeliveryNotEmpty) {
+                $("#dateOfDelivery").css("border", "1px solid red");
+                $("#dateOfDeliveryMessage").show();
                 return;
             }
             if (!isMSRNumberNotEmpty) {
@@ -411,13 +420,15 @@
         $("#deliveryToDuplicate_RefID").val(data[0].deliveryTo_RefID);
         $("#deliveryTo_RefID").val(data[0].deliveryTo_RefID);
         $("#deliveryToDuplicate").val(data[0].deliveryToName);
-        $("#delivery_to").val(data[0].deliveryToName);
-        $("#dateOfDelivery").val(splitDateOfDelivery);
+        $("#purchase_request_delivery_to").val(data[0].deliveryToName);
+        $("#purchase_request_delivery_date").val(splitDateOfDelivery);
+        // $("#delivery_to").val(data[0].deliveryToName);
+        // $("#dateOfDelivery").val(splitDateOfDelivery);
 
         $("#prNumberMessage").hide();
-        $("#deliveryToMessage").hide();
+        // $("#deliveryToMessage").hide();
         $("#modal_purchase_requisition_document_numbers").css({"border": "1px solid #ced4da", "background-color": "#e9ecef"});
-        $("#delivery_to").css("border", "1px solid #ced4da");
+        // $("#delivery_to").css("border", "1px solid #ced4da");
     }
 
     function getDetailPurchaseRequisition(purchase_requisition_number, purchase_requisition_id) {
@@ -506,13 +517,18 @@
                                 ${key === 0 ? modifyColumn : ''}
                                 <td style="text-align: center; padding: 10px !important;">${val2.combinedBudgetSectionCode + ' - ' + val2.combinedBudgetSectionName}</td>
                                 <td style="text-align: center; padding: 10px !important;">${val2.productCode}</td>
-                                <td style="text-align: center; padding: 10px !important;">${val2.productName}</td>
+                                <td style="text-align: center; padding: 10px !important;">
+                                    <div style="overflow: hidden;white-space: nowrap;text-overflow: ellipsis;width: 150px;">
+                                        ${val2.productName}
+                                    </div>
+                                </td>
                                 <td style="text-align: center; padding: 10px !important;">${currencyTotal(val2.quantity)}</td>
                                 <td style="text-align: center; padding: 10px !important;">${currencyTotal(val2.qtyAvail)}</td>
                                 <td style="text-align: center; padding: 10px !important;">${val2.quantityUnitName}</td>
                                 <td style="text-align: center; padding: 10px !important;">${currencyTotal(val2.productUnitPriceBaseCurrencyValue)}</td>
                                 <td style="text-align: center; padding: 10px !important;">${currencyTotal(val2.quantity * val2.productUnitPriceBaseCurrencyValue)}</td>
                                 <td style="text-align: center; padding: 10px !important;">${val2.productUnitPriceCurrencyISOCode}</td>
+                                <td style="text-align: center; padding: 10px !important;">-</td>
                                 <td class="sticky-col fifth-col-pr" style="border:1px solid #e9ecef;background-color:white;">
                                     <input class="form-control number-without-negative" id="qty_req${indexPurchaseOrder}" data-index=${indexPurchaseOrder} data-total-request=${val2.priceBaseCurrencyValue} data-default="" autocomplete="off" style="border-radius:0px;" />
                                 </td>
@@ -525,7 +541,7 @@
                                 <td class="sticky-col second-col-pr" style="border:1px solid #e9ecef;background-color:white;">
                                     <input class="form-control number-without-negative" id="balance${indexPurchaseOrder}" data-default="" autocomplete="off" style="border-radius:0px;" disabled />
                                 </td>
-                                <td class="sticky-col first-col-pr" style="border:1px solid #e9ecef;background-color:white;">
+                                <td class="sticky-col first-col-pr" style="border:1px solid #e9ecef;background-color:white;padding:.70rem;">
                                     <textarea id="note${indexPurchaseOrder}" data-default="" class="form-control"></textarea>
                                 </td>
                             </tr>
@@ -761,6 +777,9 @@
         } else {
             $("#deliveryTo_RefID").val("");
         }
+
+        $("#deliveryToMessage").hide();
+        $("#delivery_to").css("border", "1px solid #ced4da");
     });
 
     $('#downPaymentValue').on('input', function(e) {
@@ -791,6 +810,16 @@
 
         $('#startDate').datetimepicker({
             format: 'L'
+        });
+
+        $('#startDate').on('change.datetimepicker', function (e) {
+            if (dateOfDelivery.value) {
+                $("#dateOfDelivery").css({
+                    "background-color": "#e9ecef",
+                    "border": "1px solid #ced4da"
+                });
+                $("#dateOfDeliveryMessage").hide();
+            }
         });
     });
 </script>

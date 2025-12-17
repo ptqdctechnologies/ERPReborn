@@ -368,8 +368,8 @@ class AdvanceSettlementController extends Controller
                 "code"  => $request->site_code,
             ];
             
-            $response = $this->advanceSettlementService->getAdvanceSettlementSummary($budget['code'], $subBudget['code']);
-            
+            $response = $this->advanceSettlementService->getAdvanceSettlementSummary($budget['code'], $subBudget['code'], $date);
+
             if ($response['metadata']['HTTPStatusCode'] !== 200) {
                 throw new \Exception('Failed to fetch Advance Settlement Summary Report');
             }

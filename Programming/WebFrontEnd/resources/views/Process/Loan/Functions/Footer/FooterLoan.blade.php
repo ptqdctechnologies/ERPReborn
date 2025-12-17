@@ -151,4 +151,10 @@
         
         $("#myLoans").modal('toggle');
     });
+
+    $(window).one('load', function(e) {
+        $('#loanDate').datetimepicker({
+            format: 'L'
+        });
+    });
 </script>

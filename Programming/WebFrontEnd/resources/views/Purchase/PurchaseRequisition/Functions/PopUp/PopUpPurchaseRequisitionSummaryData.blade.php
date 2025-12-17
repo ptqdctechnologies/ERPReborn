@@ -20,12 +20,12 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default btn-sm" data-dismiss="modal" style="background-color:#e9ecef;border:1px solid #ced4da;">
-          <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel Advance List Cart"> No, cancel
+        <button type="button" class="btn btn-default btn-sm" onclick="SubmitForm('CANCEL');" style="background-color:#e9ecef;border:1px solid #ced4da;">
+          <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel Purchase Request"> No, cancel
         </button>
 
-        <button type="button" id="submitPR" class="btn btn-default btn-sm" onclick="SubmitForm();" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
-          <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" title="Submit to Advance"> Yes, save it
+        <button type="button" id="submitPR" class="btn btn-default btn-sm" onclick="SubmitForm('SUBMIT');" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
+          <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" title="Submit Purchase Request"> Yes, save it
         </button>
       </div>
     </div>

@@ -2,6 +2,7 @@
 
 namespace App\Services\Purchase;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
@@ -38,7 +39,7 @@ class PurchaseOrderService
         $careerRefID    = Session::get('SessionWorkerCareerInternal_RefID');
 
         $data                   = $request->storeData;
-        $deliveryToRefID        = $data['deliveryTo_RefID'] ? (int) $data['deliveryTo_RefID'] : null;
+        $deliveryToRefID        = isset($data['deliveryTo_RefID']) ? (int) $data['deliveryTo_RefID'] : null;
         $purchaseOrderDetail    = json_decode($data['purchaseOrderDetail'], true);
         $fileID                 = $data['dataInput_Log_FileUpload_1'] ? (int) $data['dataInput_Log_FileUpload_1'] : null;
 
@@ -53,7 +54,7 @@ class PurchaseOrderService
                 "log_FileUpload_Pointer_RefID"          => $fileID,
                 "requesterWorkerJobsPosition_RefID"     => (int) $careerRefID,
                 "supplier_RefID"                        => (int) $data['supplier_id'],
-                "deliveryDateTimeTZ"                    => $data['dateOfDelivery'],
+                "deliveryDateTimeTZ"                    => Carbon::createFromFormat('m/d/Y', $data['dateOfDelivery'])->format('Y-m-d'),
                 "deliveryDestination_RefID"             => $deliveryToRefID,
                 "supplierInvoiceBillingPurpose_RefID"   => null,
                 "remarks"                               => $data['remarkPO'],

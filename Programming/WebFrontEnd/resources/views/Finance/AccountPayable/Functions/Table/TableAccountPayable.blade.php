@@ -9,6 +9,7 @@
                 <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Price PO</th>
                 <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">UOM</th>
                 <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Total PO</th>
+                <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Asset</th>
                 <th style="padding-top: 10px;padding-bottom: 10px;background-color:#4B586A;border-right:1px solid #fff;text-align: center;color: white;width: 125px;">Qty AP</th>
                 <th style="padding-top: 10px;padding-bottom: 10px;background-color:#4B586A;border-right:1px solid #fff;text-align: center;color: white;width: 125px;">Total AP</th>
                 <th style="padding-top: 10px;padding-bottom: 10px;background-color:#4B586A;border-right:1px solid #fff;text-align: center;color: white;width: 125px;">WHT (%)</th>
@@ -18,7 +19,7 @@
         <tbody></tbody>
         <tfoot>
             <tr id="invoice_loading_table" style="display: none;">
-                <td colspan="10" class="p-0" style="border: 0px; height: 150px;">
+                <td colspan="11" class="p-0" style="border: 0px; height: 150px;">
                     <div class="d-flex flex-column justify-content-center align-items-center py-3">
                         <div class="spinner-border" role="status">
                             <span class="sr-only">Loading...</span>
