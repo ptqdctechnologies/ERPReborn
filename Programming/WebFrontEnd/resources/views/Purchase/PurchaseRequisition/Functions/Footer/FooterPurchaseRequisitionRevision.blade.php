@@ -164,13 +164,15 @@
             const totalInput    = row.querySelector('input[id^="total_req"]');
             const balanceInput  = row.querySelector('input[id^="balanced_qty"]');
             const noteInput     = row.querySelector('textarea[id^="remark"]');
+            const assetSelect   = row.querySelector('select[id^="is_asset"]');
 
             if (
-                qtyInput && priceInput && totalInput && balanceInput &&
+                qtyInput && priceInput && totalInput && balanceInput && assetSelect && 
                 qtyInput.value.trim()       !== '' &&
                 priceInput.value.trim()     !== '' &&
                 totalInput.value.trim()     !== '' &&
-                balanceInput.value.trim()   !== '' 
+                balanceInput.value.trim()   !== '' &&
+                assetSelect.value.trim()    !== '' 
             ) {
                 const productName   = row.children[8].innerText.trim();
                 const qtyAvail      = row.children[10].innerText.trim();
@@ -208,6 +210,7 @@
                                     productUnitPriceCurrencyValue: parseFloat(price.replace(/,/g, '')),
                                     productUnitPriceCurrencyExchangeRate: parseFloat(productUnitPriceCurrencyExchangeRate.value.replace(/,/g, '')),
                                     remarks: note || null,
+                                    asset: parseInt(assetSelect.value),
                                     productCode: productCode.value
                                 },
                             };
@@ -242,6 +245,7 @@
                             productUnitPriceCurrency_RefID: parseInt(productUnitPriceCurrencyRefID.value),
                             productUnitPriceCurrencyValue: parseFloat(price.replace(/,/g, '')),
                             productUnitPriceCurrencyExchangeRate: parseFloat(productUnitPriceCurrencyExchangeRate.value.replace(/,/g, '')),
+                            asset: parseInt(assetSelect.value),
                             remarks: note || null,
                             productCode: productCode.value
                         },
@@ -350,17 +354,24 @@
                     `;
 
                     let componentsInput = `
-                        <td class="sticky-col fifth-col-pr" style="border:1px solid #e9ecef;background-color:white;">
+                        <td class="sticky-col sixth-col-pr" style="border:1px solid #e9ecef;background-color:white;">
                             <input class="form-control number-without-negative" id="qty_req${key}" autocomplete="off" style="border-radius:0px;" data-default="" ${isUnspecified} />
                         </td>
-                        <td class="sticky-col forth-col-pr" style="border:1px solid #e9ecef;background-color:white;">
+                        <td class="sticky-col fifth-col-pr" style="border:1px solid #e9ecef;background-color:white;">
                             <input class="form-control number-without-negative" id="price_req${key}" autocomplete="off" style="border-radius:0px;" data-default="" ${isUnspecified} />
                         </td>
-                        <td class="sticky-col third-col-pr" style="border:1px solid #e9ecef;background-color:white;">
+                        <td class="sticky-col forth-col-pr" style="border:1px solid #e9ecef;background-color:white;">
                             <input class="form-control number-without-negative" id="total_req${key}" autocomplete="off" style="border-radius:0px;" data-default="" readonly />
                         </td>
-                        <td class="sticky-col second-col-pr" style="border:1px solid #e9ecef;background-color:white;">
+                        <td class="sticky-col third-col-pr" style="border:1px solid #e9ecef;background-color:white;">
                             <input class="form-control number-without-negative" id="balanced_qty${key}" autocomplete="off" style="border-radius:0px;width:90px;" data-default="${balanced}" value="${balanced}" readonly />
+                        </td>
+                        <td class="sticky-col second-col-pr" style="border:1px solid #e9ecef;background-color:white;">
+                            <select id="is_asset${key}" class="form-control">
+                                <option value="" selected disabled>Select a...</option>
+                                <option value="0">No</option>
+                                <option value="1">Yes</option>
+                            </select>
                         </td>
                         <td class="sticky-col first-col-pr" style="border:1px solid #e9ecef;background-color:white;">
                             <textarea id="remark${key}" class="form-control" data-default=""></textarea>
@@ -425,17 +436,24 @@
                         `;
 
                         componentsInput = `
-                            <td class="sticky-col fifth-col-pr" style="border:1px solid #e9ecef;background-color:white;">
+                            <td class="sticky-col sixth-col-pr" style="border:1px solid #e9ecef;background-color:white;">
                                 <input class="form-control number-without-negative" id="qty_req${key}" autocomplete="off" style="border-radius:0px;" data-default="${currencyTotal(findDataMiscellaneous.quantity)}" value="${currencyTotal(findDataMiscellaneous.quantity)}" />
                             </td>
-                            <td class="sticky-col forth-col-pr" style="border:1px solid #e9ecef;background-color:white;">
+                            <td class="sticky-col fifth-col-pr" style="border:1px solid #e9ecef;background-color:white;">
                                 <input class="form-control number-without-negative" id="price_req${key}" autocomplete="off" style="border-radius:0px;" data-default="${currencyTotal(findDataMiscellaneous.productUnitPriceCurrencyValue)}" value="${currencyTotal(findDataMiscellaneous.productUnitPriceCurrencyValue)}" />
                             </td>
-                            <td class="sticky-col third-col-pr" style="border:1px solid #e9ecef;background-color:white;">
+                            <td class="sticky-col forth-col-pr" style="border:1px solid #e9ecef;background-color:white;">
                                 <input class="form-control number-without-negative" id="total_req${key}" autocomplete="off" style="border-radius:0px;" readonly data-default="${currencyTotal(findDataMiscellaneous.priceCurrencyValue)}" value="${currencyTotal(findDataMiscellaneous.priceCurrencyValue)}" />
                             </td>
-                            <td class="sticky-col second-col-pr" style="border:1px solid #e9ecef;background-color:white;">
+                            <td class="sticky-col third-col-pr" style="border:1px solid #e9ecef;background-color:white;">
                                 <input class="form-control number-without-negative" id="balanced_qty${key}" autocomplete="off" style="border-radius:0px;width:90px;" data-default="${currencyTotal(balancedDetail)}" value="${currencyTotal(balancedDetail)}" readonly />
+                            </td>
+                            <td class="sticky-col second-col-pr" style="border:1px solid #e9ecef;background-color:white;">
+                                <select id="is_asset${key}" class="form-control">
+                                    <option value="" selected disabled>Select a...</option>
+                                    <option value="0" ${findDataMiscellaneous.asset == 0 && 'selected'}>No</option>
+                                    <option value="1" ${findDataMiscellaneous.asset == 1 && 'selected'}>Yes</option>
+                                </select>
                             </td>
                             <td class="sticky-col first-col-pr" style="border:1px solid #e9ecef;background-color:white;">
                                 <textarea id="remark${key}" class="form-control" data-default="${findDataMiscellaneous.notes}">${findDataMiscellaneous.notes}</textarea>
@@ -460,17 +478,24 @@
                         `;
 
                         componentsInput = `
-                            <td class="sticky-col fifth-col-pr" style="border:1px solid #e9ecef;background-color:white;">
+                            <td class="sticky-col sixth-col-pr" style="border:1px solid #e9ecef;background-color:white;">
                                 <input class="form-control number-without-negative" id="qty_req${key}" autocomplete="off" style="border-radius:0px;" data-default="${currencyTotal(findDataDetail.quantity)}" value="${currencyTotal(findDataDetail.quantity)}" />
                             </td>
-                            <td class="sticky-col forth-col-pr" style="border:1px solid #e9ecef;background-color:white;">
+                            <td class="sticky-col fifth-col-pr" style="border:1px solid #e9ecef;background-color:white;">
                                 <input class="form-control number-without-negative" id="price_req${key}" autocomplete="off" style="border-radius:0px;" data-default="${currencyTotal(findDataDetail.productUnitPriceCurrencyValue)}" value="${currencyTotal(findDataDetail.productUnitPriceCurrencyValue)}" />
                             </td>
-                            <td class="sticky-col third-col-pr" style="border:1px solid #e9ecef;background-color:white;">
+                            <td class="sticky-col forth-col-pr" style="border:1px solid #e9ecef;background-color:white;">
                                 <input class="form-control number-without-negative" id="total_req${key}" autocomplete="off" style="border-radius:0px;" readonly data-default="${currencyTotal(findDataDetail.priceCurrencyValue)}" value="${currencyTotal(findDataDetail.priceCurrencyValue)}" />
                             </td>
-                            <td class="sticky-col second-col-pr" style="border:1px solid #e9ecef;background-color:white;">
+                            <td class="sticky-col third-col-pr" style="border:1px solid #e9ecef;background-color:white;">
                                 <input class="form-control number-without-negative" id="balanced_qty${key}" autocomplete="off" style="border-radius:0px;width:90px;" data-default="${currencyTotal(balancedDetail)}" value="${currencyTotal(balancedDetail)}" readonly />
+                            </td>
+                            <td class="sticky-col second-col-pr" style="border:1px solid #e9ecef;background-color:white;">
+                                <select id="is_asset${key}" class="form-control">
+                                    <option value="" disabled>Select a...</option>
+                                    <option value="0" ${findDataDetail.asset == 0 && 'selected'}>No</option>
+                                    <option value="1" ${findDataDetail.asset == 1 && 'selected'}>Yes</option>
+                                </select>
                             </td>
                             <td class="sticky-col first-col-pr" style="border:1px solid #e9ecef;background-color:white;">
                                 <textarea id="remark${key}" class="form-control" data-default="${findDataDetail.notes || ''}">${findDataDetail.notes || ''}</textarea>
