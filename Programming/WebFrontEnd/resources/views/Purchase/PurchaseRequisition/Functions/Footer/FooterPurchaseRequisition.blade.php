@@ -24,8 +24,9 @@
             const qty   = document.getElementById(`qty_req${index}`)?.value.trim();
             const price = document.getElementById(`price_req${index}`)?.value.trim();
             const total = document.getElementById(`total_req${index}`)?.value.trim();
+            const asset = document.getElementById(`is_asset${index}`)?.value.trim();
 
-            if (qty !== "" && price !== "" && total !== "") {
+            if (qty !== "" && price !== "" && total !== "" && asset !== "") {
                 hasFullRow = true;
             }
         });
@@ -34,11 +35,13 @@
             const qtyEl   = document.getElementById(`qty_req${index}`);
             const priceEl = document.getElementById(`price_req${index}`);
             const totalEl = document.getElementById(`total_req${index}`);
+            const assetEl = document.getElementById(`is_asset${index}`);
 
             if (hasFullRow) {
                 $(qtyEl).css("border", "1px solid #ced4da");
                 $(priceEl).css("border", "1px solid #ced4da");
                 $(totalEl).css("border", "1px solid #ced4da");
+                $(assetEl).css("border", "1px solid #ced4da");
                 $("#budgetDetailsMessage").hide();
             } else {
                 if (indexInput > -1) {
@@ -47,11 +50,13 @@
                             $(qtyEl).css("border", "1px solid red");
                             $(priceEl).css("border", "1px solid red");
                             $(totalEl).css("border", "1px solid red");
+                            $(assetEl).css("border", "1px solid red");
                             $("#budgetDetailsMessage").show();
                         } else {
                             $(qtyEl).css("border", "1px solid #ced4da");
                             $(priceEl).css("border", "1px solid #ced4da");
                             $(totalEl).css("border", "1px solid #ced4da");
+                            $(assetEl).css("border", "1px solid #ced4da");
                             $("#budgetDetailsMessage").hide();
                         }
                     }
@@ -60,11 +65,13 @@
                         $(qtyEl).css("border", "1px solid #ced4da");
                         $(priceEl).css("border", "1px solid #ced4da");
                         $(totalEl).css("border", "1px solid #ced4da");
+                        $(assetEl).css("border", "1px solid #ced4da");
                     } 
                 } else {
                     $(qtyEl).css("border", "1px solid red");
                     $(priceEl).css("border", "1px solid red");
                     $(totalEl).css("border", "1px solid red");
+                    $(assetEl).css("border", "1px solid red");
                     $("#budgetDetailsMessage").show();
                 }
             }
@@ -92,34 +99,37 @@
         const rows = sourceTable.getElementsByTagName('tr');
 
         for (let row of rows) {
-            const productCodeShow = row.querySelector('input[id^="productCodeShow"]');
-            const qtyInput = row.querySelector('input[id^="qty_req"]');
-            const priceInput = row.querySelector('input[id^="price_req"]');
-            const totalInput = row.querySelector('input[id^="total_req"]');
-            const balanceInput = row.querySelector('input[id^="balanced_qty"]');
-            const remarkInput = row.querySelector('textarea[id^="remark"]');
-            const qtyUnitRefId = row.querySelector('input[id^="qtyId"]');
-            const currencyRefId = row.querySelector('input[id^="currencyId"]');
-            const combinedBudgetSectionDetailInput = row.querySelector('input[id^="combinedBudgetSectionDetail_RefID"]');
+            const productCodeShow                   = row.querySelector('input[id^="productCodeShow"]');
+            const assetSelect                       = row.querySelector('select[id^="is_asset"]');
+            const qtyInput                          = row.querySelector('input[id^="qty_req"]');
+            const priceInput                        = row.querySelector('input[id^="price_req"]');
+            const totalInput                        = row.querySelector('input[id^="total_req"]');
+            const balanceInput                      = row.querySelector('input[id^="balanced_qty"]');
+            const remarkInput                       = row.querySelector('textarea[id^="remark"]');
+            const qtyUnitRefId                      = row.querySelector('input[id^="qtyId"]');
+            const currencyRefId                     = row.querySelector('input[id^="currencyId"]');
+            const combinedBudgetSectionDetailInput  = row.querySelector('input[id^="combinedBudgetSectionDetail_RefID"]');
 
             if (
-                qtyInput && priceInput && totalInput && balanceInput && 
+                qtyInput && priceInput && totalInput && balanceInput && assetSelect &&
                 qtyInput.value.trim() !== '' &&
                 priceInput.value.trim() !== '' &&
                 totalInput.value.trim() !== '' &&
-                balanceInput.value.trim() !== ''
+                balanceInput.value.trim() !== '' &&
+                assetSelect.value.trim() !== ''
             ) {
-                const productCode = row.children[0].value.trim();
-                const productName = row.children[1].value.trim();
-                const uom = row.children[5].value.trim();
-                const currency = row.children[6].value.trim();
-                const qtyAvail = row.children[13].innerText.trim();
-                const priceAvail = row.children[15].innerText.trim();
+                const productCode   = row.children[0].value.trim();
+                const productName   = row.children[1].value.trim();
+                const uom           = row.children[5].value.trim();
+                const currency      = row.children[6].value.trim();
+                const qtyAvail      = row.children[13].innerText.trim();
+                const priceAvail    = row.children[15].innerText.trim();
 
-                const price = priceInput.value.trim();
-                const qty = qtyInput.value.trim();
-                const total = totalInput.value.trim();
-                const remark = remarkInput.value.trim();
+                const price     = priceInput.value.trim();
+                const qty       = qtyInput.value.trim();
+                const total     = totalInput.value.trim();
+                const asset     = assetSelect.value.trim();
+                const remark    = remarkInput.value.trim();
 
                 let found = false;
                 const existingRows = targetTable.getElementsByTagName('tr');
@@ -145,6 +155,7 @@
                                     productUnitPriceCurrencyValue: parseFloat(price.replace(/,/g, '')),
                                     productUnitPriceCurrencyExchangeRate: 1,
                                     fulfillmentDeadlineDateTimeTZ: null,
+                                    asset: parseInt(assetSelect.value),
                                     remarks: remark || null
                                 }
                             };
@@ -180,6 +191,7 @@
                             productUnitPriceCurrencyValue: parseFloat(price.replace(/,/g, '')),
                             productUnitPriceCurrencyExchangeRate: 1,
                             fulfillmentDeadlineDateTimeTZ: null,
+                            asset: parseInt(assetSelect.value),
                             remarks: remark || null
                         }
                     });
@@ -386,8 +398,8 @@
                             <td class="sticky-col second-col-pr" style="border:1px solid #e9ecef;background-color:white;">
                                 <select id="is_asset${key}" class="form-control">
                                     <option value="" selected disabled>Select a...</option>
-                                    <option value="NO">No</option>
-                                    <option value="YES">Yes</option>
+                                    <option value="0">No</option>
+                                    <option value="1">Yes</option>
                                 </select>
                             </td>
                             <td class="sticky-col first-col-pr" style="border:1px solid #e9ecef;background-color:white;">
@@ -496,6 +508,10 @@
 
                         checkOneLineBudgetContents(key);
                     });
+
+                    $(`#is_asset${key}`).on('change', function() {
+                        checkOneLineBudgetContents(key);
+                    });
                 });
             },
             error: function (textStatus, errorThrown) {
@@ -531,8 +547,6 @@
             url: '{{ route("PurchaseRequisition.store") }}',
             success: function(res) {
                 HideLoading();
-
-                console.log('res', res);
 
                 if (res.status === 200) {
                     const swalWithBootstrapButtons = Swal.mixin({
