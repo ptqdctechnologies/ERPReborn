@@ -6,6 +6,7 @@
     let msrIDList                   = [];
     const combinedBudgetTrigger     = document.getElementById("var_combinedBudget_RefID");
     const msrNumber                 = document.getElementById("modal_purchase_requisition_document_numbers");
+    const dateOfDelivery            = document.getElementById("dateOfDelivery");
     const deliveryTo                = document.getElementById("delivery_to");
     const deliveryToDuplicate       = document.getElementById("deliveryToDuplicate");
     const deliveryToDuplicateRefID  = document.getElementById("deliveryToDuplicate_RefID");
@@ -248,6 +249,7 @@
     }
 
     function validationForm() {
+        const isDateOfDeliveryNotEmpty              = dateOfDelivery.value.trim() !== '';
         const isMSRNumberNotEmpty                   = msrNumber.value.trim() !== '';
         const isDeliveryToNotEmpty                  = deliveryTo.value.trim() !== '';
         const isSupplierCodeNotEmpty                = supplierCode.value.trim() !== '';
@@ -255,24 +257,31 @@
         const isTermOfPaymentOptionValueNotEmpty    = termOfPaymentOption.value.trim() !== 'Select a TOP';
         const isTableNotEmpty                       = checkOneLineBudgetContents();
 
-        if (isMSRNumberNotEmpty && isDeliveryToNotEmpty && isSupplierCodeNotEmpty && isDownPaymentValueNotEmpty && isTermOfPaymentOptionValueNotEmpty && isTableNotEmpty) {
+        if (isDateOfDeliveryNotEmpty && isMSRNumberNotEmpty && isDeliveryToNotEmpty && isSupplierCodeNotEmpty && isDownPaymentValueNotEmpty && isTermOfPaymentOptionValueNotEmpty && isTableNotEmpty) {
             $('#purchaseOrderFormModal').modal('show');
             summaryData();
         } else {
-            if (!isMSRNumberNotEmpty && !isDeliveryToNotEmpty && !isSupplierCodeNotEmpty && !isDownPaymentValueNotEmpty && !isTermOfPaymentOptionValueNotEmpty && !isTableNotEmpty) {
+            if (!isDateOfDeliveryNotEmpty && !isMSRNumberNotEmpty && !isDeliveryToNotEmpty && !isSupplierCodeNotEmpty && !isDownPaymentValueNotEmpty && !isTermOfPaymentOptionValueNotEmpty && !isTableNotEmpty) {
                 $("#modal_purchase_requisition_document_numbers").css("border", "1px solid red");
                 $("#delivery_to").css("border", "1px solid red");
                 $("#supplier_code").css("border", "1px solid red");
                 $("#supplier_name").css("border", "1px solid red");
                 $("#downPaymentValue").css("border", "1px solid red");
                 $("#termOfPaymentOption").css("border", "1px solid red");
+                $("#dateOfDelivery").css("border", "1px solid red");
 
                 $("#prNumberMessage").show();
+                $("#dateOfDeliveryMessage").show();
                 $("#deliveryToMessage").show();
                 $("#supplierMessage").show();
                 $("#dpMessage").show();
                 $("#topMessage").show();
                 $("#purchaseOrderDetailMessage").show();
+                return;
+            }
+            if (!isDateOfDeliveryNotEmpty) {
+                $("#dateOfDelivery").css("border", "1px solid red");
+                $("#dateOfDeliveryMessage").show();
                 return;
             }
             if (!isMSRNumberNotEmpty) {
@@ -411,13 +420,15 @@
         $("#deliveryToDuplicate_RefID").val(data[0].deliveryTo_RefID);
         $("#deliveryTo_RefID").val(data[0].deliveryTo_RefID);
         $("#deliveryToDuplicate").val(data[0].deliveryToName);
-        $("#delivery_to").val(data[0].deliveryToName);
-        $("#dateOfDelivery").val(splitDateOfDelivery);
+        $("#purchase_request_delivery_to").val(data[0].deliveryToName);
+        $("#purchase_request_delivery_date").val(splitDateOfDelivery);
+        // $("#delivery_to").val(data[0].deliveryToName);
+        // $("#dateOfDelivery").val(splitDateOfDelivery);
 
         $("#prNumberMessage").hide();
-        $("#deliveryToMessage").hide();
+        // $("#deliveryToMessage").hide();
         $("#modal_purchase_requisition_document_numbers").css({"border": "1px solid #ced4da", "background-color": "#e9ecef"});
-        $("#delivery_to").css("border", "1px solid #ced4da");
+        // $("#delivery_to").css("border", "1px solid #ced4da");
     }
 
     function getDetailPurchaseRequisition(purchase_requisition_number, purchase_requisition_id) {
@@ -766,6 +777,9 @@
         } else {
             $("#deliveryTo_RefID").val("");
         }
+
+        $("#deliveryToMessage").hide();
+        $("#delivery_to").css("border", "1px solid #ced4da");
     });
 
     $('#downPaymentValue').on('input', function(e) {
@@ -796,6 +810,16 @@
 
         $('#startDate').datetimepicker({
             format: 'L'
+        });
+
+        $('#startDate').on('change.datetimepicker', function (e) {
+            if (dateOfDelivery.value) {
+                $("#dateOfDelivery").css({
+                    "background-color": "#e9ecef",
+                    "border": "1px solid #ced4da"
+                });
+                $("#dateOfDeliveryMessage").hide();
+            }
         });
     });
 </script>
