@@ -86,6 +86,7 @@ class AccountPayableService
         $detailItems                = json_decode($data['account_payable_detail'], true);
         $fileID                     = $data['dataInput_Log_FileUpload_1'] ? (int) $data['dataInput_Log_FileUpload_1'] : null;
         $vatValue                   = $data['vat_origin'] == "yes" ? (float) str_replace(',', '', $data['ppn']) : 0;
+        $supplierID                 = $data['payment_transfer_id'] ? (int) $data['payment_transfer_id'] : null; // 297x
         $categoryID                 = $data['category_id'] ? (int) $data['category_id'] : null; // 297x
         $depreciationMethod         = isset($data['depreciation_method']) && $data['depreciation_method'] ? (int) $data['depreciation_method'] : null; // 298x
         $depreciationRateYearsID    = $data['depreciation_rate_years_id'] ? (int) str_replace(',', '', $data['depreciation_rate_years_id']) : null; // 299x
@@ -129,11 +130,11 @@ class AccountPayableService
                 "documentDateTimeTZ"                => date('Y-m-d'),
                 "log_FileUpload_Pointer_RefID"      => $fileID,
                 "currency_RefID"                    => 62000000000001,
-                "currencySymbol"                    => 'Rp',
-                "currencyValue"                     => 15080000.00,
-                "currencyExchangeRate"              => 1.00,
+                "currencySymbol"                    => null,
+                "currencyValue"                     => 0,
+                "currencyExchangeRate"              => 0,
                 "supplierInvoiceNumber"             => $data['supplier_invoice_number'],
-                "supplier_RefID"                    => (int) $data['payment_transfer_id'],
+                "supplier_RefID"                    => $supplierID,
                 "receiptStatus"                     => $receiptStatus,
                 "contractStatus"                    => $contractStatus,
                 "vatStatus"                         => $vatStatus,

@@ -900,13 +900,22 @@
 
     $('#tableGetPaymentTransfer').on('click', 'tbody tr', async function() {
         let sysId           = $(this).find('input[data-trigger="sys_id_payment"]').val();
+        let name            = $(this).find('td:nth-child(3)').text();
         let bankCode        = $(this).find('td:nth-child(5)').text();
         let bankAccount     = $(this).find('td:nth-child(7)').text();
         let accountNumber   = $(this).find('td:nth-child(8)').text();
 
-        $(`#payment_transfer_number`).val(`${bankAccount} - (${bankCode}) ${accountNumber}`);
-        $("#payment_transfer_id").val(sysId);
-        $(`#payment_transfer_number`).css({'background-color': '#e9ecef', 'border': '1px solid #ced4da'});
+        if (name === "Others") {
+            $(`#payment_transfer_number`).removeAttr("readonly");
+            $(`#payment_transfer_number`).val("");
+            $("#payment_transfer_id").val("");
+            $(`#payment_transfer_number`).css({'background-color': '#fff'});
+        } else {
+            $(`#payment_transfer_number`).val(`${bankAccount} - (${bankCode}) ${accountNumber}`);
+            $("#payment_transfer_id").val(sysId);
+            $(`#payment_transfer_number`).css({'background-color': '#e9ecef', 'border': '1px solid #ced4da'});
+        }
+        
         $("#payment_transfer_message").hide();
         
         $('#myGetPaymentTransfer').modal('hide');
