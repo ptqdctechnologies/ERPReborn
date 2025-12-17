@@ -69,36 +69,84 @@
             }
         });
 
-        var keys = 0;
         $.ajax({
             type: 'GET',
             url: '{!! route("getSupplier") !!}?supplier_id=' + supplierID,
             success: function(data) {
                 $(".loadingGetModalPaymentTransfer").hide();
 
-                var no = 1;
                 var table = $('#tableGetPaymentTransfer').DataTable();
                 table.clear();
 
                 if (Array.isArray(data) && data.length > 0) {
-                    $.each(data, function(key, val) {
-                        keys += 1;
-                        table.row.add([
-                            '<input id="sys_id_payment' + keys + '" value="' + val.sys_ID + '" data-trigger="sys_id_payment" type="hidden">' + no++,
-                            val.code || '-',
-                            val.name || '-',
-                            val.address || '-',
-                            val.bankCode || '-',
-                            val.bankName || '-',
-                            val.bankAccount || '-',
-                            val.accountNumber || '-',
-                        ]).draw();
+                    var otherRow = {
+                        code: '-',
+                        name: 'Others',
+                        address: '-',
+                        bankCode: '-',
+                        bankName: '-',
+                        bankAccount: '-',
+                        accountNumber: '-',
+                        sys_ID: '-'
+                    };
+
+                    data.unshift(otherRow);
+
+                    $('#tableGetPaymentTransfer').DataTable({
+                        destroy: true,
+                        data: data,
+                        deferRender: true,
+                        scrollCollapse: true,
+                        scroller: true,
+                        columns: [
+                            {
+                                data: null,
+                                render: function (data, type, row, meta) {
+                                    return '<td class="align-middle text-center">' +
+                                        '<input id="sys_id_payment' + (meta.row + 1) + '" value="' + data.sys_ID + '" data-trigger="sys_id_payment" type="hidden">' +
+                                        (meta.row + 1) +
+                                    '</td>';
+                                }
+                            },
+                            {
+                                data: 'code',
+                                defaultContent: '-',
+                                className: "align-middle"
+                            },
+                            {
+                                data: 'name',
+                                defaultContent: '-',
+                                className: "align-middle"
+                            },
+                            {
+                                data: 'address',
+                                defaultContent: '-',
+                                className: "align-middle"
+                            },
+                            {
+                                data: 'bankCode',
+                                defaultContent: '-',
+                                className: "align-middle"
+                            },
+                            {
+                                data: 'bankName',
+                                defaultContent: '-',
+                                className: "align-middle"
+                            },
+                            {
+                                data: 'bankAccount',
+                                defaultContent: '-',
+                                className: "align-middle"
+                            },
+                            {
+                                data: 'accountNumber',
+                                defaultContent: '-',
+                                className: "align-middle"
+                            }
+                        ]
                     });
 
-                    $("#tableGetPaymentTransfer_length").show();
-                    $("#tableGetPaymentTransfer_filter").show();
-                    $("#tableGetPaymentTransfer_info").show();
-                    $("#tableGetPaymentTransfer_paginate").show();
+                    $('#tableGetPaymentTransfer').css("width", "100%");
                 } else {
                     $(".errorModalPaymentTransferMessageContainer").show();
                     $("#errorModalPaymentTransferMessage").text(`Data not found.`);
