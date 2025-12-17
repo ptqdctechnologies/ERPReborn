@@ -4151,7 +4151,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         | ▪ Method Name     : getDataPickListJSON_Advance_LatestVersion                                                            |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2024-10-16                                                                                           |
+        | ▪ Last Update     : 2025-12-17                                                                                           |
         | ▪ Creation Date   : 2022-05-31                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Pilihan Data Advance Versi Terakhir                                               |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -4171,23 +4171,12 @@ namespace App\Models\Database\SchData_OLTP_Finance
                         $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
-                            'SchData-OLTP-Finance.Func_GetDataPickListJSON_Advance',
+                            'SchData-OLTP-Finance.Func_GetDataPickList_Advance_NEW',
                             [
-                                [$varSysBranch_RefID, 'bigint'],
-
-                                [FALSE, 'boolean']
+                                [$varSysBranch_RefID, 'bigint']
                             ]
                             )
                         );
-
-                $varReturn['data'] =
-                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
-                        $varUserSession,
-                        $varReturn['data'][0]['Func_GetDataPickListJSON_Advance']
-                        );
-
-                $varReturn['rowCount'] =
-                    count($varReturn['data']);
 
                 return
                     $varReturn;
