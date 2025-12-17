@@ -105,6 +105,50 @@ namespace
 
                 /*
                 ┌───────────────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────┐
+                │ ▪ Method Name     │ setDynamicRoute_Examples_APICall                                                                     │
+                ├───────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
+                │ ▪ Version         │ 1.0000.0000002                                                                                       │
+                │ ▪ Last Update     │ 2025-12-11                                                                                           │
+                │ ▪ Creation Date   │ 2022-07-21                                                                                           │
+                │ ▪ Description     │ Menetapkan dynamic routing laravel untuk Examples APICall                                            │
+                ├───────────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────┤
+                │ ▪ Input Variable  :                                                                                                      │
+                │      ▪ varUserSession (string - Mandatory) ► User Session                                                                │
+                │      ▪ varAPIWebToken (string - Mandatory) ► APIWebToken                                                                 │
+                │      ------------------------------                                                                                      │
+                │ ▪ Output Variable :                                                                                                      │
+                │      ▪ varReturn (bool)                                                                                                  │
+                ├──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+                │ ▪ Linked Function :                                                                                                      │
+                │      ▪ \App\Http\Helpers\ZhtHelper\General\System\Helper_LaravelRoute::                                                  │
+                │           setRouteForController                                                                                          │
+                │              (string $varRoute, string $varHTTPMethod, string $varClassName, string $varTarget, string $varMiddleware)   │
+                │      ▪ \App\Http\Helpers\ZhtHelper\General\System\Helper_LaravelRoute::                                                  │
+                │           setRouteForView                                                                                                │
+                │              (string $varRoute, string $varHTTPMethod, string $varViewName, string $varMiddleware)                       │
+                └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+                */
+                public static function
+                    setDynamicRoute_Examples_APICall (
+                        mixed $varUserSession, string $varAPIWebToken
+                        )
+                            {
+                            $varArrayExampleAPIKey =
+                                \App\Http\Helpers\ZhtHelper\General\Utilities\Helper_File::getDeepestSubFoldersInFolder (
+                                    $varUserSession,
+                                    \App\Http\Helpers\ZhtHelper\General\Utilities\Helper_File::getAutoMatchDirectoryPath (
+                                        $varUserSession, 
+                                        getcwd(), 
+                                        '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall'
+                                        )
+                                    );
+                            
+                            dd ($varArrayExampleAPIKey);
+                            }
+
+
+                /*
+                ┌───────────────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────┐
                 │ ▪ Method Name     │ setRoute                                                                                             │
                 ├───────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                 │ ▪ Version         │ 1.0000.0000001                                                                                       │
@@ -114,7 +158,7 @@ namespace
                 ├───────────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                 │ ▪ Input Variable  :                                                                                                      │
                 │      ▪ (string) varRoute ► Route                                                                                         │
-                │      ▪ (string) varHTTPMethod ► HTTP Method                                                                              │
+                │      ▪ (mixed)  varHTTPMethod ► HTTP Method                                                                              │
                 │      ▪ (string) varTarget ► Target (Controller atau View)                                                                │
                 │      ------------------------------                                                                                      │
                 │      ▪ (string) varMiddleware ► Middleware                                                                               │
@@ -132,7 +176,7 @@ namespace
                 */
                 public static function
                     setRoute (
-                        string $varRoute, string $varHTTPMethod, string $varTarget,
+                        string $varRoute, mixed $varHTTPMethod, string $varTarget,
                         string $varMiddleware = null
                         )
                             {
@@ -194,7 +238,7 @@ namespace
                 ├───────────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                 │ ▪ Input Variable  :                                                                                                      │
                 │      ▪ (string) varRoute ► Route                                                                                         │
-                │      ▪ (string) varHTTPMethod ► HTTP Method                                                                              │
+                │      ▪ (mixed)  varHTTPMethod ► HTTP Method                                                                              │
                 │      ▪ (string) varClassName ► Class Name                                                                                │
                 │      ▪ (string) varMethodName ► MethodName                                                                               │
                 │      ------------------------------                                                                                      │
@@ -208,7 +252,7 @@ namespace
                 */
                 private static function
                     setRouteForController (
-                        string $varRoute, string $varHTTPMethod, string $varClassName, string $varMethodName,
+                        string $varRoute, mixed $varHTTPMethod, string $varClassName, string $varMethodName,
                         string $varMiddleware = null
                         )
                             {
@@ -293,7 +337,7 @@ namespace
                 ├───────────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                 │ ▪ Input Variable  :                                                                                                      │
                 │      ▪ (string) varRoute ► Route                                                                                         │
-                │      ▪ (string) varHTTPMethod ► HTTP Method                                                                              │
+                │      ▪ (mixed) varHTTPMethod ► HTTP Method                                                                              │
                 │      ▪ (string) varViewName ► View Name                                                                                  │
                 │      ------------------------------                                                                                      │
                 │      ▪ (string) varMiddleware ► Middleware                                                                               │
@@ -306,7 +350,7 @@ namespace
                 */
                 private static function
                     setRouteForView (
-                        string $varRoute, string $varHTTPMethod, string $varViewName,
+                        string $varRoute, mixed $varHTTPMethod, string $varViewName,
                         string $varMiddleware = null
                         )
                             {

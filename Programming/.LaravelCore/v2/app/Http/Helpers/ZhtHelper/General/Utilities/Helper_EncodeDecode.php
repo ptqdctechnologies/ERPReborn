@@ -434,7 +434,7 @@ namespace
                 ├───────────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                 │ ▪ Input Variable  :                                                                                                      │
                 │      ▪ (mixed)  varUserSession ► User Session                                                                            │
-                │      ▪ (string) varPlainData ► Data yang akan diencode                                                                   │
+                │      ▪ (array)  varPlainData ► Data yang akan diencode                                                                   │
                 │      ------------------------------                                                                                      │
                 │ ▪ Output Variable :                                                                                                      │
                 │      ▪ (array) varReturn                                                                                                 │
@@ -445,7 +445,7 @@ namespace
                 */  
                 public static function
                     getJSONEncode (
-                        $varUserSession, string $varPlainData
+                        $varUserSession, array $varPlainData
                         )
                             {
                             //---> Data Initialization

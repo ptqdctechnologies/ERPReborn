@@ -67,6 +67,132 @@ namespace
 
                 /*
                 ┌───────────────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────┐
+                │ ▪ Method Name     │ getAutoMatchDirectoryPath                                                                            │
+                ├───────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
+                │ ▪ Version         │ 1.0000.0000002                                                                                       │
+                │ ▪ Last Update     │ 2025-12-16                                                                                           │
+                │ ▪ Creation Date   │ 2022-07-21                                                                                           │
+                │ ▪ Description     │ Mencari posisi directory path varPostfix relatif terhadap varPrefix                                  │
+                ├───────────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────┤
+                │ ▪ Input Variable  :                                                                                                      │
+                │      ▪ varUserSession (mixed - Mandatory) ► User Session                                                                 │
+                │      ▪ varPrefix (string - Mandatory) ► Prefix Path                                                                      │
+                │      ▪ varPostfix (string - Mandatory) ► Postfix Path                                                                    │
+                │      ------------------------------                                                                                      │
+                │ ▪ Output Variable :                                                                                                      │
+                │      ▪ varReturn (string)                                                                                                │
+                ├──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+                │ ▪ Linked Function :                                                                                                      │
+                │      ▪                                                                                                                   │
+                └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+                */  
+                public static function
+                    getAutoMatchDirectoryPath (
+                        mixed $varUserSession, string $varPrefix, string $varPostfix
+                        )
+                            {
+                            //---> Data Initialization
+                                $varReturn = (string) null;
+
+                            //---> Data Process
+                                try {
+                                    $varPrefix = (
+                                        (
+                                        strcmp (
+                                            substr (
+                                                $varPrefix,
+                                                (strlen ($varPrefix) - 1),
+                                                1
+                                                ),
+                                            '/'
+                                            ) == 0
+                                        )
+                                        ?
+                                        substr (
+                                            $varPrefix,
+                                            0,
+                                            strlen (
+                                                $varPrefix
+                                                ) - 1
+                                            )
+                                        :
+                                        $varPrefix
+                                        );
+
+                                    $varPostfix = (
+                                        (
+                                        strcmp (
+                                            substr (
+                                                $varPostfix,
+                                                0,
+                                                1
+                                                ),
+                                            '/'
+                                            ) == 0
+                                        )
+                                        ?
+                                        substr (
+                                            $varPostfix,
+                                            1,
+                                            (strlen ($varPostfix) - 1)
+                                            )
+                                        :
+                                        $varPostfix
+                                        );
+
+                                    $varPath = (
+                                        $varPrefix.
+                                        '/'.
+                                        $varPostfix
+                                        );
+
+                                    if (is_dir ($varPath) == 0)
+                                        {
+                                        $varPath = null;
+
+                                        $iMax =
+                                            substr_count (
+                                                $varPrefix,
+                                                '/'
+                                                );
+
+                                        for ($i = 0; $i != $iMax; $i++)
+                                            {
+                                            //echo "<br>".($varPrefix.'/.'.str_repeat("/..", $i).'/'.$varPostfix);
+                                            if (is_dir ($varPrefix.'/.'.str_repeat("/..", $i).'/'.$varPostfix))
+                                                {
+                                                $varPath = (
+                                                    $varPrefix.
+                                                    '/.'.
+                                                    str_repeat ("/..", $i).
+                                                    '/'.
+                                                    $varPostfix
+                                                    );
+                                                break;
+                                                }
+                                            }
+                                        }
+
+                                    if (is_dir ($varPath)==0)
+                                        {
+                                        throw
+                                            new \Exception ('File path is not found');
+                                        }
+
+                                    $varReturn = $varPath;
+                                    }
+
+                                catch (\Exception $ex) {
+                                    }
+
+                            //---> Data Return
+                                return
+                                    $varReturn;
+                            }
+
+
+                /*
+                ┌───────────────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────┐
                 │ ▪ Method Name     │ getAutoMatchFilePath                                                                                 │
                 ├───────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                 │ ▪ Version         │ 1.0000.0000001                                                                                       │
@@ -75,12 +201,12 @@ namespace
                 │ ▪ Description     │ Mencari posisi file path varPostfix relatif terhadap varPrefix                                       │
                 ├───────────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                 │ ▪ Input Variable  :                                                                                                      │
-                │      ▪ (mixed)  varUserSession ► User Session                                                                            │
-                │      ▪ (string) varPrefix ► Prefix Path                                                                                  │
-                │      ▪ (string) varPostfix ► Postfix Path                                                                                │
+                │      ▪ varUserSession (mixed - Mandatory) ► User Session                                                                 │
+                │      ▪ varPrefix (string - Mandatory) ► Prefix Path                                                                      │
+                │      ▪ varPostfix (string - Mandatory) ► Postfix Path                                                                    │
                 │      ------------------------------                                                                                      │
                 │ ▪ Output Variable :                                                                                                      │
-                │      ▪ (string)   varReturn                                                                                              │
+                │      ▪ varReturn (string)                                                                                                │
                 ├──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
                 │ ▪ Linked Function :                                                                                                      │
                 │      ▪                                                                                                                   │
@@ -88,7 +214,7 @@ namespace
                 */  
                 public static function
                     getAutoMatchFilePath (
-                        $varUserSession, string $varPrefix, string $varPostfix
+                        mixed $varUserSession, string $varPrefix, string $varPostfix
                         )
                             {
                             //---> Data Initialization
@@ -134,15 +260,15 @@ namespace
                                         $varPostfix
                                         );
 
-                                    $varPath = ( 
+                                    $varFilePath = ( 
                                         $varPrefix.
                                         '/'.
                                         $varPostfix
                                         );
 
-                                    if (is_file ($varPath) == 0)
+                                    if (is_file ($varFilePath) == 0)
                                         {
-                                        $varPath = null;
+                                        $varFilePath = null;
 
                                         $iMax =
                                             substr_count (
@@ -165,7 +291,7 @@ namespace
                                                 )
                                                 )
                                                 {
-                                                $varPath = (
+                                                $varFilePath = (
                                                     $varPrefix.
                                                     '/.'.
                                                     str_repeat (
@@ -180,13 +306,134 @@ namespace
                                             }
                                         }
 
-                                    if (is_file ($varPath)==0)
+                                    if (is_file ($varFilePath)==0)
                                         {
                                         throw
                                             new \Exception('File path is not found');
                                         }
 
-                                    $varReturn = $varPath;
+                                    $varReturn = $varFilePath;
+                                    }
+
+                                catch (\Exception $ex) {
+                                    }
+
+                            //---> Data Return
+                                return
+                                    $varReturn;
+                            }
+
+
+                /*
+                ┌───────────────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────┐
+                │ ▪ Method Name     │ getDeepestSubFoldersInFolder                                                                         │
+                ├───────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
+                │ ▪ Version         │ 1.0000.0000001                                                                                       │
+                │ ▪ Last Update     │ 2025-12-17                                                                                           │
+                │ ▪ Creation Date   │ 2022-07-21                                                                                           │
+                │ ▪ Description     │ Mendapatkan daftar seluruh subfolder terdalam pada file path (varFilePath)                           │
+                ├───────────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────┤
+                │ ▪ Input Variable  :                                                                                                      │
+                │      ▪ (mixed)    varUserSession ► User Session                                                                          │
+                │      ▪ (string)   varFilePath ► Path File                                                                                │
+                │      ------------------------------                                                                                      │
+                │ ▪ Output Variable :                                                                                                      │
+                │      ▪ (string)   varReturn                                                                                              │
+                ├──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+                │ ▪ Linked Function :                                                                                                      │
+                │      ▪                                                                                                                   │
+                └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+                */
+                public static function
+                    getDeepestSubFoldersInFolder (
+                        mixed $varUserSession, string $varFilePath
+                        )
+                            {
+                            //---> Data Initialization
+                                $varReturn = (array) null;
+
+                            //---> Data Process
+                                try {
+                                    $varArrayData =
+                                        self::getDeepestSubFolderInFolders_ENGINE (
+                                            $varUserSession,
+                                            $varFilePath
+                                            );
+                                    //dd($varArrayData);
+                                    
+                                    for ($i = 0; $i != count($varArrayData); $i++)
+                                        {
+                                        $varReturn[$i] =
+                                            str_replace (
+                                                '#'.$varFilePath,
+                                                '',
+                                                '#'.$varArrayData[$i]
+                                                );
+                                        }
+                                    }
+
+                                catch (\Exception $ex) {
+                                    }
+
+                            //---> Data Return
+                                return
+                                    $varReturn;
+                            }
+
+                private static function
+                    getDeepestSubFolderInFolders_ENGINE (
+                        mixed $varUserSession, string $varFilePath
+                        )
+                            {
+                            //---> Data Initialization
+                                $varReturn = (string) null;
+
+                            //---> Data Process
+                                try {
+                                    $varArrayData =
+                                        self::getSubFoldersInFolder (
+                                            $varUserSession,
+                                            $varFilePath
+                                            );
+                                    //dd($varArrayData);
+                                    
+                                    $iMax = 
+                                        count (
+                                            $varArrayData
+                                            );
+
+                                    if ($iMax > 0)
+                                        {
+                                        $varIndex = 0;
+                                        for ($i = 0; $i != $iMax; $i++)
+                                            {
+                                            $varSubFolder =
+                                                self::getDeepestSubFolderInFolders_ENGINE(
+                                                    $varUserSession,
+                                                    $varArrayData[$i]
+                                                    );
+                                            
+                                            if (strcmp ($varSubFolder, '') != 0)
+                                                {
+                                                for ($j = 0; $j != count ($varSubFolder); $j++)
+                                                    {
+                                                    $varReturn[$varIndex] =
+                                                        $varSubFolder[$j];
+
+                                                    $varIndex++;
+                                                    }
+                                                }
+                                            //else
+                                            //    {
+                                            //    $varReturn[$varIndex] = $varArrayData[$i];
+                                            //    }
+                                            } 
+                                        }
+                                    else
+                                        {
+                                        $varReturn[0] =
+                                            $varFilePath;
+                                        }
                                     }
 
                                 catch (\Exception $ex) {
@@ -205,11 +452,11 @@ namespace
                 │ ▪ Version         │ 1.0000.0000002                                                                                       │
                 │ ▪ Last Update     │ 2025-12-16                                                                                           │
                 │ ▪ Creation Date   │ 2020-07-26                                                                                           │
-                │ ▪ Description     │ Mendapatkan isi suatu file berdasarkan path (varPath)                                                │
+                │ ▪ Description     │ Mendapatkan isi suatu file berdasarkan path (varFilePath)                                            │
                 ├───────────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                 │ ▪ Input Variable  :                                                                                                      │
-                │      ▪ (mixed)  varUserSession ► User Session                                                                            │
-                │      ▪ (string) varPath ► Path File                                                                                  │
+                │      ▪ (mixed)    varUserSession ► User Session                                                                          │
+                │      ▪ (string)   varFilePath ► Path File                                                                                │
                 │      ------------------------------                                                                                      │
                 │ ▪ Output Variable :                                                                                                      │
                 │      ▪ (string)   varReturn                                                                                              │
@@ -220,7 +467,7 @@ namespace
                 */
                 public static function
                     getFileContent (
-                        $varUserSession, string $varPath
+                        mixed $varUserSession, string $varFilePath
                         )
                             {
                             //---> Data Initialization
@@ -228,11 +475,11 @@ namespace
 
                             //---> Data Process
                                 try {
-                                    if (is_file ($varPath))
+                                    if (is_file ($varFilePath))
                                         {
                                         $varFileContent =
                                             file_get_contents (
-                                                $varPath
+                                                $varFilePath
                                                 );
                                         }
 
@@ -240,6 +487,53 @@ namespace
                                         $varFileContent;
                                     }
 
+                                catch (\Exception $ex) {
+                                    }
+
+                            //---> Data Return
+                                return
+                                    $varReturn;
+                            }
+
+
+                /*
+                ┌───────────────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────┐
+                │ ▪ Method Name     │ getSubFoldersInFolder                                                                                │
+                ├───────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
+                │ ▪ Version         │ 1.0000.0000001                                                                                       │
+                │ ▪ Last Update     │ 2025-12-17                                                                                           │
+                │ ▪ Creation Date   │ 2022-07-21                                                                                           │
+                │ ▪ Description     │ Mendapatkan daftar seluruh subfolder pada file path (varFilePath)                                    │
+                ├───────────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────┤
+                │ ▪ Input Variable  :                                                                                                      │
+                │      ▪ (mixed)    varUserSession ► User Session                                                                          │
+                │      ▪ (string)   varFilePath ► Path File                                                                                │
+                │      ------------------------------                                                                                      │
+                │ ▪ Output Variable :                                                                                                      │
+                │      ▪ (array)    varReturn                                                                                              │
+                ├──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+                │ ▪ Linked Function :                                                                                                      │
+                │      ▪                                                                                                                   │
+                └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+                */
+                public static function
+                    getSubFoldersInFolder (
+                        mixed $varUserSession, string $varFilePath
+                        )
+                            {
+                            //---> Data Initialization
+                                $varReturn = (array) null;
+
+                            //---> Data Process
+                                try {
+                                    $varArrayData =
+                                        glob (
+                                            ($varFilePath.'/*'),
+                                            GLOB_ONLYDIR
+                                            );
+
+                                    $varReturn = $varArrayData;
+                                    }
                                 catch (\Exception $ex) {
                                     }
 

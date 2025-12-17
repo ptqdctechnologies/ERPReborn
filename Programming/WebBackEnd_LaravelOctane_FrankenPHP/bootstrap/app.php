@@ -9,15 +9,15 @@ use App\Exceptions\InvalidOrderException;
 //    Application::configure(basePath: dirname(__DIR__))
 
 return
-    \Illuminate\Foundation\Application::configure(basePath: dirname(__DIR__))
-        ->withRouting(
+    \Illuminate\Foundation\Application::configure (basePath: dirname(__DIR__))
+        ->withRouting (
             web: __DIR__.'/../routes/web.php',
             api: __DIR__.'/../routes/api.php',
             commands: __DIR__.'/../routes/console.php',
             health: '/up',
             )
-        ->withMiddleware(function (Middleware $middleware) {
-                $middleware->validateCsrfTokens(
+        ->withMiddleware (function (Middleware $middleware) {
+                $middleware->validateCsrfTokens (
                     except: [
                         'getPHPInformation',
                         'api/*'
@@ -27,9 +27,9 @@ return
                 );
             }
             )
-        ->withExceptions(function (Exceptions $exceptions): void {
-            $exceptions->report(function (InvalidOrderException $e) {
+        ->withExceptions (function (Exceptions $exceptions): void {
+            $exceptions->report (function (InvalidOrderException $e) {
                 // ...
             });
             }
-            )->create();
+            )->create ();
