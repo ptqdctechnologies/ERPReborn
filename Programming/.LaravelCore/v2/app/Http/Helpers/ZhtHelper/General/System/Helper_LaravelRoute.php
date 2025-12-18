@@ -138,6 +138,8 @@ namespace
 
                             //---> Data Process
                                 try {                                   
+                                                echo '
+    ● Dynamic Route - API Call Example :';
                                     $varArrayExampleAPIKey =
                                         \App\Http\Helpers\ZhtHelper\General\Utilities\Helper_File::getDeepestSubFoldersInFolder (
                                             $varUserSession,
@@ -177,9 +179,8 @@ namespace
 
                                             for ($j = 0, $jMax = count ($varArrayFunctionEntities); $j != $jMax; $j++)
                                                 {
-                                                //var_dump($varArrayFunctionEntities);
-                                                
-                                                $varURL =
+                                                //---> Initializing : varURL
+                                                $varURL = (
                                                     str_replace (
                                                         '/',
                                                         '.',
@@ -189,40 +190,29 @@ namespace
                                                             ('#'.$varArrayExampleAPIKey[$i])
                                                             )
                                                         ).
-                                                    '_'.$varArrayFunctionEntities[$j]['Name'];
-                                                //echo '<br> $varURL >>> '.$varURL;
+                                                    '_'.
+                                                    $varArrayFunctionEntities[$j]['Name']
+                                                    );
 
-                                                $varControllerPath =
-                                                    $varClass.'@'.$varArrayFunctionEntities[$j]['Name'];
-                                                //echo '<br> $varControllerPath >>> '.$varControllerPath.'<br><br>';
+                                                //---> Initializing : $varControllerPath
+                                                $varControllerPath = (
+                                                    $varClass.
+                                                    '@'.
+                                                    $varArrayFunctionEntities[$j]['Name']
+                                                    );
 
-                                                //\App\Http\Helpers\ZhtHelper\General\System\Helper_LaravelRoute::setRoute (
-                                                //    'getPHPInformation2',
-                                                //    'get',
-                                                //    '\App\Http\Controllers\Application\BackEnd\System\Notification\Engines\webDisplayPage\getPHPInformation\v1\getPHPInformation@main'
-                                                //    );
-
-                                                //\App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\authentication\general\setLogin\v1\example::class;
-                                                
                                                 echo '
-                                                    '.$varURL.' >> '.$varControllerPath;
+      • [http://172.28.0.30/'.$varURL.']
+          ► '.$varControllerPath;
                                                 
                                                 \App\Http\Helpers\ZhtHelper\General\System\Helper_LaravelRoute::setRoute (
                                                     $varURL,
                                                     'get',
                                                     $varControllerPath
-                                                    //'authentication.general.setLogin.v1_throughAPIAuthentication'
-                                                    //'\App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\authentication\general\setLogin\v1\example@throughAPIAuthentication'
-                                                    //'\App\Http\Controllers\Application\BackEnd\RouteGateway\Engines\getGeneralRoute\v1\getGeneralRoute@main'
                                                     );
                                                 }
                                             }
                                         }
-                                    \App\Http\Helpers\ZhtHelper\General\System\Helper_LaravelRoute::setRoute (
-                                        'getxyz',
-                                        'get',
-                                        '\App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\authentication\general\setLogin\v1\example@throughAPIAuthentication'
-                                        );
                                     }
                                 catch (\Exception $ex) {
                                     $varReturn = false;

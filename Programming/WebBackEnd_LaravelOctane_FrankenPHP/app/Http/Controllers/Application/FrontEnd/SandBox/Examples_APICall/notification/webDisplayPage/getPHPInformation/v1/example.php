@@ -18,7 +18,7 @@ namespace
         /*
         ┌───────────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
         │ ▪ Class Name  │ example                                                                                                          │
-        │ ▪ Description │ -                                                                                                                │
+        │ ▪ Description │ Example API Call                                                                                                 │
         └───────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
         */
         class
@@ -31,7 +31,7 @@ namespace
                 │ ▪ Call URL        │ http(s)://<HOST>/notification.webDisplayPage.getPHPInformation.v1_throughAPIAuthentication           │
                 │                   │    ► http://172.28.0.4/notification.webDisplayPage.getPHPInformation.v1_throughAPIAuthentication     │
                 ├───────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
-                │ ▪ Version         │ 1.0000.0000000                                                                                       │
+                │ ▪ Version         │ 1.0000.0000001                                                                                       │
                 │ ▪ Last Update     │ 2025-12-11                                                                                           │
                 │ ▪ Creation Date   │ 2022-07-22                                                                                           │
                 │ ▪ Description     │ Example API Call using PHP                                                                           │
@@ -39,6 +39,39 @@ namespace
                 */
                 public function
                     throughAPIAuthentication (
+                        )
+                            {
+                            //---> Data Initialization
+                                $varReturn = (string) null;
+
+                            //---> Data Process
+                                try {
+                                    }
+                                catch (\Exception $ex) {
+                                    }
+
+                            //---> Data Return
+                                return
+                                    $varReturn;
+                            }
+
+
+                /*
+                ┌───────────────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────┐
+                │ ▪ Method Name     │ throughAPIAuthenticationJQuery                                                                       │
+                ├───────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
+                │ ▪ Call URL        │ http(s)://<HOST>/notification.webDisplayPage.getPHPInformation.v1_throughAPIAuthenticationJQuery     │
+                │                   │    ► http://172.28.0.4/                                                                              │
+                │                   │      notification.webDisplayPage.getPHPInformation.v1_throughAPIAuthenticationJQuery                 │
+                ├───────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
+                │ ▪ Version         │ 1.0000.0000001                                                                                       │
+                │ ▪ Last Update     │ 2025-12-11                                                                                           │
+                │ ▪ Creation Date   │ 2022-07-22                                                                                           │
+                │ ▪ Description     │ Example API Call using JavaScript                                                                    │
+                └───────────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────┘
+                */
+                public function
+                    throughAPIAuthenticationJQuery (
                         )
                             {
                             //---> Data Initialization

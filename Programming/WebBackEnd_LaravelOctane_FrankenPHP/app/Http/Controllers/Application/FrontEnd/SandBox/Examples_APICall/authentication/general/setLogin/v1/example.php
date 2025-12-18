@@ -18,7 +18,7 @@ namespace
         /*
         ┌───────────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
         │ ▪ Class Name  │ example                                                                                                          │
-        │ ▪ Description │ -                                                                                                                │
+        │ ▪ Description │ Example API Call                                                                                                 │
         └───────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
         */
         class
@@ -26,10 +26,10 @@ namespace
                 {
                 /*
                 ┌───────────────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────┐
-                │ ▪ Method Name     │ throughAPIAuthentication                                                                             │
+                │ ▪ Method Name     │ throughAPIGateway                                                                                    │
                 ├───────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
-                │ ▪ Call URL        │ http(s)://<HOST>/authentication.general.setLogin.v1_throughAPIAuthentication                         │
-                │                   │    ► http://172.28.0.4/authentication.general.setLogin.v1_throughAPIAuthentication                   │
+                │ ▪ Call URL        │ http(s)://<HOST>/authentication.general.setLogin.v1_throughAPIGateway                                │
+                │                   │    ► http://172.28.0.4/authentication.general.setLogin.v1_throughAPIGateway                          │
                 ├───────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                 │ ▪ Version         │ 1.0000.0000001                                                                                       │
                 │ ▪ Last Update     │ 2025-12-11                                                                                           │
@@ -38,7 +38,7 @@ namespace
                 └───────────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────┘
                 */
                 public function
-                    throughAPIAuthentication (
+                    throughAPIGateway (
                         )
                             {
                             //---> Data Initialization
