@@ -204,7 +204,8 @@ namespace
 
                                                 //\App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\authentication\general\setLogin\v1\example::class;
                                                 
-                                                echo '\n'.$varURL.' >> '.$varControllerPath;
+                                                echo '
+                                                    '.$varURL.' >> '.$varControllerPath;
                                                 
                                                 \App\Http\Helpers\ZhtHelper\General\System\Helper_LaravelRoute::setRoute (
                                                     $varURL,
