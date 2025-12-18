@@ -37,4 +37,12 @@ Route::get(
         );
 */
 
+$varUserSession = 1;
+$varAPIWebToken = 1;
+
+\App\Http\Helpers\ZhtHelper\General\System\Helper_LaravelRoute::setDynamicRoute_Examples_APICall (
+    $varUserSession,
+    $varAPIWebToken
+    );
+
 //-----[ Example Code - Dynamic Route ]----------------------------------------------(  END  )-----

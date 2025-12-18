@@ -113,7 +113,7 @@ namespace
                 │ ▪ Description     │ Menetapkan dynamic routing laravel untuk Examples APICall                                            │
                 ├───────────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                 │ ▪ Input Variable  :                                                                                                      │
-                │      ▪ varUserSession (string - Mandatory) ► User Session                                                                │
+                │      ▪ varUserSession (mixed - Mandatory) ► User Session                                                                 │
                 │      ▪ varAPIWebToken (string - Mandatory) ► APIWebToken                                                                 │
                 │      ------------------------------                                                                                      │
                 │ ▪ Output Variable :                                                                                                      │
@@ -133,17 +133,103 @@ namespace
                         mixed $varUserSession, string $varAPIWebToken
                         )
                             {
-                            $varArrayExampleAPIKey =
-                                \App\Http\Helpers\ZhtHelper\General\Utilities\Helper_File::getDeepestSubFoldersInFolder (
-                                    $varUserSession,
-                                    \App\Http\Helpers\ZhtHelper\General\Utilities\Helper_File::getAutoMatchDirectoryPath (
-                                        $varUserSession, 
-                                        getcwd(), 
-                                        '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall'
-                                        )
-                                    );
-                            
-                            dd ($varArrayExampleAPIKey);
+                            //---> Data Initialization
+                                $varReturn = true;
+
+                            //---> Data Process
+                                try {                                   
+                                    $varArrayExampleAPIKey =
+                                        \App\Http\Helpers\ZhtHelper\General\Utilities\Helper_File::getDeepestSubFoldersInFolder (
+                                            $varUserSession,
+                                            \App\Http\Helpers\ZhtHelper\General\Utilities\Helper_File::getAutoMatchDirectoryPath (
+                                                $varUserSession, 
+                                                getcwd(), 
+                                                '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall'
+                                                )
+                                            );
+
+                                    for ($i = 0, $iMax = count ($varArrayExampleAPIKey); $i != $iMax; $i++)
+                                        {
+                                        $varClass = (
+                                            '\App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall'.
+                                            str_replace (
+                                                '/',
+                                                '\\',
+                                                $varArrayExampleAPIKey[$i]
+                                                ).
+                                            '\example'
+                                            );
+
+                                        $varFilePath =
+                                            \App\Http\Helpers\ZhtHelper\General\Utilities\Helper_File::getAutoMatchFilePath (
+                                                $varUserSession, 
+                                                getcwd(), 
+                                                '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall'.$varArrayExampleAPIKey[$i].'/example.php'
+                                                );
+
+                                        if (is_file ($varFilePath))
+                                            {
+                                            $varArrayFunctionEntities =
+                                                \App\Http\Helpers\ZhtHelper\General\Utilities\Helper_PHPObject::getAllFunctionInPHPFile (
+                                                    $varUserSession,
+                                                    $varFilePath
+                                                    );
+
+                                            for ($j = 0, $jMax = count ($varArrayFunctionEntities); $j != $jMax; $j++)
+                                                {
+                                                //var_dump($varArrayFunctionEntities);
+                                                
+                                                $varURL =
+                                                    str_replace (
+                                                        '/',
+                                                        '.',
+                                                        str_replace (
+                                                            '#/',
+                                                            '',
+                                                            ('#'.$varArrayExampleAPIKey[$i])
+                                                            )
+                                                        ).
+                                                    '_'.$varArrayFunctionEntities[$j]['Name'];
+                                                //echo '<br> $varURL >>> '.$varURL;
+
+                                                $varControllerPath =
+                                                    $varClass.'@'.$varArrayFunctionEntities[$j]['Name'];
+                                                //echo '<br> $varControllerPath >>> '.$varControllerPath.'<br><br>';
+
+                                                //\App\Http\Helpers\ZhtHelper\General\System\Helper_LaravelRoute::setRoute (
+                                                //    'getPHPInformation2',
+                                                //    'get',
+                                                //    '\App\Http\Controllers\Application\BackEnd\System\Notification\Engines\webDisplayPage\getPHPInformation\v1\getPHPInformation@main'
+                                                //    );
+
+                                                //\App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\authentication\general\setLogin\v1\example::class;
+                                                
+                                                echo '\n'.$varURL.' >> '.$varControllerPath;
+                                                
+                                                \App\Http\Helpers\ZhtHelper\General\System\Helper_LaravelRoute::setRoute (
+                                                    $varURL,
+                                                    'get',
+                                                    $varControllerPath
+                                                    //'authentication.general.setLogin.v1_throughAPIAuthentication'
+                                                    //'\App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\authentication\general\setLogin\v1\example@throughAPIAuthentication'
+                                                    //'\App\Http\Controllers\Application\BackEnd\RouteGateway\Engines\getGeneralRoute\v1\getGeneralRoute@main'
+                                                    );
+                                                }
+                                            }
+                                        }
+                                    \App\Http\Helpers\ZhtHelper\General\System\Helper_LaravelRoute::setRoute (
+                                        'getxyz',
+                                        'get',
+                                        '\App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\authentication\general\setLogin\v1\example@throughAPIAuthentication'
+                                        );
+                                    }
+                                catch (\Exception $ex) {
+                                    $varReturn = false;
+                                    }
+
+                            //---> Data Return
+                                return
+                                    $varReturn;
                             }
 
 
@@ -157,13 +243,13 @@ namespace
                 │ ▪ Description     │ Menetapkan Routing Laravel                                                                           │
                 ├───────────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                 │ ▪ Input Variable  :                                                                                                      │
-                │      ▪ (string) varRoute ► Route                                                                                         │
-                │      ▪ (mixed)  varHTTPMethod ► HTTP Method                                                                              │
-                │      ▪ (string) varTarget ► Target (Controller atau View)                                                                │
+                │      ▪ varRoute (string - Mandatory) ► Route                                                                             │
+                │      ▪ varHTTPMethod (mixed - Mandatory) ► HTTP Method                                                                   │
+                │      ▪ varTarget (string - Mandatory) ► Target (Controller atau View)                                                    │
                 │      ------------------------------                                                                                      │
-                │      ▪ (string) varMiddleware ► Middleware                                                                               │
+                │      ▪ varMiddleware (string - Optional) ► Middleware                                                                    │
                 │ ▪ Output Variable :                                                                                                      │
-                │      ▪ (bool)   varReturn                                                                                                │
+                │      ▪ varReturn (bool)                                                                                                  │
                 ├──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
                 │ ▪ Linked Function :                                                                                                      │
                 │      ▪ \App\Http\Helpers\ZhtHelper\General\System\Helper_LaravelRoute::                                                  │
@@ -237,14 +323,14 @@ namespace
                 │ ▪ Description     │ Menetapkan Routing Laravel untuk Controller                                                          │
                 ├───────────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                 │ ▪ Input Variable  :                                                                                                      │
-                │      ▪ (string) varRoute ► Route                                                                                         │
-                │      ▪ (mixed)  varHTTPMethod ► HTTP Method                                                                              │
-                │      ▪ (string) varClassName ► Class Name                                                                                │
-                │      ▪ (string) varMethodName ► MethodName                                                                               │
+                │      ▪ varRoute (string - Mandatory) ► Route                                                                             │
+                │      ▪ varHTTPMethod (mixed - Mandatory) ► HTTP Method                                                                   │
+                │      ▪ varClassName (string - Mandatory) ► Class Name                                                                    │
+                │      ▪ varMethodName (string - Mandatory) ► MethodName                                                                   │
                 │      ------------------------------                                                                                      │
-                │      ▪ (string) varMiddleware ► Middleware                                                                               │
+                │      ▪ varMiddleware (string - Optional) ► Middleware                                                                    │
                 │ ▪ Output Variable :                                                                                                      │
-                │      ▪ (bool)   varReturn                                                                                                │
+                │      ▪ varReturn (bool)                                                                                                  │
                 ├──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
                 │ ▪ Linked Function :                                                                                                      │
                 │      ▪                                                                                                                   │
@@ -336,11 +422,11 @@ namespace
                 │ ▪ Description     │ Menetapkan Routing Laravel untuk View                                                                │
                 ├───────────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                 │ ▪ Input Variable  :                                                                                                      │
-                │      ▪ (string) varRoute ► Route                                                                                         │
-                │      ▪ (mixed) varHTTPMethod ► HTTP Method                                                                              │
-                │      ▪ (string) varViewName ► View Name                                                                                  │
+                │      ▪ varRoute (string - Mandatory) ► Route                                                                             │
+                │      ▪ varHTTPMethod (mixed - Mandatory) ► HTTP Method                                                                   │
+                │      ▪ varViewName (string - Mandatory) ► View Name                                                                      │
                 │      ------------------------------                                                                                      │
-                │      ▪ (string) varMiddleware ► Middleware                                                                               │
+                │      ▪ varMiddleware (string - Optional) ► Middleware                                                                    │
                 │ ▪ Output Variable :                                                                                                      │
                 │      ▪ (bool)   varReturn                                                                                                │
                 ├──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤

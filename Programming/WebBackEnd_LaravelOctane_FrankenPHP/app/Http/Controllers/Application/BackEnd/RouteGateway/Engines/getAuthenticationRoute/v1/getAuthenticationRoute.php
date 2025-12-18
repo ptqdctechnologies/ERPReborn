@@ -46,20 +46,14 @@ namespace
                         //$varUserSession, $varData
                         )
                             {
-                            //echo "xxx";
-                            $varUserSession = 1;
-                    
-                    $varArrayExampleAPIKey =
-                        \App\Http\Helpers\ZhtHelper\General\Utilities\Helper_File::getDeepestSubFoldersInFolder (
-                            $varUserSession,
-                            \App\Http\Helpers\ZhtHelper\General\Utilities\Helper_File::getAutoMatchDirectoryPath (
-                                $varUserSession, 
-                                getcwd(), 
-                                '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall'
-                                )
-                            );
-                    
-                    dd($varArrayExampleAPIKey);
+                            echo "getAuthenticationRoute";
+                            //$varUserSession = 1;
+                            //$varAPIWebToken = 1;
+
+                            //\App\Http\Helpers\ZhtHelper\General\System\Helper_LaravelRoute::setDynamicRoute_Examples_APICall (
+                            //    $varUserSession,
+                            //    $varAPIWebToken
+                            //    );
                             }
                 }
         }

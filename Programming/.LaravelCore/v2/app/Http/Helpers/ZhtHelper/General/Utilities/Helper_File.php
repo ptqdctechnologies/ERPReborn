@@ -334,14 +334,16 @@ namespace
                 │ ▪ Description     │ Mendapatkan daftar seluruh subfolder terdalam pada file path (varFilePath)                           │
                 ├───────────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                 │ ▪ Input Variable  :                                                                                                      │
-                │      ▪ (mixed)    varUserSession ► User Session                                                                          │
-                │      ▪ (string)   varFilePath ► Path File                                                                                │
+                │      ▪ varUserSession (mixed - Mandatory) ► User Session                                                                 │
+                │      ▪ varFilePath (string - Mandatory) ► Path File                                                                      │
                 │      ------------------------------                                                                                      │
                 │ ▪ Output Variable :                                                                                                      │
-                │      ▪ (string)   varReturn                                                                                              │
+                │      ▪ varReturn (string)                                                                                                │
                 ├──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
                 │ ▪ Linked Function :                                                                                                      │
-                │      ▪                                                                                                                   │
+                │      ▪ \App\Http\Helpers\ZhtHelper\General\Utilities\Helper_File::                                                       │
+                │           getDeepestSubFolderInFolders_ENGINE                                                                            │
+                │              (mixed $varUserSession, string $varFilePath)                                                                │
                 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
                 */
                 public static function
@@ -349,6 +351,7 @@ namespace
                         mixed $varUserSession, string $varFilePath
                         )
                             {
+                            
                             //---> Data Initialization
                                 $varReturn = (array) null;
 
@@ -359,7 +362,6 @@ namespace
                                             $varUserSession,
                                             $varFilePath
                                             );
-                                    //dd($varArrayData);
                                     
                                     for ($i = 0; $i != count($varArrayData); $i++)
                                         {
@@ -380,13 +382,39 @@ namespace
                                     $varReturn;
                             }
 
+
+                /*
+                ┌───────────────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────┐
+                │ ▪ Method Name     │ getDeepestSubFolderInFolders_ENGINE                                                                  │
+                ├───────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
+                │ ▪ Version         │ 1.0000.0000001                                                                                       │
+                │ ▪ Last Update     │ 2025-12-17                                                                                           │
+                │ ▪ Creation Date   │ 2022-07-21                                                                                           │
+                │ ▪ Description     │ ENGINE - Mendapatkan daftar seluruh subfolder terdalam pada file path (varFilePath)                  │
+                ├───────────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────┤
+                │ ▪ Input Variable  :                                                                                                      │
+                │      ▪ varUserSession (mixed - Mandatory) ► User Session                                                                 │
+                │      ▪ varFilePath (string - Mandatory) ► Path File                                                                      │
+                │      ------------------------------                                                                                      │
+                │ ▪ Output Variable :                                                                                                      │
+                │      ▪ varReturn (string)                                                                                                │
+                ├──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+                │ ▪ Linked Function :                                                                                                      │
+                │      ▪ \App\Http\Helpers\ZhtHelper\General\Utilities\Helper_File::                                                       │
+                │           getDeepestSubFolderInFolders_ENGINE                                                                            │
+                │              (mixed $varUserSession, string $varFilePath)                                                                │
+                │      ▪ \App\Http\Helpers\ZhtHelper\General\Utilities\Helper_File::                                                       │
+                │           getSubFoldersInFolder                                                                                          │
+                │              (mixed $varUserSession, string $varFilePath)                                                                │
+                └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+                */
                 private static function
                     getDeepestSubFolderInFolders_ENGINE (
                         mixed $varUserSession, string $varFilePath
                         )
                             {
                             //---> Data Initialization
-                                $varReturn = (string) null;
+                                $varReturn = (array) null;
 
                             //---> Data Process
                                 try {
@@ -395,8 +423,7 @@ namespace
                                             $varUserSession,
                                             $varFilePath
                                             );
-                                    //dd($varArrayData);
-                                    
+
                                     $iMax = 
                                         count (
                                             $varArrayData
@@ -412,21 +439,14 @@ namespace
                                                     $varUserSession,
                                                     $varArrayData[$i]
                                                     );
-                                            
-                                            if (strcmp ($varSubFolder, '') != 0)
-                                                {
-                                                for ($j = 0; $j != count ($varSubFolder); $j++)
-                                                    {
-                                                    $varReturn[$varIndex] =
-                                                        $varSubFolder[$j];
 
-                                                    $varIndex++;
-                                                    }
+                                            for ($j = 0; $j != count ($varSubFolder); $j++)
+                                                {
+                                                $varReturn[$varIndex] =
+                                                    $varSubFolder[$j];
+
+                                                $varIndex++;
                                                 }
-                                            //else
-                                            //    {
-                                            //    $varReturn[$varIndex] = $varArrayData[$i];
-                                            //    }
                                             } 
                                         }
                                     else
@@ -455,11 +475,11 @@ namespace
                 │ ▪ Description     │ Mendapatkan isi suatu file berdasarkan path (varFilePath)                                            │
                 ├───────────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                 │ ▪ Input Variable  :                                                                                                      │
-                │      ▪ (mixed)    varUserSession ► User Session                                                                          │
-                │      ▪ (string)   varFilePath ► Path File                                                                                │
+                │      ▪ varUserSession (mixed - Mandatory) ► User Session                                                                 │
+                │      ▪ varFilePath (string - Mandatory) ► Path File                                                                      │
                 │      ------------------------------                                                                                      │
                 │ ▪ Output Variable :                                                                                                      │
-                │      ▪ (string)   varReturn                                                                                              │
+                │      ▪ varReturn (string)                                                                                                │
                 ├──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
                 │ ▪ Linked Function :                                                                                                      │
                 │      ▪                                                                                                                   │
@@ -506,11 +526,11 @@ namespace
                 │ ▪ Description     │ Mendapatkan daftar seluruh subfolder pada file path (varFilePath)                                    │
                 ├───────────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                 │ ▪ Input Variable  :                                                                                                      │
-                │      ▪ (mixed)    varUserSession ► User Session                                                                          │
-                │      ▪ (string)   varFilePath ► Path File                                                                                │
+                │      ▪ varUserSession (mixed - Mandatory) ► User Session                                                                 │
+                │      ▪ varFilePath (string - Mandatory) ► Path File                                                                      │
                 │      ------------------------------                                                                                      │
                 │ ▪ Output Variable :                                                                                                      │
-                │      ▪ (array)    varReturn                                                                                              │
+                │      ▪ varReturn (array)                                                                                                 │
                 ├──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
                 │ ▪ Linked Function :                                                                                                      │
                 │      ▪                                                                                                                   │
@@ -532,7 +552,8 @@ namespace
                                             GLOB_ONLYDIR
                                             );
 
-                                    $varReturn = $varArrayData;
+                                    $varReturn =
+                                        $varArrayData;
                                     }
                                 catch (\Exception $ex) {
                                     }
