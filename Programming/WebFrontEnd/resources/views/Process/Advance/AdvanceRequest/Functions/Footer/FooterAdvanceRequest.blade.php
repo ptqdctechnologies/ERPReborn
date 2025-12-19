@@ -605,6 +605,7 @@
                 if (response.status === 200) {
                     totalNextApprover = response.data[0].nextApproverPath.length;
                     dataWorkflow.workFlowPathRefID = response.data[0].sys_ID;
+                    dataWorkflow.approverEntityRefID = response.data[0].submitterEntity_RefID;
 
                     getWorkflows(response.data[0].nextApproverPath);
 
