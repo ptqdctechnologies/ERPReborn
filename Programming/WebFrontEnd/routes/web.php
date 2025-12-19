@@ -346,7 +346,6 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('ReportPurchaseRequisitionDetail', 'Purchase\PurchaseRequisitionController@ReportPurchaseRequisitionDetail')->name('PurchaseRequisition.ReportPurchaseRequisitionDetail');
     Route::post('ReportPurchaseRequisitionDetailStore', 'Purchase\PurchaseRequisitionController@ReportPurchaseRequisitionDetailStore')->name('PurchaseRequisition.ReportPurchaseRequisitionDetailStore');
     Route::get('PurchaseRequisitionListData', 'Purchase\PurchaseRequisitionController@PurchaseRequisitionListData')->name('PurchaseRequisition.PurchaseRequisitionListData');
-    Route::post('ProcReqListCartRevision', 'Purchase\PurchaseRequisitionController@ProcReqListCartRevision')->name('PurchaseRequisition.ProcReqListCartRevision');
     Route::post('UpdatePurchaseRequest', 'Purchase\PurchaseRequisitionController@UpdatePurchaseRequest')->name('PurchaseRequisition.UpdatePurchaseRequest');
     Route::resource('PurchaseRequisition', 'Purchase\PurchaseRequisitionController');
 

@@ -572,29 +572,4 @@ class PurchaseRequisitionController extends Controller
 
         return response()->json($compact);
     }
-
-    public function ProcReqListCartRevision(Request $request)
-    {
-        $varAPIWebToken = $request->session()->get('SessionLogin');
-        $ProcReqRefID = $request->input('ProcReqRefID');
-
-        $varData = Helper_APICall::setCallAPIGateway(
-            Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'transaction.read.dataList.supplyChain.getPurchaseRequisitionDetail',
-            'latest',
-            [
-                'parameter' => [
-                    'purchaseRequisition_RefID' => (int) $ProcReqRefID
-                ],
-                'SQLStatement' => [
-                    'pick' => null,
-                    'sort' => null,
-                    'filter' => null,
-                    'paging' => null
-                ]
-            ]
-        );
-        return response()->json($varData['data']);
-    }
 }
