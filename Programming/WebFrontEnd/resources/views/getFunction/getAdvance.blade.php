@@ -108,43 +108,43 @@
                                 data: null,
                                 render: function (data, type, row, meta) {
                                     return '<td class="align-middle text-center">' +
-                                        '<input id="sys_id_modal_advance' + (meta.row + 1) + '" value="' + data.sys_ID + '" data-trigger="sys_id_modal_advance" type="hidden">' +
+                                        '<input id="sys_id_modal_advance' + (meta.row + 1) + '" value="' + data.Sys_ID + '" data-trigger="sys_id_modal_advance" type="hidden">' +
                                         (meta.row + 1) +
                                     '</td>';
                                 }
                             },
                             {
-                                data: 'sys_Text',
+                                data: 'Sys_Text',
                                 defaultContent: '-',
                                 className: "align-middle"
                             },
                             {
-                                data: 'beneficiaryWorkerName',
+                                data: 'BeneficiaryWorkerName',
                                 defaultContent: '-',
                                 className: "align-middle"
                             },
                             {
-                                data: 'requesterWorkerName',
+                                data: 'RequesterWorkerName',
                                 defaultContent: '-',
                                 className: "align-middle"
                             },
                             {
-                                data: 'combinedBudgetCode',
+                                data: 'CombinedBudgetCode',
                                 defaultContent: '-',
                                 className: "align-middle"
                             },
                             {
-                                data: 'combinedBudgetName',
+                                data: 'CombinedBudgetName',
                                 defaultContent: '-',
                                 className: "align-middle"
                             },
                             {
-                                data: 'combinedBudgetSectionCode',
+                                data: 'CombinedBudgetSectionCode',
                                 defaultContent: '-',
                                 className: "align-middle"
                             },
                             {
-                                data: 'combinedBudgetSectionName',
+                                data: 'CombinedBudgetSectionName',
                                 defaultContent: '-',
                                 className: "align-middle"
                             }
