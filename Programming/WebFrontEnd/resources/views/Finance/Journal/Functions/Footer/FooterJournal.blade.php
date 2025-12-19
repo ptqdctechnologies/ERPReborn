@@ -1,10 +1,14 @@
 <script>
     let dummyBeginningBalance       = 5000000000;
     let journalDetails              = [];
+    let dataStore                   = [];
     let totalCredit                 = 0;
     let totalDebit                  = 0;
     let currentIndexPickCOA         = null;
     let currentIndexPickRefNumber   = null;
+    let triggerButtonModal          = null;
+    const accountNumber             = document.getElementById("bank_accounts_id");
+    const journalDate               = document.getElementById("journal_date");
     const dateDelivery              = document.getElementById("journal_date");
 
     function pickRefNumber(index) {
@@ -26,13 +30,18 @@
         const newRow = {
             ref_number_id: "",
             ref_number_name: "",
-            debit_credit: "",
+            accountingEntryRecordType_RefID: "",
+            amountCurrency_RefID: 62000000000001,
+            amountCurrencyValue: "",
+            amountCurrencyExchangeRate: 1,
+            quantityUnit_RefID: 73000000000001,
+            quantity: 0,
+            budget_name: "",
             value: "",
             unpaid: "",
-            payment: "",
             balance: "",
-            coa_id: "",
-            coa_name: "",
+            chartOfAccount_RefID: "",
+            chartOfAccountName: "",
             attachment: null,
             attachment_url: ""
         };
@@ -50,14 +59,14 @@
     function updateField(index, field, value) {
         journalDetails[index][field] = value;
 
-        if (field == "debit_credit") {
+        if (field == "accountingEntryRecordType_RefID") {
             totalDebitCredit();
         }
         
         console.log("Updated:", journalDetails); // untuk debugging
     }
 
-    // 🔹 Upload file
+    // Upload file
     function handleFileUpload(index, input) {
         const file = input.files[0];
         if (!file) return;
@@ -69,14 +78,14 @@
         renderTable(); // refresh tampilan supaya preview muncul
     }
 
-    // 🔹 Preview file (jika gambar)
+    // Preview file (jika gambar)
     function previewAttachment(url) {
         const modalImg = document.getElementById("previewImage");
         modalImg.src = url;
         $("#previewModal").modal("show");
     }
 
-    // 🔹 Hapus file yang diupload
+    // Hapus file yang diupload
     function deleteAttachment(index) {
         journalDetails[index].attachment = null;
         journalDetails[index].attachment_url = "";
@@ -88,10 +97,10 @@
         totalDebit  = 0;
         
         for (let index = 0; index < journalDetails.length; index++) {
-            if (journalDetails[index].debit_credit === "CREDIT") {
+            if (journalDetails[index].accountingEntryRecordType_RefID === "CREDIT") {
                 totalCredit += 1;
             } 
-            if (journalDetails[index].debit_credit === "DEBIT") {
+            if (journalDetails[index].accountingEntryRecordType_RefID === "DEBIT") {
                 totalDebit += 1;
             }
         }
@@ -106,14 +115,14 @@
         let totalPayment    = 0;
         let isTypeNotEmpty  = false;
 
-        document.querySelectorAll('input[id^="payment"]').forEach(function(input, index) {
+        document.querySelectorAll('input[id^="amountCurrencyValue"]').forEach(function(input, index) {
             let value = parseFloat(input.value.replace(/,/g, ''));
             if (!isNaN(value)) {
-                if (journalDetails[index].debit_credit === "CREDIT") {
+                if (journalDetails[index].accountingEntryRecordType_RefID === "CREDIT") {
                     totalCashIn += value;
                     isTypeNotEmpty =  true;
                 } 
-                if (journalDetails[index].debit_credit === "DEBIT") {
+                if (journalDetails[index].accountingEntryRecordType_RefID === "DEBIT") {
                     totalCashOut += value;
                     isTypeNotEmpty =  true;
                 }
@@ -162,6 +171,8 @@
                     <td></td>
                     <td></td>
                     <td></td>
+                    <td></td>
+                    <td></td>
                 `;
             } else {
                 tr.innerHTML = `
@@ -179,13 +190,15 @@
                     <td>
                         <div class="input-group">
                             <div class="input-group-append">
-                                <span class="input-group-text form-control" style="cursor:pointer;">
-                                    <a data-toggle="modal" data-target="${index === journalDetails.length - 1 ? '#' : '#myAllTransactions'}" onclick="pickRefNumber(${index})">
-                                        <i class="fas fa-search"></i>
-                                    </a>
+                                <span class="input-group-text form-control" data-toggle="modal" data-target="${index === journalDetails.length - 1 ? '#' : '#myAllTransactions'}" onclick="pickRefNumber(${index})" style="cursor:pointer;">
+                                    <i class="fas fa-gift"></i>
                                 </span>
                             </div>
                             <input type="hidden" id="ref_number_id_${index}" value="${row.ref_number_id}">
+                            <input type="hidden" id="amountCurrency_RefID_${index}" value="${row.amountCurrency_RefID}">
+                            <input type="hidden" id="quantityUnit_RefID_${index}" value="${row.quantityUnit_RefID}">
+                            <input type="hidden" id="amountCurrencyExchangeRate_${index}" value="${row.amountCurrencyExchangeRate}">
+                            <input type="hidden" id="quantity_${index}" value="${row.quantity}">
                             <input type="text" id="ref_number_name_${index}" class="form-control" readonly
                                 value="${row.ref_number_name}"
                                 onchange="updateField(${index}, 'ref_number_name', this.value)" style="background-color: ${index === journalDetails.length - 1 ? '' : 'white'};">
@@ -193,38 +206,57 @@
                     </td>
     
                     <td>
-                        <select ${index === journalDetails.length - 1 ? 'disabled' : ''} class="form-control" id="debit_credit_${index}"
-                            onchange="updateField(${index}, 'debit_credit', this.value)">
-                            <option disabled ${row.debit_credit === '' ? 'selected' : ''}>Select a ...</option>
-                            <option value="DEBIT" ${row.debit_credit === 'DEBIT' ? 'selected' : ''}>DB</option>
-                            <option value="CREDIT" ${row.debit_credit === 'CREDIT' ? 'selected' : ''}>CR</option>
+                        <select ${index === journalDetails.length - 1 ? 'disabled' : ''} class="form-control" id="accountingEntryRecordType_RefID_${index}"
+                            onchange="updateField(${index}, 'accountingEntryRecordType_RefID', this.value)">
+                            <option value="" disabled ${row.accountingEntryRecordType_RefID === '' ? 'selected' : ''}>Select a ...</option>
+                            <option value="DEBIT" ${row.accountingEntryRecordType_RefID === 'DEBIT' ? 'selected' : ''}>DB</option>
+                            <option value="CREDIT" ${row.accountingEntryRecordType_RefID === 'CREDIT' ? 'selected' : ''}>CR</option>
                         </select>
                     </td>
     
-                    <td><input type="number" class="form-control" readonly
-                        value="${row.value}" onchange="updateField(${index}, 'value', this.value)"></td>
+                    <td>
+                        <input id="budget_${index}" type="text" class="form-control" value="${row.budget_name}" onchange="updateField(${index}, 'budget_name', this.value)" />
+                    </td>
+
+                    <td>
+                        <input id="value_${index}" type="text" class="form-control" readonly value="${row.value}" onchange="updateField(${index}, 'value', this.value)">
+                    </td>
     
-                    <td><input type="number" class="form-control" readonly
-                        value="${row.unpaid}" onchange="updateField(${index}, 'unpaid', this.value)"></td>
+                    <td>
+                        <input id="unpaid_${index}" type="text" class="form-control" readonly value="${row.unpaid}" onchange="updateField(${index}, 'unpaid', this.value)">
+                    </td>
     
-                    <td><input id="payment${index}" class="form-control number-without-negative" autocomplete="off"
-                        value="${row.payment}" onchange="updateField(${index}, 'payment', this.value.replace(/,/g, ''))" ${index === journalDetails.length - 1 ? 'readonly' : ''}></td>
+                    <td>
+                        <input id="amountCurrencyValue${index}" class="form-control number-without-negative" autocomplete="off" value="${row.amountCurrencyValue}" onchange="updateField(${index}, 'amountCurrencyValue', parseFloat(this.value.replace(/,/g, '')))" ${index === journalDetails.length - 1 ? 'readonly' : ''}>
+                    </td>
     
-                    <td><input type="number" class="form-control" readonly
-                        value="${row.balance}" onchange="updateField(${index}, 'balance', this.value)"></td>
+                    <td>
+                        <input id="balance_${index}" type="number" class="form-control" readonly value="${row.balance}" onchange="updateField(${index}, 'balance', this.value)">
+                    </td>
+
+                    <td>
+                        <div class="input-group">
+                            <div class="input-group-append">
+                                <span class="input-group-text form-control" data-toggle="modal" data-target="${index === journalDetails.length - 1 ? '#' : '#myAllTransactions'}" onclick="pickRefNumber(${index})" style="cursor:pointer;">
+                                    <i class="fas fa-gift"></i>
+                                </span>
+                            </div>
+                            <input type="text" id="${index}" class="form-control" readonly
+                                value="${row.ref_number_name}"
+                                onchange="updateField(${index}, '', this.value)" style="background-color: ${index === journalDetails.length - 1 ? '' : 'white'};">
+                        </div>
+                    </td>
     
                     <td>
                         <div class="input-group">
                             <div class="input-group-append">
-                                <span class="input-group-text form-control" style="cursor:pointer;">
-                                    <a data-toggle="modal" data-target="${index === journalDetails.length - 1 ? '#' : '#myGetChartOfAccount'}" onclick="pickCOA(${index})">
-                                        <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="box" />
-                                    </a>
+                                <span class="input-group-text form-control" data-toggle="modal" data-target="${index === journalDetails.length - 1 ? '#' : '#myGetChartOfAccount'}" onclick="pickCOA(${index})" style="cursor:pointer;">
+                                    <i class="fas fa-gift"></i>
                                 </span>
                             </div>
-                            <input type="hidden" id="coa_id_${index}" value="${row.coa_id}">
-                            <input type="text" id="coa_name_${index}" class="form-control" readonly
-                                value="${row.coa_name}" onchange="updateField(${index}, 'coa_name', this.value)" style="background-color: ${index === journalDetails.length - 1 ? '' : 'white'};">
+                            <input type="hidden" id="chartOfAccount_RefID_${index}" value="${row.chartOfAccount_RefID}">
+                            <input type="text" id="chartOfAccountName_${index}" class="form-control" readonly
+                                value="${row.chartOfAccountName}" onchange="updateField(${index}, 'chartOfAccountName', this.value)" style="background-color: ${index === journalDetails.length - 1 ? '' : 'white'};">
                         </div>
                     </td>
     
@@ -275,22 +307,108 @@
 
             tbody.appendChild(tr);
 
-            $(`#debit_credit_${index}`).on('change', function() {
+            $(`#accountingEntryRecordType_RefID_${index}`).on('change', function() {
                 totalPayments();
             });
 
-            $(`#payment${index}`).on('keyup', function() {
+            $(`#amountCurrencyValue${index}`).on('keyup', function() {
                 let payment     = $(this).val().replace(/,/g, '');
-                let typePayment = $(`#debit_credit_${index}`).val();
+                let typePayment = $(`#accountingEntryRecordType_RefID_${index}`).val();
 
                 totalPayments();
             });
         });
     }
 
-    function submitJournalDetails() {
-        console.log("Data siap dikirim:", journalDetails);
+    function summaryData() {
+        const sourceTable = document.getElementById('journal_details_table').getElementsByTagName('tbody')[0];
+        const targetTable = document.getElementById('journal_summary_table').getElementsByTagName('tbody')[0];
 
+        const rows = sourceTable.getElementsByTagName('tr');
+
+        for (let row of rows) {
+            const refNumberRefID                = row.querySelector('input[id^="ref_number_id_"]');
+            const refNumberName                 = row.querySelector('input[id^="ref_number_name_"]');
+            const chartOfAccountRefID           = row.querySelector('input[id^="chartOfAccount_RefID_"]');
+            const chartOfAccountName            = row.querySelector('input[id^="chartOfAccountName_"]');
+            const amountCurrencyRefID           = row.querySelector('input[id^="amountCurrency_RefID_"]');
+            const amountCurrencyExchangeRate    = row.querySelector('input[id^="amountCurrencyExchangeRate_"]');
+            const quantityUnitRefID             = row.querySelector('input[id^="quantityUnit_RefID_"]');
+            const debitCreditSelect             = row.querySelector('select[id^="accountingEntryRecordType_RefID_"]');
+            const budgetInput                   = row.querySelector('input[id^="budget_"]');
+            const paymentInput                  = row.querySelector('input[id^="amountCurrencyValue"]');
+            const quantityInput                 = row.querySelector('input[id^="quantity_"]');
+
+            if (
+                chartOfAccountRefID && paymentInput && debitCreditSelect &&
+                chartOfAccountRefID.value.trim() !== '' &&
+                paymentInput.value.trim() !== '' &&
+                debitCreditSelect.value.trim() !== ''
+            ) {
+                let found           = false;
+                const existingRows  = targetTable.getElementsByTagName('tr');
+
+                for (let targetRow of existingRows) {
+                }
+
+                if (!found) {
+                    const newRow = document.createElement('tr');
+                    newRow.innerHTML = `
+                        <input type="hidden" id="refID[]" value="${refNumberRefID.value}">
+                        <td style="text-align: left;padding: 0.8rem;">${refNumberName.value}</td>
+                        <td style="text-align: left;padding: 0.8rem;">${debitCreditSelect.value}</td>
+                        <td style="text-align: left;padding: 0.8rem;text-transform: capitalize;">${budgetInput.value}</td>
+                        <td style="text-align: left;padding: 0.8rem;">${paymentInput.value}</td>
+                        <td style="text-align: left;padding: 0.8rem;">${chartOfAccountName.value}</td>
+                    `;
+                    targetTable.appendChild(newRow);
+
+                    dataStore.push({
+                        entities: {
+                            chartOfAccount_RefID: parseInt(chartOfAccountRefID.value),
+                            accountingEntryRecordType_RefID: debitCreditSelect.value === "DEBIT" ? 214000000000001 : 214000000000002,
+                            amountCurrency_RefID: parseInt(amountCurrencyRefID.value),
+                            amountCurrencyValue: parseFloat(paymentInput.value.replace(/,/g, '')),
+                            amountCurrencyExchangeRate: parseInt(amountCurrencyExchangeRate.value),
+                            quantityUnit_RefID: parseInt(quantityUnitRefID.value),
+                            quantity: parseFloat(quantityInput.value.replace(/,/g, ''))
+                        }
+                    });
+                }
+            }
+        }
+    }
+
+    function validationForm() {
+        const isAccountNumberNotEmpty   = accountNumber.value.trim() !== '';
+        const isJournalDateNotEmpty     = journalDate.value.trim() !== '';
+
+        if (isAccountNumberNotEmpty && isJournalDateNotEmpty) {
+            $('#journalFormModal').modal('show');
+            summaryData();
+        } else {
+            if (!isAccountNumberNotEmpty && !isJournalDateNotEmpty) {
+                $("#bank_accounts_name").css("border", "1px solid red");
+                $("#journal_date").css("border", "1px solid red");
+
+                $("#bank_accounts_message").show();
+                $("#journal_date_message").show();
+                return;
+            }
+            if (!isAccountNumberNotEmpty) {
+                $("#bank_accounts_name").css("border", "1px solid red");
+                $("#bank_accounts_message").show();
+                return;
+            }
+            if (!isJournalDateNotEmpty) {
+                $("#journal_date").css("border", "1px solid red");
+                $("#journal_date_message").show();
+                return;
+            }
+        }
+    }
+
+    function submitJournalDetails() {
         $.ajax({
             url: '/cashbank/save',  
             method: 'POST',
@@ -307,18 +425,121 @@
         });
     }
 
+    function commentWorkflow() {
+        const swalWithBootstrapButtons = Swal.mixin({
+            confirmButtonClass: 'btn btn-success btn-sm',
+            cancelButtonClass: 'btn btn-danger btn-sm',
+            buttonsStyling: true,
+        });
+
+        swalWithBootstrapButtons.fire({
+            title: 'Comment',
+            text: "Please write your comment here",
+            type: 'question',
+            input: 'textarea',
+            showCloseButton: false,
+            showCancelButton: true,
+            focusConfirm: false,
+            cancelButtonText: '<span style="color:black;"> Cancel </span>',
+            confirmButtonText: '<span style="color:black;"> OK </span>',
+            cancelButtonColor: '#DDDAD0',
+            confirmButtonColor: '#DDDAD0',
+            reverseButtons: true
+        }).then((result) => {
+            if ('value' in result) {
+                // dataWorkflow.comment = result.value;
+                ShowLoading();
+                JournalStore();
+            }
+        });
+    }
+
+    function JournalStore() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: 'POST',
+            data: {
+                storeData: {
+                    bankAccountsID: accountNumber.value,
+                    journalDate: journalDate.value,
+                    journalDetail: JSON.stringify(dataStore)
+                }
+            },
+            url: '{{ route("Journal.store") }}',
+            success: function(res) {
+                HideLoading();
+
+                if (res.status === 200) {
+                    const swalWithBootstrapButtons = Swal.mixin({
+                        confirmButtonClass: 'btn btn-success btn-sm',
+                        cancelButtonClass: 'btn btn-danger btn-sm',
+                        buttonsStyling: true,
+                    });
+
+                    swalWithBootstrapButtons.fire({
+                        title: 'Successful !',
+                        type: 'success',
+                        html: 'Data has been saved. Your transaction number is ' + '<span style="color:#0046FF;font-weight:bold;">' + res.documentNumber + '</span>',
+                        showCloseButton: false,
+                        showCancelButton: false,
+                        focusConfirm: false,
+                        confirmButtonText: '<span style="color:black;"> OK </span>',
+                        confirmButtonColor: '#4B586A',
+                        confirmButtonColor: '#e9ecef',
+                        reverseButtons: true
+                    }).then((result) => {
+                        ShowLoading();
+                        window.location.href = '/Journal?var=1';
+                    });
+                } else {
+                    ErrorNotif("Data Cancel Inputed");
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                HideLoading();
+                console.log('error', jqXHR, textStatus, errorThrown);
+            }
+        });
+    }
+
+    function submitForm(value) {
+        triggerButtonModal = value;
+        $('#journalFormModal').modal('hide');
+
+        $('#journalFormModal').on('hidden.bs.modal', function (e) {
+            if (triggerButtonModal === "SUBMIT") {
+                // if (totalNextApprover > 1) {
+                //     $('#myWorkflows').modal('show');
+                // } else {
+                    commentWorkflow();
+                // }
+            }
+        });
+    }
+
     $('#tableAllTransactions').on('click', 'tbody tr', function() {
-        let sysId   = $(this).find('input[data-trigger="sys_id_transaction"]').val();
-        let trano   = $(this).find('td:nth-child(2)').text();
-        let project = $(this).find('td:nth-child(3)').text();
-        let site    = $(this).find('td:nth-child(4)').text();
+        if (currentIndexPickRefNumber === null) return null;
+        
+        const sysId         = $(this).find('input[data-trigger="sys_id_transaction"]').val();
+        const sysIdBudget   = $(this).find('input[data-trigger="sys_id_transaction"]').val();
+        const trano         = $(this).find('td:nth-child(2)').text();
+        const project       = $(this).find('td:nth-child(3)').text();
+        const site          = $(this).find('td:nth-child(4)').text();
 
         $(`#ref_number_id_${currentIndexPickRefNumber}`).val(sysId);
         $(`#ref_number_name_${currentIndexPickRefNumber}`).val(trano);
         $(`#ref_number_name_${currentIndexPickRefNumber}`).css('background-color', '#e9ecef');
-        
-        updateField(currentIndexPickRefNumber, 'ref_number_id', sysId);
+
+        $(`#budget_${currentIndexPickRefNumber}`).val(project);
+
+        updateField(currentIndexPickRefNumber, 'ref_number_id_', parseInt(sysId));
         updateField(currentIndexPickRefNumber, 'ref_number_name', trano);
+        updateField(currentIndexPickRefNumber, 'budget_name', project);
 
         $('#myAllTransactions').modal('hide');
     });
@@ -328,12 +549,12 @@
         let code  = $(this).find('td:nth-child(2)').text();
         let name  = $(this).find('td:nth-child(3)').text();
         
-        $(`#coa_id_${currentIndexPickCOA}`).val(sysId);
-        $(`#coa_name_${currentIndexPickCOA}`).val(`${code} - ${name}`);
-        $(`#coa_name_${currentIndexPickCOA}`).css('background-color', '#e9ecef');
+        $(`#chartOfAccount_RefID_${currentIndexPickCOA}`).val(sysId);
+        $(`#chartOfAccountName_${currentIndexPickCOA}`).val(`${code} - ${name}`);
+        $(`#chartOfAccountName_${currentIndexPickCOA}`).css('background-color', '#e9ecef');
 
-        updateField(currentIndexPickCOA, 'coa_id', sysId);
-        updateField(currentIndexPickCOA, 'coa_name', `${code} - ${name}`);
+        updateField(currentIndexPickCOA, 'chartOfAccount_RefID', parseInt(sysId));
+        updateField(currentIndexPickCOA, 'chartOfAccountName', `${code} - ${name}`);
         
         $('#myGetChartOfAccount').modal('hide');
     });
@@ -346,7 +567,8 @@
 
         $("#bank_accounts_id").val(sysID);
         $("#bank_accounts_name").val(`(${bankName}) ${bankAccount} - ${accountName}`);
-        $("#bank_accounts_name").css({"background-color":"#e9ecef"});
+        $("#bank_accounts_name").css({"background-color":"#e9ecef", "border": "1px solid #ced4da"});
+        $("#bank_accounts_message").hide();
 
         $('#myBanksAccount').modal('hide');
     });
@@ -375,7 +597,7 @@
                     "background-color": "#e9ecef",
                     "border": "1px solid #ced4da"
                 });
-                // $("#dateOfDeliveryMessage").hide();
+                $("#journal_date_message").hide();
             }
         });
     });
