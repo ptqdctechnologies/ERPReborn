@@ -239,6 +239,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
 
     // JOURNAL
     Route::get('ReportPaymentJournal', 'Accounting\JournalController@ReportPaymentJournal')->name('Journal.ReportPaymentJournal');
+    Route::post('RevisionJournal', 'Accounting\JournalController@RevisionJournal')->name('Journal.RevisionJournal');
     Route::resource('Journal', 'Accounting\JournalController');
 
     // ADVANCE REQUEST

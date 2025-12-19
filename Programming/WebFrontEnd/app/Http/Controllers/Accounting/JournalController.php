@@ -33,8 +33,6 @@ class JournalController extends Controller
         try {
             $response = $this->journalService->create($request);
 
-            Log::error("request: ", [$request->all()]);
-
             if ($response['metadata']['HTTPStatusCode'] !== 200) {
                 throw new \Exception('Failed to fetch Create Journal');
             }
@@ -50,7 +48,11 @@ class JournalController extends Controller
 
             return response()->json(["status" => 500]);
         }
-        return response()->json($request->all());
+    }
+
+    public function RevisionJournal(Request $request)
+    {
+        return view('Finance.Journal.Transactions.RevisionJournal');
     }
 
     public function ReportPaymentJournal(Request $request) 
