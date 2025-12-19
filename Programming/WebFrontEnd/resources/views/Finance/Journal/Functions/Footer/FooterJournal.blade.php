@@ -221,7 +221,7 @@
                     </td>
     
                     <td>
-                        <input id="budget_${index}" type="text" class="form-control" value="${row.budget_name}" onchange="updateField(${index}, 'budget_name', this.value)" />
+                        <input id="budget_${index}" type="text" class="form-control" value="${row.budget_name}" onchange="updateField(${index}, 'budget_name', this.value)" readonly />
                     </td>
 
                     <td>
@@ -353,6 +353,32 @@
                 const existingRows  = targetTable.getElementsByTagName('tr');
 
                 for (let targetRow of existingRows) {
+                    const targetCode = targetRow.children[0].value.trim();
+
+                    if (targetCode == refNumberRefID.value) {
+                        targetRow.children[1].innerText = refNumberName.value;
+                        targetRow.children[2].innerText = debitCreditSelect.value;
+                        targetRow.children[3].innerText = budgetInput.value;
+                        targetRow.children[4].innerText = paymentInput.value;
+                        targetRow.children[5].innerText = chartOfAccountName.value;
+                        found = true;
+
+                        const indexToUpdate = dataStore.findIndex(item => item.entities.refNumberID == refNumberRefID.value);
+                        if (indexToUpdate !== -1) {
+                            dataStore[indexToUpdate] = {
+                                entities: {
+                                    refNumberID: parseInt(refNumberRefID.value),
+                                    chartOfAccount_RefID: parseInt(chartOfAccountRefID.value),
+                                    accountingEntryRecordType_RefID: debitCreditSelect.value === "DEBIT" ? 214000000000001 : 214000000000002,
+                                    amountCurrency_RefID: parseInt(amountCurrencyRefID.value),
+                                    amountCurrencyValue: parseFloat(paymentInput.value.replace(/,/g, '')),
+                                    amountCurrencyExchangeRate: parseInt(amountCurrencyExchangeRate.value),
+                                    quantityUnit_RefID: parseInt(quantityUnitRefID.value),
+                                    quantity: parseFloat(quantityInput.value.replace(/,/g, ''))
+                                }
+                            }
+                        }
+                    }
                 }
 
                 if (!found) {
@@ -369,6 +395,7 @@
 
                     dataStore.push({
                         entities: {
+                            refNumberID: parseInt(refNumberRefID.value),
                             chartOfAccount_RefID: parseInt(chartOfAccountRefID.value),
                             accountingEntryRecordType_RefID: debitCreditSelect.value === "DEBIT" ? 214000000000001 : 214000000000002,
                             amountCurrency_RefID: parseInt(amountCurrencyRefID.value),
