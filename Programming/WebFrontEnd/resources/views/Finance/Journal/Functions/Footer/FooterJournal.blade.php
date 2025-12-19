@@ -6,10 +6,15 @@
     let totalDebit                  = 0;
     let currentIndexPickCOA         = null;
     let currentIndexPickRefNumber   = null;
+    let currentIndexPickFromTo      = null;
     let triggerButtonModal          = null;
     const accountNumber             = document.getElementById("bank_accounts_id");
     const journalDate               = document.getElementById("journal_date");
     const dateDelivery              = document.getElementById("journal_date");
+
+    function pickFromTo(index) {
+        currentIndexPickFromTo = index;
+    }
 
     function pickRefNumber(index) {
         currentIndexPickRefNumber = index;
@@ -43,7 +48,8 @@
             chartOfAccount_RefID: "",
             chartOfAccountName: "",
             attachment: null,
-            attachment_url: ""
+            attachment_url: "",
+            from_to: ""
         };
 
         journalDetails.push(newRow);
@@ -237,13 +243,11 @@
                     <td>
                         <div class="input-group">
                             <div class="input-group-append">
-                                <span class="input-group-text form-control" data-toggle="modal" data-target="${index === journalDetails.length - 1 ? '#' : '#myAllTransactions'}" onclick="pickRefNumber(${index})" style="cursor:pointer;">
+                                <span class="input-group-text form-control" data-toggle="modal" data-target="${index === journalDetails.length - 1 ? '#' : '#myBanksAccount'}" onclick="pickFromTo(${index})" style="cursor:pointer;">
                                     <i class="fas fa-gift"></i>
                                 </span>
                             </div>
-                            <input type="text" id="${index}" class="form-control" readonly
-                                value="${row.ref_number_name}"
-                                onchange="updateField(${index}, '', this.value)" style="background-color: ${index === journalDetails.length - 1 ? '' : 'white'};">
+                            <input type="text" id="from_to_${index}" class="form-control" readonly value="${row.from_to}" onchange="updateField(${index}, 'from_to', this.value)" style="background-color: ${index === journalDetails.length - 1 ? '' : 'white'};">
                         </div>
                     </td>
     
@@ -565,10 +569,17 @@
         let bankAccount = $(this).find('td:nth-child(3)').text();
         let accountName = $(this).find('td:nth-child(4)').text();
 
-        $("#bank_accounts_id").val(sysID);
-        $("#bank_accounts_name").val(`(${bankName}) ${bankAccount} - ${accountName}`);
-        $("#bank_accounts_name").css({"background-color":"#e9ecef", "border": "1px solid #ced4da"});
-        $("#bank_accounts_message").hide();
+        if (currentIndexPickFromTo !== null) {
+            $(`#from_to_${currentIndexPickFromTo}`).val(`(${bankName}) ${bankAccount} - ${accountName}`);
+            $(`#from_to_${currentIndexPickFromTo}`).css({"background-color":"#e9ecef", "border": "1px solid #ced4da"});
+        } else {
+            $("#bank_accounts_id").val(sysID);
+            $("#bank_accounts_name").val(`(${bankName}) ${bankAccount} - ${accountName}`);
+            $("#bank_accounts_name").css({"background-color":"#e9ecef", "border": "1px solid #ced4da"});
+            $("#bank_accounts_message").hide();
+        }
+
+        currentIndexPickFromTo = null;
 
         $('#myBanksAccount').modal('hide');
     });
