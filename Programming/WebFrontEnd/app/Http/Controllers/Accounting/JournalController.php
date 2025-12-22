@@ -50,6 +50,33 @@ class JournalController extends Controller
         }
     }
 
+    public function DataPickList(Request $request)
+    {
+        try {
+            $response = $this->journalService->picklist();
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                throw new \Exception('Failed to fetch Create Journal');
+            }
+
+            $compact = [
+                "data"      => $response['data']['data'],
+                "status"    => $response['metadata']['HTTPStatusCode'],
+            ];
+
+            return response()->json($compact);
+        } catch (\Throwable $th) {
+            Log::error("DataPickList Journal Function Error: " . $th->getMessage());
+
+            $compact = [
+                "data"      => [],
+                "status"    => 500,
+            ];
+
+            return response()->json($compact);
+        }
+    }
+
     public function RevisionJournal(Request $request)
     {
         return view('Finance.Journal.Transactions.RevisionJournal');
