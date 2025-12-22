@@ -1,8 +1,21 @@
 <script>
-    let dataStore       = [];
-    const siteCode      = document.getElementById('site_id_second');
-    const dateDelivery  = document.getElementById("dateCommance");
-    const dataTable     = {!! json_encode($detail ?? []) !!};
+    let dataStore                   = [];
+    let totalNextApprover           = 0;
+    let dataWorkflow                = {
+        workFlowPathRefID: null,
+        approverEntityRefID: null,
+        comment: null
+    };
+    let triggerButtonModal          = null;
+    const documentTypeID            = document.getElementById("DocumentTypeID");
+    const projectID                 = document.getElementById('project_id_second');
+    const siteCode                  = document.getElementById('site_id_second');
+    const deliverRefID              = document.getElementById("deliver_RefID");
+    const dateDelivery              = document.getElementById("dateCommance");
+    const purchaseRequestID         = document.getElementById("purchaseRequestID");
+    const remarks                   = document.getElementById("remarks");
+    const btnSubmit                 = document.getElementById("button_submit");
+    const dataTable                 = {!! json_encode($detail ?? []) !!};
 
     function validateQtyAndPriceWithHighlight() {
         let isValid                 = true;
@@ -636,7 +649,7 @@
         });
     }
 
-    function SelectWorkFlow(formatData) {
+    function commentWorkflow() {
         const swalWithBootstrapButtons = Swal.mixin({
             confirmButtonClass: 'btn btn-success btn-sm',
             cancelButtonClass: 'btn btn-danger btn-sm',
@@ -658,13 +671,14 @@
             reverseButtons: true
         }).then((result) => {
             if ('value' in result) {
+                dataWorkflow.comment = result.value;
                 ShowLoading();
-                RevisionPurchaseRequest({...formatData, comment: result.value});
+                RevisionPurchaseRequest();
             }
         });
     }
 
-    function RevisionPurchaseRequest(formatData) {
+    function RevisionPurchaseRequest() {
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -673,7 +687,18 @@
 
         $.ajax({
             type: 'POST',
-            data: formatData,
+            data: {
+                workFlowPath_RefID: dataWorkflow.workFlowPathRefID,
+                approverEntity: dataWorkflow.approverEntityRefID, 
+                comment: dataWorkflow.comment,
+                storeData: {
+                    purchaseRequestID: purchaseRequestID.value,
+                    dateCommance: dateDelivery.value,
+                    deliver_RefID: deliverRefID.value,
+                    remarks: remarks.value,
+                    purchaseRequisitionDetail: JSON.stringify(dataStore)
+                }
+            },
             url: '{{ route("PurchaseRequisition.UpdatePurchaseRequest") }}',
             success: function(res) {
                 HideLoading();
@@ -705,68 +730,56 @@
                 }
             },
             error: function(jqXHR, textStatus, errorThrown) {
-                HideLoading();
                 console.log('error', jqXHR, textStatus, errorThrown);
             }
         });
     }
 
-    function SubmitForm() {
+    function SubmitForm(value) {
+        triggerButtonModal = value;
         $('#purchaseRequestFormModal').modal('hide');
 
-        var action = $("#FormRevisionPurchaseRequest").attr("action");
-        var method = $("#FormRevisionPurchaseRequest").attr("method");
-        var form_data = new FormData($("#FormRevisionPurchaseRequest")[0]);
-        form_data.append('purchaseRequisitionDetail', JSON.stringify(dataStore));
+        $('#purchaseRequestFormModal').on('hidden.bs.modal', function (e) {
+            if (triggerButtonModal === "SUBMIT") {
+                if (totalNextApprover > 1) {
+                    $('#myWorkflows').modal('show');
+                } else {
+                    commentWorkflow();
+                }
+            }
+        });
+    }
 
-        ShowLoading();
+    function getWorkflow() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
 
         $.ajax({
-            url: action,
-            dataType: 'json',
-            cache: false,
-            contentType: false,
-            processData: false,
-            data: form_data,
-            type: method,
+            type: 'POST',
+            data: {
+                businessDocumentType_RefID: documentTypeID.value,
+                combinedBudget_RefID: projectID.value
+            },
+            url: '{!! route("GetWorkflow") !!}',
             success: function(response) {
-                if (response.message == "WorkflowError") {
-                    HideLoading();
-                    $("#submitRevisionPR").prop("disabled", false);
+                if (response.status === 200) {
+                    totalNextApprover = response.data[0].nextApproverPath.length;
+                    dataWorkflow.workFlowPathRefID = response.data[0].sys_ID;
+                    dataWorkflow.approverEntityRefID = response.data[0].submitterEntity_RefID;
 
-                    CancelNotif("You don't have access", '/PurchaseRequisition?var=1');
-                } else if (response.message == "MoreThanOne") {
-                    HideLoading();
-
-                    $('#getWorkFlow').modal('toggle');
-
-                    var t = $('#tableGetWorkFlow').DataTable();
-                    t.clear();
-                    $.each(response.data, function(key, val) {
-                        t.row.add([
-                            '<td><span data-dismiss="modal" onclick="SelectWorkFlow(\'' + val.Sys_ID + '\', \'' + val.NextApprover_RefID + '\', \'' + response.approverEntity_RefID + '\', \'' + response.documentTypeID + '\');"><img src="{{ asset("AdminLTE-master/dist/img/add.png") }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></span></td>',
-                            '<td style="border:1px solid #e9ecef;">' + val.FullApproverPath + '</td></tr></tbody>'
-                        ]).draw();
-                    });
+                    getWorkflows(response.data[0].nextApproverPath);
                 } else {
-                    const formatData = {
-                        workFlowPath_RefID: response.workFlowPath_RefID, 
-                        nextApprover: response.nextApprover_RefID, 
-                        approverEntity: response.approverEntity_RefID, 
-                        documentTypeID: response.documentTypeID,
-                        storeData: response.storeData
-                    };
+                    $("#button_submit").prop("disabled", true);
 
-                    HideLoading();
-                    SelectWorkFlow(formatData);
+                    Swal.fire("Error", "You don't have access", "error");
                 }
             },
-            error: function(response) {
-                console.log('response error', response);
-                
-                HideLoading();
-                $("#submitRevisionPR").prop("disabled", false);
-                CancelNotif("You don't have access", '/PurchaseRequisition?var=1');
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.log('jqXHR, textStatus, errorThrown', jqXHR, textStatus, errorThrown);
+                Swal.fire("Error", "Data Error", "error");
             }
         });
     }
@@ -794,6 +807,20 @@
         $("#myGetModalWarehouses").modal('toggle');
     });
 
+    $('#tableWorkflows').on('click', 'tbody tr', function() {
+        const sysId             = $(this).find('input[data-trigger="sys_id_approver"]').val();
+        const workflowName      = $(this).find('td:nth-child(2)').text();
+        const workflowPosition  = $(this).find('td:nth-child(3)').text();
+
+        dataWorkflow.approverEntityRefID = parseInt(sysId);
+
+        $("#myWorkflows").modal('toggle');
+
+        $('#myWorkflows').on('hidden.bs.modal', function () {
+            commentWorkflow();
+        });
+    });
+
     $(window).one('load', function(e) {
         $('#dateOfDelivery').datetimepicker({
             format: 'YYYY-MM-DD'
@@ -801,6 +828,7 @@
 
         $(".errorMessageContainerPRDetails").hide();
 
+        getWorkflow();
         getBudget(siteCode.value, dataTable);
     });
 </script>
