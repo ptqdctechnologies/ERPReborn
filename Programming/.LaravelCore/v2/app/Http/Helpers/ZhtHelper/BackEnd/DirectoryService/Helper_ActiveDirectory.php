@@ -22,6 +22,13 @@ namespace
             Helper_ActiveDirectory
                 {
                 /*
+                ┌──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+                │ Class Property Declaration                                                                                               │
+                └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+                */
+
+
+                /*
                 ┌───────────────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────┐
                 │ ▪ Method Name     │ __construct                                                                                          │
                 ├───────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
@@ -75,12 +82,12 @@ namespace
                 │ ▪ Description     │ Mendapatkan User Principal Name dari SAM Account Name                                                │
                 ├───────────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                 │ ▪ Input Variable  :                                                                                                      │
-                │      ▪ (mixed)  varUserSession ► User Session                                                                            │
-                │      ▪ (string) varBaseDN ► LDAP Base Domain Name                                                                        │
-                │      ▪ (string) varSAMAccountName ► LDAP SAM Account Name                                                                │
+                │      ▪ varUserSession (mixed - Mandatory) ► User Session                                                                 │
+                │      ▪ varBaseDN (string - Mandatory) ► LDAP Base Domain Name                                                            │
+                │      ▪ varSAMAccountName (string - Mandatory) ► LDAP SAM Account Name                                                    │
                 │      ------------------------------                                                                                      │
                 │ ▪ Output Variable :                                                                                                      │
-                │      ▪ (array) varReturn                                                                                                 │
+                │      ▪ varReturn (string)                                                                                                │
                 ├──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
                 │ ▪ Linked Function :                                                                                                      │
                 │      ▪                                                                                                                   │
@@ -92,7 +99,8 @@ namespace
                         )
                             {
                             //---> Data Initialization
-                                $varReturn = (string) null;
+                                $varReturn =
+                                    (string) null;
 
                             //---> Data Process
                                 try {
@@ -126,37 +134,38 @@ namespace
 
 
                 /*
-                +--------------------------------------------------------------------------------------------------------------------------+
-                | ▪ Method Name     : getAuthenticationBySAMAccountName                                                                    |
-                +--------------------------------------------------------------------------------------------------------------------------+
-                | ▪ Version         : 1.0000.0000001                                                                                       |
-                | ▪ Last Update     : 2025-12-16                                                                                           |
-                | ▪ Creation Date   : 2020-07-28                                                                                           |
-                | ▪ Description     : Mendapatkan otentikasi LDAP berdasarkan SAM Account Name (varSAMAccountName)                         |
-                +--------------------------------------------------------------------------------------------------------------------------+
-                | ▪ Input Variable  :                                                                                                      |
-                |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-                |      ▪ (string) varLDAPHost ► Alamat IP Server LDAP                                                                      |
-                |      ▪ (int)    varLDAPPort ► Port Server LDAP                                                                           |
-                |      ▪ (string) varBaseDN ► LDAP Base Domain Name                                                                        |
-                |      ▪ (string) varSAMAccountName ► LDAP SAM Account Name                                                                |
-                |      ------------------------------                                                                                      |
-                |      ▪ (string) varPassword ► Password                                                                                   |
-                | ▪ Output Variable :                                                                                                      |
-                |      ▪ (string) varReturn                                                                                                |
-                +--------------------------------------------------------------------------------------------------------------------------+
-                | ▪ Linked Function :                                                                                                      |
-                |      ▪                                                                                                                   |
-                +--------------------------------------------------------------------------------------------------------------------------+
+                ┌───────────────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────┐
+                │ ▪ Method Name     │ getAuthenticationBySAMAccountName                                                                    │
+                ├───────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
+                │ ▪ Version         │ 1.0000.0000001                                                                                       │
+                │ ▪ Last Update     │ 2025-12-16                                                                                           │
+                │ ▪ Creation Date   │ 2020-07-28                                                                                           │
+                │ ▪ Description     │ Mendapatkan otentikasi LDAP berdasarkan SAM Account Name (varSAMAccountName)                         │
+                ├───────────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────┤
+                │ ▪ Input Variable  :                                                                                                      │
+                │      ▪ varUserSession (mixed - Mandatory) ► User Session                                                                 │
+                │      ▪ varLDAPHost (string - Mandatory) ► Alamat IP Server LDAP                                                          │
+                │      ▪ varLDAPPort (int - Mandatory) ► Port Server LDAP                                                                  │
+                │      ▪ varBaseDN (string - Mandatory) ► LDAP Base Domain Name                                                            │
+                │      ▪ varSAMAccountName (string - Mandatory) ► LDAP SAM Account Name                                                    │
+                │      ------------------------------                                                                                      │
+                │      ▪ varPassword (string - Optional) ► Password                                                                        │
+                │ ▪ Output Variable :                                                                                                      │
+                │      ▪ varReturn (bool)                                                                                                  │
+                ├──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+                │ ▪ Linked Function :                                                                                                      │
+                │      ▪                                                                                                                   │
+                └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
                 */
                 public static function
                     getAuthenticationBySAMAccountName (
-                        $varUserSession, string $varLDAPHost, int $varLDAPPort, string $varBaseDN, string $varSAMAccountName,
+                        mixed $varUserSession, string $varLDAPHost, int $varLDAPPort, string $varBaseDN, string $varSAMAccountName,
                         string $varPassword = null
                         )
                             {
                             //---> Data Initialization
-                                $varReturn = (bool) false;
+                                $varReturn =
+                                    (bool) false;
 
                             //---> Data Process
                                 try {
@@ -169,13 +178,14 @@ namespace
                                     if (!$ObjLDAPConnection)
                                         {
                                         throw
-                                            new \Exception("Active Direcoty Connection Failed");
+                                            new \Exception ("Active Direcoty Connection Failed");
                                         }
                                     else
                                         {
                                         unset ($ObjLDAPBind);
 
-                                        $varReturn = true;
+                                        $varReturn =
+                                            true;
                                         }
                                     }
 

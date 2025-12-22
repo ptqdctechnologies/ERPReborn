@@ -22,6 +22,13 @@ namespace
             Helper_HTTPError
                 {
                 /*
+                ┌──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+                │ Class Property Declaration                                                                                               │
+                └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+                */
+
+
+                /*
                 ┌───────────────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────┐
                 │ ▪ Method Name     │ __construct                                                                                          │
                 ├───────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
@@ -75,10 +82,10 @@ namespace
                 │ ▪ Description     │ Mengeset tampilan halaman customized HTTP Error                                                      │
                 ├───────────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                 │ ▪ Input Variable  :                                                                                                      │
-                │      ▪ (mixed)  varUserSession ► User Session                                                                            │
-                │      ▪ (int)    varErrorCode ► HTTP Error Status Code                                                                    │
-                │      ▪ (string) varErrorMessage ► HTTP Error Message                                                                     │
+                │      ▪ varUserSession (mixed - Mandatory) ► User Session                                                                 │
+                │      ▪ varErrorCode (int - Mandatory) ► HTTP Error Status Code                                                           │
                 │      ------------------------------                                                                                      │
+                │      ▪ varErrorMessage (string - Optional) ► HTTP Error Message                                                          │
                 │ ▪ Output Variable :                                                                                                      │
                 │      ▪ (void)                                                                                                            │
                 ├──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
@@ -88,7 +95,8 @@ namespace
                 */
                 public static function
                     setHTTPErrorPageDisplay (
-                        $varUserSession, int $varErrorCode, string $varErrorMessage=null
+                        mixed $varUserSession, int $varErrorCode,
+                        string $varErrorMessage = null
                         )
                             {
                             $varDefaultIconPathFile =
@@ -234,26 +242,26 @@ namespace
                 │ ▪ Input Variable  :                                                                                                      │
                 │      ▪ (mixed)  varUserSession ► User Session                                                                            │
                 │      ▪ (string) varHTTPStatusCode ► HTTP Status Code                                                                     │
-                │      ▪ (string) varHTTPMessage ► HTTP Message                                                                            │
                 │      ------------------------------                                                                                      │
+                │      ▪ (string) varHTTPMessage ► HTTP Message                                                                            │
                 │ ▪ Output Variable :                                                                                                      │
                 │      ▪ (mixed)  varReturn                                                                                                │
                 ├──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
                 │ ▪ Linked Function :                                                                                                      │
                 │      ▪ \App\Http\Helpers\ZhtHelper\General\Utilities\Helper_DateTime::                                                   │
                 │           getGMTDateTime                                                                                                 │
-                │              ($varUserSession, string $varDateTimeFormat)                                                                │
+                │              (mixed $varUserSession, string $varDateTimeFormat)                                                          │
                 │      ▪ \App\Http\Helpers\ZhtHelper\General\System\Helper_Environment::                                                   │
                 │           getApplicationID                                                                                               │
                 │              ()                                                                                                          │
                 │      ▪ \App\Http\Helpers\ZhtHelper\General\System\Helper_Environment::                                                   │
                 │           getBackEndConfigEnvironment                                                                                    │
-                │              ($varUserSession, string $varKey)                                                                           │
+                │              (mixed $varUserSession, string $varKey)                                                                     │
                 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
                 */
                 public static function
                     setResponse (
-                        $varUserSession, int $varHTTPStatusCode,
+                        mixed $varUserSession, int $varHTTPStatusCode,
                         string $varHTTPMessage = null
                         )
                             {

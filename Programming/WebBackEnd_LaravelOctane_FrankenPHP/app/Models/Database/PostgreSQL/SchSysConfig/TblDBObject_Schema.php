@@ -15,12 +15,19 @@ namespace
         /*
         ┌───────────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
         │ ▪ Class Name  │ TblDBObject_Schema                                                                                               │
-        │ ▪ Description │ Menangani Prototype untuk diwariskan ke Class Models Database PostgreSQL                                         │
+        │ ▪ Description │ Menangani Models Database ► PostgreSQL ► SchSysConfig ► TblDBObject_Schema                                       │
         └───────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
         */
         class
             TblDBObject_Schema extends \App\Models\Database\PostgreSQL\DefaultClassPrototype
                 {
+                /*
+                ┌──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+                │ Class Property Declaration                                                                                               │
+                └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+                */
+
+
                 /*
                 ┌───────────────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────┐
                 │ ▪ Method Name     │ __construct                                                                                          │

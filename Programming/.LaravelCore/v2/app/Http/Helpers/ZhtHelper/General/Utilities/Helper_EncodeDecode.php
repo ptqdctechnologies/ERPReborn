@@ -22,6 +22,13 @@ namespace
             Helper_EncodeDecode
                 {
                 /*
+                ┌──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+                │ Class Property Declaration                                                                                               │
+                └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+                */
+
+
+                /*
                 ┌───────────────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────┐
                 │ ▪ Method Name     │ __construct                                                                                          │
                 ├───────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
@@ -75,11 +82,11 @@ namespace
                 │ ▪ Description     │ Mendapatkan decode Base64 dari data terdecode (varEncodedData)                                       │
                 ├───────────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                 │ ▪ Input Variable  :                                                                                                      │
-                │      ▪ (mixed)  varUserSession ► User Session                                                                            │
-                │      ▪ (string) varEncodedData ► Data yang akan didecode ke Plain Data                                                   │
+                │      ▪  varUserSession (mixed - Mandatory) ► User Session                                                                │
+                │      ▪ varEncodedData (string - Mandatory) ► Data yang akan didecode ke Plain Data                                       │
                 │      ------------------------------                                                                                      │
                 │ ▪ Output Variable :                                                                                                      │
-                │      ▪ (string) varReturn                                                                                                │
+                │      ▪ varReturn (string)                                                                                                │
                 ├──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
                 │ ▪ Linked Function :                                                                                                      │
                 │      ▪                                                                                                                   │
@@ -87,11 +94,12 @@ namespace
                 */
                 public static function
                     getBase64Decode (
-                        $varUserSession, string $varEncodedData
+                        mixed $varUserSession, string $varEncodedData
                         )
                             {
                             //---> Data Initialization
-                                $varReturn = null;
+                                $varReturn =
+                                    (string) null;
 
                             //---> Data Process
                                 try {
@@ -120,11 +128,11 @@ namespace
                 │ ▪ Description     │ Mendapatkan encode Base64 dari data (varPlainData)                                                   │
                 ├───────────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                 │ ▪ Input Variable  :                                                                                                      │
-                │      ▪ (mixed)  varUserSession ► User Session                                                                            │
-                │      ▪ (string) varPlainData ► Data yang akan diencode                                                                   │
+                │      ▪ varUserSession (mixed - Mandatory) ► User Session                                                                 │
+                │      ▪ varPlainData (string - Mandatory) ► Data yang akan diencode                                                       │
                 │      ------------------------------                                                                                      │
                 │ ▪ Output Variable :                                                                                                      │
-                │      ▪ (string) varReturn                                                                                                │
+                │      ▪ varReturn (string)                                                                                                │
                 ├──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
                 │ ▪ Linked Function :                                                                                                      │
                 │      ▪                                                                                                                   │
@@ -132,11 +140,12 @@ namespace
                 */  
                 public static function
                     getBase64Encode (
-                        $varUserSession, string $varPlainData
+                        mixed $varUserSession, string $varPlainData
                         )
                             {
                             //---> Data Initialization
-                                $varReturn = null;
+                                $varReturn =
+                                    (string) null;
 
                             //---> Data Process
                                 try {
@@ -166,12 +175,12 @@ namespace
                 │                   │ (varReplacementCharacter)) dari data terencode (varEncodedData)                                      │
                 ├───────────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                 │ ▪ Input Variable  :                                                                                                      │
-                │      ▪ (mixed)  varUserSession ► User Session                                                                            │
-                │      ▪ (string) varEncodedData ► Data yang akan didecode                                                                 │
+                │      ▪ varUserSession (mixed - Mandatory) ► User Session                                                                 │
+                │      ▪ varEncodedData (string - Mandatory) ► Data yang akan didecode                                                     │
                 │      ------------------------------                                                                                      │
-                │      ▪ (string) varReplacementCharacter ► Karakter pengganti slash ('/')                                                 │
+                │      ▪ varReplacementCharacter (string- Optional) ► Karakter pengganti slash ('/')                                       │
                 │ ▪ Output Variable :                                                                                                      │
-                │      ▪ (string) varReturn                                                                                                │
+                │      ▪ varReturn (string)                                                                                                │
                 ├──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
                 │ ▪ Linked Function :                                                                                                      │
                 │      ▪ \App\Http\Helpers\ZhtHelper\General\Utilities\Helper_EncodeDecode::                                               │
@@ -181,12 +190,13 @@ namespace
                 */     
                 public static function
                     getBase64DecodeWithoutSlashCharacter (
-                        $varUserSession, string $varEncodedData,
+                        mixed $varUserSession, string $varEncodedData,
                         string $varReplacementCharacter = null
                         )
                             {
                             //---> Data Initialization
-                                $varReturn = null;
+                                $varReturn =
+                                    (string) null;
 
                                 if (!$varReplacementCharacter) {
                                     $varReplacementCharacter = '-';
@@ -225,12 +235,12 @@ namespace
                 │                   │ (varReplacementCharacter)) dari data (varPlainData)                                                  │
                 ├───────────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                 │ ▪ Input Variable  :                                                                                                      │
-                │      ▪ (mixed)  varUserSession ► User Session                                                                            │
-                │      ▪ (string) varPlainData ► Data yang akan diencode                                                                   │
+                │      ▪ varUserSession (mixed - Mandatory) ► User Session                                                                 │
+                │      ▪ varPlainData (string - Mandatory) ► Data yang akan diencode                                                       │
                 │      ------------------------------                                                                                      │
-                │      ▪ (string) varReplacementCharacter ► Karakter pengganti slash ('/')                                                 │
+                │      ▪ varReplacementCharacter (string - Optional) ► Karakter pengganti slash ('/')                                      │
                 │ ▪ Output Variable :                                                                                                      │
-                │      ▪ (string) varReturn                                                                                                │
+                │      ▪ varReturn (string)                                                                                                │
                 ├──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
                 │ ▪ Linked Function :                                                                                                      │
                 │      ▪ \App\Http\Helpers\ZhtHelper\General\Utilities\Helper_EncodeDecode::                                               │
@@ -240,7 +250,7 @@ namespace
                 */  
                 public static function
                     getBase64EncodeWithoutSlashCharacter (
-                        $varUserSession, string $varPlainData,
+                        mixed $varUserSession, string $varPlainData,
                         string $varReplacementCharacter = null
                         )
                             {
@@ -257,7 +267,7 @@ namespace
                                         str_replace (
                                             '/',
                                             $varReplacementCharacter,
-                                            self::getBase64Encode(
+                                            self::getBase64Encode (
                                                 $varUserSession,
                                                 $varPlainData
                                                 )
@@ -283,11 +293,11 @@ namespace
                 │ ▪ Description     │ Mendapatkan encode Base64 URL dari data (varPlainData)                                               │
                 ├───────────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                 │ ▪ Input Variable  :                                                                                                      │
-                │      ▪ (mixed)  varUserSession ► User Session                                                                            │
-                │      ▪ (string) varPlainData ► Data yang akan diencode                                                                   │
+                │      ▪ varUserSession (mixed - Mandatory) ► User Session                                                                 │
+                │      ▪ varPlainData (string - Mandatory) ► Data yang akan diencode                                                       │
                 │      ------------------------------                                                                                      │
                 │ ▪ Output Variable :                                                                                                      │
-                │      ▪ (string) varReturn                                                                                                │
+                │      ▪ varReturn (string)                                                                                                │
                 ├──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
                 │ ▪ Linked Function :                                                                                                      │
                 │      ▪ \App\Http\Helpers\ZhtHelper\General\Utilities\Helper_EncodeDecode::                                               │
@@ -296,7 +306,7 @@ namespace
                 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
                 */  
                 public static function getBase64URLEncode (
-                    $varUserSession, string $varPlainData
+                    mixed $varUserSession, string $varPlainData
                     )
                     {
                     //---> Data Initialization
@@ -308,7 +318,7 @@ namespace
                                 str_replace (
                                     ['+', '/', '='],
                                     ['-', '_', ''],
-                                    self::getBase64Encode(
+                                    self::getBase64Encode (
                                         $varUserSession,
                                         $varPlainData
                                         )
@@ -334,11 +344,11 @@ namespace
                 │ ▪ Description     │ Mendapatkan encode HTML dari data array (varDataArray)                                               │
                 ├───────────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                 │ ▪ Input Variable  :                                                                                                      │
-                │      ▪ (mixed)  varUserSession ► User Session                                                                            │
-                │      ▪ (string) varDataArray ► Data yang akan diencode                                                                   │
+                │      ▪ varUserSession (mixed - Mandatory) ► User Session                                                                 │
+                │      ▪ varDataArray (string - Mandatory) ► Data yang akan diencode                                                       │
                 │      ------------------------------                                                                                      │
                 │ ▪ Output Variable :                                                                                                      │
-                │      ▪ (array) varReturn                                                                                                 │
+                │      ▪  varReturn (array)                                                                                                │
                 ├──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
                 │ ▪ Linked Function :                                                                                                      │
                 │      ▪                                                                                                                   │
@@ -346,15 +356,16 @@ namespace
                 */
                 public static function
                     getHTMLEncode (
-                        $varUserSession, array $varDataArray
+                        mixed $varUserSession, array $varDataArray
                         )
                             {
                             //---> Data Initialization
-                                $varReturn = null;
+                                $varReturn =
+                                    (array) null;
 
                             //---> Data Process
                                 try {
-                                    for ($i=0; $i!=count($varDataArray); $i++)
+                                    for ($i = 0; $i != count ($varDataArray); $i++)
                                         {
                                         foreach ($varDataArray[$i] as $varKey => $varValue)
                                             {
@@ -386,11 +397,11 @@ namespace
                 │ ▪ Description     │ Mendapatkan decode JSON dari data terdecode (varEncodedData)                                         │
                 ├───────────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                 │ ▪ Input Variable  :                                                                                                      │
-                │      ▪ (mixed)  varUserSession ► User Session                                                                            │
-                │      ▪ (string) varEncodedData ► Data yang akan didecode                                                                 │
+                │      ▪ varUserSession (mixed - Mandatory) ► User Session                                                                 │
+                │      ▪ varEncodedData (string - Mandatory) ► Data yang akan didecode                                                     │
                 │      ------------------------------                                                                                      │
                 │ ▪ Output Variable :                                                                                                      │
-                │      ▪ (array) varReturn                                                                                                 │
+                │      ▪ varReturn (array)                                                                                                 │
                 ├──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
                 │ ▪ Linked Function :                                                                                                      │
                 │      ▪                                                                                                                   │
@@ -398,11 +409,12 @@ namespace
                 */
                 public static function
                     getJSONDecode (
-                        $varUserSession, string $varEncodedData
+                        mixed $varUserSession, string $varEncodedData
                         )
                             {
                             //---> Data Initialization
-                                $varReturn = null;
+                                $varReturn =
+                                    (array) null;
 
                             //---> Data Process
                                 try {
@@ -430,14 +442,14 @@ namespace
                 │ ▪ Version         │ 1.0000.0000002                                                                                       │
                 │ ▪ Last Update     │ 2025-12-15                                                                                           │
                 │ ▪ Creation Date   │ 2021-07-01                                                                                           │
-                │ ▪ Description     │ Mendapatkan encode Base64 URL dari data (varPlainData)                                               │
+                │ ▪ Description     │ Mendapatkan encode JSON dari data (varPlainData)                                                     │
                 ├───────────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                 │ ▪ Input Variable  :                                                                                                      │
-                │      ▪ (mixed)  varUserSession ► User Session                                                                            │
-                │      ▪ (array)  varPlainData ► Data yang akan diencode                                                                   │
+                │      ▪ varUserSession (mixed - Mandatory) ► User Session                                                                 │
+                │      ▪ varPlainData (array - Mandatory) ► Data yang akan diencode                                                        │
                 │      ------------------------------                                                                                      │
                 │ ▪ Output Variable :                                                                                                      │
-                │      ▪ (array) varReturn                                                                                                 │
+                │      ▪ varReturn (string)                                                                                                │
                 ├──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
                 │ ▪ Linked Function :                                                                                                      │
                 │      ▪                                                                                                                   │
@@ -445,11 +457,12 @@ namespace
                 */  
                 public static function
                     getJSONEncode (
-                        $varUserSession, array $varPlainData
+                        mixed $varUserSession, array $varPlainData
                         )
                             {
                             //---> Data Initialization
-                                $varReturn = null;
+                                $varReturn =
+                                    (string) null;
 
                             //---> Data Process
                                 try {
@@ -479,11 +492,11 @@ namespace
                 │ ▪ Description     │ Mendapatkan encode UTF8 dari data (varData)                                                          │
                 ├───────────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                 │ ▪ Input Variable  :                                                                                                      │
-                │      ▪ (mixed)  varUserSession ► User Session                                                                            │
-                │      ▪ (string) varPlainData ► Data yang akan diencode                                                                   │
+                │      ▪ varUserSession (mixed - Mandatory) ► User Session                                                                 │
+                │      ▪ varPlainData (string - Mandatory) ► Data yang akan diencode                                                       │
                 │      ------------------------------                                                                                      │
                 │ ▪ Output Variable :                                                                                                      │
-                │      ▪ (array) varReturn                                                                                                 │
+                │      ▪ varReturn (string)                                                                                                │
                 ├──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
                 │ ▪ Linked Function :                                                                                                      │
                 │      ▪                                                                                                                   │
@@ -491,11 +504,12 @@ namespace
                 */            
                 public static function
                     getUTF8Encode (
-                        $varUserSession, string $varPlainData
+                        mixed $varUserSession, string $varPlainData
                         )
                             {
                             //---> Data Initialization
-                                $varReturn = null;
+                                $varReturn =
+                                    (string) null;
 
                             //---> Data Process
                                 try {
