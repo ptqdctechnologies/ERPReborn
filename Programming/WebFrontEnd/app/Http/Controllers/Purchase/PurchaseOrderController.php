@@ -27,6 +27,57 @@ class PurchaseOrderController extends Controller
         $this->workflowService = $workflowService;
     }
 
+    public function index(Request $request)
+    {
+        $var                = $request->query('var', 0);
+        $varAPIWebToken     = Session::get('SessionLogin');
+        $documentTypeRefID  = $this->GetBusinessDocumentsTypeFromRedis('Purchase Order Form');
+
+        return view('Purchase.PurchaseOrder.Transactions.CreatePurchaseOrder', [
+            'var'                   => $var,
+            'varAPIWebToken'        => $varAPIWebToken,
+            'documentType_RefID'    => $documentTypeRefID
+        ]);
+    }
+
+    public function store(Request $request)
+    {
+        try {
+            $response = $this->purchaseOrderService->create($request);
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                throw new \Exception('Failed to fetch Create Purchase Order');
+            }
+
+            $responseWorkflow = $this->workflowService->submit(
+                $response['data']['businessDocument']['businessDocument_RefID'],
+                $request->workFlowPath_RefID,
+                $request->comment,
+                $request->approverEntity,
+            );
+
+            if ($responseWorkflow['metadata']['HTTPStatusCode'] !== 200) {
+                throw new \Exception('Failed to fetch Submit Workflow Create Purchase Order');
+            }
+
+            $compact = [
+                "documentNumber"    => $response['data']['businessDocument']['documentNumber'],
+                "status"            => $responseWorkflow['metadata']['HTTPStatusCode'],
+            ];
+
+            return response()->json($compact);
+        } catch (\Throwable $th) {
+            Log::error("Store Purchase Order Function Error: " . $th->getMessage());
+
+            return response()->json(["status" => 500]);
+        }
+    }
+
+    public function update(Request $request, $id)
+    {
+        // 
+    }
+
     public function ReportPurchaseOrderSummary(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
@@ -636,19 +687,6 @@ class PurchaseOrderController extends Controller
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }
-
-    public function index(Request $request)
-    {
-        $var                = $request->query('var', 0);
-        $varAPIWebToken     = Session::get('SessionLogin');
-        $documentTypeRefID  = $this->GetBusinessDocumentsTypeFromRedis('Purchase Order Form');
-
-        return view('Purchase.PurchaseOrder.Transactions.CreatePurchaseOrder', [
-            'var'                   => $var,
-            'varAPIWebToken'        => $varAPIWebToken,
-            'documentType_RefID'    => $documentTypeRefID
-        ]);
-    }
     
     public function ReportPoDetail(Request $request)
     {
@@ -1252,139 +1290,6 @@ class PurchaseOrderController extends Controller
         }
     }
 
-    public function StoreValidatePurchaseOrderPrNumber(Request $request)
-    {
-        $varAPIWebToken = $request->session()->get('SessionLogin');
-        $tamp = 0;
-        $status = 200;
-        $varDataPurchaseRequisitionList['data'] = [];
-        $var_RefID = $request->input('var_RefID');
-
-
-        $varDataPurchaseRequisitionList = Helper_APICall::setCallAPIGateway(
-            Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'transaction.read.dataList.supplyChain.getPurchaseRequisitionDetail',
-            'latest',
-            [
-                'parameter' => [
-                    'purchaseRequisition_RefID' => (int) $var_RefID
-                ],
-                'SQLStatement' => [
-                    'pick' => null,
-                    'sort' => null,
-                    'filter' => null,
-                    'paging' => null
-                ]
-            ]
-        );
-        // dd($varDataPurchaseRequisitionList);
-
-        $data = $request->session()->get("SessionPurchaseOrderPrNumber");
-        if ($request->session()->has("SessionPurchaseOrderPrNumber")) {
-            for ($i = 0; $i < count($data); $i++) {
-                if ($data[$i] == $var_RefID) {
-                    $tamp = 1;
-                }
-            }
-            if ($tamp == 0) {
-                $varDataPurchaseRequisitionList = Helper_APICall::setCallAPIGateway(
-                    Helper_Environment::getUserSessionID_System(),
-                    $varAPIWebToken,
-                    'transaction.read.dataList.supplyChain.getPurchaseRequisitionDetail',
-                    'latest',
-                    [
-                        'parameter' => [
-                            'purchaseRequisition_RefID' => (int) $var_RefID
-                        ],
-                        'SQLStatement' => [
-                            'pick' => null,
-                            'sort' => null,
-                            'filter' => null,
-                            'paging' => null
-                        ]
-                    ]
-                );
-                $request->session()->push("SessionPurchaseOrderPrNumber", $var_RefID);
-            } else {
-                $status = 501;
-            }
-        } else {
-            $varDataPurchaseRequisitionList = Helper_APICall::setCallAPIGateway(
-                Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken,
-                'transaction.read.dataList.supplyChain.getPurchaseRequisitionDetail',
-                'latest',
-                [
-                    'parameter' => [
-                        'purchaseRequisition_RefID' => (int) $var_RefID
-                    ],
-                    'SQLStatement' => [
-                        'pick' => null,
-                        'sort' => null,
-                        'filter' => null,
-                        'paging' => null
-                    ]
-                ]
-            );
-
-            $request->session()->push("SessionPurchaseOrderPrNumber", $var_RefID);
-        }
-
-        $compact = [
-            'status' => $status,
-            'DataPurchaseRequisitionList' => $varDataPurchaseRequisitionList['data'],
-        ];
-
-        return response()->json($compact);
-    }
-
-    public function StoreValidatePurchaseOrder(Request $request)
-    {
-        $tamp = 0; $status = 200;
-        $val = $request->input('putWorkId');
-        $val2 = $request->input('putProductId');
-        $data = $request->session()->get("SessionPurchaseOrder");
-        if($request->session()->has("SessionPurchaseOrder")){
-            for($i = 0; $i < count($data); $i++){
-                if($data[$i] == $val && $data[$i+1] == $val2){
-                    $tamp = 1;
-                }
-            }
-            if($tamp == 0){
-                $request->session()->push("SessionPurchaseOrder", $val);
-                $request->session()->push("SessionPurchaseOrder", $val2);
-            }
-            else{
-                $status = 500;
-            }
-        }
-        else{
-            $request->session()->push("SessionPurchaseOrder", $val);
-            $request->session()->push("SessionPurchaseOrder", $val2);
-        }
-
-        return response()->json($status);
-
-    }
-
-    public function StoreValidatePurchaseOrder2(Request $request)
-    {
-        $val = $request->input('putWorkId');
-        $val2 = $request->input('putProductId');
-        $data = $request->session()->get("SessionPurchaseOrder");
-        if($request->session()->has("SessionPurchaseOrder")){
-            for($i = 0; $i < count($data); $i++){
-                if($data[$i] == $val && $data[$i+1] == $val2){
-                    unset($data[$i]);
-                    unset($data[$i+1]);
-                    $newClass = array_values($data);
-                    $request->session()->put("SessionPurchaseOrder", $newClass);
-                }
-            }
-        }
-    }
-
     public function PurchaseOrderListData(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
@@ -1407,34 +1312,6 @@ class PurchaseOrderController extends Controller
             'data' => $varDataPurchaseRequisition['data'],
         ];
             
-        return response()->json($compact);
-    }
-
-    public function PurchaseOrderByPrID(Request $request)
-    {
-        $varAPIWebToken = $request->session()->get('SessionLogin');
-        $var_recordID = $request->input('var_recordID');
-        $varDataPurchaseRequisitionList = Helper_APICall::setCallAPIGateway(
-            Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'transaction.read.dataList.supplyChain.getPurchaseRequisitionDetail',
-            'latest',
-            [
-                'parameter' => [
-                    'purchaseRequisition_RefID' => (int) $var_recordID
-                ],
-                'SQLStatement' => [
-                    'pick' => null,
-                    'sort' => null,
-                    'filter' => null,
-                    'paging' => null
-                ]
-            ]
-        );
-        // dd($varDataPurchaseRequisitionList);
-        $compact = [
-            'DataPurchaseList' => $varDataPurchaseRequisitionList['data'],
-        ];
         return response()->json($compact);
     }
 
@@ -1491,54 +1368,6 @@ class PurchaseOrderController extends Controller
             return redirect()->route('PurchaseOrder.index', ['var' => 1]);
         }
     }
-    
-    public function create()
-    {
-        //
-    }
-
-    public function store(Request $request)
-    {
-        try {
-            $response = $this->purchaseOrderService->create($request);
-
-            if ($response['metadata']['HTTPStatusCode'] !== 200) {
-                throw new \Exception('Failed to fetch Create Purchase Order');
-            }
-
-            $responseWorkflow = $this->workflowService->submit(
-                $response['data']['businessDocument']['businessDocument_RefID'],
-                $request->workFlowPath_RefID,
-                $request->comment,
-                $request->approverEntity,
-            );
-
-            if ($responseWorkflow['metadata']['HTTPStatusCode'] !== 200) {
-                throw new \Exception('Failed to fetch Submit Workflow Create Purchase Order');
-            }
-
-            $compact = [
-                "documentNumber"    => $response['data']['businessDocument']['documentNumber'],
-                "status"            => $responseWorkflow['metadata']['HTTPStatusCode'],
-            ];
-
-            return response()->json($compact);
-        } catch (\Throwable $th) {
-            Log::error("Store Purchase Order Function Error: " . $th->getMessage());
-
-            return response()->json(["status" => 500]);
-        }
-    }
-
-    public function show($id)
-    {
-        //
-    }
-
-    public function edit($id)
-    {
-        //
-    }
 
     public function UpdatePurchaseOrder(Request $request)
     {
@@ -1570,87 +1399,6 @@ class PurchaseOrderController extends Controller
             Log::error("Update Purchase Order Function Error: " . $th->getMessage());
 
             return response()->json(["status" => 500]);
-        }
-    }
-
-    public function destroy($id)
-    {
-        //
-    }
-
-    public function revisionAsfIndex(Request $request)
-    {   
-        $varAPIWebToken = $request->session()->get('SessionLogin');
-
-        $varData = Helper_APICall::setCallAPIGateway(
-            Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'dataPickList.project.getProject',
-            'latest',
-            [
-                'parameter' => []
-            ]
-        );
-        
-        return view('Advance.Advance.Transactions.revisionASF', ['data' => $varData['data']['data']]);
-    }
-
-    public function addListCartPO(Request $request)
-    {
-        $data = json_decode($request->getContent(), true);
-        $dataAll = array();
-
-        foreach ($data as $i => $v) {
-
-            array_push($dataAll, array(
-                'trano' => $v['trano'],
-                'productId' => $v['productId'],
-                'productName' => $v['productName'],
-                'uom' => $v['uom'],
-                'qty' => $v['qty'],
-                'unit_Price' => $v['unit_Price'],
-                'ppn_value' => $v['ppn_value'],
-                'total' => $v['total']
-            ));
-        }
-        return response()->json($dataAll);
-    }
-
-    public function submitData(Request $request)
-    {
-        $input = $request->all();
-        dd($input);die;
-        $count_product = count($input['var_product_id']);
-
-        $input_header = array(
-            'var_budget_code'	=> $input['var_budget_code'],
-            'var_budget_code2'	=> $input['var_budget_code2'],
-            'var_sub_budget_code'	=> $input['var_sub_budget_code'],
-            'var_sub_budget_code2'	=> $input['var_sub_budget_code2'],
-            'var_request_name'	=> $input['var_request_name'],
-            'var_beneficiary'	=> $input['var_beneficiary'],
-            'var_internal_notes'	=> $input['var_internal_notes'],
-            'var_bank_name'	=> $input['var_bank_name'],
-            'var_account_name'	=> $input['var_account_name'],
-            'var_account_number'	=> $input['var_account_number']
-        );
-
-        print_r($input_header);
-
-        $input_product = array(); 
-        if ($count_product > 0 && isset($count_product)) {
-            for ($n = 0; $n < $count_product; $n++) {
-                $input_product['var_product_id'] = $input['var_product_id'][$n];
-                $input_product['var_product_name'] = $input['var_product_name'][$n];
-                $input_product['var_quantity'] = $input['var_quantity'][$n];
-                $input_product['var_uom'] = $input['var_uom'][$n];
-                $input_product['var_price'] = $input['var_price'][$n];
-                $input_product['var_totalPrice'] = $input['var_totalPrice'][$n];
-                $input_product['var_currency'] = $input['var_currency'][$n];
-                $input_product['var_remark'] = $input['var_remark'][$n];
-                
-                print_r($input_product);
-            }
         }
     }
 }
