@@ -81,20 +81,57 @@
                 table.clear();
 
                 if (Array.isArray(data) && data.length > 0) {
-                    $.each(data, function(key, val) {
-                        table.row.add([
-                            '<input id="sys_id_transaction' + key + '" value="' + val.sys_ID + '" data-trigger="sys_id_transaction" type="hidden">' + 
-                            no++,
-                            val.sys_Text || '-',
-                            val.combinedBudgetCode || '-',
-                            val.combinedBudgetSectionCode || '-',
-                        ]).draw();
+                    // $.each(data, function(key, val) {
+                    //     table.row.add([
+                    //         '<input id="sys_id_transaction' + key + '" value="' + val.sys_ID + '" data-trigger="sys_id_transaction" type="hidden">' + 
+                    //         no++,
+                    //         val.sys_Text || '-',
+                    //         val.combinedBudgetCode || '-',
+                    //         val.combinedBudgetSectionCode || '-',
+                    //     ]).draw();
+                    // });
+
+                    $('#tableAllTransactions').DataTable({
+                        destroy: true,
+                        data: data,
+                        deferRender: true,
+                        scrollCollapse: true,
+                        scroller: true,
+                        columns: [
+                            {
+                                data: null,
+                                render: function (data, type, row, meta) {
+                                    return '<td class="align-middle text-center">' +
+                                        '<input id="sys_id_transaction' + (meta.row + 1) + '" value="' + data.sys_ID + '" data-trigger="sys_id_transaction" type="hidden">' +
+                                        '<input id="sys_id_budget' + (meta.row + 1) + '" value="' + data.combinedBudget_RefID + '" data-trigger="sys_id_budget" type="hidden">' +
+                                        (meta.row + 1) +
+                                    '</td>';
+                                }
+                            },
+                            {
+                                data: 'sys_Text',
+                                defaultContent: '-',
+                                className: "align-middle"
+                            },
+                            {
+                                data: 'combinedBudgetName',
+                                defaultContent: '-',
+                                className: "align-middle"
+                            },
+                            {
+                                data: 'combinedBudgetSectionName',
+                                defaultContent: '-',
+                                className: "align-middle"
+                            }
+                        ]
                     });
 
-                    $("#tableAllTransactions_length").show();
-                    $("#tableAllTransactions_filter").show();
-                    $("#tableAllTransactions_info").show();
-                    $("#tableAllTransactions_paginate").show();
+                    $('#tableAllTransactions').css("width", "100%");
+
+                    // $("#tableAllTransactions_length").show();
+                    // $("#tableAllTransactions_filter").show();
+                    // $("#tableAllTransactions_info").show();
+                    // $("#tableAllTransactions_paginate").show();
                 } else {
                     $(".errorAllTransactionsMessageContainer").show();
                     $("#errorAllTransactionsMessage").text(`Data not found.`);

@@ -238,8 +238,9 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::resource('AccountPayable', 'Finance\AccountPayableController');
 
     // JOURNAL
-    Route::get('ReportPaymentJournal', 'Finance\JournalController@ReportPaymentJournal')->name('Journal.ReportPaymentJournal');
-    Route::resource('Journal', 'Finance\JournalController');
+    Route::get('ReportPaymentJournal', 'Accounting\JournalController@ReportPaymentJournal')->name('Journal.ReportPaymentJournal');
+    Route::post('RevisionJournal', 'Accounting\JournalController@RevisionJournal')->name('Journal.RevisionJournal');
+    Route::resource('Journal', 'Accounting\JournalController');
 
     // ADVANCE REQUEST
     Route::get('AdvanceListData', 'Process\Advance\AdvanceRequestController@AdvanceListData')->name('AdvanceRequest.AdvanceListData');
@@ -345,7 +346,6 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('ReportPurchaseRequisitionDetail', 'Purchase\PurchaseRequisitionController@ReportPurchaseRequisitionDetail')->name('PurchaseRequisition.ReportPurchaseRequisitionDetail');
     Route::post('ReportPurchaseRequisitionDetailStore', 'Purchase\PurchaseRequisitionController@ReportPurchaseRequisitionDetailStore')->name('PurchaseRequisition.ReportPurchaseRequisitionDetailStore');
     Route::get('PurchaseRequisitionListData', 'Purchase\PurchaseRequisitionController@PurchaseRequisitionListData')->name('PurchaseRequisition.PurchaseRequisitionListData');
-    Route::post('ProcReqListCartRevision', 'Purchase\PurchaseRequisitionController@ProcReqListCartRevision')->name('PurchaseRequisition.ProcReqListCartRevision');
     Route::post('UpdatePurchaseRequest', 'Purchase\PurchaseRequisitionController@UpdatePurchaseRequest')->name('PurchaseRequisition.UpdatePurchaseRequest');
     Route::resource('PurchaseRequisition', 'Purchase\PurchaseRequisitionController');
 

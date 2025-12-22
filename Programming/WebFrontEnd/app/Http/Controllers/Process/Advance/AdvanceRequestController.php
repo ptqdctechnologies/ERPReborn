@@ -141,7 +141,7 @@ class AdvanceRequestController extends Controller
         } catch (\Throwable $th) {
             Log::error("Revision Advance Index Function Error: " . $th->getMessage());
 
-            return redirect()->back()->with('NotFound', 'Process Error');
+            return redirect()->route('AdvanceRequest.index', ['var' => 1])->with('NotFound', 'Process Error');
         }
     }
 

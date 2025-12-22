@@ -13,12 +13,12 @@
                             </a>
                             <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-left" style="padding: 10px;font-size:14px;background-color:#4B586A;margin-top:8px;">
                                 <li class="nav-item">
-                                    <a href="{{ route('MaterialReceive.index') }}" class="nav-link" style="color:white;padding-bottom:10px;">
+                                    <a href="{{ route('Journal.index') }}" class="nav-link" style="color:white;padding-bottom:10px;">
                                         <i class="far fa-file nav-icon-sm"> Create Journal</i>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link myPopUpArfRevision" data-toggle="modal" data-target="#myPopUpMaterialReceiveRevision" style="color:white;padding-bottom:10px;cursor:pointer">
+                                    <a class="nav-link" data-toggle="modal" data-target="#myPopUpJournalRevision" style="color:white;padding-bottom:10px;cursor:pointer">
                                         <i class="far fa-file nav-icon-sm"> Revision Journal</i>
                                     </a>
                                 </li>

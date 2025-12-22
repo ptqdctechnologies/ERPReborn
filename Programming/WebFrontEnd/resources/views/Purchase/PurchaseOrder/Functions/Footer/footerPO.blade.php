@@ -528,7 +528,7 @@
                                 <td style="text-align: center; padding: 10px !important;">${currencyTotal(val2.productUnitPriceBaseCurrencyValue)}</td>
                                 <td style="text-align: center; padding: 10px !important;">${currencyTotal(val2.quantity * val2.productUnitPriceBaseCurrencyValue)}</td>
                                 <td style="text-align: center; padding: 10px !important;">${val2.productUnitPriceCurrencyISOCode}</td>
-                                <td style="text-align: center; padding: 10px !important;">-</td>
+                                <td style="text-align: center; padding: 10px !important;">${val2.asset === 0 ? 'No' : 'Yes'}</td>
                                 <td class="sticky-col fifth-col-pr" style="border:1px solid #e9ecef;background-color:white;">
                                     <input class="form-control number-without-negative" id="qty_req${indexPurchaseOrder}" data-index=${indexPurchaseOrder} data-total-request=${val2.priceBaseCurrencyValue} data-default="" autocomplete="off" style="border-radius:0px;" />
                                 </td>
