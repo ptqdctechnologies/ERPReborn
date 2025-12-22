@@ -72,7 +72,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                                 "productUnitPriceDiscountCurrency_RefID" => 62000000000001,
                                                 "productUnitPriceDiscountCurrencyValue" => 0,
                                                 "productUnitPriceDiscountCurrencyExchangeRate" => 1,
-                                                "asset" => 1,        // 0 => "NO", 1 => "YES"
+                                                "asset" => 0,        // 0 => "NO", 1 => "YES"
                                                 "remarks" => 'important sub message 1-a'
                                                 ]
                                             ],
@@ -88,7 +88,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                                 "productUnitPriceDiscountCurrency_RefID" => 62000000000001,
                                                 "productUnitPriceDiscountCurrencyValue" => 0,
                                                 "productUnitPriceDiscountCurrencyExchangeRate" => 1,
-                                                "asset" => 1,        // 0 => "NO", 1 => "YES"
+                                                "asset" => 0,        // 0 => "NO", 1 => "YES"
                                                 "remarks" => 'important sub message 1-b'
                                                 ]
                                             ],
