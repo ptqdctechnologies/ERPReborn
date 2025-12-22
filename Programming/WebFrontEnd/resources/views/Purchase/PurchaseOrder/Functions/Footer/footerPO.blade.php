@@ -4,6 +4,19 @@
     let vat                         = document.getElementById("vatOption");
     let dataStore                   = [];
     let msrIDList                   = [];
+    let totalNextApprover           = 0;
+    let dataWorkflow                = {
+        workFlowPathRefID: null,
+        approverEntityRefID: null,
+        comment: null
+    };
+    let triggerButtonModal          = null;
+    const fileID                    = document.getElementById("dataInput_Log_FileUpload");
+    const documentTypeID            = document.getElementById("DocumentTypeID");
+    const remarkPO                  = document.getElementById("remarkPO");
+    const paymentNotes              = document.getElementById("paymentNotes");
+    const internalNote              = document.getElementById("internalNote");
+    const supplierID                = document.getElementById("supplier_id");
     const combinedBudgetTrigger     = document.getElementById("var_combinedBudget_RefID");
     const msrNumber                 = document.getElementById("modal_purchase_requisition_document_numbers");
     const dateOfDelivery            = document.getElementById("dateOfDelivery");
@@ -20,6 +33,7 @@
     const termOfPaymentOption       = document.getElementById('termOfPaymentOption');
     const tablePurchaseOrderLists   = document.querySelector("#tablePurchaseOrderList tbody");
     const submitPurchaseOrder       = document.getElementById("submitPurchaseOrder");
+    const tariffCurrencyValue       = document.getElementById("tariffCurrencyValue");
 
     if (downPaymentValue) {
         downPaymentValue.addEventListener('input', function () {
@@ -432,11 +446,6 @@
     }
 
     function getDetailPurchaseRequisition(purchase_requisition_number, purchase_requisition_id) {
-        $("#tablePurchaseOrderDetail tbody").hide();
-        $(".loadingPurchaseOrderTable").show();
-        $("#loading_workflow").show();
-        $("#purchaseRequisitionTrigger").hide();
-
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -448,27 +457,14 @@
             url: '{!! route("getPurchaseRequisitionDetail") !!}?purchase_requisition_id=' + purchase_requisition_id,
             success: async function(data) {
                 if (data && Array.isArray(data) && data.length > 0) {
-                    const documentTypeID = document.getElementById("DocumentTypeID");
-
-                    if (documentTypeID.value) {
-                        var checkWorkFlow = await checkingWorkflow(data[0].combinedBudget_RefID, documentTypeID.value);
-
-                        if (!checkWorkFlow) {
-                            $("#purchaseRequisitionTrigger").show();
-                            $("#loading_workflow").hide();
-                            $(".loadingPurchaseOrderTable").hide();
-                            return;
-                        }
-                    }
-
                     $("#purchaseRequisitionTrigger").show();
                     $("#loading_workflow").hide();
                     $("#purchaseRequisitionTrigger").show();
                     $(".loadingPurchaseOrderTable").hide();
                     $("#tablePurchaseOrderDetail tbody").show();
 
-                    const isDuplicateMsr        = msrIDList.includes(data[0].purchaseRequisition_RefID);
-                    const currentBudget         = combinedBudgetTrigger.value;
+                    const isDuplicateMsr    = msrIDList.includes(data[0].purchaseRequisition_RefID);
+                    const currentBudget     = combinedBudgetTrigger.value;
 
                     if (currentBudget && currentBudget != data[0].combinedBudget_RefID) {
                         Swal.fire("Error", "Budget must be the same!", "error");
@@ -645,7 +641,36 @@
         });
     }
 
-    function PurchaseOrderStore(formatData) {
+    function commentWorkflow() {
+        const swalWithBootstrapButtons = Swal.mixin({
+            confirmButtonClass: 'btn btn-success btn-sm',
+            cancelButtonClass: 'btn btn-danger btn-sm',
+            buttonsStyling: true,
+        });
+
+        swalWithBootstrapButtons.fire({
+            title: 'Comment',
+            text: "Please write your comment here",
+            type: 'question',
+            input: 'textarea',
+            showCloseButton: false,
+            showCancelButton: true,
+            focusConfirm: false,
+            cancelButtonText: '<span style="color:black;"> Cancel </span>',
+            confirmButtonText: '<span style="color:black;"> OK </span>',
+            cancelButtonColor: '#DDDAD0',
+            confirmButtonColor: '#DDDAD0',
+            reverseButtons: true
+        }).then((result) => {
+            if ('value' in result) {
+                dataWorkflow.comment = result.value;
+                ShowLoading();
+                PurchaseOrderStore();
+            }
+        });
+    }
+
+    function PurchaseOrderStore() {
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -654,7 +679,26 @@
 
         $.ajax({
             type: 'POST',
-            data: formatData,
+            data: {
+                workFlowPath_RefID: dataWorkflow.workFlowPathRefID,
+                approverEntity: dataWorkflow.approverEntityRefID, 
+                comment: dataWorkflow.comment,
+                storeData: {
+                    supplier_id: supplierID.value,
+                    dateOfDelivery: dateOfDelivery.value,
+                    remarkPO: remarkPO.value,
+                    delivery_to: deliveryTo.value,
+                    paymentNotes: paymentNotes.value,
+                    internalNote: internalNote.value,
+                    downPaymentValue: downPaymentValue.value,
+                    termOfPaymentValue: termOfPaymentOption.value,
+                    vatValue: vat.value,
+                    tariffCurrencyValue: tariffCurrencyValue.value,
+                    deliveryTo_RefID: deliveryToRefID.value,
+                    dataInput_Log_FileUpload_1: fileID.value,
+                    purchaseOrderDetail: JSON.stringify(dataStore)
+                }
+            },
             url: '{{ route("PurchaseOrder.store") }}',
             success: function(res) {
                 HideLoading();
@@ -678,76 +722,77 @@
                         confirmButtonColor: '#e9ecef',
                         reverseButtons: true
                     }).then((result) => {
-                        ShowLoading();
-                        window.location.href = '/PurchaseOrder?var=1';
+                        cancelForm("{{ route('PurchaseOrder.index', ['var' => 1]) }}");
                     });
                 } else {
                     ErrorNotif("Data Cancel Inputed");
                 }
             },
             error: function(jqXHR, textStatus, errorThrown) {
-                console.log('error', jqXHR, textStatus, errorThrown);
+                HideLoading();
+                ErrorNotif("Data Cancel Inputed");
             }
         });
     }
 
-    function SubmitForm() {
+    function SubmitForm(value) {
+        triggerButtonModal = value;
         $('#purchaseOrderFormModal').modal('hide');
 
-        var action = $("#FormSubmitPurchaseOrder").attr("action");
-        var method = $("#FormSubmitPurchaseOrder").attr("method");
-        var form_data = new FormData($("#FormSubmitPurchaseOrder")[0]);
-        form_data.append('purchaseOrderDetail', JSON.stringify(dataStore));
+        $('#purchaseOrderFormModal').on('hidden.bs.modal', function (e) {
+            if (triggerButtonModal === "SUBMIT") {
+                if (totalNextApprover > 1) {
+                    console.log('here');
+                    $('#myWorkflows').modal('show');
+                } else {
+                    console.log('there');
+                    commentWorkflow();
+                }
+            }
+        });
+    }
 
-        ShowLoading();
+    function getWorkflow(combinedBudgetRefID, purchaseRequisitionNumber, purchaseRequisitionID) {
+        $("#tablePurchaseOrderDetail tbody").hide();
+        $(".loadingPurchaseOrderTable").show();
+        $("#loading_workflow").show();
+        $("#purchaseRequisitionTrigger").hide();
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
 
         $.ajax({
-            url: action,
-            dataType: 'json',
-            cache: false,
-            contentType: false,
-            processData: false,
-            data: form_data,
-            type: method,
-            success: function(response) {
-                if (response.message == "WorkflowError") {
-                    HideLoading();
-                    $("#submitPurchaseOrder").prop("disabled", false);
-
-                    CancelNotif("You don't have access", "{{ route('PurchaseOrder.index', ['var' => 1]) }}");
-                } else if (response.message == "MoreThanOne") {
-                    HideLoading();
-
-                    $('#getWorkFlow').modal('toggle');
-
-                    var t = $('#tableGetWorkFlow').DataTable();
-                    t.clear();
-                    $.each(response.data, function(key, val) {
-                        t.row.add([
-                            '<td><span data-dismiss="modal" onclick="SelectWorkFlow(\'' + val.Sys_ID + '\', \'' + val.NextApprover_RefID + '\', \'' + response.approverEntity_RefID + '\', \'' + response.documentTypeID + '\');"><img src="{{ asset("AdminLTE-master/dist/img/add.png") }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></span></td>',
-                            '<td style="border:1px solid #e9ecef;">' + val.FullApproverPath + '</td></tr></tbody>'
-                        ]).draw();
-                    });
-                } else {
-                    const formatData = {
-                        workFlowPath_RefID: response.workFlowPath_RefID, 
-                        nextApprover: response.nextApprover_RefID, 
-                        approverEntity: response.approverEntity_RefID, 
-                        documentTypeID: response.documentTypeID,
-                        storeData: response.storeData
-                    };
-
-                    HideLoading();
-
-                    SelectWorkFlow(formatData);
-                }
+            type: 'POST',
+            data: {
+                businessDocumentType_RefID: documentTypeID.value,
+                combinedBudget_RefID: combinedBudgetRefID
             },
-            error: function(response) {
-                console.log('response error', response);
-                
-                HideLoading();
-                $("#submitPurchaseOrder").prop("disabled", false);
-                CancelNotif("You don't have access", '/PurchaseOrder?var=1');
+            url: '{!! route("GetWorkflow") !!}',
+            success: function(response) {
+                if (response.status === 200) {
+                    totalNextApprover = response.data[0].nextApproverPath.length;
+                    dataWorkflow.workFlowPathRefID = response.data[0].sys_ID;
+                    dataWorkflow.approverEntityRefID = response.data[0].submitterEntity_RefID;
+
+                    getWorkflows(response.data[0].nextApproverPath);
+
+                    getDetailPurchaseRequisition(purchaseRequisitionNumber, purchaseRequisitionID);
+                } else {
+                    Swal.fire("Error", "Workflow Error", "error");
+                }
+
+                $("#loadingBudget").css({"display":"none"});
+                $("#myProjectSecondTrigger").css({"display":"block"});
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.log('jqXHR, textStatus, errorThrown', jqXHR, textStatus, errorThrown);
+                Swal.fire("Error", "Data Error", "error");
+
+                $("#loadingBudget").css({"display":"none"});
+                $("#myProjectSecondTrigger").css({"display":"block"});
             }
         });
     }
@@ -770,11 +815,12 @@
     });
 
     $('#tableGetModalPurchaseRequisition').on('click', 'tbody tr', function () {
-        const $row  = $(this);
-        const sysId = $row.find('input[data-trigger="sys_id_modal_purchase_requisition"]').val();
-        const trano = $row.find('td:nth-child(2)').text();
+        const $row          = $(this);
+        const sysId         = $row.find('input[data-trigger="sys_id_modal_purchase_requisition"]').val();
+        const sysIdBudget   = $row.find('input[data-trigger="sys_id_combinedBudget_purchase_requisition"]').val();
+        const trano         = $row.find('td:nth-child(2)').text();
 
-        getDetailPurchaseRequisition(trano, sysId);
+        getWorkflow(sysIdBudget, trano, sysId);
     });
     
     $('#delivery_to').on('input', function(e) {
@@ -803,6 +849,22 @@
             $("#topMessage").hide();
             $("#termOfPaymentOption").css("border", "1px solid #ced4da");
         }
+    });
+
+    $('#tableWorkflows').on('click', 'tbody tr', function() {
+        const sysId             = $(this).find('input[data-trigger="sys_id_approver"]').val();
+        const workflowName      = $(this).find('td:nth-child(2)').text();
+        const workflowPosition  = $(this).find('td:nth-child(3)').text();
+
+        // dataWorkflow.approverEntityRefID = sysId;
+
+        $("#myWorkflows").modal('toggle');
+
+        $('#myWorkflows').on('hidden.bs.modal', function () {
+            commentWorkflow();
+        });
+
+        // console.log('dataWorkflow', dataWorkflow);
     });
 
     $(window).one('load', function(e) {
