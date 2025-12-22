@@ -778,7 +778,7 @@
         const workflowName      = $(this).find('td:nth-child(2)').text();
         const workflowPosition  = $(this).find('td:nth-child(3)').text();
 
-        dataWorkflow.approverEntityRefID = sysId;
+        dataWorkflow.approverEntityRefID = parseInt(sysId);
 
         $("#myWorkflows").modal('toggle');
 
