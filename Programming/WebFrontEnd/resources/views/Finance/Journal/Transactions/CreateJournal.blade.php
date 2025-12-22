@@ -2,6 +2,7 @@
 @section('main')
 @include('Partials.navbar')
 @include('Partials.sidebar')
+@include('getFunction.getJournal')
 @include('getFunction.getBanksAccount')
 @include('getFunction.getChartOfAccount')
 @include('getFunction.getAllTransactions')

@@ -557,7 +557,7 @@
         if (currentIndexPickRefNumber === null) return null;
         
         const sysId         = $(this).find('input[data-trigger="sys_id_transaction"]').val();
-        const sysIdBudget   = $(this).find('input[data-trigger="sys_id_transaction"]').val();
+        // const sysIdBudget   = $(this).find('input[data-trigger="sys_id_transaction"]').val();
         const trano         = $(this).find('td:nth-child(2)').text();
         const project       = $(this).find('td:nth-child(3)').text();
         const site          = $(this).find('td:nth-child(4)').text();
@@ -609,6 +609,20 @@
         currentIndexPickFromTo = null;
 
         $('#myBanksAccount').modal('hide');
+    });
+
+    $('#tableGetJournal').on('click', 'tbody tr', function() {
+        const sysID     = $(this).find('input[data-trigger="sys_id_journal"]').val();
+        const sysText   = $(this).find('td:nth-child(2)').text();
+
+        $(`#modal_journal_id`).val(sysID);
+        $(`#modal_journal_document_number`).val(sysText);
+
+        $('#myJournal').modal('hide');
+    });
+
+    $('#btn_revision_journal').on('click', function() {
+        getJournal();
     });
 
     $('#journal_date').on('keypress', function() {
