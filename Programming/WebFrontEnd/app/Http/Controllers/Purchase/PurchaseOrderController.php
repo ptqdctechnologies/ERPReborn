@@ -27,6 +27,10 @@ class PurchaseOrderController extends Controller
         $this->workflowService = $workflowService;
     }
 
+    // +--------------------------------------------------------------------------------------------------------------------------+
+    // |                                        TRANSACTIONS                                                                      |
+    // +--------------------------------------------------------------------------------------------------------------------------+
+
     public function index(Request $request)
     {
         $var                = $request->query('var', 0);
@@ -77,6 +81,97 @@ class PurchaseOrderController extends Controller
     {
         // 
     }
+
+    public function RevisionPurchaseOrderIndex(Request $request)
+    {
+        try {
+            $varAPIWebToken     = Session::get('SessionLogin');
+            $purchaseOrderID    = $request->purchaseOrder_RefID;
+            $documentTypeRefID  = $this->GetBusinessDocumentsTypeFromRedis('Purchase Order Revision Form');
+
+            $response = $this->purchaseOrderService->getDetail($purchaseOrderID);
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                throw new \Exception('Failed to fetch Detail Purchase Order');
+            }
+
+            $dataPODetail   = $response['data'];
+            $dateOfDelivery = $dataPODetail[0]['deliveryDateTimeTZ'] ? Carbon::parse($dataPODetail[0]['deliveryDateTimeTZ'])->toDateString() : '';
+
+            $compact = [
+                'varAPIWebToken'        => $varAPIWebToken,
+                'documentTypeRefID'     => $documentTypeRefID,
+                'header'                => [
+                    'budgetID'                      => $dataPODetail[0]['combinedBudget_RefID'] ?? '',
+                    'budgetValue'                   => $dataPODetail[0]['combinedBudgetCode'] . ' - ' . $dataPODetail[0]['combinedBudgetName'],
+                    'subBudgetValue'                => $dataPODetail[0]['combinedBudgetSectionCode'] . ' - ' . $dataPODetail[0]['combinedBudgetSectionName'],
+                    'poNumberID'                    => $dataPODetail[0]['purchaseOrder_RefID'] ?? '',
+                    'poNumber'                      => $dataPODetail[0]['documentNumber'] ?? '',
+                    'deliveryDateTime'              => $dateOfDelivery,
+                    'deliveryTo'                    => $dataPODetail[0]['deliveryTo_NonRefID']['Address'] ?? '',
+                    'deliveryToID'                  => $dataPODetail[0]['deliveryTo_RefID'] ?? '',
+                    'supplierID'                    => $dataPODetail[0]['supplier_RefID'] ?? '-',
+                    'supplierName'                  => $dataPODetail[0]['supplierName'] ?? '',
+                    'supplierCode'                  => $dataPODetail[0]['supplierCode'] ?? '',
+                    'supplierAddress'               => $dataPODetail[0]['supplierAddress'] ?? '',
+                    'downPayment'                   => (int) $dataPODetail[0]['downPayment'] ?? '',
+                    'termOfPaymentID'               => $dataPODetail[0]['termOfPayment_RefID'] ?? '',
+                    'paymentNotes'                  => $dataPODetail[0]['paymentNotes'] ?? '',
+                    'remarkPO'                      => $dataPODetail[0]['remarks'] ?? '',
+                    'internalNote'                  => $dataPODetail[0]['internalNotes'] ?? '',
+                    'fileID'                        => $dataPODetail[0]['log_FileUpload_Pointer_RefID'] ?? null,
+                    'vatValue'                      => $dataPODetail[0]['vatRatio'] ?? null,
+                    'isVATSelected'                 => $dataPODetail[0]['vatRatio'] != "0.00" ? 'selected' : '',
+                    'transactionTaxDetailRefID'     => $dataPODetail[0]['transactionTaxDetail_RefID'] ?? ''
+                ],
+                'detail'                => $dataPODetail
+            ];
+
+            return view('Purchase.PurchaseOrder.Transactions.RevisionPurchaseOrder', $compact);
+        } catch (\Throwable $th) {
+            Log::error("Revision Purchase Order Index Function Error: " . $th->getMessage());
+
+            session()->flash('NotFound', 'Process Error');
+            return redirect()->route('PurchaseOrder.index', ['var' => 1]);
+        }
+    }
+
+    public function UpdatePurchaseOrder(Request $request)
+    {
+        try {
+            $response = $this->purchaseOrderService->updates($request);
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                throw new \Exception('Failed to fetch Update Purchase Order');
+            }
+
+            $responseWorkflow = $this->workflowService->submit(
+                $response['data'][0]['businessDocument']['businessDocument_RefID'],
+                $request->workFlowPath_RefID,
+                $request->comment,
+                $request->approverEntity,
+            );
+
+            if ($responseWorkflow['metadata']['HTTPStatusCode'] !== 200) {
+                throw new \Exception('Failed to fetch Submit Workflow Update Purchase Order');
+            }
+
+            $compact = [
+                "documentNumber"    => $response['data'][0]['businessDocument']['documentNumber'],
+                "status"            => $responseWorkflow['metadata']['HTTPStatusCode'],
+            ];
+
+            return response()->json($compact);
+        } catch (\Throwable $th) {
+            Log::error("Update Purchase Order Function Error: " . $th->getMessage());
+
+            return response()->json(["status" => 500]);
+        }
+    }
+
+    // +--------------------------------------------------------------------------------------------------------------------------+
+    // |                                        REPORTS                                                                           |
+    // +--------------------------------------------------------------------------------------------------------------------------+
 
     public function ReportPurchaseOrderSummary(Request $request)
     {
@@ -1287,118 +1382,6 @@ class PurchaseOrderController extends Controller
         } catch (\Throwable $th) {
             Log::error("Error at PrintExportReportCFS: " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
-        }
-    }
-
-    public function PurchaseOrderListData(Request $request)
-    {
-        $varAPIWebToken = $request->session()->get('SessionLogin');
-        $varDataPurchaseRequisition = Helper_APICall::setCallAPIGateway(
-            Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'transaction.read.dataList.supplyChain.getPurchaseRequisition',
-            'latest',
-            [
-                'parameter' => null,
-                'SQLStatement' => [
-                    'pick' => null,
-                    'sort' => null,
-                    'filter' => null,
-                    'paging' => null
-                ]
-            ]
-        );
-        $compact = [
-            'data' => $varDataPurchaseRequisition['data'],
-        ];
-            
-        return response()->json($compact);
-    }
-
-    public function RevisionPurchaseOrderIndex(Request $request)
-    {
-        try {
-            $varAPIWebToken     = Session::get('SessionLogin');
-            $purchaseOrderID    = $request->purchaseOrder_RefID;
-            $documentTypeRefID  = $this->GetBusinessDocumentsTypeFromRedis('Purchase Order Revision Form');
-
-            $response = $this->purchaseOrderService->getDetail($purchaseOrderID);
-
-            if ($response['metadata']['HTTPStatusCode'] !== 200) {
-                throw new \Exception('Failed to fetch Detail Purchase Order');
-            }
-
-            $dataPODetail   = $response['data'];
-            $dateOfDelivery = $dataPODetail[0]['deliveryDateTimeTZ'] ? Carbon::parse($dataPODetail[0]['deliveryDateTimeTZ'])->toDateString() : '';
-
-            $compact = [
-                'varAPIWebToken'        => $varAPIWebToken,
-                'documentTypeRefID'     => $documentTypeRefID,
-                'header'                => [
-                    'budgetID'                      => $dataPODetail[0]['combinedBudget_RefID'] ?? '',
-                    'budgetValue'                   => $dataPODetail[0]['combinedBudgetCode'] . ' - ' . $dataPODetail[0]['combinedBudgetName'],
-                    'subBudgetValue'                => $dataPODetail[0]['combinedBudgetSectionCode'] . ' - ' . $dataPODetail[0]['combinedBudgetSectionName'],
-                    'poNumberID'                    => $dataPODetail[0]['purchaseOrder_RefID'] ?? '',
-                    'poNumber'                      => $dataPODetail[0]['documentNumber'] ?? '',
-                    'deliveryDateTime'              => $dateOfDelivery,
-                    'deliveryTo'                    => $dataPODetail[0]['deliveryTo_NonRefID']['Address'] ?? '',
-                    'deliveryToID'                  => $dataPODetail[0]['deliveryTo_RefID'] ?? '',
-                    'supplierID'                    => $dataPODetail[0]['supplier_RefID'] ?? '-',
-                    'supplierName'                  => $dataPODetail[0]['supplierName'] ?? '',
-                    'supplierCode'                  => $dataPODetail[0]['supplierCode'] ?? '',
-                    'supplierAddress'               => $dataPODetail[0]['supplierAddress'] ?? '',
-                    'downPayment'                   => (int) $dataPODetail[0]['downPayment'] ?? '',
-                    'termOfPaymentID'               => $dataPODetail[0]['termOfPayment_RefID'] ?? '',
-                    'paymentNotes'                  => $dataPODetail[0]['paymentNotes'] ?? '',
-                    'remarkPO'                      => $dataPODetail[0]['remarks'] ?? '',
-                    'internalNote'                  => $dataPODetail[0]['internalNotes'] ?? '',
-                    'fileID'                        => $dataPODetail[0]['log_FileUpload_Pointer_RefID'] ?? null,
-                    'vatValue'                      => $dataPODetail[0]['vatRatio'] ?? null,
-                    'isVATSelected'                 => $dataPODetail[0]['vatRatio'] != "0.00" ? 'selected' : '',
-                    'transactionTaxDetailRefID'     => $dataPODetail[0]['transactionTaxDetail_RefID'] ?? ''
-                ],
-                'detail'                => $dataPODetail
-            ];
-
-            return view('Purchase.PurchaseOrder.Transactions.RevisionPurchaseOrder', $compact);
-        } catch (\Throwable $th) {
-            Log::error("Revision Purchase Order Index Function Error: " . $th->getMessage());
-
-            session()->flash('NotFound', 'Process Error');
-            return redirect()->route('PurchaseOrder.index', ['var' => 1]);
-        }
-    }
-
-    public function UpdatePurchaseOrder(Request $request)
-    {
-        try {
-            $response = $this->purchaseOrderService->updates($request);
-
-            if ($response['metadata']['HTTPStatusCode'] !== 200) {
-                throw new \Exception('Failed to fetch Update Purchase Order');
-            }
-
-            $responseWorkflow = $this->workflowService->submit(
-                $response['data'][0]['businessDocument']['businessDocument_RefID'],
-                $request->workFlowPath_RefID,
-                $request->comment,
-                $request->approverEntity,
-            );
-
-            if ($responseWorkflow['metadata']['HTTPStatusCode'] !== 200) {
-                throw new \Exception('Failed to fetch Submit Workflow Update Purchase Order');
-            }
-
-            $compact = [
-                "documentNumber"    => $response['data'][0]['businessDocument']['documentNumber'],
-                "status"            => $responseWorkflow['metadata']['HTTPStatusCode'],
-            ];
-
-            return response()->json($compact);
-        } catch (\Throwable $th) {
-            Log::error("Update Purchase Order Function Error: " . $th->getMessage());
-
-            return response()->json(["status" => 500]);
         }
     }
 }
