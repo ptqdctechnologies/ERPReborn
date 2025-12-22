@@ -239,36 +239,42 @@ class PurchaseRequisitionController extends Controller
     public function PrintExportReportPurchaseRequisitionSummary(Request $request)
     {
         try {
-            $dataPDF = Session::get("PurchaseRequisitionReportSummaryDataPDF");
-            $dataExcel = Session::get("PurchaseRequisitionReportSummaryDataExcel");
+            $type                       = $request->printType;
+            $budgetName                 = $request->budgetName;
+            $subBudgetName              = $request->subBudgetName;
+            $prDate                     = $request->prDate;
+            $dataPurchaseRequestSummary = json_decode($request->dataReport, true);
 
-            
-            if ($dataPDF && $dataExcel) {
-                $print_type = $request->print_type;
-                if ($print_type == "PDF") {
-                    $dataPO = Session::get("PurchaseRequisitionReportSummaryDataPDF");
-                    // dd($dataPO);
-
-                    $pdf = PDF::loadView('Purchase.PurchaseRequisition.Reports.PrintReportPurchaseRequisitionSummary', ['dataPO' => $dataPO])->setPaper('a4', 'landscape');
+            if ($dataPurchaseRequestSummary) {
+                if ($type === "PDF") {
+                    $pdf = PDF::loadView('Purchase.PurchaseRequisition.Reports.ReportPurchaseRequestSummary_pdf', [
+                        'dataPR'        => $dataPurchaseRequestSummary, 
+                        'budgetName'    => $budgetName,
+                        'subBudgetName' => $subBudgetName,
+                        'prDate'        => $prDate
+                        ])->setPaper('a4', 'landscape');
+                    
                     $pdf->output();
-                    $dom_pdf = $pdf->getDomPDF();
-
-                    $canvas = $dom_pdf ->get_canvas();
-                    $width = $canvas->get_width();
-                    $height = $canvas->get_height();
+                    $dom_pdf    = $pdf->getDomPDF();
+                    $canvas     = $dom_pdf ->get_canvas();
+                    $width      = $canvas->get_width();
+                    $height     = $canvas->get_height();
                     $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
                     $canvas->page_text(34, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
 
-                    return $pdf->download('Export Report Purchase Requisition Summary.pdf');
-                } else if ($print_type == "Excel") {
-                    return Excel::download(new ExportReportPurchaseRequisitionSummary, 'Export Report Purchase Requisition Summary.xlsx');
+                    return $pdf->download('Export Report Purchase Request Summary.pdf');
+                } else if ($type === "EXCEL") {
+                    return Excel::download(new ExportReportPurchaseRequisitionSummary($dataPurchaseRequestSummary), 'Export Report Purchase Request Summary.xlsx');
+                } else {
+                    throw new \Exception('Failed to Export Purchase Request Summary Report');
                 }
             } else {
-                return redirect()->route('PurchaseRequisition.ReportPurchaseRequisitionSummary')->with('NotFound', 'Data Cannot Empty');
+                throw new \Exception('Purchase Request Summary Data is Empty');
             }
         } catch (\Throwable $th) {
-            Log::error("Error at " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
+            Log::error("Print Export Report Purchase Request Summary Function Error: " . $th->getMessage());
+
+            return response()->json(['statusCode' => 400]);
         }
     }
 
