@@ -21,7 +21,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         |                     ► http://172.28.0.4/transaction.create.supplyChain.setPurchaseOrder.v1_throughAPIGateway             |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-05-27                                                                                           |
+        | ▪ Last Update     : 2025-12-22                                                                                           |
         | ▪ Creation Date   : 2022-09-21                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -70,7 +70,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                                 "productUnitPriceDiscountCurrency_RefID" => 62000000000001,
                                                 "productUnitPriceDiscountCurrencyValue" => 0,
                                                 "productUnitPriceDiscountCurrencyExchangeRate" => 1,
-                                                "remarks" => 'Catatan Pertama'
+                                                "remarks" => 'Catatan Pertama',
+                                                "asset" => 0        // 0 => "NO", 1 => "YES"
                                                 ]
                                             ],
                                             [
@@ -84,7 +85,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                                 "productUnitPriceDiscountCurrency_RefID" => 62000000000001,
                                                 "productUnitPriceDiscountCurrencyValue" => 0,
                                                 "productUnitPriceDiscountCurrencyExchangeRate" => 1,
-                                                "remarks" => 'Catatan Kedua'
+                                                "remarks" => 'Catatan Kedua',
+                                                "asset" => 0        // 0 => "NO", 1 => "YES"
                                                 ]
                                             ],
                                             [
@@ -98,7 +100,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                                 "productUnitPriceDiscountCurrency_RefID" => 62000000000001,
                                                 "productUnitPriceDiscountCurrencyValue" => 10000,
                                                 "productUnitPriceDiscountCurrencyExchangeRate" => 1,
-                                                "remarks" => 'Catatan Kedua Tambahan'
+                                                "remarks" => 'Catatan Kedua Tambahan',
+                                                "asset" => 0        // 0 => "NO", 1 => "YES"
                                                 ]
                                             ],
                                         ]
