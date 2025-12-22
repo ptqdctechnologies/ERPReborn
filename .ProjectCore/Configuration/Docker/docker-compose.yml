@@ -72,6 +72,7 @@ services:
       - './.ProjectCore/Configuration/Docker/PHPBackEnd_LaravelOctane_FrankenPHP/System/etc/caddy/Caddyfile:/etc/caddy/Caddyfile'
       - './.ProjectCore/Configuration/Docker/PHPBackEnd_LaravelOctane_FrankenPHP/System/zhtConf/dataVolume/caddyData:/data'
       - './.ProjectCore/Configuration/Docker/PHPBackEnd_LaravelOctane_FrankenPHP/System/zhtConf/dataVolume/caddyConfig:/config'
+      - './.ProjectCore/Configuration/Docker/PHPBackEnd_LaravelOctane_FrankenPHP/System/zhtConf/Script:/zhtConf/Script'
       - './Programming/.LaravelCore:/var/www/html/.LaravelCore'
       - './Programming/WebBackEnd_LaravelOctane_FrankenPHP:/var/www/html/WebBackEnd'
       - './.ProjectCore/Configuration/Docker/PHPBackEnd_LaravelOctane_FrankenPHP/System/usr/local/etc/php/php.ini-development:/usr/local/etc/php/php.ini'

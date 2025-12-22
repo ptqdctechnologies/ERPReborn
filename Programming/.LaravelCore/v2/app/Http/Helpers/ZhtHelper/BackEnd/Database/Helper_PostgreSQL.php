@@ -92,7 +92,8 @@ namespace
                         )
                             {
                             //---> Data Initialization
-                                $varReturn = false;
+                                $varReturn =
+                                    (array) null;
 
                             //---> Data Process
                                 try {

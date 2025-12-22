@@ -4,8 +4,13 @@ FROM dunglas/frankenphp:latest
 ENV DEBIAN_FRONTEND=noninteractive
 
 
-RUN printf "deb http://kambing.ui.ac.id/debian/ buster main contrib non-free" >> /etc/apt/sources.list \
+RUN printf "deb http://archive.debian.org/debian stretch main contrib non-free" >> /etc/apt/sources.list \
+    && printf "deb http://kartolo.sby.datautama.net.id/debian/ buster main contrib non-free" >> /etc/apt/sources.list \
+    && printf "deb http://kambing.ui.ac.id/debian/ buster main contrib non-free" >> /etc/apt/sources.list \
     && printf "deb http://repo.ugm.ac.id/debian/ buster main contrib non-free" >> /etc/apt/sources.list
+
+#RUN printf "deb http://kambing.ui.ac.id/debian/ buster main contrib non-free" >> /etc/apt/sources.list \
+#    && printf "deb http://repo.ugm.ac.id/debian/ buster main contrib non-free" >> /etc/apt/sources.list
 
 
 #---> Main
@@ -117,12 +122,13 @@ RUN install-php-extensions pcntl
 
 #---> PHP Extension : GD
 RUN apt-get install -y \
+    libfreetype6:amd64=2.6.3-3.2+deb9u1 \
     libfreetype6-dev \
     libjpeg62-turbo-dev \
     libpng-dev \
     libxpm-dev \
     libwebp-dev \
-    zlib1g-dev \
+    zlib1g-dev \ 
     && docker-php-ext-configure \
        gd --with-jpeg --with-freetype --with-webp \
     && docker-php-ext-install -j$(nproc) \

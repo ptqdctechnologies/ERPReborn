@@ -4732,6 +4732,8 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'Aws\\Waiter' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Waiter.php',
         'Aws\\WellArchitected\\Exception\\WellArchitectedException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/WellArchitected/Exception/WellArchitectedException.php',
         'Aws\\WellArchitected\\WellArchitectedClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/WellArchitected/WellArchitectedClient.php',
+        'Aws\\Wickr\\Exception\\WickrException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Wickr/Exception/WickrException.php',
+        'Aws\\Wickr\\WickrClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Wickr/WickrClient.php',
         'Aws\\WorkDocs\\Exception\\WorkDocsException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/WorkDocs/Exception/WorkDocsException.php',
         'Aws\\WorkDocs\\WorkDocsClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/WorkDocs/WorkDocsClient.php',
         'Aws\\WorkMailMessageFlow\\Exception\\WorkMailMessageFlowException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/WorkMailMessageFlow/Exception/WorkMailMessageFlowException.php',

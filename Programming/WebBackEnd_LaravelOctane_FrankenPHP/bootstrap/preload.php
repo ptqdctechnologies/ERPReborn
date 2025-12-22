@@ -1,7 +1,7 @@
 <?php
 
 try {
-    if (file_exists(__DIR__.'/../vendor/autoload.php') == true)
+    if (file_exists (__DIR__.'/../vendor/autoload.php') == true)
         {
         // ---> Load the Composer autoloader, which handles loading all dependencies
             require_once (
@@ -9,14 +9,14 @@ try {
                 );
 
         //---> Get an instance of the application HTTP kernel
-            if (file_exists(__DIR__.'/../bootstrap/app.php') == true)
+            if (file_exists (__DIR__.'/../bootstrap/app.php') == true)
                 {
                 $app =
                     require_once (
                         __DIR__.'/../bootstrap/app.php'
                         );
                 }
-            else if (file_exists(__DIR__.'/../../bootstrap/app.php') == true)
+            else if (file_exists (__DIR__.'/../../bootstrap/app.php') == true)
                 {
                 $app =
                     require_once (
@@ -24,12 +24,18 @@ try {
                         );
                 }
 
+
         //---> Preload Kernel dan Router
-            $kernel =
-                $app->make(
-                    \Illuminate\Contracts\Http\Kernel::class
-                    );
-            $kernel->bootstrap();
+            try {
+                $kernel =
+                    $app->make (
+                        \Illuminate\Contracts\Http\Kernel::class
+                        );
+                $kernel->bootstrap();            
+                }
+            catch (\Exception $ex) {
+                }
+
 
         //---> Preload Routes
             if (file_exists(__DIR__.'/../routes/web.php') == true)

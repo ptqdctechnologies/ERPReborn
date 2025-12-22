@@ -59,17 +59,17 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.367.2",
-            "version_normalized": "3.367.2.0",
+            "version": "3.368.2",
+            "version_normalized": "3.368.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "3dc26d6f26a4d6380d82b2be4d8ae80fefb23d71"
+                "reference": "96397db9a3fd0b5e6b3c52e363b6a55831a93b1d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/3dc26d6f26a4d6380d82b2be4d8ae80fefb23d71",
-                "reference": "3dc26d6f26a4d6380d82b2be4d8ae80fefb23d71",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/96397db9a3fd0b5e6b3c52e363b6a55831a93b1d",
+                "reference": "96397db9a3fd0b5e6b3c52e363b6a55831a93b1d",
                 "shasum": ""
             },
             "require": {
@@ -109,7 +109,7 @@
                 "ext-pcntl": "To use client-side monitoring",
                 "ext-sockets": "To use client-side monitoring"
             },
-            "time": "2025-12-12T19:14:10+00:00",
+            "time": "2025-12-18T19:07:30+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -153,7 +153,7 @@
             "support": {
                 "forum": "https://github.com/aws/aws-sdk-php/discussions",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.367.2"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.368.2"
             },
             "install-path": "../aws/aws-sdk-php"
         },
@@ -1934,17 +1934,17 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v12.42.0",
-            "version_normalized": "12.42.0.0",
+            "version": "v12.43.1",
+            "version_normalized": "12.43.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "509b33095564c5165366d81bbaa0afaac28abe75"
+                "reference": "195b893593a9298edee177c0844132ebaa02102f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/509b33095564c5165366d81bbaa0afaac28abe75",
-                "reference": "509b33095564c5165366d81bbaa0afaac28abe75",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/195b893593a9298edee177c0844132ebaa02102f",
+                "reference": "195b893593a9298edee177c0844132ebaa02102f",
                 "shasum": ""
             },
             "require": {
@@ -2105,7 +2105,7 @@
                 "symfony/postmark-mailer": "Required to enable support for the Postmark mail transport (^7.2).",
                 "symfony/psr-http-message-bridge": "Required to use PSR-7 bridging features (^7.2)."
             },
-            "time": "2025-12-09T15:51:23+00:00",
+            "time": "2025-12-16T18:53:08+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -2159,17 +2159,17 @@
         },
         {
             "name": "laravel/octane",
-            "version": "v2.13.2",
-            "version_normalized": "2.13.2.0",
+            "version": "v2.13.3",
+            "version_normalized": "2.13.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/octane.git",
-                "reference": "5b963d2da879f2cad3a84f22bafd3d8be7170988"
+                "reference": "aae775360fceae422651042d73137fff092ba800"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/octane/zipball/5b963d2da879f2cad3a84f22bafd3d8be7170988",
-                "reference": "5b963d2da879f2cad3a84f22bafd3d8be7170988",
+                "url": "https://api.github.com/repos/laravel/octane/zipball/aae775360fceae422651042d73137fff092ba800",
+                "reference": "aae775360fceae422651042d73137fff092ba800",
                 "shasum": ""
             },
             "require": {
@@ -2201,7 +2201,7 @@
                 "spiral/roadrunner-cli": "^2.6.0",
                 "spiral/roadrunner-http": "^3.3.0"
             },
-            "time": "2025-11-28T20:13:00+00:00",
+            "time": "2025-12-10T15:24:24+00:00",
             "bin": [
                 "bin/roadrunner-worker",
                 "bin/swoole-server"
@@ -6170,17 +6170,17 @@
         },
         {
             "name": "psy/psysh",
-            "version": "v0.12.17",
-            "version_normalized": "0.12.17.0",
+            "version": "v0.12.18",
+            "version_normalized": "0.12.18.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bobthecow/psysh.git",
-                "reference": "85fbbd9f3064e157fc21fe4362b2b5c19f2ea631"
+                "reference": "ddff0ac01beddc251786fe70367cd8bbdb258196"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bobthecow/psysh/zipball/85fbbd9f3064e157fc21fe4362b2b5c19f2ea631",
-                "reference": "85fbbd9f3064e157fc21fe4362b2b5c19f2ea631",
+                "url": "https://api.github.com/repos/bobthecow/psysh/zipball/ddff0ac01beddc251786fe70367cd8bbdb258196",
+                "reference": "ddff0ac01beddc251786fe70367cd8bbdb258196",
                 "shasum": ""
             },
             "require": {
@@ -6203,7 +6203,7 @@
                 "ext-pcntl": "Enabling the PCNTL extension makes PsySH a lot happier :)",
                 "ext-posix": "If you have PCNTL, you'll want the POSIX extension as well."
             },
-            "time": "2025-12-15T04:55:34+00:00",
+            "time": "2025-12-17T14:35:46+00:00",
             "bin": [
                 "bin/psysh"
             ],
@@ -6246,7 +6246,7 @@
             ],
             "support": {
                 "issues": "https://github.com/bobthecow/psysh/issues",
-                "source": "https://github.com/bobthecow/psysh/tree/v0.12.17"
+                "source": "https://github.com/bobthecow/psysh/tree/v0.12.18"
             },
             "install-path": "../psy/psysh"
         },
