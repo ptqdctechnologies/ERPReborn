@@ -397,12 +397,12 @@
                             </td>
                             <td class="sticky-col second-col-pr" style="border:1px solid #e9ecef;background-color:white;">
                                 <select id="is_asset${key}" class="form-control">
-                                    <option value="" selected disabled>Select a...</option>
+                                    <option value="" selected disabled>Select</option>
                                     <option value="0">No</option>
                                     <option value="1">Yes</option>
                                 </select>
                             </td>
-                            <td class="sticky-col first-col-pr" style="border:1px solid #e9ecef;background-color:white;">
+                            <td class="sticky-col first-col-pr" style="border:1px solid #e9ecef;background-color:white;padding:.3rem;">
                                 <textarea id="remark${key}" class="form-control"></textarea>
                             </td>
 

@@ -528,20 +528,26 @@
                                 <td style="text-align: center; padding: 10px !important;">${currencyTotal(val2.productUnitPriceBaseCurrencyValue)}</td>
                                 <td style="text-align: center; padding: 10px !important;">${currencyTotal(val2.quantity * val2.productUnitPriceBaseCurrencyValue)}</td>
                                 <td style="text-align: center; padding: 10px !important;">${val2.productUnitPriceCurrencyISOCode}</td>
-                                <td style="text-align: center; padding: 10px !important;">${val2.asset === 0 ? 'No' : 'Yes'}</td>
-                                <td class="sticky-col fifth-col-pr" style="border:1px solid #e9ecef;background-color:white;">
+                                <td class="sticky-col sixth-col-po" style="border:1px solid #e9ecef;background-color:white;">
                                     <input class="form-control number-without-negative" id="qty_req${indexPurchaseOrder}" data-index=${indexPurchaseOrder} data-total-request=${val2.priceBaseCurrencyValue} data-default="" autocomplete="off" style="border-radius:0px;" />
                                 </td>
-                                <td class="sticky-col forth-col-pr" style="border:1px solid #e9ecef;background-color:white;">
+                                <td class="sticky-col fifth-col-po" style="border:1px solid #e9ecef;background-color:white;">
                                     <input class="form-control number-without-negative" id="price_req${indexPurchaseOrder}" data-index=${indexPurchaseOrder} data-total-request=${val2.priceBaseCurrencyValue} data-default="" autocomplete="off" style="border-radius:0px;" />
                                 </td>
-                                <td class="sticky-col third-col-pr" style="border:1px solid #e9ecef;background-color:white;">
+                                <td class="sticky-col forth-col-po" style="border:1px solid #e9ecef;background-color:white;">
                                     <input class="form-control number-without-negative" id="total_req${indexPurchaseOrder}" data-default="" autocomplete="off" style="border-radius:0px;" disabled />
                                 </td>
-                                <td class="sticky-col second-col-pr" style="border:1px solid #e9ecef;background-color:white;">
+                                <td class="sticky-col third-col-po" style="border:1px solid #e9ecef;background-color:white;">
                                     <input class="form-control number-without-negative" id="balance${indexPurchaseOrder}" data-default="" autocomplete="off" style="border-radius:0px;" disabled />
                                 </td>
-                                <td class="sticky-col first-col-pr" style="border:1px solid #e9ecef;background-color:white;padding:.70rem;">
+                                <td class="sticky-col second-col-po" style="border:1px solid #e9ecef;background-color:white;">
+                                    <select class="form-control" id="is_asset${key}">
+                                        <option value="" selected disabled>Select</option>
+                                        <option value="0">No</option>
+                                        <option value="1">Yes</option>
+                                    </select>
+                                </td>
+                                <td class="sticky-col first-col-po" style="border:1px solid #e9ecef;background-color:white;padding:.3rem;">
                                     <textarea id="note${indexPurchaseOrder}" data-default="" class="form-control"></textarea>
                                 </td>
                             </tr>
