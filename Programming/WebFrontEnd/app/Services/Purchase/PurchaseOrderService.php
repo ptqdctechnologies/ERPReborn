@@ -108,6 +108,7 @@ class PurchaseOrderService
 
         $data                       = $request->storeData;
         $detailItems                = json_decode($data['purchaseOrderDetail'], true);
+        $vatRatio                   = $data['vatValue'] && $data['vatValue'] != "Select a VAT" ? $data['vatValue'] : 0;
         $fileID                     = isset($data['dataInput_Log_FileUpload_1']) ? (int) $data['dataInput_Log_FileUpload_1'] : null;
         $deliveryDestinationRefID   = isset($data['delivery_to_id']) && $data['delivery_to_id'] ? (int) $data['delivery_to_id'] : null;
 
@@ -132,7 +133,7 @@ class PurchaseOrderService
                 "internalNotes"                         => $data['internalNote'],
                 "downPayment"                           => (float) str_replace(',', '', $data['downPaymentValue']),
                 "termOfPayment_RefID"                   => (int) $data['termOfPaymentValue'],
-                "vatRatio"                              => (float) str_replace(',', '', $data['vatValue'] ?? 0),
+                "vatRatio"                              => $vatRatio,
                 'additionalData'    => [
                     'itemList'      => [
                         'items'     => $detailItems
