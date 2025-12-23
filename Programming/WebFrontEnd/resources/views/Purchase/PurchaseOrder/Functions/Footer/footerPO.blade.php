@@ -135,6 +135,7 @@
         const rows = sourceTable.getElementsByTagName('tr');
 
         for (let row of rows) {
+            const assetSelect                                   = row.querySelector('select[id^="asset"]');
             const qtyInput                                      = row.querySelector('input[id^="qty_req"]');
             const priceInput                                    = row.querySelector('input[id^="price_req"]');
             const totalInput                                    = row.querySelector('input[id^="total_req"]');
@@ -149,10 +150,11 @@
             const productUnitPriceDiscountCurrencyExchangeRate  = row.querySelector('input[id^="productUnitPriceDiscountCurrencyExchangeRate"]');
 
             if (
-                qtyInput && priceInput && totalInput &&
+                qtyInput && priceInput && totalInput && assetSelect &&
                 qtyInput.value.trim() !== '' &&
                 priceInput.value.trim() !== '' &&
-                totalInput.value.trim() !== ''
+                totalInput.value.trim() !== '' &&
+                assetSelect.value.trim() !== ''
             ) {
                 const documentNumber    = row.children[0].value.trim();
                 const productCode       = row.children[9].value.trim();
@@ -166,6 +168,7 @@
                 const price = priceInput.value.trim();
                 const total = totalInput.value.trim();
                 const note  = noteInput.value.trim();
+                const asset  = assetSelect.value.trim();
 
                 let found = false;
                 const existingRows = targetTable.getElementsByTagName('tr');
@@ -175,10 +178,11 @@
                     const targetCode        = targetRow.children[1].value.trim();
 
                     if (targetDocNumber === documentNumber && targetCode === productCode) {
-                        found                           = true;
-                        targetRow.children[7].innerText = price;
-                        targetRow.children[8].innerText = qty;
-                        targetRow.children[9].innerText = total;
+                        found                               = true;
+                        targetRow.children[7].innerText     = asset == '0' ? 'No' : 'Yes';
+                        targetRow.children[8].innerText     = price;
+                        targetRow.children[9].innerText     = qty;
+                        targetRow.children[10].innerText    = total;
 
                         // update dataStore
                         const indexToUpdate = dataStore.findIndex(item => item.entities.documentNumber === documentNumber && item.entities.product_RefID === productCode);
@@ -196,7 +200,8 @@
                                     productUnitPriceDiscountCurrencyExchangeRate: parseFloat(productUnitPriceDiscountCurrencyExchangeRate.value.replace(/,/g, '')),
                                     remarks: note || null,
                                     documentNumber: documentNumber,
-                                    product_RefID: productCode
+                                    product_RefID: productCode,
+                                    asset: parseInt(asset)
                                 },
                             };
                         }
@@ -213,6 +218,7 @@
                         <td style="text-align: left;padding: 0.8rem 0.5rem;">${productName}</td>
                         <td style="text-align: left;padding: 0.8rem 0.5rem;width: 20px;">${uom}</td>
                         <td style="text-align: left;padding: 0.8rem 0.5rem;width: 40px;" hidden>${currency}</td>
+                        <td style="text-align: left;padding: 0.8rem 0.5rem;width: 20px;">${asset == '0' ? 'No' : 'Yes'}</td>
                         <td style="text-align: right;padding: 0.8rem 0.5rem;width: 100px;">${price}</td>
                         <td style="text-align: right;padding: 0.8rem 0.5rem;width: 50px;">${qty}</td>
                         <td style="text-align: right;padding: 0.8rem 0.5rem;width: 100px;">${total}</td>
@@ -234,7 +240,8 @@
                             productUnitPriceDiscountCurrencyExchangeRate: parseFloat(productUnitPriceDiscountCurrencyExchangeRate.value.replace(/,/g, '')),
                             remarks: note || null,
                             documentNumber: documentNumber,
-                            product_RefID: productCode
+                            product_RefID: productCode,
+                            asset: parseInt(asset)
                         }
                     });
                 }
@@ -537,10 +544,9 @@
                                     <input class="form-control number-without-negative" id="balance${indexPurchaseOrder}" data-default="" autocomplete="off" style="border-radius:0px;" disabled />
                                 </td>
                                 <td class="sticky-col second-col-po" style="border:1px solid #e9ecef;background-color:white;">
-                                    <select class="form-control" id="is_asset${key}">
-                                        <option value="" selected disabled>Select</option>
-                                        <option value="0">No</option>
-                                        <option value="1">Yes</option>
+                                    <select class="form-control" id="asset${indexPurchaseOrder}">
+                                        <option value="0" ${val2.asset == '0' && 'selected'}>No</option>
+                                        <option value="1" ${val2.asset == '1' && 'selected'}>Yes</option>
                                     </select>
                                 </td>
                                 <td class="sticky-col first-col-po" style="border:1px solid #e9ecef;background-color:white;padding:.3rem;">
@@ -742,10 +748,8 @@
         $('#purchaseOrderFormModal').on('hidden.bs.modal', function (e) {
             if (triggerButtonModal === "SUBMIT") {
                 if (totalNextApprover > 1) {
-                    console.log('here');
                     $('#myWorkflows').modal('show');
                 } else {
-                    console.log('there');
                     commentWorkflow();
                 }
             }

@@ -194,6 +194,7 @@
         const rows = sourceTable.getElementsByTagName('tr');
 
         for (let row of rows) {
+            const assetSelect   = row.querySelector('select[id^="asset"]');
             const qtyInput      = row.querySelector('input[id^="qty_req"]');
             const priceInput    = row.querySelector('input[id^="price_req"]');
             const totalInput    = row.querySelector('input[id^="total_req"]');
@@ -210,11 +211,12 @@
             const productUnitPriceDiscountCurrencyExchangeRate  = row.querySelector('input[id^="productUnitPriceDiscountCurrencyExchangeRate"]');
 
             if (
-                qtyInput && priceInput && totalInput && balanceInput && 
+                qtyInput && priceInput && totalInput && balanceInput && assetSelect &&
                 qtyInput.value.trim() !== '' &&
                 priceInput.value.trim() !== '' &&
                 totalInput.value.trim() !== '' &&
-                balanceInput.value.trim() !== ''
+                balanceInput.value.trim() !== '' &&
+                assetSelect.value.trim() !== ''
             ) {
                 const prNumber      = row.children[8].innerText.trim();
                 const productCode   = row.children[10].innerText.trim();
@@ -228,6 +230,7 @@
                 const price = priceInput.value.trim();
                 const total = totalInput.value.trim();
                 const note  = noteInput.value.trim();
+                const asset = assetSelect.value.trim();
 
                 let found = false;
                 const existingRows = targetTable.getElementsByTagName('tr');
@@ -236,10 +239,11 @@
                     const recordID = targetRow.children[0].value.trim();
 
                     if (recordID == recordRefID.value) {
-                        targetRow.children[8].innerText = currencyTotal(price);
-                        targetRow.children[9].innerText = currencyTotal(qty);
-                        targetRow.children[10].innerText = currencyTotal(total);
-                        targetRow.children[11].innerText = note;
+                        targetRow.children[8].innerText = asset == '0' ? 'No' : 'Yes';
+                        targetRow.children[9].innerText = currencyTotal(price);
+                        targetRow.children[10].innerText = currencyTotal(qty);
+                        targetRow.children[11].innerText = currencyTotal(total);
+                        targetRow.children[12].innerText = note;
                         found = true;
 
                         const indexToUpdate = dataStore.findIndex(item => item.recordID == recordRefID.value);
@@ -258,7 +262,8 @@
                                     productUnitPriceDiscountCurrencyValue: parseFloat(productUnitPriceDiscountCurrencyValue.value.replace(/,/g, '')),
                                     productUnitPriceDiscountCurrencyExchangeRate: parseFloat(productUnitPriceDiscountCurrencyExchangeRate.value.replace(/,/g, '')),
                                     remarks: note || '-',
-                                    productCode: productCode
+                                    productCode: productCode,
+                                    asset: parseInt(asset)
                                 }
                             };
                         }
@@ -276,6 +281,7 @@
                         <td style="text-align: left;padding: 0.8rem 0.5rem;">${productName}</td>
                         <td style="text-align: left;padding: 0.8rem 0.5rem;">${uom}</td>
                         <td style="text-align: left;padding: 0.8rem 0.5rem;" hidden>${currency}</td>
+                        <td style="text-align: right;padding: 0.8rem 0.5rem;">${asset == '0' ? 'No' : 'Yes'}</td>
                         <td style="text-align: right;padding: 0.8rem 0.5rem;">${price}</td>
                         <td style="text-align: right;padding: 0.8rem 0.5rem;">${qty}</td>
                         <td style="text-align: right;padding: 0.8rem 0.5rem;">${total}</td>
@@ -297,7 +303,8 @@
                             productUnitPriceDiscountCurrencyValue: parseFloat(productUnitPriceDiscountCurrencyValue.value.replace(/,/g, '')),
                             productUnitPriceDiscountCurrencyExchangeRate: parseFloat(productUnitPriceDiscountCurrencyExchangeRate.value.replace(/,/g, '')),
                             remarks: note || '-',
-                            productCode: productCode
+                            productCode: productCode,
+                            asset: parseInt(asset)
                         }
                     });
                 }
@@ -534,7 +541,8 @@
                     productUnitPriceDiscountCurrencyValue: parseFloat(val2.productUnitPriceDiscountCurrencyValue || 1),
                     productUnitPriceDiscountCurrencyExchangeRate: parseFloat(val2.productUnitPriceDiscountCurrencyExchangeRate || 1),
                     remarks: val2.note || '-',
-                    productCode: val2.productCode
+                    productCode: val2.productCode,
+                    asset: parseInt(val2.asset)
                 },
             });
 
@@ -560,19 +568,25 @@
                     <td style="text-align: center; padding: 10px !important;">${currencyTotal(val2.productUnitPriceCurrencyValue || 0)}</td>
                     <td style="text-align: center; padding: 10px !important;">${currencyTotal(totalReq || 0)}</td>
                     <td style="text-align: center; padding: 10px !important;">${val2.productUnitPriceCurrencyISOCode}</td>
-                    <td class="sticky-col fifth-col-pr" style="border:1px solid #e9ecef;background-color:white;">
+                    <td class="sticky-col sixth-col-po" style="border:1px solid #e9ecef;background-color:white;">
                         <input class="form-control number-without-negative" id="qty_req${key}" data-index=${key} data-total-request=${totalReq} data-default="${currencyTotal(val2.quantity || 0)}" autocomplete="off" style="border-radius:0px;" value="${currencyTotal(val2.quantity || 0)}" />
                     </td>
-                    <td class="sticky-col forth-col-pr" style="border:1px solid #e9ecef;background-color:white;">
+                    <td class="sticky-col fifth-col-po" style="border:1px solid #e9ecef;background-color:white;">
                         <input class="form-control number-without-negative" id="price_req${key}" data-index=${key} data-total-request=${totalReq} data-default="${currencyTotal(val2.productUnitPriceCurrencyValue || 0)}" autocomplete="off" style="border-radius:0px;" value="${currencyTotal(val2.productUnitPriceCurrencyValue || 0)}" />
                     </td>
-                    <td class="sticky-col third-col-pr" style="border:1px solid #e9ecef;background-color:white;">
+                    <td class="sticky-col forth-col-po" style="border:1px solid #e9ecef;background-color:white;">
                         <input class="form-control number-without-negative" id="total_req${key}" data-default="${currencyTotal(totalReq || 0)}" autocomplete="off" style="border-radius:0px;" disabled value="${currencyTotal(totalReq || 0)}" />
                     </td>
-                    <td class="sticky-col second-col-pr" style="border:1px solid #e9ecef;background-color:white;">
+                    <td class="sticky-col third-col-po" style="border:1px solid #e9ecef;background-color:white;">
                         <input class="form-control number-without-negative" id="balance${key}" data-default="${currencyTotal(balanced || 0)}" autocomplete="off" style="border-radius:0px;" disabled value="${currencyTotal(balanced || 0)}" />
                     </td>
-                    <td class="sticky-col first-col-pr" style="border:1px solid #e9ecef;background-color:white;">
+                    <td class="sticky-col second-col-po" style="border:1px solid #e9ecef;background-color:white;">
+                        <select class="form-control" id="asset${key}">
+                            <option value="0" ${val2.asset == '0' && 'selected'}>No</option>
+                            <option value="1" ${val2.asset == '1' && 'selected'}>Yes</option>
+                        </select>
+                    </td>
+                    <td class="sticky-col first-col-po" style="border:1px solid #e9ecef;background-color:white;">
                         <textarea id="note${key}" data-default="${val2.note || ''}" class="form-control">${val2.note || ''}</textarea>
                     </td>
                 </tr>
@@ -640,6 +654,7 @@
                     <td style="text-align: right;padding: 0.8rem 0.5rem;width: 50px;">${val2.productName}</td>
                     <td style="text-align: left;padding: 0.8rem 0.5rem;width: 20px;">${val2.quantityUnitName || '-'}</td>
                     <td style="text-align: left;padding: 0.8rem 0.5rem;width: 40px;" hidden>${val2.productUnitPriceCurrencyISOCode || '-'}</td>
+                    <td style="text-align: left;padding: 0.8rem 0.5rem;width: 20px;">${val2.asset == '0' ? 'No' : 'Yes'}</td>
                     <td style="text-align: right;padding: 0.8rem 0.5rem;width: 100px;">${currencyTotal(val2.productUnitPriceCurrencyValue || 0)}</td>
                     <td style="text-align: right;padding: 0.8rem 0.5rem;width: 50px;">${currencyTotal(val2.quantity || 0)}</td>
                     <td style="text-align: right;padding: 0.8rem 0.5rem;width: 100px;">${currencyTotal(totalReq || 0)}</td> 
