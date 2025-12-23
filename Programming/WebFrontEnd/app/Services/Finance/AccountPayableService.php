@@ -141,7 +141,7 @@ class AccountPayableService
                 "vatValue"                          => $vatValue,
                 "vatNumber"                         => $data['vat_number'],
                 "fatPatDoStatus"                    => $fatPatDoStatus,
-                "assetStatus"                       => $assetStatus,
+                "assetStatus"                       => 0, // $assetStatus
                 "depreciationAssetCategory_RefID"   => $depreciationRateYearsID, // 299X
                 'period'                            => $depreciationYears,
                 'rate'                              => $depreciationRate,
