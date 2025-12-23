@@ -21,7 +21,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         |                     ► http://172.28.0.4/transaction.update.supplyChain.setPurchaseOrder.v1_throughAPIGateway             |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-07-18                                                                                           |
+        | ▪ Last Update     : 2025-12-22                                                                                           |
         | ▪ Creation Date   : 2022-07-27                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -61,7 +61,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                 "itemList" => [
                                     "items" => [
                                             [
-                                            "recordID" => 86000000000001,
+                                            "recordID" => 86000000000002,
                                             "entities" => [
                                                 "purchaseRequisitionDetail_RefID" => 84000000000001,
                                                 "quantity" => 10,
@@ -72,11 +72,12 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                                 "productUnitPriceDiscountCurrency_RefID" => 62000000000001,
                                                 "productUnitPriceDiscountCurrencyValue" => 0,
                                                 "productUnitPriceDiscountCurrencyExchangeRate" => 1,
+                                                "asset" => 0,        // 0 => "NO", 1 => "YES"
                                                 "remarks" => 'important sub message 1-a'
                                                 ]
                                             ],
                                             [
-                                            "recordID" => null,
+                                            "recordID" => 86000000000003,
                                             "entities" => [
                                                 "purchaseRequisitionDetail_RefID" => 84000000000002,
                                                 "quantity" => 10,
@@ -87,6 +88,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                                 "productUnitPriceDiscountCurrency_RefID" => 62000000000001,
                                                 "productUnitPriceDiscountCurrencyValue" => 0,
                                                 "productUnitPriceDiscountCurrencyExchangeRate" => 1,
+                                                "asset" => 0,        // 0 => "NO", 1 => "YES"
                                                 "remarks" => 'important sub message 1-b'
                                                 ]
                                             ],
