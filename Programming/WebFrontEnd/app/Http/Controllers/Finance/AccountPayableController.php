@@ -91,18 +91,18 @@ class AccountPayableController extends Controller
         }
     }
 
-    public function DataPickList(Request $request) 
+    public function DataPickLists(Request $request) 
     {
         try {
             $response = $this->accountPayableService->dataPickList();
 
             if ($response['metadata']['HTTPStatusCode'] !== 200) {
-                throw new \Exception('Failed to fetch DataPickList Account Payable');
+                throw new \Exception('Failed to fetch DataPickLists Account Payable');
             }
 
             return response()->json($response['data']['data']);
         } catch (\Throwable $th) {
-            Log::error("DataPickList Account Payable Function Error: " . $th->getMessage());
+            Log::error("DataPickLists Account Payable Function Error: " . $th->getMessage());
 
             return redirect()->back()->with('NotFound', 'Process Error');
         }
