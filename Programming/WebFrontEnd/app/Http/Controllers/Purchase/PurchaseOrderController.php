@@ -175,99 +175,49 @@ class PurchaseOrderController extends Controller
 
     public function ReportPurchaseOrderSummary(Request $request)
     {
-        $varAPIWebToken = $request->session()->get('SessionLogin');
-        $request->session()->forget("SessionPurchaseOrderNumber");
-        $dataPO = Session::get("PurchaseOrderReportSummaryDataPDF");
-
-        if (!empty($_GET['var'])) {
-            $var =  $_GET['var'];
-        }
-        $compact = [
-            'varAPIWebToken' => $varAPIWebToken,
-            'statusRevisi' => 1,
-            'statusHeader' => "Yes",
-            'statusDetail' => 1,
-            'dataHeader' => [],
-            'dataPO' => $dataPO
-        
-        ];
-        // dump($dataPO);
-
-        return view('Purchase.PurchaseOrder.Reports.ReportPurchaseOrderSummary', $compact);
-    }
-
-    public function ReportPurchaseOrderSummaryData( $project_code, $site_code)
-    {
-        try {
-            Log::error("Error at ",[$project_code, $site_code]);
-
-            $varAPIWebToken = Session::get('SessionLogin');
-
-            $filteredArray = Helper_APICall::setCallAPIGateway(
-                Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'report.form.documentForm.supplyChain.getPurchaseOrderSummary', 
-                'latest',
-                [
-                    'parameter' => [
-                        'CombinedBudgetCode' =>  $project_code,
-                        'CombinedBudgetSectionCode' =>  $site_code,
-                        'Supplier_RefID' => NULL
-                        // 'purchaseOrder_RefID' => (int) $purchaseOrder_refID
-                    ],
-                    'SQLStatement' => [
-                        'pick' => null,
-                        'sort' => null,
-                        'filter' => null,
-                        'paging' => null
-                    ]
-                ]
-            );
-            
-            Log::error("Error at " ,$filteredArray);
-            if ($filteredArray['metadata']['HTTPStatusCode'] !== 200) {
-                return redirect()->back()->with('NotFound', 'Process Error');
-
-            }
-            Session::put("PurchaseOrderReportSummaryDataPDF", $filteredArray['data']['data']);
-            Session::put("PurchaseOrderReportSummaryDataExcel", $filteredArray['data']['data']);
-            return $filteredArray['data']['data'];
-        }
-        catch (\Throwable $th) {
-            Log::error("Error at " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
-        }
+        return view('Purchase.PurchaseOrder.Reports.ReportPurchaseOrderSummary');
     }
 
     public function ReportPurchaseOrderSummaryStore(Request $request)
     {
-        // tes;
         try {
-            $project_code = $request->project_code_second;
-            $site_code = $request->site_id_second;
+            $date           = $request->poDate;
+            $budget         = [
+                "id"        => $request->budget_id,
+                "code"      => $request->budget_code,
+            ];
+            $subBudget      = [
+                "id"        => $request->site_id,
+                "code"      => $request->site_code,
+            ];
+            $supplierID     = $request->supplier_id;
 
-            $statusHeader = "Yes";
-            Log::error("Error at " ,[$request->all()]);
-            if ($project_code == "" && $site_code == "") {
-                Session::forget("PurchaseOrderReportSummaryDataPDF");
-                Session::forget("PurchaseOrderReportSummaryDataExcel");
-                
-                return redirect()->route('PurchaseOrder.ReportPurchaseOrderSummary')->with('NotFound', 'Cannot Empty');
+            $response = $this->purchaseOrderService->getPurchaseOrderSummary(
+                $budget['code'], 
+                $subBudget['code'],
+                $date,
+                $supplierID
+            );
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                throw new \Exception('Failed to fetch Purchase Order Summary Report');
             }
 
-            $compact = $this->ReportPurchaseOrderSummaryData($project_code, $site_code);
-            // dd($compact);
-            // if ($compact['dataHeader'] == []) {
-            //     Session::forget("PPurchaseOrderSummaryReportDataPDF");
-            //     Session::forget("PPurchaseOrderSummaryReportDataExcel");
+            $compact = [
+                'status'    => $response['metadata']['HTTPStatusCode'],
+                'data'      => $response['data']['data']
+            ];
 
-            //     return redirect()->back()->with('NotFound', 'Data Not Found');
-            // }
-
-            return redirect()->route('PurchaseOrder.ReportPurchaseOrderSummary');
+            return response()->json($compact);
         } catch (\Throwable $th) {
-            Log::error("Error at " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
+            Log::error("Report Purchase Order Summary Store Function Error:" . $th->getMessage());
+
+            $compact = [
+                'status'    => 500,
+                'message'   => $th->getMessage()
+            ];
+
+            return response()->json($compact);
         }
     }
 
