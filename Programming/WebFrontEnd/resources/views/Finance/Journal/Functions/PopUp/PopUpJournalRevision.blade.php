@@ -20,12 +20,12 @@
                                             <div class="input-group">
                                                 <form id="editForm" action="{{ route('Journal.RevisionJournal') }}" method="POST">
                                                     @csrf
-                                                    <input id="modal_journal_id" style="border-radius:0;" name="modal_journal_id" type="hidden" class="form-control" value="dummy">
+                                                    <input id="modal_journal_id" style="border-radius:0;" name="modal_journal_id" type="hidden" class="form-control">
                                                 </form>
 
                                                 <div class="input-group-append" style="cursor: pointer;">
                                                     <span style="border-radius:0;" class="input-group-text form-control" id="modal_journal_document_number_icon">
-                                                        <a data-toggle="modal" data-target="#">
+                                                        <a data-toggle="modal" data-target="#myJournal">
                                                             <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="">
                                                         </a>
                                                     </span>

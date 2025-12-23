@@ -17,20 +17,20 @@
               <th id="GrandTotal"></th>
             </tr>
             <tr>
-                <th id="GrandVAT"></th>
-              </tr>
-              <tr>
-                <th id="GrandTotalVAT"></th>
-              </tr>
+              <th id="GrandVAT"></th>
+            </tr>
+            <tr>
+              <th id="GrandTotalVAT"></th>
+            </tr>
           </table>
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default btn-sm" data-dismiss="modal" style="background-color:#e9ecef;border:1px solid #ced4da;">
+        <button type="button" class="btn btn-default btn-sm" onclick="SubmitForm('CANCEL');" data-dismiss="modal" style="background-color:#e9ecef;border:1px solid #ced4da;">
           <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel Advance List Cart"> No, cancel
         </button>
 
-        <button type="button" id="submitPurchaseOrder" class="btn btn-default btn-sm" onclick="SubmitForm();" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
+        <button type="button" id="submitPurchaseOrder" class="btn btn-default btn-sm" onclick="SubmitForm('SUBMIT');" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
           <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" title="Submit to Advance"> Yes, save it
         </button>
       </div>

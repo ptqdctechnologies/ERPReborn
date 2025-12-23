@@ -2,6 +2,7 @@
 
 namespace App\Services\Purchase;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
@@ -27,6 +28,32 @@ class PurchaseRequisitionService
                 'sort' => null,
                 'filter' => null,
                 'paging' => null
+                ]
+            ]
+        );
+    }
+
+    public function getPurchaseRequisitionSummary($budget, $subBudget, $date) 
+    {
+        $sessionToken = Session::get('SessionLogin');
+
+        if ($date) {
+            $dates      = explode(' - ', $date);
+            $startDate  = Carbon::createFromFormat('m/d/Y', trim($dates[0]))->startOfDay()->format('Y-m-d');
+            $endDate    = Carbon::createFromFormat('m/d/Y', trim($dates[1]))->endOfDay()->format('Y-m-d');
+        }
+
+        return Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
+            $sessionToken, 
+            'report.form.documentForm.supplyChain.getPurchaseRequisitionSummary', 
+            'latest',
+            [
+                'parameter'     => [
+                    'CombinedBudgetCode'                    => $budget,
+                    'CombinedBudgetSectionCode'             => $subBudget ? $subBudget : NULL,
+                    // 'StartDate'                             => $date ? $startDate : NULL,
+                    // 'EndDate'                               => $date ? $endDate : NULL
                 ]
             ]
         );

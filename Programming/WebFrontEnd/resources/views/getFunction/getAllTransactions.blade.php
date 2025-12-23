@@ -76,21 +76,10 @@
             success: function(data) {
                 $(".loadingAllTransactions").hide();
                 
-                var no = 1;
-                var table = $('#tableAllTransactions').DataTable();
+                let table = $('#tableAllTransactions').DataTable();
                 table.clear();
 
                 if (Array.isArray(data) && data.length > 0) {
-                    // $.each(data, function(key, val) {
-                    //     table.row.add([
-                    //         '<input id="sys_id_transaction' + key + '" value="' + val.sys_ID + '" data-trigger="sys_id_transaction" type="hidden">' + 
-                    //         no++,
-                    //         val.sys_Text || '-',
-                    //         val.combinedBudgetCode || '-',
-                    //         val.combinedBudgetSectionCode || '-',
-                    //     ]).draw();
-                    // });
-
                     $('#tableAllTransactions').DataTable({
                         destroy: true,
                         data: data,
@@ -127,11 +116,6 @@
                     });
 
                     $('#tableAllTransactions').css("width", "100%");
-
-                    // $("#tableAllTransactions_length").show();
-                    // $("#tableAllTransactions_filter").show();
-                    // $("#tableAllTransactions_info").show();
-                    // $("#tableAllTransactions_paginate").show();
                 } else {
                     $(".errorAllTransactionsMessageContainer").show();
                     $("#errorAllTransactionsMessage").text(`Data not found.`);
@@ -150,35 +134,4 @@
             }
         });
     }
-
-    function getAllDocumentType() {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
-        $.ajax({
-            type: 'GET',
-            url: '{!! route("getDocumentType") !!}',
-            success: function(data) {
-                if (data && Array.isArray(data)) {
-                    $('#DocumentType').empty();
-                    $('#DocumentType').append('<option disabled selected>Select a Project Code</option>');
-
-                    data.forEach(function(document) {
-                        $('#DocumentType').append('<option value="' + document.sys_ID + '" data-name="' + document.name + '">' + document.name + '</option>');
-                    });
-                } else {
-                    console.log('Data document type not found.');
-                }
-            },
-            error: function (textStatus, errorThrown) {
-            }
-        });
-    }
-
-    $(window).one('load', function(e) {
-        getAllDocumentType();
-    });
 </script>

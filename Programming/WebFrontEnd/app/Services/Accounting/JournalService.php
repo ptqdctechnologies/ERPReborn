@@ -10,6 +10,22 @@ use App\Helpers\ZhtHelper\System\Helper_Environment;
 
 class JournalService
 {
+    public function picklist()
+    {
+        $sessionToken = Session::get('SessionLogin');
+
+        return Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
+            $sessionToken,
+            'dataPickList.accounting.getJournal',
+            'latest',
+            [
+            'parameter' => [
+                ]
+            ]
+        );
+    }
+
     public function create(Request $request)
     {
         $sessionToken   = Session::get('SessionLogin');
