@@ -21,7 +21,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         |                     ► http://172.28.0.4/transaction.update.finance.setPaymentInstruction.v1_throughAPIGateway            |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-11-06                                                                                           |
+        | ▪ Last Update     : 2025-12-24                                                                                           |
         | ▪ Creation Date   : 2025-01-13                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -79,7 +79,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                                 "productUnitPriceCurrencyValue" => 200000.00,
                                                 "productUnitPriceCurrencyExchangeRate" => 1,
                                                 "wht" => 2.00,
-                                                "purchaseOrderDetail_RefID" => 86000000000001
+                                                "purchaseOrderDetail_RefID" => 86000000000001,
+                                                "asset" => 0       // 0 => "NO", 1 => "YES"
                                                 ]
                                             ],
                                         ]
