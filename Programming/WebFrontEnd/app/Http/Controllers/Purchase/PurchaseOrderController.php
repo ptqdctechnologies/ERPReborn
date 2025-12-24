@@ -224,37 +224,77 @@ class PurchaseOrderController extends Controller
     public function PrintExportReportPurchaseOrderSummary(Request $request)
     {
         try {
-            $dataPDF = Session::get("PurchaseOrderReportSummaryDataPDF");
-            $dataExcel = Session::get("PurchaseOrderReportSummaryDataExcel");
+            $type                     = $request->printType;
+            $budgetName               = $request->budgetName;
+            $subBudgetName            = $request->subBudgetName;
+            $supplierName             = $request->supplierName;
+            $poDate                   = $request->poDate;
+            $dataPurchaseOrderSummary = json_decode($request->dataReport, true);
 
-            
-            if ($dataPDF && $dataExcel) {
-                $print_type = $request->print_type;
-                if ($print_type == "PDF") {
-                    $dataPO = Session::get("PurchaseOrderReportSummaryDataPDF");
-                    // dd($dataPO);
+            if ($dataPurchaseOrderSummary) {
+                if ($type === "PDF") {
+                    $pdf = PDF::loadView('Purchase.PurchaseOrder.Reports.ReportPurchaseOrderSummary_pdf', [
+                        'dataPO'        => $dataPurchaseOrderSummary, 
+                        'budgetName'    => $budgetName,
+                        'subBudgetName' => $subBudgetName,
+                        'supplierName'  => $supplierName,
+                        'poDate'        => $poDate
+                        ])->setPaper('a4', 'landscape');
 
-                    $pdf = PDF::loadView('Purchase.PurchaseOrder.Reports.ReportPurchaseOrderSummary_pdf', ['dataPO' => $dataPO])->setPaper('a4', 'landscape');
                     $pdf->output();
-                    $dom_pdf = $pdf->getDomPDF();
-
-                    $canvas = $dom_pdf ->get_canvas();
-                    $width = $canvas->get_width();
-                    $height = $canvas->get_height();
+                    $dom_pdf    = $pdf->getDomPDF();
+                    $canvas     = $dom_pdf ->get_canvas();
+                    $width      = $canvas->get_width();
+                    $height     = $canvas->get_height();
                     $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
                     $canvas->page_text(34, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
 
                     return $pdf->download('Export Report Purchase Order Summary.pdf');
-                } else if ($print_type == "Excel") {
-                    return Excel::download(new ExportReportPurchaseOrderSummary, 'Export Report Purchase Order Summary.xlsx');
+                } else if ($type === "EXCEL") {
+                } else {
+                    throw new \Exception('Failed to Export Purchase Order Summary Report');
                 }
             } else {
-                return redirect()->route('PurchaseOrder.ReportPurchaseOrderSummary')->with('NotFound', 'Data Cannot Empty');
+                throw new \Exception('Purchase Order Summary Data is Empty');
             }
         } catch (\Throwable $th) {
-            Log::error("Error at " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
+            Log::error("Print Export Report Purchase Order Summary Function Error: " . $th->getMessage());
+
+            return response()->json(['statusCode' => 400]);
         }
+
+        // try {
+        //     $dataPDF = Session::get("PurchaseOrderReportSummaryDataPDF");
+        //     $dataExcel = Session::get("PurchaseOrderReportSummaryDataExcel");
+
+            
+        //     if ($dataPDF && $dataExcel) {
+        //         $print_type = $request->print_type;
+        //         if ($print_type == "PDF") {
+        //             $dataPO = Session::get("PurchaseOrderReportSummaryDataPDF");
+        //             // dd($dataPO);
+
+        //             $pdf = PDF::loadView('Purchase.PurchaseOrder.Reports.ReportPurchaseOrderSummary_pdf', ['dataPO' => $dataPO])->setPaper('a4', 'landscape');
+        //             $pdf->output();
+        //             $dom_pdf = $pdf->getDomPDF();
+
+        //             $canvas = $dom_pdf ->get_canvas();
+        //             $width = $canvas->get_width();
+        //             $height = $canvas->get_height();
+        //             $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
+        //             $canvas->page_text(34, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
+
+        //             return $pdf->download('Export Report Purchase Order Summary.pdf');
+        //         } else if ($print_type == "Excel") {
+        //             return Excel::download(new ExportReportPurchaseOrderSummary, 'Export Report Purchase Order Summary.xlsx');
+        //         }
+        //     } else {
+        //         return redirect()->route('PurchaseOrder.ReportPurchaseOrderSummary')->with('NotFound', 'Data Cannot Empty');
+        //     }
+        // } catch (\Throwable $th) {
+        //     Log::error("Error at " . $th->getMessage());
+        //     return redirect()->back()->with('NotFound', 'Process Error');
+        // }
     }
 
     public function ReportPOtoAP(Request $request)

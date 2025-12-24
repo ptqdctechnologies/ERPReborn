@@ -9,6 +9,7 @@
     const supplierID    = document.getElementById("supplier_id");
     const supplierName  = document.getElementById("supplier_name");
     const poDate        = document.getElementById("purchase_order_date_range_container");
+    const printType     = document.getElementById("print_type");
 
     function getDataReport() {
         ShowLoading();
@@ -136,6 +137,54 @@
                     $('#table_summary tfoot').empty();
                     ErrorNotif("Error");
                 }
+
+                HideLoading();
+            },
+            error: function(xhr, status, error) {
+                HideLoading();
+                ErrorNotif("An error occurred while processing the received data. Please try again later.");
+                console.log('xhr, status, error', xhr, status, error);
+            }
+        });
+    }
+
+    function exportDataReport() {
+        ShowLoading();
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            url: '{!! route("PurchaseOrder.PrintExportReportPurchaseOrderSummary") !!}',
+            type: 'POST',
+            data: {
+                dataReport,
+                budgetName: budgetName.value,
+                subBudgetName: subBudgetName.value,
+                supplierName: supplierName.value,
+                poDate: poDate.value,
+                printType: printType.value
+            },
+            xhrFields: { 
+                responseType: 'blob'
+            },
+            success: function(response) {
+                var blob = new Blob([response], { type: response.type });
+                var link = document.createElement('a');
+                link.href = window.URL.createObjectURL(blob);
+
+                if (response.type === "application/pdf") {
+                    link.download = "Export Report Purchase Request Summary.pdf";
+                } else {
+                    link.download = "Export Report Purchase Request Summary.xlsx";
+                }
+
+                link.click();
+
+                window.URL.revokeObjectURL(link.href);
 
                 HideLoading();
             },
