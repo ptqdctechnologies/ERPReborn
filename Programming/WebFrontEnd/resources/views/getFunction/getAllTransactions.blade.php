@@ -134,4 +134,35 @@
             }
         });
     }
+
+    function getAllDocumentType() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: 'GET',
+            url: '{!! route("getDocumentType") !!}',
+            success: function(data) {
+                if (data && Array.isArray(data)) {
+                    $('#DocumentType').empty();
+                    $('#DocumentType').append('<option disabled selected>Select a Project Code</option>');
+
+                    data.forEach(function(document) {
+                        $('#DocumentType').append('<option value="' + document.sys_ID + '" data-name="' + document.name + '">' + document.name + '</option>');
+                    });
+                } else {
+                    console.log('Data document type not found.');
+                }
+            },
+            error: function (textStatus, errorThrown) {
+            }
+        });
+    }
+
+    $(window).one('load', function(e) {
+        getAllDocumentType();
+    });
 </script>
