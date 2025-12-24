@@ -4037,6 +4037,8 @@ return array(
     'Aws\\Waiter' => $vendorDir . '/aws/aws-sdk-php/src/Waiter.php',
     'Aws\\WellArchitected\\Exception\\WellArchitectedException' => $vendorDir . '/aws/aws-sdk-php/src/WellArchitected/Exception/WellArchitectedException.php',
     'Aws\\WellArchitected\\WellArchitectedClient' => $vendorDir . '/aws/aws-sdk-php/src/WellArchitected/WellArchitectedClient.php',
+    'Aws\\Wickr\\Exception\\WickrException' => $vendorDir . '/aws/aws-sdk-php/src/Wickr/Exception/WickrException.php',
+    'Aws\\Wickr\\WickrClient' => $vendorDir . '/aws/aws-sdk-php/src/Wickr/WickrClient.php',
     'Aws\\WorkDocs\\Exception\\WorkDocsException' => $vendorDir . '/aws/aws-sdk-php/src/WorkDocs/Exception/WorkDocsException.php',
     'Aws\\WorkDocs\\WorkDocsClient' => $vendorDir . '/aws/aws-sdk-php/src/WorkDocs/WorkDocsClient.php',
     'Aws\\WorkMailMessageFlow\\Exception\\WorkMailMessageFlowException' => $vendorDir . '/aws/aws-sdk-php/src/WorkMailMessageFlow/Exception/WorkMailMessageFlowException.php',

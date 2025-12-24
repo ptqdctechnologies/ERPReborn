@@ -1825,13 +1825,13 @@ opcache.validate_timestamps=1
 ; start-up.
 ; https://php.net/opcache.preload
 ;opcache.preload=
-opcache.preload=/var/www/html/WebBackEnd/bootstrap/preload.php
+;opcache.preload=/var/www/html/WebBackEnd/bootstrap/preload.php
 
 ; Preloading code as root is not allowed for security reasons. This directive
 ; facilitates to let the preloading to be run as another user.
 ; https://php.net/opcache.preload_user
 ;opcache.preload_user=
-opcache.preload_user=www-data
+;opcache.preload_user=www-data
 
 ; Prevents caching files that are less than this number of seconds old. It
 ; protects from caching of incompletely updated files. In case all file updates

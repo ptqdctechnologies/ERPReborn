@@ -22,6 +22,13 @@ namespace
             Helper_Network
                 {
                 /*
+                ┌──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+                │ Class Property Declaration                                                                                               │
+                └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+                */
+
+
+                /*
                 ┌───────────────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────┐
                 │ ▪ Method Name     │ __construct                                                                                          │
                 ├───────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
@@ -75,10 +82,10 @@ namespace
                 │ ▪ Description     │ Mendapatkan Protocol Server yang sedang diakses oleh browser (HTTP atau HTTPS)                       │
                 ├───────────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                 │ ▪ Input Variable  :                                                                                                      │
-                │      ▪ (mixed)  varUserSession ► User Session                                                                            │
+                │      ▪ varUserSession (mixed - Mandatory) ► User Session                                                                 │
                 │      ------------------------------                                                                                      │
                 │ ▪ Output Variable :                                                                                                      │
-                │      ▪ (string)   varReturn                                                                                              │
+                │      ▪ varReturn (string)                                                                                                │
                 ├──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
                 │ ▪ Linked Function :                                                                                                      │
                 │      ▪                                                                                                                   │
@@ -90,7 +97,8 @@ namespace
                         )
                             {
                             //---> Data Initialization
-                                $varReturn = null;
+                                $varReturn =
+                                    (string) null;
 
                             //---> Data Process
                                 try {
@@ -109,6 +117,250 @@ namespace
 
                                     $varReturn =
                                         $varProtocol;
+                                    }
+
+                                catch (\Exception $ex) {
+                                    }
+
+                            //---> Data Return
+                                return
+                                    $varReturn;
+                            }
+
+
+                /*
+                ┌───────────────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────┐
+                │ ▪ Method Name     │ getIPAddressFromURL                                                                                  │
+                ├───────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
+                │ ▪ Version         │ 1.0000.0000001                                                                                       │
+                │ ▪ Last Update     │ 2025-12-23                                                                                           │
+                │ ▪ Creation Date   │ 2020-07-24                                                                                           │
+                │ ▪ Description     │ Mendapatkan IP Address dari alamat URL tertentu (varURL)                                             │
+                ├───────────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────┤
+                │ ▪ Input Variable  :                                                                                                      │
+                │      ▪ varUserSession (mixed - Mandatory) ► User Session                                                                 │
+                │      ▪ varURL (string - Mandatory) ► Alamat host yang akan diperiksa                                                     │
+                │      ------------------------------                                                                                      │
+                │ ▪ Output Variable :                                                                                                      │
+                │      ▪ varReturn (string)                                                                                                │
+                ├──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+                │ ▪ Linked Function :                                                                                                      │
+                │      ▪                                                                                                                   │
+                └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+                */
+                public static function
+                    getIPAddressFromURL (
+                        mixed $varUserSession, string $varURL
+                        )
+                            {
+                            //---> Data Initialization
+                                //---> Initializing : varReturn
+                                    $varReturn =
+                                        (string) null;
+
+                            //---> Data Process
+                                try {
+                                    //---> Initializing : varURLArray
+                                        $varURLArray =
+                                            @parse_url (
+                                                $varURL
+                                                );
+
+                                    //---> Initializing : varIPAddress
+                                        $varIPAddress =
+                                            gethostbyname (
+                                                $varURLArray['host']
+                                                );
+
+                                        if (!filter_var ($varIPAddress, FILTER_VALIDATE_IP)) 
+                                            {
+                                            throw
+                                                new \Exception ("Invalid IP address");
+                                            }
+
+                                    //---> Reinitializing : varReturn
+                                        $varReturn =
+                                            $varIPAddress;
+                                    }
+                                catch (\Exception $ex) {
+
+                                    }
+
+                            //---> Data Return
+                                return
+                                    $varReturn;
+                            }
+
+
+                /*
+                ┌───────────────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────┐
+                │ ▪ Method Name     │ isHTTPS                                                                                              │
+                ├───────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
+                │ ▪ Version         │ 1.0000.0000001                                                                                       │
+                │ ▪ Last Update     │ 2025-12-23                                                                                           │
+                │ ▪ Creation Date   │ 2024-08-30                                                                                           │
+                │ ▪ Description     │ Mengecek apakah Browser mengunakan proptocol HTTPS                                                   │
+                ├───────────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────┤
+                │ ▪ Input Variable  :                                                                                                      │
+                │      ▪ varUserSession (mixed - Mandatory) ► User Session                                                                 │
+                │      ------------------------------                                                                                      │
+                │ ▪ Output Variable :                                                                                                      │
+                │      ▪ varReturn (bool)                                                                                                  │
+                ├──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+                │ ▪ Linked Function :                                                                                                      │
+                │      ▪                                                                                                                   │
+                └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+                */
+                public static function
+                    isHTTPS (
+                        mixed $varUserSession
+                        )
+                            {
+                            //---> Data Initialization
+                                //---> Initializing : varReturn
+                                    $varReturn =
+                                        (bool) false;
+
+                            //---> Data Process
+                                try {
+                                    //---> Reinitializing : varReturn
+                                        $varReturn = (
+                                            stripos (
+                                                $_SERVER['SERVER_PROTOCOL'],
+                                                'https'
+                                                ) === 0
+                                            ?
+                                            true
+                                            :
+                                            false
+                                            );
+                                    }
+
+                                catch (\Exception $ex) {
+                                    }
+
+                            //---> Data Return
+                                return
+                                    $varReturn;
+                            }
+
+
+                /*
+                ┌───────────────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────┐
+                │ ▪ Method Name     │ isPortOpen                                                                                           │
+                ├───────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
+                │ ▪ Version         │ 1.0000.0000001                                                                                       │
+                │ ▪ Last Update     │ 2025-12-23                                                                                           │
+                │ ▪ Creation Date   │ 2020-07-23                                                                                           │
+                │ ▪ Description     │ Mengecek apakah suatu Port (varPort) terbuka pada alamat tertentu (varURL)                           │
+                │                   │ Code Reference : https://gist.github.com/md5/f0ca3ba1c2b0f04785fb                                    │
+                ├───────────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────┤
+                │ ▪ Input Variable  :                                                                                                      │
+                │      ▪ varUserSession (mixed - Mandatory) ► User Session                                                                 │
+                │      ▪ varURL (string - Mandatory) ► Alamat host yang akan diperiksa                                                     │
+                │      ▪ (int)     varPort ► Nomor port yang akan diperiksa                                                                │
+                │      ▪ (int)     varTimeOutInSeconds ► Waktu Kadaluwarsa dalam detik                                                     │
+                │      ------------------------------                                                                                      │
+                │ ▪ Output Variable :                                                                                                      │
+                │      ▪ varReturn (bool)                                                                                                  │
+                ├──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+                │ ▪ Linked Function :                                                                                                      │
+                │      ▪                                                                                                                   │
+                └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+                */
+                public static function
+                    isPortOpen (
+                        mixed $varUserSession, string $varURL, int $varPort,
+                        string $varProtocol = null, int $varTimeOutInSeconds = null
+                        )
+                            {
+                            //---> Data Initialization
+                                //---> Initializing : varReturn
+                                    $varReturn =
+                                        (bool) false;
+
+                            //---> Data Process
+                                try {
+                                    //---> Cari Validitas Port
+                                    if (
+                                        ($varPort < 1)
+                                        OR
+                                        ($varPort > 65535)
+                                        )
+                                        {
+                                        throw
+                                            new \Exception ("Invalid Port number");
+                                        }
+
+                                    //---> Cari Validitas Protocol
+                                    if (!$varProtocol) {
+                                        $varProtocolID =
+                                            SOL_TCP;
+                                        }
+                                    else
+                                        {
+                                        if (stristr($varProtocol, 'tcp')) {
+                                            $varProtocolID =
+                                                SOL_TCP;
+                                            }
+                                        elseif (stristr($varProtocol, 'udp')) {
+                                            $varProtocolID =
+                                                SOL_UDP;
+                                            }
+                                        else
+                                            {
+                                            throw
+                                                new \Exception ("Invalid Protocol");
+                                            }
+                                        }
+
+                                    //---> Cari Validitas IP Address
+                                        $varIPAddress =
+                                            self::getIPAddressFromURL (
+                                                $varUserSession,
+                                                $varURL
+                                                );
+
+                                        if (!$varIPAddress)
+                                            {
+                                            throw
+                                                new \Exception ("Invalid IP address");
+                                            }
+
+                                    //---> Inisialisasi Socket
+                                        $varObjSocket =
+                                            socket_create (
+                                                AF_INET,
+                                                SOCK_STREAM,
+                                                $varProtocolID
+                                                );
+
+                                        if ($varObjSocket === false) 
+                                            {
+                                            throw
+                                                new \Exception ("Can't create socket, reason : ".socket_strerror(socket_last_error()));
+                                            }
+
+                                    //---> Ujicoba Koneksi via Socket
+                                        $varResult =
+                                            socket_connect (
+                                                $varObjSocket,
+                                                $varIPAddress,
+                                                $varPort
+                                                );
+
+                                        if ($varResult === false) {
+                                            throw
+                                                new \Exception ("Can't create socket, reason (".$varResult."): ".socket_strerror(socket_last_error()));
+                                            }
+
+                                        socket_close (
+                                            $varObjSocket
+                                            );
+
+                                    //---> Reinitializing : varReturn
+                                        $varReturn =
+                                            true;
                                     }
 
                                 catch (\Exception $ex) {

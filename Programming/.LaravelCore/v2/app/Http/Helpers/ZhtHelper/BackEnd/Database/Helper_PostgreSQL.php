@@ -22,6 +22,13 @@ namespace
             Helper_PostgreSQL
                 {
                 /*
+                ┌──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+                │ Class Property Declaration                                                                                               │
+                └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+                */
+
+
+                /*
                 ┌───────────────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────┐
                 │ ▪ Method Name     │ __construct                                                                                          │
                 ├───────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
@@ -76,55 +83,65 @@ namespace
                 │                   │ Laravel Connection                                                                                   │
                 ├───────────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                 │ ▪ Input Variable  :                                                                                                      │
-                │      ▪ (mixed)  varUserSession ► User Session                                                                            │
-                │      ▪ (string) varSQLQuery ► SQL Query Syntax                                                                           │
+                │      ▪ varUserSession (mixed - Mandatory) ► User Session                                                                 │
+                │      ▪ varSQLQuery (string - Mandatory) ► SQL Query Syntax                                                               │
                 │      ------------------------------                                                                                      │
                 │ ▪ Output Variable :                                                                                                      │
-                │      ▪ (array)  varReturn                                                                                                │
+                │      ▪ varReturn (array)                                                                                                 │
                 ├──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
                 │ ▪ Linked Function :                                                                                                      │
-                │      ▪                                                                                                                   │
+                │      ▪ \App\Http\Helpers\ZhtHelper\BackEnd\Database\Helper_PostgreSQL::                                                  │
+                │           getQueryExecutionDataFetch                                                                                     │
+                │              (mixed $varUserSession, string $varSQLQuery)                                                                │
                 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
                 */
                 private static function
                     getArrayFromQueryExecutionDataFetch_UsingLaravelConnection (
-                        $varUserSession, string $varSQLQuery
+                        mixed $varUserSession, string $varSQLQuery
                         )
                             {
-                            //---> Data Initialization
-                                $varReturn = false;
+                            //-----[ DATA INITIALIZATION ]-------------------------------------------------------------------( START )-----
+                                //---> Initializing : varReturn
+                                    $varReturn =
+                                        (array) null;
+                            //-----[ DATA INITIALIZATION ]-------------------------------------------------------------------(  END  )-----
 
-                            //---> Data Process
+                            //-----[ DATA PROCESS ]--------------------------------------------------------------------------( START )-----
                                 try {
                                     $i = 0;
 
-                                    $varDataFetch =
-                                        self::getQueryExecutionDataFetch (
-                                            $varUserSession,
-                                            $varSQLQuery
-                                            );
+                                    //---> Initializing : varDataFetch
+                                        $varDataFetch =
+                                            self::getQueryExecutionDataFetch (
+                                                $varUserSession,
+                                                $varSQLQuery
+                                                );
 
-                                    $varData = [];
-                                    $varNotice = null;
-                                    foreach ($varDataFetch as $row)
-                                        {
-                                        $varData[] = (array) $row;
-                                        $i++;
-                                        }
+                                    //---> ...
+                                        $varData = [];
+                                        $varNotice = null;
+                                        foreach ($varDataFetch as $row)
+                                            {
+                                            $varData[] = (array) $row;
+                                            $i++;
+                                            }
 
-                                    $varReturn['data'] = $varData;
-                                    $varReturn['Notice'] = null;
-                                    $varReturn['rowCount']=$i;
+                                    //---> Renitializing : varReturn
+                                        $varReturn['data'] = $varData;
+                                        $varReturn['Notice'] = null;
+                                        $varReturn['rowCount']=$i;
 
-                                    unset ($varData);
+                                        unset ($varData);
                                     }
 
                                 catch (\Exception $ex) {
                                     }
+                            //-----[ DATA PROCESS ]--------------------------------------------------------------------------(  END  )-----
 
-                            //---> Data Return
+                            //-----[ DATA RETURN ]---------------------------------------------------------------------------( START )-----
                                 return
                                     $varReturn;
+                            //-----[ DATA RETURN ]---------------------------------------------------------------------------(  END  )-----
                             }
 
 
@@ -139,152 +156,159 @@ namespace
                 │                   │ PgSql\Connection                                                                                     │
                 ├───────────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                 │ ▪ Input Variable  :                                                                                                      │
-                │      ▪ (mixed)  varUserSession ► User Session                                                                            │
-                │      ▪ (string) varSQLQuery ► SQL Query Syntax                                                                           │
+                │      ▪ varUserSession (mixed - Mandatory) ► User Session                                                                 │
+                │      ▪ varSQLQuery (string - Mandatory) ► SQL Query Syntax                                                               │
                 │      ------------------------------                                                                                      │
                 │ ▪ Output Variable :                                                                                                      │
-                │      ▪ (array)  varReturn                                                                                                │
+                │      ▪ varReturn (array)                                                                                                 │
                 ├──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
                 │ ▪ Linked Function :                                                                                                      │
                 │      ▪ \App\Http\Helpers\ZhtHelper\BackEnd\Database\Helper_PostgreSQL::                                                  │
                 │           getArrayFromQueryExecutionDataFetch_UsingLaravelConnection                                                     │
-                │              ($varUserSession, $varSQLQuery)                                                                             │
+                │              (mixed $varUserSession, string $varSQLQuery)                                                                │
                 │      ▪ \App\Http\Helpers\ZhtHelper\BackEnd\Database\Helper_PostgreSQL::                                                  │
                 │           getBooleanConvertion                                                                                           │
-                │              ($varUserSession, $varData)                                                                                 │
+                │              (mixed $varUserSession, array $varData)                                                                     │
                 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
                 */
                 private static function
                     getArrayFromQueryExecutionDataFetch_UsingPGSQLConnection (
-                        $varUserSession, string $varSQLQuery
+                        mixed $varUserSession, string $varSQLQuery
                         )
                             {
-                            //---> Data Initialization
-                                $varReturn = false;
+                            //-----[ DATA INITIALIZATION ]-------------------------------------------------------------------( START )-----
+                                //---> Initializing : varReturn
+                                    $varReturn =
+                                        (array) null;
+                            //-----[ DATA INITIALIZATION ]-------------------------------------------------------------------(  END  )-----
 
-                            //---> Data Process
+                            //-----[ DATA PROCESS ]--------------------------------------------------------------------------( START )-----
                                 try {
-                                    $varConfig =
-                                        (array) (\Illuminate\Support\Facades\DB::getConfig());
+                                    //---> Initializing : varConfig
+                                        $varConfig =
+                                            (array) (\Illuminate\Support\Facades\DB::getConfig());
 
-                                    if (!is_null ($varConfig))
-                                        {
-                                        $varConnectionString = 
-                                            'host='.$varConfig['host'].' '.
-                                            'port='.$varConfig['port'].' '.
-                                            'dbname='.$varConfig['database'].' '.
-                                            'user='.$varConfig['username'].' '.
-                                            'password='.$varConfig['password'];
-                                        //var_dump($varConnectionString);
-
-                                        $i=0;
-                                        $varData = [];
-                                        $varNotice = null;
-                                        if ($DBConnection = pg_connect ($varConnectionString))
+                                    //---> Reinitializing : varReturn
+                                        if (!is_null ($varConfig))
                                             {
-                                            pg_last_notice (
-                                                $DBConnection,
-                                                PGSQL_NOTICE_CLEAR
-                                                );
+                                            $varConnectionString = 
+                                                'host='.$varConfig['host'].' '.
+                                                'port='.$varConfig['port'].' '.
+                                                'dbname='.$varConfig['database'].' '.
+                                                'user='.$varConfig['username'].' '.
+                                                'password='.$varConfig['password'];
+                                            //var_dump($varConnectionString);
 
-                                            $varResult =
-                                                pg_query (
+                                            $i=0;
+                                            $varData = [];
+                                            $varNotice = null;
+                                            if ($DBConnection = pg_connect ($varConnectionString))
+                                                {
+                                                pg_last_notice (
                                                     $DBConnection,
+                                                    PGSQL_NOTICE_CLEAR
+                                                    );
+
+                                                $varResult =
+                                                    pg_query (
+                                                        $DBConnection,
+                                                        $varSQLQuery
+                                                        );
+
+                                                $varNotice =
+                                                    pg_last_notice (
+                                                        $DBConnection,
+                                                        PGSQL_NOTICE_ALL
+                                                        );
+
+                                                //---> Field Type Initializing
+                                                unset ($varFieldType);
+
+                                                for ($j=0, $jMax = pg_num_fields ($varResult); $j != $jMax; $j++)
+                                                    {
+                                                    $varFieldType[$j] =
+                                                        pg_field_type (
+                                                            $varResult,
+                                                            $j
+                                                            );
+                                                    }
+
+                                                while ($row = pg_fetch_assoc ($varResult)) {
+                                                    $varDataContent = null;
+                                                    $varData[$i] = $row;
+                                                    $j = 0;
+                                                    foreach ($varData[$i] as $key => $value)
+                                                        {
+                                                        $varData[$i][$key] = $value;
+
+                                                        $varData[$i][$key] = null;
+                                                        switch ($varFieldType[$j++])
+                                                            {
+                                                            case 'bool':
+                                                                $varData[$i][$key] =
+                                                                    self::getBooleanConvertion (
+                                                                        $varUserSession,
+                                                                        $value
+                                                                        );
+                                                                break;
+                                                            case 'int2':
+                                                            case 'int4':
+                                                            case 'int8':
+                                                                if (!is_null($value))
+                                                                    {
+                                                                    $varData[$i][$key] = (int) $value;
+                                                                    }
+                                                                break;
+                                                            case 'float4':
+                                                            case 'float8':
+                                                                if (!is_null($value))
+                                                                    {
+                                                                    $varData[$i][$key] = (float) $value;
+                                                                    }
+                                                                break;
+                                                            case 'varchar':
+                                                            default:
+                                                                if (!is_null($value))
+                                                                    {
+                                                                    $varData[$i][$key] = $value;
+                                                                    }
+                                                                break;
+                                                            }
+                                                        }
+                                                    $i++;
+                                                    }
+
+                                                pg_close (
+                                                    $DBConnection
+                                                    );
+                                                }
+
+                                            $varReturn['data'] = $varData;
+                                            $varReturn['notice'] = $varNotice;
+                                            $varReturn['rowCount']=$i;
+                                            }
+                                        else
+                                            {
+                                            $varDataTemp =
+                                                self::getArrayFromQueryExecutionDataFetch_UsingLaravelConnection (
+                                                    $varUserSession,
                                                     $varSQLQuery
                                                     );
 
-                                            $varNotice =
-                                                pg_last_notice (
-                                                    $DBConnection,
-                                                    PGSQL_NOTICE_ALL
-                                                    );
-
-                                            //---> Field Type Initializing
-                                            unset ($varFieldType);
-
-                                            for ($j=0, $jMax = pg_num_fields ($varResult); $j!=$jMax; $j++)
-                                                {
-                                                $varFieldType[$j] =
-                                                    pg_field_type (
-                                                        $varResult,
-                                                        $j
-                                                        );
-                                                }
-
-                                            while ($row = pg_fetch_assoc ($varResult)) {
-                                                $varDataContent = null;
-                                                $varData[$i] = $row;
-                                                $j = 0;
-                                                foreach ($varData[$i] as $key => $value)
-                                                    {
-                                                    $varData[$i][$key] = $value;
-
-                                                    $varData[$i][$key] = null;
-                                                    switch ($varFieldType[$j++])
-                                                        {
-                                                        case 'bool':
-                                                            $varData[$i][$key] =
-                                                                self::getBooleanConvertion (
-                                                                    $varUserSession,
-                                                                    $value
-                                                                    );
-                                                            break;
-                                                        case 'int2':
-                                                        case 'int4':
-                                                        case 'int8':
-                                                            if (!is_null($value))
-                                                                {
-                                                                $varData[$i][$key] = (int) $value;
-                                                                }
-                                                            break;
-                                                        case 'float4':
-                                                        case 'float8':
-                                                            if (!is_null($value))
-                                                                {
-                                                                $varData[$i][$key] = (float) $value;
-                                                                }
-                                                            break;
-                                                        case 'varchar':
-                                                        default:
-                                                            if (!is_null($value))
-                                                                {
-                                                                $varData[$i][$key] = $value;
-                                                                }
-                                                            break;
-                                                        }
-                                                    }
-                                                $i++;
-                                                }
-
-                                            pg_close (
-                                                $DBConnection
-                                                );
+                                            $varReturn['data'] = $varDataTemp['data'];
+                                            $varReturn['notice'] = $varDataTemp['notice'];
+                                            $varReturn['rowCount'] = $varDataTemp['rowCount'];                        
                                             }
-
-                                        $varReturn['data'] = $varData;
-                                        $varReturn['notice'] = $varNotice;
-                                        $varReturn['rowCount']=$i;
-                                        }
-                                    else
-                                        {
-                                        $varDataTemp =
-                                            self::getArrayFromQueryExecutionDataFetch_UsingLaravelConnection (
-                                                $varUserSession,
-                                                $varSQLQuery
-                                                );
-
-                                        $varReturn['data'] = $varDataTemp['data'];
-                                        $varReturn['notice'] = $varDataTemp['notice'];
-                                        $varReturn['rowCount'] = $varDataTemp['rowCount'];                        
-                                        }
                                     }
 
                                 catch (\Exception $ex) {
                                     }
+                            //-----[ DATA PROCESS ]--------------------------------------------------------------------------(  END  )-----
 
-                            //---> Data Return
+                            //-----[ DATA RETURN ]---------------------------------------------------------------------------( START )-----
                                 return
                                     $varReturn;
+                            //-----[ DATA RETURN ]---------------------------------------------------------------------------(  END  )-----
                             }
 
 
@@ -298,11 +322,11 @@ namespace
                 │ ▪ Description     │ Mendapatkan konversi Boolean PHP dari data Boolean PostgreSQL (varData)                              │
                 ├───────────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                 │ ▪ Input Variable  :                                                                                                      │
-                │      ▪ (mixed)  varUserSession ► User Session                                                                            │
-                │      ▪ (string) varData ► Data                                                                                           │
+                │      ▪ varUserSession (mixed - Mandatory) ► User Session                                                                 │
+                │      ▪ varData (string - Mandatory) ► Data                                                                               │
                 │      ------------------------------                                                                                      │
                 │ ▪ Output Variable :                                                                                                      │
-                │      ▪ (bool)   varReturn                                                                                                │
+                │      ▪ varReturn (bool)                                                                                                  │
                 ├──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
                 │ ▪ Linked Function :                                                                                                      │
                 │      ▪                                                                                                                   │
@@ -310,26 +334,32 @@ namespace
                 */
                 public static function
                     getBooleanConvertion (
-                        $varUserSession, string $varData
+                        mixed $varUserSession, string $varData
                         )
                             {
-                            //---> Data Initialization
-                                $varReturn = true;
+                            //-----[ DATA INITIALIZATION ]-------------------------------------------------------------------( START )-----
+                                //---> Initializing : varReturn
+                                    $varReturn =
+                                        (bool) true;
+                            //-----[ DATA INITIALIZATION ]-------------------------------------------------------------------(  END  )-----
 
-                            //---> Data Process
+                            //-----[ DATA PROCESS ]--------------------------------------------------------------------------( START )-----
                                 try {
-                                    if ((strcmp ($varData, 'f') == 0) OR ((boolean) $varData == false))
-                                        {
-                                        $varReturn = false;
-                                        }
+                                    //---> Reinitializing : varReturn
+                                        if ((strcmp ($varData, 'f') == 0) OR ((bool) $varData == false)) {
+                                            $varReturn =
+                                                false;
+                                            }
                                     }
 
                                 catch (\Exception $ex) {
                                     }
+                            //-----[ DATA PROCESS ]--------------------------------------------------------------------------(  END  )-----
 
-                            //---> Data Return
+                            //-----[ DATA RETURN ]---------------------------------------------------------------------------( START )-----
                                 return
                                     $varReturn;
+                            //-----[ DATA RETURN ]---------------------------------------------------------------------------(  END  )-----
                             }
 
 
@@ -343,62 +373,68 @@ namespace
                 │ ▪ Description     │ Mendapatkan data dari database sesuai syntax query (varSQLQuery)                                     │
                 ├───────────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                 │ ▪ Input Variable  :                                                                                                      │
-                │      ▪ (mixed)  varUserSession ► User Session                                                                            │
-                │      ▪ (string) varSQLQuery ► SQL Query Syntax                                                                           │
+                │      ▪ varUserSession (mixed - Mandatory) ► User Session                                                                 │
+                │      ▪ varSQLQuery (string - Mandatory) ► SQL Query Syntax                                                               │
                 │      ------------------------------                                                                                      │
                 │ ▪ Output Variable :                                                                                                      │
-                │      ▪ (array) varReturn                                                                                                 │
+                │      ▪ varReturn (array)                                                                                                 │
                 ├──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
                 │ ▪ Linked Function :                                                                                                      │
                 │      ▪ \App\Http\Helpers\ZhtHelper\BackEnd\Database\Helper_PostgreSQL::                                                  │
                 │           getArrayFromQueryExecutionDataFetch_UsingPGSQLConnection                                                       │
-                │              ($varUserSession, $varSQLQuery)                                                                             │
+                │              (mixed $varUserSession, string $varSQLQuery)                                                                │
                 │      ▪ \App\Http\Helpers\ZhtHelper\BackEnd\Database\Helper_PostgreSQL::                                                  │
                 │           getResourceAvailabilityStatus                                                                                  │
-                │              ($varUserSession)                                                                                           │
+                │              (mixed $varUserSession)                                                                                     │
                 │      ▪ \App\Http\Helpers\ZhtHelper\General\Utilities\Helper_DateTime::                                                   │
                 │           getDifferenceOfDateTimeTZString                                                                                │
-                │              ($varUserSession, $varSQLQuery, $varFinishDateTimeTZ)                                                       │
+                │              (mixed $varUserSession, string $varSQLQuery, string $varFinishDateTimeTZ)                                   │
                 │      ▪ \App\Http\Helpers\ZhtHelper\General\Utilities\Helper_DateTime::                                                   │
                 │           getTimeStampTZConvert_PHPDateTimeToDateTimeTZString                                                            │
-                │              ($varUserSession, $varPHPDateTime, $varTimeZoneOffset)                                                      │
+                │              (mixed $varUserSession, \Date $varPHPDateTime, string $varTimeZoneOffset)                                   │
                 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
                 */
                 public static function
                     getQueryExecution (
-                        $varUserSession, string $varSQLQuery
+                        mixed $varUserSession, string $varSQLQuery
                         )
                             {
-                            //---> Data Initialization
-                                $varReturn = false;
+                            //-----[ DATA INITIALIZATION ]-------------------------------------------------------------------( START )-----
+                                //---> Initializing : varReturn
+                                    $varReturn =
+                                        (array) null;
+                            //-----[ DATA INITIALIZATION ]-------------------------------------------------------------------(  END  )-----
 
-                            //---> Data Process
+                            //-----[ DATA PROCESS ]--------------------------------------------------------------------------( START )-----
                                 try {
                                     if (self::getResourceAvailabilityStatus ($varUserSession) === false)
                                         {
                                         throw
-                                            new \Exception('Database Resource is not available');                
+                                            new \Exception ('Database Resource is not available');                
                                         }
 
                                     if (!$varSQLQuery)
                                         {
                                         throw
-                                            new \Exception('Incorrect SQL syntax');
+                                            new \Exception ('Incorrect SQL syntax');
                                         }
                                     else
                                         {
-                                        $varSQLQuery =
-                                            ltrim (
-                                                str_replace (
-                                                    "\n",
-                                                    ""
-                                                    ,
-                                                    $varSQLQuery
-                                                    )
-                                            );
-                                        //echo $varSQLQuery;
+                                        //---> Reinitializing : varSQLQuery
+                                            $varSQLQuery =
+                                                ltrim (
+                                                    str_replace (
+                                                        "\n",
+                                                        ""
+                                                        ,
+                                                        $varSQLQuery
+                                                        )
+                                                );
+                                            //echo $varSQLQuery;
 
-                                        $varReturn['process']['DBMS']['executionTime']['interval'] = NULL;
+                                        //---> Reinitializing : varReturn
+                                            $varReturn['process']['DBMS']['executionTime']['interval'] =
+                                                null;
 
                                         //---> Inisialisasi [Process][StartDateTime]
                                             $varDataTemp = 
@@ -406,8 +442,12 @@ namespace
                                                     $varUserSession, 
                                                     "SELECT NOW();"
                                                     );
-                                            $varTempExplode = explode('+', $varDataTemp['data'][0]['now']);
-                                            unset($varDataTemp);
+                                            $varTempExplode =
+                                                explode (
+                                                    '+',
+                                                    $varDataTemp['data'][0]['now']
+                                                    );
+                                            unset ($varDataTemp);
 
                                             $varReturn['process']['DBMS']['executionTime']['startDateTimeTZ'] =
                                                 \App\Http\Helpers\ZhtHelper\General\Utilities\Helper_DateTime::getTimeStampTZConvert_PHPDateTimeToDateTimeTZString(
@@ -424,11 +464,14 @@ namespace
                                                     $varSQLQuery
                                                     );
 
-                                            $varReturn['data'] = $varDataTemp['data'];
-                                            $varReturn['rowCount'] = $varDataTemp['rowCount'];
-                                            $varReturn['notice'] = $varDataTemp['notice'];
+                                            $varReturn['data'] =
+                                                $varDataTemp['data'];
+                                            $varReturn['rowCount'] =
+                                                $varDataTemp['rowCount'];
+                                            $varReturn['notice'] =
+                                                $varDataTemp['notice'];
 
-                                            unset($varDataTemp);
+                                            unset ($varDataTemp);
 
                                         //---> Inisialisasi : varReturn[process][DBMS][finishDateTimeTZ]
                                             $varReturn['process']['DBMS']['executionTime']['finishDateTimeTZ'] =
@@ -450,10 +493,12 @@ namespace
 
                                 catch (\Exception $ex) {
                                     }
+                            //-----[ DATA PROCESS ]--------------------------------------------------------------------------(  END  )-----
 
-                            //---> Data Return
+                            //-----[ DATA RETURN ]---------------------------------------------------------------------------( START )-----
                                 return
                                     $varReturn;
+                            //-----[ DATA RETURN ]---------------------------------------------------------------------------(  END  )-----
                             }                    
 
 
@@ -464,14 +509,14 @@ namespace
                 │ ▪ Version         │ 1.0000.0000003                                                                                       │
                 │ ▪ Last Update     │ 2025-12-16                                                                                           │
                 │ ▪ Creation Date   │ 2020-07-21                                                                                           │
-                │ ▪ Description     │ Mengambil data dari database sesuai syntax query (varSQLQuery                                        │
+                │ ▪ Description     │ Mengambil data dari database sesuai syntax query (varSQLQuery)                                       │
                 ├───────────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                 │ ▪ Input Variable  :                                                                                                      │
-                │      ▪ (mixed)  varUserSession ► User Session                                                                            │
-                │      ▪ (string) varSQLQuery ► SQL Query Syntax                                                                           │
+                │      ▪ varUserSession ► User Session (mixed - Mandatory)                                                                 │
+                │      ▪ varSQLQuery ► SQL Query Syntax (string - Mandatory)                                                               │
                 │      ------------------------------                                                                                      │
                 │ ▪ Output Variable :                                                                                                      │
-                │      ▪ (array)  varReturn                                                                                             │
+                │      ▪ varReturn (array)                                                                                                 │
                 ├──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
                 │ ▪ Linked Function :                                                                                                      │
                 │      ▪                                                                                                                   │
@@ -479,62 +524,76 @@ namespace
                 */
                 private static function
                     getQueryExecutionDataFetch (
-                        $varUserSession, string $varSQLQuery
+                        mixed $varUserSession, string $varSQLQuery
                         )
                             {
-                            //---> Data Initialization
-                                $varReturn = false;
-
-                            //---> Data Process
-                                try {
-                                    $varSQLQuery =
-                                        ltrim (
-                                            str_replace (
-                                                "\n",
-                                                "" ,
-                                                $varSQLQuery
-                                                )
-                                            );
-
+                            //-----[ DATA INITIALIZATION ]-------------------------------------------------------------------( START )-----
+                                //---> Initializing : varReturn
                                     $varReturn =
-                                        \Illuminate\Support\Facades\DB::select (
-                                            $varSQLQuery
-                                            );
+                                        (array) null;
+                            //-----[ DATA INITIALIZATION ]-------------------------------------------------------------------(  END  )-----
+
+                            //-----[ DATA PROCESS ]--------------------------------------------------------------------------( START )-----
+                                try {
+                                    //---> Initializing : varSQLQuery
+                                        $varSQLQuery =
+                                            ltrim (
+                                                str_replace (
+                                                    "\n",
+                                                    "" ,
+                                                    $varSQLQuery
+                                                    )
+                                                );
+
+                                    //---> Reinitializing : varReturn
+                                        $varReturn =
+                                            \Illuminate\Support\Facades\DB::select (
+                                                $varSQLQuery
+                                                );
                                     }
 
                                 catch (\Exception $ex) {
                                     }
+                            //-----[ DATA PROCESS ]--------------------------------------------------------------------------(  END  )-----
 
-                            //---> Data Return
+                            //-----[ DATA RETURN ]---------------------------------------------------------------------------( START )-----
                                 return
                                     $varReturn;
+                            //-----[ DATA RETURN ]---------------------------------------------------------------------------(  END  )-----
                             }
 
 
                 /*
-                +--------------------------------------------------------------------------------------------------------------------------+
-                | ▪ Method Name     : getResourceAvailabilityStatus                                                                        |
-                +--------------------------------------------------------------------------------------------------------------------------+
-                | ▪ Version         : 1.0000.0000003                                                                                       |
-                | ▪ Last Update     : 2025-12-16                                                                                           |
-                | ▪ Creation Date   : 2020-07-26                                                                                           |
-                | ▪ Description     : Mendapatkan status ketersediaan resource PostgreSQL                                                  |
-                +--------------------------------------------------------------------------------------------------------------------------+
-                | ▪ Input Variable  :                                                                                                      |
-                |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-                | ▪ Output Variable :                                                                                                      |
-                |      ▪ (bool)   varReturn                                                                                               |
-                +--------------------------------------------------------------------------------------------------------------------------+
+                ┌───────────────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────┐
+                │ ▪ Method Name     │ getResourceAvailabilityStatus                                                                        │
+                ├───────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
+                │ ▪ Version         │ 1.0000.0000003                                                                                       │
+                │ ▪ Last Update     │ 2025-12-16                                                                                           │
+                │ ▪ Creation Date   │ 2020-07-26                                                                                           │
+                │ ▪ Description     │ Mendapatkan status ketersediaan resource PostgreSQL                                                  │
+                ├───────────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────┤
+                │ ▪ Input Variable  :                                                                                                      │
+                │      ▪ varUserSession ► User Session (mixed - Mandatory)                                                                 │
+                │      ------------------------------                                                                                      │
+                │ ▪ Output Variable :                                                                                                      │
+                │      ▪ varReturn (bool)                                                                                                  │
+                ├──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+                │ ▪ Linked Function :                                                                                                      │
+                │      ▪                                                                                                                   │
+                └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
                 */
                 public static function
                     getResourceAvailabilityStatus (
-                        $varUserSession
+                        mixed $varUserSession
                         )
                             {
-                            //---> Data Initialization
-                                $varReturn = (bool) false;
+                            //-----[ DATA INITIALIZATION ]-------------------------------------------------------------------( START )-----
+                                //---> Initializing : varReturn
+                                    $varReturn =
+                                        (bool) false;
+                            //-----[ DATA INITIALIZATION ]-------------------------------------------------------------------(  END  )-----
 
-                            //---> Data Process
+                            //-----[ DATA PROCESS ]--------------------------------------------------------------------------( START )-----
                                 try {
                                     if (!$varDataFetch =
                                         \Illuminate\Support\Facades\DB::select (
@@ -546,15 +605,19 @@ namespace
                                             new \Exception("Error");
                                         }
 
-                                    $varReturn = true;
+                                    //---> Reinitializing : varReturn
+                                        $varReturn =
+                                            true;
                                     }
 
                                 catch (\Exception $ex) {
                                     }
+                            //-----[ DATA PROCESS ]--------------------------------------------------------------------------(  END  )-----
 
-                            //---> Data Return
+                            //-----[ DATA RETURN ]---------------------------------------------------------------------------( START )-----
                                 return
                                     $varReturn;
+                            //-----[ DATA RETURN ]---------------------------------------------------------------------------(  END  )-----
                             }
                 }
         }

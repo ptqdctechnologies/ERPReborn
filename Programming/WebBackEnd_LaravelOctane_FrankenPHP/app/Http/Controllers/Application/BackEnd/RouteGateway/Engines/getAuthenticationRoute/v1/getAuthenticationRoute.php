@@ -31,11 +31,11 @@ namespace
                 │ ▪ Description     │ Fungsi Utama Engine                                                                                  │
                 ├───────────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                 │ ▪ Input Variable  :                                                                                                      │
-                │      ▪ (mixed)  varUserSession ► User Session                                                                            │
-                |      ▪ (array)  varData ► Data                                                                                           |
+                │      ▪ varUserSession (mixed - Mandatory) ► User Session                                                                 │
+                |      ▪ varData (array - Mandatory) ► Data                                                                                |
                 │      ------------------------------                                                                                      │
                 │ ▪ Output Variable :                                                                                                      │
-                │      ▪ (string) varReturn                                                                                                │
+                │      ▪ varReturn (string)                                                                                                │
                 ├──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
                 │ ▪ Linked Function :                                                                                                      │
                 │      ▪                                                                                                                   │
@@ -43,17 +43,21 @@ namespace
                 */
                 public function
                     main (
-                        //$varUserSession, $varData
+                        mixed $varUserSession, array $varData
                         )
                             {
-                            echo "getAuthenticationRoute";
-                            //$varUserSession = 1;
-                            //$varAPIWebToken = 1;
+                            //---> Data Initialization
+                                $varReturn = (string) null;
 
-                            //\App\Http\Helpers\ZhtHelper\General\System\Helper_LaravelRoute::setDynamicRoute_Examples_APICall (
-                            //    $varUserSession,
-                            //    $varAPIWebToken
-                            //    );
+                            //---> Data Process
+                                try {
+                                    }
+                                catch (\Exception $ex) {
+                                    }
+
+                            //---> Data Return
+                                return
+                                    $varReturn;
                             }
                 }
         }
