@@ -95,41 +95,46 @@ namespace
                 */
                 private static function
                     getUserPrincipalNameFromSAMAccountName (
-                        $varUserSession, $varBaseDN, $varSAMAccountName
+                        mixed $varUserSession, string $varBaseDN, string $varSAMAccountName
                         )
                             {
-                            //---> Data Initialization
-                                $varReturn =
-                                    (string) null;
-
-                            //---> Data Process
-                                try {
+                            //-----[ DATA INITIALIZATION ]-------------------------------------------------------------------( START )-----
+                                //---> Initializing : varReturn
                                     $varReturn =
-                                        (
-                                        $varSAMAccountName.
-                                        '@'.
-                                        strtoupper (
-                                            str_replace (
-                                                ',',
-                                                '.',
+                                        (string) null;
+                            //-----[ DATA INITIALIZATION ]-------------------------------------------------------------------(  END  )-----
+
+                            //-----[ DATA PROCESS ]--------------------------------------------------------------------------( START )-----
+                                try {
+                                    //---> Reinitializing : varReturn                                
+                                        $varReturn =
+                                            (
+                                            $varSAMAccountName.
+                                            '@'.
+                                            strtoupper (
                                                 str_replace (
-                                                    'dc=',
-                                                    '',
-                                                    strtolower (
-                                                        $varBaseDN
+                                                    ',',
+                                                    '.',
+                                                    str_replace (
+                                                        'dc=',
+                                                        '',
+                                                        strtolower (
+                                                            $varBaseDN
+                                                            )
                                                         )
                                                     )
                                                 )
-                                            )
-                                        );
+                                            );
                                     }
 
                                 catch (\Exception $ex) {
                                     }
+                            //-----[ DATA PROCESS ]--------------------------------------------------------------------------(  END  )-----
 
-                            //---> Data Return
+                            //-----[ DATA RETURN ]---------------------------------------------------------------------------( START )-----
                                 return
                                     $varReturn;
+                            //-----[ DATA RETURN ]---------------------------------------------------------------------------(  END  )-----
                             }
 
 
@@ -163,38 +168,44 @@ namespace
                         string $varPassword = null
                         )
                             {
-                            //---> Data Initialization
-                                $varReturn =
-                                    (bool) false;
+                            //-----[ DATA INITIALIZATION ]-------------------------------------------------------------------( START )-----
+                                //---> Initializing : varReturn
+                                    $varReturn =
+                                        (bool) false;
+                            //-----[ DATA INITIALIZATION ]-------------------------------------------------------------------(  END  )-----
 
-                            //---> Data Process
+                            //-----[ DATA PROCESS ]--------------------------------------------------------------------------( START )-----
                                 try {
-                                    $ObjLDAPConnection =
-                                        ldap_connect (
-                                            $varLDAPHost,
-                                            $varLDAPPort
-                                            );
+                                    //---> Initializing : ObjLDAPConnection
+                                        $ObjLDAPConnection =
+                                            ldap_connect (
+                                                $varLDAPHost,
+                                                $varLDAPPort
+                                                );
 
-                                    if (!$ObjLDAPConnection)
-                                        {
-                                        throw
-                                            new \Exception ("Active Direcoty Connection Failed");
-                                        }
-                                    else
-                                        {
-                                        unset ($ObjLDAPBind);
+                                    //---> Reinitializing : varReturn
+                                        if (!$ObjLDAPConnection)
+                                            {
+                                            throw
+                                                new \Exception ("Active Direcoty Connection Failed");
+                                            }
+                                        else
+                                            {
+                                            unset ($ObjLDAPBind);
 
-                                        $varReturn =
-                                            true;
-                                        }
+                                            $varReturn =
+                                                true;
+                                            }
                                     }
 
                                 catch (\Exception $ex) {
                                     }
+                            //-----[ DATA PROCESS ]--------------------------------------------------------------------------(  END  )-----
 
-                            //---> Data Return
+                            //-----[ DATA RETURN ]---------------------------------------------------------------------------( START )-----
                                 return
                                     $varReturn;
+                            //-----[ DATA RETURN ]---------------------------------------------------------------------------(  END  )-----
                             }
                 }
         }

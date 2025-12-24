@@ -86,7 +86,8 @@ namespace
                         )
                             {
                             //---> Data Initialization
-                                $varReturn = (string) null;
+                                $varReturn =
+                                    (string) null;
 
                             //---> Data Process
                                 try {
@@ -119,7 +120,8 @@ namespace
                         )
                             {
                             //---> Data Initialization
-                                $varReturn = (string) null;
+                                $varReturn =
+                                    (string) null;
 
                             //---> Data Process
                                 try {

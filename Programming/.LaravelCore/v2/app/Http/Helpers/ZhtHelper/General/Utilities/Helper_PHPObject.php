@@ -109,7 +109,7 @@ namespace
 
                                     $varPattern =
                                         '/'.
-                                        '(((public)|(protected)|(public))?)+([\s])*+(static)?+([\s])*+(function)+([\s]*)+([a-zA-Z0-9_-]*)+([\s]*)+(\()+([\s]*)+([a-zA-Z0-9_&$,\s\\\\]*)+([\s]*)+(\))'.
+                                        '(((public)|(protected)|(public))?)+([\s])*+(static)?+([\s])*+(function)+([\s]*)+([a-zA-Z0-9_-]*)+([\s]*)+(\()+([\s]*)+([a-zA-Z0-9_=&$,\s\\\\]*)+([\s]*)+(\))'.
                                         '/m';
 
                                     preg_match_all (

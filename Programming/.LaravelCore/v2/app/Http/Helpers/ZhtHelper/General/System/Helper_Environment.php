@@ -85,7 +85,7 @@ namespace
                 │      ▪ (void)                                                                                                            │
                 │      ------------------------------                                                                                      │
                 │ ▪ Output Variable :                                                                                                      │
-                │      ▪ (string) varReturn                                                                                                │
+                │      ▪ varReturn (string)                                                                                                │
                 ├──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
                 │ ▪ Linked Function :                                                                                                      │
                 │      ▪                                                                                                                   │
@@ -95,21 +95,27 @@ namespace
                     getApplicationID (
                         )
                             {
-                            //---> Data Initialization
-                                $varReturn = null;
-
-                            //---> Data Process
-                                try {
+                            //-----[ DATA INITIALIZATION ]-------------------------------------------------------------------( START )-----
+                                //---> Initializing : varReturn
                                     $varReturn =
-                                        'ERPReborn';
+                                        (string) null;
+                            //-----[ DATA INITIALIZATION ]-------------------------------------------------------------------(  END  )-----
+
+                            //-----[ DATA PROCESS ]--------------------------------------------------------------------------( START )-----
+                                try {
+                                    //---> Reinitializing : varReturn
+                                        $varReturn =
+                                            'ERPReborn';
                                     }
 
                                 catch (\Exception $ex) {
                                     }
+                            //-----[ DATA PROCESS ]--------------------------------------------------------------------------(  END  )-----
 
-                            //---> Data Return
+                            //-----[ DATA RETURN ]---------------------------------------------------------------------------( START )-----
                                 return
                                     $varReturn;
+                            //-----[ DATA RETURN ]---------------------------------------------------------------------------(  END  )-----
                             }
 
 
@@ -126,7 +132,7 @@ namespace
                 │      ▪ (void)                                                                                                            │
                 │      ------------------------------                                                                                      │
                 │ ▪ Output Variable :                                                                                                      │
-                │      ▪ (string) varReturn                                                                                                │
+                │      ▪ varReturn (string)                                                                                                │
                 ├──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
                 │ ▪ Linked Function :                                                                                                      │
                 │      ▪                                                                                                                   │
@@ -136,61 +142,79 @@ namespace
                     getApplicationDateTimeTZ (
                         )
                             {
-                            //---> Data Initialization
-                                $varReturn = null;
+                            //-----[ DATA INITIALIZATION ]-------------------------------------------------------------------( START )-----
+                                //---> Initializing : varReturn
+                                    $varReturn =
+                                        (string) null;
+                            //-----[ DATA INITIALIZATION ]-------------------------------------------------------------------(  END  )-----
 
-                            //---> Data Process
+                            //-----[ DATA PROCESS ]--------------------------------------------------------------------------( START )-----
                                 try {
-                                    date_default_timezone_set('Asia/Jakarta');
-                                    $varDate =
-                                        date_create (
-                                            null,
-                                            timezone_open('Asia/Jakarta')
+                                    //---> Set : Default Time Zone
+                                        date_default_timezone_set (
+                                            'Asia/Jakarta'
                                             );
 
-                                    $varMicroDate = microtime();
+                                    //---> Initializing : varDate
+                                        $varDate =
+                                            date_create (
+                                                null,
+                                                timezone_open (
+                                                    'Asia/Jakarta'
+                                                    )
+                                                );
 
-                                    $varDateArray =
-                                        explode (
-                                            " ",
-                                            $varMicroDate
+                                    //---> Initializing : varMicroDate
+                                        $varMicroDate =
+                                            microtime();
+
+                                    //---> Initializing : varDateArray
+                                        $varDateArray =
+                                            explode (
+                                                " ",
+                                                $varMicroDate
+                                                );
+
+                                    //---> Initializing : varMicroSecond
+                                        $varMicroSecond =
+                                            substr (
+                                                $varDateArray[1],
+                                                0,
+                                                6
+                                                );
+
+                                    //---> Initializing : varTimeZoneOffset
+                                        $varTimeZoneOffset =
+                                            str_pad (
+                                                (($varDate->getOffset())/3600),
+                                                2,
+                                                '0',
+                                                STR_PAD_LEFT
+                                                );
+
+                                    //---> Reinitializing : varReturn
+                                        $varReturn = (
+                                            date (
+                                                "Y-m-d H:i:s.",
+                                                time()
+                                                ).
+                                            $varMicroSecond.
+                                            '+'.
+                                            $varTimeZoneOffset
                                             );
 
-                                    $varMicroSecond =
-                                        substr (
-                                            $varDateArray[1],
-                                            0,
-                                            6
-                                            );
-
-                                    $varTimeZoneOffset =
-                                        str_pad (
-                                            (($varDate->getOffset())/3600),
-                                            2,
-                                            '0',
-                                            STR_PAD_LEFT
-                                            );
-
-                                    $varReturn = (
-                                        date (
-                                            "Y-m-d H:i:s.",
-                                            time()
-                                            ).
-                                        $varMicroSecond.
-                                        '+'.
-                                        $varTimeZoneOffset
-                                        );
-
-                                    //$varUnixTime = (int) file_get_contents((stripos($_SERVER['SERVER_PROTOCOL'],'https') === 0 ? 'https://' : 'http://').'localhost/getJSUnixTime');
-                                    //$varReturn = date("Y-m-d H:i:s.", $varUnixTime).$varMicroSecond.'+'.$varTimeZoneOffset;
+                                        //$varUnixTime = (int) file_get_contents((stripos($_SERVER['SERVER_PROTOCOL'],'https') === 0 ? 'https://' : 'http://').'localhost/getJSUnixTime');
+                                        //$varReturn = date("Y-m-d H:i:s.", $varUnixTime).$varMicroSecond.'+'.$varTimeZoneOffset;
                                     }
 
                                 catch (\Exception $ex) {
                                     }
+                            //-----[ DATA PROCESS ]--------------------------------------------------------------------------(  END  )-----
 
-                            //---> Data Return
+                            //-----[ DATA RETURN ]---------------------------------------------------------------------------( START )-----
                                 return
                                     $varReturn;
+                            //-----[ DATA RETURN ]---------------------------------------------------------------------------(  END  )-----
                             }
 
 
@@ -204,28 +228,32 @@ namespace
                 │ ▪ Description     │ Mencari nilai Konfigurasi Environment Back End sesuai Kunci Parameter (varKey)                       │
                 ├───────────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                 │ ▪ Input Variable  :                                                                                                      │
-                │      ▪ (mixed)  varUserSession ► User Session                                                                            │
-                │      ▪ (string) varKey ► Parameter                                                                                       │
+                │      ▪ varUserSession (mixed - Mandatory) ► User Session                                                                 │
+                │      ▪ varKey (string - Mandatory) ► Parameter                                                                           │
                 │      ------------------------------                                                                                      │
                 │ ▪ Output Variable :                                                                                                      │
-                │      ▪ (string) varReturn                                                                                                │
+                │      ▪ varReturn (mixed)                                                                                                 │
                 ├──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
                 │ ▪ Linked Function :                                                                                                      │
                 │      ▪ \App\Http\Helpers\ZhtHelper\General\System\Helper_Environment::                                                   │
                 │           getBackEndConfigEnvironment                                                                                    │
-                │              ($varUserSession, string $varKey)                                                                           │
+                │              (mixed $varUserSession, string $varKey)                                                                     │
                 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
                 */
                 public static function
                     getBackEndConfigEnvironment (
-                        $varUserSession, string $varKey
+                        mixed $varUserSession, string $varKey
                         )
                             {                            
-                            //---> Data Initialization
-                                $varReturn = null;
+                            //-----[ DATA INITIALIZATION ]-------------------------------------------------------------------( START )-----
+                                //---> Initializing : varReturn
+                                    $varReturn =
+                                        null;
+                            //-----[ DATA INITIALIZATION ]-------------------------------------------------------------------(  END  )-----
 
-                            //---> Data Process
+                            //-----[ DATA PROCESS ]--------------------------------------------------------------------------( START )-----
                                 try {
+                                    //---> Reinitializing : varReturn
                                     $varReturn =
                                         self::getConfigEnvironment (
                                             $varUserSession,
@@ -242,10 +270,12 @@ namespace
 
                                 catch (\Exception $ex) {
                                     }
+                            //-----[ DATA PROCESS ]--------------------------------------------------------------------------(  END  )-----
 
-                            //---> Data Return
+                            //-----[ DATA RETURN ]---------------------------------------------------------------------------( START )-----
                                 return
                                     $varReturn;
+                            //-----[ DATA RETURN ]---------------------------------------------------------------------------(  END  )-----
                             }
 
 
@@ -260,97 +290,102 @@ namespace
                 │                   │ (varKey)                                                                                             │
                 ├───────────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                 │ ▪ Input Variable  :                                                                                                      │
-                │      ▪ (mixed)  varUserSession ► User Session                                                                            │
-                │      ▪ (string) varKey ► Parameter                                                                                       │
-                │      ▪ (string) varPostfix ► Path nama file                                                                              │
+                │      ▪ varUserSession (mixed - Mandatory) ► User Session                                                                 │
+                │      ▪ varKey (string - Mandatory) ► Parameter                                                                           │
+                │      ▪ varPostfix (string - Mandatory) ► Path nama file                                                                  │
                 │      ------------------------------                                                                                      │
                 │ ▪ Output Variable :                                                                                                      │
-                │      ▪ (string) varReturn                                                                                                │
+                │      ▪ varReturn (string)                                                                                                │
                 ├──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
                 │ ▪ Linked Function :                                                                                                      │
-                │      ▪ \App\Http\Helpers\ZhtHelper\General\Utilities\Helper_Array                                                        │
+                │      ▪ \App\Http\Helpers\ZhtHelper\General\Utilities\Helper_Array::                                                      │
                 │           isKeyExist                                                                                                     │
-                │              ($varUserSession, string $varPath)                                                                          │
-                │      ▪ \App\Http\Helpers\ZhtHelper\General\Utilities\Helper_File                                                         │
+                │              (mixed $varUserSession, string $varPath)                                                                    │
+                │      ▪ \App\Http\Helpers\ZhtHelper\General\Utilities\Helper_File::                                                       │
                 │           getAutoMatchFilePath                                                                                           │
-                │              ($varUserSession, string $varPrefix, string $varPostfix)                                                    │
-                │      ▪ \App\Http\Helpers\ZhtHelper\General\Utilities\Helper_File                                                         │
+                │              (mixed $varUserSession, string $varPrefix, string $varPostfix)                                              │
+                │      ▪ \App\Http\Helpers\ZhtHelper\General\Utilities\Helper_File::                                                       │
                 │           getFileContent                                                                                                 │
-                │              ($varUserSession, string $varPath)                                                                          │
+                │              (mixed $varUserSession, string $varPath)                                                                    │
                 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
                 */
-                private static function
+                public static function
                     getConfigEnvironment (
-                        $varUserSession, string $varKey, string $varPostfix
+                        mixed $varUserSession, string $varKey, string $varPostfix
                         )
                             {
-                            //---> Data Initialization
-                                $varReturn = null;
+                            //-----[ DATA INITIALIZATION ]-------------------------------------------------------------------( START )-----
+                                //---> Initializing : varReturn
+                                    $varReturn =
+                                        (string) null;
+                            //-----[ DATA INITIALIZATION ]-------------------------------------------------------------------(  END  )-----
 
-                            //---> Data Process
+                            //-----[ DATA PROCESS ]--------------------------------------------------------------------------( START )-----
                                 try {
-                                    $varFileContent =
-                                        \App\Http\Helpers\ZhtHelper\General\Utilities\Helper_File::getFileContent(
-                                            $varUserSession,
-                                            \App\Http\Helpers\ZhtHelper\General\Utilities\Helper_File::getAutoMatchFilePath (
-                                                $varUserSession,
-                                                (getcwd().'/'),
-                                                $varPostfix
-                                                )
-                                            );
-
-                                    $varArrayTemp =
-                                        explode (
-                                            "\n",
-                                            $varFileContent
-                                            );
-
-                                    for ($i=0; $i != count($varArrayTemp); $i++)
-                                        {
-                                        if (strlen ($varArrayTemp[$i]) > 0)
-                                            {
-                                            $varArrayTemp2 =
-                                                explode(
-                                                    "=",
-                                                    $varArrayTemp[$i]
-                                                    );
-
-                                            $varValue =
-                                                $varArrayTemp2;
-
-                                            array_shift (
-                                                $varValue
+                                    //---> Initializing : varArrayTemp
+                                        $varArrayTemp =
+                                            explode (
+                                                "\n",
+                                                \App\Http\Helpers\ZhtHelper\General\Utilities\Helper_File::getFileContent (
+                                                    $varUserSession,
+                                                    \App\Http\Helpers\ZhtHelper\General\Utilities\Helper_File::getAutoMatchFilePath (
+                                                        $varUserSession,
+                                                        (getcwd().'/'),
+                                                        $varPostfix
+                                                        )
+                                                    )
                                                 );
 
-                                            $varValue =
-                                                implode (
-                                                    "=",
+                                    //---> ...
+                                        for ($i = 0; $i != count ($varArrayTemp); $i++)
+                                            {
+                                            if (strlen ($varArrayTemp[$i]) > 0)
+                                                {
+                                                $varArrayTemp2 =
+                                                    explode(
+                                                        "=",
+                                                        $varArrayTemp[$i]
+                                                        );
+
+                                                $varValue =
+                                                    $varArrayTemp2;
+
+                                                array_shift (
                                                     $varValue
                                                     );
 
-                                            $varData[$varArrayTemp2[0]] =
-                                                $varValue;
-                                            }
-                                        }
+                                                $varValue =
+                                                    implode (
+                                                        "=",
+                                                        $varValue
+                                                        );
 
-                                    if (\App\Http\Helpers\ZhtHelper\General\Utilities\Helper_Array::isKeyExist (
-                                        $varUserSession,
-                                        $varKey,
-                                        $varData
-                                        ) == true
-                                        )
-                                        { 
-                                        $varReturn =
-                                            $varData[$varKey];
-                                        }
+                                                $varData[$varArrayTemp2[0]] =
+                                                    $varValue;
+                                                }
+                                            }
+
+                                    //---> Reinitializing : varReturn
+                                        if (\App\Http\Helpers\ZhtHelper\General\Utilities\Helper_Array::isKeyExist (
+                                            $varUserSession,
+                                            $varKey,
+                                            $varData
+                                            ) == true
+                                            )
+                                            { 
+                                            $varReturn =
+                                                $varData[$varKey];
+                                            }
                                     }
 
                                 catch (\Exception $ex) {
                                     }
+                            //-----[ DATA PROCESS ]--------------------------------------------------------------------------(  END  )-----
 
-                            //---> Data Return
+                            //-----[ DATA RETURN ]---------------------------------------------------------------------------( START )-----
                                 return
                                     $varReturn;
+                            //-----[ DATA RETURN ]---------------------------------------------------------------------------(  END  )-----
                             }
                 }
         }

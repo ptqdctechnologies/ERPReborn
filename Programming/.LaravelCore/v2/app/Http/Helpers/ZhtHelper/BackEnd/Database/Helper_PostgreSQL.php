@@ -100,42 +100,48 @@ namespace
                         mixed $varUserSession, string $varSQLQuery
                         )
                             {
-                            
-                            //---> Data Initialization
-                                $varReturn =
-                                    (array) null;
+                            //-----[ DATA INITIALIZATION ]-------------------------------------------------------------------( START )-----
+                                //---> Initializing : varReturn
+                                    $varReturn =
+                                        (array) null;
+                            //-----[ DATA INITIALIZATION ]-------------------------------------------------------------------(  END  )-----
 
-                            //---> Data Process
+                            //-----[ DATA PROCESS ]--------------------------------------------------------------------------( START )-----
                                 try {
                                     $i = 0;
 
-                                    $varDataFetch =
-                                        self::getQueryExecutionDataFetch (
-                                            $varUserSession,
-                                            $varSQLQuery
-                                            );
+                                    //---> Initializing : varDataFetch
+                                        $varDataFetch =
+                                            self::getQueryExecutionDataFetch (
+                                                $varUserSession,
+                                                $varSQLQuery
+                                                );
 
-                                    $varData = [];
-                                    $varNotice = null;
-                                    foreach ($varDataFetch as $row)
-                                        {
-                                        $varData[] = (array) $row;
-                                        $i++;
-                                        }
+                                    //---> ...
+                                        $varData = [];
+                                        $varNotice = null;
+                                        foreach ($varDataFetch as $row)
+                                            {
+                                            $varData[] = (array) $row;
+                                            $i++;
+                                            }
 
-                                    $varReturn['data'] = $varData;
-                                    $varReturn['Notice'] = null;
-                                    $varReturn['rowCount']=$i;
+                                    //---> Renitializing : varReturn
+                                        $varReturn['data'] = $varData;
+                                        $varReturn['Notice'] = null;
+                                        $varReturn['rowCount']=$i;
 
-                                    unset ($varData);
+                                        unset ($varData);
                                     }
 
                                 catch (\Exception $ex) {
                                     }
+                            //-----[ DATA PROCESS ]--------------------------------------------------------------------------(  END  )-----
 
-                            //---> Data Return
+                            //-----[ DATA RETURN ]---------------------------------------------------------------------------( START )-----
                                 return
                                     $varReturn;
+                            //-----[ DATA RETURN ]---------------------------------------------------------------------------(  END  )-----
                             }
 
 
@@ -170,133 +176,139 @@ namespace
                         mixed $varUserSession, string $varSQLQuery
                         )
                             {
-                            //---> Data Initialization
-                                $varReturn =
-                                    (array) null;
+                            //-----[ DATA INITIALIZATION ]-------------------------------------------------------------------( START )-----
+                                //---> Initializing : varReturn
+                                    $varReturn =
+                                        (array) null;
+                            //-----[ DATA INITIALIZATION ]-------------------------------------------------------------------(  END  )-----
 
-                            //---> Data Process
+                            //-----[ DATA PROCESS ]--------------------------------------------------------------------------( START )-----
                                 try {
-                                    $varConfig =
-                                        (array) (\Illuminate\Support\Facades\DB::getConfig());
+                                    //---> Initializing : varConfig
+                                        $varConfig =
+                                            (array) (\Illuminate\Support\Facades\DB::getConfig());
 
-                                    if (!is_null ($varConfig))
-                                        {
-                                        $varConnectionString = 
-                                            'host='.$varConfig['host'].' '.
-                                            'port='.$varConfig['port'].' '.
-                                            'dbname='.$varConfig['database'].' '.
-                                            'user='.$varConfig['username'].' '.
-                                            'password='.$varConfig['password'];
-                                        //var_dump($varConnectionString);
-
-                                        $i=0;
-                                        $varData = [];
-                                        $varNotice = null;
-                                        if ($DBConnection = pg_connect ($varConnectionString))
+                                    //---> Reinitializing : varReturn
+                                        if (!is_null ($varConfig))
                                             {
-                                            pg_last_notice (
-                                                $DBConnection,
-                                                PGSQL_NOTICE_CLEAR
-                                                );
+                                            $varConnectionString = 
+                                                'host='.$varConfig['host'].' '.
+                                                'port='.$varConfig['port'].' '.
+                                                'dbname='.$varConfig['database'].' '.
+                                                'user='.$varConfig['username'].' '.
+                                                'password='.$varConfig['password'];
+                                            //var_dump($varConnectionString);
 
-                                            $varResult =
-                                                pg_query (
+                                            $i=0;
+                                            $varData = [];
+                                            $varNotice = null;
+                                            if ($DBConnection = pg_connect ($varConnectionString))
+                                                {
+                                                pg_last_notice (
                                                     $DBConnection,
+                                                    PGSQL_NOTICE_CLEAR
+                                                    );
+
+                                                $varResult =
+                                                    pg_query (
+                                                        $DBConnection,
+                                                        $varSQLQuery
+                                                        );
+
+                                                $varNotice =
+                                                    pg_last_notice (
+                                                        $DBConnection,
+                                                        PGSQL_NOTICE_ALL
+                                                        );
+
+                                                //---> Field Type Initializing
+                                                unset ($varFieldType);
+
+                                                for ($j=0, $jMax = pg_num_fields ($varResult); $j != $jMax; $j++)
+                                                    {
+                                                    $varFieldType[$j] =
+                                                        pg_field_type (
+                                                            $varResult,
+                                                            $j
+                                                            );
+                                                    }
+
+                                                while ($row = pg_fetch_assoc ($varResult)) {
+                                                    $varDataContent = null;
+                                                    $varData[$i] = $row;
+                                                    $j = 0;
+                                                    foreach ($varData[$i] as $key => $value)
+                                                        {
+                                                        $varData[$i][$key] = $value;
+
+                                                        $varData[$i][$key] = null;
+                                                        switch ($varFieldType[$j++])
+                                                            {
+                                                            case 'bool':
+                                                                $varData[$i][$key] =
+                                                                    self::getBooleanConvertion (
+                                                                        $varUserSession,
+                                                                        $value
+                                                                        );
+                                                                break;
+                                                            case 'int2':
+                                                            case 'int4':
+                                                            case 'int8':
+                                                                if (!is_null($value))
+                                                                    {
+                                                                    $varData[$i][$key] = (int) $value;
+                                                                    }
+                                                                break;
+                                                            case 'float4':
+                                                            case 'float8':
+                                                                if (!is_null($value))
+                                                                    {
+                                                                    $varData[$i][$key] = (float) $value;
+                                                                    }
+                                                                break;
+                                                            case 'varchar':
+                                                            default:
+                                                                if (!is_null($value))
+                                                                    {
+                                                                    $varData[$i][$key] = $value;
+                                                                    }
+                                                                break;
+                                                            }
+                                                        }
+                                                    $i++;
+                                                    }
+
+                                                pg_close (
+                                                    $DBConnection
+                                                    );
+                                                }
+
+                                            $varReturn['data'] = $varData;
+                                            $varReturn['notice'] = $varNotice;
+                                            $varReturn['rowCount']=$i;
+                                            }
+                                        else
+                                            {
+                                            $varDataTemp =
+                                                self::getArrayFromQueryExecutionDataFetch_UsingLaravelConnection (
+                                                    $varUserSession,
                                                     $varSQLQuery
                                                     );
 
-                                            $varNotice =
-                                                pg_last_notice (
-                                                    $DBConnection,
-                                                    PGSQL_NOTICE_ALL
-                                                    );
-
-                                            //---> Field Type Initializing
-                                            unset ($varFieldType);
-
-                                            for ($j=0, $jMax = pg_num_fields ($varResult); $j != $jMax; $j++)
-                                                {
-                                                $varFieldType[$j] =
-                                                    pg_field_type (
-                                                        $varResult,
-                                                        $j
-                                                        );
-                                                }
-
-                                            while ($row = pg_fetch_assoc ($varResult)) {
-                                                $varDataContent = null;
-                                                $varData[$i] = $row;
-                                                $j = 0;
-                                                foreach ($varData[$i] as $key => $value)
-                                                    {
-                                                    $varData[$i][$key] = $value;
-
-                                                    $varData[$i][$key] = null;
-                                                    switch ($varFieldType[$j++])
-                                                        {
-                                                        case 'bool':
-                                                            $varData[$i][$key] =
-                                                                self::getBooleanConvertion (
-                                                                    $varUserSession,
-                                                                    $value
-                                                                    );
-                                                            break;
-                                                        case 'int2':
-                                                        case 'int4':
-                                                        case 'int8':
-                                                            if (!is_null($value))
-                                                                {
-                                                                $varData[$i][$key] = (int) $value;
-                                                                }
-                                                            break;
-                                                        case 'float4':
-                                                        case 'float8':
-                                                            if (!is_null($value))
-                                                                {
-                                                                $varData[$i][$key] = (float) $value;
-                                                                }
-                                                            break;
-                                                        case 'varchar':
-                                                        default:
-                                                            if (!is_null($value))
-                                                                {
-                                                                $varData[$i][$key] = $value;
-                                                                }
-                                                            break;
-                                                        }
-                                                    }
-                                                $i++;
-                                                }
-
-                                            pg_close (
-                                                $DBConnection
-                                                );
+                                            $varReturn['data'] = $varDataTemp['data'];
+                                            $varReturn['notice'] = $varDataTemp['notice'];
+                                            $varReturn['rowCount'] = $varDataTemp['rowCount'];                        
                                             }
-
-                                        $varReturn['data'] = $varData;
-                                        $varReturn['notice'] = $varNotice;
-                                        $varReturn['rowCount']=$i;
-                                        }
-                                    else
-                                        {
-                                        $varDataTemp =
-                                            self::getArrayFromQueryExecutionDataFetch_UsingLaravelConnection (
-                                                $varUserSession,
-                                                $varSQLQuery
-                                                );
-
-                                        $varReturn['data'] = $varDataTemp['data'];
-                                        $varReturn['notice'] = $varDataTemp['notice'];
-                                        $varReturn['rowCount'] = $varDataTemp['rowCount'];                        
-                                        }
                                     }
 
                                 catch (\Exception $ex) {
                                     }
+                            //-----[ DATA PROCESS ]--------------------------------------------------------------------------(  END  )-----
 
-                            //---> Data Return
+                            //-----[ DATA RETURN ]---------------------------------------------------------------------------( START )-----
                                 return
                                     $varReturn;
+                            //-----[ DATA RETURN ]---------------------------------------------------------------------------(  END  )-----
                             }
 
 
@@ -325,24 +337,29 @@ namespace
                         mixed $varUserSession, string $varData
                         )
                             {
-                            //---> Data Initialization
-                                $varReturn =
-                                    (bool) true;
+                            //-----[ DATA INITIALIZATION ]-------------------------------------------------------------------( START )-----
+                                //---> Initializing : varReturn
+                                    $varReturn =
+                                        (bool) true;
+                            //-----[ DATA INITIALIZATION ]-------------------------------------------------------------------(  END  )-----
 
-                            //---> Data Process
+                            //-----[ DATA PROCESS ]--------------------------------------------------------------------------( START )-----
                                 try {
-                                    if ((strcmp ($varData, 'f') == 0) OR ((boolean) $varData == false))
-                                        {
-                                        $varReturn = false;
-                                        }
+                                    //---> Reinitializing : varReturn
+                                        if ((strcmp ($varData, 'f') == 0) OR ((bool) $varData == false)) {
+                                            $varReturn =
+                                                false;
+                                            }
                                     }
 
                                 catch (\Exception $ex) {
                                     }
+                            //-----[ DATA PROCESS ]--------------------------------------------------------------------------(  END  )-----
 
-                            //---> Data Return
+                            //-----[ DATA RETURN ]---------------------------------------------------------------------------( START )-----
                                 return
                                     $varReturn;
+                            //-----[ DATA RETURN ]---------------------------------------------------------------------------(  END  )-----
                             }
 
 
@@ -382,37 +399,42 @@ namespace
                         mixed $varUserSession, string $varSQLQuery
                         )
                             {
-                            //---> Data Initialization
-                                $varReturn =
-                                    (array) null;
+                            //-----[ DATA INITIALIZATION ]-------------------------------------------------------------------( START )-----
+                                //---> Initializing : varReturn
+                                    $varReturn =
+                                        (array) null;
+                            //-----[ DATA INITIALIZATION ]-------------------------------------------------------------------(  END  )-----
 
-                            //---> Data Process
+                            //-----[ DATA PROCESS ]--------------------------------------------------------------------------( START )-----
                                 try {
                                     if (self::getResourceAvailabilityStatus ($varUserSession) === false)
                                         {
                                         throw
-                                            new \Exception('Database Resource is not available');                
+                                            new \Exception ('Database Resource is not available');                
                                         }
 
                                     if (!$varSQLQuery)
                                         {
                                         throw
-                                            new \Exception('Incorrect SQL syntax');
+                                            new \Exception ('Incorrect SQL syntax');
                                         }
                                     else
                                         {
-                                        $varSQLQuery =
-                                            ltrim (
-                                                str_replace (
-                                                    "\n",
-                                                    ""
-                                                    ,
-                                                    $varSQLQuery
-                                                    )
-                                            );
-                                        //echo $varSQLQuery;
+                                        //---> Reinitializing : varSQLQuery
+                                            $varSQLQuery =
+                                                ltrim (
+                                                    str_replace (
+                                                        "\n",
+                                                        ""
+                                                        ,
+                                                        $varSQLQuery
+                                                        )
+                                                );
+                                            //echo $varSQLQuery;
 
-                                        $varReturn['process']['DBMS']['executionTime']['interval'] = NULL;
+                                        //---> Reinitializing : varReturn
+                                            $varReturn['process']['DBMS']['executionTime']['interval'] =
+                                                null;
 
                                         //---> Inisialisasi [Process][StartDateTime]
                                             $varDataTemp = 
@@ -471,10 +493,12 @@ namespace
 
                                 catch (\Exception $ex) {
                                     }
+                            //-----[ DATA PROCESS ]--------------------------------------------------------------------------(  END  )-----
 
-                            //---> Data Return
+                            //-----[ DATA RETURN ]---------------------------------------------------------------------------( START )-----
                                 return
                                     $varReturn;
+                            //-----[ DATA RETURN ]---------------------------------------------------------------------------(  END  )-----
                             }                    
 
 
@@ -503,33 +527,39 @@ namespace
                         mixed $varUserSession, string $varSQLQuery
                         )
                             {
-                            //---> Data Initialization
-                                $varReturn =
-                                    (array) null;
-
-                            //---> Data Process
-                                try {
-                                    $varSQLQuery =
-                                        ltrim (
-                                            str_replace (
-                                                "\n",
-                                                "" ,
-                                                $varSQLQuery
-                                                )
-                                            );
-
+                            //-----[ DATA INITIALIZATION ]-------------------------------------------------------------------( START )-----
+                                //---> Initializing : varReturn
                                     $varReturn =
-                                        \Illuminate\Support\Facades\DB::select (
-                                            $varSQLQuery
-                                            );
+                                        (array) null;
+                            //-----[ DATA INITIALIZATION ]-------------------------------------------------------------------(  END  )-----
+
+                            //-----[ DATA PROCESS ]--------------------------------------------------------------------------( START )-----
+                                try {
+                                    //---> Initializing : varSQLQuery
+                                        $varSQLQuery =
+                                            ltrim (
+                                                str_replace (
+                                                    "\n",
+                                                    "" ,
+                                                    $varSQLQuery
+                                                    )
+                                                );
+
+                                    //---> Reinitializing : varReturn
+                                        $varReturn =
+                                            \Illuminate\Support\Facades\DB::select (
+                                                $varSQLQuery
+                                                );
                                     }
 
                                 catch (\Exception $ex) {
                                     }
+                            //-----[ DATA PROCESS ]--------------------------------------------------------------------------(  END  )-----
 
-                            //---> Data Return
+                            //-----[ DATA RETURN ]---------------------------------------------------------------------------( START )-----
                                 return
                                     $varReturn;
+                            //-----[ DATA RETURN ]---------------------------------------------------------------------------(  END  )-----
                             }
 
 
@@ -557,11 +587,13 @@ namespace
                         mixed $varUserSession
                         )
                             {
-                            //---> Data Initialization
-                                $varReturn =
-                                    (bool) false;
+                            //-----[ DATA INITIALIZATION ]-------------------------------------------------------------------( START )-----
+                                //---> Initializing : varReturn
+                                    $varReturn =
+                                        (bool) false;
+                            //-----[ DATA INITIALIZATION ]-------------------------------------------------------------------(  END  )-----
 
-                            //---> Data Process
+                            //-----[ DATA PROCESS ]--------------------------------------------------------------------------( START )-----
                                 try {
                                     if (!$varDataFetch =
                                         \Illuminate\Support\Facades\DB::select (
@@ -573,16 +605,19 @@ namespace
                                             new \Exception("Error");
                                         }
 
-                                    $varReturn =
-                                        true;
+                                    //---> Reinitializing : varReturn
+                                        $varReturn =
+                                            true;
                                     }
 
                                 catch (\Exception $ex) {
                                     }
+                            //-----[ DATA PROCESS ]--------------------------------------------------------------------------(  END  )-----
 
-                            //---> Data Return
+                            //-----[ DATA RETURN ]---------------------------------------------------------------------------( START )-----
                                 return
                                     $varReturn;
+                            //-----[ DATA RETURN ]---------------------------------------------------------------------------(  END  )-----
                             }
                 }
         }

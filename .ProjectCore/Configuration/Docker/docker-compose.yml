@@ -77,6 +77,7 @@ services:
       - './Programming/WebBackEnd_LaravelOctane_FrankenPHP:/var/www/html/WebBackEnd'
       - './.ProjectCore/Configuration/Docker/PHPBackEnd_LaravelOctane_FrankenPHP/System/usr/local/etc/php/php.ini-development:/usr/local/etc/php/php.ini'
     environment:
+      #SERVER_NAME: 'localhost:80, 443'
       SERVER_NAME: ':80'
       SERVER_ROOT: '/var/www/html/WebBackEnd'
       APP_RUNTIME: 'Runtime\\FrankenPhpSymfony\\Runtime'

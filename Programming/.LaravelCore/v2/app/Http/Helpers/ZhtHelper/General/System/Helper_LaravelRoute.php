@@ -99,13 +99,21 @@ namespace
                     init (
                         )
                             {
-                            try {
-                                self::$ObjLaravelRoute =
-                                    new \Illuminate\Support\Facades\Route();
-                                }
+                            //-----[ DATA INITIALIZATION ]-------------------------------------------------------------------( START )-----
+                            //-----[ DATA INITIALIZATION ]-------------------------------------------------------------------(  END  )-----
 
-                            catch (\Exception $ex) {
-                                }
+                            //-----[ DATA PROCESS ]--------------------------------------------------------------------------( START )-----
+                                try {
+                                    self::$ObjLaravelRoute =
+                                        new \Illuminate\Support\Facades\Route ();
+                                    }
+
+                                catch (\Exception $ex) {
+                                    }
+                            //-----[ DATA PROCESS ]--------------------------------------------------------------------------(  END  )-----
+
+                            //-----[ DATA RETURN ]---------------------------------------------------------------------------( START )-----
+                            //-----[ DATA RETURN ]---------------------------------------------------------------------------(  END  )-----
                             }
 
 
@@ -139,12 +147,14 @@ namespace
                         mixed $varUserSession, string $varAPIWebToken
                         )
                             {
-                            //---> Data Initialization
-                                $varReturn = true;
+                            //-----[ DATA INITIALIZATION ]-------------------------------------------------------------------( START )-----
+                                $varReturn =
+                                    (bool) true;
+                            //-----[ DATA INITIALIZATION ]-------------------------------------------------------------------(  END  )-----
 
-                            //---> Data Process
+                            //-----[ DATA PROCESS ]--------------------------------------------------------------------------( START )-----
                                 try {                                   
-                                                echo '
+                                    echo '
     ● Dynamic Route - API Call Example :';
                                     $varArrayExampleAPIKey =
                                         \App\Http\Helpers\ZhtHelper\General\Utilities\Helper_File::getDeepestSubFoldersInFolder (
@@ -177,40 +187,48 @@ namespace
 
                                         if (is_file ($varFilePath))
                                             {
-                                            $varArrayFunctionEntities =
-                                                \App\Http\Helpers\ZhtHelper\General\Utilities\Helper_PHPObject::getAllFunctionInPHPFile (
-                                                    $varUserSession,
-                                                    $varFilePath
-                                                    );
+                                            //---> Initializing : varArrayFunctionEntities
+                                                $varArrayFunctionEntities =
+                                                    \App\Http\Helpers\ZhtHelper\General\Utilities\Helper_PHPObject::getAllFunctionInPHPFile (
+                                                        $varUserSession,
+                                                        $varFilePath
+                                                        );
 
                                             for ($j = 0, $jMax = count ($varArrayFunctionEntities); $j != $jMax; $j++)
                                                 {
+                                                if (
+                                                    (strcmp ($varArrayFunctionEntities[$j]['Name'], '__construct') == 0)
+                                                    OR (strcmp ($varArrayFunctionEntities[$j]['Name'], '__destruct') == 0)
+                                                    ) {
+                                                    continue;
+                                                    }
+                                                
                                                 //---> Initializing : varURL
-                                                $varURL = (
-                                                    str_replace (
-                                                        '/',
-                                                        '.',
+                                                    $varURL = (
                                                         str_replace (
-                                                            '#/',
-                                                            '',
-                                                            ('#'.$varArrayExampleAPIKey[$i])
-                                                            )
-                                                        ).
-                                                    '_'.
-                                                    $varArrayFunctionEntities[$j]['Name']
-                                                    );
+                                                            '/',
+                                                            '.',
+                                                            str_replace (
+                                                                '#/',
+                                                                '',
+                                                                ('#'.$varArrayExampleAPIKey[$i])
+                                                                )
+                                                            ).
+                                                        '_'.
+                                                        $varArrayFunctionEntities[$j]['Name']
+                                                        );
 
                                                 //---> Initializing : $varControllerPath
-                                                $varControllerPath = (
-                                                    $varClass.
-                                                    '@'.
-                                                    $varArrayFunctionEntities[$j]['Name']
-                                                    );
+                                                    $varControllerPath = (
+                                                        $varClass.
+                                                        '@'.
+                                                        $varArrayFunctionEntities[$j]['Name']
+                                                        );
 
                                                 echo '
       • [http://172.28.0.30/'.$varURL.']
           ► '.$varControllerPath;
-                                                
+
                                                 \App\Http\Helpers\ZhtHelper\General\System\Helper_LaravelRoute::setRoute (
                                                     $varURL,
                                                     'get',
@@ -220,13 +238,16 @@ namespace
                                             }
                                         }
                                     }
+
                                 catch (\Exception $ex) {
                                     $varReturn = false;
                                     }
+                            //-----[ DATA PROCESS ]--------------------------------------------------------------------------(  END  )-----
 
-                            //---> Data Return
+                            //-----[ DATA RETURN ]---------------------------------------------------------------------------( START )-----
                                 return
                                     $varReturn;
+                            //-----[ DATA RETURN ]---------------------------------------------------------------------------(  END  )-----
                             }
 
 
