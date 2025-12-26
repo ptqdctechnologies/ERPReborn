@@ -267,7 +267,8 @@
                     productUnitPriceCurrencyValue: parseFloat(val.productUnitPriceCurrencyValue.replace(/,/g, '')),
                     productUnitPriceCurrencyExchangeRate: parseFloat(val.productUnitPriceBaseCurrencyValue.replace(/,/g, '')),
                     wht: parseFloat(val.wht.replace(/,/g, '')),
-                    purchaseOrderDetail_RefID: parseInt(val.purchaseOrderDetail_RefID)
+                    purchaseOrderDetail_RefID: parseInt(val.purchaseOrderDetail_RefID),
+                    asset: parseInt(val.asset)
                 }
             });
 
@@ -296,6 +297,12 @@
                     </td>
                     <td style="border:1px solid #e9ecef;background-color:white; padding: 0.5rem !important; width: 100px;">
                         <input id="wht${key}" class="form-control number-without-negative" data-index=${key} autocomplete="off" style="border-radius:0px;" value="${decimalFormat(parseFloat(val.wht))}" />
+                    </td>
+                    <td style="border:1px solid #e9ecef;background-color:white; padding: 0.5rem !important; width: 70px;">
+                        <select class="form-control" id="asset${key}">
+                            <option value="0" ${val.asset == '0' && 'selected'}>No</option>
+                            <option value="1" ${val.asset == '1' && 'selected'}>Yes</option>
+                        </select>
                     </td>
                     <td>
                         <div class="input-group">
@@ -402,6 +409,7 @@
             const quantityUnitRefID                     = row.querySelector('input[id^="quantityUnit_RefID"]');
             const productUnitPriceCurrencyRefID         = row.querySelector('input[id^="productUnitPriceCurrency_RefID"]');
             const productUnitPriceCurrencyExchangeRate  = row.querySelector('input[id^="productUnitPriceCurrencyExchangeRate"]');
+            const assetSelect                           = row.querySelector('select[id^="asset"]');
             const purchaseOrderDetailRefID              = row.querySelector('input[id^="purchaseOrderDetail_RefID"]');
             const qtyInput                              = row.querySelector('input[id^="qty_ap"]');
             const totalInput                            = row.querySelector('input[id^="total_ap"]');
@@ -410,10 +418,11 @@
             const coaInput                              = row.querySelector('input[id^="coa_name"]');
 
             if (
-                qtyInput && whtInput && coaRefID && 
+                qtyInput && whtInput && coaRefID && assetSelect &&
                 qtyInput.value.trim() !== '' &&
                 whtInput.value.trim() !== '' &&
-                coaRefID.value.trim() !== ''
+                coaRefID.value.trim() !== '' && 
+                assetSelect.value.trim() !== ''
             ) {
                 const product   = row.children[7].innerText.trim();
                 const uom       = row.children[11].innerText.trim();
@@ -422,6 +431,7 @@
                 const totalValue    = totalInput.value.trim();
                 const whtValue      = whtInput.value.trim();
                 const coaValue      = coaInput.value.trim();
+                const assetValue    = assetSelect.value.trim();
 
                 let found           = false;
                 const existingRows  = targetTable.getElementsByTagName('tr');
@@ -452,6 +462,7 @@
                                     productUnitPriceCurrencyExchangeRate: parseInt(productUnitPriceCurrencyExchangeRate.value),
                                     wht: parseFloat(whtValue.replace(/,/g, '')),
                                     purchaseOrderDetail_RefID: parseInt(purchaseOrderDetailRefID.value),
+                                    asset: parseInt(assetValue.value)
                                 }
                             }
                         }
@@ -486,6 +497,7 @@
                             productUnitPriceCurrencyExchangeRate: parseInt(productUnitPriceCurrencyExchangeRate.value),
                             wht: parseFloat(whtValue.replace(/,/g, '')),
                             purchaseOrderDetail_RefID: parseInt(purchaseOrderDetailRefID.value),
+                            asset: parseInt(assetValue.value)
                         }
                     });
                 }
