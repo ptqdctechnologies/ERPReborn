@@ -2,15 +2,20 @@
     let dummyBeginningBalance       = 5000000000;
     let journalDetails              = [];
     let dataStore                   = [];
-    let totalCredit                 = 0;
-    let totalDebit                  = 0;
+    let cashDisbursementItemList    = [];
+    let cashReceiptItemList         = [];
+    let dataWorkflow                = {
+        workFlowPathRefID: null,
+        approverEntityRefID: null,
+        comment: null
+    };
     let currentIndexPickCOA         = null;
     let currentIndexPickRefNumber   = null;
     let currentIndexPickFromTo      = null;
     let triggerButtonModal          = null;
+    const dateNow                   = new Date();
     const accountNumber             = document.getElementById("bank_accounts_id");
     const journalDate               = document.getElementById("journal_date");
-    const dateDelivery              = document.getElementById("journal_date");
 
     function pickFromTo(index) {
         currentIndexPickFromTo = index;
@@ -33,23 +38,20 @@
         const tbody = document.getElementById("journal_details_table_body");
 
         const newRow = {
-            ref_number_id: "",
-            ref_number_name: "",
-            accountingEntryRecordType_RefID: "",
+            ref_number_id: "", // REF NUMBER
+            ref_number_name: "", // REF NUMBER
+            accountingEntryRecordType_RefID: "", // DEBIT OR CREDIT
             amountCurrency_RefID: 62000000000001,
-            amountCurrencyValue: "",
+            amountCurrencyValue: "", // PAYMENT
             amountCurrencyExchangeRate: 1,
             quantityUnit_RefID: 73000000000001,
             quantity: 0,
-            budget_name: "",
-            value: "",
-            unpaid: "",
-            balance: "",
-            chartOfAccount_RefID: "",
-            chartOfAccountName: "",
-            attachment: null,
-            attachment_url: "",
-            from_to: ""
+            source_RefID: "", // FROM OR TO
+            source: "", // FROM OR TO
+            chartOfAccount_RefID: "", // COA CODE
+            chartOfAccountName: "", // COA CODE
+            attachment: null, // ATTACHMENT
+            attachment_url: "" // ATTACHMENT
         };
 
         journalDetails.push(newRow);
@@ -68,11 +70,8 @@
         if (field == "accountingEntryRecordType_RefID") {
             totalDebitCredit();
         }
-        
-        console.log("Updated:", journalDetails); // untuk debugging
     }
 
-    // Upload file
     function handleFileUpload(index, input) {
         const file = input.files[0];
         if (!file) return;
@@ -84,14 +83,12 @@
         renderTable(); // refresh tampilan supaya preview muncul
     }
 
-    // Preview file (jika gambar)
-    function previewAttachment(url) {
-        const modalImg = document.getElementById("previewImage");
-        modalImg.src = url;
-        $("#previewModal").modal("show");
-    }
+    // function previewAttachment(url) {
+    //     const modalImg = document.getElementById("previewImage");
+    //     modalImg.src = url;
+    //     $("#previewModal").modal("show");
+    // }
 
-    // Hapus file yang diupload
     function deleteAttachment(index) {
         journalDetails[index].attachment = null;
         journalDetails[index].attachment_url = "";
@@ -103,12 +100,12 @@
         totalDebit  = 0;
         
         for (let index = 0; index < journalDetails.length; index++) {
-            if (journalDetails[index].accountingEntryRecordType_RefID === "CREDIT") {
-                totalCredit += 1;
-            } 
-            if (journalDetails[index].accountingEntryRecordType_RefID === "DEBIT") {
+            if (journalDetails[index].accountingEntryRecordType_RefID === "214000000000001") {
                 totalDebit += 1;
             }
+            if (journalDetails[index].accountingEntryRecordType_RefID === "214000000000002") {
+                totalCredit += 1;
+            } 
         }
 
         document.getElementById('total_cash_out').textContent   = totalDebit;
@@ -124,14 +121,14 @@
         document.querySelectorAll('input[id^="amountCurrencyValue"]').forEach(function(input, index) {
             let value = parseFloat(input.value.replace(/,/g, ''));
             if (!isNaN(value)) {
-                if (journalDetails[index].accountingEntryRecordType_RefID === "CREDIT") {
-                    totalCashIn += value;
-                    isTypeNotEmpty =  true;
-                } 
-                if (journalDetails[index].accountingEntryRecordType_RefID === "DEBIT") {
+                if (journalDetails[index].accountingEntryRecordType_RefID === "214000000000001") {
                     totalCashOut += value;
                     isTypeNotEmpty =  true;
                 }
+                if (journalDetails[index].accountingEntryRecordType_RefID === "214000000000002") {
+                    totalCashIn += value;
+                    isTypeNotEmpty =  true;
+                } 
 
                 totalPayment += value;
             }
@@ -192,7 +189,7 @@
                             </div>
                         </div>
                     </td>
-    
+
                     <td>
                         <div class="input-group">
                             <div class="input-group-append">
@@ -200,72 +197,73 @@
                                     <i class="fas fa-gift"></i>
                                 </span>
                             </div>
-                            <input type="hidden" id="ref_number_id_${index}" value="${row.ref_number_id}">
-                            <input type="hidden" id="amountCurrency_RefID_${index}" value="${row.amountCurrency_RefID}">
-                            <input type="hidden" id="quantityUnit_RefID_${index}" value="${row.quantityUnit_RefID}">
-                            <input type="hidden" id="amountCurrencyExchangeRate_${index}" value="${row.amountCurrencyExchangeRate}">
-                            <input type="hidden" id="quantity_${index}" value="${row.quantity}">
-                            <input type="text" id="ref_number_name_${index}" class="form-control" readonly
+                            <input type="hidden" id="ref_number_id${index}" value="${row.ref_number_id}">
+                            <input type="text" id="ref_number_name${index}" class="form-control" readonly
                                 value="${row.ref_number_name}"
                                 onchange="updateField(${index}, 'ref_number_name', this.value)" style="background-color: ${index === journalDetails.length - 1 ? '' : 'white'};">
                         </div>
                     </td>
-    
+
                     <td>
-                        <select ${index === journalDetails.length - 1 ? 'disabled' : ''} class="form-control" id="accountingEntryRecordType_RefID_${index}"
+                        <select ${index === journalDetails.length - 1 ? 'disabled' : ''} class="form-control" id="accountingEntryRecordType_RefID${index}"
                             onchange="updateField(${index}, 'accountingEntryRecordType_RefID', this.value)">
-                            <option value="" disabled ${row.accountingEntryRecordType_RefID === '' ? 'selected' : ''}>Select a ...</option>
-                            <option value="DEBIT" ${row.accountingEntryRecordType_RefID === 'DEBIT' ? 'selected' : ''}>DB</option>
-                            <option value="CREDIT" ${row.accountingEntryRecordType_RefID === 'CREDIT' ? 'selected' : ''}>CR</option>
+                            <option value="" disabled ${row.accountingEntryRecordType_RefID == '' ? 'selected' : ''}>Select a ...</option>
+                            <option value="214000000000001" ${row.accountingEntryRecordType_RefID == '214000000000001' ? 'selected' : ''}>DB</option>
+                            <option value="214000000000002" ${row.accountingEntryRecordType_RefID == '214000000000002' ? 'selected' : ''}>CR</option>
                         </select>
                     </td>
-    
+
                     <td>
-                        <input id="budget_${index}" type="text" class="form-control" value="${row.budget_name}" onchange="updateField(${index}, 'budget_name', this.value)" readonly />
+                        <input id="budget${index}" type="text" class="form-control" readonly />
                     </td>
 
                     <td>
-                        <input id="value_${index}" type="text" class="form-control" readonly value="${row.value}" onchange="updateField(${index}, 'value', this.value)">
+                        <input id="value${index}" type="text" class="form-control" readonly />
                     </td>
-    
+
                     <td>
-                        <input id="unpaid_${index}" type="text" class="form-control" readonly value="${row.unpaid}" onchange="updateField(${index}, 'unpaid', this.value)">
+                        <input id="unpaid${index}" type="text" class="form-control" readonly />
                     </td>
-    
+
                     <td>
-                        <input id="amountCurrencyValue${index}" class="form-control number-without-negative" autocomplete="off" value="${row.amountCurrencyValue}" onchange="updateField(${index}, 'amountCurrencyValue', parseFloat(this.value.replace(/,/g, '')))" ${index === journalDetails.length - 1 ? 'readonly' : ''}>
+                        <input type="hidden" id="amountCurrency_RefID${index}" value="${row.amountCurrency_RefID}">
+                        <input type="hidden" id="quantityUnit_RefID${index}" value="${row.quantityUnit_RefID}" />
+                        <input type="hidden" id="amountCurrencyExchangeRate${index}" value="${row.amountCurrencyExchangeRate}">
+                        <input type="hidden" id="quantity${index}" value="${row.quantity}">
+                        <input id="amountCurrencyValue${index}" class="form-control number-without-negative" autocomplete="off" value="${row.amountCurrencyValue}" onchange="updateField(${index}, 'amountCurrencyValue', parseFloat(this.value.replace(/,/g, '')))">
                     </td>
-    
+
                     <td>
-                        <input id="balance_${index}" type="number" class="form-control" readonly value="${row.balance}" onchange="updateField(${index}, 'balance', this.value)">
+                        <input id="balance${index}" type="number" class="form-control" readonly />
                     </td>
 
                     <td>
                         <div class="input-group">
                             <div class="input-group-append">
-                                <span class="input-group-text form-control" data-toggle="modal" data-target="${index === journalDetails.length - 1 ? '#' : '#myBanksAccount'}" onclick="pickFromTo(${index})" style="cursor:pointer;">
+                                <span class="input-group-text form-control" data-toggle="modal" data-target="#myBanksAccount" onclick="pickFromTo(${index})" style="cursor:pointer;">
                                     <i class="fas fa-gift"></i>
                                 </span>
                             </div>
-                            <input type="text" id="from_to_${index}" class="form-control" readonly value="${row.from_to}" onchange="updateField(${index}, 'from_to', this.value)" style="background-color: ${index === journalDetails.length - 1 ? '' : 'white'};">
+                            <input type="hidden" id="source_RefID${index}" class="form-control" value="${row.source_RefID}">
+                            <input type="text" id="source${index}" class="form-control" readonly value="${row.source}" onchange="updateField(${index}, 'source', this.value)" style="background-color: white;">
                         </div>
                     </td>
-    
+
                     <td>
                         <div class="input-group">
                             <div class="input-group-append">
-                                <span class="input-group-text form-control" data-toggle="modal" data-target="${index === journalDetails.length - 1 ? '#' : '#myGetChartOfAccount'}" onclick="pickCOA(${index})" style="cursor:pointer;">
+                                <span class="input-group-text form-control" data-toggle="modal" data-target="#myGetChartOfAccount" onclick="pickCOA(${index})" style="cursor:pointer;">
                                     <i class="fas fa-gift"></i>
                                 </span>
                             </div>
-                            <input type="hidden" id="chartOfAccount_RefID_${index}" value="${row.chartOfAccount_RefID}">
-                            <input type="text" id="chartOfAccountName_${index}" class="form-control" readonly
-                                value="${row.chartOfAccountName}" onchange="updateField(${index}, 'chartOfAccountName', this.value)" style="background-color: ${index === journalDetails.length - 1 ? '' : 'white'};">
+                            <input type="hidden" id="chartOfAccount_RefID${index}" value="${row.chartOfAccount_RefID}">
+                            <input type="text" id="chartOfAccountName${index}" class="form-control" readonly
+                                value="${row.chartOfAccountName}" onchange="updateField(${index}, 'chartOfAccountName', this.value)" style="background-color: white;">
                         </div>
                     </td>
-    
+
                     <td style="text-align:center;padding-right:unset;">
-                        ${row.attachment_url ? 
+                        ${row.attachment_url ?
                             `
                                 <div class="d-flex align-items-center" style="gap: 6px;">
                                     <div style="cursor:pointer;color:red;font-size:12px;" onclick="deleteAttachment(${index})">
@@ -277,14 +275,14 @@
                             `
                                 <label class="btn btn-sm mb-0" style="cursor:pointer; background-color: #e9ecef; border: 1px solid #ced4da;">
                                     <i class="fas fa-paperclip"></i>
-                                    <input ${index === journalDetails.length - 1 ? 'disabled' : ''} type="file" accept="image/*,.pdf,.doc,.docx" 
+                                    <input type="file" accept="image/*,.pdf,.doc,.docx" 
                                         style="display:none;" onchange="handleFileUpload(${index}, this)">
                                 </label>
                             `
                         }
                     </td>
                 `;
-                
+
                 // <td style="text-align:center;">
                 //     ${row.attachment_url ? 
                 //         `
@@ -311,13 +309,13 @@
 
             tbody.appendChild(tr);
 
-            $(`#accountingEntryRecordType_RefID_${index}`).on('change', function() {
+            $(`#accountingEntryRecordType_RefID${index}`).on('change', function() {
                 totalPayments();
             });
 
             $(`#amountCurrencyValue${index}`).on('keyup', function() {
                 let payment     = $(this).val().replace(/,/g, '');
-                let typePayment = $(`#accountingEntryRecordType_RefID_${index}`).val();
+                let typePayment = $(`#accountingEntryRecordType_RefID${index}`).val();
 
                 totalPayments();
             });
@@ -331,23 +329,27 @@
         const rows = sourceTable.getElementsByTagName('tr');
 
         for (let row of rows) {
-            const refNumberRefID                = row.querySelector('input[id^="ref_number_id_"]');
-            const refNumberName                 = row.querySelector('input[id^="ref_number_name_"]');
-            const chartOfAccountRefID           = row.querySelector('input[id^="chartOfAccount_RefID_"]');
-            const chartOfAccountName            = row.querySelector('input[id^="chartOfAccountName_"]');
-            const amountCurrencyRefID           = row.querySelector('input[id^="amountCurrency_RefID_"]');
-            const amountCurrencyExchangeRate    = row.querySelector('input[id^="amountCurrencyExchangeRate_"]');
-            const quantityUnitRefID             = row.querySelector('input[id^="quantityUnit_RefID_"]');
-            const debitCreditSelect             = row.querySelector('select[id^="accountingEntryRecordType_RefID_"]');
-            const budgetInput                   = row.querySelector('input[id^="budget_"]');
-            const paymentInput                  = row.querySelector('input[id^="amountCurrencyValue"]');
-            const quantityInput                 = row.querySelector('input[id^="quantity_"]');
+            const refNumberRefID                    = row.querySelector('input[id^="ref_number_id"]');
+            const refNumberName                     = row.querySelector('input[id^="ref_number_name"]');
+            const accountingEntryRecordTypeRefID    = row.querySelector('select[id^="accountingEntryRecordType_RefID"]');
+            const quantityUnitRefID                 = row.querySelector('input[id^="quantityUnit_RefID"]');
+            const amountCurrencyExchangeRate        = row.querySelector('input[id^="amountCurrencyExchangeRate"]');
+            const amountCurrencyRefID               = row.querySelector('input[id^="amountCurrency_RefID"]');
+            const sourceRefID                       = row.querySelector('input[id^="source_RefID"]');
+            const source                            = row.querySelector('input[id^="source"]');
+            const chartOfAccountRefID               = row.querySelector('input[id^="chartOfAccount_RefID"]');
+            const chartOfAccountName                = row.querySelector('input[id^="chartOfAccountName"]');
+            const quantityInput                     = row.querySelector('input[id^="quantity"]');
+            const paymentInput                      = row.querySelector('input[id^="amountCurrencyValue"]');
+            const budgetInput                       = row.querySelector('input[id^="budget"]');
 
             if (
-                chartOfAccountRefID && paymentInput && debitCreditSelect &&
-                chartOfAccountRefID.value.trim() !== '' &&
+                refNumberName && accountingEntryRecordTypeRefID && paymentInput && source && chartOfAccountName &&
+                refNumberName.value.trim() !== '' &&
+                accountingEntryRecordTypeRefID.value.trim() !== '' &&
                 paymentInput.value.trim() !== '' &&
-                debitCreditSelect.value.trim() !== ''
+                source.value.trim() !== '' &&
+                chartOfAccountName.value.trim() !== ''
             ) {
                 let found           = false;
                 const existingRows  = targetTable.getElementsByTagName('tr');
@@ -357,7 +359,7 @@
 
                     if (targetCode == refNumberRefID.value) {
                         targetRow.children[1].innerText = refNumberName.value;
-                        targetRow.children[2].innerText = debitCreditSelect.value;
+                        targetRow.children[2].innerText = accountingEntryRecordTypeRefID.value == '214000000000001' ? 'Debit' : 'Credit';
                         targetRow.children[3].innerText = budgetInput.value;
                         targetRow.children[4].innerText = paymentInput.value;
                         targetRow.children[5].innerText = chartOfAccountName.value;
@@ -368,13 +370,18 @@
                             dataStore[indexToUpdate] = {
                                 entities: {
                                     refNumberID: parseInt(refNumberRefID.value),
-                                    chartOfAccount_RefID: parseInt(chartOfAccountRefID.value),
-                                    accountingEntryRecordType_RefID: debitCreditSelect.value === "DEBIT" ? 214000000000001 : 214000000000002,
-                                    amountCurrency_RefID: parseInt(amountCurrencyRefID.value),
-                                    amountCurrencyValue: parseFloat(paymentInput.value.replace(/,/g, '')),
-                                    amountCurrencyExchangeRate: parseInt(amountCurrencyExchangeRate.value),
+                                    log_FileUpload_Pointer_RefID: null,
+                                    combinedBudgetSectionDetail_RefID: 169000000000001,
+                                    senderBankAccount_RefID: 167000000000001,
+                                    beneficiaryBankAccount_RefID: 167000000000001,
+                                    chartOfAccount_RefID: parseInt(chartOfAccountRefID.value), // USE
+                                    accountingEntryRecordType_RefID: parseInt(accountingEntryRecordTypeRefID.value),
+                                    amountCurrency_RefID: parseInt(amountCurrencyRefID.value), // USE
+                                    amountCurrencyValue: parseFloat(paymentInput.value.replace(/,/g, '')), // USE
+                                    amountCurrencyExchangeRate: parseInt(amountCurrencyExchangeRate.value), // USE
                                     quantityUnit_RefID: parseInt(quantityUnitRefID.value),
-                                    quantity: parseFloat(quantityInput.value.replace(/,/g, ''))
+                                    quantity: parseFloat(quantityInput.value.replace(/,/g, '')),
+                                    remarks: null
                                 }
                             }
                         }
@@ -386,7 +393,7 @@
                     newRow.innerHTML = `
                         <input type="hidden" id="refID[]" value="${refNumberRefID.value}">
                         <td style="text-align: left;padding: 0.8rem;">${refNumberName.value}</td>
-                        <td style="text-align: left;padding: 0.8rem;">${debitCreditSelect.value}</td>
+                        <td style="text-align: left;padding: 0.8rem;">${accountingEntryRecordTypeRefID.value == '214000000000001' ? 'Debit' : 'Credit'}</td>
                         <td style="text-align: left;padding: 0.8rem;text-transform: capitalize;">${budgetInput.value}</td>
                         <td style="text-align: left;padding: 0.8rem;">${paymentInput.value}</td>
                         <td style="text-align: left;padding: 0.8rem;">${chartOfAccountName.value}</td>
@@ -396,13 +403,18 @@
                     dataStore.push({
                         entities: {
                             refNumberID: parseInt(refNumberRefID.value),
-                            chartOfAccount_RefID: parseInt(chartOfAccountRefID.value),
-                            accountingEntryRecordType_RefID: debitCreditSelect.value === "DEBIT" ? 214000000000001 : 214000000000002,
-                            amountCurrency_RefID: parseInt(amountCurrencyRefID.value),
-                            amountCurrencyValue: parseFloat(paymentInput.value.replace(/,/g, '')),
-                            amountCurrencyExchangeRate: parseInt(amountCurrencyExchangeRate.value),
+                            log_FileUpload_Pointer_RefID: null,
+                            combinedBudgetSectionDetail_RefID: 169000000000001,
+                            senderBankAccount_RefID: 167000000000001,
+                            beneficiaryBankAccount_RefID: 167000000000001,
+                            chartOfAccount_RefID: parseInt(chartOfAccountRefID.value), // USE
+                            accountingEntryRecordType_RefID: parseInt(accountingEntryRecordTypeRefID.value),
+                            amountCurrency_RefID: parseInt(amountCurrencyRefID.value), // USE
+                            amountCurrencyValue: parseFloat(paymentInput.value.replace(/,/g, '')), // USE
+                            amountCurrencyExchangeRate: parseInt(amountCurrencyExchangeRate.value), // USE
                             quantityUnit_RefID: parseInt(quantityUnitRefID.value),
-                            quantity: parseFloat(quantityInput.value.replace(/,/g, ''))
+                            quantity: parseFloat(quantityInput.value.replace(/,/g, '')),
+                            remarks: null
                         }
                     });
                 }
@@ -439,24 +451,10 @@
         }
     }
 
-    function submitJournalDetails() {
-        $.ajax({
-            url: '/cashbank/save',  
-            method: 'POST',
-            data: {
-                _token: '{{ csrf_token() }}',
-                journal_details: JSON.stringify(journalDetails)
-            },
-            success: function(response) {
-                alert('Data berhasil dikirim!');
-            },
-            error: function(xhr) {
-                alert('Terjadi kesalahan: ' + xhr.responseText);
-            }
-        });
-    }
-
     function commentWorkflow() {
+        cashDisbursementItemList  = dataStore.filter(value => value.entities.accountingEntryRecordType_RefID == '214000000000002');
+        cashReceiptItemList       = dataStore.filter(value => value.entities.accountingEntryRecordType_RefID == '214000000000001');
+
         const swalWithBootstrapButtons = Swal.mixin({
             confirmButtonClass: 'btn btn-success btn-sm',
             cancelButtonClass: 'btn btn-danger btn-sm',
@@ -477,6 +475,9 @@
             confirmButtonColor: '#DDDAD0',
             reverseButtons: true
         }).then((result) => {
+            console.log('cashDisbursementItemList', cashDisbursementItemList);
+            console.log('cashReceiptItemList', cashReceiptItemList);
+            
             if ('value' in result) {
                 // dataWorkflow.comment = result.value;
                 ShowLoading();
@@ -491,14 +492,16 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-
+        
         $.ajax({
             type: 'POST',
             data: {
                 storeData: {
                     bankAccountsID: accountNumber.value,
                     journalDate: journalDate.value,
-                    journalDetail: JSON.stringify(dataStore)
+                    journalDetail: JSON.stringify(dataStore),
+                    cashDisbursementItemList: JSON.stringify(cashDisbursementItemList),
+                    cashReceiptItemList: JSON.stringify(cashReceiptItemList),
                 }
             },
             url: '{{ route("Journal.store") }}',
@@ -537,7 +540,7 @@
             }
         });
     }
-
+    
     function submitForm(value) {
         triggerButtonModal = value;
         $('#journalFormModal').modal('hide');
@@ -562,13 +565,13 @@
         const project       = $(this).find('td:nth-child(3)').text();
         const site          = $(this).find('td:nth-child(4)').text();
 
-        $(`#ref_number_id_${currentIndexPickRefNumber}`).val(sysId);
-        $(`#ref_number_name_${currentIndexPickRefNumber}`).val(trano);
-        $(`#ref_number_name_${currentIndexPickRefNumber}`).css('background-color', '#e9ecef');
+        $(`#ref_number_id${currentIndexPickRefNumber}`).val(sysId);
+        $(`#ref_number_name${currentIndexPickRefNumber}`).val(trano);
+        $(`#ref_number_name${currentIndexPickRefNumber}`).css('background-color', '#e9ecef');
 
-        $(`#budget_${currentIndexPickRefNumber}`).val(project);
+        $(`#budget${currentIndexPickRefNumber}`).val(project);
 
-        updateField(currentIndexPickRefNumber, 'ref_number_id_', parseInt(sysId));
+        updateField(currentIndexPickRefNumber, 'ref_number_id', parseInt(sysId));
         updateField(currentIndexPickRefNumber, 'ref_number_name', trano);
         updateField(currentIndexPickRefNumber, 'budget_name', project);
 
@@ -580,9 +583,9 @@
         let code  = $(this).find('td:nth-child(2)').text();
         let name  = $(this).find('td:nth-child(3)').text();
         
-        $(`#chartOfAccount_RefID_${currentIndexPickCOA}`).val(sysId);
-        $(`#chartOfAccountName_${currentIndexPickCOA}`).val(`${code} - ${name}`);
-        $(`#chartOfAccountName_${currentIndexPickCOA}`).css('background-color', '#e9ecef');
+        $(`#chartOfAccount_RefID${currentIndexPickCOA}`).val(sysId);
+        $(`#chartOfAccountName${currentIndexPickCOA}`).val(`${code} - ${name}`);
+        $(`#chartOfAccountName${currentIndexPickCOA}`).css('background-color', '#e9ecef');
 
         updateField(currentIndexPickCOA, 'chartOfAccount_RefID', parseInt(sysId));
         updateField(currentIndexPickCOA, 'chartOfAccountName', `${code} - ${name}`);
@@ -591,14 +594,15 @@
     });
 
     $('#tableBanksAccount').on('click', 'tbody tr', function() {
-        let sysID       = $(this).find('input[type="hidden"]').val();
-        let bankName    = $(this).find('td:nth-child(2)').text();
-        let bankAccount = $(this).find('td:nth-child(3)').text();
-        let accountName = $(this).find('td:nth-child(4)').text();
+        const sysID       = $(this).find('input[type="hidden"]').val();
+        const bankName    = $(this).find('td:nth-child(2)').text();
+        const bankAccount = $(this).find('td:nth-child(3)').text();
+        const accountName = $(this).find('td:nth-child(4)').text();
 
         if (currentIndexPickFromTo !== null) {
-            $(`#from_to_${currentIndexPickFromTo}`).val(`(${bankName}) ${bankAccount} - ${accountName}`);
-            $(`#from_to_${currentIndexPickFromTo}`).css({"background-color":"#e9ecef", "border": "1px solid #ced4da"});
+            $(`#source_RefID${currentIndexPickFromTo}`).val(sysID);
+            $(`#source${currentIndexPickFromTo}`).val(`(${bankName}) ${bankAccount} - ${accountName}`);
+            $(`#source${currentIndexPickFromTo}`).css({"background-color":"#e9ecef", "border": "1px solid #ced4da"});
         } else {
             $("#bank_accounts_id").val(sysID);
             $("#bank_accounts_name").val(`(${bankName}) ${bankAccount} - ${accountName}`);
@@ -619,6 +623,16 @@
         $(`#modal_journal_document_number`).val(sysText);
 
         $('#myJournal').modal('hide');
+    });
+
+    $('#tableWorkflows').on('click', 'tbody tr', function() {
+        const sysId             = $(this).find('input[data-trigger="sys_id_approver"]').val();
+        const workflowName      = $(this).find('td:nth-child(2)').text();
+        const workflowPosition  = $(this).find('td:nth-child(3)').text();
+
+        dataWorkflow.approverEntityRefID = parseInt(sysId);
+
+        $("#myWorkflows").modal('toggle');
     });
 
     $('#btn_revision_journal').on('click', function() {
@@ -644,7 +658,7 @@
         });
 
         $('#dateOfJournal').on('change.datetimepicker', function (e) {
-            if (dateDelivery.value) {
+            if (journalDate.value) {
                 $("#journal_date").css({
                     "background-color": "#e9ecef",
                     "border": "1px solid #ced4da"

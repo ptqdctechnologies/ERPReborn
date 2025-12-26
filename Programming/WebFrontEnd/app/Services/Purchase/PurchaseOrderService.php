@@ -33,6 +33,33 @@ class PurchaseOrderService
         );
     }
 
+    public function getPurchaseOrderSummary($budget, $subBudget, $date, $supplier) 
+    {
+        $sessionToken = Session::get('SessionLogin');
+
+        if ($date) {
+            $dates      = explode(' - ', $date);
+            $startDate  = Carbon::createFromFormat('m/d/Y', trim($dates[0]))->startOfDay()->format('Y-m-d');
+            $endDate    = Carbon::createFromFormat('m/d/Y', trim($dates[1]))->endOfDay()->format('Y-m-d');
+        }
+
+        return Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
+            $sessionToken, 
+            'report.form.documentForm.supplyChain.getPurchaseOrderSummary', 
+            'latest',
+            [
+                'parameter'     => [
+                    'CombinedBudgetCode'                    => $budget,
+                    'CombinedBudgetSectionCode'             => $subBudget ? $subBudget : NULL,
+                    'Supplier_RefID'                        => $supplier ? $supplier : NULL
+                    // 'StartDate'                             => $date ? $startDate : NULL,
+                    // 'EndDate'                               => $date ? $endDate : NULL
+                ]
+            ]
+        );
+    }
+
     public function create(Request $request): array 
     {
         $sessionToken   = Session::get('SessionLogin');
@@ -108,6 +135,7 @@ class PurchaseOrderService
 
         $data                       = $request->storeData;
         $detailItems                = json_decode($data['purchaseOrderDetail'], true);
+        $vatRatio                   = $data['vatValue'] && $data['vatValue'] != "Select a VAT" ? $data['vatValue'] : 0;
         $fileID                     = isset($data['dataInput_Log_FileUpload_1']) ? (int) $data['dataInput_Log_FileUpload_1'] : null;
         $deliveryDestinationRefID   = isset($data['delivery_to_id']) && $data['delivery_to_id'] ? (int) $data['delivery_to_id'] : null;
 
@@ -132,7 +160,7 @@ class PurchaseOrderService
                 "internalNotes"                         => $data['internalNote'],
                 "downPayment"                           => (float) str_replace(',', '', $data['downPaymentValue']),
                 "termOfPayment_RefID"                   => (int) $data['termOfPaymentValue'],
-                "vatRatio"                              => (float) str_replace(',', '', $data['vatValue'] ?? 0),
+                "vatRatio"                              => $vatRatio,
                 'additionalData'    => [
                     'itemList'      => [
                         'items'     => $detailItems

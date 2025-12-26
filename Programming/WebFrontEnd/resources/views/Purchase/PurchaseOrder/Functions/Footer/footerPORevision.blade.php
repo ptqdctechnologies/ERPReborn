@@ -1,10 +1,31 @@
 <script>
     let dataStore                   = [];
+    let totalNextApprover           = 0;
+    let dataWorkflow                = {
+        workFlowPathRefID: null,
+        approverEntityRefID: null,
+        comment: null
+    };
+    let triggerButtonModal          = null;
     let vat                         = document.getElementById("vatOption");
+    const documentTypeID            = document.getElementById("DocumentTypeID");
+    const budgetID                  = document.getElementById("var_combinedBudget_RefID");
+    const deliveryToIDs             = document.getElementById("delivery_to_id");
+    const termOfPaymentOption       = document.getElementById("termOfPaymentOption");
+    const vatOptionValues           = document.getElementById("vatOption");
+    const internalNote              = document.getElementById("internalNote");
+    const transactionTaxDetailRefID = document.getElementById("transactionTaxDetail_RefID");
+    const paymentNotes              = document.getElementById("paymentNotes");
+    const remarkPO                  = document.getElementById("remarkPO");
+    const tariffCurrencyValue       = document.getElementById("tariffCurrencyValue");
+    const purchaseOrderRecordRefID  = document.getElementById("purchaseOrderRecord_RefID");
+    const dateOfDelivery            = document.getElementById("dateOfDelivery");
+    const fileID                    = document.getElementById("dataInput_Log_FileUpload");
     const termOfPaymentID           = document.getElementById('termOfPaymentID');
     const vatOptionValue            = document.getElementById('vatOptionValue');
     const downPaymentValue          = document.getElementById('downPaymentValue');
     const deliveryTo                = document.getElementById("delivery_to");
+    const supplierID                = document.getElementById("supplier_id");
     const ppn                       = document.getElementById('ppn');
     const TotalBudgetSelecteds      = document.getElementById('TotalBudgetSelected');
     const TotalBudgetSelectedPpn    = document.getElementById('TotalBudgetSelectedPpn');
@@ -20,7 +41,7 @@
             TotalBudgetSelectedPpn.textContent = TotalBudgetSelecteds.textContent;
             TotalPpns.textContent = "0.00";
             $('#tariffCurrencyValue').val('0.00');
-            $('#vatOption').val('Select a PPN');
+            $('#vatOption').val('Select a VAT');
             $('#containerValuePPN').hide();
         }
     });
@@ -144,7 +165,7 @@
 
         total = Math.ceil(total * 100) / 100;
 
-        if (vat.options[vat.selectedIndex].text !== "Select a PPN" && total > 0) {
+        if (vat.options[vat.selectedIndex].text !== "Select a VAT" && total > 0) {
             let result = (vat.options[vat.selectedIndex].text / 100) * total;
 
             $('#tariffCurrencyValue').val(currencyTotal(result));
@@ -194,6 +215,7 @@
         const rows = sourceTable.getElementsByTagName('tr');
 
         for (let row of rows) {
+            const assetSelect   = row.querySelector('select[id^="asset"]');
             const qtyInput      = row.querySelector('input[id^="qty_req"]');
             const priceInput    = row.querySelector('input[id^="price_req"]');
             const totalInput    = row.querySelector('input[id^="total_req"]');
@@ -210,11 +232,12 @@
             const productUnitPriceDiscountCurrencyExchangeRate  = row.querySelector('input[id^="productUnitPriceDiscountCurrencyExchangeRate"]');
 
             if (
-                qtyInput && priceInput && totalInput && balanceInput && 
+                qtyInput && priceInput && totalInput && balanceInput && assetSelect &&
                 qtyInput.value.trim() !== '' &&
                 priceInput.value.trim() !== '' &&
                 totalInput.value.trim() !== '' &&
-                balanceInput.value.trim() !== ''
+                balanceInput.value.trim() !== '' &&
+                assetSelect.value.trim() !== ''
             ) {
                 const prNumber      = row.children[8].innerText.trim();
                 const productCode   = row.children[10].innerText.trim();
@@ -228,6 +251,7 @@
                 const price = priceInput.value.trim();
                 const total = totalInput.value.trim();
                 const note  = noteInput.value.trim();
+                const asset = assetSelect.value.trim();
 
                 let found = false;
                 const existingRows = targetTable.getElementsByTagName('tr');
@@ -236,10 +260,11 @@
                     const recordID = targetRow.children[0].value.trim();
 
                     if (recordID == recordRefID.value) {
-                        targetRow.children[8].innerText = currencyTotal(price);
-                        targetRow.children[9].innerText = currencyTotal(qty);
-                        targetRow.children[10].innerText = currencyTotal(total);
-                        targetRow.children[11].innerText = note;
+                        targetRow.children[8].innerText = asset == '0' ? 'No' : 'Yes';
+                        targetRow.children[9].innerText = currencyTotal(price);
+                        targetRow.children[10].innerText = currencyTotal(qty);
+                        targetRow.children[11].innerText = currencyTotal(total);
+                        targetRow.children[12].innerText = note;
                         found = true;
 
                         const indexToUpdate = dataStore.findIndex(item => item.recordID == recordRefID.value);
@@ -258,7 +283,8 @@
                                     productUnitPriceDiscountCurrencyValue: parseFloat(productUnitPriceDiscountCurrencyValue.value.replace(/,/g, '')),
                                     productUnitPriceDiscountCurrencyExchangeRate: parseFloat(productUnitPriceDiscountCurrencyExchangeRate.value.replace(/,/g, '')),
                                     remarks: note || '-',
-                                    productCode: productCode
+                                    productCode: productCode,
+                                    asset: parseInt(asset)
                                 }
                             };
                         }
@@ -276,6 +302,7 @@
                         <td style="text-align: left;padding: 0.8rem 0.5rem;">${productName}</td>
                         <td style="text-align: left;padding: 0.8rem 0.5rem;">${uom}</td>
                         <td style="text-align: left;padding: 0.8rem 0.5rem;" hidden>${currency}</td>
+                        <td style="text-align: right;padding: 0.8rem 0.5rem;">${asset == '0' ? 'No' : 'Yes'}</td>
                         <td style="text-align: right;padding: 0.8rem 0.5rem;">${price}</td>
                         <td style="text-align: right;padding: 0.8rem 0.5rem;">${qty}</td>
                         <td style="text-align: right;padding: 0.8rem 0.5rem;">${total}</td>
@@ -297,7 +324,8 @@
                             productUnitPriceDiscountCurrencyValue: parseFloat(productUnitPriceDiscountCurrencyValue.value.replace(/,/g, '')),
                             productUnitPriceDiscountCurrencyExchangeRate: parseFloat(productUnitPriceDiscountCurrencyExchangeRate.value.replace(/,/g, '')),
                             remarks: note || '-',
-                            productCode: productCode
+                            productCode: productCode,
+                            asset: parseInt(asset)
                         }
                     });
                 }
@@ -388,7 +416,7 @@
         });
     }
 
-    function RevisionPurchaseOrder(formatData) {
+    function RevisionPurchaseOrder() {
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -397,7 +425,28 @@
 
         $.ajax({
             type: 'POST',
-            data: formatData,
+            data: {
+                workFlowPath_RefID: dataWorkflow.workFlowPathRefID,
+                approverEntity: dataWorkflow.approverEntityRefID, 
+                comment: dataWorkflow.comment,
+                storeData: {
+                    supplier_id: supplierID.value,
+                    dateOfDelivery: dateOfDelivery.value,
+                    purchaseOrderRecord_RefID: purchaseOrderRecordRefID.value,
+                    delivery_to_id: deliveryToIDs.value,
+                    remarkPO: remarkPO.value,
+                    delivery_to: deliveryTo.value,
+                    paymentNotes: paymentNotes.value,
+                    internalNote: internalNote.value,
+                    downPaymentValue: downPaymentValue.value,
+                    termOfPaymentValue: termOfPaymentOption.value,
+                    vatValue: vatOptionValues.value,
+                    transactionTaxDetail_RefID: transactionTaxDetailRefID.value,
+                    tariffCurrencyValue: tariffCurrencyValue.value,
+                    dataInput_Log_FileUpload_1: fileID.value,
+                    purchaseOrderDetail: JSON.stringify(dataStore)
+                }
+            },
             url: '{{ route("PurchaseOrder.UpdatePurchaseOrder") }}',
             success: function(res) {
                 HideLoading();
@@ -489,7 +538,7 @@
                     $('#containerSelectPPN').show();
 
                     $('#vatOption').empty();
-                    $('#vatOption').append('<option disabled selected value="Select a PPN">Select a PPN</option>');
+                    $('#vatOption').append('<option disabled selected value="Select a VAT">Select a VAT</option>');
 
                     data.forEach(function(project) {
                         let isSelected = project.tariffFixRate == vatOptionValue.value ? ' selected ' : ' ';
@@ -534,7 +583,8 @@
                     productUnitPriceDiscountCurrencyValue: parseFloat(val2.productUnitPriceDiscountCurrencyValue || 1),
                     productUnitPriceDiscountCurrencyExchangeRate: parseFloat(val2.productUnitPriceDiscountCurrencyExchangeRate || 1),
                     remarks: val2.note || '-',
-                    productCode: val2.productCode
+                    productCode: val2.productCode,
+                    asset: parseInt(val2.asset)
                 },
             });
 
@@ -560,19 +610,25 @@
                     <td style="text-align: center; padding: 10px !important;">${currencyTotal(val2.productUnitPriceCurrencyValue || 0)}</td>
                     <td style="text-align: center; padding: 10px !important;">${currencyTotal(totalReq || 0)}</td>
                     <td style="text-align: center; padding: 10px !important;">${val2.productUnitPriceCurrencyISOCode}</td>
-                    <td class="sticky-col fifth-col-pr" style="border:1px solid #e9ecef;background-color:white;">
+                    <td class="sticky-col sixth-col-po" style="border:1px solid #e9ecef;background-color:white;">
                         <input class="form-control number-without-negative" id="qty_req${key}" data-index=${key} data-total-request=${totalReq} data-default="${currencyTotal(val2.quantity || 0)}" autocomplete="off" style="border-radius:0px;" value="${currencyTotal(val2.quantity || 0)}" />
                     </td>
-                    <td class="sticky-col forth-col-pr" style="border:1px solid #e9ecef;background-color:white;">
+                    <td class="sticky-col fifth-col-po" style="border:1px solid #e9ecef;background-color:white;">
                         <input class="form-control number-without-negative" id="price_req${key}" data-index=${key} data-total-request=${totalReq} data-default="${currencyTotal(val2.productUnitPriceCurrencyValue || 0)}" autocomplete="off" style="border-radius:0px;" value="${currencyTotal(val2.productUnitPriceCurrencyValue || 0)}" />
                     </td>
-                    <td class="sticky-col third-col-pr" style="border:1px solid #e9ecef;background-color:white;">
+                    <td class="sticky-col forth-col-po" style="border:1px solid #e9ecef;background-color:white;">
                         <input class="form-control number-without-negative" id="total_req${key}" data-default="${currencyTotal(totalReq || 0)}" autocomplete="off" style="border-radius:0px;" disabled value="${currencyTotal(totalReq || 0)}" />
                     </td>
-                    <td class="sticky-col second-col-pr" style="border:1px solid #e9ecef;background-color:white;">
+                    <td class="sticky-col third-col-po" style="border:1px solid #e9ecef;background-color:white;">
                         <input class="form-control number-without-negative" id="balance${key}" data-default="${currencyTotal(balanced || 0)}" autocomplete="off" style="border-radius:0px;" disabled value="${currencyTotal(balanced || 0)}" />
                     </td>
-                    <td class="sticky-col first-col-pr" style="border:1px solid #e9ecef;background-color:white;">
+                    <td class="sticky-col second-col-po" style="border:1px solid #e9ecef;background-color:white;">
+                        <select class="form-control" id="asset${key}">
+                            <option value="0" ${val2.asset == '0' && 'selected'}>No</option>
+                            <option value="1" ${val2.asset == '1' && 'selected'}>Yes</option>
+                        </select>
+                    </td>
+                    <td class="sticky-col first-col-po" style="border:1px solid #e9ecef;background-color:white;">
                         <textarea id="note${key}" data-default="${val2.note || ''}" class="form-control">${val2.note || ''}</textarea>
                     </td>
                 </tr>
@@ -640,6 +696,7 @@
                     <td style="text-align: right;padding: 0.8rem 0.5rem;width: 50px;">${val2.productName}</td>
                     <td style="text-align: left;padding: 0.8rem 0.5rem;width: 20px;">${val2.quantityUnitName || '-'}</td>
                     <td style="text-align: left;padding: 0.8rem 0.5rem;width: 40px;" hidden>${val2.productUnitPriceCurrencyISOCode || '-'}</td>
+                    <td style="text-align: left;padding: 0.8rem 0.5rem;width: 20px;">${val2.asset == '0' ? 'No' : 'Yes'}</td>
                     <td style="text-align: right;padding: 0.8rem 0.5rem;width: 100px;">${currencyTotal(val2.productUnitPriceCurrencyValue || 0)}</td>
                     <td style="text-align: right;padding: 0.8rem 0.5rem;width: 50px;">${currencyTotal(val2.quantity || 0)}</td>
                     <td style="text-align: right;padding: 0.8rem 0.5rem;width: 100px;">${currencyTotal(totalReq || 0)}</td> 
@@ -658,61 +715,80 @@
         // document.getElementById('GrandTotal').textContent = currencyTotal(totalRequest);
     }
 
-    function SubmitForm() {
+    function commentWorkflow() {
+        const swalWithBootstrapButtons = Swal.mixin({
+            confirmButtonClass: 'btn btn-success btn-sm',
+            cancelButtonClass: 'btn btn-danger btn-sm',
+            buttonsStyling: true,
+        });
+
+        swalWithBootstrapButtons.fire({
+            title: 'Comment',
+            text: "Please write your comment here",
+            type: 'question',
+            input: 'textarea',
+            showCloseButton: false,
+            showCancelButton: true,
+            focusConfirm: false,
+            cancelButtonText: '<span style="color:black;"> Cancel </span>',
+            confirmButtonText: '<span style="color:black;"> OK </span>',
+            cancelButtonColor: '#DDDAD0',
+            confirmButtonColor: '#DDDAD0',
+            reverseButtons: true
+        }).then((result) => {
+            if ('value' in result) {
+                dataWorkflow.comment = result.value;
+                ShowLoading();
+                RevisionPurchaseOrder();
+            }
+        });
+    }
+
+    function SubmitForm(value) {
+        triggerButtonModal = value;
         $('#purchaseOrderFormModal').modal('hide');
 
-        var action = $("#FormSubmitRevisionPurchaseOrder").attr("action");
-        var method = $("#FormSubmitRevisionPurchaseOrder").attr("method");
-        var form_data = new FormData($("#FormSubmitRevisionPurchaseOrder")[0]);
-        form_data.append('purchaseOrderDetail', JSON.stringify(dataStore));
+        $('#purchaseOrderFormModal').on('hidden.bs.modal', function (e) {
+            if (triggerButtonModal === "SUBMIT") {
+                if (totalNextApprover > 1) {
+                    $('#myWorkflows').modal('show');
+                } else {
+                    commentWorkflow();
+                }
+            }
+        });
+    }
 
-        ShowLoading();
+    function getWorkflow() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
 
         $.ajax({
-            url: action,
-            dataType: 'json',
-            cache: false,
-            contentType: false,
-            processData: false,
-            data: form_data,
-            type: method,
+            type: 'POST',
+            data: {
+                businessDocumentType_RefID: documentTypeID.value,
+                combinedBudget_RefID: budgetID.value
+            },
+            url: '{!! route("GetWorkflow") !!}',
             success: function(response) {
-                HideLoading();
+                if (response.status === 200) {
+                    totalNextApprover = response.data[0].nextApproverPath.length;
+                    dataWorkflow.workFlowPathRefID = response.data[0].sys_ID;
+                    dataWorkflow.approverEntityRefID = response.data[0].submitterEntity_RefID;
 
-                if (response.message == "WorkflowError") {
-                    $("#submitRevisionPurchaseOrder").prop("disabled", false);
-
-                    CancelNotif("You don't have access", '/PurchaseOrder?var=1');
-                } else if (response.message == "MoreThanOne") {
-
-                    $('#getWorkFlow').modal('toggle');
-
-                    var t = $('#tableGetWorkFlow').DataTable();
-                    t.clear();
-                    $.each(response.data, function(key, val) {
-                        t.row.add([
-                            '<td><span data-dismiss="modal" onclick="SelectWorkFlow(\'' + val.Sys_ID + '\', \'' + val.NextApprover_RefID + '\', \'' + response.approverEntity_RefID + '\', \'' + response.documentTypeID + '\');"><img src="{{ asset("AdminLTE-master/dist/img/add.png") }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></span></td>',
-                            '<td style="border:1px solid #e9ecef;">' + val.FullApproverPath + '</td></tr></tbody>'
-                        ]).draw();
-                    });
+                    getWorkflows(response.data[0].nextApproverPath);
                 } else {
-                    const formatData = {
-                        workFlowPath_RefID: response.workFlowPath_RefID, 
-                        nextApprover: response.nextApprover_RefID, 
-                        approverEntity: response.approverEntity_RefID, 
-                        documentTypeID: response.documentTypeID,
-                        storeData: response.storeData
-                    };
+                    $("#button_submit").prop("disabled", true);
 
-                    SelectWorkFlow(formatData);
+                    Swal.fire("Error", "You don't have access", "error");
                 }
             },
-            error: function(response) {
-                console.log('response error', response);
-                
-                HideLoading();
-                $("#submitRevisionPurchaseOrder").prop("disabled", false);
-                CancelNotif("You don't have access", '/PurchaseOrder?var=1');
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.log('jqXHR, textStatus, errorThrown', jqXHR, textStatus, errorThrown);
+                Swal.fire("Error", "Data Error", "error");
             }
         });
     }
@@ -723,6 +799,20 @@
         } else {
             $("#delivery_to_id").val("");
         }
+    });
+
+    $('#tableWorkflows').on('click', 'tbody tr', function() {
+        const sysId             = $(this).find('input[data-trigger="sys_id_approver"]').val();
+        const workflowName      = $(this).find('td:nth-child(2)').text();
+        const workflowPosition  = $(this).find('td:nth-child(3)').text();
+
+        dataWorkflow.approverEntityRefID = parseInt(sysId);
+
+        $("#myWorkflows").modal('toggle');
+
+        $('#myWorkflows').on('hidden.bs.modal', function () {
+            commentWorkflow();
+        });
     });
 
     $(window).one('load', function(e) {
@@ -738,6 +828,7 @@
 
         $(".errorPurchaseOrderTable").hide();
 
+        getWorkflow();
         getPaymentTerm();
         getVAT();
         viewPurchaseOrderDetail(dataTable);

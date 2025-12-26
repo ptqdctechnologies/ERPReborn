@@ -69,7 +69,7 @@
         var keys = 0;
         $.ajax({
             type: 'GET',
-            url: '{!! route("AccountPayable.DataPickList") !!}',
+            url: '{!! route("AccountPayable.DataPickLists") !!}',
             success: function(data) {
                 $(".loadingAccountPayables").hide();
 
