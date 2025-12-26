@@ -6,6 +6,7 @@
 @include('getFunction.getBanksAccount')
 @include('getFunction.getChartOfAccount')
 @include('getFunction.getAllTransactions')
+@include('getFunction.getWorkFlows')
 @include('Finance.Journal.Functions.PopUp.PopUpJournalRevision')
 @include('Finance.Journal.Functions.PopUp.PopUpJournalSummaryData')
 

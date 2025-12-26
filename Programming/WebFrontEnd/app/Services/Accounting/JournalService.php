@@ -31,8 +31,10 @@ class JournalService
         $sessionToken   = Session::get('SessionLogin');
         $careerRefID    = Session::get('SessionWorkerCareerInternal_RefID');
 
-        $data           = $request->storeData;
-        $journalDetail  = json_decode($data['journalDetail'], true);
+        $data                       = $request->storeData;
+        $journalDetail              = json_decode($data['journalDetail'], true);
+        $cashDisbursementItemList   = json_decode($data['cashDisbursementItemList'], true);
+        $cashReceiptItemList        = json_decode($data['cashReceiptItemList'], true);
 
         return Helper_APICall::setCallAPIGateway(
             Helper_Environment::getUserSessionID_System(),
@@ -50,38 +52,10 @@ class JournalService
                         'items'     => $journalDetail
                         ],
                     "cashDisbursementItemList"  => [
-                        "items"                 => [
-                                [
-                                "entities"      => [
-                                    'documentDateTimeTZ'                => date('Y-m-d'),
-                                    'log_FileUpload_Pointer_RefID'      => null,
-                                    "combinedBudgetSectionDetail_RefID" => 169000000000001,
-                                    'beneficiaryBankAccount_RefID'      => 167000000000001,
-                                    'chartOfAccount_RefID'              => 65000000000005,
-                                    'amountCurrency_RefID'              => 62000000000001,
-                                    'amountCurrencyValue'               => 50000,
-                                    'amountCurrencyExchangeRate'        => 1,
-                                    "remarks"                           => 'Dummy'
-                                    ]
-                                ]
-                            ]
+                        "items"                 => $cashDisbursementItemList
                         ],
                     "cashReceiptItemList"   => [
-                        "items"             => [
-                                [
-                                "entities"  => [
-                                    'documentDateTimeTZ'                => date('Y-m-d'),
-                                    'log_FileUpload_Pointer_RefID'      => null,
-                                    "combinedBudgetSectionDetail_RefID" => 169000000000001,
-                                    'senderBankAccount_RefID'           => 167000000000001,
-                                    'chartOfAccount_RefID'              => 65000000000005,
-                                    'amountCurrency_RefID'              => 62000000000001,
-                                    'amountCurrencyValue'               => 50000,
-                                    'amountCurrencyExchangeRate'        => 1,
-                                    "remarks"                           => 'Dummy'
-                                    ]
-                                ]
-                            ]
+                        "items"             => $cashReceiptItemList
                         ]
                     ]
                 ]
