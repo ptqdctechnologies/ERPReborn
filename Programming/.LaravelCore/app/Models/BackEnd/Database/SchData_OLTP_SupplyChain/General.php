@@ -4407,7 +4407,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : getReport_Form_DocumentForm_PurchaseRequisitionSummary                                               |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-08-06                                                                                           |
+        | ▪ Last Update     : 2025-12-26                                                                                           |
         | ▪ Creation Date   : 2025-04-30                                                                                           |
         | ▪ Description     : Mendapatkan Laporan Form - Form Dokumen Permintaan Pembelian (Purchase Requisition)                  |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -4421,7 +4421,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_DocumentForm_PurchaseRequisitionSummary(
-            $varUserSession, int $varSysBranch_RefID, string  $varCombinedBudgetCode = null, string $varCombinedBudgetSectionCode = null
+            $varUserSession, int $varSysBranch_RefID, string  $varCombinedBudgetCode = null, string $varCombinedBudgetSectionCode = null, string  $varStartDate = null, string  $varEndDate = null
             )
             {
             try {
@@ -4434,42 +4434,12 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             [
                                 [$varCombinedBudgetCode, 'varchar' ],
                                 [$varCombinedBudgetSectionCode, 'varchar' ],
+                                [$varStartDate, 'varchar'],
+                                [$varEndDate, 'varchar'],
                             ]
                             )
                         );
-                $resultArray = $varReturn['data'];
-                $listDocumentNumber = [];
-                $listTotalIDR = [];
-                foreach ($resultArray as $value) {
-                    if (in_array($value["DocumentNumber"], $listDocumentNumber)) {
-                        $listTotalIDR[$value["DocumentNumber"]]["Total_IDR"] = $listTotalIDR[$value["DocumentNumber"]]["Total_IDR"] + $value["Total_IDR"];
-                        $listTotalIDR[$value["DocumentNumber"]]["Total_Other_Currency"] = $listTotalIDR[$value["DocumentNumber"]]["Total_Other_Currency"] + $value["Total_Other_Currency"];
-                    } else {
-                        array_push($listDocumentNumber, $value["DocumentNumber"]);
-                        $listTotalIDR[$value["DocumentNumber"]]["Total_IDR"] = $value["Total_IDR"];
-                        $listTotalIDR[$value["DocumentNumber"]]["Total_Other_Currency"] = $value["Total_Other_Currency"];
-                    }
-                }
 
-                // Generate API.
-                $varReturn['data'] = [];
-                $idxArray = 0;
-                foreach ($resultArray as $value) {
-                    $varReturn['data'][$idxArray]['combinedBudget_RefID'] = $value["CombinedBudget_RefID"];
-                    $varReturn['data'][$idxArray]['combinedBudgetCode'] = $value["CombinedBudgetCode"];
-                    $varReturn['data'][$idxArray]['combinedBudgetName'] = $value["CombinedBudgetName"];
-                    $varReturn['data'][$idxArray]['documentNumber'] = $value["DocumentNumber"];
-                    $varReturn['data'][$idxArray]['date'] = $value["Date"];
-                    $varReturn['data'][$idxArray]['dateOfDelivery'] = $value["DateOfDelivery"];
-                    $varReturn['data'][$idxArray]['deliveryTo_NonRefID'] = $value["DeliveryTo_NonRefID"];
-                    $varReturn['data'][$idxArray]['total_IDR'] = array_key_exists($value["DocumentNumber"], $listTotalIDR) ? $listTotalIDR[$value["DocumentNumber"]]["Total_IDR"] : 0;
-                    $varReturn['data'][$idxArray]['total_Other_Currency'] = array_key_exists($value["DocumentNumber"], $listTotalIDR) ? $listTotalIDR[$value["DocumentNumber"]]["Total_Other_Currency"] : 0;
-                    $varReturn['data'][$idxArray]['grand_Total_IDR'] = $value["Grand_Total_IDR"];
-                    $varReturn['data'][$idxArray]['grand_Total_Other_Currency'] = $value["Grand_Total_Other_Currency"];
-                    $varReturn['data'][$idxArray]['grand_Total_All'] = $value["Grand_Total_All"];
-                    $varReturn['data'][$idxArray]['grand_Total_Equivalent_IDR'] = $value["Grand_Total_Equivalent_IDR"];
-                    $idxArray++;
-                }
                 return $varReturn;
                 }
             catch (\Exception $ex) {
