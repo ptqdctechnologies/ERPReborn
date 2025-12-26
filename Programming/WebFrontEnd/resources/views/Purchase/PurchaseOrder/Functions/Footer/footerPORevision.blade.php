@@ -41,7 +41,7 @@
             TotalBudgetSelectedPpn.textContent = TotalBudgetSelecteds.textContent;
             TotalPpns.textContent = "0.00";
             $('#tariffCurrencyValue').val('0.00');
-            $('#vatOption').val('Select a PPN');
+            $('#vatOption').val('Select a VAT');
             $('#containerValuePPN').hide();
         }
     });
@@ -165,7 +165,7 @@
 
         total = Math.ceil(total * 100) / 100;
 
-        if (vat.options[vat.selectedIndex].text !== "Select a PPN" && total > 0) {
+        if (vat.options[vat.selectedIndex].text !== "Select a VAT" && total > 0) {
             let result = (vat.options[vat.selectedIndex].text / 100) * total;
 
             $('#tariffCurrencyValue').val(currencyTotal(result));
@@ -538,7 +538,7 @@
                     $('#containerSelectPPN').show();
 
                     $('#vatOption').empty();
-                    $('#vatOption').append('<option disabled selected value="Select a PPN">Select a PPN</option>');
+                    $('#vatOption').append('<option disabled selected value="Select a VAT">Select a VAT</option>');
 
                     data.forEach(function(project) {
                         let isSelected = project.tariffFixRate == vatOptionValue.value ? ' selected ' : ' ';
