@@ -272,6 +272,7 @@
             const quantityUnitRefID                     = row.querySelector('input[id^="quantityUnit_RefID"]');
             const productUnitPriceCurrencyRefID         = row.querySelector('input[id^="productUnitPriceCurrency_RefID"]');
             const productUnitPriceCurrencyExchangeRate  = row.querySelector('input[id^="productUnitPriceCurrencyExchangeRate"]');
+            const assetSelect                           = row.querySelector('select[id^="asset"]');
             const qtyInput                              = row.querySelector('input[id^="qty_ap"]');
             const totalInput                            = row.querySelector('input[id^="total_ap"]');
             const whtInput                              = row.querySelector('input[id^="wht"]');
@@ -279,10 +280,11 @@
             const coaInput                              = row.querySelector('input[id^="coa_name"]');
 
             if (
-                qtyInput && whtInput && coaRefID && 
+                qtyInput && whtInput && coaRefID && assetSelect &&
                 qtyInput.value.trim() !== '' &&
                 whtInput.value.trim() !== '' &&
-                coaRefID.value.trim() !== ''
+                coaRefID.value.trim() !== '' &&
+                assetSelect.value.trim() !== ''
             ) {
                 const product = row.children[6].innerText.trim();
                 const uom = row.children[10].innerText.trim();
@@ -291,6 +293,7 @@
                 const totalValue    = totalInput.value.trim();
                 const whtValue      = whtInput.value.trim();
                 const coaValue      = coaInput.value.trim();
+                const assetValue    = assetSelect.value.trim();
 
                 let found           = false;
                 const existingRows  = targetTable.getElementsByTagName('tr');
@@ -318,7 +321,8 @@
                                     productUnitPriceCurrencyValue: parseFloat(totalValue.replace(/,/g, '')),
                                     productUnitPriceCurrencyExchangeRate: parseInt(productUnitPriceCurrencyExchangeRate.value),
                                     wht: parseFloat(whtValue.replace(/,/g, '')),
-                                    purchaseOrderDetail_RefID: parseInt(purchaseOrderDetailRefID.value)
+                                    purchaseOrderDetail_RefID: parseInt(purchaseOrderDetailRefID.value),
+                                    asset: parseInt(assetValue)
                                 }
                             };
                         }
@@ -350,6 +354,7 @@
                             productUnitPriceCurrencyExchangeRate: parseInt(productUnitPriceCurrencyExchangeRate.value),
                             wht: parseFloat(whtValue.replace(/,/g, '')),
                             purchaseOrderDetail_RefID: parseInt(purchaseOrderDetailRefID.value),
+                            asset: parseInt(assetValue)
                         }
                     });
                 }
@@ -631,7 +636,6 @@
                                 <td style="text-align: center;">${currencyTotal(val.productUnitPriceBaseCurrencyValue)}</td>
                                 <td style="text-align: center;">${val.quantityUnitName}</td>
                                 <td style="text-align: center;">${currencyTotal(val.quantity * val.productUnitPriceBaseCurrencyValue)}</td>
-                                <td style="text-align: center;">-</td>
                                 <td style="border:1px solid #e9ecef;background-color:white; padding: 0.5rem !important; width: 100px;">
                                     <input id="qty_ap${indexPurchaseOrder}" class="form-control number-without-negative" data-index=${indexPurchaseOrder} autocomplete="off" style="border-radius:0px;" />
                                 </td>
@@ -640,6 +644,12 @@
                                 </td>
                                 <td style="border:1px solid #e9ecef;background-color:white; padding: 0.5rem !important; width: 100px;">
                                     <input id="wht${indexPurchaseOrder}" class="form-control number-without-negative" data-index=${indexPurchaseOrder} autocomplete="off" style="border-radius:0px;" />
+                                </td>
+                                <td style="border:1px solid #e9ecef;background-color:white; padding: 0.5rem !important; width: 70px;">
+                                    <select class="form-control" id="asset${indexPurchaseOrder}">
+                                        <option value="0" ${val.asset == '0' && 'selected'}>No</option>
+                                        <option value="1" ${val.asset == '1' && 'selected'}>Yes</option>
+                                    </select>
                                 </td>
                                 <td>
                                     <div class="input-group">
