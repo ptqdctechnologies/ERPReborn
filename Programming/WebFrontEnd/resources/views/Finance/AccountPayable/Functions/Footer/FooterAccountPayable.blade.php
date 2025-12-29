@@ -322,7 +322,7 @@
                                     productUnitPriceCurrencyExchangeRate: parseInt(productUnitPriceCurrencyExchangeRate.value),
                                     wht: parseFloat(whtValue.replace(/,/g, '')),
                                     purchaseOrderDetail_RefID: parseInt(purchaseOrderDetailRefID.value),
-                                    asset: parseInt(assetSelect.value)
+                                    asset: parseInt(assetValue)
                                 }
                             };
                         }
@@ -354,7 +354,7 @@
                             productUnitPriceCurrencyExchangeRate: parseInt(productUnitPriceCurrencyExchangeRate.value),
                             wht: parseFloat(whtValue.replace(/,/g, '')),
                             purchaseOrderDetail_RefID: parseInt(purchaseOrderDetailRefID.value),
-                            asset: parseInt(assetSelect.value)
+                            asset: parseInt(assetValue)
                         }
                     });
                 }

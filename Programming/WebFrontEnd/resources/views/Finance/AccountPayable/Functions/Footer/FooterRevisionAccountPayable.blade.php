@@ -268,7 +268,7 @@
                     productUnitPriceCurrencyExchangeRate: parseFloat(val.productUnitPriceBaseCurrencyValue.replace(/,/g, '')),
                     wht: parseFloat(val.wht.replace(/,/g, '')),
                     purchaseOrderDetail_RefID: parseInt(val.purchaseOrderDetail_RefID),
-                    asset: parseInt(val.asset)
+                    asset: val.asset
                 }
             });
 
@@ -462,7 +462,7 @@
                                     productUnitPriceCurrencyExchangeRate: parseInt(productUnitPriceCurrencyExchangeRate.value),
                                     wht: parseFloat(whtValue.replace(/,/g, '')),
                                     purchaseOrderDetail_RefID: parseInt(purchaseOrderDetailRefID.value),
-                                    asset: parseInt(assetValue.value)
+                                    asset: parseInt(assetValue)
                                 }
                             }
                         }
@@ -497,7 +497,7 @@
                             productUnitPriceCurrencyExchangeRate: parseInt(productUnitPriceCurrencyExchangeRate.value),
                             wht: parseFloat(whtValue.replace(/,/g, '')),
                             purchaseOrderDetail_RefID: parseInt(purchaseOrderDetailRefID.value),
-                            asset: parseInt(assetValue.value)
+                            asset: parseInt(assetValue)
                         }
                     });
                 }
