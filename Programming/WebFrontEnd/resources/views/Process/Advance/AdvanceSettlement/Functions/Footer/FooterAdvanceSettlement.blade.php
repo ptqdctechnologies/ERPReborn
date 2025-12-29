@@ -10,6 +10,7 @@
     let advanceNumber       = document.getElementById("advance_number");
     let remark              = document.getElementById("remark");
     let advanceDetailsAdd   = document.getElementById("advance-details-add");
+    const documentTypeID    = document.getElementById("DocumentTypeID");
 
     function checkOneLineBudgetContents(indexInput) {
         const rows = document.querySelectorAll("#tableAdvanceDetail tbody tr");
@@ -325,14 +326,14 @@
     }
 
     function updateAdvanceUI(result, advanceRefID, advanceNumber) {
-        $("#advance_id").val(advanceRefID);
-        $("#advance_number").val(advanceNumber);
-        $("#var_combinedBudget_RefID").val(result[0].combinedBudget_RefID);
-        $("#beneficiary_name").val(result[0].beneficiaryBankAccountName);
+        // $("#advance_id").val(advanceRefID);
+        // $("#advance_number").val(advanceNumber);
+        // $("#var_combinedBudget_RefID").val(result[0].combinedBudget_RefID);
+        // $("#beneficiary_name").val(result[0].beneficiaryBankAccountName);
         $("#bank_name").val(result[0].beneficiaryBankName);
         $("#bank_account").val(result[0].beneficiaryBankAccountNumber);
-        $("#budget_value").val(result[0].combinedBudgetCode + ' - ' + result[0].combinedBudgetName);
-        $("#sub_budget_value").val(result[0].combinedBudgetSectionCode + ' - ' + result[0].combinedBudgetSectionName);
+        // $("#budget_value").val(result[0].combinedBudgetCode + ' - ' + result[0].combinedBudgetName);
+        // $("#sub_budget_value").val(result[0].combinedBudgetSectionCode + ' - ' + result[0].combinedBudgetSectionName);
     }
 
     function showError(message) {
@@ -342,8 +343,8 @@
     function getAdvanceDetail(advanceRefID, advanceNumber) {
         $("#tableAdvanceDetail tbody").hide();
         $(".loadingAdvanceSettlementTable").show();
-        $("#myGetModalAdvanceTrigger").hide();
-        $("#loadingBudget").show();
+        $("#myGetModalAdvanceTrigger").show();
+        $("#loadingBudget").hide();
 
         $.ajaxSetup({
             headers: {
@@ -357,24 +358,6 @@
             success: async function(response) {
                 if (response.metadata.HTTPStatusCode === 200) {
                     const result            = response.data.data;
-                    const documentTypeID    = document.getElementById("DocumentTypeID");
-
-                    if (documentTypeID.value) {
-                        var checkWorkFlow = await checkingWorkflow(result[0].combinedBudget_RefID, documentTypeID.value);
-
-                        if (!checkWorkFlow) {
-                            $(".loadingAdvanceSettlementTable").hide();
-                            $("#myGetModalAdvanceTrigger").show();
-                            $("#loadingBudget").hide();
-                            return;
-                        }
-                    }
-
-                    $(".loadingAdvanceSettlementTable").hide();
-                    $("#loadingBudget").hide();
-                    $("#tableAdvanceDetail tbody").show();
-                    $("#myGetModalAdvanceTrigger").show();
-
                     const isDuplicate       = arrAdvanceNumber.includes(result[0].businessDocumentNumber);
                     const sameBeneficiary   = beneficiaryTrigger == result[0].beneficiaryBankAccountName;
                     const sameBudget        = budgetCodeTrigger == result[0].combinedBudget_RefID;
@@ -410,8 +393,6 @@
                     let tbody = $('#tableAdvanceDetail tbody');
 
                     let modifyColumn = `<td rowspan="${result.length}" style="text-align: center; padding: 10px !important;">${advanceNumber}</td>`;
-
-                    $('#advance_number').css({"background": "#e9ecef", "border": "1px solid #ced4da"})
 
                     $.each(result, function(key, val2) {
                         let row = `
@@ -579,6 +560,9 @@
                     $(".errorAdvanceSettlementTable").show();
                     $("#errorAdvanceSettlementMessageTable").text(`Data not found.`);
                 }
+
+                $("#tableAdvanceDetail tbody").show();
+                $(".loadingAdvanceSettlementTable").hide();
             },
             error: function (textStatus, errorThrown) {
                 console.log('error', textStatus, errorThrown);
@@ -716,9 +700,41 @@
         });
     }
 
-    $('#tableGetModalAdvance').on('click', 'tbody tr', function() {
-        let sysId           = $(this).find('input[data-trigger="sys_id_modal_advance"]').val();
-        let trano           = $(this).find('td:nth-child(2)').text();
+    $('#tableGetModalAdvance').on('click', 'tbody tr', async function () {
+        const sysId             = $(this).find('input[data-trigger="sys_id_modal_advance"]').val();
+        const sysIdBudget       = $(this).find('input[data-trigger="sys_id_budget_advance"]').val();
+        const trano             = $(this).find('td:nth-child(2)').text();
+        const beneficiary       = $(this).find('td:nth-child(3)').text();
+        const budgetCode        = $(this).find('td:nth-child(5)').text();
+        const budgetName        = $(this).find('td:nth-child(6)').text();
+        const subBudgetCode     = $(this).find('td:nth-child(7)').text();
+        const subBudgetName     = $(this).find('td:nth-child(8)').text();
+
+        $("#myGetModalAdvance").modal('toggle');
+        $("#myGetModalAdvanceTrigger").hide();
+        $("#loadingBudget").show();
+
+        if (documentTypeID.value) {
+            const checkWorkFlow = await checkingWorkflow(sysIdBudget, documentTypeID.value);
+
+            if (!checkWorkFlow) {
+                $(".loadingAdvanceSettlementTable").hide();
+                $("#myGetModalAdvanceTrigger").show();
+                $("#loadingBudget").hide();
+                return;
+            }
+        }
+
+        $("#advance_number").val(trano);
+        $("#advance_id").val(sysId);
+        $("#var_combinedBudget_RefID").val(sysId);
+        $("#beneficiary_name").val(beneficiary);
+        // $("#bank_name").val(result[0].beneficiaryBankName);
+        // $("#bank_account").val(result[0].beneficiaryBankAccountNumber);
+        $("#budget_value").val(budgetCode + ' - ' + budgetName);
+        $("#sub_budget_value").val(subBudgetCode + ' - ' + subBudgetName);
+
+        $('#advance_number').css({"background": "#e9ecef", "border": "1px solid #ced4da"});
 
         getAdvanceDetail(sysId, trano);
     });

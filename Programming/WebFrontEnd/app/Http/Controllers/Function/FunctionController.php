@@ -1059,13 +1059,7 @@ class FunctionController extends Controller
             'dataPickList.finance.getAdvance',
             'latest',
             [
-                'parameter' => null,
-                'SQLStatement' => [
-                    'pick' => null,
-                    'sort' => null,
-                    'filter' => null,
-                    'paging' => null
-                ]
+                'parameter' => []
             ],
             false
         );
@@ -1089,7 +1083,7 @@ class FunctionController extends Controller
             });
         }
 
-        return response()->json(array_values($filteredData));
+        return response()->json($filteredData);
     }
 
     public function getAdvanceSettlement(Request $request)
