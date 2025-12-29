@@ -536,12 +536,12 @@
                         cancelForm("{{ route('AdvanceRequest.index', ['var' => 1]) }}");
                     });
                 } else {
-                    ErrorNotif("Data Cancel Inputed");
+                    ErrorNotif("Create Advance Request Failed");
                 }
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 HideLoading();
-                ErrorNotif("Data Cancel Inputed");
+                ErrorNotif("Internal Server Error");
             }
         });
     }

@@ -55,7 +55,7 @@ class AdvanceRequestController extends Controller
             $response = $this->advanceRequestService->create($request);
 
             if ($response['metadata']['HTTPStatusCode'] !== 200) {
-                throw new \Exception('Failed to fetch Create Advance Request');
+                throw new \Exception('Failed to fetch Create Advance Request => ' . $response['data']['message']);
             }
 
             $responseWorkflow = $this->workflowService->submit(
@@ -66,7 +66,7 @@ class AdvanceRequestController extends Controller
             );
 
             if ($responseWorkflow['metadata']['HTTPStatusCode'] !== 200) {
-                throw new \Exception('Failed to fetch Submit Workflow Create Advance Request');
+                throw new \Exception('Failed to fetch Submit Workflow Create Advance Request => ' . $responseWorkflow['data']['message']);
             }
 
             $compact = [
