@@ -538,9 +538,10 @@
                                 $(`#balanced_qty${key}`).val(currencyTotal(val2.quantityRemaining));
                                 ErrorNotif("Total Req is over budget !");
                             } else {
-                                calculateTotal();
                                 $(`#total_req${key}`).val(currencyTotal(total_req));
                             }
+
+                            calculateTotal();
                         });
                     } else {
                         $(`#qty_req${key}`).on('keyup', function() {
@@ -565,7 +566,6 @@
 
                                 ErrorNotif("Total Req is over !");
                             } else {
-                                calculateTotal();
                                 $(`#qty_req${key}`).css({"border": "1px solid #ced4da"});
                                 $(`#budgetDetailsMessage`).css({"display": "none"});
                                 $(`#total_req${key}`).val(currencyTotal(total_req));
@@ -586,6 +586,8 @@
                                     }
                                 }
                             }
+
+                            calculateTotal();
                         });
                     }
 
@@ -612,11 +614,12 @@
 
                                 ErrorNotif("Total Req is over budget !");
                             } else {
-                                calculateTotal();
                                 checkOneLineBudgetContents(key);
                                 $(`#total_req${key}`).val(currencyTotal(total_req));
                             }
                         }
+
+                        calculateTotal();
                     });
                 });
             },
