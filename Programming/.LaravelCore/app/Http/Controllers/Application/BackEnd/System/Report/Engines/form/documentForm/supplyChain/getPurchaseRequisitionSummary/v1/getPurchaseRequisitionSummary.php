@@ -4,17 +4,17 @@
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
 | ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\documentForm\supplyChain                     |
-|                \getPurchaseRequisitionSummary\v1                                                                                        |
+|                \getPurchaseRequisitionSummary\v1                                                                                 |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2025 ijonk7 (rizal.devapps@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2025 ijonk7 (rizal.devapps@gmail.com)                                                                               |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\documentForm\supplyChain\getPurchaseRequisitionSummary\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : getPurchaseRequisitionSummary                                                                                       |
-    | ▪ Description : Menangani API report.form.documentForm.supplyChain.getPurchaseRequisitionSummary Version 1                          |
+    | ▪ Class Name  : getPurchaseRequisitionSummary                                                                                |
+    | ▪ Description : Menangani API report.form.documentForm.supplyChain.getPurchaseRequisitionSummary Version 1                   |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
     class getPurchaseRequisitionSummary extends \App\Http\Controllers\Controller
@@ -45,7 +45,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\do
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000001                                                                                       |
         | ▪ Create date     : 2025-04-30                                                                                           |
-        | ▪ Last Update     : 2025-08-06                                                                                           |
+        | ▪ Last Update     : 2025-12-26                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -67,7 +67,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\do
                             $varUserSession, 
                             (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
                             $varData['parameter']['CombinedBudgetCode'],
-                            $varData['parameter']['CombinedBudgetSectionCode']
+                            $varData['parameter']['CombinedBudgetSectionCode'],
+                            $varData['parameter']['StartDate'],
+                            $varData['parameter']['EndDate']
                             ))))
                             {
                             throw new \Exception();

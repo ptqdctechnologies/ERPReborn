@@ -4,11 +4,11 @@
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category    : Example - API Call Controller                                                                                    |
 | ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\report\form\documentForm\supplyChain         |
-|                 \getPurchaseRequisitionSummary\v1                                                                                       |
-| ▪ API Key     : report.form.documentForm.supplyChain.getPurchaseRequisitionSummary                                                         |
+|                 \getPurchaseRequisitionSummary\v1                                                                                |
+| ▪ API Key     : report.form.documentForm.supplyChain.getPurchaseRequisitionSummary                                               |
 | ▪ API Version : 1                                                                                                                |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2025 ijonk7 (rizal.devapps@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2025 ijonk7 (rizal.devapps@gmail.com)                                                                               |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\report\form\documentForm\supplyChain\getPurchaseRequisitionSummary\v1
@@ -21,7 +21,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
         |                     ► http://172.28.0.4/report.form.documentForm.supplyChain.getPurchaseRequisitionSummary.v1_throughAPIGateway |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-08-06                                                                                           |
+        | ▪ Last Update     : 2025-12-26                                                                                           |
         | ▪ Creation Date   : 2025-04-30                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -41,8 +41,12 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
                 'parameter' => [
                     'CombinedBudgetCode' => 'Q000062',
                     'CombinedBudgetSectionCode' => '235',
+                    'StartDate' => '2025-01-01',
+                    'EndDate' => '2025-12-26',
                     // 'CombinedBudgetCode' => NULL,
                     // 'CombinedBudgetSectionCode' => NULL,
+                    // 'StartDate' => NULL,
+                    // 'EndDate' => NULL,
                     ]
                 ]
                 );
