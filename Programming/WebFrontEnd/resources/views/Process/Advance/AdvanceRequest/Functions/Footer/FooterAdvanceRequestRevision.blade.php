@@ -200,13 +200,16 @@
                     const targetProductCode = targetRow.children[4].innerText;
                     const targetProductName = targetRow.children[5].innerText;
 
-                    if (targetRecordID == recordRefID.value && targetProductCode == productCode.value && targetProductName == productName) {
+                    if (targetRecordID == recordRefID.value) {
+                        targetRow.children[4].innerText = productCode.value;
+                        targetRow.children[5].innerText = productName;
+                        targetRow.children[6].innerText = uom;
                         targetRow.children[7].innerText = price;
                         targetRow.children[8].innerText = qty;
                         targetRow.children[9].innerText = total;
                         found = true;
 
-                        const indexToUpdate = dataStore.findIndex(item => item.recordID == recordRefID.value && item.entities.combinedBudgetSectionDetail_RefID == combinedBudgetSectionDetailRefID.value);
+                        const indexToUpdate = dataStore.findIndex(item => item.recordID == recordRefID.value);
                         if (indexToUpdate !== -1) {
                             dataStore[indexToUpdate] = {
                                 recordID: parseInt(recordRefID.value),
