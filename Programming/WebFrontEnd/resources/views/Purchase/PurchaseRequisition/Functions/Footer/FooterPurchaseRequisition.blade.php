@@ -171,7 +171,7 @@
                         <input type="hidden" name="price_avail[]" value="${priceAvail}">
                         <td style="text-align: center;padding: 0.8rem 0.5rem;" hidden>${productCode}</td>
                         <td style="text-align: right;padding: 0.8rem 0.5rem;width: 80px;">${productCodeShow.value}</td>
-                        <td style="text-align: left;padding: 0.8rem 0.5rem;">${productName}</td>
+                        <td style="text-align: left;padding: 0.8rem 0.5rem;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;max-width: 150px;">${productName}</td>
                         <td style="text-align: left;padding: 0.8rem 0.5rem;width: 20px;">${uom}</td>
                         <td style="text-align: right;padding: 0.8rem 0.5rem;width: 100px;">${price}</td>
                         <td style="text-align: right;padding: 0.8rem 0.5rem;"width: 50px;>${qty}</td>
@@ -357,7 +357,11 @@
                                     </div>
                                 </div>
                             </td>
-                            <td id="product_name${key}" style="text-align: center;text-wrap: auto;" name="product_name">${val2.productName}</td>
+                            <td style="text-align: left;">
+                                <div id="product_name${key}" name="product_name" style="overflow: hidden;white-space: nowrap;text-overflow: ellipsis;width: 150px;">
+                                    ${val2.productName}
+                                </div>
+                            </td>
                         `;
                         isUnspecified = 'disabled';
                         balanced = '-';
