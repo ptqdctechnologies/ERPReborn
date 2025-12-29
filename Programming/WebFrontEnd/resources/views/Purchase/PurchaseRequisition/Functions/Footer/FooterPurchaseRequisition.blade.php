@@ -440,16 +440,15 @@
                                 } else {
                                     $(`#total_req${key}`).val(decimalFormat(total_req));
                                 }
-                                calculateTotal();
                             } else if (parseFloat(qty_req * price_req) > totalBudget) {
                                 $(`#qty_req${key}`).val('');
                                 $(`#total_req${key}`).val('');
                                 ErrorNotif("Total Req is over budget !");
                             } else {
-                                calculateTotal();
                                 $(`#total_req${key}`).val(currencyTotal(total_req));
                             }
-
+                            
+                            calculateTotal();
                             checkOneLineBudgetContents(key);
                         });
                     } else {
@@ -475,10 +474,11 @@
                                 } else {
                                     $(`#total_req${key}`).val(decimalFormat(total_req));
                                 }
-                                calculateTotal();
+                                
                                 $(`#balanced_qty${key}`).val(decimalFormat(total));
                             }
 
+                            calculateTotal();
                             checkOneLineBudgetContents(key);
                         });
                     }
@@ -503,9 +503,9 @@
                             } else {
                                 $(`#total_req${key}`).val(currencyTotal(total_req));
                             }
-                            calculateTotal();
                         }
 
+                        calculateTotal();
                         checkOneLineBudgetContents(key);
                     });
 
