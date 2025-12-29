@@ -462,9 +462,9 @@
                                 $(`#total_settlement${data_index}`).val(currencyTotal(total_settlements));
                                 $(`#balance${data_index}`).val(currencyTotal(countBalance));
                                 $(`#TotalAdvanceDetail`).text(currencyTotal(totalAdvanceDetail));
-                                calculateTotal();
                             }
 
+                            calculateTotal();
                             checkOneLineBudgetContents(data_index);
                         });
 
@@ -489,9 +489,9 @@
                                 $(`#total_settlement${data_index}`).val(currencyTotal(total_settlements));
                                 $(`#balance${data_index}`).val(currencyTotal(countBalance));
                                 $(`#TotalAdvanceDetail`).text(currencyTotal(totalAdvanceDetail));
-                                calculateTotal();
                             }
 
+                            calculateTotal();
                             checkOneLineBudgetContents(data_index);
                         });
 
@@ -516,9 +516,9 @@
                                 $(`#total_settlement_company${data_index}`).val(currencyTotal(total_settlement_company));
                                 $(`#balance${data_index}`).val(currencyTotal(countBalance));
                                 $(`#TotalAdvanceDetail`).text(currencyTotal(totalAdvanceDetail));
-                                calculateTotal();
                             }
 
+                            calculateTotal();
                             checkOneLineBudgetContents(data_index);
                         });
 
@@ -532,20 +532,18 @@
 
                             countBalance = countBalance < 0.00 ? 0.00 : countBalance;
 
-                            // if (price_settlement_company > val2.productUnitPriceCurrencyValue) {
                             if (total_settlement_company > data_total_request) {
                                 $(this).val('');
                                 $(`#total_settlement_company${data_index}`).val('');
                                 $(`#balance${data_index}`).val('');
-                                // ErrorNotif("Price Settlement is over!");
                                 ErrorNotif("Total Return is over!");
                             } else {
                                 $(`#total_settlement_company${data_index}`).val(currencyTotal(total_settlement_company));
                                 $(`#balance${data_index}`).val(currencyTotal(countBalance));
                                 $(`#TotalAdvanceDetail`).text(currencyTotal(totalAdvanceDetail));
-                                calculateTotal();
                             }
 
+                            calculateTotal();
                             checkOneLineBudgetContents(data_index);
                         });
 
