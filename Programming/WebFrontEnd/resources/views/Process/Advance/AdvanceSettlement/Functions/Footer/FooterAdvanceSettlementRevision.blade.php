@@ -407,20 +407,17 @@
 
                 countBalance = countBalance < 0.00 ? 0.00 : countBalance;
 
-                // if (parseFloat(qty_settlement) > val2.quantity) {
                 if (total_settlements > data_total_request) {
                     $(this).val('');
                     $(`#total_settlement${data_index}`).val('');
-                    // $(`#balance${data_index}`).val('');
                     ErrorNotif("Total Expense Claim is over!");
-                    // ErrorNotif("Qty Settlement is over!");
                 } else {
                     $(`#total_settlement${data_index}`).val(currencyTotal(total_settlements));
                     $(`#balance${data_index}`).val(currencyTotal(countBalance));
                     $(`#TotalAdvanceDetail`).text(currencyTotal(totalAdvanceDetail));
-                    calculateTotal();
                 }
                 
+                calculateTotal();
                 checkOneLineBudgetContents(data_index);
             });
 
@@ -435,20 +432,17 @@
 
                 countBalance = countBalance < 0.00 ? 0.00 : countBalance;
 
-                // if (parseFloat(price_settlement) > val2.productUnitPriceCurrencyValue) {
                 if (total_settlements > data_total_request) {
                     $(this).val('');
                     $(`#total_settlement${data_index}`).val('');
-                    // $(`#balance${data_index}`).val(currencyTotal(balanced));
                     ErrorNotif("Total Expense Claim is over!");
-                    // ErrorNotif("Price Settlement is over!");
                 } else {
                     $(`#total_settlement${data_index}`).val(currencyTotal(total_settlements));
                     $(`#balance${data_index}`).val(currencyTotal(countBalance));
                     $(`#TotalAdvanceDetail`).text(currencyTotal(totalAdvanceDetail));
-                    calculateTotal();
                 }
 
+                calculateTotal();
                 checkOneLineBudgetContents(data_index);
             });
 
@@ -463,20 +457,17 @@
 
                 countBalance = countBalance < 0.00 ? 0.00 : countBalance;
 
-                // if (parseFloat(qty_settlement_company) > val2.quantity) {
                 if (total_settlement_company > data_total_request) {
                     $(this).val('');
                     $(`#total_settlement_company${data_index}`).val('');
-                    // $(`#balance${data_index}`).val(currencyTotal(balanced));
                     ErrorNotif("Total Return is over!");
-                    // ErrorNotif("Qty Settlement is over!");
                 } else {
                     $(`#total_settlement_company${data_index}`).val(currencyTotal(total_settlement_company));
                     $(`#balance${data_index}`).val(currencyTotal(countBalance));
                     $(`#TotalAdvanceDetail`).text(currencyTotal(totalAdvanceDetail));
-                    calculateTotal();
                 }
 
+                calculateTotal();
                 checkOneLineBudgetContents(data_index);
             });
 
@@ -491,20 +482,17 @@
 
                 countBalance = countBalance < 0.00 ? 0.00 : countBalance;
 
-                // if (parseFloat(price_settlement_company) > val2.productUnitPriceCurrencyValue) {
                 if (total_settlement_company > data_total_request) {
                     $(this).val('');
                     $(`#total_settlement_company${data_index}`).val('');
-                    // $(`#balance${data_index}`).val(currencyTotal(balanced));
                     ErrorNotif("Total Return is over!");
-                    // ErrorNotif("Price Settlement is over!");
                 } else {
                     $(`#total_settlement_company${data_index}`).val(currencyTotal(total_settlement_company));
                     $(`#balance${data_index}`).val(currencyTotal(countBalance));
                     $(`#TotalAdvanceDetail`).text(currencyTotal(totalAdvanceDetail));
-                    calculateTotal();
                 }
 
+                calculateTotal();
                 checkOneLineBudgetContents(data_index);
             });
 

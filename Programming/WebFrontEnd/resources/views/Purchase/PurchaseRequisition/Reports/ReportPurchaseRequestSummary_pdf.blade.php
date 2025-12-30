@@ -135,11 +135,6 @@
               Total Equivalent IDR
             </div>
           </td>
-          <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
-            <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-              Remark
-            </div>
-          </td>
         </tr>
       </thead>
 
@@ -148,7 +143,7 @@
         <?php foreach ($dataPR as $dataDetail) { ?>
           <?php $grandTotalIDR            += $dataDetail['total_IDR']; ?>
           <?php $grandTotalOtherCurrency  += $dataDetail['total_Other_Currency']; ?>
-          <?php $grandTotalEquivalentIDR  += $dataDetail['grand_Total_Equivalent_IDR']; ?>
+          <?php $grandTotalEquivalentIDR  += $dataDetail['total_Equivalent_IDR']; ?>
 
           <tr>
             <td>
@@ -197,12 +192,7 @@
             </td>
             <td>
               <div style="margin-top: 4px; font-size: 12px;">
-                <?= number_format($dataDetail['grand_Total_Equivalent_IDR'], 2); ?>
-              </div>
-            </td>
-            <td>
-              <div style="margin-top: 4px; font-size: 12px;">
-                -
+                <?= number_format($dataDetail['total_Equivalent_IDR'], 2); ?>
               </div>
             </td>
           </tr>
@@ -223,9 +213,6 @@
         </td>
         <td style="height: 20px;">
           <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"><?= number_format($grandTotalEquivalentIDR, 2); ?></div>
-        </td>
-        <td style="height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"></div>
         </td>
       </tr>
     </table>

@@ -23,7 +23,6 @@
           <div>
             <input id="advance_number" style="border-radius:0; background: white;" size="20" class="form-control" readonly />
             <input id="advance_id" style="border-radius:0;" class="form-control" hidden />
-            <input id="modal_advance_document_number" style="border-radius:0;" class="form-control" hidden />
           </div>
         </div>
       </div>

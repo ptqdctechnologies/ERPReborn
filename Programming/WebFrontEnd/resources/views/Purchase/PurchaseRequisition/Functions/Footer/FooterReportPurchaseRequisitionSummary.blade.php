@@ -41,7 +41,7 @@
                     data.forEach(function(row) {
                         totalIDR            += parseFloat(row.total_IDR) || 0;
                         totalOtherCurrency  += parseFloat(row.total_Other_Currency) || 0;
-                        totalEquivalentIDR  += parseFloat(row.grand_Total_Equivalent_IDR) || 0;
+                        totalEquivalentIDR  += parseFloat(row.total_Equivalent_IDR) || 0;
                     });
 
                     $('#table_summary').DataTable({
@@ -110,11 +110,11 @@
                                 data: null,
                                 defaultContent: '-',
                                 render: function (data, type, row, meta) {
-                                    return currencyTotal(data.grand_Total_Equivalent_IDR);
+                                    return currencyTotal(data.total_Equivalent_IDR);
                                 }
                             },
                             {
-                                data: 'remark',
+                                data: 'remarks',
                                 defaultContent: '-'
                             }
                         ],

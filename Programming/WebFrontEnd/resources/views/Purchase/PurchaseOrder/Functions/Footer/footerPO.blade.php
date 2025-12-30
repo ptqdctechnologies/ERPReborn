@@ -575,9 +575,9 @@
                             } else {
                                 $(`#total_req${data_index}`).val(currencyTotal(total_req));
                                 $(`#balance${data_index}`).val(currencyTotal(countBalance));
-                                calculateTotal();
                             }
 
+                            calculateTotal();
                             checkOneLineBudgetContents(data_index);
                         });
 
@@ -599,9 +599,9 @@
                             } else {
                                 $(`#total_req${data_index}`).val(currencyTotal(total_req));
                                 $(`#balance${data_index}`).val(currencyTotal(countBalance));
-                                calculateTotal();
                             }
-
+                            
+                            calculateTotal();
                             checkOneLineBudgetContents(data_index);
                         });
 

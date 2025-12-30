@@ -690,31 +690,22 @@ class FunctionController extends Controller
     public function getDocumentType(Request $request)
     {
         try {
-            $varAPIWebToken = Session::get('SessionLogin');
+            $sessionUserRefID   = Session::get('SessionUser_RefID');
             $transName      = $request->input('name');
             $filterName     = null;
 
+            $response = json_decode(Helper_Redis::getValue($sessionUserRefID, 'BusinessDocumentType'), true);
+
+            if (count($response) === 0) {
+                return response()->json([]);
+            }
+
             if ($transName && $transName != "undefined" && $transName != null) {
-                $filterName = "\"Name\" = '$transName'";
+                $result = collect($response)->firstWhere('name', $transName);
+                $response = $result['sys_ID'];
             }
 
-            $response = $this->businessDocumentTypeService->getDetail(
-                [
-                    'parameter'     => [],
-                    'SQLStatement'  => [
-                        'pick'      => null,
-                        'sort'      => null,
-                        'filter'    => $filterName,
-                        'paging'    => null
-                    ]
-                ]
-            );
-
-            if ($response['metadata']['HTTPStatusCode'] !== 200) {
-                return response()->json($response);
-            }
-
-            return response()->json($response['data']['data']);
+            return response()->json($response);
         } catch (\Throwable $th) {
             Log::error("Error at getDocumentType: " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
@@ -1059,13 +1050,7 @@ class FunctionController extends Controller
             'dataPickList.finance.getAdvance',
             'latest',
             [
-                'parameter' => null,
-                'SQLStatement' => [
-                    'pick' => null,
-                    'sort' => null,
-                    'filter' => null,
-                    'paging' => null
-                ]
+                'parameter' => []
             ],
             false
         );
@@ -1089,7 +1074,7 @@ class FunctionController extends Controller
             });
         }
 
-        return response()->json(array_values($filteredData));
+        return response()->json($filteredData);
     }
 
     public function getAdvanceSettlement(Request $request)

@@ -2,20 +2,27 @@
 @section('main')
 @include('Partials.navbar')
 @include('Partials.sidebar')
-@include('getFunction.getProject')
+@include('getFunction.getProjects')
+@include('getFunction.getSites')
+@include('getFunction.getBanksAccount')
+@include('getFunction.getBusinessDocumentType')
 
 <div class="content-wrapper">
     <section class="content">
         <div class="container-fluid">
+            <!-- TITLE -->
             <div class="row mb-1" style="background-color:#4B586A;">
                 <div class="col-sm-6" style="height:30px;">
-                    <label style="font-size:15px;position:relative;top:7px;color:white;">Payment Journal Report</label>
+                    <label style="font-size:15px;position:relative;top:7px;color:white;">
+                        Payment Journal Report
+                    </label>
                 </div>
             </div>
+
             <div class="card">
                 <div class="tab-content p-3" id="nav-tabContent">
                     <div class="row">
-                        <div class="col-12 ShowDocument">
+                        <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
                                     <div class="row p-1" style="row-gap: 1rem;">
@@ -25,103 +32,56 @@
                             </div>
                         </div>
 
-                        <div class="col-12">
+                        <div class="col-12" id="table_container" style="display: none;">
                             <div class="card">
-                                <div class="card-body table-responsive p-0">
-                                    <table class="table table-head-fixed text-nowrap TableReportDOSummary" id="DefaultFeatures">
+                                <div class="card-body p-0">
+                                    <div class="d-flex justify-content-between">
+                                        <label>
+                                            Show
+                                            <select id="limitSelect" style="border: 1px solid #aaa; border-radius: 3px; padding: 4px; background: transparent;">
+                                                <option value="10" selected>10</option>
+                                                <option value="25">25</option>
+                                                <option value="50">50</option>
+                                                <option value="100">100</option>
+                                            </select>
+                                            entries
+                                        </label>
+                                        <label>
+                                            Search:
+                                            <input type="text" id="searchInput" autocomplete="off" placeholder="Search..." style="border: 1px solid #aaa; border-radius: 3px; padding: 5px; margin-left: 3px; background: transparent;" />
+                                        </label>
+                                    </div>
+
+                                    <table class="table table-head-fixed text-nowrap table-responsive" id="table_summary">
                                         <thead>
                                             <tr>
-                                                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;width: 30px;">No</th>
-                                                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;width: 30px;">Transaction Number</th>
-                                                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;width: 30px;">Transaction Value</th>
-                                                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;width: 30px;">Currency</th>
-                                                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;width: 30px;">Payment Value</th>
-                                                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;width: 30px;">Balance</th>
+                                                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;width: 10px;">No</th>
+                                                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Transaction Number</th>
+                                                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Date</th>
+                                                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">DB/CR</th>
+                                                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Budget</th>
+                                                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Transaction Value</th>
+                                                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Payment Value</th>
+                                                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Balance</th>
+                                                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">From/To</th>
+                                                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">COA Code</th>
+                                                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Attachment</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td class="text-center">1</td>
-                                                <td>ADV/QDC/2025/000001</td>
-                                                <td>10,000,000.00</td>
-                                                <td>IDR</td>
-                                                <td>10,000,000.00</td>
-                                                <td>0.00</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="text-center">2</td>
-                                                <td>PR/QDC/2025/000002</td>
-                                                <td>12,619,600.00</td>
-                                                <td>IDR</td>
-                                                <td>12,619,600.00</td>
-                                                <td>0.00</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="text-center">3</td>
-                                                <td>ADV/QDC/2025/000003</td>
-                                                <td>7,500,000.00</td>
-                                                <td>IDR</td>
-                                                <td>5,000,000.00</td>
-                                                <td>2,500,000.00</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="text-center">4</td>
-                                                <td>ADV/QDC/2025/000004</td>
-                                                <td>4,200,000.00</td>
-                                                <td>IDR</td>
-                                                <td>4,200,000.00</td>
-                                                <td>0.00</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="text-center">5</td>
-                                                <td>AP/QDC/2025/000005</td>
-                                                <td>9,850,000.00</td>
-                                                <td>IDR</td>
-                                                <td>7,000,000.00</td>
-                                                <td>2,850,000.00</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="text-center">6</td>
-                                                <td>AP/QDC/2025/000006</td>
-                                                <td>15,000,000.00</td>
-                                                <td>IDR</td>
-                                                <td>15,000,000.00</td>
-                                                <td>0.00</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="text-center">7</td>
-                                                <td>AP/QDC/2025/000007</td>
-                                                <td>6,775,000.00</td>
-                                                <td>IDR</td>
-                                                <td>6,000,000.00</td>
-                                                <td>775,000.00</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="text-center">8</td>
-                                                <td>ADV/QDC/2025/000008</td>
-                                                <td>3,250,000.00</td>
-                                                <td>IDR</td>
-                                                <td>3,250,000.00</td>
-                                                <td>0.00</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="text-center">9</td>
-                                                <td>PR/QDC/2025/000009</td>
-                                                <td>18,900,000.00</td>
-                                                <td>IDR</td>
-                                                <td>10,000,000.00</td>
-                                                <td>8,900,000.00</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="text-center">10</td>
-                                                <td>PR/QDC/2025/000010</td>
-                                                <td>5,100,000.00</td>
-                                                <td>IDR</td>
-                                                <td>4,000,000.00</td>
-                                                <td>1,100,000.00</td>
-                                            </tr>
-                                        </tbody>
+                                        <tbody></tbody>
                                     </table>
+
+                                    <div class="d-flex justify-content-between" style="padding-top: .755em; padding-bottom: .755em;">
+                                        <div>
+                                            Showing <span id="start_limit">1</span> to <span id="end_limit">10</span> of <span id="total_data">68</span> entries
+                                        </div>
+
+                                        <div id="controls" style="cursor: pointer;">
+                                            <a class="paginate_button previous" id="prevPage">Previous</a>
+                                            <span id="pageNumbers"></span>
+                                            <a class="paginate_button next" id="nextPage">Next</a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -132,5 +92,6 @@
     </section>
 </div>
 
+@include('Finance.Journal.Functions.Footer.FooterReportJournalSummary')
 @include('Partials.footer')
 @endsection

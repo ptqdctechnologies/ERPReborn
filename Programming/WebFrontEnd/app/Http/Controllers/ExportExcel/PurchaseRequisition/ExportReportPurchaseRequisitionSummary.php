@@ -33,7 +33,7 @@ class ExportReportPurchaseRequisitionSummary implements FromCollection, WithHead
         foreach ($data as $item) {
             $totalIDR           += is_numeric($item['total_IDR']) ? $item['total_IDR'] : 0;
             $totalOtherCurrency += is_numeric($item['total_Other_Currency']) ? $item['total_Other_Currency'] : 0;
-            $totalEquivalentIDR += is_numeric($item['grand_Total_Equivalent_IDR']) ? $item['grand_Total_Equivalent_IDR'] : 0;
+            $totalEquivalentIDR += is_numeric($item['total_Equivalent_IDR']) ? $item['total_Equivalent_IDR'] : 0;
 
             $dateOrigin     = new \DateTime($item['date']);
             $resultOrigin   = $dateOrigin->format('Y-m-d');
@@ -47,10 +47,9 @@ class ExportReportPurchaseRequisitionSummary implements FromCollection, WithHead
                 'Budget'                => ($item['combinedBudgetCode'] ?? '') . ' - ' . ($item['combinedBudgetName'] ?? ''),
                 'Date Of Delivery'      => $resultDelivery,
                 'Delivery To'           => $item['deliveryTo_NonRefID']['address'] ?? '-',
-                'Total IDR'             => $item['total_IDR'] ?? '-',
-                'Total Other Currency'  => $item['total_Other_Currency'] ?? '-',
-                'Total Equivalent IDR'  => $item['grand_Total_Equivalent_IDR'] ?? '-',
-                'Remark'                => '-',
+                'Total IDR'             => $item['total_IDR'] != 0 ? $item['total_IDR'] : '0',
+                'Total Other Currency'  => $item['total_Other_Currency'] != 0 ? $item['total_Other_Currency'] : '0',
+                'Total Equivalent IDR'  => $item['total_Equivalent_IDR'] != 0 ? $item['total_Equivalent_IDR'] : '0',
             ];
         }
 
@@ -61,10 +60,9 @@ class ExportReportPurchaseRequisitionSummary implements FromCollection, WithHead
             'Budget'                => '',
             'Date Of Delivery'      => '',
             'Delivery To'           => '',
-            'Total IDR'             => $totalIDR,
-            'Total Other Currency'  => $totalOtherCurrency,
-            'Total Equivalent IDR'  => $totalEquivalentIDR,
-            'Remark'                => '',
+            'Total IDR'             => $totalIDR != 0 ? $totalIDR : '0',
+            'Total Other Currency'  => $totalOtherCurrency != 0 ? $totalOtherCurrency : '0',
+            'Total Equivalent IDR'  => $totalEquivalentIDR != 0 ? $totalEquivalentIDR : '0'
         ];
 
         return collect($filteredData);
@@ -81,7 +79,7 @@ class ExportReportPurchaseRequisitionSummary implements FromCollection, WithHead
             ["Budget", ": " . $data[0]['combinedBudgetCode'] . ' - ' . $data[0]['combinedBudgetName'], "", "Date", ": -", "", "", "", ""],
             ["Sub Budget", ": -", "", "", "", "", "", "", "", "", ""],
             ["", "", "", "", "", "", "", "", "", "", ""],
-            ["No", "PR Number","Date", "Budget", "Date Of Delivery", "Delivery To", "Total IDR", "Total Other Currency", "Total Equivalent IDR", "Remark"],
+            ["No", "PR Number","Date", "Budget", "Date Of Delivery", "Delivery To", "Total IDR", "Total Other Currency", "Total Equivalent IDR"],
         ];
     }
 
@@ -99,8 +97,8 @@ class ExportReportPurchaseRequisitionSummary implements FromCollection, WithHead
             ]
         ];
 
-        $sheet->getStyle('A1:J1')->applyFromArray($styleArrayHeader0);
-        $sheet->mergeCells('A1:J1');
+        $sheet->getStyle('A1:I1')->applyFromArray($styleArrayHeader0);
+        $sheet->mergeCells('A1:I1');
 
         $styleArrayHeader1 = [
             'font' => [
@@ -114,8 +112,8 @@ class ExportReportPurchaseRequisitionSummary implements FromCollection, WithHead
             ]
         ];
 
-        $sheet->getStyle('A2:J2')->applyFromArray($styleArrayHeader1);
-        $sheet->mergeCells('A2:J2');
+        $sheet->getStyle('A2:I2')->applyFromArray($styleArrayHeader1);
+        $sheet->mergeCells('A2:I2');
 
         $styleArrayHeader2 = [
             'font' => [
@@ -129,8 +127,8 @@ class ExportReportPurchaseRequisitionSummary implements FromCollection, WithHead
             ]
         ];
 
-        $sheet->getStyle('A3:J3')->applyFromArray($styleArrayHeader2);
-        $sheet->mergeCells('A3:J3');
+        $sheet->getStyle('A3:I3')->applyFromArray($styleArrayHeader2);
+        $sheet->mergeCells('A3:I3');
 
         $styleArrayHeader3 = [
             'font' => [
@@ -144,8 +142,8 @@ class ExportReportPurchaseRequisitionSummary implements FromCollection, WithHead
             ]
         ];
 
-        $sheet->getStyle('A4:J4')->applyFromArray($styleArrayHeader3);
-        $sheet->getStyle('A5:J5')->applyFromArray($styleArrayHeader3);
+        $sheet->getStyle('A4:I4')->applyFromArray($styleArrayHeader3);
+        $sheet->getStyle('A5:I5')->applyFromArray($styleArrayHeader3);
 
         $styleArrayHeader4 = [
             'font' => [
@@ -171,7 +169,7 @@ class ExportReportPurchaseRequisitionSummary implements FromCollection, WithHead
             ],
         ];
 
-        $sheet->getStyle('A7:J7')->applyFromArray($styleArrayHeader4);
+        $sheet->getStyle('A7:I7')->applyFromArray($styleArrayHeader4);
 
         $styleArrayContent = [
             'borders' => [
@@ -186,7 +184,7 @@ class ExportReportPurchaseRequisitionSummary implements FromCollection, WithHead
 
         $datas      = $this->dataPurchaseRequestSummary;
         $totalCell  = count($datas);
-        $lastCell   = 'A7:J' . $totalCell + 7;
+        $lastCell   = 'A7:I' . $totalCell + 7;
         $sheet->getStyle($lastCell)->applyFromArray($styleArrayContent);
 
         $styleArrayFooter = [
@@ -212,7 +210,7 @@ class ExportReportPurchaseRequisitionSummary implements FromCollection, WithHead
                 ],
             ],
         ];
-        $sheet->getStyle('A' . $totalCell + 8 . ':' . 'J' . $totalCell + 8)->applyFromArray($styleArrayFooter);
+        $sheet->getStyle('A' . $totalCell + 8 . ':' . 'I' . $totalCell + 8)->applyFromArray($styleArrayFooter);
         $sheet->mergeCells('A' . $totalCell + 8 . ':F' . $totalCell + 8);
     }
 }

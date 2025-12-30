@@ -171,7 +171,7 @@
                         <input type="hidden" name="price_avail[]" value="${priceAvail}">
                         <td style="text-align: center;padding: 0.8rem 0.5rem;" hidden>${productCode}</td>
                         <td style="text-align: right;padding: 0.8rem 0.5rem;width: 80px;">${productCodeShow.value}</td>
-                        <td style="text-align: left;padding: 0.8rem 0.5rem;">${productName}</td>
+                        <td style="text-align: left;padding: 0.8rem 0.5rem;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;max-width: 150px;">${productName}</td>
                         <td style="text-align: left;padding: 0.8rem 0.5rem;width: 20px;">${uom}</td>
                         <td style="text-align: right;padding: 0.8rem 0.5rem;width: 100px;">${price}</td>
                         <td style="text-align: right;padding: 0.8rem 0.5rem;"width: 50px;>${qty}</td>
@@ -357,7 +357,11 @@
                                     </div>
                                 </div>
                             </td>
-                            <td id="product_name${key}" style="text-align: center;text-wrap: auto;" name="product_name">${val2.productName}</td>
+                            <td style="text-align: left;">
+                                <div id="product_name${key}" name="product_name" style="overflow: hidden;white-space: nowrap;text-overflow: ellipsis;width: 150px;">
+                                    ${val2.productName}
+                                </div>
+                            </td>
                         `;
                         isUnspecified = 'disabled';
                         balanced = '-';
@@ -440,16 +444,15 @@
                                 } else {
                                     $(`#total_req${key}`).val(decimalFormat(total_req));
                                 }
-                                calculateTotal();
                             } else if (parseFloat(qty_req * price_req) > totalBudget) {
                                 $(`#qty_req${key}`).val('');
                                 $(`#total_req${key}`).val('');
                                 ErrorNotif("Total Req is over budget !");
                             } else {
-                                calculateTotal();
                                 $(`#total_req${key}`).val(currencyTotal(total_req));
                             }
-
+                            
+                            calculateTotal();
                             checkOneLineBudgetContents(key);
                         });
                     } else {
@@ -475,10 +478,11 @@
                                 } else {
                                     $(`#total_req${key}`).val(decimalFormat(total_req));
                                 }
-                                calculateTotal();
+                                
                                 $(`#balanced_qty${key}`).val(decimalFormat(total));
                             }
 
+                            calculateTotal();
                             checkOneLineBudgetContents(key);
                         });
                     }
@@ -503,9 +507,9 @@
                             } else {
                                 $(`#total_req${key}`).val(currencyTotal(total_req));
                             }
-                            calculateTotal();
                         }
 
+                        calculateTotal();
                         checkOneLineBudgetContents(key);
                     });
 

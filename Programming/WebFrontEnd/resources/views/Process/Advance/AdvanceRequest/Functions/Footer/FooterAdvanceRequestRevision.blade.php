@@ -200,13 +200,16 @@
                     const targetProductCode = targetRow.children[4].innerText;
                     const targetProductName = targetRow.children[5].innerText;
 
-                    if (targetRecordID == recordRefID.value && targetProductCode == productCode.value && targetProductName == productName) {
+                    if (targetRecordID == recordRefID.value) {
+                        targetRow.children[4].innerText = productCode.value;
+                        targetRow.children[5].innerText = productName;
+                        targetRow.children[6].innerText = uom;
                         targetRow.children[7].innerText = price;
                         targetRow.children[8].innerText = qty;
                         targetRow.children[9].innerText = total;
                         found = true;
 
-                        const indexToUpdate = dataStore.findIndex(item => item.recordID == recordRefID.value && item.entities.combinedBudgetSectionDetail_RefID == combinedBudgetSectionDetailRefID.value);
+                        const indexToUpdate = dataStore.findIndex(item => item.recordID == recordRefID.value);
                         if (indexToUpdate !== -1) {
                             dataStore[indexToUpdate] = {
                                 recordID: parseInt(recordRefID.value),
@@ -535,9 +538,10 @@
                                 $(`#balanced_qty${key}`).val(currencyTotal(val2.quantityRemaining));
                                 ErrorNotif("Total Req is over budget !");
                             } else {
-                                calculateTotal();
                                 $(`#total_req${key}`).val(currencyTotal(total_req));
                             }
+
+                            calculateTotal();
                         });
                     } else {
                         $(`#qty_req${key}`).on('keyup', function() {
@@ -562,7 +566,6 @@
 
                                 ErrorNotif("Total Req is over !");
                             } else {
-                                calculateTotal();
                                 $(`#qty_req${key}`).css({"border": "1px solid #ced4da"});
                                 $(`#budgetDetailsMessage`).css({"display": "none"});
                                 $(`#total_req${key}`).val(currencyTotal(total_req));
@@ -583,6 +586,8 @@
                                     }
                                 }
                             }
+
+                            calculateTotal();
                         });
                     }
 
@@ -609,11 +614,12 @@
 
                                 ErrorNotif("Total Req is over budget !");
                             } else {
-                                calculateTotal();
                                 checkOneLineBudgetContents(key);
                                 $(`#total_req${key}`).val(currencyTotal(total_req));
                             }
                         }
+
+                        calculateTotal();
                     });
                 });
             },
