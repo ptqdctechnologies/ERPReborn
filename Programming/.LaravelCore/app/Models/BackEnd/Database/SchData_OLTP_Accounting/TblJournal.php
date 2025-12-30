@@ -44,7 +44,7 @@ namespace App\Models\Database\SchData_OLTP_Accounting
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0001.0000000                                                                                       |
-        | ▪ Last Update     : 2025-12-02                                                                                           |
+        | ▪ Last Update     : 2025-12-30                                                                                           |
         | ▪ Creation Date   : 2020-09-10                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -68,7 +68,6 @@ namespace App\Models\Database\SchData_OLTP_Accounting
         public function setDataInsert(
             $varUserSession,
             string $varSysDataAnnotation = null, string $varSysDataValidityStartDateTimeTZ = null, string $varSysDataValidityFinishDateTimeTZ = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            string $varDocumentDateTimeTZ = null, int $varBankAccount_RefID = null, int $varCombinedBudgetSectionDetail_RefID = null, string $varJournalDateTimeTZ = null,
             array $varAdditionalData = [])
             {
             $varReturn =
@@ -87,11 +86,6 @@ namespace App\Models\Database\SchData_OLTP_Accounting
                             [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                             [$varSysBranch_RefID, 'bigint'],
                             [$varSysBaseCurrency_RefID, 'bigint'],
-
-                            [$varDocumentDateTimeTZ, 'timestamptz'],
-                            [$varBankAccount_RefID, 'bigint'],
-                            [$varCombinedBudgetSectionDetail_RefID, 'bigint'],
-                            [$varJournalDateTimeTZ, 'timestamptz'],
 
                             [((count($varAdditionalData) === 0) ? null : \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varAdditionalData)), 'json']
                         ]
