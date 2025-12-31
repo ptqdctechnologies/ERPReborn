@@ -1081,7 +1081,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : getDataList_PurchaseOrderDetail_LatestVersion                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2025-12-22                                                                                           |
+        | ▪ Last Update     : 2025-12-31                                                                                           |
         | ▪ Creation Date   : 2025-03-05                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Detail Pesanan Pembelian (Purchase Order Detail) Versi Terakhir                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -1114,19 +1114,6 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             )
 		            );
                     $resultArray = $varReturn['data'];
-
-                    // Description: Menjumlahkan Quantity DO Detail berdasarkan ID PO Detail yg sama.
-                    $qtyDODetail = [];
-                    $listIdPODetail = [];
-                    foreach ($resultArray as $key => $value) {
-                        if (in_array($value["Sys_ID"], $listIdPODetail)) {
-                            $qtyDODetail[$value["Sys_ID"]]["Qty"] = (float) $qtyDODetail[$value["Sys_ID"]]["Qty"] + (float) $value["Quantity_TblDeliveryOrderDetail"];
-                        } else {
-                            array_push($listIdPODetail, $value["Sys_ID"]);
-                            $qtyDODetail[$value["Sys_ID"]]["Sys_ID"] = $value["Sys_ID"];
-                            $qtyDODetail[$value["Sys_ID"]]["Qty"] = $value["Quantity_TblDeliveryOrderDetail"];
-                        }
-                    }
 
                     // Description: Generate API.
                     $varReturn['data'] = [];
@@ -1188,7 +1175,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         $varReturn['data'][$idxArray]['transactionTax_RefID'] = $value["TransactionTax_RefID"];
                         $varReturn['data'][$idxArray]['transactionTaxDetail_RefID'] = $value["TransactionTaxDetail_RefID"];
                         $varReturn['data'][$idxArray]['quantity_TblDeliveryOrderDetail'] = $value["Quantity_TblDeliveryOrderDetail"];
-                        $varReturn['data'][$idxArray]['qtyAvail'] = in_array($value["Sys_ID"], $listIdPODetail) ? round($value["Quantity"] - $qtyDODetail[$value["Sys_ID"]]["Qty"], 2) : null;
+                        $varReturn['data'][$idxArray]['qtyAvail'] = round((float) $value["Quantity"] - (float) $value["Quantity_TblDeliveryOrderDetail"], 2);
                         $varReturn['data'][$idxArray]['deliveryDateTimeTZ'] = $value["DeliveryDateTimeTZ"];
                         $varReturn['data'][$idxArray]['purchaseRequisitionNumber'] = $value["PurchaseRequisitionNumber"];
                         $varReturn['data'][$idxArray]['product_RefID'] = $value["Product_RefID"];
@@ -2828,7 +2815,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : getDataListJSON_PurchaseRequisitionDetail                                                            |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-05-30                                                                                           |
+        | ▪ Last Update     : 2025-12-30                                                                                           |
         | ▪ Creation Date   : 2024-09-09                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Perincian Permintaan Pembelian (Purchase Requisition Detail)                      |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -2864,19 +2851,6 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             )
                         );
                         $resultArray = $varReturn['data'];
-
-                        // Description: Menjumlahkan Quantity PO Detail berdasarkan ID PR Detail yg sama.
-                        $qtyPODetail = [];
-                        $listIdPRDetail = [];
-                        foreach ($resultArray as $key => $value) {
-                            if (in_array($value["Sys_ID"], $listIdPRDetail)) {
-                                $qtyPODetail[$value["Sys_ID"]]["Qty"] = (float) $qtyPODetail[$value["Sys_ID"]]["Qty"] + (float) $value["Quantity_TblPurchaseOrderDetail"];
-                            } else {
-                                array_push($listIdPRDetail, $value["Sys_ID"]);
-                                $qtyPODetail[$value["Sys_ID"]]["Sys_ID"] = $value["Sys_ID"];
-                                $qtyPODetail[$value["Sys_ID"]]["Qty"] = $value["Quantity_TblPurchaseOrderDetail"];
-                            }
-                        }
 
                         // Description: Generate API.
                         $varReturn['data'] = [];
@@ -2947,7 +2921,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                                 $varReturn['data'][$idxArray]['deliveryToName'] = null;
                                 $varReturn['data'][$idxArray]['deliveryToCode'] = null;
                             }
-			    $varReturn['data'][$idxArray]['qtyAvail'] = in_array($value["Sys_ID"], $listIdPRDetail) ? round($value["Quantity"] - $qtyPODetail[$value["Sys_ID"]]["Qty"], 2) : null;
+			    $varReturn['data'][$idxArray]['qtyAvail'] = round((float) $value["Quantity"] - (float) $value["Quantity_TblPurchaseOrderDetail"], 2);
 			    $varReturn['data'][$idxArray]['asset'] = $value["Asset"];
                             $varReturn['data'][$idxArray]['orderSequence'] = $value["OrderSequence"];
                             $idxArray++;
