@@ -65,30 +65,51 @@
             }
         });
 
-        var keys = 0;
         $.ajax({
             type: 'GET',
             url: '{!! route("getWarehouseList") !!}',
             success: function(data) {
                 $(".loadingGetModalWarehouses").hide();
-                var no = 1;
+
                 var table = $('#tableGetModalWarehouses').DataTable();
                 table.clear();
 
                 if (Array.isArray(data) && data.length > 0) {
-                    $.each(data, function(key, val) {
-                        keys += 1;
-                        table.row.add([
-                            '<input id="sys_id_modal_warehouse' + keys + '" value="' + val.sys_ID + '" data-trigger="sys_id_modal_warehouse" type="hidden">' + no++,
-                            val.sys_Text || '-',
-                            val.address || '-',
-                        ]).draw();
+                    $('#tableGetModalWarehouses').DataTable({
+                        destroy: true,
+                        data: data,
+                        deferRender: true,
+                        scrollCollapse: true,
+                        scroller: true,
+                        columns: [
+                            {
+                                data: null,
+                                render: function (data, type, row, meta) {
+                                    return '<td class="align-middle text-center">' +
+                                        '<input id="sys_id_modal_warehouse' + (meta.row + 1) + '" value="' + data.sys_ID + '" data-trigger="sys_id_modal_warehouse" type="hidden">' +
+                                        (meta.row + 1) +
+                                    '</td>';
+                                }
+                            },
+                            {
+                                data: 'sys_Text',
+                                defaultContent: '-',
+                                className: "align-middle"
+                            },
+                            {
+                                data: 'address',
+                                defaultContent: '-',
+                                className: "align-middle"
+                            }
+                        ]
                     });
 
-                    $("#tableGetModalWarehouses_length").show();
-                    $("#tableGetModalWarehouses_filter").show();
-                    $("#tableGetModalWarehouses_info").show();
-                    $("#tableGetModalWarehouses_paginate").show();
+                    $('#tableGetModalWarehouses').css("width", "100%");
+
+                    // $("#tableGetModalWarehouses_length").show();
+                    // $("#tableGetModalWarehouses_filter").show();
+                    // $("#tableGetModalWarehouses_info").show();
+                    // $("#tableGetModalWarehouses_paginate").show();
                 } else {
                     $(".errorModalWarehousesMessageContainerSecond").show();
                     $("#errorModalWarehousesMessageSecond").text(`Data not found.`);

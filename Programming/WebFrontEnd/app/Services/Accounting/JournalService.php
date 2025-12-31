@@ -43,10 +43,6 @@ class JournalService
             'latest',
             [
             'entities' => [
-                'documentDateTimeTZ'                => date('Y-m-d'),
-                "bankAccount_RefID"                 => (int) $data['bankAccountsID'],
-                "combinedBudgetSectionDetail_RefID" => 169000000000001,
-                'journalDateTimeTZ'                 => Carbon::createFromFormat('m/d/Y', $data['journalDate'])->format('Y-m-d'),
                 'additionalData'    => [
                     'itemList'      => [
                         'items'     => $journalDetail

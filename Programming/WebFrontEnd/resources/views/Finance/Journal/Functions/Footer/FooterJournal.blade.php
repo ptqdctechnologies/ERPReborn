@@ -13,6 +13,7 @@
     let currentIndexPickRefNumber   = null;
     let currentIndexPickFromTo      = null;
     let triggerButtonModal          = null;
+    const COABank                   = 65000000000003;
     const dateNow                   = new Date();
     const accountNumber             = document.getElementById("bank_accounts_id");
     const journalDate               = document.getElementById("journal_date");
@@ -45,7 +46,7 @@
             amountCurrencyValue: "", // PAYMENT
             amountCurrencyExchangeRate: 1,
             quantityUnit_RefID: 73000000000001,
-            quantity: 0,
+            quantity: 1,
             source_RefID: "", // FROM OR TO
             source: "", // FROM OR TO
             chartOfAccount_RefID: "", // COA CODE
@@ -197,6 +198,7 @@
                                     <i class="fas fa-gift"></i>
                                 </span>
                             </div>
+                            <input type="hidden" id="quantity${index}" value="${row.quantity}">
                             <input type="hidden" id="ref_number_id${index}" value="${row.ref_number_id}">
                             <input type="text" id="ref_number_name${index}" class="form-control" readonly
                                 value="${row.ref_number_name}"
@@ -229,7 +231,6 @@
                         <input type="hidden" id="amountCurrency_RefID${index}" value="${row.amountCurrency_RefID}">
                         <input type="hidden" id="quantityUnit_RefID${index}" value="${row.quantityUnit_RefID}" />
                         <input type="hidden" id="amountCurrencyExchangeRate${index}" value="${row.amountCurrencyExchangeRate}">
-                        <input type="hidden" id="quantity${index}" value="${row.quantity}">
                         <input id="amountCurrencyValue${index}" class="form-control number-without-negative" autocomplete="off" value="${row.amountCurrencyValue}" onchange="updateField(${index}, 'amountCurrencyValue', parseFloat(this.value.replace(/,/g, '')))">
                     </td>
 
@@ -323,8 +324,12 @@
     }
 
     function summaryData() {
-        const sourceTable = document.getElementById('journal_details_table').getElementsByTagName('tbody')[0];
-        const targetTable = document.getElementById('journal_summary_table').getElementsByTagName('tbody')[0];
+        const year              = dateNow.getFullYear();
+        const month             = String(dateNow.getMonth() + 1).padStart(2, '0');
+        const day               = String(dateNow.getDate()).padStart(2, '0');
+        const journalDateTimeTZ = journalDate.value.split('/'); 
+        const sourceTable       = document.getElementById('journal_details_table').getElementsByTagName('tbody')[0];
+        const targetTable       = document.getElementById('journal_summary_table').getElementsByTagName('tbody')[0];
 
         const rows = sourceTable.getElementsByTagName('tr');
 
@@ -365,24 +370,48 @@
                         targetRow.children[5].innerText = chartOfAccountName.value;
                         found = true;
 
-                        const indexToUpdate = dataStore.findIndex(item => item.entities.refNumberID == refNumberRefID.value);
+                        const indexToUpdate = dataStore.findIndex(item => item.refNumberID == refNumberRefID.value);
                         if (indexToUpdate !== -1) {
                             dataStore[indexToUpdate] = {
-                                entities: {
-                                    refNumberID: parseInt(refNumberRefID.value),
-                                    log_FileUpload_Pointer_RefID: null,
-                                    combinedBudgetSectionDetail_RefID: 169000000000001,
-                                    senderBankAccount_RefID: 167000000000001,
-                                    beneficiaryBankAccount_RefID: 167000000000001,
-                                    chartOfAccount_RefID: parseInt(chartOfAccountRefID.value), // USE
-                                    accountingEntryRecordType_RefID: parseInt(accountingEntryRecordTypeRefID.value),
-                                    amountCurrency_RefID: parseInt(amountCurrencyRefID.value), // USE
-                                    amountCurrencyValue: parseFloat(paymentInput.value.replace(/,/g, '')), // USE
-                                    amountCurrencyExchangeRate: parseInt(amountCurrencyExchangeRate.value), // USE
-                                    quantityUnit_RefID: parseInt(quantityUnitRefID.value),
-                                    quantity: parseFloat(quantityInput.value.replace(/,/g, '')),
-                                    remarks: null
-                                }
+                                refNumberID: parseInt(refNumberRefID.value),
+                                accountingEntryRecordType_RefID: parseInt(accountingEntryRecordTypeRefID.value),
+                                documentDateTimeTZ: `${year}-${month}-${day}`,
+                                businessDocument_RefID: parseInt(refNumberRefID.value),
+                                bankAccount_RefID: parseInt(accountNumber.value), 
+                                combinedBudget_RefID: 46000000000033,
+                                journalDateTimeTZ: `${journalDateTimeTZ[2]}-${journalDateTimeTZ[0]}-${journalDateTimeTZ[1]}`,
+                                log_FileUpload_Pointer_RefID: null, // cashDisbursementItemList & cashReceiptItemList
+                                beneficiaryBankAccount_RefID: 167000000000001, // cashDisbursementItemList
+                                senderBankAccount_RefID: 167000000000001, // cashReceiptItemList
+                                chartOfAccount_RefID: parseInt(chartOfAccountRefID.value), // cashDisbursementItemList & cashReceiptItemList
+                                amountCurrency_RefID: parseInt(amountCurrencyRefID.value), // cashDisbursementItemList & cashReceiptItemList
+                                amountCurrencyValue: parseFloat(paymentInput.value.replace(/,/g, '')), // cashDisbursementItemList & cashReceiptItemList
+                                amountCurrencyExchangeRate: parseInt(amountCurrencyExchangeRate.value), // cashDisbursementItemList & cashReceiptItemList
+                                remarks: null, // cashDisbursementItemList & cashReceiptItemList
+                                entities: [
+                                    // COA CODE
+                                    {
+                                        chartOfAccount_RefID: COABank,
+                                        accountingEntryRecordType_RefID: parseInt(accountingEntryRecordTypeRefID.value),
+                                        amountCurrency_RefID: parseInt(amountCurrencyRefID.value),
+                                        amountCurrencyValue: parseFloat(paymentInput.value.replace(/,/g, '')),
+                                        amountCurrencyExchangeRate: parseInt(amountCurrencyExchangeRate.value),
+                                        quantityUnit_RefID: parseInt(quantityUnitRefID.value),
+                                        quantity: parseFloat(quantityInput.value.replace(/,/g, '')),
+                                        type: accountingEntryRecordTypeRefID.value == '214000000000001' ? 'Debit' : 'Credit'
+                                    },
+                                    // COA BANK
+                                    {
+                                        chartOfAccount_RefID: parseInt(chartOfAccountRefID.value),
+                                        accountingEntryRecordType_RefID: accountingEntryRecordTypeRefID.value == '214000000000001' ? 214000000000002 : 214000000000001,
+                                        amountCurrency_RefID: parseInt(amountCurrencyRefID.value),
+                                        amountCurrencyValue: parseFloat(paymentInput.value.replace(/,/g, '')),
+                                        amountCurrencyExchangeRate: parseInt(amountCurrencyExchangeRate.value),
+                                        quantityUnit_RefID: parseInt(quantityUnitRefID.value),
+                                        quantity: parseFloat(quantityInput.value.replace(/,/g, '')),
+                                        type: accountingEntryRecordTypeRefID.value == '214000000000001' ? 'Credit' : 'Debit',
+                                    }
+                                ]
                             }
                         }
                     }
@@ -401,21 +430,45 @@
                     targetTable.appendChild(newRow);
 
                     dataStore.push({
-                        entities: {
-                            refNumberID: parseInt(refNumberRefID.value),
-                            log_FileUpload_Pointer_RefID: null,
-                            combinedBudgetSectionDetail_RefID: 169000000000001,
-                            senderBankAccount_RefID: 167000000000001,
-                            beneficiaryBankAccount_RefID: 167000000000001,
-                            chartOfAccount_RefID: parseInt(chartOfAccountRefID.value), // USE
-                            accountingEntryRecordType_RefID: parseInt(accountingEntryRecordTypeRefID.value),
-                            amountCurrency_RefID: parseInt(amountCurrencyRefID.value), // USE
-                            amountCurrencyValue: parseFloat(paymentInput.value.replace(/,/g, '')), // USE
-                            amountCurrencyExchangeRate: parseInt(amountCurrencyExchangeRate.value), // USE
-                            quantityUnit_RefID: parseInt(quantityUnitRefID.value),
-                            quantity: parseFloat(quantityInput.value.replace(/,/g, '')),
-                            remarks: null
-                        }
+                        refNumberID: parseInt(refNumberRefID.value),
+                        accountingEntryRecordType_RefID: parseInt(accountingEntryRecordTypeRefID.value),
+                        documentDateTimeTZ: `${year}-${month}-${day}`,
+                        businessDocument_RefID: parseInt(refNumberRefID.value),
+                        bankAccount_RefID: parseInt(accountNumber.value), 
+                        combinedBudget_RefID: 46000000000033,
+                        journalDateTimeTZ: `${journalDateTimeTZ[2]}-${journalDateTimeTZ[0]}-${journalDateTimeTZ[1]}`,
+                        log_FileUpload_Pointer_RefID: null, // cashDisbursementItemList & cashReceiptItemList
+                        beneficiaryBankAccount_RefID: 167000000000001, // cashDisbursementItemList
+                        senderBankAccount_RefID: 167000000000001, // cashReceiptItemList
+                        chartOfAccount_RefID: parseInt(chartOfAccountRefID.value), // cashDisbursementItemList & cashReceiptItemList
+                        amountCurrency_RefID: parseInt(amountCurrencyRefID.value), // cashDisbursementItemList & cashReceiptItemList
+                        amountCurrencyValue: parseFloat(paymentInput.value.replace(/,/g, '')), // cashDisbursementItemList & cashReceiptItemList
+                        amountCurrencyExchangeRate: parseInt(amountCurrencyExchangeRate.value), // cashDisbursementItemList & cashReceiptItemList
+                        remarks: null, // cashDisbursementItemList & cashReceiptItemList
+                        entities: [
+                            // COA CODE
+                            {
+                                chartOfAccount_RefID: COABank,
+                                accountingEntryRecordType_RefID: parseInt(accountingEntryRecordTypeRefID.value),
+                                amountCurrency_RefID: parseInt(amountCurrencyRefID.value),
+                                amountCurrencyValue: parseFloat(paymentInput.value.replace(/,/g, '')),
+                                amountCurrencyExchangeRate: parseInt(amountCurrencyExchangeRate.value),
+                                quantityUnit_RefID: parseInt(quantityUnitRefID.value),
+                                quantity: parseFloat(quantityInput.value.replace(/,/g, '')),
+                                type: accountingEntryRecordTypeRefID.value == '214000000000001' ? 'Debit' : 'Credit'
+                            },
+                            // COA BANK
+                            {
+                                chartOfAccount_RefID: parseInt(chartOfAccountRefID.value),
+                                accountingEntryRecordType_RefID: accountingEntryRecordTypeRefID.value == '214000000000001' ? 214000000000002 : 214000000000001,
+                                amountCurrency_RefID: parseInt(amountCurrencyRefID.value),
+                                amountCurrencyValue: parseFloat(paymentInput.value.replace(/,/g, '')),
+                                amountCurrencyExchangeRate: parseInt(amountCurrencyExchangeRate.value),
+                                quantityUnit_RefID: parseInt(quantityUnitRefID.value),
+                                quantity: parseFloat(quantityInput.value.replace(/,/g, '')),
+                                type: accountingEntryRecordTypeRefID.value == '214000000000001' ? 'Credit' : 'Debit',
+                            }
+                        ]
                     });
                 }
             }
@@ -452,8 +505,36 @@
     }
 
     function commentWorkflow() {
-        cashDisbursementItemList  = dataStore.filter(value => value.entities.accountingEntryRecordType_RefID == '214000000000002');
-        cashReceiptItemList       = dataStore.filter(value => value.entities.accountingEntryRecordType_RefID == '214000000000001');
+        cashDisbursementItemList = dataStore.filter(value => value.accountingEntryRecordType_RefID == '214000000000002')
+            .map(value => ({ 
+                entities: { 
+                    documentDateTimeTZ: value.documentDateTimeTZ,
+                    businessDocument_RefID: value.businessDocument_RefID,
+                    log_FileUpload_Pointer_RefID: value.log_FileUpload_Pointer_RefID,
+                    combinedBudget_RefID: value.combinedBudget_RefID,
+                    beneficiaryBankAccount_RefID: value.beneficiaryBankAccount_RefID,
+                    chartOfAccount_RefID: value.chartOfAccount_RefID,
+                    amountCurrency_RefID: value.amountCurrency_RefID,
+                    amountCurrencyValue: value.amountCurrencyValue,
+                    amountCurrencyExchangeRate: value.amountCurrencyExchangeRate,
+                    remarks: value.remarks
+                } 
+            }));
+        cashReceiptItemList = dataStore.filter(value => value.accountingEntryRecordType_RefID == '214000000000001')
+            .map(value => ({ 
+                entities: { 
+                    documentDateTimeTZ: value.documentDateTimeTZ,
+                    businessDocument_RefID: value.businessDocument_RefID,
+                    log_FileUpload_Pointer_RefID: value.log_FileUpload_Pointer_RefID,
+                    combinedBudget_RefID: value.combinedBudget_RefID,
+                    senderBankAccount_RefID: value.senderBankAccount_RefID,
+                    chartOfAccount_RefID: value.chartOfAccount_RefID,
+                    amountCurrency_RefID: value.amountCurrency_RefID,
+                    amountCurrencyValue: value.amountCurrencyValue,
+                    amountCurrencyExchangeRate: value.amountCurrencyExchangeRate,
+                    remarks: value.remarks
+                } 
+            }));
 
         const swalWithBootstrapButtons = Swal.mixin({
             confirmButtonClass: 'btn btn-success btn-sm',
@@ -475,9 +556,6 @@
             confirmButtonColor: '#DDDAD0',
             reverseButtons: true
         }).then((result) => {
-            console.log('cashDisbursementItemList', cashDisbursementItemList);
-            console.log('cashReceiptItemList', cashReceiptItemList);
-            
             if ('value' in result) {
                 // dataWorkflow.comment = result.value;
                 ShowLoading();

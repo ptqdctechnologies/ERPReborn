@@ -29,8 +29,8 @@
 
                         <div class="col-12" id="table_container" style="display: none;">
                             <div class="card">
-                                <div class="card-body table-responsive p-0">
-                                    <table class="table table-head-fixed text-nowrap" id="table_summary">
+                                <div class="card-body p-0">
+                                    <table class="table table-responsive table-head-fixed text-nowrap" id="table_summary">
                                         <thead>
                                             <tr>
                                                 <th rowspan="2" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;vertical-align:middle;">No</th>

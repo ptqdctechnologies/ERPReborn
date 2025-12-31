@@ -238,39 +238,43 @@ class DeliveryOrderController extends Controller
     public function ReportDeliveryOrderSummaryStore(Request $request)
     {
         try {
-            $project_code = $request->project_code_second;
-            $site_code    = $request->site_code_second;
-            $date_range   = $request->input('date');
+            $date           = $request->doDate;
+            $warehouse      = $request->warehouse_id;
+            $budget         = [
+                "id"        => $request->budget_id,
+                "code"      => $request->budget_code,
+            ];
+            $subBudget      = [
+                "id"        => $request->site_id,
+                "code"      => $request->site_code,
+            ];
 
-            $start_date = $end_date = null;
+            $response = $this->deliveryOrderService->getDeliveryOrderSummary(
+                $budget['code'], 
+                $subBudget['code'],
+                $warehouse,
+                $date
+            );
 
-            if ($date_range) {
-                // format input: "DD/MM/YYYY - DD/MM/YYYY"
-                [$start, $end] = explode(' - ', $date_range);
-                $start_date = \Carbon\Carbon::createFromFormat('d/m/Y', trim($start))->format('Y-m-d 00:00:00+07');
-                $end_date   = \Carbon\Carbon::createFromFormat('d/m/Y', trim($end))->format('Y-m-d 23:59:59+07');
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                throw new \Exception('Failed to fetch Delivery Order Summary Report');
             }
 
-            if (empty($project_code) && empty($site_code)) {
-                Session::forget("DeliveryOrderReportSummaryDataPDF");
-                Session::forget("DeliveryOrderReportSummaryDataExcel");
-                return redirect()->route('DeliveryOrder.ReportDeliveryOrderSummary')->with('NotFound', 'Cannot Empty');
-            }
+            $compact = [
+                'status'    => $response['metadata']['HTTPStatusCode'],
+                'data'      => $response['data']['data']
+            ];
 
-            // simpan filter ke session
-            Session::put('ReportDeliveryOrderSummaryFilter', [
-                'project_code' => $project_code,
-                'site_code'    => $site_code,
-                'start_date'   => $start_date,
-                'end_date'     => $end_date,
-            ]);
-
-            $this->ReportDeliveryOrderSummaryData($project_code, $site_code, $start_date, $end_date);
-
-            return redirect()->route('DeliveryOrder.ReportDeliveryOrderSummary');
+            return response()->json($compact);
         } catch (\Throwable $th) {
-            Log::error("Error at " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
+            Log::error("Report Delivery Order Summary Store Function Error:" . $th->getMessage());
+
+            $compact = [
+                'status'    => 500,
+                'message'   => $th->getMessage()
+            ];
+
+            return response()->json($compact);
         }
     }
 
