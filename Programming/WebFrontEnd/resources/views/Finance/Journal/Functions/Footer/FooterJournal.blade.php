@@ -41,6 +41,7 @@
         const newRow = {
             ref_number_id: "", // REF NUMBER
             ref_number_name: "", // REF NUMBER
+            budget_name: "",
             accountingEntryRecordType_RefID: "", // DEBIT OR CREDIT
             amountCurrency_RefID: 62000000000001,
             amountCurrencyValue: "", // PAYMENT
@@ -184,7 +185,7 @@
                         <div class="d-flex justify-content-center">
                             <!-- ICON MINUS -->
                             <div class="icon-minus d-flex align-items-center justify-content-center" 
-                                style="width:20px;height:20px;border-radius:100%;background-color:red;margin:2px;cursor:pointer;display:${index === journalDetails.length - 1 ? 'none !important' : 'flex'};"
+                                style="width:20px;height:20px;border-radius:100%;background-color:red;margin:2px;cursor:pointer;display:flex;"
                                 onclick="{removeRow(${index});totalDebitCredit();totalPayments();}">
                                 <i class="fas fa-minus" style="color:#fff;"></i>
                             </div>
@@ -194,7 +195,7 @@
                     <td>
                         <div class="input-group">
                             <div class="input-group-append">
-                                <span class="input-group-text form-control" data-toggle="modal" data-target="${index === journalDetails.length - 1 ? '#' : '#myAllTransactions'}" onclick="pickRefNumber(${index})" style="cursor:pointer;">
+                                <span class="input-group-text form-control" data-toggle="modal" data-target="#myAllTransactions" onclick="pickRefNumber(${index})" style="cursor:pointer;">
                                     <i class="fas fa-gift"></i>
                                 </span>
                             </div>
@@ -202,12 +203,12 @@
                             <input type="hidden" id="ref_number_id${index}" value="${row.ref_number_id}">
                             <input type="text" id="ref_number_name${index}" class="form-control" readonly
                                 value="${row.ref_number_name}"
-                                onchange="updateField(${index}, 'ref_number_name', this.value)" style="background-color: ${index === journalDetails.length - 1 ? '' : 'white'};">
+                                onchange="updateField(${index}, 'ref_number_name', this.value)" style="background-color: ${row.ref_number_name ? '#e9ecef' : 'white'};">
                         </div>
                     </td>
 
                     <td>
-                        <select ${index === journalDetails.length - 1 ? 'disabled' : ''} class="form-control" id="accountingEntryRecordType_RefID${index}"
+                        <select class="form-control" id="accountingEntryRecordType_RefID${index}"
                             onchange="updateField(${index}, 'accountingEntryRecordType_RefID', this.value)">
                             <option value="" disabled ${row.accountingEntryRecordType_RefID == '' ? 'selected' : ''}>Select a ...</option>
                             <option value="214000000000001" ${row.accountingEntryRecordType_RefID == '214000000000001' ? 'selected' : ''}>DB</option>
@@ -216,7 +217,7 @@
                     </td>
 
                     <td>
-                        <input id="budget${index}" type="text" class="form-control" readonly />
+                        <input id="budget${index}" type="text" class="form-control" value="${row.budget_name}" readonly />
                     </td>
 
                     <td>
@@ -231,7 +232,7 @@
                         <input type="hidden" id="amountCurrency_RefID${index}" value="${row.amountCurrency_RefID}">
                         <input type="hidden" id="quantityUnit_RefID${index}" value="${row.quantityUnit_RefID}" />
                         <input type="hidden" id="amountCurrencyExchangeRate${index}" value="${row.amountCurrencyExchangeRate}">
-                        <input id="amountCurrencyValue${index}" class="form-control number-without-negative" autocomplete="off" value="${row.amountCurrencyValue}" onchange="updateField(${index}, 'amountCurrencyValue', parseFloat(this.value.replace(/,/g, '')))">
+                        <input id="amountCurrencyValue${index}" class="form-control number-without-negative" autocomplete="off" value="${row.amountCurrencyValue ? currencyTotal(row.amountCurrencyValue) : row.amountCurrencyValue}" onchange="updateField(${index}, 'amountCurrencyValue', parseFloat(this.value.replace(/,/g, '')))">
                     </td>
 
                     <td>
@@ -246,7 +247,7 @@
                                 </span>
                             </div>
                             <input type="hidden" id="source_RefID${index}" class="form-control" value="${row.source_RefID}">
-                            <input type="text" id="source${index}" class="form-control" readonly value="${row.source}" onchange="updateField(${index}, 'source', this.value)" style="background-color: white;">
+                            <input type="text" id="source${index}" class="form-control" readonly value="${row.source}" style="background-color: ${row.source ? '#e9ecef' : 'white'};">
                         </div>
                     </td>
 
@@ -259,7 +260,7 @@
                             </div>
                             <input type="hidden" id="chartOfAccount_RefID${index}" value="${row.chartOfAccount_RefID}">
                             <input type="text" id="chartOfAccountName${index}" class="form-control" readonly
-                                value="${row.chartOfAccountName}" onchange="updateField(${index}, 'chartOfAccountName', this.value)" style="background-color: white;">
+                                value="${row.chartOfAccountName}" onchange="updateField(${index}, 'chartOfAccountName', this.value)" style="background-color: ${row.chartOfAccountName ? '#e9ecef' : 'white'};">
                         </div>
                     </td>
 
@@ -681,6 +682,9 @@
             $(`#source_RefID${currentIndexPickFromTo}`).val(sysID);
             $(`#source${currentIndexPickFromTo}`).val(`(${bankName}) ${bankAccount} - ${accountName}`);
             $(`#source${currentIndexPickFromTo}`).css({"background-color":"#e9ecef", "border": "1px solid #ced4da"});
+
+            updateField(currentIndexPickFromTo, 'source_RefID', sysID);
+            updateField(currentIndexPickFromTo, 'source', `(${bankName}) ${bankAccount} - ${accountName}`);
         } else {
             $("#bank_accounts_id").val(sysID);
             $("#bank_accounts_name").val(`(${bankName}) ${bankAccount} - ${accountName}`);
