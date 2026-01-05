@@ -624,13 +624,17 @@
                         let row = `
                             <tr>
                                 <input type="hidden" id="purchaseOrderDetail_RefID[]" value="${val.sys_ID}">
-                                <input type="hidden" id="combinedBudgetSectionDetail_RefID[]" value="${169000000000041}">
+                                <input type="hidden" id="combinedBudgetSectionDetail_RefID[]" value="${val.combinedBudgetSectionDetail_RefID}">
                                 <input type="hidden" id="product_RefID[]" value="${val.product_RefID}">
                                 <input type="hidden" id="quantityUnit_RefID[]" value="${val.quantityUnit_RefID}">
                                 <input type="hidden" id="productUnitPriceCurrency_RefID[]" value="${val.productUnitPriceCurrency_RefID}">
                                 <input type="hidden" id="productUnitPriceCurrencyExchangeRate[]" value="${val.productUnitPriceCurrencyExchangeRate}">
                                 
-                                <td style="text-align: left;">${val.productCode} - ${val.productName}</td>
+                                <td style="text-align: left;">
+                                    <div style="overflow: hidden;white-space: nowrap;text-overflow: ellipsis;width: 200px;">
+                                        ${val.productCode} - ${val.productName}
+                                    </div>
+                                </td>
                                 <td style="text-align: center;">${val.quantity}</td>
                                 <td style="text-align: center;">${val.qtyAvail}</td>
                                 <td style="text-align: center;">${currencyTotal(val.productUnitPriceBaseCurrencyValue)}</td>
@@ -651,7 +655,7 @@
                                         <option value="1" ${val.asset == '1' && 'selected'}>Yes</option>
                                     </select>
                                 </td>
-                                <td>
+                                <td style="border:1px solid #e9ecef;padding-right: .3rem;">
                                     <div class="input-group">
                                         <div class="input-group-append">
                                             <span style="border-radius:0;cursor:pointer;" class="input-group-text form-control">
