@@ -815,6 +815,15 @@
         $("#remarkMessage").hide();
     });
 
+    $('#tableGetModalAdvance').on('click', 'tbody tr', function() {
+        const sysId = $(this).find('input[data-trigger="sys_id_modal_advance"]').val();
+        const trano = $(this).find('td:nth-child(2)').text();
+
+        $("#modal_advance_id").val(sysId);
+        $("#modal_advance_document_number").val(trano);
+        $("#myGetModalAdvance").modal('toggle');
+    });
+
     $(window).one('load', function(e) {
         GetARFNumberDetail(dataTable);
         getBudgetDetails(siteCode.value, dataTable);
