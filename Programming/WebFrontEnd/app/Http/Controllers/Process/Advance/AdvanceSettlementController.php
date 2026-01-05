@@ -177,6 +177,7 @@ class AdvanceSettlementController extends Controller
 
             $compact = [
                 'documentType_RefID'    => $documentTypeRefID,
+                'budget_RefID'          => $data[0]['combinedBudget_RefID'] ?? '-',
                 'advanceNumber'         => $data[0]['documentNumber'] ?? '-',
                 'budget'                => $data[0]['combinedBudgetCode'] . ' - ' . $data[0]['combinedBudgetName'],
                 'subBudget'             => $data[0]['combinedBudgetSectionCode'] . ' - ' . $data[0]['combinedBudgetSectionName'],
