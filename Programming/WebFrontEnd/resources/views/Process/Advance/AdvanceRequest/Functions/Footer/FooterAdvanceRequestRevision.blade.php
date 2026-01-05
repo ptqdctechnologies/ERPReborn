@@ -2,6 +2,19 @@
     let dataStore           = [];
     let remark              = document.getElementById("remark");
     let budgetDetailsAdd    = document.getElementById("budget-details-add");
+    let totalNextApprover   = 0;
+    let triggerButtonModal  = null;
+    let dataWorkflow        = {
+        workFlowPathRefID: null,
+        approverEntityRefID: null,
+        comment: null
+    };
+    const documentTypeID    = document.getElementById("DocumentTypeID");
+    const advanceRequestID  = document.getElementById("advanceRequestID");
+    const requesterID       = document.getElementById("worker_id_second");
+    const beneficiaryID     = document.getElementById("beneficiary_second_id");
+    const bankAccountID     = document.getElementById("bank_accounts_id");
+    const projectID         = document.getElementById("var_combinedBudget_RefID");
     const siteCode          = document.getElementById('site_id_second');
     const dataTable         = {!! json_encode($dataAdvanceList ?? []) !!};
 
@@ -707,7 +720,36 @@
         });
     }
 
-    function RevisionAdvanceRequest(formatData) {
+    function commentWorkflow() {
+        const swalWithBootstrapButtons = Swal.mixin({
+            confirmButtonClass: 'btn btn-success btn-sm',
+            cancelButtonClass: 'btn btn-danger btn-sm',
+            buttonsStyling: true,
+        });
+
+        swalWithBootstrapButtons.fire({
+            title: 'Comment',
+            text: "Please write your comment here",
+            type: 'question',
+            input: 'textarea',
+            showCloseButton: false,
+            showCancelButton: true,
+            focusConfirm: false,
+            cancelButtonText: '<span style="color:black;"> Cancel </span>',
+            confirmButtonText: '<span style="color:black;"> OK </span>',
+            cancelButtonColor: '#DDDAD0',
+            confirmButtonColor: '#DDDAD0',
+            reverseButtons: true
+        }).then((result) => {
+            if ('value' in result) {
+                dataWorkflow.comment = result.value;
+                ShowLoading();
+                RevisionAdvanceRequest();
+            }
+        });
+    }
+
+    function RevisionAdvanceRequest() {
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -716,7 +758,19 @@
 
         $.ajax({
             type: 'POST',
-            data: formatData,
+            data: {
+                workFlowPath_RefID: dataWorkflow.workFlowPathRefID,
+                approverEntity: dataWorkflow.approverEntityRefID, 
+                comment: dataWorkflow.comment,
+                storeData: {
+                    advanceRequestID: advanceRequestID.value,
+                    requester_id: requesterID.value,
+                    beneficiary_id: beneficiaryID.value,
+                    bank_account_id: bankAccountID.value,
+                    var_remark: remark.value,
+                    advanceRequestDetail: JSON.stringify(dataStore)
+                }
+            },
             url: '{{ route("AdvanceRequest.UpdatesAdvanceRequest") }}',
             success: function(res) {
                 HideLoading();
@@ -743,67 +797,60 @@
                         cancelForm("{{ route('AdvanceRequest.index', ['var' => 1]) }}");
                     });
                 } else {
-                    ErrorNotif("Data Cancel Inputed");
+                    ErrorNotif("Revision Advance Request Failed");
                 }
             },
             error: function(jqXHR, textStatus, errorThrown) {
-                HideLoading();
                 console.log('error', jqXHR, textStatus, errorThrown);
             }
         });
     }
 
-    function SubmitForm() {
+    function SubmitForm(value) {
+        triggerButtonModal = value;
         $('#advanceRequestFormModal').modal('hide');
 
-        var action = $('#FormUpdateAdvance').attr("action");
-        var method = $('#FormUpdateAdvance').attr("method");
-        var form_data = new FormData($('#FormUpdateAdvance')[0]);
-        form_data.append('advanceRequestDetail', JSON.stringify(dataStore));
+        $('#advanceRequestFormModal').on('hidden.bs.modal', function (e) {
+            if (triggerButtonModal === "SUBMIT") {
+                if (totalNextApprover > 1) {
+                    $('#myWorkflows').modal('show');
+                } else {
+                    commentWorkflow();
+                }
+            }
+        });
+    }
 
-        ShowLoading();
+    function getWorkflow() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
 
         $.ajax({
-            url: action,
-            dataType: 'json',
-            cache: false,
-            contentType: false,
-            processData: false,
-            data: form_data,
-            type: method,
+            type: 'POST',
+            data: {
+                businessDocumentType_RefID: documentTypeID.value,
+                combinedBudget_RefID: projectID.value
+            },
+            url: '{!! route("GetWorkflow") !!}',
             success: function(response) {
-                HideLoading();
+                if (response.status === 200) {
+                    totalNextApprover = response.data[0].nextApproverPath.length;
+                    dataWorkflow.workFlowPathRefID = response.data[0].sys_ID;
+                    dataWorkflow.approverEntityRefID = response.data[0].submitterEntity_RefID;
 
-                if (response.message == "WorkflowError") {
-                    CancelNotif("You don't have access", "{{ route('AdvanceRequest.index', ['var' => 1]) }}");
-                } else if (response.message == "MoreThanOne") {
-                    $('#getWorkFlow').modal('toggle');
-
-                    var t = $('#tableGetWorkFlow').DataTable();
-                    t.clear();
-                    $.each(response.data, function(key, val) {
-                        t.row.add([
-                            '<td><span data-dismiss="modal" onclick="SelectWorkFlow(\'' + val.Sys_ID + '\', \'' + val.NextApprover_RefID + '\', \'' + response.approverEntity_RefID + '\', \'' + response.documentTypeID + '\');"><img src="{{ asset("AdminLTE-master/dist/img/add.png") }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></span></td>',
-                            '<td style="border:1px solid #e9ecef;">' + val.FullApproverPath + '</td></tr></tbody>'
-                        ]).draw();
-                    });
+                    getWorkflows(response.data[0].nextApproverPath);
                 } else {
-                    const formatData = {
-                        workFlowPath_RefID: response.workFlowPath_RefID, 
-                        nextApprover: response.nextApprover_RefID, 
-                        approverEntity: response.approverEntity_RefID, 
-                        documentTypeID: response.documentTypeID,
-                        storeData: response.storeData
-                    };
+                    $("#button_submit").prop("disabled", true);
 
-                    SelectWorkFlow(formatData);
+                    Swal.fire("Error", "You don't have access", "error");
                 }
             },
-            error: function(response) {
-                console.log('error', response);
-
-                HideLoading();
-                CancelNotif("You don't have access", "{{ route('AdvanceRequest.index', ['var' => 1]) }}");
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.log('jqXHR, textStatus, errorThrown', jqXHR, textStatus, errorThrown);
+                Swal.fire("Error", "Data Error", "error");
             }
         });
     }
@@ -824,8 +871,24 @@
         $("#myGetModalAdvance").modal('toggle');
     });
 
+    $('#tableWorkflows').on('click', 'tbody tr', function() {
+        const sysId             = $(this).find('input[data-trigger="sys_id_approver"]').val();
+        const workflowName      = $(this).find('td:nth-child(2)').text();
+        const workflowPosition  = $(this).find('td:nth-child(3)').text();
+
+        dataWorkflow.approverEntityRefID = parseInt(sysId);
+
+        $("#myWorkflows").modal('toggle');
+
+        $('#myWorkflows').on('hidden.bs.modal', function () {
+            commentWorkflow();
+        });
+    });
+
     $(window).one('load', function(e) {
         GetARFNumberDetail(dataTable);
         getBudgetDetails(siteCode.value, dataTable);
+
+        getWorkflow();
     });
 </script>
