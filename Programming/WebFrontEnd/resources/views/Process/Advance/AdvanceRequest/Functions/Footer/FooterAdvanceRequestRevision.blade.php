@@ -9,6 +9,7 @@
         approverEntityRefID: null,
         comment: null
     };
+    const fileID            = document.getElementById("dataInput_Log_FileUpload");
     const documentTypeID    = document.getElementById("DocumentTypeID");
     const advanceRequestID  = document.getElementById("advanceRequestID");
     const requesterID       = document.getElementById("worker_id_second");
@@ -768,6 +769,7 @@
                     beneficiary_id: beneficiaryID.value,
                     bank_account_id: bankAccountID.value,
                     var_remark: remark.value,
+                    dataInput_Log_FileUpload_1: fileID.value,
                     advanceRequestDetail: JSON.stringify(dataStore)
                 }
             },
