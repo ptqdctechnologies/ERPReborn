@@ -755,6 +755,8 @@
                 } else {
                     commentWorkflow();
                 }
+
+                triggerButtonModal = null;
             }
         });
     }

@@ -756,6 +756,8 @@
                 } else {
                     commentWorkflow();
                 }
+
+                triggerButtonModal = null;
             }
         });
     }

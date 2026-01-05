@@ -624,6 +624,8 @@
                 } else {
                     commentWorkflow();
                 }
+
+                triggerButtonModal = null;
             }
         });
     }
