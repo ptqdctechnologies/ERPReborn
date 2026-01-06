@@ -328,8 +328,10 @@ class ReflectionExtractor implements PropertyListExtractorInterface, PropertyTyp
 
         if ($allowGetterSetter && $reflClass->hasMethod($getsetter) && ($reflClass->getMethod($getsetter)->getModifiers() & $this->methodReflectionFlags)) {
             $method = $reflClass->getMethod($getsetter);
-
-            return new PropertyReadInfo(PropertyReadInfo::TYPE_METHOD, $getsetter, $this->getReadVisibilityForMethod($method), $method->isStatic(), false);
+            // Only consider jQuery-style accessors when they don't require parameters
+            if (!$method->getNumberOfRequiredParameters()) {
+                return new PropertyReadInfo(PropertyReadInfo::TYPE_METHOD, $getsetter, $this->getReadVisibilityForMethod($method), $method->isStatic(), false);
+            }
         }
 
         if ($allowMagicGet && $reflClass->hasMethod('__get') && (($r = $reflClass->getMethod('__get'))->getModifiers() & $this->methodReflectionFlags)) {
@@ -363,6 +365,7 @@ class ReflectionExtractor implements PropertyListExtractorInterface, PropertyTyp
         $allowAdderRemover = $context['enable_adder_remover_extraction'] ?? true;
 
         $camelized = $this->camelize($property);
+        $nonCamelized = ucfirst($property);
         $constructor = $reflClass->getConstructor();
         $singulars = $this->inflector->singularize($camelized);
         $errors = [];
@@ -405,7 +408,26 @@ class ReflectionExtractor implements PropertyListExtractorInterface, PropertyTyp
             }
         }
 
+        if ($camelized !== $nonCamelized) {
+            foreach ($this->mutatorPrefixes as $mutatorPrefix) {
+                $methodName = $mutatorPrefix.$nonCamelized;
+
+                [$accessible, $methodAccessibleErrors] = $this->isMethodAccessible($reflClass, $methodName, 1);
+                if (!$accessible) {
+                    $errors[] = $methodAccessibleErrors;
+                    continue;
+                }
+
+                $method = $reflClass->getMethod($methodName);
+
+                if (!\in_array($mutatorPrefix, $this->arrayMutatorPrefixes, true)) {
+                    return new PropertyWriteInfo(PropertyWriteInfo::TYPE_METHOD, $methodName, $this->getWriteVisibilityForMethod($method), $method->isStatic());
+                }
+            }
+        }
+
         $getsetter = lcfirst($camelized);
+        $getsetterNonCamelized = lcfirst($nonCamelized);
 
         if ($allowGetterSetter) {
             [$accessible, $methodAccessibleErrors] = $this->isMethodAccessible($reflClass, $getsetter, 1);
@@ -416,6 +438,16 @@ class ReflectionExtractor implements PropertyListExtractorInterface, PropertyTyp
             }
 
             $errors[] = $methodAccessibleErrors;
+
+            if ($getsetter !== $getsetterNonCamelized) {
+                [$accessible, $methodAccessibleErrors] = $this->isMethodAccessible($reflClass, $getsetterNonCamelized, 1);
+                if ($accessible) {
+                    $method = $reflClass->getMethod($getsetterNonCamelized);
+
+                    return new PropertyWriteInfo(PropertyWriteInfo::TYPE_METHOD, $getsetterNonCamelized, $this->getWriteVisibilityForMethod($method), $method->isStatic());
+                }
+                $errors[] = $methodAccessibleErrors;
+            }
         }
 
         if ($reflClass->hasProperty($property) && ($reflClass->getProperty($property)->getModifiers() & $this->propertyReflectionFlags)) {
