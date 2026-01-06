@@ -14,12 +14,12 @@ namespace
         {
         /*
         ┌───────────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-        │ ▪ Class Name  │ Helper_Environment                                                                                               │
-        │ ▪ Description │ Menangani segala hal yang terkait HTTP Error dari System                                                         │
+        │ ▪ Class Name  │ Helper_HTTPHeader                                                                                                │
+        │ ▪ Description │ Menangani segala hal yang terkait HTTP Header dari System                                                        │
         └───────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
         */
         class
-            Helper_HTTPError
+            Helper_HTTPHeader
                 {
                 /*
                 ┌──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
