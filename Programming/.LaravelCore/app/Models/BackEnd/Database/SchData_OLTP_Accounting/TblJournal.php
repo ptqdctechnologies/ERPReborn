@@ -44,7 +44,7 @@ namespace App\Models\Database\SchData_OLTP_Accounting
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0001.0000000                                                                                       |
-        | ▪ Last Update     : 2025-12-30                                                                                           |
+        | ▪ Last Update     : 2026-01-06                                                                                           |
         | ▪ Creation Date   : 2020-09-10                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -70,7 +70,7 @@ namespace App\Models\Database\SchData_OLTP_Accounting
             string $varSysDataAnnotation = null, string $varSysDataValidityStartDateTimeTZ = null, string $varSysDataValidityFinishDateTimeTZ = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
             array $varAdditionalData = [])
             {
-            $varReturn =
+            $varData =
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                     $varUserSession,
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
@@ -91,9 +91,12 @@ namespace App\Models\Database\SchData_OLTP_Accounting
                         ]
                         )
                     );
+                    $additionalData = json_decode($varData['data'][0]['AdditionalData'], true);
+                    $additionalData['general']['documentNumber'] = explode(",", $additionalData['general']['documentNumber']);
+                    $additionalDataJson = json_encode($additionalData);
+                    $varData['data'][0]['AdditionalData'] = $additionalDataJson;
 
-            return
-                $varReturn;
+            return $varData['data'][0];
             }
 
 
