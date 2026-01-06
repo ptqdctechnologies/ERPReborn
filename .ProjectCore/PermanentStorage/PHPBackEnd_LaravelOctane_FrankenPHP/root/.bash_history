@@ -1,0 +1,4 @@
+clear
+history 
+exit
+exit
