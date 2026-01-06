@@ -23,7 +23,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-12-02                                                                                           |
+        | ▪ Last Update     : 2026-01-06                                                                                           |
         | ▪ Creation Date   : 2023-10-27                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -43,7 +43,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-12-30                                                                                           |
+        | ▪ Last Update     : 2026-01-06                                                                                           |
         | ▪ Creation Date   : 2023-10-27                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -81,12 +81,6 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
                             {
                             throw new \Exception();
                             }
-                        //---> Set Business Document Data Into varDataSend
-                        $varDataSend['businessDocument'] =
-                            (new \App\Models\Database\SchData_OLTP_Master\General())->getBusinessDocumentByRecordID(
-                                $varUserSession,
-                                $varDataSend['recordID']
-                                );
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
                         }
                     catch (\Exception $ex) {
