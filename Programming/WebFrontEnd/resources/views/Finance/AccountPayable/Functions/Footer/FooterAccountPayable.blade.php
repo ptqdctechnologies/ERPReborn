@@ -809,6 +809,11 @@
     }
 
     function accountPayableStore() {
+        const VATOrigin         = document.querySelector('input[name="vat_origin"]:checked');
+        const BASTOrigin        = document.querySelector('input[name="basft_origin"]:checked');
+        const contractSigned    = document.querySelector('input[name="contract_signed"]:checked');
+        const receiptOrigin     = document.querySelector('input[name="receipt_origin"]:checked');
+
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -828,10 +833,10 @@
                     dataInput_Log_FileUpload_1: fileID.value,
                     supplier_invoice_number: supplierInvoiceNumber.value,
                     payment_transfer_id: paymentTransferID.value,
-                    receipt_origin: receiptOrigin,
-                    contract_signed: contractSigned,
-                    vat_origin: VATOrigin,
-                    basft_origin: BASTOrigin,
+                    receipt_origin: receiptOrigin.value,
+                    contract_signed: contractSigned.value,
+                    vat_origin: VATOrigin.value,
+                    basft_origin: BASTOrigin.value,
                     ppn: valueVAT.value,
                     vat_number: valueVATNumber.value,
                     depreciation_rate_years_id: depreciationRateYearsID.value,
