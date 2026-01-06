@@ -16,10 +16,6 @@
         approverEntityRefID: null,
         comment: null
     };
-    const VATOrigin                     = document.querySelector('input[name="vat_origin"]:checked');
-    const BASTOrigin                    = document.querySelector('input[name="basft_origin"]:checked');
-    const contractSigned                = document.querySelector('input[name="contract_signed"]:checked');
-    const receiptOrigin                 = document.querySelector('input[name="receipt_origin"]:checked');
     const purchaseOrderNumber           = document.getElementById("purchase_order_number");
     const supplierInvoiceNumber         = document.getElementById("supplier_invoice_number");
     const paymentTransferNumber         = document.getElementById("payment_transfer_number");
@@ -632,6 +628,8 @@
                     $("#purchase_order_delivery_from").val(`${data[0].supplierName} - ${data[0].supplierAddress}`);
 
                     $("#invoice_details_table tbody").show();
+                    $("#purchase_order_loading").hide();
+                    $("#purchase_order_trigger").show();
                     // $("#purchase_order_trigger").prop("disabled", true);
 
                     getPaymentTransfer(data[0].supplier_RefID);
@@ -932,9 +930,6 @@
                 } else {
                     Swal.fire("Error", "Workflow Error", "error");
                 }
-
-                $("#loadingBudget").css({"display":"none"});
-                $("#myProjectSecondTrigger").css({"display":"block"});
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 console.log('jqXHR, textStatus, errorThrown', jqXHR, textStatus, errorThrown);
@@ -962,6 +957,8 @@
 
         $("#invoice_loading_table").show();
         $("#invoice_details_table tbody").hide();
+        $("#purchase_order_loading").show();
+        $("#purchase_order_trigger").hide();
 
         if (data) {
             $("#mySearchPO").modal('toggle');
