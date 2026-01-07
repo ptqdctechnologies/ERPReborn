@@ -215,7 +215,11 @@
                         <input type="hidden" name="product_code[]" value="${productCode}">
                         <td style="text-align: left;padding: 0.8rem 0.5rem;width: 100px;">${documentNumber}</td>
                         <td style="text-align: right;padding: 0.8rem 0.5rem;">${productCode}</td>
-                        <td style="text-align: left;padding: 0.8rem 0.5rem;">${productName}</td>
+                        <td style="text-align: left;padding: 0.8rem 0.5rem;">
+                            <div style="overflow: hidden;white-space: nowrap;text-overflow: ellipsis;width: 150px;">
+                                ${productName}
+                            </div>
+                        </td>
                         <td style="text-align: left;padding: 0.8rem 0.5rem;width: 20px;">${uom}</td>
                         <td style="text-align: left;padding: 0.8rem 0.5rem;width: 40px;" hidden>${currency}</td>
                         <td style="text-align: left;padding: 0.8rem 0.5rem;width: 20px;">${asset == '0' ? 'No' : 'Yes'}</td>
@@ -752,6 +756,8 @@
                 } else {
                     commentWorkflow();
                 }
+
+                triggerButtonModal = null;
             }
         });
     }

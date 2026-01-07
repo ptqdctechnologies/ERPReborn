@@ -628,7 +628,7 @@
                             <option value="1" ${val2.asset == '1' && 'selected'}>Yes</option>
                         </select>
                     </td>
-                    <td class="sticky-col first-col-po" style="border:1px solid #e9ecef;background-color:white;">
+                    <td class="sticky-col first-col-po" style="border:1px solid #e9ecef;background-color:white;padding-right: .70rem;">
                         <textarea id="note${key}" data-default="${val2.note || ''}" class="form-control">${val2.note || ''}</textarea>
                     </td>
                 </tr>
@@ -755,6 +755,8 @@
                 } else {
                     commentWorkflow();
                 }
+
+                triggerButtonModal = null;
             }
         });
     }

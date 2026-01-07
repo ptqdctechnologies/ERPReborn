@@ -130,7 +130,7 @@ class AccountPayableService
                 "documentDateTimeTZ"                => date('Y-m-d'),
                 "log_FileUpload_Pointer_RefID"      => $fileID,
                 "currency_RefID"                    => 62000000000001,
-                "currencySymbol"                    => null,
+                "currencySymbol"                    => 'Rp',
                 "currencyValue"                     => 0,
                 "currencyExchangeRate"              => 0,
                 "supplierInvoiceNumber"             => $data['supplier_invoice_number'],

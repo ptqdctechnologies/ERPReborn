@@ -7,6 +7,14 @@
     let dataStore                       = [];
     let depreciationRateValue           = 0;
     let depreciationYearsValue          = 0;
+    let totalNextApprover               = 0;
+    let triggerButtonModal              = null;
+    let dataWorkflow                    = {
+        workFlowPathRefID: null,
+        approverEntityRefID: null,
+        comment: null
+    };
+    const accountPayableNotes           = document.getElementById("account_payable_notes");
     const supplierInvoiceNumber         = document.getElementById("supplier_invoice_number");
     const paymentTransferNumber         = document.getElementById("payment_transfer_number");
     const valueVAT                      = document.getElementById('ppn');
@@ -15,7 +23,9 @@
     const depreciationMethod            = document.getElementById('depreciation_method');
     const depreciationRatePercentage    = document.getElementById('depreciation_rate_percentage');
     const depreciationRateYears         = document.getElementById('depreciation_rate_years');
+    const depreciationCOAID             = document.getElementById('depreciation_coa_id');
     const depreciationCOANumber         = document.getElementById('depreciation_coa_number');
+    const depreciationRateYearsID       = document.getElementById("depreciation_rate_years_id");
     const deductionValue                = document.getElementById('budget_details_deduction');
     const accountPayableID              = {!! json_encode($header['accountPayable_RefID'] ?? []) !!};
     const vatValueOrigin                = {!! json_encode($header['VATPercentage'] ?? []) !!};
@@ -23,6 +33,9 @@
     const defaultValueVAT               = document.getElementById('ppnValue');
     const depreciationMethodIDs         = document.getElementById('depreciation_method_id');
     const categoryID                    = document.getElementById('category_id');
+    const fileID                        = document.getElementById("dataInput_Log_FileUpload");
+    const combinedBudgetRefID           = document.getElementById("var_combinedBudget_RefID");
+    const documentTypeID                = document.getElementById("DocumentTypeID");
 
     function calculateGrandTotal() {
         let result = (
@@ -283,7 +296,11 @@
                     <input type="hidden" id="productUnitPriceCurrencyExchangeRate${key}" value="${val.productUnitPriceBaseCurrencyValue}" />
                     <input type="hidden" id="purchaseOrderDetail_RefID${key}" value="${val.purchaseOrderDetail_RefID}" />
 
-                    <td style="text-align: center;">${val.productCode ?? ''} - ${val.productName ?? ''}</td>
+                    <td style="text-align: left;">
+                        <div style="overflow: hidden;white-space: nowrap;text-overflow: ellipsis;width: 200px;">
+                            ${val.productCode ?? ''} - ${val.productName ?? ''}
+                        </div>
+                    </td>
                     <td style="text-align: center;">${currencyTotal(val.purchaseOrderDetailQuantity ?? 0)}</td>
                     <td style="text-align: center;">${currencyTotal(val.potoAPQuantityAvail ?? 0)}</td>
                     <td style="text-align: center;">${currencyTotal(val.purchaseOrderDetailPrice ?? 0)}</td>
@@ -304,7 +321,7 @@
                             <option value="1" ${val.asset == '1' && 'selected'}>Yes</option>
                         </select>
                     </td>
-                    <td>
+                    <td style="padding-right: .3rem;">
                         <div class="input-group">
                             <div class="input-group-append">
                                 <span style="border-radius:0;cursor:pointer;" class="input-group-text form-control">
@@ -725,7 +742,42 @@
         });
     }
 
-    function accountPayableRevision(formatData) {
+    function commentWorkflow() {
+        const swalWithBootstrapButtons = Swal.mixin({
+            confirmButtonClass: 'btn btn-success btn-sm',
+            cancelButtonClass: 'btn btn-danger btn-sm',
+            buttonsStyling: true,
+        });
+
+        swalWithBootstrapButtons.fire({
+            title: 'Comment',
+            text: "Please write your comment here",
+            type: 'question',
+            input: 'textarea',
+            showCloseButton: false,
+            showCancelButton: true,
+            focusConfirm: false,
+            cancelButtonText: '<span style="color:black;"> Cancel </span>',
+            confirmButtonText: '<span style="color:black;"> OK </span>',
+            cancelButtonColor: '#DDDAD0',
+            confirmButtonColor: '#DDDAD0',
+            reverseButtons: true
+        }).then((result) => {
+            if ('value' in result) {
+                dataWorkflow.comment = result.value;
+                ShowLoading();
+                accountPayableRevision();
+            }
+        });
+    }
+
+    function accountPayableRevision() {
+        const assetOption       = document.querySelector('input[name="asset"]:checked');
+        const VATOrigin         = document.querySelector('input[name="vat_origin"]:checked');
+        const BASTOrigin        = document.querySelector('input[name="basft_origin"]:checked');
+        const contractSigned    = document.querySelector('input[name="contract_signed"]:checked');
+        const receiptOrigin     = document.querySelector('input[name="receipt_origin"]:checked');
+
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -734,19 +786,45 @@
 
         $.ajax({
             type: 'POST',
-            data: formatData,
+            data: {
+                workFlowPath_RefID: dataWorkflow.workFlowPathRefID,
+                approverEntity: dataWorkflow.approverEntityRefID, 
+                comment: dataWorkflow.comment,
+                storeData: {
+                    asset: assetOption.value,
+                    depreciation_method: depreciationMethod.value,
+                    category_id: categoryID.value,
+                    dataInput_Log_FileUpload_1: fileID.value,
+                    supplier_invoice_number: supplierInvoiceNumber.value,
+                    payment_transfer_id: paymentTransferID.value,
+                    receipt_origin: receiptOrigin.value,
+                    contract_signed: contractSigned.value,
+                    vat_origin: VATOrigin.value,
+                    basft_origin: BASTOrigin.value,
+                    ppn: valueVAT.value,
+                    vat_number: valueVATNumber.value,
+                    depreciation_rate_years_id: depreciationRateYearsID.value,
+                    depreciation_rate_years: depreciationRateYears.value,
+                    depreciation_rate_percentage: depreciationRatePercentage.value,
+                    depreciation_coa_id: depreciationCOAID.value,
+                    budget_details_deduction: deductionValue.value,
+                    account_payable_id: accountPayableID,
+                    account_payable_notes: accountPayableNotes.value,
+                    account_payable_detail: JSON.stringify(dataStore)
+                }
+            },
             url: '{{ route("AccountPayable.UpdatesRevisionAccountPayable") }}',
             success: function(res) {
                 HideLoading();
 
                 if (res.status == 200) {
-                    const swalWithBootstrapButtonsss = Swal.mixin({
+                    const swalWithBootstrapButtons = Swal.mixin({
                         confirmButtonClass: 'btn btn-success btn-sm',
                         cancelButtonClass: 'btn btn-danger btn-sm',
                         buttonsStyling: true,
                     });
 
-                    swalWithBootstrapButtonsss.fire({
+                    swalWithBootstrapButtons.fire({
                         title: 'Successful !',
                         type: 'success',
                         html: 'Data has been saved. Your transaction number is ' + '<span style="color:#0046FF;font-weight:bold;">' + res.documentNumber + '</span>',
@@ -758,10 +836,10 @@
                         confirmButtonColor: '#e9ecef',
                         reverseButtons: true
                     }).then((result) => {
-                        window.location.href = "{{ route('AccountPayable.index', ['var' => 1]) }}";
+                        cancelForm("{{ route('AccountPayable.index', ['var' => 1]) }}");
                     });
                 } else {
-                    ErrorNotif("Data Cancel Inputed");
+                    ErrorNotif("Revision Account Payable Failed");
                 }
             },
             error: function(jqXHR, textStatus, errorThrown) {
@@ -770,58 +848,60 @@
         });
     }
 
-    function submitForm() {
+    function submitForm(value) {
+        triggerButtonModal = value;
         $('#account_payable_submit_modal').modal('hide');
 
-        let action = $('#form_revision_account_payable').attr("action");
-        let method = $('#form_revision_account_payable').attr("method");
-        let form_data = new FormData($('#form_revision_account_payable')[0]);
-        form_data.append('account_payable_detail', JSON.stringify(dataStore));
-        form_data.append('account_payable_id', accountPayableID);
+        $('#account_payable_submit_modal').on('hidden.bs.modal', function (e) {
+            if (triggerButtonModal === "SUBMIT") {
+                if (totalNextApprover > 1) {
+                    $('#myWorkflows').modal('show');
+                } else {
+                    commentWorkflow();
+                }
 
-        ShowLoading();
+                triggerButtonModal = null;
+            }
+        });
+    }
+
+    function getWorkflow() {
+        $("#invoice_loading_table").show();
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
 
         $.ajax({
-            url: action,
-            dataType: 'json',
-            cache: false,
-            contentType: false,
-            processData: false,
-            data: form_data,
-            type: method,
+            type: 'POST',
+            data: {
+                businessDocumentType_RefID: documentTypeID.value,
+                combinedBudget_RefID: combinedBudgetRefID.value
+            },
+            url: '{!! route("GetWorkflow") !!}',
             success: function(response) {
-                HideLoading();
+                $("#invoice_loading_table").hide();
 
-                if (response.message == "WorkflowError") {
-                    CancelNotif("You don't have access", "{{ route('AccountPayable.index', ['var' => 1]) }}");
-                } else if (response.message == "MoreThanOne") {
-                    $('#getWorkFlow').modal('toggle');
+                if (response.status === 200) {
+                    totalNextApprover = response.data[0].nextApproverPath.length;
+                    dataWorkflow.workFlowPathRefID = response.data[0].sys_ID;
+                    dataWorkflow.approverEntityRefID = response.data[0].submitterEntity_RefID;
 
-                    let t = $('#tableGetWorkFlow').DataTable();
-                    t.clear();
-                    $.each(response.data, function(key, val) {
-                        t.row.add([
-                            '<td><span data-dismiss="modal" onclick="SelectWorkFlow(\'' + val.Sys_ID + '\', \'' + val.NextApprover_RefID + '\', \'' + response.approverEntity_RefID + '\', \'' + response.documentTypeID + '\');"><img src="{{ asset("AdminLTE-master/dist/img/add.png") }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></span></td>',
-                            '<td style="border:1px solid #e9ecef;">' + val.FullApproverPath + '</td></tr></tbody>'
-                        ]).draw();
-                    });
+                    getWorkflows(response.data[0].nextApproverPath);
+
+                    getAccountPayableDetails();
                 } else {
-                    const formatData = {
-                        workFlowPath_RefID: response.workFlowPath_RefID, 
-                        nextApprover: response.nextApprover_RefID, 
-                        approverEntity: response.approverEntity_RefID, 
-                        documentTypeID: response.documentTypeID,
-                        storeData: response.storeData
-                    };
-
-                    selectWorkFlow(formatData);
+                    Swal.fire("Error", "Workflow Error", "error");
                 }
             },
-            error: function(response) {
-                console.log('response error', response);
-                
-                HideLoading();
-                CancelNotif("You don't have access", "{{ route('AccountPayable.index', ['var' => 1]) }}");
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.log('jqXHR, textStatus, errorThrown', jqXHR, textStatus, errorThrown);
+                Swal.fire("Error", "Data Error", "error");
+
+                // $("#loadingBudget").css({"display":"none"});
+                // $("#myProjectSecondTrigger").css({"display":"block"});
             }
         });
     }
@@ -980,8 +1060,8 @@
 
     $(window).one('load', function(e) {
         getVAT();
-        getAccountPayableDetails();
         getPaymentTransfer(paymentTransferID.value);
         getDepreciationMethod();
+        getWorkflow();
     });
 </script>

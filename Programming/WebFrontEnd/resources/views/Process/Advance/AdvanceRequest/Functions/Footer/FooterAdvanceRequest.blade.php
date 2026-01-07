@@ -6,6 +6,7 @@
         approverEntityRefID: null,
         comment: null
     };
+    let triggerButtonModal  = null;
     let documentTypeID      = document.getElementById("DocumentTypeID");
     let budgetID            = document.getElementById("project_id_second");
     let siteID              = document.getElementById("site_id_second");
@@ -576,14 +577,19 @@
         });
     }
 
-    function SubmitForm() {
+    function SubmitForm(value) {
+        triggerButtonModal = value;
         $('#advanceRequestFormModal').modal('hide');
 
         $('#advanceRequestFormModal').on('hidden.bs.modal', function () {
-            if (totalNextApprover > 1) {
-                $('#myWorkflows').modal('show');
-            } else {
-                commentWorkflow();
+            if (triggerButtonModal === "SUBMIT") {
+                if (totalNextApprover > 1) {
+                    $('#myWorkflows').modal('show');
+                } else {
+                    commentWorkflow();
+                }
+
+                triggerButtonModal = null;
             }
         });
     }
@@ -786,6 +792,15 @@
         $('#myWorkflows').on('hidden.bs.modal', function () {
             commentWorkflow();
         });
+    });
+
+    $('#tableGetModalAdvance').on('click', 'tbody tr', function() {
+        const sysId = $(this).find('input[data-trigger="sys_id_modal_advance"]').val();
+        const trano = $(this).find('td:nth-child(2)').text();
+
+        $("#modal_advance_id").val(sysId);
+        $("#modal_advance_document_number").val(trano);
+        $("#myGetModalAdvance").modal('toggle');
     });
 
     $(window).one('load', function(e) {

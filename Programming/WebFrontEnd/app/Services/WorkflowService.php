@@ -10,7 +10,8 @@ class WorkflowService
 {
     public function submit($businessDocument_RefID, $workFlowPath_RefID, $remarks, $approverEntity_RefID)
     {
-        $varAPIWebToken = Session::get('SessionLogin');
+        $varAPIWebToken             = Session::get('SessionLogin');
+        $varWorkerCareerInternal    = Session::get('SessionWorkerCareerInternal_RefID');
 
         return Helper_APICall::setCallAPIGateway(
             Helper_Environment::getUserSessionID_System(),
@@ -22,7 +23,7 @@ class WorkflowService
                     "businessDocument_RefID"    => (int) $businessDocument_RefID,
                     "workFlowPath_RefID"        => (int) $workFlowPath_RefID,
                     "remarks"                   => $remarks,
-                    "approverEntity_RefID"      => (int) $approverEntity_RefID
+                    "approverEntity_RefID"      => (int) $varWorkerCareerInternal
                 ]
             ]
         );
@@ -30,7 +31,8 @@ class WorkflowService
 
     public function resubmit($businessDocument_RefID, $comment, $approverEntity_RefID) 
     {
-        $varAPIWebToken = Session::get('SessionLogin');
+        $varAPIWebToken             = Session::get('SessionLogin');
+        $varWorkerCareerInternal    = Session::get('SessionWorkerCareerInternal_RefID');
 
         return Helper_APICall::setCallAPIGateway(
             Helper_Environment::getUserSessionID_System(),
@@ -41,7 +43,7 @@ class WorkflowService
                 'entities' => [
                     "businessDocument_RefID"    => (int) $businessDocument_RefID,
                     "remarks"                   => $comment,
-                    "approverEntity_RefID"      => (int) $approverEntity_RefID
+                    "approverEntity_RefID"      => (int) $varWorkerCareerInternal
                 ]
             ]
         );

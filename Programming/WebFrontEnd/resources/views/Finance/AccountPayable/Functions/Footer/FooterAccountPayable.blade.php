@@ -9,19 +9,31 @@
     let depreciationRateValue           = 0;
     let depreciationYearsValue          = 0;
     let indexPurchaseOrder              = 0;
+    let totalNextApprover               = 0;
+    let triggerButtonModal              = null;
+    let dataWorkflow                    = {
+        workFlowPathRefID: null,
+        approverEntityRefID: null,
+        comment: null
+    };
     const purchaseOrderNumber           = document.getElementById("purchase_order_number");
     const supplierInvoiceNumber         = document.getElementById("supplier_invoice_number");
     const paymentTransferNumber         = document.getElementById("payment_transfer_number");
+    const paymentTransferID             = document.getElementById("payment_transfer_id");
     const valueVAT                      = document.getElementById('ppn');
     const valueVATNumber                = document.getElementById('vat_number');
     const notes                         = document.getElementById('account_payable_notes');
     const categoryID                    = document.getElementById('category_id');
     const categoryNumber                = document.getElementById('category_number');
     const depreciationMethod            = document.getElementById('depreciation_method');
+    const depreciationRateYearsID       = document.getElementById("depreciation_rate_years_id");
     const depreciationRatePercentage    = document.getElementById('depreciation_rate_percentage');
     const depreciationRateYears         = document.getElementById('depreciation_rate_years');
     const depreciationCOANumber         = document.getElementById('depreciation_coa_number');
+    const depreciationCOAID             = document.getElementById('depreciation_coa_id');
     const deductionValue                = document.getElementById('budget_details_deduction');
+    const fileID                        = document.getElementById("dataInput_Log_FileUpload");
+    const documentTypeID                = document.getElementById("DocumentTypeID");
 
     function calculateGrandTotal() {
         let result = (
@@ -616,6 +628,8 @@
                     $("#purchase_order_delivery_from").val(`${data[0].supplierName} - ${data[0].supplierAddress}`);
 
                     $("#invoice_details_table tbody").show();
+                    $("#purchase_order_loading").hide();
+                    $("#purchase_order_trigger").show();
                     // $("#purchase_order_trigger").prop("disabled", true);
 
                     getPaymentTransfer(data[0].supplier_RefID);
@@ -624,13 +638,17 @@
                         let row = `
                             <tr>
                                 <input type="hidden" id="purchaseOrderDetail_RefID[]" value="${val.sys_ID}">
-                                <input type="hidden" id="combinedBudgetSectionDetail_RefID[]" value="${169000000000041}">
+                                <input type="hidden" id="combinedBudgetSectionDetail_RefID[]" value="${val.combinedBudgetSectionDetail_RefID}">
                                 <input type="hidden" id="product_RefID[]" value="${val.product_RefID}">
                                 <input type="hidden" id="quantityUnit_RefID[]" value="${val.quantityUnit_RefID}">
                                 <input type="hidden" id="productUnitPriceCurrency_RefID[]" value="${val.productUnitPriceCurrency_RefID}">
                                 <input type="hidden" id="productUnitPriceCurrencyExchangeRate[]" value="${val.productUnitPriceCurrencyExchangeRate}">
                                 
-                                <td style="text-align: left;">${val.productCode} - ${val.productName}</td>
+                                <td style="text-align: left;">
+                                    <div style="overflow: hidden;white-space: nowrap;text-overflow: ellipsis;width: 200px;">
+                                        ${val.productCode} - ${val.productName}
+                                    </div>
+                                </td>
                                 <td style="text-align: center;">${val.quantity}</td>
                                 <td style="text-align: center;">${val.qtyAvail}</td>
                                 <td style="text-align: center;">${currencyTotal(val.productUnitPriceBaseCurrencyValue)}</td>
@@ -651,7 +669,7 @@
                                         <option value="1" ${val.asset == '1' && 'selected'}>Yes</option>
                                     </select>
                                 </td>
-                                <td>
+                                <td style="border:1px solid #e9ecef;padding-right: .3rem;">
                                     <div class="input-group">
                                         <div class="input-group-append">
                                             <span style="border-radius:0;cursor:pointer;" class="input-group-text form-control">
@@ -759,7 +777,41 @@
         });
     }
 
-    function accountPayableStore(formatData) {
+    function commentWorkflow() {
+        const swalWithBootstrapButtons = Swal.mixin({
+            confirmButtonClass: 'btn btn-success btn-sm',
+            cancelButtonClass: 'btn btn-danger btn-sm',
+            buttonsStyling: true,
+        });
+
+        swalWithBootstrapButtons.fire({
+            title: 'Comment',
+            text: "Please write your comment here",
+            type: 'question',
+            input: 'textarea',
+            showCloseButton: false,
+            showCancelButton: true,
+            focusConfirm: false,
+            cancelButtonText: '<span style="color:black;"> Cancel </span>',
+            confirmButtonText: '<span style="color:black;"> OK </span>',
+            cancelButtonColor: '#DDDAD0',
+            confirmButtonColor: '#DDDAD0',
+            reverseButtons: true
+        }).then((result) => {
+            if ('value' in result) {
+                dataWorkflow.comment = result.value;
+                ShowLoading();
+                accountPayableStore();
+            }
+        });
+    }
+
+    function accountPayableStore() {
+        const VATOrigin         = document.querySelector('input[name="vat_origin"]:checked');
+        const BASTOrigin        = document.querySelector('input[name="basft_origin"]:checked');
+        const contractSigned    = document.querySelector('input[name="contract_signed"]:checked');
+        const receiptOrigin     = document.querySelector('input[name="receipt_origin"]:checked');
+
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -768,19 +820,44 @@
 
         $.ajax({
             type: 'POST',
-            data: formatData,
+            data: {
+                workFlowPath_RefID: dataWorkflow.workFlowPathRefID,
+                approverEntity: dataWorkflow.approverEntityRefID, 
+                comment: dataWorkflow.comment,
+                storeData: {
+                    asset: 0,
+                    depreciation_method: depreciationMethod.value,
+                    category_id: categoryID.value,
+                    dataInput_Log_FileUpload_1: fileID.value,
+                    supplier_invoice_number: supplierInvoiceNumber.value,
+                    payment_transfer_id: paymentTransferID.value,
+                    receipt_origin: receiptOrigin.value,
+                    contract_signed: contractSigned.value,
+                    vat_origin: VATOrigin.value,
+                    basft_origin: BASTOrigin.value,
+                    ppn: valueVAT.value,
+                    vat_number: valueVATNumber.value,
+                    depreciation_rate_years_id: depreciationRateYearsID.value,
+                    depreciation_rate_years: depreciationRateYears.value,
+                    depreciation_rate_percentage: depreciationRatePercentage.value,
+                    depreciation_coa_id: depreciationCOAID.value,
+                    budget_details_deduction: deductionValue.value,
+                    account_payable_notes: notes.value,
+                    account_payable_detail: JSON.stringify(dataStore)
+                }
+            },
             url: '{{ route("AccountPayable.store") }}',
             success: function(res) {
                 HideLoading();
 
                 if (res.status == 200) {
-                    const swalWithBootstrapButtonsss = Swal.mixin({
+                    const swalWithBootstrapButtons = Swal.mixin({
                         confirmButtonClass: 'btn btn-success btn-sm',
                         cancelButtonClass: 'btn btn-danger btn-sm',
                         buttonsStyling: true,
                     });
 
-                    swalWithBootstrapButtonsss.fire({
+                    swalWithBootstrapButtons.fire({
                         title: 'Successful !',
                         type: 'success',
                         html: 'Data has been saved. Your transaction number is ' + '<span style="color:#0046FF;font-weight:bold;">' + res.documentNumber + '</span>',
@@ -792,69 +869,74 @@
                         confirmButtonColor: '#e9ecef',
                         reverseButtons: true
                     }).then((result) => {
-                        window.location.href = "{{ route('AccountPayable.index', ['var' => 1]) }}";
+                        cancelForm("{{ route('AccountPayable.index', ['var' => 1]) }}");
                     });
                 } else {
-                    ErrorNotif("Data Cancel Inputed");
+                    ErrorNotif("Create Account Payable Failed");
                 }
             },
             error: function(jqXHR, textStatus, errorThrown) {
-                console.log('error', jqXHR, textStatus, errorThrown);
+                HideLoading();
+                ErrorNotif("Data Cancel Inputed");
             }
         });
     }
 
-    function submitForm() {
+    function submitForm(value) {
+        triggerButtonModal = value;
         $('#account_payable_submit_modal').modal('hide');
 
-        let action = $('#form_submit_account_payable').attr("action");
-        let method = $('#form_submit_account_payable').attr("method");
-        let form_data = new FormData($('#form_submit_account_payable')[0]);
-        form_data.append('account_payable_detail', JSON.stringify(dataStore));
+        $('#account_payable_submit_modal').on('hidden.bs.modal', function (e) {
+            if (triggerButtonModal === "SUBMIT") {
+                if (totalNextApprover > 1) {
+                    $('#myWorkflows').modal('show');
+                } else {
+                    commentWorkflow();
+                }
 
-        ShowLoading();
+                triggerButtonModal = null;
+            }
+        });
+    }
+
+    function getWorkflow(combinedBudgetRefID, purchaseOrderRefID) {
+        $("#tablePurchaseOrderDetail tbody").hide();
+        $(".loadingPurchaseOrderTable").show();
+        $("#loading_workflow").show();
+        $("#purchaseRequisitionTrigger").hide();
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
 
         $.ajax({
-            url: action,
-            dataType: 'json',
-            cache: false,
-            contentType: false,
-            processData: false,
-            data: form_data,
-            type: method,
+            type: 'POST',
+            data: {
+                businessDocumentType_RefID: documentTypeID.value,
+                combinedBudget_RefID: combinedBudgetRefID
+            },
+            url: '{!! route("GetWorkflow") !!}',
             success: function(response) {
-                HideLoading();
+                if (response.status === 200) {
+                    totalNextApprover = response.data[0].nextApproverPath.length;
+                    dataWorkflow.workFlowPathRefID = response.data[0].sys_ID;
+                    dataWorkflow.approverEntityRefID = response.data[0].submitterEntity_RefID;
 
-                if (response.message == "WorkflowError") {
-                    CancelNotif("You don't have access", "{{ route('AccountPayable.index', ['var' => 1]) }}");
-                } else if (response.message == "MoreThanOne") {
-                    $('#getWorkFlow').modal('toggle');
+                    getWorkflows(response.data[0].nextApproverPath);
 
-                    let t = $('#tableGetWorkFlow').DataTable();
-                    t.clear();
-                    $.each(response.data, function(key, val) {
-                        t.row.add([
-                            '<td><span data-dismiss="modal" onclick="SelectWorkFlow(\'' + val.Sys_ID + '\', \'' + val.NextApprover_RefID + '\', \'' + response.approverEntity_RefID + '\', \'' + response.documentTypeID + '\');"><img src="{{ asset("AdminLTE-master/dist/img/add.png") }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></span></td>',
-                            '<td style="border:1px solid #e9ecef;">' + val.FullApproverPath + '</td></tr></tbody>'
-                        ]).draw();
-                    });
+                    getPurchaseOrderDetail(purchaseOrderRefID);
                 } else {
-                    const formatData = {
-                        workFlowPath_RefID: response.workFlowPath_RefID, 
-                        nextApprover: response.nextApprover_RefID, 
-                        approverEntity: response.approverEntity_RefID, 
-                        documentTypeID: response.documentTypeID,
-                        storeData: response.storeData
-                    };
-
-                    selectWorkFlow(formatData);
+                    Swal.fire("Error", "Workflow Error", "error");
                 }
             },
-            error: function(response) {
-                console.log('response error', response);
-                
-                HideLoading();
-                CancelNotif("You don't have access", "{{ route('AccountPayable.index', ['var' => 1]) }}");
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.log('jqXHR, textStatus, errorThrown', jqXHR, textStatus, errorThrown);
+                Swal.fire("Error", "Data Error", "error");
+
+                $("#loadingBudget").css({"display":"none"});
+                $("#myProjectSecondTrigger").css({"display":"block"});
             }
         });
     }
@@ -870,22 +952,22 @@
     });
 
     $('#TableSearchPORevision tbody').on('click', 'tr', function () {
-        var table = $('#TableSearchPORevision').DataTable();
-        var data = table.row(this).data();
+        const table = $('#TableSearchPORevision').DataTable();
+        const data = table.row(this).data();
 
         $("#invoice_loading_table").show();
         $("#invoice_details_table tbody").hide();
+        $("#purchase_order_loading").show();
+        $("#purchase_order_trigger").hide();
 
         if (data) {
             $("#mySearchPO").modal('toggle');
 
-            var purchaseOrder_RefID = data.sys_ID;
-            var code = data.sys_Text;
+            const purchaseOrder_RefID = data.sys_ID;
+            const code = data.sys_Text;
+            const combinedBudget_RefID = data.combinedBudget_RefID;
 
-            getPurchaseOrderDetail(purchaseOrder_RefID);
-
-            // $("#purchaseOrder_RefID").val(purchaseOrder_RefID);
-            // $("#purchaseOrder_number").val(code);
+            getWorkflow(combinedBudget_RefID, purchaseOrder_RefID);
         }
     });
 
