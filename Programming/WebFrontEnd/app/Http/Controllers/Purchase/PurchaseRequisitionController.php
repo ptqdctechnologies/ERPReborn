@@ -137,15 +137,14 @@ class PurchaseRequisitionController extends Controller
                 throw new \Exception('Failed to fetch Update Purchase Request');
             }
 
-            $responseWorkflow = $this->workflowService->submit(
+            $responseWorkflow = $this->workflowService->resubmit(
                 $response['data'][0]['businessDocument']['businessDocument_RefID'],
-                $request->workFlowPath_RefID,
                 $request->comment,
                 $request->approverEntity,
             );
 
             if ($responseWorkflow['metadata']['HTTPStatusCode'] !== 200) {
-                throw new \Exception('Failed to fetch Submit Workflow Revision Purchase Request');
+                throw new \Exception('Failed to fetch Resubmit Workflow Revision Purchase Request');
             }
 
             $compact = [
@@ -155,7 +154,7 @@ class PurchaseRequisitionController extends Controller
 
             return response()->json($compact);
         } catch (\Throwable $th) {
-            Log::error("Update Purchase Requesition Function Error: " . $th->getMessage());
+            Log::error("Update Purchase Request Function Error: " . $th->getMessage());
 
             return response()->json(["status" => 500]);
         }
