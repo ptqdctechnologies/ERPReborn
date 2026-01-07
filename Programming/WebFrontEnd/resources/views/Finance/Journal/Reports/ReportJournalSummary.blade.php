@@ -14,7 +14,7 @@
             <div class="row mb-1" style="background-color:#4B586A;">
                 <div class="col-sm-6" style="height:30px;">
                     <label style="font-size:15px;position:relative;top:7px;color:white;">
-                        Payment Journal Report
+                        Report Cash & Bank
                     </label>
                 </div>
             </div>
@@ -55,17 +55,72 @@
                                     <table class="table table-head-fixed text-nowrap table-responsive" id="table_summary">
                                         <thead>
                                             <tr>
-                                                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;width: 10px;">No</th>
-                                                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Transaction Number</th>
-                                                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Date</th>
-                                                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">DB/CR</th>
-                                                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Budget</th>
-                                                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Transaction Value</th>
-                                                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Payment Value</th>
-                                                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Balance</th>
-                                                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">From/To</th>
-                                                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">COA Code</th>
-                                                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Attachment</th>
+                                                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;width: 10px; padding-left: .70rem;">
+                                                    <div style="cursor: pointer; display: flex;justify-content: center;align-items: center;gap: 12.7px;">
+                                                        <div>No</div>
+                                                        <i class="fas fa-solid fa-sort"></i>
+                                                    </div>
+                                                </th>
+                                                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
+                                                    <div style="cursor: pointer; display: flex;justify-content: center;align-items: center;gap: 12.7px;">
+                                                        <div>Transaction Number</div>
+                                                        <i class="fas fa-solid fa-sort"></i>
+                                                    </div>
+                                                </th>
+                                                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
+                                                    <div style="cursor: pointer; display: flex;justify-content: center;align-items: center;gap: 12.7px;">
+                                                        <div>Date</div>
+                                                        <i class="fas fa-solid fa-sort"></i>
+                                                    </div>
+                                                </th>
+                                                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
+                                                    <div style="cursor: pointer; display: flex;justify-content: center;align-items: center;gap: 12.7px;">
+                                                        <div>DB/CR</div>
+                                                        <i class="fas fa-solid fa-sort"></i>
+                                                    </div>
+                                                </th>
+                                                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
+                                                    <div style="cursor: pointer; display: flex;justify-content: center;align-items: center;gap: 12.7px;">
+                                                        <div>Budget</div>
+                                                        <i class="fas fa-solid fa-sort"></i>
+                                                    </div>
+                                                </th>
+                                                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
+                                                    <div style="cursor: pointer; display: flex;justify-content: center;align-items: center;gap: 12.7px;">
+                                                        <div>Transaction Value</div>
+                                                        <i class="fas fa-solid fa-sort"></i>
+                                                    </div>
+                                                </th>
+                                                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
+                                                    <div style="cursor: pointer; display: flex;justify-content: center;align-items: center;gap: 12.7px;">
+                                                        <div>Payment Value</div>
+                                                        <i class="fas fa-solid fa-sort"></i>
+                                                    </div>
+                                                </th>
+                                                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
+                                                    <div style="cursor: pointer; display: flex;justify-content: center;align-items: center;gap: 12.7px;">
+                                                        <div>Balance</div>
+                                                        <i class="fas fa-solid fa-sort"></i>
+                                                    </div>
+                                                </th>
+                                                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
+                                                    <div style="cursor: pointer; display: flex;justify-content: center;align-items: center;gap: 12.7px;">
+                                                        <div>From/To</div>
+                                                        <i class="fas fa-solid fa-sort"></i>
+                                                    </div>
+                                                </th>
+                                                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
+                                                    <div style="cursor: pointer; display: flex;justify-content: center;align-items: center;gap: 12.7px;">
+                                                        <div>COA Code</div>
+                                                        <i class="fas fa-solid fa-sort"></i>
+                                                    </div>
+                                                </th>
+                                                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white; padding-right: .70rem;">
+                                                    <div style="cursor: pointer; display: flex;justify-content: center;align-items: center;gap: 12.7px;">
+                                                        <div>Attachment</div>
+                                                        <i class="fas fa-solid fa-sort"></i>
+                                                    </div>
+                                                </th>
                                             </tr>
                                         </thead>
                                         <tbody></tbody>

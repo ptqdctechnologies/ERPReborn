@@ -1,72 +1,6 @@
 <script>
     let isFromTo = false;
-    const data = [
-        {
-            "no": 1,
-            "transaction_number": "Adv/QDC/2025/000214",
-            "date": "2025-07-12",
-            "type": "Credit",
-            "budget": "(Q000062) XL Microcell 2007",
-            "transaction_value": 500000,
-            "payment_value": 175000,
-            "balance": 325000,
-            "from_to": "(BCA) 5750423347 - Agus Salim",
-            "coa_code": "1-1102 - Bank",
-            "attachment": "-"
-        },
-        {
-            "no": 2,
-            "transaction_number": "AP/QDC/2025/000211",
-            "date": "2025-09-27",
-            "type": "Debit",
-            "budget": "(Q000062) XL Microcell 2007",
-            "transaction_value": 325000,
-            "payment_value": 125000,
-            "balance": 200000,
-            "from_to": "(BNI) 8995885888 - PT QDC Technologies",
-            "coa_code": "2-3001 - Hutang Lain - Lain",
-            "attachment": "-"
-        },
-        {
-            "no": 3,
-            "transaction_number": "AP/QDC/2025/000211",
-            "date": "2025-10-24",
-            "type": "Debit",
-            "budget": "(Q000062) XL Microcell 2007",
-            "transaction_value": 200000,
-            "payment_value": 150000,
-            "balance": 50000,
-            "from_to": "(BNI) 8995885888 - PT QDC Technologies",
-            "coa_code": "2-3001 - Hutang Lain - Lain",
-            "attachment": "-"
-        },
-        { 
-            "no": 4, 
-            "transaction_number": "AP/QDC/2025/000212", 
-            "date": "2025-11-12", 
-            "type": "Credit", 
-            "budget": "(Q000063) XL Microcell 2008", 
-            "transaction_value": 450000, 
-            "payment_value": 200000, 
-            "balance": 250000, 
-            "from_to": "(BCA) 5750423348 - Agus Salim", 
-            "coa_code": "1-1103 - Bank", 
-            "attachment": "-" 
-        },
-        {
-            "no": 5, 
-            "transaction_number": "Adv/QDC/2025/000215", 
-            "date": "2025-08-19", 
-            "type": "Credit", 
-            "budget": "(Q000064) XL Microcell 2009", 
-            "transaction_value": 500000, 
-            "payment_value": 200000, 
-            "balance": 300000, 
-            "from_to": "(BCA) 5750423349 - Agus Salim", 
-            "coa_code": "1-1104 - Bank", 
-            "attachment": "-" 
-        }
-    ];
+    let data = [];
     const startLimit = document.getElementById("start_limit");
     const endLimit = document.getElementById("end_limit");
     const totalData = document.getElementById("total_data");
@@ -96,9 +30,24 @@
             data: {},
             dataType: 'json',
             success: function(response) {
-                HideLoading();
+                if (response.status === 200 && response.data[0]) {
+                    data = response.data;
 
-                $('#table_container').css("display", "block");
+                    filteredData = [...data];
+                    currentPage = 1;
+                    sortColumn = null;
+                    sortOrder = 'asc';
+
+                    renderPage();
+                    renderPagination();
+
+                    $('#table_container').css("display", "block");
+                } else {
+                    $('#table_container').css("display", "none");
+                    ErrorNotif("No data available for the selected criteria.");
+                }
+
+                HideLoading();
             },
             error: function(xhr, status, error) {
                 HideLoading();
@@ -223,11 +172,23 @@
         // Paginate the filtered and sorted data
         const start = (currentPage - 1) * rowsPerPage;
         const end = start + rowsPerPage;
-        const pageData = filteredAndSortedData.slice(start, end);
+        const pageData = filteredAndSortedData.length > 0 ? filteredAndSortedData.slice(start, end) : [{
+            "no": "",
+            "transaction_number": "",
+            "date": "",
+            "type": "",
+            "budget": "",
+            "transaction_value": "",
+            "payment_value": "",
+            "balance": "",
+            "from_to": "",
+            "coa_code": "",
+            "attachment": ""
+        }];
 
         startLimit.textContent = start + 1;
-        endLimit.textContent = currentPage == 1 ? end : end - 1;
-        totalData.textContent = data.length;
+        endLimit.textContent = Math.min(end, filteredAndSortedData.length);
+        totalData.textContent = filteredAndSortedData.length;
 
         renderTable(pageData);
         updatePaginationInfo(filteredAndSortedData.length); // Update the page info based on filtered data
@@ -306,6 +267,8 @@
     }
 
     function sortByColumn(index) {
+        if (!data.length) return;
+
         const columnNames = Object.keys(data[0]); // Get the column names based on the data
         const columnName = columnNames[index];
 
