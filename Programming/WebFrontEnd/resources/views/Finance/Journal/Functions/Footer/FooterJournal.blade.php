@@ -102,10 +102,10 @@
         totalDebit  = 0;
         
         for (let index = 0; index < journalDetails.length; index++) {
-            if (journalDetails[index].accountingEntryRecordType_RefID === "214000000000001") {
+            if (journalDetails[index].accountingEntryRecordType_RefID === "214000000000002") {
                 totalDebit += 1;
             }
-            if (journalDetails[index].accountingEntryRecordType_RefID === "214000000000002") {
+            if (journalDetails[index].accountingEntryRecordType_RefID === "214000000000001") {
                 totalCredit += 1;
             } 
         }
@@ -123,11 +123,11 @@
         document.querySelectorAll('input[id^="amountCurrencyValue"]').forEach(function(input, index) {
             let value = parseFloat(input.value.replace(/,/g, ''));
             if (!isNaN(value)) {
-                if (journalDetails[index].accountingEntryRecordType_RefID === "214000000000001") {
+                if (journalDetails[index].accountingEntryRecordType_RefID === "214000000000002") {
                     totalCashOut += value;
                     isTypeNotEmpty =  true;
                 }
-                if (journalDetails[index].accountingEntryRecordType_RefID === "214000000000002") {
+                if (journalDetails[index].accountingEntryRecordType_RefID === "214000000000001") {
                     totalCashIn += value;
                     isTypeNotEmpty =  true;
                 } 
