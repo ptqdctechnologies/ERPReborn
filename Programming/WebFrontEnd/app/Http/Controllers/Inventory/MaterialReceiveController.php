@@ -347,33 +347,43 @@ class MaterialReceiveController extends Controller
 
     public function ReportMaterialReceiveSummaryStore(Request $request)
     {
-        // tes;
         try {
-            $project_code = $request->project_code_second;
-            // $site_code = $request->site_id_second;
+            $receivedID     = $request->received_id;
+            $deliveryFromID = $request->delivery_from_id;
+            $deliveryToID   = $request->delivery_to_id;
+            $date           = $request->mrDate;
+            $budget         = [
+                "id"        => $request->budget_id,
+                "code"      => $request->budget_code,
+            ];
 
-            $statusHeader = "Yes";
-            Log::error("Error at " ,[$request->all()]);
-            if ($project_code == "") {
-                Session::forget("MaterialReceiveReportSummaryDataPDF");
-                Session::forget("MaterialReceiveReportSummaryDataExcel");
-                
-                return redirect()->route('MaterialReceive.ReportMaterialReceiveSummary')->with('NotFound', 'Cannot Empty');
+            $response = $this->materialReceiveService->getMaterialReceiveSummary(
+                $budget['code'], 
+                $receivedID,
+                $deliveryFromID,
+                $deliveryToID,
+                $date
+            );
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                throw new \Exception('Failed to fetch Material Receive Summary Report');
             }
 
-            $compact = $this->ReportMaterialReceiveSummaryData($project_code);
-            // dd($compact);
-            // if ($compact['dataHeader'] == []) {
-            //     Session::forget("PDeliveryOrderSummaryReportDataPDF");
-            //     Session::forget("PDeliveryOrderSummaryReportDataExcel");
+            $compact = [
+                'status'    => $response['metadata']['HTTPStatusCode'],
+                'data'      => $response['data']['data']
+            ];
 
-            //     return redirect()->back()->with('NotFound', 'Data Not Found');
-            // }
-
-            return redirect()->route('MaterialReceive.ReportMaterialReceiveSummary');
+            return response()->json($compact);
         } catch (\Throwable $th) {
-            Log::error("Error at " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
+            Log::error("Report Material Receive Summary Store Function Error:" . $th->getMessage());
+
+            $compact = [
+                'status'    => 500,
+                'message'   => $th->getMessage()
+            ];
+
+            return response()->json($compact);
         }
     }
 

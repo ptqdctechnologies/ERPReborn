@@ -105,11 +105,6 @@
                     });
 
                     $('#tableGetModalWarehouses').css("width", "100%");
-
-                    // $("#tableGetModalWarehouses_length").show();
-                    // $("#tableGetModalWarehouses_filter").show();
-                    // $("#tableGetModalWarehouses_info").show();
-                    // $("#tableGetModalWarehouses_paginate").show();
                 } else {
                     $(".errorModalWarehousesMessageContainerSecond").show();
                     $("#errorModalWarehousesMessageSecond").text(`Data not found.`);

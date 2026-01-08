@@ -2,6 +2,7 @@
 
 namespace App\Services\Inventory;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
@@ -27,6 +28,33 @@ class MaterialReceiveService
                 'sort' => null,
                 'filter' => null,
                 'paging' => null
+                ]
+            ]
+        );
+    }
+
+    public function getMaterialReceiveSummary($budget, $receivedID, $deliveryFromID, $deliveryToID, $date)
+    {
+        $sessionToken = Session::get('SessionLogin');
+
+        if ($date) {
+            $dates      = explode(' - ', $date);
+            $startDate  = Carbon::createFromFormat('m/d/Y', trim($dates[0]))->startOfDay()->format('Y-m-d');
+            $endDate    = Carbon::createFromFormat('m/d/Y', trim($dates[1]))->endOfDay()->format('Y-m-d');
+        }
+
+        return Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
+            $sessionToken, 
+            'report.form.documentForm.supplyChain.getWarehouseInboundOrderSummary', 
+            'latest',
+            [
+                'parameter'     => [
+                    'CombinedBudgetCode'    => $budget,
+                    'DeliveryFrom_RefID'    => $deliveryFromID ? $deliveryFromID : NULL,
+                    'DeliveryTo_RefID'      => $deliveryToID ? $deliveryToID : NULL
+                    // 'StartDate'             => $date ? $startDate : NULL,
+                    // 'EndDate'               => $date ? $endDate : NULL
                 ]
             ]
         );
