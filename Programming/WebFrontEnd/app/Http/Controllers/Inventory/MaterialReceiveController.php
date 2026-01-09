@@ -390,17 +390,24 @@ class MaterialReceiveController extends Controller
     public function PrintExportReportMaterialReceiveSummary(Request $request)
     {
         try {
-            $dataPDF = Session::get("MaterialReceiveReportSummaryDataPDF");
-            $dataExcel = Session::get("MaterialReceiveReportSummaryDataExcel");
+            $type                   = $request->printType;
+            $budgetName             = $request->budgetName;
+            $receivedName           = $request->receivedName;
+            $deliveryFromName       = $request->deliveryFromName;
+            $deliveryToName         = $request->deliveryToName;
+            $mrDate                 = $request->mrDate;
+            $materialReceiveSummary = json_decode($request->dataReport, true);
 
-            
-            if ($dataPDF && $dataExcel) {
-                $print_type = $request->print_type;
-                if ($print_type == "PDF") {
-                    $dataMR = Session::get("MaterialReceiveReportSummaryDataPDF");
-                    // dd($dataMR);
-
-                    $pdf = PDF::loadView('Inventory.MaterialReceive.Reports.ReportMaterialReceiveSummary_pdf', ['dataMR' => $dataMR])->setPaper('a4', 'landscape');
+            if ($materialReceiveSummary) {
+                if ($type == "PDF") {
+                    $pdf = PDF::loadView('Inventory.MaterialReceive.Reports.ReportMaterialReceiveSummary_pdf', [
+                        'dataMR'            => $materialReceiveSummary,
+                        'budgetName'        => $budgetName,
+                        'receivedName'      => $receivedName,
+                        'deliveryFromName'  => $deliveryFromName,
+                        'deliveryToName'    => $deliveryToName,
+                        'mrDate'            => $mrDate
+                        ])->setPaper('a4', 'landscape');
                     $pdf->output();
                     $dom_pdf = $pdf->getDomPDF();
 
@@ -411,15 +418,18 @@ class MaterialReceiveController extends Controller
                     $canvas->page_text(34, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
 
                     return $pdf->download('Export Report Material Receive Summary.pdf');
-                } else if ($print_type == "Excel") {
-                    return Excel::download(new ExportReportMaterialReceiveSummary, 'Export Report Material Receive Summary.xlsx');
+                } else if ($type == "EXCEL") {
+                    return Excel::download(new ExportReportDeliveryOrderSummary($materialReceiveSummary, $budgetName, $receivedName, $deliveryFromName, $deliveryToName, $mrDate), 'Export Report Material Receive Summary.xlsx');
+                } else {
+                    throw new \Exception('Failed to Export Material Receive Summary Report');
                 }
             } else {
-                return redirect()->route('MaterialReceive.ReportMaterialReceiveSummary')->with('NotFound', 'Data Cannot Empty');
+                throw new \Exception('Material Receive Summary Data is Empty');
             }
         } catch (\Throwable $th) {
-            Log::error("Error at " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
+            Log::error("Print Export Report Material Receive Summary Function Error: " . $th->getMessage());
+
+            return response()->json(['statusCode' => 400]);
         }
     }
 

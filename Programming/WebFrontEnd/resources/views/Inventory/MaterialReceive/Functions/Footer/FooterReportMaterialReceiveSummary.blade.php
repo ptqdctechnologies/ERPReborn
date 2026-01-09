@@ -133,6 +133,55 @@
         });
     }
 
+    function exportDataReport() {
+        ShowLoading();
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: 'POST',
+            url: '{!! route("MaterialReceive.PrintExportReportMaterialReceiveSummary") !!}',
+            data: {
+                dataReport,
+                budgetName: budgetName.value,
+                receivedName: receivedName.value,
+                deliveryFromName: deliveryFromName.value,
+                deliveryToName: deliveryToName.value,
+                mrDate: mrDate.value,
+                printType: printType.value
+            },
+            xhrFields: { 
+                responseType: 'blob'
+            },
+            success: function(response) {
+                let blob  = new Blob([response], { type: response.type });
+                let link  = document.createElement('a');
+                link.href = window.URL.createObjectURL(blob);
+
+                if (response.type === "application/pdf") {
+                    link.download = 'Report Material Receive Summary.pdf';
+                } else {
+                    link.download = 'Report Material Receive Summary.xlsx';
+                }
+
+                link.click();
+
+                window.URL.revokeObjectURL(link.href);
+
+                HideLoading();
+            },
+            error: function(xhr, status, error) {
+                HideLoading();
+                ErrorNotif("An error occurred while processing the received data. Please try again later.");
+                console.log('xhr, status, error', xhr, status, error);
+            }
+        });
+    }
+
     $('#tableProjects').on('click', 'tbody tr', function() {
         const sysId   = $(this).find('input[data-trigger="sys_id_project"]').val();
         const code    = $(this).find('td:nth-child(2)').text();
