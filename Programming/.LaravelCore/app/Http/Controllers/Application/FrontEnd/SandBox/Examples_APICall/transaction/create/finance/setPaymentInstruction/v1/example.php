@@ -21,7 +21,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         |                     ► http://172.28.0.4/transaction.create.finance.setPaymentInstruction.v1_throughAPIGateway            |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-12-24                                                                                           |
+        | ▪ Last Update     : 2026-01-09                                                                                           |
         | ▪ Creation Date   : 2025-01-13                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -54,6 +54,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                             "currencyExchangeRate" => 1.00,
                             "supplierInvoiceNumber" => 'INV-DHJ-2025-011',
                             "supplier_RefID" => 126000000000001,
+                            "otherSupplier" => NULL,
                             "receiptStatus" => 0,
                             "contractStatus" => 1,
                             "vatStatus" => 1,
