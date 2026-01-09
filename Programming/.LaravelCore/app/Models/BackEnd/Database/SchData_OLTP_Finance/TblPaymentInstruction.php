@@ -44,7 +44,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-11-06                                                                                           |
+        | ▪ Last Update     : 2026-01-09                                                                                           |
         | ▪ Creation Date   : 2025-01-11                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -70,7 +70,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         public function setDataInsert(
             $varUserSession,
             string $varSysDataAnnotation = null, string $varSysDataValidityStartDateTimeTZ = null, string $varSysDataValidityFinishDateTimeTZ = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, $varSysBaseCurrency_RefID = null,
-            string $varDocumentDateTimeTZ = null, int $varLog_FileUpload_Pointer_RefID = null, int $varCurrency_RefID = null, string $varCurrencySymbol = null, int $varCurrencyValue = null, int $varCurrencyExchangeRate = null, string $varSupplierInvoiceNumber = null, int $varSupplier_RefID = null, int $varReceiptStatus = null, int $varContractStatus = null, int $varVatStatus = null, float $varVatValue = 0, string $varVatNumber = null, int $varFatPatDoStatus = null, int $varAssetStatus = null, int $varDepreciationAssetCategory_RefID = null, float $varPeriod = 0, float $varRate = 0, int $varDepreciationCOA_RefID = null, int $varDeduction = null, string $varRemarks = null,
+            string $varDocumentDateTimeTZ = null, int $varLog_FileUpload_Pointer_RefID = null, int $varCurrency_RefID = null, string $varCurrencySymbol = null, int $varCurrencyValue = null, int $varCurrencyExchangeRate = null, string $varSupplierInvoiceNumber = null, int $varSupplier_RefID = null, string $varOtherSupplier = null, int $varReceiptStatus = null, int $varContractStatus = null, int $varVatStatus = null, float $varVatValue = 0, string $varVatNumber = null, int $varFatPatDoStatus = null, int $varAssetStatus = null, int $varDepreciationAssetCategory_RefID = null, float $varPeriod = 0, float $varRate = 0, int $varDepreciationCOA_RefID = null, int $varDeduction = null, string $varRemarks = null,
             array $varAdditionalData = []
             )
             {
@@ -99,6 +99,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
                             [$varCurrencyExchangeRate, 'bigint'],
                             [$varSupplierInvoiceNumber, 'varchar'],
                             [$varSupplier_RefID, 'bigint'],
+                            [$varOtherSupplier, 'varchar'],
                             [$varReceiptStatus, 'smallint'],
                             [$varContractStatus, 'smallint'],
                             [$varVatStatus, 'smallint'],
