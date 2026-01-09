@@ -419,7 +419,7 @@ class MaterialReceiveController extends Controller
 
                     return $pdf->download('Export Report Material Receive Summary.pdf');
                 } else if ($type == "EXCEL") {
-                    return Excel::download(new ExportReportDeliveryOrderSummary($materialReceiveSummary, $budgetName, $receivedName, $deliveryFromName, $deliveryToName, $mrDate), 'Export Report Material Receive Summary.xlsx');
+                    return Excel::download(new ExportReportMaterialReceiveSummary($materialReceiveSummary, $budgetName, $receivedName, $deliveryFromName, $deliveryToName, $mrDate), 'Export Report Material Receive Summary.xlsx');
                 } else {
                     throw new \Exception('Failed to Export Material Receive Summary Report');
                 }
