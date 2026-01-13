@@ -23,7 +23,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-10-10                                                                                           |
+        | ▪ Last Update     : 2026-01-09                                                                                           |
         | ▪ Creation Date   : 2025-01-11                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -43,7 +43,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0001.0000000                                                                                       |
-        | ▪ Last Update     : 2025-11-06                                                                                           |
+        | ▪ Last Update     : 2026-01-09                                                                                           |
         | ▪ Creation Date   : 2025-01-11                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -98,6 +98,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
                                     $varData['entities']['currencyExchangeRate'],
                                     $varData['entities']['supplierInvoiceNumber'],
                                     $varData['entities']['supplier_RefID'],
+                                    $varData['entities']['otherSupplier'],
                                     $varData['entities']['receiptStatus'],
                                     $varData['entities']['contractStatus'],
                                     $varData['entities']['vatStatus'],
