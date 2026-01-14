@@ -79,6 +79,7 @@
         if (!file) return;
 
         const fileUrl = URL.createObjectURL(file);
+        
         journalDetails[index].attachment = file;
         journalDetails[index].attachment_url = fileUrl;
 

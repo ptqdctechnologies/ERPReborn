@@ -1,0 +1,388 @@
+<script>
+    let journalSettlementDetails = [];
+    let currentIndexPickCOA = 0;
+    let currentIndexPickProduct = 0;
+    let totalAdvanceSettlement = 0.00;
+    let totalDebitCreditSettlement = 0.00;
+    let valueCombinedBudgetCode = '';
+    let valueCombinedBudgetName = '';
+    let valueCombinedBudgetSectionCode = '';
+    let valueCombinedBudgetSectionName = '';
+    const documentType = document.getElementById('DocumentType');
+
+    function pickCOA(index) {
+        currentIndexPickCOA = index;
+    }
+
+    function pickProduct(index) {
+        currentIndexPickProduct = index;
+    }
+
+    function addRow() {
+        const tbody = document.getElementById("journal_settlement_body_table");
+
+        const createRow = (isShow) => ({
+            combinedBudgetCode: valueCombinedBudgetCode,
+            combinedBudgetName: valueCombinedBudgetName,
+            combinedBudgetSectionCode: valueCombinedBudgetSectionCode,
+            combinedBudgetSectionName: valueCombinedBudgetSectionName,
+            productCode: '',
+            productName: '',
+            coa_id: '',
+            coa_name: '',
+            debit_credit: '',
+            isShow
+        });
+
+        journalSettlementDetails.push(createRow(false));
+        journalSettlementDetails.push(createRow(false));
+
+        renderTableJournalSettlement();
+    }
+
+    function updateField(index, field, value) {
+        journalSettlementDetails[index][field] = value;
+    }
+
+    function removeRow(index) {
+        journalSettlementDetails.splice(index, 2);
+        renderTableJournalSettlement();
+    }
+
+    function calculateTotalSettlement() {
+        let total = 0.00;
+        const rows = document.querySelectorAll('#journal_settlement_table tbody tr');
+        rows.forEach(row => {
+            const totalCell = row.children[row.children.length - 1];
+            const value = totalCell && totalCell.value ? parseFloat(totalCell.value.replace(/,/g, '')) || 0 : 0;
+            total += value;
+        });
+
+        console.log('total', total);
+    }
+
+    function onKeyUpDebitCredit(index) {
+        calculateTotalSettlement();
+
+        $(`#debit_credit${index}`).on('keyup', function(event) {
+            const value = event.target.value.replace(/,/g, '');
+
+            updateField(index, 'debit_credit', value.replace(/,/g, ''));
+        });
+    }
+
+    function renderTableJournalSettlement() {
+        const tbody = document.getElementById("journal_settlement_body_table");
+        tbody.innerHTML = "";
+
+        journalSettlementDetails.forEach((row, index) => {
+            const tr = document.createElement("tr");
+            const tr2 = document.createElement("tr");
+            if (index === journalSettlementDetails.length - 1) {
+                tr.innerHTML = `
+                    <td style="text-align: center; padding-left: 4px !important;">
+                        <div class="d-flex justify-content-center">
+                            <!-- ICON PLUS -->
+                            <div class="icon-plus d-flex align-items-center justify-content-center" 
+                                style="width:20px;height:20px;border-radius:100%;background-color:#4B586A;margin:2px;cursor:pointer;
+                                display:${index === journalSettlementDetails.length - 1 ? 'flex' : 'none !important'};"
+                                onclick="addRow()">
+                                <i class="fas fa-plus" style="color:#fff;"></i>
+                            </div>
+                        </div>
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                `;
+            } else {
+                if (index % 2 === 0) {
+                    if (row.isShow === true) {
+                        tr.innerHTML = `
+                            <td rowspan="2" style="text-align: center; padding-left: 4px !important;">
+                                <div class="d-flex justify-content-center">
+                                    <!-- ICON MINUS -->
+                                    <div class="icon-minus d-flex align-items-center justify-content-center" 
+                                        style="width:20px;height:20px;border-radius:100%;background-color:red;margin:2px;cursor:pointer;display:flex;"
+                                        onclick="removeRow(${index})">
+                                        <i class="fas fa-minus" style="color:#fff;"></i>
+                                    </div>
+                                </div>
+                            </td>
+                            <td rowspan="2" style="text-align: center;">
+                                ${row.combinedBudgetCode} - ${row.combinedBudgetName}
+                            </td>
+                            <td rowspan="2" style="text-align: center;">
+                                ${row.combinedBudgetSectionCode} - ${row.combinedBudgetSectionName}
+                            </td>
+                            <td rowspan="2" style="text-align: center;">
+                                ${row.productCode} - ${row.productName}
+                            </td>
+                            <td style="border:1px solid #e9ecef;padding-right: .3rem;">
+                                <div class="input-group">
+                                    <div class="input-group-append">
+                                        <span style="border-radius:0;cursor:pointer;" class="input-group-text form-control">
+                                            <a data-toggle="modal" data-target="#myGetChartOfAccount" onclick="pickCOA(${index})">
+                                                <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="">
+                                            </a>
+                                        </span>
+                                    </div>
+                                    <input id="coa_id${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" hidden />
+                                    <input id="coa_name${index}" value="${row.coa_name}" style="border-radius:0;width:130px;background-color:${row.coa_name ? '#e9ecef' : '#fff'};" class="form-control" readonly />
+                                </div>
+                            </td>
+                            <td style="border:1px solid #e9ecef;padding-right: .3rem;">
+                                <select class="form-control" id="accountingEntryRecordType_RefID${index}" onchange="updateField(${index}, 'accountingEntryRecordType_RefID', this.value)">
+                                    <option value="" disabled selected>Select a ...</option>
+                                    <option value="214000000000001">Debit</option>
+                                    <option value="214000000000001">Credit</option>
+                                </select>
+                            </td>
+                            <td style="border:1px solid #e9ecef;padding-right: .3rem;">
+                                <input id="debit_credit${index}" class="form-control number-without-negative" onkeyup="onKeyUpDebitCredit(${index})" autocomplete="off" style="border-radius:0px;" />
+                            </td>
+                        `;
+                        tr2.innerHTML = `
+                            <td style="border:1px solid #e9ecef;padding-right: .3rem;padding-left: .3rem;">
+                                <div class="input-group">
+                                    <div class="input-group-append">
+                                        <span style="border-radius:0;cursor:pointer;" class="input-group-text form-control">
+                                            <a data-toggle="modal" data-target="#myGetChartOfAccount" onclick="pickCOA(${index + 1})">
+                                                <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="">
+                                            </a>
+                                        </span>
+                                    </div>
+                                    <input id="coa_id${index + 1}" style="border-radius:0;width:130px;background-color:white;" class="form-control" hidden />
+                                    <input id="coa_name${index + 1}" value="${journalSettlementDetails[index + 1].coa_name}" style="border-radius:0;width:130px;background-color: ${journalSettlementDetails[index + 1].coa_name ? '#e9ecef' : '#fff'};" class="form-control" readonly />
+                                </div>
+                            </td>
+                            <td style="border:1px solid #e9ecef;padding-right: .3rem;">
+                                <select class="form-control" id="accountingEntryRecordType_RefID${index}" onchange="updateField(${index}, 'accountingEntryRecordType_RefID', this.value)">
+                                    <option value="" disabled selected>Select a ...</option>
+                                    <option value="214000000000001">Debit</option>
+                                    <option value="214000000000001">Credit</option>
+                                </select>
+                            </td>
+                            <td style="border:1px solid #e9ecef;padding-right: .3rem;">
+                                <input id="debit_credit${index + 1}" class="form-control number-without-negative" onkeyup="onKeyUpDebitCredit(${index + 1})" autocomplete="off" style="border-radius:0px;" />
+                            </td>
+                        `;
+                    } else {
+                        tr.innerHTML = `
+                            <td rowspan="2" style="text-align: center; padding-left: 4px !important;">
+                                <div class="d-flex justify-content-center">
+                                    <!-- ICON MINUS -->
+                                    <div class="icon-minus d-flex align-items-center justify-content-center" 
+                                        style="width:20px;height:20px;border-radius:100%;background-color:red;margin:2px;cursor:pointer;display:flex;"
+                                        onclick="removeRow(${index})">
+                                        <i class="fas fa-minus" style="color:#fff;"></i>
+                                    </div>
+                                </div>
+                            </td>
+                            <td rowspan="2" style="text-align: center;">
+                                ${row.combinedBudgetCode} - ${row.combinedBudgetName}
+                            </td>
+                            <td rowspan="2" style="text-align: center;">
+                                ${row.combinedBudgetSectionCode} - ${row.combinedBudgetSectionName}
+                            </td>
+                            <td style="border:1px solid #e9ecef;padding-right: .3rem;">
+                                <div class="input-group">
+                                    <div class="input-group-append">
+                                        <span style="border-radius:0;cursor:pointer;" class="input-group-text form-control">
+                                            <a data-toggle="modal" data-target="#myProductss" onclick="pickProduct(${index})">
+                                                <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="">
+                                            </a>
+                                        </span>
+                                    </div>
+                                    <input id="product_id${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" hidden />
+                                    <input id="product_name${index}" value="${row.productName}" style="border-radius:0;width:130px;background-color:${row.productName ? '#e9ecef' : '#fff'};" class="form-control" readonly />
+                                </div>
+                            </td>
+                            <td style="border:1px solid #e9ecef;padding-right: .3rem;">
+                                <div class="input-group">
+                                    <div class="input-group-append">
+                                        <span style="border-radius:0;cursor:pointer;" class="input-group-text form-control">
+                                            <a data-toggle="modal" data-target="#myGetChartOfAccount" onclick="pickCOA(${index})">
+                                                <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="">
+                                            </a>
+                                        </span>
+                                    </div>
+                                    <input id="coa_id${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" hidden />
+                                    <input id="coa_name${index}" value="${row.coa_name}" style="border-radius:0;width:130px;background-color:${row.coa_name ? '#e9ecef' : '#fff'};" class="form-control" readonly />
+                                </div>
+                            </td>
+                            <td style="border:1px solid #e9ecef;padding-right: .3rem;">
+                                <select class="form-control" id="accountingEntryRecordType_RefID${index}" onchange="updateField(${index}, 'accountingEntryRecordType_RefID', this.value)">
+                                    <option value="" disabled selected>Select a ...</option>
+                                    <option value="214000000000001">Debit</option>
+                                    <option value="214000000000001">Credit</option>
+                                </select>
+                            </td>
+                            <td style="border:1px solid #e9ecef;padding-right: .3rem;">
+                                <input id="debit_credit${index}" class="form-control number-without-negative" onkeyup="onKeyUpDebitCredit(${index})" autocomplete="off" style="border-radius:0px;" />
+                            </td>
+                        `;
+                        tr2.innerHTML = `
+                            <td style="border:1px solid #e9ecef;padding-right: .3rem;padding-left: .3rem;">
+                                <div class="input-group">
+                                    <div class="input-group-append">
+                                        <span style="border-radius:0;cursor:pointer;" class="input-group-text form-control">
+                                            <a data-toggle="modal" data-target="#myProductss" onclick="pickProduct(${index + 1})">
+                                                <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="">
+                                            </a>
+                                        </span>
+                                    </div>
+                                    <input id="product_id${index + 1}" style="border-radius:0;width:130px;background-color:white;" class="form-control" hidden />
+                                    <input id="product_name${index + 1}" value="${journalSettlementDetails[index + 1].productName}" style="border-radius:0;width:130px;background-color: ${journalSettlementDetails[index + 1].productName ? '#e9ecef' : '#fff'};" class="form-control" readonly />
+                                </div>
+                            </td>
+                            <td style="border:1px solid #e9ecef;padding-right: .3rem;padding-left: .3rem;">
+                                <div class="input-group">
+                                    <div class="input-group-append">
+                                        <span style="border-radius:0;cursor:pointer;" class="input-group-text form-control">
+                                            <a data-toggle="modal" data-target="#myGetChartOfAccount" onclick="pickCOA(${index + 1})">
+                                                <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="">
+                                            </a>
+                                        </span>
+                                    </div>
+                                    <input id="coa_id${index + 1}" style="border-radius:0;width:130px;background-color:white;" class="form-control" hidden />
+                                    <input id="coa_name${index + 1}" value="${journalSettlementDetails[index + 1].coa_name}" style="border-radius:0;width:130px;background-color: ${journalSettlementDetails[index + 1].coa_name ? '#e9ecef' : '#fff'};" class="form-control" readonly />
+                                </div>
+                            </td>
+                            <td style="border:1px solid #e9ecef;padding-right: .3rem;">
+                                <select class="form-control" id="accountingEntryRecordType_RefID${index}" onchange="updateField(${index}, 'accountingEntryRecordType_RefID', this.value)">
+                                    <option value="" disabled selected>Select a ...</option>
+                                    <option value="214000000000001">Debit</option>
+                                    <option value="214000000000001">Credit</option>
+                                </select>
+                            </td>
+                            <td style="border:1px solid #e9ecef;padding-right: .3rem;">
+                                <input id="debit_credit${index + 1}" class="form-control number-without-negative" onkeyup="onKeyUpDebitCredit(${index + 1})" autocomplete="off" style="border-radius:0px;" />
+                            </td>
+                        `;
+                    }
+                }
+            }
+
+            tbody.appendChild(tr);
+            tbody.appendChild(tr2);
+        });
+
+        $("#journal_settlement_loading_table").hide();
+    }
+
+    function getDetailJournalSettlement(advanceSettlementID) {
+        const selectedIndex = documentType.selectedIndex;
+        const url = documentType.options[selectedIndex].text == "Advance Settlement Form" ? '{!! route("AdvanceSettlement.Detail") !!}?advance_settlement_id=' + advanceSettlementID : '{!! route("getPurchaseOrderDetail") !!}';
+
+        $("#journal_settlement_loading_table").show();
+        $('#journal_settlement_body_table').empty();
+        
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: 'GET',
+            url: url,
+            success: function(data) {
+                if (data.status === 200 && Array.isArray(data.data) && data.data.length > 0) {
+                    valueCombinedBudgetCode = data.data[0].combinedBudgetCode;
+                    valueCombinedBudgetName = data.data[0].combinedBudgetName;
+                    valueCombinedBudgetSectionCode = data.data[0].combinedBudgetSectionCode;
+                    valueCombinedBudgetSectionName = data.data[0].combinedBudgetSectionName;
+
+                    $.each(data.data, function(key, val) {
+                        totalAdvanceSettlement = ( parseFloat(val.expenseQuantity) * parseFloat(val.expenseProductUnitPriceCurrencyValue) ) + ( parseFloat(val.refundQuantity) * parseFloat(val.refundProductUnitPriceCurrencyValue) );
+
+                        journalSettlementDetails.push(
+                            {
+                                combinedBudgetCode: val.combinedBudgetCode,
+                                combinedBudgetName: val.combinedBudgetName,
+                                combinedBudgetSectionCode: val.combinedBudgetSectionCode,
+                                combinedBudgetSectionName: val.combinedBudgetSectionName,
+                                productCode: val.productCode,
+                                productName: val.productName,
+                                coa_id: '',
+                                coa_name: '',
+                                debit_credit: '',
+                                isShow: true
+                            },
+                            {
+                                combinedBudgetCode: val.combinedBudgetCode,
+                                combinedBudgetName: val.combinedBudgetName,
+                                combinedBudgetSectionCode: val.combinedBudgetSectionCode,
+                                combinedBudgetSectionName: val.combinedBudgetSectionName,
+                                productCode: val.productCode,
+                                productName: val.productName,
+                                coa_id: '',
+                                coa_name: '',
+                                debit_credit: '',
+                                isShow: true
+                            }
+                        );
+                    });
+
+                    renderTableJournalSettlement();
+                    $('#total_settlement').text(currencyTotal(totalAdvanceSettlement));
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('AJAX Error: ', status, error);
+            }
+        });
+    }
+
+    $('#tableAllTransactions').on('click', 'tbody tr', function() {
+        const sysId     = $(this).find('input[data-trigger="sys_id_transaction"]').val();
+        const trano     = $(this).find('td:nth-child(2)').text();
+        const project   = $(this).find('td:nth-child(3)').text();
+        const site      = $(this).find('td:nth-child(4)').text();
+        
+        $(`#transaction_id_settlement`).val(sysId);
+        $(`#transaction_number_settlement`).val(trano);
+        $(`#transaction_number_settlement`).css('background-color', '#e9ecef');
+
+        journalSettlementDetails = [];
+        getDetailJournalSettlement(sysId);
+
+        $('#total_settlement').text(currencyTotal(0.00));
+        $('#total_settlement_table').text(currencyTotal(0.00));
+        $('#myAllTransactions').modal('hide');
+    });
+
+    $('#tableGetChartOfAccount').on('click', 'tbody tr', async function() {
+        let sysId = $(this).find('input[data-trigger="sys_id_modal_coa"]').val();
+        let code  = $(this).find('td:nth-child(2)').text();
+        let name  = $(this).find('td:nth-child(3)').text();
+        
+        $(`#coa_id${currentIndexPickCOA}`).val(sysId);
+        $(`#coa_name${currentIndexPickCOA}`).val(`${code} - ${name}`);
+        $(`#coa_name${currentIndexPickCOA}`).css('background-color', '#e9ecef');
+
+        updateField(currentIndexPickCOA, 'coa_id', parseInt(sysId));
+        updateField(currentIndexPickCOA, 'coa_name', `${code} - ${name}`);
+        
+        $('#myGetChartOfAccount').modal('hide');
+    });
+
+    $('#tableGetProductss').on('click', 'tbody tr', async function() {
+        let sysId = $(this).find('input[data-trigger="sys_id_product"]').val();
+        let code  = $(this).find('td:nth-child(2)').text();
+        let name  = $(this).find('td:nth-child(3)').text();
+        
+        $(`#product_id${currentIndexPickProduct}`).val(sysId);
+        $(`#product_name${currentIndexPickProduct}`).val(`${code} - ${name}`);
+        $(`#product_name${currentIndexPickProduct}`).css('background-color', '#e9ecef');
+
+        updateField(currentIndexPickProduct, 'productCode', code);
+        updateField(currentIndexPickProduct, 'productName', name);
+        
+        $('#myProductss').modal('hide');
+    });
+</script>
