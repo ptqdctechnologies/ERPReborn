@@ -160,6 +160,36 @@ class AdvanceSettlementController extends Controller
         }
     }
 
+    public function AdvanceSettlementDetail(Request $request)
+    {
+        try {
+            $varAPIWebToken         = Session::get('SessionLogin');
+            $advanceSettlementID    = $request->input('advance_settlement_id');
+
+            $response = $this->advanceSettlementService->getDetail($advanceSettlementID);
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                throw new \Exception('Failed to fetch Advance Settlement Detail');
+            }
+
+            $compact = [
+                "status"    => $response['metadata']['HTTPStatusCode'],
+                "data"      => $response['data']['data']
+            ];
+
+            return response()->json($compact);
+        } catch (\Throwable $th) {
+            Log::error("Advance Settlement Detail Function Error " . $th->getMessage());
+
+            $compact = [
+                "status"    => 500,
+                "data"      => []
+            ];
+
+            return response()->json($compact);
+        }
+    }
+
     public function RevisionAdvanceSettlementIndex(Request $request)
     {
         try {

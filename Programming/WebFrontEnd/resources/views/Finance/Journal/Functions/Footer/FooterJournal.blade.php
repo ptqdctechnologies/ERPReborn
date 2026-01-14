@@ -79,6 +79,7 @@
         if (!file) return;
 
         const fileUrl = URL.createObjectURL(file);
+        
         journalDetails[index].attachment = file;
         journalDetails[index].attachment_url = fileUrl;
 
@@ -597,7 +598,7 @@
                     swalWithBootstrapButtons.fire({
                         title: 'Successful !',
                         type: 'success',
-                        html: 'Data has been saved. Your transaction number is ' + '<span style="color:#0046FF;font-weight:bold;">' + res.documentNumber + '</span>',
+                        html: 'Data has been saved. Your transaction number is ' + '<span style="color:#0046FF;font-weight:bold;">' + res.documentNumber.join(", ") + '</span>',
                         showCloseButton: false,
                         showCancelButton: false,
                         focusConfirm: false,
@@ -606,8 +607,7 @@
                         confirmButtonColor: '#e9ecef',
                         reverseButtons: true
                     }).then((result) => {
-                        ShowLoading();
-                        window.location.href = '/Journal?var=1';
+                        cancelForm("{{ route('Journal.index', ['var' => 1]) }}");
                     });
                 } else {
                     ErrorNotif("Data Cancel Inputed");

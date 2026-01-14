@@ -2,9 +2,12 @@
     let dataReport      = [];
     const budgetID      = document.getElementById("budget_id");
     const budgetCode    = document.getElementById("budget_code");
+    const budgetName    = document.getElementById("budget_name");
     const subBudgetID   = document.getElementById("sub_budget_id");
     const subBudgetCode = document.getElementById("sub_budget_code");
+    const subBudgetName = document.getElementById("sub_budget_name");
     const warehouseID   = document.getElementById("warehouse_id");
+    const warehouseName = document.getElementById("warehouse_name");
     const doDate        = document.getElementById("delivery_order_date_range");
     const printType     = document.getElementById("print_type");
 
@@ -30,7 +33,6 @@
             },
             dataType: 'json',
             success: function(response) {
-                console.log('response', response);
                 if (response.status === 200 && response.data[0]) {
                     let data    = response.data;
                     dataReport  = JSON.stringify(data);
@@ -103,8 +105,56 @@
                     $('#table_container').hide(); 
                     $('#table_summary tbody').empty();
                     $('#table_summary tfoot').empty();
-                    ErrorNotif("Error");
+                    ErrorNotif("No data available for the selected criteria.");
                 }
+
+                HideLoading();
+            },
+            error: function(xhr, status, error) {
+                HideLoading();
+                ErrorNotif("An error occurred while processing the received data. Please try again later.");
+                console.log('xhr, status, error', xhr, status, error);
+            }
+        });
+    }
+
+    function exportDataReport() {
+        ShowLoading();
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: 'POST',
+            url: '{!! route("DeliveryOrder.PrintExportReportDeliveryOrderSummary") !!}',
+            data: {
+                dataReport,
+                budgetName: budgetName.value,
+                subBudgetName: subBudgetName.value,
+                warehouseName: warehouseName.value,
+                doDate: doDate.value,
+                printType: printType.value
+            },
+            xhrFields: { 
+                responseType: 'blob'
+            },
+            success: function(response) {
+                var blob  = new Blob([response], { type: response.type });
+                var link  = document.createElement('a');
+                link.href = window.URL.createObjectURL(blob);
+
+                if (response.type === "application/pdf") {
+                    link.download = 'Report Delivery Order Summary.pdf';
+                } else {
+                    link.download = 'Report Delivery Order Summary.xlsx';
+                }
+
+                link.click();
+
+                window.URL.revokeObjectURL(link.href);
 
                 HideLoading();
             },

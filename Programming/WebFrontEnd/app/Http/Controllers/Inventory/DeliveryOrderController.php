@@ -162,77 +162,7 @@ class DeliveryOrderController extends Controller
 
     public function ReportDeliveryOrderSummary(Request $request)
     {
-        $varAPIWebToken = $request->session()->get('SessionLogin');
-        $request->session()->forget("SessionDeliveryOrderNumber");
-        $dataDO = Session::get("DeliveryOrderReportSummaryDataPDF");
-
-        if (!empty($_GET['var'])) {
-            $var =  $_GET['var'];
-        }
-        $compact = [
-            'varAPIWebToken' => $varAPIWebToken,
-            'statusRevisi' => 1,
-            'statusHeader' => "Yes",
-            'statusDetail' => 1,
-            'dataHeader' => [],
-            'dataDO' => $dataDO
-        
-        ];
-        // dump($dataDO);
-
-        return view('Inventory.DeliveryOrder.Reports.ReportDeliveryOrderSummary', $compact);
-    }
-
-    public function ReportDeliveryOrderSummaryData($project_code, $site_code, $start_date = null, $end_date = null)
-    {        
-        try {
-            $varAPIWebToken = Session::get('SessionLogin');
-
-            $filters = [];
-            if ($start_date && $end_date) {
-                $filters[] = [
-                    "condition" => "Between",
-                    "field" => "date",
-                    "value" => [
-                        "from" => $start_date,
-                        "to"   => $end_date,
-                    ]
-                ];
-            }
-
-            $filteredArray = Helper_APICall::setCallAPIGateway(
-                Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'report.form.documentForm.supplyChain.getDeliveryOrderSummary', 
-                'latest',
-                [
-                    'parameter' => [
-                        'CombinedBudgetCode'        => $project_code,
-                        'CombinedBudgetSectionCode' => $site_code,
-                        'Warehouse_RefID'           => NULL
-                    ],
-                    'SQLStatement' => [
-                        'pick'   => null,
-                        'sort'   => null,
-                        'filter' => $filters ?: null,
-                        'paging' => null
-                    ]
-                ]
-            );
-
-            if ($filteredArray['metadata']['HTTPStatusCode'] !== 200) {
-                return redirect()->back()->with('NotFound', 'Process Error');
-            }
-
-            Session::put("DeliveryOrderReportSummaryDataPDF", $filteredArray['data']['data']);
-            Session::put("DeliveryOrderReportSummaryDataExcel", $filteredArray['data']['data']);
-
-            return $filteredArray['data']['data'];
-        }
-        catch (\Throwable $th) {
-            Log::error("Error at " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
-        }
+        return view('Inventory.DeliveryOrder.Reports.ReportDeliveryOrderSummary');
     }
 
     public function ReportDeliveryOrderSummaryStore(Request $request)
@@ -281,17 +211,22 @@ class DeliveryOrderController extends Controller
     public function PrintExportReportDeliveryOrderSummary(Request $request)
     {
         try {
-            $dataPDF = Session::get("DeliveryOrderReportSummaryDataPDF");
-            $dataExcel = Session::get("DeliveryOrderReportSummaryDataExcel");
+            $type                       = $request->printType;
+            $budgetName                 = $request->budgetName;
+            $subBudgetName              = $request->subBudgetName;
+            $warehouseName              = $request->warehouseName;
+            $doDate                     = $request->doDate;
+            $dataDeliveryOrderSummary   = json_decode($request->dataReport, true);
 
-            
-            if ($dataPDF && $dataExcel) {
-                $print_type = $request->print_type;
-                if ($print_type == "PDF") {
-                    $dataDO = Session::get("DeliveryOrderReportSummaryDataPDF");
-                    // dd($dataDO);
-
-                    $pdf = PDF::loadView('Inventory.DeliveryOrder.Reports.ReportDeliveryOrderSummary_pdf', ['dataDO' => $dataDO])->setPaper('a4', 'landscape');
+            if ($dataDeliveryOrderSummary) {
+                if ($type == "PDF") {
+                    $pdf = PDF::loadView('Inventory.DeliveryOrder.Reports.ReportDeliveryOrderSummary_pdf', [
+                        'dataDO'        => $dataDeliveryOrderSummary,
+                        'budgetName'    => $budgetName,
+                        'subBudgetName' => $subBudgetName,
+                        'warehouseName' => $warehouseName,
+                        'doDate'        => $doDate
+                        ])->setPaper('a4', 'landscape');
                     $pdf->output();
                     $dom_pdf = $pdf->getDomPDF();
 
@@ -302,15 +237,16 @@ class DeliveryOrderController extends Controller
                     $canvas->page_text(34, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
 
                     return $pdf->download('Export Report Delivery Order Summary.pdf');
-                } else if ($print_type == "Excel") {
-                    return Excel::download(new ExportReportDeliveryOrderSummary, 'Export Report Delivery Order Summary.xlsx');
+                } else if ($type == "EXCEL") {
+                    return Excel::download(new ExportReportDeliveryOrderSummary($dataDeliveryOrderSummary, $budgetName, $subBudgetName, $warehouseName, $doDate), 'Export Report Delivery Order Summary.xlsx');
                 }
             } else {
-                return redirect()->route('DeliveryOrder.DeliveryOrderSummary')->with('NotFound', 'Data Cannot Empty');
+                throw new \Exception('Delivery Order Summary Data is Empty');
             }
         } catch (\Throwable $th) {
-            Log::error("Error at " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
+            Log::error("Print Export Report Delivery Order Summary Function Error: " . $th->getMessage());
+
+            return response()->json(['statusCode' => 400]);
         }
     }
 

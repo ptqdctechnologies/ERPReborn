@@ -19,7 +19,7 @@
                                             <th>Address</th>
                                             <th>Bank Code</th>
                                             <th>Bank Name</th>
-                                            <th>Account Number</th>
+                                            <th>Account Name</th>
                                             <th>Account Number</th>
                                         </tr>
                                     </thead>

@@ -63,28 +63,16 @@
             }
         });
 
-        // var keys = 0;
         $.ajax({
             type: 'GET',
             url: '{!! route("getProduct") !!}',
             success: function(data) {
                 $(".loadingGetModalProductss").hide();
 
-                // var no = 1;
                 var table = $('#tableGetProductss').DataTable();
                 table.clear();
 
                 if (Array.isArray(data.data.data) && data.data.data.length > 0) {
-                    // $.each(data.data.data, function(key, val) {
-                    //     keys += 1;
-                    //     table.row.add([
-                    //         '<input id="sys_id_productss' + keys + '" value="' + val.sys_ID + '" data-trigger="sys_id_productss" type="hidden">' + no++,
-                    //         val.code || '-',
-                    //         val.name || '-',
-                    //         val.quantityUnitName || '-',
-                    //     ]).draw();
-                    // });
-
                     $('#tableGetProductss').DataTable({
                         destroy: true,
                         data: data.data.data,
@@ -121,10 +109,10 @@
 
                     $('#tableGetProductss').css("width", "100%");
 
-                    $("#tableGetProductss_length").show();
-                    $("#tableGetProductss_filter").show();
-                    $("#tableGetProductss_info").show();
-                    $("#tableGetProductss_paginate").show();
+                    // $("#tableGetProductss_length").show();
+                    // $("#tableGetProductss_filter").show();
+                    // $("#tableGetProductss_info").show();
+                    // $("#tableGetProductss_paginate").show();
                 } else {
                     $('#tableGetProductss tbody').empty();
                     $(".errorModalProductssMessageContainer").show();

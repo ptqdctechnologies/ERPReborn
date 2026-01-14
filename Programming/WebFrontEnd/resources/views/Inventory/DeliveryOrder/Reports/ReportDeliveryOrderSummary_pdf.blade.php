@@ -1,91 +1,219 @@
-@extends('Partials.app')
-@section('main')
+<!DOCTYPE html>
+<html lang="en">
 
-<!-- <style>
-  table,
-  th,
-  td {
-    border: 1px solid #ced4da;
-    border-collapse: collapse;
-  }
-</style> -->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="csrf-token" content="{{ csrf_token() }}" />
 
-<div class="content-wrapper">
-  <section class="content">
-    <div class="container-fluid">
-      <div class="row mb-1">
-        <div class="col-sm-12">
-          <center>
-            <div style="text-align: center; font-size: 20px; font-weight: bold;">Delivery Order Report Summary</div>
-          </center>
-          <table style="float:left;">
+  <title>ERP Reborn</title>
+
+  <!-- Theme style -->
+  <link rel="stylesheet" href="{{ asset('AdminLTE-master/dist/css/adminlte.min.css') }}">
+</head>
+
+<body>
+  <div class="card-body table-responsive p-0">
+    <div style="text-align: right; font-size: 14px;"><?= date('F j, Y'); ?></div>
+    <div style="text-align: center; font-size: 20px; font-weight: bold;">Delivery Order Summary</div>
+    <div style="text-align: right; font-size: 14px;"><?= date('h:i A'); ?></div>
+
+    <!-- HEADER -->
+    <table style="margin: 30px 0px 15px 1px;">
+      <tr>
+        <!-- DELIVERY ORDER TYPE -->
+        <td style="width: 350px;">
+          <table>
             <tr>
-              <td>Project</td>
-              <td>:</td>
-              <td><?= $dataDO[0]['combinedBudgetCode'] . ' - ' . $dataDO[0]['combinedBudgetName']; ?></td>
-            </tr>
-          </table>
-          <table style="float:right;">
-            <!-- <tr>
-              <td><img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('/AdminLTE-master/dist/img/qdc.png'))) }}" width="180"></td>
-            </tr> -->
-            </tr>
-          </table>
-          <br><br>
-        </div>
-      </div>
-      <div class="card">
-        <div class="tab-content p-3" id="nav-tabContent">
-          <div class="row">
-
-            <div class="col-12 ShowTableReportAdvanceSummary">
-              <div class="card">
-                <div class="card-body table-responsive p-0">
-                  <table class="TableReportAdvanceSummary" id="TableReportAdvanceSummary" style="font-size: 13px;width:100%;border: 1px solid #ced4da;border-collapse: collapse;">
-                    <thead>
-                      <tr style="border: 1px solid #ced4da;border-collapse: collapse;">
-                        <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">No</th>
-                        <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">DO Number</th>
-                        <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Date</th>
-                        <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Type</th>
-                        <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Delivery From</th>
-                        <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Delivery To</th>
-                        <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Transporter</th>
-                      </tr>
-                    </thead>
-                    <?php $counter = 1; ?>
-                    <?php foreach ($dataDO as $dataDetail) { ?>
-                      <tbody>
-                        <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;"><?= $counter++; ?></td>
-                        <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;"><?= $dataDetail['documentNumber']; ?></td>
-                        <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ date('Y-m-d', strtotime($dataDetail['date'])) }}</td>
-                        <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ $dataDetail['type'] }}</td>
-                        <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ $dataDetail['deliveryFrom_NonRefID']['address'] ?? '-' }}</td>
-                        <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ $dataDetail['deliveryTo_NonRefID']['address'] ?? '-' }}</td>
-                        <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ $dataDetail['transporter_Code'] }} - {{ $dataDetail['transporter_Name'] }}</td>
-                        
-                      </tbody>
-                    <?php } ?>
-
-                      <tfoot>
-                        <!-- <tr style="font-weight:bolder;border: 1px solid #ced4da;border-collapse: collapse;">
-                          <td style="border: 1px solid #ced4da;border-collapse: collapse;padding: 5px;text-align:center;" colspan="3">GRAND TOTAL</td>
-                          <td style="border: 1px solid #ced4da;border-collapse: collapse;padding: 5px;"></td>
-                          <td style="border: 1px solid #ced4da;border-collapse: collapse;padding: 5px;"></td>
-                          <td style="border: 1px solid #ced4da;border-collapse: collapse;padding: 5px;">-</td>
-                        </tr> -->
-                      </tfoot>
-                    
-
-                  </table>
+              <td style="width: 100px; height: 20px;">
+                <div style="font-size: 12px; font-weight: bold; line-height: 14px;">
+                  Budget
                 </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+              </td>
+              <td style="width: 5px; font-size: 12px;">
+                :
+              </td>
+              <td style="height: 20px;">
+                <div style="font-size: 12px; line-height: 14px;">
+                  <?= $budgetName; ?>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td style="width: 100px; height: 20px;">
+                <div style="font-size: 12px; font-weight: bold; line-height: 14px;">
+                  Sub Budget
+                </div>
+              </td>
+              <td style="width: 5px; font-size: 12px;">
+                : 
+              </td>
+              <td style="height: 20px;">
+                <div style="font-size: 12px; line-height: 14px;">
+                  <?= $subBudgetName ?? '-'; ?>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </td>
 
-    </div>
-  </section>
-</div>
-@endsection
+        <!-- DELIVERY ORDER TYPE -->
+        <td style="width: 350px;">
+          <table>
+            <tr>
+              <td style="width: 100px; height: 20px;">
+                <div style="font-size: 12px; font-weight: bold; line-height: 14px;">
+                  Warehouse
+                </div>
+              </td>
+              <td style="width: 5px;font-size: 12px; ">
+                : 
+              </td>
+              <td style="height: 20px;">
+                <div style="font-size: 12px; line-height: 14px;">
+                  <?= $warehouseName ?? '-'; ?>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td style="width: 100px; height: 20px;">
+                <div style="font-size: 12px; font-weight: bold; line-height: 14px;">
+                  Date
+                </div>
+              </td>
+              <td style="width: 5px; font-size: 12px;">
+                : 
+              </td>
+              <td style="height: 20px;">
+                <div style="font-size: 12px; line-height: 14px;">
+                  <?= $doDate ?? '-'; ?>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+
+    <!-- DETAIL -->
+    <table class="TableReportDeliveryOrderSummary" style="margin-left: 1px; width: 100%;" id="TableReportDeliveryOrderSummary">
+      <thead>
+        <tr style="border-top: 1px solid black; border-bottom: 1px dotted black;">
+          <td style="width: 20px; border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+            <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+              No
+            </div>
+          </td>
+          <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+            <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+              DO Number
+            </div>
+          </td>
+          <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+            <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+              Date
+            </div>
+          </td>
+          <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+            <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+              Type
+            </div>
+          </td>
+          <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+            <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+              Quantity
+            </div>
+          </td>
+          <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+            <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+              Delivery From
+            </div>
+          </td>
+          <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+            <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+              Delivery To
+            </div>
+          </td>
+          <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+            <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+              Transporter
+            </div>
+          </td>
+        </tr>
+      </thead>
+      <tbody>
+        <?php
+          $no = 1;
+          $totalQuantity = 0;
+        ?>
+        @foreach($dataDO as $do)
+        <tr>
+          <td style="height: 20px;">
+            <div style="font-size: 12px; margin: 4px 0px 16px 0px; text-align: center;">
+              <?= $no; ?>
+            </div>
+          </td>
+          <td style="height: 20px;">
+            <div style="font-size: 12px; margin: 4px 0px 16px 0px;">
+              <?= $do['documentNumber']; ?>
+            </div>
+          </td>
+          <td style="height: 20px;">
+            <div style="font-size: 12px; margin: 4px 0px 16px 0px;">
+              <?= date('Y-m-d', strtotime($do['date'])); ?>
+            </div>
+          </td>
+          <td style="height: 20px;">
+            <div style="font-size: 12px; margin: 4px 0px 16px 0px;">
+              <?= $do['type'] ?? ''; ?>
+            </div>
+          </td>
+          <td style="height: 20px;">
+            <div style="font-size: 12px; margin: 4px 0px 16px 0px;">
+              <?= number_format($do['quantity'] ?? 0, 2, '.', ','); ?>
+            </div>
+          </td>
+          <td style="height: 20px;">
+            <div style="font-size: 12px; margin: 4px 0px 16px 0px;">
+              <?= $do['deliveryFrom_NonRefID']['address'] ?? '-'; ?>
+            </div>
+          </td>
+          <td style="height: 20px;">
+            <div style="font-size: 12px; margin: 4px 0px 16px 0px;">
+              <?= $do['deliveryTo_NonRefID']['address'] ?? '-'; ?>
+            </div>
+          </td>
+          <td style="height: 20px;">
+            <div style="font-size: 12px; margin: 4px 0px 16px 0px;">
+              <?= ($do['transporter_Code'] ? $do['transporter_Code'] . ' - ' : '') . $do['transporter_Name']; ?>
+            </div>
+          </td>
+        </tr>
+        <?php
+          $no++;
+          $totalQuantity += $do['quantity'] ?? 0;
+        ?>
+        @endforeach
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="4" style="height: 20px;">
+            <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+              GRAND TOTAL
+            </div>
+          </td>
+          <td style="height: 20px;">
+            <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px; text-align: left;">
+              <?= number_format($totalQuantity, 2, '.', ','); ?>
+            </div>
+          </td>
+          <td style="height: 20px;"></td>
+          <td style="height: 20px;"></td>
+          <td style="height: 20px;"></td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+</body>
+
+</html>

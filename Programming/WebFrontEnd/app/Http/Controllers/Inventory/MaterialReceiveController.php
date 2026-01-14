@@ -347,50 +347,67 @@ class MaterialReceiveController extends Controller
 
     public function ReportMaterialReceiveSummaryStore(Request $request)
     {
-        // tes;
         try {
-            $project_code = $request->project_code_second;
-            // $site_code = $request->site_id_second;
+            $receivedID     = $request->received_id;
+            $deliveryFromID = $request->delivery_from_id;
+            $deliveryToID   = $request->delivery_to_id;
+            $date           = $request->mrDate;
+            $budget         = [
+                "id"        => $request->budget_id,
+                "code"      => $request->budget_code,
+            ];
 
-            $statusHeader = "Yes";
-            Log::error("Error at " ,[$request->all()]);
-            if ($project_code == "") {
-                Session::forget("MaterialReceiveReportSummaryDataPDF");
-                Session::forget("MaterialReceiveReportSummaryDataExcel");
-                
-                return redirect()->route('MaterialReceive.ReportMaterialReceiveSummary')->with('NotFound', 'Cannot Empty');
+            $response = $this->materialReceiveService->getMaterialReceiveSummary(
+                $budget['code'], 
+                $receivedID,
+                $deliveryFromID,
+                $deliveryToID,
+                $date
+            );
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                throw new \Exception('Failed to fetch Material Receive Summary Report');
             }
 
-            $compact = $this->ReportMaterialReceiveSummaryData($project_code);
-            // dd($compact);
-            // if ($compact['dataHeader'] == []) {
-            //     Session::forget("PDeliveryOrderSummaryReportDataPDF");
-            //     Session::forget("PDeliveryOrderSummaryReportDataExcel");
+            $compact = [
+                'status'    => $response['metadata']['HTTPStatusCode'],
+                'data'      => $response['data']['data']
+            ];
 
-            //     return redirect()->back()->with('NotFound', 'Data Not Found');
-            // }
-
-            return redirect()->route('MaterialReceive.ReportMaterialReceiveSummary');
+            return response()->json($compact);
         } catch (\Throwable $th) {
-            Log::error("Error at " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
+            Log::error("Report Material Receive Summary Store Function Error:" . $th->getMessage());
+
+            $compact = [
+                'status'    => 500,
+                'message'   => $th->getMessage()
+            ];
+
+            return response()->json($compact);
         }
     }
 
     public function PrintExportReportMaterialReceiveSummary(Request $request)
     {
         try {
-            $dataPDF = Session::get("MaterialReceiveReportSummaryDataPDF");
-            $dataExcel = Session::get("MaterialReceiveReportSummaryDataExcel");
+            $type                   = $request->printType;
+            $budgetName             = $request->budgetName;
+            $receivedName           = $request->receivedName;
+            $deliveryFromName       = $request->deliveryFromName;
+            $deliveryToName         = $request->deliveryToName;
+            $mrDate                 = $request->mrDate;
+            $materialReceiveSummary = json_decode($request->dataReport, true);
 
-            
-            if ($dataPDF && $dataExcel) {
-                $print_type = $request->print_type;
-                if ($print_type == "PDF") {
-                    $dataMR = Session::get("MaterialReceiveReportSummaryDataPDF");
-                    // dd($dataMR);
-
-                    $pdf = PDF::loadView('Inventory.MaterialReceive.Reports.ReportMaterialReceiveSummary_pdf', ['dataMR' => $dataMR])->setPaper('a4', 'landscape');
+            if ($materialReceiveSummary) {
+                if ($type == "PDF") {
+                    $pdf = PDF::loadView('Inventory.MaterialReceive.Reports.ReportMaterialReceiveSummary_pdf', [
+                        'dataMR'            => $materialReceiveSummary,
+                        'budgetName'        => $budgetName,
+                        'receivedName'      => $receivedName,
+                        'deliveryFromName'  => $deliveryFromName,
+                        'deliveryToName'    => $deliveryToName,
+                        'mrDate'            => $mrDate
+                        ])->setPaper('a4', 'landscape');
                     $pdf->output();
                     $dom_pdf = $pdf->getDomPDF();
 
@@ -401,15 +418,18 @@ class MaterialReceiveController extends Controller
                     $canvas->page_text(34, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
 
                     return $pdf->download('Export Report Material Receive Summary.pdf');
-                } else if ($print_type == "Excel") {
-                    return Excel::download(new ExportReportMaterialReceiveSummary, 'Export Report Material Receive Summary.xlsx');
+                } else if ($type == "EXCEL") {
+                    return Excel::download(new ExportReportMaterialReceiveSummary($materialReceiveSummary, $budgetName, $receivedName, $deliveryFromName, $deliveryToName, $mrDate), 'Export Report Material Receive Summary.xlsx');
+                } else {
+                    throw new \Exception('Failed to Export Material Receive Summary Report');
                 }
             } else {
-                return redirect()->route('MaterialReceive.ReportMaterialReceiveSummary')->with('NotFound', 'Data Cannot Empty');
+                throw new \Exception('Material Receive Summary Data is Empty');
             }
         } catch (\Throwable $th) {
-            Log::error("Error at " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
+            Log::error("Print Export Report Material Receive Summary Function Error: " . $th->getMessage());
+
+            return response()->json(['statusCode' => 400]);
         }
     }
 

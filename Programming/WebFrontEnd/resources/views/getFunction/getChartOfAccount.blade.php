@@ -68,19 +68,10 @@
             success: function(data) {
                 $(".loadingGetModalChartOfAccount").hide();
 
-                // let no = 1;
                 let table = $('#tableGetChartOfAccount').DataTable();
                 table.clear();
 
                 if (Array.isArray(data) && data.length > 0) {
-                    // $.each(data, function(key, val) {
-                    //     table.row.add([
-                    //         '<input data-trigger="sys_id_modal_coa" value="' + val.sys_ID + '" type="hidden">' + no++,
-                    //         val.code || '-',
-                    //         val.name || '-',
-                    //     ]).draw();
-                    // });
-
                     $('#tableGetChartOfAccount').DataTable({
                         destroy: true,
                         data: data,
