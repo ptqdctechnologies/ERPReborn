@@ -92,16 +92,16 @@ namespace App\Models\Database\SchData_OLTP_Accounting
                         )
                     );                    
                     $additionalData = json_decode($varData['data'][0]['AdditionalData'], true);
-                    $additionalData2 = explode(",", $additionalData['general']['documentNumber']);                     
-                    $length = count($additionalData2) / 2; // Get the array length once
+                    $additionalDataArray = explode(",", $additionalData['general']['documentNumber']);                     
+                    $length = count($additionalDataArray) / 2; // Get the array length once
 		    $index = 0;
 
                     for ($i = 0; $i < $length; $i++) {                           
                         for ($j = 0; $j < 2; $j++) {
                             if ($j == 0) {
-		                $additionalData['general']['documentNumber2'][$i]['journalNumber'] = $additionalData2[$index];                           
+		                $additionalData['general']['documentNumber2'][$i]['journalNumber'] = $additionalDataArray[$index];                           
                             } else {
-		                $additionalData['general']['documentNumber2'][$i]['referenceNumber'] = $additionalData2[$index];
+		                $additionalData['general']['documentNumber2'][$i]['referenceNumber'] = $additionalDataArray[$index];
 			    }
 			    $index++;
                         }
