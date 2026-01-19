@@ -1,5 +1,10 @@
 <script>
     let journalTypeValue = null;
+    let currentIndexPickCOA = 0;
+
+    function pickCOA(index) {
+        currentIndexPickCOA = index;
+    }
 
     function onChangeJournalType(element){
         var journalType = element.value;
@@ -86,4 +91,25 @@
             $("#journal_type").prop("disabled", true);
         }
     }
+
+    $('#tableGetChartOfAccount').on('click', 'tbody tr', async function() {
+        let sysId = $(this).find('input[data-trigger="sys_id_modal_coa"]').val();
+        let code  = $(this).find('td:nth-child(2)').text();
+        let name  = $(this).find('td:nth-child(3)').text();
+
+        if (journalTypeValue === "SETTLEMENT") {
+            $(`#coa_id${currentIndexPickCOA}`).val(sysId);
+            $(`#coa_name${currentIndexPickCOA}`).val(`${code} - ${name}`);
+            $(`#coa_name${currentIndexPickCOA}`).css('background-color', '#e9ecef');
+
+            updateField(currentIndexPickCOA, 'coa_id', parseInt(sysId));
+            updateField(currentIndexPickCOA, 'coa_name', `${code} - ${name}`);
+        } else if (journalTypeValue === "FIXED_ASSET") {
+            $(`#coaID${currentIndexPickCOA}`).val(sysId);
+            $(`#coaName${currentIndexPickCOA}`).val(`${code} - ${name}`);
+            $(`#coaName${currentIndexPickCOA}`).css('background-color', '#e9ecef');
+        }
+        
+        $('#myGetChartOfAccount').modal('hide');
+    });
 </script>

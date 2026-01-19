@@ -5,6 +5,8 @@
 @include('getFunction.getAllTransactions')
 @include('getFunction.getChartOfAccount')
 @include('getFunction.getProductss')
+@include('getFunction.getAccountPayable')
+@include('getFunction.getCategory')
 
 <div class="content-wrapper">
     <section class="content">
@@ -166,6 +168,7 @@
 </div>
 
 @include('Accounting.GeneralJournal.Functions.Footer.FooterGeneralJournal')
+@include('Accounting.GeneralJournal.Functions.Footer.FooterJournalFixedAsset')
 @include('Accounting.GeneralJournal.Functions.Footer.FooterJournalSettlement')
 @include('Partials.footer')
 @endsection

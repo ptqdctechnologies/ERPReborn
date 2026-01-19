@@ -61,7 +61,7 @@
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div>
                         <span class="input-group-text form-control" style="border-radius:0;">
-                            <a href="javascript:;" data-toggle="modal" data-target="#" style="display: block; cursor: pointer;">
+                            <a href="javascript:;" data-toggle="modal" data-target="#myAccountPayables" style="display: block; cursor: pointer;">
                                 <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="box" />
                             </a>
                         </span>

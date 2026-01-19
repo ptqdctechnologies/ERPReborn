@@ -135,6 +135,7 @@ class AccountPayableService
                 "currencyExchangeRate"              => 0,
                 "supplierInvoiceNumber"             => $data['supplier_invoice_number'],
                 "supplier_RefID"                    => $supplierID,
+                "otherSupplier"                     => NULL,
                 "receiptStatus"                     => $receiptStatus,
                 "contractStatus"                    => $contractStatus,
                 "vatStatus"                         => $vatStatus,
