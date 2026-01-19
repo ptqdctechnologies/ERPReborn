@@ -1,6 +1,5 @@
 <script>
     let journalSettlementDetails = [];
-    let currentIndexPickCOA = 0;
     let currentIndexPickProduct = 0;
     let totalAdvanceSettlement = 0.00;
     let totalDebitCreditSettlement = 0.00;
@@ -9,10 +8,6 @@
     let valueCombinedBudgetSectionCode = '';
     let valueCombinedBudgetSectionName = '';
     const documentType = document.getElementById('DocumentType');
-
-    function pickCOA(index) {
-        currentIndexPickCOA = index;
-    }
 
     function pickProduct(index) {
         currentIndexPickProduct = index;
@@ -274,9 +269,9 @@
         $("#journal_settlement_loading_table").hide();
     }
 
-    function getDetailJournalSettlement(advanceSettlementID) {
+    function getDetailJournalSettlement(transactionID) {
         const selectedIndex = documentType.selectedIndex;
-        const url = documentType.options[selectedIndex].text == "Advance Settlement Form" ? '{!! route("AdvanceSettlement.Detail") !!}?advance_settlement_id=' + advanceSettlementID : '{!! route("getPurchaseOrderDetail") !!}';
+        const url = documentType.options[selectedIndex].text == "Advance Settlement Form" ? '{!! route("AdvanceSettlement.Detail") !!}?advance_settlement_id=' + transactionID : '{!! route("getPurchaseOrderDetail") !!}';
 
         $("#journal_settlement_loading_table").show();
         $('#journal_settlement_body_table').empty();
@@ -354,21 +349,6 @@
         $('#total_settlement').text(currencyTotal(0.00));
         $('#total_settlement_table').text(currencyTotal(0.00));
         $('#myAllTransactions').modal('hide');
-    });
-
-    $('#tableGetChartOfAccount').on('click', 'tbody tr', async function() {
-        let sysId = $(this).find('input[data-trigger="sys_id_modal_coa"]').val();
-        let code  = $(this).find('td:nth-child(2)').text();
-        let name  = $(this).find('td:nth-child(3)').text();
-        
-        $(`#coa_id${currentIndexPickCOA}`).val(sysId);
-        $(`#coa_name${currentIndexPickCOA}`).val(`${code} - ${name}`);
-        $(`#coa_name${currentIndexPickCOA}`).css('background-color', '#e9ecef');
-
-        updateField(currentIndexPickCOA, 'coa_id', parseInt(sysId));
-        updateField(currentIndexPickCOA, 'coa_name', `${code} - ${name}`);
-        
-        $('#myGetChartOfAccount').modal('hide');
     });
 
     $('#tableGetProductss').on('click', 'tbody tr', async function() {

@@ -74,19 +74,50 @@
                 table.clear();
 
                 if (Array.isArray(data) && data.length > 0) {
-                    $.each(data, function(key, val) {
-                        keys += 1;
-                        table.row.add([
-                            '<input id="sys_id_category' + keys + '" value="' + val.sys_ID + '" data-trigger="sys_id_category" type="hidden">' + no++,
-                            val.code || '-',
-                            val.name || '-',
-                        ]).draw();
+                    // $.each(data, function(key, val) {
+                    //     keys += 1;
+                    //     table.row.add([
+                    //         '<input id="sys_id_category' + keys + '" value="' + val.sys_ID + '" data-trigger="sys_id_category" type="hidden">' + no++,
+                    //         val.code || '-',
+                    //         val.name || '-',
+                    //     ]).draw();
+                    // });
+
+                    $('#tableGetCategory').DataTable({
+                        destroy: true,
+                        data: data,
+                        deferRender: true,
+                        scrollCollapse: true,
+                        scroller: true,
+                        columns: [
+                            {
+                                data: null,
+                                render: function (data, type, row, meta) {
+                                    return '<td class="align-middle text-center">' +
+                                        '<input id="sys_id_category' + (meta.row + 1) + '" value="' + data.sys_ID + '" data-trigger="sys_id_category" type="hidden">' +
+                                        (meta.row + 1) +
+                                    '</td>';
+                                }
+                            },
+                            {
+                                data: 'code',
+                                defaultContent: '-',
+                                className: "align-middle"
+                            },
+                            {
+                                data: 'name',
+                                defaultContent: '-',
+                                className: "align-middle text-wrap"
+                            },
+                        ]
                     });
 
-                    $("#tableGetCategory_length").show();
-                    $("#tableGetCategory_filter").show();
-                    $("#tableGetCategory_info").show();
-                    $("#tableGetCategory_paginate").show();
+                    $('#tableGetCategory').css("width", "100%");
+
+                    // $("#tableGetCategory_length").show();
+                    // $("#tableGetCategory_filter").show();
+                    // $("#tableGetCategory_info").show();
+                    // $("#tableGetCategory_paginate").show();
                 } else {
                     $('#tableGetCategory tbody').empty();
                     $(".errorModalCategoryMessageContainer").show();

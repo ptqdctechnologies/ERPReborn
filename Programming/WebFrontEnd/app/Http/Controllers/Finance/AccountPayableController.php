@@ -108,6 +108,36 @@ class AccountPayableController extends Controller
         }
     }
 
+    public function AccountPayableDetail(Request $request)
+    {
+        try {
+            $varAPIWebToken     = Session::get('SessionLogin');
+            $accountPayableID   = $request->input('account_payable_id');
+
+            $response = $this->accountPayableService->getDetail($accountPayableID);
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                throw new \Exception('Failed to fetch Account Payable Detail');
+            }
+
+            $compact = [
+                "status"    => $response['metadata']['HTTPStatusCode'],
+                "data"      => $response['data']
+            ];
+
+            return response()->json($compact);
+        } catch (\Throwable $th) {
+            Log::error("Account Payable Detail Function Error " . $th->getMessage());
+
+            $compact = [
+                "status"    => 500,
+                "data"      => []
+            ];
+
+            return response()->json($compact);
+        }
+    }
+
     public function RadioFormatValue($value) 
     {
         $vatStatus = match ($value) {
