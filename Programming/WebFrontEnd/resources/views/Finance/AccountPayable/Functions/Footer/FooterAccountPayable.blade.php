@@ -830,6 +830,7 @@
                     category_id: categoryID.value,
                     dataInput_Log_FileUpload_1: fileID.value,
                     supplier_invoice_number: supplierInvoiceNumber.value,
+                    payment_transfer_number: paymentTransferNumber.value,
                     payment_transfer_id: paymentTransferID.value,
                     receipt_origin: receiptOrigin.value,
                     contract_signed: contractSigned.value,
@@ -998,7 +999,7 @@
         let accountNumber   = $(this).find('td:nth-child(8)').text();
 
         if (name === "Others") {
-            $(`#payment_transfer_number`).removeAttr("readonly");
+            $(`#payment_transfer_number`).removeAttr("disabled");
             $(`#payment_transfer_number`).val("");
             $("#payment_transfer_id").val("");
             $(`#payment_transfer_number`).css({'background-color': '#fff'});

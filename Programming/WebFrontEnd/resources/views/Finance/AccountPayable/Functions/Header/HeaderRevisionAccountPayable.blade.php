@@ -40,7 +40,11 @@
                     </div>
                     <div>
                         <div class="input-group">
-                            <input id="payment_transfer_number" class="form-control" size="16" readonly style="border-radius:0; cursor: default;" value="<?= $header['paymentTransferName']; ?> - (<?= $header['paymentTransferBankCode']; ?>) <?= $header['paymentTransferAccountNumber']; ?>">
+                            <?php if ($header['paymentTransfer_RefID']) { ?>
+                                <input id="payment_transfer_number" class="form-control" size="16" readonly style="border-radius:0; cursor: default;" value="<?= $header['paymentTransferName']; ?> - (<?= $header['paymentTransferBankCode']; ?>) <?= $header['paymentTransferAccountNumber']; ?>">
+                            <?php } else { ?>
+                                <input id="payment_transfer_number" class="form-control" size="16" style="border-radius:0; cursor: default;" value="<?= $header['otherSupplier']; ?>">
+                            <?php } ?>
                             <input id="payment_transfer_id" name="payment_transfer_id" style="border-radius:0;" class="form-control" value="<?= $header['paymentTransfer_RefID']; ?>" hidden>
                         </div>
                     </div>

@@ -796,6 +796,7 @@
                     category_id: categoryID.value,
                     dataInput_Log_FileUpload_1: fileID.value,
                     supplier_invoice_number: supplierInvoiceNumber.value,
+                    payment_transfer_number: paymentTransferNumber.value,
                     payment_transfer_id: paymentTransferID.value,
                     receipt_origin: receiptOrigin.value,
                     contract_signed: contractSigned.value,
