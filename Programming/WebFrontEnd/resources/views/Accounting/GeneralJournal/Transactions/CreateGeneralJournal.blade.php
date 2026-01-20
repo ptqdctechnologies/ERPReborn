@@ -2,6 +2,8 @@
 @section('main')
 @include('Partials.navbar')
 @include('Partials.sidebar')
+@include('getFunction.getProjects')
+@include('getFunction.getSites')
 @include('getFunction.getAllTransactions')
 @include('getFunction.getChartOfAccount')
 @include('getFunction.getProductss')
@@ -167,8 +169,9 @@
     </section>
 </div>
 
-@include('Accounting.GeneralJournal.Functions.Footer.FooterGeneralJournal')
+@include('Accounting.GeneralJournal.Functions.Footer.FooterJournalAdjustment')
 @include('Accounting.GeneralJournal.Functions.Footer.FooterJournalFixedAsset')
 @include('Accounting.GeneralJournal.Functions.Footer.FooterJournalSettlement')
+@include('Accounting.GeneralJournal.Functions.Footer.FooterGeneralJournal')
 @include('Partials.footer')
 @endsection

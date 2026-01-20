@@ -86,6 +86,8 @@
                 $('.detail-journal-adjustment').show();
                 $('.detail-journal-settlement').hide();
                 $('.detail-journal-fixed-asset').hide();
+
+                initiateJournalAdjustment();
             }
             
             $("#journal_type").prop("disabled", true);
@@ -108,6 +110,13 @@
             $(`#coaID${currentIndexPickCOA}`).val(sysId);
             $(`#coaName${currentIndexPickCOA}`).val(`${code} - ${name}`);
             $(`#coaName${currentIndexPickCOA}`).css('background-color', '#e9ecef');
+        } else if (journalTypeValue === "ADJUSTMENT") {
+            $(`#coa_adjustment_id${currentIndexPickCOA}`).val(sysId);
+            $(`#coa_adjustment_name${currentIndexPickCOA}`).val(`${code} - ${name}`);
+            $(`#coa_adjustment_name${currentIndexPickCOA}`).css('background-color', '#e9ecef');
+
+            updateJournalAdjustmentField(currentIndexPickCOA, 'coa_adjustment_id', parseInt(sysId));
+            updateJournalAdjustmentField(currentIndexPickCOA, 'coa_adjustment_name', `${code} - ${name}`);
         }
         
         $('#myGetChartOfAccount').modal('hide');
