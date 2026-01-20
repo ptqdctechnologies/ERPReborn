@@ -47,23 +47,47 @@
     function calculateTotalSettlement() {
         let total = 0.00;
         const rows = document.querySelectorAll('#journal_settlement_table tbody tr');
+
         rows.forEach(row => {
-            const totalCell = row.children[row.children.length - 1];
-            const value = totalCell && totalCell.value ? parseFloat(totalCell.value.replace(/,/g, '')) || 0 : 0;
+            const input = row.lastElementChild?.querySelector('input');
+            const value = parseFloat(input?.value?.replace(/,/g, '')) || 0;
             total += value;
         });
 
-        console.log('total', total);
+        totalDebitCreditSettlement = total;
+
+        document.getElementById('total_settlement_table').innerText =
+            total.toLocaleString('en-US', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            });
     }
 
     function onKeyUpDebitCredit(index) {
+        let hasShownError = false;
+        const input = document.getElementById(`debit_credit${index}`);
+        if (!input) return;
+
+        const currentValue = parseFloat(input.value.replace(/,/g, '')) || 0;
+
         calculateTotalSettlement();
 
-        $(`#debit_credit${index}`).on('keyup', function(event) {
-            const value = event.target.value.replace(/,/g, '');
+        if (
+            currentValue > totalAdvanceSettlement ||
+            totalDebitCreditSettlement > totalAdvanceSettlement
+        ) {
+            input.value = '';
+            calculateTotalSettlement();
 
-            updateField(index, 'debit_credit', value.replace(/,/g, ''));
-        });
+            if (!hasShownError) {
+                ErrorNotif("Value is over !");
+                hasShownError = true;
+            }
+            return;
+        }
+
+        hasShownError = false;
+        updateField(index, 'debit_credit', input.value.replace(/,/g, ''));
     }
 
     function renderTableJournalSettlement() {
@@ -132,12 +156,12 @@
                             <td style="border:1px solid #e9ecef;padding-right: .3rem;">
                                 <select class="form-control" id="accountingEntryRecordType_RefID${index}" onchange="updateField(${index}, 'accountingEntryRecordType_RefID', this.value)">
                                     <option value="" disabled selected>Select a ...</option>
-                                    <option value="214000000000001">Debit</option>
-                                    <option value="214000000000001">Credit</option>
+                                    <option value="214000000000001" ${row.accountingEntryRecordType_RefID == '214000000000001' ? 'selected' : ''}>Debit</option>
+                                    <option value="214000000000002" ${row.accountingEntryRecordType_RefID == '214000000000002' ? 'selected' : ''}>Credit</option>
                                 </select>
                             </td>
                             <td style="border:1px solid #e9ecef;padding-right: .3rem;">
-                                <input id="debit_credit${index}" class="form-control number-without-negative" onkeyup="onKeyUpDebitCredit(${index})" autocomplete="off" style="border-radius:0px;" />
+                                <input id="debit_credit${index}" class="form-control number-without-negative" onkeyup="onKeyUpDebitCredit(${index})" autocomplete="off" value="${row.debit_credit ? currencyTotal(row.debit_credit) : row.debit_credit}" style="border-radius:0px;" />
                             </td>
                         `;
                         tr2.innerHTML = `
@@ -155,14 +179,14 @@
                                 </div>
                             </td>
                             <td style="border:1px solid #e9ecef;padding-right: .3rem;">
-                                <select class="form-control" id="accountingEntryRecordType_RefID${index}" onchange="updateField(${index}, 'accountingEntryRecordType_RefID', this.value)">
+                                <select class="form-control" id="accountingEntryRecordType_RefID${index + 1}" onchange="updateField(${index + 1}, 'accountingEntryRecordType_RefID', this.value)">
                                     <option value="" disabled selected>Select a ...</option>
-                                    <option value="214000000000001">Debit</option>
-                                    <option value="214000000000001">Credit</option>
+                                    <option value="214000000000001" ${journalSettlementDetails[index + 1].accountingEntryRecordType_RefID == '214000000000001' ? 'selected' : ''}>Debit</option>
+                                    <option value="214000000000002" ${journalSettlementDetails[index + 1].accountingEntryRecordType_RefID == '214000000000002' ? 'selected' : ''}>Credit</option>
                                 </select>
                             </td>
                             <td style="border:1px solid #e9ecef;padding-right: .3rem;">
-                                <input id="debit_credit${index + 1}" class="form-control number-without-negative" onkeyup="onKeyUpDebitCredit(${index + 1})" autocomplete="off" style="border-radius:0px;" />
+                                <input id="debit_credit${index + 1}" class="form-control number-without-negative" onkeyup="onKeyUpDebitCredit(${index + 1})" autocomplete="off" value="${journalSettlementDetails[index + 1].debit_credit ? currencyTotal(journalSettlementDetails[index + 1].debit_credit) : journalSettlementDetails[index + 1].debit_credit}" style="border-radius:0px;" />
                             </td>
                         `;
                     } else {
@@ -212,12 +236,12 @@
                             <td style="border:1px solid #e9ecef;padding-right: .3rem;">
                                 <select class="form-control" id="accountingEntryRecordType_RefID${index}" onchange="updateField(${index}, 'accountingEntryRecordType_RefID', this.value)">
                                     <option value="" disabled selected>Select a ...</option>
-                                    <option value="214000000000001">Debit</option>
-                                    <option value="214000000000001">Credit</option>
+                                    <option value="214000000000001" ${row.accountingEntryRecordType_RefID == '214000000000001' ? 'selected' : ''}>Debit</option>
+                                    <option value="214000000000002" ${row.accountingEntryRecordType_RefID == '214000000000002' ? 'selected' : ''}>Credit</option>
                                 </select>
                             </td>
                             <td style="border:1px solid #e9ecef;padding-right: .3rem;">
-                                <input id="debit_credit${index}" class="form-control number-without-negative" onkeyup="onKeyUpDebitCredit(${index})" autocomplete="off" style="border-radius:0px;" />
+                                <input id="debit_credit${index}" class="form-control number-without-negative" onkeyup="onKeyUpDebitCredit(${index})" autocomplete="off" value="${row.debit_credit ? currencyTotal(row.debit_credit) : row.debit_credit}" style="border-radius:0px;" />
                             </td>
                         `;
                         tr2.innerHTML = `
@@ -248,14 +272,14 @@
                                 </div>
                             </td>
                             <td style="border:1px solid #e9ecef;padding-right: .3rem;">
-                                <select class="form-control" id="accountingEntryRecordType_RefID${index}" onchange="updateField(${index}, 'accountingEntryRecordType_RefID', this.value)">
+                                <select class="form-control" id="accountingEntryRecordType_RefID${index + 1}" onchange="updateField(${index + 1}, 'accountingEntryRecordType_RefID', this.value)">
                                     <option value="" disabled selected>Select a ...</option>
-                                    <option value="214000000000001">Debit</option>
-                                    <option value="214000000000001">Credit</option>
+                                    <option value="214000000000001" ${journalSettlementDetails[index + 1].accountingEntryRecordType_RefID == '214000000000001' ? 'selected' : ''}>Debit</option>
+                                    <option value="214000000000002" ${journalSettlementDetails[index + 1].accountingEntryRecordType_RefID == '214000000000002' ? 'selected' : ''}>Credit</option>
                                 </select>
                             </td>
                             <td style="border:1px solid #e9ecef;padding-right: .3rem;">
-                                <input id="debit_credit${index + 1}" class="form-control number-without-negative" onkeyup="onKeyUpDebitCredit(${index + 1})" autocomplete="off" style="border-radius:0px;" />
+                                <input id="debit_credit${index + 1}" class="form-control number-without-negative" onkeyup="onKeyUpDebitCredit(${index + 1})" autocomplete="off" value="${journalSettlementDetails[index + 1].debit_credit ? currencyTotal(journalSettlementDetails[index + 1].debit_credit) : journalSettlementDetails[index + 1].debit_credit}" style="border-radius:0px;" />
                             </td>
                         `;
                     }
