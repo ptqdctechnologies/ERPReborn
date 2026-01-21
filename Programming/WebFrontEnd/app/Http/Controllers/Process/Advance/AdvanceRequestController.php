@@ -155,9 +155,8 @@ class AdvanceRequestController extends Controller
                 throw new \Exception('Failed to fetch Update Advance Request');
             }
 
-            $responseWorkflow = $this->workflowService->submit(
+            $responseWorkflow = $this->workflowService->resubmit(
                 $response['data'][0]['businessDocument']['businessDocument_RefID'],
-                $request->workFlowPath_RefID,
                 $request->comment,
                 $request->approverEntity,
             );
