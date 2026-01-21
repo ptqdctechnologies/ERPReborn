@@ -31,6 +31,10 @@
                 document.querySelectorAll(".journal-type-posting").forEach(function(el){
                     el.style.display = "none";
                 });
+
+                $(".journal-remark").hide();
+                $(".journal-button").hide();
+                $('.detail-journal-adjustment').hide();
             } else if(journalType === "FIXED_ASSET"){
                 document.querySelectorAll(".journal-type-fixed-asset").forEach(function(el){
                     el.style.display = "flex";
@@ -41,6 +45,10 @@
                 document.querySelectorAll(".journal-type-posting").forEach(function(el){
                     el.style.display = "none";
                 });
+                
+                $(".journal-remark").hide();
+                $(".journal-button").hide();
+                $('.detail-journal-adjustment').hide();
             } else if(journalType === "POSTING"){
                 document.querySelectorAll(".journal-type-posting").forEach(function(el){
                     el.style.display = "flex";
@@ -51,6 +59,10 @@
                 document.querySelectorAll(".journal-type-settlement").forEach(function(el){
                     el.style.display = "none";
                 });
+                
+                $(".journal-remark").hide();
+                $(".journal-button").hide();
+                $('.detail-journal-adjustment').hide();
             } else {
                 document.querySelectorAll(".journal-type-settlement").forEach(function(el){
                     el.style.display = "none";
