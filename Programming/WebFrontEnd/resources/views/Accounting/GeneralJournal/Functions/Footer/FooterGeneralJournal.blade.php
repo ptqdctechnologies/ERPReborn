@@ -1,9 +1,14 @@
 <script>
     let journalTypeValue = null;
+    let isAdjustmentType = true;
     let currentIndexPickCOA = 0;
 
     function pickCOA(index) {
         currentIndexPickCOA = index;
+    }
+
+    function onChangeTransaction(value) {
+        isAdjustmentType = value;
     }
 
     function onChangeJournalType(element){
@@ -14,6 +19,7 @@
                 el.style.display = "none";
             });
         } else {
+            journalTypeValue = journalType;
             document.getElementById("journal_type_message").style.display = "none";
             if(journalType === "SETTLEMENT"){
                 document.querySelectorAll(".journal-type-settlement").forEach(function(el){
@@ -55,10 +61,10 @@
                 document.querySelectorAll(".journal-type-posting").forEach(function(el){
                     el.style.display = "none";
                 });
+                initiateJournalAdjustment();
             }
         }
 
-        journalTypeValue = journalType;
         $("#journal_type_message").hide();
     }
 
@@ -72,6 +78,7 @@
                 $('.detail-journal-settlement').show();
                 $('.detail-journal-adjustment').hide();
                 $('.detail-journal-fixed-asset').hide();
+                $("#journal_type").prop("disabled", true);
                 
                 getProductss();
             } else if (journalTypeValue === "FIXED_ASSET") {
@@ -80,6 +87,7 @@
                 $('.detail-journal-fixed-asset').show();
                 $('.detail-journal-settlement').hide();
                 $('.detail-journal-adjustment').hide();
+                $("#journal_type").prop("disabled", true);
             } else if (journalTypeValue === "ADJUSTMENT") {
                 $(".journal-remark").show();
                 $(".journal-button").show();
@@ -87,10 +95,13 @@
                 $('.detail-journal-settlement').hide();
                 $('.detail-journal-fixed-asset').hide();
 
-                initiateJournalAdjustment();
+                // initiateJournalAdjustment();
+            } else {
+                $(".journal-button").show();
+                $("#journal_type").prop("disabled", true);
             }
             
-            $("#journal_type").prop("disabled", true);
+            // $("#journal_type").prop("disabled", true);
         }
     }
 
@@ -120,5 +131,30 @@
         }
         
         $('#myGetChartOfAccount').modal('hide');
+    });
+
+    $('#tableAllTransactions').on('click', 'tbody tr', function() {
+        const sysId     = $(this).find('input[data-trigger="sys_id_transaction"]').val();
+        const trano     = $(this).find('td:nth-child(2)').text();
+        const project   = $(this).find('td:nth-child(3)').text();
+        const site      = $(this).find('td:nth-child(4)').text();
+        
+        if (isAdjustmentType) {
+            journalSettlementDetails = [];
+            getDetailJournalSettlement(sysId);
+
+            $(`#transaction_id_settlement`).val(sysId);
+            $(`#transaction_number_settlement`).val(trano);
+            $(`#transaction_number_settlement`).css('background-color', '#e9ecef');
+            $('#total_settlement').text(currencyTotal(0.00));
+            $('#total_settlement_table').text(currencyTotal(0.00));
+        } else {
+            $(`#transaction_id_posting`).val(sysId);
+            $(`#transaction_number_posting`).val(trano);
+            $(`#transaction_number_posting`).css('background-color', '#e9ecef');
+        }
+        
+        onClickGeneralJournalButton();
+        $('#myAllTransactions').modal('hide');
     });
 </script>

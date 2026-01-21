@@ -357,23 +357,24 @@
         });
     }
 
-    $('#tableAllTransactions').on('click', 'tbody tr', function() {
-        const sysId     = $(this).find('input[data-trigger="sys_id_transaction"]').val();
-        const trano     = $(this).find('td:nth-child(2)').text();
-        const project   = $(this).find('td:nth-child(3)').text();
-        const site      = $(this).find('td:nth-child(4)').text();
+    // $('#tableAllTransactions').on('click', 'tbody tr', function() {
+    //     const sysId     = $(this).find('input[data-trigger="sys_id_transaction"]').val();
+    //     const trano     = $(this).find('td:nth-child(2)').text();
+    //     const project   = $(this).find('td:nth-child(3)').text();
+    //     const site      = $(this).find('td:nth-child(4)').text();
         
-        $(`#transaction_id_settlement`).val(sysId);
-        $(`#transaction_number_settlement`).val(trano);
-        $(`#transaction_number_settlement`).css('background-color', '#e9ecef');
+    //     $(`#transaction_id_settlement`).val(sysId);
+    //     $(`#transaction_number_settlement`).val(trano);
+    //     $(`#transaction_number_settlement`).css('background-color', '#e9ecef');
 
-        journalSettlementDetails = [];
-        getDetailJournalSettlement(sysId);
+    //     journalSettlementDetails = [];
+    //     getDetailJournalSettlement(sysId);
+    //     onClickGeneralJournalButton();
 
-        $('#total_settlement').text(currencyTotal(0.00));
-        $('#total_settlement_table').text(currencyTotal(0.00));
-        $('#myAllTransactions').modal('hide');
-    });
+    //     $('#total_settlement').text(currencyTotal(0.00));
+    //     $('#total_settlement_table').text(currencyTotal(0.00));
+    //     $('#myAllTransactions').modal('hide');
+    // });
 
     $('#tableGetProductss').on('click', 'tbody tr', async function() {
         let sysId = $(this).find('input[data-trigger="sys_id_product"]').val();

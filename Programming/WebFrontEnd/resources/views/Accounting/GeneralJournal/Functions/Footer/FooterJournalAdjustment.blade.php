@@ -22,7 +22,11 @@
         addRowJournalAdjustment();
     }
 
-    function addRowJournalAdjustment() {
+    function addRowJournalAdjustment(value) {
+        if (value) {
+            $("#journal_type").prop("disabled", true);
+        }
+
         const newRow = {
             budget_id: '',
             budget_name: '',
@@ -36,6 +40,7 @@
 
         journalAdjustmentDetails.push(newRow);
 
+        onClickGeneralJournalButton();
         renderTableJournalAdjustment();
     }
 
@@ -63,7 +68,7 @@
                             <div class="icon-plus d-flex align-items-center justify-content-center" 
                                 style="width:20px;height:20px;border-radius:100%;background-color:#4B586A;margin:2px;cursor:pointer;
                                 display:${index === journalAdjustmentDetails.length - 1 ? 'flex' : 'none !important'};"
-                                onclick="addRowJournalAdjustment()">
+                                onclick="addRowJournalAdjustment('clicked')">
                                 <i class="fas fa-plus" style="color:#fff;"></i>
                             </div>
                         </div>

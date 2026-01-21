@@ -33,6 +33,7 @@
     }
 
     function getDetailJournalFixedAsset(accountPayableID) {
+        $('#journal_fixed_asset_body_table').empty();
         $("#journal_fixed_asset_loading_table").show();
         
         $.ajaxSetup({
@@ -46,7 +47,6 @@
             url: '{!! route("AccountPayable.Detail") !!}?account_payable_id=' + accountPayableID,
             success: function(data) {
                 $("#journal_fixed_asset_loading_table").hide();
-                $('#journal_fixed_asset_body_table').empty();
 
                 if (data.status === 200 && Array.isArray(data.data) && data.data.length > 0) {
                     $.each(data.data, function(key, val) {
@@ -148,6 +148,7 @@
         $(`#transaction_number_fixed_asset`).css({"background-color": "#e9ecef", "border": "1px solid #ced4da"});
 
         getDetailJournalFixedAsset(sysId);
+        onClickGeneralJournalButton();
 
         $('#myAccountPayables').modal('hide');
     });
