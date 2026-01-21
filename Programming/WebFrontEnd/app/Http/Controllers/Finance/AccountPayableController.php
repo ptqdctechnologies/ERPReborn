@@ -183,6 +183,7 @@ class AccountPayableController extends Controller
                     'deliveryFrom'                  => $dataAccountPayableDetail[0]['supplierName'] ?? '',
                     'deliveryTo'                    => $dataAccountPayableDetail[0]['purchaseOrderDeliveryTo']['Address'] ?? '',
                     'supplierInvoiceNumber'         => $dataAccountPayableDetail[0]['supplierInvoiceNumber'] ?? '',
+                    'otherSupplier'                 => $dataAccountPayableDetail[0]['otherSupplier'] ?? '',
                     'paymentTransfer_RefID'         => $dataAccountPayableDetail[0]['supplier_RefID'] ?? '',
                     'paymentTransferName'           => $dataAccountPayableDetail[0]['supplierBank_AccountName'] ?? '',
                     'paymentTransferBankCode'       => $dataAccountPayableDetail[0]['supplierBank_Code'] ?? '',

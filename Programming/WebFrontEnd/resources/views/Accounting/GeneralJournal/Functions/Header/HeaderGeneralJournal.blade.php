@@ -80,8 +80,8 @@
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Transaction Number</label>
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div>
-                        <span class="input-group-text form-control" style="border-radius:0;">
-                            <a href="javascript:;" data-toggle="modal" data-target="#" style="display: block; cursor: pointer;">
+                        <span class="input-group-text form-control" onclick="onChangeTransaction(false)" style="border-radius:0;">
+                            <a href="javascript:;" data-toggle="modal" data-target="#myAllTransactions" style="display: block; cursor: pointer;">
                                 <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="box" />
                             </a>
                         </span>
@@ -99,10 +99,10 @@
         <!-- RIGHT -->
         <div class="col-md-12 col-lg-5"></div>
     </div>
-    <div class="row justify-content-end">
+    <!-- <div class="row justify-content-end">
         <button type="button" class="btn btn-default btn-sm d-flex" onclick="onClickGeneralJournalButton()" style="background-color:#e9ecef; border:1px solid #ced4da; gap: 5px;">
             <i class="fas fa-save" style="font-size: 16px; color: #1679AB;"></i>
             <div>Add</div>
         </button>
-    </div>
+    </div> -->
 </div>

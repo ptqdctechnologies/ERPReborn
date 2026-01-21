@@ -86,8 +86,9 @@ class AccountPayableService
         $detailItems                = json_decode($data['account_payable_detail'], true);
         $fileID                     = $data['dataInput_Log_FileUpload_1'] ? (int) $data['dataInput_Log_FileUpload_1'] : null;
         $vatValue                   = $data['vat_origin'] == "yes" ? (float) str_replace(',', '', $data['ppn']) : 0;
-        $supplierID                 = $data['payment_transfer_id'] ? (int) $data['payment_transfer_id'] : null; // 297x
-        $categoryID                 = $data['category_id'] ? (int) $data['category_id'] : null; // 297x
+        $supplierID                 = $data['payment_transfer_id'] ? (int) $data['payment_transfer_id'] : null;
+        $otherSupplier              = $data['payment_transfer_id'] ? null : $data['payment_transfer_number'];
+        $categoryID                 = $data['category_id'] ? (int) $data['category_id'] : null;
         $depreciationMethod         = isset($data['depreciation_method']) && $data['depreciation_method'] ? (int) $data['depreciation_method'] : null; // 298x
         $depreciationRateYearsID    = $data['depreciation_rate_years_id'] ? (int) str_replace(',', '', $data['depreciation_rate_years_id']) : null; // 299x
         $depreciationRate           = $data['depreciation_rate_percentage'] ? (float) str_replace(',', '', $data['depreciation_rate_percentage']) : 0;
@@ -135,7 +136,7 @@ class AccountPayableService
                 "currencyExchangeRate"              => 0,
                 "supplierInvoiceNumber"             => $data['supplier_invoice_number'],
                 "supplier_RefID"                    => $supplierID,
-                "otherSupplier"                     => NULL,
+                "otherSupplier"                     => $otherSupplier,
                 "receiptStatus"                     => $receiptStatus,
                 "contractStatus"                    => $contractStatus,
                 "vatStatus"                         => $vatStatus,
@@ -167,6 +168,8 @@ class AccountPayableService
         $detailItems                = json_decode($data['account_payable_detail'], true);
         $fileID                     = $data['dataInput_Log_FileUpload_1'] ? (int) $data['dataInput_Log_FileUpload_1'] : null;
         $vatValue                   = $data['vat_origin'] == "yes" ? (float) str_replace(',', '', $data['ppn']) : 0;
+        $supplierID                 = $data['payment_transfer_id'] ? (int) $data['payment_transfer_id'] : null;
+        $otherSupplier              = $data['payment_transfer_id'] ? null : $data['payment_transfer_number'];
         $categoryID                 = $data['category_id'] ? (int) $data['category_id'] : null;
         $depreciationMethod         = isset($data['depreciation_method']) ? (int) $data['depreciation_method'] : null;
         $depreciationRateYearsID    = $data['depreciation_rate_years_id'] ? (int) str_replace(',', '', $data['depreciation_rate_years_id']) : null; // 299x
@@ -211,7 +214,8 @@ class AccountPayableService
                 "documentDateTimeTZ"                => date('Y-m-d'),
                 "log_FileUpload_Pointer_RefID"      => $fileID,
                 "supplierInvoiceNumber"             => $data['supplier_invoice_number'],
-                "supplier_RefID"                    => (int) $data['payment_transfer_id'], 
+                "supplier_RefID"                    => $supplierID, 
+                "otherSupplier"                     => $otherSupplier,
                 "receiptStatus"                     => $receiptStatus,
                 "contractStatus"                    => $contractStatus,
                 "vatStatus"                         => $vatStatus,
