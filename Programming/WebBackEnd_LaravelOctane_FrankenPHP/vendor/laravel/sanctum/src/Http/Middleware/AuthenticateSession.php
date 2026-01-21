@@ -110,11 +110,11 @@ class AuthenticateSession
      * Validate the password hash against the stored value.
      *
      * @param  \Illuminate\Auth\SessionGuard  $guard
-     * @param  string  $passwordHash
+     * @param  string|null  $passwordHash
      * @param  string  $storedValue
      * @return bool
      */
-    protected function validatePasswordHash(SessionGuard $guard, string $passwordHash, string $storedValue): bool
+    protected function validatePasswordHash(SessionGuard $guard, ?string $passwordHash, string $storedValue): bool
     {
         // Try new HMAC format first (Laravel 12.45.0+)...
         if (method_exists($guard, 'hashPasswordForCookie')) {
@@ -124,6 +124,6 @@ class AuthenticateSession
         }
 
         // Fall back to raw password hash format for backward compatibility...
-        return hash_equals($passwordHash, $storedValue);
+        return hash_equals($passwordHash ?? '', $storedValue);
     }
 }
