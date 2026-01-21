@@ -124,7 +124,7 @@
                     Last Status : 
                       @if(isset($dataWorkFlows))
                         @if($statusDocument == 0)
-                          Waiting {{ $dataWorkFlows[count($dataWorkFlows)-1]['workFlowPathActionName'] }} from {{ $dataWorkFlows[count($dataWorkFlows)-1]['nextApproverEntityName'] }}
+                          Waiting Approval from {{ $dataWorkFlows['itemList']['ungrouped'][count($dataWorkFlows['itemList']['ungrouped']) - 1]['entities']['nextDefaultApproval']['approverEntityName'] }}
                         @elseif($statusDocument == 1)
                           Final Approved
                         @elseif($statusDocument == 2)
@@ -181,12 +181,12 @@
 
               <?php if ($statusApprover == "YES") { ?>
                 <!-- APPROVE -->
-                <a onclick="ApproveButton({{ $businessDocument_RefID }})" class="btn btn-default btn-sm" style="background-color:#e9ecef;border:1px solid #ced4da;margin-right:10px;">
+                <a onclick="ApproveButton({{ $businessDocument_RefID }})" class="btn btn-default btn-sm" style="background-color:#e9ecef;border:1px solid #ced4da;margin-left:10px;">
                   <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" title="Approve"> Approve
                 </a>
 
                 <!-- REJECT -->
-                <a onclick="RejectButton({{ $businessDocument_RefID }}, {{ $dataWorkFlows[0]['approverEntity_RefID'] }})" class="btn btn-default btn-sm" style="background-color:#e9ecef;border:1px solid #ced4da;margin-right:10px;">
+                <a onclick="RejectButton({{ $businessDocument_RefID }}, {{ $varWorkerCareerInternal }})" class="btn btn-default btn-sm" style="background-color:#e9ecef;border:1px solid #ced4da;margin-right:10px;">
                   <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Reject"> Reject
                 </a>
               <?php } ?>
