@@ -448,7 +448,8 @@ namespace App\Models\Database\SchSysConfig
                         $varUserSession, 
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
-                            'SchSysConfig.Func_General_GetBusDocWorkFlowPathApprovementHistoryxxx',
+                            //'SchSysConfig.Func_GetReport_DataList_BusDocWorkFlowPathApproveHistory',
+                            'SchData-OLTP-Master.Func_GetReport_DataList_BusDocApprovementHistory',
                             [
                                 [$varSysBranch_RefID, 'bigint' ],
 
@@ -456,7 +457,21 @@ namespace App\Models\Database\SchSysConfig
                             ]
                             )
                         );
+                //  dd($varReturn['data'][0]['Func_GetReport_DataList_BusDocApprovementHistory']);
 
+                $varReturn['data'] =
+                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                        $varUserSession,
+                        $varReturn['data'][0]['Func_GetReport_DataList_BusDocApprovementHistory']
+                        );
+
+                $varReturn['rowCount'] =
+                    count($varReturn['data']);
+
+                return
+                    $varReturn;
+
+                /*
                 try {
                     $varReturn =
                         $varReturn['data'];
@@ -467,6 +482,7 @@ namespace App\Models\Database\SchSysConfig
 
                 return
                     $varReturn;
+                */
                 }
 
             catch (\Exception $ex) {
