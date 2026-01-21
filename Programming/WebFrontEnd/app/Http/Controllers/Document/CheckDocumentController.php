@@ -150,19 +150,8 @@ class CheckDocumentController extends Controller
             );
 
             if ($responseData['metadata']['HTTPStatusCode'] !== 200) {
-                return [
-                    [
-                        'remarks' => 'ini data dummy', 
-                        'workFlowPathActionName' => 'Submitted',
-                        'approvalDateTimeTZ' => '2025-09-29 10:31:00.113 +0700',
-                        'approverEntityName' => 'Teguh Pratama Januzir Sukin',
-                        'approverEntityFullJobPositionTitle' => 'Manager'
-                    ]
-                ];
-                // return redirect()->back()->with('NotFound', value: 'Workflow History API Error.');
+                return redirect()->back()->with('NotFound', value: 'Workflow History API Error.');
             }
-
-            // dd($responseData);
 
             return $responseData['data'];
         } catch (\Throwable $th) {
@@ -174,33 +163,46 @@ class CheckDocumentController extends Controller
 
     private function determineApproverStatus($workflowHistory, $sourceData)
     {
-        $SessionWorkerCareerInternal_RefID = Session::get('SessionWorkerCareerInternal_RefID');
-
         if ($sourceData === 0) {
-            return "No";
+            return 'NO';
         }
 
-        $submitterId = $workflowHistory[0]['approverEntity_RefID'] ?? 0;
-        $nextApproverId = $workflowHistory ? $workflowHistory[count($workflowHistory) - 1]['nextApproverEntity_RefID'] : 0;
+        $sessionWorkerId = Session::get('SessionWorkerCareerInternal_RefID');
 
-        if ($SessionWorkerCareerInternal_RefID === $nextApproverId && $SessionWorkerCareerInternal_RefID !== $submitterId) {
-            return "YES";
+        $ungroupedItems = $workflowHistory['data']['document']['content']['itemList']['ungrouped'] ?? [];
+
+        if (empty($ungroupedItems)) {
+            return 'NO';
         }
 
-        if ($SessionWorkerCareerInternal_RefID === $submitterId && ($nextApproverId === 0 || !$nextApproverId)) {
-            return "RESUBMIT";
+        $submitterId = $ungroupedItems[0]['entities']['currentApproval']['approverEntity_RefID'] ?? 0;
+
+        $lastItem = end($ungroupedItems);
+        $nextApproverId = $lastItem['entities']['nextDefaultApproval']['approverEntity_RefID'] ?? 0;
+
+        if ($sessionWorkerId === $submitterId) {
+            return 'RESUBMIT';
         }
 
-        return "NO";
+        if ($nextApproverId) {
+            return 'YES';
+        }
+
+        return 'NO';
     }
 
-    private function determineDocumentStatus($workflowHistory)
+    private function determineDocumentStatus(array $workflowHistory): int
     {
-        if (empty($workflowHistory)) {
+        $ungrouped = $workflowHistory['data']['document']['content']['itemList']['ungrouped'] ?? [];
+
+        if (empty($ungrouped)) {
             return 2;
         }
 
-        $nextApproverId = $workflowHistory[count($workflowHistory) - 1]['nextApproverEntity_RefID'] ?? 0;
+        $lastItem = end($ungrouped);
+
+        $nextApproverId = $lastItem['entities']['nextDefaultApproval']['approverEntity_RefID'] ?? 0;
+
         return $nextApproverId === 0 ? 1 : 0;
     }
 
@@ -213,12 +215,6 @@ class CheckDocumentController extends Controller
             $transDetail_RefID          = $request->input('businessDocument_RefID');
             $sourceData                 = 0;
 
-            // dd([
-            //     'transDetail_RefID'          => $transDetail_RefID,
-            //     'businessDocumentTypeName'   => $businessDocumentTypeName,
-            //     'businessDocumentNumber'     => $businessDocumentNumber,
-            // ]);
-
             if (!$businessDocumentNumber || !$businessDocumentTypeName || !$transDetail_RefID) {
                 throw new \Exception('Failed to find Document Number.');
             }
@@ -228,33 +224,21 @@ class CheckDocumentController extends Controller
                 'transDetail_RefID'         => $transDetail_RefID
             ]);
 
-            // dd($collection);
-
             if (count($collection['dataDetail']) === 0) {
                 throw new \Exception('Failed to fetch Detail Document Number.');
             }
 
             $workflowHistory = $this->getWorkflowHistory($collection['businessDocumentRefID']);
 
-            // dd($workflowHistory);
-
-            if (count($workflowHistory) === 0) {
+            if (count($workflowHistory['data']['document']['content']['itemList']['ungrouped']) === 0) {
                 throw new \Exception('Failed to fetch Workflow History.');
             }
 
-            // dd($collection, $workflowHistory);
-
             $approverStatus     = $this->determineApproverStatus($workflowHistory, $sourceData);
-
-            // dd($approverStatus);
 
             $documentStatus     = $this->determineDocumentStatus($workflowHistory);
 
-            // dd($documentStatus);
-
             $formatData = DocumentTypeMapper::formatData($businessDocumentTypeName, $collection['dataDetail'][0]);
-
-            // dd($formatData);
 
             $compactTransactionHistory = [];
             if (isset($formatData['dataHeader']['dateUpdate']) && $formatData['dataHeader']['dateUpdate'] ?? isset($formatData['dataHeader']['DateUpdate']) && $formatData['dataHeader']['DateUpdate']) {
@@ -287,8 +271,6 @@ class CheckDocumentController extends Controller
                 ];
             }
 
-            // dd($compactTransactionHistory);
-
             $compact = [
                 'varAPIWebToken'                => $varAPIWebToken,
                 'sourceData'                    => $sourceData,
@@ -296,14 +278,12 @@ class CheckDocumentController extends Controller
                 'transactionForm'               => $businessDocumentTypeName,
                 'transactionNumber'             => $businessDocumentNumber,
                 'transactionDetail_RefID'       => $transDetail_RefID,
-                'dataWorkFlows'                 => $workflowHistory,
+                'dataWorkFlows'                 => $workflowHistory['data']['document']['content'],
                 'statusDocument'                => $documentStatus,
                 'approverStatus'                => $approverStatus,
                 'page'                          => 'Document Tracking',
                 'dataDetails'                   => $collection['dataDetail'],
             ] + $formatData + $compactTransactionHistory;
-
-            // dd($compact);
 
             return view('Documents.Transactions.IndexCheckDocument', $compact);
         } catch (\Throwable $th) {
@@ -317,16 +297,11 @@ class CheckDocumentController extends Controller
     {
         try {
             $varAPIWebToken             = $request->session()->get('SessionLogin');
+            $varWorkerCareerInternal    = $request->session()->get('SessionWorkerCareerInternal_RefID');
             $transDetail_RefID          = $request->input('formDocumentNumber_RefID');
             $businessDocumentTypeName   = $request->input('businessDocumentTypeName');
             $businessDocument_RefID     = $request->input('businessDocument_RefID');
-            $sourceData                 = 0; // "NO"
-
-            // dd([
-            //     'transDetail_RefID' => $transDetail_RefID,
-            //     'businessDocumentTypeName'=> $businessDocumentTypeName,
-            //     'businessDocument_RefID' => $businessDocument_RefID,
-            // ]);
+            $sourceData                 = "NO";
 
             if (!$transDetail_RefID || !$businessDocumentTypeName || !$businessDocument_RefID) {
                 return redirect()->back()->with('error', 'Data Not Found');
@@ -337,17 +312,13 @@ class CheckDocumentController extends Controller
                 'transDetail_RefID'         => $transDetail_RefID,
             ]);
 
-            // dd($collection);
-
             if (count($collection['dataDetail']) === 0) {
                 return redirect()->back()->with('error', 'Data Not Found');
             }
 
             $workflowHistory    = $this->getWorkflowHistory($collection['businessDocumentRefID']);
 
-            // dd($collection, $workflowHistory);
-
-            if (count($workflowHistory) === 0) {
+            if (count($workflowHistory['data']['document']['content']['itemList']['ungrouped']) === 0) {
                 return redirect()->back()->with('error', 'Data Not Found');
             }
 
@@ -387,17 +358,16 @@ class CheckDocumentController extends Controller
 
             $compact = [
                 'varAPIWebToken'            => $varAPIWebToken,
+                'varWorkerCareerInternal'   => $varWorkerCareerInternal,
                 'var'                       => 1,
                 'dataDetails'               => $collection['dataDetail'],
-                'dataWorkFlows'             => $workflowHistory,
+                'dataWorkFlows'             => $workflowHistory['data']['document']['content'],
                 'transactionDetail_RefID'   => $transDetail_RefID,
                 'statusApprover'            => $approverStatus,
                 'statusDocument'            => $documentStatus,
                 'transactionForm'           => $businessDocumentTypeName,
                 'page'                      => 'My Document'
             ] + $formatData + $compactTransactionHistory;
-
-            // dd($compact);
 
             return view('Documents.Transactions.IndexCheckDetailDocument',$compact);
         } catch (\Throwable $th) {
