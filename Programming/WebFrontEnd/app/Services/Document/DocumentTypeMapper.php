@@ -172,7 +172,7 @@ class DocumentTypeMapper
                 ],
                 'resubmit'  => [
                     'url'   => 'AdvanceRequest.RevisionAdvanceIndex',
-                    'name'  => 'advance_RefID',
+                    'name'  => 'modal_advance_id',
                     'value' => $dataDetail['advance_RefID'] ?? '-',
                 ],
                 'transactionType'        => 'ADVANCE REQUEST',

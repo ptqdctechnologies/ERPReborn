@@ -157,10 +157,9 @@
                     Last Status : 
                       @if(isset($dataWorkFlows))
                         @if($statusDocument == 0)
-                          Waiting {{ $dataWorkFlows[count($dataWorkFlows)-1]['workFlowPathActionName'] }} from {{ $dataWorkFlows[count($dataWorkFlows)-1]['nextApproverEntityName'] }}
+                          Waiting Approval from {{ $dataWorkFlows['itemList']['ungrouped'][count($dataWorkFlows['itemList']['ungrouped']) - 1]['entities']['nextDefaultApproval']['approverEntityName'] }}
                         @elseif($statusDocument == 1)
-                          <!-- Final Approved -->
-                          Waiting Grace Kurniawan
+                          Final Approved
                         @elseif($statusDocument == 2)
                           Document Doesn't Has Workflow
                         @endif
