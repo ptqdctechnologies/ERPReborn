@@ -20,7 +20,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         |                     ► http://172.28.0.4/transaction.create.accounting.setJournal.v1_throughAPIGateway                    |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2026-01-15                                                                                           |
+        | ▪ Last Update     : 2026-01-22                                                                                           |
         | ▪ Creation Date   : 2024-05-07                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -40,26 +40,19 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                     [
                     'entities' => [
                                 [
-                                    'documentDateTimeTZ' => '2025-12-02',
+                                    'documentDateTimeTZ' => '2026-01-22',
                                     'businessDocument_RefID' => 74000000023241,
                                     "bankAccount_RefID" => 167000000000004,
                                     "combinedBudget_RefID" => 46000000000001,
-                                    'journalDateTimeTZ' => '2025-12-02 11:30:45+07',
+                                    'journalDateTimeTZ' => '2026-01-22 11:30:45+07',
                                     'additionalData' => [
                                         'itemList' => [
                                             'items' => [
                                                 'entities' => [
-                                                    'chartOfAccount_RefID' => 65000000000005,
-                                                    'accountingEntryRecordType_RefID' => 214000000000001,   // 214000000000001 => "Debit", 214000000000002 => "Credit"
-                                                    'amountCurrency_RefID' => 62000000000001,
-                                                    'amountCurrencyValue' => 50000,
-                                                    'amountCurrencyExchangeRate' => 1,
-                                                    'quantityUnit_RefID' => 73000000000001,
-                                                    'quantity' => 10.00,
                                                     "cashReceiptItemList" => [
                                                         "items" => [
                                                             "entities" => [
-                                                                'documentDateTimeTZ' => '2025-12-02',
+                                                                'documentDateTimeTZ' => '2026-01-22',
                                                                 'businessDocument_RefID' => 74000000023241,
                                                                 'log_FileUpload_Pointer_RefID' => null,
                                                                 "combinedBudget_RefID" => 46000000000003,
@@ -68,7 +61,28 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                                                 'amountCurrency_RefID' => 62000000000001,
                                                                 'amountCurrencyValue' => 50000,
                                                                 'amountCurrencyExchangeRate' => 1,
-                                                                "remarks" => 'Catatan 1'
+                                                                "remarks" => 'Catatan 1',
+                                                                'additionalData' => [
+                                                                    [
+                                                                        'chartOfAccount_RefID' => 65000000000005,
+                                                                        'accountingEntryRecordType_RefID' => 214000000000001,   // 214000000000001 => "Debit", 214000000000002 => "Credit"
+                                                                        'amountCurrency_RefID' => 62000000000001,
+                                                                        'amountCurrencyValue' => 50000,
+                                                                        'amountCurrencyExchangeRate' => 1,
+                                                                        'quantityUnit_RefID' => 73000000000001,
+                                                                        'quantity' => 10.00
+                                                                    ],
+                                                                    [
+                                                                        'chartOfAccount_RefID' => 65000000000005,
+                                                                        'accountingEntryRecordType_RefID' => 214000000000002,   // 214000000000001 => "Debit", 214000000000002 => "Credit"
+                                                                        'amountCurrency_RefID' => 62000000000001,
+                                                                        'amountCurrencyValue' => 50000,
+                                                                        'amountCurrencyExchangeRate' => 1,
+                                                                        'quantityUnit_RefID' => 73000000000001,
+                                                                        'quantity' => 10.00
+                                                                    ]
+
+                                                                ]
                                                             ]
                                                         ]
                                                     ]
@@ -78,26 +92,19 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                     ]
                                 ],
                                 [
-                                    'documentDateTimeTZ' => '2025-12-02',
+                                    'documentDateTimeTZ' => '2026-01-22',
                                     'businessDocument_RefID' => 74000000023237,
                                     "bankAccount_RefID" => 167000000000004,
                                     "combinedBudget_RefID" => 46000000000001,
-                                    'journalDateTimeTZ' => '2025-12-02 11:30:45+07',
+                                    'journalDateTimeTZ' => '2026-01-22 11:30:45+07',
                                     'additionalData' => [
                                         'itemList' => [
                                             'items' => [
                                                 'entities' => [
-                                                    'chartOfAccount_RefID' => 65000000000005,
-                                                    'accountingEntryRecordType_RefID' => 214000000000002,   // 214000000000001 => "Debit", 214000000000002 => "Credit"
-                                                    'amountCurrency_RefID' => 62000000000001,
-                                                    'amountCurrencyValue' => 75000,
-                                                    'amountCurrencyExchangeRate' => 1,
-                                                    'quantityUnit_RefID' => 73000000000001,
-                                                    'quantity' => 8.00,
                                                     "cashDisbursementItemList" => [
                                                         "items" => [
                                                             "entities" => [
-                                                                'documentDateTimeTZ' => '2025-12-02',
+                                                                'documentDateTimeTZ' => '2026-01-22',
                                                                 'businessDocument_RefID' => 74000000023237,
                                                                 'log_FileUpload_Pointer_RefID' => null,
                                                                 "combinedBudget_RefID" => 46000000000003,
@@ -106,7 +113,27 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                                                 'amountCurrency_RefID' => 62000000000001,
                                                                 'amountCurrencyValue' => 75000,
                                                                 'amountCurrencyExchangeRate' => 1,
-                                                                "remarks" => 'Catatan 2'
+                                                                "remarks" => 'Catatan 2',
+                                                                'additionalData' => [
+                                                                    [
+                                                                        'chartOfAccount_RefID' => 65000000000005,
+                                                                        'accountingEntryRecordType_RefID' => 214000000000001,   // 214000000000001 => "Debit", 214000000000002 => "Credit"
+                                                                        'amountCurrency_RefID' => 62000000000001,
+                                                                        'amountCurrencyValue' => 75000,
+                                                                        'amountCurrencyExchangeRate' => 1,
+                                                                        'quantityUnit_RefID' => 73000000000001,
+                                                                        'quantity' => 8.00
+                                                                    ],
+                                                                    [
+                                                                        'chartOfAccount_RefID' => 65000000000005,
+                                                                        'accountingEntryRecordType_RefID' => 214000000000002,   // 214000000000001 => "Debit", 214000000000002 => "Credit"
+                                                                        'amountCurrency_RefID' => 62000000000001,
+                                                                        'amountCurrencyValue' => 75000,
+                                                                        'amountCurrencyExchangeRate' => 1,
+                                                                        'quantityUnit_RefID' => 73000000000001,
+                                                                        'quantity' => 8.00
+                                                                    ]
+                                                                ]
                                                             ]
                                                         ]
                                                     ]
@@ -116,26 +143,19 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                     ]
                                 ],
                                 [
-                                    'documentDateTimeTZ' => '2025-12-02',
+                                    'documentDateTimeTZ' => '2026-01-22',
                                     'businessDocument_RefID' => 74000000023232,
                                     "bankAccount_RefID" => 167000000000004,
                                     "combinedBudget_RefID" => 46000000000001,
-                                    'journalDateTimeTZ' => '2025-12-02 11:30:45+07',
+                                    'journalDateTimeTZ' => '2026-01-22 11:30:45+07',
                                     'additionalData' => [
                                         'itemList' => [
                                             'items' => [
                                                 'entities' => [
-                                                    'chartOfAccount_RefID' => 65000000000005,
-                                                    'accountingEntryRecordType_RefID' => 214000000000001,   // 214000000000001 => "Debit", 214000000000002 => "Credit"
-                                                    'amountCurrency_RefID' => 62000000000001,
-                                                    'amountCurrencyValue' => 125000,
-                                                    'amountCurrencyExchangeRate' => 1,
-                                                    'quantityUnit_RefID' => 73000000000001,
-                                                    'quantity' => 23.00,
                                                     "cashReceiptItemList" => [
                                                         "items" => [
                                                             "entities" => [
-                                                                'documentDateTimeTZ' => '2025-12-02',
+                                                                'documentDateTimeTZ' => '2026-01-22',
                                                                 'businessDocument_RefID' => 74000000023232,
                                                                 'log_FileUpload_Pointer_RefID' => null,
                                                                 "combinedBudget_RefID" => 46000000000003,
@@ -144,7 +164,27 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                                                 'amountCurrency_RefID' => 62000000000001,
                                                                 'amountCurrencyValue' => 125000,
                                                                 'amountCurrencyExchangeRate' => 1,
-                                                                "remarks" => 'Catatan 3'
+                                                                "remarks" => 'Catatan 3',
+                                                                'additionalData' => [
+                                                                    [
+                                                                        'chartOfAccount_RefID' => 65000000000005,
+                                                                        'accountingEntryRecordType_RefID' => 214000000000001,   // 214000000000001 => "Debit", 214000000000002 => "Credit"
+                                                                        'amountCurrency_RefID' => 62000000000001,
+                                                                        'amountCurrencyValue' => 125000,
+                                                                        'amountCurrencyExchangeRate' => 1,
+                                                                        'quantityUnit_RefID' => 73000000000001,
+                                                                        'quantity' => 23.00
+                                                                    ],
+                                                                    [
+                                                                        'chartOfAccount_RefID' => 65000000000005,
+                                                                        'accountingEntryRecordType_RefID' => 214000000000002,   // 214000000000001 => "Debit", 214000000000002 => "Credit"
+                                                                        'amountCurrency_RefID' => 62000000000001,
+                                                                        'amountCurrencyValue' => 125000,
+                                                                        'amountCurrencyExchangeRate' => 1,
+                                                                        'quantityUnit_RefID' => 73000000000001,
+                                                                        'quantity' => 23.00
+                                                                    ]
+                                                                ]
                                                             ]
                                                         ]
                                                     ]
@@ -154,26 +194,19 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                     ]
                                 ],
                                 [
-                                    'documentDateTimeTZ' => '2025-12-02',
+                                    'documentDateTimeTZ' => '2026-01-22',
                                     'businessDocument_RefID' => 74000000023228,
                                     "bankAccount_RefID" => 167000000000004,
                                     "combinedBudget_RefID" => 46000000000001,
-                                    'journalDateTimeTZ' => '2025-12-02 11:30:45+07',
+                                    'journalDateTimeTZ' => '2026-01-22 11:30:45+07',
                                     'additionalData' => [
                                         'itemList' => [
                                             'items' => [
                                                 'entities' => [
-                                                    'chartOfAccount_RefID' => 65000000000005,
-                                                    'accountingEntryRecordType_RefID' => 214000000000002,   // 214000000000001 => "Debit", 214000000000002 => "Credit"
-                                                    'amountCurrency_RefID' => 62000000000001,
-                                                    'amountCurrencyValue' => 230000,
-                                                    'amountCurrencyExchangeRate' => 1,
-                                                    'quantityUnit_RefID' => 73000000000001,
-                                                    'quantity' => 49.00,
                                                     "cashDisbursementItemList" => [
                                                         "items" => [
                                                             "entities" => [
-                                                                'documentDateTimeTZ' => '2025-12-02',
+                                                                'documentDateTimeTZ' => '2026-01-22',
                                                                 'businessDocument_RefID' => 74000000023228,
                                                                 'log_FileUpload_Pointer_RefID' => null,
                                                                 "combinedBudget_RefID" => 46000000000003,
@@ -182,7 +215,27 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                                                 'amountCurrency_RefID' => 62000000000001,
                                                                 'amountCurrencyValue' => 230000,
                                                                 'amountCurrencyExchangeRate' => 1,
-                                                                "remarks" => 'Catatan 4'
+                                                                "remarks" => 'Catatan 4',
+                                                                'additionalData' => [
+                                                                    [
+                                                                        'chartOfAccount_RefID' => 65000000000005,
+                                                                        'accountingEntryRecordType_RefID' => 214000000000001,   // 214000000000001 => "Debit", 214000000000002 => "Credit"
+                                                                        'amountCurrency_RefID' => 62000000000001,
+                                                                        'amountCurrencyValue' => 230000,
+                                                                        'amountCurrencyExchangeRate' => 1,
+                                                                        'quantityUnit_RefID' => 73000000000001,
+                                                                        'quantity' => 49.00
+                                                                    ],
+                                                                    [
+                                                                        'chartOfAccount_RefID' => 65000000000005,
+                                                                        'accountingEntryRecordType_RefID' => 214000000000002,   // 214000000000001 => "Debit", 214000000000002 => "Credit"
+                                                                        'amountCurrency_RefID' => 62000000000001,
+                                                                        'amountCurrencyValue' => 230000,
+                                                                        'amountCurrencyExchangeRate' => 1,
+                                                                        'quantityUnit_RefID' => 73000000000001,
+                                                                        'quantity' => 49.00
+                                                                    ]
+                                                                ]
                                                             ]
                                                         ]
                                                     ]
@@ -279,3 +332,4 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             }
         }
     }
+
