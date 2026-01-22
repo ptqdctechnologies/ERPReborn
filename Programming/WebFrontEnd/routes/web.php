@@ -336,6 +336,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::resource('ReimbursableExpenditure', 'Process\Reimbursement\ReimbursableExpenditureController');
 
     // INVOICE
+    Route::get('ReportInvoiceSummary', 'Finance\InvoiceController@ReportInvoiceSummary')->name('Invoice.ReportInvoiceSummary');
     Route::post('RevisionInvoice', 'Finance\InvoiceController@RevisionInvoice')->name('Invoice.RevisionInvoice');
     Route::resource('Invoice', 'Finance\InvoiceController');
 

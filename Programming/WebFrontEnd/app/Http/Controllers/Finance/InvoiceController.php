@@ -46,6 +46,11 @@ class InvoiceController extends Controller
         }
     }
 
+    public function ReportInvoiceSummary(Request $request)
+    {
+        return view('Finance.Invoice.Reports.ReportInvoiceSummary');
+    }
+
     // Tampilkan form untuk membuat post baru
     public function create()
     {
