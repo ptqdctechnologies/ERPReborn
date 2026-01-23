@@ -18,6 +18,19 @@ use Barryvdh\DomPDF\Facade\Pdf;
 
 class LoanSettlementController extends Controller
 {
+    public function index(Request $request)
+    {
+        $var                = $request->query('var', 0);
+        $varAPIWebToken     = Session::get('SessionLogin');
+        $documentTypeRefID  = $this->GetBusinessDocumentsTypeFromRedis('Loan Settlement Form');
+
+        return view('Process.LoanSettlement.Transactions.CreateLoanSettlement', [
+            'var'                   => $var,
+            'varAPIWebToken'        => $varAPIWebToken,
+            'documentType_RefID'    => $documentTypeRefID
+        ]);
+    }
+
     public function ReportLoanSettlementSummary(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');

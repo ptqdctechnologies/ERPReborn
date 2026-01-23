@@ -27,6 +27,25 @@ class InvoiceController extends Controller
         ]);
     }
 
+    public function RevisionInvoice(Request $request)
+    {
+        try {
+            $var                = $request->query('var', 0);
+            $varAPIWebToken     = Session::get('SessionLogin');
+            $documentTypeRefID  = $this->GetBusinessDocumentsType('Sales Invoice Form');
+
+            return view('Finance.Invoice.Transactions.RevisionInvoice', [
+                'var'                   => $var,
+                'varAPIWebToken'        => $varAPIWebToken,
+                'documentType_RefID'    => $documentTypeRefID
+            ]);
+        } catch (\Throwable $th) {
+            Log::error("Revision Invoice Function Error: " . $th->getMessage());
+            
+            return redirect()->route('Invoice.index', ['var' => 1])->with('NotFound', 'Process Error');
+        }
+    }
+
     // Tampilkan form untuk membuat post baru
     public function create()
     {

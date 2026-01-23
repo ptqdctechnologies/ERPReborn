@@ -12,9 +12,9 @@
                 </div>
             </div>
 
-            <!-- COA VALUE -->
+            <!-- PENALTY VALUE -->
             <div class="row" style="margin-bottom: 1rem;">
-                <label for="taxi" class="col-sm-3 col-md-4 col-lg-6 col-form-label p-0">COA Value</label>
+                <label for="taxi" class="col-sm-3 col-md-4 col-lg-6 col-form-label p-0">Penalty Value</label>
                 <div class="col-sm-9 col-md-8 col-lg-4 p-0">
                     <div class="input-group">
                         <input id="taxi" name="taxi" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
@@ -35,32 +35,56 @@
 
         <!-- CENTER -->
         <div class="col-md-12 col-lg-3">
-            <!-- PENALTY VALUE -->
+            <!-- COA SETTLEMENT -->
             <div class="row" style="margin-bottom: 1rem;">
-                <label for="taxi" class="col-sm-3 col-md-4 col-lg-6 col-form-label p-0">Penalty Value</label>
-                <div class="col-sm-9 col-md-8 col-lg-4 p-0">
-                    <div class="input-group">
-                        <input id="taxi" name="taxi" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
+                <label for="taxi" class="col-sm-3 col-md-4 col-lg-6 col-form-label p-0">COA Settlement</label>
+                <div class="col-sm-9 col-md-8 col-lg-4 d-flex p-0">
+                    <div>
+                        <span id="creditor_trigger" class="input-group-text form-control" data-toggle="modal" data-target="#myLoans" style="border-radius:0;cursor:pointer;">
+                            <i class="fas fa-gift"></i>
+                        </span>
+                    </div>
+                    <div style="flex: 100%;">
+                        <div class="input-group">
+                            <input type="hidden" id="creditor_id" class="form-control" name="creditor_id" style="border-radius:0;" />
+                            <input type="text" id="creditor_name" class="form-control" style="border-radius:0;background:white;" readonly />
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- PENALTY COA VALUE -->
+            <!-- COA PENALTY -->
             <div class="row" style="margin-bottom: 1rem;">
-                <label for="taxi" class="col-sm-3 col-md-4 col-lg-6 col-form-label p-0">Penalty COA Value</label>
-                <div class="col-sm-9 col-md-8 col-lg-4 p-0">
-                    <div class="input-group">
-                        <input id="taxi" name="taxi" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
+                <label for="taxi" class="col-sm-3 col-md-4 col-lg-6 col-form-label p-0">COA Penalty</label>
+                <div class="col-sm-9 col-md-8 col-lg-4 d-flex p-0">
+                    <div>
+                        <span id="creditor_trigger" class="input-group-text form-control" data-toggle="modal" data-target="#myLoans" style="border-radius:0;cursor:pointer;">
+                            <i class="fas fa-gift"></i>
+                        </span>
+                    </div>
+                    <div style="flex: 100%;">
+                        <div class="input-group">
+                            <input type="hidden" id="creditor_id" class="form-control" name="creditor_id" style="border-radius:0;" />
+                            <input type="text" id="creditor_name" class="form-control" style="border-radius:0;background:white;" readonly />
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- INTEREST VALUE -->
+            <!-- COA INTEREST -->
             <div class="row" style="margin-bottom: 1rem;">
-                <label for="taxi" class="col-sm-3 col-md-4 col-lg-6 col-form-label p-0">Interest COA Value</label>
-                <div class="col-sm-9 col-md-8 col-lg-4 p-0">
-                    <div class="input-group">
-                        <input id="taxi" name="taxi" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
+                <label for="taxi" class="col-sm-3 col-md-4 col-lg-6 col-form-label p-0">COA Interest</label>
+                <div class="col-sm-9 col-md-8 col-lg-4 d-flex p-0">
+                    <div>
+                        <span id="creditor_trigger" class="input-group-text form-control" data-toggle="modal" data-target="#myLoans" style="border-radius:0;cursor:pointer;">
+                            <i class="fas fa-gift"></i>
+                        </span>
+                    </div>
+                    <div style="flex: 100%;">
+                        <div class="input-group">
+                            <input type="hidden" id="creditor_id" class="form-control" name="creditor_id" style="border-radius:0;" />
+                            <input type="text" id="creditor_name" class="form-control" style="border-radius:0;background:white;" readonly />
+                        </div>
                     </div>
                 </div>
             </div>

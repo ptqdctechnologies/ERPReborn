@@ -1,4 +1,4 @@
-<div id="myInvoice" class="modal fade" role="dialog" aria-labelledby="contohModalScrollableTitle" aria-hidden="true">
+<div id="myInvoice" class="modal fade" role="dialog" aria-labelledby="contohModalScrollableTitle" aria-hidden="true" style="z-index: 9999;">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">

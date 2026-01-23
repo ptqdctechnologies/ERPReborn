@@ -216,4 +216,14 @@
             Swal.fire("Error", "Error Checking Workflow", "error");
         }
     });
+
+    $('#tableGetInvoice').on('click', 'tbody tr', async function() {
+        const sysId = $(this).find('input[data-trigger="sys_id_modal_invoice"]').val();
+        const trano = $(this).find('td:nth-child(2)').text();
+
+        $("#modal_invoice_id").val(sysId);
+        $("#modal_invoice_document_number").val(trano);
+
+        $("#myInvoice").modal('toggle');
+    });
 </script>
