@@ -336,6 +336,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::resource('ReimbursableExpenditure', 'Process\Reimbursement\ReimbursableExpenditureController');
 
     // INVOICE
+    Route::post('RevisionInvoice', 'Finance\InvoiceController@RevisionInvoice')->name('Invoice.RevisionInvoice');
     Route::resource('Invoice', 'Finance\InvoiceController');
 
     // PURCHASE REQUISITION
@@ -398,7 +399,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('ReportLoanSettlementDetail', 'Process\LoanSettlement\LoanSettlementController@ReportLoanSettlementDetail')->name('LoanSettlement.ReportLoanSettlementDetail');
     Route::post('ReportLoanSettlementDetailStore', 'Process\LoanSettlement\LoanSettlementController@ReportLoanSettlementDetailStore')->name('LoanSettlement.ReportLoanSettlementDetailStore');
     Route::post('PrintExportReportLoanSettlementDetail', 'Process\LoanSettlement\LoanSettlementController@PrintExportReportLoanSettlementDetail')->name('LoanSettlement.PrintExportReportLoanSettlementDetail');
-    Route::resource('LoanSettement', 'Process\LoanSettlement\LoanSettlementController');
+    Route::resource('LoanSettlement', 'Process\LoanSettlement\LoanSettlementController');
 
     // CREDIT NOTE
     Route::get('CreditNoteListData', 'Process\CreditNote\CreditNoteController@CreditNoteListData')->name('CreditNote.CreditNoteListData');
