@@ -311,12 +311,15 @@
             url: url,
             success: function(data) {
                 if (data.status === 200 && Array.isArray(data.data) && data.data.length > 0) {
+                    let totalUnsettle = 0;
+
                     valueCombinedBudgetCode = data.data[0].combinedBudgetCode;
                     valueCombinedBudgetName = data.data[0].combinedBudgetName;
                     valueCombinedBudgetSectionCode = data.data[0].combinedBudgetSectionCode;
                     valueCombinedBudgetSectionName = data.data[0].combinedBudgetSectionName;
 
                     $.each(data.data, function(key, val) {
+                        totalUnsettle += val.balance;
                         totalAdvanceSettlement = ( parseFloat(val.expenseQuantity) * parseFloat(val.expenseProductUnitPriceCurrencyValue) ) + ( parseFloat(val.refundQuantity) * parseFloat(val.refundProductUnitPriceCurrencyValue) );
 
                         journalSettlementDetails.push(
@@ -347,7 +350,118 @@
                         );
                     });
 
+                    $('#detail_transaction_table').DataTable({
+                        destroy: true,
+                        data: data.data,
+                        deferRender: true,
+                        scrollCollapse: true,
+                        scroller: true,
+                        columns: [
+                            {
+                                data: null,
+                                render: function (data, type, row, meta) {
+                                    return '<td class="align-middle text-center">' +(meta.row + 1) +'</td>';
+                                }
+                            },
+                            {
+                                data: 'productCode',
+                                defaultContent: '-'
+                            },
+                            {
+                                data: 'productName',
+                                defaultContent: '-'
+                            },
+                            {
+                                data: 'UOM',
+                                defaultContent: '-'
+                            },
+                            {
+                                data: 'currency',
+                                defaultContent: '-'
+                            },
+                            {
+                                data: null,
+                                defaultContent: '-',
+                                render: function (data, type, row, meta) {
+                                    return currencyTotal(data.quantity);
+                                }
+                            },
+                            {
+                                data: null,
+                                defaultContent: '-',
+                                render: function (data, type, row, meta) {
+                                    return currencyTotal(data.productUnitPriceCurrencyValue);
+                                }
+                            },
+                            {
+                                data: null,
+                                defaultContent: '-',
+                                render: function (data, type, row, meta) {
+                                    return currencyTotal(data.quantity * data.productUnitPriceCurrencyValue);
+                                }
+                            },
+                            {
+                                data: 'expenseQuantity',
+                                defaultContent: '-'
+                            },
+                            {
+                                data: 'expenseProductUnitPriceCurrencyValue',
+                                defaultContent: '-'
+                            },
+                            {
+                                data: null,
+                                defaultContent: '-',
+                                render: function (data, type, row, meta) {
+                                    return currencyTotal(data.expenseQuantity * data.expenseProductUnitPriceCurrencyValue);
+                                }
+                            },
+                            {
+                                data: 'refundQuantity',
+                                defaultContent: '-'
+                            },
+                            {
+                                data: 'refundProductUnitPriceCurrencyValue',
+                                defaultContent: '-'
+                            },
+                            {
+                                data: null,
+                                defaultContent: '-',
+                                render: function (data, type, row, meta) {
+                                    return currencyTotal(data.refundQuantity * data.refundProductUnitPriceCurrencyValue);
+                                }
+                            },
+                            {
+                                data: null,
+                                defaultContent: '-',
+                                render: function (data, type, row, meta) {
+                                    const balanced = ((data.quantity * data.productUnitPriceCurrencyValue) - (data.expenseQuantity * data.expenseProductUnitPriceCurrencyValue)) + (data.refundQuantity * data.refundProductUnitPriceCurrencyValue);
+
+                                    return currencyTotal(balanced);
+                                }
+                            },
+                        ]
+                    });
+
+                    const divInputFile = {!! json_encode(
+                        \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxCreateDOM_DivCustom_InputFile(
+                            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                            $varAPIWebToken,
+                            'dataInput_Log_FileUpload',
+                            null,
+                            'dataInput_Return'
+                        )
+                    ) !!};
+
                     renderTableJournalSettlement();
+                    
+                    $('#detail_budget_information').text(`: ${data.data[0].combinedBudgetCode} - ${data.data[0].combinedBudgetName}`);
+                    $('#detail_sub_budget_information').text(`: ${data.data[0].combinedBudgetSectionCode} - ${data.data[0].combinedBudgetSectionName}`);
+                    $('#detail_beneficiary_information').text(`: ${data.data[0].beneficiaryName}`);
+                    $('#detail_bank_information').text(`: (${data.data[0].bankNameAcronym}) ${data.data[0].bankName} - ${data.data[0].bankAccount}`);
+                    $('#dataInput_Log_FileUpload').val('91000000000291');
+                    $("#detail_attachment_information").append(divInputFile);
+                    $('#total_unsettle_settlement').val(totalUnsettle);
+                    $('#detail_transaction_table').css("width", "100%");
                     $('#total_settlement').text(currencyTotal(totalAdvanceSettlement));
                 }
             },

@@ -13,6 +13,7 @@ use App\Helpers\ZhtHelper\Cache\Helper_Redis;
 use App\Helpers\ZhtHelper\System\Helper_Environment;
 use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
 use App\Services\Auth\LoginService;
+use Illuminate\Support\Facades\Auth as AuthFacade;
 
 class LoginController extends Controller
 {
@@ -156,9 +157,13 @@ class LoginController extends Controller
                 $status = "error";
             }
 
-            Cache::flush();
-            Session::flush();
-            Redis::flushDB();
+            // Cache::flush();
+            // Session::flush();
+            // Redis::flushDB();
+            
+            AuthFacade::logout();
+            Session::invalidate();
+            Session::regenerateToken();
 
             return redirect('/')->with([$status => $message]);
         } catch (\Throwable $th) {
@@ -189,9 +194,12 @@ class LoginController extends Controller
     // FUNCTION REMOVE CACHE, SESSION, REDIS
     public function FlushCache()
     {
-        Cache::flush();
-        Session::flush();
-        Redis::flushDB();
+        // Cache::flush();
+        // Session::flush();
+        // Redis::flushDB();
+        AuthFacade::logout();
+        Session::invalidate();
+        Session::regenerateToken();
 
         return redirect()->back();
     }

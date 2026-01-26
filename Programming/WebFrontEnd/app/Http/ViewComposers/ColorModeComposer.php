@@ -4,7 +4,6 @@ namespace App\Http\ViewComposers;
 
 use Illuminate\View\View;
 use App\Repositories\UserRepository;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Session;
 
