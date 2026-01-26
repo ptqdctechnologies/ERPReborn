@@ -1380,6 +1380,7 @@ if (strcmp($varAPIKey, 'transaction.read.dataList.finance.getAdvance')==0)
                         ]
                         )
                     )['data'][0];
+            //dd($varData);
             
             $varReturn = [
                 'user_RefID' => $varData['User_RefID'],

@@ -35,6 +35,13 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\aut
             //$varUserName = 'wardah';
             //$varUserPassword = 'wardah1234';
 
+            //$varUserName = 'amar.abdilah';
+            //$varUserPassword = 'amar.abdilah1234';
+
+            //$varUserName = 'andrean.fahrizi';
+            //$varUserPassword = 'andrean.fahrizi1234';
+
+
             $varBranchID = 'AUTO';
             $varUserRoleID = 'AUTO';
             

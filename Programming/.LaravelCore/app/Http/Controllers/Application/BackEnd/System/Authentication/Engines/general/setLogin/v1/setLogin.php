@@ -262,12 +262,14 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                                 //$varSysID = $varBufferDB['SignRecordID'];
                                 $varSysID =
                                     $varBufferDB['data'][0]['SignRecordID'];
+                                //dd($varSysID);
 
                                 $varBufferDB =
                                     (new \App\Models\Database\SchSysConfig\TblLog_UserLoginSession())->getDataRecord(
                                         $varUserSession,
                                         $varSysID
                                         );
+                                //dd($varBufferDB);
 
                                 if (count($varBufferDB) > 0) {
                                     //---> Data Initailizing Base On Database Record
@@ -277,6 +279,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                                                 $varUserSession,
                                                 $varBufferDB[0]['LDAPUserID']
                                                 );
+                                        //dd($varUserIdentities);
 
                                     $varOptionList_BranchIDList = NULL;
                                     //---> Initializing : varDataUserOptionList
