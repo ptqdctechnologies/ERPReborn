@@ -36,7 +36,7 @@
                                     </div>
                                 </div>
 
-                                @include('Process.LoanSettlement.Functions.Header.HeaderLoanSettlement')
+                                @include('Process.LoanSettlement.Functions.Header.HeaderRevisionLoanSettlement')
                             </div>
                         </div>
                     </div>
@@ -91,7 +91,7 @@
                                     </div>
                                 </div>
 
-                                @include('Process.LoanSettlement.Functions.Header.HeaderLoanSettlementDetail')
+                                @include('Process.LoanSettlement.Functions.Header.HeaderRevisionLoanSettlementDetail')
                             </div>
                         </div>
                     </div>
