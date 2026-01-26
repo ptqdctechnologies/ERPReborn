@@ -31,6 +31,19 @@ class LoanSettlementController extends Controller
         ]);
     }
 
+    public function RevisionLoanSettlement(Request $request)
+    {
+        $var                = $request->query('var', 0);
+        $varAPIWebToken     = Session::get('SessionLogin');
+        $documentTypeRefID  = $this->GetBusinessDocumentsTypeFromRedis('Loan Settlement Revision Form');
+
+        return view('Process.LoanSettlement.Transactions.RevisionLoanSettlement', [
+            'var'                   => $var,
+            'varAPIWebToken'        => $varAPIWebToken,
+            'documentType_RefID'    => $documentTypeRefID
+        ]);
+    }
+
     public function ReportLoanSettlementSummary(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');

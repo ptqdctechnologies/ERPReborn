@@ -1298,6 +1298,39 @@ class FunctionController extends Controller
         }
     }
 
+    public function getLoanSettlementList(Request $request) 
+    {
+        try {
+            $varAPIWebToken = Session::get('SessionLogin');
+            $userSession    = Helper_Environment::getUserSessionID_System();
+
+            $varData = Helper_APICall::setCallAPIGateway(
+                $userSession,
+                $varAPIWebToken, 
+                'dataPickList.finance.getLoanSettlement', 
+                'latest', 
+                [
+                'parameter' => null,
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    'filter' => null,
+                    'paging' => null
+                    ]
+                ]
+            );
+
+            if ($varData['metadata']['HTTPStatusCode'] !== 200) {
+                return redirect()->back()->with('NotFound', 'Process Error');
+            }
+
+            return response()->json($varData['data']['data']);
+        } catch (\Throwable $th) {
+            Log::error("Error at getLoanSettlementList: " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
     public function getPurchaseRequisitionDetail(Request $request)
     {
         try {

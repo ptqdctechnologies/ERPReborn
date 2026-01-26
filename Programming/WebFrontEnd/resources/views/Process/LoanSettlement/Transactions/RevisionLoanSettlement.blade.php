@@ -12,7 +12,7 @@
         <!-- TITTLE -->
         <div class="row title-pages mb-1">
             <div class="col-sm-6 title">
-                Loan Settlement Form
+                Revision Loan Settlement Form
             </div>
         </div>
 
