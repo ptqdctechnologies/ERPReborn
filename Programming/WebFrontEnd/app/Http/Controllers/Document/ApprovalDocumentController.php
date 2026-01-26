@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Document;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Alert;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Session;
 use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;

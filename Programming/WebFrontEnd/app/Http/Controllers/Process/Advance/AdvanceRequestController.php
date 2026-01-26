@@ -8,7 +8,6 @@ use App\Http\Controllers\ExportExcel\AdvanceRequest\ExportReportAdvanceSummaryDe
 use App\Http\Controllers\ExportExcel\AdvanceRequest\ExportReportAdvanceSummary;
 use App\Http\Controllers\ExportExcel\AdvanceToASF\ExportReportAdvanceToASF;
 use Barryvdh\DomPDF\Facade\Pdf;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Session;
