@@ -97,7 +97,29 @@
         </div>
 
         <!-- RIGHT -->
-        <div class="col-md-12 col-lg-5"></div>
+        <div class="col-md-12 col-lg-5">
+            <!-- TOTAL UNSETTLE -->
+            <div class="row detail-journal-settlement" style="display: none;">
+                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Total Unsettle</label>
+                <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                    <div>
+                        <div class="input-group">
+                            <input id="total_unsettle_settlement" class="form-control" size="16" readonly style="border-radius:0; cursor: default;" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- VIEW DETAIL -->
+            <div class="row detail-journal-settlement" style="margin-top: 1rem; display: none;">
+                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+                <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0" data-toggle="modal" data-target="#journalSettlementModal" style="color: blue; cursor: pointer;">
+                    <i class="fas fa-link"></i>
+                    <div style="padding-left: 6px;">
+                        View Detail
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <!-- <div class="row justify-content-end">
         <button type="button" class="btn btn-default btn-sm d-flex" onclick="onClickGeneralJournalButton()" style="background-color:#e9ecef; border:1px solid #ced4da; gap: 5px;">
