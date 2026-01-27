@@ -153,7 +153,8 @@ namespace
                             //-----[ DATA INITIALIZATION ]-------------------------------------------------------------------(  END  )-----
 
                             //-----[ DATA PROCESS ]--------------------------------------------------------------------------( START )-----
-                                try {                                   
+                                try {
+                                    /*
                                     echo '
     ● Dynamic Route - API Call Example :';
                                     $varArrayExampleAPIKey =
@@ -165,6 +166,7 @@ namespace
                                                 '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall'
                                                 )
                                             );
+                                    */
 
                                     for ($i = 0, $iMax = count ($varArrayExampleAPIKey); $i != $iMax; $i++)
                                         {
