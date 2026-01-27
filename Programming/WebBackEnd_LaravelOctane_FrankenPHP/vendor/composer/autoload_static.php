@@ -10568,6 +10568,7 @@ class ComposerStaticInitf3f23b9bfc4c5027395f1f35d83d1125
         'Symfony\\Component\\Serializer\\Mapping\\Factory\\ClassMetadataFactory' => __DIR__ . '/..' . '/symfony/serializer/Mapping/Factory/ClassMetadataFactory.php',
         'Symfony\\Component\\Serializer\\Mapping\\Factory\\ClassMetadataFactoryInterface' => __DIR__ . '/..' . '/symfony/serializer/Mapping/Factory/ClassMetadataFactoryInterface.php',
         'Symfony\\Component\\Serializer\\Mapping\\Factory\\ClassResolverTrait' => __DIR__ . '/..' . '/symfony/serializer/Mapping/Factory/ClassResolverTrait.php',
+        'Symfony\\Component\\Serializer\\Mapping\\Loader\\AccessorCollisionResolverTrait' => __DIR__ . '/..' . '/symfony/serializer/Mapping/Loader/AccessorCollisionResolverTrait.php',
         'Symfony\\Component\\Serializer\\Mapping\\Loader\\AttributeLoader' => __DIR__ . '/..' . '/symfony/serializer/Mapping/Loader/AttributeLoader.php',
         'Symfony\\Component\\Serializer\\Mapping\\Loader\\FileLoader' => __DIR__ . '/..' . '/symfony/serializer/Mapping/Loader/FileLoader.php',
         'Symfony\\Component\\Serializer\\Mapping\\Loader\\LoaderChain' => __DIR__ . '/..' . '/symfony/serializer/Mapping/Loader/LoaderChain.php',
