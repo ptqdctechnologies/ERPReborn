@@ -27,7 +27,7 @@
     "handlebars": "^4.7.7",
     "joi": "^17.9.1",
     "jsonwebtoken": "^9.0.0",
-    "lodash": "^4.17.21",
+    "lodash": "^4.17.23",
     "moment": "^2.29.4",
     "multer": "^2.0.2",
     "multer-s3": "^3.0.1",
