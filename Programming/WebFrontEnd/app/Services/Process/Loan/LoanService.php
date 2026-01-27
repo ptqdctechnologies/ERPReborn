@@ -98,7 +98,7 @@ class LoanService
                     "itemList"      => [
                         "items"     => [
                                 [
-                                "recordID"  => 294000000000042,
+                                "recordID"  => 294000000000044,
                                 "entities"  => [
                                     "principleLoan"         => (int) $data['principle_loan'],
                                     "lendingRate"           => (int) $data['lending_rate'],

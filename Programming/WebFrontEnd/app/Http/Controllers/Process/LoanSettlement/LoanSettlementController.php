@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Http\Controllers\Process\LoanSettlement;
 
 use App\Http\Controllers\ExportExcel\Process\ExportReportLoanSettlementSummary;
@@ -15,9 +14,15 @@ use App\Helpers\ZhtHelper\System\Helper_Environment;
 use App\Helpers\ZhtHelper\Cache\Helper_Redis;
 use Maatwebsite\Excel\Facades\Excel;
 use Barryvdh\DomPDF\Facade\Pdf;
+use App\Services\Process\Loan\LoanSettlementService;
 
 class LoanSettlementController extends Controller
 {
+    public function __construct(LoanSettlementService $loanSettlementService)
+    {
+        $this->loanSettlementService  = $loanSettlementService;
+    }
+
     public function index(Request $request)
     {
         $var                = $request->query('var', 0);
@@ -402,6 +407,7 @@ class LoanSettlementController extends Controller
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -411,6 +417,31 @@ class LoanSettlementController extends Controller
     {
         
     }
+
+    // Simpan post baru ke database
+    public function store(Request $request)
+    {
+        try {
+            $response = $this->loanSettlementService->create($request);
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                throw new \Exception('Failed to fetch Create Loan Settlement');
+            }
+
+            $compact = [
+                "documentNumber"    => $response['data']['businessDocument']['documentNumber'],
+                "status"            => $response['metadata']['HTTPStatusCode'],
+                // "status"            => $responseWorkflow['metadata']['HTTPStatusCode'],
+            ];
+
+            return response()->json($compact);
+        } catch (\Throwable $th) {
+            Log::error("Store Loan Settlement Function Error: " . $th->getMessage());
+
+            return response()->json(["status" => 500]);
+        }
+    }
+
     /**
      * Display the specified resource.
      *
@@ -455,6 +486,4 @@ class LoanSettlementController extends Controller
     {
         //
     }
-
-    
 }

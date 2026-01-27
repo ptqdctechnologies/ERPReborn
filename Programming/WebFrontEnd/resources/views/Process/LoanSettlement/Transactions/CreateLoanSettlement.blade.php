@@ -3,6 +3,7 @@
 @include('Partials.navbar')
 @include('Partials.sidebar')
 @include('getFunction.getLoans')
+@include('getFunction.getChartOfAccount')
 @include('getFunction.getLoanSettlements')
 @include('Process.LoanSettlement.Functions.PopUp.PopUpLoanSettlement')
 
@@ -115,7 +116,7 @@
 
                                 <div class="card-body">
                                     <div class="row py-3">
-                                        <textarea name="var_remark" id="remark" rows="2" cols="150" class="form-control" placeholder="Tulis remark disini"></textarea>
+                                        <textarea id="remark" rows="2" cols="150" class="form-control" placeholder="Tulis remark disini"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -127,7 +128,7 @@
                 <div class="tab-content px-3 pb-2" id="nav-tabContent">
                     <div class="row">
                         <div class="col">
-                            <button type="button" class="btn btn-default btn-sm float-right" style="margin-left: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
+                            <button type="button" class="btn btn-default btn-sm float-right" onclick="validationForm()" style="margin-left: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
                                 <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" title="Submit to Advance"> Submit
                             </button>
 

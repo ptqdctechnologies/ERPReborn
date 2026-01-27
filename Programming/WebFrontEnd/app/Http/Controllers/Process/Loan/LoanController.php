@@ -84,6 +84,25 @@ class LoanController extends Controller
         }
     }
 
+    public function DetailLoan(Request $request) 
+    {
+        try {
+            $id = $request->id;
+
+            $response = $this->loanService->getDetail($id);
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                throw new \Exception('Failed to fetch Detail Loan');
+            }
+
+            return response()->json($response['data']['data']);
+        } catch (\Throwable $th) {
+            Log::error("Detail Loan Function Error: " . $th->getMessage());
+
+            return response()->json(["status" => 500]);
+        }
+    }
+
     public function RevisionLoan(Request $request)
     {
         try {
