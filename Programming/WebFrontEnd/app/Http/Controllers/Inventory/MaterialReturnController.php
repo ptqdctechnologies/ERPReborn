@@ -163,7 +163,7 @@ class MaterialReturnController extends Controller
         }
     }
 
-    public function ReportMatReturnSummary(Request $request)
+    public function ReportMaterialReturnSummary(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
         $isSubmitButton = $request->session()->get('isButtonReportMaterialReturnSubmit');
@@ -357,7 +357,7 @@ class MaterialReturnController extends Controller
             //     Session::forget("isButtonReportMaterialReturnSubmit");
             //     Session::forget("dataReportMaterialReturn");
         
-            //     return redirect()->route('Inventory.ReportMatReturnSummary')->with('NotFound', $message);
+            //     return redirect()->route('MaterialReturn.ReportMaterialReturnSummary')->with('NotFound', $message);
             // }
 
             $compact = $this->ReportMatReturnSummaryData(
@@ -380,7 +380,7 @@ class MaterialReturnController extends Controller
                 return redirect()->back()->with('NotFound', 'Data Not Found');
             }
 
-            return redirect()->route('Inventory.ReportMatReturnSummary');
+            return redirect()->route('MaterialReturn.ReportMaterialReturnSummary');
         } catch (\Throwable $th) {
             Log::error("Error at ReportMatReturnSummaryStore: " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
@@ -408,7 +408,7 @@ class MaterialReturnController extends Controller
                     return Excel::download(new ExportReportMaterialReturnSummary, 'Export Report Material Receive Summary.xlsx');
                 }
             } else {
-                return redirect()->route('Inventory.ReportMatReturnSummary')->with('NotFound', 'Budget, Source Warehouse, Destination Warehouse Cannot Empty');
+                return redirect()->route('MaterialReturn.ReportMaterialReturnSummary')->with('NotFound', 'Budget, Source Warehouse, Destination Warehouse Cannot Empty');
             }
         } catch (\Throwable $th) {
             Log::error("Error at PrintExportReportMatReturnSummary: " . $th->getMessage());
