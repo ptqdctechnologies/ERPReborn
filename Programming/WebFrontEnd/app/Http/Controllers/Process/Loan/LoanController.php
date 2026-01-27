@@ -61,12 +61,35 @@ class LoanController extends Controller
         }
     }
 
+    public function update(Request $request, $id)
+    {
+        try {
+            $response = $this->loanService->updates($request, $id);
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                throw new \Exception('Failed to fetch Revision Loan');
+            }
+
+            $compact = [
+                "documentNumber"    => $response['data'][0]['businessDocument']['documentNumber'],
+                "status"            => $response['metadata']['HTTPStatusCode'],
+                // "status"            => $responseWorkflow['metadata']['HTTPStatusCode'],
+            ];
+
+            return response()->json($compact);
+        } catch (\Throwable $th) {
+            Log::error("Update Loan Function Error: " . $th->getMessage());
+
+            return response()->json(["status" => 500]);
+        }
+    }
+
     public function RevisionLoan(Request $request)
     {
         try {
             $varAPIWebToken     = Session::get('SessionLogin');
             $loanRefID          = $request->input('modal_loan_id');
-            $documentTypeRefID  = $this->GetBusinessDocumentsTypeFromRedis('Loan Form');
+            $documentTypeRefID  = $this->GetBusinessDocumentsTypeFromRedis('Loan Revision Form');
 
             $response = $this->loanService->getDetail($loanRefID);
 
@@ -79,7 +102,7 @@ class LoanController extends Controller
             $compact = [
                 'varAPIWebToken'            => $varAPIWebToken,
                 'documentTypeRefID'         => $documentTypeRefID,
-                'loanRefID'                 => '',
+                'loanRefID'                 => $dataLoanDetail[0]['Sys_ID'] ?? '',
                 'header'                    => [
                     'combinedBudgetRefID'   => '',
                     'creditorRefID'         => $dataLoanDetail[0]['Creditor_RefID'] ?? '',
@@ -89,18 +112,15 @@ class LoanController extends Controller
                     'currencyRefID'         => $dataLoanDetail[0]['Currency_RefID'] ?? '',
                     'currencyCode'          => $dataLoanDetail[0]['ISOCode'] ?? '',
                     'currencyExchangeRate'  => $dataLoanDetail[0]['CurrencyExchangeRate'] ?? '',
-                    'principleLoan'         => $dataLoanDetail[0]['PrincipleLoan'] ?? '',
-                    'lendingRate'           => $dataLoanDetail[0]['LendingRate'] ?? '',
+                    'principleLoan'         => (int) $dataLoanDetail[0]['PrincipleLoan'] ?? '',
+                    'lendingRate'           => (int) $dataLoanDetail[0]['LendingRate'] ?? '',
                     'remark'                => $dataLoanDetail[0]['Notes'] ?? '',
                     'coaName'               => $dataLoanDetail[0]['COA_Name'] ?? '',
                     'coaCode'               => $dataLoanDetail[0]['COA_Code'] ?? '',
                 ]
             ];
 
-            return view('Process.Loan.Transactions.RevisionLoan', [
-                'varAPIWebToken'        => $varAPIWebToken,
-                'documentType_RefID'    => $documentTypeRefID
-            ]);
+            return view('Process.Loan.Transactions.RevisionLoan', $compact);
         } catch (\Throwable $th) {
             Log::error("Revision Loan Function Error: " . $th->getMessage());
 
