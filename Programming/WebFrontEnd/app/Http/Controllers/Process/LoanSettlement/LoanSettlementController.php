@@ -38,15 +38,57 @@ class LoanSettlementController extends Controller
 
     public function RevisionLoanSettlement(Request $request)
     {
-        $var                = $request->query('var', 0);
-        $varAPIWebToken     = Session::get('SessionLogin');
-        $documentTypeRefID  = $this->GetBusinessDocumentsTypeFromRedis('Loan Settlement Revision Form');
+        $varAPIWebToken         = Session::get('SessionLogin');
+        $loanSettlementRefID    = $request->input('modal_loan_settlement_id');
+        $documentTypeRefID      = $this->GetBusinessDocumentsTypeFromRedis('Loan Settlement Revision Form');
 
-        return view('Process.LoanSettlement.Transactions.RevisionLoanSettlement', [
-            'var'                   => $var,
+        $response = $this->loanSettlementService->getDetail($loanSettlementRefID);
+
+        if ($response['metadata']['HTTPStatusCode'] !== 200) {
+            throw new \Exception('Failed to fetch Detail Loan Settlement');
+        }
+
+        $dataLoanSettlementDetail = $response['data']['data'];
+
+        $compact = [
             'varAPIWebToken'        => $varAPIWebToken,
-            'documentType_RefID'    => $documentTypeRefID
-        ]);
+            'documentType_RefID'    => $documentTypeRefID,
+            'header'                => [
+                'loanType'          => '-',
+                'creditorDebitor'   => '-',
+                'currencyID'        => $dataLoanSettlementDetail[0]['Currency_RefID'],
+                'currencyCode'      => $dataLoanSettlementDetail[0]['ISOCode'],
+                'currencyExchange'  => $dataLoanSettlementDetail[0]['CurrencyExchangeRate'],
+                'bankID'            => '-',
+                'bankCode'          => '-',
+                'bankName'          => '-',
+                'bankAccountID'     => '-',
+                'bankAccountCode'   => '-',
+                'bankAccountName'   => '-',
+                'loanDate'          => '-',
+                'loanPrinciple'     => '-',
+                'lendingRate'       => '-',
+                'loanTotal'         => '-',
+                'loanTerm'          => '-',
+                'remark'            => $dataLoanSettlementDetail[0]['Notes']
+            ],
+            'detail'                => [
+                'settlementValue'   => $dataLoanSettlementDetail[0]['PrincipleSettlement'],
+                'penaltyValue'      => $dataLoanSettlementDetail[0]['PenaltySettlement'],
+                'interestValue'     => $dataLoanSettlementDetail[0]['InterestSettlement'],
+                'COASettlementID'   => '-',
+                'COASettlementCode' => $dataLoanSettlementDetail[0]['COA_Settlement_Code'],
+                'COASettlementName' => $dataLoanSettlementDetail[0]['COA_Settlement_Name'],
+                'COAPenaltyID'      => '-',
+                'COAPenaltyCode'    => $dataLoanSettlementDetail[0]['COA_Penalty_Code'],
+                'COAPenaltyName'    => $dataLoanSettlementDetail[0]['COA_Penalty_Name'],
+                'COAInterestID'     => '-',
+                'COAInterestCode'   => $dataLoanSettlementDetail[0]['COA_Interest_Code'],
+                'COAInterestName'   => $dataLoanSettlementDetail[0]['COA_Interest_Name'],
+            ]
+        ];
+
+        return view('Process.LoanSettlement.Transactions.RevisionLoanSettlement', $compact);
     }
 
     public function ReportLoanSettlementSummary(Request $request)
@@ -473,7 +515,25 @@ class LoanSettlementController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            $response = $this->loanSettlementService->updates($request, $id);
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                throw new \Exception('Failed to fetch Revision Loan Settlement');
+            }
+
+            $compact = [
+                "documentNumber"    => $response['data'][0]['businessDocument']['documentNumber'],
+                "status"            => $response['metadata']['HTTPStatusCode'],
+                // "status"            => $responseWorkflow['metadata']['HTTPStatusCode'],
+            ];
+
+            return response()->json($compact);
+        } catch (\Throwable $th) {
+            Log::error("Update Loan Settlement Function Error: " . $th->getMessage());
+
+            return response()->json(["status" => 500]);
+        }
     }
 
     /**

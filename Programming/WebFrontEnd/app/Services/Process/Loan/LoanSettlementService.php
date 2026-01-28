@@ -9,6 +9,30 @@ use App\Helpers\ZhtHelper\System\Helper_Environment;
 
 class LoanSettlementService
 {
+    public function getDetail($advanceRequestID) 
+    {
+        $sessionToken = Session::get('SessionLogin');
+
+        return Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
+            $sessionToken,
+            'transaction.read.dataList.finance.getLoanSettlementDetail',
+            'latest',
+            [
+                'parameter' => [
+                    'loanSettlement_RefID'  => (int) $advanceRequestID,
+                ],
+                'SQLStatement'  => [
+                    'pick'      => null,
+                    'sort'      => null,
+                    'filter'    => null,
+                    'paging'    => null
+                ]
+            ],
+            false
+        );
+    }
+
     public function create(Request $request)
     {
         $sessionToken   = Session::get('SessionLogin');
@@ -42,6 +66,49 @@ class LoanSettlementService
                                     "chartOfAccount_Settlement_RefID"   => (int) $data['chartOfAccount_Settlement_RefID'],
                                     "chartOfAccount_Penalty_RefID"      => (int) $data['chartOfAccount_Penalty_RefID'],
                                     "chartOfAccount_Interest_RefID"     => (int) $data['chartOfAccount_Interest_RefID'],
+                                    ]
+                                ],
+                            ]
+                        ]
+                    ]
+                ]
+            ]
+        );
+    }
+
+    public function updates(Request $request, $id)
+    {
+        $sessionToken   = Session::get('SessionLogin');
+
+        $data           = $request;
+        $fileID         = $data['dataInput_Log_FileUpload_1'] ? (int) $data['dataInput_Log_FileUpload_1'] : null;
+
+        return Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
+            $sessionToken,
+            'transaction.update.finance.setLoanSettlement',
+            'latest',
+            [
+            'recordID'  => (int) $id,
+            'entities'  => [
+                "documentDateTimeTZ"            => date('Y-m-d'),
+                "log_FileUpload_Pointer_RefID"  => $fileID,
+                "notes"                         => $data['notes'],
+                "additionalData" => [
+                    "itemList" => [
+                        "items" => [
+                                [
+                                "recordID"  => 296000000000013,
+                                "entities"  => [
+                                    "loanDetail_RefID"                  => (int) $data['loanDetail_RefID'],
+                                    "principleSettlement"               => $data['principleSettlement'],
+                                    "penaltySettlement"                 => $data['penaltySettlement'],
+                                    "interestSettlement"                => $data['interestSettlement'],
+                                    "currency_RefID"                    => (int) $data['currency_RefID'],
+                                    "currencyExchangeRate"              => $data['currencyExchangeRate'],
+                                    "chartOfAccount_Settlement_RefID"   => 65000000000005,
+                                    "chartOfAccount_Penalty_RefID"      => 65000000000005,
+                                    "chartOfAccount_Interest_RefID"     => 65000000000005
                                     ]
                                 ],
                             ]

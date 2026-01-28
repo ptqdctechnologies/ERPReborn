@@ -6,7 +6,7 @@
             <div class="row">
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Loan Type</label>
                 <div class="col-5 d-flex p-0">
-                    : -
+                    : <?= $header['loanType']; ?>
                 </div>
             </div>
 
@@ -14,7 +14,7 @@
             <div class="row" style="margin-top: 1rem;">
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Creditor/Debitor</label>
                 <div class="col-5 d-flex p-0">
-                    : -
+                    : <?= $header['creditorDebitor']; ?>
                 </div>
             </div>
 
@@ -22,7 +22,7 @@
             <div class="row" style="margin-top: 1rem;">
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Currency</label>
                 <div class="col-5 d-flex p-0">
-                    : -
+                    : <?= $header['currencyCode']; ?>
                 </div>
             </div>
 
@@ -30,7 +30,7 @@
             <div class="row" style="margin-top: 1rem;">
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Bank Name</label>
                 <div class="col-5 d-flex p-0">
-                    : -
+                    : <?= $header['bankCode'] . " - " . $header['bankName']; ?>
                 </div>
             </div>
 
@@ -38,7 +38,7 @@
             <div class="row" style="margin-top: 1rem;">
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Account Number</label>
                 <div class="col-5 d-flex p-0">
-                    : -
+                    : <?= $header['bankAccountCode'] . " - " . $header['bankAccountName']; ?>
                 </div>
             </div>
         </div>
