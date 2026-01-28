@@ -126,7 +126,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         | ▪ Method Name     : setDataUpdate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0001.0000000                                                                                       |
-        | ▪ Last Update     : 2025-09-24                                                                                           |
+        | ▪ Last Update     : 2026-01-28                                                                                           |
         | ▪ Creation Date   : 2025-09-11                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -157,7 +157,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
             $varUserSession,
             int $varSysID,
             string $varSysDataAnnotation = null, string $varSysDataValidityStartDateTimeTZ = null, string $varSysDataValidityFinishDateTimeTZ = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, $varSysBaseCurrency_RefID = null,
-            string $varDocumentDateTimeTZ = null, int $varCreditor_RefID = null, int $varDebitor_RefID = null, int $varBankAccount_RefID = null, int $varLoanTerm = null, int $varLog_FileUpload_Pointer_RefID = null, string $varRemarks = null,
+            string $varDocumentDateTimeTZ = null, int $varCreditor_RefID = null, int $varDebitor_RefID = null, int $varBankAccount_RefID = null, int $varLoanTerm = null, int $varLog_FileUpload_Pointer_RefID = null, string $varRemarks = null, int $varLoanType = null, string $varLoanDate = null,
             array $varAdditionalData = []
             )
             {
@@ -185,6 +185,8 @@ namespace App\Models\Database\SchData_OLTP_Finance
                             [$varLoanTerm, 'bigint'],
                             [$varLog_FileUpload_Pointer_RefID, 'bigint'],
                             [$varRemarks, 'varchar'],
+                            [$varLoanType, 'smallint'],
+                            [$varLoanDate, 'timestamptz'],
 
                             [
                                 ((count($varAdditionalData) === 0)
