@@ -24,7 +24,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-09-24                                                                                           |
+        | ▪ Last Update     : 2026-01-28                                                                                           |
         | ▪ Creation Date   : 2025-09-11                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -44,7 +44,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0001.0000000                                                                                       |
-        | ▪ Last Update     : 2025-09-24                                                                                           |
+        | ▪ Last Update     : 2026-01-28                                                                                           |
         | ▪ Creation Date   : 2025-09-11                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -93,12 +93,14 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
                                     ),
 
                                     $varData['entities']['documentDateTimeTZ'],
-                                    null,
-                                    null,
-                                    null,
+                                    $varData['entities']['creditor_RefID'],
+                                    $varData['entities']['debitor_RefID'],
+                                    $varData['entities']['bankAccount_RefID'],
                                     $varData['entities']['loanTerm'],
                                     $varData['entities']['log_FileUpload_Pointer_RefID'],
                                     $varData['entities']['remarks'],
+                                    $varData['entities']['loanType'],
+                                    $varData['entities']['loanDate'],
 
                                     (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
                                         $varUserSession,

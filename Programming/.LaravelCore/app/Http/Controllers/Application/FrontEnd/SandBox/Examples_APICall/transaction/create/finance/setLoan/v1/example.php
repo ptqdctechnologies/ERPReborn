@@ -21,7 +21,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         |                     ► http://172.28.0.4/transaction.create.finance.setLoan.v1_throughAPIGateway                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-09-24                                                                                           |
+        | ▪ Last Update     : 2026-01-28                                                                                           |
         | ▪ Creation Date   : 2025-09-11                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -39,13 +39,15 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                 'latest',
                 [
                 'entities' => [
-                    "documentDateTimeTZ" => '2025-09-10',
+                    "documentDateTimeTZ" => '2026-01-28',
                     "creditor_RefID" => 166000000000001,
                     "debitor_RefID" => 25000000000001,
                     "bankAccount_RefID" => 167000000000004,
                     "loanTerm" => 365,
                     "log_FileUpload_Pointer_RefID" => 91000000000001,
                     "notes" => "My Notes 1",
+                    "loanType" => 0,    // 0 => "Lending ", 1 => "Borrowing "
+                    "loanDate" => '2026-01-28',
                     "additionalData" => [
                         "itemList" => [
                             "items" => [
@@ -53,6 +55,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                     "entities" => [
                                         "principleLoan" => 1000000000,
                                         "lendingRate" => 10,
+                                        "totalLoan" => 1500000000,
                                         "currency_RefID" => 62000000000001,
                                         "currencyExchangeRate" => 1,
                                         "chartOfAccount_RefID" => 65000000000005,
