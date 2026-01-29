@@ -2,27 +2,30 @@
 @section('main')
 @include('Partials.navbar')
 @include('Partials.sidebar')
-@include('getFunction.getSite')
-@include('getFunction.getProject')
-@include('getFunction.getProducts')
-@include('getFunction.getProduct')
-@include('getFunction.getCurrency')
+@include('getFunction.getProjects')
+@include('getFunction.getSites')
+@include('getFunction.getCurrencies')
+@include('getFunction.getProductss')
+@include('Budget.Budget.Functions.PopUp.PopUpModifyBudgetRevision')
 
 <div class="content-wrapper">
     <section class="content">
         <div class="container-fluid">
-            <!-- TITTLE -->
-            <div class="row mb-1 title-pages">
-                <div class="col-sm-6 title">
-                    Modify Budget
+            <!-- TITLE -->
+            <div class="row mb-1" style="background-color:#4B586A;">
+                <div class="col-sm-6" style="height:30px;">
+                    <label style="font-size:15px;position:relative;top:7px;color:white;">
+                        Modify Budget
+                    </label>
                 </div>
             </div>
 
+            @include('Budget.Budget.Functions.Menu.MenuModifyBudget')
+
             <form id="modifyBudgetForm" method="post" enctype="multipart/form-data" action="{{ route('Budget.PreviewModifyBudget') }}">
-            @csrf
+                @csrf
                 <input hidden id="budgetDetailsData" name="budgetDetailsData" value="{{ json_encode($budgetDetailsData) }}"/>
                 <input hidden id="modifyBudgetListData" name="modifyBudgetListData" value="{{ json_encode($modifyBudgetListData) }}"/>
-
                 <input hidden id="totalModifyFooterData" name="totalModifyFooterData" value="{{ $totalModifyFooterData }}"/>
                 <input hidden id="totalPriceFooterData" name="totalPriceFooterData" value="{{ $totalPriceFooterData }}"/>
                 <input hidden id="totalAmountFooterData" name="totalAmountFooterData" value="{{ $totalAmountFooterData }}"/>
@@ -34,20 +37,20 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="card">
+                                    <!-- HEADER -->
                                     <div class="card-header">
                                         <label class="card-title">
                                             Add Budget & Sub Budget Code
                                         </label>
                                         <div class="card-tools">
-                                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                            <button type="button" class="btn btn-tool" data-card-widget="collapse" aria-label="Collapse Section Budget Information">
                                                 <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
                                             </button>
                                         </div>
                                     </div>
 
-                                    <div class="card-body">
-                                        @include('Budget.Budget.Functions.Header.HeaderModifyBudgetPost')
-                                    </div>
+                                    <!-- BODY -->
+                                    @include('Budget.Budget.Functions.Header.HeaderModifyBudgetPost')
                                 </div>
                             </div>
                         </div>
@@ -58,135 +61,49 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="card">
+                                    <!-- HEADER -->
                                     <div class="card-header">
                                         <label class="card-title">
                                             Add Modify Budget
                                         </label>
                                         <div class="card-tools">
-                                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                            <button type="button" class="btn btn-tool" data-card-widget="collapse" aria-label="Collapse Section Budget Information">
                                                 <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
                                             </button>
                                         </div>
                                     </div>
 
-                                    <div class="card-body">
-                                        <div class="py-3">
-                                            <!-- =====REASON FOR MODIFY===== -->
-                                            <div class="row" style="margin-bottom: 1rem;">
-                                                <div class="col-lg-5">
-                                                    <div class="row">
-                                                        <label for="reason_modify" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Reason for Modify</label>
-                                                        <div class="col-sm-9 col-md-8 col-lg-7 p-0">
-                                                            <div class="input-group">
-                                                                <input id="reason_modify" style="border-radius:0;" class="form-control" name="reason_modify" autocomplete="off" value="{{ $reason }}">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <!-- ADDITIONAL CO -->
-                                            <!-- <div class="row">
-                                                <div class="col-lg-5">
-                                                    <div class="row">
-                                                        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Additional CO</label>
-                                                        <div class="col-sm-9 col-md-8 col-lg-7 p-0" style="display: flex; gap: 16px;">
-                                                            <div>
-                                                                <input type="radio" name="additional_co" value="yes" {{ $additionalCO == 'yes' ? 'checked' : '' }}>
-                                                                <label>Yes</label>
-                                                            </div>
-                                                            <div>
-                                                                <input type="radio" name="additional_co" value="no" {{ $additionalCO == 'no' ? 'checked' : '' }}>
-                                                                <label>No</label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div> -->
-
-                                            <!-- CURRENCY -->
-                                            <div id="currency_field" class="row" style="margin-bottom: 1rem; margin-top: 1rem;">
-                                                <div class="col-lg-5">
-                                                    <div class="row">
-                                                        <label for="currency_popup" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Currency</label>
-                                                        <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
-                                                            <div>
-                                                                <input id="currency_id" hidden name="currency_id" value="{{ $currencyID }}">
-                                                                <input id="currency_symbol" style="border-radius:0; width: 40px;" class="form-control" name="currency_symbol" value="{{ $currencySymbol }}" readonly>
-                                                            </div>
-                                                            <div>
-                                                                <span style="border-radius:0;" class="input-group-text form-control">
-                                                                    <a href="#" id="currency_popup" data-toggle="modal" data-target="#myCurrency" class="myCurrency">
-                                                                        <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="">
-                                                                    </a>
-                                                                </span>
-                                                            </div>
-                                                            <div style="flex: 100%;">
-                                                                <div class="input-group">
-                                                                    <input id="currency_name" style="border-radius:0;" name="currency_name" class="form-control" value="{{ $currencyName }}" readonly>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <!-- EXCHANGE RATE -->
-                                            <div id="exchange_rate_field" class="row" style="margin-bottom: 1rem;">
-                                                <div class="col-lg-5">
-                                                    <div class="row">
-                                                        <label for="exchange_rate" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Exchange Rate</label>
-                                                        <div class="col-sm-9 col-md-8 col-lg-2 p-0">
-                                                            <div class="input-group">
-                                                                <input id="exchange_rate" style="border-radius:0;" class="form-control" name="exchange_rate" value="{{ $exchangeRate && $exchangeRate != '-' ? number_format($exchangeRate, 2, '.', ',') : '' }}" readonly>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <!-- VALUE CO -->
-                                            <div id="value_co_field" class="row" style="margin-bottom: 1rem;">
-                                                <div class="col-lg-5">
-                                                    <div class="row">
-                                                        <label for="value_co" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Value CO(+/-)</label>
-                                                        <div class="col-sm-9 col-md-8 col-lg-2 p-0">
-                                                            <div class="input-group" data-toggle="tooltip" data-placement="top" title="Pesan">
-                                                                <input id="value_co" style="border-radius:0;" class="form-control number-only" name="value_co" autocomplete="off" value="{{ number_format($valueCO, 2, '.', ',') }}">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <!-- BODY -->
+                                    @include('Budget.Budget.Functions.Header.HeaderModifyBudgetDetailPost')
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- FILE ATTACHMENT -->
+                    <!-- ATTACHMENT -->
                     <div class="tab-content px-3 pb-2" id="nav-tabContent">
                         <div class="row">
                             <div class="col-12">
                                 <div class="card">
+                                    <!-- HEADER -->
                                     <div class="card-header">
                                         <label class="card-title">
-                                            File Attachment
+                                            Attachment
                                         </label>
                                         <div class="card-tools">
-                                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                            <button type="button" class="btn btn-tool" data-card-widget="collapse" aria-label="Collapse Section Attachment">
                                                 <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
                                             </button>
                                         </div>
                                     </div>
 
+                                    <!-- BODY -->
                                     <div class="card-body">
-                                        <div class="row pt-3">
+                                        <div class="row py-3">
                                             <div class="col-lg-5">
                                                 <div class="row">
                                                     <div class="col p-0">
-                                                        <input type="text" id="dataInput_Log_FileUpload_1" name="dataInput_Log_FileUpload_1" value="{{ $files }}" style="display:none">
+                                                        <input type="text" id="dataInput_Log_FileUpload" name="dataInput_Log_FileUpload_1" value="<?= $files; ?>" style="display:none">
                                                         @if($files)
                                                             <?php echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxCreateDOM_DivCustom_InputFile( \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                                                             $varAPIWebToken,
@@ -219,37 +136,40 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="card">
+                                    <!-- HEADER -->
                                     <div class="card-header">
                                         <label class="card-title">
                                             Budget Details
                                         </label>
-                                        <div class="card-tools">
-                                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                        <div class="card-tools d-flex" style="margin-left: -50px !important;">
+                                            <div>
+                                                <input id="budget_detail_search" style="border-radius: 4px;" class="form-control" name="budget_detail_search" autocomplete="off" placeholder="Search Product">
+                                            </div>
+                                            <button type="button" class="btn btn-tool" data-card-widget="collapse" aria-label="Collapse Section Attachment">
                                                 <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
                                             </button>
                                         </div>
                                     </div>
 
-                                    <!-- BUDGET DETAILS TABLE -->
-                                    <div class="wrapper-budget table-responsive card-body p-0 table-existing-budget">
+                                    <!-- BODY -->
+                                    <div class="wrapper-budget card-body table-responsive p-0" style="height: 230px;">
                                         <table id="budgetTable" class="table table-head-fixed text-wrap table-sm">
                                             <thead>
                                                 <tr>
-                                                    <th class="container-thead-tr-budget">Product Id</th>
-                                                    <th class="container-thead-tr-budget">Product Name</th>
-                                                    <th class="container-thead-tr-budget">Qty Budget</th>
-                                                    <th class="container-thead-tr-budget">Qty Avail</th>
-                                                    <th class="container-thead-tr-budget">Price</th>
-                                                    <th class="container-thead-tr-budget">Currency</th>
-                                                    <th class="container-thead-tr-budget">Balance Budget</th>
-                                                    <th class="container-thead-tr-budget">Total Budget</th>
-                                                    <th class="container-thead-tr-budget">Modify (+/-)</th>
-                                                    <th class="container-thead-tr-budget">Price</th>
-                                                    <th class="container-thead-tr-budget">Total</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Product Code</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Product Name</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Qty Budget</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Qty Avail</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Price</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Currency</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Balance Budget</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Total Budget</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Qty (+/-)</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Price</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Total</th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
-                                            </tbody>
+                                            <tbody></tbody>
                                         </table>
                                     </div>
 
@@ -280,19 +200,19 @@
                                                 <div class="col-lg-5">
                                                     <div class="row">
                                                         <label for="products_popup" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Product</label>
-                                                        <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
-                                                            <div>
-                                                                <input id="products_id" hidden name="products_id">
-                                                                <input id="products_id_show" style="border-radius:0; width: 105px;" class="form-control" name="products_id_show" readonly>
-                                                            </div>
+                                                        <div class="col-sm-9 col-md-8 col-lg-5 d-flex p-0">
                                                             <div>
                                                                 <span style="border-radius:0;" class="input-group-text form-control">
-                                                                    <a href="#" id="products_popup" data-toggle="modal" data-target="#myProducts" class="myProducts"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
+                                                                    <a href="javascript:;" id="products_popup" data-toggle="modal" data-target="#myProductss" class="myProducts">
+                                                                        <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="">
+                                                                    </a>
                                                                 </span>
                                                             </div>
                                                             <div style="flex: 100%;">
                                                                 <div class="input-group">
                                                                     <input id="products_name" style="border-radius:0;" name="products_name" class="form-control" readonly>
+                                                                    <input id="products_id_show" name="products_id_show" hidden>
+                                                                    <input id="products_id" hidden name="products_id">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -304,9 +224,11 @@
                                             <div id="newItemFormTwo" class="row" style="gap: 15px; margin-bottom: 1rem; display: none;">
                                                 <div class="col-lg-5">
                                                     <div class="row">
-                                                        <label for="qty_form" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Qty</label>
-                                                        <div class="col-sm-9 col-md-8 col-lg-2 p-0">
-                                                            <input id="qty_form" style="border-radius:0;" class="form-control number-only" name="qty_form" autocomplete="off">
+                                                        <label for="qty_form" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Qty (+/-)</label>
+                                                        <div class="col-sm-9 col-md-8 col-lg-5 p-0">
+                                                            <div class="input-group">
+                                                                <input id="qty_form" style="border-radius:0;" class="form-control number-only" name="qty_form" autocomplete="off">
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -317,7 +239,7 @@
                                                 <div class="col-lg-5">
                                                     <div class="row">
                                                         <label for="price_form" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Price</label>
-                                                        <div class="col-sm-9 col-md-8 col-lg-2 p-0">
+                                                        <div class="col-sm-9 col-md-8 col-lg-5 p-0">
                                                             <div class="input-group">
                                                                 <input id="price_form" style="border-radius:0;" class="form-control number-without-negative" name="price_form" autocomplete="off">
                                                             </div>
@@ -331,7 +253,7 @@
                                                 <div class="col-lg-5">
                                                     <div class="row">
                                                         <label for="total_qty_price" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Total</label>
-                                                        <div class="col-sm-9 col-md-8 col-lg-2 p-0">
+                                                        <div class="col-sm-9 col-md-8 col-lg-5 p-0">
                                                             <div class="input-group">
                                                                 <input id="total_qty_price" style="border-radius:0;" class="form-control number-only" name="total_qty_price" autocomplete="off" disabled>
                                                             </div>
@@ -345,7 +267,7 @@
                                                 <div class="col-lg-5">
                                                     <div class="row">
                                                         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
-                                                        <div class="col-sm-9 col-md-8 col-lg-7 p-0 d-flex justify-content-end">
+                                                        <div class="col-sm-9 col-md-8 col-lg-5 p-0 d-flex justify-content-end">
                                                             <a id="addToCartNewFormItem" class="btn btn-default btn-sm" style="background-color:#e9ecef;border:1px solid #ced4da;">
                                                                 Add to Cart
                                                             </a>
@@ -365,43 +287,43 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="card">
+                                    <!-- HEADER -->
                                     <div class="card-header">
                                         <label class="card-title">
                                             Modify Budget List (cart)
                                         </label>
                                         <div class="card-tools">
-                                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                            <button type="button" class="btn btn-tool" data-card-widget="collapse" aria-label="Collapse Section Budget Information">
                                                 <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
                                             </button>
                                         </div>
                                     </div>
 
                                     <!-- MODIFY BUDGET LIST TABLE -->
-                                    <div class="wrapper-budget card-body table-bordered table-responsive p-0 table-existing-budget">
+                                    <div class="wrapper-budget card-body table-bordered table-responsive p-0" style="height: 230px;">
                                         <table id="listBudgetTable" class="table table-head-fixed text-wrap table-sm">
                                             <thead>
                                                 <tr>
-                                                    <th class="container-thead-tr-budget">Product Id</th>
-                                                    <th class="container-thead-tr-budget">Product Name</th>
-                                                    <th class="container-thead-tr-budget">Qty Budget</th>
-                                                    <th class="container-thead-tr-budget">Qty Avail</th>
-                                                    <th class="container-thead-tr-budget">Price</th>
-                                                    <th class="container-thead-tr-budget">Currency</th>
-                                                    <th class="container-thead-tr-budget">Balance Budget</th>
-                                                    <th class="container-thead-tr-budget">Total Budget</th>
-                                                    <th class="container-thead-tr-budget">Modify (+/-)</th>
-                                                    <th class="container-thead-tr-budget">Price</th>
-                                                    <th class="container-thead-tr-budget">Total</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Product Id</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Product Name</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Qty Budget</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Qty Avail</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Price</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Currency</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Balance Budget</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Total Budget</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Qty (+/-)</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Price</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Total</th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
-                                            </tbody>
+                                            <tbody></tbody>
                                             <tfoot>
                                                 <tr>
-                                                    <th class="container-tbody-tr-budget" colspan="8" style="text-align: left !important;">GRAND TOTAL</th>
-                                                    <th class="container-tbody-tr-budget" id="totalModifyFooter">0</th>
-                                                    <th class="container-tbody-tr-budget" id="totalPriceFooter">0</th>
-                                                    <th class="container-tbody-tr-budget" id="totalAmountFooter">0</th>
+                                                    <th colspan="8" style="text-align: left; padding-top: 10px; padding-bottom: 10px;border: 1px solid #e9ecef;">GRAND TOTAL</th>
+                                                    <th id="totalModifyFooter" style="text-align: center; padding-top: 10px; padding-bottom: 10px;border: 1px solid #e9ecef;">0</th>
+                                                    <th id="totalPriceFooter" style="text-align: center; padding-top: 10px; padding-bottom: 10px;border: 1px solid #e9ecef;">0</th>
+                                                    <th id="totalAmountFooter" style="text-align: center; padding-top: 10px; padding-bottom: 10px;border: 1px solid #e9ecef;">0</th>
                                                 </tr>
                                             </tfoot>
                                         </table>
@@ -411,19 +333,16 @@
                         </div>
                     </div>
 
-                    <!-- BUTTON SUBMIT OR CANCEL -->
-                    <div class="px-3 pb-2">
-                        <div style="display: flex; justify-content: flex-end; gap: 8px;">
-                            <div style="display: flex;">
-                                <button class="btn btn-default btn-sm button-submit" id="cancelButton" type="button">
-                                    <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" />
-                                    <div>Cancel</div>
+                    <!-- BUTTON -->
+                    <div class="tab-content px-3 pb-2" id="nav-tabContent">
+                        <div class="row">
+                            <div class="col">
+                                <button type="submit" id="submitButton" class="btn btn-default btn-sm float-right" style="margin-left: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
+                                    <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" /> Submit
                                 </button>
-                            </div>
-                            <div style="display: flex;">
-                                <button class="btn btn-default btn-sm button-submit" id="submitButton" type="submit">
-                                    <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" />
-                                    <div>Submit</div>
+
+                                <button type="button" id="cancelButton" class="btn btn-default btn-sm float-right">
+                                    <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" /> Cancel
                                 </button>
                             </div>
                         </div>
@@ -437,7 +356,3 @@
 @include('Partials.footer')
 @include('Budget.Budget.Functions.Footer.footerModifyBudgetPost')
 @endsection
-
-@push('styles')
-    <link rel="stylesheet" href="{{ asset('css-page/ModifyBudget.css') }}">
-@endpush
