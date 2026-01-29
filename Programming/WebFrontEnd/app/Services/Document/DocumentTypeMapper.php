@@ -665,7 +665,7 @@ class DocumentTypeMapper
                     'currency'      => 'IDR',
                     'budgetCode'    => 'Q000062',
                     'budgetName'    => 'XL Microcell 2007',
-                    'customer'      => 'Alumagada Jaya Mandiri'
+                    'customer'      => 'PLN UIP Jawa Barat'
                 ],
                 'textAreaFields'    => [
                     'title'         => 'Remark',

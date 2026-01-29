@@ -193,6 +193,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('getDeliveryOrderDetail', 'Function\FunctionController@getDeliveryOrderDetail')->name('getDeliveryOrderDetail');
     Route::get('getPurchaseRequisitionList', 'Function\FunctionController@getPurchaseRequisitionList')->name('getPurchaseRequisitionList');
     Route::get('getLoanList', 'Function\FunctionController@getLoanList')->name('getLoanList');
+    Route::get('getLoanSettlementList', 'Function\FunctionController@getLoanSettlementList')->name('getLoanSettlementList');
     Route::get('getPurchaseRequisitionDetail', 'Function\FunctionController@getPurchaseRequisitionDetail')->name('getPurchaseRequisitionDetail');
     Route::get('getPaymentTerm', 'Function\FunctionController@getPaymentTerm')->name('getPaymentTerm');
     Route::get('getVAT', 'Function\FunctionController@getVAT')->name('getVAT');
@@ -391,9 +392,11 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     // Route::post('PrintExportReportLoanDetail', 'Process\Loan\LoanController@PrintExportReportLoanDetail')->name('Loan.PrintExportReportLoanDetail');
     // Route::resource('AdvanceRequest', 'Process\Advance\AdvanceRequestController');
     Route::post('RevisionLoan', 'Process\Loan\LoanController@RevisionLoan')->name('Loan.RevisionLoan');
+    Route::get('DetailLoan', 'Process\Loan\LoanController@DetailLoan')->name('Loan.Detail');
     Route::resource('Loan', 'Process\Loan\LoanController');
 
     // LOAN SETTLEMENT
+    Route::post('RevisionLoanSettlement', 'Process\LoanSettlement\LoanSettlementController@RevisionLoanSettlement')->name('LoanSettlement.RevisionLoanSettlement');
     Route::get('ReportLoanSettlementSummary', 'Process\LoanSettlement\LoanSettlementController@ReportLoanSettlementSummary')->name('LoanSettlement.ReportLoanSettlementSummary');
     Route::post('ReportLoanSettlementSummaryStore', 'Process\LoanSettlement\LoanSettlementController@ReportLoanSettlementSummaryStore')->name('LoanSettlement.ReportLoanSettlementSummaryStore');
     Route::post('PrintExportReportLoanSettlementSummary', 'Process\LoanSettlement\LoanSettlementController@PrintExportReportLoanSettlementSummary')->name('LoanSettlement.PrintExportReportLoanSettlementSummary');
@@ -521,7 +524,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('ReportMatReturnDetail', 'Inventory\MaterialReturnController@ReportMatReturnDetail')->name('Inventory.ReportMatReturnDetail');
     Route::post('ReportMatReturnDetailStore', 'Inventory\MaterialReturnController@ReportMatReturnDetailStore')->name('Inventory.ReportMatReturnDetailStore');
     Route::post('PrintExportReportMatReturnDetail', 'Inventory\MaterialReturnController@PrintExportReportMatReturnDetail')->name('Inventory.PrintExportReportMatReturnDetail');
-    Route::get('ReportMatReturnSummary', 'Inventory\MaterialReturnController@ReportMatReturnSummary')->name('Inventory.ReportMatReturnSummary');
+    Route::get('ReportMaterialReturnSummary', 'Inventory\MaterialReturnController@ReportMaterialReturnSummary')->name('MaterialReturn.ReportMaterialReturnSummary');
     Route::post('ReportMatReturnSummaryStore', 'Inventory\MaterialReturnController@ReportMatReturnSummaryStore')->name('Inventory.ReportMatReturnSummaryStore');
     Route::post('PrintExportReportMatReturnSummary', 'Inventory\MaterialReturnController@PrintExportReportMatReturnSummary')->name('Inventory.PrintExportReportMatReturnSummary');
     Route::resource('MaterialReturn', 'Inventory\MaterialReturnController')->only(['index', 'store', 'update']);

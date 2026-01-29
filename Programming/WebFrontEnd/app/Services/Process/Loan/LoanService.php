@@ -60,13 +60,53 @@ class LoanService
                                 [
                                 "entities"      => [
                                     "principleLoan"                     => (int) $data['principle_loan'],
-                                    "lendingRate"                       => (int) $data['landing_rate'],
+                                    "lendingRate"                       => (int) $data['lending_rate'],
                                     "currency_RefID"                    => (int) $data['currency_id'],
                                     "currencyExchangeRate"              => 1,
                                     "chartOfAccount_RefID"              => (int) $data['coa_id'],
                                     "combinedBudgetSectionDetail_RefID" => null,
                                     ]
                                 ]
+                            ]
+                        ]
+                    ]
+                ]
+            ]
+        );
+    }
+
+    public function updates(Request $request, $id)
+    {
+        $sessionToken   = Session::get('SessionLogin');
+
+        $data           = $request;
+        $fileID         = $data['dataInput_Log_FileUpload_1'] ? (int) $data['dataInput_Log_FileUpload_1'] : null;
+
+        return Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
+            $sessionToken,
+            'transaction.update.finance.setLoan',
+            'latest',
+            [
+            'recordID' => (int) $id,
+            'entities' => [
+                "documentDateTimeTZ"            => date('Y-m-d'),
+                "loanTerm"                      => (int) $data['loan_term'],
+                "log_FileUpload_Pointer_RefID"  => $fileID,
+                "remarks"                       => $data['remark'],
+                "additionalData"    => [
+                    "itemList"      => [
+                        "items"     => [
+                                [
+                                "recordID"  => 294000000000044,
+                                "entities"  => [
+                                    "principleLoan"         => (int) $data['principle_loan'],
+                                    "lendingRate"           => (int) $data['lending_rate'],
+                                    "currency_RefID"        => (int) $data['currency_id'],
+                                    "currencyExchangeRate"  => 1,
+                                    "chartOfAccount_RefID"  => (int) $data['coa_id'],
+                                    ]
+                                ],
                             ]
                         ]
                     ]

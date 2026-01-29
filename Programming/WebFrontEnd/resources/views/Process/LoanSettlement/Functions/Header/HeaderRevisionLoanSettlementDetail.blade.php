@@ -7,7 +7,7 @@
                 <label for="settlement_value" class="col-sm-3 col-md-4 col-lg-5 col-form-label p-0">Settlement Value</label>
                 <div class="col-sm-9 col-md-8 col-lg-5 p-0">
                     <div class="input-group">
-                        <input id="settlement_value" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
+                        <input id="settlement_value" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative" value="<?= $detail['settlementValue']; ?>">
                     </div>
                 </div>
             </div>
@@ -17,7 +17,7 @@
                 <label for="penalty_value" class="col-sm-3 col-md-4 col-lg-5 col-form-label p-0">Penalty Value</label>
                 <div class="col-sm-9 col-md-8 col-lg-5 p-0">
                     <div class="input-group">
-                        <input id="penalty_value" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
+                        <input id="penalty_value" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative" value="<?= $detail['penaltyValue']; ?>">
                     </div>
                 </div>
             </div>
@@ -27,7 +27,7 @@
                 <label for="interest_value" class="col-sm-3 col-md-4 col-lg-5 col-form-label p-0">Interest Value</label>
                 <div class="col-sm-9 col-md-8 col-lg-5 p-0">
                     <div class="input-group">
-                        <input id="interest_value" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
+                        <input id="interest_value" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative" value="<?= $detail['interestValue']; ?>">
                     </div>
                 </div>
             </div>
@@ -46,8 +46,8 @@
                     </div>
                     <div style="flex: 100%;">
                         <div class="input-group">
-                            <input type="hidden" id="coa_settlement_id" class="form-control" style="border-radius:0;" />
-                            <input type="text" id="coa_settlement_name" class="form-control" style="border-radius:0;background:white;" readonly />
+                            <input type="hidden" id="coa_settlement_id" class="form-control" style="border-radius:0;" value="<?= $detail['COASettlementID']; ?>" />
+                            <input type="text" id="coa_settlement_name" class="form-control" style="border-radius:0;" readonly value="<?= $detail['COASettlementCode'] . ' - ' . $detail['COASettlementName']; ?>" />
                         </div>
                     </div>
                 </div>
@@ -64,8 +64,8 @@
                     </div>
                     <div style="flex: 100%;">
                         <div class="input-group">
-                            <input type="hidden" id="coa_penalty_id" class="form-control" style="border-radius:0;" />
-                            <input type="text" id="coa_penalty_name" class="form-control" style="border-radius:0;background:white;" readonly />
+                            <input type="hidden" id="coa_penalty_id" class="form-control" style="border-radius:0;" value="<?= $detail['COAPenaltyID']; ?>" />
+                            <input type="text" id="coa_penalty_name" class="form-control" style="border-radius:0;" readonly value="<?= $detail['COAPenaltyCode'] . ' - ' . $detail['COAPenaltyName']; ?>" />
                         </div>
                     </div>
                 </div>
@@ -82,8 +82,8 @@
                     </div>
                     <div style="flex: 100%;">
                         <div class="input-group">
-                            <input type="hidden" id="coa_interest_id" class="form-control" name="coa_interest_id" style="border-radius:0;" />
-                            <input type="text" id="coa_interest_name" class="form-control" style="border-radius:0;background:white;" readonly />
+                            <input type="hidden" id="coa_interest_id" class="form-control" name="coa_interest_id" style="border-radius:0;" value="<?= $detail['COAInterestID']; ?>" />
+                            <input type="text" id="coa_interest_name" class="form-control" style="border-radius:0;" readonly value="<?= $detail['COAInterestCode'] . ' - ' . $detail['COAInterestName']; ?>" />
                         </div>
                     </div>
                 </div>

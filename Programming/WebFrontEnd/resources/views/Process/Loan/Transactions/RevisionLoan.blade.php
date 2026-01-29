@@ -27,10 +27,10 @@
       
       <!-- CONTENT -->
       <div class="card">
-        <!-- <form method="POST" action="{{ route('SelectWorkFlow') }}" id="loan_form"> -->
-        <form method="POST" action="{{ route('Loan.store') }}" id="loan_form">
+        <form method="POST" action="{{ route('Loan.update', $loanRefID) }}" id="loan_form">
           @csrf
-          <input type="hidden" name="DocumentTypeID" id="DocumentTypeID" value="<?= $documentType_RefID; ?>">
+          @method('PUT')
+          <input type="hidden" name="DocumentTypeID" id="DocumentTypeID" value="<?= $documentTypeRefID; ?>">
           <input type="hidden" name="var_combinedBudget_RefID" id="var_combinedBudget_RefID" value="46000000000033">
 
           <!-- LOAN DETAILS -->
@@ -50,7 +50,7 @@
                     </div>
                   </div>
 
-                  @include('Process.Loan.Functions.Header.HeaderLoan')
+                  @include('Process.Loan.Functions.Header.HeaderRevisionLoan')
                 </div>
               </div>
             </div>
@@ -118,5 +118,5 @@
 </div>
 
 @include('Partials.footer')
-@include('Process.Loan.Functions.Footer.FooterLoan')
+@include('Process.Loan.Functions.Footer.FooterRevisionLoan')
 @endsection
