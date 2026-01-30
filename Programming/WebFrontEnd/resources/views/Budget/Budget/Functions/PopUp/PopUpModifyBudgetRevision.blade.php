@@ -18,19 +18,19 @@
                                         </td>
                                         <td>
                                             <div class="input-group">
-                                                <form id="editForm" action="{{ route('AdvanceRequest.RevisionAdvanceIndex') }}" method="POST">
+                                                <form id="editForm" action="{{ route('Budget.RevisionModifyBudget') }}" method="POST">
                                                     @csrf
-                                                    <input id="modal_advance_id" style="border-radius:0;" name="modal_advance_id" type="hidden" class="form-control">
+                                                    <input id="modal_modify_budget_id" style="border-radius:0;" name="modal_modify_budget_id" value="testing" type="hidden" class="form-control">
                                                 </form>
 
                                                 <div class="input-group-append" style="cursor: pointer;">
-                                                    <span style="border-radius:0;" class="input-group-text form-control" id="modal_advance_document_number_icon">
+                                                    <span style="border-radius:0;" class="input-group-text form-control" id="modal_modify_budget_document_number_icon">
                                                         <a data-toggle="modal" data-target="#myGetModalAdvance">
                                                             <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="">
                                                         </a>
                                                     </span>
                                                 </div>
-                                                <input required="" id="modal_advance_document_number" style="border-radius:0;" name="modal_advance_document_number" type="text" class="form-control" required readonly>
+                                                <input required="" id="modal_modify_budget_document_number" style="border-radius:0;" name="modal_modify_budget_document_number" type="text" class="form-control" required readonly>
                                             </div>
                                         </td>
                                     </tr>
@@ -53,21 +53,21 @@
 
 <script>
     $('.btn-edit').on('click', function() {
-        var advance_RefID = $('#modal_advance_id').val();
+        const modifyBudgetRefID = $('#modal_modify_budget_id').val();
 
-        if (advance_RefID) {
+        if (modifyBudgetRefID) {
             ShowLoading();
 
             $('#editForm').submit();
         } else {
-            $('#modal_advance_document_number').focus();
-            $('#modal_advance_document_number').css("border", "1px solid red");
-            $('#modal_advance_document_number_icon').css("border", "1px solid red");
+            $('#modal_modify_budget_document_number').focus();
+            $('#modal_modify_budget_document_number').css("border", "1px solid red");
+            $('#modal_modify_budget_document_number_icon').css("border", "1px solid red");
         }
     });
 
     $('.btn-cancel').on('click', function() {
-        $('#modal_advance_id').val("");
-        $('#modal_advance_document_number').val("");
+        $('#modal_modify_budget_id').val("");
+        $('#modal_modify_budget_document_number').val("");
     });
 </script>

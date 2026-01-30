@@ -394,6 +394,17 @@ class BudgetController extends Controller
         }
     }
 
+    public function RevisionModifyBudget(Request $request) 
+    {
+        $var                = $request->query('var', 0);
+        $varAPIWebToken     = Session::get('SessionLogin');
+
+        return view('Budget.Budget.Transactions.RevisionModifyBudget', [
+            'var'                   => $var,
+            'varAPIWebToken'        => $varAPIWebToken
+        ]);
+    }
+
     public function ReportModifyBudgetSummary(Request $request)
     {
         return view('Budget.Budget.Reports.ReportModifyBudgetSummary', [
