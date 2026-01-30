@@ -15,21 +15,22 @@
             <div class="row mb-1" style="background-color:#4B586A;">
                 <div class="col-sm-6" style="height:30px;">
                     <label style="font-size:15px;position:relative;top:7px;color:white;">
-                        Modify Budget
+                        Revision Modify Budget
                     </label>
                 </div>
             </div>
 
             @include('Budget.Budget.Functions.Menu.MenuModifyBudget')
 
+            @if($var == 0)
             <form id="modifyBudgetForm" method="post" enctype="multipart/form-data" action="{{ route('Budget.PreviewModifyBudget') }}">
                 @csrf
-                <input hidden id="budgetDetailsData" name="budgetDetailsData" value="{{ json_encode($budgetDetailsData) }}"/>
-                <input hidden id="modifyBudgetListData" name="modifyBudgetListData" value="{{ json_encode($modifyBudgetListData) }}"/>
-                <input hidden id="totalModifyFooterData" name="totalModifyFooterData" value="{{ $totalModifyFooterData }}"/>
-                <input hidden id="totalPriceFooterData" name="totalPriceFooterData" value="{{ $totalPriceFooterData }}"/>
-                <input hidden id="totalAmountFooterData" name="totalAmountFooterData" value="{{ $totalAmountFooterData }}"/>
-
+                <input hidden id="budgetDetailsData" name="budgetDetailsData" />
+                <input hidden id="modifyBudgetListData" name="modifyBudgetListData" />
+                <input hidden id="totalModifyFooterData" name="totalModifyFooterData" />
+                <input hidden id="totalPriceFooterData" name="totalPriceFooterData" />
+                <input hidden id="totalAmountFooterData" name="totalAmountFooterData" />
+                
                 <!-- CONTENT -->
                 <div class="card">
                     <!-- ADD BUDGET & SUB BUDGET CODE -->
@@ -50,7 +51,7 @@
                                     </div>
 
                                     <!-- BODY -->
-                                    @include('Budget.Budget.Functions.Header.HeaderModifyBudgetPost')
+                                    @include('Budget.Budget.Functions.Header.HeaderModifyBudget')
                                 </div>
                             </div>
                         </div>
@@ -74,7 +75,7 @@
                                     </div>
 
                                     <!-- BODY -->
-                                    @include('Budget.Budget.Functions.Header.HeaderModifyBudgetDetailPost')
+                                    @include('Budget.Budget.Functions.Header.HeaderModifyBudgetDetail')
                                 </div>
                             </div>
                         </div>
@@ -103,24 +104,14 @@
                                             <div class="col-lg-5">
                                                 <div class="row">
                                                     <div class="col p-0">
-                                                        <input type="text" id="dataInput_Log_FileUpload" name="dataInput_Log_FileUpload_1" value="<?= $files; ?>" style="display:none">
-                                                        @if($files)
-                                                            <?php echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxCreateDOM_DivCustom_InputFile( \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                                                        <input type="text" id="dataInput_Log_FileUpload" name="dataInput_Log_FileUpload_1" style="display:none">
+                                                        <?php echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxCreateDOM_DivCustom_InputFile(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                                                             $varAPIWebToken,
-                                                            'dataInput_Log_FileUpload_1',
-                                                            $files,
-                                                            'dataInput_Return'
-                                                            ).
-                                                            ''; ?>
-                                                        @else
-                                                            <?php echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxCreateDOM_DivCustom_InputFile( \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                                                            $varAPIWebToken,
-                                                            'dataInput_Log_FileUpload_1',
+                                                            'dataInput_Log_FileUpload',
                                                             null,
                                                             'dataInput_Return'
                                                             ).
-                                                            ''; ?>
-                                                        @endif
+                                                        ''; ?>
                                                     </div>
                                                 </div>
                                             </div>
@@ -349,10 +340,15 @@
                     </div>
                 </div>
             </form>
+            @endif
         </div>
     </section>
 </div>
 
 @include('Partials.footer')
-@include('Budget.Budget.Functions.Footer.footerModifyBudgetPost')
+@include('Budget.Budget.Functions.Footer.footerModifyBudget')
 @endsection
+
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('css-page/ModifyBudget.css') }}">
+@endpush

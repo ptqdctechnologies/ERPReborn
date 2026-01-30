@@ -135,12 +135,14 @@
                 priceInput.value.trim() !== '' &&
                 totalInput.value.trim() !== ''
             ) {
-                const productName   = row.children[6].innerText.trim();
-                const qtyAvail      = row.children[8].innerText.trim();
-                const uom           = row.children[9].innerText.trim();
-                const priceAvail    = row.children[10].innerText.trim();
-                const currency      = row.children[12].innerText.trim();
-
+                const productName       = row.children[6]?.innerText?.trim();
+                const productNameDup    = row.children[7]?.innerText?.trim();
+                const qtyAvail          = row.children[8].innerText.trim();
+                const uom               = row.children[9].innerText.trim();
+                const uomDup            = row.children[10].innerText.trim();
+                const priceAvail        = row.children[10].innerText.trim();
+                const currency          = row.children[12].innerText.trim();
+                
                 const price = priceInput.value.trim();
                 const qty   = qtyInput.value.trim();
                 const total = totalInput.value.trim();
@@ -151,7 +153,8 @@
                 for (let targetRow of existingRows) {
                     const targetCode = targetRow.children[4].innerText.trim();
                     const targetName = targetRow.children[5].innerText.trim();
-                    if (targetCode == productCode.value && targetName == productName) {
+                    // if (targetCode == productCode.value && targetName == productName) {
+                    if (targetCode == productCode.value) {
                         targetRow.children[7].innerText = price;
                         targetRow.children[8].innerText = qty;
                         targetRow.children[9].innerText = total;
@@ -184,9 +187,9 @@
                         <input type="hidden" name="price_avail[]" value="${priceAvail}">
                         <input type="hidden" name="product_RefID[]" value="${productRefId.value}">
                         <input type="hidden" name="currency[]" value="${currency}">
-                        <td style="text-align: right;padding: 0.8rem 0.5rem;width: 100px;">${productCode.value}</td>
-                        <td style="text-align: left;padding: 0.8rem 0.5rem;">${productName}</td>
-                        <td style="text-align: left;padding: 0.8rem 0.5rem;width: 20px;">${uom}</td>
+                        <td style="text-align: right;padding: 0.8rem 0.5rem;width: 100px;display: none;">${productCode.value}</td>
+                        <td style="text-align: left;padding: 0.8rem 0.5rem;">${productName != "" ? productName : productNameDup}</td>
+                        <td style="text-align: left;padding: 0.8rem 0.5rem;width: 20px;">${productName != "" ? uom : uomDup}</td>
                         <td style="text-align: right;padding: 0.8rem 0.5rem;width: 100px;">${price}</td>
                         <td style="text-align: right;padding: 0.8rem 0.5rem;width: 50px;">${qty}</td>
                         <td style="text-align: right;padding: 0.8rem 0.5rem;">${total}</td>
@@ -334,16 +337,17 @@
                     let balanced = currencyTotal(val2.quantityRemaining);
                     let totalBudget = val2.quantity * val2.priceBaseCurrencyValue;
                     let productColumn = `
-                        <td style="text-align: center;">${val2.productCode}</td>
+                        <td style="text-align: center;">-</td>
                         <td style="text-align: left;">
                             <div style="overflow: hidden;white-space: nowrap;text-overflow: ellipsis;width: 150px;">
-                                ${val2.productName}
+                                ${val2.productCode} - ${val2.productName}
                             </div>
                         </td>
                     `;
 
                     if (val2.productName === "Unspecified Product") {
                         productColumn = `
+                            <td style="text-align: center;">-</td>
                             <td style="padding: 8px;">
                                 <div class="input-group">
                                     <input id="product_id${key}" style="border-radius:0;width:130px;background-color:white;" class="form-control" readonly />
@@ -356,7 +360,7 @@
                                     </div>
                                 </div>
                             </td>
-                            <td id="product_name${key}" style="text-align: left;" name="product_name">
+                            <td id="product_name${key}" style="text-align: left; display: none;" name="product_name">
                                 <div style="overflow: hidden;white-space: nowrap;text-overflow: ellipsis;width: 150px;">
                                     ${val2.productName}
                                 </div>
