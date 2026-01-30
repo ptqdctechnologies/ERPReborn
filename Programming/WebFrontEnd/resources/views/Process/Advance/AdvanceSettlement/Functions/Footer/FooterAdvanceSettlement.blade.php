@@ -725,7 +725,7 @@
 
         $("#advance_number").val(trano);
         $("#advance_id").val(sysId);
-        $("#var_combinedBudget_RefID").val(sysId);
+        $("#var_combinedBudget_RefID").val(sysIdBudget);
         $("#beneficiary_name").val(beneficiary);
         // $("#bank_name").val(result[0].beneficiaryBankName);
         // $("#bank_account").val(result[0].beneficiaryBankAccountNumber);
