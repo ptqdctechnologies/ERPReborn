@@ -174,13 +174,13 @@
                     totalCompanyInput.value.trim() !== ''
                 )
             ) {
-                const arfNumber     = row.children[8].innerText.trim();
-                const productCode   = row.children[10].innerText.trim();
-                const productName   = row.children[11].innerText.trim();
-                const uom           = row.children[12].innerText.trim();
-                const currency      = row.children[13].innerText.trim();
-                const qtyAvail      = row.children[14].innerText.trim();
-                const priceAvail    = row.children[15].innerText.trim();
+                const arfNumber     = row.children[9].innerText.trim();
+                const productCode   = row.children[11].innerText.trim();
+                const productName   = row.children[12].innerText.trim();
+                const uom           = row.children[13].innerText.trim();
+                const currency      = row.children[14].innerText.trim();
+                const qtyAvail      = row.children[15].innerText.trim();
+                const priceAvail    = row.children[16].innerText.trim();
 
                 const qtyExpense    = qtyExpenseInput.value.trim();
                 const priceExpense  = priceExpenseInput.value.trim();
@@ -365,6 +365,7 @@
                     <input id="refundProductUnitPriceCurrencyExchangeRate${key}" value="${val2.refundProductUnitPriceCurrencyExchangeRate}" type="hidden" />
                     <input id="refundProductUnitPriceBaseCurrencyValue${key}" value="${val2.refundProductUnitPriceBaseCurrencyValue}" type="hidden" />
 
+                    <td style="text-align: center;border:1px solid #e9ecef;">-</td>
                     <td style="text-align: center;border:1px solid #e9ecef;">${val2.ARFNumber || '-'}</td>
                     <td style="text-align: center;border:1px solid #e9ecef;">${val2.combinedBudgetSectionCode + ' - ' + val2.combinedBudgetSectionName}</td>
                     <td style="text-align: center;border:1px solid #e9ecef;">${val2.productCode || '-'}</td>
