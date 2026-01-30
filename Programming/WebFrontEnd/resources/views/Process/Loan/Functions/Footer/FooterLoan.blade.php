@@ -1,9 +1,20 @@
 <script>
-    let clickedBy   = "";
-    let dataStore   = [];
+    let clickedAt       = "";
+    let dataStore       = [];
+    const loanType      = document.getElementById("loan_type");
+    const creditorID    = document.getElementById("creditor_id");
+    const debitorID     = document.getElementById("debitor_id");
+    const currencyID    = document.getElementById("currency_id");
+    const loanDate      = document.getElementById("loanDates");
+    const loanPrinciple = document.getElementById("principle_loan");
+    const lendingRate   = document.getElementById("lending_rate");
+    const loanTotal     = document.getElementById("total_loan");
+    const loanTerm      = document.getElementById("loan_term");
+    const coaID         = document.getElementById("coa_id");
+    const remark        = document.getElementById("remark");
 
     function chooseSupplierBy(params) {
-        clickedBy = params;
+        clickedAt = params;
     }
 
     function submitForm() {
@@ -59,8 +70,142 @@
     }
 
     function validationForm() {
-        submitForm();
+        const isLoanTypeValueNotEmpty   = loanType.value.trim() !== 'Select a Type';
+        const isCreditorNotEmpty        = creditorID.value.trim() !== '';
+        const isDebitorNotEmpty         = debitorID.value.trim() !== '';
+        const isCurrencyNotEmpty        = currencyID.value.trim() !== '';
+        const isLoanDateNotEmpty        = loanDate.value.trim() !== '';
+        const isLoanPrincipleNotEmpty   = loanPrinciple.value.trim() !== '';
+        const isLendingRateNotEmpty     = lendingRate.value.trim() !== '';
+        const isLoanTotalNotEmpty       = loanTotal.value.trim() !== '';
+        const isLoanTermNotEmpty        = loanTerm.value.trim() !== '';
+        const isCoaIDNotEmpty           = coaID.value.trim() !== '';
+        const isRemarkNotEmpty          = remark.value.trim() !== '';
+
+        if (
+            isLoanTypeValueNotEmpty &&
+            isCreditorNotEmpty &&
+            isDebitorNotEmpty &&
+            isCurrencyNotEmpty &&
+            isLoanDateNotEmpty &&
+            isLoanPrincipleNotEmpty &&
+            isLendingRateNotEmpty &&
+            isLoanTotalNotEmpty &&
+            isLoanTermNotEmpty &&
+            isCoaIDNotEmpty &&
+            isRemarkNotEmpty
+        ) {
+            submitForm();
+        } else {
+            if (
+                !isLoanTypeValueNotEmpty &&
+                !isCreditorNotEmpty &&
+                !isDebitorNotEmpty &&
+                !isCurrencyNotEmpty &&
+                !isLoanDateNotEmpty &&
+                !isLoanPrincipleNotEmpty &&
+                !isLendingRateNotEmpty &&
+                !isLoanTotalNotEmpty &&
+                !isLoanTermNotEmpty &&
+                !isCoaIDNotEmpty &&
+                !isRemarkNotEmpty
+            ) {
+                $("#loan_type").css("border", "1px solid red");
+                $("#creditor_name").css("border", "1px solid red");
+                $("#debitor_name").css("border", "1px solid red");
+                $("#currency_name").css("border", "1px solid red");
+                $("#loanDates").css("border", "1px solid red");
+                $("#principle_loan").css("border", "1px solid red");
+                $("#lending_rate").css("border", "1px solid red");
+                $("#total_loan").css("border", "1px solid red");
+                $("#loan_term").css("border", "1px solid red");
+                $("#coa_name").css("border", "1px solid red");
+                $("#remark").css("border", "1px solid red");
+
+                $("#loan_type_message").show();
+                $("#creditor_message").show();
+                $("#debitor_message").show();
+                $("#currency_message").show();
+                $("#loan_date_message").show();
+                $("#principle_loan_message").show();
+                $("#lending_rate_message").show();
+                $("#total_loan_message").show();
+                $("#loan_term_message").show();
+                $("#coa_message").show();
+                $("#remark_message").show();
+
+                return;
+            }
+            if (!isLoanTypeValueNotEmpty) {
+                $("#loan_type").css("border", "1px solid red");
+                $("#loan_type_message").show();
+                return;
+            }
+            if (!isCreditorNotEmpty) {
+                $("#creditor_name").css("border", "1px solid red");
+                $("#creditor_message").show();
+                return;
+            }
+            if (!isDebitorNotEmpty) {
+                $("#debitor_name").css("border", "1px solid red");
+                $("#debitor_message").show();
+                return;
+            }
+            if (!isCurrencyNotEmpty) {
+                $("#currency_name").css("border", "1px solid red");
+                $("#currency_message").show();
+                return;
+            }
+            if (!isLoanDateNotEmpty) {
+                $("#loanDates").css("border", "1px solid red");
+                $("#loan_date_message").show();
+                return;
+            }
+            if (!isLoanPrincipleNotEmpty) {
+                $("#principle_loan").css("border", "1px solid red");
+                $("#principle_loan_message").show();
+                return;
+            }
+            if (!isLendingRateNotEmpty) {
+                $("#lending_rate").css("border", "1px solid red");
+                $("#lending_rate_message").show();
+                return;
+            }
+            if (!isLoanTotalNotEmpty) {
+                $("#total_loan").css("border", "1px solid red");
+                $("#total_loan_message").show();
+                return;
+            }
+            if (!isLoanTermNotEmpty) {
+                $("#loan_term").css("border", "1px solid red");
+                $("#loan_term_message").show();
+                return;
+            }
+            if (!isCoaIDNotEmpty) {
+                $("#coa_name").css("border", "1px solid red");
+                $("#coa_message").show();
+                return;
+            }
+            if (!isRemarkNotEmpty) {
+                $("#remark").css("border", "1px solid red");
+                $("#remark_message").show();
+                return;
+            }
+        }
     }
+
+    $('#tableProjects').on('click', 'tbody tr', function() {
+        const sysId   = $(this).find('input[data-trigger="sys_id_project"]').val();
+        const code    = $(this).find('td:nth-child(2)').text();
+        const name    = $(this).find('td:nth-child(3)').text();
+
+        $("#project_id").val(sysId);
+        $("#project_code").val(code);
+        $("#project_name").val(`${code} - ${name}`);
+        $("#project_name").css('background-color', '#e9ecef');
+
+        $('#myProjects').modal('hide');
+    });
 
     $('#tableSuppliers').on('click', 'tbody tr', function() {
         let sysId   = $(this).find('input[data-trigger="sys_id_supplier"]').val();
@@ -68,7 +213,7 @@
         let name    = $(this).find('td:nth-child(3)').text();
         let address = $(this).find('td:nth-child(4)').text();
 
-        if (clickedBy === "creditor") {
+        if (clickedAt === "creditor") {
             $(`#creditor_id`).val(sysId);
             $(`#creditor_name`).val(`${code} - ${name}`);
             $(`#creditor_name`).css({'background-color': '#e9ecef', 'border': '1px solid #ced4da'});
@@ -152,9 +297,76 @@
         $("#myLoans").modal('toggle');
     });
 
+    $('#principle_loan').on('input', function(e) {
+        if (e.target.value) {
+            $("#principle_loan_message").hide();
+            $("#principle_loan").css("border", "1px solid #ced4da");
+        } else {
+            $("#principle_loan_message").show();
+            $("#principle_loan").css("border", "1px solid red");
+        }
+    });
+
+    $('#lending_rate').on('input', function(e) {
+        if (e.target.value) {
+            $("#lending_rate_message").hide();
+            $("#lending_rate").css("border", "1px solid #ced4da");
+        } else {
+            $("#lending_rate_message").show();
+            $("#lending_rate").css("border", "1px solid red");
+        }
+    });
+
+    $('#total_loan').on('input', function(e) {
+        if (e.target.value) {
+            $("#total_loan_message").hide();
+            $("#total_loan").css("border", "1px solid #ced4da");
+        } else {
+            $("#total_loan_message").show();
+            $("#total_loan").css("border", "1px solid red");
+        }
+    });
+
+    $('#loan_term').on('input', function(e) {
+        if (e.target.value) {
+            $("#loan_term_message").hide();
+            $("#loan_term").css("border", "1px solid #ced4da");
+        } else {
+            $("#loan_term_message").show();
+            $("#loan_term").css("border", "1px solid red");
+        }
+    });
+
+    $('#loan_type').on('change', function(e) {
+        if (e.target.value) {
+            $("#loan_type_message").hide();
+            $("#loan_type").css("border", "1px solid #ced4da");
+        }
+    });
+
+    $('#remark').on('input', function(e) {
+        if (e.target.value) {
+            $("#remark_message").hide();
+            $("#remark").css("border", "1px solid #ced4da");
+        } else {
+            $("#remark_message").show();
+            $("#remark").css("border", "1px solid red");
+        }
+    });
+
     $(window).one('load', function(e) {
         $('#loanDate').datetimepicker({
             format: 'L'
+        });
+        
+        $('#loanDate').on('change.datetimepicker', function (e) {
+            if (loanDate.value) {
+                $("#loanDates").css({
+                    "background-color": "#e9ecef",
+                    "border": "1px solid #ced4da"
+                });
+                $("#loan_date_message").hide();
+            }
         });
     });
 </script>

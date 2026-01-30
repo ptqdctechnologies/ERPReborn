@@ -2,6 +2,7 @@
 @section('main')
 @include('Partials.navbar')
 @include('Partials.sidebar')
+@include('getFunction.getProjects')
 @include('getFunction.getCurrencies')
 @include('getFunction.getChartOfAccount')
 @include('getFunction.getBankLists')
