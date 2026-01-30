@@ -197,11 +197,13 @@
                 totalInput.value.trim() !== '' &&
                 balanceInput.value.trim() !== ''
             ) {
-                const productName = row.children[8].innerText.trim();
-                const qtyAvail = row.children[10].innerText.trim();
-                const uom = row.children[11].innerText.trim();
-                const priceAvail = row.children[12].innerText.trim();
-                const currency = row.children[14].innerText.trim();
+                const productName       = row.children[8].innerText.trim();
+                const productNameDup    = row.children[9].innerText.trim();
+                const qtyAvail          = row.children[10].innerText.trim();
+                const uom               = row.children[11].innerText.trim();
+                const uomDup            = row.children[12].innerText.trim();
+                const priceAvail        = row.children[12].innerText.trim();
+                const currency          = row.children[14].innerText.trim();
 
                 const price = priceInput.value.trim();
                 const qty   = qtyInput.value.trim();
@@ -216,8 +218,8 @@
 
                     if (targetRecordID == recordRefID.value) {
                         targetRow.children[4].innerText = productCode.value;
-                        targetRow.children[5].innerText = productName;
-                        targetRow.children[6].innerText = uom;
+                        targetRow.children[5].innerText = productName != "" ? productName : productNameDup;
+                        targetRow.children[6].innerText = productName != "" ? uom : uomDup;
                         targetRow.children[7].innerText = price;
                         targetRow.children[8].innerText = qty;
                         targetRow.children[9].innerText = total;
@@ -249,9 +251,9 @@
                         <input type="hidden" name="qty_avail[]" value="${qtyAvail}">
                         <input type="hidden" name="price_avail[]" value="${priceAvail}">
                         <input type="hidden" name="currency[]" value="${currency}">
-                        <td style="text-align: right;padding: 0.8rem 0.5rem;width: 100px;">${productCode.value}</td>
-                        <td style="text-align: left;padding: 0.8rem 0.5rem;">${productName}</td>
-                        <td style="text-align: left;padding: 0.8rem 0.5rem;width: 20px;">${uom}</td>
+                        <td style="text-align: right;padding: 0.8rem 0.5rem;width: 100px;display: none;">${productCode.value}</td>
+                        <td style="text-align: left;padding: 0.8rem 0.5rem;">${productName != "" ? productName : productNameDup}</td>
+                        <td style="text-align: left;padding: 0.8rem 0.5rem;width: 20px;">${productName != "" ? uom : uomDup}</td>
                         <td style="text-align: right;padding: 0.8rem 0.5rem;width: 100px;">${price}</td>
                         <td style="text-align: right;padding: 0.8rem 0.5rem;width: 50px;">${qty}</td>
                         <td style="text-align: right;padding: 0.8rem 0.5rem;">${total}</td>
@@ -373,10 +375,10 @@
                         <input id="combinedBudgetSectionDetail_RefID${key}" value="${val2.sys_ID}" type="hidden" />
                         <input id="productUnitPriceCurrencyExchangeRate${key}" value="1" type="hidden" />
 
-                        <td style="text-align: center;">${val2.productCode}</td>
+                        <td style="text-align: center;">-</td>
                         <td style="text-align: left;">
                             <div style="overflow: hidden;white-space: nowrap;text-overflow: ellipsis;width: 150px;">
-                                ${val2.productName}
+                                ${val2.productCode} - ${val2.productName}
                             </div>
                         </td>
                     `;
@@ -409,6 +411,7 @@
                             <input id="combinedBudgetSectionDetail_RefID${key}" value="${val2.sys_ID}" type="hidden" />
                             <input id="productUnitPriceCurrencyExchangeRate${key}" value="1" type="hidden" />
 
+                            <td style="text-align: center;">-</td>
                             <td style="padding: 8px;">
                                 <div class="input-group">
                                     <input id="product_id${key}" style="border-radius:0;width:130px;background-color:white;" name="product_id" class="form-control" readonly data-default="" />
@@ -421,7 +424,7 @@
                                     </div>
                                 </div>
                             </td>
-                            <td id="product_name${key}" style="text-align: left;" name="product_name" data-default="${val2.productName}">
+                            <td id="product_name${key}" style="text-align: left; display: none;" name="product_name" data-default="${val2.productName}">
                                 <div style="overflow: hidden;white-space: nowrap;text-overflow: ellipsis;width: 150px;">
                                     ${val2.productName}
                                 </div>
@@ -442,6 +445,7 @@
                             <input id="combinedBudgetSectionDetail_RefID${key}" value="${findDataMiscellaneous.combinedBudgetSectionDetail_RefID}" type="hidden" />
                             <input id="productUnitPriceCurrencyExchangeRate${key}" value="${findDataMiscellaneous.productUnitPriceCurrencyExchangeRate}" type="hidden" />
 
+                            <td style="text-align: center;">-</td>
                             <td style="padding: 8px;">
                                 <div class="input-group">
                                     <input id="product_id${key}" style="border-radius:0;width:130px;background-color:white;" name="product_id" class="form-control" readonly data-default="${findDataMiscellaneous.productCode}" value="${findDataMiscellaneous.productCode}" />
@@ -454,7 +458,7 @@
                                     </div>
                                 </div>
                             </td>
-                            <td id="product_name${key}" style="text-align: left;" name="product_name" data-default="${findDataMiscellaneous.productName}">
+                            <td id="product_name${key}" style="text-align: left; display: none;" name="product_name" data-default="${findDataMiscellaneous.productName}">
                                 <div style="overflow: hidden;white-space: nowrap;text-overflow: ellipsis;width: 150px;">
                                     ${findDataMiscellaneous.productName}
                                 </div>
@@ -489,10 +493,10 @@
                             <input id="combinedBudgetSectionDetail_RefID${key}" value="${findDataDetail.combinedBudgetSectionDetail_RefID}" type="hidden" />
                             <input id="productUnitPriceCurrencyExchangeRate${key}" value="${findDataDetail.productUnitPriceCurrencyExchangeRate}" type="hidden" />
 
-                            <td style="text-align: center;">${val2.productCode}</td>
+                            <td style="text-align: center;">-</td>
                             <td style="text-align: left;">
                                 <div style="overflow: hidden;white-space: nowrap;text-overflow: ellipsis;width: 150px;">
-                                    ${val2.productName}
+                                    ${val2.productCode} - ${val2.productName}
                                 </div>
                             </td>
                         `;
@@ -652,6 +656,8 @@
         let tbodyList = $('#tableAdvanceList tbody');
         tbodyList.empty();
 
+        console.log('dataDetail', dataDetail);
+
         $.each(dataDetail, function(key, val2) {
             dataStore.push({
                 recordID: parseInt(val2.sys_ID),
@@ -669,13 +675,15 @@
 
             let totalRequest = val2.quantity * val2.productUnitPriceCurrencyValue;
 
+            console.log('val2.productName', val2.productName);
+
             let rowList = `
                 <tr>
                     <input type="hidden" name="record_RefID[]" value="${val2.sys_ID}">
                     <input type="hidden" name="qty_avail[]" value="${currencyTotal(val2.quantity)}">
                     <input type="hidden" name="price_avail[]" value="${currencyTotal(val2.productUnitPriceCurrencyValue)}">
                     <input type="hidden" name="currency[]" value="${val2.priceCurrencyISOCode}">
-                    <td style="text-align: right;padding: 0.8rem 0.5rem;width: 100px;">${val2.productCode}</td>
+                    <td style="text-align: right;padding: 0.8rem 0.5rem;width: 100px;display: none;">${val2.productCode}</td>
                     <td style="text-align: left;padding: 0.8rem 0.5rem;">${val2.productName}</td>
                     <td style="text-align: left;padding: 0.8rem 0.5rem;width: 20px;">${val2.quantityUnitName}</td>
                     <td style="text-align: right;padding: 0.8rem 0.5rem;width: 100px;">${currencyTotal(val2.productUnitPriceCurrencyValue)}</td>

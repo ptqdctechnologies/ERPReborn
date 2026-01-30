@@ -51,25 +51,60 @@
                 type: 'GET',
                 url: '{!! route("getProduct") !!}',
                 success: function(data) {
-                    var result = data.data.data;
-
-                    for (var i = 0; i < result.length; i++) {
-                        var no = i + 1;
-                        dataShow.push([
-                            '<tbody><tr><input id="sys_ID" value="' + result[i]['sys_ID'] + '" data-trigger="sys_ID" type="hidden" /><input id="quantityUnit_RefID" value="' + result[i]['quantityUnit_RefID'] + '" data-trigger="quantityUnit_RefID" type="hidden" /><td>' + no + '</td>',
-                            '<td>' + result[i]['code'] + '</td>',
-                            '<td>' + result[i]['name'] + '</td>',
-                            '<td>' + result[i]['quantityUnitName'] + '</td>',
-                            '<span style="display:none;"><td>' + result[i]['quantityUnit_RefID'] + '</td></span></tr></tbody>'
-                        ]);
-                    }
+                    const result = data.data.data;
 
                     $('#tableGetProduct').DataTable({
-                        data: dataShow,
+                        destroy: true,
+                        data: result,
                         deferRender: true,
                         scrollCollapse: true,
-                        scroller: true
+                        scroller: true,
+                        columns: [
+                            {
+                                data: null,
+                                render: function (data, type, row, meta) {
+                                    return '<td class="align-middle text-center">' +
+                                        '<input id="sys_ID' + (meta.row + 1) + '" value="' + data.sys_ID + '" data-trigger="sys_ID" type="hidden">' +
+                                        '<input id="quantityUnit_RefID' + (meta.row + 1) + '" value="' + data.quantityUnit_RefID + '" data-trigger="quantityUnit_RefID" type="hidden">' +
+                                        (meta.row + 1) +
+                                    '</td>';
+                                }
+                            },
+                            {
+                                data: 'code',
+                                defaultContent: '-',
+                                className: "align-middle"
+                            },
+                            {
+                                data: 'name',
+                                defaultContent: '-',
+                                className: "align-middle"
+                            },
+                            {
+                                data: 'quantityUnitName',
+                                defaultContent: '-',
+                                className: "align-middle"
+                            }
+                        ]
                     });
+
+                    // for (var i = 0; i < result.length; i++) {
+                    //     var no = i + 1;
+                    //     dataShow.push([
+                    //         '<tbody><tr><input id="sys_ID" value="' + result[i]['sys_ID'] + '" data-trigger="sys_ID" type="hidden" /><input id="quantityUnit_RefID" value="' + result[i]['quantityUnit_RefID'] + '" data-trigger="quantityUnit_RefID" type="hidden" /><td>' + no + '</td>',
+                    //         '<td>' + result[i]['code'] + '</td>',
+                    //         '<td>' + result[i]['name'] + '</td>',
+                    //         '<td>' + result[i]['quantityUnitName'] + '</td>',
+                    //         '<span style="display:none;"><td>' + result[i]['quantityUnit_RefID'] + '</td></span></tr></tbody>'
+                    //     ]);
+                    // }
+
+                    // $('#tableGetProduct').DataTable({
+                    //     data: dataShow,
+                    //     deferRender: true,
+                    //     scrollCollapse: true,
+                    //     scroller: true
+                    // });
                 }
             });
         }
