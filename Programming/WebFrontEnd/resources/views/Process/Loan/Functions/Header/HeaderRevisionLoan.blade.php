@@ -2,8 +2,33 @@
   <div class="row py-3" style="gap: 1rem;">
     <!-- LEFT -->
     <div class="col-md-12 col-lg-5">
-      <!-- LOAN TYPE -->
+      <!-- BUDGET -->
       <div class="row">
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Budget Code</label>
+        <div class="col-5 d-flex p-0">
+          <div>
+            <span style="border-radius:0;" class="input-group-text form-control">
+              <a href="javascript:;" id="myProjectTrigger" data-toggle="modal" data-target="#myProjects" style="display: block; cursor: not-allowed;">
+                <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="myProjectTrigger">
+              </a>
+
+              <div id="loadingBudget" class="spinner-border spinner-border-sm" role="status" style="display: none;">
+                <span class="sr-only">Loading...</span>
+              </div>
+            </span>
+          </div>
+          <div style="flex: 100%;">
+            <div class="input-group">
+              <input id="project_name" style="border-radius:0;" class="form-control" readonly>
+              <input id="project_code" style="border-radius:0;" class="form-control" hidden>
+              <input id="project_id" style="border-radius:0;" class="form-control" hidden>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- LOAN TYPE -->
+      <div class="row" style="margin-top: 1rem;">
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Loan Type</label>
         <div class="col-5 p-0">
           <div id="container_loan_type">

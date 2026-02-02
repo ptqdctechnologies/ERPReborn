@@ -81,6 +81,7 @@
                 approverEntity: dataWorkflow.approverEntityRefID, 
                 comment: dataWorkflow.comment,
                 storeData: {
+                    budget_id: budgetID.value,
                     creditor_id: creditorID.value,
                     debitor_id: debitorID.value,
                     bank_account_id: accountNumberID.value,
@@ -134,8 +135,41 @@
         });
     }
 
+    function commentWorkflow() {
+        const swalWithBootstrapButtons = Swal.mixin({
+            confirmButtonClass: 'btn btn-success btn-sm',
+            cancelButtonClass: 'btn btn-danger btn-sm',
+            buttonsStyling: true,
+        });
+
+        swalWithBootstrapButtons.fire({
+            title: 'Comment',
+            text: "Please write your comment here",
+            type: 'question',
+            input: 'textarea',
+            showCloseButton: false,
+            showCancelButton: true,
+            focusConfirm: false,
+            cancelButtonText: '<span style="color:black;"> Cancel </span>',
+            confirmButtonText: '<span style="color:black;"> OK </span>',
+            cancelButtonColor: '#DDDAD0',
+            confirmButtonColor: '#DDDAD0',
+            reverseButtons: true
+        }).then((result) => {
+            if ('value' in result) {
+                dataWorkflow.comment = result.value;
+                ShowLoading();
+                submitForm();
+            }
+        });
+    }
+
     function selectWorkflow() {
-        console.log('here');
+        if (totalNextApprover > 1) {
+            $('#myWorkflows').modal('show');
+        } else {
+            commentWorkflow();
+        }
     }
 
     function validationForm() {

@@ -18,12 +18,16 @@ use App\Helpers\ZhtHelper\Cache\Helper_Redis;
 use Maatwebsite\Excel\Facades\Excel;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Services\Process\Loan\LoanService;
+use App\Services\WorkflowService;
 
 class LoanController extends Controller
 {
-    public function __construct(LoanService $loanService)
+    protected $advanceRequestService, $workflowService;
+
+    public function __construct(LoanService $loanService, WorkflowService $workflowService)
     {
-        $this->loanService  = $loanService;
+        $this->loanService      = $loanService;
+        $this->workflowService  = $workflowService;
     }
 
     public function index(Request $request)
@@ -48,10 +52,22 @@ class LoanController extends Controller
                 throw new \Exception('Failed to fetch Create Loan');
             }
 
+            if ($request->budget_id) {
+                $responseWorkflow = $this->workflowService->submit(
+                    $response['data']['businessDocument']['businessDocument_RefID'],
+                    $request->workFlowPath_RefID,
+                    $request->comment,
+                    $request->approverEntity,
+                );
+
+                if ($responseWorkflow['metadata']['HTTPStatusCode'] !== 200) {
+                    throw new \Exception('Failed to fetch Submit Workflow Create Advance Request => ' . $responseWorkflow['data']['message']);
+                }
+            }
+
             $compact = [
                 "documentNumber"    => $response['data']['businessDocument']['documentNumber'],
-                "status"            => $response['metadata']['HTTPStatusCode'],
-                // "status"            => $responseWorkflow['metadata']['HTTPStatusCode'],
+                "status"            => $request->budget_id ? $responseWorkflow['metadata']['HTTPStatusCode'] : $response['metadata']['HTTPStatusCode'],
             ];
 
             return response()->json($compact);
