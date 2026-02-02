@@ -125,7 +125,7 @@ class LoanController extends Controller
         try {
             $varAPIWebToken     = Session::get('SessionLogin');
             $loanRefID          = $request->input('modal_loan_id');
-            $documentTypeRefID  = $this->GetBusinessDocumentsTypeFromRedis('Loan Revision Form');
+            $documentTypeRefID  = $this->GetBusinessDocumentsTypeFromRedis('Loan Form'); // Loan Revision Form
 
             $response = $this->loanService->getDetail($loanRefID);
 

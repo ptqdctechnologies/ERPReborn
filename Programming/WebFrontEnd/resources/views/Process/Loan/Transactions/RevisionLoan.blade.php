@@ -8,7 +8,7 @@
 @include('getFunction.getBanksAccount')
 @include('getFunction.getSuppliers')
 @include('getFunction.getLoans')
-@include('getFunction.getWorkFlow')
+@include('getFunction.getWorkFlows')
 @include('Process.Loan.Functions.Popup.PopUpLoanRevision')
 
 <div class="content-wrapper">
