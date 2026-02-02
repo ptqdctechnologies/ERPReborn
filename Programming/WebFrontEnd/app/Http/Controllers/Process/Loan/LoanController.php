@@ -139,7 +139,8 @@ class LoanController extends Controller
             $compact = [
                 'varAPIWebToken'            => $varAPIWebToken,
                 'documentTypeRefID'         => $documentTypeRefID,
-                'loanRefID'                 => $dataLoanDetail[0]['Sys_ID'] ?? '',
+                'loanRefID'                 => $dataLoanDetail[0]['Loan_RefID'] ?? '',
+                'loanDetailRefID'           => $dataLoanDetail[0]['Sys_ID'] ?? '',
                 'header'                    => [
                     'combinedBudgetRefID'   => '',
                     'loanType'              => $dataLoanDetail[0]['LoanType'] ?? '',

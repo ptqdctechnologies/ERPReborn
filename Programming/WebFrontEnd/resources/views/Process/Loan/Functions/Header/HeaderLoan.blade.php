@@ -170,7 +170,7 @@
 
     <!-- RIGHT -->
     <div class="col-md-12 col-lg-5">
-      <!-- DATE OF DELIVERY -->
+      <!-- LOAN DATE -->
       <div class="row">
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Loan Date</label>
         <div class="col-5 p-0 input-group date" id="loanDate" data-target-input="nearest" style="flex-wrap: nowrap;">

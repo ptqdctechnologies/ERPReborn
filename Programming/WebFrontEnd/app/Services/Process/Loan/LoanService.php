@@ -88,8 +88,13 @@ class LoanService
     {
         $sessionToken   = Session::get('SessionLogin');
 
-        $data           = $request;
+        $data           = $request->storeData;
         $fileID         = $data['dataInput_Log_FileUpload_1'] ? (int) $data['dataInput_Log_FileUpload_1'] : null;
+
+        $loanType       = match ($data['loan_type']) {
+            'LENDING'   => (int) 0,
+            default     => (int) 1,
+        };
 
         return Helper_APICall::setCallAPIGateway(
             Helper_Environment::getUserSessionID_System(),
@@ -100,20 +105,27 @@ class LoanService
             'recordID' => (int) $id,
             'entities' => [
                 "documentDateTimeTZ"            => date('Y-m-d'),
+                "creditor_RefID"                => (int) $data['creditor_id'],
+                "debitor_RefID"                 => (int) $data['debitor_id'],
+                "bankAccount_RefID"             => (int) $data['bank_account_id'],
                 "loanTerm"                      => (int) $data['loan_term'],
                 "log_FileUpload_Pointer_RefID"  => $fileID,
                 "remarks"                       => $data['remark'],
+                "loanType"                      => $loanType,
+                "loanDate"                      => $data['loan_date'],
                 "additionalData"    => [
                     "itemList"      => [
                         "items"     => [
                                 [
-                                "recordID"  => 294000000000044,
+                                "recordID"  => (int) $data['loan_detail_id'],
                                 "entities"  => [
-                                    "principleLoan"         => (int) $data['principle_loan'],
-                                    "lendingRate"           => (int) $data['lending_rate'],
-                                    "currency_RefID"        => (int) $data['currency_id'],
-                                    "currencyExchangeRate"  => 1,
-                                    "chartOfAccount_RefID"  => (int) $data['coa_id'],
+                                    "principleLoan"                     => (int) $data['principle_loan'],
+                                    "lendingRate"                       => (int) $data['lending_rate'],
+                                    "totalLoan"                         => (int) $data['total_loan'],
+                                    "currency_RefID"                    => (int) $data['currency_id'],
+                                    "currencyExchangeRate"              => 1,
+                                    "chartOfAccount_RefID"              => (int) $data['coa_id'],
+                                    "combinedBudgetSectionDetail_RefID" => NULL,
                                     ]
                                 ],
                             ]

@@ -27,9 +27,9 @@
       
       <!-- CONTENT -->
       <div class="card">
-        <form method="POST" action="{{ route('Loan.update', $loanRefID) }}" id="loan_form">
+        <!-- <form method="POST" action="{{ route('Loan.update', $loanRefID) }}" id="loan_form">
           @csrf
-          @method('PUT')
+          @method('PUT') -->
           <input type="hidden" name="DocumentTypeID" id="DocumentTypeID" value="<?= $documentTypeRefID; ?>">
           <input type="hidden" name="var_combinedBudget_RefID" id="var_combinedBudget_RefID" value="<?= $header['combinedBudgetRefID']; ?>">
 
@@ -111,7 +111,7 @@
               </div>
             </div>
           </div>
-        </form>
+        <!-- </form> -->
       </div>
     </div>
   </section>

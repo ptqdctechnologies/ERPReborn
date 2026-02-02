@@ -1,25 +1,61 @@
 <script>
-    let clickedBy   = "";
-    let dataStore   = [];
+    let clickedBy           = "";
+    let dataStore           = [];
+    let totalNextApprover   = 0;
+    let dataWorkflow        = {
+        workFlowPathRefID: null,
+        approverEntityRefID: null,
+        comment: null
+    };
+    const loanDetailRefID   = {!! json_encode($loanDetailRefID ?? 0) !!};
+    const documentTypeID    = document.getElementById("DocumentTypeID");
+    const budgetID          = document.getElementById("project_id");
+    const loanType          = document.getElementById("loan_type");
+    const accountNumberID   = document.getElementById("bank_account_id");
+    const creditorID        = document.getElementById("creditor_id");
+    const debitorID         = document.getElementById("debitor_id");
+    const currencyID        = document.getElementById("currency_id");
+    const loanDate          = document.getElementById("loanDates");
+    const loanPrinciple     = document.getElementById("principle_loan");
+    const fileID            = document.getElementById("dataInput_Log_FileUpload");
+    const lendingRate       = document.getElementById("lending_rate");
+    const loanTotal         = document.getElementById("total_loan");
+    const loanTerm          = document.getElementById("loan_term");
+    const coaID             = document.getElementById("coa_id");
+    const remark            = document.getElementById("remark");
 
     function chooseSupplierBy(params) {
         clickedBy = params;
     }
 
     function submitForm() {
-        let action = $('#loan_form').attr("action");
-        let form_data = new FormData($('#loan_form')[0]);
-
         ShowLoading();
 
         $.ajax({
-            url: action,
-            dataType: 'json',
-            cache: false,
-            contentType: false,
-            processData: false,
-            data: form_data,
-            type: 'POST',
+            type: "PUT",
+            data: {
+                workFlowPath_RefID: dataWorkflow.workFlowPathRefID,
+                approverEntity: dataWorkflow.approverEntityRefID, 
+                comment: dataWorkflow.comment,
+                storeData: {
+                    budget_id: budgetID.value,
+                    creditor_id: creditorID.value,
+                    debitor_id: debitorID.value,
+                    bank_account_id: accountNumberID.value,
+                    loan_term: loanTerm.value,
+                    dataInput_Log_FileUpload_1: fileID.value,
+                    remark: remark.value,
+                    principle_loan: loanPrinciple.value,
+                    lending_rate: lendingRate.value,
+                    currency_id: currencyID.value,
+                    total_loan: loanTotal.value,
+                    loan_date: loanDate.value,
+                    loan_type: loanType.value,
+                    coa_id: coaID.value,
+                    loan_detail_id: loanDetailRefID
+                }
+            },
+            url: `{{ route('Loan.update', $loanRefID) }}`,
             success: function(res) {
                 HideLoading();
                 
@@ -152,6 +188,8 @@
     });
 
     $(window).one('load', function(e) {
+        getBanksAccount('', '');
+
         $('#loanDate').datetimepicker({
             format: 'YYYY-MM-DD'
         });
