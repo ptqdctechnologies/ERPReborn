@@ -9,7 +9,7 @@
 @include('getFunction.getBanksAccount')
 @include('getFunction.getSuppliers')
 @include('getFunction.getLoans')
-@include('getFunction.getWorkFlow')
+@include('getFunction.getWorkFlows')
 @include('Process.Loan.Functions.Popup.PopUpLoanRevision')
 
 <div class="content-wrapper">
@@ -29,10 +29,10 @@
       <!-- CONTENT -->
       <div class="card">
         <!-- <form method="POST" action="{{ route('SelectWorkFlow') }}" id="loan_form"> -->
-        <form method="POST" action="{{ route('Loan.store') }}" id="loan_form">
-          @csrf
+        <!-- <form method="POST" action="{{ route('Loan.store') }}" id="loan_form">
+          @csrf -->
           <input type="hidden" name="DocumentTypeID" id="DocumentTypeID" value="<?= $documentType_RefID; ?>">
-          <input type="hidden" name="var_combinedBudget_RefID" id="var_combinedBudget_RefID" value="46000000000033">
+          <input type="hidden" name="var_combinedBudget_RefID" id="var_combinedBudget_RefID">
 
           <!-- LOAN DETAILS -->
           <div class="tab-content px-3 pt-4 pb-2" id="nav-tabContent">
@@ -112,7 +112,7 @@
               </div>
             </div>
           </div>
-        </form>
+        <!-- </form> -->
       </div>
       @endif
     </div>

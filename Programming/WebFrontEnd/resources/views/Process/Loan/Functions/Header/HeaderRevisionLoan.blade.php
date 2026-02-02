@@ -9,8 +9,8 @@
           <div id="container_loan_type">
             <select id="loan_type" class="form-control" name="loan_type" style="border-radius:0;">
               <option value="select_loan_type" selected disabled>Select Loan Type</option>
-              <option value="LENDING">Lending</option>
-              <option value="BORROWING">Borrowing</option>
+              <option value="LENDING" <?= $header['loanType'] == 'Lending' ? 'selected' : ''; ?>>Lending</option>
+              <option value="BORROWING" <?= $header['loanType'] == 'Borrowing' ? 'selected' : ''; ?>>Borrowing</option>
             </select>
           </div>
         </div>
@@ -34,7 +34,7 @@
           <div style="flex: 100%;">
             <div class="input-group">
               <input type="hidden" id="creditor_id" class="form-control" name="creditor_id" value="<?= $header['creditorRefID'] ?>" style="border-radius:0;" />
-              <input type="text" id="creditor_name" class="form-control" value="<?= $header['creditorName'] ?>" style="border-radius:0;background:white;" readonly />
+              <input type="text" id="creditor_name" class="form-control" value="<?= $header['creditorName'] ?>" style="border-radius:0;" readonly />
             </div>
           </div>
         </div>
@@ -58,7 +58,7 @@
           <div style="flex: 100%;">
             <div class="input-group">
               <input type="hidden" id="debitor_id" class="form-control" name="debitor_id" value="<?= $header['debitorRefID'] ?>" style="border-radius:0;" />
-              <input type="text" id="debitor_name" class="form-control" value="<?= $header['debitorName'] ?>" style="border-radius:0;background:white;" readonly />
+              <input type="text" id="debitor_name" class="form-control" value="<?= $header['debitorName'] ?>" style="border-radius:0;" readonly />
             </div>
           </div>
         </div>
@@ -82,7 +82,7 @@
           <div style="flex: 100%;">
             <div class="input-group">
               <input type="hidden" id="currency_id" class="form-control" name="currency_id" value="<?= $header['currencyRefID'] ?>" style="border-radius:0;" />
-              <input type="text" id="currency_name" class="form-control" value="<?= $header['currencyCode'] ?>" style="border-radius:0;background:white;" readonly />
+              <input type="text" id="currency_name" class="form-control" value="<?= $header['currencyCode'] . ' - ' . $header['currencyName']; ?>" style="border-radius:0;" readonly />
             </div>
           </div>
         </div>
@@ -95,7 +95,7 @@
       </div>
 
       <!-- BANK NAME -->
-      <div class="row" style="margin-top: 1rem;">
+      <!-- <div class="row" style="margin-top: 1rem;">
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Bank Name</label>
         <div class="col-5 d-flex p-0">
           <div>
@@ -116,7 +116,7 @@
         <div class="col-5 p-0 text-red">
           Bank Name cannot be empty.
         </div>
-      </div>
+      </div> -->
 
       <!-- ACCOUNT NUMBER -->
       <div class="row" style="margin-top: 1rem;">
@@ -129,8 +129,8 @@
           </div>
           <div style="flex: 100%;">
             <div class="input-group">
-              <input type="hidden" id="bank_account_id" class="form-control" name="bank_account_id" style="border-radius:0;" />
-              <input type="text" id="bank_account_name" class="form-control" style="border-radius:0;background:white;" readonly />
+              <input type="hidden" id="bank_account_id" class="form-control" name="bank_account_id" style="border-radius:0;" value="<?= $header['bankAccount_RefID']; ?>" />
+              <input type="text" id="bank_account_name" class="form-control" style="border-radius:0;" value="<?= $header['bankAccountNumber'] . ' - ' . $header['bankAccountName']; ?>"  readonly />
             </div>
           </div>
         </div>
@@ -155,7 +155,7 @@
             </div>
           </div>
           <div style="flex: 100%;">
-            <input type="text" class="form-control datetimepicker-input" name="loanDate" id="loanDate" data-target="#loanDate" autocomplete="off" style="border-radius: unset;" />
+            <input type="text" class="form-control datetimepicker-input" name="loanDate" id="loanDate" data-target="#loanDate" autocomplete="off" value="<?= $header['loanDate']; ?>" style="border-radius: unset; background-color: #e9ecef;" />
           </div>
         </div>
       </div>
@@ -192,7 +192,7 @@
       <div class="row" style="margin-top: 1rem;">
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Loan Total</label>
         <div class="col-5 p-0">
-          <input type="text" id="total_loan" name="total_loan" class="form-control number-without-characters" style="border-radius:0;" />
+          <input type="text" id="total_loan" name="total_loan" value="<?= $header['loanTotal'] ?>" class="form-control number-without-characters" style="border-radius:0;" />
         </div>
       </div>
       <div class="row" id="total_loan_message" style="margin-top: .3rem; display: none;">
@@ -206,7 +206,7 @@
       <div class="row" style="margin-top: 1rem;">
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Loan Term</label>
         <div class="col-5 p-0">
-          <input type="text" id="loan_term" name="loan_term" class="form-control number-without-characters" style="border-radius:0;" />
+          <input type="text" id="loan_term" name="loan_term" value="<?= $header['loanTerm'] ?>" class="form-control number-without-characters" style="border-radius:0;" />
         </div>
       </div>
       <div class="row" id="loan_term_message" style="margin-top: .3rem; display: none;">
@@ -227,8 +227,8 @@
           </div>
           <div style="flex: 100%;">
             <div class="input-group">
-              <input type="hidden" id="coa_id" class="form-control" name="coa_id" style="border-radius:0;" />
-              <input type="text" id="coa_name" class="form-control" value="<?= $header['coaCode'] . ' - ' . $header['coaName'] ?>" style="border-radius:0;background:white;" readonly />
+              <input type="hidden" id="coa_id" class="form-control" name="coa_id" value="<?= $header['coaRefID'] ?>"  style="border-radius:0;" />
+              <input type="text" id="coa_name" class="form-control" value="<?= $header['coaCode'] . ' - ' . $header['coaName'] ?>" style="border-radius:0;" readonly />
             </div>
           </div>
         </div>

@@ -1,37 +1,102 @@
 <script>
-    let clickedAt       = "";
-    let dataStore       = [];
-    const loanType      = document.getElementById("loan_type");
-    const creditorID    = document.getElementById("creditor_id");
-    const debitorID     = document.getElementById("debitor_id");
-    const currencyID    = document.getElementById("currency_id");
-    const loanDate      = document.getElementById("loanDates");
-    const loanPrinciple = document.getElementById("principle_loan");
-    const lendingRate   = document.getElementById("lending_rate");
-    const loanTotal     = document.getElementById("total_loan");
-    const loanTerm      = document.getElementById("loan_term");
-    const coaID         = document.getElementById("coa_id");
-    const remark        = document.getElementById("remark");
+    let clickedAt           = "";
+    let dataStore           = [];
+    let totalNextApprover   = 0;
+    let dataWorkflow        = {
+        workFlowPathRefID: null,
+        approverEntityRefID: null,
+        comment: null
+    };
+    const documentTypeID    = document.getElementById("DocumentTypeID");
+    const budgetID          = document.getElementById("project_id");
+    const loanType          = document.getElementById("loan_type");
+    const accountNumberID   = document.getElementById("bank_account_id");
+    const creditorID        = document.getElementById("creditor_id");
+    const debitorID         = document.getElementById("debitor_id");
+    const currencyID        = document.getElementById("currency_id");
+    const loanDate          = document.getElementById("loanDates");
+    const loanPrinciple     = document.getElementById("principle_loan");
+    const fileID            = document.getElementById("dataInput_Log_FileUpload");
+    const lendingRate       = document.getElementById("lending_rate");
+    const loanTotal         = document.getElementById("total_loan");
+    const loanTerm          = document.getElementById("loan_term");
+    const coaID             = document.getElementById("coa_id");
+    const remark            = document.getElementById("remark");
 
     function chooseSupplierBy(params) {
         clickedAt = params;
     }
 
-    function submitForm() {
-        let action = $('#loan_form').attr("action");
-        let method = $('#loan_form').attr("method");
-        let form_data = new FormData($('#loan_form')[0]);
+    function getWorkflow(combinedBudgetRefID, combinedBudgetCode, combinedBudgetName) {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
 
+        $.ajax({
+            type: 'POST',
+            data: {
+                businessDocumentType_RefID: documentTypeID.value,
+                combinedBudget_RefID: combinedBudgetRefID
+            },
+            url: '{!! route("GetWorkflow") !!}',
+            success: function(response) {
+                if (response.status === 200) {
+                    totalNextApprover = response.data[0].nextApproverPath.length;
+                    dataWorkflow.workFlowPathRefID = response.data[0].sys_ID;
+                    dataWorkflow.approverEntityRefID = response.data[0].submitterEntity_RefID;
+
+                    getWorkflows(response.data[0].nextApproverPath);
+
+                    $("#var_combinedBudget_RefID").val(combinedBudgetRefID);
+                    $("#project_id").val(combinedBudgetRefID);
+                    $("#project_code").val(combinedBudgetCode);
+                    $("#project_name").val(`${combinedBudgetCode} - ${combinedBudgetName}`);
+                    $("#project_name").css({"background-color":"#e9ecef"});
+                } else {
+                    Swal.fire("Error", "Workflow Error", "error");
+                }
+
+                $("#loadingBudget").css({"display":"none"});
+                $("#myProjectTrigger").css({"display":"block"});
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.log('jqXHR, textStatus, errorThrown', jqXHR, textStatus, errorThrown);
+                Swal.fire("Error", "Data Error", "error");
+
+                $("#loadingBudget").css({"display":"none"});
+                $("#myProjectTrigger").css({"display":"block"});
+            }
+        });
+    }
+
+    function submitForm() {
         ShowLoading();
 
         $.ajax({
-            url: action,
-            dataType: 'json',
-            cache: false,
-            contentType: false,
-            processData: false,
-            data: form_data,
-            type: method,
+            type: "POST",
+            data: {
+                workFlowPath_RefID: dataWorkflow.workFlowPathRefID,
+                approverEntity: dataWorkflow.approverEntityRefID, 
+                comment: dataWorkflow.comment,
+                storeData: {
+                    creditor_id: creditorID.value,
+                    debitor_id: debitorID.value,
+                    bank_account_id: accountNumberID.value,
+                    loan_term: loanTerm.value,
+                    dataInput_Log_FileUpload_1: fileID.value,
+                    remark: remark.value,
+                    principle_loan: loanPrinciple.value,
+                    lending_rate: lendingRate.value,
+                    currency_id: currencyID.value,
+                    total_loan: loanTotal.value,
+                    loan_date: loanDate.value,
+                    loan_type: loanType.value,
+                    coa_id: coaID.value
+                }
+            },
+            url: "{{ route('Loan.store') }}",
             success: function(res) {
                 HideLoading();
 
@@ -69,6 +134,10 @@
         });
     }
 
+    function selectWorkflow() {
+        console.log('here');
+    }
+
     function validationForm() {
         const isLoanTypeValueNotEmpty   = loanType.value.trim() !== 'Select a Type';
         const isCreditorNotEmpty        = creditorID.value.trim() !== '';
@@ -95,7 +164,11 @@
             isCoaIDNotEmpty &&
             isRemarkNotEmpty
         ) {
-            submitForm();
+            if (budgetID.value.trim() !== '') {
+                selectWorkflow();
+            } else {
+                submitForm();
+            }
         } else {
             if (
                 !isLoanTypeValueNotEmpty &&
@@ -199,10 +272,10 @@
         const code    = $(this).find('td:nth-child(2)').text();
         const name    = $(this).find('td:nth-child(3)').text();
 
-        $("#project_id").val(sysId);
-        $("#project_code").val(code);
-        $("#project_name").val(`${code} - ${name}`);
-        $("#project_name").css('background-color', '#e9ecef');
+        $("#loadingBudget").css({"display":"block"});
+        $("#myProjectTrigger").css({"display":"none"});
+
+        getWorkflow(sysId, code, name);
 
         $('#myProjects').modal('hide');
     });
@@ -260,10 +333,10 @@
     });
 
     $('#tableBanksAccount').on('click', 'tbody tr', function() {
-        let sysId           = $(this).find('input[data-trigger="sys_id_bank_account_list"]').val();
-        let acronym         = $(this).find('td:nth-child(2)').text();
-        let accountNumber   = $(this).find('td:nth-child(3)').text();
-        let accountName     = $(this).find('td:nth-child(4)').text();
+        const sysId           = $(this).find('input[data-trigger="sys_id_bank_account_list"]').val();
+        const acronym         = $(this).find('td:nth-child(2)').text();
+        const accountNumber   = $(this).find('td:nth-child(3)').text();
+        const accountName     = $(this).find('td:nth-child(4)').text();
 
         $(`#bank_account_id`).val(sysId);
         $(`#bank_account_name`).val(`${accountNumber} - ${accountName}`);
@@ -355,6 +428,8 @@
     });
 
     $(window).one('load', function(e) {
+        getBanksAccount('', '');
+
         $('#loanDate').datetimepicker({
             format: 'L'
         });

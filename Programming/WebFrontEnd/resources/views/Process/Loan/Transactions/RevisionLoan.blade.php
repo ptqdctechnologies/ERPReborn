@@ -31,7 +31,7 @@
           @csrf
           @method('PUT')
           <input type="hidden" name="DocumentTypeID" id="DocumentTypeID" value="<?= $documentTypeRefID; ?>">
-          <input type="hidden" name="var_combinedBudget_RefID" id="var_combinedBudget_RefID" value="46000000000033">
+          <input type="hidden" name="var_combinedBudget_RefID" id="var_combinedBudget_RefID" value="<?= $header['combinedBudgetRefID']; ?>">
 
           <!-- LOAN DETAILS -->
           <div class="tab-content px-3 pt-4 pb-2" id="nav-tabContent">

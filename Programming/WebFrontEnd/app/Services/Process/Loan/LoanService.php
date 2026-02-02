@@ -2,6 +2,7 @@
 
 namespace App\Services\Process\Loan;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
@@ -37,8 +38,13 @@ class LoanService
     {
         $sessionToken   = Session::get('SessionLogin');
 
-        $data           = $request;
+        $data           = $request->storeData;
         $fileID         = $data['dataInput_Log_FileUpload_1'] ? (int) $data['dataInput_Log_FileUpload_1'] : null;
+
+        $loanType       = match ($data['loan_type']) {
+            'LENDING'   => (int) 0,
+            default     => (int) 1,
+        };
 
         return Helper_APICall::setCallAPIGateway(
             Helper_Environment::getUserSessionID_System(),
@@ -54,6 +60,8 @@ class LoanService
                 "loanTerm"                      => (int) $data['loan_term'],
                 "log_FileUpload_Pointer_RefID"  => $fileID,
                 "notes"                         => $data['remark'],
+                "loanType"                      => $loanType,
+                "loanDate"                      => Carbon::createFromFormat('m/d/Y', $data['loan_date'])->format('Y-m-d'),
                 "additionalData"    => [
                     "itemList"      => [
                         "items"     => [
@@ -61,6 +69,7 @@ class LoanService
                                 "entities"      => [
                                     "principleLoan"                     => (int) $data['principle_loan'],
                                     "lendingRate"                       => (int) $data['lending_rate'],
+                                    "totalLoan"                         => (int) $data['total_loan'],
                                     "currency_RefID"                    => (int) $data['currency_id'],
                                     "currencyExchangeRate"              => 1,
                                     "chartOfAccount_RefID"              => (int) $data['coa_id'],

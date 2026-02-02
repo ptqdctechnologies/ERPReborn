@@ -120,7 +120,7 @@
       </div>
 
       <!-- BANK NAME -->
-      <div class="row" style="margin-top: 1rem;">
+      <!-- <div class="row" style="margin-top: 1rem;">
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Bank Name</label>
         <div class="col-5 d-flex p-0">
           <div>
@@ -141,7 +141,7 @@
         <div class="col-5 p-0 text-red">
           Bank Name cannot be empty.
         </div>
-      </div>
+      </div> -->
 
       <!-- ACCOUNT NUMBER -->
       <div class="row" style="margin-top: 1rem;">

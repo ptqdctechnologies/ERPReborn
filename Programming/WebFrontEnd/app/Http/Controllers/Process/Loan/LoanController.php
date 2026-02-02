@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Process\Loan;
 
+use Carbon\Carbon;
 use App\Http\Controllers\ExportExcel\Process\ExportReportLoanDetail;
 use App\Http\Controllers\ExportExcel\Process\ExportReportLoanSummary;
 use App\Http\Controllers\ExportExcel\Process\ExportReportLoantoLoanSettlement;
@@ -117,6 +118,7 @@ class LoanController extends Controller
             }
 
             $dataLoanDetail = $response['data']['data'];
+            $loanDate       = $dataLoanDetail[0]['LoanDate'] ? Carbon::parse($dataLoanDetail[0]['LoanDate'])->toDateString() : '';
 
             $compact = [
                 'varAPIWebToken'            => $varAPIWebToken,
@@ -124,16 +126,25 @@ class LoanController extends Controller
                 'loanRefID'                 => $dataLoanDetail[0]['Sys_ID'] ?? '',
                 'header'                    => [
                     'combinedBudgetRefID'   => '',
+                    'loanType'              => $dataLoanDetail[0]['LoanType'] ?? '',
                     'creditorRefID'         => $dataLoanDetail[0]['Creditor_RefID'] ?? '',
                     'creditorName'          => $dataLoanDetail[0]['CreditorName'] ?? '',
                     'debitorRefID'          => $dataLoanDetail[0]['Debitor_RefID'] ?? '',
                     'debitorName'           => $dataLoanDetail[0]['DebitorName'] ?? '',
                     'currencyRefID'         => $dataLoanDetail[0]['Currency_RefID'] ?? '',
                     'currencyCode'          => $dataLoanDetail[0]['ISOCode'] ?? '',
+                    'currencyName'          => $dataLoanDetail[0]['CurrencyName'] ?? '',
+                    'bankAccount_RefID'     => $dataLoanDetail[0]['BankAccount_RefID'] ?? '',
+                    'bankAccountNumber'     => $dataLoanDetail[0]['BankAccountNumber'] ?? '',
+                    'bankAccountName'       => $dataLoanDetail[0]['BankAccountName'] ?? '',
                     'currencyExchangeRate'  => $dataLoanDetail[0]['CurrencyExchangeRate'] ?? '',
                     'principleLoan'         => (int) $dataLoanDetail[0]['PrincipleLoan'] ?? '',
                     'lendingRate'           => (int) $dataLoanDetail[0]['LendingRate'] ?? '',
+                    'loanDate'              => $loanDate,
+                    'loanTotal'             => (int) $dataLoanDetail[0]['TotalLoan'] ?? '',
+                    'loanTerm'              => (int) $dataLoanDetail[0]['LoanTerm'] ?? '',
                     'remark'                => $dataLoanDetail[0]['Notes'] ?? '',
+                    'coaRefID'              => $dataLoanDetail[0]['COA_RefID'] ?? '',
                     'coaName'               => $dataLoanDetail[0]['COA_Name'] ?? '',
                     'coaCode'               => $dataLoanDetail[0]['COA_Code'] ?? '',
                 ]

@@ -153,7 +153,7 @@
 
     $(window).one('load', function(e) {
         $('#loanDate').datetimepicker({
-            format: 'L'
+            format: 'YYYY-MM-DD'
         });
     });
 </script>
