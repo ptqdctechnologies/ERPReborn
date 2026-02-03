@@ -28,10 +28,18 @@
                 </div>
             </div>
 
-            <!-- CREDITOR/DEBITOR -->
+            <!-- CREDITOR -->
             <div class="row" style="margin-top: 1rem;">
-                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Creditor/Debitor</label>
-                <div id="loan_credit_debit" class="col-5 d-flex p-0">
+                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Creditor</label>
+                <div id="loan_credit" class="col-5 d-flex p-0">
+                    : -
+                </div>
+            </div>
+
+            <!-- DEBITOR -->
+            <div class="row" style="margin-top: 1rem;">
+                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Debitor</label>
+                <div id="loan_debit" class="col-5 d-flex p-0">
                     : -
                 </div>
             </div>
@@ -40,14 +48,6 @@
             <div class="row" style="margin-top: 1rem;">
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Currency</label>
                 <div id="loan_currency" class="col-5 d-flex p-0">
-                    : -
-                </div>
-            </div>
-
-            <!-- BANK NAME -->
-            <div class="row" style="margin-top: 1rem;">
-                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Bank Name</label>
-                <div id="loan_bank" class="col-5 d-flex p-0">
                     : -
                 </div>
             </div>
@@ -74,7 +74,7 @@
             <!-- COA -->
             <div class="row" style="margin-top: 1rem;">
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">COA</label>
-                <div id="loan_date" class="col-5 d-flex p-0">
+                <div id="loan_coa" class="col-5 d-flex p-0">
                     : -
                 </div>
             </div>
@@ -95,18 +95,18 @@
                 </div>
             </div>
 
-            <!-- LOAN TOTAL -->
-            <div class="row" style="margin-top: 1rem;">
-                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Loan Total</label>
-                <div id="loan_total" class="col-5 d-flex p-0">
-                    : -
-                </div>
-            </div>
-
             <!-- LOAN TERM -->
             <div class="row" style="margin-top: 1rem;">
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Loan Term</label>
                 <div id="loan_term" class="col-5 d-flex p-0">
+                    : -
+                </div>
+            </div>
+
+            <!-- LOAN TOTAL -->
+            <div class="row" style="margin-top: 1rem;">
+                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Loan Total</label>
+                <div id="loan_total" class="col-5 d-flex p-0">
                     : -
                 </div>
             </div>

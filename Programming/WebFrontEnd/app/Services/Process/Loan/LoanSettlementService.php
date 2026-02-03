@@ -58,12 +58,13 @@ class LoanSettlementService
                                 [
                                 "entities" => [
                                     "loanDetail_RefID"                  => (int) $data['loanDetail_RefID'],
-                                    "principleSettlement"               => (int) $data['principleSettlement'],
-                                    "penaltySettlement"                 => (int) $data['penaltySettlement'],
-                                    "interestSettlement"                => (int) $data['interestSettlement'],
+                                    "principleSettlement"               => $data['principleSettlement'],
+                                    "penaltySettlement"                 => $data['penaltySettlement'],
+                                    "interestSettlement"                => $data['interestSettlement'],
                                     "currency_RefID"                    => (int) $data['currency_RefID'],
                                     "currencyExchangeRate"              => (int) $data['currencyExchangeRate'],
-                                    "chartOfAccount_Settlement_RefID"   => (int) $data['chartOfAccount_Settlement_RefID'],
+                                    // "chartOfAccount_Settlement_RefID"   => (int) $data['chartOfAccount_Settlement_RefID'],
+                                    "chartOfAccount_Settlement_RefID"   => NULL,
                                     "chartOfAccount_Penalty_RefID"      => (int) $data['chartOfAccount_Penalty_RefID'],
                                     "chartOfAccount_Interest_RefID"     => (int) $data['chartOfAccount_Interest_RefID'],
                                     ]
