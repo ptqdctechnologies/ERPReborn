@@ -20,6 +20,14 @@
                 </div>
             </div>
 
+            <!-- LOAN BUDGET -->
+            <div class="row" style="margin-top: 1rem;">
+                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Budget</label>
+                <div id="loan_budget" class="col-5 d-flex p-0">
+                    : -
+                </div>
+            </div>
+
             <!-- LOAN TYPE -->
             <div class="row" style="margin-top: 1rem;">
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Loan Type</label>
@@ -81,7 +89,7 @@
 
             <!-- LOAN PRINCIPLE -->
             <div class="row" style="margin-top: 1rem;">
-                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Loan Principle</label>
+                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Loan Principal</label>
                 <div id="loan_principle" class="col-5 d-flex p-0">
                     : -
                 </div>

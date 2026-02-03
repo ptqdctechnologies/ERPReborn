@@ -135,4 +135,29 @@ class LoanService
             ]
         );
     }
+
+    public function getLoanSummary($budget, $creditor, $debitor, $date) 
+    {
+        $sessionToken = Session::get('SessionLogin');
+
+        if ($date) {
+            $dates      = explode(' - ', $date);
+            $startDate  = Carbon::createFromFormat('m/d/Y', trim($dates[0]))->startOfDay()->format('Y-m-d');
+            $endDate    = Carbon::createFromFormat('m/d/Y', trim($dates[1]))->endOfDay()->format('Y-m-d');
+        }
+
+        return Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
+            $sessionToken, 
+            'report.form.documentForm.finance.getLoanSummary', 
+            'latest',
+            [
+                'parameter'     => [
+                    'CombinedBudgetCode'    => $budget,
+                    'Creditor_RefID'        => $creditor ? $creditor : NULL,
+                    'Debitor_RefID'         => $debitor ? $debitor : NULL
+                ]
+            ]
+        );
+    }
 }

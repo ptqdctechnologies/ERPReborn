@@ -311,106 +311,70 @@ class LoanController extends Controller
 
     public function ReportLoanSummary(Request $request)
     {
-        $varAPIWebToken = $request->session()->get('SessionLogin');
-        $request->session()->forget("SessionReimbursementNumber");
-        $dataLoan = Session::get("LoanReportSummaryDataPDF");
-
-        if (!empty($_GET['var'])) {
-            $var =  $_GET['var'];
-        }
-        $compact = [
-            'varAPIWebToken' => $varAPIWebToken,
-            'statusRevisi' => 1,
-            'statusHeader' => "Yes",
-            'statusDetail' => 1,
-            'dataHeader' => [],
-            'dataLoan' => $dataLoan
-        
-        ];
-        // dump($dataLoan);
-
-        return view('Process.Loan.Reports.ReportLoanSummary', $compact);
-    }
-
-    public function ReportLoanSummaryData( $project_code)
-    {        
-        try {
-            Log::error("Error at ",[$project_code]);
-
-            $varAPIWebToken = Session::get('SessionLogin');
-
-            $filteredArray = Helper_APICall::setCallAPIGateway(
-                Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'report.form.documentForm.finance.getLoanSummary', 
-                'latest',
-                [
-                    'parameter' => [
-                        // 'CombinedBudgetCode' => 'Q000062',
-                        // 'Creditor_RefID' => 166000000000001,
-                        // 'Debitor_RefID' => 25000000000001,
-                        'CombinedBudgetCode' => NULL,
-                        'Creditor_RefID' => NULL,
-                        'Debitor_RefID' => NULL,
-                    ],
-                     'SQLStatement' => [
-                        'pick' => null,
-                        'sort' => null,
-                        'filter' => null,
-                        'paging' => null
-                        ]
-                ]
-            );
-            
-            Log::error("Error at " ,$filteredArray);
-            if ($filteredArray['metadata']['HTTPStatusCode'] !== 200) {
-                return redirect()->back()->with('NotFound', 'Process Error');
-
-            }
-            Session::put("LoanReportSummaryDataPDF", $filteredArray['data']['data']);
-            Session::put("LoanReportSummaryDataExcel", $filteredArray['data']['data']);
-            return $filteredArray['data']['data'];
-        }
-        catch (\Throwable $th) {
-            Log::error("Error at " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
-        }
+        return view('Process.Loan.Reports.ReportLoanSummary');
     }
 
     public function ReportLoanSummaryStore(Request $request)
     {
-        // tes;
         try {
-            $project_code = $request->project_code_second;
-            // $site_code = $request->site_id_second;
+            $date           = $request->loanDate;
+            $budget         = [
+                "id"        => $request->budget_id,
+                "code"      => $request->budget_code,
+            ];
 
-            $statusHeader = "Yes";
-            Log::error("Error at " ,[$request->all()]);
-            if ($project_code == "") {
-                Session::forget("LoanReportSummaryDataPDF");
-                Session::forget("LoanReportSummaryDataExcel");
-                
-                return redirect()->route('Loan.ReportLoanSummary')->with('NotFound', 'Cannot Empty');
+            $response = $this->loanService->getLoanSummary(
+                $budget['code'],
+                null,
+                null,
+                $date
+            );
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                throw new \Exception('Failed to fetch Loan Summary Report');
             }
 
-            $compact = $this->ReportLoanSummaryData($project_code);
-            // dd($compact);
-            // if ($compact['dataHeader'] == []) {
-            //     Session::forget("PReimbursementSummaryReportDataPDF");
-            //     Session::forget("PReimbursementSummaryReportDataExcel");
+            $compact = [
+                'status'    => $response['metadata']['HTTPStatusCode'],
+                'data'      => $response['data']['data']
+            ];
 
-            //     return redirect()->back()->with('NotFound', 'Data Not Found');
-            // }
-
-            return redirect()->route('Loan.ReportLoanSummary');
+            return response()->json($compact);
         } catch (\Throwable $th) {
-            Log::error("Error at " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
+            Log::error("Report Loan Store Function Error:" . $th->getMessage());
+
+            $compact = [
+                'status'    => 500,
+                'message'   => $th->getMessage()
+            ];
+
+            return response()->json($compact);
         }
     }
 
     public function PrintExportReportLoanSummary(Request $request)
     {
+        try {
+            $dataLoanSummary    = json_decode($request->dataReport, true);
+            $type               = $request->printType;
+
+            if ($dataLoanSummary) {
+                if ($type === "PDF") {
+                    
+                } else if ($type === "EXCEL") {
+
+                } else {
+                    throw new \Exception('Failed to Export Loan Summary Report');
+                }
+            } else {
+                throw new \Exception('Loan Summary Data is Empty');
+            }
+        } catch (\Throwable $th) {
+            Log::error("Print Export Report Loan Summary Function Error: " . $th->getMessage());
+
+            return response()->json(['statusCode' => 400]);
+        }
+
         try {
             $dataPDF = Session::get("LoanReportSummaryDataPDF");
             $dataExcel = Session::get("LoanReportSummaryDataExcel");
