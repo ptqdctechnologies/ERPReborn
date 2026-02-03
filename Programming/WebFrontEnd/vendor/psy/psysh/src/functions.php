@@ -3,7 +3,7 @@
 /*
  * This file is part of Psy Shell.
  *
- * (c) 2012-2025 Justin Hileman
+ * (c) 2012-2026 Justin Hileman
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -465,6 +465,22 @@ if (!\function_exists('Psy\\bin')) {
                 $usageException = $e;
             }
 
+            if ($usageException === null) {
+                $cwd = null;
+                if ($input->hasOption('cwd')) {
+                    $cwd = $input->getOption('cwd');
+                }
+                if ($cwd === null || $cwd === '') {
+                    $cwd = $input->getParameterOption('--cwd', null, true);
+                }
+                if ($cwd !== null && $cwd !== '') {
+                    if (!@\chdir($cwd)) {
+                        \fwrite(\STDERR, 'Invalid --cwd directory: '.$cwd.\PHP_EOL);
+                        exit(1);
+                    }
+                }
+            }
+
             try {
                 $config = Configuration::fromInput($input);
             } catch (\InvalidArgumentException $e) {
@@ -517,6 +533,8 @@ $version
 
   <info>-c, --config=FILE</info>       Use an alternate PsySH config file location
       <info>--cwd=PATH</info>          Use an alternate working directory
+      <info>--trust-project</info>     Trust the current project for this run
+      <info>--no-trust-project</info>  Run in Restricted Mode for this project
       <info>--color|--no-color</info>  Force (or disable with --no-color) colors in output
   <info>-i, --interactive</info>       Force PsySH to run in interactive mode
   <info>-n, --no-interactive</info>    Run PsySH without interactive input (requires input from stdin)

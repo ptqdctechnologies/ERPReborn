@@ -3,7 +3,7 @@
 /*
  * This file is part of Psy Shell.
  *
- * (c) 2012-2025 Justin Hileman
+ * (c) 2012-2026 Justin Hileman
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -15,6 +15,7 @@ use Psy\ConfigPaths;
 use Psy\Input\FilterOptions;
 use Psy\Output\ShellOutput;
 use Psy\Readline\Readline;
+use Psy\Readline\ReadlineAware;
 use Symfony\Component\Console\Formatter\OutputFormatter;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -25,7 +26,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  *
  * Shows, searches and replays readline history. Not too shabby.
  */
-class HistoryCommand extends Command
+class HistoryCommand extends Command implements ReadlineAware
 {
     private FilterOptions $filter;
     private Readline $readline;

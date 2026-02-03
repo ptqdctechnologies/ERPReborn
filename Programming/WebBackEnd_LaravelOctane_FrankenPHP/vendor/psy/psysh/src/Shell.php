@@ -3,7 +3,7 @@
 /*
  * This file is part of Psy Shell.
  *
- * (c) 2012-2025 Justin Hileman
+ * (c) 2012-2026 Justin Hileman
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -27,6 +27,7 @@ use Psy\Input\ShellInput;
 use Psy\Input\SilentInput;
 use Psy\Output\ShellOutput;
 use Psy\Readline\Readline;
+use Psy\Readline\ReadlineAware;
 use Psy\TabCompletion\AutoCompleter;
 use Psy\TabCompletion\Matcher;
 use Psy\TabCompletion\Matcher\CommandsMatcher;
@@ -56,13 +57,13 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class Shell extends Application
 {
-    const VERSION = 'v0.12.18';
+    const VERSION = 'v0.12.19';
 
     private Configuration $config;
-    private CodeCleaner $cleaner;
+    private ?CodeCleaner $cleaner = null;
     private OutputInterface $output;
     private ?int $originalVerbosity = null;
-    private Readline $readline;
+    private ?Readline $readline = null;
     private array $inputBuffer;
     /** @var string|false|null */
     private $code = null;
@@ -74,6 +75,8 @@ class Shell extends Application
     private array $includes;
     private bool $outputWantsNewline = false;
     private array $loopListeners;
+    private bool $booted = false;
+    private bool $autoloadWarmed = false;
     private ?AutoCompleter $autoCompleter = null;
     private array $matchers = [];
     private ?CommandsMatcher $commandsMatcher = null;
@@ -89,10 +92,8 @@ class Shell extends Application
     public function __construct(?Configuration $config = null)
     {
         $this->config = $config ?: new Configuration();
-        $this->cleaner = $this->config->getCodeCleaner();
         $this->context = new Context();
         $this->includes = [];
-        $this->readline = $this->config->getReadline();
         $this->inputBuffer = [];
         $this->codeStack = [];
         $this->stdoutBuffer = '';
@@ -104,8 +105,6 @@ class Shell extends Application
 
         // Register the current shell session's config with \Psy\info
         \Psy\info($this->config);
-
-        $this->warmAutoloader();
     }
 
     /**
@@ -116,6 +115,11 @@ class Shell extends Application
      */
     private function warmAutoloader(): void
     {
+        if ($this->autoloadWarmed) {
+            return;
+        }
+        $this->autoloadWarmed = true;
+
         $warmers = $this->config->getAutoloadWarmers();
         if (empty($warmers)) {
             return;
@@ -147,6 +151,79 @@ class Shell extends Application
 
         if (!\class_exists('Composer\\ClassMapGenerator\\ClassMapGenerator', false)) {
             $output->writeln('<whisper>Autoload warming works best with composer/class-map-generator installed</whisper>');
+        }
+    }
+
+    /**
+     * Boot the shell, initializing the CodeCleaner and Readline.
+     *
+     * This is called lazily when commands or methods require these dependencies.
+     * If input/output are provided, they'll be used for trust prompts. Otherwise,
+     * falls back to config defaults.
+     */
+    public function boot(?InputInterface $input = null, ?OutputInterface $output = null): void
+    {
+        if ($this->booted) {
+            return;
+        }
+
+        $this->loadLocalConfig($input, $output);
+
+        $this->cleaner = $this->config->getCodeCleaner();
+        $this->readline = $this->config->getReadline();
+        $this->booted = true;
+
+        $this->refreshCommandDependencies();
+    }
+
+    /**
+     * Load local config with trust prompt if needed.
+     */
+    private function loadLocalConfig(?InputInterface $input, ?OutputInterface $output): void
+    {
+        if ($output === null) {
+            $output = $this->config->getOutput();
+        }
+
+        if ($input === null) {
+            $input = new ArrayInput([]);
+            $input->setInteractive($this->config->getInputInteractive());
+        }
+
+        $this->config->loadLocalConfigWithPrompt($input, $output);
+    }
+
+    /**
+     * Refresh dependencies on all registered commands.
+     */
+    private function refreshCommandDependencies(): void
+    {
+        foreach ($this->all() as $command) {
+            $this->configureCommand($command);
+        }
+    }
+
+    /**
+     * Configure a command with context and dependencies.
+     */
+    private function configureCommand(BaseCommand $command): void
+    {
+        if ($command instanceof ContextAware) {
+            $command->setContext($this->context);
+        }
+
+        if ($this->booted) {
+            if ($command instanceof CodeCleanerAware && $this->cleaner !== null) {
+                $command->setCodeCleaner($this->cleaner);
+            }
+
+            if ($command instanceof PresenterAware) {
+                $command->setPresenter($this->config->getPresenter());
+            }
+
+            if ($command instanceof ReadlineAware && $this->readline !== null) {
+                $command->setReadline($this->readline);
+            }
         }
     }
 
@@ -230,17 +307,7 @@ class Shell extends Application
         }
 
         if ($ret) {
-            if ($ret instanceof ContextAware) {
-                $ret->setContext($this->context);
-            }
-
-            if ($ret instanceof CodeCleanerAware) {
-                $ret->setCodeCleaner($this->cleaner);
-            }
-
-            if ($ret instanceof PresenterAware) {
-                $ret->setPresenter($this->config->getPresenter());
-            }
+            $this->configureCommand($ret);
 
             if (isset($this->commandsMatcher)) {
                 $this->commandsMatcher->setCommands($this->all());
@@ -271,10 +338,8 @@ class Shell extends Application
     protected function getDefaultCommands(): array
     {
         $sudo = new Command\SudoCommand();
-        $sudo->setReadline($this->readline);
 
         $hist = new Command\HistoryCommand();
-        $hist->setReadline($this->readline);
 
         $doc = new Command\DocCommand();
         $doc->setConfiguration($this->config);
@@ -302,7 +367,6 @@ class Shell extends Application
         // Only add yolo command if UopzReloader is supported
         if (UopzReloader::isSupported()) {
             $yolo = new Command\YoloCommand();
-            $yolo->setReadline($this->readline);
             $commands[] = $yolo;
         }
 
@@ -329,6 +393,8 @@ class Shell extends Application
             new Matcher\ClassAttributesMatcher(),
             new Matcher\ObjectMethodsMatcher(),
             new Matcher\ObjectAttributesMatcher(),
+            new Matcher\MagicMethodsMatcher(),
+            new Matcher\MagicPropertiesMatcher(),
             new Matcher\ClassMethodDefaultParametersMatcher(),
             new Matcher\ObjectMethodDefaultParametersMatcher(),
             new Matcher\FunctionDefaultParametersMatcher(),
@@ -465,7 +531,9 @@ class Shell extends Application
     public function doRun(InputInterface $input, OutputInterface $output): int
     {
         $this->setOutput($output);
+        $this->boot($input, $output);
         $this->resetCodeBuffer();
+        $this->warmAutoloader();
 
         if ($input->isInteractive()) {
             // @todo should it be possible to have raw output in an interactive run?
@@ -617,6 +685,8 @@ class Shell extends Application
      */
     public function getInput(bool $interactive = true)
     {
+        $this->boot();
+
         $this->codeBufferOpen = false;
 
         do {
@@ -972,6 +1042,8 @@ class Shell extends Application
      */
     public function addCode(string $code, bool $silent = false)
     {
+        $this->boot();
+
         try {
             // Code lines ending in \ keep the buffer open
             if (\substr(\rtrim($code), -1) === '\\') {
@@ -1248,6 +1320,8 @@ class Shell extends Application
      */
     public function getNamespace()
     {
+        $this->boot();
+
         if ($namespace = $this->cleaner->getNamespace()) {
             return \implode('\\', $namespace);
         }
@@ -1559,6 +1633,8 @@ class Shell extends Application
      */
     public function execute(string $code, bool $throwExceptions = false)
     {
+        $this->boot();
+
         $this->setCode($code, true);
 
         if ($logger = $this->config->getLogger()) {
