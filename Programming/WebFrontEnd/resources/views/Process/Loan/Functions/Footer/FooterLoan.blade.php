@@ -23,6 +23,42 @@
     const coaID             = document.getElementById("coa_id");
     const remark            = document.getElementById("remark");
 
+    function countLoanTotal() {
+        const principal = parseFloat(loanPrinciple.value.replace(/,/g, '')) || 0;
+        const rate      = parseFloat(lendingRate.value) / 100 || 0;
+        const term      = parseFloat(loanTerm.value) || 0;
+
+        const result = principal * rate * term;
+
+        loanTotal.value = currencyTotal(principal + result);
+    }
+
+    function changeType(element) {
+        if (element.value === "LENDING") {
+            $(`#creditor_name`).css("background-color", "#e9ecef");
+            $(`#creditor_name`).val("QDC Technologies");
+            $(`#creditor_id`).val(123000000000001);
+            $(`#creditor_trigger`).css("cursor", "not-allowed");
+            $(`#creditor_trigger`).prop('disabled', true);
+            $(`#debitor_name`).css("background-color", "#fff");
+            $(`#debitor_name`).val("");
+            $(`#debitor_id`).val("");
+            $(`#debitor_trigger`).css("cursor", "pointer");
+            $(`#debitor_trigger`).prop('disabled', false);
+        } else {
+            $(`#creditor_name`).css("background-color", "#fff");
+            $(`#creditor_name`).val("");
+            $(`#creditor_id`).val("");
+            $(`#creditor_trigger`).css("cursor", "pointer");
+            $(`#creditor_trigger`).prop('disabled', false);
+            $(`#debitor_name`).css("background-color", "#e9ecef");
+            $(`#debitor_name`).val("QDC Technologies");
+            $(`#debitor_id`).val(123000000000001);
+            $(`#debitor_trigger`).css("cursor", "not-allowed");
+            $(`#debitor_trigger`).prop('disabled', true);
+        }
+    }
+
     function chooseSupplierBy(params) {
         clickedAt = params;
     }
@@ -88,10 +124,10 @@
                     loan_term: loanTerm.value,
                     dataInput_Log_FileUpload_1: fileID.value,
                     remark: remark.value,
-                    principle_loan: loanPrinciple.value,
+                    principle_loan: parseFloat(loanPrinciple.value.replace(/,/g, '')),
                     lending_rate: lendingRate.value,
                     currency_id: currencyID.value,
-                    total_loan: loanTotal.value,
+                    total_loan: parseFloat(loanTotal.value.replace(/,/g, '')),
                     loan_date: loanDate.value,
                     loan_type: loanType.value,
                     coa_id: coaID.value

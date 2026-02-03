@@ -67,9 +67,9 @@ class LoanService
                         "items"     => [
                                 [
                                 "entities"      => [
-                                    "principleLoan"                     => (int) $data['principle_loan'],
+                                    "principleLoan"                     => $data['principle_loan'],
                                     "lendingRate"                       => (int) $data['lending_rate'],
-                                    "totalLoan"                         => (int) $data['total_loan'],
+                                    "totalLoan"                         => $data['total_loan'],
                                     "currency_RefID"                    => (int) $data['currency_id'],
                                     "currencyExchangeRate"              => 1,
                                     "chartOfAccount_RefID"              => (int) $data['coa_id'],
@@ -119,9 +119,9 @@ class LoanService
                                 [
                                 "recordID"  => (int) $data['loan_detail_id'],
                                 "entities"  => [
-                                    "principleLoan"                     => (int) $data['principle_loan'],
+                                    "principleLoan"                     => $data['principle_loan'],
                                     "lendingRate"                       => (int) $data['lending_rate'],
-                                    "totalLoan"                         => (int) $data['total_loan'],
+                                    "totalLoan"                         => $data['total_loan'],
                                     "currency_RefID"                    => (int) $data['currency_id'],
                                     "currencyExchangeRate"              => 1,
                                     "chartOfAccount_RefID"              => (int) $data['coa_id'],

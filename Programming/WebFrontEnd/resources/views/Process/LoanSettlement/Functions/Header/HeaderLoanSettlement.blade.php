@@ -63,9 +63,17 @@
 
         <!-- RIGHT -->
         <div class="col-md-12 col-lg-5">
-            <!-- DATE OF DELIVERY -->
+            <!-- LOAN DATE -->
             <div class="row">
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Loan Date</label>
+                <div id="loan_date" class="col-5 d-flex p-0">
+                    : -
+                </div>
+            </div>
+
+            <!-- COA -->
+            <div class="row" style="margin-top: 1rem;">
+                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">COA</label>
                 <div id="loan_date" class="col-5 d-flex p-0">
                     : -
                 </div>

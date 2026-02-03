@@ -32,7 +32,7 @@
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Loan Type</label>
         <div class="col-5 p-0">
           <div id="container_loan_type">
-            <select id="loan_type" class="form-control" name="loan_type" style="border-radius:0;">
+            <select id="loan_type" class="form-control" name="loan_type" onChange="changeType(this);" style="border-radius:0;">
               <option value="select_loan_type" selected disabled>Select Loan Type</option>
               <option value="LENDING" <?= $header['loanType'] == 'Lending' ? 'selected' : ''; ?>>Lending</option>
               <option value="BORROWING" <?= $header['loanType'] == 'Borrowing' ? 'selected' : ''; ?>>Borrowing</option>
@@ -184,62 +184,6 @@
           </div>
         </div>
       </div>
-      
-      <!-- LOAN PRINCIPLE -->
-      <div class="row" style="margin-top: 1rem;">
-        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Loan Principle</label>
-        <div class="col-5 p-0">
-          <input type="text" id="principle_loan" name="principle_loan" value="<?= $header['principleLoan'] ?>" class="form-control number-without-characters" style="border-radius:0;" />
-        </div>
-      </div>
-      <div class="row" id="principle_loan_message" style="margin-top: .3rem; display: none;">
-        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
-        <div class="col-5 p-0 text-red">
-          Loan Principle cannot be empty.
-        </div>
-      </div>
-
-      <!-- LENDING RATE -->
-      <div class="row" style="margin-top: 1rem;">
-        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Lending Rate</label>
-        <div class="col-5 p-0">
-          <input type="text" id="lending_rate" name="lending_rate" value="<?= $header['lendingRate'] ?>" class="form-control number-without-characters" style="border-radius:0;" />
-        </div>
-      </div>
-      <div class="row" id="lending_rate_message" style="margin-top: .3rem; display: none;">
-        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
-        <div class="col-5 p-0 text-red">
-          Lending Rate cannot be empty.
-        </div>
-      </div>
-
-      <!-- LOAN TOTAL -->
-      <div class="row" style="margin-top: 1rem;">
-        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Loan Total</label>
-        <div class="col-5 p-0">
-          <input type="text" id="total_loan" name="total_loan" value="<?= $header['loanTotal'] ?>" class="form-control number-without-characters" style="border-radius:0;" />
-        </div>
-      </div>
-      <div class="row" id="total_loan_message" style="margin-top: .3rem; display: none;">
-        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
-        <div class="col-5 p-0 text-red">
-          Loan Total cannot be empty.
-        </div>
-      </div>
-
-      <!-- LOAN TERM -->
-      <div class="row" style="margin-top: 1rem;">
-        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Loan Term</label>
-        <div class="col-5 p-0">
-          <input type="text" id="loan_term" name="loan_term" value="<?= $header['loanTerm'] ?>" class="form-control number-without-characters" style="border-radius:0;" />
-        </div>
-      </div>
-      <div class="row" id="loan_term_message" style="margin-top: .3rem; display: none;">
-        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
-        <div class="col-5 p-0 text-red">
-          Loan Term cannot be empty.
-        </div>
-      </div>
 
       <!-- COA -->
       <div class="row" style="margin-top: 1rem;">
@@ -262,6 +206,62 @@
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
         <div class="col-5 p-0 text-red">
           COA cannot be empty.
+        </div>
+      </div>
+      
+      <!-- LOAN PRINCIPLE -->
+      <div class="row" style="margin-top: 1rem;">
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Loan Principal</label>
+        <div class="col-5 p-0">
+          <input type="text" id="principle_loan" name="principle_loan" value="<?= number_format($header['principleLoan'], 2, '.', ','); ?>" onKeyUp="countLoanTotal()" class="form-control number-without-negative" style="border-radius:0;" />
+        </div>
+      </div>
+      <div class="row" id="principle_loan_message" style="margin-top: .3rem; display: none;">
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+        <div class="col-5 p-0 text-red">
+          Loan Principle cannot be empty.
+        </div>
+      </div>
+
+      <!-- LENDING RATE -->
+      <div class="row" style="margin-top: 1rem;">
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Lending Rate</label>
+        <div class="col-5 p-0">
+          <input type="text" id="lending_rate" name="lending_rate" value="<?= $header['lendingRate'] ?>" onKeyUp="countLoanTotal()" class="form-control number-without-characters" style="border-radius:0;" />
+        </div>
+      </div>
+      <div class="row" id="lending_rate_message" style="margin-top: .3rem; display: none;">
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+        <div class="col-5 p-0 text-red">
+          Lending Rate cannot be empty.
+        </div>
+      </div>
+
+      <!-- LOAN TERM -->
+      <div class="row" style="margin-top: 1rem;">
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Loan Term</label>
+        <div class="col-5 p-0">
+          <input type="text" id="loan_term" name="loan_term" value="<?= $header['loanTerm'] ?>" onKeyUp="countLoanTotal()" class="form-control number-without-characters" style="border-radius:0;" />
+        </div>
+      </div>
+      <div class="row" id="loan_term_message" style="margin-top: .3rem; display: none;">
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+        <div class="col-5 p-0 text-red">
+          Loan Term cannot be empty.
+        </div>
+      </div>
+
+      <!-- LOAN TOTAL -->
+      <div class="row" style="margin-top: 1rem;">
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Loan Total</label>
+        <div class="col-5 p-0">
+          <input type="text" id="total_loan" name="total_loan" value="<?= number_format($header['loanTotal'], 2, '.', ','); ?>" class="form-control number-without-characters" style="border-radius:0;" readonly />
+        </div>
+      </div>
+      <div class="row" id="total_loan_message" style="margin-top: .3rem; display: none;">
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+        <div class="col-5 p-0 text-red">
+          Loan Total cannot be empty.
         </div>
       </div>
 
