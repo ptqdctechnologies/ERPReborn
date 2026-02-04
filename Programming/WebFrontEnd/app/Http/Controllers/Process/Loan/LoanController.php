@@ -307,7 +307,7 @@ class LoanController extends Controller
                 if ($type === "PDF") {
                     
                 } else if ($type === "EXCEL") {
-
+                    return Excel::download(new ExportReportLoanSummary($dataLoanSummary), 'Export Report Loan Summary.xlsx');
                 } else {
                     throw new \Exception('Failed to Export Loan Summary Report');
                 }

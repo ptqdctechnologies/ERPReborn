@@ -4,6 +4,7 @@
     const budgetCode    = document.getElementById("budget_code");
     const budgetName    = document.getElementById("budget_name");
     const loanDate      = document.getElementById("loan_date_range");
+    const printType     = document.getElementById("print_type");
 
     function getDataReport() {
         ShowLoading();
@@ -116,6 +117,50 @@
                 HideLoading();
                 ErrorNotif("An error occurred while processing the received data. Please try again later.");
                 console.log(`[${textStatus.status}] ${textStatus.responseJSON.message}`);
+            }
+        });
+    }
+
+    function exportDataReport() {
+        ShowLoading();
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            url: '{!! route("Loan.PrintExportReportLoanSummary") !!}',
+            type: 'POST',
+            data: {
+                dataReport,
+                printType: printType.value
+            },
+            xhrFields: { 
+                responseType: 'blob'
+            },
+            success: function(response) {
+                var blob = new Blob([response], { type: response.type });
+                var link = document.createElement('a');
+                link.href = window.URL.createObjectURL(blob);
+
+                if (response.type === "application/pdf") {
+                    link.download = "Export Report Loan Summary.pdf";
+                } else {
+                    link.download = "Export Report Loan Summary.xlsx";
+                }
+
+                link.click();
+
+                window.URL.revokeObjectURL(link.href);
+
+                HideLoading();
+            },
+            error: function(xhr, status, error) {
+                HideLoading();
+                ErrorNotif("An error occurred while processing the received data. Please try again later.");
+                console.log('xhr, status, error', xhr, status, error);
             }
         });
     }
