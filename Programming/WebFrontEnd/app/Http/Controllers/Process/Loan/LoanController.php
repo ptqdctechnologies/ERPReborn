@@ -374,39 +374,6 @@ class LoanController extends Controller
 
             return response()->json(['statusCode' => 400]);
         }
-
-        try {
-            $dataPDF = Session::get("LoanReportSummaryDataPDF");
-            $dataExcel = Session::get("LoanReportSummaryDataExcel");
-
-            
-            if ($dataPDF && $dataExcel) {
-                $print_type = $request->print_type;
-                if ($print_type == "PDF") {
-                    $dataLoan = Session::get("LoanReportSummaryDataPDF");
-                    // dd($dataLoan);
-
-                    $pdf = PDF::loadView('Process.Loan.Reports.ReportLoanSummary_pdf', ['dataLoan' => $dataLoan])->setPaper('a4', 'landscape');
-                    $pdf->output();
-                    $dom_pdf = $pdf->getDomPDF();
-
-                    $canvas = $dom_pdf ->get_canvas();
-                    $width = $canvas->get_width();
-                    $height = $canvas->get_height();
-                    $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
-                    $canvas->page_text(34, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
-
-                    return $pdf->download('Export Report Loan Summary.pdf');
-                } else if ($print_type == "Excel") {
-                    return Excel::download(new ExportReportLoanSummary, 'Export Report Loan Summary.xlsx');
-                }
-            } else {
-                return redirect()->route('Loan.ReportLoanSummary')->with('NotFound', 'Data Cannot Empty');
-            }
-        } catch (\Throwable $th) {
-            Log::error("Error at " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
-        }
     }
 
     public function LoanListData(Request $request)

@@ -361,10 +361,11 @@ class DocumentTypeMapper
                 'transactionType'        => 'LOAN',
                 'businessDocument_RefID' => '',
             ],
-            'Loan Settlement Form' => [
-                'dataHeader'    => [
-                    'dateUpdate'    => null,
-                    'loanSettlementNumber' => 'LNS/QDC/2025/000001',
+            'Loan Settlement Form'  => [
+                'dataHeader'        => [
+                    'dateUpdate'            => null,
+                    'loanSettlementNumber'  => 'LNS/QDC/2025/000001',
+                    'loanNumber'            => 'LN/QDC/2025/000007',
                 ],
                 'dataAdditional'        => [
                     'penaltyValue'      => 4150000.00,
@@ -378,8 +379,8 @@ class DocumentTypeMapper
                     'text'          => '-',
                 ],
                 'components'    => [
-                    'detail'        => 'Components.LoanSettlementDetailDocument',
-                    'table'         => 'Components.LoanSettlementDetailDocumentTable',
+                    'detail'    => 'Components.LoanSettlementDetailDocument',
+                    'table'     => 'Components.LoanSettlementDetailDocumentTable',
                     // 'additional'    => 'Components.LoanSettlementAddtionalDocument'
                 ],
                 'resubmit'      => [

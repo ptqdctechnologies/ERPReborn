@@ -81,7 +81,7 @@
 
             <!-- COA -->
             <div class="row" style="margin-top: 1rem;">
-                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">COA</label>
+                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">COA Loan</label>
                 <div id="loan_coa" class="col-5 d-flex p-0">
                     : -
                 </div>
