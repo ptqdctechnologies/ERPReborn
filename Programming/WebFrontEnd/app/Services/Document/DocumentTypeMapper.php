@@ -66,6 +66,11 @@ class DocumentTypeMapper
                 'key'       => 'transaction.read.dataList.supplyChain.getDeliveryOrderDetail',
                 'parameter' => ['deliveryOrder_RefID' => (int) $referenceId],
             ],
+            'Journal Form' => [
+                'key'                       => '',
+                'parameter'                 => [],
+                'businessDocument_RefID'    => (int) 74000000021494,
+            ],
             'Loan Form' => [
                 'key'                       => '',
                 'parameter'                 => [],
@@ -330,6 +335,26 @@ class DocumentTypeMapper
                 ],
                 'transactionType'        => 'DELIVERY ORDER',
                 'businessDocument_RefID' => $dataDetail['businessDocument_RefID'] ?? '',
+            ],
+            'Journal Form' => [
+                'dataHeader'    => [
+                    'dateUpdate'    => null
+                ],
+                // 'textAreaFields'    => [
+                //     'title'         => 'Notes',
+                //     'text'          => '-',
+                // ],
+                'components'    => [
+                    'detail'    => 'Components.JournalDetailDocument',
+                    'table'     => 'Components.JournalDetailDocumentTable',
+                ],
+                'resubmit'      => [
+                    'url'       => '',
+                    'name'      => '',
+                    'value'     => ''
+                ],
+                'transactionType'        => 'CASH & BANK',
+                'businessDocument_RefID' => '',
             ],
             'Loan Form' => [
                 'dataHeader'    => [
@@ -832,7 +857,8 @@ class DocumentTypeMapper
             'Credit Note Form'              => 'Documents.Transactions.LogTransaction.LogTransactionCreditNote',
             'Debit Note Form'               => 'Documents.Transactions.LogTransaction.LogTransactionDebitNote',
             'Delivery Order Form'           => 'Documents.Transactions.LogTransaction.LogTransactionDeliveryOrder',
-            'Payment Instruction Form'      => 'Documents.Transactions.LogTransaction.LogTransactionAccountPayable',
+            'Journal Form'                  => 'Documents.Transactions.LogTransaction.LogTransactionJournal',
+            'Payment Instruction Form'      => 'Documents.Transactions.LogTransaction.LogTransactionAccountPayable', 
             'Purchase Order Form'           => 'Documents.Transactions.LogTransaction.LogTransactionPurchaseOrder',
             'Purchase Requisition Form'     => 'Documents.Transactions.LogTransaction.LogTransactionPurchaseRequisition',
             'Reimbursement Form'            => 'Documents.Transactions.LogTransaction.LogTransactionReimbursement',
