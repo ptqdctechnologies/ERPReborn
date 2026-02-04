@@ -1,49 +1,125 @@
-<!-- LEFT COLUMN -->
-<div class="col-12 col-md-6 col-lg-6">
-    <div class="form-group">
-        <!-- LOAN SETTLEMENT NUMBER -->
-        <div class="row" style="margin-bottom: 1rem;">
-            <div class="col-4 col-sm-4 col-md-3 col-lg-4 text-bold" style="line-height: normal;">
-                Loan Settlement Number
-            </div>
-            <div class="col">
-                : <?= $dataHeader['loanSettlementNumber']; ?>
-            </div>
+<div class="col-sm-12 col-md-4">
+    <!-- LOAN SETTLEMENT NUMBER -->
+    <div class="row" style="margin-bottom: 1rem; line-height: 16px;">
+        <div class="col-sm-4 col-md-4 p-0 text-bold">
+            Loan Settlement Number
         </div>
+        <div class="col-sm-8 col-md-8 p-0">
+            : <?= $dataHeader['loanSettlementNumber']; ?>
+        </div>
+    </div>
 
-        <!-- CURRENCY -->
-        <div class="row">
-            <div class="col-4 col-sm-4 col-md-3 col-lg-4 text-bold" style="line-height: normal;">
-                Currency
-            </div>
-            <div class="col">
-                : IDR
-            </div>
+    <!-- LOAN NUMBER -->
+    <div class="row" style="margin-bottom: 1rem; line-height: 16px;">
+        <div class="col-sm-4 col-md-4 p-0 text-bold">
+            Loan Number
+        </div>
+        <div class="col-sm-8 col-md-8 p-0">
+            : <?= $dataHeader['loanNumber']; ?>
+        </div>
+    </div>
+
+    <!-- LOAN NUMBER -->
+    <div class="row" style="margin-bottom: 1rem; line-height: 16px;">
+        <div class="col-sm-4 col-md-4 p-0 text-bold">
+            Loan Type
+        </div>
+        <div class="col-sm-8 col-md-8 p-0">
+            : -
+        </div>
+    </div>
+    
+    <!-- BUDGET -->
+    <div class="row" style="line-height: 16px;">
+        <div class="col-sm-4 col-md-4 p-0 text-bold">
+            Budget
+        </div>
+        <div class="col-sm-8 col-md-8 p-0">
+            : -
         </div>
     </div>
 </div>
 
-<!-- RIGHT COLUMN -->
-<div class="col-12 col-md-5 col-lg-5">
-    <div class="form-group">
-        <!-- CREDITORS -->
-        <div class="row" style="margin-bottom: 1rem;">
-            <div class="col-4 col-sm-4 col-md-3 col-lg-3 text-bold" style="line-height: normal;">
-                Creditors
-            </div>
-            <div class="col">
-                : PT QDC Technologies
-            </div>
+<div class="col-sm-12 col-md-4">
+    <!-- LOAN PRINCIPAL -->
+    <div class="row" style="margin-bottom: 1rem; line-height: 16px;">
+        <div class="col-sm-4 col-md-3 p-0 text-bold">
+            Loan Principal
         </div>
+        <div class="col-sm-8 col-md-8 p-0">
+            : -
+        </div>
+    </div>
 
-        <!-- DEBITORS -->
-        <div class="row">
-            <div class="col-4 col-sm-4 col-md-3 col-lg-3 text-bold" style="line-height: normal;">
-                Debitors
-            </div>
-            <div class="col">
-                : Ajeng Supratna
-            </div>
+    <!-- LENDING RATE -->
+    <div class="row" style="margin-bottom: 1rem; line-height: 16px;">
+        <div class="col-sm-4 col-md-3 p-0 text-bold">
+            Lending Rate
+        </div>
+        <div class="col-sm-8 col-md-8 p-0">
+            : -
+        </div>
+    </div>
+
+    <!-- LOAN TERM -->
+    <div class="row" style="margin-bottom: 1rem; line-height: 16px;">
+        <div class="col-sm-4 col-md-3 p-0 text-bold">
+            Loan Term
+        </div>
+        <div class="col-sm-8 col-md-8 p-0">
+            : -
+        </div>
+    </div>
+
+    <!-- LENDING TOTAL -->
+    <div class="row" style="line-height: 16px;">
+        <div class="col-sm-4 col-md-3 p-0 text-bold">
+            Lending Total
+        </div>
+        <div class="col-sm-8 col-md-8 p-0">
+            : -
+        </div>
+    </div>
+</div>
+
+<div class="col-sm-12 col-md-3">
+    <!-- CURRENCY -->
+    <div class="row" style="margin-bottom: 1rem; line-height: 16px;">
+        <div class="col-sm-4 col-md-4 p-0 text-bold">
+            Currency
+        </div>
+        <div class="col-sm-8 col-md-8 p-0">
+            : -
+        </div>
+    </div>
+
+    <!-- CREDITOR -->
+    <div class="row" style="margin-bottom: 1rem; line-height: 16px;">
+        <div class="col-sm-4 col-md-4 p-0 text-bold">
+            Creditor
+        </div>
+        <div class="col-sm-8 col-md-8 p-0">
+            : -
+        </div>
+    </div>
+
+    <!-- DEBITOR -->
+    <div class="row" style="margin-bottom: 1rem; line-height: 16px;">
+        <div class="col-sm-4 col-md-4 p-0 text-bold">
+            Debitor
+        </div>
+        <div class="col-sm-8 col-md-8 p-0">
+            : -
+        </div>
+    </div>
+
+    <!-- ACCOUNT NUMBER -->
+    <div class="row" style="line-height: 16px;">
+        <div class="col-sm-4 col-md-4 p-0 text-bold">
+            Account Number
+        </div>
+        <div class="col-sm-8 col-md-8 p-0">
+            : -
         </div>
     </div>
 </div>

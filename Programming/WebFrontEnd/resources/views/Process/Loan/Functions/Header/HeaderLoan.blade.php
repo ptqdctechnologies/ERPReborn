@@ -2,13 +2,38 @@
   <div class="row py-3" style="gap: 1rem;">
     <!-- LEFT -->
     <div class="col-md-12 col-lg-5">
-      <!-- LOAN TYPE -->
+      <!-- BUDGET -->
       <div class="row">
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Budget Code</label>
+        <div class="col-5 d-flex p-0">
+          <div>
+            <span style="border-radius:0;" class="input-group-text form-control">
+              <a href="javascript:;" id="myProjectTrigger" data-toggle="modal" data-target="#myProjects" style="display: block;">
+                <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="myProjectTrigger">
+              </a>
+
+              <div id="loadingBudget" class="spinner-border spinner-border-sm" role="status" style="display: none;">
+                <span class="sr-only">Loading...</span>
+              </div>
+            </span>
+          </div>
+          <div style="flex: 100%;">
+            <div class="input-group">
+              <input id="project_name" style="border-radius:0; background-color: white;" class="form-control" readonly>
+              <input id="project_code" style="border-radius:0;" class="form-control" hidden>
+              <input id="project_id" style="border-radius:0;" class="form-control" hidden>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- LOAN TYPE -->
+      <div class="row" style="margin-top: 1rem;">
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Loan Type</label>
         <div class="col-5 p-0">
           <div id="container_loan_type">
-            <select id="loan_type" class="form-control" name="loan_type" style="border-radius:0;">
-              <option value="select_loan_type" selected disabled>Select Loan Type</option>
+            <select id="loan_type" class="form-control" name="loan_type" onChange="changeType(this);" style="border-radius:0;">
+              <option value="Select a Type" selected disabled>Select Loan Type</option>
               <option value="LENDING">Lending</option>
               <option value="BORROWING">Borrowing</option>
             </select>
@@ -95,7 +120,7 @@
       </div>
 
       <!-- BANK NAME -->
-      <div class="row" style="margin-top: 1rem;">
+      <!-- <div class="row" style="margin-top: 1rem;">
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Bank Name</label>
         <div class="col-5 d-flex p-0">
           <div>
@@ -116,7 +141,7 @@
         <div class="col-5 p-0 text-red">
           Bank Name cannot be empty.
         </div>
-      </div>
+      </div> -->
 
       <!-- ACCOUNT NUMBER -->
       <div class="row" style="margin-top: 1rem;">
@@ -145,7 +170,7 @@
 
     <!-- RIGHT -->
     <div class="col-md-12 col-lg-5">
-      <!-- DATE OF DELIVERY -->
+      <!-- LOAN DATE -->
       <div class="row">
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Loan Date</label>
         <div class="col-5 p-0 input-group date" id="loanDate" data-target-input="nearest" style="flex-wrap: nowrap;">
@@ -155,64 +180,14 @@
             </div>
           </div>
           <div style="flex: 100%;">
-            <input type="text" class="form-control datetimepicker-input" name="loanDate" id="loanDate" data-target="#loanDate" autocomplete="off" style="border-radius: unset;" />
+            <input type="text" class="form-control datetimepicker-input" name="loanDate" id="loanDates" data-target="#loanDate" autocomplete="off" style="border-radius: unset;" />
           </div>
         </div>
       </div>
-      
-      <!-- LOAN PRINCIPLE -->
-      <div class="row" style="margin-top: 1rem;">
-        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Loan Principle</label>
-        <div class="col-5 p-0">
-          <input type="text" id="principle_loan" name="principle_loan" class="form-control number-without-characters" style="border-radius:0;" />
-        </div>
-      </div>
-      <div class="row" id="principle_loan_message" style="margin-top: .3rem; display: none;">
+      <div class="row" id="loan_date_message" style="margin-top: .3rem; display: none;">
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
         <div class="col-5 p-0 text-red">
-          Loan Principle cannot be empty.
-        </div>
-      </div>
-
-      <!-- LENDING RATE -->
-      <div class="row" style="margin-top: 1rem;">
-        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Lending Rate</label>
-        <div class="col-5 p-0">
-          <input type="text" id="lending_rate" name="lending_rate" class="form-control number-without-characters" style="border-radius:0;" />
-        </div>
-      </div>
-      <div class="row" id="lending_rate_message" style="margin-top: .3rem; display: none;">
-        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
-        <div class="col-5 p-0 text-red">
-          Lending Rate cannot be empty.
-        </div>
-      </div>
-
-      <!-- LOAN TOTAL -->
-      <div class="row" style="margin-top: 1rem;">
-        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Loan Total</label>
-        <div class="col-5 p-0">
-          <input type="text" id="total_loan" name="total_loan" class="form-control number-without-characters" style="border-radius:0;" />
-        </div>
-      </div>
-      <div class="row" id="total_loan_message" style="margin-top: .3rem; display: none;">
-        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
-        <div class="col-5 p-0 text-red">
-          Loan Total cannot be empty.
-        </div>
-      </div>
-
-      <!-- LOAN TERM -->
-      <div class="row" style="margin-top: 1rem;">
-        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Loan Term</label>
-        <div class="col-5 p-0">
-          <input type="text" id="loan_term" name="loan_term" class="form-control number-without-characters" style="border-radius:0;" />
-        </div>
-      </div>
-      <div class="row" id="loan_term_message" style="margin-top: .3rem; display: none;">
-        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
-        <div class="col-5 p-0 text-red">
-          Loan Term cannot be empty.
+          Loan Date cannot be empty.
         </div>
       </div>
 
@@ -237,6 +212,62 @@
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
         <div class="col-5 p-0 text-red">
           COA cannot be empty.
+        </div>
+      </div>
+      
+      <!-- LOAN PRINCIPLE -->
+      <div class="row" style="margin-top: 1rem;">
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Loan Principal</label>
+        <div class="col-5 p-0">
+          <input type="text" id="principle_loan" name="principle_loan" class="form-control number-without-negative" onKeyUp="countLoanTotal()" style="border-radius:0;" />
+        </div>
+      </div>
+      <div class="row" id="principle_loan_message" style="margin-top: .3rem; display: none;">
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+        <div class="col-5 p-0 text-red">
+          Loan Principle cannot be empty.
+        </div>
+      </div>
+
+      <!-- LENDING RATE -->
+      <div class="row" style="margin-top: 1rem;">
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Lending Rate</label>
+        <div class="col-5 p-0">
+          <input type="text" id="lending_rate" name="lending_rate" class="form-control number-without-characters" onKeyUp="countLoanTotal()" style="border-radius:0;" />
+        </div>
+      </div>
+      <div class="row" id="lending_rate_message" style="margin-top: .3rem; display: none;">
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+        <div class="col-5 p-0 text-red">
+          Lending Rate cannot be empty.
+        </div>
+      </div>
+
+      <!-- LOAN TERM -->
+      <div class="row" style="margin-top: 1rem;">
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Loan Term</label>
+        <div class="col-5 p-0">
+          <input type="text" id="loan_term" name="loan_term" class="form-control number-without-characters" onKeyUp="countLoanTotal()" style="border-radius:0;" />
+        </div>
+      </div>
+      <div class="row" id="loan_term_message" style="margin-top: .3rem; display: none;">
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+        <div class="col-5 p-0 text-red">
+          Loan Term cannot be empty.
+        </div>
+      </div>
+
+      <!-- LOAN TOTAL -->
+      <div class="row" style="margin-top: 1rem;">
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Loan Total</label>
+        <div class="col-5 p-0">
+          <input type="text" id="total_loan" name="total_loan" class="form-control number-without-characters" readonly style="border-radius:0;" />
+        </div>
+      </div>
+      <div class="row" id="total_loan_message" style="margin-top: .3rem; display: none;">
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+        <div class="col-5 p-0 text-red">
+          Loan Total cannot be empty.
         </div>
       </div>
 

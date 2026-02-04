@@ -43,18 +43,19 @@
                     $(`#loan_id`).val(id);
                     $(`#loan_name`).val(name);
                     $(`#loan_name`).css({'background-color': '#e9ecef', 'border': '1px solid #ced4da'});
-                    $(`#loan_type`).text(': -');
-                    $(`#loan_credit_debit`).text(': -');
-                    $(`#loan_currency`).text(`: ${res[0].ISOCode}`);
-                    $(`#loan_bank`).text(': -');
-                    $(`#loan_account_bank`).text(': -');
-                    $(`#loan_date`).text(': -');
-                    $(`#loan_principle`).text(`: ${parseInt(res[0].PrincipleLoan)}`);
-                    $(`#loan_lending_rate`).text(`: ${parseInt(res[0].LendingRate)}`);
-                    $(`#loan_total`).text(': -');
-                    $(`#loan_term`).text(': -');
+                    $(`#loan_type`).text(`: ${res[0].LoanType}`);
+                    $(`#loan_credit`).text(`: ${res[0].CreditorName}`);
+                    $(`#loan_debit`).text(`: ${res[0].DebitorName}`);
+                    $(`#loan_currency`).text(`: ${res[0].ISOCode} - ${res[0].CurrencyName}`);
+                    $(`#loan_account_bank`).text(`: ${res[0].BankAccountNumber} - ${res[0].BankAccountName}`);
+                    $(`#loan_date`).text(`: ${res[0].LoanDate}`);
+                    $(`#loan_coa`).text(`: ${res[0].COA_Code} - ${res[0].COA_Name}`);
+                    $(`#loan_principle`).text(`: ${currencyTotal(res[0].PrincipleLoan)}`);
+                    $(`#loan_lending_rate`).text(`: ${res[0].LendingRate}`);
+                    $(`#loan_total`).text(`: ${currencyTotal(res[0].TotalLoan)}`);
+                    $(`#loan_term`).text(`: ${res[0].LoanTerm}`);
                     $(`#loan_remark`).text(`: ${res[0].Notes}`);
-                    $(`#total_loan`).val(0);
+                    $(`#total_loan`).val(currencyTotal(res[0].TotalLoan));
                     $(`#total_settlement`).val(0);
                     $(`#total_unsettlement`).val(0);
                     $(`#total_balance`).val(0);
@@ -84,9 +85,9 @@
                 dataInput_Log_FileUpload_1: dataInputLogFileUpload1.value,
                 notes: remark.value,
                 loanDetail_RefID: dataLoan.loanDetailRefID,
-                principleSettlement: principleSettlement.value,
-                penaltySettlement: penaltySettlement.value,
-                interestSettlement: interestSettlement.value,
+                principleSettlement: parseFloat(principleSettlement.value.replace(/,/g, '')),
+                penaltySettlement: parseFloat(penaltySettlement.value.replace(/,/g, '')),
+                interestSettlement: parseFloat(interestSettlement.value.replace(/,/g, '')),
                 currency_RefID: dataLoan.currencyRefID,
                 currencyExchangeRate: dataLoan.currencyExchangeRate,
                 chartOfAccount_Settlement_RefID: chartOfAccountSettlementRefID.value,

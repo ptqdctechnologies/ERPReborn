@@ -1,25 +1,141 @@
 <script>
-    let clickedBy   = "";
-    let dataStore   = [];
+    let clickedBy           = "";
+    let dataStore           = [];
+    let totalNextApprover   = 0;
+    let dataWorkflow        = {
+        workFlowPathRefID: null,
+        approverEntityRefID: null,
+        comment: null
+    };
+    const loanDetailRefID   = {!! json_encode($loanDetailRefID ?? 0) !!};
+    const documentTypeID    = document.getElementById("DocumentTypeID");
+    const budgetID          = document.getElementById("project_id");
+    const loanType          = document.getElementById("loan_type");
+    const accountNumberID   = document.getElementById("bank_account_id");
+    const creditorID        = document.getElementById("creditor_id");
+    const debitorID         = document.getElementById("debitor_id");
+    const currencyID        = document.getElementById("currency_id");
+    const loanDate          = document.getElementById("loanDates");
+    const loanPrinciple     = document.getElementById("principle_loan");
+    const fileID            = document.getElementById("dataInput_Log_FileUpload");
+    const lendingRate       = document.getElementById("lending_rate");
+    const loanTotal         = document.getElementById("total_loan");
+    const loanTerm          = document.getElementById("loan_term");
+    const coaID             = document.getElementById("coa_id");
+    const remark            = document.getElementById("remark");
+
+    function countLoanTotal() {
+        const principal = parseFloat(loanPrinciple.value.replace(/,/g, '')) || 0;
+        const rate      = parseFloat(lendingRate.value) / 100 || 0;
+        const term      = parseFloat(loanTerm.value) || 0;
+
+        const result = principal * rate * term;
+
+        loanTotal.value = currencyTotal(principal + result);
+    }
+
+    function changeType(element) {
+        if (element.value === "LENDING") {
+            $(`#creditor_name`).css("background-color", "#e9ecef");
+            $(`#creditor_name`).val("QDC Technologies");
+            $(`#creditor_id`).val(123000000000001);
+            $(`#creditor_trigger`).css("cursor", "not-allowed");
+            $(`#creditor_trigger`).prop('disabled', true);
+            $(`#debitor_name`).css("background-color", "#fff");
+            $(`#debitor_name`).val("");
+            $(`#debitor_id`).val("");
+            $(`#debitor_trigger`).css("cursor", "pointer");
+            $(`#debitor_trigger`).prop('disabled', false);
+        } else {
+            $(`#creditor_name`).css("background-color", "#fff");
+            $(`#creditor_name`).val("");
+            $(`#creditor_id`).val("");
+            $(`#creditor_trigger`).css("cursor", "pointer");
+            $(`#creditor_trigger`).prop('disabled', false);
+            $(`#debitor_name`).css("background-color", "#e9ecef");
+            $(`#debitor_name`).val("QDC Technologies");
+            $(`#debitor_id`).val(123000000000001);
+            $(`#debitor_trigger`).css("cursor", "not-allowed");
+            $(`#debitor_trigger`).prop('disabled', true);
+        }
+    }
 
     function chooseSupplierBy(params) {
         clickedBy = params;
     }
 
-    function submitForm() {
-        let action = $('#loan_form').attr("action");
-        let form_data = new FormData($('#loan_form')[0]);
+    function getWorkflow(combinedBudgetRefID, combinedBudgetCode, combinedBudgetName) {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
 
+        $.ajax({
+            type: 'POST',
+            data: {
+                businessDocumentType_RefID: documentTypeID.value,
+                combinedBudget_RefID: combinedBudgetRefID
+            },
+            url: '{!! route("GetWorkflow") !!}',
+            success: function(response) {
+                if (response.status === 200) {
+                    totalNextApprover = response.data[0].nextApproverPath.length;
+                    dataWorkflow.workFlowPathRefID = response.data[0].sys_ID;
+                    dataWorkflow.approverEntityRefID = response.data[0].submitterEntity_RefID;
+
+                    getWorkflows(response.data[0].nextApproverPath);
+
+                    $("#var_combinedBudget_RefID").val(combinedBudgetRefID);
+                    $("#project_id").val(combinedBudgetRefID);
+                    $("#project_code").val(combinedBudgetCode);
+                    $("#project_name").val(`${combinedBudgetCode} - ${combinedBudgetName}`);
+                    $("#project_name").css({"background-color":"#e9ecef"});
+                } else {
+                    Swal.fire("Error", "Workflow Error", "error");
+                }
+
+                $("#loadingBudget").css({"display":"none"});
+                $("#myProjectTrigger").css({"display":"block"});
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.log('jqXHR, textStatus, errorThrown', jqXHR, textStatus, errorThrown);
+                Swal.fire("Error", "Data Error", "error");
+
+                $("#loadingBudget").css({"display":"none"});
+                $("#myProjectTrigger").css({"display":"block"});
+            }
+        });
+    }
+
+    function submitForm() {
         ShowLoading();
 
         $.ajax({
-            url: action,
-            dataType: 'json',
-            cache: false,
-            contentType: false,
-            processData: false,
-            data: form_data,
-            type: 'POST',
+            type: "PUT",
+            data: {
+                workFlowPath_RefID: dataWorkflow.workFlowPathRefID,
+                approverEntity: dataWorkflow.approverEntityRefID, 
+                comment: dataWorkflow.comment,
+                storeData: {
+                    budget_id: budgetID.value,
+                    creditor_id: creditorID.value,
+                    debitor_id: debitorID.value,
+                    bank_account_id: accountNumberID.value,
+                    loan_term: loanTerm.value,
+                    dataInput_Log_FileUpload_1: fileID.value,
+                    remark: remark.value,
+                    principle_loan: parseFloat(loanPrinciple.value.replace(/,/g, '')),
+                    lending_rate: lendingRate.value,
+                    currency_id: currencyID.value,
+                    total_loan: parseFloat(loanTotal.value.replace(/,/g, '')),
+                    loan_date: loanDate.value,
+                    loan_type: loanType.value,
+                    coa_id: coaID.value,
+                    loan_detail_id: loanDetailRefID
+                }
+            },
+            url: `{{ route('Loan.update', $loanRefID) }}`,
             success: function(res) {
                 HideLoading();
                 
@@ -57,8 +173,110 @@
         });
     }
 
+    function commentWorkflow() {
+        const swalWithBootstrapButtons = Swal.mixin({
+            confirmButtonClass: 'btn btn-success btn-sm',
+            cancelButtonClass: 'btn btn-danger btn-sm',
+            buttonsStyling: true,
+        });
+
+        swalWithBootstrapButtons.fire({
+            title: 'Comment',
+            text: "Please write your comment here",
+            type: 'question',
+            input: 'textarea',
+            showCloseButton: false,
+            showCancelButton: true,
+            focusConfirm: false,
+            cancelButtonText: '<span style="color:black;"> Cancel </span>',
+            confirmButtonText: '<span style="color:black;"> OK </span>',
+            cancelButtonColor: '#DDDAD0',
+            confirmButtonColor: '#DDDAD0',
+            reverseButtons: true
+        }).then((result) => {
+            if ('value' in result) {
+                dataWorkflow.comment = result.value;
+                ShowLoading();
+                submitForm();
+            }
+        });
+    }
+
+    function selectWorkflow() {
+        if (totalNextApprover > 1) {
+            $('#myWorkflows').modal('show');
+        } else {
+            commentWorkflow();
+        }
+    }
+
     function validationForm() {
-        submitForm();
+        const isLoanPrincipleNotEmpty   = loanPrinciple.value.trim() !== '';
+        const isLendingRateNotEmpty     = lendingRate.value.trim() !== '';
+        const isLoanTotalNotEmpty       = loanTotal.value.trim() !== '';
+        const isLoanTermNotEmpty        = loanTerm.value.trim() !== '';
+        const isRemarkNotEmpty          = remark.value.trim() !== '';
+
+        if (
+            isLoanPrincipleNotEmpty &&
+            isLendingRateNotEmpty &&
+            isLoanTotalNotEmpty &&
+            isLoanTermNotEmpty &&
+            isRemarkNotEmpty
+        ) {
+            if (budgetID.value.trim() !== '') {
+                selectWorkflow();
+            } else {
+                submitForm();
+            }
+        } else {
+            if (
+                !isLoanPrincipleNotEmpty &&
+                !isLendingRateNotEmpty &&
+                !isLoanTotalNotEmpty &&
+                !isLoanTermNotEmpty &&
+                !isRemarkNotEmpty
+            ) {
+                $("#principle_loan").css("border", "1px solid red");
+                $("#lending_rate").css("border", "1px solid red");
+                $("#total_loan").css("border", "1px solid red");
+                $("#loan_term").css("border", "1px solid red");
+                $("#remark").css("border", "1px solid red");
+                
+                $("#principle_loan_message").show();
+                $("#lending_rate_message").show();
+                $("#total_loan_message").show();
+                $("#loan_term_message").show();
+                $("#remark_message").show();
+
+                return;
+            }
+            if (!isLoanPrincipleNotEmpty) {
+                $("#principle_loan").css("border", "1px solid red");
+                $("#principle_loan_message").show();
+                return;
+            }
+            if (!isLendingRateNotEmpty) {
+                $("#lending_rate").css("border", "1px solid red");
+                $("#lending_rate_message").show();
+                return;
+            }
+            if (!isLoanTotalNotEmpty) {
+                $("#total_loan").css("border", "1px solid red");
+                $("#total_loan_message").show();
+                return;
+            }
+            if (!isLoanTermNotEmpty) {
+                $("#loan_term").css("border", "1px solid red");
+                $("#loan_term_message").show();
+                return;
+            }
+            if (!isRemarkNotEmpty) {
+                $("#remark").css("border", "1px solid red");
+                $("#remark_message").show();
+                return;
+            }
+        }
     }
 
     $('#tableSuppliers').on('click', 'tbody tr', function() {
@@ -152,8 +370,13 @@
     });
 
     $(window).one('load', function(e) {
+        if (budgetID.value) {
+            getWorkflow(budgetID.value, '', '');
+        }
+        getBanksAccount('', '');
+
         $('#loanDate').datetimepicker({
-            format: 'L'
+            format: 'YYYY-MM-DD'
         });
     });
 </script>

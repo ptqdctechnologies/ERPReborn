@@ -88,6 +88,7 @@
                                 render: function (data, type, row, meta) {
                                     return '<td class="align-middle text-center">' +
                                         '<input id="sys_id_bank_account_list' + (meta.row + 1) + '" value="' + data.sys_ID + '" data-trigger="sys_id_bank_account_list" type="hidden">' +
+                                        '<input id="sys_id_bank' + (meta.row + 1) + '" value="' + data.bank_RefID + '" data-trigger="sys_id_bank" type="hidden">' +
                                         (meta.row + 1) +
                                     '</td>';
                                 }

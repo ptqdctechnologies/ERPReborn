@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Process\Loan;
 
+use Carbon\Carbon;
 use App\Http\Controllers\ExportExcel\Process\ExportReportLoanDetail;
 use App\Http\Controllers\ExportExcel\Process\ExportReportLoanSummary;
 use App\Http\Controllers\ExportExcel\Process\ExportReportLoantoLoanSettlement;
@@ -17,12 +18,16 @@ use App\Helpers\ZhtHelper\Cache\Helper_Redis;
 use Maatwebsite\Excel\Facades\Excel;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Services\Process\Loan\LoanService;
+use App\Services\WorkflowService;
 
 class LoanController extends Controller
 {
-    public function __construct(LoanService $loanService)
+    protected $advanceRequestService, $workflowService;
+
+    public function __construct(LoanService $loanService, WorkflowService $workflowService)
     {
-        $this->loanService  = $loanService;
+        $this->loanService      = $loanService;
+        $this->workflowService  = $workflowService;
     }
 
     public function index(Request $request)
@@ -47,10 +52,22 @@ class LoanController extends Controller
                 throw new \Exception('Failed to fetch Create Loan');
             }
 
+            if ($request->budget_id) {
+                $responseWorkflow = $this->workflowService->submit(
+                    $response['data']['businessDocument']['businessDocument_RefID'],
+                    $request->workFlowPath_RefID,
+                    $request->comment,
+                    $request->approverEntity,
+                );
+
+                if ($responseWorkflow['metadata']['HTTPStatusCode'] !== 200) {
+                    throw new \Exception('Failed to fetch Submit Workflow Create Advance Request => ' . $responseWorkflow['data']['message']);
+                }
+            }
+
             $compact = [
                 "documentNumber"    => $response['data']['businessDocument']['documentNumber'],
-                "status"            => $response['metadata']['HTTPStatusCode'],
-                // "status"            => $responseWorkflow['metadata']['HTTPStatusCode'],
+                "status"            => $request->budget_id ? $responseWorkflow['metadata']['HTTPStatusCode'] : $response['metadata']['HTTPStatusCode'],
             ];
 
             return response()->json($compact);
@@ -108,7 +125,7 @@ class LoanController extends Controller
         try {
             $varAPIWebToken     = Session::get('SessionLogin');
             $loanRefID          = $request->input('modal_loan_id');
-            $documentTypeRefID  = $this->GetBusinessDocumentsTypeFromRedis('Loan Revision Form');
+            $documentTypeRefID  = $this->GetBusinessDocumentsTypeFromRedis('Loan Form'); // Loan Revision Form
 
             $response = $this->loanService->getDetail($loanRefID);
 
@@ -117,23 +134,34 @@ class LoanController extends Controller
             }
 
             $dataLoanDetail = $response['data']['data'];
+            $loanDate       = $dataLoanDetail[0]['LoanDate'] ? Carbon::parse($dataLoanDetail[0]['LoanDate'])->toDateString() : '';
 
             $compact = [
                 'varAPIWebToken'            => $varAPIWebToken,
                 'documentTypeRefID'         => $documentTypeRefID,
-                'loanRefID'                 => $dataLoanDetail[0]['Sys_ID'] ?? '',
+                'loanRefID'                 => $dataLoanDetail[0]['Loan_RefID'] ?? '',
+                'loanDetailRefID'           => $dataLoanDetail[0]['Sys_ID'] ?? '',
                 'header'                    => [
                     'combinedBudgetRefID'   => '',
+                    'loanType'              => $dataLoanDetail[0]['LoanType'] ?? '',
                     'creditorRefID'         => $dataLoanDetail[0]['Creditor_RefID'] ?? '',
                     'creditorName'          => $dataLoanDetail[0]['CreditorName'] ?? '',
                     'debitorRefID'          => $dataLoanDetail[0]['Debitor_RefID'] ?? '',
                     'debitorName'           => $dataLoanDetail[0]['DebitorName'] ?? '',
                     'currencyRefID'         => $dataLoanDetail[0]['Currency_RefID'] ?? '',
                     'currencyCode'          => $dataLoanDetail[0]['ISOCode'] ?? '',
+                    'currencyName'          => $dataLoanDetail[0]['CurrencyName'] ?? '',
+                    'bankAccount_RefID'     => $dataLoanDetail[0]['BankAccount_RefID'] ?? '',
+                    'bankAccountNumber'     => $dataLoanDetail[0]['BankAccountNumber'] ?? '',
+                    'bankAccountName'       => $dataLoanDetail[0]['BankAccountName'] ?? '',
                     'currencyExchangeRate'  => $dataLoanDetail[0]['CurrencyExchangeRate'] ?? '',
                     'principleLoan'         => (int) $dataLoanDetail[0]['PrincipleLoan'] ?? '',
                     'lendingRate'           => (int) $dataLoanDetail[0]['LendingRate'] ?? '',
+                    'loanDate'              => $loanDate,
+                    'loanTotal'             => (int) $dataLoanDetail[0]['TotalLoan'] ?? '',
+                    'loanTerm'              => (int) $dataLoanDetail[0]['LoanTerm'] ?? '',
                     'remark'                => $dataLoanDetail[0]['Notes'] ?? '',
+                    'coaRefID'              => $dataLoanDetail[0]['COA_RefID'] ?? '',
                     'coaName'               => $dataLoanDetail[0]['COA_Name'] ?? '',
                     'coaCode'               => $dataLoanDetail[0]['COA_Code'] ?? '',
                 ]
@@ -149,99 +177,44 @@ class LoanController extends Controller
 
     public function ReportLoantoLoanSettlement(Request $request)
     {
-        $varAPIWebToken = $request->session()->get('SessionLogin');
-        $request->session()->forget("SessionReimbursementNumber");
-        $dataloantosettle = Session::get("LoanSettlementReportSummaryDataPDF");
-
-        if (!empty($_GET['var'])) {
-            $var =  $_GET['var'];
-        }
-        $compact = [
-            'varAPIWebToken' => $varAPIWebToken,
-            'statusRevisi' => 1,
-            'statusHeader' => "Yes",
-            'statusDetail' => 1,
-            'dataHeader' => [],
-            'dataloantosettle' => $dataloantosettle
-        
-        ];
-        // dump($dataloantosettle);
-
-        return view('Process.Loan.Reports.ReportLoantoLoanSettlement', $compact);
-    }
-
-    public function ReportLoantoLoanSettlementData( $project_code)
-    {        
-        try {
-            Log::error("Error at ",[$project_code]);
-
-            $varAPIWebToken = Session::get('SessionLogin');
-
-            $filteredArray = Helper_APICall::setCallAPIGateway(
-                Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'report.form.documentForm.finance.getLoanToLoanSettlementSummary', 
-                'latest',
-                [
-                    'parameter' => [
-                        // 'CombinedBudgetCode' => 'Q000062',
-                        // 'CombinedBudgetSectionCode' => '235',
-                        'CombinedBudgetCode' => NULL,
-                        'CombinedBudgetSectionCode' => NULL,
-                    ],
-                     'SQLStatement' => [
-                        'pick' => null,
-                        'sort' => null,
-                        'filter' => null,
-                        'paging' => null
-                        ]
-                ]
-            );
-            
-            Log::error("Error at " ,$filteredArray);
-            if ($filteredArray['metadata']['HTTPStatusCode'] !== 200) {
-                return redirect()->back()->with('NotFound', 'Process Error');
-
-            }
-            Session::put("LoanSettlementReportSummaryDataPDF", $filteredArray['data']['data']);
-            Session::put("LoanSettlementReportSummaryDataExcel", $filteredArray['data']['data']);
-            return $filteredArray['data']['data'];
-        }
-        catch (\Throwable $th) {
-            Log::error("Error at " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
-        }
+        return view('Process.Loan.Reports.ReportLoantoLoanSettlement');
     }
 
     public function ReportLoantoLoanSettlementStore(Request $request)
     {
-        // tes;
         try {
-            $project_code = $request->project_code_second;
-            // $site_code = $request->site_id_second;
+            $date           = $request->loanToSettlementDate;
+            $budget         = [
+                "id"        => $request->budget_id,
+                "code"      => $request->budget_code,
+            ];
 
-            $statusHeader = "Yes";
-            Log::error("Error at " ,[$request->all()]);
-            if ($project_code == "") {
-                Session::forget("LoanSettlementReportSummaryDataPDF");
-                Session::forget("LoanSettlementReportSummaryDataExcel");
-                
-                return redirect()->route('Loan.ReportLoantoLoanSettlement')->with('NotFound', 'Cannot Empty');
+            $response = $this->loanService->getLoanToLoanSettlementSummary(
+                $budget['code'],
+                null,
+                null,
+                $date
+            );
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                throw new \Exception('Failed to fetch Loan To Loan Settlement Summary Report');
             }
 
-            $compact = $this->ReportLoantoLoanSettlementData($project_code);
-            // dd($compact);
-            // if ($compact['dataHeader'] == []) {
-            //     Session::forget("PReimbursementSummaryReportDataPDF");
-            //     Session::forget("PReimbursementSummaryReportDataExcel");
+            $compact = [
+                'status'    => $response['metadata']['HTTPStatusCode'],
+                'data'      => $response['data']['data']
+            ];
 
-            //     return redirect()->back()->with('NotFound', 'Data Not Found');
-            // }
-
-            return redirect()->route('Loan.ReportLoantoLoanSettlement');
+            return response()->json($compact);
         } catch (\Throwable $th) {
-            Log::error("Error at " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
+            Log::error("Report Loan To Loan Settlement Store Function Error:" . $th->getMessage());
+
+            $compact = [
+                'status'    => 500,
+                'message'   => $th->getMessage()
+            ];
+
+            return response()->json($compact);
         }
     }
 
@@ -283,137 +256,68 @@ class LoanController extends Controller
 
     public function ReportLoanSummary(Request $request)
     {
-        $varAPIWebToken = $request->session()->get('SessionLogin');
-        $request->session()->forget("SessionReimbursementNumber");
-        $dataLoan = Session::get("LoanReportSummaryDataPDF");
-
-        if (!empty($_GET['var'])) {
-            $var =  $_GET['var'];
-        }
-        $compact = [
-            'varAPIWebToken' => $varAPIWebToken,
-            'statusRevisi' => 1,
-            'statusHeader' => "Yes",
-            'statusDetail' => 1,
-            'dataHeader' => [],
-            'dataLoan' => $dataLoan
-        
-        ];
-        // dump($dataLoan);
-
-        return view('Process.Loan.Reports.ReportLoanSummary', $compact);
-    }
-
-    public function ReportLoanSummaryData( $project_code)
-    {        
-        try {
-            Log::error("Error at ",[$project_code]);
-
-            $varAPIWebToken = Session::get('SessionLogin');
-
-            $filteredArray = Helper_APICall::setCallAPIGateway(
-                Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'report.form.documentForm.finance.getLoanSummary', 
-                'latest',
-                [
-                    'parameter' => [
-                        // 'CombinedBudgetCode' => 'Q000062',
-                        // 'Creditor_RefID' => 166000000000001,
-                        // 'Debitor_RefID' => 25000000000001,
-                        'CombinedBudgetCode' => NULL,
-                        'Creditor_RefID' => NULL,
-                        'Debitor_RefID' => NULL,
-                    ],
-                     'SQLStatement' => [
-                        'pick' => null,
-                        'sort' => null,
-                        'filter' => null,
-                        'paging' => null
-                        ]
-                ]
-            );
-            
-            Log::error("Error at " ,$filteredArray);
-            if ($filteredArray['metadata']['HTTPStatusCode'] !== 200) {
-                return redirect()->back()->with('NotFound', 'Process Error');
-
-            }
-            Session::put("LoanReportSummaryDataPDF", $filteredArray['data']['data']);
-            Session::put("LoanReportSummaryDataExcel", $filteredArray['data']['data']);
-            return $filteredArray['data']['data'];
-        }
-        catch (\Throwable $th) {
-            Log::error("Error at " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
-        }
+        return view('Process.Loan.Reports.ReportLoanSummary');
     }
 
     public function ReportLoanSummaryStore(Request $request)
     {
-        // tes;
         try {
-            $project_code = $request->project_code_second;
-            // $site_code = $request->site_id_second;
+            $date           = $request->loanDate;
+            $budget         = [
+                "id"        => $request->budget_id,
+                "code"      => $request->budget_code,
+            ];
 
-            $statusHeader = "Yes";
-            Log::error("Error at " ,[$request->all()]);
-            if ($project_code == "") {
-                Session::forget("LoanReportSummaryDataPDF");
-                Session::forget("LoanReportSummaryDataExcel");
-                
-                return redirect()->route('Loan.ReportLoanSummary')->with('NotFound', 'Cannot Empty');
+            $response = $this->loanService->getLoanSummary(
+                $budget['code'],
+                null,
+                null,
+                $date
+            );
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                throw new \Exception('Failed to fetch Loan Summary Report');
             }
 
-            $compact = $this->ReportLoanSummaryData($project_code);
-            // dd($compact);
-            // if ($compact['dataHeader'] == []) {
-            //     Session::forget("PReimbursementSummaryReportDataPDF");
-            //     Session::forget("PReimbursementSummaryReportDataExcel");
+            $compact = [
+                'status'    => $response['metadata']['HTTPStatusCode'],
+                'data'      => $response['data']['data']
+            ];
 
-            //     return redirect()->back()->with('NotFound', 'Data Not Found');
-            // }
-
-            return redirect()->route('Loan.ReportLoanSummary');
+            return response()->json($compact);
         } catch (\Throwable $th) {
-            Log::error("Error at " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
+            Log::error("Report Loan Store Function Error:" . $th->getMessage());
+
+            $compact = [
+                'status'    => 500,
+                'message'   => $th->getMessage()
+            ];
+
+            return response()->json($compact);
         }
     }
 
     public function PrintExportReportLoanSummary(Request $request)
     {
         try {
-            $dataPDF = Session::get("LoanReportSummaryDataPDF");
-            $dataExcel = Session::get("LoanReportSummaryDataExcel");
+            $dataLoanSummary    = json_decode($request->dataReport, true);
+            $type               = $request->printType;
 
-            
-            if ($dataPDF && $dataExcel) {
-                $print_type = $request->print_type;
-                if ($print_type == "PDF") {
-                    $dataLoan = Session::get("LoanReportSummaryDataPDF");
-                    // dd($dataLoan);
-
-                    $pdf = PDF::loadView('Process.Loan.Reports.ReportLoanSummary_pdf', ['dataLoan' => $dataLoan])->setPaper('a4', 'landscape');
-                    $pdf->output();
-                    $dom_pdf = $pdf->getDomPDF();
-
-                    $canvas = $dom_pdf ->get_canvas();
-                    $width = $canvas->get_width();
-                    $height = $canvas->get_height();
-                    $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
-                    $canvas->page_text(34, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
-
-                    return $pdf->download('Export Report Loan Summary.pdf');
-                } else if ($print_type == "Excel") {
-                    return Excel::download(new ExportReportLoanSummary, 'Export Report Loan Summary.xlsx');
+            if ($dataLoanSummary) {
+                if ($type === "PDF") {
+                    
+                } else if ($type === "EXCEL") {
+                    return Excel::download(new ExportReportLoanSummary($dataLoanSummary), 'Export Report Loan Summary.xlsx');
+                } else {
+                    throw new \Exception('Failed to Export Loan Summary Report');
                 }
             } else {
-                return redirect()->route('Loan.ReportLoanSummary')->with('NotFound', 'Data Cannot Empty');
+                throw new \Exception('Loan Summary Data is Empty');
             }
         } catch (\Throwable $th) {
-            Log::error("Error at " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
+            Log::error("Print Export Report Loan Summary Function Error: " . $th->getMessage());
+
+            return response()->json(['statusCode' => 400]);
         }
     }
 

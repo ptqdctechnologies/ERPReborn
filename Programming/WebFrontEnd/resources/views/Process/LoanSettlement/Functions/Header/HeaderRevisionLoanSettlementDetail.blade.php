@@ -36,7 +36,7 @@
         <!-- CENTER -->
         <div class="col-md-12 col-lg-4">
             <!-- COA SETTLEMENT -->
-            <div class="row" style="margin-bottom: 1rem;">
+            <div class="row" style="margin-bottom: 1rem; visibility: hidden;">
                 <label for="taxi" class="col-sm-3 col-md-4 col-lg-5 col-form-label p-0">COA Settlement</label>
                 <div class="col-sm-9 col-md-8 col-lg-4 d-flex p-0">
                     <div>
