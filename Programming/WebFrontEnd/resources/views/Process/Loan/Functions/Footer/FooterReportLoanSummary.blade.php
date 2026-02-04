@@ -69,7 +69,31 @@
                                 }
                             },
                             {
+                                data: '-',
+                                defaultContent: '-'
+                            },
+                            {
+                                data: '-',
+                                defaultContent: '-'
+                            },
+                            {
                                 data: 'rate',
+                                defaultContent: '-'
+                            },
+                            {
+                                data: 'term',
+                                defaultContent: '-'
+                            },
+                            {
+                                data: '-',
+                                defaultContent: '-'
+                            },
+                            {
+                                data: '-',
+                                defaultContent: '-'
+                            },
+                            {
+                                data: '-',
                                 defaultContent: '-'
                             },
                             {
@@ -86,7 +110,6 @@
                 }
 
                 HideLoading();
-                console.log('response', response);
             },
             error: function (textStatus, errorThrown) {
                 $('#table_summary').DataTable().clear().draw();

@@ -58,25 +58,40 @@
                                 defaultContent: '-'
                             },
                             {
-                                data: null,
-                                defaultContent: '-',
-                                render: function (data, type, row, meta) {
-                                    return currencyTotal(data.total_IDR || 0);
-                                }
+                                data: '-',
+                                defaultContent: '-'
                             },
                             {
-                                data: null,
-                                defaultContent: '-',
-                                render: function (data, type, row, meta) {
-                                    return currencyTotal(data.total_Other_Currency || 0);
-                                }
+                                data: '-',
+                                defaultContent: '-'
                             },
                             {
-                                data: null,
-                                defaultContent: '-',
-                                render: function (data, type, row, meta) {
-                                    return currencyTotal(data.total_Equivalent_IDR || 0);
-                                }
+                                data: '-',
+                                defaultContent: '-'
+                            },
+                            {
+                                data: '-',
+                                defaultContent: '-'
+                            },
+                            {
+                                data: '-',
+                                defaultContent: '-'
+                            },
+                            {
+                                data: '-',
+                                defaultContent: '-'
+                            },
+                            {
+                                data: '-',
+                                defaultContent: '-'
+                            },
+                            {
+                                data: '-',
+                                defaultContent: '-'
+                            },
+                            {
+                                data: '-',
+                                defaultContent: '-'
                             },
                             {
                                 data: 'notes',
