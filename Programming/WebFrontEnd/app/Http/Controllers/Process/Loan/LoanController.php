@@ -142,7 +142,9 @@ class LoanController extends Controller
                 'loanRefID'                 => $dataLoanDetail[0]['Loan_RefID'] ?? '',
                 'loanDetailRefID'           => $dataLoanDetail[0]['Sys_ID'] ?? '',
                 'header'                    => [
-                    'combinedBudgetRefID'   => '',
+                    'combinedBudgetRefID'   => $dataLoanDetail[0]['CombinedBudget_RefID'] ?? '',
+                    'combinedBudgetName'    => $dataLoanDetail[0]['CombinedBudgetName'] ?? '',
+                    'combinedBudgetCode'    => $dataLoanDetail[0]['CombinedBudgetCode'] ?? '',
                     'loanType'              => $dataLoanDetail[0]['LoanType'] ?? '',
                     'creditorRefID'         => $dataLoanDetail[0]['Creditor_RefID'] ?? '',
                     'creditorName'          => $dataLoanDetail[0]['CreditorName'] ?? '',

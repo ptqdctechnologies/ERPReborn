@@ -19,8 +19,8 @@
           </div>
           <div style="flex: 100%;">
             <div class="input-group">
-              <input id="project_name" style="border-radius:0;" class="form-control" readonly>
-              <input id="project_code" style="border-radius:0;" class="form-control" hidden>
+              <input id="project_name" style="border-radius:0;" class="form-control" value="<?= $header['combinedBudgetCode'] . ' - ' . $header['combinedBudgetName'] ?>" readonly>
+              <input id="project_code" style="border-radius:0;" class="form-control" value="<?= $header['combinedBudgetCode'] ?>" hidden>
               <input id="project_id" style="border-radius:0;" class="form-control" value="<?= $header['combinedBudgetRefID'] ?>" hidden>
             </div>
           </div>

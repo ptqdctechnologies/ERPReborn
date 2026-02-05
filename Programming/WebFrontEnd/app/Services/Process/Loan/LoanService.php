@@ -73,7 +73,7 @@ class LoanService
                                     "currency_RefID"                    => (int) $data['currency_id'],
                                     "currencyExchangeRate"              => 1,
                                     "chartOfAccount_RefID"              => (int) $data['coa_id'],
-                                    "combinedBudgetSectionDetail_RefID" => null,
+                                    "combinedBudget_RefID"              => (int) $data['budget_id']
                                     ]
                                 ]
                             ]
@@ -125,7 +125,7 @@ class LoanService
                                     "currency_RefID"                    => (int) $data['currency_id'],
                                     "currencyExchangeRate"              => 1,
                                     "chartOfAccount_RefID"              => (int) $data['coa_id'],
-                                    "combinedBudgetSectionDetail_RefID" => NULL,
+                                    "combinedBudget_RefID"              => (int) $data['budget_id']
                                     ]
                                 ],
                             ]
