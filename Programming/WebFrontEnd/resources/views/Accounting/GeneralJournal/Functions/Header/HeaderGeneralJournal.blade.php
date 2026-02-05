@@ -2,7 +2,7 @@
 <div class="card-body">
     <div class="row py-3" style="gap: 15px;">
         <!-- LEFT -->
-        <div class="col-md-12 col-lg-5">
+        <div class="col-md-12 col-lg-3">
             <!-- JOURNAL TYPE -->
             <div class="row">
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Journal Type</label>
@@ -96,28 +96,45 @@
             </div>
         </div>
 
-        <!-- RIGHT -->
-        <div class="col-md-12 col-lg-5">
-            <!-- TOTAL UNSETTLE -->
+        <!-- MIDDLE -->
+        <div class="col-md-12 col-lg-3">
+            <!-- TOTAL UNPOSTED JOURNAL -->
             <div class="row detail-journal-settlement" style="display: none;">
-                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Total Unsettle</label>
+                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Total Unposted Journal</label>
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div>
                         <div class="input-group">
-                            <input id="total_unsettle_settlement" class="form-control" size="16" readonly style="border-radius:0; cursor: default;" />
+                            <input id="total_unposted_journal" class="form-control" size="16" readonly style="border-radius:0; cursor: default;" />
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- VIEW DETAIL -->
+            <!-- TOTAL SETTLEMENT -->
             <div class="row detail-journal-settlement" style="margin-top: 1rem; display: none;">
-                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
-                <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0" data-toggle="modal" data-target="#journalSettlementModal" style="color: blue; cursor: pointer;">
-                    <i class="fas fa-link"></i>
-                    <div style="padding-left: 6px;">
-                        View Detail
+                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Total Settlement</label>
+                <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                    <div>
+                        <div class="input-group">
+                            <input id="total_settlement" class="form-control" size="16" readonly style="border-radius:0; cursor: default;" />
+                            <!-- <input id="total_unsettle_settlement" class="form-control" size="16" readonly style="border-radius:0; cursor: default;" /> -->
+                        </div>
                     </div>
                 </div>
+            </div>
+        </div>
+
+        <!-- RIGHT -->
+        <div class="col-md-12 col-lg-3">
+            <!-- VIEW DETAIL -->
+            <div class="row detail-journal-settlement" style="display: none;">
+                <div class="col-sm-3 col-md-4 col-lg-4 col-form-label d-flex p-0" data-toggle="modal" data-target="#journalSettlementModal" style="cursor: pointer;">
+                    <!-- <i class="fas fa-link"></i> -->
+                    <i class="fas fa-file" style="color: #187dd0;"></i>
+                    <div style="padding-left: 6px;">
+                        View Settlement Detail
+                    </div>
+                </div>
+                <label class="col-sm-9 col-md-8 col-lg-7 p-0"></label>
             </div>
         </div>
     </div>

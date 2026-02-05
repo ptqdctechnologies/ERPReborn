@@ -462,7 +462,8 @@
                     $("#detail_attachment_information").append(divInputFile);
                     $('#total_unsettle_settlement').val(totalUnsettle);
                     $('#detail_transaction_table').css("width", "100%");
-                    $('#total_settlement').text(currencyTotal(totalAdvanceSettlement));
+                    $('#total_settlement').val(currencyTotal(totalAdvanceSettlement));
+                    // $('#total_settlement').text(currencyTotal(totalAdvanceSettlement));
                 }
             },
             error: function(xhr, status, error) {
