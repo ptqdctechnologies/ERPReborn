@@ -30,7 +30,15 @@ class GeneralJournalController extends Controller
 
     public function show($id) {}
 
-    public function edit($id) {}
+    public function RevisionGeneralJournal(Request $request) 
+    {
+        $varAPIWebToken     = Session::get('SessionLogin');
+        $generalJournalID   = $request->input('modal_general_journal_id');
+
+        return view('Accounting.GeneralJournal.Transactions.RevisionGeneralJournal', [
+            'varAPIWebToken'        => $varAPIWebToken
+        ]);
+    }
 
     public function update(Request $request, $id) {}
 

@@ -248,6 +248,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::resource('Journal', 'Accounting\JournalController');
 
     // GENERAL JOURNAL
+    Route::post('RevisionGeneralJournal', 'Accounting\GeneralJournalController@RevisionGeneralJournal')->name('GeneralJournal.Revision');
     Route::resource('GeneralJournal', 'Accounting\GeneralJournalController');
 
     // ADVANCE REQUEST
