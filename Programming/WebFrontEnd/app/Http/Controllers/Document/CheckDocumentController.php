@@ -413,13 +413,13 @@ class CheckDocumentController extends Controller
                         'data' => [
                             [
                                 'sys_ID'    => 12345678,
-                                'sys_Text'  => 'JNL/QDC/2025/000001',
+                                'sys_Text'  => 'CNB/QDC/2025/000001',
                                 'combinedBudgetCode' => 'Q000196',
                                 'combinedBudgetSectionCode' => 'Q000062 ► 235'
                             ],
                             [
                                 'sys_ID'    => 23456781,
-                                'sys_Text'  => 'JNL/QDC/2025/000002',
+                                'sys_Text'  => 'CNB/QDC/2025/000002',
                                 'combinedBudgetCode' => 'Q000196',
                                 'combinedBudgetSectionCode' => 'Q000062 ► 235'
                             ],
