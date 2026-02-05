@@ -255,7 +255,7 @@
                     <td>
                         <div class="input-group">
                             <div class="input-group-append">
-                                <span class="input-group-text form-control" data-toggle="modal" data-target="#myGetChartOfAccount" onclick="pickCOA(${index})" style="cursor:pointer;">
+                                <span id="chartOfAccountTrigger${index}" class="input-group-text form-control" data-toggle="modal" data-target="#myGetChartOfAccount" onclick="pickCOA(${index})" style="cursor:pointer;">
                                     <i class="fas fa-gift"></i>
                                 </span>
                             </div>
@@ -638,11 +638,21 @@
     $('#tableAllTransactions').on('click', 'tbody tr', function() {
         if (currentIndexPickRefNumber === null) return null;
         
-        const sysId         = $(this).find('input[data-trigger="sys_id_transaction"]').val();
-        // const sysIdBudget   = $(this).find('input[data-trigger="sys_id_transaction"]').val();
-        const trano         = $(this).find('td:nth-child(2)').text();
-        const project       = $(this).find('td:nth-child(3)').text();
-        const site          = $(this).find('td:nth-child(4)').text();
+        const sysId     = $(this).find('input[data-trigger="sys_id_transaction"]').val();
+        const trano     = $(this).find('td:nth-child(2)').text();
+        const project   = $(this).find('td:nth-child(3)').text();
+        const site      = $(this).find('td:nth-child(4)').text();
+        const findID    = sysId.substring(0, 3);
+
+        if (findID == "211" || findID == "293") {
+            $(`#chartOfAccountName${currentIndexPickRefNumber}`).css('background-color', '#e9ecef');
+            $(`#chartOfAccountTrigger${currentIndexPickRefNumber}`).css('cursor', 'not-allowed');
+            $(`#chartOfAccountTrigger${currentIndexPickRefNumber}`).prop('disabled', true);
+        } else {
+            $(`#chartOfAccountName${currentIndexPickRefNumber}`).css('background-color', 'white');
+            $(`#chartOfAccountTrigger${currentIndexPickRefNumber}`).css('cursor', 'pointer');
+            $(`#chartOfAccountTrigger${currentIndexPickRefNumber}`).prop('disabled', false);
+        }
 
         $(`#ref_number_id${currentIndexPickRefNumber}`).val(sysId);
         $(`#ref_number_name${currentIndexPickRefNumber}`).val(trano);
