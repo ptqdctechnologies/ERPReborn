@@ -29,6 +29,19 @@
                     });
                     $(`#depreciationYears${indexDepreciationRateYears}`).prop("disabled", false);
 
+                    $(`#depreciationRate${indexDepreciationRateYears}`).each(function () {
+                        $(this).html(`
+                            <option value="" disabled ${!data[0]?.rate? 'selected': ''}>Select a Years</option>
+                            <option value="5" ${data[0]?.rate == '5' ? 'selected': ''}>5</option>
+                            <option value="6.25" ${data[0]?.rate == '6.25' ? 'selected': ''}>6.25</option>
+                            <option value="10" ${data[0]?.rate == '10' ? 'selected': ''}>10</option>
+                            <option value="12.5" ${data[0]?.rate == '12.5' ? 'selected': ''}>12.5</option>
+                            <option value="25" ${data[0]?.rate == '25' ? 'selected': ''}>25</option>
+                            <option value="50" ${data[0]?.rate == '50' ? 'selected': ''}>50</option>
+                        `);
+                    });
+                    $(`#depreciationRate${indexDepreciationRateYears}`).prop("disabled", false);
+
                     // depreciationRateYearsIDValue = data[0]?.sys_ID;
                     // depreciationRateValue = data[0]?.rate;
                     // depreciationYearsValue = data[0]?.period;
@@ -36,7 +49,7 @@
                     // $('#depreciation_rate_years_id').val(data[0]?.sys_ID);
                     // $(`#depreciationRate${indexDepreciationRateYears}`).removeAttr("readonly");
 
-                    $(`#depreciationRate${indexDepreciationRateYears}`).val(data[0]?.rate);
+                    // $(`#depreciationRate${indexDepreciationRateYears}`).val(data[0]?.rate);
 
                     // $(`#depreciationYears${indexDepreciationRateYears}`).removeAttr("readonly");
                     // $(`#depreciationYears${indexDepreciationRateYears}`).val(data[0]?.period); 
@@ -122,6 +135,38 @@
         }
     }
 
+    function onChangeDepreciationRate(index) {
+        const selectMethod = document.getElementById(`depreciationMethod${index}`);
+        const selectYears  = document.getElementById(`depreciationYears${index}`);
+        const selectRate   = document.getElementById(`depreciationRate${index}`);
+
+        if (selectMethod.value == '298000000000001') {
+            if (selectRate.value == '25') {
+                selectYears.value = '4';
+            } else if (selectRate.value == '12.5') {
+                selectYears.value = '8';
+            } else if (selectRate.value == '6.25') {
+                selectYears.value = '16';
+            } else if (selectRate.value == '5') {
+                selectYears.value = '20';
+            } else if (selectRate.value == '10' || selectRate.value == '50') {
+                selectYears.value = '';
+            }
+        } else {
+            if (selectRate.value == '50') {
+                selectYears.value = '4';
+            } else if (selectRate.value == '25') {
+                selectYears.value = '8';
+            } else if (selectRate.value == '12.5') {
+                selectYears.value = '16';
+            } else if (selectRate.value == '10') {
+                selectYears.value = '20';
+            } else if (selectRate.value == '5' || selectRate.value == '6.25') {
+                selectYears.value = '';
+            }
+        }
+    }
+
     function onTriggerDepreciationMethod(params) {
         valueTriggerDepreciationMethod = params;
     }
@@ -142,6 +187,8 @@
             success: function(data) {
                 $("#journal_fixed_asset_loading_table").hide();
 
+                console.log('data.data', data.data);
+
                 if (data.status === 200 && Array.isArray(data.data) && data.data.length > 0) {
                     $.each(data.data, function(key, val) {
                         if (val.asset == 1) {
@@ -155,6 +202,9 @@
                                     </td>
                                     <td style="text-align: center;">
                                         ${val.productCode || ''} - ${val.productName || ''}
+                                    </td>
+                                    <td style="text-align: center;">
+                                        ${val.productUnitPriceCurrencyValue || ''}
                                     </td>
                                     <td style="text-align: center;">
                                         <div class="input-group">
@@ -180,7 +230,9 @@
                                         </select>
                                     </td>
                                     <td style="text-align: center;">
-                                        <input id="depreciationRate${key}" class="form-control number-without-negative" style="border-radius:0px;" readonly />
+                                        <select class="form-control" id="depreciationRate${key}" onChange="onChangeDepreciationRate(${key})" disabled>
+                                            <option value="">Select a Rate</option>
+                                        </select>
                                     </td>
                                     <td style="text-align: center;">
                                         <div class="input-group">
@@ -203,12 +255,13 @@
                                         </select>
                                     </td>
                                     <td style="text-align: center;padding-right: .3rem;">
-                                        <input id="value${key}" class="form-control number-without-negative" data-index='' autocomplete="off" style="border-radius:0px;" />
+                                        <input id="value${key}" class="form-control number-without-negative" data-index='' autocomplete="off" readonly style="border-radius:0px;" />
                                     </td>
                                 </tr>
                             `;
 
                             // <input id="depreciationYears${key}" class="form-control number-without-negative" style="border-radius:0px;" readonly />
+                            // <input id="depreciationRate${key}" class="form-control number-without-negative" style="border-radius:0px;" readonly />
 
                             $('#journal_fixed_asset_table tbody').append(row);
                         }

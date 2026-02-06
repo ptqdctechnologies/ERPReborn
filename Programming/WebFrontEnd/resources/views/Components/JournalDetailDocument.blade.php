@@ -42,7 +42,7 @@
                 Account Number
             </div>
             <div class="col">
-                : (BCA) 5520537742 - Annisa Dewi Arumsari
+                : (BCA) 5520537742 - QDC Technologies
             </div>
         </div>
     </div>

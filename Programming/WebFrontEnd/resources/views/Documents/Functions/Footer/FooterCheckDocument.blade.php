@@ -107,6 +107,7 @@
                         $('#DocumentType').append('<option value="' + document.sys_ID + '" data-name="' + document.name + '">' + document.name + '</option>');
                     });
 
+                    $('#DocumentType').append('<option value="' + 67812345 + '" data-name="General Journal Form">General Journal Form</option>');
                     $('#DocumentType').append('<option value="' + 34567812 + '" data-name="Loan Form">Loan Form</option>');
                     $('#DocumentType').append('<option value="' + 45678123 + '" data-name="Loan Settlement Form">Loan Settlement Form</option>');
                     $('#DocumentType').append('<option value="' + 56781234 + '" data-name="Modify Budget Form">Modify Budget Form</option>');
@@ -133,24 +134,24 @@
         $('#mySearchCheckDocument').modal('hide');
 
         if (sysIdDocumentType != "null" && sysIdCombinedBudget != "null") {
-            $('#loadingDocTracking').show();
-            $('.mySearchCheckDocument').hide();
+            // $('#loadingDocTracking').show();
+            // $('.mySearchCheckDocument').hide();
             $("#businessDocument_RefID").val("");
             $("#businessDocumentType_Name").val("");
             $("#businessDocumentNumber").val("");
 
-            const validate = await checkingWorkflow(sysIdDocumentType, sysIdCombinedBudget);
-            if (validate) {
+            // const validate = await checkingWorkflow(sysIdDocumentType, sysIdCombinedBudget);
+            // if (validate) {
                 $('.mySearchCheckDocument').show();
                 $('#loadingDocTracking').hide();
 
                 $("#businessDocument_RefID").val(sysId);
                 $("#businessDocumentType_Name").val(docTypeName);
                 $("#businessDocumentNumber").val(trano);
-            } else {
-                $('.mySearchCheckDocument').show();
-                $('#loadingDocTracking').hide();
-            }
+            // } else {
+            //     $('.mySearchCheckDocument').show();
+            //     $('#loadingDocTracking').hide();
+            // }
         } else {
             $("#businessDocument_RefID").val(sysId);
             $("#businessDocumentType_Name").val(docTypeName);
