@@ -4721,7 +4721,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         | ▪ Method Name     : getReport_Form_DocumentForm_LoanSettlementSummary                                                    |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-09-25                                                                                           |
+        | ▪ Last Update     : 2026-02-06                                                                                           |
         | ▪ Creation Date   : 2025-09-25                                                                                           |
         | ▪ Description     : Mendapatkan Laporan Form - Form Dokumen Loan Settlement                                              |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -4729,7 +4729,6 @@ namespace App\Models\Database\SchData_OLTP_Finance
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ▪ (string)    varCombinedBudgetCode ► Combined Budget Code                                                          |
-        |      ▪ (string)    varCombinedBudgetSectionCode ► Combined Budget Section Code                                           |
         |      ▪ (int)    varCreditor_RefID ► Creditor_RefID                                                                       |
         |      ▪ (int)    varDebitor_RefID ► Debitor_RefID                                                                         |
         | ▪ Output Variable :                                                                                                      |
@@ -4737,7 +4736,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_DocumentForm_LoanSettlementSummary(
-            $varUserSession, int $varSysBranch_RefID, string  $varCombinedBudgetCode = null, string  $varCombinedBudgetSectionCode = null, int $varCreditor_RefID = null, int $varDebitor_RefID = null
+            $varUserSession, int $varSysBranch_RefID, string  $varCombinedBudgetCode = null, int $varCreditor_RefID = null, int $varDebitor_RefID = null
             )
             {
             try {
@@ -4749,7 +4748,6 @@ namespace App\Models\Database\SchData_OLTP_Finance
                             'SchData-OLTP-Finance.Func_GetReport_DocForm_LoanSettlementSummary',
                             [
                                 [$varCombinedBudgetCode, 'varchar' ],
-                                [$varCombinedBudgetSectionCode, 'varchar' ],
                                 [$varCreditor_RefID, 'bigint' ],
                                 [$varDebitor_RefID, 'bigint' ],
                             ]
@@ -4769,7 +4767,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         | ▪ Method Name     : getReport_Form_DocumentForm_LoanToLoanSettlementSummary                                              |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-09-29                                                                                           |
+        | ▪ Last Update     : 2026-02-06                                                                                           |
         | ▪ Creation Date   : 2025-09-29                                                                                           |
         | ▪ Description     : Mendapatkan Laporan Form - Form Dokumen Loan To Loan Settlement                                      |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -4794,8 +4792,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
                             $varUserSession,
                             'SchData-OLTP-Finance.Func_GetReport_DocForm_LoanToLoanSettlementSummary',
                             [
-                                [$varCombinedBudgetCode, 'varchar' ],
-                                [$varCombinedBudgetSectionCode, 'varchar' ],
+                                [$varCombinedBudgetCode, 'varchar' ]
                             ]
                             )
                         );
