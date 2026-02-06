@@ -9,6 +9,7 @@ use Brick\Math\Exception\IntegerOverflowException;
 use Brick\Math\Exception\MathException;
 use Brick\Math\Exception\NegativeNumberException;
 use Brick\Math\Exception\NumberFormatException;
+use Brick\Math\Exception\RoundingNecessaryException;
 use Brick\Math\Internal\Calculator;
 use Brick\Math\Internal\CalculatorRegistry;
 use InvalidArgumentException;
@@ -18,7 +19,9 @@ use Override;
 use function assert;
 use function bin2hex;
 use function chr;
+use function count_chars;
 use function filter_var;
+use function func_num_args;
 use function hex2bin;
 use function in_array;
 use function intdiv;
@@ -38,10 +41,9 @@ use const E_USER_DEPRECATED;
 use const FILTER_VALIDATE_INT;
 
 /**
- * An arbitrary-size integer.
+ * An arbitrarily large integer number.
  *
- * All methods accepting a number as a parameter accept either a BigInteger instance,
- * an integer, or a string representing an arbitrary size integer.
+ * This class is immutable.
  */
 final readonly class BigInteger extends BigNumber
 {
@@ -87,7 +89,7 @@ final readonly class BigInteger extends BigNumber
     public static function fromBase(string $number, int $base): BigInteger
     {
         if ($number === '') {
-            throw new NumberFormatException('The number cannot be empty.');
+            throw new NumberFormatException('The number must not be empty.');
         }
 
         if ($base < 2 || $base > 36) {
@@ -105,7 +107,7 @@ final readonly class BigInteger extends BigNumber
         }
 
         if ($number === '') {
-            throw new NumberFormatException('The number cannot be empty.');
+            throw new NumberFormatException('The number must not be empty.');
         }
 
         $number = ltrim($number, '0');
@@ -145,20 +147,24 @@ final readonly class BigInteger extends BigNumber
      * @param string $alphabet The alphabet, for example '01' for base 2, or '01234567' for base 8.
      *
      * @throws NumberFormatException    If the given number is empty or contains invalid chars for the given alphabet.
-     * @throws InvalidArgumentException If the alphabet does not contain at least 2 chars.
+     * @throws InvalidArgumentException If the alphabet does not contain at least 2 chars, or contains duplicates.
      *
      * @pure
      */
     public static function fromArbitraryBase(string $number, string $alphabet): BigInteger
     {
         if ($number === '') {
-            throw new NumberFormatException('The number cannot be empty.');
+            throw new NumberFormatException('The number must not be empty.');
         }
 
         $base = strlen($alphabet);
 
         if ($base < 2) {
             throw new InvalidArgumentException('The alphabet must contain at least 2 chars.');
+        }
+
+        if (strlen(count_chars($alphabet, 3)) !== $base) {
+            throw new InvalidArgumentException('The alphabet must not contain duplicate chars.');
         }
 
         $pattern = '/[^' . preg_quote($alphabet, '/') . ']/';
@@ -231,7 +237,7 @@ final readonly class BigInteger extends BigNumber
     public static function randomBits(int $numBits, ?callable $randomBytesGenerator = null): BigInteger
     {
         if ($numBits < 0) {
-            throw new InvalidArgumentException('The number of bits cannot be negative.');
+            throw new InvalidArgumentException('The number of bits must not be negative.');
         }
 
         if ($numBits === 0) {
@@ -277,7 +283,7 @@ final readonly class BigInteger extends BigNumber
         $max = BigInteger::of($max);
 
         if ($min->isGreaterThan($max)) {
-            throw new MathException('$min cannot be greater than $max.');
+            throw new MathException('$min must be less than or equal to $max.');
         }
 
         if ($min->isEqualTo($max)) {
@@ -804,41 +810,82 @@ final readonly class BigInteger extends BigNumber
     }
 
     /**
-     * Returns the integer square root number of this number, rounded down.
+     * Returns the integer square root of this number, rounded according to the given rounding mode.
      *
-     * The result is the largest x such that x² ≤ n.
+     * @param RoundingMode $roundingMode The rounding mode to use, defaults to Down.
+     *                                   ⚠️ WARNING: the default rounding mode was kept as Down for backward
+     *                                   compatibility, but will change to Unnecessary in version 0.15. Pass a rounding
+     *                                   mode explicitly to avoid this upcoming breaking change.
      *
-     * @throws NegativeNumberException If this number is negative.
+     * @throws NegativeNumberException    If this number is negative.
+     * @throws RoundingNecessaryException If RoundingMode::Unnecessary is used, and the number is not a perfect square.
      *
      * @pure
      */
-    public function sqrt(): BigInteger
+    public function sqrt(RoundingMode $roundingMode = RoundingMode::Down): BigInteger
     {
+        if (func_num_args() === 0) {
+            // @phpstan-ignore-next-line
+            trigger_error(
+                'The default rounding mode of BigInteger::sqrt() will change from Down to Unnecessary in version 0.15. ' .
+                'Pass a rounding mode explicitly to avoid this breaking change.',
+                E_USER_DEPRECATED,
+            );
+        }
+
         if ($this->value[0] === '-') {
             throw new NegativeNumberException('Cannot calculate the square root of a negative number.');
         }
 
-        $value = CalculatorRegistry::get()->sqrt($this->value);
+        $calculator = CalculatorRegistry::get();
 
-        return new BigInteger($value);
+        $sqrt = $calculator->sqrt($this->value);
+
+        // For Down and Floor (equivalent for non-negative numbers), return floor sqrt
+        if ($roundingMode === RoundingMode::Down || $roundingMode === RoundingMode::Floor) {
+            return new BigInteger($sqrt);
+        }
+
+        // Check if the sqrt is exact
+        $s2 = $calculator->mul($sqrt, $sqrt);
+        $remainder = $calculator->sub($this->value, $s2);
+
+        if ($remainder === '0') {
+            // sqrt is exact
+            return new BigInteger($sqrt);
+        }
+
+        // sqrt is not exact
+        if ($roundingMode === RoundingMode::Unnecessary) {
+            throw RoundingNecessaryException::roundingNecessary();
+        }
+
+        // For Up and Ceiling (equivalent for non-negative numbers), round up
+        if ($roundingMode === RoundingMode::Up || $roundingMode === RoundingMode::Ceiling) {
+            return new BigInteger($calculator->add($sqrt, '1'));
+        }
+
+        // For Half* modes, compare our number to the midpoint of the interval [s², (s+1)²[.
+        // The midpoint is s² + s + 0.5. Comparing n >= s² + s + 0.5 with remainder = n − s²
+        // is equivalent to comparing 2*remainder >= 2*s + 1.
+        $twoRemainder = $calculator->mul($remainder, '2');
+        $threshold = $calculator->add($calculator->mul($sqrt, '2'), '1');
+        $cmp = $calculator->cmp($twoRemainder, $threshold);
+
+        // We're supposed to increment (round up) when:
+        //   - HalfUp, HalfCeiling => $cmp >= 0
+        //   - HalfDown, HalfFloor => $cmp > 0
+        //   - HalfEven => $cmp > 0 || ($cmp === 0 && $sqrt % 2 === 1)
+        // But 2*remainder is always even and 2*s + 1 is always odd, so $cmp is never zero.
+        // Therefore, all Half* modes simplify to:
+        if ($cmp > 0) {
+            $sqrt = $calculator->add($sqrt, '1');
+        }
+
+        return new BigInteger($sqrt);
     }
 
-    /**
-     * Returns the absolute value of this number.
-     *
-     * @pure
-     */
-    public function abs(): BigInteger
-    {
-        return $this->isNegative() ? $this->negated() : $this;
-    }
-
-    /**
-     * Returns the inverse of this number.
-     *
-     * @pure
-     */
-    public function negated(): BigInteger
+    public function negated(): static
     {
         return new BigInteger(CalculatorRegistry::get()->neg($this->value));
     }
@@ -1118,7 +1165,7 @@ final readonly class BigInteger extends BigNumber
      * @param string $alphabet The alphabet, for example '01' for base 2, or '01234567' for base 8.
      *
      * @throws NegativeNumberException  If this number is negative.
-     * @throws InvalidArgumentException If the given alphabet does not contain at least 2 chars.
+     * @throws InvalidArgumentException If the alphabet does not contain at least 2 chars, or contains duplicates.
      *
      * @pure
      */
@@ -1128,6 +1175,10 @@ final readonly class BigInteger extends BigNumber
 
         if ($base < 2) {
             throw new InvalidArgumentException('The alphabet must contain at least 2 chars.');
+        }
+
+        if (strlen(count_chars($alphabet, 3)) !== $base) {
+            throw new InvalidArgumentException('The alphabet must not contain duplicate chars.');
         }
 
         if ($this->value[0] === '-') {

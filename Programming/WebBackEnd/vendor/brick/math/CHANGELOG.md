@@ -2,6 +2,32 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.14.6](https://github.com/brick/math/releases/tag/0.14.6) - 2026-02-05
+
+🗑️ **Deprecations**
+
+- Not passing a `$scale` to `BigDecimal::dividedBy()` is deprecated; **`$scale` will be required in 0.15**
+
+👌 **Improvements**
+
+- `BigRational::toFloat()` never returns `NAN` anymore
+
+## [0.14.5](https://github.com/brick/math/releases/tag/0.14.5) - 2026-02-03
+
+🗑️ **Deprecations**
+
+- Not passing a rounding mode to `BigInteger::sqrt()` and `BigDecimal::sqrt()` triggers a deprecation notice: **the default rounding mode will change from `Down` to `Unnecessary` in 0.15**
+
+✨ **New features**
+
+- `BigInteger::sqrt()` and `BigDecimal::sqrt()` now support rounding
+- `abs()` and `negated()` methods are now available on the base `BigNumber` class
+
+👌 **Improvements**
+
+- Alphabet is now checked for duplicate characters in `BigInteger::(from|to)ArbitraryBase()`
+- `BigNumber::ofNullable()` is now marked as `@pure`
+
 ## [0.14.4](https://github.com/brick/math/releases/tag/0.14.4) - 2026-02-02
 
 🗑️ **Deprecations**
