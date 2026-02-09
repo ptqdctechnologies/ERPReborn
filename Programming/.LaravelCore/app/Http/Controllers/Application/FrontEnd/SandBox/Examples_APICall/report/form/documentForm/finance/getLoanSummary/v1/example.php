@@ -21,7 +21,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
         |                     ► http://172.28.0.4/report.form.documentForm.finance.getLoanSummary.v1_throughAPIGateway             |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-09-15                                                                                           |
+        | ▪ Last Update     : 2026-02-09                                                                                           |
         | ▪ Creation Date   : 2025-09-15                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -39,12 +39,16 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
                 'latest',
                 [
                 'parameter' => [
-                    'CombinedBudgetCode' => 'Q000062',
+                    'CombinedBudgetCode' => 'Q000055',
                     'Creditor_RefID' => 166000000000001,
                     'Debitor_RefID' => 25000000000001,
+                    'StartDate' => '2026-01-01',
+                    'EndDate' => '2026-06-15',
                     // 'CombinedBudgetCode' => NULL,
                     // 'Creditor_RefID' => NULL,
                     // 'Debitor_RefID' => NULL,
+                    // 'StartDate' => NULL,
+                    // 'EndDate' => NULL,
                     ]
                 ]
                 );

@@ -4,7 +4,7 @@
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
 | ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\documentForm\finance                         |
-|                \getLoanSummary\v1                                                                                          |
+|                \getLoanSummary\v1                                                                                                |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2025 ijonk7 (rizal.devapps@gmail.com)                                                                               |
 +----------------------------------------------------------------------------------------------------------------------------------+
@@ -13,8 +13,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\do
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : getLoanSummary                                                                                         |
-    | ▪ Description : Menangani API report.form.documentForm.finance.getLoanSummary Version 1                                |
+    | ▪ Class Name  : getLoanSummary                                                                                               |
+    | ▪ Description : Menangani API report.form.documentForm.finance.getLoanSummary Version 1                                      |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
     class getLoanSummary extends \App\Http\Controllers\Controller
@@ -45,7 +45,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\do
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000001                                                                                       |
         | ▪ Create date     : 2025-09-15                                                                                           |
-        | ▪ Last Update     : 2025-09-15                                                                                           |
+        | ▪ Last Update     : 2026-02-09                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -68,7 +68,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\do
                             (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
                             $varData['parameter']['CombinedBudgetCode'],
                             $varData['parameter']['Creditor_RefID'],
-                            $varData['parameter']['Debitor_RefID']
+                            $varData['parameter']['Debitor_RefID'],
+                            $varData['parameter']['StartDate'],
+                            $varData['parameter']['EndDate']
                             ))))
                             {
                             throw new \Exception();

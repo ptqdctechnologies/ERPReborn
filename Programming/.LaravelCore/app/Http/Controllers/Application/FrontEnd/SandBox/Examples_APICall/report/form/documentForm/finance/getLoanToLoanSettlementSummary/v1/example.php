@@ -21,7 +21,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
         |                     ► http://172.28.0.4/report.form.documentForm.finance.getLoanToLoanSettlementSummary.v1_throughAPIGateway  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-09-29                                                                                           |
+        | ▪ Last Update     : 2026-02-06                                                                                           |
         | ▪ Creation Date   : 2025-09-29                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -39,10 +39,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
                 'latest',
                 [
                 'parameter' => [
-                    // 'CombinedBudgetCode' => 'Q000062',
-                    // 'CombinedBudgetSectionCode' => '235',
+                    // 'CombinedBudgetCode' => 'Q000055',
                     'CombinedBudgetCode' => NULL,
-                    'CombinedBudgetSectionCode' => NULL,
                     ]
                 ]
                 );

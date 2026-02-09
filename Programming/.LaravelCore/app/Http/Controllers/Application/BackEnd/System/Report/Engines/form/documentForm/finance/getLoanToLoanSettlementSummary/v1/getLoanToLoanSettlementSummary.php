@@ -44,7 +44,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\do
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Create date     : 2025-09-29                                                                                           |
+        | ▪ Create date     : 2026-02-06                                                                                           |
         | ▪ Last Update     : 2025-09-29                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -66,8 +66,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\do
                         if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, (new \App\Models\Database\SchData_OLTP_Finance\General())->getReport_Form_DocumentForm_LoanToLoanSettlementSummary(
                             $varUserSession, 
                             (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
-                            $varData['parameter']['CombinedBudgetCode'],
-                            $varData['parameter']['CombinedBudgetSectionCode']
+                            $varData['parameter']['CombinedBudgetCode']
                             ))))
                             {
                             throw new \Exception();
