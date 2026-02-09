@@ -4676,7 +4676,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         | ▪ Method Name     : getReport_Form_DocumentForm_LoanSummary                                                              |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-09-15                                                                                           |
+        | ▪ Last Update     : 2026-02-09                                                                                           |
         | ▪ Creation Date   : 2025-09-15                                                                                           |
         | ▪ Description     : Mendapatkan Laporan Form - Form Dokumen Loan                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -4691,7 +4691,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_DocumentForm_LoanSummary(
-            $varUserSession, int $varSysBranch_RefID, string  $varCombinedBudgetCode = null, int $varCreditor_RefID = null, int $varDebitor_RefID = null
+            $varUserSession, int $varSysBranch_RefID, string  $varCombinedBudgetCode = null, int $varCreditor_RefID = null, int $varDebitor_RefID = null, string  $varStartDate = null, string  $varEndDate = null,
             )
             {
             try {
@@ -4705,6 +4705,8 @@ namespace App\Models\Database\SchData_OLTP_Finance
                                 [$varCombinedBudgetCode, 'varchar' ],
                                 [$varCreditor_RefID, 'bigint' ],
                                 [$varDebitor_RefID, 'bigint' ],
+                                [$varStartDate, 'varchar'],
+                                [$varEndDate, 'varchar'],
                             ]
                             )
                         );
