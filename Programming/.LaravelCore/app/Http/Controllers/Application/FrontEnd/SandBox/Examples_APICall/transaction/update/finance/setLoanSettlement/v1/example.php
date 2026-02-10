@@ -21,7 +21,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         |                     ► http://172.28.0.4/transaction.update.finance.setLoanSettlement.v1_throughAPIGateway                |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-09-23                                                                                           |
+        | ▪ Last Update     : 2026-02-10                                                                                           |
         | ▪ Creation Date   : 2025-09-16                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -57,7 +57,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                         "currencyExchangeRate" => 1,
                                         "chartOfAccount_Settlement_RefID" => 65000000000005,
                                         "chartOfAccount_Penalty_RefID" => 65000000000005,
-                                        "chartOfAccount_Interest_RefID" => 65000000000005
+                                        "chartOfAccount_Interest_RefID" => 65000000000005,
+                                        "combinedBudget_RefID" => 46000000000010
                                         ]
                                     ],
                                 ]
