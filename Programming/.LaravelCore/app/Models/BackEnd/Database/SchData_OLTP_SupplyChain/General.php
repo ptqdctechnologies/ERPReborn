@@ -4517,7 +4517,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : getReport_Form_DocumentForm_DeliveryOrderSummary                                               |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-07-08                                                                                           |
+        | ▪ Last Update     : 2026-02-12                                                                                           |
         | ▪ Creation Date   : 2025-07-08                                                                                           |
         | ▪ Description     : Mendapatkan Laporan Form - Form Dokumen DeliveryOrder                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -4532,7 +4532,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_DocumentForm_DeliveryOrderSummary(
-            $varUserSession, int $varSysBranch_RefID, string  $varCombinedBudgetCode = null, string $varCombinedBudgetSectionCode = null, int $varWarehouse_RefID = null
+            $varUserSession, int $varSysBranch_RefID, string  $varCombinedBudgetCode = null, string $varCombinedBudgetSectionCode = null, int $varWarehouse_RefID = null, string  $varStartDate = null, string  $varEndDate = null
             )
             {
             try {
@@ -4546,6 +4546,8 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                                 [$varCombinedBudgetCode, 'varchar' ],
                                 [$varCombinedBudgetSectionCode, 'varchar' ],
                                 [$varWarehouse_RefID, 'bigint' ],
+                                [$varStartDate, 'varchar'],
+                                [$varEndDate, 'varchar'],
                             ]
                             )
                         );
