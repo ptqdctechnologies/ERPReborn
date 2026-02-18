@@ -4514,10 +4514,10 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getReport_Form_DocumentForm_DeliveryOrderSummary                                               |
+        | ▪ Method Name     : getReport_Form_DocumentForm_DeliveryOrderSummary                                                     |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-07-08                                                                                           |
+        | ▪ Last Update     : 2026-02-12                                                                                           |
         | ▪ Creation Date   : 2025-07-08                                                                                           |
         | ▪ Description     : Mendapatkan Laporan Form - Form Dokumen DeliveryOrder                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -4532,7 +4532,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_DocumentForm_DeliveryOrderSummary(
-            $varUserSession, int $varSysBranch_RefID, string  $varCombinedBudgetCode = null, string $varCombinedBudgetSectionCode = null, int $varWarehouse_RefID = null
+            $varUserSession, int $varSysBranch_RefID, string  $varCombinedBudgetCode = null, string $varCombinedBudgetSectionCode = null, int $varWarehouse_RefID = null, string  $varStartDate = null, string  $varEndDate = null
             )
             {
             try {
@@ -4546,6 +4546,8 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                                 [$varCombinedBudgetCode, 'varchar' ],
                                 [$varCombinedBudgetSectionCode, 'varchar' ],
                                 [$varWarehouse_RefID, 'bigint' ],
+                                [$varStartDate, 'varchar'],
+                                [$varEndDate, 'varchar'],
                             ]
                             )
                         );
@@ -4602,10 +4604,10 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getReport_Form_DocumentForm_WarehouseInboundOrderSummary                                               |
+        | ▪ Method Name     : getReport_Form_DocumentForm_WarehouseInboundOrderSummary                                             |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-08-01                                                                                           |
+        | ▪ Last Update     : 2026-02-13                                                                                           |
         | ▪ Creation Date   : 2025-08-01                                                                                           |
         | ▪ Description     : Mendapatkan Laporan Form - Form Dokumen PurchaseOrder                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -4620,7 +4622,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_DocumentForm_WarehouseInboundOrderSummary(
-            $varUserSession, int $varSysBranch_RefID, string  $varCombinedBudgetCode = null, int $varDeliveryFrom_RefID = null, int $varDeliveryTo_RefID = null
+            $varUserSession, int $varSysBranch_RefID, string  $varCombinedBudgetCode = null, int $varDeliveryFrom_RefID = null, int $varDeliveryTo_RefID = null, string  $varStartDate = null, string  $varEndDate = null
             )
             {
             try {
@@ -4634,6 +4636,8 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                                 [$varCombinedBudgetCode, 'varchar' ],
                                 [$varDeliveryFrom_RefID, 'bigint' ],
                                 [$varDeliveryTo_RefID, 'bigint' ],
+                                [$varStartDate, 'varchar'],
+                                [$varEndDate, 'varchar'],
                             ]
                             )
                         );

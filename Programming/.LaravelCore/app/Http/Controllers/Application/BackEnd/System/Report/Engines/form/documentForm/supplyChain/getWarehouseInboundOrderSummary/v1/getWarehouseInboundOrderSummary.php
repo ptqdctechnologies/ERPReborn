@@ -4,17 +4,17 @@
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
 | ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\documentForm\supplyChain                     |
-|                \getWarehouseInboundOrderSummary\v1                                                                                        |
+|                \getWarehouseInboundOrderSummary\v1                                                                               |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2025 ijonk7 (rizal.devapps@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2025 ijonk7 (rizal.devapps@gmail.com)                                                                               |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\documentForm\supplyChain\getWarehouseInboundOrderSummary\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : getWarehouseInboundOrderSummary                                                                                       |
-    | ▪ Description : Menangani API report.form.documentForm.supplyChain.getWarehouseInboundOrderSummary Version 1                          |
+    | ▪ Class Name  : getWarehouseInboundOrderSummary                                                                              |
+    | ▪ Description : Menangani API report.form.documentForm.supplyChain.getWarehouseInboundOrderSummary Version 1                 |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
     class getWarehouseInboundOrderSummary extends \App\Http\Controllers\Controller
@@ -25,7 +25,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\do
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Create date     : 2025-08-01                                                                                           |
-        | ▪ Last Update     : 2025-08-01                                                                                           |
+        | ▪ Last Update     : 2026-02-13                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -45,7 +45,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\do
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000001                                                                                       |
         | ▪ Create date     : 2025-08-01                                                                                           |
-        | ▪ Last Update     : 2025-08-01                                                                                           |
+        | ▪ Last Update     : 2026-02-13                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -68,7 +68,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\do
                             (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
                             $varData['parameter']['CombinedBudgetCode'],
                             $varData['parameter']['DeliveryFrom_RefID'],
-                            $varData['parameter']['DeliveryTo_RefID']
+                            $varData['parameter']['DeliveryTo_RefID'],
+                            $varData['parameter']['StartDate'],
+                            $varData['parameter']['EndDate']
                             ))))
                             {
                             throw new \Exception();

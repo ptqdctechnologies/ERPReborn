@@ -21,7 +21,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
         |                     ► http://172.28.0.4/report.form.documentForm.supplyChain.getWarehouseInboundOrderSummary.v1_throughAPIGateway |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-08-01                                                                                           |
+        | ▪ Last Update     : 2026-02-13                                                                                           |
         | ▪ Creation Date   : 2025-08-01                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -39,12 +39,16 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
                 'latest',
                 [
                 'parameter' => [
-                    // 'CombinedBudgetCode' => 'Q000062',
-                    // 'DeliveryFrom_RefID' => 126000000000001,
-                    // 'DeliveryTo_RefID' => 126000000000005,
-                    'CombinedBudgetCode' => NULL,
-                    'DeliveryFrom_RefID' => NULL,
-                    'DeliveryTo_RefID' => NULL
+                    'CombinedBudgetCode' => 'Q000062',
+                    'DeliveryFrom_RefID' => 126000000000001,
+                    'DeliveryTo_RefID' => 126000000000005,
+                    'StartDate' => '2025-01-01',
+                    'EndDate' => '2026-02-12',
+                    // 'CombinedBudgetCode' => NULL,
+                    // 'DeliveryFrom_RefID' => NULL,
+                    // 'DeliveryTo_RefID' => NULL,
+                    // 'StartDate' => NULL,
+                    // 'EndDate' => NULL,
                     ]
                 ]
                 );
