@@ -22,7 +22,7 @@ use App\Services\WorkflowService;
 
 class LoanController extends Controller
 {
-    protected $advanceRequestService, $workflowService;
+    protected $loanService, $workflowService;
 
     public function __construct(LoanService $loanService, WorkflowService $workflowService)
     {
@@ -265,6 +265,8 @@ class LoanController extends Controller
     {
         try {
             $date           = $request->loanDate;
+            $creditor       = $request->creditor_id;
+            $debitor        = $request->debitor_id;
             $budget         = [
                 "id"        => $request->budget_id,
                 "code"      => $request->budget_code,
@@ -272,8 +274,8 @@ class LoanController extends Controller
 
             $response = $this->loanService->getLoanSummary(
                 $budget['code'],
-                null,
-                null,
+                $creditor,
+                $debitor,
                 $date
             );
 
@@ -307,7 +309,18 @@ class LoanController extends Controller
 
             if ($dataLoanSummary) {
                 if ($type === "PDF") {
-                    
+                    $pdf = PDF::loadView('Process.Loan.Reports.ReportLoanSummary_pdf', ['dataLoan' => $dataLoanSummary])
+                        ->setPaper('a4', 'landscape');
+
+                    $pdf->output();
+                    $dom_pdf    = $pdf->getDomPDF();
+                    $canvas     = $dom_pdf ->get_canvas();
+                    $width      = $canvas->get_width();
+                    $height     = $canvas->get_height();
+                    $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
+                    $canvas->page_text(34, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
+
+                    return $pdf->download('Export Report Loan Summary.pdf');
                 } else if ($type === "EXCEL") {
                     return Excel::download(new ExportReportLoanSummary($dataLoanSummary), 'Export Report Loan Summary.xlsx');
                 } else {

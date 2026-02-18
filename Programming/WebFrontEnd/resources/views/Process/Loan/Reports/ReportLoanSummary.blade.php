@@ -2,6 +2,7 @@
 @section('main')
 @include('Partials.navbar')
 @include('Partials.sidebar')
+@include('getFunction.getSuppliers')
 @include('getFunction.getProjects')
 
 <div class="content-wrapper">

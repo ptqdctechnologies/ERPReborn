@@ -1,92 +1,280 @@
-@extends('Partials.app')
-@section('main')
+<!DOCTYPE html>
+<html lang="en">
 
-<!-- <style>
-  table,
-  th,
-  td {
-    border: 1px solid #ced4da;
-    border-collapse: collapse;
-  }
-</style> -->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="csrf-token" content="{{ csrf_token() }}" />
 
-<div class="content-wrapper">
-  <section class="content">
-    <div class="container-fluid">
-      <div class="row mb-1">
-        <div class="col-sm-12">
-          <center>
-            <div style="text-align: center; font-size: 20px; font-weight: bold;">Report Loan Summary</div>
-          </center>
-          <table style="float:right;">
-            <!-- <tr>
-              <td><img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('/AdminLTE-master/dist/img/qdc.png'))) }}" width="180"></td>
-            </tr> -->
+  <title>ERP Reborn</title>
+
+  <!-- Theme style -->
+  <link rel="stylesheet" href="{{ asset('AdminLTE-master/dist/css/adminlte.min.css') }}">
+</head>
+
+<body>
+  <div class="card-body table-responsive p-0">
+    <div style="text-align: right; font-size: 14px;"><?= date('F j, Y'); ?></div>
+    <div style="text-align: center; font-size: 20px; font-weight: bold;">Loan Summary</div>
+    <div style="text-align: right; font-size: 14px;"><?= date('h:i A'); ?></div>
+
+    <!-- HEADER -->
+    <table style="margin: 30px 0px 15px 1px;">
+      <tr>
+        <td style="width: 350px;">
+          <table>
+            <tr>
+              <td style="width: 100px; height: 20px;">
+                <div style="font-size: 12px; font-weight: bold; line-height: 14px;">
+                  Budget
+                </div>
+              </td>
+              <td style="width: 5px; font-size: 12px;">
+                :
+              </td>
+              <td style="height: 20px;">
+                <div style="font-size: 12px; line-height: 14px;">
+                  -
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td style="width: 100px; height: 20px;">
+                <div style="font-size: 12px; font-weight: bold; line-height: 14px;">
+                  Date
+                </div>
+              </td>
+              <td style="width: 5px;font-size: 12px; ">
+                :
+              </td>
+              <td style="height: 20px;">
+                <div style="font-size: 12px; line-height: 14px;">
+                  -
+                </div>
+              </td>
             </tr>
           </table>
-          <br><br>
-        </div>
-      </div>
-      <div class="card">
-        <div class="tab-content p-3" id="nav-tabContent">
-          <div class="row">
+        </td>
 
-            <div class="col-12 ShowTableReportAdvanceSummary">
-              <div class="card">
-                <div class="card-body table-responsive p-0">
-                  <table class="TableReportAdvanceSummary" id="TableReportAdvanceSummary" style="font-size: 13px;width:100%;border: 1px solid #ced4da;border-collapse: collapse;">
-                    <thead>
-                      <tr style="border: 1px solid #ced4da;border-collapse: collapse;">
-                        <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">No</th>
-                        <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Loan Number</th>
-                        <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Date</th>
-                        <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Type</th>
-                        <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Creditor</th>
-                        <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Debitor</th>
-                        <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Principle Loan</th>
-                        <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Rate</th>
-                        <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Remark</th>
-                      </tr>
-                    </thead>
-                    <?php 
-                      $counter = 1; 
-                      $grand_totalprinciple=0;
-                    ?>
-                    <?php foreach ($dataLoan as $dataDetail) { ?>
-                      {{ $grand_totalprinciple += $dataDetail['principleLoan'] }}
-                      <tbody>
-                        <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ $counter++ }}</td>
-                        <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ $dataDetail['loanNumber'] }}</td>
-                        <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ date('Y-m-d', strtotime($dataDetail['date'])) }}</td>
-                        <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ $dataDetail['type'] }}</td>
-                        <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ $dataDetail['creditorName'] }}</td>
-                        <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ $dataDetail['debitorName'] }}</td>
-                        <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ number_format($dataDetail['principleLoan'], 2, '.', ',') }}</td>
-                        <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ $dataDetail['rate'] }}</td>
-                        <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ $dataDetail['notes'] }}</td>
-                        
-                      </tbody>
-                    <?php } ?>
-
-                      <tfoot>
-                        <tr style="font-weight:bolder;border: 1px solid #ced4da;border-collapse: collapse;">
-                          <td style="border: 1px solid #ced4da;border-collapse: collapse;padding: 5px;text-align:center;" colspan="6">GRAND TOTAL</td>
-                          <td style="border: 1px solid #ced4da;border-collapse: collapse;padding: 5px;">{{ number_format($grand_totalprinciple, 2, '.', ',') }}</td>
-                          <td style="border: 1px solid #ced4da;border-collapse: collapse;padding: 5px;"></td>
-                          <td style="border: 1px solid #ced4da;border-collapse: collapse;padding: 5px;"></td>
-                        </tr>
-                      </tfoot>
-                    
-
-                  </table>
+        <td style="width: 350px;">
+          <table>
+            <tr>
+              <td style="width: 100px; height: 20px;">
+                <div style="font-size: 12px; font-weight: bold; line-height: 14px;">
+                  Creditor
                 </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+              </td>
+              <td style="width: 5px; font-size: 12px;">
+                :
+              </td>
+              <td style="height: 20px;">
+                <div style="font-size: 12px; line-height: 14px;">
+                  -
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td style="width: 100px; height: 20px;">
+                <div style="font-size: 12px; font-weight: bold; line-height: 14px;">
+                  Debitor
+                </div>
+              </td>
+              <td style="width: 5px;font-size: 12px; ">
+                :
+              </td>
+              <td style="height: 20px;">
+                <div style="font-size: 12px; line-height: 14px;">
+                  -
+                </div>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
 
-    </div>
-  </section>
-</div>
-@endsection
+    <!-- DETAIL -->
+    <table style="margin-left: 1px; width: 100%;" id="TableReportLoanSummary">
+      <thead>
+        <tr style="border-top: 1px solid black; border-bottom: 1px dotted black;">
+          <td rowspan="2" style="width: 20px; border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+            <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+              No
+            </div>
+          </td>
+          <td rowspan="2" style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+            <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+              Loan Number
+            </div>
+          </td>
+          <td rowspan="2" style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+            <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+              Date
+            </div>
+          </td>
+          <td rowspan="2" style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+            <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+              Type
+            </div>
+          </td>
+          <td rowspan="2" style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+            <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+              Creditor
+            </div>
+          </td>
+          <td rowspan="2" style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+            <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+              Debitor
+            </div>
+          </td>
+          <td colspan="3" style="border-top: 1px solid black; border-bottom: 1px solid black; height: 20px; text-align: center;">
+            <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+              Principal Loan
+            </div>
+          </td>
+          <td rowspan="2" style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+            <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+              Rate (%)
+            </div>
+          </td>
+          <td rowspan="2" style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+            <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+              Term
+            </div>
+          </td>
+          <td colspan="3" style="border-top: 1px solid black; border-bottom: 1px solid black; height: 20px; text-align: center;">
+            <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+              Total Loan
+            </div>
+          </td>
+          <td rowspan="2" style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+            <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+              Remark
+            </div>
+          </td>
+        </tr>
+        <tr style="border-bottom: 1px dotted black;">
+          <td style="border-bottom: 1px dotted black; height: 20px;">
+            <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+              Total IDR
+            </div>
+          </td>
+          <td style="border-bottom: 1px dotted black; height: 20px;">
+            <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+              Total Other Currency
+            </div>
+          </td>
+          <td style="border-bottom: 1px dotted black; height: 20px;">
+            <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+              Total Equivalent IDR
+            </div>
+          </td>
+          <td style="border-bottom: 1px dotted black; height: 20px;">
+            <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+              Total IDR
+            </div>
+          </td>
+          <td style="border-bottom: 1px dotted black; height: 20px;">
+            <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+              Total Other Currency
+            </div>
+          </td>
+          <td style="border-bottom: 1px dotted black; height: 20px;">
+            <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+              Total Equivalent IDR
+            </div>
+          </td>
+        </tr>
+      </thead>
+      <tbody>
+        <?php
+          $no = 1;
+        ?>
+        @foreach($dataLoan as $loan)
+        <tr>
+          <td style="height: 20px;">
+            <div style="font-size: 12px; margin: 4px 0px 16px 0px; text-align: center;">
+              <?= $no; ?>
+            </div>
+          </td>
+          <td style="height: 20px;">
+            <div style="font-size: 12px; margin: 4px 0px 16px 0px;">
+              <?= $loan['loanNumber']; ?>
+            </div>
+          </td>
+          <td style="height: 20px;">
+            <div style="font-size: 12px; margin: 4px 0px 16px 0px;">
+              <?= $loan['date']; ?>
+            </div>
+          </td>
+          <td style="height: 20px;">
+            <div style="font-size: 12px; margin: 4px 0px 16px 0px;">
+              <?= $loan['type']; ?>
+            </div>
+          </td>
+          <td style="height: 20px;">
+            <div style="font-size: 12px; margin: 4px 0px 16px 0px;">
+              <?= $loan['creditorName'] ?? '-'; ?>
+            </div>
+          </td>
+          <td style="height: 20px;">
+            <div style="font-size: 12px; margin: 4px 0px 16px 0px;">
+              <?= $loan['debitorName'] ?? '-'; ?>
+            </div>
+          </td>
+          <td style="height: 20px;">
+            <div style="font-size: 12px; margin: 4px 0px 16px 0px;">
+              <?= number_format($loan['principleLoan_IDR'] ?? 0, 2, '.', ','); ?>
+            </div>
+          </td>
+          <td style="height: 20px;">
+            <div style="font-size: 12px; margin: 4px 0px 16px 0px;">
+              <?= number_format($loan['principleLoan_Other_Currency'] ?? 0, 2, '.', ','); ?>
+            </div>
+          </td>
+          <td style="height: 20px;">
+            <div style="font-size: 12px; margin: 4px 0px 16px 0px;">
+              <?= number_format($loan['principleLoan_Equivalent_IDR'] ?? 0, 2, '.', ','); ?>
+            </div>
+          </td>
+          <td style="height: 20px;">
+            <div style="font-size: 12px; margin: 4px 0px 16px 0px;">
+              <?= $loan['rate']; ?>
+            </div>
+          </td>
+          <td style="height: 20px;">
+            <div style="font-size: 12px; margin: 4px 0px 16px 0px;">
+              <?= $loan['term']; ?>
+            </div>
+          </td>
+          <td style="height: 20px;">
+            <div style="font-size: 12px; margin: 4px 0px 16px 0px;">
+              <?= number_format($loan['totalLoan_IDR'] ?? 0, 2, '.', ','); ?>
+            </div>
+          </td>
+          <td style="height: 20px;">
+            <div style="font-size: 12px; margin: 4px 0px 16px 0px;">
+              <?= number_format($loan['totalLoan_Other_Currency'] ?? 0, 2, '.', ','); ?>
+            </div>
+          </td>
+          <td style="height: 20px;">
+            <div style="font-size: 12px; margin: 4px 0px 16px 0px;">
+              <?= number_format($loan['totalLoan_Equivalent_IDR'] ?? 0, 2, '.', ','); ?>
+            </div>
+          </td>
+          <td style="height: 20px;">
+            <div style="font-size: 12px; margin: 4px 0px 16px 0px;">
+              <?= $loan['notes']; ?>
+            </div>
+          </td>
+        </tr>
+        <?php
+          $no++;
+        ?>
+        @endforeach
+      </tbody>
+    </table>
+  </div>
+</body>
+
+</html>
