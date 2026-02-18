@@ -677,7 +677,6 @@
     });
 
     $(window).one('load', function(e) {
-        getDocumentType("Reimbursement Form");
         $(".loadingBudgetDetails").hide();
     });
 </script>
