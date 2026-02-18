@@ -152,7 +152,9 @@
 
     function renderTable() {
         const tbody = document.getElementById("journal_details_table_body");
-        tbody.innerHTML = "";
+        if (tbody) {
+            tbody.innerHTML = "";
+        }
 
         journalDetails.forEach((row, index) => {
             const tr = document.createElement("tr");
@@ -310,7 +312,9 @@
                 // </td>
             }
 
-            tbody.appendChild(tr);
+            if (tbody) {
+                tbody.appendChild(tr);
+            }
 
             $(`#accountingEntryRecordType_RefID${index}`).on('change', function() {
                 totalPayments();
@@ -375,46 +379,102 @@
                         const indexToUpdate = dataStore.findIndex(item => item.refNumberID == refNumberRefID.value);
                         if (indexToUpdate !== -1) {
                             dataStore[indexToUpdate] = {
-                                refNumberID: parseInt(refNumberRefID.value),
-                                accountingEntryRecordType_RefID: parseInt(accountingEntryRecordTypeRefID.value),
                                 documentDateTimeTZ: `${year}-${month}-${day}`,
-                                businessDocument_RefID: parseInt(refNumberRefID.value),
-                                bankAccount_RefID: parseInt(accountNumber.value), 
+                                businessDocument_RefID: 74000000027381, // parseInt(refNumberRefID.value)
+                                bankAccount_RefID: parseInt(accountNumber.value),
                                 combinedBudget_RefID: 46000000000033,
                                 journalDateTimeTZ: `${journalDateTimeTZ[2]}-${journalDateTimeTZ[0]}-${journalDateTimeTZ[1]}`,
-                                log_FileUpload_Pointer_RefID: null, // cashDisbursementItemList & cashReceiptItemList
-                                beneficiaryBankAccount_RefID: 167000000000001, // cashDisbursementItemList
-                                senderBankAccount_RefID: 167000000000001, // cashReceiptItemList
-                                chartOfAccount_RefID: parseInt(chartOfAccountRefID.value), // cashDisbursementItemList & cashReceiptItemList
-                                amountCurrency_RefID: parseInt(amountCurrencyRefID.value), // cashDisbursementItemList & cashReceiptItemList
-                                amountCurrencyValue: parseFloat(paymentInput.value.replace(/,/g, '')), // cashDisbursementItemList & cashReceiptItemList
-                                amountCurrencyExchangeRate: parseInt(amountCurrencyExchangeRate.value), // cashDisbursementItemList & cashReceiptItemList
-                                remarks: null, // cashDisbursementItemList & cashReceiptItemList
-                                entities: [
-                                    // COA CODE
-                                    {
-                                        chartOfAccount_RefID: COABank,
-                                        accountingEntryRecordType_RefID: parseInt(accountingEntryRecordTypeRefID.value),
-                                        amountCurrency_RefID: parseInt(amountCurrencyRefID.value),
-                                        amountCurrencyValue: parseFloat(paymentInput.value.replace(/,/g, '')),
-                                        amountCurrencyExchangeRate: parseInt(amountCurrencyExchangeRate.value),
-                                        quantityUnit_RefID: parseInt(quantityUnitRefID.value),
-                                        quantity: parseFloat(quantityInput.value.replace(/,/g, '')),
-                                        type: accountingEntryRecordTypeRefID.value == '214000000000001' ? 'Debit' : 'Credit'
-                                    },
-                                    // COA BANK
-                                    {
-                                        chartOfAccount_RefID: parseInt(chartOfAccountRefID.value),
-                                        accountingEntryRecordType_RefID: accountingEntryRecordTypeRefID.value == '214000000000001' ? 214000000000002 : 214000000000001,
-                                        amountCurrency_RefID: parseInt(amountCurrencyRefID.value),
-                                        amountCurrencyValue: parseFloat(paymentInput.value.replace(/,/g, '')),
-                                        amountCurrencyExchangeRate: parseInt(amountCurrencyExchangeRate.value),
-                                        quantityUnit_RefID: parseInt(quantityUnitRefID.value),
-                                        quantity: parseFloat(quantityInput.value.replace(/,/g, '')),
-                                        type: accountingEntryRecordTypeRefID.value == '214000000000001' ? 'Credit' : 'Debit',
+                                additionalData: {
+                                    itemList: {
+                                        items: {
+                                            entities: {
+                                                [accountingEntryRecordTypeRefID.value == '214000000000001' ? 'cashReceiptItemList' : 'cashDisbursementItemList']: {
+                                                    items: {
+                                                        entities: {
+                                                            documentDateTimeTZ: `${year}-${month}-${day}`,
+                                                            businessDocument_RefID: 74000000027381, // parseInt(refNumberRefID.value)
+                                                            log_FileUpload_Pointer_RefID: null,
+                                                            combinedBudget_RefID: 46000000000033,
+                                                            beneficiaryBankAccount_RefID: 167000000000001,
+                                                            chartOfAccount_RefID: parseInt(chartOfAccountRefID.value),
+                                                            amountCurrency_RefID: parseInt(amountCurrencyRefID.value),
+                                                            amountCurrencyValue: parseFloat(paymentInput.value.replace(/,/g, '')),
+                                                            amountCurrencyExchangeRate: parseInt(amountCurrencyExchangeRate.value),
+                                                            remarks: null,
+                                                            additionalData: [
+                                                                // COA CODE
+                                                                {
+                                                                    chartOfAccount_RefID: COABank,
+                                                                    accountingEntryRecordType_RefID: parseInt(accountingEntryRecordTypeRefID.value),
+                                                                    amountCurrency_RefID: parseInt(amountCurrencyRefID.value),
+                                                                    amountCurrencyValue: parseFloat(paymentInput.value.replace(/,/g, '')),
+                                                                    amountCurrencyExchangeRate: parseInt(amountCurrencyExchangeRate.value),
+                                                                    quantityUnit_RefID: parseInt(quantityUnitRefID.value),
+                                                                    quantity: parseFloat(quantityInput.value.replace(/,/g, '')),
+                                                                    type: accountingEntryRecordTypeRefID.value == '214000000000001' ? 'Debit' : 'Credit'
+                                                                },
+                                                                // COA BANK
+                                                                {
+                                                                    chartOfAccount_RefID: parseInt(chartOfAccountRefID.value),
+                                                                    accountingEntryRecordType_RefID: accountingEntryRecordTypeRefID.value == '214000000000001' ? 214000000000002 : 214000000000001,
+                                                                    amountCurrency_RefID: parseInt(amountCurrencyRefID.value),
+                                                                    amountCurrencyValue: parseFloat(paymentInput.value.replace(/,/g, '')),
+                                                                    amountCurrencyExchangeRate: parseInt(amountCurrencyExchangeRate.value),
+                                                                    quantityUnit_RefID: parseInt(quantityUnitRefID.value),
+                                                                    quantity: parseFloat(quantityInput.value.replace(/,/g, '')),
+                                                                    type: accountingEntryRecordTypeRefID.value == '214000000000001' ? 'Credit' : 'Debit',
+                                                                }
+                                                            ]
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
                                     }
-                                ]
+                                }
                             }
+
+                            // dataStore[indexToUpdate] = {
+                            //     refNumberID: parseInt(refNumberRefID.value),
+                            //     accountingEntryRecordType_RefID: parseInt(accountingEntryRecordTypeRefID.value),
+                            //     documentDateTimeTZ: `${year}-${month}-${day}`,
+                            //     businessDocument_RefID: parseInt(refNumberRefID.value),
+                            //     bankAccount_RefID: parseInt(accountNumber.value), 
+                            //     combinedBudget_RefID: 46000000000033,
+                            //     journalDateTimeTZ: `${journalDateTimeTZ[2]}-${journalDateTimeTZ[0]}-${journalDateTimeTZ[1]}`,
+                            //     log_FileUpload_Pointer_RefID: null, // cashDisbursementItemList & cashReceiptItemList
+                            //     beneficiaryBankAccount_RefID: 167000000000001, // cashDisbursementItemList
+                            //     senderBankAccount_RefID: 167000000000001, // cashReceiptItemList
+                            //     chartOfAccount_RefID: parseInt(chartOfAccountRefID.value), // cashDisbursementItemList & cashReceiptItemList
+                            //     amountCurrency_RefID: parseInt(amountCurrencyRefID.value), // cashDisbursementItemList & cashReceiptItemList
+                            //     amountCurrencyValue: parseFloat(paymentInput.value.replace(/,/g, '')), // cashDisbursementItemList & cashReceiptItemList
+                            //     amountCurrencyExchangeRate: parseInt(amountCurrencyExchangeRate.value), // cashDisbursementItemList & cashReceiptItemList
+                            //     remarks: null, // cashDisbursementItemList & cashReceiptItemList
+                            //     entities: [
+                            //         // COA CODE
+                            //         {
+                            //             chartOfAccount_RefID: COABank,
+                            //             accountingEntryRecordType_RefID: parseInt(accountingEntryRecordTypeRefID.value),
+                            //             amountCurrency_RefID: parseInt(amountCurrencyRefID.value),
+                            //             amountCurrencyValue: parseFloat(paymentInput.value.replace(/,/g, '')),
+                            //             amountCurrencyExchangeRate: parseInt(amountCurrencyExchangeRate.value),
+                            //             quantityUnit_RefID: parseInt(quantityUnitRefID.value),
+                            //             quantity: parseFloat(quantityInput.value.replace(/,/g, '')),
+                            //             type: accountingEntryRecordTypeRefID.value == '214000000000001' ? 'Debit' : 'Credit'
+                            //         },
+                            //         // COA BANK
+                            //         {
+                            //             chartOfAccount_RefID: parseInt(chartOfAccountRefID.value),
+                            //             accountingEntryRecordType_RefID: accountingEntryRecordTypeRefID.value == '214000000000001' ? 214000000000002 : 214000000000001,
+                            //             amountCurrency_RefID: parseInt(amountCurrencyRefID.value),
+                            //             amountCurrencyValue: parseFloat(paymentInput.value.replace(/,/g, '')),
+                            //             amountCurrencyExchangeRate: parseInt(amountCurrencyExchangeRate.value),
+                            //             quantityUnit_RefID: parseInt(quantityUnitRefID.value),
+                            //             quantity: parseFloat(quantityInput.value.replace(/,/g, '')),
+                            //             type: accountingEntryRecordTypeRefID.value == '214000000000001' ? 'Credit' : 'Debit',
+                            //         }
+                            //     ]
+                            // }
                         }
                     }
                 }
@@ -432,46 +492,102 @@
                     targetTable.appendChild(newRow);
 
                     dataStore.push({
-                        refNumberID: parseInt(refNumberRefID.value),
-                        accountingEntryRecordType_RefID: parseInt(accountingEntryRecordTypeRefID.value),
                         documentDateTimeTZ: `${year}-${month}-${day}`,
-                        businessDocument_RefID: parseInt(refNumberRefID.value),
-                        bankAccount_RefID: parseInt(accountNumber.value), 
+                        businessDocument_RefID: 74000000027381, // parseInt(refNumberRefID.value)
+                        bankAccount_RefID: parseInt(accountNumber.value),
                         combinedBudget_RefID: 46000000000033,
                         journalDateTimeTZ: `${journalDateTimeTZ[2]}-${journalDateTimeTZ[0]}-${journalDateTimeTZ[1]}`,
-                        log_FileUpload_Pointer_RefID: null, // cashDisbursementItemList & cashReceiptItemList
-                        beneficiaryBankAccount_RefID: 167000000000001, // cashDisbursementItemList
-                        senderBankAccount_RefID: 167000000000001, // cashReceiptItemList
-                        chartOfAccount_RefID: parseInt(chartOfAccountRefID.value), // cashDisbursementItemList & cashReceiptItemList
-                        amountCurrency_RefID: parseInt(amountCurrencyRefID.value), // cashDisbursementItemList & cashReceiptItemList
-                        amountCurrencyValue: parseFloat(paymentInput.value.replace(/,/g, '')), // cashDisbursementItemList & cashReceiptItemList
-                        amountCurrencyExchangeRate: parseInt(amountCurrencyExchangeRate.value), // cashDisbursementItemList & cashReceiptItemList
-                        remarks: null, // cashDisbursementItemList & cashReceiptItemList
-                        entities: [
-                            // COA CODE
-                            {
-                                chartOfAccount_RefID: COABank,
-                                accountingEntryRecordType_RefID: parseInt(accountingEntryRecordTypeRefID.value),
-                                amountCurrency_RefID: parseInt(amountCurrencyRefID.value),
-                                amountCurrencyValue: parseFloat(paymentInput.value.replace(/,/g, '')),
-                                amountCurrencyExchangeRate: parseInt(amountCurrencyExchangeRate.value),
-                                quantityUnit_RefID: parseInt(quantityUnitRefID.value),
-                                quantity: parseFloat(quantityInput.value.replace(/,/g, '')),
-                                type: accountingEntryRecordTypeRefID.value == '214000000000001' ? 'Debit' : 'Credit'
-                            },
-                            // COA BANK
-                            {
-                                chartOfAccount_RefID: parseInt(chartOfAccountRefID.value),
-                                accountingEntryRecordType_RefID: accountingEntryRecordTypeRefID.value == '214000000000001' ? 214000000000002 : 214000000000001,
-                                amountCurrency_RefID: parseInt(amountCurrencyRefID.value),
-                                amountCurrencyValue: parseFloat(paymentInput.value.replace(/,/g, '')),
-                                amountCurrencyExchangeRate: parseInt(amountCurrencyExchangeRate.value),
-                                quantityUnit_RefID: parseInt(quantityUnitRefID.value),
-                                quantity: parseFloat(quantityInput.value.replace(/,/g, '')),
-                                type: accountingEntryRecordTypeRefID.value == '214000000000001' ? 'Credit' : 'Debit',
+                        additionalData: {
+                            itemList: {
+                                items: {
+                                    entities: {
+                                        [accountingEntryRecordTypeRefID.value == '214000000000001' ? 'cashReceiptItemList' : 'cashDisbursementItemList']: {
+                                            items: {
+                                                entities: {
+                                                    documentDateTimeTZ: `${year}-${month}-${day}`,
+                                                    businessDocument_RefID: 74000000027381, // parseInt(refNumberRefID.value)
+                                                    log_FileUpload_Pointer_RefID: null,
+                                                    combinedBudget_RefID: 46000000000033,
+                                                    beneficiaryBankAccount_RefID: 167000000000001,
+                                                    chartOfAccount_RefID: parseInt(chartOfAccountRefID.value),
+                                                    amountCurrency_RefID: parseInt(amountCurrencyRefID.value),
+                                                    amountCurrencyValue: parseFloat(paymentInput.value.replace(/,/g, '')),
+                                                    amountCurrencyExchangeRate: parseInt(amountCurrencyExchangeRate.value),
+                                                    remarks: null,
+                                                    additionalData: [
+                                                        // COA CODE
+                                                        {
+                                                            chartOfAccount_RefID: COABank,
+                                                            accountingEntryRecordType_RefID: parseInt(accountingEntryRecordTypeRefID.value),
+                                                            amountCurrency_RefID: parseInt(amountCurrencyRefID.value),
+                                                            amountCurrencyValue: parseFloat(paymentInput.value.replace(/,/g, '')),
+                                                            amountCurrencyExchangeRate: parseInt(amountCurrencyExchangeRate.value),
+                                                            quantityUnit_RefID: parseInt(quantityUnitRefID.value),
+                                                            quantity: parseFloat(quantityInput.value.replace(/,/g, '')),
+                                                            type: accountingEntryRecordTypeRefID.value == '214000000000001' ? 'Debit' : 'Credit'
+                                                        },
+                                                        // COA BANK
+                                                        {
+                                                            chartOfAccount_RefID: parseInt(chartOfAccountRefID.value),
+                                                            accountingEntryRecordType_RefID: accountingEntryRecordTypeRefID.value == '214000000000001' ? 214000000000002 : 214000000000001,
+                                                            amountCurrency_RefID: parseInt(amountCurrencyRefID.value),
+                                                            amountCurrencyValue: parseFloat(paymentInput.value.replace(/,/g, '')),
+                                                            amountCurrencyExchangeRate: parseInt(amountCurrencyExchangeRate.value),
+                                                            quantityUnit_RefID: parseInt(quantityUnitRefID.value),
+                                                            quantity: parseFloat(quantityInput.value.replace(/,/g, '')),
+                                                            type: accountingEntryRecordTypeRefID.value == '214000000000001' ? 'Credit' : 'Debit',
+                                                        }
+                                                    ]
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
                             }
-                        ]
+                        }
                     });
+
+                    // dataStore.push({
+                    //     refNumberID: parseInt(refNumberRefID.value),
+                    //     accountingEntryRecordType_RefID: parseInt(accountingEntryRecordTypeRefID.value),
+                    //     documentDateTimeTZ: `${year}-${month}-${day}`,
+                    //     businessDocument_RefID: parseInt(refNumberRefID.value),
+                    //     bankAccount_RefID: parseInt(accountNumber.value), 
+                    //     combinedBudget_RefID: 46000000000033,
+                    //     journalDateTimeTZ: `${journalDateTimeTZ[2]}-${journalDateTimeTZ[0]}-${journalDateTimeTZ[1]}`,
+                    //     log_FileUpload_Pointer_RefID: null, // cashDisbursementItemList & cashReceiptItemList
+                    //     beneficiaryBankAccount_RefID: 167000000000001, // cashDisbursementItemList
+                    //     senderBankAccount_RefID: 167000000000001, // cashReceiptItemList
+                    //     chartOfAccount_RefID: parseInt(chartOfAccountRefID.value), // cashDisbursementItemList & cashReceiptItemList
+                    //     amountCurrency_RefID: parseInt(amountCurrencyRefID.value), // cashDisbursementItemList & cashReceiptItemList
+                    //     amountCurrencyValue: parseFloat(paymentInput.value.replace(/,/g, '')), // cashDisbursementItemList & cashReceiptItemList
+                    //     amountCurrencyExchangeRate: parseInt(amountCurrencyExchangeRate.value), // cashDisbursementItemList & cashReceiptItemList
+                    //     remarks: null, // cashDisbursementItemList & cashReceiptItemList
+                    //     entities: [
+                    //         // COA CODE
+                    //         {
+                    //             chartOfAccount_RefID: COABank,
+                    //             accountingEntryRecordType_RefID: parseInt(accountingEntryRecordTypeRefID.value),
+                    //             amountCurrency_RefID: parseInt(amountCurrencyRefID.value),
+                    //             amountCurrencyValue: parseFloat(paymentInput.value.replace(/,/g, '')),
+                    //             amountCurrencyExchangeRate: parseInt(amountCurrencyExchangeRate.value),
+                    //             quantityUnit_RefID: parseInt(quantityUnitRefID.value),
+                    //             quantity: parseFloat(quantityInput.value.replace(/,/g, '')),
+                    //             type: accountingEntryRecordTypeRefID.value == '214000000000001' ? 'Debit' : 'Credit'
+                    //         },
+                    //         // COA BANK
+                    //         {
+                    //             chartOfAccount_RefID: parseInt(chartOfAccountRefID.value),
+                    //             accountingEntryRecordType_RefID: accountingEntryRecordTypeRefID.value == '214000000000001' ? 214000000000002 : 214000000000001,
+                    //             amountCurrency_RefID: parseInt(amountCurrencyRefID.value),
+                    //             amountCurrencyValue: parseFloat(paymentInput.value.replace(/,/g, '')),
+                    //             amountCurrencyExchangeRate: parseInt(amountCurrencyExchangeRate.value),
+                    //             quantityUnit_RefID: parseInt(quantityUnitRefID.value),
+                    //             quantity: parseFloat(quantityInput.value.replace(/,/g, '')),
+                    //             type: accountingEntryRecordTypeRefID.value == '214000000000001' ? 'Credit' : 'Debit',
+                    //         }
+                    //     ]
+                    // });
                 }
             }
         }
@@ -507,36 +623,36 @@
     }
 
     function commentWorkflow() {
-        cashDisbursementItemList = dataStore.filter(value => value.accountingEntryRecordType_RefID == '214000000000002')
-            .map(value => ({ 
-                entities: { 
-                    documentDateTimeTZ: value.documentDateTimeTZ,
-                    businessDocument_RefID: value.businessDocument_RefID,
-                    log_FileUpload_Pointer_RefID: value.log_FileUpload_Pointer_RefID,
-                    combinedBudget_RefID: value.combinedBudget_RefID,
-                    beneficiaryBankAccount_RefID: value.beneficiaryBankAccount_RefID,
-                    chartOfAccount_RefID: value.chartOfAccount_RefID,
-                    amountCurrency_RefID: value.amountCurrency_RefID,
-                    amountCurrencyValue: value.amountCurrencyValue,
-                    amountCurrencyExchangeRate: value.amountCurrencyExchangeRate,
-                    remarks: value.remarks
-                } 
-            }));
-        cashReceiptItemList = dataStore.filter(value => value.accountingEntryRecordType_RefID == '214000000000001')
-            .map(value => ({ 
-                entities: { 
-                    documentDateTimeTZ: value.documentDateTimeTZ,
-                    businessDocument_RefID: value.businessDocument_RefID,
-                    log_FileUpload_Pointer_RefID: value.log_FileUpload_Pointer_RefID,
-                    combinedBudget_RefID: value.combinedBudget_RefID,
-                    senderBankAccount_RefID: value.senderBankAccount_RefID,
-                    chartOfAccount_RefID: value.chartOfAccount_RefID,
-                    amountCurrency_RefID: value.amountCurrency_RefID,
-                    amountCurrencyValue: value.amountCurrencyValue,
-                    amountCurrencyExchangeRate: value.amountCurrencyExchangeRate,
-                    remarks: value.remarks
-                } 
-            }));
+        // cashDisbursementItemList = dataStore.filter(value => value.accountingEntryRecordType_RefID == '214000000000002')
+        //     .map(value => ({ 
+        //         entities: { 
+        //             documentDateTimeTZ: value.documentDateTimeTZ,
+        //             businessDocument_RefID: value.businessDocument_RefID,
+        //             log_FileUpload_Pointer_RefID: value.log_FileUpload_Pointer_RefID,
+        //             combinedBudget_RefID: value.combinedBudget_RefID,
+        //             beneficiaryBankAccount_RefID: value.beneficiaryBankAccount_RefID,
+        //             chartOfAccount_RefID: value.chartOfAccount_RefID,
+        //             amountCurrency_RefID: value.amountCurrency_RefID,
+        //             amountCurrencyValue: value.amountCurrencyValue,
+        //             amountCurrencyExchangeRate: value.amountCurrencyExchangeRate,
+        //             remarks: value.remarks
+        //         } 
+        //     }));
+        // cashReceiptItemList = dataStore.filter(value => value.accountingEntryRecordType_RefID == '214000000000001')
+        //     .map(value => ({ 
+        //         entities: { 
+        //             documentDateTimeTZ: value.documentDateTimeTZ,
+        //             businessDocument_RefID: value.businessDocument_RefID,
+        //             log_FileUpload_Pointer_RefID: value.log_FileUpload_Pointer_RefID,
+        //             combinedBudget_RefID: value.combinedBudget_RefID,
+        //             senderBankAccount_RefID: value.senderBankAccount_RefID,
+        //             chartOfAccount_RefID: value.chartOfAccount_RefID,
+        //             amountCurrency_RefID: value.amountCurrency_RefID,
+        //             amountCurrencyValue: value.amountCurrencyValue,
+        //             amountCurrencyExchangeRate: value.amountCurrencyExchangeRate,
+        //             remarks: value.remarks
+        //         } 
+        //     }));
 
         const swalWithBootstrapButtons = Swal.mixin({
             confirmButtonClass: 'btn btn-success btn-sm',
@@ -598,7 +714,7 @@
                     swalWithBootstrapButtons.fire({
                         title: 'Successful !',
                         type: 'success',
-                        html: 'Data has been saved. Your transaction number is ' + '<span style="color:#0046FF;font-weight:bold;">' + res.documentNumber.join(", ") + '</span>',
+                        html: 'Data has been saved. Your transaction number is ' + '<span style="color:#0046FF;font-weight:bold;">' + res.documentNumber.map(obj => `${obj.journalNumber} - ${obj.referenceNumber}`).join(", ") + '</span>',
                         showCloseButton: false,
                         showCancelButton: false,
                         focusConfirm: false,
@@ -707,6 +823,20 @@
         $('#myBanksAccount').modal('hide');
     });
 
+    $('#tableInstitutionBankAccount').on('click', 'tbody tr', function() {
+        const sysID       = $(this).find('input[type="hidden"]').val();
+        const bankName    = $(this).find('td:nth-child(2)').text();
+        const bankAccount = $(this).find('td:nth-child(3)').text();
+        const accountName = $(this).find('td:nth-child(4)').text();
+
+        $("#bank_accounts_id").val(sysID);
+        $("#bank_accounts_name").val(`(${bankName}) ${bankAccount} - ${accountName}`);
+        $("#bank_accounts_name").css({"background-color":"#e9ecef", "border": "1px solid #ced4da"});
+        $("#bank_accounts_message").hide();
+
+        $('#myInstitutionBankAccount').modal('hide');
+    });
+
     $('#tableGetJournal').on('click', 'tbody tr', function() {
         const sysID     = $(this).find('input[data-trigger="sys_id_journal"]').val();
         const sysText   = $(this).find('td:nth-child(2)').text();
@@ -742,6 +872,7 @@
     $(window).one('load', function() {
         detailCashBank();
         getBanksAccount("", "");
+        getInstitutionBankAccount();
 
         $('#nominal_beginning_balance').text(`IDR ${currencyTotal(dummyBeginningBalance)}`);
 

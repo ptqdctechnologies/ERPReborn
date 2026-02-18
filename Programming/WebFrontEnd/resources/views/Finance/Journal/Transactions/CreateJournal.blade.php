@@ -4,6 +4,7 @@
 @include('Partials.sidebar')
 @include('getFunction.getJournal')
 @include('getFunction.getBanksAccount')
+@include('getFunction.getInstitutionBankAccount')
 @include('getFunction.getChartOfAccount')
 @include('getFunction.getAllTransactions')
 @include('getFunction.getWorkFlows')
