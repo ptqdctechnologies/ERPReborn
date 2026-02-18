@@ -69,6 +69,7 @@ class CheckDocumentController extends Controller
 
             if (
                 $documentType === 'Budget Form' ||
+                $documentType === 'General Journal Form' ||
                 $documentType === 'Journal Form' ||
                 $documentType === 'Loan Form' ||
                 $documentType === 'Loan Settlement Form' ||
@@ -407,19 +408,19 @@ class CheckDocumentController extends Controller
                     ]
                 ];
                 break;
-            case "Journal Form":
+            case "General Journal Form":
                 $varData = [
                     'data' => [
                         'data' => [
                             [
                                 'sys_ID'    => 12345678,
-                                'sys_Text'  => 'JNL/QDC/2025/000001',
+                                'sys_Text'  => 'GL/QDC/2025/000001',
                                 'combinedBudgetCode' => 'Q000196',
                                 'combinedBudgetSectionCode' => 'Q000062 ► 235'
                             ],
                             [
                                 'sys_ID'    => 23456781,
-                                'sys_Text'  => 'JNL/QDC/2025/000002',
+                                'sys_Text'  => 'GL/QDC/2025/000002',
                                 'combinedBudgetCode' => 'Q000196',
                                 'combinedBudgetSectionCode' => 'Q000062 ► 235'
                             ],
@@ -427,7 +428,27 @@ class CheckDocumentController extends Controller
                     ]
                 ];
                 break;
-                case "Loan Form":
+            case "Journal Form":
+                $varData = [
+                    'data' => [
+                        'data' => [
+                            [
+                                'sys_ID'    => 12345678,
+                                'sys_Text'  => 'CNB/QDC/2025/000001',
+                                'combinedBudgetCode' => 'Q000196',
+                                'combinedBudgetSectionCode' => 'Q000062 ► 235'
+                            ],
+                            [
+                                'sys_ID'    => 23456781,
+                                'sys_Text'  => 'CNB/QDC/2025/000002',
+                                'combinedBudgetCode' => 'Q000196',
+                                'combinedBudgetSectionCode' => 'Q000062 ► 235'
+                            ],
+                        ]
+                    ]
+                ];
+                break;
+            case "Loan Form":
                 $varData = [
                     'data' => [
                         'data' => [

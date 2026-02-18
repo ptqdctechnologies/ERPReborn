@@ -9,6 +9,7 @@
 @include('getFunction.getProductss')
 @include('getFunction.getAccountPayable')
 @include('getFunction.getCategory')
+@include('Accounting.GeneralJournal.Functions.PopUp.PopUpGeneralJournalRevision')
 @include('Accounting.GeneralJournal.Functions.PopUp.PopUpJournalSettlement')
 
 <div class="content-wrapper">

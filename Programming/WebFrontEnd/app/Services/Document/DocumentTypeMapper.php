@@ -66,6 +66,11 @@ class DocumentTypeMapper
                 'key'       => 'transaction.read.dataList.supplyChain.getDeliveryOrderDetail',
                 'parameter' => ['deliveryOrder_RefID' => (int) $referenceId],
             ],
+            'General Journal Form' => [
+                'key'                       => '',
+                'parameter'                 => [],
+                'businessDocument_RefID'    => (int) 74000000021494,
+            ],
             'Journal Form' => [
                 'key'                       => '',
                 'parameter'                 => [],
@@ -335,6 +340,27 @@ class DocumentTypeMapper
                 ],
                 'transactionType'        => 'DELIVERY ORDER',
                 'businessDocument_RefID' => $dataDetail['businessDocument_RefID'] ?? '',
+            ],
+            'General Journal Form'  => [
+                'dataHeader'        => [
+                    'dateUpdate'    => null,
+                    'type'          => 'Settlement', // Settlement, Adjustment
+                ],
+                // 'textAreaFields'    => [
+                //     'title'         => 'Notes',
+                //     'text'          => '-',
+                // ],
+                'components'    => [
+                    'detail'    => 'Components.GeneralJournalDetailDocument',
+                    'table'     => 'Components.GeneralJournalDetailDocumentTable',
+                ],
+                'resubmit'      => [
+                    'url'       => '',
+                    'name'      => '',
+                    'value'     => ''
+                ],
+                'transactionType'        => 'GENERAL JOURNAL',
+                'businessDocument_RefID' => '',
             ],
             'Journal Form' => [
                 'dataHeader'    => [

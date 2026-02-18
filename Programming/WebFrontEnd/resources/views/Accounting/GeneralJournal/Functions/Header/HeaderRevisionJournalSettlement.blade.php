@@ -42,8 +42,8 @@
             <div class="text-right">
                 Total: <span id="total_settlement_table">0.00</span>
             </div>
-            <div class="text-right" style="margin-top: 5px; display: block;">
-                Balance: <span id="total_balance">0.00</span>
+            <div class="text-right" style="margin-top: 5px;">
+                Total Settlement: <span id="total_settlement">0.00</span>
             </div>
         </div>
     </div>

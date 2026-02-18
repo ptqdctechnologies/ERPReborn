@@ -1,8 +1,76 @@
 <script>
     let currentIndexPickDepreciationCategory = 0;
+    let valueTriggerDepreciationMethod = 'CATEGORY';
 
     function pickDepreciationCategory(index) {
         currentIndexPickDepreciationCategory = index;
+    }
+
+    function getDepreciationRateYears(categoryID, depreciationMethodID, indexDepreciationRateYears) {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        
+        $.ajax({
+            type: 'GET',
+            url: '{!! route("getDepreciationRateYears") !!}?assetCategoryRef_ID=' + categoryID + '&depreciationMethodRef_ID=' + depreciationMethodID,
+            success: function(data) {
+                if (data && Array.isArray(data) && data[0]) {
+                    $(`#depreciationYears${indexDepreciationRateYears}`).each(function () {
+                        $(this).html(`
+                            <option value="" disabled ${!data[0]?.period? 'selected': ''}>Select a Years</option>
+                            <option value="4" ${data[0]?.period == '4' ? 'selected': ''}>4</option>
+                            <option value="8" ${data[0]?.period == '8' ? 'selected': ''}>8</option>
+                            <option value="16" ${data[0]?.period == '16' ? 'selected': ''}>16</option>
+                            <option value="20" ${data[0]?.period == '20' ? 'selected': ''}>20</option>
+                        `);
+                    });
+                    $(`#depreciationYears${indexDepreciationRateYears}`).prop("disabled", false);
+
+                    $(`#depreciationRate${indexDepreciationRateYears}`).each(function () {
+                        $(this).html(`
+                            <option value="" disabled ${!data[0]?.rate? 'selected': ''}>Select a Years</option>
+                            <option value="5" ${data[0]?.rate == '5' ? 'selected': ''}>5</option>
+                            <option value="6.25" ${data[0]?.rate == '6.25' ? 'selected': ''}>6.25</option>
+                            <option value="10" ${data[0]?.rate == '10' ? 'selected': ''}>10</option>
+                            <option value="12.5" ${data[0]?.rate == '12.5' ? 'selected': ''}>12.5</option>
+                            <option value="25" ${data[0]?.rate == '25' ? 'selected': ''}>25</option>
+                            <option value="50" ${data[0]?.rate == '50' ? 'selected': ''}>50</option>
+                        `);
+                    });
+                    $(`#depreciationRate${indexDepreciationRateYears}`).prop("disabled", false);
+
+                    // depreciationRateYearsIDValue = data[0]?.sys_ID;
+                    // depreciationRateValue = data[0]?.rate;
+                    // depreciationYearsValue = data[0]?.period;
+
+                    // $('#depreciation_rate_years_id').val(data[0]?.sys_ID);
+                    // $(`#depreciationRate${indexDepreciationRateYears}`).removeAttr("readonly");
+
+                    // $(`#depreciationRate${indexDepreciationRateYears}`).val(data[0]?.rate);
+
+                    // $(`#depreciationYears${indexDepreciationRateYears}`).removeAttr("readonly");
+                    // $(`#depreciationYears${indexDepreciationRateYears}`).val(data[0]?.period); 
+
+                    // $("#containerDepreciationRate").show();
+                    // $("#containerLoadingDepreciationRate").hide();
+                } else {
+                    $(`#depreciationYears${indexDepreciationRateYears}`).each(function () {
+                        $(this).html(`
+                            <option value="" disabled selected>Select a Years</option>
+                        `);
+                    });
+                    $(`#depreciationYears${indexDepreciationRateYears}`).prop("disabled", true);
+
+                    // console.log('Data depreciation rate years not found.');
+                }
+            },
+            error: function (textStatus, errorThrown) {
+                console.log('Function getDepreciationRateYears error: ', textStatus, errorThrown);
+            }
+        });
     }
 
     function getDepreciationMethod() {
@@ -16,10 +84,10 @@
             type: 'GET',
             url: '{!! route("getDepreciationMethod") !!}',
             success: function(data) {
-                let options = '<option value="">Select a Method</option>';
+                let options = '<option value="" disabled selected>Select a Method</option>';
 
                 $.each(data, function (index, item) {
-                    options += `<option value="${item.id}">${item.name}</option>`;
+                    options += `<option value="${item.sys_ID}">${item.name}</option>`;
                 });
 
                 $('.depreciation-method').each(function () {
@@ -30,6 +98,77 @@
                 console.log('Function getDepreciationMethod error: ', textStatus, errorThrown);
             }
         });
+    }
+
+    function onChangeDepreciationMethod(index) {
+        const selectMethod      = document.getElementById(`depreciationMethod${index}`);
+        const selectCategory    = document.getElementById(`depreciationCategoryRefID${index}`);
+
+        getDepreciationRateYears(selectCategory.value, selectMethod.value, index);
+    }
+
+    function onChangeDepreciationYears(index) {
+        const selectMethod = document.getElementById(`depreciationMethod${index}`);
+        const selectYears  = document.getElementById(`depreciationYears${index}`);
+        const selectRate   = document.getElementById(`depreciationRate${index}`);
+
+        if (selectMethod.value == '298000000000001') {
+            if (selectYears.value == '4') {
+                selectRate.value = '25';
+            } else if (selectYears.value == '8') {
+                selectRate.value = '12.5';
+            } else if (selectYears.value == '16') {
+                selectRate.value = '6.25';
+            } else if (selectYears.value == '20') {
+                selectRate.value = '5';
+            }
+        } else {
+            if (selectYears.value == '4') {
+                selectRate.value = '50';
+            } else if (selectYears.value == '8') {
+                selectRate.value = '25';
+            } else if (selectYears.value == '16') {
+                selectRate.value = '12.5';
+            } else if (selectYears.value == '20') {
+                selectRate.value = '10';
+            }
+        }
+    }
+
+    function onChangeDepreciationRate(index) {
+        const selectMethod = document.getElementById(`depreciationMethod${index}`);
+        const selectYears  = document.getElementById(`depreciationYears${index}`);
+        const selectRate   = document.getElementById(`depreciationRate${index}`);
+
+        if (selectMethod.value == '298000000000001') {
+            if (selectRate.value == '25') {
+                selectYears.value = '4';
+            } else if (selectRate.value == '12.5') {
+                selectYears.value = '8';
+            } else if (selectRate.value == '6.25') {
+                selectYears.value = '16';
+            } else if (selectRate.value == '5') {
+                selectYears.value = '20';
+            } else if (selectRate.value == '10' || selectRate.value == '50') {
+                selectYears.value = '';
+            }
+        } else {
+            if (selectRate.value == '50') {
+                selectYears.value = '4';
+            } else if (selectRate.value == '25') {
+                selectYears.value = '8';
+            } else if (selectRate.value == '12.5') {
+                selectYears.value = '16';
+            } else if (selectRate.value == '10') {
+                selectYears.value = '20';
+            } else if (selectRate.value == '5' || selectRate.value == '6.25') {
+                selectYears.value = '';
+            }
+        }
+    }
+
+    function onTriggerDepreciationMethod(params) {
+        valueTriggerDepreciationMethod = params;
     }
 
     function getDetailJournalFixedAsset(accountPayableID) {
@@ -48,6 +187,8 @@
             success: function(data) {
                 $("#journal_fixed_asset_loading_table").hide();
 
+                console.log('data.data', data.data);
+
                 if (data.status === 200 && Array.isArray(data.data) && data.data.length > 0) {
                     $.each(data.data, function(key, val) {
                         if (val.asset == 1) {
@@ -63,9 +204,12 @@
                                         ${val.productCode || ''} - ${val.productName || ''}
                                     </td>
                                     <td style="text-align: center;">
+                                        ${val.productUnitPriceCurrencyValue || ''}
+                                    </td>
+                                    <td style="text-align: center;">
                                         <div class="input-group">
                                             <div class="input-group-append">
-                                                <span style="border-radius:0;cursor:pointer;" class="input-group-text form-control">
+                                                <span style="border-radius:0;cursor:pointer;" class="input-group-text form-control" onclick="onTriggerDepreciationMethod('CATEGORY')">
                                                     <a data-toggle="modal" data-target="#myGetCategory" onclick="pickDepreciationCategory(${key})">
                                                         <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="">
                                                     </a>
@@ -76,15 +220,19 @@
                                         </div>
                                     </td>
                                     <td style="padding: 0.5rem !important;">
-                                        <select class="form-control depreciation-method" id="depreciationMethod${key}">
+                                        <select class="form-control depreciation-method" id="depreciationMethod${key}" onChange="valueTriggerDepreciationMethod == 'CATEGORY' ? onChangeDepreciationMethod(${key}) : onChangeDepreciationYears(${key})">
                                             <option value="">Select a Method</option>
                                         </select>
                                     </td>
                                     <td style="padding: 0.5rem !important;">
-                                        <input id="depreciationYears${key}" class="form-control number-without-negative" style="border-radius:0px;" readonly />
+                                        <select class="form-control" id="depreciationYears${key}" onChange="onChangeDepreciationYears(${key})" onclick="onTriggerDepreciationMethod('YEARS')" disabled>
+                                            <option value="">Select a Years</option>
+                                        </select>
                                     </td>
                                     <td style="text-align: center;">
-                                        <input id="depreciationRate${key}" class="form-control number-without-negative" style="border-radius:0px;" readonly />
+                                        <select class="form-control" id="depreciationRate${key}" onChange="onChangeDepreciationRate(${key})" disabled>
+                                            <option value="">Select a Rate</option>
+                                        </select>
                                     </td>
                                     <td style="text-align: center;">
                                         <div class="input-group">
@@ -107,10 +255,13 @@
                                         </select>
                                     </td>
                                     <td style="text-align: center;padding-right: .3rem;">
-                                        <input id="value${key}" class="form-control number-without-negative" data-index='' autocomplete="off" style="border-radius:0px;" />
+                                        <input id="value${key}" class="form-control number-without-negative" data-index='' autocomplete="off" readonly style="border-radius:0px;" />
                                     </td>
                                 </tr>
                             `;
+
+                            // <input id="depreciationYears${key}" class="form-control number-without-negative" style="border-radius:0px;" readonly />
+                            // <input id="depreciationRate${key}" class="form-control number-without-negative" style="border-radius:0px;" readonly />
 
                             $('#journal_fixed_asset_table tbody').append(row);
                         }
@@ -126,13 +277,16 @@
     }
 
     $('#tableGetCategory').on('click', 'tbody tr', async function() {
-        const sysId = $(this).find('input[data-trigger="sys_id_category"]').val();
-        const code  = $(this).find('td:nth-child(2)').text();
-        const name  = $(this).find('td:nth-child(3)').text();
+        const sysId         = $(this).find('input[data-trigger="sys_id_category"]').val();
+        const code          = $(this).find('td:nth-child(2)').text();
+        const name          = $(this).find('td:nth-child(3)').text();
+        const selectMethod  = document.getElementById(`depreciationMethod${currentIndexPickDepreciationCategory}`);
 
         $(`#depreciationCategoryRefID${currentIndexPickDepreciationCategory}`).val(sysId);
         $(`#depreciationCategoryName${currentIndexPickDepreciationCategory}`).val(`${code} - ${name}`);
         $(`#depreciationCategoryName${currentIndexPickDepreciationCategory}`).css({"background-color": "#e9ecef"});
+
+        getDepreciationRateYears(sysId, selectMethod.value, currentIndexPickDepreciationCategory);
 
         $('#myGetCategory').modal('hide');
     });

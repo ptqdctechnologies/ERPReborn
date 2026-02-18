@@ -55,7 +55,13 @@
         });
 
         totalDebitCreditSettlement = total;
-
+        const countBalance = totalAdvanceSettlement - total;
+        
+        document.getElementById('total_balance').innerText =
+            countBalance.toLocaleString('en-US', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            });
         document.getElementById('total_settlement_table').innerText =
             total.toLocaleString('en-US', {
                 minimumFractionDigits: 2,
@@ -454,6 +460,7 @@
 
                     renderTableJournalSettlement();
                     
+                    $('#journalSettlementModalLabel').text(`Detail Transaction ${data.data[0].documentNumber}`);
                     $('#detail_budget_information').text(`: ${data.data[0].combinedBudgetCode} - ${data.data[0].combinedBudgetName}`);
                     $('#detail_sub_budget_information').text(`: ${data.data[0].combinedBudgetSectionCode} - ${data.data[0].combinedBudgetSectionName}`);
                     $('#detail_beneficiary_information').text(`: ${data.data[0].beneficiaryName}`);
@@ -462,7 +469,9 @@
                     $("#detail_attachment_information").append(divInputFile);
                     $('#total_unsettle_settlement').val(totalUnsettle);
                     $('#detail_transaction_table').css("width", "100%");
-                    $('#total_settlement').text(currencyTotal(totalAdvanceSettlement));
+                    $('#total_unposted_journal').val(currencyTotal(totalAdvanceSettlement));
+                    $('#total_settlement').val(currencyTotal(totalAdvanceSettlement));
+                    // $('#total_settlement').text(currencyTotal(totalAdvanceSettlement));
                 }
             },
             error: function(xhr, status, error) {
