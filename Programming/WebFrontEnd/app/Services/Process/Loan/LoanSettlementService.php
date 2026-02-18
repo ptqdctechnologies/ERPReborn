@@ -67,6 +67,7 @@ class LoanSettlementService
                                     "chartOfAccount_Settlement_RefID"   => NULL,
                                     "chartOfAccount_Penalty_RefID"      => (int) $data['chartOfAccount_Penalty_RefID'],
                                     "chartOfAccount_Interest_RefID"     => (int) $data['chartOfAccount_Interest_RefID'],
+                                    "combinedBudget_RefID"              => NULL
                                     ]
                                 ],
                             ]
@@ -109,7 +110,8 @@ class LoanSettlementService
                                     "currencyExchangeRate"              => $data['currencyExchangeRate'],
                                     "chartOfAccount_Settlement_RefID"   => 65000000000005,
                                     "chartOfAccount_Penalty_RefID"      => 65000000000005,
-                                    "chartOfAccount_Interest_RefID"     => 65000000000005
+                                    "chartOfAccount_Interest_RefID"     => 65000000000005,
+                                    "combinedBudget_RefID"              => NULL
                                     ]
                                 ],
                             ]
