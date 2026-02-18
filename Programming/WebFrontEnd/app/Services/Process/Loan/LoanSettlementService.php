@@ -67,7 +67,7 @@ class LoanSettlementService
                                     "chartOfAccount_Settlement_RefID"   => NULL,
                                     "chartOfAccount_Penalty_RefID"      => (int) $data['chartOfAccount_Penalty_RefID'],
                                     "chartOfAccount_Interest_RefID"     => (int) $data['chartOfAccount_Interest_RefID'],
-                                    "combinedBudget_RefID"              => NULL
+                                    "combinedBudget_RefID"              => $data['combinedBudget_RefID']
                                     ]
                                 ],
                             ]
@@ -139,10 +139,11 @@ class LoanSettlementService
             'latest',
             [
                 'parameter'     => [
-                    'CombinedBudgetCode'        => $budget,
-                    'CombinedBudgetSectionCode' => NULL,
-                    'Creditor_RefID'            => $creditor ? $creditor : NULL,
-                    'Debitor_RefID'             => $debitor ? $debitor : NULL
+                    'CombinedBudgetCode'    => $budget,
+                    'Creditor_RefID'        => $creditor ? $creditor : NULL,
+                    'Debitor_RefID'         => $debitor ? $debitor : NULL,
+                    'StartDate'             => $date ? $startDate : NULL,
+                    'EndDate'               => $date ? $endDate : NULL
                 ]
             ]
         );
