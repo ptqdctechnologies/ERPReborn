@@ -58,40 +58,67 @@
                                 defaultContent: '-'
                             },
                             {
-                                data: '-',
-                                defaultContent: '-'
+                                data: null,
+                                defaultContent: '-',
+                                render: function (data, type, row, meta) {
+                                    return currencyTotal(data.total_Settlement_IDR || 0);
+                                }
                             },
                             {
-                                data: '-',
-                                defaultContent: '-'
+                                data: null,
+                                defaultContent: '-',
+                                render: function (data, type, row, meta) {
+                                    return currencyTotal(data.total_Settlement_Other_Currency || 0);
+                                }
                             },
                             {
-                                data: '-',
-                                defaultContent: '-'
+                                data: null,
+                                defaultContent: '-',
+                                render: function (data, type, row, meta) {
+                                    return currencyTotal(data.total_Settlement_Equivalent_IDR || 0);
+                                }
                             },
                             {
-                                data: '-',
-                                defaultContent: '-'
+                                data: null,
+                                defaultContent: '-',
+                                render: function (data, type, row, meta) {
+                                    return currencyTotal(data.total_Penalty_IDR || 0);
+                                }
                             },
                             {
-                                data: '-',
-                                defaultContent: '-'
+                                data: null,
+                                defaultContent: '-',
+                                render: function (data, type, row, meta) {
+                                    return currencyTotal(data.total_Penalty_Other_Currency || 0);
+                                }
                             },
                             {
-                                data: '-',
-                                defaultContent: '-'
+                                data: null,
+                                defaultContent: '-',
+                                render: function (data, type, row, meta) {
+                                    return currencyTotal(data.total_Penalty_Equivalent_IDR || 0);
+                                }
                             },
                             {
-                                data: '-',
-                                defaultContent: '-'
+                                data: null,
+                                defaultContent: '-',
+                                render: function (data, type, row, meta) {
+                                    return currencyTotal(data.total_Interest_IDR || 0);
+                                }
                             },
                             {
-                                data: '-',
-                                defaultContent: '-'
+                                data: null,
+                                defaultContent: '-',
+                                render: function (data, type, row, meta) {
+                                    return currencyTotal(data.total_Interest_Other_Currency || 0);
+                                }
                             },
                             {
-                                data: '-',
-                                defaultContent: '-'
+                                data: null,
+                                defaultContent: '-',
+                                render: function (data, type, row, meta) {
+                                    return currencyTotal(data.total_Interest_Equivalent_IDR || 0);
+                                }
                             },
                             {
                                 data: 'notes',
