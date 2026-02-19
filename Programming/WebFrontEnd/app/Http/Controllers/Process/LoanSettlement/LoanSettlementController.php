@@ -100,6 +100,8 @@ class LoanSettlementController extends Controller
     {
         try {
             $date           = $request->loanSettlementDate;
+            $creditor       = $request->creditor_id;
+            $debitor        = $request->debitor_id;
             $budget         = [
                 "id"        => $request->budget_id,
                 "code"      => $request->budget_code,
@@ -107,8 +109,8 @@ class LoanSettlementController extends Controller
 
             $response = $this->loanSettlementService->getLoanSettlementSummary(
                 $budget['code'],
-                null,
-                null,
+                $creditor,
+                $debitor,
                 $date
             );
 

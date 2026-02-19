@@ -53,8 +53,8 @@ class MaterialReceiveService
                     'CombinedBudgetCode'    => $budget,
                     'DeliveryFrom_RefID'    => $deliveryFromID ? $deliveryFromID : NULL,
                     'DeliveryTo_RefID'      => $deliveryToID ? $deliveryToID : NULL
-                    // 'StartDate'             => $date ? $startDate : NULL,
-                    // 'EndDate'               => $date ? $endDate : NULL
+                    'StartDate'             => $date ? $startDate : NULL,
+                    'EndDate'               => $date ? $endDate : NULL
                 ]
             ]
         );

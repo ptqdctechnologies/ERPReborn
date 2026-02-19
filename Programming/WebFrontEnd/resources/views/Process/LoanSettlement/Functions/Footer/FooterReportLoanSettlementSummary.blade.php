@@ -1,6 +1,9 @@
 <script>
+    let isCreditorClicked       = false;
     let dataReport              = [];
     const budgetID              = document.getElementById("budget_id");
+    const creditorID            = document.getElementById("creditor_id");
+    const debitorID             = document.getElementById("debitor_id");
     const budgetCode            = document.getElementById("budget_code");
     const budgetName            = document.getElementById("budget_name");
     const loanSettlementDate    = document.getElementById("loan_settlement_date_range");
@@ -18,6 +21,8 @@
             type: 'POST',
             url: '{!! route("LoanSettlement.ReportLoanSettlementSummaryStore") !!}',
             data: {
+                creditor_id: creditorID.value,
+                debitor_id: debitorID.value,
                 budget_id: budgetID.value,
                 budget_code: budgetCode.value,
                 loanSettlementDate: loanSettlementDate.value
@@ -144,6 +149,29 @@
         });
     }
 
+    $('#tableSuppliers').on('click', 'tbody tr', function() {
+        const sysId   = $(this).find('input[data-trigger="sys_id_supplier"]').val();
+        const code    = $(this).find('td:nth-child(2)').text();
+        const name    = $(this).find('td:nth-child(3)').text();
+        const address = $(this).find('td:nth-child(4)').text();
+        
+        if (isCreditorClicked) {
+            $(`#creditor_id`).val(sysId);
+            $(`#creditor_code`).val(code);
+            $(`#creditor_name`).val(`${code} - ${name}`);
+            $(`#creditor_name`).css({'background-color': '#e9ecef', 'border': '1px solid #ced4da'});
+            $("#creditor_message").hide();
+        } else {
+            $(`#debitor_id`).val(sysId);
+            $(`#debitor_code`).val(code);
+            $(`#debitor_name`).val(`${code} - ${name}`);
+            $(`#debitor_name`).css({'background-color': '#e9ecef', 'border': '1px solid #ced4da'});
+            $("#debitor_message").hide();
+        }
+
+        $("#mySuppliers").modal('toggle');
+    });
+
     $('#tableProjects').on('click', 'tbody tr', function() {
         const sysId   = $(this).find('input[data-trigger="sys_id_project"]').val();
         const code    = $(this).find('td:nth-child(2)').text();
@@ -155,6 +183,16 @@
         $("#budget_name").css('background-color', '#e9ecef');
 
         $('#myProjects').modal('hide');
+    });
+
+    $('#myCreditorsTrigger').on('click', function() {
+        isCreditorClicked = true;
+        $("#titleSuppliers").text('Choose Creditor');
+    });
+
+    $('#myDebitorsTrigger').on('click', function() {
+        isCreditorClicked = false;
+        $("#titleSuppliers").text('Choose Debitor');
     });
 
     $(window).one('load', function() {
