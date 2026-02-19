@@ -28,15 +28,15 @@
 
             <!-- CONTENT -->
             <div class="card">
-                <!-- DETAIL JOURNAL SETTLEMENT -->
-                <div class="tab-content detail-journal-settlement px-3 pb-2" id="nav-tabContent">
+                <!-- GENERAL JOURNAL -->
+                <div class="tab-content px-3 pt-4 pb-2" id="nav-tabContent">
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
                                 <!-- TITLE -->
                                 <div class="card-header">
                                     <label class="card-title">
-                                        Detail Journal Settlement
+                                        General Journal
                                     </label>
                                     <div class="card-tools">
                                         <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -45,7 +45,108 @@
                                     </div>
                                 </div>
 
-                                @include('Accounting.GeneralJournal.Functions.Header.HeaderRevisionJournalSettlement')
+                                @include('Accounting.GeneralJournal.Functions.Header.HeaderRevisionGeneralJournal')
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <?php if ($type === "SETTLEMENT") { ?>
+                    <!-- DETAIL JOURNAL SETTLEMENT -->
+                    <div class="tab-content detail-journal-settlement px-3 pb-2" id="nav-tabContent">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <!-- TITLE -->
+                                    <div class="card-header">
+                                        <label class="card-title">
+                                            Detail Journal Settlement
+                                        </label>
+                                        <div class="card-tools">
+                                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                                <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    @include('Accounting.GeneralJournal.Functions.Header.HeaderRevisionJournalSettlement')
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <?php } else if ($type === "ADJUSTMENT") { ?>
+                    <!-- DETAIL JOURNAL ADJUSTMENT -->
+                    <div class="tab-content detail-journal-adjustment px-3 pb-2" id="nav-tabContent">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <!-- TITLE -->
+                                    <div class="card-header">
+                                        <label class="card-title">
+                                            Detail Journal Adjustment
+                                        </label>
+                                        <div class="card-tools">
+                                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                                <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    @include('Accounting.GeneralJournal.Functions.Header.HeaderRevisionJournalAdjustment')
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <?php } else { ?>
+                    <!-- DETAIL JOURNAL FIXED ASSET -->
+                    <div class="tab-content detail-journal-fixed-asset px-3 pb-2" id="nav-tabContent">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <!-- TITLE -->
+                                    <div class="card-header">
+                                        <label class="card-title">
+                                            Detail Journal Fixed Asset
+                                        </label>
+                                        <div class="card-tools">
+                                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                                <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    @include('Accounting.GeneralJournal.Functions.Header.HeaderRevisionJournalFixedAsset')
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <?php } ?>
+
+                <!-- REMARK -->
+                <div class="tab-content px-3 pb-2" id="nav-tabContent">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <!-- TITLE -->
+                                <div class="card-header">
+                                    <label class="card-title">
+                                        Remark
+                                    </label>
+                                    <div class="card-tools">
+                                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                            <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- CONTENT -->
+                                <div class="card-body">
+                                    <div class="row py-3">
+                                        <div class="col p-0">
+                                            <textarea name="remark" id="remark" class="form-control"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
