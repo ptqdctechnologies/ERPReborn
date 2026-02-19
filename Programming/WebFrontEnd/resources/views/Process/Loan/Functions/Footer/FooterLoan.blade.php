@@ -497,6 +497,14 @@
         }
     });
 
+    $('#creditor_trigger').on('click', function() {
+        $("#titleSuppliers").text('Choose Creditor');
+    });
+
+    $('#debitor_trigger').on('click', function() {
+        $("#titleSuppliers").text('Choose Debitor');
+    });
+
     $(window).one('load', function(e) {
         getBanksAccount('', '');
 

@@ -3,6 +3,7 @@
 namespace App\Services\Process\Loan;
 
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Session;
 use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
 use App\Helpers\ZhtHelper\System\Helper_Environment;
@@ -67,6 +68,7 @@ class LoanSettlementService
                                     "chartOfAccount_Settlement_RefID"   => NULL,
                                     "chartOfAccount_Penalty_RefID"      => (int) $data['chartOfAccount_Penalty_RefID'],
                                     "chartOfAccount_Interest_RefID"     => (int) $data['chartOfAccount_Interest_RefID'],
+                                    "combinedBudget_RefID"              => $data['combinedBudget_RefID']
                                     ]
                                 ],
                             ]
@@ -109,7 +111,8 @@ class LoanSettlementService
                                     "currencyExchangeRate"              => $data['currencyExchangeRate'],
                                     "chartOfAccount_Settlement_RefID"   => 65000000000005,
                                     "chartOfAccount_Penalty_RefID"      => 65000000000005,
-                                    "chartOfAccount_Interest_RefID"     => 65000000000005
+                                    "chartOfAccount_Interest_RefID"     => 65000000000005,
+                                    "combinedBudget_RefID"              => NULL
                                     ]
                                 ],
                             ]
@@ -137,10 +140,11 @@ class LoanSettlementService
             'latest',
             [
                 'parameter'     => [
-                    'CombinedBudgetCode'        => $budget,
-                    'CombinedBudgetSectionCode' => NULL,
-                    'Creditor_RefID'            => $creditor ? $creditor : NULL,
-                    'Debitor_RefID'             => $debitor ? $debitor : NULL
+                    'CombinedBudgetCode'    => $budget,
+                    'Creditor_RefID'        => $creditor ? $creditor : NULL,
+                    'Debitor_RefID'         => $debitor ? $debitor : NULL,
+                    'StartDate'             => $date ? $startDate : NULL,
+                    'EndDate'               => $date ? $endDate : NULL
                 ]
             ]
         );

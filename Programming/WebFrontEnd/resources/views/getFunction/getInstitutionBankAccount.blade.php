@@ -1,8 +1,8 @@
-<div id="mySuppliers" class="modal fade" role="dialog" aria-labelledby="contohModalScrollableTitle" aria-hidden="true">
+<div id="myInstitutionBankAccount" class="modal fade" role="dialog" aria-labelledby="contohModalScrollableTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 id="titleSuppliers" class="modal-title text-bold">Choose Supplier</h4>
+                <h4 class="modal-title text-bold">Choose Account Number</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
@@ -10,19 +10,19 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body table-responsive p-0" style="height: 400px;">
-                                <table class="table table-head-fixed text-nowrap" id="tableSuppliers">
+                                <table class="table table-head-fixed text-nowrap" id="tableInstitutionBankAccount">
                                     <thead>
                                         <tr>
                                             <th>No</th>
-                                            <th>Supplier Code</th>
-                                            <th>Supplier Name</th>
-                                            <th>Address</th>
+                                            <th>Bank Name</th>
+                                            <th>Account Number</th>
+                                            <th>Account Name</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                     </tbody>
                                     <tfoot>
-                                        <tr class="loadingSuppliers">
+                                        <tr class="loadingInstitutionBankAccount">
                                             <td colspan="4" class="p-0" style="height: 22rem;">
                                                 <div class="d-flex flex-column justify-content-center align-items-center py-3">
                                                     <div class="spinner-border" role="status">
@@ -34,10 +34,10 @@
                                                 </div>
                                             </td>
                                         </tr>
-                                        <tr class="errorSuppliersMessageContainer">
+                                        <tr class="errorInstitutionBankAccountMessageContainer">
                                             <td colspan="4" class="p-0" style="height: 22rem;">
                                                 <div class="d-flex flex-column justify-content-center align-items-center py-3">
-                                                    <div id="errorSuppliersMessage" class="mt-3 text-red" style="font-size: 1rem; font-weight: 700;"></div>
+                                                    <div id="errorInstitutionBankAccountMessage" class="mt-3 text-red" style="font-size: 1rem; font-weight: 700;"></div>
                                                 </div>
                                             </td>
                                         </tr>
@@ -53,12 +53,12 @@
 </div>
 
 <script>
-    $(".errorSuppliersMessageContainer").hide();
+    $(".errorInstitutionBankAccountMessageContainer").hide();
 
-    function getSuppliers() {
-        $('#tableSuppliers tbody').empty();
-        $(".loadingSuppliers").show();
-        $(".errorSuppliersMessageContainer").hide();
+    function getInstitutionBankAccount() {
+        $('#tableInstitutionBankAccount tbody').empty();
+        $(".loadingInstitutionBankAccount").show();
+        $(".errorInstitutionBankAccountMessageContainer").hide();
 
         $.ajaxSetup({
             headers: {
@@ -68,15 +68,15 @@
 
         $.ajax({
             type: 'GET',
-            url: '{!! route("getSupplier") !!}',
+            url: '{!! route("getInstitutionBankAccount") !!}',
             success: function(data) {
-                $(".loadingSuppliers").hide();
+                $(".loadingInstitutionBankAccount").hide();
 
-                var table = $('#tableSuppliers').DataTable();
-                table.clear();
+                let tableBankAccount = $('#tableInstitutionBankAccount').DataTable();
+                tableBankAccount.clear();
 
                 if (Array.isArray(data) && data.length > 0) {
-                    $('#tableSuppliers').DataTable({
+                    $('#tableInstitutionBankAccount').DataTable({
                         destroy: true,
                         data: data,
                         deferRender: true,
@@ -87,50 +87,46 @@
                                 data: null,
                                 render: function (data, type, row, meta) {
                                     return '<td class="align-middle text-center">' +
-                                        '<input id="sys_id_supplier' + (meta.row + 1) + '" value="' + data.sys_ID + '" data-trigger="sys_id_supplier" type="hidden">' +
+                                        '<input id="sys_id_bank_account_list' + (meta.row + 1) + '" value="' + data.sys_ID + '" data-trigger="sys_id_bank_account_list" type="hidden">' +
                                         (meta.row + 1) +
                                     '</td>';
                                 }
                             },
                             {
-                                data: 'code',
+                                data: 'bankAcronym',
                                 defaultContent: '-',
                                 className: "align-middle"
                             },
                             {
-                                data: 'name',
+                                data: 'accountNumber',
                                 defaultContent: '-',
                                 className: "align-middle"
                             },
                             {
-                                data: 'address',
+                                data: 'accountName',
                                 defaultContent: '-',
                                 className: "align-middle"
                             }
                         ]
                     });
 
-                    $('#tableSuppliers').css("width", "100%");
+                    $('#tableInstitutionBankAccount').css("width", "100%");
                 } else {
-                    $(".errorSuppliersMessageContainer").show();
-                    $("#errorSuppliersMessage").text(`Data not found.`);
+                    $(".errorInstitutionBankAccountMessageContainer").show();
+                    $("#errorInstitutionBankAccountMessage").text(`Data not found.`);
 
-                    $("#tableSuppliers_length").hide();
-                    $("#tableSuppliers_filter").hide();
-                    $("#tableSuppliers_info").hide();
-                    $("#tableSuppliers_paginate").hide();
+                    $("#tableInstitutionBankAccount_length").hide();
+                    $("#tableInstitutionBankAccount_filter").hide();
+                    $("#tableInstitutionBankAccount_info").hide();
+                    $("#tableInstitutionBankAccount_paginate").hide();
                 }
             },
             error: function (textStatus, errorThrown) {
-                $('#tableSuppliers tbody').empty();
-                $(".loadingSuppliers").hide();
-                $(".errorSuppliersMessageContainer").show();
-                $("#errorSuppliersMessage").text(`[${textStatus.status}] ${textStatus.responseJSON.message}`);
+                $('#tableInstitutionBankAccount tbody').empty();
+                $(".loadingInstitutionBankAccount").hide();
+                $(".errorInstitutionBankAccountMessageContainer").show();
+                $("#errorInstitutionBankAccountMessage").text(`[${textStatus.status}] ${textStatus.responseJSON.message}`);
             }
         });
     }
-
-    $(window).one('load', function(e) {
-        getSuppliers();
-    });
 </script>

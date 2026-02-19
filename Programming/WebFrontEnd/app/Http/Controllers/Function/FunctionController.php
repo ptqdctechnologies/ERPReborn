@@ -1722,6 +1722,34 @@ class FunctionController extends Controller
         ]);
     }
 
+    public function getInstitutionBankAccount(Request $request)
+    {
+        try {
+            $varAPIWebToken = Session::get('SessionLogin');
+
+            $varData = Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'dataPickList.master.getInstitutionBankAccount', 
+                'latest',
+                [
+                'parameter' => [
+                    ]
+                ]
+            );
+
+            if ($varData['metadata']['HTTPStatusCode'] !== 200) {
+                throw new \Exception('Failed to fetch Get Institution Bank Account');
+            }
+
+            return response()->json($varData['data']['data']);
+        } catch (\Throwable $th) {
+            Log::error("Error at getInstitutionBankAccount: " . $th->getMessage());
+
+            return response()->json([]);
+        }
+    }
+
     public function getDepreciationMethod(Request $request)
     {
         try {

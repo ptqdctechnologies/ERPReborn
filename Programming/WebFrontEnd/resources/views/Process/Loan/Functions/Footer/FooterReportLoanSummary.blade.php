@@ -1,10 +1,13 @@
 <script>
-    let dataReport      = [];
-    const budgetID      = document.getElementById("budget_id");
-    const budgetCode    = document.getElementById("budget_code");
-    const budgetName    = document.getElementById("budget_name");
-    const loanDate      = document.getElementById("loan_date_range");
-    const printType     = document.getElementById("print_type");
+    let isCreditorClicked   = false;
+    let dataReport          = [];
+    const budgetID          = document.getElementById("budget_id");
+    const creditorID        = document.getElementById("creditor_id");
+    const debitorID         = document.getElementById("debitor_id");
+    const budgetCode        = document.getElementById("budget_code");
+    const budgetName        = document.getElementById("budget_name");
+    const loanDate          = document.getElementById("loan_date_range");
+    const printType         = document.getElementById("print_type");
 
     function getDataReport() {
         ShowLoading();
@@ -19,6 +22,8 @@
             type: 'POST',
             url: '{!! route("Loan.ReportLoanSummaryStore") !!}',
             data: {
+                creditor_id: creditorID.value,
+                debitor_id: debitorID.value,
                 budget_id: budgetID.value,
                 budget_code: budgetCode.value,
                 loanDate: loanDate.value
@@ -66,16 +71,22 @@
                                 data: null,
                                 defaultContent: '-',
                                 render: function (data, type, row, meta) {
-                                    return currencyTotal(data.principleLoan || 0);
+                                    return currencyTotal(data.principleLoan_IDR || 0);
                                 }
                             },
                             {
-                                data: '-',
-                                defaultContent: '-'
+                                data: null,
+                                defaultContent: '-',
+                                render: function (data, type, row, meta) {
+                                    return currencyTotal(data.principleLoan_Other_Currency || 0);
+                                }
                             },
                             {
-                                data: '-',
-                                defaultContent: '-'
+                                data: null,
+                                defaultContent: '-',
+                                render: function (data, type, row, meta) {
+                                    return currencyTotal(data.principleLoan_Equivalent_IDR || 0);
+                                }
                             },
                             {
                                 data: 'rate',
@@ -86,16 +97,25 @@
                                 defaultContent: '-'
                             },
                             {
-                                data: '-',
-                                defaultContent: '-'
+                                data: null,
+                                defaultContent: '-',
+                                render: function (data, type, row, meta) {
+                                    return currencyTotal(data.totalLoan_IDR || 0);
+                                }
                             },
                             {
-                                data: '-',
-                                defaultContent: '-'
+                                data: null,
+                                defaultContent: '-',
+                                render: function (data, type, row, meta) {
+                                    return currencyTotal(data.totalLoan_Other_Currency || 0);
+                                }
                             },
                             {
-                                data: '-',
-                                defaultContent: '-'
+                                data: null,
+                                defaultContent: '-',
+                                render: function (data, type, row, meta) {
+                                    return currencyTotal(data.totalLoan_Equivalent_IDR || 0);
+                                }
                             },
                             {
                                 data: 'notes',
@@ -165,6 +185,29 @@
         });
     }
 
+    $('#tableSuppliers').on('click', 'tbody tr', function() {
+        const sysId   = $(this).find('input[data-trigger="sys_id_supplier"]').val();
+        const code    = $(this).find('td:nth-child(2)').text();
+        const name    = $(this).find('td:nth-child(3)').text();
+        const address = $(this).find('td:nth-child(4)').text();
+        
+        if (isCreditorClicked) {
+            $(`#creditor_id`).val(sysId);
+            $(`#creditor_code`).val(code);
+            $(`#creditor_name`).val(`${code} - ${name}`);
+            $(`#creditor_name`).css({'background-color': '#e9ecef', 'border': '1px solid #ced4da'});
+            $("#creditor_message").hide();
+        } else {
+            $(`#debitor_id`).val(sysId);
+            $(`#debitor_code`).val(code);
+            $(`#debitor_name`).val(`${code} - ${name}`);
+            $(`#debitor_name`).css({'background-color': '#e9ecef', 'border': '1px solid #ced4da'});
+            $("#debitor_message").hide();
+        }
+
+        $("#mySuppliers").modal('toggle');
+    });
+
     $('#tableProjects').on('click', 'tbody tr', function() {
         const sysId   = $(this).find('input[data-trigger="sys_id_project"]').val();
         const code    = $(this).find('td:nth-child(2)').text();
@@ -176,6 +219,16 @@
         $("#budget_name").css('background-color', '#e9ecef');
 
         $('#myProjects').modal('hide');
+    });
+
+    $('#myCreditorsTrigger').on('click', function() {
+        isCreditorClicked = true;
+        $("#titleSuppliers").text('Choose Creditor');
+    });
+
+    $('#myDebitorsTrigger').on('click', function() {
+        isCreditorClicked = false;
+        $("#titleSuppliers").text('Choose Debitor');
     });
 
     $(window).one('load', function() {

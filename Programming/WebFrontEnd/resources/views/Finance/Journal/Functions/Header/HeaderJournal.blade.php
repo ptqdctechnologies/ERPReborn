@@ -10,7 +10,7 @@
                         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Account Number</label>
                         <div class="col d-flex">
                             <div>
-                                <span id="banksAccountTrigger" class="input-group-text form-control" data-toggle="modal" data-target="#myBanksAccount" style="border-radius:0;cursor:pointer;">
+                                <span id="banksAccountTrigger" class="input-group-text form-control" data-toggle="modal" data-target="#myInstitutionBankAccount" style="border-radius:0;cursor:pointer;">
                                     <i class="fas fa-gift"></i>
                                 </span>
                             </div>

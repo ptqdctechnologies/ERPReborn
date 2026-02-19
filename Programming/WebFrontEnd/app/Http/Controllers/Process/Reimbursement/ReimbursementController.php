@@ -36,9 +36,12 @@ class ReimbursementController extends Controller
             $var = $_GET['var'];
         }
 
+        $documentTypeRefID  = $this->GetBusinessDocumentsTypeFromRedis('Reimbursement Form');
+
         $compact = [
             'var'               => $var,
             'varAPIWebToken'    => $varAPIWebToken,
+            'documentTypeRefID' => $documentTypeRefID
         ];
 
         return view('Process.Reimbursement.Transactions.CreateReimbursement', $compact);

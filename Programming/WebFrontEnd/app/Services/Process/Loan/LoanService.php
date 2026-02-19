@@ -153,9 +153,11 @@ class LoanService
             'latest',
             [
                 'parameter'     => [
-                    'CombinedBudgetCode'    => $budget,
+                    'CombinedBudgetCode'    => $budget ? $budget : NULL,
                     'Creditor_RefID'        => $creditor ? $creditor : NULL,
-                    'Debitor_RefID'         => $debitor ? $debitor : NULL
+                    'Debitor_RefID'         => $debitor ? $debitor : NULL,
+                    'StartDate'             => $date ? $startDate : NULL,
+                    'EndDate'               => $date ? $endDate : NULL
                 ]
             ]
         );

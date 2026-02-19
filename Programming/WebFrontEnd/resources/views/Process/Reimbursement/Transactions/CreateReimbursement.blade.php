@@ -19,7 +19,7 @@
             <div class="row mb-1" style="background-color:#4B586A;">
                 <div class="col-sm-6" style="height:30px;">
                     <label style="font-size:15px;position:relative;top:7px;color:white;">
-                        Reimbursement
+                        Reimbursement Form
                     </label>
                 </div>
             </div>
@@ -32,7 +32,7 @@
                 <div class="card">
                     <form method="post" action="{{ route('SelectWorkFlow') }}" id="FormSubmitReimbursement">
                     @csrf
-                        <input type="hidden" name="DocumentTypeID" id="DocumentTypeID">
+                        <input type="hidden" name="DocumentTypeID" id="DocumentTypeID" value="<?= $documentTypeRefID; ?>">
                         <input type="hidden" name="var_combinedBudget_RefID" id="var_combinedBudget_RefID">
 
                         <!-- ADD NEW REIMBURSEMENT -->

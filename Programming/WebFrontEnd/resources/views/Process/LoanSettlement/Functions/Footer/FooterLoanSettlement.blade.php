@@ -1,6 +1,7 @@
 <script>
     let typeOfCOA                       = null;
     let dataLoan                        = {
+        combinedBudgetRefID: null,
         creditorRefID: null,
         debitorRefID: null,
         loanDetailRefID: 294000000000012,
@@ -35,14 +36,16 @@
             },
             success: function (res) {
                 if (Array.isArray(res) && res.length > 0) {
-                    dataLoan.creditorRefID = res[0].Creditor_RefID;
-                    dataLoan.debitorRefID = res[0].Debitor_RefID;
-                    dataLoan.currencyRefID = res[0].Currency_RefID;
-                    dataLoan.currencyExchangeRate = res[0].CurrencyExchangeRate;
+                    dataLoan.combinedBudgetRefID    = res[0].CombinedBudget_RefID ? parseInt(res[0].CombinedBudget_RefID) : null;
+                    dataLoan.creditorRefID          = res[0].Creditor_RefID;
+                    dataLoan.debitorRefID           = res[0].Debitor_RefID;
+                    dataLoan.currencyRefID          = res[0].Currency_RefID;
+                    dataLoan.currencyExchangeRate   = res[0].CurrencyExchangeRate;
 
                     $(`#loan_id`).val(id);
                     $(`#loan_name`).val(name);
                     $(`#loan_name`).css({'background-color': '#e9ecef', 'border': '1px solid #ced4da'});
+                    $(`#loan_budget`).text(`: ${res[0].CombinedBudgetCode ?? ''} - ${res[0].CombinedBudgetName ?? ''}`);
                     $(`#loan_type`).text(`: ${res[0].LoanType}`);
                     $(`#loan_credit`).text(`: ${res[0].CreditorName}`);
                     $(`#loan_debit`).text(`: ${res[0].DebitorName}`);
@@ -80,6 +83,7 @@
             type: 'POST',
             url: '{{ route("LoanSettlement.store") }}',
             data: {
+                combinedBudget_RefID: dataLoan.combinedBudgetRefID,
                 creditor_RefID: dataLoan.creditorRefID,
                 debitor_RefID: dataLoan.debitorRefID,
                 dataInput_Log_FileUpload_1: dataInputLogFileUpload1.value,

@@ -33,8 +33,8 @@ class JournalService
 
         $data                       = $request->storeData;
         $journalDetail              = json_decode($data['journalDetail'], true);
-        $cashDisbursementItemList   = json_decode($data['cashDisbursementItemList'], true);
-        $cashReceiptItemList        = json_decode($data['cashReceiptItemList'], true);
+        // $cashDisbursementItemList   = json_decode($data['cashDisbursementItemList'], true);
+        // $cashReceiptItemList        = json_decode($data['cashReceiptItemList'], true);
 
         return Helper_APICall::setCallAPIGateway(
             Helper_Environment::getUserSessionID_System(),
@@ -42,19 +42,20 @@ class JournalService
             'transaction.create.accounting.setJournal',
             'latest',
             [
-            'entities' => [
-                'additionalData'    => [
-                    'itemList'      => [
-                        'items'     => $journalDetail
-                        ],
-                    "cashDisbursementItemList"  => [
-                        "items"                 => $cashDisbursementItemList
-                        ],
-                    "cashReceiptItemList"   => [
-                        "items"             => $cashReceiptItemList
-                        ]
-                    ]
-                ]
+            'entities' => $journalDetail
+            // 'entities' => [
+            //     'additionalData'    => [
+            //         'itemList'      => [
+            //             'items'     => $journalDetail
+            //             ],
+            //         "cashDisbursementItemList"  => [
+            //             "items"                 => $cashDisbursementItemList
+            //             ],
+            //         "cashReceiptItemList"   => [
+            //             "items"             => $cashReceiptItemList
+            //             ]
+            //         ]
+            //     ]
             ]
         );
     }
