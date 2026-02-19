@@ -14,8 +14,8 @@
                                     <thead>
                                         <tr>
                                             <th>No</th>
-                                            <th>Supplier Code</th>
-                                            <th>Supplier Name</th>
+                                            <th>Code</th>
+                                            <th>Name</th>
                                             <th>Address</th>
                                         </tr>
                                     </thead>

@@ -11,6 +11,28 @@
     const poDate        = document.getElementById("purchase_order_date_range_container");
     const printType     = document.getElementById("print_type");
 
+    function resetForm() {
+        dataReport = [];
+
+        $("#budget_name").css('background-color', '#fff');
+        $(`#budget_name`).val("");
+        $(`#budget_id`).val("");
+        $(`#budget_code`).val("");
+
+        $("#sub_budget_name").css('background-color', '#fff');
+        $(`#sub_budget_name`).val("");
+        $(`#sub_budget_id`).val("");
+        $(`#sub_budget_code`).val("");
+
+        $("#supplier_name").css('background-color', '#fff');
+        $(`#supplier_name`).val("");
+        $(`#supplier_id`).val("");
+        $(`#supplier_code`).val("");
+
+        $("#purchase_order_date_range").css('background-color', '#fff');
+        $(`#purchase_order_date_range`).val("");
+    }
+
     function getDataReport() {
         ShowLoading();
 

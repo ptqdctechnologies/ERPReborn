@@ -9,6 +9,31 @@
     const arfDate       = document.getElementById("advance_summary_date_range");
     const printType     = document.getElementById("print_type");
 
+    function resetForm() {
+        dataReport = [];
+
+        $("#budget_name").css('background-color', '#fff');
+        $(`#budget_name`).val("");
+        $(`#budget_id`).val("");
+        $(`#budget_code`).val("");
+
+        $("#sub_budget_name").css('background-color', '#fff');
+        $(`#sub_budget_name`).val("");
+        $(`#sub_budget_id`).val("");
+        $(`#sub_budget_code`).val("");
+
+        $("#requester_name").css('background-color', '#fff');
+        $(`#requester_name`).val("");
+        $(`#requester_id`).val("");
+
+        $("#beneficiary_name").css('background-color', '#fff');
+        $(`#beneficiary_name`).val("");
+        $(`#beneficiary_id`).val("");
+
+        $("#advance_summary_date_range").css('background-color', '#fff');
+        $(`#advance_summary_date_range`).val("");
+    }
+
     function getDataReport() {
         ShowLoading();
 

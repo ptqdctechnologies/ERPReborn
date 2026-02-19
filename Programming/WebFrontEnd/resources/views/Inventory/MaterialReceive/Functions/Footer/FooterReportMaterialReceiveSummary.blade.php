@@ -17,6 +17,31 @@
         triggerWarehouse = params;
     }
 
+    function resetForm() {
+        triggerWarehouse = null;
+        dataReport = [];
+
+        $("#budget_name").css('background-color', '#fff');
+        $(`#budget_name`).val("");
+        $(`#budget_id`).val("");
+        $(`#budget_code`).val("");
+
+        $("#received_name").css('background-color', '#fff');
+        $(`#received_name`).val("");
+        $(`#received_id`).val("");
+
+        $("#delivery_from_name").css('background-color', '#fff');
+        $(`#delivery_from_name`).val("");
+        $(`#delivery_from_id`).val("");
+
+        $("#delivery_to_name").css('background-color', '#fff');
+        $(`#delivery_to_name`).val("");
+        $(`#delivery_to_id`).val("");
+
+        $("#material_receive_date_range").css('background-color', '#fff');
+        $(`#material_receive_date_range`).val("");
+    }
+
     function getDataReport() {
         ShowLoading();
 

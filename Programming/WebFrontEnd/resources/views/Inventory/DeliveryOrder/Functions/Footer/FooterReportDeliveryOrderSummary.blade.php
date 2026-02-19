@@ -11,6 +11,27 @@
     const doDate        = document.getElementById("delivery_order_date_range");
     const printType     = document.getElementById("print_type");
 
+    function resetForm() {
+        dataReport = [];
+
+        $("#budget_name").css('background-color', '#fff');
+        $(`#budget_name`).val("");
+        $(`#budget_id`).val("");
+        $(`#budget_code`).val("");
+
+        $("#sub_budget_name").css('background-color', '#fff');
+        $(`#sub_budget_name`).val("");
+        $(`#sub_budget_id`).val("");
+        $(`#sub_budget_code`).val("");
+
+        $("#warehouse_name").css('background-color', '#fff');
+        $(`#warehouse_name`).val("");
+        $(`#warehouse_id`).val("");
+
+        $("#delivery_order_date_range").css('background-color', '#fff');
+        $(`#delivery_order_date_range`).val("");
+    }
+
     function getDataReport() {
         ShowLoading();
 
