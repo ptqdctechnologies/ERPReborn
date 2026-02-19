@@ -344,7 +344,7 @@ class DocumentTypeMapper
             'General Journal Form'  => [
                 'dataHeader'        => [
                     'dateUpdate'    => null,
-                    'type'          => 'Settlement', // Settlement, Adjustment
+                    'type'          => 'Fixed Asset', // Settlement, Adjustment, Fixed Asset
                 ],
                 // 'textAreaFields'    => [
                 //     'title'         => 'Notes',
