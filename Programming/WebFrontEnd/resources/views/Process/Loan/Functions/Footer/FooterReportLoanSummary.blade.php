@@ -9,6 +9,29 @@
     const loanDate          = document.getElementById("loan_date_range");
     const printType         = document.getElementById("print_type");
 
+    function resetForm() {
+        isCreditorClicked = false;
+        dataReport = [];
+
+        $("#budget_name").css('background-color', '#fff');
+        $(`#budget_name`).val("");
+        $(`#budget_id`).val("");
+        $(`#budget_code`).val("");
+
+        $("#loan_date_range").css('background-color', '#fff');
+        $(`#loan_date_range`).val("");
+
+        $("#creditor_name").css('background-color', '#fff');
+        $(`#creditor_name`).val("");
+        $(`#creditor_id`).val("");
+        $(`#creditor_code`).val("");
+
+        $("#debitor_name").css('background-color', '#fff');
+        $(`#debitor_name`).val("");
+        $(`#debitor_id`).val("");
+        $(`#debitor_code`).val("");
+    }
+
     function getDataReport() {
         ShowLoading();
 

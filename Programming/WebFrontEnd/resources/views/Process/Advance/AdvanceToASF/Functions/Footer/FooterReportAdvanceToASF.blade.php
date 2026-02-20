@@ -212,6 +212,25 @@
     //     });
     // }
 
+    function resetForm() {
+        $("#project_name").css('background-color', '#fff');
+        $(`#project_name`).val("");
+        $(`#project_id`).val("");
+        $(`#project_code`).val("");
+
+        $("#requester_name").css('background-color', '#fff');
+        $(`#requester_name`).val("");
+        $(`#requester_id`).val("");
+
+        $("#site_name").css('background-color', '#fff');
+        $(`#site_name`).val("");
+        $(`#site_id`).val("");
+        $(`#site_code`).val("");
+
+        $("#reservation").css('background-color', '#fff');
+        $(`#reservation`).val("");
+    }
+
     function showLoadingAndSubmit(event) {
         event.preventDefault(); 
 

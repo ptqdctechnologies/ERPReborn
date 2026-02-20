@@ -705,24 +705,62 @@
                 HideLoading();
 
                 if (res.status === 200) {
-                    const swalWithBootstrapButtons = Swal.mixin({
-                        confirmButtonClass: 'btn btn-success btn-sm',
-                        cancelButtonClass: 'btn btn-danger btn-sm',
-                        buttonsStyling: true,
+                    // const swalWithBootstrapButtons = Swal.mixin({
+                    //     confirmButtonClass: 'btn btn-success btn-sm',
+                    //     cancelButtonClass: 'btn btn-danger btn-sm',
+                    //     buttonsStyling: true,
+                    // });
+
+                    // swalWithBootstrapButtons.fire({
+                    //     title: 'Successful !',
+                    //     type: 'success',
+                    //     html: 'Data has been saved. Your transaction number is ' + '<span style="color:#0046FF;font-weight:bold;">' + res.documentNumber.map(obj => `${obj.journalNumber} - ${obj.referenceNumber}`).join(", ") + '</span>',
+                    //     showCloseButton: false,
+                    //     showCancelButton: false,
+                    //     focusConfirm: false,
+                    //     confirmButtonText: '<span style="color:black;"> OK </span>',
+                    //     confirmButtonColor: '#4B586A',
+                    //     confirmButtonColor: '#e9ecef',
+                    //     reverseButtons: true
+                    // }).then((result) => {
+                    //     cancelForm("{{ route('Journal.index', ['var' => 1]) }}");
+                    // });
+
+                    $('#journal_success_title').text(`Successful ! Data has been saved. Your transaction number is ${res.documentJournalNumber}`);
+
+                    $('#journal_success_table').DataTable({
+                        destroy: true,
+                        data: res.documentNumber,
+                        deferRender: true,
+                        scrollCollapse: true,
+                        scroller: true,
+                        columns: [
+                            {
+                                data: null,
+                                render: function (data, type, row, meta) {
+                                    return '<td class="align-middle text-center">' +
+                                        (meta.row + 1) +
+                                    '</td>';
+                                }
+                            },
+                            {
+                                data: 'referenceNumber',
+                                defaultContent: '-',
+                                className: "align-middle"
+                            },
+                            {
+                                data: 'journalNumber',
+                                defaultContent: '-',
+                                className: "align-middle text-wrap"
+                            }
+                        ]
                     });
 
-                    swalWithBootstrapButtons.fire({
-                        title: 'Successful !',
-                        type: 'success',
-                        html: 'Data has been saved. Your transaction number is ' + '<span style="color:#0046FF;font-weight:bold;">' + res.documentNumber.map(obj => `${obj.journalNumber} - ${obj.referenceNumber}`).join(", ") + '</span>',
-                        showCloseButton: false,
-                        showCancelButton: false,
-                        focusConfirm: false,
-                        confirmButtonText: '<span style="color:black;"> OK </span>',
-                        confirmButtonColor: '#4B586A',
-                        confirmButtonColor: '#e9ecef',
-                        reverseButtons: true
-                    }).then((result) => {
+                    $('#journal_success_table').css("width", "100%");
+
+                    $('#successFormModal').modal('show');
+
+                    $('#successFormModal').on('hidden.bs.modal', function (e) {
                         cancelForm("{{ route('Journal.index', ['var' => 1]) }}");
                     });
                 } else {

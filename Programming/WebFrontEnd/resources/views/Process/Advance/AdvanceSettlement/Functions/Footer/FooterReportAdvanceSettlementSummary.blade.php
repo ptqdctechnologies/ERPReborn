@@ -9,6 +9,23 @@
     const asfDate       = document.getElementById("asfDate");
     const printType     = document.getElementById("print_type");
 
+    function resetForm() {
+        dataReport = [];
+
+        $("#budget_name").css('background-color', '#fff');
+        $(`#budget_name`).val("");
+        $(`#budget_id`).val("");
+        $(`#budget_code`).val("");
+
+        $("#site_name").css('background-color', '#fff');
+        $(`#site_name`).val("");
+        $(`#site_id`).val("");
+        $(`#site_code`).val("");
+
+        $("#asfDate").css('background-color', '#fff');
+        $(`#asfDate`).val("");
+    }
+
     function getDataReport() {
         ShowLoading();
 

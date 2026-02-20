@@ -53,10 +53,13 @@
 </div>
 <div class="col-sm-12 col-md-12 col-lg-3 d-flex flex-column flex-column-reverse">
   <!-- SUBMIT -->
-  <div class="align-items-center justify-content-sm-end justify-content-md-end justify-content-lg-start row p-0">
+  <div class="align-items-center justify-content-sm-end justify-content-md-end justify-content-lg-start row p-0" style="gap: 0.5rem;">
     <button type="button" class="btn btn-default btn-sm" style="margin-top: -5px;" onclick="getDataReport()">
       <img src="{{ asset('AdminLTE-master/dist/img/backwards.png') }}" width="12" alt="show" title="Show">
       Show
+    </button>
+    <button type="button" class="btn btn-secondary btn-sm" style="margin-top: -5px;" onclick="resetForm()">
+      Reset
     </button>
   </div>
 
