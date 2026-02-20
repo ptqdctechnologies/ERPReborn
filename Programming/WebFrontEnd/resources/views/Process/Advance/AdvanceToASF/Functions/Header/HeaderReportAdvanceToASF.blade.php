@@ -95,7 +95,7 @@
   @csrf
     <!-- EXPORT -->
     <div class="row p-0 align-items-center" style="margin-bottom: 0.76rem; gap: 0.5rem;">
-      <div class="col-sm-3 col-md-4 col-lg-4 p-0">
+      <div>
         <select name="print_type" id="print_type" class="form-control">
           <option value="PDF">Export PDF</option>
           <option value="Excel">Export Excel</option>
@@ -117,6 +117,9 @@
       <button type="button" class="btn btn-default btn-sm" onclick="validationForm()">
         <img src="{{ asset('AdminLTE-master/dist/img/backwards.png') }}" width="12" alt="show" title="Show">
         Show
+      </button>
+      <button type="button" class="btn btn-secondary btn-sm" onclick="resetForm()" style="margin-left: 0.5rem;">
+        Reset
       </button>
     </div>
   </div>
