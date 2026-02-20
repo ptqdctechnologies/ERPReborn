@@ -38,8 +38,9 @@ class JournalController extends Controller
             }
 
             $compact = [
-                "documentNumber"    => $response['data']['businessDocument']['documentNumber'],
-                "status"            => $response['metadata']['HTTPStatusCode'],
+                "documentJournalNumber" => $response['data']['businessDocument']['documentJournalNumber'],
+                "documentNumber"        => $response['data']['businessDocument']['documentNumber'],
+                "status"                => $response['metadata']['HTTPStatusCode'],
             ];
 
             return response()->json($compact);
