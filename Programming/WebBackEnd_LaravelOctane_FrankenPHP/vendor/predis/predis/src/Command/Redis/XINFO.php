@@ -4,7 +4,7 @@
  * This file is part of the Predis package.
  *
  * (c) 2009-2020 Daniele Alessandri
- * (c) 2021-2025 Till Krüss
+ * (c) 2021-2026 Till Krüss
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -69,12 +69,12 @@ class XINFO extends RedisCommand
         }
 
         if (isset($result['groups']) && is_array($result['groups'])) {
-            $result['groups'] = array_map(static function ($group) {
+            $result['groups'] = array_map(function ($group) {
                 if ($group === array_values($group)) {
                     $group = CommandUtility::arrayToDictionary($group, null, false);
                 }
                 if (isset($group['consumers'])) {
-                    $group['consumers'] = array_map(static function ($consumer) {
+                    $group['consumers'] = array_map(function ($consumer) {
                         if ($consumer === array_values($consumer)) {
                             $consumer = CommandUtility::arrayToDictionary($consumer, null, false);
                         }
