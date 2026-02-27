@@ -45,7 +45,11 @@ final class SnakeCaseToCamelCaseNameConverter implements NameConverterInterface
             return $propertyName;
         }
 
-        $camelCasedName = preg_replace_callback('/(^|_|\.)++(.)/', static fn ($match) => ('.' === $match[1] ? '_' : '').strtoupper($match[2]), $propertyName);
+        $camelCasedName = preg_replace_callback(
+            '/(^|_|\.)+(.)/',
+            fn ($match) => ('.' === $match[1] ? '_' : '').strtoupper($match[2]),
+            $propertyName
+        );
 
         if ($this->lowerCamelCase) {
             $camelCasedName = lcfirst($camelCasedName);

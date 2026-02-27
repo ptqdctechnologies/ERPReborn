@@ -182,7 +182,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getReport_Form_DataList_Advance_LatestVersion                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Version         : 1.0001.0000000                                                                                       |
         | ▪ Last Update     : 2025-11-05                                                                                           |
         | ▪ Creation Date   : 2025-11-05                                                                                           |
         | ▪ Description     : Mendapatkan Laporan Form - Daftar Uang Muka (Advance) Versi Terakhir                                 |
@@ -203,7 +203,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         public function getReport_Form_DataList_Advance_LatestVersion(
             $varUserSession, int $varSysBranch_RefID,
             int $varPagination_PageSize = null, int $varPagination_PageShow = null,
-            string $varBusinessDocumentNumber = null, int $varCombinedBudget_RefID = null)
+            string $varBusinessDocumentNumber = null, string $varDocumentDateStart = null, string $varDocumentDateFinish = null, string $varRequesterName = null, string $varCombinedBudget = null, string $varCombinedBudgetSection = null)
             {
             try {
                 $varReturn =
@@ -219,7 +219,11 @@ namespace App\Models\Database\SchData_OLTP_Finance
                                 [$varPagination_PageShow, 'bigint'],
 
                                 [$varBusinessDocumentNumber, 'varchar'],
-                                [$varCombinedBudget_RefID, 'bigint']
+                                [$varDocumentDateStart, 'date'],
+                                [$varDocumentDateFinish, 'date'],
+                                [$varRequesterName, 'varchar'],
+                                [$varCombinedBudget, 'varchar'],
+                                [$varCombinedBudgetSection, 'varchar']
                             ]
                             )
                         );
@@ -266,7 +270,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         public function getReport_Form_DataList_AdvanceSettlement_LatestVersion(
             $varUserSession, int $varSysBranch_RefID,
             int $varPagination_PageSize = null, int $varPagination_PageShow = null,
-            string $varBusinessDocumentNumber = null, int $varCombinedBudget_RefID = null)
+            string $varBusinessDocumentNumber = null, string $varDocumentDateStart = null, string $varDocumentDateFinish = null, string $varRequesterName = null, string $varCombinedBudget = null, string $varCombinedBudgetSection = null)
             {
             try {
                 $varReturn =
@@ -282,7 +286,11 @@ namespace App\Models\Database\SchData_OLTP_Finance
                                 [$varPagination_PageShow, 'bigint'],
 
                                 [$varBusinessDocumentNumber, 'varchar'],
-                                [$varCombinedBudget_RefID, 'bigint']
+                                [$varDocumentDateStart, 'date'],
+                                [$varDocumentDateFinish, 'date'],
+                                [$varRequesterName, 'varchar'],
+                                [$varCombinedBudget, 'varchar'],
+                                [$varCombinedBudgetSection, 'varchar']
                             ]
                             )
                         );

@@ -51,8 +51,12 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
                                 'pageShow' => 1
                                 ],
                             'dataFilter' => [
-                                'businessDocumentNumber' => NULL, //'AdvStl/QDC', 
-                                'combinedBudget_RefID' => NULL
+                                'businessDocumentNumber' => NULL,   //'AdvStl/QDC', 
+                                'documentDateStart' => NULL,        //'2026-01-01'
+                                'documentDateFinish' => NULL,       //'2026-12-31'
+                                'requesterName' => NULL,            //'Wisnu'
+                                'combinedBudget' => NULL,           //'Q000062'
+                                'combinedBudgetSection' => NULL     //'240'
                                 ],
                             ]
                         ]

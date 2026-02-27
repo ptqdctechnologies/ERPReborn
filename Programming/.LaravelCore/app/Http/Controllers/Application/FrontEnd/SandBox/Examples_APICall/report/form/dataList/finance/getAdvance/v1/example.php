@@ -19,8 +19,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
         | ▪ Call URL        : http(s)://<HOST>/report.form.dataList.finance.getAdvance.v1_throughAPIGateway                        |
         |                     ► http://172.28.0.4/report.form.dataList.finance.getAdvance.v1_throughAPIGateway                     |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-11-05                                                                                           |
+        | ▪ Version         : 1.0001.0000000                                                                                       |
+        | ▪ Last Update     : 2026-02-25                                                                                           |
         | ▪ Creation Date   : 2025-11-05                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -50,8 +50,12 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
                                 'pageShow' => 1
                                 ],
                             'dataFilter' => [
-                                'businessDocumentNumber' => NULL, //'Adv/QDC', 
-                                'combinedBudget_RefID' => NULL
+                                'businessDocumentNumber' => NULL,   //'Adv/QDC',
+                                'documentDateStart' => NULL,        //'2026-01-01'
+                                'documentDateFinish' => NULL,       //'2026-12-31'
+                                'requesterName' => NULL,            //'Adhe'
+                                'combinedBudget' => NULL,           //'Q000062'
+                                'combinedBudgetSection' => NULL     //'240'
                                 ],
                             ]
                         ]

@@ -4,7 +4,7 @@
  * This file is part of the Predis package.
  *
  * (c) 2009-2020 Daniele Alessandri
- * (c) 2021-2025 Till Krüss
+ * (c) 2021-2026 Till Krüss
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -33,7 +33,7 @@ abstract class PrefixableCommand extends Command implements PrefixableCommandInt
     public function applyPrefixForAllArguments(string $prefix): void
     {
         $this->setRawArguments(
-            array_map(static function ($key) use ($prefix) {
+            array_map(function ($key) use ($prefix) {
                 return $prefix . $key;
             }, $this->getArguments())
         );
