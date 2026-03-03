@@ -2,6 +2,7 @@
 @section('main')
 @include('Partials.navbar')
 @include('Partials.sidebar')
+@include('Accounting.TaxRecon.Functions.PopUp.PopUpTaxReconRevision')
 
 <div class="content-wrapper">
     <section class="content">
@@ -62,7 +63,7 @@
                                 
                                 <!-- BODY VAT -->
                                 <div class="wrapper-budget card-body table-responsive p-0" id="vat-table" style="height: 230px; display: none;">
-                                    <table class="table table-head-fixed text-nowrap table-sm" id="journal_details_table">
+                                    <table class="table table-head-fixed text-nowrap table-sm" id="vat_details_table">
                                         <thead>
                                             <tr>
                                                 <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Add</th>
@@ -82,7 +83,7 @@
                                             <tr>
                                                 <td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">
                                                     <input hidden data-budget-id="sys_ID" />
-                                                    <input type="checkbox" aria-label="Checkbox for following text input" />
+                                                    <input type="checkbox" aria-label="Checkbox for following text input" onchange="onCheckVatDetails(this, '0')" />
                                                 </td>
                                                 <td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">
                                                     AP-23000091
@@ -90,9 +91,7 @@
                                                 <td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">
                                                     IDR
                                                 </td>
-                                                <td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">
-                                                    In
-                                                </td>
+                                                <td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">In</td>
                                                 <td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">
                                                     Import
                                                 </td>
@@ -111,14 +110,12 @@
                                                 <td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">
                                                     10%
                                                 </td>
-                                                <td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">
-                                                    5,000,000.00
-                                                </td>
+                                                <td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">5,000,000.00</td>
                                             </tr>
                                             <tr>
                                                 <td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">
                                                     <input hidden data-budget-id="sys_ID" />
-                                                    <input type="checkbox" aria-label="Checkbox for following text input" />
+                                                    <input type="checkbox" aria-label="Checkbox for following text input" onchange="onCheckVatDetails(this, '1')" />
                                                 </td>
                                                 <td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">
                                                     AP-23000092
@@ -126,9 +123,7 @@
                                                 <td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">
                                                     IDR
                                                 </td>
-                                                <td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">
-                                                    In
-                                                </td>
+                                                <td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">In</td>
                                                 <td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">
                                                     Domestic
                                                 </td>
@@ -147,14 +142,12 @@
                                                 <td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">
                                                     -
                                                 </td>
-                                                <td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">
-                                                    10,000,000.00
-                                                </td>
+                                                <td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">10,000,000.00</td>
                                             </tr>
                                             <tr>
                                                 <td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">
                                                     <input hidden data-budget-id="sys_ID" />
-                                                    <input type="checkbox" aria-label="Checkbox for following text input" />
+                                                    <input type="checkbox" aria-label="Checkbox for following text input" onchange="onCheckVatDetails(this, '2')" />
                                                 </td>
                                                 <td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">
                                                     TREM-23000002
@@ -162,9 +155,7 @@
                                                 <td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">
                                                     IDR
                                                 </td>
-                                                <td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">
-                                                    In
-                                                </td>
+                                                <td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">In</td>
                                                 <td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">
                                                     Import
                                                 </td>
@@ -183,14 +174,12 @@
                                                 <td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">
                                                     -
                                                 </td>
-                                                <td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">
-                                                    500,000.00
-                                                </td>
+                                                <td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">500,000.00</td>
                                             </tr>
                                             <tr>
                                                 <td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">
                                                     <input hidden data-budget-id="sys_ID" />
-                                                    <input type="checkbox" aria-label="Checkbox for following text input" />
+                                                    <input type="checkbox" aria-label="Checkbox for following text input" onchange="onCheckVatDetails(this, '3')" />
                                                 </td>
                                                 <td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">
                                                     INV-23000002
@@ -198,9 +187,7 @@
                                                 <td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">
                                                     IDR
                                                 </td>
-                                                <td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">
-                                                    Out
-                                                </td>
+                                                <td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">Out</td>
                                                 <td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">
                                                     Domestic
                                                 </td>
@@ -219,14 +206,12 @@
                                                 <td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">
                                                     -
                                                 </td>
-                                                <td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">
-                                                    100,000.00
-                                                </td>
+                                                <td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">100,000.00</td>
                                             </tr>
                                             <tr>
                                                 <td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">
                                                     <input hidden data-budget-id="sys_ID" />
-                                                    <input type="checkbox" aria-label="Checkbox for following text input" />
+                                                    <input type="checkbox" aria-label="Checkbox for following text input" onchange="onCheckVatDetails(this, '4')" />
                                                 </td>
                                                 <td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">
                                                     DN-23000008
@@ -234,9 +219,7 @@
                                                 <td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">
                                                     IDR
                                                 </td>
-                                                <td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">
-                                                    Out
-                                                </td>
+                                                <td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">Out</td>
                                                 <td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">
                                                     Export
                                                 </td>
@@ -255,9 +238,7 @@
                                                 <td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">
                                                     -
                                                 </td>
-                                                <td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">
-                                                    100,000.00
-                                                </td>
+                                                <td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">100,000.00</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -265,7 +246,7 @@
 
                                 <!-- BODY WHT -->
                                 <div class="wrapper-budget card-body table-responsive p-0 wht-table" style="height: 230px; display: none;">
-                                    <table class="table table-head-fixed text-nowrap table-sm" id="journal_details_table">
+                                    <table class="table table-head-fixed text-nowrap table-sm" id="wht_details_table">
                                         <thead>
                                             <tr>
                                                 <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Add</th>
@@ -283,7 +264,7 @@
                                             <tr>
                                                 <td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">
                                                     <input hidden data-budget-id="sys_ID" />
-                                                    <input type="checkbox" aria-label="Checkbox for following text input" />
+                                                    <input type="checkbox" aria-label="Checkbox for following text input" onchange="onCheckWhtDetails(this, '0')" />
                                                 </td>
                                                 <td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">
                                                     AP-23000091
@@ -306,14 +287,12 @@
                                                 <td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">
                                                     2%
                                                 </td>
-                                                <td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">
-                                                    5,000,000.00
-                                                </td>
+                                                <td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">5,000,000.00</td>
                                             </tr>
                                             <tr>
                                                 <td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">
                                                     <input hidden data-budget-id="sys_ID" />
-                                                    <input type="checkbox" aria-label="Checkbox for following text input" />
+                                                    <input type="checkbox" aria-label="Checkbox for following text input" onchange="onCheckWhtDetails(this, '1')" />
                                                 </td>
                                                 <td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">
                                                     AP-23000092
@@ -336,9 +315,7 @@
                                                 <td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">
                                                     2.65%
                                                 </td>
-                                                <td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">
-                                                    10,000,000.00
-                                                </td>
+                                                <td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">10,000,000.00</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -353,14 +330,14 @@
                                             </div>
                                         </div>
                                         <div class="col text-right" style="margin-right: 20px; font-size: 0.77rem; color: #212529; font-weight: 600;">
-                                            Total : <span id="TotalBudgetSelected">0.00</span>
+                                            Total : <span id="total_wht_table">0.00</span>
                                         </div>
                                     </div>
                                 </div>
 
                                 <!-- BODY PREPAID WHY -->
                                 <div class="wrapper-budget card-body table-responsive p-0 prepaid-wht-table" style="height: 230px; display: none;">
-                                    <table class="table table-head-fixed text-nowrap table-sm" id="journal_details_table">
+                                    <table class="table table-head-fixed text-nowrap table-sm" id="prepaid_wht_details_table">
                                         <thead>
                                             <tr>
                                                 <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Add</th>
@@ -378,7 +355,7 @@
                                             <tr>
                                                 <td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">
                                                     <input hidden data-budget-id="sys_ID" />
-                                                    <input type="checkbox" aria-label="Checkbox for following text input" />
+                                                    <input type="checkbox" aria-label="Checkbox for following text input" onchange="onCheckPrepaidWhtDetails(this, '0')" />
                                                 </td>
                                                 <td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">
                                                     INV-23000001
@@ -408,7 +385,7 @@
                                             <tr>
                                                 <td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">
                                                     <input hidden data-budget-id="sys_ID" />
-                                                    <input type="checkbox" aria-label="Checkbox for following text input" />
+                                                    <input type="checkbox" aria-label="Checkbox for following text input" onchange="onCheckPrepaidWhtDetails(this, '1')" />
                                                 </td>
                                                 <td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">
                                                     INV-23000002
@@ -448,7 +425,7 @@
                                             </div>
                                         </div>
                                         <div class="col text-right" style="margin-right: 20px; font-size: 0.77rem; color: #212529; font-weight: 600;">
-                                            Total : <span id="TotalBudgetSelected">0.00</span>
+                                            Total : <span id="total_prepaid_wht_table">0.00</span>
                                         </div>
                                     </div>
                                 </div>

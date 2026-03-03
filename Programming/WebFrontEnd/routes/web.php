@@ -255,6 +255,8 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::resource('GeneralJournal', 'Accounting\GeneralJournalController');
 
     // TAX RECON
+    Route::post('RevisionTaxRecon', 'Accounting\TaxReconController@RevisionTaxRecon')->name('TaxRecon.Revision');
+    Route::get('ReportTaxReconSummary', 'Accounting\TaxReconController@ReportTaxReconSummary')->name('TaxRecon.ReportTaxReconSummary');
     Route::resource('TaxRecon', 'Accounting\TaxReconController');
 
     // ADVANCE REQUEST

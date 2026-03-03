@@ -11,6 +11,7 @@
 @include('getFunction.getCategory')
 @include('Accounting.GeneralJournal.Functions.PopUp.PopUpGeneralJournalRevision')
 @include('Accounting.GeneralJournal.Functions.PopUp.PopUpJournalSettlement')
+@include('Accounting.GeneralJournal.Functions.PopUp.PopUpGeneralJournalSummaryData')
 
 <div class="content-wrapper">
     <section class="content">
@@ -178,7 +179,7 @@
                 <div class="tab-content px-3 pb-2 journal-button" id="nav-tabContent" style="display: none;">
                     <div class="row">
                         <div class="col">
-                            <button type="button" class="btn btn-default btn-sm float-right" onclick="validationForm()" style="margin-left: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
+                            <button type="button" class="btn btn-default btn-sm float-right" onclick="onClickSubmitButton()" style="margin-left: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
                                 <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" title="Submit to Account Payable"> Submit
                             </button>
 

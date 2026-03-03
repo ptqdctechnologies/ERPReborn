@@ -1,4 +1,5 @@
 <script>
+    let dataStore = [];
     let journalTypeValue = null;
     // let isAdjustmentType = true;
     let currentIndexPickAccountPayablePosting = -1;
@@ -131,6 +132,18 @@
         }
     }
 
+    function onClickSubmitButton() {
+        if (journalTypeValue === "SETTLEMENT") {
+            validationSettlementForm();
+        } else if (journalTypeValue === "FIXED_ASSET") {
+            validationFixedAssetForm();
+        } else if (journalTypeValue === "POSTING") {
+            validationPostingForm();
+        } else {
+            validationAdjustmentForm();
+        }
+    }
+
     $('#tableAccountPayables').on('click', 'tbody tr', function() {
         const sysId         = $(this).find('input[data-trigger="sys_id_modal_account_payable"]').val();
         const trano         = $(this).find('td:nth-child(2)').text();
@@ -145,11 +158,15 @@
             updateJournalPostingField(currentIndexPickAccountPayablePosting, 'budget_code_posting', `${budgetCode} - ${budgetName}`);
             updateJournalPostingField(currentIndexPickAccountPayablePosting, 'supplier_code_posting', `${supplierCode} - ${supplierName}`);
 
+            checkOneLinePostingContents(currentIndexPickAccountPayablePosting);
+
             $(`#transaction_id_posting${currentIndexPickAccountPayablePosting}`).val(sysId);
+            $(`#transaction_number_posting${currentIndexPickAccountPayablePosting}`).val(trano);
             $(`#budget_code_posting${currentIndexPickAccountPayablePosting}`).val(`${budgetCode} - ${budgetName}`);
             $(`#supplier_code_posting${currentIndexPickAccountPayablePosting}`).val(`${supplierCode} - ${supplierName}`);
-            $(`#transaction_number_posting${currentIndexPickAccountPayablePosting}`).val(trano);
-            $(`#transaction_number_posting${currentIndexPickAccountPayablePosting}`).css({"background-color": "#e9ecef", "border": "1px solid #ced4da"});
+            $(`#transaction_number_posting${currentIndexPickAccountPayablePosting}`).css({"background-color": "#e9ecef"});
+            $(`#budget_code_posting${currentIndexPickAccountPayablePosting}`).css({"background-color": "#e9ecef"});
+            $(`#supplier_code_posting${currentIndexPickAccountPayablePosting}`).css({"background-color": "#e9ecef"});
 
             currentIndexPickAccountPayablePosting = -1;
         } else {
@@ -176,6 +193,8 @@
 
             updateField(currentIndexPickCOA, 'coa_id', parseInt(sysId));
             updateField(currentIndexPickCOA, 'coa_name', `${code} - ${name}`);
+
+            checkOneLineSettlementContents(currentIndexPickCOA);
         } else if (journalTypeValue === "FIXED_ASSET") {
             $(`#coaID${currentIndexPickCOA}`).val(sysId);
             $(`#coaName${currentIndexPickCOA}`).val(`${code} - ${name}`);

@@ -65,10 +65,10 @@
 
     <!-- CARD COMPONENTS -->
     <div class="row pb-3 vat-components" style="gap: 1rem; display: none;">
-        <!-- SALDO AWAL -->
+        <!-- BEGINNING BALANCE -->
         <div class="col px-0" style="border: 1px solid #ced4da; border-radius: 15px;">
             <div class="p-3 d-flex align-items-center justify-content-between text-bold" style="background-color: #e8f6e9; color: #000; font-size: small; border-top-left-radius: 14px; border-top-right-radius: 14px;">
-                <div>SALDO AWAL</div>
+                <div>BEGINNING BALANCE</div>
                 <div class="d-flex align-items-center justify-content-center invisible" style="background-color: #36AE7C; padding: 5px; min-width: 25px; min-height: 25px; border-radius: 100%; color: #fff;">0</div>
             </div>
             <hr class="m-0" style="background-color: #ced4da;" />
@@ -76,7 +76,7 @@
                 IDR 0.00
             </div>
             <div class="px-3 pb-3 text-bold">
-                (Lebih Bayar)
+                (Overpayment)
             </div>
         </div>
         <!-- TAX IN -->
@@ -101,10 +101,10 @@
                 IDR 0.00
             </div>
         </div>
-        <!-- SALDO AKHIR -->
+        <!-- ENDING BALANCE -->
         <div class="col px-0" style="border: 1px solid #ced4da; border-radius: 15px;">
             <div class="p-3 d-flex align-items-center justify-content-between text-bold" style="background-color: #e8f6e9; color: #000; font-size: small; border-top-left-radius: 14px; border-top-right-radius: 14px;">
-                <div>SALDO AKHIR</div>
+                <div>ENDING BALANCE</div>
                 <div class="d-flex align-items-center justify-content-center invisible" style="background-color: #F9D923; padding: 5px; min-width: 25px; min-height: 25px; border-radius: 100%; color: #fff;">0</div>
             </div>
             <hr class="m-0" style="background-color: #ced4da;" />
@@ -112,7 +112,7 @@
                 IDR 0.00
             </div>
             <div class="px-3 pb-3 text-bold">
-                (Kurang Bayar)
+                (Underpayment)
             </div>
         </div>
     </div>

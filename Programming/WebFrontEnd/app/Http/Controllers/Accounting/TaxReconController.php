@@ -28,4 +28,18 @@ class TaxReconController extends Controller
     public function update(Request $request, $id) {}
 
     public function destroy($id) {}
+
+    public function RevisionTaxRecon() 
+    {
+        $compact = [
+            'type'  => 'VAT', // VAT OR WHT OR PREPAID_WHT
+        ];
+
+        return view('Accounting.TaxRecon.Transactions.RevisionTaxRecon', $compact);
+    }
+
+    public function ReportTaxReconSummary(Request $request)
+    {
+        return view('Accounting.TaxRecon.Reports.ReportTaxReconSummary');
+    }
 }

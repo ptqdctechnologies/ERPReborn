@@ -277,6 +277,229 @@
         });
     }
 
+    function checkOneLineFixedAssetContents(indexInput) {
+        const rows = document.querySelectorAll("#journal_fixed_asset_table tbody tr");
+        let hasFullRow = false;
+        
+        rows.forEach((row, index) => {
+            const depreciationCategoryNames = document.getElementById(`depreciationCategoryName${index}`)?.value.trim();
+            const depreciationMethods       = document.getElementById(`depreciationMethod${index}`)?.value.trim();
+            const depreciationYearss        = document.getElementById(`depreciationYears${index}`)?.value.trim();
+            const depreciationRates         = document.getElementById(`depreciationRate${index}`)?.value.trim();
+            const coaNames                  = document.getElementById(`coaName${index}`)?.value.trim();
+            const coaStatuss                = document.getElementById(`coaStatus${index}`)?.value.trim();
+
+            if (
+                depreciationCategoryNames !== "" && 
+                depreciationMethods !== "" && 
+                depreciationYearss !== "" && 
+                depreciationRates !== "" && 
+                coaNames !== "" && 
+                coaStatuss !== ""
+            ) {
+                hasFullRow = true;
+            }
+        });
+
+        rows.forEach((row, index) => {
+            const depreciationCategoryNamesEl   = document.getElementById(`depreciationCategoryName${index}`);
+            const depreciationMethodsEl         = document.getElementById(`depreciationMethod${index}`);
+            const depreciationYearssEl          = document.getElementById(`depreciationYears${index}`);
+            const depreciationRatesEl           = document.getElementById(`depreciationRate${index}`);
+            const coaNamesEl                    = document.getElementById(`coaName${index}`);
+            const coaStatussEl                  = document.getElementById(`coaStatus${index}`);
+
+            if (hasFullRow) {
+                $(depreciationCategoryNamesEl).css("border", "1px solid #ced4da");
+                $(depreciationMethodsEl).css("border", "1px solid #ced4da");
+                $(depreciationYearssEl).css("border", "1px solid #ced4da");
+                $(depreciationRatesEl).css("border", "1px solid #ced4da");
+                $(coaNamesEl).css("border", "1px solid #ced4da");
+                $(coaStatussEl).css("border", "1px solid #ced4da");
+                $("#fixedAssetDetailsMessage").hide();
+            } else {
+                if (indexInput > -1) {
+                    if (indexInput == index) {
+                        if (
+                            depreciationCategoryNamesEl.value.trim() != "" || 
+                            depreciationMethodsEl.value.trim() != "" || 
+                            depreciationYearssEl.value.trim() != "" || 
+                            depreciationRatesEl.value.trim() != "" || 
+                            coaNamesEl.value.trim() != "" || 
+                            coaStatussEl.value.trim() != ""
+                        ) {
+                            $(depreciationCategoryNamesEl).css("border", "1px solid red");
+                            $(depreciationMethodsEl).css("border", "1px solid red");
+                            $(depreciationYearssEl).css("border", "1px solid red");
+                            $(depreciationRatesEl).css("border", "1px solid red");
+                            $(coaNamesEl).css("border", "1px solid red");
+                            $(coaStatussEl).css("border", "1px solid red");
+                            $("#fixedAssetDetailsMessage").show();
+                        } else {
+                            $(depreciationCategoryNamesEl).css("border", "1px solid #ced4da");
+                            $(depreciationMethodsEl).css("border", "1px solid #ced4da");
+                            $(depreciationYearssEl).css("border", "1px solid #ced4da");
+                            $(depreciationRatesEl).css("border", "1px solid #ced4da");
+                            $(coaNamesEl).css("border", "1px solid #ced4da");
+                            $(coaStatussEl).css("border", "1px solid #ced4da");
+                            $("#fixedAssetDetailsMessage").hide();
+                        }
+                    }
+
+                    if (
+                        indexInput != index && (
+                            depreciationCategoryNamesEl.value.trim() == "" && 
+                            depreciationMethodsEl.value.trim() == "" && 
+                            depreciationYearssEl.value.trim() == "" && 
+                            depreciationRatesEl.value.trim() == "" && 
+                            coaNamesEl.value.trim() == "" && 
+                            coaStatussEl.value.trim() == ""
+                        )) {
+                        $(depreciationCategoryNamesEl).css("border", "1px solid #ced4da");
+                        $(depreciationMethodsEl).css("border", "1px solid #ced4da");
+                        $(depreciationYearssEl).css("border", "1px solid #ced4da");
+                        $(depreciationRatesEl).css("border", "1px solid #ced4da");
+                        $(coaNamesEl).css("border", "1px solid #ced4da");
+                        $(coaStatussEl).css("border", "1px solid #ced4da");
+                    } 
+                } else {
+                    $(depreciationCategoryNamesEl).css("border", "1px solid red");
+                    $(depreciationMethodsEl).css("border", "1px solid red");
+                    $(depreciationYearssEl).css("border", "1px solid red");
+                    $(depreciationRatesEl).css("border", "1px solid red");
+                    $(coaNamesEl).css("border", "1px solid red");
+                    $(coaStatussEl).css("border", "1px solid red");
+                    $("#fixedAssetDetailsMessage").show();
+                }
+            }
+        });
+
+        return hasFullRow;
+    }
+
+    function summaryFixedAssetData() {
+        const sourceTable = document.getElementById('journal_fixed_asset_table').getElementsByTagName('tbody')[0];
+        const targetTable = document.getElementById('tableGeneralJournalList').getElementsByTagName('tbody')[0];
+        
+        const rows = sourceTable.getElementsByTagName('tr');
+
+        for (let row of rows) {
+            const depreciationCategoryNameInput = row.querySelector('input[id^="depreciationCategoryName"]');
+            const depreciationMethodSelect      = row.querySelector('select[id^="depreciationMethod"]');
+            const depreciationYearsSelect       = row.querySelector('select[id^="depreciationYears"]');
+            const depreciationRateSelect        = row.querySelector('select[id^="depreciationRate"]');
+            const coaNameInput                  = row.querySelector('input[id^="coaName"]');
+            const coaStatusInput                = row.querySelector('select[id^="coaStatus"]');
+            
+            if (
+                depreciationCategoryNameInput && 
+                depreciationMethodSelect && 
+                depreciationYearsSelect && 
+                depreciationRateSelect && 
+                coaNameInput && 
+                coaStatusInput &&
+                depreciationCategoryNameInput.value.trim() !== '' &&
+                depreciationMethodSelect.value.trim() !== '' &&
+                depreciationYearsSelect.value.trim() !== ''&&
+                depreciationRateSelect.value.trim() !== ''&&
+                coaNameInput.value.trim() !== '' &&
+                coaStatusInput.value.trim() !== ''
+            ) {
+                const depreciationCategoryNames  = depreciationCategoryNameInput.value.trim();
+                const depreciationMethods        = depreciationMethodSelect.value.trim();
+                const depreciationYearss         = depreciationYearsSelect.value.trim();
+                const depreciationRates          = depreciationRateSelect.value.trim();
+                const coaNames                   = coaNameInput.value.trim();
+                const coaStatuss                 = coaStatusInput.value.trim();
+                
+                let found = false;
+                if (!found) {
+                    dataStore.push({
+                        depreciationCategoryName: depreciationCategoryNames,
+                        depreciationMethod: depreciationMethods,
+                        depreciationYears: depreciationYearss,
+                        depreciationRate: depreciationRates,
+                        coaName: coaNames,
+                        coaStatus: coaStatuss
+                    });
+                }
+            }
+        }
+
+        $('#tableGeneralJournalList').DataTable({
+            destroy: true,
+            data: dataStore,
+            deferRender: true,
+            scrollCollapse: true,
+            scroller: true,
+            columns: [
+                {
+                    title: "No",
+                    data: null,
+                    render: function (data, type, row, meta) {
+                        return '<td class="align-middle text-center">' +
+                            (meta.row + 1) +
+                        '</td>';
+                    }
+                },
+                {
+                    title: "Dep. Cat.",
+                    data: 'depreciationCategoryName',
+                    defaultContent: '-',
+                    className: "align-middle"
+                },
+                {
+                    title: "Dep. Met.",
+                    data: 'depreciationMethod',
+                    defaultContent: '-',
+                    className: "align-middle"
+                },
+                {
+                    title: "Dep. Years",
+                    data: 'depreciationYears',
+                    defaultContent: '-',
+                    className: "align-middle"
+                },
+                {
+                    title: "Dep. Rate",
+                    data: 'depreciationRate',
+                    defaultContent: '-',
+                    className: "align-middle"
+                },
+                {
+                    title: "COA",
+                    data: 'coaName',
+                    defaultContent: '-',
+                    className: "align-middle"
+                },
+                {
+                    title: "COA Status",
+                    data: null,
+                    defaultContent: '-',
+                    render: function (data, type, row, meta) {
+                        return data.coaStatus == '214000000000001' ? 'Debit' : 'Credit';
+                    }
+                }
+            ]
+        });
+
+        $('#tableGeneralJournalList_length').hide();
+        $('#tableGeneralJournalList_filter').hide();
+        $('#tableGeneralJournalList').css("width", "100%");
+
+        $('#generalJournalFormModal').modal('show');
+    }
+
+    function validationFixedAssetForm() {
+        const isTableFixedAssetNotEmpty = checkOneLineFixedAssetContents();
+
+        if (isTableFixedAssetNotEmpty) {
+            summaryFixedAssetData();
+        } else {
+            $("#FixedAssetDetailsMessage").show();
+        }
+    }
+
     $('#tableGetCategory').on('click', 'tbody tr', async function() {
         const sysId         = $(this).find('input[data-trigger="sys_id_category"]').val();
         const code          = $(this).find('td:nth-child(2)').text();

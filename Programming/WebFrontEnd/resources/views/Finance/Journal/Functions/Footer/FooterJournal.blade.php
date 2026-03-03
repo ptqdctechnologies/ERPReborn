@@ -366,9 +366,11 @@
                 const existingRows  = targetTable.getElementsByTagName('tr');
 
                 for (let targetRow of existingRows) {
-                    const targetCode = targetRow.children[0].value.trim();
+                    // const targetCode = targetRow.querySelector("input").value;
+                    const targetName = targetRow.children[1].textContent;
 
-                    if (targetCode == refNumberRefID.value) {
+                    // if (targetCode == refNumberRefID.value) {
+                    if (targetName == refNumberName.value) {
                         targetRow.children[1].innerText = refNumberName.value;
                         targetRow.children[2].innerText = accountingEntryRecordTypeRefID.value == '214000000000001' ? 'Debit' : 'Credit';
                         targetRow.children[3].innerText = budgetInput.value;
@@ -376,11 +378,17 @@
                         targetRow.children[5].innerText = chartOfAccountName.value;
                         found = true;
 
-                        const indexToUpdate = dataStore.findIndex(item => item.refNumberID == refNumberRefID.value);
+                        // const indexToUpdate = dataStore.findIndex(item => item.refNumberID == refNumberRefID.value);
+                        const indexToUpdate = dataStore.findIndex(item => item.refNumberName == refNumberName.value);
                         if (indexToUpdate !== -1) {
                             dataStore[indexToUpdate] = {
                                 documentDateTimeTZ: `${year}-${month}-${day}`,
                                 businessDocument_RefID: 74000000027381, // parseInt(refNumberRefID.value)
+                                refNumberName: refNumberName.value, 
+                                accountingEntryRecordTypeRefID: accountingEntryRecordTypeRefID.value,
+                                budgetInput: budgetInput.value,
+                                paymentInput: paymentInput.value,
+                                chartOfAccountName: chartOfAccountName.value,
                                 bankAccount_RefID: parseInt(accountNumber.value),
                                 combinedBudget_RefID: 46000000000033,
                                 journalDateTimeTZ: `${journalDateTimeTZ[2]}-${journalDateTimeTZ[0]}-${journalDateTimeTZ[1]}`,
@@ -480,20 +488,25 @@
                 }
 
                 if (!found) {
-                    const newRow = document.createElement('tr');
-                    newRow.innerHTML = `
-                        <input type="hidden" id="refID[]" value="${refNumberRefID.value}">
-                        <td style="text-align: left;padding: 0.8rem;">${refNumberName.value}</td>
-                        <td style="text-align: left;padding: 0.8rem;">${accountingEntryRecordTypeRefID.value == '214000000000001' ? 'Debit' : 'Credit'}</td>
-                        <td style="text-align: left;padding: 0.8rem;text-transform: capitalize;">${budgetInput.value}</td>
-                        <td style="text-align: left;padding: 0.8rem;">${paymentInput.value}</td>
-                        <td style="text-align: left;padding: 0.8rem;">${chartOfAccountName.value}</td>
-                    `;
-                    targetTable.appendChild(newRow);
+                    // const newRow = document.createElement('tr');
+                    // newRow.innerHTML = `
+                    //     <input type="hidden" id="refID[]" value="${refNumberRefID.value}">
+                    //     <td style="text-align: left;padding: 0.8rem;">${refNumberName.value}</td>
+                    //     <td style="text-align: left;padding: 0.8rem;">${accountingEntryRecordTypeRefID.value == '214000000000001' ? 'Debit' : 'Credit'}</td>
+                    //     <td style="text-align: left;padding: 0.8rem;text-transform: capitalize;">${budgetInput.value}</td>
+                    //     <td style="text-align: left;padding: 0.8rem;">${paymentInput.value}</td>
+                    //     <td style="text-align: left;padding: 0.8rem;">${chartOfAccountName.value}</td>
+                    // `;
+                    // targetTable.appendChild(newRow);
 
                     dataStore.push({
                         documentDateTimeTZ: `${year}-${month}-${day}`,
                         businessDocument_RefID: 74000000027381, // parseInt(refNumberRefID.value)
+                        refNumberName: refNumberName.value, 
+                        accountingEntryRecordTypeRefID: accountingEntryRecordTypeRefID.value,
+                        budgetInput: budgetInput.value,
+                        paymentInput: paymentInput.value,
+                        chartOfAccountName: chartOfAccountName.value,
                         bankAccount_RefID: parseInt(accountNumber.value),
                         combinedBudget_RefID: 46000000000033,
                         journalDateTimeTZ: `${journalDateTimeTZ[2]}-${journalDateTimeTZ[0]}-${journalDateTimeTZ[1]}`,
@@ -591,6 +604,62 @@
                 }
             }
         }
+
+        $('#journal_summary_table').DataTable({
+            destroy: true,
+            data: dataStore,
+            deferRender: true,
+            searching: false,
+            scrollCollapse: true,
+            scroller: true,
+            lengthChange: false,
+            columns: [
+                {
+                    title: "No",
+                    data: null,
+                    render: function (data, type, row, meta) {
+                        return '<td class="align-middle text-center">' +
+                            '<input id="refID' + (meta.row + 1) + '" value="' + data.businessDocument_RefID + '" data-trigger="refID" type="hidden">' +
+                            (meta.row + 1) +
+                        '</td>';
+                    }
+                },
+                {
+                    title: "Trans. Number",
+                    data: 'refNumberName',
+                    defaultContent: '-',
+                    className: "align-middle"
+                },
+                {
+                    title: "DB/CR",
+                    data: null,
+                    defaultContent: '-',
+                    render: function (data, type, row, meta) {
+                        return data.accountingEntryRecordTypeRefID == '214000000000001' ? 'Debit' : 'Credit';
+                    }
+                },
+                {
+                    title: "Budget",
+                    data: 'budgetInput',
+                    defaultContent: '-',
+                    className: "align-middle"
+                },
+                {
+                    title: "Payment",
+                    data: 'paymentInput',
+                    defaultContent: '-',
+                    className: "align-middle"
+                },
+                {
+                    title: "COA",
+                    data: 'chartOfAccountName',
+                    defaultContent: '-',
+                    className: "align-middle"
+                }
+            ]
+        });
+
+        $('#journal_summary_table').css("width", "100%");
     }
 
     function validationForm() {

@@ -77,7 +77,8 @@ class CheckDocumentController extends Controller
                 $documentType === 'Person Business Trip Settlement Form' || 
                 $documentType === 'Sales Invoice Form' || 
                 $documentType === 'Sallary Allocation Form' || 
-                $documentType === 'Sales Order Form'
+                $documentType === 'Sales Order Form' || 
+                $documentType === 'Tax Recon Form'
             ) {
                 // JUST FOR TRIGGER, WHEN API KEY NOT READY
                 $responseData = [
@@ -581,6 +582,26 @@ class CheckDocumentController extends Controller
                             [
                                 'sys_ID'    => 90381924,
                                 'sys_Text'  => 'CO/QDC/2025/000002',
+                                'combinedBudgetCode' => 'Q000196',
+                                'combinedBudgetSectionCode' => 'Q000062 ► 235'
+                            ],
+                        ]
+                    ]
+                ];
+                break;
+            case "Tax Recon Form":
+                $varData = [
+                    'data' => [
+                        'data' => [
+                            [
+                                'sys_ID'    => 73810928,
+                                'sys_Text'  => 'TXR/QDC/2025/000001',
+                                'combinedBudgetCode' => 'Q000196',
+                                'combinedBudgetSectionCode' => 'Q000062 ► 235'
+                            ],
+                            [
+                                'sys_ID'    => 90381924,
+                                'sys_Text'  => 'TXR/QDC/2025/000002',
                                 'combinedBudgetCode' => 'Q000196',
                                 'combinedBudgetSectionCode' => 'Q000062 ► 235'
                             ],

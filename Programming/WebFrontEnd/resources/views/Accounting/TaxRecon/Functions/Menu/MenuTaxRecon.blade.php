@@ -18,7 +18,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a id="btn_revision_tax_recon" href="javascript:;" class="nav-link" data-toggle="modal" data-target="#" style="color:white;padding-bottom:10px;cursor:pointer">
+                                    <a id="btn_revision_tax_recon" href="javascript:;" class="nav-link" data-toggle="modal" data-target="#myPopUpTaxReconRevision" style="color:white;padding-bottom:10px;cursor:pointer">
                                         <i class="far fa-file nav-icon-sm"> Revision Tax Reconciliation</i>
                                     </a>
                                 </li>

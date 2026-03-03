@@ -131,6 +131,11 @@ class DocumentTypeMapper
                 'parameter'                 => [],
                 'businessDocument_RefID'    => (int) 74000000021494,
             ],
+            'Tax Recon Form' => [
+                'key'                       => '',
+                'parameter'                 => [],
+                'businessDocument_RefID'    => (int) 74000000021494,
+            ],
             'Timesheet Form' => [
                 'key'                       => 'transaction.read.dataList.humanResource.getPersonWorkTimeSheetActivity',
                 'parameter'                 => ['personWorkTimeSheet_RefID' => (int) $referenceId],
@@ -782,6 +787,27 @@ class DocumentTypeMapper
                 'transactionType'        => 'CUSTOMER ORDER',
                 'businessDocument_RefID' => '',
             ],
+            'Tax Recon Form' => [
+                'dataHeader'        => [
+                    'date'              => $dataDetail['date'] ?? null,
+                    'dateUpdate'        => $dataDetail['dateUpdate'] ?? null,
+                    'authorizedCode'    => $dataDetail['combinedBudgetCode_Header'] ?? '',
+                    'authorizedName'    => $dataDetail['combinedBudgetName_Header'] ?? '',
+                    'timesheetNUmber'   => $dataDetail['businessDocumentNumber'] ?? '-',
+                    'onBehalfOf'        => $dataDetail['personName'] ?? '-',
+                ],
+                'components'    => [
+                    'detail'    => 'Components.TaxReconDetailDocument',
+                    'table'     => 'Components.TaxReconDetailDocumentTable',
+                ],
+                'resubmit'      => [
+                    'url'       => 'TaxRecon.Revision',
+                    'name'      => '',
+                    'value'     => ''
+                ],
+                'transactionType'        => 'TAX RECONCILIATION',
+                'businessDocument_RefID' => '',
+            ],
             'Timesheet Form' => [
                 'dataHeader'        => [
                     'date'              => $dataDetail['date'] ?? null,
@@ -890,6 +916,7 @@ class DocumentTypeMapper
             'Reimbursement Form'            => 'Documents.Transactions.LogTransaction.LogTransactionReimbursement',
             'Sales Invoice Form'            => 'Documents.Transactions.LogTransaction.LogTransactionInvoice',
             'Sales Order Form'              => 'Documents.Transactions.LogTransaction.LogTransactionCustomerOrder',
+            'Tax Recon Form'                => 'Documents.Transactions.LogTransaction.LogTransactionCustomerOrder',
             'Warehouse Inbound Order Form'  => 'Documents.Transactions.LogTransaction.LogTransactionMaterialReceive',
             'Warehouse Outbound Order Form' => 'Documents.Transactions.LogTransaction.LogTransactionMaterialReturn'
         ];
