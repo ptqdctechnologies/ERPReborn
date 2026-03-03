@@ -1,67 +1,34 @@
 <div class="col-sm-12 col-md-12 col-lg-3">
-    <!-- BUDGET -->
+    <!-- TRANSACTION NUMBER -->
     <div class="row p-0 align-items-center" style="margin-bottom: 1rem;">
-        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Budget</label>
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Transaction Number</label>
         <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
             <div>
-                <span id="myProjectsTrigger" class="input-group-text form-control" data-toggle="modal" data-target="#myProjects" style="border-radius:0;cursor:pointer;">
+                <span id="myProjectsTrigger" class="input-group-text form-control" data-toggle="modal" data-target="#" style="border-radius:0;cursor:pointer;">
                     <i class="fas fa-gift"></i>
                 </span>
             </div>
             <div>
-                <input type="text" id="budget_name" class="form-control" style="border-radius:0;background-color:white;" readonly />
-                <input type="hidden" id="budget_id" class="form-control" style="border-radius:0;" name="budget_id" />
-                <input type="hidden" id="budget_code" class="form-control" style="border-radius:0;" name="budget_code" />
+                <input type="text" id="transaction_name" class="form-control" style="border-radius:0;background-color:white;" readonly />
+                <input type="hidden" id="transaction_id" class="form-control" style="border-radius:0;" name="transaction_id" />
+                <input type="hidden" id="transaction_code" class="form-control" style="border-radius:0;" name="transaction_code" />
             </div>
         </div>
     </div>
-
-    <!-- SUB BUDGET -->
+    
+    <!-- NAME -->
     <div class="row p-0 align-items-center">
-        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Sub Budget</label>
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Name</label>
         <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
             <div>
-                <span id="mySitesTrigger" class="input-group-text form-control" data-toggle="modal" data-target="#mySites" style="border-radius:0;cursor:pointer;">
+                <span id="myProjectsTrigger" class="input-group-text form-control" data-toggle="modal" data-target="#" style="border-radius:0;cursor:pointer;">
                     <i class="fas fa-gift"></i>
                 </span>
             </div>
             <div>
-                <input type="text" id="sub_budget_name" class="form-control" style="border-radius:0;background-color:white;" readonly />
-                <input type="hidden" id="sub_budget_id" class="form-control" style="border-radius:0;" name="sub_budget_id" />
-                <input type="hidden" id="sub_budget_code" class="form-control" style="border-radius:0;" name="sub_budget_code" />
-            </div>
-        </div>
-    </div>
-</div>
-<div class="col-sm-12 col-md-12 col-lg-3">
-    <!-- TAX TYPE -->
-    <div class="row p-0 align-items-center" style="margin-bottom: 1rem;">
-        <label class="col-sm-3 col-md-4 col-lg-5 col-form-label p-0 text-bold">Tax Type</label>
-        <div class="col-sm-9 col-md-8 col-lg-6 p-0 d-flex justify-content-end">
-            <div style="background-color:white; width: 91%;">
-                <select type="text" class="form-control" id="tax_type" style="border-radius:0;">
-                    <option disabled selected value="Select a Type">Select a Type</option>
-                    <option value="VAT">VAT</option>
-                    <option value="WHT">WHT</option>
-                    <option value="PREPAID_WHT">Prepaid WHT</option>
-                </select>
-            </div>
-        </div>
-    </div>
-
-    <!-- DATE -->
-    <div class="row p-0 align-items-center">
-        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Date</label>
-        <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
-            <div>
-                <div class="input-group" id="tax_recon_date_range_container">
-                    <div class="input-group-prepend" style="margin-right: 0px; width: 27.78px;cursor: pointer;height: 21.8px;">
-                        <span class="input-group-text" id="tax_recon_date_range_container_icon" style="border-radius: 0;">
-                            <i class="far fa-calendar-alt" style="width: 13px; height: 13px;"></i>
-                        </span>
-                    </div>
-                    <input readonly type="text" class="form-control" style="height: 21.8px;border-radius:0;background-color:white;" id="tax_recon_date_range" name="tax_recon_date_range" />
-                </div>
+                <input type="text" id="transaction_name" class="form-control" style="border-radius:0;background-color:white;" readonly />
+                <input type="hidden" id="transaction_id" class="form-control" style="border-radius:0;" name="transaction_id" />
+                <input type="hidden" id="transaction_code" class="form-control" style="border-radius:0;" name="transaction_code" />
             </div>
         </div>
     </div>
