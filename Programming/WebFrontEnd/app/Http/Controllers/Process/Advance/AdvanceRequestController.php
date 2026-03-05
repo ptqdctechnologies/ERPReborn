@@ -560,20 +560,15 @@ class AdvanceRequestController extends Controller
     
     public function PrintExportReportAdvanceToASF(Request $request)
     {
-        ini_set('memory_limit', '512M');
-        set_time_limit(300);
         try {
-            $dataPDF = Session::get("AdvanceToASFReportDataPDF");
-            $dataExcel = Session::get("AdvanceToASFReportDataExcel");
+            $type               = $request->printType;
+            $advanceToASFData   = json_decode($request->dataReport, true);
 
-            
-            if ($dataPDF && $dataExcel) {
-                $print_type = $request->print_type;
-                if ($print_type == "PDF") {
-                    $dataArftoASF = Session::get("AdvanceToASFReportDataPDF");
-                    // dd($dataArftoASF);
-
-                    $pdf = PDF::loadView('Process.Advance.AdvanceToASF.Reports.ReportAdvanceToASF_pdf', ['dataArftoASF' => $dataArftoASF])->setPaper('a4', 'landscape');
+            if ($advanceToASFData) {
+                if ($type == "PDF") {
+                    $pdf = PDF::loadView('Process.Advance.AdvanceToASF.Reports.ReportAdvanceToASF_pdf', [
+                        'dataArftoASF' => $advanceToASFData
+                        ])->setPaper('a4', 'landscape');
                     $pdf->output();
                     $dom_pdf = $pdf->getDomPDF();
 
@@ -583,16 +578,19 @@ class AdvanceRequestController extends Controller
                     $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
                     $canvas->page_text(34, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
 
-                    return $pdf->download('Export Report Advance to ASF .pdf');
-                } else if ($print_type == "Excel") {
-                    return Excel::download(new ExportReportAdvanceToASF, 'Export Report Advance to ASF .xlsx');
+                    return $pdf->download('Export Report Advance Request To Advance Settlement.pdf');
+                } else if ($type == "EXCEL") {
+                    return Excel::download(new ExportReportAdvanceToASF($advanceToASFData), 'Export Report Advance to ASF .xlsx');
+                } else {
+                    throw new \Exception('Failed to Export Report Advance Request To Advance Settlement');
                 }
             } else {
-                return redirect()->route('AdvanceRequest.ReportAdvanceToASF')->with('NotFound', 'Data Cannot Empty');
+                throw new \Exception('Advance Request To Advance Settlement Data is Empty');
             }
         } catch (\Throwable $th) {
-            Log::error("Error at " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
+            Log::error("Print Export Report Advance Request To Advance Settlement Function Error: " . $th->getMessage());
+
+            return response()->json(['statusCode' => 400]);
         }
     }
 }

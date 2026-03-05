@@ -1,6 +1,7 @@
 <script>
     let isFromTo        = false;
     let data            = [];
+    let dataReport      = [];
     let currentPage     = 1;
     let rowsPerPage     = 10;
     let filteredData    = [...data];
@@ -13,6 +14,7 @@
     const startLimit    = document.getElementById("start_limit");
     const endLimit      = document.getElementById("end_limit");
     const totalData     = document.getElementById("total_data");
+    const printType     = document.getElementById("print_type");
 
     function resetForm() {
         isFromTo        = false;
@@ -61,10 +63,9 @@
             },
             dataType: 'json',
             success: function(response) {
-                console.log('response', response);
-                
                 if (response.status === 200 && response.data[0]) {
                     data = response.data;
+                    dataReport = JSON.stringify(response.data);
 
                     filteredData = [...data];
                     currentPage = 1;
@@ -80,6 +81,58 @@
                     ErrorNotif("No data available for the selected criteria.");
                 }
                 
+                HideLoading();
+            },
+            error: function(xhr, status, error) {
+                HideLoading();
+                ErrorNotif("An error occurred while processing the received data. Please try again later.");
+                console.log('xhr, status, error', xhr, status, error);
+            }
+        });
+    }
+
+    function exportDataReport() {
+        ShowLoading();
+
+        console.log('printType', printType.value);
+        console.log('dataReport', dataReport);
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: 'POST',
+            url: '{!! route("AdvanceRequest.PrintExportReportAdvanceToASF") !!}',
+            data: {
+                dataReport,
+                // budgetName: budgetName.value,
+                // receivedName: receivedName.value,
+                // deliveryFromName: deliveryFromName.value,
+                // deliveryToName: deliveryToName.value,
+                // mrDate: mrDate.value,
+                printType: printType.value
+            },
+            xhrFields: { 
+                responseType: 'blob'
+            },
+            success: function(response) {
+                let blob  = new Blob([response], { type: response.type });
+                let link  = document.createElement('a');
+                link.href = window.URL.createObjectURL(blob);
+
+                if (response.type === "application/pdf") {
+                    link.download = 'Report Advance Request To Advance Settlement Summary.pdf';
+                } else {
+                    link.download = 'Report Advance Request To Advance Settlement Summary.xlsx';
+                }
+
+                link.click();
+
+                window.URL.revokeObjectURL(link.href);
+
                 HideLoading();
             },
             error: function(xhr, status, error) {
