@@ -507,63 +507,7 @@ class AdvanceRequestController extends Controller
 
     public function ReportAdvanceToASF(Request $request)
     {
-        $varAPIWebToken = $request->session()->get('SessionLogin');
-        $dataArftoASF   = Session::get("AdvanceToASFReportDataPDF");
-
-        if (!empty($_GET['var'])) {
-            $var =  $_GET['var'];
-        }
-        
-        $compact = [
-            'varAPIWebToken'    => $varAPIWebToken,
-            'dataHeader'        => [],
-            'dataArftoASF'      => $dataArftoASF
-        
-        ];
-
-        return view('Process.Advance.AdvanceToASF.Reports.ReportAdvanceToASF', $compact);
-    }
-
-    public function ReportAdvanceToASFData( $project_code)
-    {
-        try {
-            // Log::error("Error at ",[$project_code, $site_code]);
-
-            $varAPIWebToken = Session::get('SessionLogin');
-
-            $filteredArray = Helper_APICall::setCallAPIGateway(
-                Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'report.form.documentForm.finance.getAdvanceToAdvanceSettlementSummary', 
-                'latest',
-                [
-                    'parameter' => [
-                        'CombinedBudgetCode' =>  $project_code,
-                        'CombinedBudgetSectionCode' =>  NULL,
-                        'RequesterWorkerJobsPosition_RefID' => NULL 
-                    ],
-                    'SQLStatement' => [
-                        'pick' => null,
-                        'sort' => null,
-                        'filter' => null,
-                        'paging' => null
-                    ]
-                ]
-            );
-            // dd($filteredArray);
-            Log::error("Error at " ,$filteredArray);
-            if ($filteredArray['metadata']['HTTPStatusCode'] !== 200) {
-                return redirect()->back()->with('NotFound', 'Process Error');
-
-            }
-            Session::put("AdvanceToASFReportDataPDF", $filteredArray['data']['data']);
-            Session::put("AdvanceToASFReportDataExcel", $filteredArray['data']['data']);
-            return $filteredArray['data']['data'];
-        }
-        catch (\Throwable $th) {
-            Log::error("Error at " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
-        }
+        return view('Process.Advance.AdvanceToASF.Reports.ReportAdvanceToASF');
     }
 
     public function ReportAdvanceToASFStore(Request $request)
@@ -601,39 +545,12 @@ class AdvanceRequestController extends Controller
                 throw new \Exception('Failed to fetch Report Advance To Advance Settlement Store');
             }
 
-            // $compact = [
-            //     'statusCode'    => $response['metadata']['HTTPStatusCode'],
-            //     'data'          => $response['data']['data']
-            // ];
-
-            // return response()->json($compact);
-
-            Session::put("AdvanceToASFReportDataPDF", $response['data']['data']);
-            Session::put("AdvanceToASFReportDataExcel", $response['data']['data']);
-            
             $compact = [
-                'varAPIWebToken'    => $varAPIWebToken,
-                'dataHeader'        => [
-                    'project'       => [
-                        'id'        => $request->project_id,
-                        'code'      => $request->project_code,
-                        'name'      => $request->project_name
-                    ],
-                    'site'          => [
-                        'id'        => $request->site_id,
-                        'code'      => $request->site_code,
-                        'name'      => $request->site_name
-                    ],
-                    'requester'     => [
-                        'id'        => $request->requester_id,
-                        'name'      => $request->requester_name
-                    ],
-                    'date'          => $request->date
-                ],
-                'dataArftoASF'      => $response['data']['data']
+                'status'    => $response['metadata']['HTTPStatusCode'],
+                'data'      => $response['data']['data']
             ];
 
-            return view('Process.Advance.AdvanceToASF.Reports.ReportAdvanceToASF', $compact);
+            return response()->json($compact);
         } catch (\Throwable $th) {
             Log::error("Report Advance To Advance Settlement Store Function Error: " . $th->getMessage());
             
