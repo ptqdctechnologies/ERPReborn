@@ -134,10 +134,6 @@
             dateCell.textContent = item.date;
             row.appendChild(dateCell);
 
-            const typeCell = document.createElement('td');
-            typeCell.textContent = item.type;
-            row.appendChild(typeCell);
-
             const budgetCell = document.createElement('td');
             budgetCell.textContent = item.budget;
             row.appendChild(budgetCell);
@@ -145,6 +141,14 @@
             const transValCell = document.createElement('td');
             transValCell.textContent = item.transaction_value;
             row.appendChild(transValCell);
+
+            const typeCell = document.createElement('td');
+            typeCell.textContent = item.type;
+            row.appendChild(typeCell);
+
+            const paymentDateCell = document.createElement('td');
+            paymentDateCell.textContent = item.payment_date;
+            row.appendChild(paymentDateCell);
 
             const paymentValCell = document.createElement('td');
             paymentValCell.textContent = item.payment_value;
@@ -165,10 +169,6 @@
             const attachmentCell = document.createElement('td');
             attachmentCell.textContent = item.attachment;
             row.appendChild(attachmentCell);
-
-            const testingCell = document.createElement('td');
-            testingCell.textContent = item.testing;
-            row.appendChild(testingCell);
 
             tbody.appendChild(row);
             rowIndex++;
@@ -225,7 +225,7 @@
             "from_to": "",
             "coa_code": "",
             "attachment": "",
-            "testing": "",
+            "payment_date": "",
         }];
 
         startLimit.textContent = start + 1;
