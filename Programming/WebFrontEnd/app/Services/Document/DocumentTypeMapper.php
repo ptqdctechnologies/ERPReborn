@@ -795,6 +795,7 @@ class DocumentTypeMapper
                     'authorizedName'    => $dataDetail['combinedBudgetName_Header'] ?? '',
                     'timesheetNUmber'   => $dataDetail['businessDocumentNumber'] ?? '-',
                     'onBehalfOf'        => $dataDetail['personName'] ?? '-',
+                    'taxType'           => 'PREPAID WHT', // VAT OR WHT OR PREPAID WHT
                 ],
                 'components'    => [
                     'detail'    => 'Components.TaxReconDetailDocument',
