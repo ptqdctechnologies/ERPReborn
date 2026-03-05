@@ -279,99 +279,54 @@ class PurchaseRequisitionController extends Controller
 
     public function ReportPRtoPO(Request $request)
     {
-        $varAPIWebToken = $request->session()->get('SessionLogin');
-        $request->session()->forget("SessionPurchaseRequisitionNumber");
-        $dataPRtoPO = Session::get("ReportPRtoPODataPDF");
-
-        if (!empty($_GET['var'])) {
-            $var =  $_GET['var'];
-        }
-        $compact = [
-            'varAPIWebToken' => $varAPIWebToken,
-            'statusRevisi' => 1,
-            'statusHeader' => "Yes",
-            'statusDetail' => 1,
-            'dataHeader' => [],
-            'dataPRtoPO' => $dataPRtoPO
-        
-        ];
-        // dump($compact);
-
-        return view('Purchase.PurchaseRequisition.Reports.ReportPRtoPO', $compact);
+        return view('Purchase.PurchaseRequisition.Reports.ReportPRtoPO');
     }
 
-    public function ReportPRtoPOData( $project_code, $site_code)
+    public function ReportPRtoPOStore(Request $request)
     {
         try {
-            Log::error("Error at ",[$project_code, $site_code]);
-
             $varAPIWebToken = Session::get('SessionLogin');
+            $projectCode    = $request->project_code;
+            $siteCode       = $request->site_code;
+            $supplierID     = $request->supplier_id;
+            $date           = $request->date;
 
-            $filteredArray = Helper_APICall::setCallAPIGateway(
+            if ($date) {
+                $dates      = explode(' - ', $date);
+                $startDate  = Carbon::createFromFormat('m/d/Y', trim($dates[0]))->startOfDay()->format('Y-m-d');
+                $endDate    = Carbon::createFromFormat('m/d/Y', trim($dates[1]))->endOfDay()->format('Y-m-d');
+            }
+
+            $response = Helper_APICall::setCallAPIGateway(
                 Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken, 
                 'report.form.documentForm.supplyChain.getPurchaseRequisitionToPurchaseOrderSummary', 
                 'latest',
                 [
-                    'parameter' => [
-                        'CombinedBudgetCode' =>  $project_code,
-                        'CombinedBudgetSectionCode' =>  $site_code,
-                        'Supplier_RefID' => NULL
-                        // 'PurchaseRequisition_RefID' => (int) $PurchaseRequisition_refID
-                    ],
-                     'SQLStatement' => [
-                        'pick' => null,
-                        'sort' => null,
-                        'filter' => null,
-                        'paging' => null
-                        ]
+                    'parameter'     => [
+                        'CombinedBudgetCode'        => $projectCode ?? null,
+                        'CombinedBudgetSectionCode' => $siteCode ?? null,
+                        'Supplier_RefID'            => $supplierID ?? null,
+                        // 'StartDate'                 => $date ? $startDate : NULL,
+                        // 'EndDate'                   => $date ? $endDate : NULL,
+                    ]
                 ]
             );
-            
-            Log::error("Error at " ,$filteredArray);
-            if ($filteredArray['metadata']['HTTPStatusCode'] !== 200) {
-                return redirect()->back()->with('NotFound', 'Process Error');
 
-            }
-            Session::put("ReportPRtoPODataPDF", $filteredArray['data']['data']);
-            Session::put("dataReportPRtoPO", $filteredArray['data']['data']);
-            return $filteredArray['data']['data'];
-        }
-        catch (\Throwable $th) {
-            Log::error("Error at " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
-        }
-    }
-
-    public function ReportPRtoPOStore(Request $request)
-    {
-        // tes;
-        try {
-            $project_code = $request->project_code_second;
-            $site_code = $request->site_id_second;
-
-            $statusHeader = "Yes";
-            Log::error("Error at " ,[$request->all()]);
-            if ($project_code == "" && $site_code == "") {
-                Session::forget("ReportPRtoPODataPDF");
-                Session::forget("dataReportPRtoPO");
-                
-                return redirect()->route('PurchaseRequisition.ReportPRtoPO')->with('NotFound', 'Cannot Empty');
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                throw new \Exception('Failed to fetch Report Purchase Request To Purchase Order Store');
             }
 
-            $compact = $this->ReportPRtoPOData($project_code, $site_code);
-            // dd($compact);
-            // if ($compact['dataHeader'] == []) {
-            //     Session::forget("PPurchaseRequisitionSummaryReportDataPDF");
-            //     Session::forget("PPurchaseRequisitionSummaryReportDataExcel");
+            $compact = [
+                'status'    => $response['metadata']['HTTPStatusCode'],
+                'data'      => $response['data']['data']
+            ];
 
-            //     return redirect()->back()->with('NotFound', 'Data Not Found');
-            // }
-
-            return redirect()->route('PurchaseRequisition.ReportPRtoPO');
+            return response()->json($compact);
         } catch (\Throwable $th) {
-            Log::error("Error at " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
+            Log::error("Report Purchase Request To Purchase Order Store Function Error: " . $th->getMessage());
+            
+            return response()->json(["status" => 500]);
         }
     }
 
