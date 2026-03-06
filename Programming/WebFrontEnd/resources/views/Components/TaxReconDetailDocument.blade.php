@@ -12,29 +12,29 @@
         </div>
 
         <!-- PERIOD -->
-        <div class="row" style="margin-bottom: 1rem;">
+        <!-- <div class="row" style="margin-bottom: 1rem;">
             <div class="col-4 col-sm-4 col-md-4 col-lg-3 text-bold">
                 Period
             </div>
             <div class="col">
                 : 02/02/2026 - 02/29/2026
             </div>
-        </div>
+        </div> -->
 
         <!-- TAX TYPE -->
-        <div class="row" style="margin-bottom: 1rem;">
+        <!-- <div class="row" style="margin-bottom: 1rem;">
             <div class="col-4 col-sm-4 col-md-4 col-lg-3 text-bold">
                 Tax Type
             </div>
             <div class="col">
                 : <?= $dataHeader['taxType']; ?>
             </div>
-        </div>
+        </div> -->
 
-        <!-- DATE -->
+        <!-- TAX RECON DATE -->
         <div class="row">
             <div class="col-4 col-sm-4 col-md-4 col-lg-3 text-bold">
-                Date
+                Tax Recon Date
             </div>
             <div class="col">
                 : 03/15/2026

@@ -1,76 +1,76 @@
 <script>
-    const taxReconType = 'VAT'; // VAT OR WHT OR PREPAID WHT
+    const taxReconType = 'PREPAID WHT'; // VAT OR WHT OR PREPAID WHT
 
     function getDataReport() {
-        const dummy = [
-            {
-                transactionNumber: "AP-23000091",
-                currency: "IDR",
-                vatType: "In",
-                taxType: "WHT 23",
-                transactionType: "Import",
-                name: "PT. X",
-                taxInvoiceNumber: "FP-010.000-26.00000001",
-                date: "03-01-2026",
-                taxBased: "100000000",
-                vatRate: "11",
-                vatValue: "11000000"
-            },
-            {
-                transactionNumber: "AP-23000092",
-                currency: "IDR",
-                vatType: "In",
-                taxType: "WHT 42",
-                transactionType: "Domestic",
-                name: "PT. X",
-                taxInvoiceNumber: "FP-020.000-26.00000002",
-                date: "05-01-2026",
-                taxBased: "50000000",
-                vatRate: "11",
-                vatValue: "5500000"
-            },
-            {
-                transactionNumber: "TREM-23000002",
-                currency: "IDR",
-                vatType: "In",
-                taxType: "WHT 98",
-                transactionType: "Import",
-                name: "PT. X",
-                taxInvoiceNumber: "FP-030.000-26.00000003",
-                date: "08-01-2026",
-                taxBased: "25000",
-                vatRate: "0",
-                vatValue: "0"
-            },
-            {
-                transactionNumber: "INV-23000002",
-                currency: "IDR",
-                vatType: "Out",
-                taxType: "WHT 67",
-                transactionType: "Domestic",
-                name: "PT. X",
-                taxInvoiceNumber: "FP-040.000-26.00000004",
-                date: "12-01-2026",
-                taxBased: "10000000",
-                vatRate: "11",
-                vatValue: "1100000"
-            },
-            {
-                transactionNumber: "DN-23000008",
-                currency: "IDR",
-                vatType: "Out",
-                taxType: "WHT 36",
-                transactionType: "Export",
-                name: "PT. X",
-                taxInvoiceNumber: "FP-050.000-26.00000005",
-                date: "15-01-2026",
-                taxBased: "75000000",
-                vatRate: "11",
-                vatValue: "8250000"
-            },
-        ];
-
         if (taxReconType == 'VAT') {
+            const dummy = [
+                {
+                    transactionNumber: "AP-23000091",
+                    currency: "IDR",
+                    vatType: "In",
+                    taxType: "WHT 23",
+                    transactionType: "Import",
+                    name: "PT. X",
+                    taxInvoiceNumber: "FP-010.000-26.00000001",
+                    date: "03-01-2026",
+                    taxBased: "100000000",
+                    vatRate: "11",
+                    vatValue: "11000000"
+                },
+                {
+                    transactionNumber: "AP-23000092",
+                    currency: "IDR",
+                    vatType: "In",
+                    taxType: "WHT 42",
+                    transactionType: "Domestic",
+                    name: "PT. X",
+                    taxInvoiceNumber: "FP-020.000-26.00000002",
+                    date: "05-01-2026",
+                    taxBased: "50000000",
+                    vatRate: "11",
+                    vatValue: "5500000"
+                },
+                {
+                    transactionNumber: "TREM-23000002",
+                    currency: "IDR",
+                    vatType: "In",
+                    taxType: "WHT 98",
+                    transactionType: "Import",
+                    name: "PT. X",
+                    taxInvoiceNumber: "FP-030.000-26.00000003",
+                    date: "08-01-2026",
+                    taxBased: "25000",
+                    vatRate: "0",
+                    vatValue: "0"
+                },
+                {
+                    transactionNumber: "INV-23000002",
+                    currency: "IDR",
+                    vatType: "Out",
+                    taxType: "WHT 67",
+                    transactionType: "Domestic",
+                    name: "PT. X",
+                    taxInvoiceNumber: "FP-040.000-26.00000004",
+                    date: "12-01-2026",
+                    taxBased: "10000000",
+                    vatRate: "11",
+                    vatValue: "1100000"
+                },
+                {
+                    transactionNumber: "DN-23000008",
+                    currency: "IDR",
+                    vatType: "Out",
+                    taxType: "WHT 36",
+                    transactionType: "Export",
+                    name: "PT. X",
+                    taxInvoiceNumber: "FP-050.000-26.00000005",
+                    date: "15-01-2026",
+                    taxBased: "75000000",
+                    vatRate: "11",
+                    vatValue: "8250000"
+                },
+            ];
+
             $('#table_summary').DataTable({
                 destroy: true,
                 data: dummy,
@@ -90,6 +90,12 @@
                     {
                         title: "Transaction Number",
                         data: 'transactionNumber',
+                        defaultContent: '-',
+                        className: "align-middle"
+                    },
+                    {
+                        title: "Date",
+                        data: 'date',
                         defaultContent: '-',
                         className: "align-middle"
                     },
@@ -124,12 +130,6 @@
                         className: "align-middle"
                     },
                     {
-                        title: "Date",
-                        data: 'date',
-                        defaultContent: '-',
-                        className: "align-middle"
-                    },
-                    {
                         title: "Tax Based",
                         data: null,
                         defaultContent: '-',
@@ -156,6 +156,35 @@
                 ]
             });
         } else {
+            const dummy = [
+                {
+                    transactionNumber: "AP-23000091",
+                    currency: "IDR",
+                    vatType: "In",
+                    taxType: "WHT 23",
+                    transactionType: "Import",
+                    name: "PT. X",
+                    taxInvoiceNumber: "FP-010.000-26.00000001",
+                    date: "03-01-2026",
+                    taxBased: "100000000",
+                    vatRate: "11",
+                    vatValue: "11000000"
+                },
+                {
+                    transactionNumber: "AP-23000092",
+                    currency: "IDR",
+                    vatType: "In",
+                    taxType: "WHT 23",
+                    transactionType: "Domestic",
+                    name: "PT. X",
+                    taxInvoiceNumber: "FP-020.000-26.00000002",
+                    date: "05-01-2026",
+                    taxBased: "50000000",
+                    vatRate: "11",
+                    vatValue: "5500000"
+                }
+            ];
+
             $('#table_summary').DataTable({
                 destroy: true,
                 data: dummy,
@@ -179,6 +208,12 @@
                         className: "align-middle"
                     },
                     {
+                        title: "Date",
+                        data: 'date',
+                        defaultContent: '-',
+                        className: "align-middle"
+                    },
+                    {
                         title: "Currency",
                         data: 'currency',
                         defaultContent: '-',
@@ -186,19 +221,15 @@
                     },
                     {
                         title: "Tax Type",
-                        data: 'taxType',
+                        data: null,
                         defaultContent: '-',
-                        className: "align-middle"
+                        render: function (data, type, row, meta) {
+                            return taxReconType == 'WHT' ? data.taxType : 'WHT 42';
+                        }
                     },
                     {
                         title: "Name",
                         data: 'name',
-                        defaultContent: '-',
-                        className: "align-middle"
-                    },
-                    {
-                        title: "Date",
-                        data: 'date',
                         defaultContent: '-',
                         className: "align-middle"
                     },
