@@ -35,24 +35,24 @@
                         <div class="col-12" id="table_container" style="display: none;">
                             <div class="card">
                                 <div class="card-body p-0">
-                                    <div class="table-responsive">
-                                        <div class="d-flex justify-content-between">
-                                            <label>
-                                                Show
-                                                <select id="limitSelect" style="border: 1px solid #aaa; border-radius: 3px; padding: 4px; background: transparent;">
-                                                    <option value="10" selected>10</option>
-                                                    <option value="25">25</option>
-                                                    <option value="50">50</option>
-                                                    <option value="100">100</option>
-                                                </select>
-                                                entries
-                                            </label>
-                                            <label>
-                                                Search:
-                                                <input type="text" id="searchInput" autocomplete="off" placeholder="Search..." style="border: 1px solid #aaa; border-radius: 3px; padding: 5px; margin-left: 3px; background: transparent;" />
-                                            </label>
-                                        </div>
+                                    <div class="d-flex justify-content-between">
+                                        <label>
+                                            Show
+                                            <select id="limitSelect" style="border: 1px solid #aaa; border-radius: 3px; padding: 4px; background: transparent;">
+                                                <option value="10" selected>10</option>
+                                                <option value="25">25</option>
+                                                <option value="50">50</option>
+                                                <option value="100">100</option>
+                                            </select>
+                                            entries
+                                        </label>
+                                        <label>
+                                            Search:
+                                            <input type="text" id="searchInput" autocomplete="off" placeholder="Search..." style="border: 1px solid #aaa; border-radius: 3px; padding: 5px; margin-left: 3px; background: transparent;" />
+                                        </label>
+                                    </div>
 
+                                    <div class="table-responsive">
                                         <table class="table table-head-fixed text-nowrap" id="table_summary">
                                             <thead>
                                                 <tr>
@@ -132,17 +132,17 @@
                                             </thead>
                                             <tbody></tbody>
                                         </table>
+                                    </div>
 
-                                        <div class="d-flex justify-content-between" style="padding-top: .755em; padding-bottom: .755em;">
-                                            <div>
-                                                Showing <span id="start_limit">1</span> to <span id="end_limit">10</span> of <span id="total_data">68</span> entries
-                                            </div>
+                                    <div class="d-flex justify-content-between" style="padding-top: .755em; padding-bottom: .755em;">
+                                        <div>
+                                            Showing <span id="start_limit">1</span> to <span id="end_limit">10</span> of <span id="total_data">68</span> entries
+                                        </div>
 
-                                            <div id="controls" style="cursor: pointer;">
-                                                <a class="paginate_button previous" id="prevPage">Previous</a>
-                                                <span id="pageNumbers"></span>
-                                                <a class="paginate_button next" id="nextPage">Next</a>
-                                            </div>
+                                        <div id="controls" style="cursor: pointer;">
+                                            <a class="paginate_button previous" id="prevPage">Previous</a>
+                                            <span id="pageNumbers"></span>
+                                            <a class="paginate_button next" id="nextPage">Next</a>
                                         </div>
                                     </div>
                                 </div>

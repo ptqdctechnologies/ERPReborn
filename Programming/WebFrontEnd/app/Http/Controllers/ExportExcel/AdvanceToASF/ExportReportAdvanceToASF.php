@@ -13,9 +13,16 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class ExportReportAdvanceToASF implements FromCollection, WithHeadings, ShouldAutoSize, WithStyles
 {
+    protected $advanceRequestToASF;
+
+    public function __construct($advanceRequestToASF)
+    {
+        $this->advanceRequestToASF = $advanceRequestToASF;
+    }
+
     public function collection()
     {
-        $data = Session::get("AdvanceToASFReportDataExcel");
+        $data = $this->advanceRequestToASF;
 
         $filteredData = [];
         $counter = 1;
@@ -45,7 +52,7 @@ class ExportReportAdvanceToASF implements FromCollection, WithHeadings, ShouldAu
 
     public function headings(): array
     {
-        $data = Session::get("AdvanceToASFReportDataExcel");
+        $data = $this->advanceRequestToASF;
         return [
             [date('F j, Y')],
             ["ADVANCE TO ASF"],
@@ -171,7 +178,7 @@ class ExportReportAdvanceToASF implements FromCollection, WithHeadings, ShouldAu
             ],
         ];
 
-        $datas = Session::get("AdvanceToASFReportDataExcel");
+        $datas = $this->advanceRequestToASF;
         $totalCell = count($datas);
         $lastCell = 'A8:O' . $totalCell + 8;
         $sheet->getStyle($lastCell)->applyFromArray($styleArrayContent);
