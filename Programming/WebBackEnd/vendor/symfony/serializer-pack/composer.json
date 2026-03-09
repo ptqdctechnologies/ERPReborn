@@ -11,7 +11,7 @@
         "symfony/serializer": "*"
     },
     "conflict": {
-        "symfony/property-info": "<5.4",
-        "symfony/serializer": "<5.4"
+        "symfony/property-info": "<7.4",
+        "symfony/serializer": "<7.4"
     }
 }
