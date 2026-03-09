@@ -20,6 +20,18 @@ Please also have a look at our
 
 ### Documentation
 
+## 9.3.0: Support for modern CSS at-rules and autoloading bugfix
+
+### Added
+
+- Add support for modern CSS at-rules: `@layer`, `@scope`, and `@starting-style` (#1549)
+
+### Fixed
+
+- Avoid double autoloading of class aliases (#1552)
+
+### Documentation
+
 ## 9.2.0: New features and deprecations
 
 ### Added
