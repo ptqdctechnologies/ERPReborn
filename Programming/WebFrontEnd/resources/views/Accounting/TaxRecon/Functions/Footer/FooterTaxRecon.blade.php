@@ -43,10 +43,10 @@
         const rows = document.querySelectorAll("#vat_details_table tbody tr");
 
         rows.forEach((row, ind) => {
-            const thirdCellText = row.querySelectorAll("td")[3].textContent;
+            const forthCellText = row.querySelectorAll("td")[4].textContent;
             const tenCellText   = row.querySelectorAll("td")[10].textContent;
 
-            if (thirdCellText == 'In') {
+            if (forthCellText == 'In') {
                 if (index == ind && value.checked) {
                     taxInTotal  += parseFloat(tenCellText.replace(/,/g, ''));
                 } else if (index == ind && !value.checked) {
