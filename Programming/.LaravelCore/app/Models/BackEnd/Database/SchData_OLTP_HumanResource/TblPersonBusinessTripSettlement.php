@@ -145,7 +145,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
             $varUserSession,
             int $varSysID,
             string $varSysDataAnnotation = null, string $varSysDataValidityStartDateTimeTZ = null, string $varSysDataValidityFinishDateTimeTZ = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, $varSysBaseCurrency_RefID = null,
-            string $varDocumentDateTimeTZ = null, int $varCombinedBudgetSectionDetail_RefID = null,
+            string $varDocumentDateTimeTZ = null, int $varLog_FileUpload_Pointer_RefID = null, string $varRemarks = null,
             array $varAdditionalData = []
             )
             {
@@ -167,7 +167,8 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                             [$varSysBaseCurrency_RefID, 'bigint'],
 
                             [$varDocumentDateTimeTZ, 'timestamptz'],
-                            [$varCombinedBudgetSectionDetail_RefID, 'bigint'],
+                            [$varLog_FileUpload_Pointer_RefID, 'bigint'],
+                            [$varRemarks, 'varchar'],
 
                             [
                                 ((count($varAdditionalData) === 0) 
