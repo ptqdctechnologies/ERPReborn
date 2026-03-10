@@ -175,11 +175,17 @@ class BusinessTripRequestController extends Controller
             $personBusinessTripRefID    = $request->input('brf_number_id');
             $documentTypeRefID          = $this->GetBusinessDocumentsTypeFromRedis('Person Business Trip Revision Form');
 
-            $responseTripSequence = $this->businessTripService->getPersonBusinessTripSequence($personBusinessTripRefID);
+            $response = $this->businessTripService->getDetail($personBusinessTripRefID);
 
-            if ($responseTripSequence['metadata']['HTTPStatusCode'] !== 200) {
-                return response()->json($responseTripSequence);
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                return response()->json($response);
             }
+
+            // $responseTripSequence = $this->businessTripService->getPersonBusinessTripSequence($personBusinessTripRefID);
+
+            // if ($responseTripSequence['metadata']['HTTPStatusCode'] !== 200) {
+            //     return response()->json($responseTripSequence);
+            // }
 
             $responseTripSequenceDetail = $this->businessTripService->getPersonBusinessTripSequenceDetail($personBusinessTripRefID);
 
@@ -187,43 +193,47 @@ class BusinessTripRequestController extends Controller
                 return response()->json($responseTripSequenceDetail);
             }
 
-            $dataTripSequence       = $responseTripSequence['data']['data'];
+            $dataResponse           = $response['data']['data'];
+            // $dataTripSequence       = $responseTripSequence['data']['data'];
             $dataTripSequenceDetail = $responseTripSequenceDetail['data']['data'];
+
+            // dump($dataResponse);
+            // dump($dataTripSequenceDetail);
 
             $compact = [
                 'varAPIWebToken'                    => $varAPIWebToken ?? '',
                 'documentType_RefID'                => $documentTypeRefID,
-                'combinedBudgetSectionDetail_RefID' => 169000000000048,
-                'personBusinessTripRefID'           => $dataTripSequence[0]['personBusinessTrip_RefID'],
-                'personBusinessTripDetailRefID'     => $dataTripSequence[0]['sys_ID'],
+                'combinedBudgetSectionDetail_RefID' => $dataResponse[0]['CombinedBudgetSectionDetail_RefID'],
+                'personBusinessTripRefID'           => $dataResponse[0]['PersonBusinessTrip_RefID'], // $dataTripSequence[0]['personBusinessTrip_RefID'],
+                'personBusinessTripDetailRefID'     => $dataResponse[0]['Sys_ID'], // $dataTripSequence[0]['sys_ID'],
                 'budget'            => [
-                    'id'            => $dataTripSequence[0]['combinedBudget_RefID'][0] ?? '-',
-                    'code'          => $dataTripSequence[0]['combinedBudgetCode'] ?? '-',
-                    'name'          => $dataTripSequence[0]['combinedBudgetName'] ?? '-'
+                    'id'            => $dataResponse[0]['CombinedBudget_RefID'], // $dataTripSequence[0]['combinedBudget_RefID'][0] ?? '-',
+                    'code'          => $dataResponse[0]['CombinedBudgetCode'], // $dataTripSequence[0]['combinedBudgetCode'] ?? '-',
+                    'name'          => $dataResponse[0]['CombinedBudgetName'], // $dataTripSequence[0]['combinedBudgetName'] ?? '-'
                 ],
                 'subBudget'         => [
-                    'id'            => $dataTripSequence[0]['combinedBudgetSection_RefID'][0] ?? '-',
-                    'code'          => $dataTripSequence[0]['combinedBudgetSectionCode'] ?? '-',
-                    'name'          => $dataTripSequence[0]['combinedBudgetSectionName'] ?? '-'
+                    'id'            => $dataResponse[0]['CombinedBudgetSection_RefID'], // $dataTripSequence[0]['combinedBudgetSection_RefID'][0] ?? '-',
+                    'code'          => $dataResponse[0]['CombinedBudgetSectionCode'], // $dataTripSequence[0]['combinedBudgetSectionCode'] ?? '-',
+                    'name'          => $dataResponse[0]['CombinedBudgetSectionName'], // $dataTripSequence[0]['combinedBudgetSectionName'] ?? '-'
                 ],
-                'fileID'            => '',
+                'fileID'            => $dataResponse[0]['Log_FileUpload_Pointer_RefID'],
                 'requester'         => [
-                    'id'            => $dataTripSequence[0]['requesterWorkerJobsPosition_RefID'] ?? '-',
-                    'name'          => $dataTripSequence[0]['requesterWorkerName'] ?? '-',
-                    'position'      => '-',
-                    'contact'       => '-'
+                    'id'            => $dataResponse[0]['RequesterWorkerJobsPosition_RefID'], // $dataTripSequence[0]['requesterWorkerJobsPosition_RefID'] ?? '-',
+                    'name'          => $dataResponse[0]['RequesterWorkerName'], // $dataTripSequence[0]['requesterWorkerName'] ?? '-',
+                    'position'      => $dataResponse[0]['RequesterWorkerPosition'],
+                    'contact'       => $dataResponse[0]['RequesterWorkerContact']
                 ],
                 'dateTravel'        => [
-                    'commence'      => $dataTripSequence[0]['startDateTimeTZ'] ? Carbon::parse($dataTripSequence[0]['startDateTimeTZ'])->format('Y-m-d') : '-',
-                    'end'           => $dataTripSequence[0]['finishDateTimeTZ'] ? Carbon::parse($dataTripSequence[0]['finishDateTimeTZ'])->format('Y-m-d') : '-'
+                    'commence'      => $dataResponse[0]['StartDateTimeTZ'] ? Carbon::parse($dataResponse[0]['StartDateTimeTZ'])->format('Y-m-d') : '-', // $dataTripSequence[0]['startDateTimeTZ'] ? Carbon::parse($dataTripSequence[0]['startDateTimeTZ'])->format('Y-m-d') : '-',
+                    'end'           => $dataResponse[0]['FinishDateTimeTZ'] ? Carbon::parse($dataResponse[0]['FinishDateTimeTZ'])->format('Y-m-d') : '-' // $dataTripSequence[0]['finishDateTimeTZ'] ? Carbon::parse($dataTripSequence[0]['finishDateTimeTZ'])->format('Y-m-d') : '-'
                 ],
                 'departing'         => [
-                    'from'          => '-',
-                    'to'            => '-'
+                    'from'          => $dataResponse[0]['DeparturePoint'],
+                    'to'            => $dataResponse[0]['DestinationPoint']
                 ],
-                'reason'            => '-',
+                'reason'            => $dataResponse[0]['ReasonToTravel'],
                 'total'             => [
-                    'brf'           => $dataTripSequence[0]['amountBaseCurrencyValue'] ?? 0,
+                    'brf'           => $dataResponse[0]['AmountBaseCurrencyValue'], // $dataTripSequence[0]['amountBaseCurrencyValue'] ?? 0,
                     'payment'       => 118670.07,
                 ],
                 'dataTripBudgetDetails' => $dataTripSequenceDetail,
