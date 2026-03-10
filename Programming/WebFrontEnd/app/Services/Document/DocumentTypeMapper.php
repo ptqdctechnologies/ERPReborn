@@ -96,7 +96,7 @@ class DocumentTypeMapper
                 'parameter' => ['paymentInstruction_RefID' => (int) $referenceId]
             ],
             'Person Business Trip Form' => [
-                'key'                       => 'transaction.read.dataList.humanResource.getPersonBusinessTripSequence',
+                'key'                       => 'transaction.read.dataList.humanResource.getPersonBusinessTripDetail',
                 'parameter'                 => ['personBusinessTrip_RefID' => (int) $referenceId],
             ],
             'Person Business Trip Settlement Form' => [
@@ -510,26 +510,26 @@ class DocumentTypeMapper
             ],
             'Person Business Trip Form' => [
                 'dataHeader'            => [
-                    'btNumber'              => $dataDetail['documentNumber'] ?? '-',
-                    'budgetCode'            => $dataDetail['combinedBudgetCode'] ?? '-',
-                    'budgetName'            => $dataDetail['combinedBudgetName'] ?? '-',
-                    'subBudgetCode'         => $dataDetail['combinedBudgetSectionCode'] ?? '-',
-                    'subBudgetName'         => $dataDetail['combinedBudgetSectionName'] ?? '-',
+                    'btNumber'              => $dataDetail['DocumentNumber'] ?? '-',
+                    'budgetCode'            => $dataDetail['CombinedBudgetCode'] ?? '-',
+                    'budgetName'            => $dataDetail['CombinedBudgetName'] ?? '-',
+                    'subBudgetCode'         => $dataDetail['CombinedBudgetSectionCode'] ?? '-',
+                    'subBudgetName'         => $dataDetail['CombinedBudgetSectionName'] ?? '-',
                     'description'           => '-',
-                    'dateCommenceTravel'    => $dataDetail['startDateTimeTZ'] ?? '-',
-                    'dateEndTravel'         => $dataDetail['finishDateTimeTZ'] ?? '-',
-                    'brfDate'               => $dataDetail['documentDateTimeTZ'] ?? '-',
+                    'dateCommenceTravel'    => $dataDetail['StartDateTimeTZ'] ?? '-',
+                    'dateEndTravel'         => $dataDetail['FinishDateTimeTZ'] ?? '-',
+                    'brfDate'               => $dataDetail['DocumentDateTimeTZ'] ?? '-',
                     'dateUpdate'            => null,
                     'date'                  => null,
-                    'fileID'                => null,
-                    'contactPhone'          => '-',
+                    'fileID'                => $dataDetail['Log_FileUpload_Pointer_RefID'] ?? null,
+                    'contactPhone'          => $dataDetail['RequesterWorkerContact'] ?? null,
                     'bankAccount'           => '-',
                     'bankName'              => '-',
-                    'accountNumber'         => '',
-                    'requesterName'         => $dataDetail['requesterWorkerName'] ?? '-',
+                    'accountNumber'         => '-',
+                    'requesterName'         => $dataDetail['RequesterWorkerName'] ?? '-',
                     'beneficiaryName'       => '-',
-                    'departingFrom'         => '-',
-                    'destinationTo'         => '-',
+                    'departingFrom'         => $dataDetail['DeparturePoint'] ?? '-',
+                    'destinationTo'         => $dataDetail['DestinationPoint'] ?? '-',
                 ],
                 'dataAdditional'    => [
                     'allowance'     => '240000.00',
@@ -541,7 +541,7 @@ class DocumentTypeMapper
                 ],
                 'textAreaFields'    => [
                     'title'         => 'Reason to Travel',
-                    'text'          => '-',
+                    'text'          => $dataDetail['ReasonToTravel'] ?? '-',
                 ],
                 'components'        => [
                     'detail'        => 'Components.BusinessTripRequestDetailDocument',
