@@ -85,7 +85,8 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::resource('Warehouse', 'Register\Warehouse\WarehouseController');
 
     // PRODUCT
-    Route::resource('Product', 'Register\Product\ProductController');
+    Route::resource('Product', 'Master\ProductController');
+    // Route::resource('Product', 'Register\Product\ProductController');
 
     // APPROVAL DOCUMENT
     Route::get('ApprovalAccepted', 'Document\ApprovalDocumentController@ApprovalAccepted')->name('ApprovalDocument.ApprovalAccepted');
@@ -114,7 +115,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     //Currency
     Route::resource('Currency', 'Register\CurrencyController');
     //Country
-    Route::resource('Country', 'Register\CountryController');
+    Route::resource('Country', 'Register\OTHER\CountryController');
     //CountryAdministrativeAreaLevel1
     Route::resource('CountryAdministrativeAreaLevel1', 'Register\CountryAdministrativeAreaLevel1Controller');
     //CountryAdministrativeAreaLevel2

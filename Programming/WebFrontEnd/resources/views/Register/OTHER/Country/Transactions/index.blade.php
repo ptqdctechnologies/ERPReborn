@@ -39,25 +39,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach($data as $datas)
-                                                <tr>
-                                                    <td>{{$datas['sys_ID']}}</td>
-                                                    <td>{{$datas['sys_Branch_RefID']}}</td>
-                                                    <td>{{$datas['internationalName']}}</td>
-                                                    <td>
-                                                        <center>
-                                                            
-
-                                                            <form action="{{ route('Country.destroy', $datas['sys_ID']) }}" method="post">
-                                                                @method('DELETE')
-                                                                @csrf
-                                                                <a href="{{ route('Country.edit', $datas['sys_ID']) }}" class="btn btn-outline-primary btn-rounded btn-sm my-0 style=" border-radius: 100px;"><i class="fa fa-edit"></i></a>
-                                                                <button class="btn btn-outline-danger btn-rounded btn-sm my-0 style=" border-radius: 100px;" type="submit"><i class="fa fa-trash"></i></button>
-                                                            </form>
-                                                        </center>
-                                                    </td>
-                                                </tr>
-                                                @endforeach
+                                                
                                             </tbody>
                                         </table>
                                     </div>
