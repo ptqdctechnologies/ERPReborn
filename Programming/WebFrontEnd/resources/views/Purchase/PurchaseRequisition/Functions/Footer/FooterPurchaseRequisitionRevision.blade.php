@@ -187,11 +187,11 @@
                 balanceInput.value.trim()   !== '' &&
                 assetSelect.value.trim()    !== '' 
             ) {
-                const productName   = row.children[8].innerText.trim();
-                const qtyAvail      = row.children[10].innerText.trim();
-                const uom           = row.children[11].innerText.trim();
-                const priceAvail    = row.children[12].innerText.trim();
-                const currency      = row.children[14].innerText.trim();
+                const productName   = row.children[9].innerText.trim();
+                const qtyAvail      = row.children[11].innerText.trim();
+                const uom           = row.children[12].innerText.trim();
+                const priceAvail    = row.children[13].innerText.trim();
+                const currency      = row.children[15].innerText.trim();
 
                 const price = priceInput.value.trim();
                 const qty   = qtyInput.value.trim();
@@ -362,6 +362,7 @@
                         <input id="combinedBudgetSectionDetail_RefID${key}" value="${val2.sys_ID}" type="hidden" />
                         <input id="productUnitPriceCurrencyExchangeRate${key}" value="1" type="hidden" />
 
+                        <td style="text-align: center;">-</td>
                         <td style="text-align: center;">${val2.productCode}</td>
                         <td style="text-align: center;">${val2.productName}</td>
                     `;
@@ -404,6 +405,7 @@
                             <input id="combinedBudgetSectionDetail_RefID${key}" value="${val2.sys_ID}" type="hidden" />
                             <input id="productUnitPriceCurrencyExchangeRate${key}" value="1" type="hidden" />
 
+                            <td style="text-align: center;">-</td>
                             <td style="padding: 8px;">
                                 <div class="input-group">
                                     <input id="product_id${key}" style="border-radius:0;width:130px;background-color:white;" name="product_id" class="form-control" readonly data-default="" />
@@ -433,6 +435,7 @@
                             <input id="combinedBudgetSectionDetail_RefID${key}" value="${findDataMiscellaneous.combinedBudgetSectionDetail_RefID}" type="hidden" />
                             <input id="productUnitPriceCurrencyExchangeRate${key}" value="${findDataMiscellaneous.productUnitPriceCurrencyExchangeRate}" type="hidden" />
 
+                            <td style="text-align: center;">-</td>
                             <td style="padding: 8px;">
                                 <div class="input-group">
                                     <input id="product_id${key}" style="border-radius:0;width:130px;background-color:white;" name="product_id" class="form-control" readonly data-default="${findDataMiscellaneous.productCode}" value="${findDataMiscellaneous.productCode}" />
@@ -486,6 +489,7 @@
                             <input id="combinedBudgetSectionDetail_RefID${key}" value="${findDataDetail.combinedBudgetSectionDetail_RefID}" type="hidden" />
                             <input id="productUnitPriceCurrencyExchangeRate${key}" value="${findDataDetail.productUnitPriceCurrencyExchangeRate}" type="hidden" />
 
+                            <td style="text-align: center;">-</td>
                             <td style="text-align: center;">${val2.productCode}</td>
                             <td style="text-align: center;">${val2.productName}</td>
                         `;

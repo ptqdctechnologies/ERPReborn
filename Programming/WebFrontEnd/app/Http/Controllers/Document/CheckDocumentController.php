@@ -529,6 +529,26 @@ class CheckDocumentController extends Controller
                     ]
                 ];
                 break;
+            case "Product Form":
+                $varData = [
+                    'data' => [
+                        'data' => [
+                            [
+                                'sys_ID'    => 12345678,
+                                'sys_Text'  => 'PRD/QDC/2025/000001',
+                                'combinedBudgetCode' => '-',
+                                'combinedBudgetSectionCode' => '-'
+                            ],
+                            [
+                                'sys_ID'    => 23456781,
+                                'sys_Text'  => 'PRD/QDC/2025/000002',
+                                'combinedBudgetCode' => '-',
+                                'combinedBudgetSectionCode' => '-'
+                            ],
+                        ]
+                    ]
+                ];
+                break;
             case "Sallary Allocation Form":
                 $varData = [
                     'data' => [

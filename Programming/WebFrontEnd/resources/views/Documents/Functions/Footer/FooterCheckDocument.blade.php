@@ -37,7 +37,7 @@
         $("#TableCheckDocument_filter").hide();
         $("#TableCheckDocument_info").hide();
         $("#TableCheckDocument_paginate").hide();
-
+        
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -111,6 +111,7 @@
                     $('#DocumentType').append('<option value="' + 34567812 + '" data-name="Loan Form">Loan Form</option>');
                     $('#DocumentType').append('<option value="' + 45678123 + '" data-name="Loan Settlement Form">Loan Settlement Form</option>');
                     $('#DocumentType').append('<option value="' + 56781234 + '" data-name="Modify Budget Form">Modify Budget Form</option>');
+                    $('#DocumentType').append('<option value="' + 78912345 + '" data-name="Product Form">Product Form</option>');
                     $('#DocumentType').append('<option value="' + 12345678 + '" data-name="Sallary Allocation Form">Sallary Allocation Form</option>');
                     $('#DocumentType').append('<option value="' + 23456781 + '" data-name="Tax Recon Form">Tax Recon Form</option>');
                 } else {

@@ -147,6 +147,7 @@
           }
 
           if (val2.sys_ID == combinedBudgetSectionDetail_RefID) {
+            currenctBudgetSelection = val2.priceBaseCurrencyValue;
             $('#budgetDetailsData').val(JSON.stringify(val2));
           }
 

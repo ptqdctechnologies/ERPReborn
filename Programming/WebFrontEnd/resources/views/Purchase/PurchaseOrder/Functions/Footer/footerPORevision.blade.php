@@ -239,13 +239,13 @@
                 balanceInput.value.trim() !== '' &&
                 assetSelect.value.trim() !== ''
             ) {
-                const prNumber      = row.children[8].innerText.trim();
-                const productCode   = row.children[10].innerText.trim();
-                const productName   = row.children[11].innerText.trim();
-                const qtyAvail      = row.children[13].innerText.trim();
-                const uom           = row.children[14].innerText.trim();
-                const priceAvail    = row.children[15].innerText.trim();
-                const currency      = row.children[17].innerText.trim();
+                const prNumber      = row.children[9].innerText.trim();
+                const productCode   = row.children[11].innerText.trim();
+                const productName   = row.children[12].innerText.trim();
+                const qtyAvail      = row.children[14].innerText.trim();
+                const uom           = row.children[15].innerText.trim();
+                const priceAvail    = row.children[16].innerText.trim();
+                const currency      = row.children[18].innerText.trim();
 
                 const qty   = qtyInput.value.trim();
                 const price = priceInput.value.trim();
@@ -600,6 +600,7 @@
                     <input id="productUnitPriceDiscountCurrencyValue${key}" value="${val2.productUnitPriceDiscountCurrencyValue || 1}" type="hidden" />
                     <input id="productUnitPriceDiscountCurrencyExchangeRate${key}" value="${val2.productUnitPriceDiscountCurrencyExchangeRate || 1}" type="hidden" />
 
+                    <td style="text-align: center; padding: 10px !important;">-</td>
                     <td style="text-align: center; padding: 10px !important;">${val2.purchaseRequisitionNumber || '-'}</td>
                     <td style="text-align: center; padding: 10px !important;">${val2.combinedBudgetSectionCode + ' - ' + val2.combinedBudgetSectionName}</td>
                     <td style="text-align: center; padding: 10px !important;">${val2.productCode || '-'}</td>

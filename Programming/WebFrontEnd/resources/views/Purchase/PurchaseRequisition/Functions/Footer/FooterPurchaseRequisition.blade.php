@@ -380,6 +380,7 @@
                             <input id="combinedBudgetSectionDetail_RefID${key}" value="${val2.sys_ID}" type="hidden" />
                             <input id="combinedBudget_RefID${key}" value="${val2.combinedBudget_RefID}" type="hidden" />
                             
+                            <td style="text-align: center;">-</td>
                             ${productColumn}
                             <td style="text-align: center;">${currencyTotal(val2.quantity)}</td>
                             <td style="text-align: center;">${val2.productName === "Unspecified Product" ? '-' : currencyTotal(val2.quantityRemaining)}</td>

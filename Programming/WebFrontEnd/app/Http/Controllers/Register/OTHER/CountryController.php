@@ -33,12 +33,12 @@ class CountryController extends Controller
                 ]
             ]
         );
-        return view('Register.Country.Transactions.index')->with('data', $varData['data']);
+        return view('Register.OTHER.Country.Transactions.index')->with('data', $varData['data']);
     }
 
     public function create()
     {
-        return view('Register.Country.Transactions.create');
+        return view('Register.OTHER.Country.Transactions.create');
     }
 
     public function store(Request $request)

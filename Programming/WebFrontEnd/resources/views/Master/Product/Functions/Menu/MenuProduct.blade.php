@@ -13,13 +13,8 @@
                             </a>
                             <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-left" style="padding: 10px;font-size:14px;background-color:#4B586A;margin-top:8px;">
                                 <li class="nav-item">
-                                    <a href="{{ route('BusinessTripSettlement.index') }}" class="nav-link" style="color:white;padding-bottom:10px;">
-                                        <i class="far fa-file nav-icon-sm"> Create Business Trip Settlement</i>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link myPopUpArfRevision" data-toggle="modal" data-target="#myPopUpArfRevision" style="color:white;padding-bottom:10px;cursor:pointer">
-                                        <i class="far fa-file nav-icon-sm"> Revision Business Trip Settlement</i>
+                                    <a href="{{ route('Product.index') }}" class="nav-link" style="color:white;padding-bottom:10px;">
+                                        <i class="far fa-file nav-icon-sm"> Create Product</i>
                                     </a>
                                 </li>
                             </ul>

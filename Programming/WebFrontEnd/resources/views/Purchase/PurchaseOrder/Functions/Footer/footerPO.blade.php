@@ -521,6 +521,7 @@
                                 <input id="unit_price${indexPurchaseOrder}" value="${val2.productUnitPriceBaseCurrencyValue}" type="hidden" />
                                 <input id="currency${indexPurchaseOrder}" value="${val2.priceCurrencyISOCode}" type="hidden" />
 
+                                <td style="text-align: center; padding: 10px !important;">-</td>
                                 ${key === 0 ? modifyColumn : ''}
                                 <td style="text-align: center; padding: 10px !important;">${val2.combinedBudgetSectionCode + ' - ' + val2.combinedBudgetSectionName}</td>
                                 <td style="text-align: center; padding: 10px !important;">${val2.productCode}</td>
