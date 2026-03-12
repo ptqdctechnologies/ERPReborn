@@ -30,39 +30,3 @@
         </div>
     </div>
 </div>
-
-<script>
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
-
-    // $(function() {
-        // $('.myPopUpAdvanceSettlementRevision').on('click', function(e) {
-        $(window).one('load', function(e) {
-            e.preventDefault();
-            var keys = 0;
-            $.ajax({
-                type: 'GET',
-                url: '{!! route("AdvanceSettlement.AdvanceSettlementListData") !!}',
-                success: function(data) {
-                    var no = 1; t = $('#TableSearchAsfRevision').DataTable();
-                    t.clear();
-                    $.each(data, function(key, val) {
-                        keys += 1;
-                        t.row.add([
-                            '<tbody><tr><input id="sys_id_advance_settlemetn_revision' + keys + '" value="' + val.sys_ID + '" type="hidden"><td>' + no++ + '</td>',
-                            '<td>' + val.documentNumber + '</td>',
-                            '<td>' + val.combinedBudgetCode + '</td>',
-                            '<td>' + val.combinedBudgetName + '</td>',
-                            '<td>' + val.combinedBudgetSectionCode + '</td>',
-                            '<td>' + val.combinedBudgetSectionName + '</td></tr></tbody>'
-                        ]).draw();
-                    });
-                }
-            });
-        });
-
-    // });
-</script>

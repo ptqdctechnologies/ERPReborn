@@ -170,11 +170,10 @@
             ) {
                 const transNumber   = row.children[4].innerText.trim();
                 const productCode   = row.children[6].innerText.trim();
-                const productName   = row.children[7].innerText.trim();
-                const uom           = row.children[8].innerText.trim();
-                const currency      = row.children[9].innerText.trim();
-                const qtyAvail      = row.children[10].innerText.trim();
-                const priceAvail    = row.children[11].innerText.trim();
+                const uom           = row.children[7].innerText.trim();
+                const currency      = row.children[8].innerText.trim();
+                const qtyAvail      = row.children[9].innerText.trim();
+                const priceAvail    = row.children[10].innerText.trim();
 
                 const qtyExpense    = qtyExpenseInput.value.trim();
                 const priceExpense  = priceExpenseInput.value.trim();
@@ -189,13 +188,13 @@
 
                 for (let targetRow of existingRows) {
                     const targetProductCode = targetRow.children[2].value.trim();
-                    const targetTransNumber = targetRow.children[7].innerText.trim();
+                    const targetTransNumber = targetRow.children[6].innerText.trim();
 
                     if (targetTransNumber === transNumber && targetProductCode === productCode) {
                         targetRow.children[3].value         = totalExpense || 0;
                         targetRow.children[4].value         = totalCompany || 0;
-                        targetRow.children[10].innerText    = `Expence Claim: Rp ${totalExpense || '0.00'}`;
-                        targetRow.children[11].innerText    = `Return: Rp ${totalCompany || '0.00'}`;
+                        targetRow.children[9].innerText     = `Expence Claim: Rp ${totalExpense || '0.00'}`;
+                        targetRow.children[10].innerText    = `Return: Rp ${totalCompany || '0.00'}`;
                         found = true;
 
                         // update dataStore
@@ -234,10 +233,9 @@
                         <input type="hidden" id="total_expense[]" value="${totalExpense}">
                         <input type="hidden" id="total_company[]" value="${totalCompany}">
                         <input type="hidden" id="currency[]" value="${currency}">
-                        <input type="hidden" id="product_name[]" value="${productName}">
 
                         <td style="text-align: left;padding: 0.8rem 0.5rem;width: 100px;">${transNumber}</td>
-                        <td style="text-align: right;padding: 0.8rem 0.5rem;">${productCode + ' - ' + productName}</td>
+                        <td style="text-align: right;padding: 0.8rem 0.5rem;">${productCode}</td>
                         <td style="text-align: left;padding: 0.8rem 0.5rem;width: 20px;">${uom}</td>
                         <td style="text-align: left;padding: 0.8rem 0.5rem;">Expence Claim: Rp ${totalExpense || '0.00'}</td>
                         <td style="text-align: left;padding: 0.8rem 0.5rem;">Return: Rp ${totalCompany || '0.00'}</td>
@@ -404,10 +402,9 @@
                                 <td style="text-align: center;">-</td>
                                 ${key === 0 ? modifyColumn : `<td style="text-align: center; padding: 10px !important; display: none;">${advanceNumber}</td>`}
                                 <td style="text-align: center; padding: 10px !important;">${val2.combinedBudgetSectionCode + ' - ' + val2.combinedBudgetSectionName}</td>
-                                <td style="text-align: center; padding: 10px !important;">${val2.productCode}</td>
                                 <td style="text-align: left; padding: 10px !important;">
                                     <div style="overflow: hidden;white-space: nowrap;text-overflow: ellipsis;width: 150px;">
-                                        ${val2.productName}
+                                        ${val2.productCode} - ${val2.productName}
                                     </div>
                                 </td>
                                 <td style="text-align: center; padding: 10px !important;">${val2.quantityUnitName}</td>
@@ -749,5 +746,7 @@
         $(".loadingAdvanceSettlementTable").hide();
         $(".errorAdvanceSettlementTable").hide();
         $("#advance-details-add").prop("disabled", true);
+
+        getModalAdvance();
     });
 </script>

@@ -64,12 +64,6 @@
         $(".loadingGetModalAdvance").show();
         $(".errorModalAdvanceMessageContainerSecond").hide();
 
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
         $.ajax({
             type: 'GET',
             url: '{!! route("getAdvance") !!}?project_id=' + project_id + '&site_id=' + site_id,
@@ -154,8 +148,4 @@
             }
         });
     }
-
-    $(window).one('load', function(e) {
-        getModalAdvance();
-    });
 </script>

@@ -817,5 +817,7 @@
         $("#myBeneficiariesTrigger").prop("disabled", true);
         $("#myBanksTrigger").prop("disabled", true);
         $("#myBanksAccountTrigger").prop("disabled", true);
+
+        getModalAdvance();
     });
 </script>
