@@ -18,7 +18,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link myPopUpArfRevision" data-toggle="modal" data-target="#myPopUpArfRevision" style="color:white;padding-bottom:10px;cursor:pointer">
+                                    <a class="nav-link" data-toggle="modal" data-target="#myPopUpBusinessTripSettlementRevision" style="color:white;padding-bottom:10px;cursor:pointer">
                                         <i class="far fa-file nav-icon-sm"> Revision Business Trip Settlement</i>
                                     </a>
                                 </li>

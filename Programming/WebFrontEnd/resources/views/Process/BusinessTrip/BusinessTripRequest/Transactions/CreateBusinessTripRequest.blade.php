@@ -10,7 +10,7 @@
 @include('getFunction.getBankLists')
 @include('getFunction.getBanksAccount')
 @include('getFunction.getWorkFlow')
-@include('getFunction.getBusinessTripRequest') 
+@include('getFunction.getBusinessTripRequest')
 @include('Process.BusinessTrip.BusinessTripRequest.Functions.PopUp.PopUpBusinessTripRequestRevision')
 @include('Process.BusinessTrip.BusinessTripRequest.Functions.PopUp.PopUpBusinessTripRequestSummaryData')
 

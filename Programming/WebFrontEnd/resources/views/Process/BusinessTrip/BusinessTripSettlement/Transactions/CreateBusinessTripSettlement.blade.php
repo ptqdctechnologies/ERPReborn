@@ -4,6 +4,7 @@
 @include('Partials.sidebar')
 @include('getFunction.getBusinessTripRequests')
 @include('Process.BusinessTrip.BusinessTripRequest.Functions.PopUp.PopUpBusinessTripRequestSummaryData')
+@include('Process.BusinessTrip.BusinessTripSettlement.Functions.PopUp.PopUpBusinessTripSettlementRevision')
 
 <div class="content-wrapper">
   <section class="content">
@@ -399,7 +400,7 @@
         <!-- BUTTON -->
         <div class="px-3 pb-3">
           <div style="display: flex; justify-content: flex-end; gap: 8px;">
-            <button class="btn btn-default btn-sm button-submit" id="cancelButton" type="button" onclick="cancelForm('{{ route('BusinessTripRequest.index', ['var' => 1]) }}')">
+            <button class="btn btn-default btn-sm button-submit" id="cancelButton" type="button" onclick="cancelForm('{{ route('BusinessTripSettlement.index', ['var' => 1]) }}')">
               <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" />
               <div>Cancel</div>
             </button>

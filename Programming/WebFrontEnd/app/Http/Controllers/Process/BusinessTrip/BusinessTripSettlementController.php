@@ -128,96 +128,22 @@ class BusinessTripSettlementController extends Controller
         return response()->json($collection->all());
     }
 
-    public function BusinessTripSettlementListCartRevision(Request $request)
-    {
-        $var_recordID = $request->input('var_recordID');
-        $varAPIWebToken = $request->session()->get('SessionLogin');
-        $varData = Helper_APICall::setCallAPIGateway(
-            Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'transaction.read.dataList.finance.getAdvanceDetail',
-            'latest',
-            [
-                'parameter' => [
-                    'advance_RefID' => (int) $var_recordID,
-                ],
-                'SQLStatement' => [
-                    'pick' => null,
-                    'sort' => null,
-                    'filter' => null,
-                    'paging' => null
-                ]
-            ]
-        );
-        return response()->json($varData['data']);
-    }
-    
     public function RevisionBusinessTripSettlementIndex(Request $request)
     {
-        // $varAPIWebToken = $request->session()->get('SessionLogin');
-        // $request->session()->forget("SessionBusinessTripSettllement");
-        // $request->session()->forget("SessionBusinessTripSettllementRequester");
-
-        // $varDataAdvanceSettlementRevision = Helper_APICall::setCallAPIGateway(
-        //     Helper_Environment::getUserSessionID_System(),
-        //     $varAPIWebToken, 
-        //     'report.form.documentForm.finance.getAdvance', 
-        //     'latest',
-        //     [
-        //     'parameter' => [
-        //         'recordID' => (int) $request->searchBsfNumberRevisionId,
-        //         ]
-        //     ]
-        //     );
-
-        // // dd($varDataAdvanceSettlementRevision);
-        // $compact = [
-        //     'dataRevisi' => $varDataAdvanceSettlementRevision['data'][0]['document']['content']['general'],
-        //     'trano' => $varDataAdvanceSettlementRevision['data'][0]['document']['header']['number'],
-        //     'var_recordID' => $request->searchBsfNumberRevisionId,
-        //     'varAPIWebToken' => $varAPIWebToken,
-        //     'statusRevisi' => 1,
-        // ];
-
-        // return view('Process.BusinessTrip.BusinessTripSettlement.Transactions.RevisionBusinessTripSettlement', $compact);
-
         try {
+            $varAPIWebToken                 = Session::get('SessionLogin');
+            $businessTripSettlement_RefID   = $request->input('bsf_number_id');
+            $documentTypeRefID              = $this->GetBusinessDocumentsTypeFromRedis('Person Business Trip Settlement Revision Form');
 
-            $searchBsfNumberRevisionId = $request->input('searchBsfNumberRevisionId');
-            $varAPIWebToken = Session::get('SessionLogin');
-
-            // DATA REVISION
-            $filteredArray = Helper_APICall::setCallAPIGateway(
-                Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken,
-                'transaction.read.dataList.finance.getAdvanceReport',
-                'latest',
-                [
-                    'parameter' => [
-                        'advance_RefID' => (int) $searchBsfNumberRevisionId,
-                    ],
-                    'SQLStatement' => [
-                        'pick' => null,
-                        'sort' => null,
-                        'filter' => null,
-                        'paging' => null
-                    ]
-                ],
-                false
-            );
-            // dd($filteredArray);
             $compact = [
-                'dataHeader' => $filteredArray['data'][0]['document']['header'],
-                'dataContent' => $filteredArray['data'][0]['document']['content']['general'],
-                'dataDetail' => $filteredArray['data'][0]['document']['content']['details']['itemList'],
-                'varAPIWebToken' => $varAPIWebToken,
-                'statusRevisi' => 1,
-                'statusFinalApprove' => "No",
+                'varAPIWebToken'                => $varAPIWebToken,
             ];
+
             return view('Process.BusinessTrip.BusinessTripSettlement.Transactions.RevisionBusinessTripSettlement', $compact);
         } catch (\Throwable $th) {
-            Log::error("Error at " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
+            Log::error("Revision Business Trip Settlement Index Function Error: " . $th->getMessage());
+
+            return redirect()->route('BusinessTripSettlement.index', ['var' => 1])->with('NotFound', 'Process Error');
         }
     }
 
