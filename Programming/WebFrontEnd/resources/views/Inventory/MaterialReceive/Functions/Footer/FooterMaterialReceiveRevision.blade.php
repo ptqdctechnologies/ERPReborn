@@ -162,10 +162,10 @@
                 qtyInput.value.trim() !== '' &&
                 noteInput.value.trim() !== ''
             ) {
-                const productCode   = row.children[3].innerText.trim();
-                const productName   = row.children[4].innerText.trim();
-                const qtyAvail      = row.children[6].innerText.trim();
-                const uom           = row.children[7].innerText.trim();
+                const productCode   = row.children[4].innerText.trim();
+                const productName   = row.children[5].innerText.trim();
+                const qtyAvail      = row.children[7].innerText.trim();
+                const uom           = row.children[8].innerText.trim();
 
                 const qty   = qtyInput.value.trim();
                 const note  = noteInput.value.trim();
@@ -331,6 +331,7 @@
                     <input id="record_RefID${key}" value="${val2.sys_ID}" type="hidden" />
                     <input id="deliveryOrderDetail_RefID${key}" value="${val2.deliveryOrderDetail_RefID}" type="hidden" />
 
+                    <td style="text-align: center;">-</td>
                     <td style="text-align: center;">${val2.combinedBudgetSectionCode} - ${val2.combinedBudgetSectionName}</td>
                     <td style="text-align: center;">${val2.productCode || '-'}</td>
                     <td style="text-align: center;">${val2.productName || '-'}</td>
