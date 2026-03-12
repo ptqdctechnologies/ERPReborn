@@ -82,6 +82,30 @@ class BusinessTripRequestController extends Controller
         }
     }
 
+    public function detail(Request $request) 
+    {
+        try {
+            $personBusinessTripRefID = $request->person_business_trip_id;
+
+            $response = $this->businessTripService->getDetail($personBusinessTripRefID);
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                return response()->json($response);
+            }
+
+            $compact = [
+                'status'    => $response['metadata']['HTTPStatusCode'],
+                'data'      => $response['data']['data']
+            ];
+
+            return response()->json($compact);
+        } catch (\Throwable $th) {
+            Log::error("Detail Business Trip Request Function Error: " . $th->getMessage());
+            
+            return response()->json(["status" => 500]);
+        }
+    }
+
     public function UpdatesBusinessTripRequest(Request $request)
     {
         try {
