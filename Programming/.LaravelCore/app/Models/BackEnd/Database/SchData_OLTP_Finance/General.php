@@ -373,7 +373,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         | ▪ Method Name     : getDataList_AdvanceDetail                                                                            |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-06-02                                                                                           |
+        | ▪ Last Update     : 2026-03-12                                                                                           |
         | ▪ Creation Date   : 2022-06-02                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Advance                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -401,19 +401,12 @@ namespace App\Models\Database\SchData_OLTP_Finance
                         $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
-                            'SchData-OLTP-Finance.Func_GetDataList_AdvanceDetail',
-                            [
-                                [$varSysBranch_RefID, 'bigint' ],
-
-                                [$varAdvance_RefID, 'bigint'],
-
-                                [$varPickStatement, 'varchar'],
-                                [$varSortStatement, 'varchar'],
-                                [$varFilterStatement, 'varchar'],
-                                [$varPagingStatement, 'varchar']
+                            'SchData-OLTP-Finance.Func_GetDataList_AdvanceDetail_NEW',
+                            [                   
+                                [$varAdvance_RefID, 'bigint']
                             ]
                             )
-                        );
+			);
 
                 return
                     $varReturn;
