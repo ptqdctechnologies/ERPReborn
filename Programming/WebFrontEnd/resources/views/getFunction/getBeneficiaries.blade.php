@@ -10,7 +10,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body table-responsive p-0" style="height: 400px;">
-                                <table class="table table-head-fixed text-nowrap" id="tableBeneficiaries">
+                                <table class="table table-head-fixed text-nowrap" id="tableBeneficiaries" style="width: 100%;">
                                     <thead>
                                         <tr>
                                             <th>No</th>
@@ -64,31 +64,45 @@
             }
         });
         
-        var keys = 0;
         $.ajax({
             type: 'GET',
             url: '{!! route("getWorker") !!}',
             success: function(data) {
                 $(".loadingBeneficiaries").hide();
 
-                var no = 1;
                 var table = $('#tableBeneficiaries').DataTable();
                 table.clear();
 
                 if (Array.isArray(data) && data.length > 0) {
-                    $.each(data, function(key, val) {
-                        keys += 1;
-                        table.row.add([
-                            '<input id="sys_id_beneficiaries' + keys + '" value="' + val.sys_ID + '" data-trigger="sys_id_beneficiaries" type="hidden">' + '<input id="person_ref_id_beneficiaries' + keys + '" value="' + val.person_RefID + '" data-trigger="person_ref_id_beneficiaries" type="hidden">' + no++,
-                            val.personName || '-',
-                            val.organizationalJobPositionName || '-',
-                        ]).draw();
+                    $('#tableBeneficiaries').DataTable({
+                        destroy: true,
+                        data: data,
+                        deferRender: true,
+                        scrollCollapse: true,
+                        scroller: true,
+                        columns: [
+                            {
+                                data: null,
+                                render: function (data, type, row, meta) {
+                                    return '<td class="align-middle text-center">' +
+                                        '<input id="sys_id_beneficiaries' + (meta.row + 1) + '" value="' + data.sys_ID + '" data-trigger="sys_id_beneficiaries" type="hidden">' +
+                                        '<input id="person_ref_id_beneficiaries' + (meta.row + 1) + '" value="' + data.person_RefID + '" data-trigger="person_ref_id_beneficiaries" type="hidden">' +
+                                        (meta.row + 1) +
+                                    '</td>';
+                                }
+                            },
+                            {
+                                data: 'personName',
+                                defaultContent: '-',
+                                className: "align-middle"
+                            },
+                            {
+                                data: 'organizationalJobPositionName',
+                                defaultContent: '-',
+                                className: "align-middle text-wrap"
+                            }
+                        ]
                     });
-
-                    $("#tableBeneficiaries_length").show();
-                    $("#tableBeneficiaries_filter").show();
-                    $("#tableBeneficiaries_info").show();
-                    $("#tableBeneficiaries_paginate").show();
                 } else {
                     $('#tableBeneficiaries tbody').empty();
 
