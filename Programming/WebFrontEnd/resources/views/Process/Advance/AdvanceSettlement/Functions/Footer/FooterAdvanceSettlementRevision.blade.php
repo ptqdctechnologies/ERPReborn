@@ -176,11 +176,10 @@
             ) {
                 const arfNumber     = row.children[9].innerText.trim();
                 const productCode   = row.children[11].innerText.trim();
-                const productName   = row.children[12].innerText.trim();
-                const uom           = row.children[13].innerText.trim();
-                const currency      = row.children[14].innerText.trim();
-                const qtyAvail      = row.children[15].innerText.trim();
-                const priceAvail    = row.children[16].innerText.trim();
+                const uom           = row.children[12].innerText.trim();
+                const currency      = row.children[13].innerText.trim();
+                const qtyAvail      = row.children[14].innerText.trim();
+                const priceAvail    = row.children[15].innerText.trim();
 
                 const qtyExpense    = qtyExpenseInput.value.trim();
                 const priceExpense  = priceExpenseInput.value.trim();
@@ -194,13 +193,13 @@
 
                 for (let targetRow of existingRows) {
                     const targetProductCode = targetRow.children[4].value.trim();
-                    const targetARFNumber   = targetRow.children[9].innerText.trim();
+                    const targetARFNumber   = targetRow.children[8].innerText.trim();
 
                     if (targetARFNumber == arfNumber && targetProductCode == productCode) {
                         targetRow.children[5].value         = totalExpense || 0;
                         targetRow.children[6].value         = totalCompany || 0;
-                        targetRow.children[12].innerText    = `Expence Claim: Rp ${totalExpense || '0.00'}`;
-                        targetRow.children[13].innerText    = `Return: Rp ${totalCompany || '0.00'}`;
+                        targetRow.children[11].innerText    = `Expence Claim: Rp ${totalExpense || '0.00'}`;
+                        targetRow.children[12].innerText    = `Return: Rp ${totalCompany || '0.00'}`;
                         found = true;
 
                         const indexToUpdate = dataStore.findIndex(item => item.recordID == advanceDetail_RefID.value && item.entities.productCode == productCode);
@@ -239,10 +238,9 @@
                         <input type="hidden" id="total_expense[]" value="${totalExpense}">
                         <input type="hidden" id="total_company[]" value="${totalCompany}">
                         <input type="hidden" id="currency[]" value="${currency}">
-                        <input type="hidden" id="product_name[]" value="${productName}">
 
-                        <td style="text-align: left;padding: 0.8rem 0.5rem;width: 100px;">${transNumber}</td>
-                        <td style="text-align: right;padding: 0.8rem 0.5rem;">${productCode + ' - ' + productName}</td>
+                        <td style="text-align: left;padding: 0.8rem 0.5rem;width: 100px;">${arfNumber}</td>
+                        <td style="text-align: right;padding: 0.8rem 0.5rem;">${productCode}</td>
                         <td style="text-align: left;padding: 0.8rem 0.5rem;width: 20px;">${uom}</td>
                         <td style="text-align: left;padding: 0.8rem 0.5rem;">Expence Claim: Rp ${totalExpense || '0.00'}</td>
                         <td style="text-align: left;padding: 0.8rem 0.5rem;">Return: Rp ${totalCompany || '0.00'}</td>
@@ -345,7 +343,7 @@
                     refundProductUnitPriceCurrencyExchangeRate: val2.refundProductUnitPriceCurrencyExchangeRate,
                     refundProductUnitPriceBaseCurrencyValue: val2.refundProductUnitPriceBaseCurrencyValue,
                     remarks: null,
-                    productCode: val2.productCode
+                    productCode: `${val2.productCode || '-'} - ${val2.productName || '-'}`
                 }
             });
 
@@ -368,10 +366,9 @@
                     <td style="text-align: center;border:1px solid #e9ecef;">-</td>
                     <td style="text-align: center;border:1px solid #e9ecef;">${val2.ARFNumber || '-'}</td>
                     <td style="text-align: center;border:1px solid #e9ecef;">${val2.combinedBudgetSectionCode + ' - ' + val2.combinedBudgetSectionName}</td>
-                    <td style="text-align: center;border:1px solid #e9ecef;">${val2.productCode || '-'}</td>
                     <td style="text-align: left;border:1px solid #e9ecef;">
                         <div style="overflow: hidden;white-space: nowrap;text-overflow: ellipsis;width: 150px;">
-                            ${val2.productName || '-'}
+                            ${val2.productCode || '-'} - ${val2.productName || '-'}
                         </div>
                     </td>
                     <td style="text-align: center;border:1px solid #e9ecef;">${val2.UOM || '-'}</td>
@@ -506,27 +503,26 @@
                 checkOneLineBudgetContents(data_index);
             });
 
-            let rowList = `
-                <tr>
-                    <input type="hidden" id="qty_expense_avail[]" value="${val2.expenseQuantity}">
-                    <input type="hidden" id="price_expense_avail[]" value="${val2.expenseProductUnitPriceCurrencyValue}">
-                    <input type="hidden" id="qty_company_avail[]" value="${val2.refundQuantity}">
-                    <input type="hidden" id="price_company_avail[]" value="${val2.refundProductUnitPriceCurrencyValue}">
-                    <input type="hidden" id="product_code[]" value="${val2.productCode}">
-                    <input type="hidden" id="total_expense[]" value="${totalExpense}">
-                    <input type="hidden" id="total_company[]" value="${totalCompany}">
-                    <input type="hidden" id="currency[]" value="${val2.currency}">
-                    <input type="hidden" id="product_name[]" value="${val2.productName}">
+            // let rowList = `
+            //     <tr>
+            //         <input type="hidden" id="qty_expense_avail[]" value="${val2.expenseQuantity}">
+            //         <input type="hidden" id="price_expense_avail[]" value="${val2.expenseProductUnitPriceCurrencyValue}">
+            //         <input type="hidden" id="qty_company_avail[]" value="${val2.refundQuantity}">
+            //         <input type="hidden" id="price_company_avail[]" value="${val2.refundProductUnitPriceCurrencyValue}">
+            //         <input type="hidden" id="product_code[]" value="${val2.productCode}">
+            //         <input type="hidden" id="total_expense[]" value="${totalExpense}">
+            //         <input type="hidden" id="total_company[]" value="${totalCompany}">
+            //         <input type="hidden" id="currency[]" value="${val2.currency}">
 
-                    <td style="text-align: left;padding: 0.8rem 0.5rem;width: 100px;">${val2.ARFNumber || '-'}</td>
-                    <td style="text-align: right;padding: 0.8rem 0.5rem;">${val2.productCode + ' - ' + val2.productName}</td>
-                    <td style="text-align: left;padding: 0.8rem 0.5rem;width: 20px;">${val2.UOM || '-'}</td>
-                    <td style="text-align: left;padding: 0.8rem 0.5rem;">Expence Claim: Rp ${totalExpense || '-'}</td>
-                    <td style="text-align: left;padding: 0.8rem 0.5rem;">Return: Rp ${totalCompany || '-'}</td>
-                </tr>
-            `;
+            //         <td style="text-align: left;padding: 0.8rem 0.5rem;width: 100px;">${val2.ARFNumber || '-'}</td>
+            //         <td style="text-align: right;padding: 0.8rem 0.5rem;">${val2.productCode + ' - ' + val2.productName}</td>
+            //         <td style="text-align: left;padding: 0.8rem 0.5rem;width: 20px;">${val2.UOM || '-'}</td>
+            //         <td style="text-align: left;padding: 0.8rem 0.5rem;">Expence Claim: Rp ${totalExpense || '-'}</td>
+            //         <td style="text-align: left;padding: 0.8rem 0.5rem;">Return: Rp ${totalCompany || '-'}</td>
+            //     </tr>
+            // `;
 
-            tbodyList.append(rowList);
+            // tbodyList.append(rowList);
         });
 
         trigger = currencyTotal(totalExpenseClaim + totalAmountCompany);

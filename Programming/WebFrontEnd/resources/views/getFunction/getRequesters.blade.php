@@ -10,7 +10,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body table-responsive p-0" style="height: 400px;">
-                                <table class="table table-head-fixed text-nowrap" id="tableRequesters">
+                                <table class="table table-head-fixed text-nowrap" id="tableRequesters" style="width: 100%;">
                                     <thead>
                                         <tr>
                                             <th>No</th>
@@ -59,37 +59,58 @@
         $(".loadingRequesters").show();
         $(".errorRequestersMessageContainer").hide();
 
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-        
-        var keys = 0;
         $.ajax({
             type: 'GET',
             url: '{!! route("getWorker") !!}',
             success: function(data) {
                 $(".loadingRequesters").hide();
 
-                var no = 1;
                 var table = $('#tableRequesters').DataTable();
                 table.clear();
 
                 if (Array.isArray(data) && data.length > 0) {
-                    $.each(data, function(key, val) {
-                        keys += 1;
-                        table.row.add([
-                            '<input id="sys_id_requesters' + keys + '" value="' + val.sys_ID + '" data-trigger="sys_id_requesters" type="hidden">' + no++,
-                            '<input id="contact_phone_requesters' + keys + '" value="' + val.contactNumber + '" data-trigger="contact_phone_requesters" type="hidden">' + val.personName || '-',
-                            val.organizationalJobPositionName || '-',
-                        ]).draw();
+                    $('#tableRequesters').DataTable({
+                        destroy: true,
+                        data: data,
+                        deferRender: true,
+                        scrollCollapse: true,
+                        scroller: true,
+                        columns: [
+                            {
+                                data: null,
+                                className: "align-middle",
+                                render: function (data, type, row, meta) {
+                                    return `<input id="sys_id_requesters${meta.row + 1}" value="${data.sys_ID}" data-trigger="sys_id_requesters" type="hidden" value="${data.sys_ID}"> ${meta.row + 1}`;
+                                }
+                            },
+                            {
+                                data: null,
+                                className: "align-middle",
+                                render: function (data, type, row, meta) {
+                                    return `<input id="contact_phone_requesters${meta.row + 1}" value="${data.contactNumber}" data-trigger="contact_phone_requesters" type="hidden" value="${data.contactNumber}"> ${data.personName}`;
+                                }
+                            },
+                            {
+                                data: 'organizationalJobPositionName',
+                                defaultContent: '-',
+                                className: "align-middle"
+                            }
+                        ]
                     });
 
-                    $("#tableRequesters_length").show();
-                    $("#tableRequesters_filter").show();
-                    $("#tableRequesters_info").show();
-                    $("#tableRequesters_paginate").show();
+                    // $.each(data, function(key, val) {
+                    //     keys += 1;
+                    //     table.row.add([
+                    //         '<input id="sys_id_requesters' + keys + '" value="' + val.sys_ID + '" data-trigger="sys_id_requesters" type="hidden">' + no++,
+                    //         '<input id="contact_phone_requesters' + keys + '" value="' + val.contactNumber + '" data-trigger="contact_phone_requesters" type="hidden">' + val.personName || '-',
+                    //         val.organizationalJobPositionName || '-',
+                    //     ]).draw();
+                    // });
+
+                    // $("#tableRequesters_length").show();
+                    // $("#tableRequesters_filter").show();
+                    // $("#tableRequesters_info").show();
+                    // $("#tableRequesters_paginate").show();
                 } else {
                     $(".errorRequestersMessageContainer").show();
                     $("#errorRequestersMessage").text(`Data not found.`);

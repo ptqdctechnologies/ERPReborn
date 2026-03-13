@@ -296,6 +296,7 @@
                     <input type="hidden" id="productUnitPriceCurrencyExchangeRate${key}" value="${val.productUnitPriceBaseCurrencyValue}" />
                     <input type="hidden" id="purchaseOrderDetail_RefID${key}" value="${val.purchaseOrderDetail_RefID}" />
 
+                    <td style="text-align: center;">-</td>
                     <td style="text-align: left;">
                         <div style="overflow: hidden;white-space: nowrap;text-overflow: ellipsis;width: 200px;">
                             ${val.productCode ?? ''} - ${val.productName ?? ''}
@@ -441,8 +442,8 @@
                 coaRefID.value.trim() !== '' && 
                 assetSelect.value.trim() !== ''
             ) {
-                const product   = row.children[7].innerText.trim();
-                const uom       = row.children[11].innerText.trim();
+                const product   = row.children[8].innerText.trim();
+                const uom       = row.children[12].innerText.trim();
 
                 const qtyValue      = qtyInput.value.trim();
                 const totalValue    = totalInput.value.trim();

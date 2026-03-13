@@ -298,8 +298,8 @@
                 coaRefID.value.trim() !== '' &&
                 assetSelect.value.trim() !== ''
             ) {
-                const product = row.children[6].innerText.trim();
-                const uom = row.children[10].innerText.trim();
+                const product = row.children[7].innerText.trim();
+                const uom = row.children[11].innerText.trim();
 
                 const qtyValue      = qtyInput.value.trim();
                 const totalValue    = totalInput.value.trim();
@@ -644,6 +644,7 @@
                                 <input type="hidden" id="productUnitPriceCurrency_RefID[]" value="${val.productUnitPriceCurrency_RefID}">
                                 <input type="hidden" id="productUnitPriceCurrencyExchangeRate[]" value="${val.productUnitPriceCurrencyExchangeRate}">
                                 
+                                <td style="text-align: center;">-</td>
                                 <td style="text-align: left;">
                                     <div style="overflow: hidden;white-space: nowrap;text-overflow: ellipsis;width: 200px;">
                                         ${val.productCode} - ${val.productName}

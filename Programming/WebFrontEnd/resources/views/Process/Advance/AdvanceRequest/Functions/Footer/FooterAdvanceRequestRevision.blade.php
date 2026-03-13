@@ -902,5 +902,6 @@
         getBudgetDetails(siteCode.value, dataTable);
 
         getWorkflow();
+        getModalAdvance();
     });
 </script>

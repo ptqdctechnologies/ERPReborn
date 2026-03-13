@@ -4,6 +4,7 @@
 @include('Partials.sidebar')
 @include('getFunction.getBusinessTripRequests')
 @include('Process.BusinessTrip.BusinessTripRequest.Functions.PopUp.PopUpBusinessTripRequestSummaryData')
+@include('Process.BusinessTrip.BusinessTripSettlement.Functions.PopUp.PopUpBusinessTripSettlementRevision')
 
 <div class="content-wrapper">
   <section class="content">
@@ -50,27 +51,35 @@
           <div class="row">
             <div class="col-12">
               <div class="card">
+                <!-- HEADER -->
                 <div class="card-header">
                   <label class="card-title">
-                    File Attachment
+                    Attachment
                   </label>
                   <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse" aria-label="Collapse Section Attachment">
                       <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
                     </button>
                   </div>
                 </div>
 
+                <!-- BODY -->
                 <div class="card-body">
-                  <div class="row py-3 overflow-auto">
-                    <input type="text" id="dataInput_Log_FileUpload_1" name="dataInput_Log_FileUpload_1" style="display:none">
-                    <?php echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxCreateDOM_DivCustom_InputFile(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                      $varAPIWebToken,
-                      'dataInput_Log_FileUpload_1',
-                      null,
-                      'dataInput_Return'
-                      ).
-                    ''; ?>
+                  <div class="row py-3">
+                    <div class="col-lg-5">
+                      <div class="row">
+                        <div class="col p-0">
+                          <input type="text" id="dataInput_Log_FileUpload" name="dataInput_Log_FileUpload_1" style="display:none">
+                          <?php echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxCreateDOM_DivCustom_InputFile(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                            $varAPIWebToken,
+                            'dataInput_Log_FileUpload',
+                            null,
+                            'dataInput_Return'
+                            ).
+                          ''; ?>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -391,7 +400,7 @@
         <!-- BUTTON -->
         <div class="px-3 pb-3">
           <div style="display: flex; justify-content: flex-end; gap: 8px;">
-            <button class="btn btn-default btn-sm button-submit" id="cancelButton" type="button" onclick="cancelForm('{{ route('BusinessTripRequest.index', ['var' => 1]) }}')">
+            <button class="btn btn-default btn-sm button-submit" id="cancelButton" type="button" onclick="cancelForm('{{ route('BusinessTripSettlement.index', ['var' => 1]) }}')">
               <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" />
               <div>Cancel</div>
             </button>
