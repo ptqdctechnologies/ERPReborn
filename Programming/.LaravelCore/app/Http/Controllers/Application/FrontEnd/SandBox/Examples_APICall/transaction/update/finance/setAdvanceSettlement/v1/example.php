@@ -21,7 +21,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         |                     ► http://172.28.0.4/transaction.update.finance.setAdvanceSettlement.v1_throughAPIGateway             |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0001.0000000                                                                                       |
-        | ▪ Last Update     : 2025-05-15                                                                                           |
+        | ▪ Last Update     : 2026-03-12                                                                                           |
         | ▪ Creation Date   : 2023-10-26                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -57,6 +57,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                             [
                                             'recordID' => 204000000000001,
                                             'entities' => [
+                                                "workStructure_RefID" => 302000000000002,
                                                 "expenseQuantity" => 0.12,
                                                 "expenseProductUnitPriceCurrency_RefID" => 62000000000001,
                                                 "expenseProductUnitPriceCurrencyValue" => 235000.00,
@@ -73,6 +74,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                             [
                                             'recordID' => 204000000000002,
                                             'entities' => [
+                                                "workStructure_RefID" => 302000000000003,
                                                 "expenseQuantity" => 0.12,
                                                 "expenseProductUnitPriceCurrency_RefID" => 62000000000001,
                                                 "expenseProductUnitPriceCurrencyValue" => 235000.00,
