@@ -165,7 +165,7 @@
                         if (indexToUpdate !== -1) {
                             dataStore[indexToUpdate] = {
                                 entities: {
-                                    workStructure_RefID: null,
+                                    workStructure_RefID: 302000000000001,
                                     combinedBudgetSectionDetail_RefID: parseInt(combinedBudgetSectionDetailInput.value),
                                     product_RefID: parseInt(productRefId.value),
                                     quantity: parseFloat(qty.replace(/,/g, '')),
@@ -200,7 +200,7 @@
                     // push to dataStore
                     dataStore.push({
                         entities: {
-                            workStructure_RefID: null,
+                            workStructure_RefID: 302000000000001,
                             combinedBudgetSectionDetail_RefID: parseInt(combinedBudgetSectionDetailInput.value),
                             product_RefID: parseInt(productRefId.value),
                             quantity: parseFloat(qty.replace(/,/g, '')),
