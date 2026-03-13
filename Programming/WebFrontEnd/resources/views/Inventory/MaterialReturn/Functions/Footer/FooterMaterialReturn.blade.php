@@ -29,10 +29,10 @@
       if (
         materialReturnValueInput && materialReturnValueInput.value.trim() !== ''
       ) {
-        const subBudget   = row.children[1].innerText.trim();
-        const productCode = row.children[2].innerText.trim();
-        const productName = row.children[3].innerText.trim();
-        const uom         = row.children[4].innerText.trim();
+        const subBudget   = row.children[2].innerText.trim();
+        const productCode = row.children[3].innerText.trim();
+        const productName = row.children[4].innerText.trim();
+        const uom         = row.children[5].innerText.trim();
 
         const materialReturnValue = materialReturnValueInput.value.trim();
         const materialReturnNote  = materialReturnNoteInput.value.trim();
@@ -139,6 +139,7 @@
               <tr>
                 <input type="hidden" id="warehouseInboundOrderDetail_RefID[]" value="${val.sys_ID}">
 
+                <td style="text-align: center;">-</td>
                 <td style="text-align: center;">${val.combinedBudgetSectionCode} - ${val.combinedBudgetSectionName}</td>
                 <td style="text-align: center;">${val.productCode}</td>
                 <td style="text-align: center;">${val.productName}</td>

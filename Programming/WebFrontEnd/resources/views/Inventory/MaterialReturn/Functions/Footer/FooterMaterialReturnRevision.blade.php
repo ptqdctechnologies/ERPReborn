@@ -30,10 +30,10 @@
             if (
                 materialReturnValueInput && materialReturnValueInput.value.trim() !== ''
             ) {
-                const subBudget   = row.children[2].innerText.trim();
-                const productCode = row.children[3].innerText.trim();
-                const productName = row.children[4].innerText.trim();
-                const uom         = row.children[5].innerText.trim();
+                const subBudget   = row.children[3].innerText.trim();
+                const productCode = row.children[4].innerText.trim();
+                const productName = row.children[5].innerText.trim();
+                const uom         = row.children[6].innerText.trim();
 
                 const materialReturnValue = materialReturnValueInput.value.trim();
                 const materialReturnNote  = materialReturnNoteInput.value.trim();
@@ -134,6 +134,7 @@
                     <input type="hidden" id="record_RefID${key}" value="${val.Sys_ID}" />
                     <input type="hidden" id="warehouseInboundOrderDetail_RefID${key}" value="${val.WarehouseInboundOrderDetail_RefID}" />
 
+                    <td style="text-align: center;">-</td>
                     <td style="text-align: center;">${val.CombinedBudgetSectionCode} - ${val.CombinedBudgetSectionName}</td>
                     <td style="text-align: center;">${val.ProductCode}</td>
                     <td style="text-align: center;">${val.ProductName}</td>
