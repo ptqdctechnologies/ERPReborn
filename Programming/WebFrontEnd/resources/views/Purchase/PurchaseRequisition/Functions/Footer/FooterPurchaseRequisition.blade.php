@@ -109,6 +109,7 @@
             const qtyUnitRefId                      = row.querySelector('input[id^="qtyId"]');
             const currencyRefId                     = row.querySelector('input[id^="currencyId"]');
             const combinedBudgetSectionDetailInput  = row.querySelector('input[id^="combinedBudgetSectionDetail_RefID"]');
+            const workStructureRefID                = row.querySelector('input[id^="workStructure_RefID"]');
 
             if (
                 qtyInput && priceInput && totalInput && balanceInput && assetSelect &&
@@ -122,8 +123,8 @@
                 const productName   = row.children[1].value.trim();
                 const uom           = row.children[5].value.trim();
                 const currency      = row.children[6].value.trim();
-                const qtyAvail      = row.children[13].innerText.trim();
-                const priceAvail    = row.children[15].innerText.trim();
+                const qtyAvail      = row.children[14].innerText.trim();
+                const priceAvail    = row.children[16].innerText.trim();
 
                 const price     = priceInput.value.trim();
                 const qty       = qtyInput.value.trim();
@@ -147,6 +148,7 @@
                         if (indexToUpdate !== -1) {
                             dataStore[indexToUpdate] = {
                                 entities: {
+                                    workStructure_RefID: parseInt(workStructureRefID.value),
                                     combinedBudgetSectionDetail_RefID: parseInt(combinedBudgetSectionDetailInput.value),
                                     product_RefID: parseInt(productCode),
                                     quantity: parseFloat(qty.replace(/,/g, '')),
@@ -183,6 +185,7 @@
                     // push to dataStore
                     dataStore.push({
                         entities: {
+                            workStructure_RefID: parseInt(workStructureRefID.value),
                             combinedBudgetSectionDetail_RefID: parseInt(combinedBudgetSectionDetailInput.value),
                             product_RefID: parseInt(productCode),
                             quantity: parseFloat(qty.replace(/,/g, '')),
@@ -379,6 +382,7 @@
                             <input id="currencyId${key}" value="${val2.sys_BaseCurrency_RefID}" type="hidden" />
                             <input id="combinedBudgetSectionDetail_RefID${key}" value="${val2.sys_ID}" type="hidden" />
                             <input id="combinedBudget_RefID${key}" value="${val2.combinedBudget_RefID}" type="hidden" />
+                            <input id="workStructure_RefID${key}" value="302000000000001" type="hidden" />
                             
                             <td style="text-align: center;">-</td>
                             ${productColumn}

@@ -171,6 +171,7 @@
             const productUnitPriceCurrencyRefID         = row.querySelector('input[id^="productUnitPriceCurrency_RefID"]');
             const combinedBudgetSectionDetailRefID      = row.querySelector('input[id^="combinedBudgetSectionDetail_RefID"]');
             const productUnitPriceCurrencyExchangeRate  = row.querySelector('input[id^="productUnitPriceCurrencyExchangeRate"]');
+            const workStructureRefID                    = row.querySelector('input[id^="workStructure_RefID"]');
 
             const qtyInput      = row.querySelector('input[id^="qty_req"]');
             const priceInput    = row.querySelector('input[id^="price_req"]');
@@ -187,11 +188,11 @@
                 balanceInput.value.trim()   !== '' &&
                 assetSelect.value.trim()    !== '' 
             ) {
-                const productName   = row.children[9].innerText.trim();
-                const qtyAvail      = row.children[11].innerText.trim();
-                const uom           = row.children[12].innerText.trim();
-                const priceAvail    = row.children[13].innerText.trim();
-                const currency      = row.children[15].innerText.trim();
+                const productName   = row.children[10].innerText.trim();
+                const qtyAvail      = row.children[12].innerText.trim();
+                const uom           = row.children[13].innerText.trim();
+                const priceAvail    = row.children[14].innerText.trim();
+                const currency      = row.children[16].innerText.trim();
 
                 const price = priceInput.value.trim();
                 const qty   = qtyInput.value.trim();
@@ -215,6 +216,7 @@
                             dataStore[indexToUpdate] = {
                                 recordID: parseInt(recordRefID.value) || null,
                                 entities: {
+                                    workStructure_RefID: workStructureRefID.value || null,
                                     combinedBudgetSectionDetail_RefID: parseInt(combinedBudgetSectionDetailRefID.value),
                                     product_RefID: parseInt(productRefID.value),
                                     quantity: parseFloat(qty.replace(/,/g, '')),
@@ -251,6 +253,7 @@
                     dataStore.push({
                         recordID: parseInt(recordRefID.value) || null,
                         entities: {
+                            workStructure_RefID: workStructureRefID.value || null,
                             combinedBudgetSectionDetail_RefID: parseInt(combinedBudgetSectionDetailRefID.value),
                             product_RefID: parseInt(productRefID.value),
                             quantity: parseFloat(qty.replace(/,/g, '')),
@@ -309,12 +312,6 @@
     }
 
     function getBudget(site_code, dataDetail) {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
         $.ajax({
             type: 'GET',
             url: '{!! route("getBudget") !!}?site_code=' + site_code,
@@ -361,6 +358,7 @@
                         <input id="productUnitPriceCurrency_RefID${key}" value="${val2.unitPriceCurrency_RefID}" type="hidden" />
                         <input id="combinedBudgetSectionDetail_RefID${key}" value="${val2.sys_ID}" type="hidden" />
                         <input id="productUnitPriceCurrencyExchangeRate${key}" value="1" type="hidden" />
+                        <input id="workStructure_RefID${key}" value="" type="hidden" />
 
                         <td style="text-align: center;">-</td>
                         <td style="text-align: center;">${val2.productCode}</td>
@@ -404,6 +402,7 @@
                             <input id="productUnitPriceCurrency_RefID${key}" value="${val2.unitPriceCurrency_RefID}" type="hidden" />
                             <input id="combinedBudgetSectionDetail_RefID${key}" value="${val2.sys_ID}" type="hidden" />
                             <input id="productUnitPriceCurrencyExchangeRate${key}" value="1" type="hidden" />
+                            <input id="workStructure_RefID${key}" value="" type="hidden" />
 
                             <td style="text-align: center;">-</td>
                             <td style="padding: 8px;">
@@ -434,6 +433,7 @@
                             <input id="productUnitPriceCurrency_RefID${key}" value="${findDataMiscellaneous.productUnitPriceCurrency_RefID}" type="hidden" />
                             <input id="combinedBudgetSectionDetail_RefID${key}" value="${findDataMiscellaneous.combinedBudgetSectionDetail_RefID}" type="hidden" />
                             <input id="productUnitPriceCurrencyExchangeRate${key}" value="${findDataMiscellaneous.productUnitPriceCurrencyExchangeRate}" type="hidden" />
+                            <input id="workStructure_RefID${key}" value="${findDataMiscellaneous.workStructure_RefID}" type="hidden" />
 
                             <td style="text-align: center;">-</td>
                             <td style="padding: 8px;">
@@ -488,6 +488,7 @@
                             <input id="productUnitPriceCurrency_RefID${key}" value="${findDataDetail.productUnitPriceCurrency_RefID}" type="hidden" />
                             <input id="combinedBudgetSectionDetail_RefID${key}" value="${findDataDetail.combinedBudgetSectionDetail_RefID}" type="hidden" />
                             <input id="productUnitPriceCurrencyExchangeRate${key}" value="${findDataDetail.productUnitPriceCurrencyExchangeRate}" type="hidden" />
+                            <input id="workStructure_RefID${key}" value="302000000000002" type="hidden" />
 
                             <td style="text-align: center;">-</td>
                             <td style="text-align: center;">${val2.productCode}</td>
