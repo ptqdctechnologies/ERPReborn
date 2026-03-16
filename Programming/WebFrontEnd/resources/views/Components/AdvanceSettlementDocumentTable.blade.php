@@ -4,7 +4,7 @@
             <thead>
                 <tr>
                     <th rowspan="3" style="padding:.70rem;border-right:1px solid #e9ecef;text-align: center; vertical-align: middle;background-color:#4B586A;color: white;text-align:center;">NO</th>
-                    <th rowspan="3" style="border-right:1px solid #e9ecef;text-align: center; vertical-align: middle;background-color:#4B586A;color: white;">WORK ID</th>
+                    <th rowspan="3" style="border-right:1px solid #e9ecef;text-align: center; vertical-align: middle;background-color:#4B586A;color: white;">WORK</th>
                     <th rowspan="3" style="border-right:1px solid #e9ecef;text-align: center; vertical-align: middle;background-color:#4B586A;color: white;">PRODUCT</th>
                     <th rowspan="3" style="border-right:1px solid #e9ecef;text-align: center; vertical-align: middle;background-color:#4B586A;color: white;">UOM</th>
                     <th rowspan="3" style="border-right:1px solid #e9ecef;text-align: center; vertical-align: middle;background-color:#4B586A;color: white;">CURRENCY</th>
