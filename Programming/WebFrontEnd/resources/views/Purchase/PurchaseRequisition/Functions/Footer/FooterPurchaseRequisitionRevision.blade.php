@@ -488,9 +488,11 @@
                             <input id="productUnitPriceCurrency_RefID${key}" value="${findDataDetail.productUnitPriceCurrency_RefID}" type="hidden" />
                             <input id="combinedBudgetSectionDetail_RefID${key}" value="${findDataDetail.combinedBudgetSectionDetail_RefID}" type="hidden" />
                             <input id="productUnitPriceCurrencyExchangeRate${key}" value="${findDataDetail.productUnitPriceCurrencyExchangeRate}" type="hidden" />
-                            <input id="workStructure_RefID${key}" value="302000000000002" type="hidden" />
+                            <input id="workStructure_RefID${key}" value="${findDataDetail.workStructure_RefID}" type="hidden" />
 
-                            <td style="text-align: center;">-</td>
+                            <td style="text-align: center;">
+                                ${findDataDetail.workCode ?? ''} - ${findDataDetail.workName ?? ''}
+                            </td>
                             <td style="text-align: center;">${val2.productCode}</td>
                             <td style="text-align: center;">${val2.productName}</td>
                         `;

@@ -84,12 +84,12 @@
         let total = 0;
         const rows = document.querySelectorAll('#tablePurchaseRequisitionList tbody tr');
         rows.forEach(row => {
-            const totalCell = row.children[8];
+            const totalCell = row.children[7];
             const value = parseFloat(totalCell.innerText.replace(/,/g, '')) || 0;
             total += value;
         });
 
-        document.getElementById('GrandTotal').innerText = `Total (${rows[0].children[9].value}): ${decimalFormat(total)}`;
+        document.getElementById('GrandTotal').innerText = `Total (${rows[0].children[8].value}): ${decimalFormat(total)}`;
     }
 
     function summaryData() {
@@ -172,7 +172,7 @@
                         <input type="hidden" name="qty_avail[]" value="${qtyAvail}">
                         <input type="hidden" name="price_avail[]" value="${priceAvail}">
                         <td style="text-align: center;padding: 0.8rem 0.5rem;" hidden>${productCode}</td>
-                        <td style="text-align: left;padding: 0.8rem 0.5rem;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;max-width: 150px;">${productCodeShow.value} - ${productName}</td>
+                        <td style="text-align: left;padding: 0.8rem 0.5rem;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;max-width: 150px;">${productName}</td>
                         <td style="text-align: left;padding: 0.8rem 0.5rem;width: 20px;">${uom}</td>
                         <td style="text-align: right;padding: 0.8rem 0.5rem;width: 100px;">${price}</td>
                         <td style="text-align: right;padding: 0.8rem 0.5rem;"width: 50px;>${qty}</td>
@@ -205,8 +205,8 @@
                 
                 for (let targetRow of existingRows) {
                     const targetCode = targetRow.children[2]?.innerText?.trim();
-                    const targetName = targetRow.children[4]?.innerText?.trim();
-
+                    const targetName = targetRow.children[3]?.innerText?.trim();
+                    
                     if (targetCode == productCode && targetName == productName) {
                         targetRow.remove();
                         break;
@@ -366,7 +366,7 @@
                     let row = `
                         <tr>
                             <input id="productId${key}" data-product-id="productId" value="${val2.product_RefID}" type="hidden" />
-                            <input id="productName${key}" value="${val2.productName}" type="hidden" />
+                            <input id="productName${key}" value="${val2.productCode} - ${val2.productName}" type="hidden" />
                             <input id="qtyId${key}" value="${val2.quantityUnit_RefID}" type="hidden" />
                             <input id="qty${key}" value="${val2.quantity}" type="hidden" />
                             <input id="price${key}" value="${val2.priceBaseCurrencyValue}" type="hidden" />
