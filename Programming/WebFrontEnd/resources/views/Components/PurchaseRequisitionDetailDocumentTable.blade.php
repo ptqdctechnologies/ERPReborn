@@ -21,7 +21,7 @@
                 <?php $grand_total += $dataDetail['quantity'] * $dataDetail['productUnitPriceCurrencyValue'];  ?>
                     <tr>
                         <td style="border:1px solid #4B586A;color:#4B586A;text-align:center;padding:.70rem;"><?= $no++; ?></td>
-                        <td style="border:1px solid #4B586A;color:#4B586A;">-</td>
+                        <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['workCode'] ?? ''; ?> - <?= $dataDetail['workName'] ?? ''; ?></td>
                         <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['productCode'] ?? ''; ?> - <?= $dataDetail['productName'] ?? ''; ?></td>
                         <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['quantityUnitName'] ?? '-'; ?></td>
                         <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['productUnitPriceCurrencyISOCode'] ?? '-'; ?></td>

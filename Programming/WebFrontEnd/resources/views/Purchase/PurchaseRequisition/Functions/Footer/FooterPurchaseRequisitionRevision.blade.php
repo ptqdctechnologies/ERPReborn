@@ -129,7 +129,7 @@
         let total = 0;
         const rows = document.querySelectorAll('#tablePurchaseRequisitionList tbody tr');
         rows.forEach(row => {
-            const totalCell = row.children[9];
+            const totalCell = row.children[8];
             const input = totalCell.querySelector('input');
 
             const value = parseFloat(totalCell.innerText.replace(/,/g, '')) || 0;
@@ -141,7 +141,7 @@
             total += value;
         });
 
-        document.getElementById('GrandTotal').innerText = `Total (${rows[0].children[6].innerText}): ${decimalFormat(total)}`;
+        document.getElementById('GrandTotal').innerText = `Total (${rows[0].children[5].innerText}): ${decimalFormat(total)}`;
     }
 
     function calculateTotal() {
@@ -188,11 +188,11 @@
                 balanceInput.value.trim()   !== '' &&
                 assetSelect.value.trim()    !== '' 
             ) {
-                const productName   = row.children[10].innerText.trim();
-                const qtyAvail      = row.children[12].innerText.trim();
-                const uom           = row.children[13].innerText.trim();
-                const priceAvail    = row.children[14].innerText.trim();
-                const currency      = row.children[16].innerText.trim();
+                const productName   = row.children[9].innerText.trim();
+                const qtyAvail      = row.children[11].innerText.trim();
+                const uom           = row.children[12].innerText.trim();
+                const priceAvail    = row.children[13].innerText.trim();
+                const currency      = row.children[15].innerText.trim();
 
                 const price = priceInput.value.trim();
                 const qty   = qtyInput.value.trim();
@@ -206,10 +206,10 @@
                     const targetRecordID = targetRow.children[0].value.trim();
                     if (targetRecordID == recordRefID.value) {
                         found                               = true;
-                        targetRow.children[7].innerText     = price;
-                        targetRow.children[8].innerText     = qty;
-                        targetRow.children[9].innerText     = total;
-                        targetRow.children[10].innerText    = note;
+                        targetRow.children[6].innerText     = price;
+                        targetRow.children[7].innerText     = qty;
+                        targetRow.children[8].innerText     = total;
+                        targetRow.children[9].innerText     = note;
 
                         const indexToUpdate = dataStore.findIndex(item => item.recordID == recordRefID.value);
                         if (indexToUpdate !== -1) {
@@ -239,7 +239,6 @@
                         <input type="hidden" name="record_RefID[]" value="${recordRefID.value}">
                         <input type="hidden" name="qty_avail[]" value="${qtyAvail}">
                         <input type="hidden" name="price_avail[]" value="${priceAvail}">
-                        <td style="text-align: right;padding: 0.8rem 0.5rem;width: 80px;">${productCode.value}</td>
                         <td style="text-align: left;padding: 0.8rem 0.5rem;">${productName}</td>
                         <td style="text-align: left;padding: 0.8rem 0.5rem;width: 20px;">${uom}</td>
                         <td style="text-align: left;padding: 0.8rem 0.5rem;width: 40px;" hidden>${currency}</td>
@@ -268,14 +267,13 @@
                     });
                 }
             } else {
-                const productName   = row.children[8].innerText.trim();
+                const productName   = row.children[9].innerText.trim();
                 const existingRows  = targetTable.getElementsByTagName('tr');
 
                 for (let targetRow of existingRows) {
-                    const targetCode = targetRow.children[3]?.innerText?.trim();
-                    const targetName = targetRow.children[4]?.innerText?.trim();
+                    const targetName = targetRow.children[3]?.innerText?.trim();
 
-                    if (targetCode == productCode.value && targetName == productName) {
+                    if (targetName == productName) {
                         targetRow.remove();
                         break;
                     }
@@ -361,8 +359,7 @@
                         <input id="workStructure_RefID${key}" value="" type="hidden" />
 
                         <td style="text-align: center;">-</td>
-                        <td style="text-align: center;">${val2.productCode}</td>
-                        <td style="text-align: center;">${val2.productName}</td>
+                        <td style="text-align: left;">${val2.productCode ?? ''} - ${val2.productName ?? ''}</td>
                     `;
 
                     let componentsInput = `
@@ -417,7 +414,6 @@
                                     </div>
                                 </div>
                             </td>
-                            <td id="product_name${key}" style="text-align: center;text-wrap: auto;" name="product_name" data-default="${val2.productName}">${val2.productName}</td>
                         `;
                     } else if (!val2.product_RefID && findDataMiscellaneous) {
                         isUnspecified = 'disabled';
@@ -448,7 +444,6 @@
                                     </div>
                                 </div>
                             </td>
-                            <td id="product_name${key}" style="text-align: center;text-wrap: auto;" name="product_name" data-default="${findDataMiscellaneous.productName}">${findDataMiscellaneous.productName}</td>
                         `;
 
                         componentsInput = `
@@ -488,11 +483,12 @@
                             <input id="productUnitPriceCurrency_RefID${key}" value="${findDataDetail.productUnitPriceCurrency_RefID}" type="hidden" />
                             <input id="combinedBudgetSectionDetail_RefID${key}" value="${findDataDetail.combinedBudgetSectionDetail_RefID}" type="hidden" />
                             <input id="productUnitPriceCurrencyExchangeRate${key}" value="${findDataDetail.productUnitPriceCurrencyExchangeRate}" type="hidden" />
-                            <input id="workStructure_RefID${key}" value="302000000000002" type="hidden" />
+                            <input id="workStructure_RefID${key}" value="${findDataDetail.workStructure_RefID}" type="hidden" />
 
-                            <td style="text-align: center;">-</td>
-                            <td style="text-align: center;">${val2.productCode}</td>
-                            <td style="text-align: center;">${val2.productName}</td>
+                            <td style="text-align: center;">
+                                ${findDataDetail.workCode ?? ''} - ${findDataDetail.workName ?? ''}
+                            </td>
+                            <td style="text-align: left;">${val2.productCode ?? ''} - ${val2.productName ?? ''}</td>
                         `;
 
                         componentsInput = `
@@ -516,7 +512,7 @@
                                 </select>
                             </td>
                             <td class="sticky-col first-col-pr" style="border:1px solid #e9ecef;background-color:white;">
-                                <textarea id="remark${key}" class="form-control" data-default="${findDataDetail.notes || ''}">${findDataDetail.notes || ''}</textarea>
+                                <textarea id="remark${key}" class="form-control" data-default="${findDataDetail.notes ?? ''}">${findDataDetail.notes ?? ''}</textarea>
                             </td>
                         `;
                     }

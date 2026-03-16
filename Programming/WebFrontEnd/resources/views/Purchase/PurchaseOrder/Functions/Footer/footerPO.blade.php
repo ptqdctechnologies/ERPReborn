@@ -148,6 +148,7 @@
             const productUnitPriceDiscountCurrency_RefID        = row.querySelector('input[id^="productUnitPriceDiscountCurrency_RefID"]');
             const productUnitPriceDiscountCurrencyValue         = row.querySelector('input[id^="productUnitPriceDiscountCurrencyValue"]');
             const productUnitPriceDiscountCurrencyExchangeRate  = row.querySelector('input[id^="productUnitPriceDiscountCurrencyExchangeRate"]');
+            const workStructure_RefID                           = row.querySelector('input[id^="workStructure_RefID"]');
 
             if (
                 qtyInput && priceInput && totalInput && assetSelect &&
@@ -179,16 +180,17 @@
 
                     if (targetDocNumber === documentNumber && targetCode === productCode) {
                         found                               = true;
-                        targetRow.children[7].innerText     = asset == '0' ? 'No' : 'Yes';
-                        targetRow.children[8].innerText     = price;
-                        targetRow.children[9].innerText     = qty;
-                        targetRow.children[10].innerText    = total;
+                        targetRow.children[6].innerText     = asset == '0' ? 'No' : 'Yes';
+                        targetRow.children[7].innerText     = price;
+                        targetRow.children[8].innerText     = qty;
+                        targetRow.children[9].innerText     = total;
 
                         // update dataStore
                         const indexToUpdate = dataStore.findIndex(item => item.entities.documentNumber === documentNumber && item.entities.product_RefID === productCode);
                         if (indexToUpdate !== -1) {
                             dataStore[indexToUpdate] = {
                                 entities: {
+                                    workStructure_RefID: parseInt(workStructure_RefID.value),
                                     purchaseRequisitionDetail_RefID: parseInt(purchaseRequisitionDetail_RefID.value),
                                     quantity: parseFloat(qty.replace(/,/g, '')),
                                     quantityUnit_RefID: parseInt(quantityUnit_RefID.value),
@@ -214,10 +216,9 @@
                         <input type="hidden" name="qty_avail[]" value="${qtyAvail}">
                         <input type="hidden" name="product_code[]" value="${productCode}">
                         <td style="text-align: left;padding: 0.8rem 0.5rem;width: 100px;">${documentNumber}</td>
-                        <td style="text-align: right;padding: 0.8rem 0.5rem;">${productCode}</td>
                         <td style="text-align: left;padding: 0.8rem 0.5rem;">
                             <div style="overflow: hidden;white-space: nowrap;text-overflow: ellipsis;width: 150px;">
-                                ${productName}
+                                ${productCode ?? ''} - ${productName ?? ''}
                             </div>
                         </td>
                         <td style="text-align: left;padding: 0.8rem 0.5rem;width: 20px;">${uom}</td>
@@ -233,6 +234,7 @@
                     // push to dataStore
                     dataStore.push({
                         entities: {
+                            workStructure_RefID: parseInt(workStructure_RefID.value),
                             purchaseRequisitionDetail_RefID: parseInt(purchaseRequisitionDetail_RefID.value),
                             quantity: parseFloat(qty.replace(/,/g, '')),
                             quantityUnit_RefID: parseInt(quantityUnit_RefID.value),
@@ -457,12 +459,6 @@
     }
 
     function getDetailPurchaseRequisition(purchase_requisition_number, purchase_requisition_id) {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
         $.ajax({
             type: 'GET',
             url: '{!! route("getPurchaseRequisitionDetail") !!}?purchase_requisition_id=' + purchase_requisition_id,
@@ -501,6 +497,8 @@
 
                     let modifyColumn = `<td rowspan="${data.length}" style="text-align: center; padding: 10px !important;">${purchase_requisition_number}</td>`;
 
+                    console.log('data', data);
+
                     $.each(data, function(key, val2) {
                         let row = `
                             <tr>
@@ -520,14 +518,14 @@
                                 <input id="uom${indexPurchaseOrder}" value="${val2.quantityUnitName}" type="hidden" />
                                 <input id="unit_price${indexPurchaseOrder}" value="${val2.productUnitPriceBaseCurrencyValue}" type="hidden" />
                                 <input id="currency${indexPurchaseOrder}" value="${val2.priceCurrencyISOCode}" type="hidden" />
+                                <input id="workStructure_RefID${indexPurchaseOrder}" value="${val2.workStructure_RefID}" type="hidden" />
 
-                                <td style="text-align: center; padding: 10px !important;">-</td>
+                                <td style="text-align: center; padding: 10px !important;">${val2.workCode ?? ''} - ${val2.workName ?? ''}</td>
                                 ${key === 0 ? modifyColumn : ''}
                                 <td style="text-align: center; padding: 10px !important;">${val2.combinedBudgetSectionCode + ' - ' + val2.combinedBudgetSectionName}</td>
-                                <td style="text-align: center; padding: 10px !important;">${val2.productCode}</td>
                                 <td style="text-align: center; padding: 10px !important;">
                                     <div style="overflow: hidden;white-space: nowrap;text-overflow: ellipsis;width: 150px;">
-                                        ${val2.productName}
+                                        ${val2.productCode ?? ''} - ${val2.productName ?? ''}
                                     </div>
                                 </td>
                                 <td style="text-align: center; padding: 10px !important;">${currencyTotal(val2.quantity)}</td>
