@@ -4,6 +4,11 @@
   const searchBudgetBtn       = document.getElementById('budget_detail_search');
   const bankNameVendorID      = document.getElementById('bank_list_code');
   const bankNameCorpCardID    = document.getElementById('bank_list_second_code');
+  const dateCommanceComp      = document.getElementById('dateCommance');
+  const dateEndComp           = document.getElementById('dateEnd');
+  const directToVendorComp    = document.getElementById('direct_to_vendor');
+  const byCorpCardComp        = document.getElementById('by_corp_card');
+  const toOtherComp           = document.getElementById('to_other');
 
   let labelPayment            = '';
   let documentTypeID          = document.getElementById("DocumentTypeID");
@@ -152,14 +157,14 @@
     if (selectedCheckbox) {
       const row = selectedCheckbox.closest('tr');
       const datas = {
-        productId: row.cells[1].textContent.trim(),
-        productName: row.cells[2].textContent.trim(),
-        totalBudget: row.cells[3].textContent.trim(),
+        productId: row.cells[2].textContent.trim(),
+        productName: row.cells[3].textContent.trim(),
+        totalBudget: row.cells[4].textContent.trim(),
         // qtyBudget: row.cells[4].textContent.trim(),
         // qtyAvail: row.cells[5].textContent.trim(),
         // price: row.cells[6].textContent.trim(),
-        currency: row.cells[4].textContent.trim(),
-        balanceBudget: row.cells[5].textContent.trim(),
+        currency: row.cells[5].textContent.trim(),
+        balanceBudget: row.cells[6].textContent.trim(),
         sysId: row.querySelector('input[data-budget-id="sys_ID"]').value
       };
       
@@ -234,7 +239,7 @@
 
         const simulatedTotal = total + amount;
 
-        if (currenctBudgetSelection < simulatedTotal && document.activeElement === input) {
+        if (currenctBudgetSelection > 0 && currenctBudgetSelection < simulatedTotal && document.activeElement === input) {
           input.value = "0";
           Swal.fire("Error", `Value can't be greater than Business Trip Request`, "error");
         } else if (input.value !== "0.00") {
@@ -249,13 +254,21 @@
       totalField.value = currencyTotal(total);
       $("#total_business_trip").css("border", "1px solid #ced4da");
       $("#totalBRFMessage").hide();
-    } else if (currenctBudgetSelection != 0 && total != 0 && currenctBudgetSelection < total) {
+    } 
+    if (currenctBudgetSelection != 0 && total != 0 && currenctBudgetSelection < total) {
       totalField.value = currencyTotal(total);
       Swal.fire("Error", `Total Business Trip must not exceed the selected Balanced Budget`, "error");
-    } else if (currenctBudgetSelection != 0 && total == 0 && currenctBudgetSelection > total) {
+    } 
+    if (currenctBudgetSelection != 0 && total == 0 && currenctBudgetSelection > total) {
       totalField.value = currencyTotal("0.00");
       $("#total_business_trip").css("border", "1px solid red");
       $("#totalBRFMessage").show();
+    }
+
+    if (currenctBudgetSelection == 0 && total != 0 && currenctBudgetSelection < total) {
+      totalField.value = currencyTotal(total);
+      $("#total_business_trip").css("border", "1px solid #ced4da");
+      $("#totalBRFMessage").hide();
     }
   }
 
@@ -272,12 +285,6 @@
   }
 
   function getBusinessTripCostComponentEntityNew() {
-    $.ajaxSetup({
-      headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-      }
-    });
-
     $.ajax({
       type: 'GET',
       url: '{!! route("getBusinessTripCostComponentEntityNew") !!}',
@@ -725,12 +732,14 @@
 
         $.each(data, function(key, val2) {
           let productColumn = `
+            <td style="text-align: center;">-</td>
             <td style="text-align: center;">${val2.product_RefID}</td>
             <td style="text-align: center;">${val2.productName}</td>
           `;
 
           if (!val2.product_RefID) {
             productColumn = `
+              <td style="text-align: center;">-</td>
               <td style="padding: 8px;">
                 <div class="input-group">
                   <input id="product_id${key}" style="border-radius:0;width:130px;background-color:white;" name="product_id" class="form-control" readonly />
@@ -1110,12 +1119,23 @@
   });
 
   $(window).one('load', function(e) {
-    document.getElementById('dateCommance').setAttribute('min', today.toISOString().split('T')[0]);
-    document.getElementById('dateEnd').setAttribute('min', today.toISOString().split('T')[0]);
+    if (dateCommanceComp) {
+      dateCommanceComp.setAttribute('min', today.toISOString().split('T')[0]);
+    }
+    if (dateEndComp) {
+      dateEndComp.setAttribute('min', today.toISOString().split('T')[0]);
+    }
+    if (directToVendorComp) {
+      directToVendorComp.addEventListener("input", calculateTotalPayment);
+    }
+    if (byCorpCardComp) {
+      byCorpCardComp.addEventListener("input", calculateTotalPayment);
+    }
+    if (toOtherComp) {
+      toOtherComp.addEventListener("input", calculateTotalPayment);
 
-    document.getElementById("direct_to_vendor").addEventListener("input", calculateTotalPayment);
-    document.getElementById("by_corp_card").addEventListener("input", calculateTotalPayment);
-    document.getElementById("to_other").addEventListener("input", calculateTotalPayment);
+      getBusinessTripCostComponentEntityNew();
+    }
 
     $("#myWorker").prop("disabled", true);
     $("#requester_popup").prop("disabled", true);
@@ -1136,8 +1156,5 @@
     $("#beneficiary_second_popup").prop("disabled", true);
     $("#bank_list_popup_second").prop("disabled", true);
     $("#bank_accounts_third_popup").prop("disabled", true);
-
-    // getDocumentType("Person Business Trip Form");
-    getBusinessTripCostComponentEntityNew();
   });
 </script>

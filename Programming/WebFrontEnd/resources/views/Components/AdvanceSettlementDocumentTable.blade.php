@@ -4,8 +4,8 @@
             <thead>
                 <tr>
                     <th rowspan="3" style="padding:.70rem;border-right:1px solid #e9ecef;text-align: center; vertical-align: middle;background-color:#4B586A;color: white;text-align:center;">NO</th>
-                    <th rowspan="3" style="border-right:1px solid #e9ecef;text-align: center; vertical-align: middle;background-color:#4B586A;color: white;">PRODUCT CODE</th>
-                    <th rowspan="3" style="border-right:1px solid #e9ecef;text-align: center; vertical-align: middle;background-color:#4B586A;color: white;">PRODUCT NAME</th>
+                    <th rowspan="3" style="border-right:1px solid #e9ecef;text-align: center; vertical-align: middle;background-color:#4B586A;color: white;">WORK ID</th>
+                    <th rowspan="3" style="border-right:1px solid #e9ecef;text-align: center; vertical-align: middle;background-color:#4B586A;color: white;">PRODUCT</th>
                     <th rowspan="3" style="border-right:1px solid #e9ecef;text-align: center; vertical-align: middle;background-color:#4B586A;color: white;">UOM</th>
                     <th rowspan="3" style="border-right:1px solid #e9ecef;text-align: center; vertical-align: middle;background-color:#4B586A;color: white;">CURRENCY</th>
                     <th colspan="3" rowspan="2" style="border-right:1px solid #e9ecef;text-align: center; vertical-align: middle;background-color:#4B586A;color: white;">REQUEST</th>
@@ -45,8 +45,8 @@
                     <?php $grandTotalCompany += $companyTotal ?? 0;  ?>
                     <tr>
                         <td style="padding:.70rem;border:1px solid #4B586A;color:#4B586A;text-align:center;"><?= $no; ?></td>
-                        <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['productCode'] ?? '-'; ?></td>
-                        <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['productName'] ?? '-'; ?></td>
+                        <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['workCode'] ?? ''; ?> - <?= $dataDetail['workName'] ?? ''; ?></td>
+                        <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['productCode'] ?? ''; ?> - <?= $dataDetail['productName'] ?? ''; ?></td>
                         <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['quantityUnitName'] ?? '-'; ?></td>
                         <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['currency'] ?? '-'; ?></td>
                         <td style="border:1px solid #4B586A;color:#4B586A;"><?= number_format($dataDetail['quantity'] ?? 0, 2); ?></td>
