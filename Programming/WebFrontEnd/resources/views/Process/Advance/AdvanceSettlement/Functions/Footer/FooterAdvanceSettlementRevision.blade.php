@@ -150,6 +150,7 @@
         const rows = sourceTable.getElementsByTagName('tr');
 
         for (let row of rows) {
+            const workStructureRefID                            = row.querySelector('input[id^="workStructure_RefID"]');
             const advanceSettlement_RefID                       = row.querySelector('input[id^="advanceSettlement_RefID"]');
             const advanceDetail_RefID                           = row.querySelector('input[id^="advanceDetail_RefID"]');
             const expenseProductUnitPriceCurrency_RefID         = row.querySelector('input[id^="expenseProductUnitPriceCurrency_RefID"]');
@@ -175,11 +176,11 @@
                 )
             ) {
                 const arfNumber     = row.children[9].innerText.trim();
-                const productCode   = row.children[11].innerText.trim();
-                const uom           = row.children[12].innerText.trim();
-                const currency      = row.children[13].innerText.trim();
-                const qtyAvail      = row.children[14].innerText.trim();
-                const priceAvail    = row.children[15].innerText.trim();
+                const productCode   = row.children[12].innerText.trim();
+                const uom           = row.children[13].innerText.trim();
+                const currency      = row.children[14].innerText.trim();
+                const qtyAvail      = row.children[15].innerText.trim();
+                const priceAvail    = row.children[16].innerText.trim();
 
                 const qtyExpense    = qtyExpenseInput.value.trim();
                 const priceExpense  = priceExpenseInput.value.trim();
@@ -209,6 +210,7 @@
                                 advanceSettlement_RefID: parseInt(advanceSettlement_RefID.value),
                                 recordID: parseInt(advanceDetail_RefID.value),
                                 entities: {
+                                    workStructure_RefID: workStructureRefID.value || null,
                                     expenseQuantity: parseFloat(qtyExpense.replace(/,/g, '')) || 0,
                                     expenseProductUnitPriceCurrency_RefID: parseInt(expenseProductUnitPriceCurrency_RefID.value),
                                     expenseProductUnitPriceCurrencyValue: parseFloat(priceExpense.replace(/,/g, '')) || 0,
@@ -252,6 +254,7 @@
                         advanceSettlement_RefID: parseInt(advanceSettlement_RefID.value),
                         recordID: parseInt(advanceDetail_RefID.value),
                         entities: {
+                            workStructure_RefID: workStructureRefID.value || null,
                             expenseQuantity: parseFloat(qtyExpense.replace(/,/g, '')) || 0,
                             expenseProductUnitPriceCurrency_RefID: parseInt(expenseProductUnitPriceCurrency_RefID.value),
                             expenseProductUnitPriceCurrencyValue: parseFloat(priceExpense.replace(/,/g, '')) || 0,
@@ -322,30 +325,31 @@
 
         let tbodyList = $('#tableAdvanceList tbody');
         tbodyList.empty();
-
+        
         $.each(dataDetail, function(key, val2) {
             totalExpenseClaim  += val2.expenseQuantity * val2.expenseProductUnitPriceCurrencyValue;
             totalAmountCompany += val2.refundQuantity * val2.refundProductUnitPriceCurrencyValue;
 
-            dataStore.push({
-                advanceRequestNumber: val2.ARFNumber,
-                advanceSettlement_RefID: val2.advanceSettlement_RefID,
-                recordID: val2.sys_ID,
-                entities: {
-                    expenseQuantity: val2.expenseQuantity,
-                    expenseProductUnitPriceCurrency_RefID: val2.expenseProductUnitPriceCurrency_RefID,
-                    expenseProductUnitPriceCurrencyValue: val2.expenseProductUnitPriceCurrencyValue,
-                    expenseProductUnitPriceCurrencyExchangeRate: val2.expenseProductUnitPriceCurrencyExchangeRate,
-                    expenseProductUnitPriceBaseCurrencyValue: val2.expenseProductUnitPriceBaseCurrencyValue,
-                    refundQuantity: val2.refundQuantity,
-                    refundProductUnitPriceCurrency_RefID: val2.refundProductUnitPriceCurrency_RefID,
-                    refundProductUnitPriceCurrencyValue: val2.refundProductUnitPriceCurrencyValue,
-                    refundProductUnitPriceCurrencyExchangeRate: val2.refundProductUnitPriceCurrencyExchangeRate,
-                    refundProductUnitPriceBaseCurrencyValue: val2.refundProductUnitPriceBaseCurrencyValue,
-                    remarks: null,
-                    productCode: `${val2.productCode || '-'} - ${val2.productName || '-'}`
-                }
-            });
+            // dataStore.push({
+            //     advanceRequestNumber: val2.ARFNumber,
+            //     advanceSettlement_RefID: val2.advanceSettlement_RefID,
+            //     recordID: val2.sys_ID,
+            //     entities: {
+            //         workStructure_RefID: val2.workStructure_RefID,
+            //         expenseQuantity: val2.expenseQuantity,
+            //         expenseProductUnitPriceCurrency_RefID: val2.expenseProductUnitPriceCurrency_RefID,
+            //         expenseProductUnitPriceCurrencyValue: val2.expenseProductUnitPriceCurrencyValue,
+            //         expenseProductUnitPriceCurrencyExchangeRate: val2.expenseProductUnitPriceCurrencyExchangeRate,
+            //         expenseProductUnitPriceBaseCurrencyValue: val2.expenseProductUnitPriceBaseCurrencyValue,
+            //         refundQuantity: val2.refundQuantity,
+            //         refundProductUnitPriceCurrency_RefID: val2.refundProductUnitPriceCurrency_RefID,
+            //         refundProductUnitPriceCurrencyValue: val2.refundProductUnitPriceCurrencyValue,
+            //         refundProductUnitPriceCurrencyExchangeRate: val2.refundProductUnitPriceCurrencyExchangeRate,
+            //         refundProductUnitPriceBaseCurrencyValue: val2.refundProductUnitPriceBaseCurrencyValue,
+            //         remarks: null,
+            //         productCode: `${val2.productCode || '-'} - ${val2.productName || '-'}`
+            //     }
+            // });
 
             let totalRequest    = val2.quantity * val2.productUnitPriceCurrencyValue;
             let totalExpense    = val2.expenseQuantity * val2.expenseProductUnitPriceCurrencyValue;
@@ -362,9 +366,10 @@
                     <input id="refundProductUnitPriceCurrency_RefID${key}" value="${val2.refundProductUnitPriceCurrency_RefID}" type="hidden" />
                     <input id="refundProductUnitPriceCurrencyExchangeRate${key}" value="${val2.refundProductUnitPriceCurrencyExchangeRate}" type="hidden" />
                     <input id="refundProductUnitPriceBaseCurrencyValue${key}" value="${val2.refundProductUnitPriceBaseCurrencyValue}" type="hidden" />
+                    <input id="workStructure_RefID${key}" value="${val2.workStructure_RefID || ''}" type="hidden" />
 
-                    <td style="text-align: center;border:1px solid #e9ecef;">-</td>
                     <td style="text-align: center;border:1px solid #e9ecef;">${val2.ARFNumber || '-'}</td>
+                    <td style="text-align: center;border:1px solid #e9ecef;">${val2.workCode || ''} - ${val2.workName || ''}</td>
                     <td style="text-align: center;border:1px solid #e9ecef;">${val2.combinedBudgetSectionCode + ' - ' + val2.combinedBudgetSectionName}</td>
                     <td style="text-align: left;border:1px solid #e9ecef;">
                         <div style="overflow: hidden;white-space: nowrap;text-overflow: ellipsis;width: 150px;">

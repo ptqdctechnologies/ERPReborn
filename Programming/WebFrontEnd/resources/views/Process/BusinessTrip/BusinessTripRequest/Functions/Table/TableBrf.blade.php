@@ -3,6 +3,7 @@
         <thead>
             <tr>
                 <th style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important;"></th>
+                <th style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important;">Work ID</th>
                 <th style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important;">Product Code</th>
                 <th style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important;">Product Name</th>
                 <th style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important;">Total Budget</th>

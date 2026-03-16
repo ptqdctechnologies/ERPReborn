@@ -148,6 +148,7 @@
 
         for (let row of rows) {
             const advanceDetail_RefID               = row.querySelector('input[id^="advanceDetail_RefID"]');
+            const workStructureRefID                = row.querySelector('input[id^="workStructure_RefID"]');
             const productUnitPriceCurrency_RefID    = row.querySelector('input[id^="productUnitPriceCurrency_RefID"]');
             const qtyExpenseInput                   = row.querySelector('input[id^="qty_settlement"]');
             const priceExpenseInput                 = row.querySelector('input[id^="price_settlement"]');
@@ -169,11 +170,11 @@
                 )
             ) {
                 const transNumber   = row.children[4].innerText.trim();
-                const productCode   = row.children[6].innerText.trim();
-                const uom           = row.children[7].innerText.trim();
-                const currency      = row.children[8].innerText.trim();
-                const qtyAvail      = row.children[9].innerText.trim();
-                const priceAvail    = row.children[10].innerText.trim();
+                const productCode   = row.children[7].innerText.trim();
+                const uom           = row.children[8].innerText.trim();
+                const currency      = row.children[9].innerText.trim();
+                const qtyAvail      = row.children[10].innerText.trim();
+                const priceAvail    = row.children[11].innerText.trim();
 
                 const qtyExpense    = qtyExpenseInput.value.trim();
                 const priceExpense  = priceExpenseInput.value.trim();
@@ -203,6 +204,7 @@
                             dataStore[indexToUpdate] = {
                                 entities: {
                                     advanceDetail_RefID: parseInt(advanceDetail_RefID.value),
+                                    workStructure_RefID: workStructureRefID.value || null,
                                     expenseQuantity: parseFloat(qtyExpense.replace(/,/g, '')) || 0,
                                     expenseProductUnitPriceCurrency_RefID: parseInt(productUnitPriceCurrency_RefID.value),
                                     expenseProductUnitPriceCurrencyValue: parseFloat(priceExpense.replace(/,/g, '')) || 0,
@@ -245,6 +247,7 @@
                     dataStore.push({
                         entities: {
                             advanceDetail_RefID: parseInt(advanceDetail_RefID.value),
+                            workStructure_RefID: workStructureRefID.value || null,
                             expenseQuantity: parseFloat(qtyExpense.replace(/,/g, '')) || 0,
                             expenseProductUnitPriceCurrency_RefID: parseInt(productUnitPriceCurrency_RefID.value),
                             expenseProductUnitPriceCurrencyValue: parseFloat(priceExpense.replace(/,/g, '')) || 0,
@@ -391,16 +394,19 @@
                     let tbody = $('#tableAdvanceDetail tbody');
 
                     let modifyColumn = `<td rowspan="${result.length}" style="text-align: center; padding: 10px !important;">${advanceNumber}</td>`;
-
+                    
                     $.each(result, function(key, val2) {
                         let row = `
                             <tr>
                                 <input id="advanceDetail_RefID${indexAdvanceDetail}" value="${val2.sys_ID}" type="hidden" />
                                 <input id="productUnitPriceCurrency_RefID${indexAdvanceDetail}" value="${val2.productUnitPriceCurrency_RefID}" type="hidden" />
                                 <input id="transNumber${indexAdvanceDetail}" value="${advanceNumber}" type="hidden" />
-
-                                <td style="text-align: center;">-</td>
+                                <input id="workStructure_RefID${indexAdvanceDetail}" value="${val2.workStructure_RefID || ''}" type="hidden" />
+                                
                                 ${key === 0 ? modifyColumn : `<td style="text-align: center; padding: 10px !important; display: none;">${advanceNumber}</td>`}
+                                <td style="text-align: left;">
+                                    ${val2.workCode || ''} - ${val2.workName || ''}
+                                </td>
                                 <td style="text-align: center; padding: 10px !important;">${val2.combinedBudgetSectionCode + ' - ' + val2.combinedBudgetSectionName}</td>
                                 <td style="text-align: left; padding: 10px !important;">
                                     <div style="overflow: hidden;white-space: nowrap;text-overflow: ellipsis;width: 150px;">
