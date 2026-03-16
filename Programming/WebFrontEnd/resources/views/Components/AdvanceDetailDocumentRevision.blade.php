@@ -17,8 +17,8 @@
                     @endif
                 </tr>
                 <tr>
-                    <th class="text-center" style="vertical-align: middle; width: 125px; min-width: 125px; max-width: 125px; left: 0px; z-index: 10;position: sticky;background: #FFF;">Product Code</th>
-                    <th class="text-center" style="vertical-align: middle; width: 155px; min-width: 155px; max-width: 155px; left: 125px; z-index: 10;position: sticky;background: #FFF;">Product Name</th>
+                    <th class="text-center" style="vertical-align: middle; width: 125px; min-width: 125px; max-width: 125px; left: 0px; z-index: 10;position: sticky;background: #FFF;">Work</th>
+                    <th class="text-center" style="vertical-align: middle; width: 155px; min-width: 155px; max-width: 155px; left: 125px; z-index: 10;position: sticky;background: #FFF;">Product</th>
                     <th class="text-center" style="vertical-align: middle; width: 40px; min-width: 40px; max-width: 40px; left: 280px; z-index: 10;position: sticky;background: #FFF;">UOM</th>
                     <th class="text-center" style="vertical-align: middle; width: 80px; min-width: 80px; max-width: 80px; left: 320px; z-index: 10;position: sticky;background: #FFF;">Qty</th>
                     <th class="text-center" style="vertical-align: middle; width: 125px; min-width: 125px; max-width: 125px; left: 400px; z-index: 10;position: sticky;background: #FFF;">Price</th>
@@ -28,7 +28,7 @@
             <tbody>
                 @for($i = count($dataDetailGetTransactionHistory) - 1; $i >= 0; $i--)
                     <tr>
-                        <td style="padding: 8px;">{{ $dataDetailGetTransactionHistory[$i][count($dataDetailGetTransactionHistory[$i]) - 1]['content']['product_RefID'] }}</td>
+                        <td style="padding: 8px;">-</td>
                         <td style="padding: 8px;">{{ $dataDetailGetTransactionHistory[$i][count($dataDetailGetTransactionHistory[$i]) - 1]['productName'] }}</td>
                         <td style="padding: 8px;">{{ $dataDetailGetTransactionHistory[$i][count($dataDetailGetTransactionHistory[$i]) - 1]['quantityUnitName'] }}</td>
                         <td style="padding: 8px;">{{ number_format($dataDetailGetTransactionHistory[$i][count($dataDetailGetTransactionHistory[$i]) - 1]['content']['quantity'], 2) }}</td>

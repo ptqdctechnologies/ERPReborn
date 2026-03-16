@@ -2,8 +2,8 @@
     <table class="table table-striped table-hover table-sticky table-sm">
         <thead>
             <tr>
-                <th style="text-align: center;vertical-align: middle;width: 125px; min-width: 125px; max-width: 125px; left: 0px; z-index: 10;position: sticky; background-color: white;" class="text-center" rowspan="3">Product Code</th>
-                <th style="text-align: center;vertical-align: middle;width: 125px; min-width: 125px; max-width: 125px; left: 125px; z-index: 10;position: sticky; background-color: white;" class="text-center" rowspan="3">Product Name</th>
+                <th style="text-align: center;vertical-align: middle;width: 125px; min-width: 125px; max-width: 125px; left: 0px; z-index: 10;position: sticky; background-color: white;" class="text-center" rowspan="3">Work</th>
+                <th style="text-align: center;vertical-align: middle;width: 125px; min-width: 125px; max-width: 125px; left: 125px; z-index: 10;position: sticky; background-color: white;" class="text-center" rowspan="3">Product</th>
                 <th style="text-align: center;vertical-align: middle;width: 40px; min-width: 40px; max-width: 40px; left: 250px; z-index: 10;position: sticky; background-color: white;" class="text-center" rowspan="3">UOM</th>
                 <th style="text-align: center;vertical-align: middle;width: 320px; min-width: 320px; max-width: 320px; left: 290px; z-index: 10;position: sticky; background-color: white;" class="text-center" colspan="3" rowspan="2">Request</th>
 

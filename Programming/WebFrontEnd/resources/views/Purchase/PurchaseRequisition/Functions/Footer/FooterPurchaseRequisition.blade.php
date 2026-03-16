@@ -109,6 +109,7 @@
             const qtyUnitRefId                      = row.querySelector('input[id^="qtyId"]');
             const currencyRefId                     = row.querySelector('input[id^="currencyId"]');
             const combinedBudgetSectionDetailInput  = row.querySelector('input[id^="combinedBudgetSectionDetail_RefID"]');
+            const workStructureRefID                = row.querySelector('input[id^="workStructure_RefID"]');
 
             if (
                 qtyInput && priceInput && totalInput && balanceInput && assetSelect &&
@@ -138,15 +139,16 @@
                     const targetCode = targetRow.children[2].innerText.trim();
                     
                     if (targetCode == productCode) {
-                        targetRow.children[6].innerText = price;
-                        targetRow.children[7].innerText = qty;
-                        targetRow.children[8].innerText = total;
+                        targetRow.children[5].innerText = price;
+                        targetRow.children[6].innerText = qty;
+                        targetRow.children[7].innerText = total;
                         found = true;
 
                         const indexToUpdate = dataStore.findIndex(item => item.entities.product_RefID == productCode);
                         if (indexToUpdate !== -1) {
                             dataStore[indexToUpdate] = {
                                 entities: {
+                                    workStructure_RefID: parseInt(workStructureRefID.value),
                                     combinedBudgetSectionDetail_RefID: parseInt(combinedBudgetSectionDetailInput.value),
                                     product_RefID: parseInt(productCode),
                                     quantity: parseFloat(qty.replace(/,/g, '')),
@@ -170,8 +172,7 @@
                         <input type="hidden" name="qty_avail[]" value="${qtyAvail}">
                         <input type="hidden" name="price_avail[]" value="${priceAvail}">
                         <td style="text-align: center;padding: 0.8rem 0.5rem;" hidden>${productCode}</td>
-                        <td style="text-align: right;padding: 0.8rem 0.5rem;width: 80px;">${productCodeShow.value}</td>
-                        <td style="text-align: left;padding: 0.8rem 0.5rem;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;max-width: 150px;">${productName}</td>
+                        <td style="text-align: left;padding: 0.8rem 0.5rem;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;max-width: 150px;">${productCodeShow.value} - ${productName}</td>
                         <td style="text-align: left;padding: 0.8rem 0.5rem;width: 20px;">${uom}</td>
                         <td style="text-align: right;padding: 0.8rem 0.5rem;width: 100px;">${price}</td>
                         <td style="text-align: right;padding: 0.8rem 0.5rem;"width: 50px;>${qty}</td>
@@ -183,6 +184,7 @@
                     // push to dataStore
                     dataStore.push({
                         entities: {
+                            workStructure_RefID: parseInt(workStructureRefID.value),
                             combinedBudgetSectionDetail_RefID: parseInt(combinedBudgetSectionDetailInput.value),
                             product_RefID: parseInt(productCode),
                             quantity: parseFloat(qty.replace(/,/g, '')),
@@ -335,10 +337,9 @@
                     let balanced = currencyTotal(val2.quantityRemaining);
                     let totalBudget = val2.quantity * val2.priceBaseCurrencyValue;
                     let productColumn = `
-                        <td style="text-align: center;">${val2.productCode}</td>
                         <td style="text-align: left;">
                             <div style="overflow: hidden;white-space: nowrap;text-overflow: ellipsis;width: 150px;">
-                                ${val2.productName}
+                                ${val2.productCode} - ${val2.productName}
                             </div>
                         </td>
                     `;
@@ -355,11 +356,6 @@
                                             </a>
                                         </span>
                                     </div>
-                                </div>
-                            </td>
-                            <td style="text-align: left;">
-                                <div id="product_name${key}" name="product_name" style="overflow: hidden;white-space: nowrap;text-overflow: ellipsis;width: 150px;">
-                                    ${val2.productName}
                                 </div>
                             </td>
                         `;
@@ -379,6 +375,7 @@
                             <input id="currencyId${key}" value="${val2.sys_BaseCurrency_RefID}" type="hidden" />
                             <input id="combinedBudgetSectionDetail_RefID${key}" value="${val2.sys_ID}" type="hidden" />
                             <input id="combinedBudget_RefID${key}" value="${val2.combinedBudget_RefID}" type="hidden" />
+                            <input id="workStructure_RefID${key}" value="302000000000001" type="hidden" />
                             
                             <td style="text-align: center;">-</td>
                             ${productColumn}
