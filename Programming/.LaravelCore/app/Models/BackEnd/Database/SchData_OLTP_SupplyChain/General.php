@@ -1081,13 +1081,13 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : getDataList_PurchaseOrderDetail_LatestVersion                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2025-12-31                                                                                           |
+        | ▪ Last Update     : 2026-03-16                                                                                           |
         | ▪ Creation Date   : 2025-03-05                                                                                           |
-        | ▪ Description     : Mendapatkan Daftar Detail Pesanan Pembelian (Purchase Order Detail) Versi Terakhir                                 |
+        | ▪ Description     : Mendapatkan Daftar Detail Pesanan Pembelian (Purchase Order Detail) Versi Terakhir                   |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varPurchaseOrder_RefID ► Purchase Order ID                                                                           |
+        |      ▪ (int)    varPurchaseOrder_RefID ► Purchase Order ID                                                               |
         |        ------------------------------                                                                                    |
         |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
         |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
@@ -1185,6 +1185,9 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         $varReturn['data'][$idxArray]['combinedBudgetSectionName'] = $value["CombinedBudgetSectionName"];
                         $varReturn['data'][$idxArray]['combinedBudgetSectionDetail_RefID'] = $value["CombinedBudgetSectionDetail_RefID"];
                         $varReturn['data'][$idxArray]['asset'] = $value["Asset"];
+                        $varReturn['data'][$idxArray]['workStructure_RefID'] = $value["WorkStructure_RefID"];
+                        $varReturn['data'][$idxArray]['workCode'] = $value["WorkCode"];
+                        $varReturn['data'][$idxArray]['workName'] = $value["WorkName"];
                         $idxArray++;
                     }
 
