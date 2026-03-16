@@ -2815,7 +2815,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : getDataListJSON_PurchaseRequisitionDetail                                                            |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-12-30                                                                                           |
+        | ▪ Last Update     : 2026-03-16                                                                                           |
         | ▪ Creation Date   : 2024-09-09                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Perincian Permintaan Pembelian (Purchase Requisition Detail)                      |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -2923,6 +2923,9 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             }
 			    $varReturn['data'][$idxArray]['qtyAvail'] = round((float) $value["Quantity"] - (float) $value["Quantity_TblPurchaseOrderDetail"], 2);
 			    $varReturn['data'][$idxArray]['asset'] = $value["Asset"];
+                            $varReturn['data'][$idxArray]['workStructure_RefID'] = $value["WorkStructure_RefID"];
+                            $varReturn['data'][$idxArray]['workCode'] = $value["WorkCode"];
+                            $varReturn['data'][$idxArray]['workName'] = $value["WorkName"];
                             $varReturn['data'][$idxArray]['orderSequence'] = $value["OrderSequence"];
                             $idxArray++;
                         }
