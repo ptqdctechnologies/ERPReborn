@@ -29,12 +29,6 @@
     function getDataReport() {
         ShowLoading();
 
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
         $.ajax({
             type: 'POST',
             url: '{!! route("AdvanceSettlement.ReportAdvanceSettlementSummaryStore") !!}',
@@ -78,17 +72,19 @@
                             },
                             {
                                 data: 'documentNumber',
-                                defaultContent: '-'
+                                defaultContent: '-',
+                                className: "text-nowrap",
                             },
                             {
                                 data: 'date',
-                                defaultContent: '-'
+                                defaultContent: '-',
+                                className: "text-nowrap",
                             },
                             {
                                 data: null,
                                 defaultContent: '-',
                                 render: function (data, type, row, meta) {
-                                    return currencyTotal(data.total_Expense_Claim);
+                                    return currencyTotal(data.total_Expense_Claim || '0');
                                 }
                             },
                             {
@@ -103,7 +99,7 @@
                                 data: null,
                                 defaultContent: '-',
                                 render: function (data, type, row, meta) {
-                                    return currencyTotal(data.total_Amount_Due_Company);
+                                    return currencyTotal(data.total_Amount_Due_Company || '0');
                                 }
                             },
                             {
@@ -118,7 +114,7 @@
                                 data: null,
                                 defaultContent: '-',
                                 render: function (data, type, row, meta) {
-                                    return currencyTotal(data.total_Advance_Settlement);
+                                    return currencyTotal(data.total_Advance_Settlement || '0');
                                 }
                             },
                             {
@@ -131,7 +127,8 @@
                             },
                             {
                                 data: 'requester',
-                                defaultContent: '-'
+                                defaultContent: '-',
+                                className: "text-nowrap",
                             },
                             {
                                 data: 'remarks',
@@ -186,12 +183,6 @@
 
     function exportDataReport() {
         ShowLoading();
-
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
 
         $.ajax({
             url: '{!! route("AdvanceSettlement.PrintExportReportAdvanceSettlementSummary") !!}',
@@ -254,6 +245,18 @@
         $("#site_name").css('background-color', '#e9ecef');
 
         $("#mySites").modal('toggle');
+    });
+
+    $('#tableRequesters').on('click', 'tbody tr', function() {
+        let sysId       = $(this).find('input[data-trigger="sys_id_requesters"]').val();
+        let name        = $(this).find('td:nth-child(2)').text();
+        let position    = $(this).find('td:nth-child(3)').text();
+
+        $("#requester_id").val(sysId);
+        $("#requester_name").val(`${position} - ${name}`);
+        $("#requester_name").css('background-color', '#e9ecef');
+
+        $('#myRequesters').modal('hide');
     });
 
     $(window).one('load', function(e) {

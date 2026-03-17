@@ -224,68 +224,49 @@ class AccountPayableController extends Controller
 
     public function ReportAccountPayableSummary() 
     {
-        $isSubmitButton = Session::get('isButtonReportAccountPayableSummary');
-        $dataReport     = $isSubmitButton ? Session::get('dataReportAccountPayableSummary') : [];
-
-        $compact = [
-            'dataReport' => $dataReport
-        ];
-
-        return view('Finance.AccountPayable.Reports.ReportAccountPayableSummary', $compact);
+        return view('Finance.AccountPayable.Reports.ReportAccountPayableSummary');
     }
 
     public function ReportAccountPayableSummaryStore(Request $request)
     {
         try {
-            $project = [
-                'id'        => $request->project_id_second,
-                'code'      => $request->project_code_second,
-                'name'      => $request->project_name_second,
+            $date           = $request->apDate;
+            $supplier       = $request->supplier_id;
+            $budget = [
+                'id'        => $request->budget_id,
+                'code'      => $request->budget_code,
+            ];
+            $subBudget = [
+                'id'        => $request->site_id,
+                'code'      => $request->site_code,
             ];
 
-            $site = [
-                'id'        => $request->site_id_second,
-                'code'      => $request->site_code_second,
-                'name'      => $request->site_name_second,
-            ];
-
-            $supplier = [
-                'id'        => $request->supplier_id,
-                'code'      => $request->supplier_code,
-                'address'   => $request->supplier_address,
-            ];
-
-            $date = $request->input('date');
-
-            // if (!$project['id']) {
-            //     Session::forget("isButtonReportAccountPayableSummary");
-            //     Session::forget("dataReportAccountPayableSummary");
-
-            //     return redirect()->route('AccountPayable.ReportAccountPayableSummary')->with('NotFound', 'Budget Cannot Be Empty');
-            // }
-
-            $response = $this->accountPayableService->summaryReport($project, $site, $supplier, $date);
+            $response = $this->accountPayableService->summaryReport(
+                $budget['code'], 
+                $subBudget['code'], 
+                $supplier,
+                $date
+            );
 
             if ($response['metadata']['HTTPStatusCode'] !== 200) {
-                throw new \Exception('Failed to fetch Report Account Payable Summary');
+                throw new \Exception('Failed to fetch Report Account Payable Summary Store');
             }
 
             $compact = [
-                'project'   => $project,
-                'site'      => $site,
-                'supplier'  => $supplier,
-                'date'      => $date,
+                'status'    => $response['metadata']['HTTPStatusCode'],
                 'data'      => $response['data']['data']
             ];
 
-            Session::put("isButtonReportAccountPayableSummary", true);
-            Session::put("dataReportAccountPayableSummary", $compact);
-
-            return redirect()->route('AccountPayable.ReportAccountPayableSummary');
+            return response()->json($compact);
         } catch (\Throwable $th) {
-            Log::error("Report Account Payable Summary Store Function Error: " . $th->getMessage());
-            
-            return redirect()->back()->with('NotFound', 'Process Error');
+            Log::error("Report Account Payable Summary Store Function Error:" . $th->getMessage());
+
+            $compact = [
+                'status'    => 500,
+                'message'   => $th->getMessage()
+            ];
+
+            return response()->json($compact);
         }
     }
 

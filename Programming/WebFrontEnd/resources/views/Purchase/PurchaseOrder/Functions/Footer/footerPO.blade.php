@@ -497,8 +497,6 @@
 
                     let modifyColumn = `<td rowspan="${data.length}" style="text-align: center; padding: 10px !important;">${purchase_requisition_number}</td>`;
 
-                    console.log('data', data);
-
                     $.each(data, function(key, val2) {
                         let row = `
                             <tr>

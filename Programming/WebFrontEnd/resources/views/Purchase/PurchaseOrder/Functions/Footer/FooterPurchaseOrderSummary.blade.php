@@ -36,12 +36,6 @@
     function getDataReport() {
         ShowLoading();
 
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
         $.ajax({
             type: 'POST',
             url: '{!! route("PurchaseOrder.ReportPurchaseOrderSummaryStore") !!}',
@@ -94,50 +88,51 @@
                             },
                             {
                                 data: null,
+                                className: "text-nowrap",
                                 render: function (data, type, row, meta) {
-                                    return `${data.supplier_Code} - ${data.supplier_Name}`;
+                                    return `${data.supplier_Code || ''} - ${data.supplier_Name || ''}`;
                                 }
                             },
                             {
                                 data: null,
                                 defaultContent: '-',
                                 render: function (data, type, row, meta) {
-                                    return currencyTotal(data.total_Idr_WithoutVat);
+                                    return currencyTotal(data.total_Idr_WithoutVat || '0');
                                 }
                             },
                             {
                                 data: null,
                                 defaultContent: '-',
                                 render: function (data, type, row, meta) {
-                                    return currencyTotal(data.total_Vat_IDR);
+                                    return currencyTotal(data.total_Vat_IDR || '0');
                                 }
                             },
                             {
                                 data: null,
                                 defaultContent: '-',
                                 render: function (data, type, row, meta) {
-                                    return currencyTotal(data.total_Other_Currency_WithoutVat);
+                                    return currencyTotal(data.total_Other_Currency_WithoutVat || '0');
                                 }
                             },
                             {
                                 data: null,
                                 defaultContent: '-',
                                 render: function (data, type, row, meta) {
-                                    return currencyTotal(data.total_Vat_Other_Currency);
+                                    return currencyTotal(data.total_Vat_Other_Currency || '0');
                                 }
                             },
                             {
                                 data: null,
                                 defaultContent: '-',
                                 render: function (data, type, row, meta) {
-                                    return currencyTotal(data.total_Equivalent_Value);
+                                    return currencyTotal(data.total_Equivalent_Value || '0');
                                 }
                             },
                             {
                                 data: null,
                                 defaultContent: '-',
                                 render: function (data, type, row, meta) {
-                                    return currencyTotal(data.total_Equivalent_Vat);
+                                    return currencyTotal(data.total_Equivalent_Vat || '0');
                                 }
                             }
                         ],
@@ -172,12 +167,6 @@
 
     function exportDataReport() {
         ShowLoading();
-
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
 
         $.ajax({
             url: '{!! route("PurchaseOrder.PrintExportReportPurchaseOrderSummary") !!}',
