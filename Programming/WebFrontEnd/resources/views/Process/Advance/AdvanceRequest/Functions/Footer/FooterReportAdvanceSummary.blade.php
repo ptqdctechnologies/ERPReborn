@@ -10,8 +10,6 @@
     const printType     = document.getElementById("print_type");
 
     function resetForm() {
-        dataReport = [];
-
         $("#budget_name").css('background-color', '#fff');
         $(`#budget_name`).val("");
         $(`#budget_id`).val("");
@@ -32,16 +30,16 @@
 
         $("#advance_summary_date_range").css('background-color', '#fff');
         $(`#advance_summary_date_range`).val("");
+
+        hideErrorInputMessage("#budget_name", "#budgetMessage");
+        hideErrorInputMessage("#sub_budget_name", "#subBudgetMessage");
+        hideErrorInputMessage("#requester_name", "#requesterMessage");
+        hideErrorInputMessage("#beneficiary_name", "#beneficiaryMessage");
+        hideErrorInputMessage("#advance_summary_date_range", "#dateRangeMessage");
     }
 
     function getDataReport() {
         ShowLoading();
-
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
 
         $.ajax({
             type: 'POST',
@@ -86,11 +84,13 @@
                             },
                             {
                                 data: 'advanceNumber',
-                                defaultContent: '-'
+                                defaultContent: '-',
+                                className: "text-nowrap",
                             },
                             {
                                 data: null,
                                 defaultContent: '-',
+                                className: "text-nowrap",
                                 render: function (data, type, row, meta) {
                                     return `${data.combinedBudgetSectionCode} - ${data.combinedBudgetSectionName}`;
                                 }
@@ -101,31 +101,33 @@
                             },
                             {
                                 data: 'requesterName',
-                                defaultContent: '-'
+                                defaultContent: '-',
+                                className: "text-nowrap",
                             },
                             {
                                 data: 'beneficiaryName',
-                                defaultContent: '-'
+                                defaultContent: '-',
+                                className: "text-nowrap",
                             },
                             {
                                 data: null,
                                 defaultContent: '-',
                                 render: function (data, type, row, meta) {
-                                    return currencyTotal(data.total_IDR);
+                                    return currencyTotal(data.total_IDR || '0');
                                 }
                             },
                             {
                                 data: null,
                                 defaultContent: '-',
                                 render: function (data, type, row, meta) {
-                                    return currencyTotal(data.total_Other_Currency);
+                                    return currencyTotal(data.total_Other_Currency || '0');
                                 }
                             },
                             {
                                 data: null,
                                 defaultContent: '-',
                                 render: function (data, type, row, meta) {
-                                    return currencyTotal(data.total_Equivalent_IDR);
+                                    return currencyTotal(data.total_Equivalent_IDR || '0');
                                 }
                             },
                             {
@@ -143,10 +145,18 @@
                     $('#table_summary').css("width", "100%");
                     $('#table_container').css("display", "block");
                 } else {
-                    $('#table_container').hide(); 
-                    $('#table_summary tbody').empty();
-                    $('#table_summary tfoot').empty();
-                    ErrorNotif("Error");
+                    dataReport = [];
+
+                    $('#table_summary').DataTable({
+                        destroy: true,
+                        data: [],
+                        deferRender: true,
+                        scrollCollapse: true,
+                        scroller: true,
+                    });
+
+                    $('#table_summary').css("width", "100%");
+                    $('#table_container').css("display", "block");
                 }
 
                 HideLoading();
@@ -161,12 +171,6 @@
 
     function exportDataReport() {
         ShowLoading();
-
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
 
         $.ajax({
             url: '{!! route("AdvanceRequest.PrintExportReportAdvanceSummary") !!}',
@@ -203,54 +207,104 @@
         });
     }
 
+    function validateShowButton() {
+        const isBudgetIDNotEmpty        = budgetID.value.trim() !== '';
+        const isSubBudgetIDNotEmpty     = subBudgetID.value.trim() !== '';
+        const isRequesterIDNotEmpty     = requesterID.value.trim() !== '';
+        const isBeneficiaryIDNotEmpty   = beneficiaryID.value.trim() !== '';
+        const isArfDateNotEmpty         = arfDate.value.trim() !== '';
+
+        if (
+            isBudgetIDNotEmpty ||
+            isRequesterIDNotEmpty ||
+            isBeneficiaryIDNotEmpty ||
+            isArfDateNotEmpty
+        ) {
+            hideErrorInputMessage("#budget_name", "#budgetMessage");
+            hideErrorInputMessage("#sub_budget_name", "#subBudgetMessage");
+            hideErrorInputMessage("#requester_name", "#requesterMessage");
+            hideErrorInputMessage("#beneficiary_name", "#beneficiaryMessage");
+            hideErrorInputMessage("#advance_summary_date_range", "#dateRangeMessage");
+
+            getDataReport();
+        } else {
+            showErrorInputMessage("#budget_name", "#budgetMessage");
+            showErrorInputMessage("#sub_budget_name", "#subBudgetMessage");
+            showErrorInputMessage("#requester_name", "#requesterMessage");
+            showErrorInputMessage("#beneficiary_name", "#beneficiaryMessage");
+            showErrorInputMessage("#advance_summary_date_range", "#dateRangeMessage");
+        }
+    }
+
+    function validateExportButton() {
+        if (dataReport.length > 0) {
+            exportDataReport();
+        } else {
+            ErrorNotif("No data available to export. Please display the data first.");
+        }
+    }
+
     $('#tableProjects').on('click', 'tbody tr', function() {
-        let sysId   = $(this).find('input[data-trigger="sys_id_project"]').val();
-        let code    = $(this).find('td:nth-child(2)').text();
-        let name    = $(this).find('td:nth-child(3)').text();
+        const sysId   = $(this).find('input[data-trigger="sys_id_project"]').val();
+        const code    = $(this).find('td:nth-child(2)').text();
+        const name    = $(this).find('td:nth-child(3)').text();
 
         $("#budget_id").val(sysId);
         $("#budget_code").val(code);
         $("#budget_name").val(`${code} - ${name}`);
         $("#budget_name").css('background-color', '#e9ecef');
 
+        hideErrorInputMessage("#budget_name", "#budgetMessage");
         getSites(sysId);
+
+        $("#mySitesTrigger").css('cursor', 'pointer');
+        $("#mySitesTrigger").attr({
+            "data-toggle": "modal",
+            "data-target": "#mySites"
+        });
 
         $('#myProjects').modal('hide');
     });
 
     $('#tableSites').on('click', 'tbody tr', function() {
-        let sysId       = $(this).find('input[data-trigger="sys_id_site"]').val();
-        let siteCode    = $(this).find('td:nth-child(2)').text();
-        let siteName    = $(this).find('td:nth-child(3)').text();
+        const sysId       = $(this).find('input[data-trigger="sys_id_site"]').val();
+        const siteCode    = $(this).find('td:nth-child(2)').text();
+        const siteName    = $(this).find('td:nth-child(3)').text();
 
         $("#sub_budget_id").val(sysId);
         $("#sub_budget_code").val(siteCode);
         $("#sub_budget_name").val(`${siteCode} - ${siteName}`);
         $("#sub_budget_name").css('background-color', '#e9ecef');
 
+        hideErrorInputMessage("#sub_budget_name", "#subBudgetMessage");
+
         $('#mySites').modal('hide');
     });
 
     $('#tableRequesters').on('click', 'tbody tr', function() {
-        let sysId       = $(this).find('input[data-trigger="sys_id_requesters"]').val();
-        let name        = $(this).find('td:nth-child(2)').text();
-        let position    = $(this).find('td:nth-child(3)').text();
+        const sysId       = $(this).find('input[data-trigger="sys_id_requesters"]').val();
+        const name        = $(this).find('td:nth-child(2)').text();
+        const position    = $(this).find('td:nth-child(3)').text();
 
         $("#requester_id").val(sysId);
         $("#requester_name").val(`${position} - ${name}`);
         $("#requester_name").css('background-color', '#e9ecef');
 
+        hideErrorInputMessage("#requester_name", "#requesterMessage");
+
         $('#myRequesters').modal('hide');
     });
 
     $('#tableBeneficiaries').on('click', 'tbody tr', function() {
-        let sysId       = $(this).find('input[data-trigger="sys_id_beneficiaries"]').val();
-        let name        = $(this).find('td:nth-child(2)').text();
-        let position    = $(this).find('td:nth-child(3)').text();
+        const sysId       = $(this).find('input[data-trigger="sys_id_beneficiaries"]').val();
+        const name        = $(this).find('td:nth-child(2)').text();
+        const position    = $(this).find('td:nth-child(3)').text();
 
         $("#beneficiary_id").val(sysId);
         $("#beneficiary_name").val(`${position} - ${name}`);
         $("#beneficiary_name").css('background-color', '#e9ecef');
+
+        hideErrorInputMessage("#beneficiary_name", "#beneficiaryMessage");
 
         $('#myBeneficiaries').modal('hide');
     });
@@ -267,6 +321,7 @@
         $('#advance_summary_date_range').on('apply.daterangepicker', function(ev, picker) {
             $("#advance_summary_date_range").css('background-color', '#e9ecef');
             $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
+            hideErrorInputMessage("#advance_summary_date_range", "#dateRangeMessage");
         });
 
         $('#advance_summary_date_range').on('cancel.daterangepicker', function(ev, picker) {
