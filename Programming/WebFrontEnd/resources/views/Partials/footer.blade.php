@@ -3,6 +3,16 @@
 </footer>
 
 <script>
+  function showErrorInputMessage(componentId, messageId) {
+    $(componentId).css("border", "1px solid red");
+    $(messageId).show();
+  }
+
+  function hideErrorInputMessage(componentId, messageId) {
+    $(componentId).css("border", "1px solid #ced4da");
+    $(messageId).hide();
+  }
+
   function cancelForm(url) {
     ShowLoading();
     window.location.href = url;
