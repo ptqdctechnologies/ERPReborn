@@ -29,12 +29,6 @@
     function getDataReport() {
         ShowLoading();
 
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
         $.ajax({
             type: 'POST',
             url: '{!! route("AdvanceSettlement.ReportAdvanceSettlementSummaryStore") !!}',
@@ -78,11 +72,13 @@
                             },
                             {
                                 data: 'documentNumber',
-                                defaultContent: '-'
+                                defaultContent: '-',
+                                className: "text-nowrap",
                             },
                             {
                                 data: 'date',
-                                defaultContent: '-'
+                                defaultContent: '-',
+                                className: "text-nowrap",
                             },
                             {
                                 data: null,
@@ -131,7 +127,8 @@
                             },
                             {
                                 data: 'requester',
-                                defaultContent: '-'
+                                defaultContent: '-',
+                                className: "text-nowrap",
                             },
                             {
                                 data: 'remarks',
@@ -186,12 +183,6 @@
 
     function exportDataReport() {
         ShowLoading();
-
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
 
         $.ajax({
             url: '{!! route("AdvanceSettlement.PrintExportReportAdvanceSettlementSummary") !!}',

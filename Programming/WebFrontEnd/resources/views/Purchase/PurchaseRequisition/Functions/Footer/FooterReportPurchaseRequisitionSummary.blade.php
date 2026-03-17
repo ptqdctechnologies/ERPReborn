@@ -29,12 +29,6 @@
     function getDataReport() {
         ShowLoading();
 
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
         $.ajax({
             type: 'POST',
             url: '{!! route("PurchaseRequisition.ReportPurchaseRequisitionSummaryStore") !!}',
@@ -113,21 +107,21 @@
                                 data: null,
                                 defaultContent: '-',
                                 render: function (data, type, row, meta) {
-                                    return currencyTotal(data.total_IDR);
+                                    return currencyTotal(data.total_IDR || '0');
                                 }
                             },
                             {
                                 data: null,
                                 defaultContent: '-',
                                 render: function (data, type, row, meta) {
-                                    return currencyTotal(data.total_Other_Currency);
+                                    return currencyTotal(data.total_Other_Currency || '0');
                                 }
                             },
                             {
                                 data: null,
                                 defaultContent: '-',
                                 render: function (data, type, row, meta) {
-                                    return currencyTotal(data.total_Equivalent_IDR);
+                                    return currencyTotal(data.total_Equivalent_IDR || '0');
                                 }
                             },
                             {
@@ -163,12 +157,6 @@
 
     function exportDataReport() {
         ShowLoading();
-
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
 
         $.ajax({
             url: '{!! route("PurchaseRequisition.PrintExportReportPurchaseRequisitionSummary") !!}',
