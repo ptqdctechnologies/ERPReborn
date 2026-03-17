@@ -21,8 +21,8 @@
             @if(sizeof($dataDetailGetTransactionHistory))
             <tr>
                 <th class="text-center" style="position: sticky;vertical-align: middle;width: 125px;min-width: 125px;max-width: 125px;left: 0px;z-index: 10;position: sticky;background-color: white;">PR Number</th>
-                <th class="text-center" style="position: sticky;vertical-align: middle;width: 125px;min-width: 125px;max-width: 125px;left: 125px;z-index: 10;position: sticky;background-color: white;">Product Code</th>
-                <th class="text-center" style="position: sticky;vertical-align: middle;width: 125px;min-width: 125px;max-width: 125px;left: 250px;z-index: 10;position: sticky;background-color: white;">Product Name</th>
+                <th class="text-center" style="position: sticky;vertical-align: middle;width: 125px;min-width: 125px;max-width: 125px;left: 125px;z-index: 10;position: sticky;background-color: white;">Work</th>
+                <th class="text-center" style="position: sticky;vertical-align: middle;width: 125px;min-width: 125px;max-width: 125px;left: 250px;z-index: 10;position: sticky;background-color: white;">Product</th>
                 <th class="text-center" style="position: sticky;vertical-align: middle;width: 40px;min-width: 40px;max-width: 40px;left: 375px;z-index: 10;position: sticky;background-color: white;">UOM</th>
                 <th class="text-center" style="position: sticky;vertical-align: middle;width: 80px;min-width: 80px;max-width: 80px;left: 415px;z-index: 10;position: sticky;background-color: white;">Qty</th>
                 <th class="text-center" style="position: sticky;vertical-align: middle;width: 125px;min-width: 125px;max-width: 125px;left: 495px;z-index: 10;position: sticky;background-color: white;">Price</th>
