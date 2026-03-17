@@ -715,7 +715,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         | ▪ Method Name     : getDataList_PaymentInstructionDetail_LatestVersion                                                   |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2026-01-09                                                                                           |
+        | ▪ Last Update     : 2026-03-16                                                                                           |
         | ▪ Creation Date   : 2025-10-15                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Detail Credit Note Versi Terakhir                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -834,6 +834,9 @@ namespace App\Models\Database\SchData_OLTP_Finance
                         $varReturn['data'][$idxArray]['potoAPQuantityAvail'] = in_array($value["Sys_ID"], $listIdAPDetail) ? round($value["PurchaseOrderDetailQuantity"] - $qtyAPDetail[$value["Sys_ID"]]["Qty"], 2) : null;
                         $varReturn['data'][$idxArray]['asset'] = $value["Asset"];
                         $varReturn['data'][$idxArray]['otherSupplier'] = $value["OtherSupplier"];
+                        $varReturn['data'][$idxArray]['workStructure_RefID'] = $value["WorkStructure_RefID"];
+                        $varReturn['data'][$idxArray]['workCode'] = $value["WorkCode"];
+                        $varReturn['data'][$idxArray]['workName'] = $value["WorkName"];
                         $idxArray++;
                     }
 

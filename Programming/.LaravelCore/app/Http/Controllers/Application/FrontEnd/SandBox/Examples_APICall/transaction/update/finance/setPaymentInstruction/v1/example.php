@@ -21,7 +21,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         |                     ► http://172.28.0.4/transaction.update.finance.setPaymentInstruction.v1_throughAPIGateway            |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2026-01-09                                                                                           |
+        | ▪ Last Update     : 2026-03-16                                                                                           |
         | ▪ Creation Date   : 2025-01-13                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -71,6 +71,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                             [
                                             'recordID' => 212000000000010,
                                             'entities' => [
+                                                "workStructure_RefID" => 302000000000002,
                                                 "combinedBudgetSectionDetail_RefID" => 169000000000001,
                                                 "chartOfAccount_RefID" => 65000000000005,
                                                 "product_RefID" => 88000000000002,
