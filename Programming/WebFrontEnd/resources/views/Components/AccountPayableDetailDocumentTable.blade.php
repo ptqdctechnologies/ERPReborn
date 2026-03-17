@@ -4,6 +4,7 @@
             <thead>
                 <tr>
                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">NO</th>
+                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">WORK</th>
                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">PRODUCT</th>
                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">UOM</th>
                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">QTY</th>
@@ -18,6 +19,7 @@
                     <?php $grand_total += number_format($dataDetail['quantity'] ?? 0, 2);  ?>
                     <tr>
                         <td style="border:1px solid #4B586A;color:#4B586A;text-align:center;"><?= $no++; ?></td>
+                        <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['workCode'] ?? ''; ?> - <?= $dataDetail['workName'] ?? ''; ?></td>
                         <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['productCode'] ?? ''; ?> - <?= $dataDetail['productName'] ?? ''; ?></td>
                         <td style="border:1px solid #4B586A;color:#4B586A;text-align:center;"><?= $dataDetail['uom'] ?? ''; ?></td>
                         <td style="border:1px solid #4B586A;color:#4B586A;text-align:center;"><?= $dataDetail['quantity'] ?? ''; ?></td>
@@ -29,7 +31,7 @@
 
             <tfoot>
                 <tr>
-                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #4B586A;color:#4B586A;" colspan="3">
+                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #4B586A;color:#4B586A;" colspan="4">
                         GRAND TOTAL
                     </th>
                     <td style="border:1px solid #4B586A;color:#4B586A;text-align:center;">

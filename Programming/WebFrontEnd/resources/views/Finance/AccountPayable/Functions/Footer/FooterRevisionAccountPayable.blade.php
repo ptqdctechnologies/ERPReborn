@@ -50,12 +50,6 @@
     }
 
     function getDepreciationMethod() {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
         $.ajax({
             type: 'GET',
             url: '{!! route("getDepreciationMethod") !!}',
@@ -83,12 +77,6 @@
     }
 
     function getDepreciationRateYears(categoryID, depreciationMethodID) {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
         $.ajax({
             type: 'GET',
             url: '{!! route("getDepreciationRateYears") !!}?assetCategoryRef_ID=' + categoryID + '&depreciationMethodRef_ID=' + depreciationMethodID,
@@ -211,12 +199,6 @@
     }
 
     function getVAT() {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
         $.ajax({
             type: 'GET',
             url: '{!! route("getVAT") !!}',
@@ -271,6 +253,7 @@
             dataStore.push({
                 recordID: parseInt(val.sys_ID),
                 entities: {
+                    workStructure_RefID: parseInt(val.workStructure_RefID),
                     combinedBudgetSectionDetail_RefID: parseInt(val.combinedBudgetSectionDetail_RefID),
                     chartOfAccount_RefID: parseInt(val.chartOfAccount_RefID),
                     product_RefID: parseInt(val.product_RefID),
@@ -295,8 +278,11 @@
                     <input type="hidden" id="productUnitPriceCurrency_RefID${key}" value="${val.productUnitPriceCurrency_RefID}" />
                     <input type="hidden" id="productUnitPriceCurrencyExchangeRate${key}" value="${val.productUnitPriceBaseCurrencyValue}" />
                     <input type="hidden" id="purchaseOrderDetail_RefID${key}" value="${val.purchaseOrderDetail_RefID}" />
+                    <input type="hidden" id="workStructure_RefID${key}" value="${val.workStructure_RefID}" />
 
-                    <td style="text-align: center;">-</td>
+                    <td style="text-align: center;">
+                        ${val.workCode ?? ''} - ${val.workName ?? ''}
+                    </td>
                     <td style="text-align: left;">
                         <div style="overflow: hidden;white-space: nowrap;text-overflow: ellipsis;width: 200px;">
                             ${val.productCode ?? ''} - ${val.productName ?? ''}
@@ -422,6 +408,7 @@
 
         for (let row of rows) {
             const recordRefID                           = row.querySelector('input[id^="record_RefID"]');
+            const workStructureRefID                    = row.querySelector('input[id^="workStructure_RefID"]');
             const combinedBudgetSectionDetailRefID      = row.querySelector('input[id^="combinedBudgetSectionDetail_RefID"]');
             const productRefID                          = row.querySelector('input[id^="product_RefID"]');
             const quantityUnitRefID                     = row.querySelector('input[id^="quantityUnit_RefID"]');
@@ -442,8 +429,8 @@
                 coaRefID.value.trim() !== '' && 
                 assetSelect.value.trim() !== ''
             ) {
-                const product   = row.children[8].innerText.trim();
-                const uom       = row.children[12].innerText.trim();
+                const product   = row.children[9].innerText.trim();
+                const uom       = row.children[13].innerText.trim();
 
                 const qtyValue      = qtyInput.value.trim();
                 const totalValue    = totalInput.value.trim();
@@ -470,6 +457,7 @@
                             dataStore[indexToUpdate] = {
                                 recordID: parseInt(recordRefID.value),
                                 entities: {
+                                    workStructure_RefID: parseInt(workStructureRefID.value),
                                     combinedBudgetSectionDetail_RefID: parseInt(combinedBudgetSectionDetailRefID.value),
                                     chartOfAccount_RefID: parseInt(coaRefID.value),
                                     product_RefID: parseInt(productRefID.value),
@@ -505,6 +493,7 @@
                     dataStore.push({
                         recordID: parseInt(recordRefID.value),
                         entities: {
+                            workStructure_RefID: parseInt(workStructureRefID.value),
                             combinedBudgetSectionDetail_RefID: parseInt(combinedBudgetSectionDetailRefID.value),
                             chartOfAccount_RefID: parseInt(coaRefID.value),
                             product_RefID: parseInt(productRefID.value),
@@ -779,12 +768,6 @@
         const contractSigned    = document.querySelector('input[name="contract_signed"]:checked');
         const receiptOrigin     = document.querySelector('input[name="receipt_origin"]:checked');
 
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
         $.ajax({
             type: 'POST',
             data: {
@@ -869,12 +852,6 @@
 
     function getWorkflow() {
         $("#invoice_loading_table").show();
-
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
 
         $.ajax({
             type: 'POST',
