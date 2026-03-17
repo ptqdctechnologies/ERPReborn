@@ -38,6 +38,22 @@
   </div>
 </div>
 <div class="col-sm-12 col-md-12 col-lg-3">
+  <!-- REQUESTER -->
+  <div class="row p-0 align-items-center" style="margin-bottom: 1rem;">
+    <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Requester</label>
+    <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
+      <div>
+        <span id="myRequestersTrigger" class="input-group-text form-control" data-toggle="modal" data-target="#myRequesters" style="border-radius:0;cursor:pointer;">
+          <i class="fas fa-gift"></i>
+        </span>
+      </div>
+      <div>
+        <input type="text" id="requester_name" class="form-control" name="requester_name" readonly style="border-radius:0;background:white;" />
+        <input type="hidden" id="requester_id" class="form-control" name="requester_id" style="border-radius:0;" />
+      </div>
+    </div>
+  </div>
+
   <!-- DATE -->
   <div class="row p-0 align-items-center">
     <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Date</label>

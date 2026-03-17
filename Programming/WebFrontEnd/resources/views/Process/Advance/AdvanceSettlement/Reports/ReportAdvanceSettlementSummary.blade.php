@@ -4,6 +4,7 @@
 @include('Partials.sidebar')
 @include('getFunction.getProjects')
 @include('getFunction.getSites')
+@include('getFunction.getRequesters')
 
 <div class="content-wrapper">
     <section class="content">
