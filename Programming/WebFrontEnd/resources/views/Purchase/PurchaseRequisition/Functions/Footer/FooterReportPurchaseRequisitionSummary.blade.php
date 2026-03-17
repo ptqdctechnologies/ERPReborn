@@ -70,7 +70,8 @@
                             },
                             {
                                 data: 'documentNumber',
-                                defaultContent: '-'
+                                defaultContent: '-',
+                                className: "text-nowrap",
                             },
                             {
                                 data: null,
@@ -85,6 +86,7 @@
                             {
                                 data: null,
                                 defaultContent: '-',
+                                className: "text-nowrap",
                                 render: function (data, type, row, meta) {
                                     return `${data.combinedBudgetCode} - ${data.combinedBudgetName}`;
                                 }

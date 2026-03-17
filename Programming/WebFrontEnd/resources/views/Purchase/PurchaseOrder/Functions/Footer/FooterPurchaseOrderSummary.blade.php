@@ -36,12 +36,6 @@
     function getDataReport() {
         ShowLoading();
 
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
         $.ajax({
             type: 'POST',
             url: '{!! route("PurchaseOrder.ReportPurchaseOrderSummaryStore") !!}',
@@ -94,8 +88,9 @@
                             },
                             {
                                 data: null,
+                                className: "text-nowrap",
                                 render: function (data, type, row, meta) {
-                                    return `${data.supplier_Code} - ${data.supplier_Name}`;
+                                    return `${data.supplier_Code || ''} - ${data.supplier_Name || ''}`;
                                 }
                             },
                             {
@@ -172,12 +167,6 @@
 
     function exportDataReport() {
         ShowLoading();
-
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
 
         $.ajax({
             url: '{!! route("PurchaseOrder.PrintExportReportPurchaseOrderSummary") !!}',
