@@ -32,7 +32,6 @@
         $(`#advance_summary_date_range`).val("");
 
         hideErrorInputMessage("#budget_name", "#budgetMessage");
-        hideErrorInputMessage("#sub_budget_name", "#subBudgetMessage");
         hideErrorInputMessage("#requester_name", "#requesterMessage");
         hideErrorInputMessage("#beneficiary_name", "#beneficiaryMessage");
         hideErrorInputMessage("#advance_summary_date_range", "#dateRangeMessage");
@@ -221,7 +220,6 @@
             isArfDateNotEmpty
         ) {
             hideErrorInputMessage("#budget_name", "#budgetMessage");
-            hideErrorInputMessage("#sub_budget_name", "#subBudgetMessage");
             hideErrorInputMessage("#requester_name", "#requesterMessage");
             hideErrorInputMessage("#beneficiary_name", "#beneficiaryMessage");
             hideErrorInputMessage("#advance_summary_date_range", "#dateRangeMessage");
@@ -229,7 +227,6 @@
             getDataReport();
         } else {
             showErrorInputMessage("#budget_name", "#budgetMessage");
-            showErrorInputMessage("#sub_budget_name", "#subBudgetMessage");
             showErrorInputMessage("#requester_name", "#requesterMessage");
             showErrorInputMessage("#beneficiary_name", "#beneficiaryMessage");
             showErrorInputMessage("#advance_summary_date_range", "#dateRangeMessage");

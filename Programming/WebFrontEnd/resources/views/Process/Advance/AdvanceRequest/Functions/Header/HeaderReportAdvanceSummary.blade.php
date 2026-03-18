@@ -38,12 +38,6 @@
             </div>
         </div>
     </div>
-    <div class="row" id="subBudgetMessage" style="margin-top: .3rem;display: none;">
-        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
-        <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end text-red">
-            Sub Budget cannot be empty.
-        </div>
-    </div>
 </div>
 <div class="col-sm-12 col-md-12 col-lg-3">
     <!-- REQUESTER -->
