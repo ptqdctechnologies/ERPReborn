@@ -21,7 +21,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         |                     ► http://172.28.0.4/transaction.create.humanResource.setPersonBusinessTrip.v1_throughAPIGateway      |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0001.0000001                                                                                       |
-        | ▪ Last Update     : 2026-03-02                                                                                           |
+        | ▪ Last Update     : 2026-03-20                                                                                           |
         | ▪ Creation Date   : 2022-10-10                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -55,12 +55,14 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                                 'sequence' => 1,
                                                 'log_FileUpload_Pointer_RefID' => null,
                                                 'requesterWorkerJobsPosition_RefID' => 164000000000497,
+                                                'workStructure_RefID' => 302000000000001,
+                                                'product_RefID' => 88000000000002,
                                                 'startDateTimeTZ' => '2022-10-10',
                                                 'finishDateTimeTZ' => '2022-10-14',
                                                 'departurePoint' => 'Jakarta',
                                                 'destinationPoint' => 'Kalimantan',
                                                 'reasonToTravel' => 'Monitoring Pekerjaan Proyek',
-                                                'businessTripAccommodationArrangementsType_RefID' => 219000000000002,                                                
+                                                'businessTripAccommodationArrangementsType_RefID' => 219000000000002,
                                                 'currency_RefID' => 62000000000001,
                                                 'currencyExchangeRate' => 1,
                                                 'paymentToVendor_amountCurrencyValue' => 30000,
