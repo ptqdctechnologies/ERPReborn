@@ -157,14 +157,8 @@
     if (selectedCheckbox) {
       const row = selectedCheckbox.closest('tr');
       const datas = {
-        productId: row.cells[2].textContent.trim(),
-        productName: row.cells[3].textContent.trim(),
-        totalBudget: row.cells[4].textContent.trim(),
-        // qtyBudget: row.cells[4].textContent.trim(),
-        // qtyAvail: row.cells[5].textContent.trim(),
-        // price: row.cells[6].textContent.trim(),
-        currency: row.cells[5].textContent.trim(),
-        balanceBudget: row.cells[6].textContent.trim(),
+        totalBudget: row.cells[3].textContent.trim(),
+        balanceBudget: row.cells[5].textContent.trim(),
         sysId: row.querySelector('input[data-budget-id="sys_ID"]').value
       };
       
@@ -733,8 +727,7 @@
         $.each(data, function(key, val2) {
           let productColumn = `
             <td style="text-align: center;">-</td>
-            <td style="text-align: center;">${val2.product_RefID}</td>
-            <td style="text-align: center;">${val2.productName}</td>
+            <td style="text-align: left;">${val2.product_RefID} - ${val2.productName}</td>
           `;
 
           if (!val2.product_RefID) {
@@ -752,7 +745,6 @@
                   </div>
                 </div>
               </td>
-              <td id="product_name${key}" style="text-align: center;text-wrap: auto;" name="product_name">${val2.productName}</td>
             `;
           }
 
