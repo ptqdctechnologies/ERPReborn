@@ -273,27 +273,44 @@ class AccountPayableController extends Controller
     public function PrintExportReportAccountPayableSummary(Request $request) 
     {
         try {
-            $dataReport = Session::get("dataReportAccountPayableSummary");
-            $print_type = $request->print_type;
+            $type                       = $request->printType;
+            $budgetName                 = $request->budgetName;
+            $subBudgetName              = $request->subBudgetName;
+            $supplierName               = $request->supplierName;
+            $apDate                     = $request->apDate;
+            $dataAccountPayableSummary  = json_decode($request->dataReport, true);
 
-            if ($print_type == "PDF") {
-                $pdf = PDF::loadView('Finance.AccountPayable.Reports.ReportAccountPayableSummary_pdf', ['dataReport' => $dataReport])->setPaper('a4', 'landscape');
-                $pdf->output();
-                $dom_pdf = $pdf->getDomPDF();
+            if ($dataAccountPayableSummary) {
+                if ($type === "PDF") {
+                    $pdf = PDF::loadView('Finance.AccountPayable.Reports.ReportAccountPayableSummary_pdf', [
+                        'dataReport'    => $dataAccountPayableSummary, 
+                        'budgetName'    => $budgetName,
+                        'subBudgetName' => $subBudgetName,
+                        'supplierName'  => $supplierName,
+                        'apDate'        => $apDate
+                        ])->setPaper('a4', 'landscape');
 
-                $canvas = $dom_pdf ->get_canvas();
-                $width  = $canvas->get_width();
-                $height = $canvas->get_height();
-                $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
-                $canvas->page_text(34, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
+                    $pdf->output();
+                    $dom_pdf    = $pdf->getDomPDF();
+                    $canvas     = $dom_pdf ->get_canvas();
+                    $width      = $canvas->get_width();
+                    $height     = $canvas->get_height();
+                    $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
+                    $canvas->page_text(34, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
 
-                return $pdf->download('Account Payable Summary.pdf');
+                    return $pdf->download('Report Account Payable Summary.pdf');
+                } else if ($type === "EXCEL") {
+                    return Excel::download(new ExportReportAccountPayableSummary($dataAccountPayableSummary, $budgetName, $subBudgetName, $supplierName, $apDate), 'Report Account Payable Summary.xlsx');
+                } else {
+                    throw new \Exception('Failed to Export Account Payable Summary Report');
+                }
             } else {
-                return Excel::download(new ExportReportAccountPayableSummary, 'Account Payable Summary.xlsx');
+                throw new \Exception('Account Payable Summary Data is Empty');
             }
         } catch (\Throwable $th) {
-            Log::error("Print Export Account Payable Function Error: " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
+            Log::error("Print Export Report Account Payable Summary Function Error: " . $th->getMessage());
+
+            return response()->json(['statusCode' => 400]);
         }
     }
 }

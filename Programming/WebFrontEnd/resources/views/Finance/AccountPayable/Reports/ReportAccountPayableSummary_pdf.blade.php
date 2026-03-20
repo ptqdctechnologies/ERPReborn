@@ -35,36 +35,13 @@
                                 </td>
                                 <td style="height: 20px;">
                                     <div style="font-size: 14px; line-height: 14px;">
-                                        <?= $dataReport['project']['code']; ?> - <?= $dataReport['project']['name']; ?>
+                                        <?= $budgetName ?? '-'; ?>
                                     </div>
                                 </td>
                             </tr>
                         </table>
                     </td>
 
-                    <!-- SUB BUDGET -->
-                    {{-- <td style="width: 350px;">
-                        <table>
-                            <tr>
-                                <td style="width: 110px; height: 20px;">
-                                    <div style="font-size: 14px; font-weight: bold; line-height: 14px;">
-                                        Sub Budget
-                                    </div>
-                                </td>
-                                <td style="width: 5px;">
-                                    :
-                                </td>
-                                <td style="height: 20px;">
-                                    <div style="font-size: 14px;line-height: 14px;">
-                                        <?php $dataReport['site']['code']; ?> - <?= $dataReport['site']['name']; ?>
-                                    </div>
-                                </td>
-                            </tr>
-                        </table>
-                    </td> --}}
-                </tr>
-
-                {{-- <tr>
                     <!-- SUPPLIER -->
                     <td style="width: 350px;">
                         <table>
@@ -79,7 +56,30 @@
                                 </td>
                                 <td style="height: 20px;">
                                     <div style="font-size: 14px;line-height: 14px;">
-                                        <?php $dataReport['supplier']['code'] ?? '-'; ?>
+                                        <?= $supplierName ?? '-'; ?>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+
+                <tr>
+                    <!-- SUB BUDGET -->
+                    <td style="width: 350px;">
+                        <table>
+                            <tr>
+                                <td style="width: 110px; height: 20px;">
+                                    <div style="font-size: 14px; font-weight: bold; line-height: 14px;">
+                                        Sub Budget
+                                    </div>
+                                </td>
+                                <td style="width: 5px;">
+                                    :
+                                </td>
+                                <td style="height: 20px;">
+                                    <div style="font-size: 14px;line-height: 14px;">
+                                        <?= $subBudgetName ?? '-'; ?>
                                     </div>
                                 </td>
                             </tr>
@@ -100,13 +100,13 @@
                                 </td>
                                 <td style="height: 20px;">
                                     <div style="font-size: 14px;line-height: 14px;">
-                                        <?php $dataReport['date'] ?? '-'; ?>
+                                        <?= $apDate ?? '-'; ?>
                                     </div>
                                 </td>
                             </tr>
                         </table>
                     </td>
-                </tr> --}}
+                </tr>
             </table>
 
             <table style="margin-left: 1px; width: 100%;">
@@ -169,7 +169,7 @@
                 </tr>
 
                 <?php $counter = 1; $grandTotalIDR = 0; $grandTotalOtherCurrency = 0; $grandTotalEquivalentIDR = 0; ?>
-                <?php foreach ($dataReport['data'] as $data) { ?>
+                <?php foreach ($dataReport as $data) { ?>
                     <?php $grandTotalIDR += $data['totalIDR']; $grandTotalOtherCurrency += $data['totalOtherCurrency']; $grandTotalEquivalentIDR += $data['totalEquivalentIDR']; ?>
                     <tr>
                         <td>
