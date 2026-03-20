@@ -381,11 +381,11 @@
                             <input id="combinedBudgetSectionDetail_RefID${key}" value="${val2.sys_ID}" type="hidden" />
                             
                             ${productColumn}
-                            <td style="text-align: center;">${currencyTotal(val2.quantity)}</td>
-                            <td style="text-align: center;">${val2.productName === "Unspecified Product" ? '-' : currencyTotal(val2.quantityRemaining)}</td>
+                            <td style="text-align: center;">${Utils.formatCurrency(val2.quantity)}</td>
+                            <td style="text-align: center;">${val2.productName === "Unspecified Product" ? '-' : Utils.formatCurrency(val2.quantityRemaining)}</td>
                             <td style="text-align: center;">${val2.quantityUnitName || '-'}</td>
-                            <td style="text-align: center;">${currencyTotal(val2.priceBaseCurrencyValue)}</td>
-                            <td style="text-align: center;">${currencyTotal(totalBudget)}</td>
+                            <td style="text-align: center;">${Utils.formatCurrency(val2.priceBaseCurrencyValue)}</td>
+                            <td style="text-align: center;">${Utils.formatCurrency(totalBudget)}</td>
                             <td style="text-align: center;">${val2.priceBaseCurrencyISOCode}</td>
                             <td class="sticky-col forth-col-arf" style="border:1px solid #e9ecef;background-color:white;">
                                 <input class="form-control number-without-negative" id="qty_req${key}" autocomplete="off" style="border-radius:0px;" ${isUnspecified} />

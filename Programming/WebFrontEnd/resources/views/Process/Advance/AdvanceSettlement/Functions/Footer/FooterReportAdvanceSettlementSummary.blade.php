@@ -50,13 +50,13 @@
             },
             dataType: 'json',
             success: function(response) {
+                let totalExpenseClaim       = 0;
+                let totalAmountDueCompany   = 0;
+                let totalAdvanceSettlement  = 0;
+
                 if (response.status === 200 && response.data[0]) {
                     let data = response.data;
                     dataReport = JSON.stringify(data);
-
-                    let totalExpenseClaim       = 0;
-                    let totalAmountDueCompany   = 0;
-                    let totalAdvanceSettlement  = 0;
 
                     data.forEach(function(row) {
                         totalExpenseClaim       += parseFloat(row.total_Expense_Claim) || 0;
@@ -158,14 +158,14 @@
                             // End of Menghitung total berdasarkan data yang tampil pada halaman aktif
 
                             $('#table_summary tfoot th:nth-child(2)').text(currencyTotal(totalExpenseClaim));
-                            $('#table_summary tfoot th:nth-child(3)').text('0'); 
-                            $('#table_summary tfoot th:nth-child(4)').text('0');
+                            $('#table_summary tfoot th:nth-child(3)').text(currencyTotal('0')); 
+                            $('#table_summary tfoot th:nth-child(4)').text(currencyTotal('0'));
                             $('#table_summary tfoot th:nth-child(5)').text(currencyTotal(totalAmountDueCompany));
-                            $('#table_summary tfoot th:nth-child(6)').text('0'); 
-                            $('#table_summary tfoot th:nth-child(7)').text('0');
+                            $('#table_summary tfoot th:nth-child(6)').text(currencyTotal('0')); 
+                            $('#table_summary tfoot th:nth-child(7)').text(currencyTotal('0'));
                             $('#table_summary tfoot th:nth-child(8)').text(currencyTotal(totalAdvanceSettlement));
-                            $('#table_summary tfoot th:nth-child(9)').text('0'); 
-                            $('#table_summary tfoot th:nth-child(10)').text('0');
+                            $('#table_summary tfoot th:nth-child(9)').text(currencyTotal('0')); 
+                            $('#table_summary tfoot th:nth-child(10)').text(currencyTotal('0'));
                         }
                     });
 
@@ -180,6 +180,31 @@
                         deferRender: true,
                         scrollCollapse: true,
                         scroller: true,
+                        drawCallback: function(settings) {
+                            // Start of Menghitung total berdasarkan data yang tampil pada halaman aktif
+                            // let api                         = this.api();
+                            // let totalExpenseClaimPage       = 0;
+                            // let totalAmountDueCompanyPage   = 0;
+                            // let totalAdvanceSettlementPage  = 0;
+
+                            // api.rows({ page: 'current' }).every(function(rowIdx, tableLoop, rowLine) {
+                            //     let row                     = api.row(rowIdx).data();
+                            //     totalExpenseClaimPage       += parseFloat(row.total_Expense_Claim) || 0;
+                            //     totalAmountDueCompanyPage   += parseFloat(row.total_Amount_Due_Company) || 0;
+                            //     totalAdvanceSettlementPage  += parseFloat(row.total_Advance_Settlement) || 0;
+                            // });
+                            // End of Menghitung total berdasarkan data yang tampil pada halaman aktif
+
+                            $('#table_summary tfoot th:nth-child(2)').text(currencyTotal(totalExpenseClaim));
+                            $('#table_summary tfoot th:nth-child(3)').text(currencyTotal('0')); 
+                            $('#table_summary tfoot th:nth-child(4)').text(currencyTotal('0'));
+                            $('#table_summary tfoot th:nth-child(5)').text(currencyTotal(totalAmountDueCompany));
+                            $('#table_summary tfoot th:nth-child(6)').text(currencyTotal('0')); 
+                            $('#table_summary tfoot th:nth-child(7)').text(currencyTotal('0'));
+                            $('#table_summary tfoot th:nth-child(8)').text(currencyTotal(totalAdvanceSettlement));
+                            $('#table_summary tfoot th:nth-child(9)').text(currencyTotal('0')); 
+                            $('#table_summary tfoot th:nth-child(10)').text(currencyTotal('0'));
+                        }
                     });
 
                     $('#table_summary').css("width", "100%");
