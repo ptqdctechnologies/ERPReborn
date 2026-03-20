@@ -8,7 +8,7 @@
     const subBudgetName = document.getElementById("sub_budget_name");
     const supplierID    = document.getElementById("supplier_id");
     const supplierName  = document.getElementById("supplier_name");
-    const poDate        = document.getElementById("purchase_order_date_range_container");
+    const poDate        = document.getElementById("purchase_order_date_range");
     const printType     = document.getElementById("print_type");
 
     function resetForm() {
@@ -49,16 +49,16 @@
             },
             dataType: 'json',
             success: function(response) {
+                let totalValuePO                = 0;
+                let totalVATPO                  = 0;
+                let totalValuePOOtherCurrency   = 0;
+                let totalVATPOOtherCurrency     = 0;
+                let totalValuePOEquivalentIDR   = 0;
+                let totalVATPOEquivalentIDR     = 0;
+                
                 if (response.status === 200 && response.data[0]) {
                     let data = response.data;
                     dataReport = JSON.stringify(data);
-
-                    let totalValuePO                = 0;
-                    let totalVATPO                  = 0;
-                    let totalValuePOOtherCurrency   = 0;
-                    let totalVATPOOtherCurrency     = 0;
-                    let totalValuePOEquivalentIDR   = 0;
-                    let totalVATPOEquivalentIDR     = 0;
 
                     data.forEach(function(row) {
                         totalValuePO                += parseFloat(row.total_Idr_WithoutVat) || 0;
@@ -149,10 +149,26 @@
                     $('#table_summary').css("width", "100%");
                     $('#table_container').css("display", "block");
                 } else {
-                    $('#table_container').hide(); 
-                    $('#table_summary tbody').empty();
-                    $('#table_summary tfoot').empty();
-                    ErrorNotif("Error");
+                    dataReport = [];
+
+                    $('#table_summary').DataTable({
+                        destroy: true,
+                        data: [],
+                        deferRender: true,
+                        scrollCollapse: true,
+                        scroller: true,
+                        drawCallback: function(settings) {
+                            $('#table_summary tfoot th:nth-child(2)').text(currencyTotal(totalValuePO));
+                            $('#table_summary tfoot th:nth-child(3)').text(currencyTotal(totalVATPO));
+                            $('#table_summary tfoot th:nth-child(4)').text(currencyTotal(totalValuePOOtherCurrency));
+                            $('#table_summary tfoot th:nth-child(5)').text(currencyTotal(totalVATPOOtherCurrency));
+                            $('#table_summary tfoot th:nth-child(6)').text(currencyTotal(totalValuePOEquivalentIDR));
+                            $('#table_summary tfoot th:nth-child(7)').text(currencyTotal(totalVATPOEquivalentIDR));
+                        }
+                    });
+
+                    $('#table_summary').css("width", "100%");
+                    $('#table_container').css("display", "block");
                 }
 
                 HideLoading();
@@ -207,30 +223,69 @@
         });
     }
 
+    function validateShowButton() {
+        const isBudgetIDNotEmpty    = budgetID.value.trim() !== '';
+        const isSupplierIDNotEmpty  = supplierID.value.trim() !== '';
+        const isPoDateNotEmpty      = poDate.value.trim() !== '';
+
+        if (
+            isBudgetIDNotEmpty ||
+            isSupplierIDNotEmpty ||
+            isPoDateNotEmpty
+        ) {
+            hideErrorInputMessage("#budget_name", "#budgetMessage");
+            hideErrorInputMessage("#supplier_name", "#supplierMessage");
+            hideErrorInputMessage("#purchase_order_date_range", "#dateRangeMessage");
+
+            getDataReport();
+        } else {
+            showErrorInputMessage("#budget_name", "#budgetMessage");
+            showErrorInputMessage("#supplier_name", "#supplierMessage");
+            showErrorInputMessage("#purchase_order_date_range", "#dateRangeMessage");
+        }
+    }
+
+    function validateExportButton() {
+        if (dataReport.length > 0) {
+            exportDataReport();
+        } else {
+            ErrorNotif("No data available to export. Please display the data first.");
+        }
+    }
+
     $('#tableProjects').on('click', 'tbody tr', function() {
-        let sysId   = $(this).find('input[data-trigger="sys_id_project"]').val();
-        let code    = $(this).find('td:nth-child(2)').text();
-        let name    = $(this).find('td:nth-child(3)').text();
+        const sysId   = $(this).find('input[data-trigger="sys_id_project"]').val();
+        const code    = $(this).find('td:nth-child(2)').text();
+        const name    = $(this).find('td:nth-child(3)').text();
 
         $("#budget_id").val(sysId);
         $("#budget_code").val(code);
         $("#budget_name").val(`${code} - ${name}`);
         $("#budget_name").css('background-color', '#e9ecef');
 
+        hideErrorInputMessage("#budget_name", "#budgetMessage");
         getSites(sysId);
+
+        $("#mySitesTrigger").css('cursor', 'pointer');
+        $("#mySitesTrigger").attr({
+            "data-toggle": "modal",
+            "data-target": "#mySites"
+        });
 
         $('#myProjects').modal('hide');
     });
 
     $('#tableSites').on('click', 'tbody tr', function() {
-        let sysId       = $(this).find('input[data-trigger="sys_id_site"]').val();
-        let siteCode    = $(this).find('td:nth-child(2)').text();
-        let siteName    = $(this).find('td:nth-child(3)').text();
+        const sysId       = $(this).find('input[data-trigger="sys_id_site"]').val();
+        const siteCode    = $(this).find('td:nth-child(2)').text();
+        const siteName    = $(this).find('td:nth-child(3)').text();
 
         $("#sub_budget_id").val(sysId);
         $("#sub_budget_code").val(siteCode);
         $("#sub_budget_name").val(`${siteCode} - ${siteName}`);
         $("#sub_budget_name").css('background-color', '#e9ecef');
+
+        hideErrorInputMessage("#sub_budget_name", "#subBudgetMessage");
 
         $('#mySites').modal('hide');
     });
@@ -245,6 +300,8 @@
         $("#supplier_code").val(supplierCode);
         $("#supplier_name").val(`${supplierCode} - ${supplierName}`);
         $("#supplier_name").css('background-color', '#e9ecef');
+
+        hideErrorInputMessage("#supplier_name", "#supplierMessage");
 
         $('#mySuppliers').modal('hide');
     });
@@ -261,6 +318,7 @@
         $('#purchase_order_date_range').on('apply.daterangepicker', function(ev, picker) {
             $("#purchase_order_date_range").css('background-color', '#e9ecef');
             $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
+            hideErrorInputMessage("#purchase_order_date_range", "#dateRangeMessage");
         });
 
         $('#purchase_order_date_range').on('cancel.daterangepicker', function(ev, picker) {
