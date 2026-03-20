@@ -3,6 +3,138 @@
 </footer>
 
 <script>
+  // ============================================
+  // Configuration & Constants
+  // ============================================ 
+  const CONFIG = {
+    UNSPECIFIED_PRODUCT: 'Unspecified Product',
+    DEFAULT_BALANCED: '-',
+    INPUT_SELECTOR: {
+      qty: 'qty_req',
+      price: 'price_req',
+      total: 'total_req',
+      balanced: 'balanced_qty'
+    }
+  };
+
+  // ============================================
+  // Utility Functions
+  // ============================================
+  const Utils = {
+    cancelForm: (url) => {
+      $("#loading").show();
+      $(".loader").show();
+      window.location.href = url;
+    },
+    formatCurrency: (value) => {
+      return Number(value).toLocaleString("en-US", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      });
+    },
+    removeCommas: (value) => value.replace(/,/g, ''),
+    parseFloatSafe: (value) => parseFloat(value || 0),
+    showLoading: () => {
+      $("#loading").show();
+      $(".loader").show();
+    },
+    hideLoading: () => {
+      $("#loading").hide();
+      $(".loader").hide();
+    }
+  }
+
+  // ============================================
+  // Data Processing Functions
+  // ============================================
+  const DataProcessor = {
+    calculateTotalTable: (component, element1, element2) => {
+      let total = 0;
+
+      // component example: 'input[id^="total_req"]'
+      document.querySelectorAll(component).forEach(function(input) {
+        let value = parseFloat(input.value.replace(/,/g, '')); // Mengambil nilai dan menghilangkan koma
+        if (!isNaN(value)) {
+          total += value;
+        }
+      });
+
+      document.getElementById(element1).textContent = total.toLocaleString('en-US', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      });
+
+      if (element2) {
+        document.getElementById(element1).textContent = total.toLocaleString('en-US', {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2
+        });
+      }
+    },
+    calculateTotalBudget: (item) => item.quantity * item.priceBaseCurrencyValue,
+  }
+
+  // ============================================
+  // DOM Rendering Functions
+  // ============================================
+  const DOMRenderer = {
+    clearTable: (value) => {
+      $(`${value} tbody`).empty();
+    },
+  }
+
+  // ============================================
+  // Error Handling
+  // ============================================
+  const ErrorHandler = {
+    notifToast: (type, description, title) => {
+      // https://codeseven.github.io/toastr/demo.html
+      toastr.options = {
+        "closeButton": true,
+        "debug": false,
+        "newestOnTop": false,
+        "progressBar": true,
+        "positionClass": "toast-middle-center",
+        "preventDuplicates": false,
+        "onclick": null,
+        // "showDuration": "1000",
+        // "hideDuration": "1000",
+        "timeOut": "2500",
+        // "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+      };
+
+      toastr[type](description, title); // Type: success, error, warning, info      
+
+      // Usage Only Text
+      // ErrorHandler.notifToast(
+      //   'success',
+      //   'asdas',
+      //   'Success!'
+      // );
+
+      // Usage With Button
+      // ErrorHandler.notifToast(
+      //   'success',
+      //   'asdas<br /><br /><button type="button" onclick="Utils.cancelForm(\'{{ route('BusinessTripRequest.index', ['var' => 1]) }}\')" style="background-color:white; padding:10px;color:#DC3545;border-radius:5px;">Back</button>',
+      //   'Success!'
+      // );
+    },
+    showErrorInputMessage: (componentId, messageId) => {
+      $(componentId).css("border", "1px solid red");
+      $(messageId).show();
+    },
+    hideErrorInputMessage: (componentId, messageId) => {
+      $(componentId).css("border", "1px solid #ced4da");
+      $(messageId).hide();
+    },
+  }
+</script>
+
+<script>
   function showErrorInputMessage(componentId, messageId) {
     $(componentId).css("border", "1px solid red");
     $(messageId).show();
