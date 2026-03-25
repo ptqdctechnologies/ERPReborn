@@ -13,13 +13,32 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class ExportReportAccountPayableSummary implements FromCollection, WithHeadings, ShouldAutoSize, WithStyles
 {
+    protected $dataAccountPayableSummary, $budgetName, $subBudgetName, $supplierName, $apDate;
+
+    public function __construct($dataAccountPayableSummary, $budgetName, $subBudgetName, $supplierName, $apDate)
+    {
+        $this->dataAccountPayableSummary    = $dataAccountPayableSummary;
+        $this->budgetName                   = $budgetName;
+        $this->subBudgetName                = $subBudgetName;
+        $this->supplierName                 = $supplierName;
+        $this->apDate                       = $apDate;
+    }
+
     public function collection()
     {
-        $data = Session::get("dataReportAccountPayableSummary");
+        $data = $this->dataAccountPayableSummary;
+
+        $totalIDR           = 0;
+        $totalOtherCurrency = 0;
+        $totalEquivalentIDR = 0;
 
         $filteredData = [];
         $counter = 1;
-        foreach ($data['data'] as $item) {
+        foreach ($data as $item) {
+            $totalIDR           += is_numeric($item['totalIDR']) ? $item['totalIDR'] : 0;
+            $totalOtherCurrency += is_numeric($item['totalOtherCurrency']) ? $item['totalOtherCurrency'] : 0;
+            $totalEquivalentIDR += is_numeric($item['totalEquivalentIDR']) ? $item['totalEquivalentIDR'] : 0;
+
             $filteredData[] = [
                 'No'                    => $counter++,
                 'AP Number'             => $item['documentNumber'] ?? '-',
@@ -35,33 +54,32 @@ class ExportReportAccountPayableSummary implements FromCollection, WithHeadings,
             ];
         }
 
+        $filteredData[] = [
+            'No'                    => 'GRAND TOTAL',
+            'AP Number'             => '',
+            'Date'                  => '',
+            'Sub Budget'            => '',
+            'Supplier'              => '',
+            'Total IDR'             => isset($item['totalIDR']) ? (string)$item['totalIDR'] : '0',
+            'Total Other Currency'  => isset($item['totalOtherCurrency']) ? (string)$item['totalOtherCurrency'] : '0',
+            'Total Equivalent IDR'  => isset($item['totalEquivalentIDR']) ? (string)$item['totalEquivalentIDR'] : '0',
+            'Tax Invoice Number'    => '',
+            'Submitter'             => '',
+            'Status'                => '',
+        ];
+
         return collect($filteredData);
     }
 
     public function headings(): array
     {
-        $data = Session::get("dataReportAccountPayableSummary");
-
-        $savingData = [
-            'budget'    => [
-                'code'  => $data['project']['code'] ?? '',
-                'name'  => $data['project']['name'] ?? ''
-            ],
-            'subBudget' => [
-                'code'  => $data['site']['code'] ?? '',
-                'name'  => $data['site']['name'] ?? ''
-            ],
-            'supplier'  => $data['supplier']['code'] ?? '-',
-            'date'      => $data['date'] ?? '-'
-        ];
-
         return [
             [date('F j, Y')],
             ["ACCOUNT PAYABLE SUMMARY"],
             [date('h:i A')],
-            ["Budget", ": " . $savingData['budget']['code'] . ' - ' . $savingData['budget']['name'], "Sub Budget", ": " . $savingData['subBudget']['code'] . ' - ' . $savingData['subBudget']['name'], "", "", "", "", "", "", ""],
-            ["Supplier", ": " . $savingData['supplier'], "Date", ": " . $savingData['date'], "", "", "", "", "", "", ""],
-            ["", "", "", "", "", "", "", "", "", "", ""],
+            ["Budget", ": " . ($this->budgetName ?? '-'), "Supplier", ": " . ($this->supplierName) ?? '-'],
+            ["Sub Budget", ": " . ($this->subBudgetName ?? '-'), "Date Range", ": " . ($this->apDate) ?? '-'],
+            [""],
             ["No", "AP Number", "Date", "Sub Budget", "Supplier", "Total IDR", "Total Other Currency", "Total Equivalent IDR", "Tax Invoice Number", "Submitter", "Status"]
         ];
     }
@@ -93,7 +111,6 @@ class ExportReportAccountPayableSummary implements FromCollection, WithHeadings,
                 'horizontal' => Alignment::HORIZONTAL_CENTER,
             ]
         ];
-
         $sheet->getStyle('A2:K2')->applyFromArray($styleArrayHeader1);
         $sheet->mergeCells('A2:K2');
 
@@ -161,7 +178,7 @@ class ExportReportAccountPayableSummary implements FromCollection, WithHeadings,
             ],
         ];
         $sheet->getStyle('A7:K7')->applyFromArray($styleArrayHeader2);
-        
+
         $styleArrayContent = [
             'borders' => [
                 'allBorders' => [
@@ -173,17 +190,36 @@ class ExportReportAccountPayableSummary implements FromCollection, WithHeadings,
             ],
         ];
 
-        $datas = Session::get("dataReportAccountPayableSummary");
-        $totalCell = count($datas['data']);
+        $datas = $this->dataAccountPayableSummary;
+        $totalCell = count($datas);
         $lastCell = 'A7:K' . $totalCell + 7;
         $sheet->getStyle($lastCell)->applyFromArray($styleArrayContent);
 
-        $sheet->insertNewRowBefore($totalCell + 8, 1);
-        $sheet->setCellValue('A' . $totalCell + 8, "GRAND TOTAL");
-        $sheet->setCellValue('F' . $totalCell + 8, collect($datas['data'])->sum('totalIDR'));
-        $sheet->setCellValue('G' . $totalCell + 8, collect($datas['data'])->sum('totalOtherCurrency'));
-        $sheet->setCellValue('H' . $totalCell + 8, collect($datas['data'])->sum('totalEquivalentIDR'));
-        $sheet->mergeCells('A' . $totalCell + 8 . ':' . 'E' . $totalCell + 8);
-        $sheet->mergeCells('I' . $totalCell + 8 . ':' . 'K' . $totalCell + 8);
+        $styleArrayFooter = [
+            'font' => [
+                'bold' => true,
+                'color' => [
+                    'rgb' => '000000',
+                ],
+            ],
+            'borders' => [
+                'allBorders' => [
+                    'borderStyle' => Border::BORDER_THIN,
+                ],
+            ],
+            'alignment' => [
+                'horizontal' => Alignment::HORIZONTAL_CENTER,
+            ],
+            'fill' => [
+                'fillType' => 'solid',
+                'rotation' => 0,
+                'color' => [
+                    'rgb' => 'E9ECEF',
+                ],
+            ],
+        ];
+
+        $sheet->getStyle('A' . $totalCell + 8 . ':' . 'K' . $totalCell + 8)->applyFromArray($styleArrayFooter);
+        $sheet->mergeCells('A' . $totalCell + 8 . ':E' . $totalCell + 8);
     }
 }

@@ -30,7 +30,7 @@
         let total = 0;
         const rows = document.querySelectorAll('#material_receive_list_table_modal tbody tr');
         rows.forEach(row => {
-            const totalCell = row.children[4];
+            const totalCell = row.children[3];
             const value = parseFloat(totalCell.innerText.replace(/,/g, '')) || 0;
             total += value;
         });
@@ -111,8 +111,7 @@
                 noteInput.value.trim() !== ''
             ) {
                 const transNumber   = row.children[0].value.trim();
-                const productCode   = row.children[2].value.trim();
-                const productName   = row.children[3].value.trim();
+                const productCode   = row.children[14].innerText.trim();
                 const qtyAvail      = row.children[5].value.trim();
                 const uom           = row.children[6].value.trim();
 
@@ -127,8 +126,8 @@
                     const targetProductCode = targetRow.children[1].innerText.trim();
 
                     if (targetProductCode == productCode) {
-                        targetRow.children[4].innerText = qty;
-                        targetRow.children[5].innerText = note;
+                        targetRow.children[3].innerText = qty;
+                        targetRow.children[4].innerText = note;
                         found = true;
 
                         const indexToUpdate = dataStore.findIndex(item => item.entities.productCode == productCode);
@@ -155,8 +154,7 @@
                     const newRow = document.createElement('tr');
                     newRow.innerHTML = `
                         <input type="hidden" name="qty_avail[]" value="${qtyAvail}">
-                        <td style="text-align: left;padding: 0.8rem; width: 15% !important;">${productCode}</td>
-                        <td style="text-align: left;padding: 0.8rem;text-wrap: auto;">${productName}</td>
+                        <td style="text-align: left;padding: 0.8rem;text-wrap: auto;">${productCode}</td>
                         <td style="text-align: left;padding: 0.8rem;">${uom}</td>
                         <td style="text-align: right;padding: 0.8rem;">${qty}</td>
                         <td style="text-align: right;padding: 0.8rem;" hidden>${note}</td>
@@ -178,6 +176,22 @@
                         }
                     });
                 }
+            } else {
+                const productCode = row.children[14].innerText.trim();
+                const existingRows = targetTable.getElementsByTagName('tr');
+
+                for (let targetRow of existingRows) {
+                    const targetProductCode = targetRow.children[1].innerText.trim();
+
+                    if (targetProductCode == productCode) {
+                        targetRow.remove();
+                        break;
+                    }
+                }
+
+                dataStore = dataStore.filter(item => {
+                    return !(item.entities.productCode === productCode);
+                });
             }
         }
         
@@ -258,6 +272,8 @@
         $("#delivery_order_trigger").hide();
         $("#delivery_order_loading").show();
 
+        console.log('delivery_order_id', delivery_order_id);
+
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -270,6 +286,8 @@
             success: async function(data) {
                 let tbody = $('#tableMaterialReceiveDetail tbody');
                 tbody.empty();
+
+                console.log('data', data);
 
                 if (Array.isArray(data) && data.length > 0) {
                     const documentTypeID = document.getElementById("DocumentTypeID");
@@ -340,9 +358,8 @@
                                 <input id="productUnitPriceBaseCurrencyValue${key}" value="${val2.productUnitPriceBaseCurrencyValue}" type="hidden" />
 
                                 <td style="text-align: center;">-</td>
-                                <td style="text-align: center;">${data[0].combinedBudgetSectionCode + ' - ' + data[0].combinedBudgetSectionName}</td>
-                                <td style="text-align: center;">${val2.productCode}</td>
-                                <td style="text-align: center;text-wrap: auto;">${val2.productName}</td>
+                                <td style="text-align: left;">${data[0].combinedBudgetSectionCode + ' - ' + data[0].combinedBudgetSectionName}</td>
+                                <td style="text-align: left;text-wrap: auto;">${val2.productCode} - ${val2.productName}</td>
                                 <td style="text-align: center;">${val2.qtyReq}</td>
                                 <td style="text-align: center;">${val2.qtyAvail}</td>
                                 <td style="text-align: center;">${val2.quantityUnitName}</td>
@@ -382,6 +399,7 @@
 
                     $(".loadingMaterialReceiveDetail").hide();
                     $("#tableMaterialReceiveDetail tbody").show();
+                    $(".errorMessageContainerMaterialReceiveDetail").hide();
                 } else {
                     $(".loadingMaterialReceiveDetail").hide();
                     $(".errorMessageContainerMaterialReceiveDetail").show();
@@ -392,6 +410,9 @@
                     $("#tableMaterialReceiveDetail_info").hide();
                     $("#tableMaterialReceiveDetail_paginate").hide();
                 }
+
+                $("#delivery_order_loading").hide();
+                $("#delivery_order_trigger").show();
             },
             error: function (textStatus, errorThrown) {
                 $('#tableMaterialReceiveDetail tbody').empty();

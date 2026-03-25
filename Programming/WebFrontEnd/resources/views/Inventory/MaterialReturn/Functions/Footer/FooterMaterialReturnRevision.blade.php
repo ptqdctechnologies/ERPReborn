@@ -32,8 +32,7 @@
             ) {
                 const subBudget   = row.children[3].innerText.trim();
                 const productCode = row.children[4].innerText.trim();
-                const productName = row.children[5].innerText.trim();
-                const uom         = row.children[6].innerText.trim();
+                const uom         = row.children[5].innerText.trim();
 
                 const materialReturnValue = materialReturnValueInput.value.trim();
                 const materialReturnNote  = materialReturnNoteInput.value.trim();
@@ -46,7 +45,7 @@
                     const targetMaterialReceiveDetailRefID  = targetRow.children[1]?.value?.trim();
 
                     if (targetRecordRefID == recordRefID.value && targetMaterialReceiveDetailRefID == materialReceiveDetailRefID.value) {
-                        targetRow.children[5].innerText = materialReturnValue;
+                        targetRow.children[4].innerText = materialReturnValue;
                         found = true;
 
                         const indexToUpdate = dataStore.findIndex(item => item.recordID == recordRefID.value && item.entities.warehouseInboundOrderDetail_RefID == materialReceiveDetailRefID.value);
@@ -72,7 +71,6 @@
 
                         <td style="text-align: left;padding: 0.8rem 0.5rem;">${subBudget}</td>
                         <td style="text-align: center;padding: 0.8rem 0.5rem;">${productCode}</td>
-                        <td style="text-align: left;padding: 0.8rem 0.5rem;">${productName}</td>
                         <td style="text-align: left;padding: 0.8rem 0.5rem;">${uom}</td>
                         <td style="text-align: right;padding: 0.8rem 0.5rem;">${decimalFormat(materialReturnValue)}</td>
                     `;
@@ -136,8 +134,7 @@
 
                     <td style="text-align: center;">-</td>
                     <td style="text-align: center;">${val.CombinedBudgetSectionCode} - ${val.CombinedBudgetSectionName}</td>
-                    <td style="text-align: center;">${val.ProductCode}</td>
-                    <td style="text-align: center;">${val.ProductName}</td>
+                    <td style="text-align: center;">${val.ProductCode || ''} - ${val.ProductName || ''}</td>
                     <td style="text-align: center;">${val.QuantityUnitName}</td>
                     <td style="text-align: center;">${val.noteWarehouseInboundOrderDetail}</td>
                     <td style="text-align: center;">${decimalFormat(parseFloat(val.QtyWarehouseInboundOrderDetail))}</td>
@@ -168,8 +165,7 @@
                     <input type="hidden" id="target_record_id${key}" value="${val.Sys_ID}" />
                     <input type="hidden" id="target_warehouse_inbound_order_detail_id${key}" value="${val.WarehouseInboundOrderDetail_RefID}" />
 
-                    <td style="text-align: right;padding: 0.8rem;">${val.ProductCode || '-'}</td>
-                    <td style="text-align: left;padding: 0.8rem;">${val.ProductName || '-'}</td>
+                    <td style="text-align: left;padding: 0.8rem;">${val.ProductCode || ''} - ${val.ProductName || ''}</td>
                     <td style="text-align: left;padding: 0.8rem;">${val.QuantityUnitName || '-'}</td>
                     <td style="text-align: right;padding: 0.8rem;">${val.QtyWarehouseOutboundOrder || ''}</td>
                 </tr>

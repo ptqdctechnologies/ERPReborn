@@ -570,6 +570,7 @@ class MaterialReceiveController extends Controller
         try {
             $varAPIWebToken = Session::get('SessionLogin');
             $response = $this->materialReceiveService->getDetail($request->modal_material_receive_id);
+            $documentTypeRefID  = $this->GetBusinessDocumentsTypeFromRedis('Warehouse Inbound Order Revision Form');
 
             if ($response['metadata']['HTTPStatusCode'] !== 200) {
                 return response()->json($response);
@@ -581,8 +582,9 @@ class MaterialReceiveController extends Controller
             // dump($data);
 
             $compact = [
-                'varAPIWebToken'    => $varAPIWebToken,
-                'header'            => [
+                'varAPIWebToken'        => $varAPIWebToken,
+                'documentType_RefID'    => $documentTypeRefID,
+                'header'                => [
                     'combinedBudget_RefID'          => $data[0]['combinedBudget_RefID'] ?? '',
                     'combinedBudgetCode'            => $data[0]['combinedBudgetCode'] ?? '',
                     'combinedBudgetName'            => $data[0]['combinedBudgetName'] ?? '',

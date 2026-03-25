@@ -15,6 +15,12 @@
             </div>
         </div>
     </div>
+    <div class="row" id="budgetMessage" style="margin-top: .3rem; display: none;">
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+        <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end text-red">
+            Budget cannot be empty.
+        </div>
+    </div>
 
     <!-- SUB BUDGET -->
     <div class="row p-0 align-items-center" style="margin-top: 1rem;">
@@ -49,6 +55,12 @@
             </div>
         </div>
     </div>
+    <div class="row" id="supplierMessage" style="margin-top: .3rem; display: none;">
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+        <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end text-red">
+            Supplier cannot be empty.
+        </div>
+    </div>
 
     <!-- DATE RANGE -->
     <div class="row p-0 align-items-center" style="margin-top: 1rem;">
@@ -64,6 +76,12 @@
                     <input readonly type="text" class="form-control" style="height: 21.8px;border-radius:0;background-color:white;" id="account_payable_summary_date_range" name="account_payable_summary_date_range" />
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="row" id="dateRangeMessage" style="margin-top: .3rem; display: none;">
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+        <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end text-red">
+            Date Range cannot be empty.
         </div>
     </div>
 </div>
@@ -82,7 +100,7 @@
             </span>
         </button>
     </div>
-
+    
     <!-- SUBMIT -->
     <div class="row" style="gap: 0.5rem;">
         <button type="button" class="btn btn-default btn-sm" onclick="validateShowButton()" style="margin-top: -5px;">

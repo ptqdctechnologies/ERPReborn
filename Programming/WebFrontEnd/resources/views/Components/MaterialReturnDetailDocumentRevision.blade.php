@@ -17,9 +17,9 @@
                     @endif
                 </tr>
                 <tr>
-                    <th class="text-center" style="vertical-align: middle; width: 125px; min-width: 125px; max-width: 125px; left: 0px; z-index: 10;position: sticky; background-color: white;">Sub Budget Code</th>
-                    <th class="text-center" style="vertical-align: middle; width: 125px; min-width: 125px; max-width: 125px; left: 125px; z-index: 10;position: sticky; background-color: white;">Product Code</th>
-                    <th class="text-center" style="vertical-align: middle; width: 125px; min-width: 125px; max-width: 125px; left: 250px; z-index: 10;position: sticky; background-color: white;">Product Name</th>
+                    <th class="text-center" style="vertical-align: middle; width: 125px; min-width: 125px; max-width: 125px; left: 125px; z-index: 10;position: sticky; background-color: white;">Work</th>
+                    <th class="text-center" style="vertical-align: middle; width: 125px; min-width: 125px; max-width: 125px; left: 0px; z-index: 10;position: sticky; background-color: white;">Sub Budget</th>
+                    <th class="text-center" style="vertical-align: middle; width: 125px; min-width: 125px; max-width: 125px; left: 250px; z-index: 10;position: sticky; background-color: white;">Product</th>
                     <th class="text-center" style="vertical-align: middle; width: 70px; min-width: 70px; max-width: 70px; left: 375px; z-index: 10;position: sticky; background-color: white;">UOM</th>
                     <th class="text-center" style="vertical-align: middle; width: 80px; min-width: 80px; max-width: 80px; left: 445px; z-index: 10;position: sticky; background-color: white;">Qty</th>
                     <th class="text-center" style="vertical-align: middle; width: 125px; min-width: 125px; max-width: 125px; left: 525px; z-index: 10;position: sticky; background-color: white;">Note</th>

@@ -118,12 +118,12 @@
         let total = 0;
         const rows = document.querySelectorAll('#tableRemList tbody tr');
         rows.forEach(row => {
-            const totalCell = row.children[4];
+            const totalCell = row.children[3];
             const value = parseFloat(totalCell.innerText.replace(/,/g, '')) || 0;
             total += value;
         });
 
-        document.getElementById('GrandTotal').innerText = `Total (${rows[0].children[5].value}): ${decimalFormat(total)}`;
+        document.getElementById('GrandTotal').innerText = `Total (${rows[0].children[4].value}): ${decimalFormat(total)}`;
     }
 
     function summaryData() {
@@ -147,9 +147,8 @@
                 qtyInput.value.trim() !== '' &&
                 priceInput.value.trim() !== ''
             ) {
-                const productCode   = row.children[5].innerText.trim();
-                const productName   = row.children[6].innerText.trim();
-                const currency      = row.children[7].innerText.trim();
+                const product   = row.children[6].innerText.trim();
+                const currency  = row.children[7].innerText.trim();
 
                 const price = priceInput.value.trim();
                 const qty   = qtyInput.value.trim();
@@ -160,12 +159,11 @@
 
                 for (let targetRow of existingRows) {
                     const targetCode = targetRow.children[0]?.innerText?.trim();
-                    const targetName = targetRow.children[1]?.innerText?.trim();
 
-                    if (targetCode == productCode && targetName == productName) {
-                        targetRow.children[2].innerText = price;
-                        targetRow.children[3].innerText = qty;
-                        targetRow.children[4].innerText = total;
+                    if (targetCode == product) {
+                        targetRow.children[1].innerText = price;
+                        targetRow.children[2].innerText = qty;
+                        targetRow.children[3].innerText = total;
                         found = true;
 
                         const indexToUpdate = dataStore.findIndex(item => item.entities.combinedBudgetSectionDetail_RefID == combinedBudgetSectionDetailRefID.value);
@@ -189,8 +187,7 @@
                 if (!found) {
                     const newRow = document.createElement('tr');
                     newRow.innerHTML = `
-                        <td style="text-align: right;padding: 0.8rem 0.5rem;">${productCode}</td>
-                        <td style="text-align: left;padding: 0.8rem 0.5rem;">${productName}</td>
+                        <td style="text-align: left;padding: 0.8rem 0.5rem;">${product}</td>
                         <td style="text-align: right;padding: 0.8rem 0.5rem;">${price}</td>
                         <td style="text-align: right;padding: 0.8rem 0.5rem;">${qty}</td>
                         <td style="text-align: right;padding: 0.8rem 0.5rem;">${total}</td>
@@ -212,15 +209,13 @@
                     });
                 }
             } else {
-                const productCode = row.children[5].innerText.trim();
-                const productName = row.children[6].innerText.trim();
+                const product = row.children[6].innerText.trim();
                 const existingRows = targetTable.getElementsByTagName('tr');
                 
                 for (let targetRow of existingRows) {
                     const targetCode = targetRow.children[0]?.innerText?.trim();
-                    const targetName = targetRow.children[1]?.innerText?.trim();
 
-                    if (targetCode == productCode && targetName == productName) {
+                    if (targetCode == product) {
                         targetRow.remove();
                         break;
                     }
@@ -380,8 +375,8 @@
                                 <input id="quantityUnit_RefID${key}" value="${val2.quantityUnit_RefID}" type="hidden" />
                                 <input id="productUnitPriceCurrency_RefID${key}" value="${val2.priceCurrency_RefID}" type="hidden" />
 
-                                <td style="text-align: center;">${val2.productCode}</td>
-                                <td style="text-align: center;">${val2.productName}</td>
+                                <td style="text-align: center;">-</td>
+                                <td style="text-align: left;">${val2.productCode} - ${val2.productName}</td>
                                 <td style="text-align: center;">${val2.priceBaseCurrencyISOCode}</td>
                                 ${componentsInput}
                             </tr>

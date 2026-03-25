@@ -83,7 +83,7 @@
         let total = 0;
         const rows = document.querySelectorAll('#material_receive_list_table_modal tbody tr');
         rows.forEach(row => {
-            const totalCell = row.children[6];
+            const totalCell = row.children[5];
             const value = parseFloat(totalCell.innerText.replace(/,/g, '')) || 0;
             total += value;
         });
@@ -163,9 +163,8 @@
                 noteInput.value.trim() !== ''
             ) {
                 const productCode   = row.children[4].innerText.trim();
-                const productName   = row.children[5].innerText.trim();
-                const qtyAvail      = row.children[7].innerText.trim();
-                const uom           = row.children[8].innerText.trim();
+                const qtyAvail      = row.children[6].innerText.trim();
+                const uom           = row.children[7].innerText.trim();
 
                 const qty   = qtyInput.value.trim();
                 const note  = noteInput.value.trim();
@@ -177,8 +176,8 @@
                     const recordID = targetRow.children[0].value.trim();
 
                     if (recordID == recordRefID.value) {
-                        targetRow.children[6].innerText = currencyTotal(qty);
-                        targetRow.children[7].innerText = note;
+                        targetRow.children[5].innerText = currencyTotal(qty);
+                        targetRow.children[6].innerText = note;
                         found = true;
 
                         const indexToUpdate = dataStore.findIndex(item => item.recordID == recordRefID.value);
@@ -208,8 +207,7 @@
                             <input type="hidden" name="recordID[]" value="${recordRefID.value}">
                             <input type="hidden" name="deliveryOrderDetailRefID[]" value="${deliveryOrderDetailRefID.value}">
                             <input type="hidden" name="qty_avail[]" value="${qtyAvail}">
-                            <td style="text-align: center;padding: 0.8rem;">${productCode || '-'}</td>
-                            <td style="text-align: center;padding: 0.8rem;">${productName || '-'}</td>
+                            <td style="text-align: left;padding: 0.8rem;">${productCode || '-'}</td>
                             <td style="text-align: center;padding: 0.8rem;">${uom || '-'}</td>
                             <td style="text-align: center;padding: 0.8rem;">${currencyTotal(qty)}</td>
                             <td style="text-align: center;padding: 0.8rem;">${note || '-'}</td>
@@ -333,8 +331,7 @@
 
                     <td style="text-align: center;">-</td>
                     <td style="text-align: center;">${val2.combinedBudgetSectionCode} - ${val2.combinedBudgetSectionName}</td>
-                    <td style="text-align: center;">${val2.productCode || '-'}</td>
-                    <td style="text-align: center;">${val2.productName || '-'}</td>
+                    <td style="text-align: center;">${val2.productCode || ''} - ${val2.productName || ''}</td>
                     <td style="text-align: center;">${currencyTotal(val2.qtyDO) || '-'}</td>
                     <td style="text-align: center;">${currencyTotal(val2.qtyAvailableDO) || '-'}</td>
                     <td style="text-align: center;">${val2.quantityUnitName || '-'}</td>
@@ -377,8 +374,7 @@
                     <input type="hidden" name="recordID[]" value="${val2.sys_ID}">
                     <input type="hidden" name="deliveryOrderDetailRefID[]" value="${val2.deliveryOrderDetail_RefID}">
                     <input type="hidden" name="qty_avail[]" value="${val2.quantity}">
-                    <td style="text-align: center;padding: 0.8rem;">${val2.productCode || '-'}</td>
-                    <td style="text-align: center;padding: 0.8rem;">${val2.productName || '-'}</td>
+                    <td style="text-align: center;padding: 0.8rem;">${val2.productCode || ''} - ${val2.productName || ''}</td>
                     <td style="text-align: center;padding: 0.8rem;">${val2.quantityUnitName || '-'}</td>
                     <td style="text-align: center;padding: 0.8rem;">${val2.quantity || '-'}</td>
                     <td style="text-align: center;padding: 0.8rem;">${val2.note || '-'}</td>
@@ -554,7 +550,6 @@
 
     $(window).one('load', function(e) {
         viewMaterialReceiveDetail(dataTable);
-        getDocumentType("Warehouse Inbound Order Revision Form");
 
         $('#startDate').datetimepicker({
             format: 'L',

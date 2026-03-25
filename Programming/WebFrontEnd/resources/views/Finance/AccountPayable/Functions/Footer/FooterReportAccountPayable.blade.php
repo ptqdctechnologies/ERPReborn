@@ -2,9 +2,12 @@
     let dataReport      = [];
     const budgetID      = document.getElementById("budget_id");
     const budgetCode    = document.getElementById("budget_code");
+    const budgetName    = document.getElementById("budget_name");
     const subBudgetID   = document.getElementById("sub_budget_id");
     const subBudgetCode = document.getElementById("sub_budget_code");
+    const subBudgetName = document.getElementById("sub_budget_name");
     const supplierID    = document.getElementById("supplier_id");
+    const supplierName  = document.getElementById("supplier_name");
     const apDate        = document.getElementById("account_payable_summary_date_range");
     const printType     = document.getElementById("print_type");
 
@@ -45,9 +48,19 @@
             },
             dataType: 'json',
             success: function(response) {
+                let totalIDR            = 0;
+                let totalOtherCurrency  = 0;
+                let totalEquivalentIDR  = 0;
+
                 if (response.status === 200 && response.data[0]) {
                     let data = response.data;
                     dataReport = JSON.stringify(data);
+
+                    data.forEach(function(row) {
+                        totalIDR            += parseFloat(row.totalIDR) || 0;
+                        totalOtherCurrency  += parseFloat(row.totalOtherCurrency) || 0;
+                        totalEquivalentIDR  += parseFloat(row.totalEquivalentIDR) || 0;
+                    });
                     
                     $('#table_summary').DataTable({
                         destroy: true,
@@ -115,7 +128,12 @@
                                 data: 'workflowStatus',
                                 defaultContent: '-'
                             }
-                        ]
+                        ],
+                        drawCallback: function(settings) {
+                            $('#table_summary tfoot th:nth-child(2)').text(currencyTotal(totalIDR));
+                            $('#table_summary tfoot th:nth-child(3)').text(currencyTotal(totalOtherCurrency));
+                            $('#table_summary tfoot th:nth-child(4)').text(currencyTotal(totalEquivalentIDR));
+                        }
                     });
 
                     $('#table_summary').css("width", "100%");
@@ -129,6 +147,11 @@
                         deferRender: true,
                         scrollCollapse: true,
                         scroller: true,
+                        drawCallback: function(settings) {
+                            $('#table_summary tfoot th:nth-child(2)').text(currencyTotal(totalIDR));
+                            $('#table_summary tfoot th:nth-child(3)').text(currencyTotal(totalOtherCurrency));
+                            $('#table_summary tfoot th:nth-child(4)').text(currencyTotal(totalEquivalentIDR));
+                        }
                     });
 
                     $('#table_summary').css("width", "100%");
@@ -145,8 +168,76 @@
         });
     }
 
+    function exportDataReport() {
+        ShowLoading();
+
+        $.ajax({
+            type: 'POST',
+            url: '{!! route("AccountPayable.PrintExportReportAccountPayableSummary") !!}',
+            data: {
+                dataReport,
+                budgetName: budgetName.value,
+                subBudgetName: subBudgetName.value,
+                supplierName: supplierName.value,
+                apDate: apDate.value,
+                printType: printType.value
+            },
+            xhrFields: { 
+                responseType: 'blob'
+            },
+            success: function(response) {
+                var blob = new Blob([response], { type: response.type });
+                var link = document.createElement('a');
+                link.href = window.URL.createObjectURL(blob);
+
+                if (response.type === "application/pdf") {
+                    link.download = "Export Report Account Payable Summary.pdf";
+                } else {
+                    link.download = "Export Report Account Payable Summary.xlsx";
+                }
+
+                link.click();
+
+                window.URL.revokeObjectURL(link.href);
+
+                HideLoading();
+            },
+            error: function(xhr, status, error) {
+                HideLoading();
+                ErrorNotif("An error occurred while processing the received data. Please try again later.");
+                console.log('xhr, status, error', xhr, status, error);
+            }
+        });
+    }
+
     function validateShowButton() {
-        getDataReport();
+        const isBudgetIDNotEmpty    = budgetID.value.trim() !== '';
+        const isSupplierIDNotEmpty  = supplierID.value.trim() !== '';
+        const isApDateNotEmpty      = apDate.value.trim() !== '';
+
+        if (
+            isBudgetIDNotEmpty ||
+            isSupplierIDNotEmpty ||
+            isApDateNotEmpty
+        ) {
+            hideErrorInputMessage("#budget_name", "#budgetMessage");
+            hideErrorInputMessage("#supplier_name", "#supplierMessage");
+            hideErrorInputMessage("#account_payable_summary_date_range", "#dateRangeMessage");
+
+            getDataReport();
+        } else {
+            showErrorInputMessage("#budget_name", "#budgetMessage");
+            showErrorInputMessage("#supplier_name", "#supplierMessage");
+            showErrorInputMessage("#account_payable_summary_date_range", "#dateRangeMessage");
+        }
+    }
+
+    function validateExportButton() {
+        if (dataReport.length > 0) {
+            exportDataReport();
+        } else {
+            ErrorNotif("No data available to export. Please display the data first.");
+        }
     }
 
     $('#tableProjects').on('click', 'tbody tr', function() {
@@ -159,6 +250,7 @@
         $("#budget_name").val(`${code} - ${name}`);
         $("#budget_name").css('background-color', '#e9ecef');
 
+        hideErrorInputMessage("#budget_name", "#budgetMessage");
         getSites(sysId);
 
         $("#mySitesTrigger").css('cursor', 'pointer');
@@ -180,6 +272,8 @@
         $("#sub_budget_name").val(`${siteCode} - ${siteName}`);
         $("#sub_budget_name").css('background-color', '#e9ecef');
 
+        hideErrorInputMessage("#sub_budget_name", "#subBudgetMessage");
+
         $('#mySites').modal('hide');
     });
 
@@ -193,6 +287,8 @@
         $("#supplier_code").val(supplierCode);
         $("#supplier_name").val(`${supplierCode} - ${supplierName}`);
         $("#supplier_name").css('background-color', '#e9ecef');
+
+        hideErrorInputMessage("#supplier_name", "#supplierMessage");
 
         $('#mySuppliers').modal('hide');
     });
@@ -209,6 +305,7 @@
         $('#account_payable_summary_date_range').on('apply.daterangepicker', function(ev, picker) {
             $("#account_payable_summary_date_range").css('background-color', '#e9ecef');
             $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
+            hideErrorInputMessage("#account_payable_summary_date_range", "#dateRangeMessage");
         });
 
         $('#account_payable_summary_date_range').on('cancel.daterangepicker', function(ev, picker) {

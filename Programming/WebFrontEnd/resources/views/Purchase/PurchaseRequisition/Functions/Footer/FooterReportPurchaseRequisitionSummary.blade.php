@@ -41,13 +41,13 @@
             },
             dataType: 'json',
             success: function(response) {
+                let totalIDR            = 0;
+                let totalOtherCurrency  = 0;
+                let totalEquivalentIDR  = 0;
+
                 if (response.status === 200 && response.data[0]) {
                     let data = response.data;
                     dataReport = JSON.stringify(data);
-
-                    let totalIDR            = 0;
-                    let totalOtherCurrency  = 0;
-                    let totalEquivalentIDR  = 0;
 
                     data.forEach(function(row) {
                         totalIDR            += parseFloat(row.total_IDR) || 0;
@@ -141,10 +141,23 @@
                     $('#table_summary').css("width", "100%");
                     $('#table_container').css("display", "block");
                 } else {
-                    $('#table_container').hide(); 
-                    $('#table_summary tbody').empty();
-                    $('#table_summary tfoot').empty();
-                    ErrorNotif("Error");
+                    dataReport = [];
+
+                    $('#table_summary').DataTable({
+                        destroy: true,
+                        data: [],
+                        deferRender: true,
+                        scrollCollapse: true,
+                        scroller: true,
+                        drawCallback: function(settings) {
+                            $('#table_summary tfoot th:nth-child(2)').text(currencyTotal(totalIDR));
+                            $('#table_summary tfoot th:nth-child(3)').text(currencyTotal(totalOtherCurrency)); 
+                            $('#table_summary tfoot th:nth-child(4)').text(currencyTotal(totalEquivalentIDR));
+                        }
+                    });
+
+                    $('#table_summary').css("width", "100%");
+                    $('#table_container').css("display", "block");
                 }
 
                 HideLoading();
@@ -198,6 +211,32 @@
         });
     }
 
+    function validateShowButton() {
+        const isBudgetIDNotEmpty        = budgetID.value.trim() !== '';
+        const isPrDateNotEmpty          = prDate.value.trim() !== '';
+
+        if (
+            isBudgetIDNotEmpty ||
+            isPrDateNotEmpty
+        ) {
+            hideErrorInputMessage("#budget_name", "#budgetMessage");
+            hideErrorInputMessage("#purchase_requisition_date_range", "#dateRangeMessage");
+
+            getDataReport();
+        } else {
+            showErrorInputMessage("#budget_name", "#budgetMessage");
+            showErrorInputMessage("#purchase_requisition_date_range", "#dateRangeMessage");
+        }
+    }
+
+    function validateExportButton() {
+        if (dataReport.length > 0) {
+            exportDataReport();
+        } else {
+            ErrorNotif("No data available to export. Please display the data first.");
+        }
+    }
+
     $('#tableProjects').on('click', 'tbody tr', function() {
         let sysId   = $(this).find('input[data-trigger="sys_id_project"]').val();
         let code    = $(this).find('td:nth-child(2)').text();
@@ -208,7 +247,14 @@
         $("#budget_name").val(`${code} - ${name}`);
         $("#budget_name").css('background-color', '#e9ecef');
 
+        hideErrorInputMessage("#budget_name", "#budgetMessage");
         getSites(sysId);
+
+        $("#mySitesTrigger").css('cursor', 'pointer');
+        $("#mySitesTrigger").attr({
+            "data-toggle": "modal",
+            "data-target": "#mySites"
+        });
 
         $('#myProjects').modal('hide');
     });
@@ -222,6 +268,8 @@
         $("#sub_budget_code").val(siteCode);
         $("#sub_budget_name").val(`${siteCode} - ${siteName}`);
         $("#sub_budget_name").css('background-color', '#e9ecef');
+
+        hideErrorInputMessage("#sub_budget_name", "#subBudgetMessage");
 
         $('#mySites').modal('hide');
     });
@@ -238,6 +286,7 @@
         $('#purchase_requisition_date_range').on('apply.daterangepicker', function(ev, picker) {
             $("#purchase_requisition_date_range").css('background-color', '#e9ecef');
             $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
+            hideErrorInputMessage("#purchase_requisition_date_range", "#dateRangeMessage");
         });
 
         $('#purchase_requisition_date_range').on('cancel.daterangepicker', function(ev, picker) {

@@ -32,7 +32,6 @@
         $(`#advance_summary_date_range`).val("");
 
         hideErrorInputMessage("#budget_name", "#budgetMessage");
-        hideErrorInputMessage("#sub_budget_name", "#subBudgetMessage");
         hideErrorInputMessage("#requester_name", "#requesterMessage");
         hideErrorInputMessage("#beneficiary_name", "#beneficiaryMessage");
         hideErrorInputMessage("#advance_summary_date_range", "#dateRangeMessage");
@@ -55,13 +54,13 @@
             },
             dataType: 'json',
             success: function(response) {
+                let totalIDR            = 0;
+                let totalOtherCurrency  = 0;
+                let totalEquivalentIDR  = 0;
+
                 if (response.status === 200 && response.data[0]) {
                     let data = response.data;
                     dataReport = JSON.stringify(data);
-
-                    let totalIDR            = 0;
-                    let totalOtherCurrency  = 0;
-                    let totalEquivalentIDR  = 0;
 
                     data.forEach(function(row) {
                         totalIDR            += parseFloat(row.total_IDR) || 0;
@@ -153,6 +152,11 @@
                         deferRender: true,
                         scrollCollapse: true,
                         scroller: true,
+                        drawCallback: function(settings) {
+                            $('#table_summary tfoot th:nth-child(2)').text(currencyTotal(totalIDR));
+                            $('#table_summary tfoot th:nth-child(3)').text(currencyTotal(totalOtherCurrency)); 
+                            $('#table_summary tfoot th:nth-child(4)').text(currencyTotal(totalEquivalentIDR));
+                        }
                     });
 
                     $('#table_summary').css("width", "100%");
@@ -221,7 +225,6 @@
             isArfDateNotEmpty
         ) {
             hideErrorInputMessage("#budget_name", "#budgetMessage");
-            hideErrorInputMessage("#sub_budget_name", "#subBudgetMessage");
             hideErrorInputMessage("#requester_name", "#requesterMessage");
             hideErrorInputMessage("#beneficiary_name", "#beneficiaryMessage");
             hideErrorInputMessage("#advance_summary_date_range", "#dateRangeMessage");
@@ -229,7 +232,6 @@
             getDataReport();
         } else {
             showErrorInputMessage("#budget_name", "#budgetMessage");
-            showErrorInputMessage("#sub_budget_name", "#subBudgetMessage");
             showErrorInputMessage("#requester_name", "#requesterMessage");
             showErrorInputMessage("#beneficiary_name", "#beneficiaryMessage");
             showErrorInputMessage("#advance_summary_date_range", "#dateRangeMessage");
