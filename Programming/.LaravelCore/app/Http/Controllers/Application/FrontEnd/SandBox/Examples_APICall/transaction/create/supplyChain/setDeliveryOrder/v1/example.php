@@ -4,8 +4,8 @@
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category    : Example - API Call Controller                                                                                    |
 | ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\create\supplyChain               |
-|                 \setDeliveryOrder\v1                                                                                              |
-| ▪ API Key     : transaction.create.supplyChain.setDeliveryOrder                                                                   |
+|                 \setDeliveryOrder\v1                                                                                             |
+| ▪ API Key     : transaction.create.supplyChain.setDeliveryOrder                                                                  |
 | ▪ API Version : 1                                                                                                                |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2024 Zheta (teguhpjs@gmail.com)                                                                                     |
@@ -17,11 +17,11 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Call URL        : http(s)://<HOST>/transaction.create.supplyChain.setDeliveryOrder.v1_throughAPIGateway                 |
-        |                     ► http://172.28.0.4/transaction.create.supplyChain.setDeliveryOrder.v1_throughAPIGateway              |
+        | ▪ Call URL        : http(s)://<HOST>/transaction.create.supplyChain.setDeliveryOrder.v1_throughAPIGateway                |
+        |                     ► http://172.28.0.4/transaction.create.supplyChain.setDeliveryOrder.v1_throughAPIGateway             |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-09-30                                                                                           |
+        | ▪ Last Update     : 2026-03-25                                                                                           |
         | ▪ Creation Date   : 2024-01-11                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -57,6 +57,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                             "items" => [
                                     [
                                     "entities" => [
+                                        "workStructure_RefID" => 302000000000001,
                                         "product_RefID" => 88000000000017,
                                         "quantity" => 5,
                                         "quantityUnit_RefID" => 73000000000001,
@@ -66,6 +67,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                     ],
                                     [
                                     "entities" => [
+                                        "workStructure_RefID" => 302000000000002,
                                         "product_RefID" => 88000000000018,
                                         "quantity" => 10,
                                         "quantityUnit_RefID" => 73000000000001,
