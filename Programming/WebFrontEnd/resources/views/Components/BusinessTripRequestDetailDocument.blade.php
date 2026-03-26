@@ -45,7 +45,7 @@
             Work
         </div>
         <div class="col-sm-8 col-md-8 p-0">
-            : -
+            : <?= $dataHeader['workCode'] . ' - ' . $dataHeader['workName']; ?>
         </div>
     </div>
 

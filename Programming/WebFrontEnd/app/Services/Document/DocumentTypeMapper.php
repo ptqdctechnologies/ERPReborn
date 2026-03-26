@@ -515,6 +515,8 @@ class DocumentTypeMapper
                     'budgetName'            => $dataDetail['CombinedBudgetName'] ?? '-',
                     'subBudgetCode'         => $dataDetail['CombinedBudgetSectionCode'] ?? '-',
                     'subBudgetName'         => $dataDetail['CombinedBudgetSectionName'] ?? '-',
+                    'workCode'              => $dataDetail['WorkCode'] ?? '-',
+                    'workName'              => $dataDetail['WorkName'] ?? '-',
                     'description'           => '-',
                     'dateCommenceTravel'    => $dataDetail['StartDateTimeTZ'] ?? '-',
                     'dateEndTravel'         => $dataDetail['FinishDateTimeTZ'] ?? '-',
