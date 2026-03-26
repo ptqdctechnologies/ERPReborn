@@ -352,7 +352,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : getDataList_DeliveryOrderDetail_LatestVersion                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2025-11-25                                                                                           |
+        | ▪ Last Update     : 2026-03-26                                                                                           |
         | ▪ Creation Date   : 2025-03-27                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Detail Pesanan Pengiriman (DO) Versi Terakhir                                     |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -608,6 +608,9 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             $varReturn['data'][$idxArray]['priceBudget'] = $value["UnitPriceCurrencyValue_CombinedBudget_New"];
                             $varReturn['data'][$idxArray]['qtyStock'] = $value["Type"] === 1 ? $value["Quantity_TblWarehouseInboundDetail"] - ($value["Quantity_WarehouseOutboundDetail"] + $value["QtyReq"]) : 0;
                             $varReturn['data'][$idxArray]['stockPrice'] = $value["StockPrice"];
+                            $varReturn['data'][$idxArray]['workStructure_RefID'] = $value["WorkStructure_RefID"];
+                            $varReturn['data'][$idxArray]['workCode'] = $value["WorkCode"];
+                            $varReturn['data'][$idxArray]['workName'] = $value["WorkName"];
                             $varReturn['data'][$idxArray]['orderSequence'] = $idxArray + 1;
                             $idxArray++;
                         }
