@@ -137,6 +137,8 @@ class BusinessTripService
                                     'sequence'                                                  => 1,
                                     'log_FileUpload_Pointer_RefID'                              => $fileID,
                                     'requesterWorkerJobsPosition_RefID'                         => (int) $data['requester_id'],
+                                    'workStructure_RefID'                                       => $data['workStructure_RefID'],
+                                    'product_RefID'                                             => $data['product_RefID'],
                                     'startDateTimeTZ'                                           => $data['dateCommance'],
                                     'finishDateTimeTZ'                                          => $data['dateEnd'],
                                     'departurePoint'                                            => $data['departingFrom'],
@@ -159,43 +161,6 @@ class BusinessTripService
                                         'itemList'      => [
                                             'items'     => $result
                                             ]
-                                        // 'paymentItemList'   => [
-                                        //     'items'         => [
-                                        //             [
-                                        //             //---> Payment To Vendor
-                                        //             'entities' => [
-                                        //                 'paymentMethod_RefID'                   => 175000000000004,
-                                        //                 'amountCurrency_RefID'                  => 62000000000001,
-                                        //                 'amountCurrencyValue'                   => $data['vendor_amount'] ? (float) str_replace(',', '', $data['vendor_amount']) : null,
-                                        //                 'amountCurrencyExchangeRate'            => 1,
-                                        //                 'paymentFundingDestination_RefID'       => $data['vendor_bank_account'] ? (int) $data['vendor_bank_account'] : null,
-                                        //                 'beneficiaryWorkerJobsPosition_RefID'   => null
-                                        //                 ]
-                                        //             ],
-                                        //             //---> Payment To Credit Card
-                                        //             [
-                                        //             'entities' => [
-                                        //                 'paymentMethod_RefID'                   => 175000000000005,
-                                        //                 'amountCurrency_RefID'                  => 62000000000001,
-                                        //                 'amountCurrencyValue'                   => $data['corp_amount'] ? (float) str_replace(',', '', $data['corp_amount']) : null,
-                                        //                 'amountCurrencyExchangeRate'            => 1, 
-                                        //                 'paymentFundingDestination_RefID'       => $data['corp_bank_account'] ? (int) $data['corp_bank_account'] : null,
-                                        //                 'beneficiaryWorkerJobsPosition_RefID'   => null
-                                        //                 ]
-                                        //             ],
-                                        //             //---> Payment To Employee
-                                        //             [
-                                        //             'entities' => [
-                                        //                 'paymentMethod_RefID'                   => 175000000000004,
-                                        //                 'amountCurrency_RefID'                  => 62000000000001,
-                                        //                 'amountCurrencyValue'                   => $data['other_amount'] ? (float) str_replace(',', '', $data['other_amount']) : null,
-                                        //                 'amountCurrencyExchangeRate'            => 1,
-                                        //                 'paymentFundingDestination_RefID'       => $data['other_bank_account'] ? (int) $data['other_bank_account'] : null,
-                                        //                 'beneficiaryWorkerJobsPosition_RefID'   => $data['other_beneficiary'] ? (int) $data['other_beneficiary'] : null,
-                                        //                 ]
-                                        //             ]
-                                        //         ]
-                                        //     ]
                                         ]
                                     ]
                                 ]
@@ -251,6 +216,8 @@ class BusinessTripService
                                     'sequence'                                                  => 1,
                                     'log_FileUpload_Pointer_RefID'                              => $fileID,
                                     'requesterWorkerJobsPosition_RefID'                         => (int) $data['requester_id'],
+                                    'workStructure_RefID'                                       => NULL,
+                                    'product_RefID'                                             => NULL,
                                     'startDateTimeTZ'                                           => $data['dateCommance'],
                                     'finishDateTimeTZ'                                          => $data['dateEnd'],
                                     'departurePoint'                                            => $data['departingFrom'],

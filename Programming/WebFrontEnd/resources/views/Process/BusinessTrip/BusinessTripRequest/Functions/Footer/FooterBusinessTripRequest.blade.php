@@ -159,13 +159,17 @@
       const datas = {
         totalBudget: row.cells[3].textContent.trim(),
         balanceBudget: row.cells[5].textContent.trim(),
-        sysId: row.querySelector('input[data-budget-id="sys_ID"]').value
+        sysId: row.querySelector('input[data-budget-id="sys_ID"]').value,
+        productId: row.querySelector('input[id="product_RefID"]').value,
+        workId: row.querySelector('input[id="workStructure_RefID"]').value
       };
       
       // $("#var_combinedBudget_RefID").val(datas.sysId);
       $("#total_business_trip_request").val(datas.totalBudget);
       $("#total_balanced").val(datas.balanceBudget);
       $("#combinedBudgetSectionDetail_RefID").val(datas.sysId);
+      $("#workStructure_RefID").val(datas.workStructure_RefID);
+      $("#product_RefID").val(datas.productId);
       
       budgetDetailsInput.value = JSON.stringify(datas);
       currenctBudgetSelection = parseFormattedNumber(datas.balanceBudget);
@@ -752,6 +756,8 @@
             '<tr>' +
               '<td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">' +
                 '<input hidden data-budget-id="sys_ID" value="' + val2.sys_ID + '">' +
+                '<input hidden id="workStructure_RefID" value="">' +
+                '<input hidden id="product_RefID" value="' + val2.product_RefID + '">' +
                 '<input type="checkbox" aria-label="Checkbox for following text input">' +
               '</td>' +
               productColumn +
