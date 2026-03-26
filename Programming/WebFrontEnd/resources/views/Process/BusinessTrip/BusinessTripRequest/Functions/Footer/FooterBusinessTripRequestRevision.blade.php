@@ -5,6 +5,7 @@
   const siteCode                          = document.getElementById('site_id_second');
   const dataTripBudgetDetails             = {!! json_encode($dataTripBudgetDetails ?? []) !!};
   const combinedBudgetSectionDetailRefID  = document.getElementById('combinedBudgetSectionDetail_RefID');
+  const workTemp                          = {!! json_encode($workTemp ?? []) !!};
 
   // Utility function
   function getElement(id) {
@@ -124,8 +125,8 @@
       success: function(data) {
         $.each(data, function(key, val2) {
           let productColumn = `
-            <td style="text-align: center;">${val2.product_RefID}</td>
-            <td style="text-align: center;">${val2.productName}</td>
+            <td style="text-align: left;">-</td>
+            <td style="text-align: left;">${val2.productCode} - ${val2.productName}</td>
           `;
 
           if (!val2.product_RefID) {
@@ -142,12 +143,16 @@
                   </div>
                 </div>
               </td>
-              <td id="product_name${key}" style="text-align: center;text-wrap: auto;" name="product_name">${val2.productName}</td>
+              <td id="product_name${key}" style="text-align: left;text-wrap: auto;" name="product_name">${val2.productName}</td>
             `;
           }
 
           if (val2.sys_ID == combinedBudgetSectionDetail_RefID) {
             currenctBudgetSelection = val2.priceBaseCurrencyValue;
+            productColumn = `
+              <td style="text-align: left;">${workTemp}</td>
+              <td style="text-align: left;">${val2.productCode} - ${val2.productName}</td>
+            `;
             $('#budgetDetailsData').val(JSON.stringify(val2));
           }
 

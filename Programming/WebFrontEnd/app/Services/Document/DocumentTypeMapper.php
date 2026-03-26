@@ -546,8 +546,8 @@ class DocumentTypeMapper
                 'components'        => [
                     'detail'        => 'Components.BusinessTripRequestDetailDocument',
                     'table'         => 'Components.BusinessTripRequestDetailDocumentTable',
-                    'additional'    => 'Components.BusinessTripRequestInformationDetailDocument',
-                    'information'   => 'Components.BusinessTripRequestCostDetailDocument'
+                    'additional'    => 'Components.BusinessTripRequestCostDetailDocument',
+                    'information'   => 'Components.BusinessTripRequestInformationDetailDocument'
                 ],
                 'resubmit'      => [
                     'url'       => 'BusinessTripRequest.RevisionBusinessTripRequestIndex',
