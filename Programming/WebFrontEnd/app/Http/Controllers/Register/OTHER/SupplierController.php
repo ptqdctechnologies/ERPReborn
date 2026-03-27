@@ -15,16 +15,16 @@ class SupplierController extends Controller
      */
     public function supplier()
     {
-        return view('Register.supplier.Transactions.indexSupplier');
+        return view('Register.OTHER.supplier.Transactions.indexSupplier');
     }
     public function addSupplier()
     {
-        return view('Register.supplier.Transactions.addSupplier');
+        return view('Register.OTHER.supplier.Transactions.addSupplier');
     }
     
     public function revisionSupplier(Request $request)
     {
-        return view('Register.supplier.Transactions.revisionSupplier');
+        return view('Register.OTHER.supplier.Transactions.revisionSupplier');
     }
 
     
