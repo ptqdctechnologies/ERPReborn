@@ -87,12 +87,19 @@
                 }
             },
             columns: [
+                // {
+                //     data: null,
+                //     render: function (data, type, row, meta) {
+                //         return meta.row + meta.settings._iDisplayStart + 1;
+                //     },
+                //     className: "align-middle text-center"
+                // },
                 {
                     data: null,
+                    className: "align-middle",
                     render: function (data, type, row, meta) {
-                        return meta.row + meta.settings._iDisplayStart + 1;
-                    },
-                    className: "align-middle text-center"
+                        return `<input id="sys_id_po${meta.row + 1}" value="${data.sys_ID}" data-trigger="sys_id_po" type="hidden" value="${data.sys_ID}"> ${meta.row + 1}`;
+                    }
                 },
                 {
                     data: 'sys_Text',

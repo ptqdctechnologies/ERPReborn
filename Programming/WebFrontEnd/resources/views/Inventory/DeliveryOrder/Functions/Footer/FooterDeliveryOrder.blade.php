@@ -194,10 +194,9 @@
                     const noteInput         = row.querySelector('textarea[id^="note"]');
 
                     if (qtyInput && qtyInput.value.trim() !== '') {
-                        const refNumber     = row.children[3].innerText.trim();
-                        const productCode   = row.children[5].innerText.trim();
-                        const productName   = row.children[6].innerText.trim();
-                        const uom           = row.children[7].innerText.trim();
+                        const refNumber = row.children[4].innerText.trim();
+                        const product   = row.children[7].innerText.trim();
+                        const uom       = row.children[8].innerText.trim();
 
                         const qty       = qtyInput.value.trim();
                         const note      = noteInput.value.trim();
@@ -210,7 +209,7 @@
                             const targetProductRefID    = targetRow.children[1].value.trim();
 
                             if (targetReferenceRefID == referenceRefID.value && targetProductRefID == productRefID.value) {
-                                targetRow.children[6].innerText = qty;
+                                targetRow.children[5].innerText = qty;
                                 found = true;
 
                                 // update dataStore
@@ -237,9 +236,8 @@
                                 <input type="hidden" id="reference_submit_modal_ID[]" value="${referenceRefID.value}">
                                 <input type="hidden" id="product_submit_modal_ID[]" value="${productRefID.value}">
                                 
-                                <td style="text-align: right;padding: 0.8rem 0.5rem;width: 100px;">${refNumber}</td>
-                                <td style="text-align: right;padding: 0.8rem 0.5rem;width: 100px;">${productCode}</td>
-                                <td style="text-align: right;padding: 0.8rem 0.5rem;width: 100px;">${productName}</td>
+                                <td style="text-align: left;padding: 0.8rem 0.5rem;width: 100px;">${refNumber}</td>
+                                <td style="text-align: left;padding: 0.8rem 0.5rem;width: 100px;">${product}</td>
                                 <td style="text-align: right;padding: 0.8rem 0.5rem;width: 100px;">${uom}</td>
                                 <td style="text-align: right;padding: 0.8rem 0.5rem;width: 100px;">${qty}</td>
                             `;
@@ -903,6 +901,8 @@
 
                         let modifyColumn = `<td rowspan="${data.length}" style="text-align: center; padding: 10px !important;">${purchaseOrderNumber}</td>`;
 
+                        console.log('data', data);
+
                         $.each(data, function(key, val) {
                             let balanced = currencyTotal(val.quantity);
                             let row = `
@@ -910,11 +910,12 @@
                                     <input id="product_RefID${indexPurchaseOrderDetail}" value="${val.product_RefID}" type="hidden" />
                                     <input id="quantityUnit_RefID${indexPurchaseOrderDetail}" value="${val.quantityUnit_RefID}" type="hidden" />
                                     <input id="reference_ID${indexPurchaseOrderDetail}" value="${val.sys_ID}" type="hidden" />
+                                    <input id="workStructure_RefID${indexPurchaseOrderDetail}" value="${val.workStructure_RefID}" type="hidden" />
 
                                     ${key === 0 ? modifyColumn : `<td style="display: none;">${purchaseOrderNumber}</td>`}
+                                    <td style="text-align: center;">${val.workCode || ''} - ${val.workName || ''}</td>
                                     <td style="text-align: center;">${val.combinedBudgetSectionCode + ' - ' + val.combinedBudgetSectionName}</td>
-                                    <td style="text-align: center;">${val.productCode}</td>
-                                    <td style="text-align: center;">${val.productName}</td>
+                                    <td style="text-align: center;">${val.productCode} - ${val.productName}</td>
                                     <td style="text-align: center;">${val.quantityUnitName}</td>
                                     <td style="text-align: center;">${currencyTotal(val.quantity)}</td>
                                     <td style="text-align: center;">${currencyTotal(val.qtyAvail)}</td>

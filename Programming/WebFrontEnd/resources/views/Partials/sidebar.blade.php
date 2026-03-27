@@ -13,91 +13,72 @@
 
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                @if(isset($privilageMenu))
-                    @foreach($privilageMenu as $MenuLayouts)
-                        <li class="nav-item has-treeview" style="position: relative;left:2px;">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon-sm {{ $MenuLayouts['entities']['iconSource'] }}" style="color:#e9ecef;"></i>
-                                <label>
-                                    &nbsp; {{ $MenuLayouts['entities']['caption'] }}
-                                </label>
+                @php
+                    $renderMenu = function ($menus) use (&$renderMenu) {
+                        foreach ($menus as $menu) {
+
+                            if (!isset($menu['entities'])) continue;
+
+                            $caption = $menu['entities']['caption'] !== 'Reimbursement to Debit Note' && 
+                                $menu['entities']['caption'] !== 'Period' &&
+                                $menu['entities']['caption'] !== 'Workflow Route' &&
+                                $menu['entities']['caption'] !== 'Report Modify Budget Summary' &&
+                                $menu['entities']['caption'] !== 'Report BusinessTrip Settlement Summary' &&
+                                $menu['entities']['caption'] !== 'Religion' &&
+                                $menu['entities']['caption'] !== 'Person Work Time Sheet' &&
+                                $menu['entities']['caption'] !== 'Warehouse' &&
+                                $menu['entities']['caption'] !== 'Report Material Return Summary' &&
+                                $menu['entities']['caption'] !== 'Supplier' &&
+                                $menu['entities']['caption'] !== 'Report Purchase Requisition Summary' &&
+                                $menu['entities']['caption'] !== 'Report Purchase Requisition To Purchase Order'
+                                ? $menu['entities']['caption'] : null;
+                            $hasChildren = isset($menu['entities']['itemList']) && count($menu['entities']['itemList']) > 0;
+
+                            // 🚀 RULE: kalau caption kosong / tidak mau ditampilkan → skip node, langsung render child
+                            if (empty($caption) && $hasChildren) {
+                                $renderMenu($menu['entities']['itemList']);
+                                continue;
+                            }
+
+                            // skip Login & Logout
+                            if (in_array($caption, ['Login','Logout'])) continue;
+
+                            $url = $menu['entities']['URLPath'] ?? 'login';
+                            $icon = $menu['entities']['iconSource'] ?? 'far fa-circle';
+
+                            // URL handling aman
+                            if (Route::has($url)) {
+                                $finalUrl = route($url);
+                            } else {
+                                $finalUrl = url($url);
+                            }
+                @endphp
+
+                <li class="nav-item {{ $hasChildren ? 'has-treeview' : '' }}">
+                    <a href="{{ $hasChildren ? '#' : $finalUrl . '' }}" class="nav-link">
+                        <i class="nav-icon-sm {{ $icon }}" style="color:#e9ecef;"></i>
+                        <p>
+                            {{ $caption }}
+                            @if($hasChildren)
                                 <i class="right fas fa-angle-left"></i>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                @foreach($MenuLayouts['entities']['itemList'] as $MenuLayouts2)
-                                    @if(isset($MenuLayouts2['entities']) && isset($MenuLayouts2['entities']['caption']))
-                                        @if($MenuLayouts2['entities']['caption'] == "Transaction" || $MenuLayouts2['entities']['caption'] == "Report")
-                                            <a href="#" class="nav-link">&nbsp;
-                                                <i class="nav-icon-sm fas fa-arrow-circle-right" style="color:#e9ecef;"></i>
-                                                <label>{{ $MenuLayouts2['entities']['caption'] }}</label>
-                                                <i class="right fas fa-angle-left"></i>
-                                            </a>
-                                            <ul class="nav nav-treeview">
-                                                @foreach($MenuLayouts2['entities']['itemList'] as $MenuLayouts3)
-                                                    <li class="nav-item">
-                                                        @php $url = "login"; @endphp
-                                                        @if(isset($MenuLayouts3['entities']['URLPath']))
-                                                            @php $url = $MenuLayouts3['entities']['URLPath']; @endphp
-                                                        @endif
-                                                        <a href="{{ route($url) }}?var=1" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                            <i class="nav-icon-sm far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
-                                                            <label>{{ $MenuLayouts3['entities']['caption'] }}</label>
-                                                        </a>
-                                                    </li>
-                                                @endforeach
-                                            </ul>
-                                        @else
-                                            @if(isset($MenuLayouts2['entities']['itemList']))
-                                                <a href="#" class="nav-link">&nbsp;
-                                                    <i class="nav-icon-sm fas fa-arrow-circle-right" style="color:#e9ecef;"></i>
-                                                    <label>{{ $MenuLayouts2['entities']['caption'] }}</label>
-                                                    <i class="right fas fa-angle-left"></i>
-                                                </a>
-                                                <ul class="nav nav-treeview">
-                                                    @foreach($MenuLayouts2['entities']['itemList'] as $MenuLayouts3)
-                                                        <li class="nav-item">
-                                                            <a href="#" class="nav-link">&nbsp;&nbsp;&nbsp;
-                                                                <i class="nav-icon-sm fas fa-arrow-circle-right" style="color:#e9ecef;"></i>
-                                                                <label>{{ $MenuLayouts3['entities']['caption'] }}</label>
-                                                                <i class="right fas fa-angle-left"></i>
-                                                            </a>
-                                                            <ul class="nav nav-treeview">
-                                                                @if(isset($MenuLayouts3['entities']['itemList']))
-                                                                    @foreach($MenuLayouts3['entities']['itemList'] as $MenuLayouts4)
-                                                                        <li class="nav-item">
-                                                                            @php $url = "login"; @endphp
-                                                                            @if(isset($MenuLayouts4['entities']['URLPath']))
-                                                                                @php $url = $MenuLayouts4['entities']['URLPath']; @endphp
-                                                                            @endif
-                                                                            <a href="{{ route($url) }}?var=1" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                                                <i class="nav-icon-sm far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
-                                                                                <label>{{ $MenuLayouts4['entities']['caption'] }}</label>
-                                                                            </a>
-                                                                        </li>
-                                                                    @endforeach
-                                                                @endif
-                                                            </ul>
-                                                        </li>
-                                                    @endforeach
-                                                </ul>
-                                            @else
-                                                @if($MenuLayouts2['entities']['caption'] != "Login" && $MenuLayouts2['entities']['caption'] != "Logout")
-                                                    @php $url = "login"; @endphp
-                                                    @if(isset($MenuLayouts2['entities']['URLPath']))
-                                                        @php $url = $MenuLayouts2['entities']['URLPath']; @endphp
-                                                    @endif
-                                                    <a href="{{ route($url) }}?var=1" class="nav-link">&nbsp;
-                                                        <i class="nav-icon-sm far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
-                                                        <label>{{ $MenuLayouts2['entities']['caption'] }}</label>
-                                                    </a>
-                                                @endif
-                                            @endif
-                                        @endif
-                                    @endif
-                                @endforeach
-                            </ul>
-                        </li>
-                    @endforeach
+                            @endif
+                        </p>
+                    </a>
+
+                    @if($hasChildren)
+                        <ul class="nav nav-treeview">
+                            @php $renderMenu($menu['entities']['itemList']); @endphp
+                        </ul>
+                    @endif
+                </li>
+
+                @php
+                        }
+                    };
+                @endphp
+
+                @if(isset($privilageMenu))
+                    @php $renderMenu($privilageMenu); @endphp
                 @endif
             </ul>
         </nav>

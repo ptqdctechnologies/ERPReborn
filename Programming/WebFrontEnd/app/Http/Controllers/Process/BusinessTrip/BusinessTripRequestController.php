@@ -228,6 +228,9 @@ class BusinessTripRequestController extends Controller
                 'varAPIWebToken'                    => $varAPIWebToken ?? '',
                 'documentType_RefID'                => $documentTypeRefID,
                 'combinedBudgetSectionDetail_RefID' => $dataResponse[0]['CombinedBudgetSectionDetail_RefID'],
+                'workStructure_RefID'               => $dataResponse[0]['WorkStructure_RefID'] ?? '',
+                'workTemp'                          => $dataResponse[0]['WorkCode'] . ' - ' . $dataResponse[0]['WorkName'],
+                'product_RefID'                     => $dataResponse[0]['Product_RefID'] ?? '',
                 'personBusinessTripRefID'           => $dataResponse[0]['PersonBusinessTrip_RefID'], // $dataTripSequence[0]['personBusinessTrip_RefID'],
                 'personBusinessTripDetailRefID'     => $dataResponse[0]['Sys_ID'], // $dataTripSequence[0]['sys_ID'],
                 'budget'            => [

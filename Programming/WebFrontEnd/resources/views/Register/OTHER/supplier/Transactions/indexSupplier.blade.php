@@ -98,5 +98,5 @@
     </section>
 </div>
 @include('Partials.footer')
-@include('Master.transactionNumber.Functions.Footer.footerTranoNumber')
+@include('Register.OTHER.transactionNumber.Functions.Footer.footerTranoNumber')
 @endsection
