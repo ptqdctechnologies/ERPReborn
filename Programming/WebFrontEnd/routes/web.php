@@ -133,9 +133,9 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     //BusinessDocumentVersion
     Route::resource('BusinessDocumentVersion', 'Register\BusinessDocumentVersionController');
     //Supplier
-    Route::get('Supplier', 'Register\SupplierController@supplier')->name('supplier.index');
-    Route::get('addSupplier', 'Register\SupplierController@addSupplier')->name('supplier.addSupplier');
-    Route::post('revisionSupplier', 'Register\SupplierController@revisionSupplier')->name('supplier.revisionSupplier');
+    Route::get('Supplier', 'Register\OTHER\SupplierController@supplier')->name('supplier.index');
+    Route::get('addSupplier', 'Register\OTHER\SupplierController@addSupplier')->name('supplier.addSupplier');
+    Route::post('revisionSupplier', 'Register\OTHER\SupplierController@revisionSupplier')->name('supplier.revisionSupplier');
     // Budget
     Route::post('RevisionModifyBudget', 'Budget\BudgetController@RevisionModifyBudget')->name('Budget.RevisionModifyBudget');
     Route::get('ModifyBudget', 'Budget\BudgetController@ModifyBudget')->name('Budget.ModifyBudget');
@@ -523,6 +523,9 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::post('ReportMatReceivetoMatReturnStore', 'Inventory\MaterialReceiveController@ReportMatReceivetoMatReturnStore')->name('Inventory.ReportMatReceivetoMatReturnStore');
     Route::post('PrintExportReportMatReceivetoMatReturn', 'Inventory\MaterialReceiveController@PrintExportReportMatReceivetoMatReturn')->name('Inventory.PrintExportReportMatReceivetoMatReturn');
     Route::resource('MaterialReceive', 'Inventory\MaterialReceiveController');
+
+    // SALLARY ALLOCATION
+    Route::resource('SallaryAllocation', 'HumanResource\SallaryAllocationController');
 
     // MATERIAL RETURN
     Route::get('List', 'Inventory\MaterialReturnController@List')->name('MaterialReturn.List');

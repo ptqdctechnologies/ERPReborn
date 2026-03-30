@@ -35,6 +35,8 @@
           <input hidden id="combinedBudgetSectionDetail_RefID" name="combinedBudgetSectionDetail_RefID" value="<?= $combinedBudgetSectionDetail_RefID; ?>" />
           <input hidden id="personBusinessTripRefID" name="personBusinessTripRefID" value="<?= $personBusinessTripRefID; ?>" />
           <input hidden id="personBusinessTripDetailRefID" name="personBusinessTripDetailRefID" value="<?= $personBusinessTripDetailRefID; ?>" />
+          <input hidden id="workStructure_RefID" name="workStructure_RefID" value="<?= $workStructure_RefID; ?>" />
+          <input hidden id="product_RefID" name="product_RefID" value="<?= $product_RefID; ?>" />
           <input hidden id="budgetDetailsData" />
 
           <!-- BUSINESS REQUEST TRIP FORM -->
@@ -148,8 +150,8 @@
                       <thead>
                         <tr>
                           <th style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important;"></th>
-                          <th style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important;">Product Code</th>
-                          <th style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important;">Product Name</th>
+                          <th style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important;">Work</th>
+                          <th style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important;">Product</th>
                           <th style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important;">Total Budget</th>
                           <th style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important;">Currency</th>
                           <th style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important;">Balanced Budget</th>

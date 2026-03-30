@@ -515,6 +515,8 @@ class DocumentTypeMapper
                     'budgetName'            => $dataDetail['CombinedBudgetName'] ?? '-',
                     'subBudgetCode'         => $dataDetail['CombinedBudgetSectionCode'] ?? '-',
                     'subBudgetName'         => $dataDetail['CombinedBudgetSectionName'] ?? '-',
+                    'workCode'              => $dataDetail['WorkCode'] ?? '-',
+                    'workName'              => $dataDetail['WorkName'] ?? '-',
                     'description'           => '-',
                     'dateCommenceTravel'    => $dataDetail['StartDateTimeTZ'] ?? '-',
                     'dateEndTravel'         => $dataDetail['FinishDateTimeTZ'] ?? '-',
@@ -546,8 +548,8 @@ class DocumentTypeMapper
                 'components'        => [
                     'detail'        => 'Components.BusinessTripRequestDetailDocument',
                     'table'         => 'Components.BusinessTripRequestDetailDocumentTable',
-                    'additional'    => 'Components.BusinessTripRequestInformationDetailDocument',
-                    'information'   => 'Components.BusinessTripRequestCostDetailDocument'
+                    'additional'    => 'Components.BusinessTripRequestCostDetailDocument',
+                    'information'   => 'Components.BusinessTripRequestInformationDetailDocument'
                 ],
                 'resubmit'      => [
                     'url'       => 'BusinessTripRequest.RevisionBusinessTripRequestIndex',
