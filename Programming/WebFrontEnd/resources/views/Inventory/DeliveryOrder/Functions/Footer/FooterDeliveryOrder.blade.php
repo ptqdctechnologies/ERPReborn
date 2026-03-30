@@ -186,9 +186,10 @@
         switch (referenceTypeValue.value) {
             case "0":
                 for (let row of rows) {
-                    const referenceRefID    = row.querySelector('input[id^="reference_ID"]');
-                    const quantityUnitRefID = row.querySelector('input[id^="quantityUnit_RefID"]');
-                    const productRefID      = row.querySelector('input[id^="product_RefID"]');
+                    const referenceRefID        = row.querySelector('input[id^="reference_ID"]');
+                    const quantityUnitRefID     = row.querySelector('input[id^="quantityUnit_RefID"]');
+                    const productRefID          = row.querySelector('input[id^="product_RefID"]');
+                    const workStructureRefID    = row.querySelector('input[id^="workStructure_RefID"]');
                     
                     const qtyInput          = row.querySelector('input[id^="qty_req"]');
                     const noteInput         = row.querySelector('textarea[id^="note"]');
@@ -221,7 +222,8 @@
                                             quantity: parseFloat(qty.replace(/,/g, '')),
                                             quantityUnit_RefID: parseInt(quantityUnitRefID.value),
                                             remarks: note,
-                                            reference_ID: parseInt(referenceRefID.value)
+                                            reference_ID: parseInt(referenceRefID.value),
+                                            workStructure_RefID: parseInt(workStructureRefID.value)
                                         }
                                     };
                                 }
@@ -249,7 +251,8 @@
                                     quantity: parseFloat(qty.replace(/,/g, '')),
                                     quantityUnit_RefID: parseInt(quantityUnitRefID.value),
                                     remarks: note,
-                                    reference_ID: parseInt(referenceRefID.value)
+                                    reference_ID: parseInt(referenceRefID.value),
+                                    workStructure_RefID: parseInt(workStructureRefID.value)
                                 }
                             });
                         }
@@ -900,8 +903,6 @@
                         $("#loading-purchase-order").hide();
 
                         let modifyColumn = `<td rowspan="${data.length}" style="text-align: center; padding: 10px !important;">${purchaseOrderNumber}</td>`;
-
-                        console.log('data', data);
 
                         $.each(data, function(key, val) {
                             let balanced = currencyTotal(val.quantity);
