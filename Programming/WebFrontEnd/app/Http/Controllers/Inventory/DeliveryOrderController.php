@@ -647,6 +647,7 @@ class DeliveryOrderController extends Controller
     {
         try {
             $varAPIWebToken = Session::get('SessionLogin');
+            $documentTypeRefID  = $this->GetBusinessDocumentsType('Delivery Order Revision Form');
 
             $response = $this->deliveryOrderService->getDetail($request->do_RefID);
 
@@ -658,6 +659,7 @@ class DeliveryOrderController extends Controller
 
             $compact = [
                 'varAPIWebToken'                => $varAPIWebToken,
+                'documentTypeRefID'             => $documentTypeRefID,
                 'header'                        => [
                     'combinedBudget_RefID'      => $data[0]['combinedBudget_RefID'] ?? '',
                     'combinedBudgetCode'        => $data[0]['combinedBudgetCode'] ?? '',

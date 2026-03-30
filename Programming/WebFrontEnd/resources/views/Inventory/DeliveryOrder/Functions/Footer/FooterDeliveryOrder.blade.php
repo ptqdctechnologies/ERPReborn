@@ -939,9 +939,9 @@
                             $(`#qty_req${indexPurchaseOrderDetail}`).on('keyup', function() {
                                 var qty_req     = $(this).val().replace(/,/g, '');
                                 var data_index  = $(this).data('index');
-                                var result      = val.quantity - qty_req;
+                                var result      = val.qtyAvail - qty_req;
 
-                                if (parseFloat(qty_req) > val.quantity) {
+                                if (parseFloat(qty_req) > val.qtyAvail) {
                                     $(this).val("");
                                     $(`#balance${data_index}`).val(balanced);
                                     ErrorNotif("Qty Request is over !");
