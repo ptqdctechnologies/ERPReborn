@@ -54,9 +54,9 @@
                 debitNoteCoaNameInput.value.trim() !== ''
             ) {
                 const trano     = row.children[0].innerText.trim();
-                const budget    = row.children[1].innerText.trim();
-                const quantity  = row.children[2].innerText.trim();
-                const price     = row.children[3].innerText.trim();
+                const budget    = row.children[2].innerText.trim();
+                const quantity  = row.children[4].innerText.trim();
+                const price     = row.children[5].innerText.trim();
 
                 const debitNoteValue   = debitNoteValueInput.value.trim();
                 const debitNoteTax     = debitNoteTaxInput.value.trim();
@@ -185,7 +185,9 @@
             let row = `
                 <tr>
                     <td style="text-align: center;">-</td>
+                    <td style="text-align: center;">-</td>
                     <td style="text-align: center;">${value.CombinedBudgetCode} - ${value.CombinedBudgetName}</td>
+                    <td style="text-align: center;">-</td>
                     <td style="text-align: center;">-</td>
                     <td style="text-align: center;">-</td>
                     <td style="text-align: center;">-</td>
