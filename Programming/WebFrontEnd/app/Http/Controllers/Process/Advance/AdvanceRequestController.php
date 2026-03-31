@@ -239,7 +239,17 @@ class AdvanceRequestController extends Controller
 
     public function ReportAdvanceSummary(Request $request)
     {
-        return view('Process.Advance.AdvanceRequest.Reports.ReportAdvanceSummary');
+        $documentTypeRefID                      = $this->GetBusinessDocumentsTypeFromRedis('Advance Form');
+        $sessionOrganizationalDepartmentName    = Session::get('SessionOrganizationalDepartmentName');
+        $sessionOrganizationalJobPositionName   = Session::get('SessionOrganizationalJobPositionName');
+        
+        $compact = [
+            'documentTypeRefID'                     => $documentTypeRefID,
+            'sessionOrganizationalDepartmentName'   => $sessionOrganizationalDepartmentName,
+            'sessionOrganizationalJobPositionName'  => $sessionOrganizationalJobPositionName
+        ];
+
+        return view('Process.Advance.AdvanceRequest.Reports.ReportAdvanceSummary', $compact);
     }
 
     public function ReportAdvanceSummaryStore(Request $request)
