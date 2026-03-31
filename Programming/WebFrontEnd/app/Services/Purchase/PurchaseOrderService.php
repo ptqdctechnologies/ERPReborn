@@ -60,6 +60,35 @@ class PurchaseOrderService
         );
     }
 
+    public function getPurchaseOrderToAccountPayable($budget, $subBudget, $date, $supplier, $purchaseOrder, $accountPayable) 
+    {
+        $sessionToken = Session::get('SessionLogin');
+
+        if ($date) {
+            $dates      = explode(' - ', $date);
+            $startDate  = Carbon::createFromFormat('m/d/Y', trim($dates[0]))->startOfDay()->format('Y-m-d');
+            $endDate    = Carbon::createFromFormat('m/d/Y', trim($dates[1]))->endOfDay()->format('Y-m-d');
+        }
+
+        return Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
+            $sessionToken, 
+            'report.form.documentForm.supplyChain.getPurchaseOrderSummary', 
+            'latest',
+            [
+                'parameter'     => [
+                    'CombinedBudgetCode'        => $budget,
+                    'CombinedBudgetSectionCode' => $subBudget ? $subBudget : NULL,
+                    'Supplier_RefID'            => $supplier ? $supplier : NULL
+                    // 'PurchaseOrder_RefID'    => $purchaseOrder ? $purchaseOrder : NULL,
+                    // 'AccountPayable_RefID'   => $accountPayable ? $accountPayable : NULL,
+                    // 'StartDate'              => $date ? $startDate : NULL,
+                    // 'EndDate'                => $date ? $endDate : NULL
+                ]
+            ]
+        );
+    }
+
     public function create(Request $request): array 
     {
         $sessionToken   = Session::get('SessionLogin');

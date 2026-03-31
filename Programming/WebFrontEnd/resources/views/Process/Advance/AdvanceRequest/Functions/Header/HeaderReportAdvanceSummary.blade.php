@@ -5,7 +5,11 @@
         <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
             <div>
                 <span id="myProjectsTrigger" class="input-group-text form-control" data-toggle="modal" data-target="#myProjects" style="border-radius:0;cursor:pointer;">
-                    <i class="fas fa-gift"></i>
+                    <i id="iconBudget" class="fas fa-gift"></i>
+
+                    <div id="loadingBudget" class="spinner-border spinner-border-sm" role="status" style="display: none;">
+                        <span class="sr-only">Loading...</span>
+                    </div>
                 </span>
             </div>
             <div>

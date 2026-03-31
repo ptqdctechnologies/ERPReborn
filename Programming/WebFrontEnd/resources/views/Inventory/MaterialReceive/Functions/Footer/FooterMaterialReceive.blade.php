@@ -96,6 +96,7 @@
 
         for (let row of rows) {
             const deliveryOrderDetail_RefID             = row.querySelector('input[id^="delivery_order_detail_id"]');
+            const workStructureRefID                    = row.querySelector('input[id^="workStructure_RefID"]');
             const product_RefID                         = row.querySelector('input[id^="product_RefID"]');
             const combinedBudgetSectionDetailRefID      = row.querySelector('input[id^="combinedBudgetSectionDetail_RefID"]');
             const quantityUnit_RefID                    = row.querySelector('input[id^="quantityUnit_RefID"]');
@@ -111,7 +112,7 @@
                 noteInput.value.trim() !== ''
             ) {
                 const transNumber   = row.children[0].value.trim();
-                const productCode   = row.children[14].innerText.trim();
+                const productCode   = row.children[15].innerText.trim();
                 const qtyAvail      = row.children[5].value.trim();
                 const uom           = row.children[6].value.trim();
 
@@ -143,7 +144,8 @@
                                     productUnitPriceCurrency_RefID: parseInt(productUnitPriceCurrency_RefID.value),
                                     productUnitPriceCurrencyExchangeRate: parseInt(productUnitPriceCurrencyExchangeRate.value),
                                     productUnitPriceCurrencyValue: parseFloat(price.replace(/,/g, '')),
-                                    combinedBudgetSectionDetail_RefID: parseInt(combinedBudgetSectionDetailRefID.value)
+                                    combinedBudgetSectionDetail_RefID: parseInt(combinedBudgetSectionDetailRefID.value),
+                                    workStructure_RefID: parseInt(workStructureRefID.value)
                                 }
                             };
                         }
@@ -172,7 +174,8 @@
                             productUnitPriceCurrency_RefID: parseInt(productUnitPriceCurrency_RefID.value),
                             productUnitPriceCurrencyExchangeRate: parseInt(productUnitPriceCurrencyExchangeRate.value),
                             productUnitPriceCurrencyValue: parseFloat(price.replace(/,/g, '')),
-                            combinedBudgetSectionDetail_RefID: parseInt(combinedBudgetSectionDetailRefID.value)
+                            combinedBudgetSectionDetail_RefID: parseInt(combinedBudgetSectionDetailRefID.value),
+                            workStructure_RefID: parseInt(workStructureRefID.value)
                         }
                     });
                 }
@@ -272,8 +275,6 @@
         $("#delivery_order_trigger").hide();
         $("#delivery_order_loading").show();
 
-        console.log('delivery_order_id', delivery_order_id);
-
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -286,8 +287,6 @@
             success: async function(data) {
                 let tbody = $('#tableMaterialReceiveDetail tbody');
                 tbody.empty();
-
-                console.log('data', data);
 
                 if (Array.isArray(data) && data.length > 0) {
                     const documentTypeID = document.getElementById("DocumentTypeID");
@@ -356,8 +355,9 @@
                                 <input id="productUnitPriceCurrency_RefID${key}" value="${val2.productUnitPriceCurrency_RefID}" type="hidden" />
                                 <input id="productUnitPriceCurrencyExchangeRate${key}" value="${val2.productUnitPriceCurrencyExchangeRate}" type="hidden" />
                                 <input id="productUnitPriceBaseCurrencyValue${key}" value="${val2.productUnitPriceBaseCurrencyValue}" type="hidden" />
+                                <input id="workStructure_RefID${key}" value="${val2.workStructure_RefID}" type="hidden" />
 
-                                <td style="text-align: center;">-</td>
+                                <td style="text-align: center;">${val2.workCode} - ${val2.workName}</td>
                                 <td style="text-align: left;">${data[0].combinedBudgetSectionCode + ' - ' + data[0].combinedBudgetSectionName}</td>
                                 <td style="text-align: left;text-wrap: auto;">${val2.productCode} - ${val2.productName}</td>
                                 <td style="text-align: center;">${val2.qtyReq}</td>

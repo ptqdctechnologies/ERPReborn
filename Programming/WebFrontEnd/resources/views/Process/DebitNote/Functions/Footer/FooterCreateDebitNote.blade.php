@@ -36,6 +36,7 @@
 
         for (let row of rows) {
             const referenceDocumentID                   = row.querySelector('input[id^="reference_document_id"]');
+            const workStructureRefID                    = row.querySelector('input[id^="workStructure_RefID"]');
             const businessDocumentNumber                = row.querySelector('input[id^="business_document_number"]');
             const combinedBudgetSectionDetailID         = row.querySelector('input[id^="combined_budget_section_detail_id"]');
             const productID                             = row.querySelector('input[id^="product_id"]');
@@ -198,7 +199,9 @@
                     let row = `
                         <tr>
                             ${key === 0 ? modifyColumn : `<td style="text-align: center; padding: 10px !important;" hidden>${refNumber}</td>`}
+                            <td style="text-align: center; padding: 10px !important;">-</td>
                             <td style="text-align: center; padding: 10px !important;">${value.CombinedBudgetCode + ' - ' + value.CombinedBudgetName}</td>
+                            <td style="text-align: left; padding: 10px !important;">${value.ProductCode + ' - ' + value.ProductName}</td>
                             <td style="text-align: center; padding: 10px !important;">${currencyTotal(value.Quantity)}</td>
                             <td style="text-align: center; padding: 10px !important;">${currencyTotal(value.ProductUnitPriceCurrencyValue)}</td>
                             <td style="text-align: center; padding: 10px !important;">${currencyTotal(total)}</td>
@@ -230,6 +233,7 @@
                             <input type="hidden" id="product_unit_price_currency_id[]" value="${value.ProductUnitPriceCurrency_RefID}">
                             <input type="hidden" id="product_unit_price_currency_exchange_rate[]" value="${value.ProductUnitPriceCurrencyExchangeRate}">
                             <input type="hidden" id="reference_document_id[]" value="${value.Sys_ID_Detail}">
+                            <input type="hidden" id="workStructure_RefID[]" value="302000000000002">
                         </tr>
                     `;
 

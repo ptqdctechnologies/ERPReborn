@@ -22,7 +22,7 @@
             <div class="card">
                 <form method="POST" action="{{ route('SelectWorkFlow') }}" id="FormRevisionDeliveryOrder">
                 @csrf
-                <input type="hidden" name="DocumentTypeID" id="DocumentTypeID">
+                <input type="hidden" name="DocumentTypeID" id="DocumentTypeID" value='<?= $documentTypeRefID; ?>'>
                 <input type="hidden" name="var_combinedBudget_RefID" id="var_combinedBudget_RefID" value='<?= $header['combinedBudget_RefID']; ?>'>
                 <input type="hidden" name="deliveryDateTime" id="deliveryDateTime" value="<?= $header['deliveryDate']; ?>">
 

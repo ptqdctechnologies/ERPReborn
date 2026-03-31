@@ -95,6 +95,7 @@ class LoginController extends Controller
         $userIdentity = $loginData['userIdentities'];
         Session::put('SessionLogin', $loginData['APIWebToken']);
         Session::put('SessionOrganizationalDepartmentName', $userIdentity['organizationalDepartmentName']);
+        Session::put('SessionOrganizationalJobPositionName', $userIdentity['organizationalJobPositionName']);
         Session::put('SessionLoginName', $userIdentity['personName']);
         Session::put('SessionWorkerCareerInternal_RefID', $userIdentity['workerCareerInternal_RefID']);
         Session::put('SessionUser_RefID', $userIdentity['user_RefID']);

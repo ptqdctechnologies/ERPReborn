@@ -186,9 +186,10 @@
         switch (referenceTypeValue.value) {
             case "0":
                 for (let row of rows) {
-                    const referenceRefID    = row.querySelector('input[id^="reference_ID"]');
-                    const quantityUnitRefID = row.querySelector('input[id^="quantityUnit_RefID"]');
-                    const productRefID      = row.querySelector('input[id^="product_RefID"]');
+                    const referenceRefID        = row.querySelector('input[id^="reference_ID"]');
+                    const quantityUnitRefID     = row.querySelector('input[id^="quantityUnit_RefID"]');
+                    const productRefID          = row.querySelector('input[id^="product_RefID"]');
+                    const workStructureRefID    = row.querySelector('input[id^="workStructure_RefID"]');
                     
                     const qtyInput          = row.querySelector('input[id^="qty_req"]');
                     const noteInput         = row.querySelector('textarea[id^="note"]');
@@ -221,7 +222,8 @@
                                             quantity: parseFloat(qty.replace(/,/g, '')),
                                             quantityUnit_RefID: parseInt(quantityUnitRefID.value),
                                             remarks: note,
-                                            reference_ID: parseInt(referenceRefID.value)
+                                            reference_ID: parseInt(referenceRefID.value),
+                                            workStructure_RefID: parseInt(workStructureRefID.value)
                                         }
                                     };
                                 }
@@ -249,7 +251,8 @@
                                     quantity: parseFloat(qty.replace(/,/g, '')),
                                     quantityUnit_RefID: parseInt(quantityUnitRefID.value),
                                     remarks: note,
-                                    reference_ID: parseInt(referenceRefID.value)
+                                    reference_ID: parseInt(referenceRefID.value),
+                                    workStructure_RefID: parseInt(workStructureRefID.value)
                                 }
                             });
                         }
@@ -275,18 +278,18 @@
                 break;
             case "1":
                 for (let row of rows) {
-                    const referenceRefID    = row.querySelector('input[id^="reference_ID"]');
-                    const quantityUnitRefID = row.querySelector('input[id^="quantityUnit_RefID"]');
-                    const productRefID      = row.querySelector('input[id^="product_RefID"]');
+                    const referenceRefID        = row.querySelector('input[id^="reference_ID"]');
+                    const quantityUnitRefID     = row.querySelector('input[id^="quantityUnit_RefID"]');
+                    const productRefID          = row.querySelector('input[id^="product_RefID"]');
+                    const workStructureRefID    = row.querySelector('input[id^="workStructure_RefID"]');
 
                     const qtyInput          = row.querySelector('input[id^="internal_use_qty_req"]');
                     const noteInput         = row.querySelector('textarea[id^="internal_use_note"]');
 
                     if (qtyInput && qtyInput.value.trim() !== '') {
-                        const subBudget     = row.children[3].innerText.trim();
-                        const productCode   = row.children[4].innerText.trim();
-                        const productName   = row.children[5].innerText.trim();
-                        const uom           = row.children[6].innerText.trim();
+                        const subBudget = row.children[5].innerText.trim();
+                        const product   = row.children[6].innerText.trim();
+                        const uom       = row.children[7].innerText.trim();
 
                         const qty       = qtyInput.value.trim();
                         const note      = noteInput.value.trim();
@@ -299,7 +302,7 @@
                             const targetProductRefID    = targetRow.children[1].value.trim();
 
                             if (targetReferenceRefID == referenceRefID.value && targetProductRefID == productRefID.value) {
-                                targetRow.children[6].innerText = qty;
+                                targetRow.children[5].innerText = qty;
                                 found = true;
 
                                 // update dataStore
@@ -311,7 +314,8 @@
                                             quantity: parseFloat(qty.replace(/,/g, '')),
                                             quantityUnit_RefID: parseInt(quantityUnitRefID.value),
                                             remarks: note,
-                                            reference_ID: parseInt(referenceRefID.value)
+                                            reference_ID: parseInt(referenceRefID.value),
+                                            workStructure_RefID: parseInt(workStructureRefID.value)
                                         }
                                     };
                                 }
@@ -326,9 +330,8 @@
                                 <input type="hidden" id="reference_submit_modal_ID[]" value="${referenceRefID.value}">
                                 <input type="hidden" id="product_submit_modal_ID[]" value="${productRefID.value}">
 
-                                <td style="text-align: right;padding: 0.8rem 0.5rem;width: 100px;">${subBudget}</td>
-                                <td style="text-align: right;padding: 0.8rem 0.5rem;width: 100px;">${productCode}</td>
-                                <td style="text-align: right;padding: 0.8rem 0.5rem;width: 100px;">${productName}</td>
+                                <td style="text-align: left;padding: 0.8rem 0.5rem;width: 100px;">${subBudget}</td>
+                                <td style="text-align: left;padding: 0.8rem 0.5rem;width: 100px;">${product}</td>
                                 <td style="text-align: right;padding: 0.8rem 0.5rem;width: 100px;">${uom}</td>
                                 <td style="text-align: right;padding: 0.8rem 0.5rem;width: 100px;">${qty}</td>
                             `;
@@ -340,7 +343,8 @@
                                     quantity: parseFloat(qty.replace(/,/g, '')),
                                     quantityUnit_RefID: parseInt(quantityUnitRefID.value),
                                     remarks: note,
-                                    reference_ID: parseInt(referenceRefID.value)
+                                    reference_ID: parseInt(referenceRefID.value),
+                                    workStructure_RefID: parseInt(workStructureRefID.value)
                                 }
                             });
                         }
@@ -366,17 +370,17 @@
                 break;
             case "2":
                 for (let row of rows) {
-                    const referenceRefID    = row.querySelector('input[id^="reference_ID"]');
-                    const quantityUnitRefID = row.querySelector('input[id^="quantityUnit_RefID"]');
-                    const productRefID      = row.querySelector('input[id^="product_RefID"]');
+                    const referenceRefID        = row.querySelector('input[id^="reference_ID"]');
+                    const quantityUnitRefID     = row.querySelector('input[id^="quantityUnit_RefID"]');
+                    const productRefID          = row.querySelector('input[id^="product_RefID"]');
+                    const workStructureRefID    = row.querySelector('input[id^="workStructure_RefID"]');
 
                     const qtyInput          = row.querySelector('input[id^="stock_movement_qty_req"]');
                     const noteInput         = row.querySelector('textarea[id^="stock_movement_note_req"]');
 
                     if (qtyInput && qtyInput.value.trim() !== '') {
-                        const productCode   = row.children[3].innerText.trim();
-                        const productName   = row.children[4].innerText.trim();
-                        const uom           = row.children[5].innerText.trim();
+                        const product   = row.children[5].innerText.trim();
+                        const uom       = row.children[6].innerText.trim();
 
                         const qty       = qtyInput.value.trim();
                         const note      = noteInput.value.trim();
@@ -389,7 +393,7 @@
                             const targetProductRefID    = targetRow.children[1].value.trim();
                             
                             if (targetReferenceRefID == referenceRefID.value && targetProductRefID == productRefID.value) {
-                                targetRow.children[5].innerText = qty;
+                                targetRow.children[4].innerText = qty;
                                 found = true;
 
                                 // update dataStore
@@ -401,7 +405,8 @@
                                             quantity: parseFloat(qty.replace(/,/g, '')),
                                             quantityUnit_RefID: parseInt(quantityUnitRefID.value),
                                             remarks: note,
-                                            reference_ID: parseInt(referenceRefID.value)
+                                            reference_ID: parseInt(referenceRefID.value),
+                                            workStructure_RefID: parseInt(workStructureRefID.value)
                                         }
                                     };
                                 }
@@ -416,8 +421,7 @@
                                 <input type="hidden" id="reference_submit_modal_ID[]" value="${referenceRefID.value}">
                                 <input type="hidden" id="product_submit_modal_ID[]" value="${productRefID.value}">
 
-                                <td style="text-align: right;padding: 0.8rem 0.5rem;width: 100px;">${productCode}</td>
-                                <td style="text-align: right;padding: 0.8rem 0.5rem;width: 100px;">${productName}</td>
+                                <td style="text-align: left;padding: 0.8rem 0.5rem;width: 100px;">${product}</td>
                                 <td style="text-align: right;padding: 0.8rem 0.5rem;width: 100px;">${uom}</td>
                                 <td style="text-align: right;padding: 0.8rem 0.5rem;width: 100px;">${qty}</td>
                             `;
@@ -429,7 +433,8 @@
                                     quantity: parseFloat(qty.replace(/,/g, '')),
                                     quantityUnit_RefID: parseInt(quantityUnitRefID.value),
                                     remarks: note,
-                                    reference_ID: parseInt(referenceRefID.value)
+                                    reference_ID: parseInt(referenceRefID.value),
+                                    workStructure_RefID: parseInt(workStructureRefID.value)
                                 }
                             });
                         }
@@ -901,8 +906,6 @@
 
                         let modifyColumn = `<td rowspan="${data.length}" style="text-align: center; padding: 10px !important;">${purchaseOrderNumber}</td>`;
 
-                        console.log('data', data);
-
                         $.each(data, function(key, val) {
                             let balanced = currencyTotal(val.quantity);
                             let row = `
@@ -936,9 +939,9 @@
                             $(`#qty_req${indexPurchaseOrderDetail}`).on('keyup', function() {
                                 var qty_req     = $(this).val().replace(/,/g, '');
                                 var data_index  = $(this).data('index');
-                                var result      = val.quantity - qty_req;
+                                var result      = val.qtyAvail - qty_req;
 
-                                if (parseFloat(qty_req) > val.quantity) {
+                                if (parseFloat(qty_req) > val.qtyAvail) {
                                     $(this).val("");
                                     $(`#balance${data_index}`).val(balanced);
                                     ErrorNotif("Qty Request is over !");
@@ -1020,10 +1023,11 @@
                                         <input id="product_RefID${indexInternalUseDetail}" value="${val.product_RefID}" type="hidden" />
                                         <input id="quantityUnit_RefID${indexInternalUseDetail}" value="${val.quantityUnit_RefID}" type="hidden" />
                                         <input id="reference_ID${indexInternalUseDetail}" value="${val.sys_ID}" type="hidden" />
+                                        <input id="workStructure_RefID${indexInternalUseDetail}" value="302000000000002" type="hidden" />
 
+                                        <td style="text-align: center;">-</td>
                                         <td style="text-align: center;">${val.combinedBudgetSectionCode} - ${val.combinedBudgetSectionName}</td>
-                                        <td style="text-align: center;">${val.productCode}</td>
-                                        <td style="text-align: center;">${val.productName}</td>
+                                        <td style="text-align: left;">${val.productCode || ''} - ${val.productName || ''}</td>
                                         <td style="text-align: center;">${val.quantityUnitName}</td>
                                         <td style="text-align: center;">${currencyTotal(val.quantity)}</td>
                                         <td style="text-align: center;">${currencyTotal(val.quantityRemaining)}</td>
@@ -1138,9 +1142,10 @@
                                     <input id="product_RefID${indexInternalUseDetail}" value="${val.Product_RefID}" type="hidden" />
                                     <input id="quantityUnit_RefID${indexInternalUseDetail}" value="${val.QuantityUnit_RefID}" type="hidden" />
                                     <input id="reference_ID${indexInternalUseDetail}" value="${val.Warehouse_RefID}" type="hidden" />
+                                    <input id="workStructure_RefID${indexInternalUseDetail}" value="302000000000003" type="hidden" />
 
-                                    <td style="text-align: center;">${val.ProductCode || '-'}</td>
-                                    <td style="text-align: center;">${val.ProductName || '-'}</td>
+                                    <td style="text-align: center;">-</td>
+                                    <td style="text-align: center;">${val.ProductCode || ''} - ${val.ProductName || ''}</td>
                                     <td style="text-align: center;">${val.QuantityUnitName || '-'}</td>
                                     <td style="text-align: center;">${val.QuantityStok || '-'}</td>
                                     <td style="border:1px solid #e9ecef;background-color:white; padding: 0.5rem !important; width: 100px;">
