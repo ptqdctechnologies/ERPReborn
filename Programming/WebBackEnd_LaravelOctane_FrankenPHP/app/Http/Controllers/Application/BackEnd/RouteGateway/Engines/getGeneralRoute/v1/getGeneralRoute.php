@@ -47,9 +47,41 @@ namespace
                         )
                             {
                             $varUserSession = 111;
+                            $varSQLQuery = '
+                                SELECT
+                                    *
+                                FROM
+                                    "SchData-OLTP-Finance"."Func_GetReport_DocForm_AdvanceToAdvanceSettlementSummary"(
+                                        \'Q000062\'::VARCHAR,
+                                        \'235\'::VARCHAR,
+                                        164000000000559::BIGINT,
+                                        \'2025-02-25\'::VARCHAR,
+                                        \'2025-03-04\'::VARCHAR
+                                        );
+                                ';
+                            $varSQLQuery = '
+                                SELECT
+                                    "SchData-OLTP-Finance"."Func_GetReport_DocForm_Advance"(
+                                        11000000000004::bigint,
+                                        76000000000637::bigint
+                                            );
+                                ';
+
+                            $varData =
+                                \App\Http\Helpers\ZhtHelper\BackEnd\Database\Helper_PostgreSQL::getQueryExecution(
+                                    $varUserSession,
+                                    $varSQLQuery
+                                    );
+                            /*
+                            dd($varData);
+                    
                             $varReturn = [
                                 'xxx' => 123
                                 ];
+                            */
+                            
+                            $varReturn = $varData;
+                            
                             return
                                 \App\Http\Helpers\ZhtHelper\General\Utilities\Helper_EncodeDecode::getJSONEncode (
                                     $varUserSession,

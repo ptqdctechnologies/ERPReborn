@@ -70,5 +70,51 @@ namespace
                         )
                             {
                             }
+
+
+                /*
+                ┌───────────────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────┐
+                │ ▪ Method Name     │ generateDate                                                                                         │
+                ├───────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
+                │ ▪ Version         │ 1.0000.0000000                                                                                       │
+                │ ▪ Last Update     │ 2020-08-03                                                                                           │
+                │ ▪ Creation Date   │ 2020-08-03                                                                                           │
+                │ ▪ Description     │ Memunculkan nilai Tanggal dan Waktu untuk HTTP Header                                                │
+                ├───────────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────┤
+                │ ▪ Input Variable  :                                                                                                      │
+                │      ▪ (mixed)  varUserSession ► User Session                                                                            │
+                │ ▪ Output Variable :                                                                                                      │
+                │      ▪ (string)                                                                                                          │
+                └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+                */
+                public static function
+                    generateDate (
+                        mixed $varUserSession
+                        )
+                            {
+                            //-----[ DATA INITIALIZATION ]-------------------------------------------------------------------( START )-----
+                                //---> Initializing : varReturn
+                                    $varReturn =
+                                        (string) null;
+                            //-----[ DATA INITIALIZATION ]-------------------------------------------------------------------(  END  )-----
+
+                            //-----[ DATA PROCESS ]--------------------------------------------------------------------------( START )-----
+                                try {
+                                    //---> Reinitializing : varReturn
+                                        $varReturn =
+                                            \App\Http\Helpers\ZhtHelper\General\Utilities\Helper_DateTime::getGMTDateTime(
+                                                $varUserSession,
+                                                'D, d M Y H:i:s T'
+                                                );
+                                    }
+                                catch (\Exception $ex) {
+                                    }
+                            //-----[ DATA PROCESS ]--------------------------------------------------------------------------(  END  )-----
+
+                            //-----[ DATA RETURN ]---------------------------------------------------------------------------( START )-----
+                                return
+                                    $varReturn;
+                            //-----[ DATA RETURN ]---------------------------------------------------------------------------(  END  )-----
+                            }
                 }
         }

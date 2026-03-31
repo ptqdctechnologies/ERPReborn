@@ -168,77 +168,90 @@ namespace
                                             );
                                     */
 
-                                    for ($i = 0, $iMax = count ($varArrayExampleAPIKey); $i != $iMax; $i++)
-                                        {
-                                        $varClass = (
-                                            '\App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall'.
-                                            str_replace (
-                                                '/',
-                                                '\\',
-                                                $varArrayExampleAPIKey[$i]
-                                                ).
-                                            '\example'
-                                            );
-
-                                        $varFilePath =
-                                            \App\Http\Helpers\ZhtHelper\General\Utilities\Helper_File::getAutoMatchFilePath (
-                                                $varUserSession, 
-                                                getcwd(), 
-                                                '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall'.$varArrayExampleAPIKey[$i].'/example.php'
+                                    //---> Initializing : varArrayExampleAPIKey
+                                        $varArrayExampleAPIKey =
+                                            \App\Http\Helpers\ZhtHelper\General\Utilities\Helper_File::getDeepestSubFoldersInFolder (
+                                                $varUserSession,
+                                                \App\Http\Helpers\ZhtHelper\General\Utilities\Helper_File::getAutoMatchDirectoryPath (
+                                                    $varUserSession, 
+                                                    getcwd(), 
+                                                    '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall'
+                                                    )
                                                 );
 
-                                        if (is_file ($varFilePath))
+                                    //---> Initializing : Dynamic Route
+                                        for ($i = 0, $iMax = count ($varArrayExampleAPIKey); $i != $iMax; $i++)
                                             {
-                                            //---> Initializing : varArrayFunctionEntities
-                                                $varArrayFunctionEntities =
-                                                    \App\Http\Helpers\ZhtHelper\General\Utilities\Helper_PHPObject::getAllFunctionInPHPFile (
-                                                        $varUserSession,
-                                                        $varFilePath
-                                                        );
+                                            $varClass = (
+                                                '\App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall'.
+                                                str_replace (
+                                                    '/',
+                                                    '\\',
+                                                    $varArrayExampleAPIKey[$i]
+                                                    ).
+                                                '\example'
+                                                );
 
-                                            for ($j = 0, $jMax = count ($varArrayFunctionEntities); $j != $jMax; $j++)
-                                                {
-                                                if (
-                                                    (strcmp ($varArrayFunctionEntities[$j]['Name'], '__construct') == 0)
-                                                    OR (strcmp ($varArrayFunctionEntities[$j]['Name'], '__destruct') == 0)
-                                                    ) {
-                                                    continue;
-                                                    }
+                                            //---> Initializing : varFilePath
+                                                if (is_file (
+                                                    $varFilePath =
+                                                        \App\Http\Helpers\ZhtHelper\General\Utilities\Helper_File::getAutoMatchFilePath (
+                                                            $varUserSession, 
+                                                            getcwd(), 
+                                                            '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall'.$varArrayExampleAPIKey[$i].'/example.php'
+                                                            )                                                    
+                                                    ))
+                                                    {
+                                                    //---> Initializing : varArrayFunctionEntities
+                                                        $varArrayFunctionEntities =
+                                                            \App\Http\Helpers\ZhtHelper\General\Utilities\Helper_PHPObject::getAllFunctionInPHPFile (
+                                                                $varUserSession,
+                                                                $varFilePath
+                                                                );
+
+                                                    for ($j = 0, $jMax = count ($varArrayFunctionEntities); $j != $jMax; $j++)
+                                                        {
+                                                        if (
+                                                            (strcmp ($varArrayFunctionEntities[$j]['Name'], '__construct') == 0)
+                                                            OR (strcmp ($varArrayFunctionEntities[$j]['Name'], '__destruct') == 0)
+                                                            ) {
+                                                            continue;
+                                                            }
                                                 
-                                                //---> Initializing : varURL
-                                                    $varURL = (
-                                                        str_replace (
-                                                            '/',
-                                                            '.',
-                                                            str_replace (
-                                                                '#/',
-                                                                '',
-                                                                ('#'.$varArrayExampleAPIKey[$i])
-                                                                )
-                                                            ).
-                                                        '_'.
-                                                        $varArrayFunctionEntities[$j]['Name']
-                                                        );
+                                                        //---> Initializing : varURL
+                                                            $varURL = (
+                                                                str_replace (
+                                                                    '/',
+                                                                    '.',
+                                                                    str_replace (
+                                                                        '#/',
+                                                                        '',
+                                                                        ('#'.$varArrayExampleAPIKey[$i])
+                                                                        )
+                                                                    ).
+                                                                '_'.
+                                                                $varArrayFunctionEntities[$j]['Name']
+                                                                );
 
-                                                //---> Initializing : $varControllerPath
-                                                    $varControllerPath = (
-                                                        $varClass.
-                                                        '@'.
-                                                        $varArrayFunctionEntities[$j]['Name']
-                                                        );
+                                                        //---> Initializing : $varControllerPath
+                                                            $varControllerPath = (
+                                                                $varClass.
+                                                                '@'.
+                                                                $varArrayFunctionEntities[$j]['Name']
+                                                                );
 
-                                                echo '
+                                                        echo '
       • [http://172.28.0.30/'.$varURL.']
           ► '.$varControllerPath;
 
-                                                \App\Http\Helpers\ZhtHelper\General\System\Helper_LaravelRoute::setRoute (
-                                                    $varURL,
-                                                    'get',
-                                                    $varControllerPath
-                                                    );
+                                                        \App\Http\Helpers\ZhtHelper\General\System\Helper_LaravelRoute::setRoute (
+                                                            $varURL,
+                                                            'get',
+                                                            $varControllerPath
+                                                            );
+                                                        }
+                                                    }
                                                 }
-                                            }
-                                        }
                                     }
 
                                 catch (\Exception $ex) {

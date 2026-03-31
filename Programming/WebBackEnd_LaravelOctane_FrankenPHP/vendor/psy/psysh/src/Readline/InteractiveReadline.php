@@ -11,6 +11,7 @@
 
 namespace Psy\Readline;
 
+use Psy\CommandAware;
 use Psy\Completion\CompletionEngine;
 use Psy\Exception\ThrowUpException;
 use Psy\Output\Theme;
@@ -21,6 +22,7 @@ use Psy\Readline\Interactive\InteractiveSession;
 use Psy\Readline\Interactive\Readline as InternalReadline;
 use Psy\Readline\Interactive\Suggestion\Source\ContextAwareSource;
 use Psy\Readline\Interactive\Terminal;
+use Psy\Readline\Interactive\TerminalOutput;
 use Psy\Shell;
 use Psy\ShellAware;
 use Psy\Util\TerminalColor;
@@ -35,7 +37,7 @@ use Symfony\Component\Console\Output\StreamOutput;
  * A pure-PHP readline with visual feedback, autosuggestions, tab completion,
  * and other interactive features.
  */
-class InteractiveReadline implements InteractiveReadlineInterface, ShellAware
+class InteractiveReadline implements InteractiveReadlineInterface, ShellAware, CommandAware
 {
     private InternalReadline $readline;
     private InteractiveHistory $history;
@@ -101,7 +103,7 @@ class InteractiveReadline implements InteractiveReadlineInterface, ShellAware
 
         DebugLog::enable($output->getVerbosity());
 
-        $this->terminal = $terminal ?? new Terminal(new StdinReader(\STDIN), $output);
+        $this->terminal = $terminal ?? new Terminal(new StdinReader(\STDIN), new TerminalOutput($output));
         $this->session = new InteractiveSession($this->terminal);
         $this->history = new InteractiveHistory($this->historySize, $this->eraseDups);
         $this->resolveHistoryFiles();
@@ -255,6 +257,12 @@ class InteractiveReadline implements InteractiveReadlineInterface, ShellAware
         $this->readline->setShell($shell);
     }
 
+    public function setCommands(array $commands): void
+    {
+        $this->assertBooted();
+        $this->readline->getCommandHighlighter()->setCommands($commands);
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -296,10 +304,19 @@ class InteractiveReadline implements InteractiveReadlineInterface, ShellAware
     /**
      * {@inheritdoc}
      */
-    public function setBracketedPaste(bool $enabled): void
+    public function setUseSyntaxHighlighting(bool $enabled): void
     {
         $this->assertBooted();
-        $this->session->setBracketedPaste($enabled);
+        $this->readline->setUseSyntaxHighlighting($enabled);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setUseBracketedPaste(bool $enabled): void
+    {
+        $this->assertBooted();
+        $this->session->setUseBracketedPaste($enabled);
     }
 
     /**

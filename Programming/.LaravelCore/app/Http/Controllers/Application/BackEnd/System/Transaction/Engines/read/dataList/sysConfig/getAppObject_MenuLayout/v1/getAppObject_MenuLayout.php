@@ -59,7 +59,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         function main($varUserSession, $varData)
-        {
+            {
 
             $userSessionID = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
             $branchID = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($userSessionID)['branchID'];
@@ -72,14 +72,16 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
                     $branchID,
                     $varData['parameter']['recordID']
                 );
+//            var_dump(json_encode($varMenu));
 
             \App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(
                 $varUserSession,
                 "RedisGetMenu" . $varData['parameter']['recordID'],
                 json_encode($varMenu),
                 $varTTL
-            );
+                );
             
+            //return $varMenu;
             return [];
 
             //     $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);

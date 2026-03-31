@@ -25,6 +25,13 @@ Route::get(
     '\App\Http\Controllers\Application\BackEnd\System\Notification\Engines\webDisplayPage\getPHPInformation\v1\getPHPInformation@main'
     );
 
+\App\Http\Helpers\ZhtHelper\General\System\Helper_LaravelRoute::setRoute (
+    'getXYZ',
+    'get',
+    '\App\Http\Controllers\Application\BackEnd\RouteGateway\Engines\getGeneralRoute\v1\getGeneralRoute@main'
+    //'\App\Http\Controllers\Application\BackEnd\System\Report\Engines\report\form\dataList\finance\getAdvance\v1\getAdvance@main'
+    );
+
 //-----[ Example Code - Dynamic Route ]----------------------------------------------( START )-----
 /*
     $varAPIWebToken = 

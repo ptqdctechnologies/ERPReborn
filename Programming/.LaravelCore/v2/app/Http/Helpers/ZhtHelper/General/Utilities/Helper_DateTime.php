@@ -95,15 +95,16 @@ namespace
                 */
                 public static function
                     getDifferenceOfDateTimeTZString (
-                        mixed $varUserSession, string $varStartDateTimeTZ, string $varFinishDateTimeTZ
+                        mixed $varUserSession,
+                        string $varStartDateTimeTZ, string $varFinishDateTimeTZ
                         )
                             {
-                            //---> Data Initialization
-                                $varReturn =
-                                    (string) null;
+                            //-----[ DATA INITIALIZATION ]-------------------------------------------------------------------( START )-----
+                                //---> Initializing : varReturn
+                                    $varReturn =
+                                        (string) null;
 
-                            //---> Data Process
-                                try {
+                                //---> Initializing : varStartDateTimeTZ
                                     $varStartDateTimeTZ =
                                         str_replace (
                                             'T',
@@ -111,6 +112,7 @@ namespace
                                             $varStartDateTimeTZ
                                             );
 
+                                //---> Initializing : varFinishDateTimeTZ
                                     $varFinishDateTimeTZ =
                                         str_replace (
                                             'T',
@@ -118,128 +120,152 @@ namespace
                                             $varFinishDateTimeTZ
                                             );
 
+                                //---> Initializing : varStartDateTimeArray
                                     $varStartDateTimeArray =
                                         explode (
                                             '.',
                                             $varStartDateTimeTZ
                                             );
 
+                                //---> Initializing : varFinishDateTimeArray
                                     $varFinishDateTimeArray =
                                         explode (
                                             '.',
                                             $varFinishDateTimeTZ
                                             );
 
-                                    try {
-                                        $varStartDateTimeOffset = (
-                                            1 * (float) explode('+', $varStartDateTimeArray[1])[1]
-                                            );
+                            //-----[ DATA INITIALIZATION ]-------------------------------------------------------------------(  END  )-----
 
-                                        $varStartDateTimeMicroSecond = (
-                                            (float) ('0.'.explode('+', $varStartDateTimeArray[1])[0])
-                                            );
-                                        }
-
-                                    catch (\Exception $ex) {
+                            //-----[ DATA PROCESS ]--------------------------------------------------------------------------( START )-----
+                                try {
+                                    //---> Initializing : varStartDateTimeOffset, varStartDateTimeMicroSecond
                                         try {
                                             $varStartDateTimeOffset = (
-                                                -1 * (float) explode('-', $varStartDateTimeArray[1])[1]
+                                                1 * (float) explode('+', $varStartDateTimeArray[1])[1]
                                                 );
+
                                             $varStartDateTimeMicroSecond = (
-                                                (float) ('0.'.explode('-', $varStartDateTimeArray[1])[0])
+                                                (float) ('0.'.explode('+', $varStartDateTimeArray[1])[0])
                                                 );
                                             }
 
                                         catch (\Exception $ex) {
-                                            $varStartDateTimeOffset = (
-                                                (float) 0
-                                                );
-                                            $varStartDateTimeMicroSecond = (
-                                                (float) 0
-                                                );
+                                            try {
+                                                $varStartDateTimeOffset = (
+                                                    -1 * (float) explode('-', $varStartDateTimeArray[1])[1]
+                                                    );
+
+                                                $varStartDateTimeMicroSecond = (
+                                                    (float) ('0.'.explode('-', $varStartDateTimeArray[1])[0])
+                                                    );
+                                                }
+
+                                            catch (\Exception $ex) {
+                                                $varStartDateTimeOffset = (
+                                                    (float) 0
+                                                    );
+
+                                                $varStartDateTimeMicroSecond = (
+                                                    (float) 0
+                                                    );
+                                                }
                                             }
-                                        }
 
-                                    try {
-                                        $varFinishDateTimeOffset = (
-                                            1 * (float) explode('+', $varFinishDateTimeArray[1])[1]
-                                            );
-                                        $varFinishDateTimeMicroSecond = (
-                                            (float) ('0.'.explode('+', $varFinishDateTimeArray[1])[0])
-                                            );
-                                        }
-
-                                    catch (\Exception $ex) {
+                                    //---> Initializing : varFinishDateTimeOffset, varFinishDateTimeMicroSecond
                                         try {
                                             $varFinishDateTimeOffset = (
-                                                -1 * (float) explode('-', $varFinishDateTimeArray[1])[1]
+                                                1 * (float) explode('+', $varFinishDateTimeArray[1])[1]
                                                 );
+
                                             $varFinishDateTimeMicroSecond = (
-                                                (float) ('0.'.explode('-', $varFinishDateTimeArray[1])[0])
+                                                (float) ('0.'.explode('+', $varFinishDateTimeArray[1])[0])
                                                 );
                                             }
 
                                         catch (\Exception $ex) {
-                                            $varFinishDateTimeOffset = (float) 0;
-                                            $varFinishDateTimeMicroSecond = (float) 0;
+                                            try {
+                                                $varFinishDateTimeOffset = (
+                                                    -1 * (float) explode('-', $varFinishDateTimeArray[1])[1]
+                                                    );
+
+                                                $varFinishDateTimeMicroSecond = (
+                                                    (float) ('0.'.explode('-', $varFinishDateTimeArray[1])[0])
+                                                    );
+                                                }
+
+                                            catch (\Exception $ex) {
+                                                $varFinishDateTimeOffset = (float) 0;
+
+                                                $varFinishDateTimeMicroSecond = (float) 0;
+                                                }
                                             }
-                                        }
 
-                                    $varUniversalSecondsDifference = (
-                                            (
-                                                ((((float) (self::getUnixTime($varUserSession, $varFinishDateTimeArray[0]) + ($varFinishDateTimeOffset * 3600))) + $varFinishDateTimeMicroSecond) * 1000000)
-                                                -
-                                                ((((float) (self::getUnixTime($varUserSession, $varStartDateTimeArray[0]) + ($varStartDateTimeOffset * 3600))) + $varStartDateTimeMicroSecond) * 1000000)
-                                            ) / 1000000
-                                        );
-                                    //dd($varUniversalSecondsDifference);
-
-                                    $varIntervalRemain =
-                                        $varUniversalSecondsDifference;
-                                    $varHoursDifference = (
-                                        ((int) $varIntervalRemain - ((int) $varIntervalRemain % 3600)) / 3600
-                                        );
-                                    $varIntervalRemain = (
-                                        $varIntervalRemain - ($varHoursDifference * 3600)
-                                        );
-                                    $varMinutesDifference = (
-                                        ((int) $varIntervalRemain - ((int) $varIntervalRemain % 60)) / 60
-                                        );
-                                    $varIntervalRemain = (
-                                        $varIntervalRemain - ($varMinutesDifference * 60)
-                                        );
-                                    $varSecondsDifference = (
-                                        (int) $varIntervalRemain
-                                        );
-
-                                    try {
-                                        $varMicroSecondsDifference = (
-                                            explode (
-                                                '.',
-                                                $varUniversalSecondsDifference
-                                                )[1]
+                                    //---> Initializing : varUniversalSecondsDifference
+                                        $varUniversalSecondsDifference = (
+                                                (
+                                                    ((((float) (self::getUnixTime($varUserSession, $varFinishDateTimeArray[0]) + ($varFinishDateTimeOffset * 3600))) + $varFinishDateTimeMicroSecond) * 1000000)
+                                                    -
+                                                    ((((float) (self::getUnixTime($varUserSession, $varStartDateTimeArray[0]) + ($varStartDateTimeOffset * 3600))) + $varStartDateTimeMicroSecond) * 1000000)
+                                                ) / 1000000
                                             );
-                                        }
+                                        //dd($varUniversalSecondsDifference);
 
-                                    catch (\Exception $ex) {
-                                        $varMicroSecondsDifference =
-                                            0;
-                                        }
+                                    //---> Initializing : varIntervalRemain
+                                        $varIntervalRemain =
+                                            $varUniversalSecondsDifference;
 
-                                    $varReturn = (
-                                        str_pad ($varHoursDifference, 2, '0', STR_PAD_LEFT).':'.
-                                        str_pad ($varMinutesDifference, 2, '0', STR_PAD_LEFT).':'.
-                                        str_pad ($varSecondsDifference, 2, '0', STR_PAD_LEFT).'.'.
-                                        str_pad ($varMicroSecondsDifference, 6, '0', STR_PAD_RIGHT)
-                                        );
+                                    //---> Initializing : varHoursDifference, varMinutesDifference, varSecondsDifference, varMicroSecondsDifference
+                                        $varHoursDifference = (
+                                            ((int) $varIntervalRemain - ((int) $varIntervalRemain % 3600)) / 3600
+                                            );
+
+                                        $varIntervalRemain = (
+                                            $varIntervalRemain - ($varHoursDifference * 3600)
+                                            );
+
+                                        $varMinutesDifference = (
+                                            ((int) $varIntervalRemain - ((int) $varIntervalRemain % 60)) / 60
+                                            );
+
+                                        $varIntervalRemain = (
+                                            $varIntervalRemain - ($varMinutesDifference * 60)
+                                            );
+
+                                        $varSecondsDifference = (
+                                            (int) $varIntervalRemain
+                                            );
+
+                                        try {
+                                            $varMicroSecondsDifference = (
+                                                explode (
+                                                    '.',
+                                                    $varUniversalSecondsDifference
+                                                    )[1]
+                                                );
+                                            }
+
+                                        catch (\Exception $ex) {
+                                            $varMicroSecondsDifference =
+                                                0;
+                                            }
+
+                                    //---> Reinitializing : varReturn
+                                        $varReturn = (
+                                            str_pad ($varHoursDifference, 2, '0', STR_PAD_LEFT).':'.
+                                            str_pad ($varMinutesDifference, 2, '0', STR_PAD_LEFT).':'.
+                                            str_pad ($varSecondsDifference, 2, '0', STR_PAD_LEFT).'.'.
+                                            str_pad ($varMicroSecondsDifference, 6, '0', STR_PAD_RIGHT)
+                                            );
                                     }
 
                                 catch (\Exception $ex) {
                                     }
+                            //-----[ DATA PROCESS ]--------------------------------------------------------------------------(  END  )-----
 
-                            //---> Data Return
+                            //-----[ DATA RETURN ]---------------------------------------------------------------------------( START )-----
                                 return
                                     $varReturn;
+                            //-----[ DATA RETURN ]---------------------------------------------------------------------------(  END  )-----
                             }
 
 
@@ -270,10 +296,13 @@ namespace
                         string $varDateTimeFormat = null, int $varUnixTime = null
                         )
                             {
-                            //---> Data Initialization
-                                $varReturn = null;
+                            //-----[ DATA INITIALIZATION ]-------------------------------------------------------------------( START )-----
+                                //---> Initializing : varReturn
+                                    $varReturn =
+                                        (string) null;
+                            //-----[ DATA INITIALIZATION ]-------------------------------------------------------------------(  END  )-----
 
-                            //---> Data Process
+                            //-----[ DATA PROCESS ]--------------------------------------------------------------------------( START )-----
                                 try {
                                     if (!$varDateTimeFormat)
                                         {

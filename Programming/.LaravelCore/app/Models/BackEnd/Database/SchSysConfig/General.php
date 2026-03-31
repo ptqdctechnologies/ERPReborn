@@ -238,14 +238,15 @@ namespace App\Models\Database\SchSysConfig
                             ]
                             )
                         );
-                
+
                 $varReturn['data'] = 
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
                         $varReturn['data'][0]['Func_General_GetUserPrivilege_MenuLayout']
                         );
 
-                return $varReturn['data'];
+                return
+                    $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
