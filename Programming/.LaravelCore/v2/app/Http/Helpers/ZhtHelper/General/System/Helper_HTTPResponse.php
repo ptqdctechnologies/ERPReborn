@@ -134,7 +134,7 @@ namespace
                                         $varTTL =
                                             300;
                                         }
-                                    
+
                                     //---> Overide TTL untuk API Key tertentu
                                         if (
                                             \App\Http\Helpers\ZhtHelper\General\Utilities\Helper_Array::isKeyExist (
@@ -200,60 +200,59 @@ namespace
                                             );
 
                                     //---> Initializing : varHeaders
-                                    if (!$varHeaders)
-                                        {
-                                        //
-                                        //---> API AUTH
-                                        if (strstr($varURL, '/api/auth')) {
-                                            $varHeaders = [
-                                                'User-Agent' => (
-                                                    empty ($_SERVER['HTTP_USER_AGENT'])
-                                                    ?
-                                                    'Non Browser'
-                                                    :
-                                                    $_SERVER['HTTP_USER_AGENT']
-                                                    )
-                                                ];
-                                            
-                                            }
-                                        //---> API GATEWAY
-                                        elseif (strstr($varURL, '/api/gateway')) {
-                                            $varHeaders = [
-                                                'Authorization' => (
-                                                    (
-                                                        (\App\Http\Helpers\ZhtHelper\General\Utilities\Helper_Array::isKeyExist (
-                                                            $varUserSession,
-                                                            'header',
-                                                            $varData
-                                                            ) == true
-                                                        ) 
-                                                    &&
-                                                        (\App\Http\Helpers\ZhtHelper\General\Utilities\Helper_Array::isKeyExist (
-                                                            $varUserSession,
-                                                            'authorization',
-                                                            $varData['header']
-                                                            ) == true
+                                        if (!$varHeaders)
+                                            {
+                                            //
+                                            //---> API AUTH
+                                            if (strstr($varURL, '/api/auth')) {
+                                                $varHeaders = [
+                                                    'User-Agent' => (
+                                                        empty ($_SERVER['HTTP_USER_AGENT'])
+                                                        ?
+                                                        'Non Browser'
+                                                        :
+                                                        $_SERVER['HTTP_USER_AGENT']
                                                         )
-                                                    )
-                                                    ?
-                                                    $varData['header']['authorization']
-                                                    :
-                                                    null
-                                                    ),
-                                                'User-Agent' => (
-                                                    empty ($_SERVER['HTTP_USER_AGENT'])
-                                                    ?
-                                                    'Non Browser'
-                                                    :
-                                                    $_SERVER['HTTP_USER_AGENT']
-                                                    )
-                                                ];
+                                                    ];
+                                                }
+                                            //---> API GATEWAY
+                                            elseif (strstr($varURL, '/api/gateway')) {
+                                                $varHeaders = [
+                                                    'Authorization' => (
+                                                        (
+                                                            (\App\Http\Helpers\ZhtHelper\General\Utilities\Helper_Array::isKeyExist (
+                                                                $varUserSession,
+                                                                'header',
+                                                                $varData
+                                                                ) == true
+                                                            ) 
+                                                        &&
+                                                            (\App\Http\Helpers\ZhtHelper\General\Utilities\Helper_Array::isKeyExist (
+                                                                $varUserSession,
+                                                                'authorization',
+                                                                $varData['header']
+                                                                ) == true
+                                                            )
+                                                        )
+                                                        ?
+                                                        $varData['header']['authorization']
+                                                        :
+                                                        null
+                                                        ),
+                                                    'User-Agent' => (
+                                                        empty ($_SERVER['HTTP_USER_AGENT'])
+                                                        ?
+                                                        'Non Browser'
+                                                        :
+                                                        $_SERVER['HTTP_USER_AGENT']
+                                                        ),
+                                                    'Agent-DateTime' => \App\Http\Helpers\ZhtHelper\General\System\Helper_HTTPHeader::generateDate($varUserSession)
+                                                    ];
+                                                }
+                                            dd($varHeaders);
                                             }
-                                        dd($varHeaders);
-                                        }
-                                    else {
-
-                                        }
+                                        else {
+                                            }
 
                                     }
                                 catch (\Exception $ex) {

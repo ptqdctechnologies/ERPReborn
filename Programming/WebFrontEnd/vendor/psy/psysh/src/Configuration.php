@@ -11,6 +11,10 @@
 
 namespace Psy;
 
+use Psy\Clipboard\ClipboardMethod;
+use Psy\Clipboard\CommandClipboardMethod;
+use Psy\Clipboard\NullClipboardMethod;
+use Psy\Clipboard\Osc52ClipboardMethod;
 use Psy\Exception\DeprecatedException;
 use Psy\Exception\InvalidManualException;
 use Psy\Exception\RuntimeException;
@@ -36,6 +40,7 @@ use Psy\VersionUpdater\NoopChecker;
 use Symfony\Component\Console\Formatter\OutputFormatterStyle;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
@@ -61,6 +66,16 @@ class Configuration
     const VERBOSITY_VERY_VERBOSE = 'very_verbose';
     const VERBOSITY_DEBUG = 'debug';
 
+    const SEMICOLONS_SUPPRESS_RETURN_DOUBLE = 'double';
+
+    private const KNOWN_CLIPBOARD_COMMANDS = [
+        'wl-copy',
+        'xsel --clipboard --input',
+        'xclip -selection clipboard',
+        'pbcopy',
+        'clip.exe',
+    ];
+
     private const AVAILABLE_OPTIONS = [
         'codeCleaner',
         'colorMode',
@@ -68,8 +83,10 @@ class Configuration
         'dataDir',
         'defaultIncludes',
         'eraseDuplicates',
+        'exceptionDetails',
         'errorLoggingLevel',
         'useExperimentalReadline',
+        'useSyntaxHighlighting',
         'useSuggestions',
         'forceArrayIndexes',
         'formatterStyles',
@@ -79,18 +96,22 @@ class Configuration
         'interactiveMode',
         'logging',
         'manualDbFile',
+        'useDeprecatedMultilineStrings',
         'trustProject',
         'pager',
         'prompt',
         'rawOutput',
         'requireSemicolons',
         'runtimeDir',
+        'semicolonsSuppressReturn',
         'startupMessage',
         'strictTypes',
         'theme',
         'updateCheck',
         'updateManualCheck',
+        'clipboardCommand',
         'useBracketedPaste',
+        'useOsc52Clipboard',
         'usePcntl',
         'useReadline',
         'useTabCompletion',
@@ -111,6 +132,7 @@ class Configuration
     private int $historySize = 0;
     private ?bool $eraseDuplicates = null;
     private bool $useExperimentalReadline = false;
+    private bool $useSyntaxHighlighting = true;
     private bool $useSuggestions = false;
     private ?string $manualDbFile = null;
     private bool $hasReadline;
@@ -118,19 +140,26 @@ class Configuration
     private bool $useBracketedPaste = false;
     private bool $hasPcntl;
     private ?bool $usePcntl = null;
-    private array $newCommands = [];
+    private array $commands = [];
+    private array $matchers = [];
+    /** @var Completion\Source\SourceInterface[] */
+    private array $completionSources = [];
     private ?bool $pipedInput = null;
     private ?bool $pipedOutput = null;
     private bool $rawOutput = false;
     private bool $requireSemicolons = false;
+    /** @var bool|string */
+    private $semicolonsSuppressReturn = false;
     private bool $strictTypes = false;
+    private ?string $clipboardCommand = null;
     private ?bool $useUnicode = null;
     private ?bool $useTabCompletion = null;
-    private array $newMatchers = [];
-    private array $newCompletionSources = [];
+    private bool $useOsc52Clipboard = false;
     private ?array $autoloadWarmers = null;
     private $implicitUse = false;
     private ?ShellLogger $logger = null;
+    /** @var callable|null */
+    private $exceptionDetails = null;
     private int $errorLoggingLevel = \E_ALL;
     private bool $warnOnMultipleConfigs = false;
     private string $colorMode = self::COLOR_MODE_AUTO;
@@ -140,6 +169,7 @@ class Configuration
     private ?string $updateManualCheck = null;
     private ?string $startupMessage = null;
     private bool $forceArrayIndexes = false;
+    private bool $useDeprecatedMultilineStrings = false;
     /** @deprecated */
     private array $formatterStyles = [];
     private string $verbosity = self::VERBOSITY_NORMAL;
@@ -158,8 +188,10 @@ class Configuration
     private ?\PDO $manualDb = null;
     private ?ManualInterface $manual = null;
     private ?Presenter $presenter = null;
+    private array $casters = [];
     private ?AutoCompleter $autoCompleter = null;
     private ?Checker $checker = null;
+    private ?ClipboardMethod $clipboard = null;
     /** @deprecated */
     private ?string $prompt = null;
     private ConfigPaths $configPaths;
@@ -273,6 +305,18 @@ class Configuration
             $config->setTheme('compact');
         }
 
+        // Handle --pager and --no-pager
+        if (self::hasPagerOption($input)) {
+            $pager = self::getPagerFromInput($input);
+            if ($pager === null) {
+                $config->setDefaultPager();
+            } else {
+                $config->setPager($pager);
+            }
+        } elseif (self::getOptionFromInput($input, ['no-pager'])) {
+            $config->setPager(false);
+        }
+
         // Handle --raw-output
         // @todo support raw output with interactive input?
         if (!$config->getInputInteractive()) {
@@ -329,6 +373,54 @@ class Configuration
         }
 
         return null;
+    }
+
+    /**
+     * Get the desired pager from the given input.
+     *
+     * @return string|null pager command, or null to use default pager resolution
+     */
+    private static function getPagerFromInput(InputInterface $input): ?string
+    {
+        // Best case, input is properly bound and validated.
+        if ($input->hasOption('pager')) {
+            $pager = $input->getOption('pager');
+            if (\is_string($pager)) {
+                return $pager === '' ? null : $pager;
+            }
+
+            if ($pager === true) {
+                return null;
+            }
+        }
+
+        if ($input->hasParameterOption('--pager', true)) {
+            $pager = $input->getParameterOption('--pager', null, true);
+
+            if (\is_string($pager) && isset($pager[0]) && $pager[0] === '-') {
+                return null;
+            }
+
+            return ($pager === null || $pager === '') ? null : $pager;
+        }
+
+        return null;
+    }
+
+    private static function hasPagerOption(InputInterface $input): bool
+    {
+        if ($input->hasOption('pager')) {
+            $pager = $input->getOption('pager');
+            if (\is_string($pager) || $pager === true) {
+                return true;
+            }
+        }
+
+        if ($input->hasParameterOption('--pager', true)) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -464,6 +556,8 @@ class Configuration
             // --interaction and --no-interaction aliases for compatibility with Symfony, Composer, etc
             new InputOption('interaction', null, InputOption::VALUE_NONE, 'Force PsySH to run in interactive mode.'),
             new InputOption('no-interaction', null, InputOption::VALUE_NONE, 'Run PsySH without interactive input. Requires input from stdin.'),
+            new InputOption('pager', null, InputOption::VALUE_OPTIONAL, 'Use an alternate output pager command. Without a value, use the default pager selection.', false),
+            new InputOption('no-pager', null, InputOption::VALUE_NONE, 'Disable paging output for this run.'),
             new InputOption('raw-output', 'r', InputOption::VALUE_NONE, 'Print var_export-style return values (for non-interactive input)'),
 
             new InputOption('self-update', 'u', InputOption::VALUE_NONE, 'Update to the latest version'),
@@ -676,7 +770,7 @@ class Configuration
         // Non-interactive: warn and skip untrusted features (do not auto-trust)
         if (!$this->getInputInteractive() || !$input->isInteractive()) {
             $errorOutput = $output;
-            if ($errorOutput instanceof \Symfony\Component\Console\Output\ConsoleOutput) {
+            if ($errorOutput instanceof ConsoleOutput) {
                 $errorOutput = $errorOutput->getErrorOutput();
             }
 
@@ -1270,6 +1364,111 @@ class Configuration
     }
 
     /**
+     * Set a custom clipboard command.
+     *
+     * @param string|null $clipboardCommand
+     */
+    public function setClipboardCommand(?string $clipboardCommand)
+    {
+        $this->clipboardCommand = $clipboardCommand !== null && \trim($clipboardCommand) !== ''
+            ? $clipboardCommand
+            : null;
+        $this->clipboard = null;
+    }
+
+    /**
+     * Get the configured clipboard command, if any.
+     */
+    public function clipboardCommand(): ?string
+    {
+        return $this->clipboardCommand;
+    }
+
+    /**
+     * Set the ClipboardMethod service.
+     */
+    public function setClipboard(ClipboardMethod $clipboard)
+    {
+        $this->clipboard = $clipboard;
+    }
+
+    /**
+     * Get the ClipboardMethod service.
+     */
+    public function getClipboard(): ClipboardMethod
+    {
+        if (isset($this->clipboard)) {
+            return $this->clipboard;
+        }
+
+        if ($this->clipboardCommand !== null && \function_exists('proc_open')) {
+            return $this->clipboard = new CommandClipboardMethod($this->clipboardCommand);
+        }
+
+        $isSsh = $this->isSshSession();
+        if ($isSsh) {
+            return $this->clipboard = $this->useOsc52Clipboard()
+                ? new Osc52ClipboardMethod()
+                : new NullClipboardMethod(true);
+        }
+
+        if (\function_exists('proc_open')) {
+            foreach (self::KNOWN_CLIPBOARD_COMMANDS as $command) {
+                if ($this->clipboardCommandExists($command)) {
+                    return $this->clipboard = new CommandClipboardMethod($command);
+                }
+            }
+        }
+
+        if ($this->useOsc52Clipboard()) {
+            return $this->clipboard = new Osc52ClipboardMethod();
+        }
+
+        return $this->clipboard = new NullClipboardMethod(
+            false,
+            $this->clipboardCommand !== null
+                ? NullClipboardMethod::REASON_NO_COMMAND_SUPPORT
+                : NullClipboardMethod::REASON_NO_COMMAND
+        );
+    }
+
+    /**
+     * Enable or disable OSC 52 clipboard support.
+     *
+     * @param bool $useOsc52Clipboard
+     */
+    public function setUseOsc52Clipboard(bool $useOsc52Clipboard)
+    {
+        $this->useOsc52Clipboard = (bool) $useOsc52Clipboard;
+        $this->clipboard = null;
+    }
+
+    /**
+     * Check whether to use OSC 52 clipboard support.
+     */
+    public function useOsc52Clipboard(): bool
+    {
+        return $this->useOsc52Clipboard;
+    }
+
+    private function isSshSession(): bool
+    {
+        return \getenv('SSH_TTY') !== false
+            || \getenv('SSH_CLIENT') !== false
+            || \getenv('SSH_CONNECTION') !== false;
+    }
+
+    /**
+     * @phpstan-param non-empty-string $command
+     */
+    private function clipboardCommandExists(string $command): bool
+    {
+        $bin = \explode(' ', $command, 2)[0];
+
+        return $this->configPaths->which($bin) !== null;
+    }
+
+    /**
      * Check whether this PHP instance has Pcntl available.
      *
      * @return bool True if Pcntl is available
@@ -1357,6 +1556,47 @@ class Configuration
     public function requireSemicolons(): bool
     {
         return $this->requireSemicolons;
+    }
+
+    /**
+     * Enable or disable semicolons suppressing return value display.
+     *
+     * @see self::semicolonsSuppressReturn()
+     */
+    public function setSemicolonsSuppressReturn($semicolonsSuppressReturn)
+    {
+        if (\is_bool($semicolonsSuppressReturn)) {
+            $this->semicolonsSuppressReturn = $semicolonsSuppressReturn;
+
+            return;
+        }
+
+        if ($semicolonsSuppressReturn === self::SEMICOLONS_SUPPRESS_RETURN_DOUBLE) {
+            $this->semicolonsSuppressReturn = self::SEMICOLONS_SUPPRESS_RETURN_DOUBLE;
+
+            return;
+        }
+
+        $given = \is_scalar($semicolonsSuppressReturn)
+            ? (string) $semicolonsSuppressReturn
+            : \gettype($semicolonsSuppressReturn);
+
+        throw new \InvalidArgumentException(\sprintf('Invalid semicolonsSuppressReturn value: %s. Accepted values: true, false, \'%s\'', $given, self::SEMICOLONS_SUPPRESS_RETURN_DOUBLE));
+    }
+
+    /**
+     * Check whether semicolons suppress return value display.
+     *
+     * When enabled, an unnecessary trailing semicolon suppresses the return
+     * value display (like Pry and MATLAB). The return value is still captured
+     * in $_. In `double` mode, a double semicolon (`;;`) is always required
+     * to suppress, regardless of the `requireSemicolons` setting.
+     *
+     * @return bool|string
+     */
+    public function semicolonsSuppressReturn()
+    {
+        return $this->semicolonsSuppressReturn;
     }
 
     /**
@@ -1496,6 +1736,22 @@ class Configuration
     }
 
     /**
+     * Enable or disable syntax highlighting in interactive readline.
+     */
+    public function setUseSyntaxHighlighting(bool $enabled): void
+    {
+        $this->useSyntaxHighlighting = $enabled;
+    }
+
+    /**
+     * Check whether syntax highlighting is enabled in interactive readline.
+     */
+    public function useSyntaxHighlighting(): bool
+    {
+        return $this->useSyntaxHighlighting;
+    }
+
+    /**
      * Enable inline suggestions in interactive readline.
      */
     public function setUseSuggestions(bool $enabled): void
@@ -1575,6 +1831,7 @@ class Configuration
         }
 
         $this->applyFormatterStyles();
+        $this->invalidatePresenter();
     }
 
     /**
@@ -1669,6 +1926,14 @@ class Configuration
     }
 
     /**
+     * Use the default pager resolution for this configuration.
+     */
+    public function setDefaultPager(): void
+    {
+        $this->pager = null;
+    }
+
+    /**
      * Get an OutputPager instance or a command for an external Proc pager.
      *
      * If no Pager has been explicitly provided, and Pcntl is available, this
@@ -1751,21 +2016,9 @@ class Configuration
      */
     public function addMatchers(array $matchers)
     {
-        $this->newMatchers = \array_merge($this->newMatchers, $matchers);
+        $this->matchers = \array_merge($this->matchers, $matchers);
         if (isset($this->shell)) {
-            $this->doAddMatchers();
-        }
-    }
-
-    /**
-     * Internal method for adding tab completion matchers. This will set any new
-     * matchers once a Shell is available.
-     */
-    private function doAddMatchers()
-    {
-        if (!empty($this->newMatchers)) {
-            $this->shell->addMatchers($this->newMatchers);
-            $this->newMatchers = [];
+            $this->syncShellExtensions();
         }
     }
 
@@ -1778,21 +2031,9 @@ class Configuration
      */
     public function addCompletionSources(array $sources)
     {
-        $this->newCompletionSources = \array_merge($this->newCompletionSources, $sources);
+        $this->completionSources = \array_merge($this->completionSources, $sources);
         if (isset($this->shell)) {
-            $this->doAddCompletionSources();
-        }
-    }
-
-    /**
-     * Internal method for adding completion sources. This will set any new
-     * sources once a Shell is available.
-     */
-    private function doAddCompletionSources()
-    {
-        if (!empty($this->newCompletionSources)) {
-            $this->shell->addCompletionSources($this->newCompletionSources);
-            $this->newCompletionSources = [];
+            $this->syncShellExtensions();
         }
     }
 
@@ -2018,6 +2259,33 @@ class Configuration
     }
 
     /**
+     * Configure a callback that returns additional structured exception details.
+     *
+     * The callback receives the thrown exception and may return any dumpable
+     * value; returning null suppresses additional output.
+     *
+     * @param callable $exceptionDetails
+     */
+    public function setExceptionDetails($exceptionDetails): void
+    {
+        if (!\is_callable($exceptionDetails)) {
+            throw new \InvalidArgumentException('Exception details callback must be callable');
+        }
+
+        $this->exceptionDetails = $exceptionDetails;
+    }
+
+    /**
+     * Get the configured exception details callback, if any.
+     *
+     * @return callable|null
+     */
+    public function getExceptionDetails()
+    {
+        return $this->exceptionDetails;
+    }
+
+    /**
      * Get an InputLoggingListener if input logging is enabled.
      *
      * @return InputLoggingListener|null
@@ -2148,22 +2416,22 @@ class Configuration
      */
     public function addCommands(array $commands)
     {
-        $this->newCommands = \array_merge($this->newCommands, $commands);
+        $this->commands = \array_merge($this->commands, $commands);
         if (isset($this->shell)) {
-            $this->doAddCommands();
+            $this->syncShellExtensions();
         }
     }
 
     /**
-     * Internal method for adding commands. This will set any new commands once
-     * a Shell is available.
+     * Sync configuration-driven extensions into the active shell.
+     *
+     * The shell handles deduplication, so we can safely forward everything.
      */
-    private function doAddCommands()
+    private function syncShellExtensions(): void
     {
-        if (!empty($this->newCommands)) {
-            $this->shell->addCommands($this->newCommands);
-            $this->newCommands = [];
-        }
+        $this->shell->addCommands($this->commands);
+        $this->shell->addMatchers($this->matchers);
+        $this->shell->addCompletionSources($this->completionSources);
     }
 
     /**
@@ -2174,9 +2442,7 @@ class Configuration
     public function setShell(Shell $shell)
     {
         $this->shell = $shell;
-        $this->doAddCommands();
-        $this->doAddMatchers();
-        $this->doAddCompletionSources();
+        $this->syncShellExtensions();
 
         // Configure SignatureFormatter for hyperlinks
         SignatureFormatter::setManual($this->getManual());
@@ -2390,7 +2656,11 @@ class Configuration
      */
     public function addCasters(array $casters)
     {
-        $this->getPresenter()->addCasters($casters);
+        $this->casters = \array_merge($this->casters, $casters);
+
+        if (isset($this->presenter)) {
+            $this->presenter->addCasters($casters);
+        }
     }
 
     /**
@@ -2399,7 +2669,10 @@ class Configuration
     public function getPresenter(): Presenter
     {
         if (!isset($this->presenter)) {
-            $this->presenter = new Presenter($this->getOutput()->getFormatter(), $this->forceArrayIndexes());
+            $this->presenter = new Presenter($this->getOutput()->getFormatter(), $this->forceArrayIndexes(), $this->useDeprecatedMultilineStrings());
+            if ($this->casters !== []) {
+                $this->presenter->addCasters($this->casters);
+            }
         }
 
         return $this->presenter;
@@ -2778,6 +3051,28 @@ class Configuration
     public function setForceArrayIndexes(bool $forceArrayIndexes)
     {
         $this->forceArrayIndexes = $forceArrayIndexes;
+        $this->invalidatePresenter();
+    }
+
+    /**
+     * @deprecated temporary compatibility flag for triple-quoted multiline strings.
+     *
+     * This will be removed in the next stable release.
+     */
+    public function useDeprecatedMultilineStrings(): bool
+    {
+        return $this->useDeprecatedMultilineStrings;
+    }
+
+    /**
+     * @deprecated temporary compatibility flag for triple-quoted multiline strings
+     *
+     * This will be removed in the next stable release
+     */
+    public function setUseDeprecatedMultilineStrings(bool $useDeprecatedMultilineStrings): void
+    {
+        $this->useDeprecatedMultilineStrings = $useDeprecatedMultilineStrings;
+        $this->invalidatePresenter();
     }
 
     /**
@@ -2791,14 +3086,18 @@ class Configuration
             $theme = new Theme($theme);
         }
 
-        $this->theme = $theme;
-
         if (isset($this->prompt)) {
-            $this->theme->setPrompt($this->prompt);
+            $theme->setPrompt($this->prompt);
         }
 
+        if (isset($this->theme) && $this->theme->equals($theme)) {
+            return;
+        }
+
+        $this->theme = $theme;
+
         if (isset($this->output)) {
-            $this->output->setTheme($theme);
+            $this->output->setTheme($this->theme);
             $this->applyFormatterStyles();
         }
     }
@@ -2818,6 +3117,11 @@ class Configuration
         }
 
         return $this->theme;
+    }
+
+    private function invalidatePresenter(): void
+    {
+        $this->presenter = null;
     }
 
     /**
