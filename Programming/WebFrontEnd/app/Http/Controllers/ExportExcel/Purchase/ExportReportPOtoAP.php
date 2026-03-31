@@ -13,41 +13,93 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class ExportReportPOtoAP implements FromCollection, WithHeadings, ShouldAutoSize, WithStyles
 {
+    protected $dataPurchaseOrder;
+
+    public function __construct($dataPurchaseOrder)
+    {
+        $this->dataPurchaseOrder = $dataPurchaseOrder;
+    }
+
     public function collection()
     {
-        $data = Session::get("dataReportPOtoAP");
+        $data = $this->dataPurchaseOrder;
+
+        $totalPurchaseOrderIDR           = 0;
+        $totalPurchaseOrderOtherCurrency = 0;
+        $totalPurchaseOrderEquivalentIDR = 0;
+
+        $totalAccountPayableIDR           = 0;
+        $totalAccountPayableOtherCurrency = 0;
+        $totalAccountPayableEquivalentIDR = 0;
 
         $filteredData = [];
         $counter = 1;
-        foreach ($data['dataDetail'] as $item) {
+        foreach ($data as $item) {
+            $totalPurchaseOrderIDR           += 0;
+            $totalPurchaseOrderOtherCurrency += 0;
+            $totalPurchaseOrderEquivalentIDR += 0;
+
+            $totalAccountPayableIDR           += 0;
+            $totalAccountPayableOtherCurrency += 0;
+            $totalAccountPayableEquivalentIDR += 0;
+
             $filteredData[] = [
-                'No'                                => $counter++,
-                'PO Number'                         => $item['DocumentNumber'] ?? null,
-                'PO Total'                          => $item['TotalAdvance'] ?? null,
-                'Valuta'                            => $item['CurrencyName'] ?? null,
-                'AP Number'                         => $item['DepartingFrom'] ?? null,
-                'AP Total'                          => $item['DestinationTo'] ?? null,
-                'Balance PO-AP'                     => $item['TotalExpenseClaimCart'] ?? null,
-                'Payment AP'                        => $item['TotalAmountDueToCompanyCart'] ?? null,
-                'Payment Date'                      => date('d-m-Y', strtotime($item['TotalAdvance'])) ?? null,
-                'Balance Net AP-Pay'                => $item['Description'] ?? null,
+                'No'                    => $counter++,
+                'PO Number'             => '-',
+                'PO Budget'             => '-',
+                'PO Date'               => '-',
+                'PO Supplier'           => '-',
+                'PO IDR'                => '-',
+                'PO Other Currency'     => '-',
+                'PO Equivalent IDR'     => '-',
+                'PO Status'             => '-',
+                'AP Number'             => '-',
+                'AP Date'               => '-',
+                'AP IDR'                => '-',
+                'AP Other Currency'     => '-',
+                'AP Equivalent IDR'     => '-',
+                'AP Status'             => '-',
+                'Balance PO to AP'      => '-',
+                'Balance AP to Payment' => '-',
             ];
         }
+
+        $filteredData[] = [
+            'No'                    => 'GRAND TOTAL',
+            'PO Number'             => '',
+            'PO Budget'             => '',
+            'PO Date'               => '',
+            'PO Supplier'           => '',
+            'PO IDR'                => $totalPurchaseOrderIDR,
+            'PO Other Currency'     => $totalPurchaseOrderOtherCurrency,
+            'PO Equivalent IDR'     => $totalPurchaseOrderEquivalentIDR,
+            'PO Status'             => '',
+            'AP Number'             => '',
+            'AP Date'               => '',
+            'AP IDR'                => $totalAccountPayableIDR,
+            'AP Other Currency'     => $totalAccountPayableOtherCurrency,
+            'AP Equivalent IDR'     => $totalAccountPayableEquivalentIDR,
+            'AP Status'             => '',
+            'Balance PO to AP'      => '',
+            'Balance AP to Payment' => '',
+        ];
 
         return collect($filteredData);
     }
 
     public function headings(): array
     {
-        $data = Session::get("dataReportPOtoAP");
+        $data = $this->dataPurchaseOrder;
 
         return [
             [date('F j, Y')],
-            ["Report PO to AP", " ", " ", " ", " ", " ", " "," "],
+            ["PURCHASE ORDER TO ACCOUNT PAYABLE"],
             [date('h:i A')],
-            ["Budget", ": " . $data['budgetCode'] . ' - ' . $data['budgetName'], "", "", "", "", "", "", ""],
-            ["", "", "", "", "", "", "", "", "", ""],
-            ["No","PO Number","PO Total","Valuta","AP Number","AP Total","Balance PO-AP","Payment AP","Payment Date","Balance Net AP-Pay"]
+            ["PO Number", ": -", "Budget", ": -", "Supplier", ": -"],
+            ["AP Number", ": -", "Sub Budget", ": -", "Date Range", ": -"],
+            [""],
+            ["No", "Purchase Order", "", "", "", "", "", "", "", "Account Payable", "", "", "", "", "", "Balance"],
+            ["", "Number", "Budget", "Date", "Supplier", "Total IDR", "Total Other Currency", "Total Equivalent IDR", "Status", "Number", "Date", "Total IDR", "Total Other Currency", "Total Equivalent IDR", "Status", "PO to AP", "AP to Payment"]
         ];
     }
 
@@ -64,9 +116,8 @@ class ExportReportPOtoAP implements FromCollection, WithHeadings, ShouldAutoSize
                 'horizontal' => Alignment::HORIZONTAL_RIGHT,
             ]
         ];
-
-        $sheet->getStyle('A1:J1')->applyFromArray($styleArrayHeader0);
-        $sheet->mergeCells('A1:J1');
+        $sheet->getStyle('A1:Q1')->applyFromArray($styleArrayHeader0);
+        $sheet->mergeCells('A1:Q1');
 
         $styleArrayHeader1 = [
             'font' => [
@@ -79,11 +130,10 @@ class ExportReportPOtoAP implements FromCollection, WithHeadings, ShouldAutoSize
                 'horizontal' => Alignment::HORIZONTAL_CENTER,
             ]
         ];
+        $sheet->getStyle('A2:Q2')->applyFromArray($styleArrayHeader1);
+        $sheet->mergeCells('A2:Q2');
 
-        $sheet->getStyle('A2:J2')->applyFromArray($styleArrayHeader1);
-        $sheet->mergeCells('A2:J2');
-
-        $styleArrayHeader = [
+        $styleArrayHeader2 = [
             'font' => [
                 'bold' => true,
                 'color' => [
@@ -94,11 +144,10 @@ class ExportReportPOtoAP implements FromCollection, WithHeadings, ShouldAutoSize
                 'horizontal' => Alignment::HORIZONTAL_RIGHT,
             ]
         ];
+        $sheet->getStyle('A3:Q3')->applyFromArray($styleArrayHeader2);
+        $sheet->mergeCells('A3:Q3');
 
-        $sheet->getStyle('A3:J3')->applyFromArray($styleArrayHeader);
-        $sheet->mergeCells('A3:J3');
-
-        $styleArrayHeader2 = [
+        $styleArrayHeader3 = [
             'font' => [
                 'bold' => true,
                 'color' => [
@@ -107,10 +156,10 @@ class ExportReportPOtoAP implements FromCollection, WithHeadings, ShouldAutoSize
             ],
             'alignment' => [
                 'horizontal' => Alignment::HORIZONTAL_LEFT,
-            ],
+            ]
         ];
-
-        $sheet->getStyle('A4:J4')->applyFromArray($styleArrayHeader2);
+        $sheet->getStyle('A4:Q4')->applyFromArray($styleArrayHeader3);
+        $sheet->getStyle('A5:Q5')->applyFromArray($styleArrayHeader3);
 
         $styleArrayHeader4 = [
             'font' => [
@@ -135,8 +184,12 @@ class ExportReportPOtoAP implements FromCollection, WithHeadings, ShouldAutoSize
                 ],
             ],
         ];
-
-        $sheet->getStyle('A6:J6')->applyFromArray($styleArrayHeader4);
+        $sheet->getStyle('A7:Q7')->applyFromArray($styleArrayHeader4);
+        $sheet->getStyle('A8:Q8')->applyFromArray($styleArrayHeader4);
+        $sheet->mergeCells('A7:A8');
+        $sheet->mergeCells('B7:I7');
+        $sheet->mergeCells('J7:O7');
+        $sheet->mergeCells('P7:Q7');
 
         $styleArrayContent = [
             'borders' => [
@@ -149,27 +202,21 @@ class ExportReportPOtoAP implements FromCollection, WithHeadings, ShouldAutoSize
             ],
         ];
 
-        $datas = Session::get("dataReportPOtoAP");
-        $totalCell = count($datas['dataDetail']);
-        $lastCell = 'A7:J' . $totalCell + 6;
+        $datas      = $this->dataPurchaseOrder;
+        $totalCell  = count($datas);
+        $lastCell   = 'A9:Q' . $totalCell + 9;
         $sheet->getStyle($lastCell)->applyFromArray($styleArrayContent);
-
-        $totalExpense   = $datas['totalExpense'];
-        $totalAmount    = $datas['totalAmount'];
-        $total          = $datas['total'];
-
-        $sheet->insertNewRowBefore($totalCell + 7, 1);
-        // $sheet->setCellValue('A' . $totalCell + 7, "GRAND TOTAL");
-        // $sheet->setCellValue('E' . $totalCell + 7, $totalExpense);
-        // $sheet->setCellValue('F' . $totalCell + 7, $totalAmount);
-        // $sheet->setCellValue('G' . $totalCell + 7, $total);
-        // $sheet->mergeCells('A' . $totalCell + 7 . ':' . 'D' . $totalCell + 7);
 
         $styleArrayFooter = [
             'font' => [
                 'bold' => true,
                 'color' => [
                     'rgb' => '000000',
+                ],
+            ],
+            'borders' => [
+                'allBorders' => [
+                    'borderStyle' => Border::BORDER_THIN,
                 ],
             ],
             'alignment' => [
@@ -183,8 +230,8 @@ class ExportReportPOtoAP implements FromCollection, WithHeadings, ShouldAutoSize
                 ],
             ],
         ];
-
-        $sheet->getStyle('A' . $totalCell + 7 . ':' . 'J' . $totalCell + 7)->applyFromArray($styleArrayFooter);
-
+        $sheet->getStyle('A' . $totalCell + 9 . ':' . 'Q' . $totalCell + 9)->applyFromArray($styleArrayFooter);
+        $sheet->mergeCells('A' . $totalCell + 9 . ':E' . $totalCell + 9);
+        $sheet->mergeCells('I' . $totalCell + 9 . ':K' . $totalCell + 9);
     }
 }
