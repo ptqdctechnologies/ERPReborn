@@ -381,7 +381,17 @@ class AdvanceSettlementController extends Controller
 
     public function ReportAdvanceSettlementSummary(Request $request)
     {
-        return view('Process.Advance.AdvanceSettlement.Reports.ReportAdvanceSettlementSummary');
+        $documentTypeRefID                      = $this->GetBusinessDocumentsTypeFromRedis('Advance Settlement Form');
+        $sessionOrganizationalDepartmentName    = Session::get('SessionOrganizationalDepartmentName');
+        $sessionOrganizationalJobPositionName   = Session::get('SessionOrganizationalJobPositionName');
+
+        $compact = [
+            'documentTypeRefID'                     => $documentTypeRefID,
+            'sessionOrganizationalDepartmentName'   => $sessionOrganizationalDepartmentName,
+            'sessionOrganizationalJobPositionName'  => $sessionOrganizationalJobPositionName
+        ];
+
+        return view('Process.Advance.AdvanceSettlement.Reports.ReportAdvanceSettlementSummary', $compact);
     }
 
     public function ReportAdvanceSettlementSummaryStore(Request $request)
