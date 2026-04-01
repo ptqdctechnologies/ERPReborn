@@ -517,7 +517,17 @@ class AdvanceRequestController extends Controller
 
     public function ReportAdvanceToASF(Request $request)
     {
-        return view('Process.Advance.AdvanceToASF.Reports.ReportAdvanceToASF');
+        $documentTypeRefID                      = $this->GetBusinessDocumentsTypeFromRedis('Advance Form');
+        $sessionOrganizationalDepartmentName    = Session::get('SessionOrganizationalDepartmentName');
+        $sessionOrganizationalJobPositionName   = Session::get('SessionOrganizationalJobPositionName');
+        
+        $compact = [
+            'documentTypeRefID'                     => $documentTypeRefID,
+            'sessionOrganizationalDepartmentName'   => $sessionOrganizationalDepartmentName,
+            'sessionOrganizationalJobPositionName'  => $sessionOrganizationalJobPositionName
+        ];
+
+        return view('Process.Advance.AdvanceToASF.Reports.ReportAdvanceToASF', $compact);
     }
 
     public function ReportAdvanceToASFStore(Request $request)
