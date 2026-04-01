@@ -214,7 +214,7 @@
             row.appendChild(arfNumberCell);
 
             const arfDateCell = document.createElement('td');
-            arfDateCell.textContent = item.combinedBudgetCode ?? '-';
+            arfDateCell.textContent = `${item.combinedBudgetCode ?? ''} - ${item.combinedBudgetName ?? ''}`;
             row.appendChild(arfDateCell);
 
             const arfRequesterCell = document.createElement('td');
@@ -222,7 +222,7 @@
             row.appendChild(arfRequesterCell);
 
             const arfTotalCell = document.createElement('td');
-            arfTotalCell.textContent = item.supplierName ?? '-';
+            arfTotalCell.textContent = `${item.supplierCode ?? ''} - ${item.supplierName ?? ''}`;
             row.appendChild(arfTotalCell);
 
             const arfPaymentCell = document.createElement('td');
