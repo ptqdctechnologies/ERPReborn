@@ -107,6 +107,8 @@
             },
             dataType: 'json',
             success: function(response) {
+                console.log('response', response);
+                
                 if (response.status === 200 && response.data[0]) {
                     data = response.data;
                     dataReport = JSON.stringify(response.data);
@@ -192,9 +194,9 @@
             row.appendChild(noCell);
 
             const arfNumberCell = document.createElement('td');
-            arfNumberCell.textContent = item.ARF_Number ?? '-';
+            arfNumberCell.textContent = item.purchaseOrderNumber ?? '-';
 
-            if (lastTransactionNumber === item.ARF_Number) {
+            if (lastTransactionNumber === item.purchaseOrderNumber) {
                 arfNumberCell.style.display = 'none';
                 rowspan++;
             } else {
@@ -205,70 +207,70 @@
                     }
                     // tbody.rows[rowIndex - rowspan].cells[1].rowSpan = rowspan;
                 }
-                lastTransactionNumber = item.ARF_Number;
+                lastTransactionNumber = item.purchaseOrderNumber;
                 rowspan = 1;
             }
 
             row.appendChild(arfNumberCell);
 
             const arfDateCell = document.createElement('td');
-            arfDateCell.textContent = item.ARF_Date ?? '-';
+            arfDateCell.textContent = item.combinedBudgetCode ?? '-';
             row.appendChild(arfDateCell);
 
             const arfRequesterCell = document.createElement('td');
-            arfRequesterCell.textContent = item.ARF_Requester ?? '-';
+            arfRequesterCell.textContent = item.purchaseOrderDate ?? '-';
             row.appendChild(arfRequesterCell);
 
             const arfTotalCell = document.createElement('td');
-            arfTotalCell.textContent = item.ARF_Total_IDR ?? '-';
+            arfTotalCell.textContent = item.supplierName ?? '-';
             row.appendChild(arfTotalCell);
 
             const arfPaymentCell = document.createElement('td');
-            arfPaymentCell.textContent = item.ARF_Payment ?? '-';
+            arfPaymentCell.textContent = item.purchaseOrderTotalIDR ?? '-';
             row.appendChild(arfPaymentCell);
 
             const arfStatusCell = document.createElement('td');
-            arfStatusCell.textContent = item.ARF_Status ?? '-';
+            arfStatusCell.textContent = item.purchaseOrderTotalOtherCurrency ?? '-';
             row.appendChild(arfStatusCell);
 
             const asfNumberCell = document.createElement('td');
-            asfNumberCell.textContent = item.ASF_Number ?? '-';
+            asfNumberCell.textContent = item.purchaseOrderTotalEquivalentIDR ?? '-';
             row.appendChild(asfNumberCell);
 
             const asfDateCell = document.createElement('td');
-            asfDateCell.textContent = item.ASF_Date ?? '-';
+            asfDateCell.textContent = item.purchaseOrderStatus ?? '-';
             row.appendChild(asfDateCell);
 
             const asfExpenseCell = document.createElement('td');
-            asfExpenseCell.textContent = item.expense_Claim_IDR ?? '-';
+            asfExpenseCell.textContent = item.accountPayableNumber ?? '-';
             row.appendChild(asfExpenseCell);
 
             const asfAmountCell = document.createElement('td');
-            asfAmountCell.textContent = item.amount_Due_Company_IDR ?? '-';
+            asfAmountCell.textContent = item.accountPayableDate ?? '-';
             row.appendChild(asfAmountCell);
 
             const asfTotalCell = document.createElement('td');
-            asfTotalCell.textContent = item.ASF_Total ?? '-';
+            asfTotalCell.textContent = item.accountPayableTotalIDR ?? '-';
             row.appendChild(asfTotalCell);
 
             const asfStatusCell = document.createElement('td');
-            asfStatusCell.textContent = item.ASF_Status ?? '-';
+            asfStatusCell.textContent = item.accountPayableTotalOtherCurrency ?? '-';
             row.appendChild(asfStatusCell);
 
             const balancePayment = document.createElement('td');
-            balancePayment.textContent = item.advance_ToPayment ?? '-';
+            balancePayment.textContent = item.accountPayableTotalEquivalentIDR ?? '-';
             row.appendChild(balancePayment);
 
             const balanceSettlement = document.createElement('td');
-            balanceSettlement.textContent = item.advance_ToSettlement ?? '-';
+            balanceSettlement.textContent = item.accountPayableStatus ?? '-';
             row.appendChild(balanceSettlement);
 
             const balancePayments = document.createElement('td');
-            balancePayments.textContent = item.advance_ToPayment ?? '-';
+            balancePayments.textContent = item.balancePurchaseOrderToAccountPayable ?? '-';
             row.appendChild(balancePayments);
 
             const balanceSettlements = document.createElement('td');
-            balanceSettlements.textContent = item.advance_ToSettlement ?? '-';
+            balanceSettlements.textContent = item.balanceAPtoPayment ?? '-';
             row.appendChild(balanceSettlements);
 
             tbody.appendChild(row);
