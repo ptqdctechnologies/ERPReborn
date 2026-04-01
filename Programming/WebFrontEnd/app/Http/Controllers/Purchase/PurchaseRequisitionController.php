@@ -191,7 +191,17 @@ class PurchaseRequisitionController extends Controller
 
     public function ReportPurchaseRequisitionSummary(Request $request)
     {
-        return view('Purchase.PurchaseRequisition.Reports.ReportPurchaseRequisitionSummary');
+        $documentTypeRefID                      = $this->GetBusinessDocumentsTypeFromRedis('Purchase Requisition Form');
+        $sessionOrganizationalDepartmentName    = Session::get('SessionOrganizationalDepartmentName');
+        $sessionOrganizationalJobPositionName   = Session::get('SessionOrganizationalJobPositionName');
+        
+        $compact = [
+            'documentTypeRefID'                     => $documentTypeRefID,
+            'sessionOrganizationalDepartmentName'   => $sessionOrganizationalDepartmentName,
+            'sessionOrganizationalJobPositionName'  => $sessionOrganizationalJobPositionName
+        ];
+
+        return view('Purchase.PurchaseRequisition.Reports.ReportPurchaseRequisitionSummary', $compact);
     }
 
     public function ReportPurchaseRequisitionSummaryStore(Request $request)

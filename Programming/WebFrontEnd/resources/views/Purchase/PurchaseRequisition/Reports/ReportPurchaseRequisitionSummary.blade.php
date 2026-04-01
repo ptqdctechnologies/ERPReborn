@@ -18,6 +18,10 @@
             </div>
 
             <div class="card">
+                <input type="hidden" id="documentTypeRefID" value="<?= $documentTypeRefID; ?>">
+                <input type="hidden" id="organizationalDepartmentName" value="<?= $sessionOrganizationalDepartmentName; ?>">
+                <input type="hidden" id="organizationalJobPositionName" value="<?= $sessionOrganizationalJobPositionName; ?>">
+
                 <div class="tab-content p-3" id="nav-tabContent">
                     <div class="row">
                         <div class="col-12">
