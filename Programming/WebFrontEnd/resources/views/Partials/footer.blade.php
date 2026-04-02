@@ -14,6 +14,14 @@
       price: 'price_req',
       total: 'total_req',
       balanced: 'balanced_qty'
+    },
+    AUTHORIZED_USER: {
+      position: {
+        report: ['General Manager', 'Director'],
+      },
+      department: {
+        report: ['Finance & Accounting'],
+      }
     }
   };
 
@@ -31,6 +39,10 @@
         minimumFractionDigits: 2,
         maximumFractionDigits: 2
       });
+    },
+    isUserAuthorizedForReport: () => {
+      return (CONFIG.AUTHORIZED_USER.department.report.includes(organizationalDepartmentName.value)) ||
+        CONFIG.AUTHORIZED_USER.position.report.includes(organizationalJobPositionName.value);
     },
     removeCommas: (value) => value.replace(/,/g, ''),
     parseFloatSafe: (value) => parseFloat(value || 0),
@@ -52,7 +64,7 @@
       let total = 0;
 
       // component example: 'input[id^="total_req"]'
-      document.querySelectorAll(component).forEach(function(input) {
+      document.querySelectorAll(component).forEach(function (input) {
         let value = parseFloat(input.value.replace(/,/g, '')); // Mengambil nilai dan menghilangkan koma
         if (!isNaN(value)) {
           total += value;
@@ -132,9 +144,7 @@
       $(messageId).hide();
     },
   }
-</script>
 
-<script>
   function showErrorInputMessage(componentId, messageId) {
     $(componentId).css("border", "1px solid red");
     $(messageId).show();
@@ -163,7 +173,7 @@
       $.ajax({
         type: 'GET',
         url: '{!! route("CheckingWorkflow") !!}?combinedBudget_RefID=' + combinedBudget_RefID + '&documentTypeID=' + documentTypeID,
-        success: function(data) {
+        success: function (data) {
           if (data > 0) {
             resolve(true);
           } else {
@@ -175,7 +185,7 @@
             resolve(false);
           }
         },
-        error: function(jqXHR, textStatus, errorThrown) {
+        error: function (jqXHR, textStatus, errorThrown) {
           $("#project_code_second").val("");
           $("#project_id_second").val("");
           $("#project_name_second").val("");
@@ -193,9 +203,7 @@
       maximumFractionDigits: 2
     });
   }
-</script>
 
-<script>
   function getDocumentType(name) {
     $.ajaxSetup({
       headers: {
@@ -206,7 +214,7 @@
     $.ajax({
       type: 'GET',
       url: '{!! route("getDocumentType") !!}?name=' + name,
-      success: function(data) {
+      success: function (data) {
         if (Array.isArray(data) && data.length > 0) {
           if (name == "Advance Settlement Form") {
             $("#DocumentTypeID").val(77000000000097);
@@ -222,19 +230,21 @@
       }
     });
   }
-</script>
 
-<!-- FUNCTION FOR FILE UPLOAD -->
-<script>
+
+  // ============================================
+  // FUNCTION FOR FILE UPLOAD
+  // ============================================
   if (document.getElementById("dataInput_Log_FileUpload_Pointer_RefID_Action") != null) {
-    window.onload = function() {
+    window.onload = function () {
       document.getElementById("dataInput_Log_FileUpload_Pointer_RefID_Action").dispatchEvent(new Event("change"));
     }
   }
-</script>
 
-<!-- TIME FUNCTION -->
-<script>
+
+  // ============================================
+  // TIME FUNCTION
+  // ============================================
   setInterval(customClock, 500);
 
   function customClock() {
@@ -251,10 +261,11 @@
     document.getElementById('clock').innerHTML = dow[time.getDay()] + ", " + month[time.getMonth()] + " " + date + ", " + year + "  " + hrs + ":" + min + ":" + sec;
     // document.getElementById('clock').innerHTML = dow[time.getDay()] + ", " + date + " " + month[time.getMonth()] + " " + year + "  " + hrs + ":" + min + ":" + sec + " " + ampm;
   }
-</script>
 
-<!-- FUNCTION FOR CURRENCY FORMAT -->
-<script>
+
+  // ============================================
+  // FUNCTION FOR CURRENCY FORMAT
+  // ============================================
   // Currency
   function currency(num) {
     var str = num.toString().replace("$", ""),
@@ -310,10 +321,11 @@
 
     return (formatted + ((parts) ? "." + parts[1].substr(0, 2) : ".00"));
   };
-</script>
 
-<!-- FUNCTION FOR MOUSEOVER / CHANGE BACKGROUND COLOUR TR IN DATATABLE -->
-<script>
+
+  // ============================================
+  // FUNCTION FOR MOUSEOVER / CHANGE BACKGROUND COLOUR TR IN DATATABLE
+  // ============================================
   var css = 'table tbody tr:hover{ background-color: #f2f2f2 }'; //young grey
   var style = document.createElement('style');
 
@@ -324,18 +336,19 @@
   }
 
   document.getElementsByTagName('head')[0].appendChild(style);
-</script>
 
-<!-- TOTAL BUDGET, BALANCE QTY, BALANCE QTY MISSCELNOUS, AND BALANCE VALUE SELECTED -->
-<script>
+
+  // ============================================
+  // TOTAL BUDGET, BALANCE QTY, BALANCE QTY MISSCELNOUS, AND BALANCE VALUE SELECTED
+  // ============================================
   // TotalBudgetSelected
   function TotalBudgetSelected() {
     var TotalBudgetSelected = 0;
-    var total_req_all = $("input[name='total_req[]']").map(function() {
+    var total_req_all = $("input[name='total_req[]']").map(function () {
       return $(this).val();
     }).get();
 
-    $.each(total_req_all, function(index, data) {
+    $.each(total_req_all, function (index, data) {
       if (total_req_all[index] != "" && total_req_all[index] > "0.00" && total_req_all[index] != "NaN.00") {
         TotalBudgetSelected += parseFloat(total_req_all[index].replace(/,/g, ''));
       }
@@ -343,69 +356,10 @@
     $('#TotalBudgetSelected').html(currencyTotal(TotalBudgetSelected));
   }
 
-  // TotalBalanceQtySelected
-  function TotalBalanceQtySelected(key) {
-    var qty_req = $('#qty_req' + key).val().replace(/,/g, '');
-    var total_balance_qty2 = $('#total_balance_qty2' + key).html().replace(/,/g, '');
-    $('#total_balance_qty' + key).val(currencyTotal(total_balance_qty2 - qty_req));
-  }
 
-  // TotalBalanceQtyMisscelnousSelected
-  function TotalBalanceQtyMisscelnousSelected(key) {
-    var qty_req = $('#qty_req' + key).val().replace(/,/g, '');
-    var total_balance_qty2 = $('#total_balance_qty2' + key).html().replace(/,/g, '');
-
-    $('#total_balance_qty' + key).val("-");
-
-  }
-
-  // TotalBalanceValueSelected
-  function TotalBalanceValueSelected(key) {
-    var total_req = $('#total_req' + key).val().replace(/,/g, '');
-    var total_balance_value2 = $('#total_balance_value2' + key).html().replace(/,/g, '');
-
-    $('#total_balance_value' + key).val(currencyTotal(total_balance_value2 - total_req));
-  }
-
-  // TotalBudgetSettlementSelected
-  function TotalBudgetSettlementSelected() {
-    var TotalBudgetSelected = 0;
-    var TotalBudgetSelected2 = 0;
-    var total_expense = $("input[name='total_expense[]']").map(function() {
-      return $(this).val();
-    }).get();
-    var total_amount = $("input[name='total_amount[]']").map(function() {
-      return $(this).val();
-    }).get();
-
-    $.each(total_expense, function(index, data) {
-      if (total_expense[index] != "" && total_expense[index] > "0.00" && total_expense[index] != "NaN.00") {
-        TotalBudgetSelected += parseFloat(total_expense[index].replace(/,/g, ''));
-      }
-    });
-    $.each(total_amount, function(index, data) {
-      if (total_amount[index] != "" && total_amount[index] > "0.00" && total_amount[index] != "NaN.00") {
-        TotalBudgetSelected2 += parseFloat(total_amount[index].replace(/,/g, ''));
-      }
-    });
-
-    $('#TotalBudgetSelected').html(currencyTotal(TotalBudgetSelected + TotalBudgetSelected2));
-  }
-
-  // TotalBalanceQtySettlementSelected
-  function TotalBalanceQtySettlementSelected(key) {
-    var qty_expense = $('#qty_expense' + key).val().replace(/,/g, '');
-    var qty_amount = $('#qty_amount' + key).val().replace(/,/g, '');
-
-    var total_balance_qty2 = $('#total_balance_qty2' + key).html().replace(/,/g, '');
-
-    $('#total_balance_qty' + key).val(currencyTotal(total_balance_qty2 - qty_expense - qty_amount));
-
-  }
-</script>
-
-<!-- VALIDATION FOR INPUT ONLY NUMBER -->
-<script type="text/javascript">
+  // ============================================
+  // VALIDATION FOR INPUT ONLY NUMBER
+  // ============================================
   function isNumberKey(txt, evt) {
     var charCode = (evt.which) ? evt.which : evt.keyCode;
 
@@ -428,11 +382,12 @@
 
     return true;
   }
-</script>
 
-<!-- FUNCTION SELECT 2 IN COMBO BOX-->
-<script>
-  $(function() {
+
+  // ============================================
+  // FUNCTION SELECT 2 IN COMBO BOX
+  // ============================================
+  $(function () {
     //Initialize Select2 Elements
     $('.select2').select2()
 
@@ -441,10 +396,11 @@
       theme: 'bootstrap4'
     })
   })
-</script>
 
-<!-- FUNCTION SHOW HIDE LOADING NOTIFICATION-->
-<script>
+
+  // ============================================
+  // FUNCTION SHOW HIDE LOADING NOTIFICATION
+  // ============================================
   function ShowLoading() {
     $("#loading").show();
     $(".loader").show();
@@ -454,10 +410,11 @@
     $("#loading").hide();
     $(".loader").hide();
   }
-</script>
 
-<!-- FUNCTION NOTIFICATION  -->
-<script>
+
+  // ============================================
+  // FUNCTION NOTIFICATION
+  // ============================================
   // FUNCTION TOASTR 
   function ToastrFunction() {
     toastr.options = {
@@ -493,41 +450,18 @@
     toastr.error('<br /><span style="background-color:white;" id="confirmationButtonYes"> <span style="padding:10px;color:#DC3545;border-radius:5px;"> Back </span> </span>', message, {
       allowHtml: true,
       timeOut: 5000,
-      onShown: function(toast) {
-        $("#confirmationButtonYes").click(function() {
+      onShown: function (toast) {
+        $("#confirmationButtonYes").click(function () {
           window.location.href = url;
         });
       }
     });
   }
-</script>
 
-<!-- FUNCTION VALIDATION MANDATORY -->
-<script>
-  // MANDATORY LIST 
-  function MandatoryListFunction(MandatoryListVar) {
-    var count = 0;
-    for (var i = 0; i < Object.keys(MandatoryListVar).length; i++) {
-      if (MandatoryListVar[Object.keys(MandatoryListVar)[i]] == "") {
-        MandatoryFormFunctionTrue("#" + Object.keys(MandatoryListVar)[i], "#" + Object.keys(MandatoryListVar)[i] + "_detail");
-        count++;
-      }
-    }
-    return count;
-  }
 
-  // VALIDATION IF FORM EMPTY
-  function MandatoryFormFunctionTrue(FormIdentity, FormIdentityDetail) {
-    $(FormIdentity).focus();
-    $(FormIdentity).css("border", "1px solid red");
-
-    $(FormIdentityDetail).focus();
-    $(FormIdentityDetail).css("border", "1px solid red");
-
-    $(FormIdentity + "_icon").show();
-
-  }
-
+  // ============================================
+  // FUNCTION VALIDATION MANDATORY
+  // ============================================
   // VALIDATION IF FORM INPUTED / SELECTED
   function MandatoryFormFunctionFalse(FormIdentity, FormIdentityDetail) {
     $(FormIdentity).css("border", "1px solid #ced4da");
@@ -536,73 +470,13 @@
   }
 
   // VALIDATION FOR REMARK FORM, CHANGE BORDER AND HIDE ERROR ICON WHEN INPUTED
-  $('#remark').keyup(function() {
+  $('#remark').keyup(function () {
     $("#remark").css("border", "1px solid #ced4da");
     $("#remark_icon").hide();
   });
-</script>
 
-<!-- FUNCTION LOGOUT IN MULTI PAGE -->
-
-<!-- <script>
-  setInterval(SessionCheckingLogout, 5000);
-
-  function SessionCheckingLogout() {
-
-    $.ajax({
-      type: 'GET',
-      url: '{!! route("SessionCheckingLogout") !!}',
-      success: function(data) {
-
-        if (data.varAPIWebToken !== true) {
-          window.location.reload();
-        }
-
-      }
-    });
-  }
-</script> -->
-
-<!-- FUNCTION LOGOUT AFTER 15 MENIT IN MULTI PAGE -->
-
-<!-- <script>
-  window.addEventListener('mousedown', SessionCheckingEvent);
-  window.addEventListener('mousemove', SessionCheckingEvent);
-  window.addEventListener('touchstart', SessionCheckingEvent);
-  window.addEventListener('scroll', SessionCheckingEvent);
-  window.addEventListener('keydown', SessionCheckingEvent);
-
-  var time = new Date();
-  var second = time.getSeconds();
-  var current_second = second;
-
-  var angka = 0;
-
-  setInterval(SessionCheckingEvent, 1000);
-
-  function SessionCheckingEvent(evt) {
-    var time = new Date();
-    var sec = time.getSeconds();
-
-    if (sec == current_second) {
-      angka++;
-    }
-
-    if (!evt) {
-      if (angka === 15) {
-        window.location.href = '/logout?message= Session_Expired';
-      }
-    } else {
-      current_second = sec;
-      angka = 0;
-    }
-  }
-</script> -->
-
-
-<script>
   // console.log(type);
-  $('#mode').on('change', function() {
+  $('#mode').on('change', function () {
 
     var value = $(this).val();
 
@@ -615,23 +489,12 @@
     $.ajax({
       type: 'GET',
       url: '{!! route("ColorMode") !!}?value=' + value,
-      success: function(data) {
+      success: function (data) {
         location.reload();
       }
     });
   });
-</script>
 
-<script>
-  // Example Output: 1 Januari 2024
-  function formatDate(dateString) {
-    const options = { year: 'numeric', month: 'long', day: 'numeric' };
-    const date = new Date(dateString);
-    return date.toLocaleDateString('id-ID', options);
-  }
-</script>
-
-<script>
   $(function () {
     $("#DefaultFeatures").DataTable({
       "responsive": true,
@@ -645,31 +508,29 @@
       dom: 'lfrtip'
     });
   });
-  
+
   $(function () {
     $(".DefaultFeatures").DataTable({
       "responsive": true,
       "autoWidth": false,
-      
+
     });
   });
-</script>
 
-<script>
   function allowNumbersWithoutCharacter(inputElement) {
-    inputElement.addEventListener('input', function(e) {
+    inputElement.addEventListener('input', function (e) {
       let value = this.value.replace(/[^0-9]/g, '');
-      
+
       this.value = value;
-  });
+    });
   }
 
-  document.querySelectorAll('.number-without-characters').forEach(function(input) {
+  document.querySelectorAll('.number-without-characters').forEach(function (input) {
     allowNumbersWithoutCharacter(input);
   });
 
   function allowNumbersOnly(inputElement) {
-    inputElement.addEventListener('input', function(e) {
+    inputElement.addEventListener('input', function (e) {
       let value = this.value
         .replace(/(?!^-)[^0-9.]/g, '')
         .replace(/^-{2,}/g, '-')
@@ -685,7 +546,7 @@
     });
   }
 
-  document.querySelectorAll('.number-only').forEach(function(input) {
+  document.querySelectorAll('.number-only').forEach(function (input) {
     allowNumbersOnly(input);
   });
 
@@ -730,16 +591,14 @@
   //   });
   // }
 
-  $(document).on('input', '.number-without-negative', function() {
+  $(document).on('input', '.number-without-negative', function () {
     allowNumbersWithoutNegative(this);
   });
 
   // document.querySelectorAll('.number-without-negative').forEach(function(input) {
   //   allowNumbersWithoutNegative(input);
   // });
-</script>
 
-<script>
   // OUTPUT 412393 = 412,393.00
   function numberFormatPHPCustom(number, decimals = 0, decPoint = '.', thousandsSep = ',') {
     const n = Math.abs(number).toFixed(decimals);
@@ -751,39 +610,32 @@
     return sign + integerPart + (decimalPart ? decPoint + decimalPart : '');
   }
 
-  // OUTPUT 412,393.00 = 412393
-  function cleanNumber(number) {
-    var numberWithoutComma = number.replace(/,/g, '');
-    
-    var result = numberWithoutComma.split('.')[0];
-    
-    return result;
-  }
-</script>
 
-<!-- DIGUNAKAN PADA HALAMAN MODIFY BUDGET -->
-<script>
+  // ============================================
+  // DIGUNAKAN PADA HALAMAN MODIFY BUDGET
+  // ============================================
   function isProductIdDuplicate(productId, currentRowIndex) {
     let isDuplicate = false;
     const tableRows = document.querySelectorAll('#budgetTable tbody tr');
-    
+
     tableRows.forEach((row, index) => {
       if (index !== currentRowIndex) { // Skip checking against self
         const existingProductId = row.querySelector('[id^="product_id"]').value;
         const existingProductIdTd = row.querySelector('td:nth-child(2)')?.textContent;
-        
+
         if (existingProductId === productId || existingProductIdTd === productId) {
           isDuplicate = true;
         }
       }
     });
-    
+
     return isDuplicate;
   }
-</script>
 
-<!-- FUNGSI UNTUK MENENTUKAN WIDTH/LEBAR KOMPONEN INPUT -->
-<script>
+
+  // ============================================
+  // FUNGSI UNTUK MENENTUKAN WIDTH/LEBAR KOMPONEN INPUT
+  // ============================================
   function defineDefaultValue(length, type) {
     if (type == "string") {
       if (length <= 2) {
@@ -847,7 +699,7 @@
 
   function adjustInputSize(componentInput, valueType, customValueLength) {
     var componentLenghtInput = componentInput.value.length;
-    
+
     var defaultValue = defineDefaultValue(componentLenghtInput, valueType);
     defaultValue = defaultValue < 1 ? 1 : defaultValue;
 
@@ -855,17 +707,16 @@
 
     componentInput.size = componentLenghtInput * fixDefaultValue;
   }
-</script>
 
-<!-- FUNGSI UNTUK MENGAKTIFKAN/ENABLE KOMPONEN BOOTSTRAP -->
-<script>
+
+  // ============================================
+  // FUNGSI UNTUK MENGAKTIFKAN/ENABLE KOMPONEN BOOTSTRAP
+  // ============================================
   $(function () {
     // POPOVER
     $('[data-toggle="popover"]').popover()
   });
-</script>
 
-<script>
   function getBusinessDocumentIssuanceDispositionCount() {
     $.ajaxSetup({
       headers: {
@@ -876,12 +727,12 @@
     $.ajax({
       type: 'GET',
       url: '{!! route("getBusinessDocumentIssuanceDispositionCount") !!}',
-      success: function(response) {
+      success: function (response) {
         $("#document_count").text(response.CountDocumentWorkflowComposer);
         $("#document_count").show();
         $("#loading_document_count").hide();
       },
-      error: function(jqXHR, textStatus, errorThrown) {
+      error: function (jqXHR, textStatus, errorThrown) {
         console.log('jqXHR, textStatus, errorThrown', jqXHR, textStatus, errorThrown);
         $("#document_count").text(response.CountDocumentWorkflowComposer);
         $("#document_count").show();
@@ -890,7 +741,7 @@
     });
   }
 
-  $(window).one('load', function(e) {
+  $(window).one('load', function (e) {
     getBusinessDocumentIssuanceDispositionCount();
   });
 </script>
