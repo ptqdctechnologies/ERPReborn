@@ -1,62 +1,41 @@
 <script>
-    let isFromTo            = false;
-    let data                = [];
-    let dataReport          = [];
-    let currentPage         = 1;
-    let rowsPerPage         = 10;
-    let filteredData        = [...data];
-    let sortColumn          = null;
-    let sortOrder           = 'asc';
-    const budgetID          = document.getElementById("budget_id");
-    const budgetCode        = document.getElementById("budget_code");
-    const subBudgetID       = document.getElementById("sub_budget_id");
-    const subBudgetCode     = document.getElementById("sub_budget_code");
-    const supplierID        = document.getElementById("supplier_id");
-    const purchaseOrderID   = document.getElementById("supplier_id");
-    const accountPayableID  = document.getElementById("account_payable_id");
-    const poToApDate        = document.getElementById("po_to_ap_date_range");
-    const startLimit        = document.getElementById("start_limit");
-    const endLimit          = document.getElementById("end_limit");
-    const totalData         = document.getElementById("total_data");
-    const printType         = document.getElementById("print_type");
+    let isFromTo = false;
+    let data = [];
+    let dataReport = [];
+    let currentPage = 1;
+    let rowsPerPage = 10;
+    let filteredData = [...data];
+    let sortColumn = null;
+    let sortOrder = 'asc';
+    const documentTypeID = document.getElementById("documentTypeRefID");
+    const organizationalDepartmentName = document.getElementById("organizationalDepartmentName"); // Finance & Accounting
+    const organizationalJobPositionName = document.getElementById("organizationalJobPositionName"); // General Manager
+    const budgetID = document.getElementById("budget_id");
+    const budgetCode = document.getElementById("budget_code");
+    const subBudgetID = document.getElementById("sub_budget_id");
+    const subBudgetCode = document.getElementById("sub_budget_code");
+    const supplierID = document.getElementById("supplier_id");
+    const purchaseOrderID = document.getElementById("purchase_order_id");
+    const accountPayableID = document.getElementById("account_payable_id");
+    const poToApDate = document.getElementById("po_to_ap_date_range");
+    const startLimit = document.getElementById("start_limit");
+    const endLimit = document.getElementById("end_limit");
+    const totalData = document.getElementById("total_data");
+    const printType = document.getElementById("print_type");
 
-    function validateShowButton() {
-        const isBudgetIDNotEmpty            = budgetID.value.trim() !== '';
-        const isSubBudgetIDNotEmpty         = subBudgetID.value.trim() !== '';
-        const isSupplierIDNotEmpty          = supplierID.value.trim() !== '';
-        const isPurchaseOrderIDNotEmpty     = purchaseOrderID.value.trim() !== '';
-        const isAccountPayableIDNotEmpty    = accountPayableID.value.trim() !== '';
-        const isPoToApDateNotEmpty          = poToApDate.value.trim() !== '';
+    function selectBudget(id, code, name) {
+        $("#budget_id").val(id);
+        $("#budget_code").val(code);
+        $("#budget_name").val(`${code} - ${name}`);
+        $("#budget_name").css('background-color', '#e9ecef');
 
-        if (
-            isBudgetIDNotEmpty ||
-            isSupplierIDNotEmpty ||
-            isPurchaseOrderIDNotEmpty ||
-            isAccountPayableIDNotEmpty ||
-            isPoToApDateNotEmpty
-        ) {
-            ErrorHandler.hideErrorInputMessage("#budget_name", "#budgetMessage");
-            ErrorHandler.hideErrorInputMessage("#purchase_order_number", "#purchaseOrderMessage");
-            ErrorHandler.hideErrorInputMessage("#account_payable_number", "#accountPayableMessage");
-            ErrorHandler.hideErrorInputMessage("#po_to_ap_date_range", "#dateRangeMessage");
-            ErrorHandler.hideErrorInputMessage("#supplier_name", "#supplierMessage");
+        getSites(id);
 
-            getDataReport();
-        } else {
-            ErrorHandler.showErrorInputMessage("#budget_name", "#budgetMessage");
-            ErrorHandler.showErrorInputMessage("#purchase_order_number", "#purchaseOrderMessage");
-            ErrorHandler.showErrorInputMessage("#account_payable_number", "#accountPayableMessage");
-            ErrorHandler.showErrorInputMessage("#po_to_ap_date_range", "#dateRangeMessage");
-            ErrorHandler.showErrorInputMessage("#supplier_name", "#supplierMessage");
-        }
-    }
-
-    function validateExportButton() {
-        if (dataReport.length > 0) {
-            exportDataReport();
-        } else {
-            ErrorNotif("No data available to export. Please display the data first.");
-        }
+        $("#mySitesTrigger").css('cursor', 'pointer');
+        $("#mySitesTrigger").attr({
+            "data-toggle": "modal",
+            "data-target": "#mySites"
+        });
     }
 
     function resetForm() {
@@ -106,31 +85,25 @@
                 poToApDate: poToApDate.value,
             },
             dataType: 'json',
-            success: function(response) {
+            success: function (response) {
                 console.log('response', response);
-                
-                if (response.status === 200 && response.data[0]) {
-                    data = response.data;
-                    dataReport = JSON.stringify(response.data);
 
-                    filteredData = [...data];
-                    currentPage = 1;
-                    sortColumn = null;
-                    sortOrder = 'asc';
+                data = (response.status === 200 && response.data[0]) ? response.data : [];
+                dataReport = data;
 
-                    renderPage();
-                    renderPagination();
+                filteredData = [...data];
+                currentPage = (response.status === 200 && response.data[0]) ? 1 : '-';
+                sortColumn = null;
+                sortOrder = 'asc';
 
-                    $('#table_container').css("display", "block");
-                } else {
-                    dataReport = [];
+                renderPage();
+                renderPagination();
 
-                    $('#table_container').css("display", "none");
-                }
+                $('#table_container').css("display", "block");
 
                 HideLoading();
             },
-            error: function(xhr, status, error) {
+            error: function (xhr, status, error) {
                 HideLoading();
                 ErrorNotif("An error occurred while processing the received data. Please try again later.");
                 console.log('xhr, status, error', xhr, status, error);
@@ -145,13 +118,13 @@
             url: '{!! route("PurchaseOrder.PrintExportReportPOtoAP") !!}',
             type: 'POST',
             data: {
-                dataReport,
+                dataReport: JSON.stringify(dataReport),
                 printType: printType.value
             },
-            xhrFields: { 
+            xhrFields: {
                 responseType: 'blob'
             },
-            success: function(response) {
+            success: function (response) {
                 var blob = new Blob([response], { type: response.type });
                 var link = document.createElement('a');
                 link.href = window.URL.createObjectURL(blob);
@@ -168,7 +141,7 @@
 
                 HideLoading();
             },
-            error: function(xhr, status, error) {
+            error: function (xhr, status, error) {
                 HideLoading();
                 ErrorNotif("An error occurred while processing the received data. Please try again later.");
                 console.log('xhr, status, error', xhr, status, error);
@@ -190,7 +163,7 @@
             const rowNumber = (currentPage - 1) * rowsPerPage + ind + 1;
 
             const noCell = document.createElement('td');
-            noCell.textContent = rowNumber;
+            noCell.textContent = isNaN(rowNumber) ? '-' : rowNumber;
             row.appendChild(noCell);
 
             const arfNumberCell = document.createElement('td');
@@ -312,7 +285,7 @@
         const sortedData = sortData(filteredData);
 
         const searchQuery = document.querySelector('#searchInput').value;
-        const filteredAndSortedData = filterData(searchQuery, sortedData); 
+        const filteredAndSortedData = filterData(searchQuery, sortedData);
 
         const start = (currentPage - 1) * rowsPerPage;
         const end = start + rowsPerPage;
@@ -348,13 +321,13 @@
         const pageNumbersContainer = document.querySelector('#pageNumbers');
         const prevButton = document.querySelector('#prevPage');
         const nextButton = document.querySelector('#nextPage');
-        
+
         pageNumbersContainer.innerHTML = '';
-        
+
         const startLimit = (currentPage - 1) * rowsPerPage + 1;
         const endLimit = Math.min(currentPage * rowsPerPage, data.length);
-        document.querySelector('#start_limit').textContent = startLimit;
-        document.querySelector('#end_limit').textContent = endLimit;
+        document.querySelector('#start_limit').textContent = isNaN(startLimit) ? '0' : startLimit;
+        document.querySelector('#end_limit').textContent = isNaN(endLimit) ? '0' : endLimit;
         document.querySelector('#total_data').textContent = data.length;
 
         let startPage = Math.max(1, currentPage - 1);
@@ -370,7 +343,13 @@
 
         if (startPage > 1) {
             const dots = document.createElement('span');
-            dots.textContent = '...';
+
+            if (data.length == 0) {
+                dots.textContent = '';
+            } else {
+                dots.textContent = '...';
+            }
+
             pageNumbersContainer.appendChild(dots);
         }
 
@@ -396,7 +375,13 @@
 
         if (endPage < totalPages) {
             const dots = document.createElement('span');
-            dots.textContent = '...';
+
+            if (data.length == 0) {
+                dots.textContent = '';
+            } else {
+                dots.textContent = '...';
+            }
+
             pageNumbersContainer.appendChild(dots);
         }
 
@@ -440,6 +425,82 @@
         renderPagination();
     }
 
+    function validateShowButton() {
+        const isBudgetIDNotEmpty = budgetID.value.trim() !== '';
+        const isSubBudgetIDNotEmpty = subBudgetID.value.trim() !== '';
+        const isSupplierIDNotEmpty = supplierID.value.trim() !== '';
+        const isPurchaseOrderIDNotEmpty = purchaseOrderID.value.trim() !== '';
+        const isAccountPayableIDNotEmpty = accountPayableID.value.trim() !== '';
+        const isPoToApDateNotEmpty = poToApDate.value.trim() !== '';
+
+        const isAuthorizedRole = Utils.isUserAuthorizedForReport();
+
+        if (
+            isBudgetIDNotEmpty ||
+            isSupplierIDNotEmpty ||
+            isPurchaseOrderIDNotEmpty ||
+            isAccountPayableIDNotEmpty ||
+            isPoToApDateNotEmpty
+        ) {
+            ErrorHandler.hideErrorInputMessage("#budget_name", "#budgetMessage");
+            ErrorHandler.hideErrorInputMessage("#purchase_order_number", "#purchaseOrderMessage");
+            ErrorHandler.hideErrorInputMessage("#account_payable_number", "#accountPayableMessage");
+            ErrorHandler.hideErrorInputMessage("#po_to_ap_date_range", "#dateRangeMessage");
+            ErrorHandler.hideErrorInputMessage("#supplier_name", "#supplierMessage");
+
+            if (isBudgetIDNotEmpty || isAuthorizedRole) {
+                getDataReport();
+            } else {
+                ErrorHandler.showErrorInputMessage("#budget_name", "#budgetMessage");
+            }
+        } else {
+            ErrorHandler.showErrorInputMessage("#budget_name", "#budgetMessage");
+            ErrorHandler.showErrorInputMessage("#purchase_order_number", "#purchaseOrderMessage");
+            ErrorHandler.showErrorInputMessage("#account_payable_number", "#accountPayableMessage");
+            ErrorHandler.showErrorInputMessage("#po_to_ap_date_range", "#dateRangeMessage");
+            ErrorHandler.showErrorInputMessage("#supplier_name", "#supplierMessage");
+        }
+    }
+
+    function validateExportButton() {
+        if (dataReport.length > 0) {
+            exportDataReport();
+        } else {
+            ErrorNotif("No data available to export. Please display the data first.");
+        }
+    }
+
+    function getWorkflow(combinedBudgetID, combinedBudgetCode, combinedBudgetName) {
+        $.ajax({
+            type: 'POST',
+            url: '{!! route("GetWorkflow") !!}',
+            data: {
+                businessDocumentType_RefID: documentTypeID.value,
+                combinedBudget_RefID: combinedBudgetID
+            }
+        })
+            .done(function (data, textStatus, jqXHR) {
+                console.log("Success:", data);
+
+                if (data.status == 200) {
+                    selectBudget(combinedBudgetID, combinedBudgetCode, combinedBudgetName);
+                } else {
+                    ErrorHandler.notifToast(
+                        'error',
+                        'You are not included in this budget',
+                        'Error!'
+                    );
+                }
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                console.error("Error:", errorThrown);
+            })
+            .always(function (jqXHR, textStatus, errorThrown) {
+                $("#loadingBudget").hide();
+                $("#iconBudget").show();
+            });
+    }
+
     document.querySelectorAll('#table_summary th').forEach((header, index) => {
         header.addEventListener('click', () => {
             sortByColumn(index);
@@ -475,32 +536,29 @@
         }
     });
 
-    $('#tableProjects').on('click', 'tbody tr', function() {
-        const sysId   = $(this).find('input[data-trigger="sys_id_project"]').val();
-        const code    = $(this).find('td:nth-child(2)').text();
-        const name    = $(this).find('td:nth-child(3)').text();
+    $('#tableProjects').on('click', 'tbody tr', function () {
+        const sysId = $(this).find('input[data-trigger="sys_id_project"]').val();
+        const code = $(this).find('td:nth-child(2)').text();
+        const name = $(this).find('td:nth-child(3)').text();
 
-        $("#budget_id").val(sysId);
-        $("#budget_code").val(code);
-        $("#budget_name").val(`${code} - ${name}`);
-        $("#budget_name").css('background-color', '#e9ecef');
-        ErrorHandler.hideErrorInputMessage("#budget_name", "#budgetMessage");
+        if (Utils.isUserAuthorizedForReport()) {
+            selectBudget(sysId, code, name);
+        } else {
+            $("#loadingBudget").show();
+            $("#iconBudget").hide();
 
-        getSites(sysId);
+            getWorkflow(sysId, code, name);
+        }
 
-        $("#mySitesTrigger").css('cursor', 'pointer');
-        $("#mySitesTrigger").attr({
-            "data-toggle": "modal",
-            "data-target": "#mySites"
-        });
+        hideErrorInputMessage("#budget_name", "#budgetMessage");
 
         $("#myProjects").modal('toggle');
     });
 
-    $('#tableSites').on('click', 'tbody tr', function() {
-        const sysId       = $(this).find('input[data-trigger="sys_id_site"]').val();
-        const siteCode    = $(this).find('td:nth-child(2)').text();
-        const siteName    = $(this).find('td:nth-child(3)').text();
+    $('#tableSites').on('click', 'tbody tr', function () {
+        const sysId = $(this).find('input[data-trigger="sys_id_site"]').val();
+        const siteCode = $(this).find('td:nth-child(2)').text();
+        const siteName = $(this).find('td:nth-child(3)').text();
 
         $("#sub_budget_id").val(sysId);
         $("#sub_budget_code").val(siteCode);
@@ -512,8 +570,8 @@
 
     $('#tableSuppliers').on('click', 'tbody tr', function () {
         const sysId = $(this).find('input[data-trigger="sys_id_supplier"]').val();
-        const code  = $(this).find('td:nth-child(2)').text();
-        const name  = $(this).find('td:nth-child(3)').text();
+        const code = $(this).find('td:nth-child(2)').text();
+        const name = $(this).find('td:nth-child(3)').text();
 
         $("#supplier_id").val(sysId);
         $("#supplier_name").val(`${code} - ${name}`);
@@ -524,7 +582,7 @@
     });
 
     $('#TableSearchPORevision tbody').on('click', 'tr', function () {
-        const sysId  = $(this).find('input[data-trigger="sys_id_po"]').val();
+        const sysId = $(this).find('input[data-trigger="sys_id_po"]').val();
         const number = $(this).find('td:nth-child(2)').text();
 
         $("#purchase_order_id").val(sysId);
@@ -535,9 +593,9 @@
         $("#mySearchPO").modal('toggle');
     });
 
-    $('#tableAccountPayables').on('click', 'tbody tr', function() {
-        const sysId           = $(this).find('input[data-trigger="sys_id_modal_account_payable"]').val();
-        const trano           = $(this).find('td:nth-child(2)').text();
+    $('#tableAccountPayables').on('click', 'tbody tr', function () {
+        const sysId = $(this).find('input[data-trigger="sys_id_modal_account_payable"]').val();
+        const trano = $(this).find('td:nth-child(2)').text();
 
         $("#account_payable_id").val(sysId);
         $("#account_payable_number").val(trano);
@@ -547,7 +605,7 @@
         $('#myAccountPayables').modal('hide');
     });
 
-    $(window).one('load', function() {
+    $(window).one('load', function () {
         renderPage();
         renderPagination();
 
@@ -559,13 +617,13 @@
             }
         });
 
-        $('#po_to_ap_date_range').on('apply.daterangepicker', function(ev, picker) {
+        $('#po_to_ap_date_range').on('apply.daterangepicker', function (ev, picker) {
             $("#po_to_ap_date_range").css('background-color', '#e9ecef');
             $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
             ErrorHandler.hideErrorInputMessage("#po_to_ap_date_range", "#dateRangeMessage");
         });
 
-        $('#po_to_ap_date_range').on('cancel.daterangepicker', function(ev, picker) {
+        $('#po_to_ap_date_range').on('cancel.daterangepicker', function (ev, picker) {
             $("#po_to_ap_date_range").css('background-color', '#fff');
             $(this).val('');
         });
