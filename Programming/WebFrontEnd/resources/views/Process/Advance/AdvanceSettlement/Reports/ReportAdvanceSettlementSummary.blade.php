@@ -11,11 +11,15 @@
         <div class="container-fluid">
             <div class="row mb-1" style="background-color:#4B586A;">
                 <div class="col-sm-6" style="height:30px;">
-                    <label style="font-size:15px;position:relative;top:7px;color:white;">Advance Settlement Summary Report</label>
+                    <label style="font-size:15px;position:relative;top:7px;color:white;">Report Advance Settlement Summary</label>
                 </div>
             </div>
             
             <div class="card">
+                <input type="hidden" id="documentTypeRefID" value="<?= $documentTypeRefID; ?>">
+                <input type="hidden" id="organizationalDepartmentName" value="<?= $sessionOrganizationalDepartmentName; ?>">
+                <input type="hidden" id="organizationalJobPositionName" value="<?= $sessionOrganizationalJobPositionName; ?>">
+
                 <div class="tab-content p-3" id="nav-tabContent">
                     <div class="row">
                         <div class="col-12">

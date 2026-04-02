@@ -73,17 +73,17 @@ class PurchaseOrderService
         return Helper_APICall::setCallAPIGateway(
             Helper_Environment::getUserSessionID_System(),
             $sessionToken, 
-            'report.form.documentForm.supplyChain.getPurchaseOrderSummary', 
+            'report.form.documentForm.supplyChain.getPurchaseOrderToPaymentInstructionSummary',
             'latest',
             [
                 'parameter'     => [
                     'CombinedBudgetCode'        => $budget,
                     'CombinedBudgetSectionCode' => $subBudget ? $subBudget : NULL,
-                    'Supplier_RefID'            => $supplier ? $supplier : NULL
-                    // 'PurchaseOrder_RefID'    => $purchaseOrder ? $purchaseOrder : NULL,
-                    // 'AccountPayable_RefID'   => $accountPayable ? $accountPayable : NULL,
-                    // 'StartDate'              => $date ? $startDate : NULL,
-                    // 'EndDate'                => $date ? $endDate : NULL
+                    'Supplier_RefID'            => $supplier ? $supplier : NULL,
+                    'PurchaseOrder_RefID'       => $purchaseOrder ? $purchaseOrder : NULL,
+                    'AccountPayable_RefID'      => $accountPayable ? $accountPayable : NULL,
+                    'StartDate'                 => $date ? $startDate : NULL,
+                    'EndDate'                   => $date ? $endDate : NULL
                 ]
             ]
         );

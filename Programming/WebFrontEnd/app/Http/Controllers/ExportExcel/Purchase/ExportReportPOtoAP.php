@@ -35,32 +35,32 @@ class ExportReportPOtoAP implements FromCollection, WithHeadings, ShouldAutoSize
         $filteredData = [];
         $counter = 1;
         foreach ($data as $item) {
-            $totalPurchaseOrderIDR           += 0;
-            $totalPurchaseOrderOtherCurrency += 0;
-            $totalPurchaseOrderEquivalentIDR += 0;
+            $totalPurchaseOrderIDR           += is_numeric($item['purchaseOrderTotalIDR']) ? $item['purchaseOrderTotalIDR'] : 0;
+            $totalPurchaseOrderOtherCurrency += is_numeric($item['purchaseOrderTotalOtherCurrency']) ? $item['purchaseOrderTotalOtherCurrency'] : 0;
+            $totalPurchaseOrderEquivalentIDR += is_numeric($item['purchaseOrderTotalEquivalentIDR']) ? $item['purchaseOrderTotalEquivalentIDR'] : 0;
 
-            $totalAccountPayableIDR           += 0;
-            $totalAccountPayableOtherCurrency += 0;
-            $totalAccountPayableEquivalentIDR += 0;
+            $totalAccountPayableIDR           += is_numeric($item['accountPayableTotalIDR']) ? $item['accountPayableTotalIDR'] : 0;
+            $totalAccountPayableOtherCurrency += is_numeric($item['accountPayableTotalOtherCurrency']) ? $item['accountPayableTotalOtherCurrency'] : 0;
+            $totalAccountPayableEquivalentIDR += is_numeric($item['accountPayableTotalEquivalentIDR']) ? $item['accountPayableTotalEquivalentIDR'] : 0;
 
             $filteredData[] = [
                 'No'                    => $counter++,
-                'PO Number'             => '-',
-                'PO Budget'             => '-',
-                'PO Date'               => '-',
-                'PO Supplier'           => '-',
-                'PO IDR'                => '-',
-                'PO Other Currency'     => '-',
-                'PO Equivalent IDR'     => '-',
-                'PO Status'             => '-',
-                'AP Number'             => '-',
-                'AP Date'               => '-',
-                'AP IDR'                => '-',
-                'AP Other Currency'     => '-',
-                'AP Equivalent IDR'     => '-',
-                'AP Status'             => '-',
-                'Balance PO to AP'      => '-',
-                'Balance AP to Payment' => '-',
+                'PO Number'             => $item['purchaseOrderNumber'] ?? '-',
+                'PO Budget'             => ($item['combinedBudgetCode'] ?? '') . ' - ' . ($item['combinedBudgetName'] ?? ''),
+                'PO Date'               => $item['purchaseOrderDate'] ?? '-',
+                'PO Supplier'           => ($item['supplierCode'] ?? '') . ' - ' . ($item['supplierName'] ?? ''),
+                'PO IDR'                => isset($item['purchaseOrderTotalIDR']) ? (string)$item['purchaseOrderTotalIDR'] : '0',
+                'PO Other Currency'     => isset($item['purchaseOrderTotalOtherCurrency']) ? (string)$item['purchaseOrderTotalOtherCurrency'] : '0',
+                'PO Equivalent IDR'     => isset($item['purchaseOrderTotalEquivalentIDR']) ? (string)$item['purchaseOrderTotalEquivalentIDR'] : '0',
+                'PO Status'             => $item['purchaseOrderStatus'] ?? '-',
+                'AP Number'             => $item['accountPayableNumber'] ?? '-',
+                'AP Date'               => $item['accountPayableDate'] ?? '-',
+                'AP IDR'                => isset($item['accountPayableTotalIDR']) ? (string)$item['accountPayableTotalIDR'] : '0',
+                'AP Other Currency'     => isset($item['accountPayableTotalOtherCurrency']) ? (string)$item['accountPayableTotalOtherCurrency'] : '0',
+                'AP Equivalent IDR'     => isset($item['accountPayableTotalEquivalentIDR']) ? (string)$item['accountPayableTotalEquivalentIDR'] : '0',
+                'AP Status'             => $item['accountPayableStatus'] ?? '-',
+                'Balance PO to AP'      => isset($item['balancePurchaseOrderToAccountPayable']) ? (string)$item['balancePurchaseOrderToAccountPayable'] : '0',
+                'Balance AP to Payment' => isset($item['balanceAPtoPayment']) ? (string)$item['balanceAPtoPayment'] : '0',
             ];
         }
 

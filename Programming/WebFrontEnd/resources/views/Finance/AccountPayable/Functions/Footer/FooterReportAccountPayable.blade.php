@@ -1,15 +1,33 @@
 <script>
-    let dataReport      = [];
-    const budgetID      = document.getElementById("budget_id");
-    const budgetCode    = document.getElementById("budget_code");
-    const budgetName    = document.getElementById("budget_name");
-    const subBudgetID   = document.getElementById("sub_budget_id");
+    let dataReport = [];
+    const documentTypeID = document.getElementById("documentTypeRefID");
+    const organizationalDepartmentName = document.getElementById("organizationalDepartmentName"); // Finance & Accounting
+    const organizationalJobPositionName = document.getElementById("organizationalJobPositionName"); // General Manager
+    const budgetID = document.getElementById("budget_id");
+    const budgetCode = document.getElementById("budget_code");
+    const budgetName = document.getElementById("budget_name");
+    const subBudgetID = document.getElementById("sub_budget_id");
     const subBudgetCode = document.getElementById("sub_budget_code");
     const subBudgetName = document.getElementById("sub_budget_name");
-    const supplierID    = document.getElementById("supplier_id");
-    const supplierName  = document.getElementById("supplier_name");
-    const apDate        = document.getElementById("account_payable_summary_date_range");
-    const printType     = document.getElementById("print_type");
+    const supplierID = document.getElementById("supplier_id");
+    const supplierName = document.getElementById("supplier_name");
+    const apDate = document.getElementById("account_payable_summary_date_range");
+    const printType = document.getElementById("print_type");
+
+    function selectBudget(id, code, name) {
+        $("#budget_id").val(id);
+        $("#budget_code").val(code);
+        $("#budget_name").val(`${code} - ${name}`);
+        $("#budget_name").css('background-color', '#e9ecef');
+
+        getSites(id);
+
+        $("#mySitesTrigger").css('cursor', 'pointer');
+        $("#mySitesTrigger").attr({
+            "data-toggle": "modal",
+            "data-target": "#mySites"
+        });
+    }
 
     function resetForm() {
         dataReport = [];
@@ -47,125 +65,104 @@
                 apDate: apDate.value
             },
             dataType: 'json',
-            success: function(response) {
-                let totalIDR            = 0;
-                let totalOtherCurrency  = 0;
-                let totalEquivalentIDR  = 0;
+            success: function (response) {
+                let totalIDR = 0;
+                let totalOtherCurrency = 0;
+                let totalEquivalentIDR = 0;
 
-                if (response.status === 200 && response.data[0]) {
-                    let data = response.data;
-                    dataReport = JSON.stringify(data);
+                let data = (response.status === 200 && response.data[0]) ? response.data : [];
+                dataReport = data;
 
-                    data.forEach(function(row) {
-                        totalIDR            += parseFloat(row.totalIDR) || 0;
-                        totalOtherCurrency  += parseFloat(row.totalOtherCurrency) || 0;
-                        totalEquivalentIDR  += parseFloat(row.totalEquivalentIDR) || 0;
-                    });
-                    
-                    $('#table_summary').DataTable({
-                        destroy: true,
-                        data: data,
-                        deferRender: true,
-                        scrollCollapse: true,
-                        scroller: true,
-                        columns: [
-                            {
-                                data: null,
-                                render: function (data, type, row, meta) {
-                                    return (meta.row + 1);
-                                }
-                            },
-                            {
-                                data: 'documentNumber',
-                                defaultContent: '-'
-                            },
-                            {
-                                data: 'sys_Data_Entry_DateTimeTZ',
-                                defaultContent: '-'
-                            },
-                            {
-                                data: null,
-                                render: function (data, type, row, meta) {
-                                    return `${data.combinedBudgetSectionCode || ''} - ${data.combinedBudgetSectionName || ''}`;
-                                }
-                            },
-                            {
-                                data: null,
-                                render: function (data, type, row, meta) {
-                                    return `${data.supplierCode || ''} - ${data.supplierName || ''}`;
-                                }
-                            },
-                            {
-                                data: null,
-                                defaultContent: '-',
-                                render: function (data, type, row, meta) {
-                                    return currencyTotal(data.totalIDR || '0');
-                                }
-                            },
-                            {
-                                data: null,
-                                defaultContent: '-',
-                                render: function (data, type, row, meta) {
-                                    return currencyTotal(data.totalOtherCurrency || '0');
-                                }
-                            },
-                            {
-                                data: null,
-                                defaultContent: '-',
-                                render: function (data, type, row, meta) {
-                                    return currencyTotal(data.totalEquivalentIDR || '0');
-                                }
-                            },
-                            {
-                                data: 'supplierInvoiceNumber',
-                                defaultContent: '-'
-                            },
-                            {
-                                data: 'requesterName',
-                                defaultContent: '-'
-                            },
-                            {
-                                data: 'workflowStatus',
-                                defaultContent: '-'
+                data.forEach(function (row) {
+                    totalIDR += parseFloat(row.totalIDR) || 0;
+                    totalOtherCurrency += parseFloat(row.totalOtherCurrency) || 0;
+                    totalEquivalentIDR += parseFloat(row.totalEquivalentIDR) || 0;
+                });
+
+                $('#table_summary').DataTable({
+                    destroy: true,
+                    data: data,
+                    deferRender: true,
+                    scrollCollapse: true,
+                    scroller: true,
+                    columns: [
+                        {
+                            data: null,
+                            render: function (data, type, row, meta) {
+                                return (meta.row + 1);
                             }
-                        ],
-                        drawCallback: function(settings) {
-                            $('#table_summary tfoot th:nth-child(2)').text(currencyTotal(totalIDR));
-                            $('#table_summary tfoot th:nth-child(3)').text(currencyTotal(totalOtherCurrency));
-                            $('#table_summary tfoot th:nth-child(4)').text(currencyTotal(totalEquivalentIDR));
+                        },
+                        {
+                            data: 'documentNumber',
+                            defaultContent: '-'
+                        },
+                        {
+                            data: 'sys_Data_Entry_DateTimeTZ',
+                            defaultContent: '-'
+                        },
+                        {
+                            data: null,
+                            render: function (data, type, row, meta) {
+                                return `${data.combinedBudgetSectionCode || ''} - ${data.combinedBudgetSectionName || ''}`;
+                            }
+                        },
+                        {
+                            data: null,
+                            render: function (data, type, row, meta) {
+                                return `${data.supplierCode || ''} - ${data.supplierName || ''}`;
+                            }
+                        },
+                        {
+                            data: null,
+                            defaultContent: '-',
+                            render: function (data, type, row, meta) {
+                                return currencyTotal(data.totalIDR || '0');
+                            }
+                        },
+                        {
+                            data: null,
+                            defaultContent: '-',
+                            render: function (data, type, row, meta) {
+                                return currencyTotal(data.totalOtherCurrency || '0');
+                            }
+                        },
+                        {
+                            data: null,
+                            defaultContent: '-',
+                            render: function (data, type, row, meta) {
+                                return currencyTotal(data.totalEquivalentIDR || '0');
+                            }
+                        },
+                        {
+                            data: 'supplierInvoiceNumber',
+                            defaultContent: '-'
+                        },
+                        {
+                            data: 'requesterName',
+                            defaultContent: '-'
+                        },
+                        {
+                            data: 'workflowStatus',
+                            defaultContent: '-'
                         }
-                    });
+                    ],
+                    drawCallback: function (settings) {
+                        $('#table_summary tfoot th:nth-child(2)').text(currencyTotal(totalIDR));
+                        $('#table_summary tfoot th:nth-child(3)').text(currencyTotal(totalOtherCurrency));
+                        $('#table_summary tfoot th:nth-child(4)').text(currencyTotal(totalEquivalentIDR));
+                    }
+                });
 
-                    $('#table_summary').css("width", "100%");
-                    $('#table_container').css("display", "block");
-                } else {
-                    dataReport = [];
-
-                    $('#table_summary').DataTable({
-                        destroy: true,
-                        data: [],
-                        deferRender: true,
-                        scrollCollapse: true,
-                        scroller: true,
-                        drawCallback: function(settings) {
-                            $('#table_summary tfoot th:nth-child(2)').text(currencyTotal(totalIDR));
-                            $('#table_summary tfoot th:nth-child(3)').text(currencyTotal(totalOtherCurrency));
-                            $('#table_summary tfoot th:nth-child(4)').text(currencyTotal(totalEquivalentIDR));
-                        }
-                    });
-
-                    $('#table_summary').css("width", "100%");
-                    $('#table_container').css("display", "block");
-                }
-
+                $('#table_summary').css("width", "100%");
+                $('#table_container').css("display", "block");
                 HideLoading();
             },
-            error: function(xhr, status, error) {
+            error: function (xhr, status, error) {
                 HideLoading();
                 ErrorNotif("An error occurred while processing the received data. Please try again later.");
                 console.log('xhr, status, error', xhr, status, error);
             }
-        });
+        })
     }
 
     function exportDataReport() {
@@ -175,17 +172,17 @@
             type: 'POST',
             url: '{!! route("AccountPayable.PrintExportReportAccountPayableSummary") !!}',
             data: {
-                dataReport,
+                dataReport: JSON.stringify(dataReport),
                 budgetName: budgetName.value,
                 subBudgetName: subBudgetName.value,
                 supplierName: supplierName.value,
                 apDate: apDate.value,
                 printType: printType.value
             },
-            xhrFields: { 
+            xhrFields: {
                 responseType: 'blob'
             },
-            success: function(response) {
+            success: function (response) {
                 var blob = new Blob([response], { type: response.type });
                 var link = document.createElement('a');
                 link.href = window.URL.createObjectURL(blob);
@@ -202,7 +199,7 @@
 
                 HideLoading();
             },
-            error: function(xhr, status, error) {
+            error: function (xhr, status, error) {
                 HideLoading();
                 ErrorNotif("An error occurred while processing the received data. Please try again later.");
                 console.log('xhr, status, error', xhr, status, error);
@@ -211,9 +208,11 @@
     }
 
     function validateShowButton() {
-        const isBudgetIDNotEmpty    = budgetID.value.trim() !== '';
-        const isSupplierIDNotEmpty  = supplierID.value.trim() !== '';
-        const isApDateNotEmpty      = apDate.value.trim() !== '';
+        const isBudgetIDNotEmpty = budgetID.value.trim() !== '';
+        const isSupplierIDNotEmpty = supplierID.value.trim() !== '';
+        const isApDateNotEmpty = apDate.value.trim() !== '';
+
+        const isAuthorizedRole = Utils.isUserAuthorizedForReport();
 
         if (
             isBudgetIDNotEmpty ||
@@ -224,7 +223,11 @@
             hideErrorInputMessage("#supplier_name", "#supplierMessage");
             hideErrorInputMessage("#account_payable_summary_date_range", "#dateRangeMessage");
 
-            getDataReport();
+            if (isBudgetIDNotEmpty || isAuthorizedRole) {
+                getDataReport();
+            } else {
+                showErrorInputMessage("#budget_name", "#budgetMessage");
+            }
         } else {
             showErrorInputMessage("#budget_name", "#budgetMessage");
             showErrorInputMessage("#supplier_name", "#supplierMessage");
@@ -240,32 +243,60 @@
         }
     }
 
-    $('#tableProjects').on('click', 'tbody tr', function() {
-        const sysId   = $(this).find('input[data-trigger="sys_id_project"]').val();
-        const code    = $(this).find('td:nth-child(2)').text();
-        const name    = $(this).find('td:nth-child(3)').text();
+    function getWorkflow(combinedBudgetID, combinedBudgetCode, combinedBudgetName) {
+        $.ajax({
+            type: 'POST',
+            url: '{!! route("GetWorkflow") !!}',
+            data: {
+                businessDocumentType_RefID: documentTypeID.value,
+                combinedBudget_RefID: combinedBudgetID
+            }
+        })
+            .done(function (data, textStatus, jqXHR) {
+                console.log("Success:", data);
 
-        $("#budget_id").val(sysId);
-        $("#budget_code").val(code);
-        $("#budget_name").val(`${code} - ${name}`);
-        $("#budget_name").css('background-color', '#e9ecef');
+                if (data.status == 200) {
+                    selectBudget(combinedBudgetID, combinedBudgetCode, combinedBudgetName);
+                } else {
+                    ErrorHandler.notifToast(
+                        'error',
+                        'You are not included in this budget',
+                        'Error!'
+                    );
+                }
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                console.error("Error:", errorThrown);
+            })
+            .always(function (jqXHR, textStatus, errorThrown) {
+                $("#loadingBudget").hide();
+                $("#iconBudget").show();
+            });
+    }
+
+    $('#tableProjects').on('click', 'tbody tr', function () {
+        const sysId = $(this).find('input[data-trigger="sys_id_project"]').val();
+        const code = $(this).find('td:nth-child(2)').text();
+        const name = $(this).find('td:nth-child(3)').text();
+
+        if (Utils.isUserAuthorizedForReport()) {
+            selectBudget(sysId, code, name);
+        } else {
+            $("#loadingBudget").show();
+            $("#iconBudget").hide();
+
+            getWorkflow(sysId, code, name);
+        }
 
         hideErrorInputMessage("#budget_name", "#budgetMessage");
-        getSites(sysId);
-
-        $("#mySitesTrigger").css('cursor', 'pointer');
-        $("#mySitesTrigger").attr({
-            "data-toggle": "modal",
-            "data-target": "#mySites"
-        });
 
         $('#myProjects').modal('hide');
     });
 
-    $('#tableSites').on('click', 'tbody tr', function() {
-        const sysId       = $(this).find('input[data-trigger="sys_id_site"]').val();
-        const siteCode    = $(this).find('td:nth-child(2)').text();
-        const siteName    = $(this).find('td:nth-child(3)').text();
+    $('#tableSites').on('click', 'tbody tr', function () {
+        const sysId = $(this).find('input[data-trigger="sys_id_site"]').val();
+        const siteCode = $(this).find('td:nth-child(2)').text();
+        const siteName = $(this).find('td:nth-child(3)').text();
 
         $("#sub_budget_id").val(sysId);
         $("#sub_budget_code").val(siteCode);
@@ -277,11 +308,11 @@
         $('#mySites').modal('hide');
     });
 
-    $('#tableSuppliers').on('click', 'tbody tr', function() {
-        const sysId             = $(this).find('input[data-trigger="sys_id_supplier"]').val();
-        const supplierCode      = $(this).find('td:nth-child(2)').text();
-        const supplierName      = $(this).find('td:nth-child(3)').text();
-        const supplierAddress   = $(this).find('td:nth-child(4)').text();
+    $('#tableSuppliers').on('click', 'tbody tr', function () {
+        const sysId = $(this).find('input[data-trigger="sys_id_supplier"]').val();
+        const supplierCode = $(this).find('td:nth-child(2)').text();
+        const supplierName = $(this).find('td:nth-child(3)').text();
+        const supplierAddress = $(this).find('td:nth-child(4)').text();
 
         $("#supplier_id").val(sysId);
         $("#supplier_code").val(supplierCode);
@@ -293,7 +324,7 @@
         $('#mySuppliers').modal('hide');
     });
 
-    $(window).one('load', function() {
+    $(window).one('load', function () {
         $('#account_payable_summary_date_range').daterangepicker({
             autoUpdateInput: false,
             maxDate: moment(),
@@ -302,13 +333,13 @@
             }
         });
 
-        $('#account_payable_summary_date_range').on('apply.daterangepicker', function(ev, picker) {
+        $('#account_payable_summary_date_range').on('apply.daterangepicker', function (ev, picker) {
             $("#account_payable_summary_date_range").css('background-color', '#e9ecef');
             $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
             hideErrorInputMessage("#account_payable_summary_date_range", "#dateRangeMessage");
         });
 
-        $('#account_payable_summary_date_range').on('cancel.daterangepicker', function(ev, picker) {
+        $('#account_payable_summary_date_range').on('cancel.daterangepicker', function (ev, picker) {
             $("#account_payable_summary_date_range").css('background-color', '#fff');
             $(this).val('');
         });

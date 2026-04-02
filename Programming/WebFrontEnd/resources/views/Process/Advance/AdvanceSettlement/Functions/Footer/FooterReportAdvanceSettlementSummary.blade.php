@@ -1,14 +1,17 @@
 <script>
-    let dataReport      = []; 
-    const budgetID      = document.getElementById("budget_id");
-    const budgetName    = document.getElementById("budget_name");
-    const budgetCode    = document.getElementById("budget_code");
-    const subBudgetID   = document.getElementById("site_id");
-    const subBudgetName = document.getElementById("site_name");
-    const subBudgetCode = document.getElementById("site_code");
-    const requesterID   = document.getElementById("requester_id");
-    const asfDate       = document.getElementById("asfDate");
-    const printType     = document.getElementById("print_type");
+    let dataReport                      = []; 
+    const documentTypeID                = document.getElementById("documentTypeRefID");
+    const organizationalDepartmentName  = document.getElementById("organizationalDepartmentName"); // Finance & Accounting
+    const organizationalJobPositionName = document.getElementById("organizationalJobPositionName"); // General Manager
+    const budgetID                      = document.getElementById("budget_id");
+    const budgetName                    = document.getElementById("budget_name");
+    const budgetCode                    = document.getElementById("budget_code");
+    const subBudgetID                   = document.getElementById("site_id");
+    const subBudgetName                 = document.getElementById("site_name");
+    const subBudgetCode                 = document.getElementById("site_code");
+    const requesterID                   = document.getElementById("requester_id");
+    const asfDate                       = document.getElementById("asfDate");
+    const printType                     = document.getElementById("print_type");
 
     function resetForm() {
         $("#budget_name").css('background-color', '#fff');
@@ -273,7 +276,20 @@
             hideErrorInputMessage("#requester_name", "#requesterMessage");
             hideErrorInputMessage("#asfDate", "#dateRangeMessage");
 
-            getDataReport();
+            if (
+                !isBudgetIDNotEmpty && organizationalDepartmentName.value === 'Finance & Accounting' || (
+                organizationalJobPositionName.value === 'General Manager' || 
+                organizationalJobPositionName.value === 'Senior Manager' || 
+                organizationalJobPositionName.value === 'Director'
+            )) {
+                getDataReport();
+            } else {
+                if (isBudgetIDNotEmpty) {
+                    getDataReport();
+                } else {
+                    showErrorInputMessage("#budget_name", "#budgetMessage");
+                }
+            }
         } else {
             showErrorInputMessage("#budget_name", "#budgetMessage");
             showErrorInputMessage("#requester_name", "#requesterMessage");
@@ -289,24 +305,77 @@
         }
     }
 
+    function getWorkflow(combinedBudgetID, combinedBudgetCode, combinedBudgetName) {
+        $.ajax({
+            type: 'POST',
+            url: '{!! route("GetWorkflow") !!}',
+            data: {
+                businessDocumentType_RefID: documentTypeID.value,
+                combinedBudget_RefID: combinedBudgetID
+            }
+        })
+        .done(function(data, textStatus, jqXHR) {
+            if (data.status == 200) {
+                $("#budget_id").val(combinedBudgetID);
+                $("#budget_code").val(combinedBudgetCode);
+                $("#budget_name").val(`${combinedBudgetCode} - ${combinedBudgetName}`);
+                $("#budget_name").css('background-color', '#e9ecef');
+
+                getSites(combinedBudgetID);
+
+                $("#mySitesTrigger").css('cursor', 'pointer');
+                $("#mySitesTrigger").attr({
+                    "data-toggle": "modal",
+                    "data-target": "#mySites"
+                });
+            } else {
+                ErrorHandler.notifToast(
+                    'error',
+                    'You are not included in this budget',
+                    'Error!'
+                );
+            }
+        })
+        .fail(function(jqXHR, textStatus, errorThrown) {
+            console.error("Error:", errorThrown);
+        })
+        .always(function(jqXHR, textStatus, errorThrown) {
+            $("#loadingBudget").hide();
+            $("#iconBudget").show();
+        });
+    }
+
     $('#tableProjects').on('click', 'tbody tr', function() {
         const sysId = $(this).find('input[data-trigger="sys_id_project"]').val();
         const code  = $(this).find('td:nth-child(2)').text();
         const name  = $(this).find('td:nth-child(3)').text();
 
-        $("#budget_id").val(sysId);
-        $("#budget_code").val(code);
-        $("#budget_name").val(`${code} - ${name}`);
-        $("#budget_name").css('background-color', '#e9ecef');
+        if (organizationalDepartmentName.value === 'Finance & Accounting' || (
+            organizationalJobPositionName.value === 'General Manager' || 
+            organizationalJobPositionName.value === 'Senior Manager' || 
+            organizationalJobPositionName.value === 'Director'
+        )) {
+            $("#budget_id").val(sysId);
+            $("#budget_code").val(code);
+            $("#budget_name").val(`${code} - ${name}`);
+            $("#budget_name").css('background-color', '#e9ecef');
+
+            hideErrorInputMessage("#budget_name", "#budgetMessage");
+            getSites(sysId);
+            
+            $("#mySitesTrigger").css('cursor', 'pointer');
+            $("#mySitesTrigger").attr({
+                "data-toggle": "modal",
+                "data-target": "#mySites"
+            });
+        } else {
+            $("#loadingBudget").show();
+            $("#iconBudget").hide();
+
+            getWorkflow(sysId, code, name);
+        }
 
         hideErrorInputMessage("#budget_name", "#budgetMessage");
-        getSites(sysId);
-        
-        $("#mySitesTrigger").css('cursor', 'pointer');
-        $("#mySitesTrigger").attr({
-            "data-toggle": "modal",
-            "data-target": "#mySites"
-        });
 
         $("#myProjects").modal('toggle');
     });

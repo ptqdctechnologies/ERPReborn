@@ -259,6 +259,79 @@
           </td>
         </tr>
       </thead>
+      
+      <?php 
+        $counter = 1; 
+        $grandPurchaseOrderTotalIDR = 0; 
+        $grandPurchaseOrderTotalOtherCurrency = 0; 
+        $grandPurchaseOrderTotalEquivalentIDR = 0; 
+        $grandAccountPayableTotalIDR = 0; 
+        $grandAccountPayableTotalOtherCurrency = 0; 
+        $grandAccountPayableTotalEquivalentIDR = 0; 
+      ?>
+      <?php foreach ($dataReport as $data) { ?>
+        <tr>
+          <td>
+            <div style="margin-top: 4px; font-size: 12px;">
+              <?= $counter++; ?>
+            </div>
+          </td>
+          <td>
+            <div style="margin-top: 4px; font-size: 12px;">
+              <?= $data['purchaseOrderNumber'] ?? '-'; ?>
+            </div>
+          </td>
+          <td>
+            <div style="margin-top: 4px; font-size: 12px;">
+              <?= $data['combinedBudgetCode'] ?? ''; ?> - <?= $data['combinedBudgetName'] ?? ''; ?>
+            </div>
+          </td>
+          <td>
+            <div style="margin-top: 4px; font-size: 12px;">
+              <?= $data['purchaseOrderDate'] ?? '-'; ?>
+            </div>
+          </td>
+          <td>
+            <div style="margin-top: 4px; font-size: 12px;">
+              <?= $data['supplierCode'] ?? ''; ?> - <?= $data['supplierName'] ?? ''; ?>
+            </div>
+          </td>
+          <td>
+            <div style="margin-top: 4px; font-size: 12px;">
+              <?= number_format($data['purchaseOrderTotalIDR'] ?? 0, 2); ?>
+            </div>
+          </td>
+          <td>
+            <div style="margin-top: 4px; font-size: 12px;">
+              <?= number_format($data['purchaseOrderTotalOtherCurrency'] ?? 0, 2); ?>
+            </div>
+          </td>
+          <td>
+            <div style="margin-top: 4px; font-size: 12px;">
+              <?= number_format($data['purchaseOrderTotalEquivalentIDR'] ?? 0, 2); ?>
+            </div>
+          </td>
+          <td>
+            <div style="margin-top: 4px; font-size: 12px;">
+              <?= $data['purchaseOrderStatus'] ?? '-'; ?>
+            </div>
+          </td>
+          <td>
+            <div style="margin-top: 4px; font-size: 12px;">
+              <?= $data['accountPayableNumber'] ?? '-'; ?>
+            </div>
+          </td>
+          <td>
+            <div style="margin-top: 4px; font-size: 12px;">
+              <?= $data['accountPayableDate'] ?? '-'; ?>
+            </div>
+          </td>
+        </tr>
+      <?php } ?>
+
+      <tr style="border-top: 1px solid black;">
+        
+      </tr>
     </table>
   </div>
 </body>

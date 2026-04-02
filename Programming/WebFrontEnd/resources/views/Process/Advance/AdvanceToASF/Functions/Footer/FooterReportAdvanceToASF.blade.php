@@ -1,20 +1,25 @@
 <script>
-    let isFromTo        = false;
-    let data            = [];
-    let dataReport      = [];
-    let currentPage     = 1;
-    let rowsPerPage     = 10;
-    let filteredData    = [...data];
-    let sortColumn      = null;
-    let sortOrder       = 'asc'; 
-    const projectCode   = document.getElementById("budget_code");
-    const siteCode      = document.getElementById("sub_budget_code");
-    const requesterID   = document.getElementById("requester_id");
-    const date          = document.getElementById("advance_date_range");
-    const startLimit    = document.getElementById("start_limit");
-    const endLimit      = document.getElementById("end_limit");
-    const totalData     = document.getElementById("total_data");
-    const printType     = document.getElementById("print_type");
+    let isFromTo                        = false;
+    let data                            = [];
+    let dataReport                      = [];
+    let currentPage                     = 1;
+    let rowsPerPage                     = 10;
+    let filteredData                    = [...data];
+    let sortColumn                      = null;
+    let sortOrder                       = 'asc'; 
+    const documentTypeID                = document.getElementById("documentTypeRefID");
+    const organizationalDepartmentName  = document.getElementById("organizationalDepartmentName"); // Finance & Accounting
+    const organizationalJobPositionName = document.getElementById("organizationalJobPositionName"); // General Manager
+    const projectID                     = document.getElementById("budget_id");
+    const projectCode                   = document.getElementById("budget_code");
+    const siteID                        = document.getElementById("sub_budget_id");
+    const siteCode                      = document.getElementById("sub_budget_code");
+    const requesterID                   = document.getElementById("requester_id");
+    const date                          = document.getElementById("advance_date_range");
+    const startLimit                    = document.getElementById("start_limit");
+    const endLimit                      = document.getElementById("end_limit");
+    const totalData                     = document.getElementById("total_data");
+    const printType                     = document.getElementById("print_type");
 
     function resetForm() {
         isFromTo        = false;
@@ -46,12 +51,6 @@
     function getDataReport() {
         ShowLoading();
 
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
         $.ajax({
             type: 'POST',
             url: '{!! route("AdvanceRequest.ReportAdvanceToASFStore") !!}',
@@ -77,8 +76,18 @@
 
                     $('#table_container').css("display", "block");
                 } else {
-                    $('#table_container').css("display", "none");
-                    ErrorNotif("No data available for the selected criteria.");
+                    data = [];
+                    dataReport = [];
+
+                    filteredData = [...data];
+                    currentPage = '-';
+                    sortColumn = null;
+                    sortOrder = 'asc';
+
+                    renderPage();
+                    renderPagination();
+
+                    $('#table_container').css("display", "block");
                 }
                 
                 HideLoading();
@@ -157,7 +166,7 @@
             const rowNumber = (currentPage - 1) * rowsPerPage + ind + 1;
 
             const noCell = document.createElement('td');
-            noCell.textContent = rowNumber;
+            noCell.textContent = isNaN(rowNumber) ? '-' : rowNumber;
             row.appendChild(noCell);
 
             const arfNumberCell = document.createElement('td');
@@ -312,8 +321,8 @@
         
         const startLimit = (currentPage - 1) * rowsPerPage + 1;
         const endLimit = Math.min(currentPage * rowsPerPage, data.length);
-        document.querySelector('#start_limit').textContent = startLimit;
-        document.querySelector('#end_limit').textContent = endLimit;
+        document.querySelector('#start_limit').textContent = isNaN(startLimit) ? '0' : startLimit;
+        document.querySelector('#end_limit').textContent = isNaN(endLimit) ? '0' : endLimit;
         document.querySelector('#total_data').textContent = data.length;
 
         let startPage = Math.max(1, currentPage - 1);
@@ -329,7 +338,13 @@
 
         if (startPage > 1) {
             const dots = document.createElement('span');
-            dots.textContent = '...';
+
+            if (data.length == 0) {
+                dots.textContent = '';
+            } else {
+                dots.textContent = '...';
+            }
+
             pageNumbersContainer.appendChild(dots);
         }
 
@@ -355,7 +370,13 @@
 
         if (endPage < totalPages) {
             const dots = document.createElement('span');
-            dots.textContent = '...';
+            
+            if (data.length == 0) {
+                dots.textContent = '';
+            } else {
+                dots.textContent = '...';
+            }
+
             pageNumbersContainer.appendChild(dots);
         }
 
@@ -399,6 +420,92 @@
         renderPagination();
     }
 
+    function validateShowButton() {
+        const isBudgetIDNotEmpty        = projectID.value.trim() !== '';
+        const isSubBudgetIDNotEmpty     = siteID.value.trim() !== '';
+        const isRequesterIDNotEmpty     = requesterID.value.trim() !== '';
+        const isArfDateNotEmpty         = date.value.trim() !== '';
+
+        if (
+            isBudgetIDNotEmpty ||
+            isRequesterIDNotEmpty ||
+            isArfDateNotEmpty
+        ) {
+            hideErrorInputMessage("#budget_name", "#budgetMessage");
+            hideErrorInputMessage("#requester_name", "#requesterMessage");
+            hideErrorInputMessage("#advance_date_range", "#dateRangeMessage");
+
+            if (
+                !isBudgetIDNotEmpty && organizationalDepartmentName.value === 'Finance & Accounting' || (
+                organizationalJobPositionName.value === 'General Manager' || 
+                organizationalJobPositionName.value === 'Senior Manager' || 
+                organizationalJobPositionName.value === 'Director'
+            )) {
+                getDataReport();
+            } else {
+                if (isBudgetIDNotEmpty) {
+                    getDataReport();
+                } else {
+                    showErrorInputMessage("#budget_name", "#budgetMessage");
+                }
+            }
+        } else {
+            showErrorInputMessage("#budget_name", "#budgetMessage");
+            showErrorInputMessage("#requester_name", "#requesterMessage");
+            showErrorInputMessage("#advance_date_range", "#dateRangeMessage");
+        }
+    }
+
+    function validateExportButton() {
+        if (dataReport.length > 0) {
+            exportDataReport();
+        } else {
+            ErrorNotif("No data available to export. Please display the data first.");
+        }
+    }
+
+    function getWorkflow(combinedBudgetID, combinedBudgetCode, combinedBudgetName) {
+        $.ajax({
+            type: 'POST',
+            url: '{!! route("GetWorkflow") !!}',
+            data: {
+                businessDocumentType_RefID: documentTypeID.value,
+                combinedBudget_RefID: combinedBudgetID
+            }
+        })
+        .done(function(data, textStatus, jqXHR) {
+            console.log("Success:", data);
+
+            if (data.status == 200) {
+                $("#budget_id").val(combinedBudgetID);
+                $("#budget_code").val(combinedBudgetCode);
+                $("#budget_name").val(`${combinedBudgetCode} - ${combinedBudgetName}`);
+                $("#budget_name").css('background-color', '#e9ecef');
+
+                getSites(combinedBudgetID);
+
+                $("#mySitesTrigger").css('cursor', 'pointer');
+                $("#mySitesTrigger").attr({
+                    "data-toggle": "modal",
+                    "data-target": "#mySites"
+                });
+            } else {
+                ErrorHandler.notifToast(
+                    'error',
+                    'You are not included in this budget',
+                    'Error!'
+                );
+            }
+        })
+        .fail(function(jqXHR, textStatus, errorThrown) {
+            console.error("Error:", errorThrown);
+        })
+        .always(function(jqXHR, textStatus, errorThrown) {
+            $("#loadingBudget").hide();
+            $("#iconBudget").show();
+        });
+    }
+
     document.querySelectorAll('#table_summary th').forEach((header, index) => {
         header.addEventListener('click', () => {
             sortByColumn(index);
@@ -435,16 +542,35 @@
     });
 
     $('#tableProjects').on('click', 'tbody tr', async function() {
-        const sysId       = $(this).find('input[data-trigger="sys_id_project"]').val();
-        const projectCode = $(this).find('td:nth-child(2)').text();
-        const projectName = $(this).find('td:nth-child(3)').text();
+        const sysId = $(this).find('input[data-trigger="sys_id_project"]').val();
+        const code  = $(this).find('td:nth-child(2)').text();
+        const name  = $(this).find('td:nth-child(3)').text();
 
-        $("#budget_id").val(sysId);
-        $("#budget_code").val(projectCode);
-        $("#budget_name").val(`${projectCode} - ${projectName}`);
-        $("#budget_name").css({"background-color":"#e9ecef"});
+        if (organizationalDepartmentName.value === 'Finance & Accounting' || (
+            organizationalJobPositionName.value === 'General Manager' || 
+            organizationalJobPositionName.value === 'Senior Manager' || 
+            organizationalJobPositionName.value === 'Director'
+        )) {
+            $("#budget_id").val(sysId);
+            $("#budget_code").val(code);
+            $("#budget_name").val(`${code} - ${name}`);
+            $("#budget_name").css({"background-color":"#e9ecef"});
 
-        getSites(sysId);
+            getSites(sysId);
+
+            $("#mySitesTrigger").css('cursor', 'pointer');
+            $("#mySitesTrigger").attr({
+                "data-toggle": "modal",
+                "data-target": "#mySites"
+            });
+        } else {
+            $("#loadingBudget").show();
+            $("#iconBudget").hide();
+
+            getWorkflow(sysId, code, name);
+        }
+
+        hideErrorInputMessage("#budget_name", "#budgetMessage");
 
         $('#myProjects').modal('toggle');
     });
@@ -471,6 +597,8 @@
         $("#requester_name").val(`${position} - ${name}`);
         $("#requester_name").css({"background-color":"#e9ecef"});
 
+        hideErrorInputMessage("#requester_name", "#requesterMessage");
+
         $('#myRequesters').modal('toggle');
     });
 
@@ -489,6 +617,7 @@
         $('#advance_date_range').on('apply.daterangepicker', function(ev, picker) {
             $("#advance_date_range").css('background-color', '#e9ecef');
             $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
+            hideErrorInputMessage("#advance_date_range", "#dateRangeMessage");
         });
 
         $('#advance_date_range').on('cancel.daterangepicker', function(ev, picker) {
