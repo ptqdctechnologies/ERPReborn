@@ -175,7 +175,17 @@ class PurchaseOrderController extends Controller
 
     public function ReportPurchaseOrderSummary(Request $request)
     {
-        return view('Purchase.PurchaseOrder.Reports.ReportPurchaseOrderSummary');
+        $documentTypeRefID                      = $this->GetBusinessDocumentsTypeFromRedis('Purchase Order Form');
+        $sessionOrganizationalDepartmentName    = Session::get('SessionOrganizationalDepartmentName');
+        $sessionOrganizationalJobPositionName   = Session::get('SessionOrganizationalJobPositionName');
+        
+        $compact = [
+            'documentTypeRefID'                     => $documentTypeRefID,
+            'sessionOrganizationalDepartmentName'   => $sessionOrganizationalDepartmentName,
+            'sessionOrganizationalJobPositionName'  => $sessionOrganizationalJobPositionName
+        ];
+
+        return view('Purchase.PurchaseOrder.Reports.ReportPurchaseOrderSummary', $compact);
     }
 
     public function ReportPurchaseOrderSummaryStore(Request $request)
