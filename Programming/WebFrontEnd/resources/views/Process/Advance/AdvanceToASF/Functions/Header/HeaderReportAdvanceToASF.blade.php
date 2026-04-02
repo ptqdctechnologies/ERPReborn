@@ -4,7 +4,8 @@
     <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Budget</label>
     <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
       <div>
-        <span id="myProjectsTrigger" class="input-group-text form-control" data-toggle="modal" data-target="#myProjects" style="border-radius:0;cursor:pointer;">
+        <span id="myProjectsTrigger" class="input-group-text form-control" data-toggle="modal" data-target="#myProjects"
+          style="border-radius:0;cursor:pointer;">
           <i id="iconBudget" class="fas fa-gift"></i>
 
           <div id="loadingBudget" class="spinner-border spinner-border-sm" role="status" style="display: none;">
@@ -13,7 +14,8 @@
         </span>
       </div>
       <div>
-        <input type="text" id="budget_name" class="form-control" style="border-radius:0;background-color:white;" readonly />
+        <input type="text" id="budget_name" class="form-control" style="border-radius:0;background-color:white;"
+          readonly />
         <input type="hidden" id="budget_id" class="form-control" style="border-radius:0;" name="budget_id" />
         <input type="hidden" id="budget_code" class="form-control" style="border-radius:0;" name="budget_code" />
       </div>
@@ -36,9 +38,11 @@
         </span>
       </div>
       <div>
-        <input type="text" id="sub_budget_name" class="form-control" style="border-radius:0;background-color:white;" readonly />
+        <input type="text" id="sub_budget_name" class="form-control" style="border-radius:0;background-color:white;"
+          readonly />
         <input type="hidden" id="sub_budget_id" class="form-control" style="border-radius:0;" name="sub_budget_id" />
-        <input type="hidden" id="sub_budget_code" class="form-control" style="border-radius:0;" name="sub_budget_code" />
+        <input type="hidden" id="sub_budget_code" class="form-control" style="border-radius:0;"
+          name="sub_budget_code" />
       </div>
     </div>
   </div>
@@ -49,12 +53,14 @@
     <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Requester</label>
     <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
       <div>
-        <span id="myRequestersTrigger" class="input-group-text form-control" data-toggle="modal" data-target="#myRequesters" style="border-radius:0;cursor:pointer;">
+        <span id="myRequestersTrigger" class="input-group-text form-control" data-toggle="modal"
+          data-target="#myRequesters" style="border-radius:0;cursor:pointer;">
           <i class="fas fa-gift"></i>
         </span>
       </div>
       <div>
-        <input type="text" id="requester_name" class="form-control" style="border-radius:0;background-color:white;" readonly />
+        <input type="text" id="requester_name" class="form-control" style="border-radius:0;background-color:white;"
+          readonly />
         <input type="hidden" id="requester_id" class="form-control" style="border-radius:0;" name="requester_id" />
       </div>
     </div>
@@ -66,9 +72,9 @@
     </div>
   </div>
 
-  <!-- DATE -->
+  <!-- DATE RANGE -->
   <div class="row p-0 align-items-center" style="margin-top: 1rem;">
-    <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Date</label>
+    <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Date Range</label>
     <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
       <div>
         <div class="input-group" id="advance_date_range_container">
@@ -77,7 +83,9 @@
               <i class="far fa-calendar-alt" style="width: 13px; height: 13px;"></i>
             </span>
           </div>
-          <input readonly type="text" class="form-control" style="height: 21.8px;border-radius:0;background-color:white;" id="advance_date_range" name="advance_date_range" />
+          <input readonly type="text" class="form-control"
+            style="height: 21.8px;border-radius:0;background-color:white;" id="advance_date_range"
+            name="advance_date_range" />
         </div>
       </div>
     </div>
