@@ -2072,7 +2072,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         | ▪ Method Name     : Func_GetDataPickList_PersonBusinessTrip                                                              |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-11-25                                                                                           |
+        | ▪ Last Update     : 2026-04-06                                                                                           |
         | ▪ Creation Date   : 2022-11-25                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Pilihan Data Person Business Trip                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -2092,7 +2092,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                         $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
-                            'SchData-OLTP-HumanResource.Func_GetDataPickList_PersonBusinessTrip',
+                            'SchData-OLTP-HumanResource.Func_GetDataPickList_PersonBusinessTrip_NEW',
                             [
                                 [$varSysBranch_RefID, 'bigint']
                             ]
