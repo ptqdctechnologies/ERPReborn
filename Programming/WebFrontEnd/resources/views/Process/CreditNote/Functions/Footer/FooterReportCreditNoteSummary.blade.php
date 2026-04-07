@@ -1,16 +1,34 @@
 <script>
-    let dataReport      = [];
-    const budgetID      = document.getElementById("budget_id");
-    const budgetCode    = document.getElementById("budget_code");
-    const budgetName    = document.getElementById("budget_name");
-    const subBudgetID   = document.getElementById("sub_budget_id");
+    let dataReport = [];
+    const documentTypeID = document.getElementById("documentTypeRefID");
+    const organizationalDepartmentName = document.getElementById("organizationalDepartmentName"); // Finance & Accounting
+    const organizationalJobPositionName = document.getElementById("organizationalJobPositionName"); // General Manager
+    const budgetID = document.getElementById("budget_id");
+    const budgetCode = document.getElementById("budget_code");
+    const budgetName = document.getElementById("budget_name");
+    const subBudgetID = document.getElementById("sub_budget_id");
     const subBudgetCode = document.getElementById("sub_budget_code");
     const subBudgetName = document.getElementById("sub_budget_name");
-    const customerID    = document.getElementById("customer_id");
-    const customerCode  = document.getElementById("customer_code");
-    const customerName  = document.getElementById("customer_name");
-    const cnDate        = document.getElementById("credit_note_summary_date_range");
-    const printType     = document.getElementById("print_type");
+    const customerID = document.getElementById("customer_id");
+    const customerCode = document.getElementById("customer_code");
+    const customerName = document.getElementById("customer_name");
+    const cnDate = document.getElementById("credit_note_summary_date_range");
+    const printType = document.getElementById("print_type");
+
+    function selectBudget(id, code, name) {
+        $("#budget_id").val(id);
+        $("#budget_code").val(code);
+        $("#budget_name").val(`${code} - ${name}`);
+        $("#budget_name").css('background-color', '#e9ecef');
+
+        getSites(id);
+
+        $("#mySitesTrigger").css('cursor', 'pointer');
+        $("#mySitesTrigger").attr({
+            "data-toggle": "modal",
+            "data-target": "#mySites"
+        });
+    }
 
     function resetForm() {
         dataReport = [];
@@ -37,12 +55,6 @@
     function getDataReport() {
         ShowLoading();
 
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
         $.ajax({
             type: 'POST',
             url: '{!! route("CreditNote.ReportCreditNoteSummaryStore") !!}',
@@ -55,131 +67,124 @@
                 cnDate: cnDate.value
             },
             dataType: 'json',
-            success: function(response) {
-                if (response.status === 200 && response.data[0]) {
-                    let data = response.data;
-                    dataReport = JSON.stringify(data);
+            success: function (response) {
+                let totalIdrCN = 0;
+                let vatIdrCN = 0;
+                let totalIdrCNOtherCurrency = 0;
+                let vatIdrCNOtherCurrency = 0;
+                let totalIdrCNEquivalentIDR = 0;
+                let vatIdrCNEquivalentIDR = 0;
 
-                    let totalIdrCN                  = 0;
-                    let vatIdrCN                    = 0;
-                    let totalIdrCNOtherCurrency     = 0;
-                    let vatIdrCNOtherCurrency       = 0;
-                    let totalIdrCNEquivalentIDR     = 0;
-                    let vatIdrCNEquivalentIDR       = 0;
+                let data = (response.status === 200 && response.data[0]) ? response.data : [];
+                dataReport = data;
 
-                    data.forEach(function(row) {
-                        totalIdrCN                += parseFloat(row.CN_Total_IDR) || 0;
-                        vatIdrCN                  += parseFloat(row.CN_Tax_IDR) || 0;
-                        totalIdrCNOtherCurrency   += parseFloat(row.CN_Total_Other_Currency) || 0;
-                        vatIdrCNOtherCurrency     += parseFloat(row.CN_Tax_OtherCurrency) || 0;
-                        totalIdrCNEquivalentIDR   += parseFloat(row.CN_Total_Equivalent_IDR) || 0;
-                        vatIdrCNEquivalentIDR     += parseFloat(row.CN_Tax_Equivalent) || 0;
-                    });
+                data.forEach(function (row) {
+                    totalIdrCN += parseFloat(row.CN_Total_IDR) || 0;
+                    vatIdrCN += parseFloat(row.CN_Tax_IDR) || 0;
+                    totalIdrCNOtherCurrency += parseFloat(row.CN_Total_Other_Currency) || 0;
+                    vatIdrCNOtherCurrency += parseFloat(row.CN_Tax_OtherCurrency) || 0;
+                    totalIdrCNEquivalentIDR += parseFloat(row.CN_Total_Equivalent_IDR) || 0;
+                    vatIdrCNEquivalentIDR += parseFloat(row.CN_Tax_Equivalent) || 0;
+                });
 
-                    $('#table_summary').DataTable({
-                        destroy: true,
-                        data: data,
-                        deferRender: true,
-                        scrollCollapse: true,
-                        scroller: true,
-                        columns: [
-                            {
-                                data: null,
-                                render: function (data, type, row, meta) {
-                                    return (meta.row + 1);
-                                }
-                            },
-                            {
-                                data: 'CN_Number',
-                                defaultContent: '-'
-                            },
-                            {
-                                data: null,
-                                render: function (data, type, row, meta) {
-                                    return `${data.combinedBudgetCode} - ${data.combinedBudgetName}`;
-                                }
-                            },
-                            {
-                                data: null,
-                                render: function (data, type, row, meta) {
-                                    return `${data.combinedBudgetSectionCode} - ${data.combinedBudgetSectionName}`;
-                                }
-                            },
-                            {
-                                data: 'date',
-                                defaultContent: '-'
-                            },
-                            {
-                                data: null,
-                                render: function (data, type, row, meta) {
-                                    return `${data.customerCode} - ${data.customerName}`;
-                                }
-                            },
-                            {
-                                data: null,
-                                defaultContent: '-',
-                                render: function (data, type, row, meta) {
-                                    return currencyTotal(data.CN_Total_IDR) || '-';
-                                }
-                            },
-                            {
-                                data: null,
-                                defaultContent: '-',
-                                render: function (data, type, row, meta) {
-                                    return currencyTotal(data.CN_Tax_IDR) || '-';
-                                }
-                            },
-                            {
-                                data: null,
-                                defaultContent: '-',
-                                render: function (data, type, row, meta) {
-                                    return currencyTotal(data.CN_Total_Other_Currency) || '-';
-                                }
-                            },
-                            {
-                                data: null,
-                                defaultContent: '-',
-                                render: function (data, type, row, meta) {
-                                    return currencyTotal(data.CN_Tax_OtherCurrency) || '-';
-                                }
-                            },
-                            {
-                                data: null,
-                                defaultContent: '-',
-                                render: function (data, type, row, meta) {
-                                    return currencyTotal(data.CN_Total_Equivalent_IDR) || '-';
-                                }
-                            },
-                            {
-                                data: null,
-                                defaultContent: '-',
-                                render: function (data, type, row, meta) {
-                                    return currencyTotal(data.CN_Tax_Equivalent) || '-';
-                                }
+                $('#table_summary').DataTable({
+                    destroy: true,
+                    data: data,
+                    deferRender: true,
+                    scrollCollapse: true,
+                    scroller: true,
+                    columns: [
+                        {
+                            data: null,
+                            render: function (data, type, row, meta) {
+                                return (meta.row + 1);
                             }
-                        ],
-                        drawCallback: function(settings) {
-                            $('#table_summary tfoot th:nth-child(2)').text(currencyTotal(totalIdrCN));
-                            $('#table_summary tfoot th:nth-child(3)').text(currencyTotal(vatIdrCN));
-                            $('#table_summary tfoot th:nth-child(4)').text(currencyTotal(totalIdrCNOtherCurrency));
-                            $('#table_summary tfoot th:nth-child(5)').text(currencyTotal(vatIdrCNOtherCurrency));
-                            $('#table_summary tfoot th:nth-child(6)').text(currencyTotal(totalIdrCNEquivalentIDR));
-                            $('#table_summary tfoot th:nth-child(7)').text(currencyTotal(vatIdrCNEquivalentIDR));
+                        },
+                        {
+                            data: 'CN_Number',
+                            defaultContent: '-'
+                        },
+                        {
+                            data: null,
+                            render: function (data, type, row, meta) {
+                                return `${data.combinedBudgetCode} - ${data.combinedBudgetName}`;
+                            }
+                        },
+                        {
+                            data: null,
+                            render: function (data, type, row, meta) {
+                                return `${data.combinedBudgetSectionCode} - ${data.combinedBudgetSectionName}`;
+                            }
+                        },
+                        {
+                            data: 'date',
+                            defaultContent: '-'
+                        },
+                        {
+                            data: null,
+                            render: function (data, type, row, meta) {
+                                return `${data.customerCode} - ${data.customerName}`;
+                            }
+                        },
+                        {
+                            data: null,
+                            defaultContent: '-',
+                            render: function (data, type, row, meta) {
+                                return currencyTotal(data.CN_Total_IDR) || '-';
+                            }
+                        },
+                        {
+                            data: null,
+                            defaultContent: '-',
+                            render: function (data, type, row, meta) {
+                                return currencyTotal(data.CN_Tax_IDR) || '-';
+                            }
+                        },
+                        {
+                            data: null,
+                            defaultContent: '-',
+                            render: function (data, type, row, meta) {
+                                return currencyTotal(data.CN_Total_Other_Currency) || '-';
+                            }
+                        },
+                        {
+                            data: null,
+                            defaultContent: '-',
+                            render: function (data, type, row, meta) {
+                                return currencyTotal(data.CN_Tax_OtherCurrency) || '-';
+                            }
+                        },
+                        {
+                            data: null,
+                            defaultContent: '-',
+                            render: function (data, type, row, meta) {
+                                return currencyTotal(data.CN_Total_Equivalent_IDR) || '-';
+                            }
+                        },
+                        {
+                            data: null,
+                            defaultContent: '-',
+                            render: function (data, type, row, meta) {
+                                return currencyTotal(data.CN_Tax_Equivalent) || '-';
+                            }
                         }
-                    });
+                    ],
+                    drawCallback: function (settings) {
+                        $('#table_summary tfoot th:nth-child(2)').text(currencyTotal(totalIdrCN));
+                        $('#table_summary tfoot th:nth-child(3)').text(currencyTotal(vatIdrCN));
+                        $('#table_summary tfoot th:nth-child(4)').text(currencyTotal(totalIdrCNOtherCurrency));
+                        $('#table_summary tfoot th:nth-child(5)').text(currencyTotal(vatIdrCNOtherCurrency));
+                        $('#table_summary tfoot th:nth-child(6)').text(currencyTotal(totalIdrCNEquivalentIDR));
+                        $('#table_summary tfoot th:nth-child(7)').text(currencyTotal(vatIdrCNEquivalentIDR));
+                    }
+                });
 
-                    $('#table_summary').css("width", "100%");
-                    $('#table_container').css("display", "block");
-                } else {
-                    $('#table_container').hide(); 
-                    $('#table_summary tbody').empty();
-                    $('#table_summary tfoot').empty();
-                    ErrorNotif("Error");
-                }
+                $('#table_summary').css("width", "100%");
+                $('#table_container').css("display", "block");
 
                 HideLoading();
             },
-            error: function(xhr, status, error) {
+            error: function (xhr, status, error) {
                 HideLoading();
                 ErrorNotif("An error occurred while processing the received data. Please try again later.");
                 console.log('xhr, status, error', xhr, status, error);
@@ -190,27 +195,21 @@
     function exportDataReport() {
         ShowLoading();
 
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
         $.ajax({
             url: '{!! route("CreditNote.PrintExportReportCreditNoteSummary") !!}',
             type: 'POST',
             data: {
-                dataReport,
+                dataReport: JSON.stringify(dataReport),
                 budgetName: budgetName.value,
                 subBudgetName: subBudgetName.value,
                 customerName: customerName.value,
                 cnDate: cnDate.value,
                 printType: printType.value
             },
-            xhrFields: { 
+            xhrFields: {
                 responseType: 'blob'
             },
-            success: function(response) {
+            success: function (response) {
                 var blob = new Blob([response], { type: response.type });
                 var link = document.createElement('a');
                 link.href = window.URL.createObjectURL(blob);
@@ -227,7 +226,7 @@
 
                 HideLoading();
             },
-            error: function(xhr, status, error) {
+            error: function (xhr, status, error) {
                 HideLoading();
                 ErrorNotif("An error occurred while processing the received data. Please try again later.");
                 console.log('xhr, status, error', xhr, status, error);
@@ -235,25 +234,96 @@
         });
     }
 
-    $('#tableProjects').on('click', 'tbody tr', function() {
-        const sysId   = $(this).find('input[data-trigger="sys_id_project"]').val();
-        const code    = $(this).find('td:nth-child(2)').text();
-        const name    = $(this).find('td:nth-child(3)').text();
+    function validateShowButton() {
+        const isBudgetIDNotEmpty = budgetID.value.trim() !== '';
+        const isCustomerIDNotEmpty = customerID.value.trim() !== '';
+        const isCnDateNotEmpty = cnDate.value.trim() !== '';
 
-        $("#budget_id").val(sysId);
-        $("#budget_code").val(code);
-        $("#budget_name").val(`${code} - ${name}`);
-        $("#budget_name").css('background-color', '#e9ecef');
+        const isAuthorizedRole = Utils.isUserAuthorizedForReport();
 
-        getSites(sysId);
+        if (
+            isBudgetIDNotEmpty ||
+            isCustomerIDNotEmpty ||
+            isCnDateNotEmpty
+        ) {
+            ErrorHandler.hideErrorInputMessage("#budget_name", "#budgetMessage");
+            ErrorHandler.hideErrorInputMessage("#customer_name", "#customerMessage");
+            ErrorHandler.hideErrorInputMessage("#credit_note_summary_date_range", "#dateRangeMessage");
+
+            if (isBudgetIDNotEmpty || isAuthorizedRole) {
+                getDataReport();
+            } else {
+                showErrorInputMessage("#budget_name", "#budgetMessage");
+            }
+        } else {
+            ErrorHandler.showErrorInputMessage("#budget_name", "#budgetMessage");
+            ErrorHandler.showErrorInputMessage("#customer_name", "#customerMessage");
+            ErrorHandler.showErrorInputMessage("#credit_note_summary_date_range", "#dateRangeMessage");
+        }
+    }
+
+    function validateExportButton() {
+        if (dataReport.length > 0) {
+            exportDataReport();
+        } else {
+            ErrorNotif("No data available to export. Please display the data first.");
+        }
+    }
+
+    function getWorkflow(combinedBudgetID, combinedBudgetCode, combinedBudgetName) {
+        $.ajax({
+            type: 'POST',
+            url: '{!! route("GetWorkflow") !!}',
+            data: {
+                businessDocumentType_RefID: documentTypeID.value,
+                combinedBudget_RefID: combinedBudgetID
+            }
+        })
+            .done(function (data, textStatus, jqXHR) {
+                console.log("Success:", data);
+
+                if (data.status == 200) {
+                    selectBudget(combinedBudgetID, combinedBudgetCode, combinedBudgetName);
+                } else {
+                    ErrorHandler.notifToast(
+                        'error',
+                        'You are not included in this budget',
+                        'Error!'
+                    );
+                }
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                console.error("Error:", errorThrown);
+            })
+            .always(function (jqXHR, textStatus, errorThrown) {
+                $("#loadingBudget").hide();
+                $("#iconBudget").show();
+            });
+    }
+
+    $('#tableProjects').on('click', 'tbody tr', function () {
+        const sysId = $(this).find('input[data-trigger="sys_id_project"]').val();
+        const code = $(this).find('td:nth-child(2)').text();
+        const name = $(this).find('td:nth-child(3)').text();
+
+        if (Utils.isUserAuthorizedForReport()) {
+            selectBudget(sysId, code, name);
+        } else {
+            $("#loadingBudget").show();
+            $("#iconBudget").hide();
+
+            getWorkflow(sysId, code, name);
+        }
+
+        ErrorHandler.hideErrorInputMessage("#budget_name", "#budgetMessage");
 
         $('#myProjects').modal('hide');
     });
 
-    $('#tableSites').on('click', 'tbody tr', function() {
-        const sysId       = $(this).find('input[data-trigger="sys_id_site"]').val();
-        const siteCode    = $(this).find('td:nth-child(2)').text();
-        const siteName    = $(this).find('td:nth-child(3)').text();
+    $('#tableSites').on('click', 'tbody tr', function () {
+        const sysId = $(this).find('input[data-trigger="sys_id_site"]').val();
+        const siteCode = $(this).find('td:nth-child(2)').text();
+        const siteName = $(this).find('td:nth-child(3)').text();
 
         $("#sub_budget_id").val(sysId);
         $("#sub_budget_code").val(siteCode);
@@ -263,20 +333,22 @@
         $('#mySites').modal('hide');
     });
 
-    $('#tableGetCustomer').on('click', 'tbody tr', function() {
+    $('#tableGetCustomer').on('click', 'tbody tr', function () {
         const sysId = $(this).find('input[data-trigger="sys_id_customer"]').val();
-        const code  = $(this).find('td:nth-child(2)').text();
-        const name  = $(this).find('td:nth-child(3)').text();
+        const code = $(this).find('td:nth-child(2)').text();
+        const name = $(this).find('td:nth-child(3)').text();
 
         $("#customer_id").val(sysId);
         $("#customer_code").val(code);
         $("#customer_name").val(`${code} - ${name}`);
         $("#customer_name").css('background-color', '#e9ecef');
 
+        ErrorHandler.hideErrorInputMessage("#customer_name", "#customerMessage");
+
         $('#myCustomers').modal('hide');
     });
 
-    $(window).one('load', function() {
+    $(window).one('load', function () {
         getModalCustomers();
 
         $('#credit_note_summary_date_range').daterangepicker({
@@ -287,12 +359,13 @@
             }
         });
 
-        $('#credit_note_summary_date_range').on('apply.daterangepicker', function(ev, picker) {
+        $('#credit_note_summary_date_range').on('apply.daterangepicker', function (ev, picker) {
             $("#credit_note_summary_date_range").css('background-color', '#e9ecef');
             $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
+            ErrorHandler.hideErrorInputMessage("#credit_note_summary_date_range", "#dateRangeMessage");
         });
 
-        $('#credit_note_summary_date_range').on('cancel.daterangepicker', function(ev, picker) {
+        $('#credit_note_summary_date_range').on('cancel.daterangepicker', function (ev, picker) {
             $("#credit_note_summary_date_range").css('background-color', '#fff');
             $(this).val('');
         });

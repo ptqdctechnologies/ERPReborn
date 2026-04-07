@@ -23,26 +23,26 @@ class CreditNoteController extends Controller
     public function __construct(CreditNoteService $creditNoteService, WorkflowService $workflowService)
     {
         $this->creditNoteService = $creditNoteService;
-        $this->workflowService   = $workflowService;
+        $this->workflowService = $workflowService;
     }
 
-    public function index() 
+    public function index()
     {
         $varAPIWebToken = Session::get('SessionLogin');
-        $var            = 0;
+        $var = 0;
         if (!empty($_GET['var'])) {
             $var = $_GET['var'];
         }
 
         $compact = [
-            'var'            => $var,
+            'var' => $var,
             'varAPIWebToken' => $varAPIWebToken,
         ];
 
         return view('Process.CreditNote.Transactions.CreateCreditNote', $compact);
     }
 
-    public function store(Request $request) 
+    public function store(Request $request)
     {
         try {
             $response = $this->creditNoteService->create($request);
@@ -63,8 +63,8 @@ class CreditNoteController extends Controller
             // }
 
             $compact = [
-                "documentNumber"    => $response['data']['businessDocument']['documentNumber'],
-                "status"            => $response['metadata']['HTTPStatusCode'],
+                "documentNumber" => $response['data']['businessDocument']['documentNumber'],
+                "status" => $response['metadata']['HTTPStatusCode'],
                 // "status"            => $responseWorkflow['metadata']['HTTPStatusCode']
             ];
 
@@ -78,25 +78,35 @@ class CreditNoteController extends Controller
 
     public function ReportCreditNoteSummary(Request $request)
     {
-        return view('Process.CreditNote.Reports.ReportCreditNoteSummary');
+        $documentTypeRefID = $this->GetBusinessDocumentsTypeFromRedis('Purchase Order Form');
+        $sessionOrganizationalDepartmentName = Session::get('SessionOrganizationalDepartmentName');
+        $sessionOrganizationalJobPositionName = Session::get('SessionOrganizationalJobPositionName');
+
+        $compact = [
+            'documentTypeRefID' => $documentTypeRefID,
+            'sessionOrganizationalDepartmentName' => $sessionOrganizationalDepartmentName,
+            'sessionOrganizationalJobPositionName' => $sessionOrganizationalJobPositionName
+        ];
+
+        return view('Process.CreditNote.Reports.ReportCreditNoteSummary', $compact);
     }
 
     public function ReportCreditNoteSummaryStore(Request $request)
     {
         try {
-            $date           = $request->cnDate;
-            $budget         = [
-                "id"        => $request->budget_id,
-                "code"      => $request->budget_code,
+            $date = $request->cnDate;
+            $budget = [
+                "id" => $request->budget_id,
+                "code" => $request->budget_code,
             ];
-            $subBudget      = [
-                "id"        => $request->site_id,
-                "code"      => $request->site_code,
+            $subBudget = [
+                "id" => $request->site_id,
+                "code" => $request->site_code,
             ];
-            $customerID     = $request->customer_id;
+            $customerID = $request->customer_id;
 
             $response = $this->creditNoteService->getCreditNoteSummary(
-                $budget['code'], 
+                $budget['code'],
                 $subBudget['code'],
                 $date,
                 $customerID
@@ -107,17 +117,17 @@ class CreditNoteController extends Controller
             }
 
             $compact = [
-                'status'    => $response['metadata']['HTTPStatusCode'],
-                'data'      => $response['data']['data']
+                'status' => $response['metadata']['HTTPStatusCode'],
+                'data' => $response['data']['data']
             ];
 
             return response()->json($compact);
         } catch (\Throwable $th) {
             Log::error("Report Credit Note Summary Store Function Error:" . $th->getMessage());
-            
+
             $compact = [
-                'status'    => 500,
-                'message'   => $th->getMessage()
+                'status' => 500,
+                'message' => $th->getMessage()
             ];
 
             return response()->json($compact);
@@ -127,28 +137,28 @@ class CreditNoteController extends Controller
     public function PrintExportReportCreditNoteSummary(Request $request)
     {
         try {
-            $type                   = $request->printType;
-            $budgetName             = $request->budgetName;
-            $subBudgetName          = $request->subBudgetName;
-            $customerName           = $request->customerName;
-            $cnDate                 = $request->cnDate;
-            $dataCreditNoteSummary  = json_decode($request->dataReport, true);
+            $type = $request->printType;
+            $budgetName = $request->budgetName;
+            $subBudgetName = $request->subBudgetName;
+            $customerName = $request->customerName;
+            $cnDate = $request->cnDate;
+            $dataCreditNoteSummary = json_decode($request->dataReport, true);
 
             if ($dataCreditNoteSummary) {
                 if ($type === "PDF") {
                     $pdf = PDF::loadView('Process.CreditNote.Reports.ReportCreditNoteSummary_pdf', [
-                        'dataCN'        => $dataCreditNoteSummary, 
-                        'budgetName'    => $budgetName,
+                        'dataCN' => $dataCreditNoteSummary,
+                        'budgetName' => $budgetName,
                         'subBudgetName' => $subBudgetName,
-                        'customerName'  => $customerName,
-                        'cnDate'        => $cnDate
-                        ])->setPaper('a4', 'landscape');
+                        'customerName' => $customerName,
+                        'cnDate' => $cnDate
+                    ])->setPaper('a4', 'landscape');
 
                     $pdf->output();
-                    $dom_pdf    = $pdf->getDomPDF();
-                    $canvas     = $dom_pdf ->get_canvas();
-                    $width      = $canvas->get_width();
-                    $height     = $canvas->get_height();
+                    $dom_pdf = $pdf->getDomPDF();
+                    $canvas = $dom_pdf->get_canvas();
+                    $width = $canvas->get_width();
+                    $height = $canvas->get_height();
                     $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
                     $canvas->page_text(34, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
 
@@ -170,7 +180,7 @@ class CreditNoteController extends Controller
         // try {
         //     $dataPDF = Session::get("CreditNoteReportSummaryDataPDF");
         //     $dataExcel = Session::get("CreditNoteReportSummaryDataExcel");
-            
+
         //     if ($dataPDF && $dataExcel) {
         //         $print_type = $request->print_type;
         //         if ($print_type == "PDF") {
@@ -199,11 +209,11 @@ class CreditNoteController extends Controller
         // }
     }
 
-    public function RevisionCreditNote(Request $request) 
+    public function RevisionCreditNote(Request $request)
     {
         try {
             $varAPIWebToken = $request->session()->get('SessionLogin');
-            $response       = $this->creditNoteService->getDetail($request->creditNote_RefID);
+            $response = $this->creditNoteService->getDetail($request->creditNote_RefID);
 
             if ($response['metadata']['HTTPStatusCode'] !== 200) {
                 throw new \Exception('Failed to fetch Detail Credit Note');
@@ -212,15 +222,15 @@ class CreditNoteController extends Controller
             $data = $response['data']['data'];
 
             $compact = [
-                'varAPIWebToken'    => $varAPIWebToken,
-                'header'            => [
-                    'creditNote_RefID'      => $data[0]['Sys_ID_Header'] ?? '',
-                    'creditNoteNumber'      => $data[0]['BusinessDocumentNumber'] ?? '',
-                    'combinedBudget_RefID'  => $data[0]['CombinedBudget_RefID'] ?? '',
-                    'fileID'                => $data[0]['Log_FileUpload_Pointer_RefID'] ?? null,
-                    'remarks'               => $data[0]['Remarks'] ?? '',
+                'varAPIWebToken' => $varAPIWebToken,
+                'header' => [
+                    'creditNote_RefID' => $data[0]['Sys_ID_Header'] ?? '',
+                    'creditNoteNumber' => $data[0]['BusinessDocumentNumber'] ?? '',
+                    'combinedBudget_RefID' => $data[0]['CombinedBudget_RefID'] ?? '',
+                    'fileID' => $data[0]['Log_FileUpload_Pointer_RefID'] ?? null,
+                    'remarks' => $data[0]['Remarks'] ?? '',
                 ],
-                'detail'            => $data
+                'detail' => $data
             ];
 
             // dd($compact);
@@ -253,15 +263,15 @@ class CreditNoteController extends Controller
             // }
 
             $compact = [
-                "documentNumber"    => $response['data'][0]['businessDocument']['documentNumber'],
-                "status"            => $response['metadata']['HTTPStatusCode'],
+                "documentNumber" => $response['data'][0]['businessDocument']['documentNumber'],
+                "status" => $response['metadata']['HTTPStatusCode'],
                 // "status"            => $responseWorkflow['metadata']['HTTPStatusCode'],
             ];
 
             return response()->json($compact);
         } catch (\Throwable $th) {
             Log::error("Update Credit Note Function Error: " . $th->getMessage());
-            
+
             return response()->json(["status" => 500]);
         }
     }
@@ -278,7 +288,7 @@ class CreditNoteController extends Controller
                 'varAPIWebToken' => $varAPIWebToken,
                 'dataReport' => $dataReport
             ];
-    
+
             return view('Process.CreditNote.Reports.ReportCNtoDN', $compact);
         } catch (\Throwable $th) {
             Log::error("ReportCNtoDN Function Error at " . $th->getMessage());
@@ -286,11 +296,11 @@ class CreditNoteController extends Controller
         }
     }
 
-    public function ReportCNtoDNData($project_id, $site_id, $requester_id, $beneficiary_id, $project_name, $project_code, $site_code, $requester_name, $beneficiary_name, $site_name, $requester_position, $beneficiary_position) 
+    public function ReportCNtoDNData($project_id, $site_id, $requester_id, $beneficiary_id, $project_name, $project_code, $site_code, $requester_name, $beneficiary_name, $site_name, $requester_position, $beneficiary_position)
     {
         try {
-            $varAPIWebToken             = Session::get('SessionLogin');
-            $getReportAdvanceSummary    = null;
+            $varAPIWebToken = Session::get('SessionLogin');
+            $getReportAdvanceSummary = null;
 
             // if (!Helper_Redis::getValue($varAPIWebToken, "ReportAdvanceSummary")) {
             //     $getReportAdvanceSummary = Helper_APICall::setCallAPIGateway(
@@ -1012,15 +1022,15 @@ class CreditNoteController extends Controller
             $reportData = is_string($getReportAdvanceSummary) ? json_decode($getReportAdvanceSummary, true) : $getReportAdvanceSummary;
 
             $filteredData = array_filter($reportData, function ($item) use ($project_code, $site_name, $requester_name, $beneficiary_name) {
-                return 
-                    (empty($project_code)     || $item['CombinedBudgetCode'] == $project_code) &&
-                    (empty($site_name)        || $item['CombinedBudgetSectionName'] == $site_name) &&
-                    (empty($requester_name)   || $item['RequesterWorkerName'] == $requester_name) &&
+                return
+                    (empty($project_code) || $item['CombinedBudgetCode'] == $project_code) &&
+                    (empty($site_name) || $item['CombinedBudgetSectionName'] == $site_name) &&
+                    (empty($requester_name) || $item['RequesterWorkerName'] == $requester_name) &&
                     (empty($beneficiary_name) || $item['BeneficiaryWorkerName'] == $beneficiary_name);
-                    // (empty($project_id)     || $item['CombinedBudget_RefID'] == $project_id) &&
-                    // (empty($site_id)        || $item['CombinedBudgetSection_RefID'] == $site_id) &&
-                    // (empty($requester_id)   || $item['RequesterWorkerJobsPosition_RefID'] == $requester_id) &&
-                    // (empty($beneficiary_id) || $item['BeneficiaryWorkerJobsPosition_RefID'] == $beneficiary_id);
+                // (empty($project_id)     || $item['CombinedBudget_RefID'] == $project_id) &&
+                // (empty($site_id)        || $item['CombinedBudgetSection_RefID'] == $site_id) &&
+                // (empty($requester_id)   || $item['RequesterWorkerJobsPosition_RefID'] == $requester_id) &&
+                // (empty($beneficiary_id) || $item['BeneficiaryWorkerJobsPosition_RefID'] == $beneficiary_id);
             });
 
             // $totalAdvance = array_reduce($filteredData, function ($carry, $item) {
@@ -1030,20 +1040,20 @@ class CreditNoteController extends Controller
 
             $compact = [
                 // 'dataDetail'         => $filteredData,
-                'dataDetail'            => $filteredData,
-                'budgetCode'            => $project_code,
-                'budgetName'            => $project_name,
-                'budgetId'              => $project_id,
-                'siteCode'              => $site_code,
-                'siteName'              => $site_name,
-                'siteId'                => $site_id,
-                'requesterName'         => $requester_name,
-                'requesterId'           => $requester_id,
-                'requesterPosition'     => $requester_position,
-                'beneficiaryName'       => $beneficiary_name,
-                'beneficiaryId'         => $beneficiary_id,
-                'beneficiaryPosition'   => $beneficiary_position,
-                'total'                 => $totalAdvance,
+                'dataDetail' => $filteredData,
+                'budgetCode' => $project_code,
+                'budgetName' => $project_name,
+                'budgetId' => $project_id,
+                'siteCode' => $site_code,
+                'siteName' => $site_name,
+                'siteId' => $site_id,
+                'requesterName' => $requester_name,
+                'requesterId' => $requester_id,
+                'requesterPosition' => $requester_position,
+                'beneficiaryName' => $beneficiary_name,
+                'beneficiaryId' => $beneficiary_id,
+                'beneficiaryPosition' => $beneficiary_position,
+                'total' => $totalAdvance,
             ];
 
             Session::put("isButtonReportCNtoDNSubmit", true);
@@ -1056,24 +1066,24 @@ class CreditNoteController extends Controller
         }
     }
 
-    public function ReportCNtoDNStore(Request $request) 
+    public function ReportCNtoDNStore(Request $request)
     {
         try {
-            $project_code           = $request->project_code_second;
-            $project_name           = $request->project_name_second;
-            $project_id             = $request->project_id_second;
+            $project_code = $request->project_code_second;
+            $project_name = $request->project_name_second;
+            $project_id = $request->project_id_second;
 
-            $site_id                = $request->site_id_second;
-            $site_code              = $request->site_code_second;
-            $site_name              = $request->site_name_second;
+            $site_id = $request->site_id_second;
+            $site_code = $request->site_code_second;
+            $site_name = $request->site_name_second;
 
-            $requester_id           = $request->worker_id_second;
-            $requester_name         = $request->worker_name_second;
-            $requester_position     = $request->worker_position_second;
+            $requester_id = $request->worker_id_second;
+            $requester_name = $request->worker_name_second;
+            $requester_position = $request->worker_position_second;
 
-            $beneficiary_id         = $request->beneficiary_second_id;
-            $beneficiary_name       = $request->beneficiary_second_person_name;
-            $beneficiary_position   = $request->beneficiary_second_person_position;
+            $beneficiary_id = $request->beneficiary_second_id;
+            $beneficiary_name = $request->beneficiary_second_person_name;
+            $beneficiary_position = $request->beneficiary_second_person_position;
 
             if (!$project_id && !$site_id && !$requester_id && !$beneficiary_id) {
                 Session::forget("isButtonReportCNtoDNSubmit");
@@ -1087,7 +1097,7 @@ class CreditNoteController extends Controller
             if ($compact === null || empty($compact)) {
                 return redirect()->back()->with('NotFound', 'Data Not Found');
             }
-            
+
             return redirect()->route('CreditNote.ReportCNtoDN');
         } catch (\Throwable $th) {
             Log::error("ReportCNtoDNStore Error at " . $th->getMessage());
@@ -1095,7 +1105,7 @@ class CreditNoteController extends Controller
         }
     }
 
-    public function PrintExportReportCNtoDN(Request $request) 
+    public function PrintExportReportCNtoDN(Request $request)
     {
         try {
             $dataReport = Session::get("dataReportCNtoDN");
@@ -1105,7 +1115,7 @@ class CreditNoteController extends Controller
             if ($project_code_second_trigger == null) {
                 Session::forget("isButtonReportCNtoDNSubmit");
                 Session::forget("dataReportCNtoDN");
-        
+
                 return redirect()->route('CreditNote.ReportCNtoDN')->with('NotFound', 'Budget, Sub Budget, Requester, & Beneficiary Cannot Be Empty');
             }
 
@@ -1115,7 +1125,7 @@ class CreditNoteController extends Controller
                     $pdf->output();
                     $dom_pdf = $pdf->getDomPDF();
 
-                    $canvas = $dom_pdf ->get_canvas();
+                    $canvas = $dom_pdf->get_canvas();
                     $width = $canvas->get_width();
                     $height = $canvas->get_height();
                     $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
@@ -1142,7 +1152,7 @@ class CreditNoteController extends Controller
 
         $var = 0;
         if (!empty($_GET['var'])) {
-            $var =  $_GET['var'];
+            $var = $_GET['var'];
         }
         $compact = [
             'varAPIWebToken' => $varAPIWebToken,
@@ -1152,7 +1162,7 @@ class CreditNoteController extends Controller
             'statusDetail' => 1,
             'dataHeader' => [],
             'dataDO' => $dataDO
-        
+
         ];
         // dump($compact);
 
@@ -1186,28 +1196,28 @@ class CreditNoteController extends Controller
     public function CreditNoteDetailData($do_refID, $do_number, $statusHeader)
     {
         try {
-            Log::error("Error at ",[$do_refID,$do_number, $statusHeader]);
+            Log::error("Error at ", [$do_refID, $do_number, $statusHeader]);
 
             $varAPIWebToken = Session::get('SessionLogin');
 
             $filteredArray = Helper_APICall::setCallAPIGateway(
                 Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'transaction.read.dataList.supplyChain.getCreditNoteDetail', 
+                $varAPIWebToken,
+                'transaction.read.dataList.supplyChain.getCreditNoteDetail',
                 'latest',
                 [
                     'parameter' => [
                         'CreditNote_RefID' => (int) $do_refID
                     ],
-                     'SQLStatement' => [
+                    'SQLStatement' => [
                         'pick' => null,
                         'sort' => null,
                         'filter' => null,
                         'paging' => null
-                        ]
+                    ]
                 ]
             );
-            Log::error("Error at " ,$filteredArray);
+            Log::error("Error at ", $filteredArray);
             if ($filteredArray['metadata']['HTTPStatusCode'] !== 200) {
                 return redirect()->back()->with('NotFound', 'Process Error');
 
@@ -1215,8 +1225,7 @@ class CreditNoteController extends Controller
             Session::put("CreditNoteReportDetailDataPDF", $filteredArray['data']['data']);
             Session::put("CreditNoteReportDetailDataExcel", $filteredArray['data']['data']);
             return $filteredArray['data']['data'];
-        }
-        catch (\Throwable $th) {
+        } catch (\Throwable $th) {
             Log::error("Error at " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
         }
@@ -1234,7 +1243,7 @@ class CreditNoteController extends Controller
             if ($do_refID == "" && $do_number == "") {
                 Session::forget("CreditNoteReportDetailDataPDF");
                 Session::forget("CreditNoteReportDetailDataExcel");
-                
+
                 return redirect()->route('CreditNote.ReportCreditNoteDetail')->with('NotFound', 'Purchase Number Cannot Empty');
             }
 
@@ -1269,7 +1278,7 @@ class CreditNoteController extends Controller
                     $pdf->output();
                     $dom_pdf = $pdf->getDomPDF();
 
-                    $canvas = $dom_pdf ->get_canvas();
+                    $canvas = $dom_pdf->get_canvas();
                     $width = $canvas->get_width();
                     $height = $canvas->get_height();
                     $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
@@ -1286,5 +1295,5 @@ class CreditNoteController extends Controller
             Log::error("Error at " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
         }
-    }    
+    }
 }
