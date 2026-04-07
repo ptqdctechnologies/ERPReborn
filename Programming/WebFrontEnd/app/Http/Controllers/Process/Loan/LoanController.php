@@ -26,24 +26,24 @@ class LoanController extends Controller
 
     public function __construct(LoanService $loanService, WorkflowService $workflowService)
     {
-        $this->loanService      = $loanService;
-        $this->workflowService  = $workflowService;
+        $this->loanService = $loanService;
+        $this->workflowService = $workflowService;
     }
 
     public function index(Request $request)
     {
-        $var                = $request->query('var', 0);
-        $varAPIWebToken     = Session::get('SessionLogin');
-        $documentTypeRefID  = $this->GetBusinessDocumentsTypeFromRedis('Loan Form');
+        $var = $request->query('var', 0);
+        $varAPIWebToken = Session::get('SessionLogin');
+        $documentTypeRefID = $this->GetBusinessDocumentsTypeFromRedis('Loan Form');
 
         return view('Process.Loan.Transactions.CreateLoan', [
-            'var'                   => $var,
-            'varAPIWebToken'        => $varAPIWebToken,
-            'documentType_RefID'    => $documentTypeRefID
+            'var' => $var,
+            'varAPIWebToken' => $varAPIWebToken,
+            'documentType_RefID' => $documentTypeRefID
         ]);
     }
 
-    public function store(Request $request) 
+    public function store(Request $request)
     {
         try {
             $response = $this->loanService->create($request);
@@ -66,8 +66,8 @@ class LoanController extends Controller
             }
 
             $compact = [
-                "documentNumber"    => $response['data']['businessDocument']['documentNumber'],
-                "status"            => $request->budget_id ? $responseWorkflow['metadata']['HTTPStatusCode'] : $response['metadata']['HTTPStatusCode'],
+                "documentNumber" => $response['data']['businessDocument']['documentNumber'],
+                "status" => $request->budget_id ? $responseWorkflow['metadata']['HTTPStatusCode'] : $response['metadata']['HTTPStatusCode'],
             ];
 
             return response()->json($compact);
@@ -88,8 +88,8 @@ class LoanController extends Controller
             }
 
             $compact = [
-                "documentNumber"    => $response['data'][0]['businessDocument']['documentNumber'],
-                "status"            => $response['metadata']['HTTPStatusCode'],
+                "documentNumber" => $response['data'][0]['businessDocument']['documentNumber'],
+                "status" => $response['metadata']['HTTPStatusCode'],
                 // "status"            => $responseWorkflow['metadata']['HTTPStatusCode'],
             ];
 
@@ -101,7 +101,7 @@ class LoanController extends Controller
         }
     }
 
-    public function DetailLoan(Request $request) 
+    public function DetailLoan(Request $request)
     {
         try {
             $id = $request->id;
@@ -123,9 +123,9 @@ class LoanController extends Controller
     public function RevisionLoan(Request $request)
     {
         try {
-            $varAPIWebToken     = Session::get('SessionLogin');
-            $loanRefID          = $request->input('modal_loan_id');
-            $documentTypeRefID  = $this->GetBusinessDocumentsTypeFromRedis('Loan Form'); // Loan Revision Form
+            $varAPIWebToken = Session::get('SessionLogin');
+            $loanRefID = $request->input('modal_loan_id');
+            $documentTypeRefID = $this->GetBusinessDocumentsTypeFromRedis('Loan Form'); // Loan Revision Form
 
             $response = $this->loanService->getDetail($loanRefID);
 
@@ -134,38 +134,38 @@ class LoanController extends Controller
             }
 
             $dataLoanDetail = $response['data']['data'];
-            $loanDate       = $dataLoanDetail[0]['LoanDate'] ? Carbon::parse($dataLoanDetail[0]['LoanDate'])->toDateString() : '';
+            $loanDate = $dataLoanDetail[0]['LoanDate'] ? Carbon::parse($dataLoanDetail[0]['LoanDate'])->toDateString() : '';
 
             $compact = [
-                'varAPIWebToken'            => $varAPIWebToken,
-                'documentTypeRefID'         => $documentTypeRefID,
-                'loanRefID'                 => $dataLoanDetail[0]['Loan_RefID'] ?? '',
-                'loanDetailRefID'           => $dataLoanDetail[0]['Sys_ID'] ?? '',
-                'header'                    => [
-                    'combinedBudgetRefID'   => $dataLoanDetail[0]['CombinedBudget_RefID'] ?? '',
-                    'combinedBudgetName'    => $dataLoanDetail[0]['CombinedBudgetName'] ?? '',
-                    'combinedBudgetCode'    => $dataLoanDetail[0]['CombinedBudgetCode'] ?? '',
-                    'loanType'              => $dataLoanDetail[0]['LoanType'] ?? '',
-                    'creditorRefID'         => $dataLoanDetail[0]['Creditor_RefID'] ?? '',
-                    'creditorName'          => $dataLoanDetail[0]['CreditorName'] ?? '',
-                    'debitorRefID'          => $dataLoanDetail[0]['Debitor_RefID'] ?? '',
-                    'debitorName'           => $dataLoanDetail[0]['DebitorName'] ?? '',
-                    'currencyRefID'         => $dataLoanDetail[0]['Currency_RefID'] ?? '',
-                    'currencyCode'          => $dataLoanDetail[0]['ISOCode'] ?? '',
-                    'currencyName'          => $dataLoanDetail[0]['CurrencyName'] ?? '',
-                    'bankAccount_RefID'     => $dataLoanDetail[0]['BankAccount_RefID'] ?? '',
-                    'bankAccountNumber'     => $dataLoanDetail[0]['BankAccountNumber'] ?? '',
-                    'bankAccountName'       => $dataLoanDetail[0]['BankAccountName'] ?? '',
-                    'currencyExchangeRate'  => $dataLoanDetail[0]['CurrencyExchangeRate'] ?? '',
-                    'principleLoan'         => (int) $dataLoanDetail[0]['PrincipleLoan'] ?? '',
-                    'lendingRate'           => (int) $dataLoanDetail[0]['LendingRate'] ?? '',
-                    'loanDate'              => $loanDate,
-                    'loanTotal'             => (int) $dataLoanDetail[0]['TotalLoan'] ?? '',
-                    'loanTerm'              => (int) $dataLoanDetail[0]['LoanTerm'] ?? '',
-                    'remark'                => $dataLoanDetail[0]['Notes'] ?? '',
-                    'coaRefID'              => $dataLoanDetail[0]['COA_RefID'] ?? '',
-                    'coaName'               => $dataLoanDetail[0]['COA_Name'] ?? '',
-                    'coaCode'               => $dataLoanDetail[0]['COA_Code'] ?? '',
+                'varAPIWebToken' => $varAPIWebToken,
+                'documentTypeRefID' => $documentTypeRefID,
+                'loanRefID' => $dataLoanDetail[0]['Loan_RefID'] ?? '',
+                'loanDetailRefID' => $dataLoanDetail[0]['Sys_ID'] ?? '',
+                'header' => [
+                    'combinedBudgetRefID' => $dataLoanDetail[0]['CombinedBudget_RefID'] ?? '',
+                    'combinedBudgetName' => $dataLoanDetail[0]['CombinedBudgetName'] ?? '',
+                    'combinedBudgetCode' => $dataLoanDetail[0]['CombinedBudgetCode'] ?? '',
+                    'loanType' => $dataLoanDetail[0]['LoanType'] ?? '',
+                    'creditorRefID' => $dataLoanDetail[0]['Creditor_RefID'] ?? '',
+                    'creditorName' => $dataLoanDetail[0]['CreditorName'] ?? '',
+                    'debitorRefID' => $dataLoanDetail[0]['Debitor_RefID'] ?? '',
+                    'debitorName' => $dataLoanDetail[0]['DebitorName'] ?? '',
+                    'currencyRefID' => $dataLoanDetail[0]['Currency_RefID'] ?? '',
+                    'currencyCode' => $dataLoanDetail[0]['ISOCode'] ?? '',
+                    'currencyName' => $dataLoanDetail[0]['CurrencyName'] ?? '',
+                    'bankAccount_RefID' => $dataLoanDetail[0]['BankAccount_RefID'] ?? '',
+                    'bankAccountNumber' => $dataLoanDetail[0]['BankAccountNumber'] ?? '',
+                    'bankAccountName' => $dataLoanDetail[0]['BankAccountName'] ?? '',
+                    'currencyExchangeRate' => $dataLoanDetail[0]['CurrencyExchangeRate'] ?? '',
+                    'principleLoan' => (int) $dataLoanDetail[0]['PrincipleLoan'] ?? '',
+                    'lendingRate' => (int) $dataLoanDetail[0]['LendingRate'] ?? '',
+                    'loanDate' => $loanDate,
+                    'loanTotal' => (int) $dataLoanDetail[0]['TotalLoan'] ?? '',
+                    'loanTerm' => (int) $dataLoanDetail[0]['LoanTerm'] ?? '',
+                    'remark' => $dataLoanDetail[0]['Notes'] ?? '',
+                    'coaRefID' => $dataLoanDetail[0]['COA_RefID'] ?? '',
+                    'coaName' => $dataLoanDetail[0]['COA_Name'] ?? '',
+                    'coaCode' => $dataLoanDetail[0]['COA_Code'] ?? '',
                 ]
             ];
 
@@ -179,16 +179,26 @@ class LoanController extends Controller
 
     public function ReportLoantoLoanSettlement(Request $request)
     {
-        return view('Process.Loan.Reports.ReportLoantoLoanSettlement');
+        $documentTypeRefID = $this->GetBusinessDocumentsTypeFromRedis('Loan Form');
+        $sessionOrganizationalDepartmentName = Session::get('SessionOrganizationalDepartmentName');
+        $sessionOrganizationalJobPositionName = Session::get('SessionOrganizationalJobPositionName');
+
+        $compact = [
+            'documentTypeRefID' => $documentTypeRefID,
+            'sessionOrganizationalDepartmentName' => $sessionOrganizationalDepartmentName,
+            'sessionOrganizationalJobPositionName' => $sessionOrganizationalJobPositionName
+        ];
+
+        return view('Process.Loan.Reports.ReportLoantoLoanSettlement', $compact);
     }
 
     public function ReportLoantoLoanSettlementStore(Request $request)
     {
         try {
-            $date           = $request->loanToSettlementDate;
-            $budget         = [
-                "id"        => $request->budget_id,
-                "code"      => $request->budget_code,
+            $date = $request->loanToSettlementDate;
+            $budget = [
+                "id" => $request->budget_id,
+                "code" => $request->budget_code,
             ];
 
             $response = $this->loanService->getLoanToLoanSettlementSummary(
@@ -203,8 +213,8 @@ class LoanController extends Controller
             }
 
             $compact = [
-                'status'    => $response['metadata']['HTTPStatusCode'],
-                'data'      => $response['data']['data']
+                'status' => $response['metadata']['HTTPStatusCode'],
+                'data' => $response['data']['data']
             ];
 
             return response()->json($compact);
@@ -212,8 +222,8 @@ class LoanController extends Controller
             Log::error("Report Loan To Loan Settlement Store Function Error:" . $th->getMessage());
 
             $compact = [
-                'status'    => 500,
-                'message'   => $th->getMessage()
+                'status' => 500,
+                'message' => $th->getMessage()
             ];
 
             return response()->json($compact);
@@ -226,7 +236,7 @@ class LoanController extends Controller
             $dataPDF = Session::get("LoanSettlementReportSummaryDataPDF");
             $dataExcel = Session::get("LoanSettlementReportSummaryDataExcel");
 
-            
+
             if ($dataPDF && $dataExcel) {
                 $print_type = $request->print_type;
                 if ($print_type == "PDF") {
@@ -237,7 +247,7 @@ class LoanController extends Controller
                     $pdf->output();
                     $dom_pdf = $pdf->getDomPDF();
 
-                    $canvas = $dom_pdf ->get_canvas();
+                    $canvas = $dom_pdf->get_canvas();
                     $width = $canvas->get_width();
                     $height = $canvas->get_height();
                     $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
@@ -258,18 +268,28 @@ class LoanController extends Controller
 
     public function ReportLoanSummary(Request $request)
     {
-        return view('Process.Loan.Reports.ReportLoanSummary');
+        $documentTypeRefID = $this->GetBusinessDocumentsTypeFromRedis('Loan Form');
+        $sessionOrganizationalDepartmentName = Session::get('SessionOrganizationalDepartmentName');
+        $sessionOrganizationalJobPositionName = Session::get('SessionOrganizationalJobPositionName');
+
+        $compact = [
+            'documentTypeRefID' => $documentTypeRefID,
+            'sessionOrganizationalDepartmentName' => $sessionOrganizationalDepartmentName,
+            'sessionOrganizationalJobPositionName' => $sessionOrganizationalJobPositionName
+        ];
+
+        return view('Process.Loan.Reports.ReportLoanSummary', $compact);
     }
 
     public function ReportLoanSummaryStore(Request $request)
     {
         try {
-            $date           = $request->loanDate;
-            $creditor       = $request->creditor_id;
-            $debitor        = $request->debitor_id;
-            $budget         = [
-                "id"        => $request->budget_id,
-                "code"      => $request->budget_code,
+            $date = $request->loanDate;
+            $creditor = $request->creditor_id;
+            $debitor = $request->debitor_id;
+            $budget = [
+                "id" => $request->budget_id,
+                "code" => $request->budget_code,
             ];
 
             $response = $this->loanService->getLoanSummary(
@@ -284,8 +304,8 @@ class LoanController extends Controller
             }
 
             $compact = [
-                'status'    => $response['metadata']['HTTPStatusCode'],
-                'data'      => $response['data']['data']
+                'status' => $response['metadata']['HTTPStatusCode'],
+                'data' => $response['data']['data']
             ];
 
             return response()->json($compact);
@@ -293,8 +313,8 @@ class LoanController extends Controller
             Log::error("Report Loan Store Function Error:" . $th->getMessage());
 
             $compact = [
-                'status'    => 500,
-                'message'   => $th->getMessage()
+                'status' => 500,
+                'message' => $th->getMessage()
             ];
 
             return response()->json($compact);
@@ -304,8 +324,8 @@ class LoanController extends Controller
     public function PrintExportReportLoanSummary(Request $request)
     {
         try {
-            $dataLoanSummary    = json_decode($request->dataReport, true);
-            $type               = $request->printType;
+            $dataLoanSummary = json_decode($request->dataReport, true);
+            $type = $request->printType;
 
             if ($dataLoanSummary) {
                 if ($type === "PDF") {
@@ -313,10 +333,10 @@ class LoanController extends Controller
                         ->setPaper('a4', 'landscape');
 
                     $pdf->output();
-                    $dom_pdf    = $pdf->getDomPDF();
-                    $canvas     = $dom_pdf ->get_canvas();
-                    $width      = $canvas->get_width();
-                    $height     = $canvas->get_height();
+                    $dom_pdf = $pdf->getDomPDF();
+                    $canvas = $dom_pdf->get_canvas();
+                    $width = $canvas->get_width();
+                    $height = $canvas->get_height();
                     $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
                     $canvas->page_text(34, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
 
@@ -341,23 +361,23 @@ class LoanController extends Controller
         try {
 
             // if (Redis::get("DataListAdvance") == null) {
-                $varAPIWebToken = Session::get('SessionLogin');
-                    Helper_APICall::setCallAPIGateway(
-                    Helper_Environment::getUserSessionID_System(),
-                    $varAPIWebToken,
-                    'transaction.read.dataList.finance.getAdvance',
-                    'latest',
-                    [
-                        'parameter' => null,
-                        'SQLStatement' => [
-                            'pick' => null,
-                            'sort' => null,
-                            'filter' => null,
-                            'paging' => null
-                        ]
-                    ],
-                    false
-                );
+            $varAPIWebToken = Session::get('SessionLogin');
+            Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken,
+                'transaction.read.dataList.finance.getAdvance',
+                'latest',
+                [
+                    'parameter' => null,
+                    'SQLStatement' => [
+                        'pick' => null,
+                        'sort' => null,
+                        'filter' => null,
+                        'paging' => null
+                    ]
+                ],
+                false
+            );
             // }
 
             $DataListAdvance = json_decode(
@@ -389,8 +409,9 @@ class LoanController extends Controller
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }
-    
-    public function calculateTotal($filteredData, $key) {
+
+    public function calculateTotal($filteredData, $key)
+    {
         return array_reduce($filteredData, function ($carry, $item) use ($key) {
             return $carry + ($item[$key] ?? 0);
         }, 0);
@@ -405,8 +426,8 @@ class LoanController extends Controller
             $dataReport = $isSubmitButton ? $request->session()->get('dataReportLoanDetail', []) : [];
 
             $compact = [
-                'varAPIWebToken'    => $varAPIWebToken,
-                'dataReport'        => $dataReport
+                'varAPIWebToken' => $varAPIWebToken,
+                'dataReport' => $dataReport
             ];
 
             return view('Process.Loan.Reports.ReportLoanDetail', $compact);
@@ -419,7 +440,7 @@ class LoanController extends Controller
     public function ReportLoanDetailData($project_code, $project_name_second, $site_code, $site_name_second, $bsf_number, $bsf_id)
     {
         try {
-            $varAPIWebToken         = Session::get('SessionLogin');
+            $varAPIWebToken = Session::get('SessionLogin');
             // $getReportAdvanceDetail = Helper_APICall::setCallAPIGateway(
             //     Helper_Environment::getUserSessionID_System(),
             //     $varAPIWebToken, 
@@ -444,15 +465,15 @@ class LoanController extends Controller
                     "0" => [
                         "document" => [
                             "header" => [
-                                "recordID"                      => "76000000000002",
-                                "title"                         => "Advance Form",
-                                "number"                        => "Adv/QDC/2022/000239",
-                                "version"                       => "0",
-                                "date"                          => "2024-12-16",
-                                "businessDocumentType_RefID"    => "77000000000057",
-                                "brfNumber"                     => "BRF-24000212",
-                                "brfDate"                       => "2024-11-16",
-                                "brfTotal"                      => '3890000'
+                                "recordID" => "76000000000002",
+                                "title" => "Advance Form",
+                                "number" => "Adv/QDC/2022/000239",
+                                "version" => "0",
+                                "date" => "2024-12-16",
+                                "businessDocumentType_RefID" => "77000000000057",
+                                "brfNumber" => "BRF-24000212",
+                                "brfDate" => "2024-11-16",
+                                "brfTotal" => '3890000'
                             ],
                             "content" => [
                                 "general" => [
@@ -479,7 +500,7 @@ class LoanController extends Controller
                                     ],
                                     "businessDocument" => [
                                         "businessDocumentList" => [
-                                            "recordID"  => "74000000020307",
+                                            "recordID" => "74000000020307",
                                             "formBusinessDocumentNumber_RefID" => "76000000000002",
                                             "type_RefID" => "77000000000057",
                                             "typeName" => "Advance Form",
@@ -558,15 +579,15 @@ class LoanController extends Controller
                     "1" => [
                         "document" => [
                             "header" => [
-                                "recordID"                      => "76000000000002",
-                                "title"                         => "Advance Form",
-                                "number"                        => "Adv/QDC/2022/000239",
-                                "version"                       => "0",
-                                "date"                          => "2024-12-20",
-                                "businessDocumentType_RefID"    => "77000000000057",
-                                "brfNumber"                     => "BRF-24000215",
-                                "brfDate"                       => "2024-12-01",
-                                "brfTotal"                      => '2745000'
+                                "recordID" => "76000000000002",
+                                "title" => "Advance Form",
+                                "number" => "Adv/QDC/2022/000239",
+                                "version" => "0",
+                                "date" => "2024-12-20",
+                                "businessDocumentType_RefID" => "77000000000057",
+                                "brfNumber" => "BRF-24000215",
+                                "brfDate" => "2024-12-01",
+                                "brfTotal" => '2745000'
                             ],
                             "content" => [
                                 "general" => [
@@ -593,7 +614,7 @@ class LoanController extends Controller
                                     ],
                                     "businessDocument" => [
                                         "businessDocumentList" => [
-                                            "recordID"  => "74000000020307",
+                                            "recordID" => "74000000020307",
                                             "formBusinessDocumentNumber_RefID" => "76000000000002",
                                             "type_RefID" => "77000000000057",
                                             "typeName" => "Advance Form",
@@ -698,15 +719,15 @@ class LoanController extends Controller
                     "2" => [
                         "document" => [
                             "header" => [
-                                "recordID"                      => "76000000000002",
-                                "title"                         => "Advance Form",
-                                "number"                        => "Adv/QDC/2022/000239",
-                                "version"                       => "0",
-                                "date"                          => "2024-12-25",
-                                "businessDocumentType_RefID"    => "77000000000057",
-                                "brfNumber"                     => "BRF-24000225",
-                                "brfDate"                       => "2024-12-07",
-                                "brfTotal"                      => '4240000'
+                                "recordID" => "76000000000002",
+                                "title" => "Advance Form",
+                                "number" => "Adv/QDC/2022/000239",
+                                "version" => "0",
+                                "date" => "2024-12-25",
+                                "businessDocumentType_RefID" => "77000000000057",
+                                "brfNumber" => "BRF-24000225",
+                                "brfDate" => "2024-12-07",
+                                "brfTotal" => '4240000'
                             ],
                             "content" => [
                                 "general" => [
@@ -733,7 +754,7 @@ class LoanController extends Controller
                                     ],
                                     "businessDocument" => [
                                         "businessDocumentList" => [
-                                            "recordID"  => "74000000020307",
+                                            "recordID" => "74000000020307",
                                             "formBusinessDocumentNumber_RefID" => "76000000000002",
                                             "type_RefID" => "77000000000057",
                                             "typeName" => "Advance Form",
@@ -858,15 +879,15 @@ class LoanController extends Controller
             }, 0);
 
             $compact = [
-                'dataHeader'    => $splitResponse['header'],
-                'dataDetails'   => $splitResponse['content'],
-                'budgetCode'    => $project_code, 
-                'budgetName'    => $project_name_second,
-                'siteCode'      => $site_code,
-                'siteName'      => $site_name_second,
-                'bsfNumber'     => $bsf_number,
-                'bsfId'         => $bsf_id,
-                'totalBSF'      => $totalBSF
+                'dataHeader' => $splitResponse['header'],
+                'dataDetails' => $splitResponse['content'],
+                'budgetCode' => $project_code,
+                'budgetName' => $project_name_second,
+                'siteCode' => $site_code,
+                'siteName' => $site_name_second,
+                'bsfNumber' => $bsf_number,
+                'bsfId' => $bsf_id,
+                'totalBSF' => $totalBSF
             ];
 
             Session::put("isButtonReportLoanDetailSubmit", true);
@@ -879,17 +900,17 @@ class LoanController extends Controller
         }
     }
 
-    public function ReportLoanDetailStore(Request $request) 
+    public function ReportLoanDetailStore(Request $request)
     {
         try {
-            $project_code           = $request->bsf_number_budget;
-            $project_name_second    = $request->bsf_number_budget_name;
+            $project_code = $request->bsf_number_budget;
+            $project_name_second = $request->bsf_number_budget_name;
 
-            $site_code              = $request->bsf_number_sub_budget;
-            $site_name_second       = $request->bsf_number_sub_budget_name;
+            $site_code = $request->bsf_number_sub_budget;
+            $site_name_second = $request->bsf_number_sub_budget_name;
 
-            $bsf_number             = $request->bsf_number_trano;
-            $bsf_id                 = $request->bsf_number_id;
+            $bsf_number = $request->bsf_number_trano;
+            $bsf_id = $request->bsf_number_id;
 
             if (!$bsf_id) {
                 Session::forget("isButtonReportLoanDetailSubmit");
@@ -911,7 +932,7 @@ class LoanController extends Controller
         }
     }
 
-    public function PrintExportReportLoanDetail(Request $request) 
+    public function PrintExportReportLoanDetail(Request $request)
     {
         try {
             $dataReport = Session::get("dataReportLoanDetail");
@@ -931,7 +952,7 @@ class LoanController extends Controller
                     $pdf->output();
                     $dom_pdf = $pdf->getDomPDF();
 
-                    $canvas = $dom_pdf ->get_canvas();
+                    $canvas = $dom_pdf->get_canvas();
                     $width = $canvas->get_width();
                     $height = $canvas->get_height();
                     $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
