@@ -315,12 +315,16 @@
             $(`#creditor_name`).val(`${code} - ${name}`);
             $(`#creditor_name`).css({ 'background-color': '#e9ecef', 'border': '1px solid #ced4da' });
             $("#creditor_message").hide();
+
+            ErrorHandler.hideErrorInputMessage("#creditor_name", "#creditorMessage");
         } else {
             $(`#debitor_id`).val(sysId);
             $(`#debitor_code`).val(code);
             $(`#debitor_name`).val(`${code} - ${name}`);
             $(`#debitor_name`).css({ 'background-color': '#e9ecef', 'border': '1px solid #ced4da' });
             $("#debitor_message").hide();
+
+            ErrorHandler.showErrorInputMessage("#debitor_name", "#debitorMessage");
         }
 
         $("#mySuppliers").modal('toggle');

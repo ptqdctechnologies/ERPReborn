@@ -30,7 +30,7 @@
 
   <!-- DATE -->
   <div class="row p-0 align-items-center" style="margin-top: 1rem;">
-    <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Date</label>
+    <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Date Range</label>
     <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
       <div>
         <div class="input-group" id="loan_date_range_container">
