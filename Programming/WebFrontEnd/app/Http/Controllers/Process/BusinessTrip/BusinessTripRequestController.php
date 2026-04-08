@@ -30,7 +30,8 @@ class BusinessTripRequestController extends Controller
         $this->workflowService = $workflowService;
     }
 
-    public function calculateTotal($filteredData, $key) {
+    public function calculateTotal($filteredData, $key)
+    {
         return array_reduce($filteredData, function ($carry, $item) use ($key) {
             return $carry + ($item[$key] ?? 0);
         }, 0);
@@ -38,14 +39,14 @@ class BusinessTripRequestController extends Controller
 
     public function index(Request $request)
     {
-        $var                = $request->query('var', 0);
-        $varAPIWebToken     = Session::get('SessionLogin');
-        $documentTypeRefID  = $this->GetBusinessDocumentsTypeFromRedis('Person Business Trip Form');
+        $var = $request->query('var', 0);
+        $varAPIWebToken = Session::get('SessionLogin');
+        $documentTypeRefID = $this->GetBusinessDocumentsTypeFromRedis('Person Business Trip Form');
 
         return view('Process.BusinessTrip.BusinessTripRequest.Transactions.CreateBusinessTripRequest', [
-            'var'                   => $var,
-            'varAPIWebToken'        => $varAPIWebToken,
-            'documentType_RefID'    => $documentTypeRefID
+            'var' => $var,
+            'varAPIWebToken' => $varAPIWebToken,
+            'documentType_RefID' => $documentTypeRefID
         ]);
     }
 
@@ -70,19 +71,19 @@ class BusinessTripRequestController extends Controller
             }
 
             $compact = [
-                "documentNumber"    => $response['data']['businessDocument']['documentNumber'],
-                "status"            => $responseWorkflow['metadata']['HTTPStatusCode'],
+                "documentNumber" => $response['data']['businessDocument']['documentNumber'],
+                "status" => $responseWorkflow['metadata']['HTTPStatusCode'],
             ];
 
             return response()->json($compact);
         } catch (\Throwable $th) {
             Log::error("Store Business Trip Request Function Error: " . $th->getMessage());
-            
+
             return response()->json(["status" => 500]);
         }
     }
 
-    public function detail(Request $request) 
+    public function detail(Request $request)
     {
         try {
             $personBusinessTripRefID = $request->person_business_trip_id;
@@ -94,14 +95,14 @@ class BusinessTripRequestController extends Controller
             }
 
             $compact = [
-                'status'    => $response['metadata']['HTTPStatusCode'],
-                'data'      => $response['data']['data']
+                'status' => $response['metadata']['HTTPStatusCode'],
+                'data' => $response['data']['data']
             ];
 
             return response()->json($compact);
         } catch (\Throwable $th) {
             Log::error("Detail Business Trip Request Function Error: " . $th->getMessage());
-            
+
             return response()->json(["status" => 500]);
         }
     }
@@ -127,8 +128,8 @@ class BusinessTripRequestController extends Controller
             }
 
             $compact = [
-                "documentNumber"    => $response['data'][0]['businessDocument']['documentNumber'],
-                "status"            => $responseWorkflow['metadata']['HTTPStatusCode'],
+                "documentNumber" => $response['data'][0]['businessDocument']['documentNumber'],
+                "status" => $responseWorkflow['metadata']['HTTPStatusCode'],
             ];
 
             return response()->json($compact);
@@ -143,23 +144,23 @@ class BusinessTripRequestController extends Controller
         try {
 
             // if (Redis::get("DataListAdvance") == null) {
-                $varAPIWebToken = Session::get('SessionLogin');
-                    Helper_APICall::setCallAPIGateway(
-                    Helper_Environment::getUserSessionID_System(),
-                    $varAPIWebToken,
-                    'transaction.read.dataList.finance.getAdvance',
-                    'latest',
-                    [
-                        'parameter' => null,
-                        'SQLStatement' => [
-                            'pick' => null,
-                            'sort' => null,
-                            'filter' => null,
-                            'paging' => null
-                        ]
-                    ],
-                    false
-                );
+            $varAPIWebToken = Session::get('SessionLogin');
+            Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken,
+                'transaction.read.dataList.finance.getAdvance',
+                'latest',
+                [
+                    'parameter' => null,
+                    'SQLStatement' => [
+                        'pick' => null,
+                        'sort' => null,
+                        'filter' => null,
+                        'paging' => null
+                    ]
+                ],
+                false
+            );
             // }
 
             $DataListAdvance = json_decode(
@@ -191,13 +192,13 @@ class BusinessTripRequestController extends Controller
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }
-    
+
     public function RevisionBusinessTripRequestIndex(Request $request)
     {
         try {
-            $varAPIWebToken             = Session::get('SessionLogin');
-            $personBusinessTripRefID    = $request->input('brf_number_id');
-            $documentTypeRefID          = $this->GetBusinessDocumentsTypeFromRedis('Person Business Trip Revision Form');
+            $varAPIWebToken = Session::get('SessionLogin');
+            $personBusinessTripRefID = $request->input('brf_number_id');
+            $documentTypeRefID = $this->GetBusinessDocumentsTypeFromRedis('Person Business Trip Revision Form');
 
             $response = $this->businessTripService->getDetail($personBusinessTripRefID);
 
@@ -217,7 +218,7 @@ class BusinessTripRequestController extends Controller
                 return response()->json($responseTripSequenceDetail);
             }
 
-            $dataResponse           = $response['data']['data'];
+            $dataResponse = $response['data']['data'];
             // $dataTripSequence       = $responseTripSequence['data']['data'];
             $dataTripSequenceDetail = $responseTripSequenceDetail['data']['data'];
 
@@ -225,89 +226,89 @@ class BusinessTripRequestController extends Controller
             // dump($dataTripSequenceDetail);
 
             $compact = [
-                'varAPIWebToken'                    => $varAPIWebToken ?? '',
-                'documentType_RefID'                => $documentTypeRefID,
+                'varAPIWebToken' => $varAPIWebToken ?? '',
+                'documentType_RefID' => $documentTypeRefID,
                 'combinedBudgetSectionDetail_RefID' => $dataResponse[0]['CombinedBudgetSectionDetail_RefID'],
-                'workStructure_RefID'               => $dataResponse[0]['WorkStructure_RefID'] ?? '',
-                'workTemp'                          => $dataResponse[0]['WorkCode'] . ' - ' . $dataResponse[0]['WorkName'],
-                'product_RefID'                     => $dataResponse[0]['Product_RefID'] ?? '',
-                'personBusinessTripRefID'           => $dataResponse[0]['PersonBusinessTrip_RefID'], // $dataTripSequence[0]['personBusinessTrip_RefID'],
-                'personBusinessTripDetailRefID'     => $dataResponse[0]['Sys_ID'], // $dataTripSequence[0]['sys_ID'],
-                'budget'            => [
-                    'id'            => $dataResponse[0]['CombinedBudget_RefID'], // $dataTripSequence[0]['combinedBudget_RefID'][0] ?? '-',
-                    'code'          => $dataResponse[0]['CombinedBudgetCode'], // $dataTripSequence[0]['combinedBudgetCode'] ?? '-',
-                    'name'          => $dataResponse[0]['CombinedBudgetName'], // $dataTripSequence[0]['combinedBudgetName'] ?? '-'
+                'workStructure_RefID' => $dataResponse[0]['WorkStructure_RefID'] ?? '',
+                'workTemp' => $dataResponse[0]['WorkCode'] . ' - ' . $dataResponse[0]['WorkName'],
+                'product_RefID' => $dataResponse[0]['Product_RefID'] ?? '',
+                'personBusinessTripRefID' => $dataResponse[0]['PersonBusinessTrip_RefID'], // $dataTripSequence[0]['personBusinessTrip_RefID'],
+                'personBusinessTripDetailRefID' => $dataResponse[0]['Sys_ID'], // $dataTripSequence[0]['sys_ID'],
+                'budget' => [
+                    'id' => $dataResponse[0]['CombinedBudget_RefID'], // $dataTripSequence[0]['combinedBudget_RefID'][0] ?? '-',
+                    'code' => $dataResponse[0]['CombinedBudgetCode'], // $dataTripSequence[0]['combinedBudgetCode'] ?? '-',
+                    'name' => $dataResponse[0]['CombinedBudgetName'], // $dataTripSequence[0]['combinedBudgetName'] ?? '-'
                 ],
-                'subBudget'         => [
-                    'id'            => $dataResponse[0]['CombinedBudgetSection_RefID'], // $dataTripSequence[0]['combinedBudgetSection_RefID'][0] ?? '-',
-                    'code'          => $dataResponse[0]['CombinedBudgetSectionCode'], // $dataTripSequence[0]['combinedBudgetSectionCode'] ?? '-',
-                    'name'          => $dataResponse[0]['CombinedBudgetSectionName'], // $dataTripSequence[0]['combinedBudgetSectionName'] ?? '-'
+                'subBudget' => [
+                    'id' => $dataResponse[0]['CombinedBudgetSection_RefID'], // $dataTripSequence[0]['combinedBudgetSection_RefID'][0] ?? '-',
+                    'code' => $dataResponse[0]['CombinedBudgetSectionCode'], // $dataTripSequence[0]['combinedBudgetSectionCode'] ?? '-',
+                    'name' => $dataResponse[0]['CombinedBudgetSectionName'], // $dataTripSequence[0]['combinedBudgetSectionName'] ?? '-'
                 ],
-                'fileID'            => $dataResponse[0]['Log_FileUpload_Pointer_RefID'],
-                'requester'         => [
-                    'id'            => $dataResponse[0]['RequesterWorkerJobsPosition_RefID'], // $dataTripSequence[0]['requesterWorkerJobsPosition_RefID'] ?? '-',
-                    'name'          => $dataResponse[0]['RequesterWorkerName'], // $dataTripSequence[0]['requesterWorkerName'] ?? '-',
-                    'position'      => $dataResponse[0]['RequesterWorkerPosition'],
-                    'contact'       => $dataResponse[0]['RequesterWorkerContact']
+                'fileID' => $dataResponse[0]['Log_FileUpload_Pointer_RefID'],
+                'requester' => [
+                    'id' => $dataResponse[0]['RequesterWorkerJobsPosition_RefID'], // $dataTripSequence[0]['requesterWorkerJobsPosition_RefID'] ?? '-',
+                    'name' => $dataResponse[0]['RequesterWorkerName'], // $dataTripSequence[0]['requesterWorkerName'] ?? '-',
+                    'position' => $dataResponse[0]['RequesterWorkerPosition'],
+                    'contact' => $dataResponse[0]['RequesterWorkerContact']
                 ],
-                'dateTravel'        => [
-                    'commence'      => $dataResponse[0]['StartDateTimeTZ'] ? Carbon::parse($dataResponse[0]['StartDateTimeTZ'])->format('Y-m-d') : '-', // $dataTripSequence[0]['startDateTimeTZ'] ? Carbon::parse($dataTripSequence[0]['startDateTimeTZ'])->format('Y-m-d') : '-',
-                    'end'           => $dataResponse[0]['FinishDateTimeTZ'] ? Carbon::parse($dataResponse[0]['FinishDateTimeTZ'])->format('Y-m-d') : '-' // $dataTripSequence[0]['finishDateTimeTZ'] ? Carbon::parse($dataTripSequence[0]['finishDateTimeTZ'])->format('Y-m-d') : '-'
+                'dateTravel' => [
+                    'commence' => $dataResponse[0]['StartDateTimeTZ'] ? Carbon::parse($dataResponse[0]['StartDateTimeTZ'])->format('Y-m-d') : '-', // $dataTripSequence[0]['startDateTimeTZ'] ? Carbon::parse($dataTripSequence[0]['startDateTimeTZ'])->format('Y-m-d') : '-',
+                    'end' => $dataResponse[0]['FinishDateTimeTZ'] ? Carbon::parse($dataResponse[0]['FinishDateTimeTZ'])->format('Y-m-d') : '-' // $dataTripSequence[0]['finishDateTimeTZ'] ? Carbon::parse($dataTripSequence[0]['finishDateTimeTZ'])->format('Y-m-d') : '-'
                 ],
-                'departing'         => [
-                    'from'          => $dataResponse[0]['DeparturePoint'],
-                    'to'            => $dataResponse[0]['DestinationPoint']
+                'departing' => [
+                    'from' => $dataResponse[0]['DeparturePoint'],
+                    'to' => $dataResponse[0]['DestinationPoint']
                 ],
-                'reason'            => $dataResponse[0]['ReasonToTravel'],
-                'total'             => [
-                    'brf'           => $dataResponse[0]['AmountBaseCurrencyValue'], // $dataTripSequence[0]['amountBaseCurrencyValue'] ?? 0,
-                    'payment'       => 118670.07,
+                'reason' => $dataResponse[0]['ReasonToTravel'],
+                'total' => [
+                    'brf' => $dataResponse[0]['AmountBaseCurrencyValue'], // $dataTripSequence[0]['amountBaseCurrencyValue'] ?? 0,
+                    'payment' => 118670.07,
                 ],
                 'dataTripBudgetDetails' => $dataTripSequenceDetail,
-                'payment'           => [
-                    'directVendor'  => [
-                        'value'     => 30000.20,
-                        'bankName'  => [
-                            'id'    => 166000000000002,
-                            'code'  => 'BRI',
-                            'name'  => 'Bank Rakyat Indonesia'
+                'payment' => [
+                    'directVendor' => [
+                        'value' => 30000.20,
+                        'bankName' => [
+                            'id' => 166000000000002,
+                            'code' => 'BRI',
+                            'name' => 'Bank Rakyat Indonesia'
                         ],
-                        'bankAccount'   => [
-                            'id'        => 167000000000042,
-                            'number'    => 044101001553563,
-                            'name'      => 'PT QDC Technologies'
-                        ],
-                    ],
-                    'corpCard'  => [
-                        'value'     => 59184.20,
-                        'bankName'  => [
-                            'id'    => 166000000000005,
-                            'code'  => 'BCA',
-                            'name'  => 'Bank Central Asia'
-                        ],
-                        'bankAccount'   => [
-                            'id'        => 167000000000064,
-                            'number'    => 5520579321,
-                            'name'      => 'Belina Lindarwani'
+                        'bankAccount' => [
+                            'id' => 167000000000042,
+                            'number' => 044101001553563,
+                            'name' => 'PT QDC Technologies'
                         ],
                     ],
-                    'other'                 => [
-                        'value'             => 29485.67,
-                        'beneficiary'       => [
-                            'id'            => 164000000000559,
-                            'positionID'    => 25000000000559,
-                            'position'      => 'General Manager',
-                            'name'          => 'Adhe Kurniawan'
+                    'corpCard' => [
+                        'value' => 59184.20,
+                        'bankName' => [
+                            'id' => 166000000000005,
+                            'code' => 'BCA',
+                            'name' => 'Bank Central Asia'
                         ],
-                        'bankName'          => [
-                            'id'            => 166000000000002,
-                            'code'          => 'BRI',
-                            'name'          => 'Bank Rakyat Indonesia'
+                        'bankAccount' => [
+                            'id' => 167000000000064,
+                            'number' => 5520579321,
+                            'name' => 'Belina Lindarwani'
                         ],
-                        'bankAccount'       => [
-                            'id'            => 167000000000042,
-                            'number'        => 044101001553563,
-                            'name'          => 'PT QDC Technologies'
+                    ],
+                    'other' => [
+                        'value' => 29485.67,
+                        'beneficiary' => [
+                            'id' => 164000000000559,
+                            'positionID' => 25000000000559,
+                            'position' => 'General Manager',
+                            'name' => 'Adhe Kurniawan'
+                        ],
+                        'bankName' => [
+                            'id' => 166000000000002,
+                            'code' => 'BRI',
+                            'name' => 'Bank Rakyat Indonesia'
+                        ],
+                        'bankAccount' => [
+                            'id' => 167000000000042,
+                            'number' => 044101001553563,
+                            'name' => 'PT QDC Technologies'
                         ],
                     ],
                 ]
@@ -322,29 +323,24 @@ class BusinessTripRequestController extends Controller
 
     public function ReportBusinessTripRequestSummary(Request $request)
     {
-        try {
-            $varAPIWebToken = Session::get('SessionLogin');
-            $isSubmitButton = $request->session()->get('isButtonReportBusinessTripRequestSummarySubmit');
+        $documentTypeRefID = $this->GetBusinessDocumentsTypeFromRedis('Person Business Trip Form');
+        $sessionOrganizationalDepartmentName = Session::get('SessionOrganizationalDepartmentName');
+        $sessionOrganizationalJobPositionName = Session::get('SessionOrganizationalJobPositionName');
 
-            $dataReport = $isSubmitButton ? $request->session()->get('dataReportBusinessTripRequestSummary', []) : [];
+        $compact = [
+            'documentTypeRefID' => $documentTypeRefID,
+            'sessionOrganizationalDepartmentName' => $sessionOrganizationalDepartmentName,
+            'sessionOrganizationalJobPositionName' => $sessionOrganizationalJobPositionName
+        ];
 
-            $compact = [
-                'varAPIWebToken' => $varAPIWebToken,
-                'dataReport' => $dataReport
-            ];
-    
-            return view('Process.BusinessTrip.BusinessTripRequest.Reports.ReportBusinessTripRequestSummary', $compact);
-        } catch (\Throwable $th) {
-            Log::error("ReportBusinessTripRequestSummary Function Error at " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
-        }
+        return view('Process.BusinessTrip.BusinessTripRequest.Reports.ReportBusinessTripRequestSummary', $compact);
     }
 
-    public function ReportBusinessTripRequestSummaryData($project_id, $site_id, $requester_id, $beneficiary_id, $project_name, $project_code, $site_code, $requester_name, $beneficiary_name, $site_name, $requester_position, $beneficiary_position) 
+    public function ReportBusinessTripRequestSummaryData($project_id, $site_id, $requester_id, $beneficiary_id, $project_name, $project_code, $site_code, $requester_name, $beneficiary_name, $site_name, $requester_position, $beneficiary_position)
     {
         try {
-            $varAPIWebToken             = Session::get('SessionLogin');
-            $getReportAdvanceSummary    = null;
+            $varAPIWebToken = Session::get('SessionLogin');
+            $getReportAdvanceSummary = null;
 
             // if (!Helper_Redis::getValue($varAPIWebToken, "ReportAdvanceSummary")) {
             //     $getReportAdvanceSummary = Helper_APICall::setCallAPIGateway(
@@ -1700,15 +1696,15 @@ class BusinessTripRequestController extends Controller
             $reportData = is_string($getReportAdvanceSummary) ? json_decode($getReportAdvanceSummary, true) : $getReportAdvanceSummary;
 
             $filteredData = array_filter($reportData, function ($item) use ($project_code, $site_name, $requester_name, $beneficiary_name) {
-                return 
-                    (empty($project_code)     || $item['CombinedBudgetCode'] == $project_code) &&
-                    (empty($site_name)        || $item['CombinedBudgetSectionName'] == $site_name) &&
-                    (empty($requester_name)   || $item['RequesterWorkerName'] == $requester_name) &&
+                return
+                    (empty($project_code) || $item['CombinedBudgetCode'] == $project_code) &&
+                    (empty($site_name) || $item['CombinedBudgetSectionName'] == $site_name) &&
+                    (empty($requester_name) || $item['RequesterWorkerName'] == $requester_name) &&
                     (empty($beneficiary_name) || $item['BeneficiaryWorkerName'] == $beneficiary_name);
-                    // (empty($project_id)     || $item['CombinedBudget_RefID'] == $project_id) &&
-                    // (empty($site_id)        || $item['CombinedBudgetSection_RefID'] == $site_id) &&
-                    // (empty($requester_id)   || $item['RequesterWorkerJobsPosition_RefID'] == $requester_id) &&
-                    // (empty($beneficiary_id) || $item['BeneficiaryWorkerJobsPosition_RefID'] == $beneficiary_id);
+                // (empty($project_id)     || $item['CombinedBudget_RefID'] == $project_id) &&
+                // (empty($site_id)        || $item['CombinedBudgetSection_RefID'] == $site_id) &&
+                // (empty($requester_id)   || $item['RequesterWorkerJobsPosition_RefID'] == $requester_id) &&
+                // (empty($beneficiary_id) || $item['BeneficiaryWorkerJobsPosition_RefID'] == $beneficiary_id);
             });
 
             // $totalAdvance = array_reduce($filteredData, function ($carry, $item) {
@@ -1718,20 +1714,20 @@ class BusinessTripRequestController extends Controller
 
             $compact = [
                 // 'dataDetail'         => $filteredData,
-                'dataDetail'            => $filteredData,
-                'budgetCode'            => $project_code,
-                'budgetName'            => $project_name,
-                'budgetId'              => $project_id,
-                'siteCode'              => $site_code,
-                'siteName'              => $site_name,
-                'siteId'                => $site_id,
-                'requesterName'         => $requester_name,
-                'requesterId'           => $requester_id,
-                'requesterPosition'     => $requester_position,
-                'beneficiaryName'       => $beneficiary_name,
-                'beneficiaryId'         => $beneficiary_id,
-                'beneficiaryPosition'   => $beneficiary_position,
-                'total'                 => $totalAdvance,
+                'dataDetail' => $filteredData,
+                'budgetCode' => $project_code,
+                'budgetName' => $project_name,
+                'budgetId' => $project_id,
+                'siteCode' => $site_code,
+                'siteName' => $site_name,
+                'siteId' => $site_id,
+                'requesterName' => $requester_name,
+                'requesterId' => $requester_id,
+                'requesterPosition' => $requester_position,
+                'beneficiaryName' => $beneficiary_name,
+                'beneficiaryId' => $beneficiary_id,
+                'beneficiaryPosition' => $beneficiary_position,
+                'total' => $totalAdvance,
             ];
 
             Session::put("isButtonReportBusinessTripRequestSummarySubmit", true);
@@ -1744,24 +1740,24 @@ class BusinessTripRequestController extends Controller
         }
     }
 
-    public function ReportBusinessTripRequestSummaryStore(Request $request) 
+    public function ReportBusinessTripRequestSummaryStore(Request $request)
     {
         try {
-            $project_code           = $request->project_code_second;
-            $project_name           = $request->project_name_second;
-            $project_id             = $request->project_id_second;
+            $project_code = $request->project_code_second;
+            $project_name = $request->project_name_second;
+            $project_id = $request->project_id_second;
 
-            $site_id                = $request->site_id_second;
-            $site_code              = $request->site_code_second;
-            $site_name              = $request->site_name_second;
+            $site_id = $request->site_id_second;
+            $site_code = $request->site_code_second;
+            $site_name = $request->site_name_second;
 
-            $requester_id           = $request->worker_id_second;
-            $requester_name         = $request->worker_name_second;
-            $requester_position     = $request->worker_position_second;
+            $requester_id = $request->worker_id_second;
+            $requester_name = $request->worker_name_second;
+            $requester_position = $request->worker_position_second;
 
-            $beneficiary_id         = $request->beneficiary_second_id;
-            $beneficiary_name       = $request->beneficiary_second_person_name;
-            $beneficiary_position   = $request->beneficiary_second_person_position;
+            $beneficiary_id = $request->beneficiary_second_id;
+            $beneficiary_name = $request->beneficiary_second_person_name;
+            $beneficiary_position = $request->beneficiary_second_person_position;
 
             if (!$project_id && !$site_id && !$requester_id && !$beneficiary_id) {
                 Session::forget("isButtonReportBusinessTripRequestSummarySubmit");
@@ -1775,7 +1771,7 @@ class BusinessTripRequestController extends Controller
             if ($compact === null || empty($compact)) {
                 return redirect()->back()->with('NotFound', 'Data Not Found');
             }
-            
+
             return redirect()->route('BusinessTripRequest.ReportBusinessTripRequestSummary');
         } catch (\Throwable $th) {
             Log::error("ReportBusinessTripRequestSummaryStore Error at " . $th->getMessage());
@@ -1783,7 +1779,7 @@ class BusinessTripRequestController extends Controller
         }
     }
 
-    public function PrintExportReportBusinessTripRequestSummary(Request $request) 
+    public function PrintExportReportBusinessTripRequestSummary(Request $request)
     {
         try {
             $dataReport = Session::get("dataReportBusinessTripRequestSummary");
@@ -1793,7 +1789,7 @@ class BusinessTripRequestController extends Controller
             if ($project_code_second_trigger == null) {
                 Session::forget("isButtonReportBusinessTripRequestSummarySubmit");
                 Session::forget("dataReportBusinessTripRequestSummary");
-        
+
                 return redirect()->route('BusinessTripRequest.ReportBusinessTripRequestSummary')->with('NotFound', 'Budget, Sub Budget, Requester, & Beneficiary Cannot Be Empty');
             }
 
@@ -1803,7 +1799,7 @@ class BusinessTripRequestController extends Controller
                     $pdf->output();
                     $dom_pdf = $pdf->getDomPDF();
 
-                    $canvas = $dom_pdf ->get_canvas();
+                    $canvas = $dom_pdf->get_canvas();
                     $width = $canvas->get_width();
                     $height = $canvas->get_height();
                     $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
@@ -1831,8 +1827,8 @@ class BusinessTripRequestController extends Controller
             $dataReport = $isSubmitButton ? $request->session()->get('dataReportBusinessTripRequestDetail', []) : [];
 
             $compact = [
-                'varAPIWebToken'    => $varAPIWebToken,
-                'dataReport'        => $dataReport
+                'varAPIWebToken' => $varAPIWebToken,
+                'dataReport' => $dataReport
             ];
 
             return view('Process.BusinessTrip.BusinessTripRequest.Reports.ReportBusinessTripRequestDetail', $compact);
@@ -1845,7 +1841,7 @@ class BusinessTripRequestController extends Controller
     public function ReportBusinessTripRequestDetailData($brf_trano, $brf_id, $brf_budget, $brf_budget_name, $brf_sub_budget, $brf_sub_budget_name)
     {
         try {
-            $varAPIWebToken         = Session::get('SessionLogin');
+            $varAPIWebToken = Session::get('SessionLogin');
             // $getReportAdvanceDetail = Helper_APICall::setCallAPIGateway(
             //     Helper_Environment::getUserSessionID_System(),
             //     $varAPIWebToken, 
@@ -1863,12 +1859,12 @@ class BusinessTripRequestController extends Controller
                     "0" => [
                         "document" => [
                             "header" => [
-                                "recordID"                      => "76000000000002",
-                                "title"                         => "Advance Form",
-                                "number"                        => "Adv/QDC/2022/000239",
-                                "version"                       => "0",
-                                "date"                          => "2022-12-13",
-                                "businessDocumentType_RefID"    => "77000000000057"
+                                "recordID" => "76000000000002",
+                                "title" => "Advance Form",
+                                "number" => "Adv/QDC/2022/000239",
+                                "version" => "0",
+                                "date" => "2022-12-13",
+                                "businessDocumentType_RefID" => "77000000000057"
                             ],
                             "content" => [
                                 "general" => [
@@ -1895,7 +1891,7 @@ class BusinessTripRequestController extends Controller
                                     ],
                                     "businessDocument" => [
                                         "businessDocumentList" => [
-                                            "recordID"  => "74000000020307",
+                                            "recordID" => "74000000020307",
                                             "formBusinessDocumentNumber_RefID" => "76000000000002",
                                             "type_RefID" => "77000000000057",
                                             "typeName" => "Advance Form",
@@ -1969,37 +1965,37 @@ class BusinessTripRequestController extends Controller
             $splitResponse = $getReportAdvanceDetail['data'][0]['document'];
 
             $compact = [
-                'dataHeaderOne'     => [
-                    'brfId'             => $brf_id,
-                    'brfNumber'         => $brf_trano,
-                    'budgetCode'        => $brf_budget,
-                    'budgetName'        => $brf_budget_name,
-                    'siteCode'          => $brf_sub_budget,
-                    'siteName'          => $brf_sub_budget_name,
-                    'productID'         => '820005-0000',
-                    'productName'       => 'Travel & Fares/Business Trip',
-                    'dateCommence'      => '2024-12-18',
-                    'dateEnd'           => '2024-12-20',
-                    'dateBRF'           => '2024-12-12',
-                    'contactPhone'      => '0896734873',
-                    'bankType'          => $splitResponse['content']['general']['bankAccount']['beneficiary']['bankAcronym'],
+                'dataHeaderOne' => [
+                    'brfId' => $brf_id,
+                    'brfNumber' => $brf_trano,
+                    'budgetCode' => $brf_budget,
+                    'budgetName' => $brf_budget_name,
+                    'siteCode' => $brf_sub_budget,
+                    'siteName' => $brf_sub_budget_name,
+                    'productID' => '820005-0000',
+                    'productName' => 'Travel & Fares/Business Trip',
+                    'dateCommence' => '2024-12-18',
+                    'dateEnd' => '2024-12-20',
+                    'dateBRF' => '2024-12-12',
+                    'contactPhone' => '0896734873',
+                    'bankType' => $splitResponse['content']['general']['bankAccount']['beneficiary']['bankAcronym'],
                     'bankAccountNumber' => $splitResponse['content']['general']['bankAccount']['beneficiary']['bankAccountNumber'],
-                    'bankAccountName'   => $splitResponse['content']['general']['bankAccount']['beneficiary']['bankAccountName'],
-                    'requester'         => $splitResponse['content']['general']['involvedPersons'][0]['requesterWorkerName'],
-                    'beneficiary'       => $splitResponse['content']['general']['involvedPersons'][0]['beneficiaryWorkerName'],
-                    'departingFrom'     => 'Jakarta',
-                    'destinationTo'     => 'Batam',
+                    'bankAccountName' => $splitResponse['content']['general']['bankAccount']['beneficiary']['bankAccountName'],
+                    'requester' => $splitResponse['content']['general']['involvedPersons'][0]['requesterWorkerName'],
+                    'beneficiary' => $splitResponse['content']['general']['involvedPersons'][0]['beneficiaryWorkerName'],
+                    'departingFrom' => 'Jakarta',
+                    'destinationTo' => 'Batam',
                 ],
-                'dataHeaderTwo'     => [
-                    'totalAllowance'        => '240000.00',
-                    'totalEntertainment'    => '100000.00',
-                    'totalOther'            => '100000.00',
-                    'totalTransport'        => '3450000.00',
-                    'totalAccommodation'    => '0.00',
-                    'totalBusinessTrip'     => '3890000.00',
+                'dataHeaderTwo' => [
+                    'totalAllowance' => '240000.00',
+                    'totalEntertainment' => '100000.00',
+                    'totalOther' => '100000.00',
+                    'totalTransport' => '3450000.00',
+                    'totalAccommodation' => '0.00',
+                    'totalBusinessTrip' => '3890000.00',
                 ],
-                'dataHeaderThree'   => [
-                    'reason'    => 'Silahturahmi PLN JBT dan cari info tender batam beserta info lain'
+                'dataHeaderThree' => [
+                    'reason' => 'Silahturahmi PLN JBT dan cari info tender batam beserta info lain'
                 ],
             ];
 
@@ -2016,12 +2012,12 @@ class BusinessTripRequestController extends Controller
     public function ReportBusinessTripRequestDetailStore(Request $request)
     {
         try {
-            $brf_trano              = $request->brf_number_trano;
-            $brf_id                 = $request->brf_number_id;
-            $brf_budget             = $request->brf_number_budget;
-            $brf_budget_name        = $request->brf_number_budget_name;
-            $brf_sub_budget         = $request->brf_number_sub_budget;
-            $brf_sub_budget_name    = $request->brf_number_sub_budget_name;
+            $brf_trano = $request->brf_number_trano;
+            $brf_id = $request->brf_number_id;
+            $brf_budget = $request->brf_number_budget;
+            $brf_budget_name = $request->brf_number_budget_name;
+            $brf_sub_budget = $request->brf_number_sub_budget;
+            $brf_sub_budget_name = $request->brf_number_sub_budget_name;
 
             if (!$brf_id) {
                 Session::forget("isButtonReportBusinessTripRequestDetailSubmit");
@@ -2052,8 +2048,8 @@ class BusinessTripRequestController extends Controller
             $dataReport = $isSubmitButton ? $request->session()->get('dataReportBusinessTripToBSF', []) : [];
 
             $compact = [
-                'varAPIWebToken'    => $varAPIWebToken,
-                'dataReport'        => $dataReport
+                'varAPIWebToken' => $varAPIWebToken,
+                'dataReport' => $dataReport
             ];
 
             return view('Process.BusinessTrip.BusinessTripToBSF.Reports.ReportBusinessTripToBSF', $compact);
@@ -2063,7 +2059,7 @@ class BusinessTripRequestController extends Controller
         }
     }
 
-    public function ReportBusinessTripToBSFData($project, $site, $requester) 
+    public function ReportBusinessTripToBSFData($project, $site, $requester)
     {
         try {
             $dataDummy = [
@@ -2460,36 +2456,36 @@ class BusinessTripRequestController extends Controller
             ];
 
             $filteredData = array_filter($dataDummy, function ($item) use ($project, $site, $requester) {
-                return 
-                    (empty($project['id'])      || $item['CombinedBudget_RefID'] == $project['id']) &&
-                    (empty($site['id'])         || $item['CombinedBudgetSection_RefID'] == $site['id']) &&
-                    (empty($requester['id'])    || $item['RequesterWorkerJobsPosition_RefID'] == $requester['id']);
+                return
+                    (empty($project['id']) || $item['CombinedBudget_RefID'] == $project['id']) &&
+                    (empty($site['id']) || $item['CombinedBudgetSection_RefID'] == $site['id']) &&
+                    (empty($requester['id']) || $item['RequesterWorkerJobsPosition_RefID'] == $requester['id']);
             });
 
             $compact = [
-                'project'                           => $project,
-                'site'                              => $site,
-                'requester'                         => $requester,
-                'dataDetail'                        => $filteredData,
-                'totalTravel'                       => $this->calculateTotal($filteredData, 'TotalTravel'),
-                'totalAllowance'                    => $this->calculateTotal($filteredData, 'TotalAllowance'),
-                'totalEntertainment'                => $this->calculateTotal($filteredData, 'TotalEntertainment'),
-                'totalOther'                        => $this->calculateTotal($filteredData, 'TotalOther'),
-                'totalPayment'                      => $this->calculateTotal($filteredData, 'TotalPayment'),
-                'totalBSFTravel'                    => $this->calculateTotal($filteredData, 'TotalBSFTravel'),
-                'totalBSFAllowance'                 => $this->calculateTotal($filteredData, 'TotalBSFAllowance'),
-                'totalBSFEntertainment'             => $this->calculateTotal($filteredData, 'TotalBSFEntertainment'),
-                'totalBSFOther'                     => $this->calculateTotal($filteredData, 'TotalBSFOther'),
-                'totalExpenseClaimTravel'           => $this->calculateTotal($filteredData, 'TotalExpenseClaimTravel'),
-                'totalExpenseClaimAllowance'        => $this->calculateTotal($filteredData, 'TotalExpenseClaimAllowance'),
-                'totalExpenseClaimEntertainment'    => $this->calculateTotal($filteredData, 'TotalExpenseClaimEntertainment'),
-                'totalExpenseClaimOther'            => $this->calculateTotal($filteredData, 'TotalExpenseClaimOther'),
-                'totalAmountToCompanyTravel'        => $this->calculateTotal($filteredData, 'TotalAmountToCompanyTravel'),
-                'totalAmountToCompanyAllowance'     => $this->calculateTotal($filteredData, 'TotalAmountToCompanyAllowance'),
+                'project' => $project,
+                'site' => $site,
+                'requester' => $requester,
+                'dataDetail' => $filteredData,
+                'totalTravel' => $this->calculateTotal($filteredData, 'TotalTravel'),
+                'totalAllowance' => $this->calculateTotal($filteredData, 'TotalAllowance'),
+                'totalEntertainment' => $this->calculateTotal($filteredData, 'TotalEntertainment'),
+                'totalOther' => $this->calculateTotal($filteredData, 'TotalOther'),
+                'totalPayment' => $this->calculateTotal($filteredData, 'TotalPayment'),
+                'totalBSFTravel' => $this->calculateTotal($filteredData, 'TotalBSFTravel'),
+                'totalBSFAllowance' => $this->calculateTotal($filteredData, 'TotalBSFAllowance'),
+                'totalBSFEntertainment' => $this->calculateTotal($filteredData, 'TotalBSFEntertainment'),
+                'totalBSFOther' => $this->calculateTotal($filteredData, 'TotalBSFOther'),
+                'totalExpenseClaimTravel' => $this->calculateTotal($filteredData, 'TotalExpenseClaimTravel'),
+                'totalExpenseClaimAllowance' => $this->calculateTotal($filteredData, 'TotalExpenseClaimAllowance'),
+                'totalExpenseClaimEntertainment' => $this->calculateTotal($filteredData, 'TotalExpenseClaimEntertainment'),
+                'totalExpenseClaimOther' => $this->calculateTotal($filteredData, 'TotalExpenseClaimOther'),
+                'totalAmountToCompanyTravel' => $this->calculateTotal($filteredData, 'TotalAmountToCompanyTravel'),
+                'totalAmountToCompanyAllowance' => $this->calculateTotal($filteredData, 'TotalAmountToCompanyAllowance'),
                 'totalAmountToCompanyEntertainment' => $this->calculateTotal($filteredData, 'TotalAmountToCompanyEntertainment'),
-                'totalAmountToCompanyOther'         => $this->calculateTotal($filteredData, 'TotalAmountToCompanyOther'),
-                'totalBusinessTripPayment'          => $this->calculateTotal($filteredData, 'TotalBusinessTripPayment'),
-                'totalBusinessTripSettlement'       => $this->calculateTotal($filteredData, 'TotalBusinessTripSettlement'),
+                'totalAmountToCompanyOther' => $this->calculateTotal($filteredData, 'TotalAmountToCompanyOther'),
+                'totalBusinessTripPayment' => $this->calculateTotal($filteredData, 'TotalBusinessTripPayment'),
+                'totalBusinessTripSettlement' => $this->calculateTotal($filteredData, 'TotalBusinessTripSettlement'),
             ];
 
             Session::put("isButtonReportBusinessTripToBSFSubmit", true);
@@ -2506,21 +2502,21 @@ class BusinessTripRequestController extends Controller
     {
         try {
             $project = [
-                'id'        => $request->project_id_second,
-                'code'      => $request->project_code_second,
-                'name'      => $request->project_name_second,
+                'id' => $request->project_id_second,
+                'code' => $request->project_code_second,
+                'name' => $request->project_name_second,
             ];
 
             $site = [
-                'id'        => $request->site_id_second,
-                'code'      => $request->site_code_second,
-                'name'      => $request->site_name_second,
+                'id' => $request->site_id_second,
+                'code' => $request->site_code_second,
+                'name' => $request->site_name_second,
             ];
 
             $requester = [
-                'id'        => $request->worker_id_second,
-                'name'      => $request->worker_name_second,
-                'position'  => $request->worker_position_second,
+                'id' => $request->worker_id_second,
+                'name' => $request->worker_name_second,
+                'position' => $request->worker_position_second,
             ];
 
             if (!$project['id'] && !$site['id'] && !$requester['id']) {
@@ -2543,7 +2539,7 @@ class BusinessTripRequestController extends Controller
         }
     }
 
-    public function PrintExportReportBusinessTripToBSF(Request $request) 
+    public function PrintExportReportBusinessTripToBSF(Request $request)
     {
         try {
             $dataReport = Session::get("dataReportBusinessTripToBSF");
@@ -2563,7 +2559,7 @@ class BusinessTripRequestController extends Controller
                     $pdf->output();
                     $dom_pdf = $pdf->getDomPDF();
 
-                    $canvas = $dom_pdf ->get_canvas();
+                    $canvas = $dom_pdf->get_canvas();
                     $width = $canvas->get_width();
                     $height = $canvas->get_height();
                     $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
@@ -2582,7 +2578,7 @@ class BusinessTripRequestController extends Controller
         }
     }
 
-    public function PrintExportReportBusinessTripRequestDetail(Request $request) 
+    public function PrintExportReportBusinessTripRequestDetail(Request $request)
     {
         try {
             $project_code_second_trigger = $request->project_code_second_trigger;
@@ -2592,7 +2588,7 @@ class BusinessTripRequestController extends Controller
             if ($project_code_second_trigger == null) {
                 Session::forget("isButtonReportBusinessTripRequestDetailSubmit");
                 Session::forget("dataReportBusinessTripRequestDetail");
-        
+
                 return redirect()->route('BusinessTripRequest.ReportBusinessTripRequestDetail')->with('NotFound', 'BRF Number Cannot Empty');
             }
 
@@ -2602,7 +2598,7 @@ class BusinessTripRequestController extends Controller
                     $pdf->output();
                     $dom_pdf = $pdf->getDomPDF();
 
-                    $canvas = $dom_pdf ->get_canvas();
+                    $canvas = $dom_pdf->get_canvas();
                     $width = $canvas->get_width();
                     $height = $canvas->get_height();
                     $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
