@@ -22,16 +22,15 @@ class DebitNoteController extends Controller
 {
     public function __construct(
         BusinessDocumentTypeService $businessDocumentTypeService,
-        DebitNoteService $debitNoteService, 
+        DebitNoteService $debitNoteService,
         WorkflowService $workflowService
-    )
-    {
-        $this->businessDocumentTypeService  = $businessDocumentTypeService;
-        $this->debitNoteService             = $debitNoteService;
-        $this->workflowService              = $workflowService;
+    ) {
+        $this->businessDocumentTypeService = $businessDocumentTypeService;
+        $this->debitNoteService = $debitNoteService;
+        $this->workflowService = $workflowService;
     }
 
-    public function DataPickList(Request $request) 
+    public function DataPickList(Request $request)
     {
         try {
             $response = $this->debitNoteService->dataPickList();
@@ -49,14 +48,14 @@ class DebitNoteController extends Controller
 
     public function index(Request $request)
     {
-        $var                = $request->query('var', 0);
-        $varAPIWebToken     = Session::get('SessionLogin');
-        $documentTypeRefID  = $this->GetBusinessDocumentsType('Debit Note Form');
+        $var = $request->query('var', 0);
+        $varAPIWebToken = Session::get('SessionLogin');
+        $documentTypeRefID = $this->GetBusinessDocumentsType('Debit Note Form');
 
         return view('Process.DebitNote.Transactions.CreateDebitNote', [
-            'var'                   => $var,
-            'varAPIWebToken'        => $varAPIWebToken,
-            'documentType_RefID'    => $documentTypeRefID
+            'var' => $var,
+            'varAPIWebToken' => $varAPIWebToken,
+            'documentType_RefID' => $documentTypeRefID
         ]);
     }
 
@@ -81,8 +80,8 @@ class DebitNoteController extends Controller
             // }
 
             $compact = [
-                "documentNumber"    => $response['data']['businessDocument']['documentNumber'],
-                "status"            => $response['metadata']['HTTPStatusCode'],
+                "documentNumber" => $response['data']['businessDocument']['documentNumber'],
+                "status" => $response['metadata']['HTTPStatusCode'],
                 // "status"            => $responseWorkflow['metadata']['HTTPStatusCode'],
             ];
 
@@ -94,7 +93,7 @@ class DebitNoteController extends Controller
         }
     }
 
-    public function update(Request $request, $id) 
+    public function update(Request $request, $id)
     {
         try {
             $response = $this->debitNoteService->update($request);
@@ -115,8 +114,8 @@ class DebitNoteController extends Controller
             // }
 
             $compact = [
-                "documentNumber"    => $response['data'][0]['businessDocument']['documentNumber'],
-                "status"            => $response['metadata']['HTTPStatusCode'],
+                "documentNumber" => $response['data'][0]['businessDocument']['documentNumber'],
+                "status" => $response['metadata']['HTTPStatusCode'],
                 // "status"            => $responseWorkflow['metadata']['HTTPStatusCode'],
             ];
 
@@ -128,32 +127,32 @@ class DebitNoteController extends Controller
         }
     }
 
-    public function RevisionDebitNote(Request $request) 
+    public function RevisionDebitNote(Request $request)
     {
         try {
             $varAPIWebToken = $request->session()->get('SessionLogin');
-            $response       = $this->debitNoteService->getDetail($request->debit_note_id);
+            $response = $this->debitNoteService->getDetail($request->debit_note_id);
 
             if ($response['metadata']['HTTPStatusCode'] !== 200) {
                 return response()->json($response);
             }
 
-            $data               = $response['data']['data'];
-            $documentTypeRefID  = $this->GetBusinessDocumentsType('Debit Note Revision Form');
+            $data = $response['data']['data'];
+            $documentTypeRefID = $this->GetBusinessDocumentsType('Debit Note Revision Form');
 
             $compact = [
-                'varAPIWebToken'        => $varAPIWebToken,
-                'documentType_RefID'    => $documentTypeRefID,
+                'varAPIWebToken' => $varAPIWebToken,
+                'documentType_RefID' => $documentTypeRefID,
                 'header' => [
-                    'debitNoteReference_RefID'  => $data[0]['Sys_ID_Header'] ?? '',
-                    'debitNoteReferenceNumber'  => $data[0]['BusinessDocumentNumber'] ?? '',
-                    'partner_RefID'             => $data[0]['Partner_RefID'] ?? '',
-                    'partnerCode'               => $data[0]['PartnerCode'] ?? '',
-                    'partnerName'               => $data[0]['PartnerName'] ?? '',
-                    'fileID'                    => $data[0]['Log_FileUpload_Pointer_RefID'] ?? null,
-                    'remarks'                   => $data[0]['Remarks'] ?? '',
+                    'debitNoteReference_RefID' => $data[0]['Sys_ID_Header'] ?? '',
+                    'debitNoteReferenceNumber' => $data[0]['BusinessDocumentNumber'] ?? '',
+                    'partner_RefID' => $data[0]['Partner_RefID'] ?? '',
+                    'partnerCode' => $data[0]['PartnerCode'] ?? '',
+                    'partnerName' => $data[0]['PartnerName'] ?? '',
+                    'fileID' => $data[0]['Log_FileUpload_Pointer_RefID'] ?? null,
+                    'remarks' => $data[0]['Remarks'] ?? '',
                 ],
-                'detail'                => $data
+                'detail' => $data
             ];
 
             return view('Process.DebitNote.Transactions.RevisionDebitNote', $compact);
@@ -165,26 +164,36 @@ class DebitNoteController extends Controller
 
     public function ReportDebitNoteSummary(Request $request)
     {
-        return view('Process.DebitNote.Reports.ReportDebitNoteSummary');
+        $documentTypeRefID = $this->GetBusinessDocumentsTypeFromRedis('Purchase Order Form');
+        $sessionOrganizationalDepartmentName = Session::get('SessionOrganizationalDepartmentName');
+        $sessionOrganizationalJobPositionName = Session::get('SessionOrganizationalJobPositionName');
+
+        $compact = [
+            'documentTypeRefID' => $documentTypeRefID,
+            'sessionOrganizationalDepartmentName' => $sessionOrganizationalDepartmentName,
+            'sessionOrganizationalJobPositionName' => $sessionOrganizationalJobPositionName
+        ];
+
+        return view('Process.DebitNote.Reports.ReportDebitNoteSummary', $compact);
     }
 
     public function ReportDebitNoteSummaryStore(Request $request)
     {
         try {
-            $date           = $request->dnDate;
-            $budget         = [
-                "id"        => $request->budget_id,
-                "code"      => $request->budget_code,
+            $date = $request->dnDate;
+            $budget = [
+                "id" => $request->budget_id,
+                "code" => $request->budget_code,
             ];
-            $subBudget      = [
-                "id"        => $request->sub_budget_id,
-                "code"      => $request->sub_budget_code,
+            $subBudget = [
+                "id" => $request->sub_budget_id,
+                "code" => $request->sub_budget_code,
             ];
-            $customerID     = $request->customer_id;
+            $customerID = $request->customer_id;
 
             $response = $this->debitNoteService->getDebitNoteSummary(
-                $budget['code'], 
-                $subBudget['code'], 
+                $budget['code'],
+                $subBudget['code'],
                 $date,
                 $customerID
             );
@@ -194,17 +203,17 @@ class DebitNoteController extends Controller
             }
 
             $compact = [
-                'status'    => $response['metadata']['HTTPStatusCode'],
-                'data'      => $response['data']['data']
+                'status' => $response['metadata']['HTTPStatusCode'],
+                'data' => $response['data']['data']
             ];
 
             return response()->json($compact);
         } catch (\Throwable $th) {
             Log::error("Report Debit Note Summary Store Function Error:" . $th->getMessage());
-            
+
             $compact = [
-                'status'    => 500,
-                'message'   => $th->getMessage()
+                'status' => 500,
+                'message' => $th->getMessage()
             ];
 
             return response()->json($compact);
@@ -214,27 +223,27 @@ class DebitNoteController extends Controller
     public function PrintExportReportDebitNoteSummary(Request $request)
     {
         try {
-            $type                   = $request->printType;
-            $budgetName             = $request->budgetName;
-            $customerName           = $request->customerName;
-            $dnDate                 = $request->dnDate;
-            $dataDebitNoteSummary   = json_decode($request->dataReport, true);
+            $type = $request->printType;
+            $budgetName = $request->budgetName;
+            $customerName = $request->customerName;
+            $dnDate = $request->dnDate;
+            $dataDebitNoteSummary = json_decode($request->dataReport, true);
 
             if ($dataDebitNoteSummary) {
                 if ($type === "PDF") {
                     $pdf = PDF::loadView('Process.DebitNote.Reports.ReportDebitNoteSummary_pdf', [
-                        'dataDN'        => $dataDebitNoteSummary, 
-                        'budgetName'    => $budgetName,
+                        'dataDN' => $dataDebitNoteSummary,
+                        'budgetName' => $budgetName,
                         'subBudgetName' => '-',
-                        'customerName'  => $customerName,
-                        'dnDate'        => $dnDate
-                        ])->setPaper('a4', 'landscape');
+                        'customerName' => $customerName,
+                        'dnDate' => $dnDate
+                    ])->setPaper('a4', 'landscape');
 
                     $pdf->output();
-                    $dom_pdf    = $pdf->getDomPDF();
-                    $canvas     = $dom_pdf ->get_canvas();
-                    $width      = $canvas->get_width();
-                    $height     = $canvas->get_height();
+                    $dom_pdf = $pdf->getDomPDF();
+                    $canvas = $dom_pdf->get_canvas();
+                    $width = $canvas->get_width();
+                    $height = $canvas->get_height();
                     $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
                     $canvas->page_text(34, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
 
