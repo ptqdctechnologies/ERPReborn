@@ -6,10 +6,8 @@ use App\Http\Controllers\ExportExcel\Process\ExportReportBusinessTripRequestSumm
 use App\Http\Controllers\ExportExcel\Process\ExportReportBusinessTripRequestDetail;
 use App\Http\Controllers\ExportExcel\Process\ExportReportBusinessTripToBSF;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Input;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Session;
 use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
 use App\Helpers\ZhtHelper\System\Helper_Environment;

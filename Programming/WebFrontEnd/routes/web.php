@@ -289,6 +289,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::resource('AdvanceSettlement', 'Process\Advance\AdvanceSettlementController');
 
     // BUSINESS TRIP SETTLEMENT
+    Route::get('GetBusinessTripSettlementList', 'Process\BusinessTrip\BusinessTripSettlementController@getBusinessTripSettlementList')->name('BusinessTripSettlement.GetBusinessTripSettlementList');
     Route::post('StoreValidateBusinessTripSettlement', 'Process\BusinessTrip\BusinessTripSettlementController@StoreValidateBusinessTripSettlement')->name('BusinessTripSettlement.StoreValidateBusinessTripSettlement');
     Route::post('StoreValidateBusinessTripSettlement2', 'Process\BusinessTrip\BusinessTripSettlementController@StoreValidateBusinessTripSettlement2')->name('BusinessTripSettlement.StoreValidateBusinessTripSettlement2');
     Route::post('RevisionBusinessTripSettlementIndex', 'Process\BusinessTrip\BusinessTripSettlementController@RevisionBusinessTripSettlementIndex')->name('BusinessTripSettlement.RevisionBusinessTripSettlementIndex');

@@ -1,4 +1,5 @@
-<div id="myPopUpBusinessTripSettlementRevision" class="modal fade" role="dialog" aria-hidden="true" style="margin-top: 180px;margin-left:6px;">
+<div id="myPopUpBusinessTripSettlementRevision" class="modal fade" role="dialog" aria-hidden="true"
+    style="margin-top: 180px;margin-left:6px;">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content" style="width:90%;">
             <div class="modal-header">
@@ -18,18 +19,26 @@
                                         </td>
                                         <td>
                                             <div class="input-group">
-                                                <form id="editForm" action="{{ route('BusinessTripSettlement.RevisionBusinessTripSettlementIndex') }}" method="POST">
-                                                @csrf
-                                                    <input id="bsf_number_id" style="border-radius:0;" name="bsf_number_id" type="hidden" class="form-control" value="823">
+                                                <form id="editForm"
+                                                    action="{{ route('BusinessTripSettlement.RevisionBusinessTripSettlementIndex') }}"
+                                                    method="POST">
+                                                    @csrf
+                                                    <input id="bsf_number_id" style="border-radius:0;"
+                                                        name="bsf_number_id" type="hidden" class="form-control">
                                                 </form>
                                                 <div class="input-group-append">
-                                                    <span style="border-radius:0;cursor:pointer;" class="input-group-text form-control" id="bsf_number_trano_icon">
-                                                        <a data-toggle="modal" data-target="#myGetModalBRFNumber">
-                                                            <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="">
+                                                    <span style="border-radius:0;cursor:pointer;"
+                                                        class="input-group-text form-control"
+                                                        id="bsf_number_trano_icon">
+                                                        <a data-toggle="modal" data-target="#myBusinessTripSettlement">
+                                                            <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}"
+                                                                width="13" alt="">
                                                         </a>
                                                     </span>
                                                 </div>
-                                                <input id="bsf_number_trano" style="border-radius:0;" name="bsf_number_trano" type="text" class="form-control" required readonly>
+                                                <input id="bsf_number_trano" style="border-radius:0;"
+                                                    name="bsf_number_trano" type="text" class="form-control" required
+                                                    readonly>
                                             </div>
                                         </td>
                                     </tr>
@@ -38,8 +47,10 @@
                         </div>
                     </div>
 
-                    <a class="btn btn-sm btn-cancel" data-dismiss="modal" style="margin-left: 38%;background-color:#e9ecef;border:1px solid #ced4da;">
-                        <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel"> Cancel
+                    <a class="btn btn-sm btn-cancel" data-dismiss="modal"
+                        style="margin-left: 38%;background-color:#e9ecef;border:1px solid #ced4da;">
+                        <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel">
+                        Cancel
                     </a>
                     <a class="btn btn-sm btn-edit" style="background-color:#e9ecef;border:1px solid #ced4da;">
                         <img src="{{ asset('AdminLTE-master/dist/img/edit.png') }}" width="13" alt="" title="Edit"> Edit
@@ -52,7 +63,7 @@
 </div>
 
 <script>
-    $('.btn-edit').on('click', function() {
+    $('.btn-edit').on('click', function () {
         const bsfNumberID = $('#bsf_number_id').val();
 
         if (bsfNumberID) {
@@ -66,7 +77,7 @@
         }
     });
 
-    $('.btn-cancel').on('click', function() {
+    $('.btn-cancel').on('click', function () {
         $('#bsf_number_id').val("");
         $('#bsf_number_trano').val("");
     });

@@ -1,9 +1,9 @@
 <script>
-    const documentTypeID    = document.getElementById("DocumentTypeID");
-    let remark              = document.getElementById("remark");
-    let fileID              = document.getElementById("dataInput_Log_FileUpload");
-    let dataStore           = [];
-    let dataWorkflow        = {
+    const documentTypeID = document.getElementById("DocumentTypeID");
+    let remark = document.getElementById("remark");
+    let fileID = document.getElementById("dataInput_Log_FileUpload");
+    let dataStore = [];
+    let dataWorkflow = {
         workFlowPathRefID: null,
         approverEntityRefID: null,
         comment: null
@@ -49,9 +49,9 @@
         $.ajax({
             type: 'GET',
             url: '{!! route("getBusinessTripCostComponentEntityNew") !!}',
-            success: function(response) {
+            success: function (response) {
                 console.log('response', response);
-                
+
                 const mapping = {
                     'Taxi': '#taxi',
                     'Airplane': '#airplane',
@@ -70,10 +70,10 @@
                     'Other': '#other'
                 };
 
-                response.forEach(function(item) {
-                    if(mapping[item.name]){
+                response.forEach(function (item) {
+                    if (mapping[item.name]) {
                         $(mapping[item.name])
-                        .attr('name', 'cost_component['+item.value+'][businessTripCostComponentEntity_RefID]');
+                            .attr('name', 'cost_component[' + item.value + '][businessTripCostComponentEntity_RefID]');
                     }
                 });
 
@@ -89,7 +89,7 @@
         $.ajax({
             type: 'POST',
             url: '{!! route("BusinessTripRequest.Detail") !!}?person_business_trip_id=' + brfID,
-            success: function(response) {
+            success: function (response) {
                 let businessTripRequest = response?.data ?? [];
 
                 if (businessTripRequest.length === 0) {
@@ -98,7 +98,7 @@
                 }
 
                 console.log('businessTripRequest', businessTripRequest);
-                
+
                 $("#requester_name").val(`${businessTripRequest[0].RequesterWorkerPosition} - ${businessTripRequest[0].RequesterWorkerName}`);
             },
             error: function (textStatus, errorThrown) {
@@ -133,7 +133,7 @@
 
         ids.forEach(id => {
             const input = document.getElementById(id);
-            
+
             if (input) {
                 input.addEventListener('input', calculateTotalBRF);
             }
@@ -145,7 +145,7 @@
             type: 'POST',
             data: {
                 workFlowPath_RefID: dataWorkflow.workFlowPathRefID,
-                approverEntity: dataWorkflow.approverEntityRefID, 
+                approverEntity: dataWorkflow.approverEntityRefID,
                 comment: dataWorkflow.comment,
                 storeData: {
                     dataInput_Log_FileUpload_1: fileID.value,
@@ -154,7 +154,7 @@
                 }
             },
             url: '{!! route("BusinessTripSettlement.store") !!}',
-            success: function(res) {
+            success: function (res) {
                 HideLoading();
 
                 if (res.status == 200) {
@@ -182,7 +182,7 @@
                     ErrorNotif("Create Business Trip Settlement Failed");
                 }
             },
-            error: function(jqXHR, textStatus, errorThrown) {
+            error: function (jqXHR, textStatus, errorThrown) {
                 HideLoading();
                 ErrorNotif("Internal Server Error");
             }
@@ -240,26 +240,26 @@
                 combinedBudget_RefID: combinedBudgetRefID
             },
             url: '{!! route("GetWorkflow") !!}',
-            success: function(response) {
+            success: function (response) {
                 console.log('response', response);
             },
-            error: function(jqXHR, textStatus, errorThrown) {
+            error: function (jqXHR, textStatus, errorThrown) {
                 console.log('jqXHR, textStatus, errorThrown', jqXHR, textStatus, errorThrown);
                 Swal.fire("Error", "Data Error", "error");
 
-                $("#loadingBudget").css({"display":"none"});
-                $("#myBusinessTripRequest").css({"display":"block"});
+                $("#loadingBudget").css({ "display": "none" });
+                $("#myBusinessTripRequest").css({ "display": "block" });
             }
         });
     }
 
-    $('#table_brf').on('click', 'tbody tr', async function() {
-        const sysId     = $(this).find('input[data-trigger="sys_id_brf"]').val();
-        const sysText   = $(this).find('td:nth-child(2)').text();
+    $('#table_brf').on('click', 'tbody tr', async function () {
+        const sysId = $(this).find('input[data-trigger="sys_id_brf"]').val();
+        const sysText = $(this).find('td:nth-child(2)').text();
 
         $("#brf_id").val(sysId);
         $("#brf_number").val(sysText);
-        $("#brf_number").css({"display":"block", "background-color": "#e9ecef"});
+        $("#brf_number").css({ "display": "block", "background-color": "#e9ecef" });
 
         // getWorkflow(sysId);
         getDetailBrf(sysId);
@@ -267,7 +267,19 @@
         $("#myBusinessTripRequest").modal('toggle');
     });
 
-    $(document).ready(function() {
+    $('#table_bsf').on('click', 'tbody tr', async function () {
+        const sysId = $(this).find('input[data-trigger="sys_id_bsf"]').val();
+        const sysText = $(this).find('td:nth-child(2)').text();
+
+        $("#bsf_number_id").val(sysId);
+        $("#bsf_number_trano").val(sysText);
+        $("#bsf_number_trano").css({ "display": "block", "background-color": "#e9ecef" });
+
+        $("#myBusinessTripSettlement").modal('toggle');
+    });
+
+    $(document).ready(function () {
+        getBusinessTripSettlement();
         getBusinessTripRequest();
         getBusinessTripCostComponentEntityNew();
     });
