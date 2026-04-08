@@ -320,6 +320,9 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::resource('BusinessTripRequest', 'Process\BusinessTrip\BusinessTripRequestController');
 
     // REIMBURSEMENT
+    Route::get('ReportRemToDN', 'Process\Reimbursement\ReimbursementController@ReportRemToDN')->name('Reimbursement.ReportRemToDN');
+    Route::post('ReportRemToDNStore', 'Process\Reimbursement\ReimbursementController@ReportRemToDNStore')->name('Reimbursement.ReportRemToDNStore');
+    Route::post('PrintExportReportRemToDN', 'Process\Reimbursement\ReimbursementController@PrintExportReportRemToDN')->name('Reimbursement.PrintExportReportRemToDN');
     Route::get('GetReimbursementDetail', 'Process\Reimbursement\ReimbursementController@GetReimbursementDetail')->name('Reimbursement.GetReimbursementDetail');
     Route::post('RevisionReimbursement', 'Process\Reimbursement\ReimbursementController@RevisionReimbursement')->name('Reimbursement.RevisionReimbursement');
     Route::post('UpdateReimbursement', 'Process\Reimbursement\ReimbursementController@UpdateReimbursement')->name('Reimbursement.UpdateReimbursement');
@@ -335,9 +338,9 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     // Route::get('ReportReimbursementSummary', 'Process\Reimbursement\ReimbursableExpenditureController@ReportReimbursementSummary')->name('Reimbursement.ReportReimbursementSummary');
     // Route::post('ReportReimbursementSummaryStore', 'Process\Reimbursement\ReimbursableExpenditureController@ReportReimbursementSummaryStore')->name('Reimbursement.ReportReimbursementSummaryStore');
     // Route::post('PrintExportReportReimbursementSummary', 'Process\Reimbursement\ReimbursableExpenditureController@PrintExportReportReimbursementSummary')->name('Reimbursement.PrintExportReportReimbursementSummary');
-    Route::get('ReportRemToDN', 'Process\Reimbursement\ReimbursableExpenditureController@ReportRemToDN')->name('Reimbursement.ReportRemToDN');
-    Route::post('ReportRemToDNStore', 'Process\Reimbursement\ReimbursableExpenditureController@ReportRemToDNStore')->name('Reimbursement.ReportRemToDNStore');
-    Route::post('PrintExportReportRemToDN', 'Process\Reimbursement\ReimbursableExpenditureController@PrintExportReportRemToDN')->name('Reimbursement.PrintExportReportRemToDN');
+    // Route::get('ReportRemToDN', 'Process\Reimbursement\ReimbursableExpenditureController@ReportRemToDN')->name('Reimbursement.ReportRemToDN');
+    // Route::post('ReportRemToDNStore', 'Process\Reimbursement\ReimbursableExpenditureController@ReportRemToDNStore')->name('Reimbursement.ReportRemToDNStore');
+    // Route::post('PrintExportReportRemToDN', 'Process\Reimbursement\ReimbursableExpenditureController@PrintExportReportRemToDN')->name('Reimbursement.PrintExportReportRemToDN');
     Route::get('ReportInvoiceToCN', 'Process\Reimbursement\ReimbursableExpenditureController@ReportInvoiceToCN')->name('Reimbursement.ReportInvoiceToCN');
     Route::post('ReportInvoiceToCNStore', 'Process\Reimbursement\ReimbursableExpenditureController@ReportInvoiceToCNStore')->name('Reimbursement.ReportInvoiceToCNStore');
     Route::post('PrintExportReportInvoiceToCN', 'Process\Reimbursement\ReimbursableExpenditureController@PrintExportReportInvoiceToCN')->name('Reimbursement.PrintExportReportInvoiceToCN');

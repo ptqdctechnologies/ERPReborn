@@ -272,4 +272,59 @@ class ReimbursementController extends Controller
             return response()->json(['statusCode' => 400]);
         }
     }
+
+    public function ReportRemToDN(Request $request)
+    {
+        $documentTypeRefID = $this->GetBusinessDocumentsTypeFromRedis('Reimbursement Form');
+        $sessionOrganizationalDepartmentName = Session::get('SessionOrganizationalDepartmentName');
+        $sessionOrganizationalJobPositionName = Session::get('SessionOrganizationalJobPositionName');
+
+        $compact = [
+            'documentTypeRefID' => $documentTypeRefID,
+            'sessionOrganizationalDepartmentName' => $sessionOrganizationalDepartmentName,
+            'sessionOrganizationalJobPositionName' => $sessionOrganizationalJobPositionName
+        ];
+
+        return view('Process.Reimbursement.Reports.ReportRemToDN', $compact);
+    }
+
+    public function ReportRemToDNStore(Request $request)
+    {
+        try {
+            $budgetCode = $request->budget_code;
+            $customerID = $request->customer_id;
+            $date = $request->date;
+
+            $response = $this->reimbursementService->getReimbursementToDebitNote(
+                $budgetCode,
+                $customerID,
+                $date
+            );
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                throw new \Exception('Failed to fetch Report Reimbursement to Debit Note');
+            }
+
+            $compact = [
+                'status' => $response['metadata']['HTTPStatusCode'],
+                'data' => $response['data']['data']
+            ];
+
+            return response()->json($compact);
+        } catch (\Throwable $th) {
+            Log::error("Report Reimbursement to Debit Note Store Function Error:" . $th->getMessage());
+
+            $compact = [
+                'status' => 500,
+                'message' => $th->getMessage()
+            ];
+
+            return response()->json($compact);
+        }
+    }
+
+    public function PrintExportReportRemToDN(Request $request)
+    {
+
+    }
 }
