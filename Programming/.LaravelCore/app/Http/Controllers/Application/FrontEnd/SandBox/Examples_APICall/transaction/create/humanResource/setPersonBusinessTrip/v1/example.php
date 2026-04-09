@@ -21,7 +21,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         |                     ► http://172.28.0.4/transaction.create.humanResource.setPersonBusinessTrip.v1_throughAPIGateway      |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0001.0000001                                                                                       |
-        | ▪ Last Update     : 2026-03-20                                                                                           |
+        | ▪ Last Update     : 2026-04-09                                                                                           |
         | ▪ Creation Date   : 2022-10-10                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -78,6 +78,24 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                                 'additionalData' => [
                                                    'itemList' => [
                                                        'items' => [
+                                                               /**
+                                                                * List of businessTripCostComponentEntity_RefID values:
+                                                                * 221000000000025     => "Travel & Fares (Taxi)"
+                                                                * 221000000000049     => "Travel & Fares (Ship)"
+                                                                * 221000000000003     => "Travel & Fares (Fuel)"
+                                                                * 221000000000045     => "Travel & Fares (Airplane)"
+                                                                * 221000000000004     => "Travel & Fares (Tol/Road)"
+                                                                * 276000000000002     => "Travel & Fares (Hotel)"
+                                                                * 221000000000042     => "Travel & Fares (Train)"
+                                                                * 221000000000005     => "Travel & Fares (Park)"
+                                                                * 276000000000005     => "Travel & Fares (Mess)"
+                                                                * 221000000000038     => "Travel & Fares (Bus)"
+                                                                * 221000000000006     => "Travel & Fares (Excess Baggage)"
+                                                                * 276000000000004     => "Travel & Fares (Guest House)"
+                                                                * 81000000000001      => "Allowance"
+                                                                * 81000000000004      => "Entertainment"
+                                                                * 81000000000005      => "Others"
+                                                                */
                                                                [
                                                                'entities' => [
                                                                    'businessTripCostComponentEntity_RefID' => 81000000000001,
