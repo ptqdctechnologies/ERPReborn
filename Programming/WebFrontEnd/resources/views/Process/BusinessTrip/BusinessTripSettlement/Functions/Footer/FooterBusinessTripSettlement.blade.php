@@ -213,8 +213,6 @@
         const totalEntertainment = document.getElementById("entertainment");
         const totalOther = document.getElementById("other");
 
-        console.log('isTotalBusinessTripNotEmpty', totalBusinessTrip.value.trim());
-
         if (isBusinessTripIDNotEmpty && isTotalBusinessTripNotEmpty) {
             dataStore = getCostComponentData();
 

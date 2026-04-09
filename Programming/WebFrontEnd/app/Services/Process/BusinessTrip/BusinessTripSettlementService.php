@@ -76,4 +76,33 @@ class BusinessTripSettlementService
             ]
         );
     }
+
+    public function updates(Request $request, $id): array
+    {
+        $sessionToken = Session::get('SessionLogin');
+
+        $data = $request->storeData;
+        $detailItems = json_decode($data['businessTripSettlementDetail'], true);
+        $fileID = isset($data['dataInput_Log_FileUpload_1']) ? (int) $data['dataInput_Log_FileUpload_1'] : null;
+
+        return Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
+            $sessionToken,
+            'transaction.update.humanResource.setPersonBusinessTripSettlement',
+            'latest',
+            [
+                'recordID' => (int) $id,
+                'entities' => [
+                    'documentDateTimeTZ' => date('Y-m-d'),
+                    'log_FileUpload_Pointer_RefID' => $fileID,
+                    'remarks' => $data['var_remark'],
+                    'additionalData' => [
+                        'itemList' => [
+                            'items' => $detailItems
+                        ]
+                    ]
+                ]
+            ]
+        );
+    }
 }

@@ -84,11 +84,41 @@ class BusinessTripSettlementController extends Controller
 
             $response = $this->businessTripSettlementService->getDetail($businessTripSettlement_RefID);
 
-            dd($response);
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                return response()->json($response);
+            }
+
+            $dataResponse = $response['data']['data'];
+            $mappingDataSettlementDetails = array_map(function ($item) {
+                return [
+                    'Sys_ID' => $item['Sys_ID'],
+                    'AmountCurrency_RefID' => $item['AmountCurrency_RefID'],
+                    'AmountCurrencyValue' => $item['AmountCurrencyValue'],
+                    'AmountCurrencyExchangeRate' => $item['AmountCurrencyExchangeRate'],
+                    'PersonBusinessTripSequenceDetail_RefID' => $item['PersonBusinessTripSequenceDetail_RefID'],
+                    'BusinessTripCostComponentEntity_RefID' => $item['BusinessTripCostComponentEntity_RefID']
+                ];
+            }, $dataResponse);
+
+            // dd($dataResponse);
+            // dd($mappingDataSettlementDetails);
 
             $compact = [
                 'varAPIWebToken' => $varAPIWebToken,
+                'documentType_RefID' => $documentTypeRefID,
+                'businessTripSettlementID' => $dataResponse[0]['PersonBusinessTripSettlement_RefID'],
+                'businessTripSettlementNumber' => $dataResponse[0]['DocumentNumber'],
+                'requester' => [
+                    'id' => $dataResponse[0]['RequesterWorkerJobsPosition_RefID'],
+                    'name' => $dataResponse[0]['RequesterWorkerName'],
+                    'position' => $dataResponse[0]['RequesterWorkerPosition'],
+                    'contact' => $dataResponse[0]['RequesterWorkerContact']
+                ],
+                'dataSettlementDetails' => $mappingDataSettlementDetails,
+                'remark' => $dataResponse[0]['Remarks'],
             ];
+
+            // dump($dataResponse);
 
             return view('Process.BusinessTrip.BusinessTripSettlement.Transactions.RevisionBusinessTripSettlement', $compact);
         } catch (\Throwable $th) {
@@ -100,12 +130,35 @@ class BusinessTripSettlementController extends Controller
 
     public function update(Request $request, $id)
     {
-        $input = $request->all();
-        $compact = [
-            "status" => true,
-        ];
+        try {
+            $response = $this->businessTripSettlementService->updates($request, $id);
 
-        return response()->json($compact);
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                return response()->json($response);
+            }
+
+            // $responseWorkflow = $this->workflowService->submit(
+            //     $response['data'][0]['businessDocument']['businessDocument_RefID'],
+            //     $request->workFlowPath_RefID,
+            //     $request->comment,
+            //     $request->approverEntity,
+            // );
+
+            // if ($responseWorkflow['metadata']['HTTPStatusCode'] !== 200) {
+            //     return response()->json($responseWorkflow);
+            // }
+
+            $compact = [
+                "documentNumber" => $response['data'][0]['businessDocument']['documentNumber'],
+                "status" => $response['metadata']['HTTPStatusCode'],
+                // "status" => $responseWorkflow['metadata']['HTTPStatusCode'],
+            ];
+
+            return response()->json($compact);
+        } catch (\Throwable $th) {
+            Log::error("Store Business Trip Settlement Function Error: " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
     }
 
     public function ReportBusinessTripSettlementSummary(Request $request)
