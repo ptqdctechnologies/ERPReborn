@@ -1,4 +1,5 @@
-<div id="myBusinessTripRequest" class="modal fade" role="dialog" aria-labelledby="contohModalScrollableTitle" aria-hidden="true" style="z-index: 9999;">
+<div id="myBusinessTripRequest" class="modal fade" role="dialog" aria-labelledby="contohModalScrollableTitle"
+    aria-hidden="true" style="z-index: 9999;">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -25,7 +26,8 @@
                                     <tfoot>
                                         <tr class="loading_table_brf">
                                             <td colspan="6" class="p-0" style="height: 22rem;">
-                                                <div class="d-flex flex-column justify-content-center align-items-center py-3">
+                                                <div
+                                                    class="d-flex flex-column justify-content-center align-items-center py-3">
                                                     <div class="spinner-border" role="status">
                                                         <span class="sr-only">Loading...</span>
                                                     </div>
@@ -37,8 +39,10 @@
                                         </tr>
                                         <tr class="error_table_brf">
                                             <td colspan="6" class="p-0" style="height: 22rem;">
-                                                <div class="d-flex flex-column justify-content-center align-items-center py-3">
-                                                    <div id="error_message_table_brf" class="mt-3 text-red" style="font-size: 1rem; font-weight: 700;"></div>
+                                                <div
+                                                    class="d-flex flex-column justify-content-center align-items-center py-3">
+                                                    <div id="error_message_table_brf" class="mt-3 text-red"
+                                                        style="font-size: 1rem; font-weight: 700;"></div>
                                                 </div>
                                             </td>
                                         </tr>
@@ -64,7 +68,7 @@
         $.ajax({
             type: 'GET',
             url: '{!! route("getBusinessTripList") !!}',
-            success: function(data) {
+            success: function (data) {
                 $(".loading_table_brf").hide();
 
                 if (Array.isArray(data) && data.length > 0) {
@@ -79,7 +83,7 @@
                                 data: null,
                                 className: "align-middle text-center",
                                 render: function (data, type, row, meta) {
-                                    return '<input id="sys_id_brf' + (meta.row + 1) + '" value="' + data.sys_ID + '" data-trigger="sys_id_brf" type="hidden">' + (meta.row + 1);
+                                    return '<input id="sys_id_budget' + (meta.row + 1) + '" value="' + data.combinedBudget_RefID + '" data-trigger="sys_id_budget" type="hidden">' + '<input id="sys_id_brf' + (meta.row + 1) + '" value="' + data.sys_ID + '" data-trigger="sys_id_brf" type="hidden">' + (meta.row + 1);
                                 }
                             },
                             {

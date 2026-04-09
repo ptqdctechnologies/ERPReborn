@@ -24,6 +24,8 @@
         @if($var == 0)
               <!-- CONTENT -->
               <div class="card">
+                <input type="hidden" name="DocumentTypeID" id="DocumentTypeID" value="<?= $documentType_RefID; ?>">
+
                 <!-- ADD NEW SETTLEMENT -->
                 <div class="tab-content px-3 pt-4 pb-2" id="nav-tabContent">
                   <div class="row">
@@ -397,6 +399,10 @@
                               <div class="col-sm-12 col-md-12 col-lg-9 p-0">
                                 <input disabled id="total_business_trip" name="total_business_trip" style="border-radius:0;"
                                   autocomplete="off" class="form-control number-without-negative">
+                              </div>
+                              <div id="totalBusinessTripMessage" class="col-sm-12 col-md-12 col-lg-9 p-0 text-red"
+                                style="margin-top: .3rem;display: none;">
+                                Total BSF cannot be empty.
                               </div>
                             </div>
                           </div>

@@ -5,14 +5,9 @@ namespace App\Http\Controllers\Process\BusinessTrip;
 use App\Http\Controllers\ExportExcel\Process\ExportReportBusinessTripSettlementSummary;
 use App\Http\Controllers\ExportExcel\Process\ExportReportBusinessTripSettlementDetail;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Input;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Session;
-use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
-use App\Helpers\ZhtHelper\System\Helper_Environment;
-use App\Helpers\ZhtHelper\Cache\Helper_Redis;
 use Maatwebsite\Excel\Facades\Excel;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Services\Process\BusinessTrip\BusinessTripSettlementService;
@@ -80,76 +75,16 @@ class BusinessTripSettlementController extends Controller
         }
     }
 
-    public function SearchBusinessTripRequest(Request $request)
-    {
-        Session::forget("SessionBusinessTripSettllementRequester");
-        Session::forget("SessionBusinessTripSettllementRequesterID");
-
-        if (Redis::get("DataListAdvance") == null) {
-            $varAPIWebToken = Session::get('SessionLogin');
-            Helper_APICall::setCallAPIGateway(
-                Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken,
-                'transaction.read.dataList.finance.getAdvance',
-                'latest',
-                [
-                    'parameter' => null,
-                    'SQLStatement' => [
-                        'pick' => null,
-                        'sort' => null,
-                        'filter' => null,
-                        'paging' => null
-                    ]
-                ],
-                false
-            );
-        }
-
-        $DataListAdvance = json_decode(
-            Helper_Redis::getValue(
-                Helper_Environment::getUserSessionID_System(),
-                "DataListAdvance"
-            ),
-            true
-        );
-
-        $collection = collect($DataListAdvance);
-
-        $budget_code = $request->input('budget_code');
-        $sub_budget_code = $request->input('sub_budget_code');
-        $requester = $request->input('requester');
-        $trano = $request->input('trano');
-
-        if ($budget_code != "") {
-            $collection = $collection->filter(function ($item) use ($budget_code) {
-                return strpos($item['combinedBudgetCode'], $budget_code) !== false;
-            });
-        }
-        if ($sub_budget_code != "") {
-            $collection = $collection->filter(function ($item) use ($sub_budget_code) {
-                return strpos($item['combinedBudgetSectionCode'], $sub_budget_code) !== false;
-            });
-        }
-        if ($requester != "") {
-            $collection = $collection->filter(function ($item) use ($requester) {
-                return strpos($item['requesterWorkerName'], $requester) !== false;
-            });
-        }
-        if ($trano != "") {
-            $collection = $collection->filter(function ($item) use ($trano) {
-                return strpos($item['documentNumber'], $trano) !== false;
-            });
-        }
-
-        return response()->json($collection->all());
-    }
-
     public function RevisionBusinessTripSettlementIndex(Request $request)
     {
         try {
             $varAPIWebToken = Session::get('SessionLogin');
             $businessTripSettlement_RefID = $request->input('bsf_number_id');
             $documentTypeRefID = $this->GetBusinessDocumentsTypeFromRedis('Person Business Trip Settlement Revision Form');
+
+            $response = $this->businessTripSettlementService->getDetail($businessTripSettlement_RefID);
+
+            dd($response);
 
             $compact = [
                 'varAPIWebToken' => $varAPIWebToken,

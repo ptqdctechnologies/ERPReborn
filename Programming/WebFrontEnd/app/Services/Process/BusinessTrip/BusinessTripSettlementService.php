@@ -25,6 +25,30 @@ class BusinessTripSettlementService
         );
     }
 
+    public function getDetail($businessTripSettlementRefID)
+    {
+        $sessionToken = Session::get('SessionLogin');
+
+        return Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
+            $sessionToken,
+            'transaction.read.dataList.humanResource.getPersonBusinessTripSettlementDetail',
+            'latest',
+            [
+                'parameter' => [
+                    'personBusinessTrip_RefID' => (int) $businessTripSettlementRefID,
+                ],
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    'filter' => null,
+                    'paging' => null
+                ]
+            ],
+            false
+        );
+    }
+
     public function create(Request $request): array
     {
         $sessionToken = Session::get('SessionLogin');

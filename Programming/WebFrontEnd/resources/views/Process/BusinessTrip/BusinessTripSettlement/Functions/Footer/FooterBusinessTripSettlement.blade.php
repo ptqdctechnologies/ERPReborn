@@ -1,5 +1,7 @@
 <script>
     const documentTypeID = document.getElementById("DocumentTypeID");
+    const businessTripID = document.getElementById("brf_id");
+    const totalBusinessTrip = document.getElementById("total_business_trip");
     let remark = document.getElementById("remark");
     let fileID = document.getElementById("dataInput_Log_FileUpload");
     let dataStore = [];
@@ -39,13 +41,6 @@
     }
 
     function getBusinessTripCostComponentEntityNew() {
-        // $components = $request->cost_component;
-
-        // foreach ($components as $id => $amount) {
-        //     // $id = id component
-        //     // $amount = value input
-        // }
-
         $.ajax({
             type: 'GET',
             url: '{!! route("getBusinessTripCostComponentEntityNew") !!}',
@@ -85,34 +80,7 @@
         });
     }
 
-    function getDetailBrf(brfID) {
-        $.ajax({
-            type: 'POST',
-            url: '{!! route("BusinessTripRequest.Detail") !!}?person_business_trip_id=' + brfID,
-            success: function (response) {
-                let businessTripRequest = response?.data ?? [];
-
-                if (businessTripRequest.length === 0) {
-                    console.log('data not found.');
-                    return;
-                }
-
-                console.log('businessTripRequest', businessTripRequest);
-
-                $("#requester_name").val(`${businessTripRequest[0].RequesterWorkerPosition} - ${businessTripRequest[0].RequesterWorkerName}`);
-            },
-            error: function (textStatus, errorThrown) {
-                console.log('error', textStatus, errorThrown);
-            }
-        });
-    }
-
-    function parseCurrency(value) {
-        const clean = value.replace(/,/g, '').trim();
-        return isNaN(parseFloat(clean)) ? 0 : parseFloat(clean);
-    }
-
-    function calculateTotalBRF() {
+    function calculateTotalBSF() {
         const ids = ['taxi', 'airplane', 'train', 'bus', 'ship', 'tol_road', 'park', 'excess_bagage', 'fuel', 'hotel', 'mess', 'guest_house'];
         let total = 0;
 
@@ -120,22 +88,36 @@
             const input = document.getElementById(id);
 
             if (input && input.value) {
-                const amount = parseCurrency(input.value);
+                const amount = Utils.parseFloatSafe(Utils.removeCommas(input.value));
                 total += amount;
             }
         });
 
-        $("#total_transport").val(currencyTotal(total));
+        const idsOther = ['allowance', 'entertainment', 'other'];
+        let totalOther = 0;
+
+        idsOther.forEach(id => {
+            const input = document.getElementById(id);
+
+            if (input && input.value) {
+                const amount = Utils.parseFloatSafe(Utils.removeCommas(input.value));
+                totalOther += amount;
+            }
+        });
+
+        $("#total_transport").val(Utils.formatCurrency(total));
+        $("#total_business_trip").val(Utils.formatCurrency(total + totalOther));
+        ErrorHandler.hideErrorInputMessage("#total_business_trip", "#totalBusinessTripMessage");
     }
 
     function initializeBSFCalculation() {
-        const ids = ['taxi', 'airplane', 'train', 'bus', 'ship', 'tol_road', 'park', 'excess_bagage', 'fuel', 'hotel', 'mess', 'guest_house'];
+        const ids = ['taxi', 'airplane', 'train', 'bus', 'ship', 'tol_road', 'park', 'excess_bagage', 'fuel', 'hotel', 'mess', 'guest_house', 'allowance', 'entertainment', 'other'];
 
         ids.forEach(id => {
             const input = document.getElementById(id);
 
             if (input) {
-                input.addEventListener('input', calculateTotalBRF);
+                input.addEventListener('input', calculateTotalBSF);
             }
         });
     }
@@ -218,21 +200,86 @@
         });
     }
 
-    function validationForm() {
-        dataStore = getCostComponentData();
-        const totalTransport = document.getElementById("total_transport");
-
-        $("#travel_fares_modal_summary").text(totalTransport.value);
-        $('#text_total_brf_modal_summary').text('Total BSF');
-        $('#businessTripRequestFormModal').modal('show');
-    }
-
     function SubmitForm() {
         $('#businessTripRequestFormModal').modal('hide');
         commentWorkflow();
     }
 
-    function getWorkflow(combinedBudgetRefID) {
+    function validationForm() {
+        const isBusinessTripIDNotEmpty = businessTripID.value.trim() !== '';
+        const isTotalBusinessTripNotEmpty = totalBusinessTrip.value.trim() !== '' && totalBusinessTrip.value.trim() !== '0.00';
+        const totalTransport = document.getElementById("total_transport");
+        const totalAllowance = document.getElementById("allowance");
+        const totalEntertainment = document.getElementById("entertainment");
+        const totalOther = document.getElementById("other");
+
+        console.log('isTotalBusinessTripNotEmpty', totalBusinessTrip.value.trim());
+
+        if (isBusinessTripIDNotEmpty && isTotalBusinessTripNotEmpty) {
+            dataStore = getCostComponentData();
+
+            $("#travel_fares_modal_summary").text(totalTransport.value || '0.00');
+            $("#allowance_modal_summary").text(totalAllowance.value || '0.00');
+            $("#entertainment_modal_summary").text(totalEntertainment.value || '0.00');
+            $("#other_modal_summary").text(totalOther.value || '0.00');
+            $("#total_brf_modal_summary").text(totalBusinessTrip.value || '0.00');
+            $('#text_total_brf_modal_summary').text('Total BSF');
+            $('#businessTripRequestFormModal').modal('show');
+        } else {
+            if (!isBusinessTripIDNotEmpty && !isTotalBusinessTripNotEmpty) {
+                ErrorHandler.showErrorInputMessage("#brf_number", "#businessTripNumberMessage");
+                ErrorHandler.showErrorInputMessage("#total_business_trip", "#totalBusinessTripMessage");
+
+                return;
+            }
+            if (!isBusinessTripIDNotEmpty) {
+                ErrorHandler.showErrorInputMessage("#brf_number", "#businessTripNumberMessage");
+
+                return;
+            }
+            if (!isTotalBusinessTripNotEmpty) {
+                ErrorHandler.showErrorInputMessage("#total_business_trip", "#totalBusinessTripMessage");
+
+                return;
+            }
+        }
+    }
+
+    function getDetailBrf(brfID) {
+        $.ajax({
+            type: 'POST',
+            url: '{!! route("BusinessTripRequest.Detail") !!}?person_business_trip_id=' + brfID,
+            success: function (response) {
+                const businessTripRequest = response?.data ?? [];
+                const totalBRF = businessTripRequest.reduce((acc, item) => acc + Utils.parseFloatSafe(item.AmountCurrencyValue), 0);
+
+                if (businessTripRequest.length === 0) {
+                    console.log('data not found.');
+                    return;
+                }
+
+                console.log('businessTripRequest', businessTripRequest);
+
+                $("#brf_id").val(businessTripRequest[0].PersonBusinessTrip_RefID);
+                $("#brf_number").val(businessTripRequest[0].DocumentNumber);
+                $("#brf_number").css({ "display": "block", "background-color": "#e9ecef" });
+                $("#requester_name").val(`${businessTripRequest[0].RequesterWorkerPosition} - ${businessTripRequest[0].RequesterWorkerName}`);
+                $("#total_business_trip_request").val(Utils.formatCurrency(totalBRF));
+
+                ErrorHandler.hideErrorInputMessage("#brf_number", "#businessTripNumberMessage");
+
+                $("#myBusinessTripRequestTrigger").show();
+                $("#loadingBudget").hide();
+            },
+            error: function (textStatus, errorThrown) {
+                console.log('error', textStatus, errorThrown);
+                $("#myBusinessTripRequestTrigger").show();
+                $("#loadingBudget").hide();
+            }
+        });
+    }
+
+    function getWorkflow(combinedBudgetRefID, businessTripRequestId, businessTripRequestNumber) {
         $.ajax({
             type: 'POST',
             data: {
@@ -241,28 +288,42 @@
             },
             url: '{!! route("GetWorkflow") !!}',
             success: function (response) {
-                console.log('response', response);
+                // if (response.status == 200) {
+                // $("#brf_id").val(businessTripRequestId);
+                // $("#brf_number").val(businessTripRequestNumber);
+                // $("#brf_number").css({ "display": "block", "background-color": "#e9ecef" });
+
+                getDetailBrf(businessTripRequestId);
+                // } else {
+                //     $("#myBusinessTripRequestTrigger").show();
+                //     $("#loadingBudget").hide();
+
+                //     ErrorHandler.notifToast(
+                //         'error',
+                //         'You are not included in this budget',
+                //         'Error!'
+                //     );
+                // }
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log('jqXHR, textStatus, errorThrown', jqXHR, textStatus, errorThrown);
                 Swal.fire("Error", "Data Error", "error");
 
-                $("#loadingBudget").css({ "display": "none" });
-                $("#myBusinessTripRequest").css({ "display": "block" });
+                $("#myBusinessTripRequestTrigger").show();
+                $("#loadingBudget").hide();
             }
         });
     }
 
     $('#table_brf').on('click', 'tbody tr', async function () {
         const sysId = $(this).find('input[data-trigger="sys_id_brf"]').val();
+        const sysBudgetId = $(this).find('input[data-trigger="sys_id_budget"]').val();
         const sysText = $(this).find('td:nth-child(2)').text();
 
-        $("#brf_id").val(sysId);
-        $("#brf_number").val(sysText);
-        $("#brf_number").css({ "display": "block", "background-color": "#e9ecef" });
+        $("#myBusinessTripRequestTrigger").hide();
+        $("#loadingBudget").show();
 
-        // getWorkflow(sysId);
-        getDetailBrf(sysId);
+        getWorkflow(sysBudgetId, sysId, sysText);
 
         $("#myBusinessTripRequest").modal('toggle');
     });
