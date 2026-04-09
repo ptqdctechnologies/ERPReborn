@@ -84,6 +84,9 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::post('EditWarehouse', 'Register\Warehouse\WarehouseController@EditWarehouse')->name('Warehouse.EditWarehouse');
     Route::resource('Warehouse', 'Register\Warehouse\WarehouseController');
 
+    // SUPPLIER
+    Route::resource('Supplier', 'Master\SupplierController');
+
     // PRODUCT
     Route::resource('Product', 'Master\ProductController');
     // Route::resource('Product', 'Register\Product\ProductController');
@@ -132,10 +135,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::resource('BusinessDocumentType', 'Register\BusinessDocumentTypeController');
     //BusinessDocumentVersion
     Route::resource('BusinessDocumentVersion', 'Register\BusinessDocumentVersionController');
-    //Supplier
-    Route::get('Supplier', 'Register\OTHER\SupplierController@supplier')->name('supplier.index');
-    Route::get('addSupplier', 'Register\OTHER\SupplierController@addSupplier')->name('supplier.addSupplier');
-    Route::post('revisionSupplier', 'Register\OTHER\SupplierController@revisionSupplier')->name('supplier.revisionSupplier');
+
     // Budget
     Route::post('RevisionModifyBudget', 'Budget\BudgetController@RevisionModifyBudget')->name('Budget.RevisionModifyBudget');
     Route::get('ModifyBudget', 'Budget\BudgetController@ModifyBudget')->name('Budget.ModifyBudget');
