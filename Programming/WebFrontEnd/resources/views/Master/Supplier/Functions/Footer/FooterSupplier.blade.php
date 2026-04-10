@@ -1,10 +1,8 @@
 <script>
-    const params = new URLSearchParams(window.location.search);
-
-    function getDataProducts() {
+    function getDataSuppliers() {
         $.ajax({
             type: 'GET',
-            url: '{!! route("getProduct") !!}',
+            url: '{!! route("getSupplier") !!}',
             beforeSend: function () {
                 $('#loading-table').show();
             },
@@ -12,17 +10,17 @@
                 $('#loading-table').hide();
             },
             success: function (response) {
-                let products = response?.data?.data ?? [];
+                const suppliers = response ?? [];
 
-                if (products.length === 0) {
-                    $('#table_product tbody').empty();
+                if (suppliers.length === 0) {
+                    $('#table_supplier tbody').empty();
                     return;
                 }
 
-                $('#table_product').DataTable({
+                $('#table_supplier').DataTable({
                     destroy: true,
                     processing: true,
-                    data: products,
+                    data: suppliers,
                     deferRender: true,
                     scrollCollapse: true,
                     scroller: true,
@@ -42,12 +40,12 @@
                         {
                             data: 'name',
                             defaultContent: '-',
-                            className: "align-middle text-wrap"
+                            className: "align-middle text-nowrap"
                         },
                         {
-                            data: 'quantityUnitName',
+                            data: 'address',
                             defaultContent: '-',
-                            className: "align-middle"
+                            className: "align-middle text-wrap"
                         },
                         {
                             data: null,
@@ -69,14 +67,12 @@
                 });
             },
             error: function (textStatus, errorThrown) {
-                $('#table_product tbody').empty();
+                $('#table_supplier tbody').empty();
             }
         });
     }
 
     $(document).ready(function () {
-        if (params.get("var") == 1) {
-            getDataProducts();
-        }
+        getDataSuppliers();
     });
 </script>

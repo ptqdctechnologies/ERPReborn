@@ -84,6 +84,9 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::post('EditWarehouse', 'Register\Warehouse\WarehouseController@EditWarehouse')->name('Warehouse.EditWarehouse');
     Route::resource('Warehouse', 'Register\Warehouse\WarehouseController');
 
+    // SUPPLIER
+    Route::resource('Supplier', 'Master\SupplierController');
+
     // PRODUCT
     Route::resource('Product', 'Master\ProductController');
     // Route::resource('Product', 'Register\Product\ProductController');
@@ -132,10 +135,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::resource('BusinessDocumentType', 'Register\BusinessDocumentTypeController');
     //BusinessDocumentVersion
     Route::resource('BusinessDocumentVersion', 'Register\BusinessDocumentVersionController');
-    //Supplier
-    Route::get('Supplier', 'Register\OTHER\SupplierController@supplier')->name('supplier.index');
-    Route::get('addSupplier', 'Register\OTHER\SupplierController@addSupplier')->name('supplier.addSupplier');
-    Route::post('revisionSupplier', 'Register\OTHER\SupplierController@revisionSupplier')->name('supplier.revisionSupplier');
+
     // Budget
     Route::post('RevisionModifyBudget', 'Budget\BudgetController@RevisionModifyBudget')->name('Budget.RevisionModifyBudget');
     Route::get('ModifyBudget', 'Budget\BudgetController@ModifyBudget')->name('Budget.ModifyBudget');
@@ -289,10 +289,8 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::resource('AdvanceSettlement', 'Process\Advance\AdvanceSettlementController');
 
     // BUSINESS TRIP SETTLEMENT
-    Route::post('StoreValidateBusinessTripSettlement', 'Process\BusinessTrip\BusinessTripSettlementController@StoreValidateBusinessTripSettlement')->name('BusinessTripSettlement.StoreValidateBusinessTripSettlement');
-    Route::post('StoreValidateBusinessTripSettlement2', 'Process\BusinessTrip\BusinessTripSettlementController@StoreValidateBusinessTripSettlement2')->name('BusinessTripSettlement.StoreValidateBusinessTripSettlement2');
+    Route::get('GetBusinessTripSettlementList', 'Process\BusinessTrip\BusinessTripSettlementController@getBusinessTripSettlementList')->name('BusinessTripSettlement.GetBusinessTripSettlementList');
     Route::post('RevisionBusinessTripSettlementIndex', 'Process\BusinessTrip\BusinessTripSettlementController@RevisionBusinessTripSettlementIndex')->name('BusinessTripSettlement.RevisionBusinessTripSettlementIndex');
-    Route::post('SearchBusinessTripRequest', 'Process\BusinessTrip\BusinessTripSettlementController@SearchBusinessTripRequest')->name('BusinessTripSettlement.SearchBusinessTripRequest');
     Route::get('ReportBusinessTripSettlementSummary', 'Process\BusinessTrip\BusinessTripSettlementController@ReportBusinessTripSettlementSummary')->name('BusinessTripSettlement.ReportBusinessTripSettlementSummary');
     Route::post('ReportBusinessTripSettlementSummaryStore', 'Process\BusinessTrip\BusinessTripSettlementController@ReportBusinessTripSettlementSummaryStore')->name('BusinessTripSettlement.ReportBusinessTripSettlementSummaryStore');
     Route::post('PrintExportReportBusinessTripSettlementSummary', 'Process\BusinessTrip\BusinessTripSettlementController@PrintExportReportBusinessTripSettlementSummary')->name('BusinessTripSettlement.PrintExportReportBusinessTripSettlementSummary');
@@ -304,8 +302,6 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     // BUSINESS TRIP REQUEST
     Route::post('DetailBusinessTripRequest', 'Process\BusinessTrip\BusinessTripRequestController@detail')->name('BusinessTripRequest.Detail');
     Route::post('UpdatesBusinessTripRequest', 'Process\BusinessTrip\BusinessTripRequestController@UpdatesBusinessTripRequest')->name('BusinessTripRequest.UpdatesBusinessTripRequest');
-    Route::post('StoreValidateBusinessTripRequest', 'Process\BusinessTrip\BusinessTripRequestController@StoreValidateBusinessTripRequest')->name('BusinessTripRequest.StoreValidateBusinessTripRequest');
-    Route::post('StoreValidateBusinessTripRequest2', 'Process\BusinessTrip\BusinessTripRequestController@StoreValidateBusinessTripRequest2')->name('BusinessTripRequest.StoreValidateBusinessTripRequest2');
     Route::post('RevisionBusinessTripRequestIndex', 'Process\BusinessTrip\BusinessTripRequestController@RevisionBusinessTripRequestIndex')->name('BusinessTripRequest.RevisionBusinessTripRequestIndex');
     Route::get('BusinessTripRequestListData', 'Process\BusinessTrip\BusinessTripRequestController@BusinessTripRequestListData')->name('BusinessTripRequest.BusinessTripRequestListData');
     Route::get('ReportBusinessTripToBSF', 'Process\BusinessTrip\BusinessTripRequestController@ReportBusinessTripToBSF')->name('BusinessTripRequest.ReportBusinessTripToBSF');
@@ -352,8 +348,6 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::resource('Invoice', 'Finance\InvoiceController');
 
     // PURCHASE REQUISITION
-    Route::post('StoreValidatePurchaseRequisition', 'Purchase\PurchaseRequisitionController@StoreValidatePurchaseRequisition')->name('PurchaseRequisition.StoreValidatePurchaseRequisition');
-    Route::post('StoreValidatePurchaseRequisition2', 'Purchase\PurchaseRequisitionController@StoreValidatePurchaseRequisition2')->name('PurchaseRequisition.StoreValidatePurchaseRequisition2');
     Route::post('RevisionPurchaseRequest', 'Purchase\PurchaseRequisitionController@RevisionPurchaseRequest')->name('PurchaseRequisition.RevisionPurchaseRequest');
     Route::get('ReportPurchaseRequisitionDetailID/{id}', 'Purchase\PurchaseRequisitionController@ReportPurchaseRequisitionDetailID')->name('PurchaseRequisition.ReportPurchaseRequisitionDetailID');
     Route::post('PrintExportReportPurchaseRequisitionSummary', 'Purchase\PurchaseRequisitionController@PrintExportReportPurchaseRequisitionSummary')->name('PurchaseRequisition.PrintExportReportPurchaseRequisitionSummary');

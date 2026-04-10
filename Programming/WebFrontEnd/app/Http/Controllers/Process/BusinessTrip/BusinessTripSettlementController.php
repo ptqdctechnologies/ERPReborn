@@ -5,14 +5,9 @@ namespace App\Http\Controllers\Process\BusinessTrip;
 use App\Http\Controllers\ExportExcel\Process\ExportReportBusinessTripSettlementSummary;
 use App\Http\Controllers\ExportExcel\Process\ExportReportBusinessTripSettlementDetail;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Input;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Session;
-use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
-use App\Helpers\ZhtHelper\System\Helper_Environment;
-use App\Helpers\ZhtHelper\Cache\Helper_Redis;
 use Maatwebsite\Excel\Facades\Excel;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Services\Process\BusinessTrip\BusinessTripSettlementService;
@@ -30,14 +25,14 @@ class BusinessTripSettlementController extends Controller
 
     public function index(Request $request)
     {
-        $var                = $request->query('var', 0);
-        $varAPIWebToken     = Session::get('SessionLogin');
-        $documentTypeRefID  = $this->GetBusinessDocumentsTypeFromRedis('Person Business Trip Settlement Form');
+        $var = $request->query('var', 0);
+        $varAPIWebToken = Session::get('SessionLogin');
+        $documentTypeRefID = $this->GetBusinessDocumentsTypeFromRedis('Person Business Trip Settlement Form');
 
         return view('Process.BusinessTrip.BusinessTripSettlement.Transactions.CreateBusinessTripSettlement', [
-            'var'                   => $var,
-            'varAPIWebToken'        => $varAPIWebToken,
-            'documentType_RefID'    => $documentTypeRefID
+            'var' => $var,
+            'varAPIWebToken' => $varAPIWebToken,
+            'documentType_RefID' => $documentTypeRefID
         ]);
     }
 
@@ -51,93 +46,79 @@ class BusinessTripSettlementController extends Controller
             }
 
             $compact = [
-                "documentNumber"    => $response['data']['businessDocument']['documentNumber'],
-                "status"            => $response['metadata']['HTTPStatusCode'],
+                "documentNumber" => $response['data']['businessDocument']['documentNumber'],
+                "status" => $response['metadata']['HTTPStatusCode'],
                 // "status"            => $responseWorkflow['metadata']['HTTPStatusCode'],
             ];
 
             return response()->json($compact);
         } catch (\Throwable $th) {
             Log::error("Store Business Trip Settlement Function Error: " . $th->getMessage());
-            
+
             return response()->json(["status" => 500]);
         }
     }
 
-    public function SearchBusinessTripRequest(Request $request)
+    public function getBusinessTripSettlementList(Request $request)
     {
-        Session::forget("SessionBusinessTripSettllementRequester");
-        Session::forget("SessionBusinessTripSettllementRequesterID");
+        try {
+            $response = $this->businessTripSettlementService->dataPickList();
 
-        if (Redis::get("DataListAdvance") == null) {
-            $varAPIWebToken = Session::get('SessionLogin');
-            Helper_APICall::setCallAPIGateway(
-                Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken,
-                'transaction.read.dataList.finance.getAdvance',
-                'latest',
-                [
-                    'parameter' => null,
-                    'SQLStatement' => [
-                        'pick' => null,
-                        'sort' => null,
-                        'filter' => null,
-                        'paging' => null
-                    ]
-                ],
-                false
-            );
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                return response()->json($response);
+            }
+
+            return response()->json($response['data']['data']);
+        } catch (\Throwable $th) {
+            Log::error("Error at getBusinessTripList: " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
         }
-
-        $DataListAdvance = json_decode(
-            Helper_Redis::getValue(
-                Helper_Environment::getUserSessionID_System(),
-                "DataListAdvance"
-            ),
-            true
-        );
-
-        $collection = collect($DataListAdvance);
-
-        $budget_code = $request->input('budget_code');
-        $sub_budget_code = $request->input('sub_budget_code');
-        $requester = $request->input('requester');
-        $trano = $request->input('trano');
-
-        if ($budget_code != "") {
-            $collection = $collection->filter(function ($item) use ($budget_code) {
-                return strpos($item['combinedBudgetCode'], $budget_code) !== false;
-            });
-        }
-        if ($sub_budget_code != "") {
-            $collection = $collection->filter(function ($item) use ($sub_budget_code) {
-                return strpos($item['combinedBudgetSectionCode'], $sub_budget_code) !== false;
-            });
-        }
-        if ($requester != "") {
-            $collection = $collection->filter(function ($item) use ($requester) {
-                return strpos($item['requesterWorkerName'], $requester) !== false;
-            });
-        }
-        if ($trano != "") {
-            $collection = $collection->filter(function ($item) use ($trano) {
-                return strpos($item['documentNumber'], $trano) !== false;
-            });
-        }
-
-        return response()->json($collection->all());
     }
 
     public function RevisionBusinessTripSettlementIndex(Request $request)
     {
         try {
-            $varAPIWebToken                 = Session::get('SessionLogin');
-            $businessTripSettlement_RefID   = $request->input('bsf_number_id');
-            $documentTypeRefID              = $this->GetBusinessDocumentsTypeFromRedis('Person Business Trip Settlement Revision Form');
+            $varAPIWebToken = Session::get('SessionLogin');
+            $businessTripSettlement_RefID = $request->input('bsf_number_id');
+            $documentTypeRefID = $this->GetBusinessDocumentsTypeFromRedis('Person Business Trip Settlement Revision Form');
+
+            $response = $this->businessTripSettlementService->getDetail($businessTripSettlement_RefID);
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                return response()->json($response);
+            }
+
+            $dataResponse = $response['data']['data'];
+            $mappingDataSettlementDetails = array_map(function ($item) {
+                return [
+                    'Sys_ID' => $item['Sys_ID'],
+                    'AmountCurrency_RefID' => $item['AmountCurrency_RefID'],
+                    'AmountCurrencyValue' => $item['AmountCurrencyValue'],
+                    'AmountCurrencyExchangeRate' => $item['AmountCurrencyExchangeRate'],
+                    'PersonBusinessTripSequenceDetail_RefID' => $item['PersonBusinessTripSequenceDetail_RefID'],
+                    'BusinessTripCostComponentEntity_RefID' => $item['BusinessTripCostComponentEntity_RefID']
+                ];
+            }, $dataResponse);
+
+            // dd($dataResponse);
+            // dd($mappingDataSettlementDetails);
 
             $compact = [
-                'varAPIWebToken'                => $varAPIWebToken,
+                'varAPIWebToken' => $varAPIWebToken,
+                'documentType_RefID' => $documentTypeRefID,
+                'businessTripSettlementID' => $dataResponse[0]['PersonBusinessTripSettlement_RefID'],
+                'businessTripSettlementNumber' => $dataResponse[0]['DocumentNumber'],
+                'requester' => [
+                    'id' => $dataResponse[0]['RequesterWorkerJobsPosition_RefID'],
+                    'name' => $dataResponse[0]['RequesterWorkerName'],
+                    'position' => $dataResponse[0]['RequesterWorkerPosition'],
+                    'contact' => $dataResponse[0]['RequesterWorkerContact']
+                ],
+                'dataSettlementDetails' => $mappingDataSettlementDetails,
+                'remark' => $dataResponse[0]['Remarks'],
             ];
+
+            // dump($dataResponse);
 
             return view('Process.BusinessTrip.BusinessTripSettlement.Transactions.RevisionBusinessTripSettlement', $compact);
         } catch (\Throwable $th) {
@@ -149,12 +130,35 @@ class BusinessTripSettlementController extends Controller
 
     public function update(Request $request, $id)
     {
-        $input = $request->all();
-        $compact = [
-            "status" => true,
-        ];
+        try {
+            $response = $this->businessTripSettlementService->updates($request, $id);
 
-        return response()->json($compact);
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                return response()->json($response);
+            }
+
+            // $responseWorkflow = $this->workflowService->submit(
+            //     $response['data'][0]['businessDocument']['businessDocument_RefID'],
+            //     $request->workFlowPath_RefID,
+            //     $request->comment,
+            //     $request->approverEntity,
+            // );
+
+            // if ($responseWorkflow['metadata']['HTTPStatusCode'] !== 200) {
+            //     return response()->json($responseWorkflow);
+            // }
+
+            $compact = [
+                "documentNumber" => $response['data'][0]['businessDocument']['documentNumber'],
+                "status" => $response['metadata']['HTTPStatusCode'],
+                // "status" => $responseWorkflow['metadata']['HTTPStatusCode'],
+            ];
+
+            return response()->json($compact);
+        } catch (\Throwable $th) {
+            Log::error("Store Business Trip Settlement Function Error: " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
     }
 
     public function ReportBusinessTripSettlementSummary(Request $request)
@@ -166,10 +170,10 @@ class BusinessTripSettlementController extends Controller
             $dataReport = $isSubmitButton ? $request->session()->get('dataReportReportBusinessTripSettlementSummary', []) : [];
 
             $compact = [
-                'varAPIWebToken'    => $varAPIWebToken,
-                'dataReport'        => $dataReport
+                'varAPIWebToken' => $varAPIWebToken,
+                'dataReport' => $dataReport
             ];
-    
+
             return view('Process.BusinessTrip.BusinessTripSettlement.Reports.ReportBusinessTripSettlementSummary', $compact);
         } catch (\Throwable $th) {
             Log::error("ReportBusinessTripSettlementSummary Function Error at " . $th->getMessage());
@@ -177,11 +181,11 @@ class BusinessTripSettlementController extends Controller
         }
     }
 
-    public function ReportBusinessTripSettlementSummaryData($project_id, $site_id, $requester_id, $beneficiary_id, $project_name, $project_code, $site_code, $requester_name, $beneficiary_name, $site_name, $requester_position, $beneficiary_position) 
+    public function ReportBusinessTripSettlementSummaryData($project_id, $site_id, $requester_id, $beneficiary_id, $project_name, $project_code, $site_code, $requester_name, $beneficiary_name, $site_name, $requester_position, $beneficiary_position)
     {
         try {
-            $varAPIWebToken             = Session::get('SessionLogin');
-            $getReportAdvanceSummary    = null;
+            $varAPIWebToken = Session::get('SessionLogin');
+            $getReportAdvanceSummary = null;
 
             // if (!Helper_Redis::getValue($varAPIWebToken, "ReportAdvanceSummary")) {
             //     $getReportAdvanceSummary = Helper_APICall::setCallAPIGateway(
@@ -965,16 +969,16 @@ class BusinessTripSettlementController extends Controller
             $reportData = is_string($getReportAdvanceSummary) ? json_decode($getReportAdvanceSummary, true) : $getReportAdvanceSummary;
 
             $filteredData = array_filter($reportData, function ($item) use ($project_code, $site_name, $requester_name, $beneficiary_name) {
-                return 
-                    (empty($project_code)     || $item['CombinedBudgetCode'] == $project_code) &&
-                    (empty($site_name)        || $item['CombinedBudgetSectionName'] == $site_name) &&
-                    (empty($requester_name)   || $item['RequesterWorkerName'] == $requester_name) &&
+                return
+                    (empty($project_code) || $item['CombinedBudgetCode'] == $project_code) &&
+                    (empty($site_name) || $item['CombinedBudgetSectionName'] == $site_name) &&
+                    (empty($requester_name) || $item['RequesterWorkerName'] == $requester_name) &&
                     (empty($beneficiary_name) || $item['BeneficiaryWorkerName'] == $beneficiary_name);
 
-                    // (empty($project_id)     || $item['CombinedBudget_RefID'] == $project_id) &&
-                    // (empty($site_id)        || $item['CombinedBudgetSection_RefID'] == $site_id) &&
-                    // (empty($requester_id)   || $item['RequesterWorkerJobsPosition_RefID'] == $requester_id) &&
-                    // (empty($beneficiary_id) || $item['BeneficiaryWorkerJobsPosition_RefID'] == $beneficiary_id);
+                // (empty($project_id)     || $item['CombinedBudget_RefID'] == $project_id) &&
+                // (empty($site_id)        || $item['CombinedBudgetSection_RefID'] == $site_id) &&
+                // (empty($requester_id)   || $item['RequesterWorkerJobsPosition_RefID'] == $requester_id) &&
+                // (empty($beneficiary_id) || $item['BeneficiaryWorkerJobsPosition_RefID'] == $beneficiary_id);
             });
 
             // dd($project_code, $site_name, $requester_name, $beneficiary_name);
@@ -993,22 +997,22 @@ class BusinessTripSettlementController extends Controller
             }, 0);
 
             $compact = [
-                'dataDetail'            => $filteredData,
-                'budgetCode'            => $project_code,
-                'budgetName'            => $project_name,
-                'budgetId'              => $project_id,
-                'siteCode'              => $site_code,
-                'siteName'              => $site_name,
-                'siteId'                => $site_id,
-                'requesterName'         => $requester_name,
-                'requesterId'           => $requester_id,
-                'requesterPosition'     => $requester_position,
-                'beneficiaryName'       => $beneficiary_name,
-                'beneficiaryId'         => $beneficiary_id,
-                'beneficiaryPosition'   => $beneficiary_position,
-                'total'                 => $totalAdvance,
-                'totalExpense'          => $totalExpense,
-                'totalAmount'           => $totalAmount,
+                'dataDetail' => $filteredData,
+                'budgetCode' => $project_code,
+                'budgetName' => $project_name,
+                'budgetId' => $project_id,
+                'siteCode' => $site_code,
+                'siteName' => $site_name,
+                'siteId' => $site_id,
+                'requesterName' => $requester_name,
+                'requesterId' => $requester_id,
+                'requesterPosition' => $requester_position,
+                'beneficiaryName' => $beneficiary_name,
+                'beneficiaryId' => $beneficiary_id,
+                'beneficiaryPosition' => $beneficiary_position,
+                'total' => $totalAdvance,
+                'totalExpense' => $totalExpense,
+                'totalAmount' => $totalAmount,
             ];
 
             Session::put("isButtonReportReportBusinessTripSettlementSummarySubmit", true);
@@ -1021,24 +1025,24 @@ class BusinessTripSettlementController extends Controller
         }
     }
 
-    public function ReportBusinessTripSettlementSummaryStore(Request $request) 
+    public function ReportBusinessTripSettlementSummaryStore(Request $request)
     {
         try {
-            $project_code           = $request->project_code_second;
-            $project_name           = $request->project_name_second;
-            $project_id             = $request->project_id_second;
+            $project_code = $request->project_code_second;
+            $project_name = $request->project_name_second;
+            $project_id = $request->project_id_second;
 
-            $site_id                = $request->site_id_second;
-            $site_code              = $request->site_code_second;
-            $site_name              = $request->site_name_second;
-            
-            $requester_id           = $request->worker_id_second;
-            $requester_name         = $request->worker_name_second;
-            $requester_position     = $request->worker_position_second;
+            $site_id = $request->site_id_second;
+            $site_code = $request->site_code_second;
+            $site_name = $request->site_name_second;
 
-            $beneficiary_id         = $request->beneficiary_second_id;
-            $beneficiary_name       = $request->beneficiary_second_person_name;
-            $beneficiary_position   = $request->beneficiary_second_person_position;
+            $requester_id = $request->worker_id_second;
+            $requester_name = $request->worker_name_second;
+            $requester_position = $request->worker_position_second;
+
+            $beneficiary_id = $request->beneficiary_second_id;
+            $beneficiary_name = $request->beneficiary_second_person_name;
+            $beneficiary_position = $request->beneficiary_second_person_position;
 
             if (!$project_id && !$site_id && !$requester_id && !$beneficiary_id) {
                 Session::forget("isButtonReportReportBusinessTripSettlementSummarySubmit");
@@ -1052,7 +1056,7 @@ class BusinessTripSettlementController extends Controller
             if ($compact === null || empty($compact)) {
                 return redirect()->back()->with('NotFound', 'Data Not Found');
             }
-            
+
             return redirect()->route('BusinessTripSettlement.ReportBusinessTripSettlementSummary');
         } catch (\Throwable $th) {
             Log::error("ReportBusinessTripSettlementSummaryStore Error at " . $th->getMessage());
@@ -1060,7 +1064,7 @@ class BusinessTripSettlementController extends Controller
         }
     }
 
-    public function PrintExportReportBusinessTripSettlementSummary(Request $request) 
+    public function PrintExportReportBusinessTripSettlementSummary(Request $request)
     {
         try {
             $dataReport = Session::get("dataReportReportBusinessTripSettlementSummary");
@@ -1070,7 +1074,7 @@ class BusinessTripSettlementController extends Controller
             if ($project_code_second_trigger == null) {
                 Session::forget("isButtonReportReportBusinessTripSettlementSummarySubmit");
                 Session::forget("dataReportReportBusinessTripSettlementSummary");
-        
+
                 return redirect()->route('BusinessTripSettlement.ReportBusinessTripSettlementSummary')->with('NotFound', 'Budget, Sub Budget, Requester, & Beneficiary Cannot Empty');
             }
 
@@ -1080,7 +1084,7 @@ class BusinessTripSettlementController extends Controller
                     $pdf->output();
                     $dom_pdf = $pdf->getDomPDF();
 
-                    $canvas = $dom_pdf ->get_canvas();
+                    $canvas = $dom_pdf->get_canvas();
                     $width = $canvas->get_width();
                     $height = $canvas->get_height();
                     $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
@@ -1108,8 +1112,8 @@ class BusinessTripSettlementController extends Controller
             $dataReport = $isSubmitButton ? $request->session()->get('dataReportBusinessTripSettlementDetail', []) : [];
 
             $compact = [
-                'varAPIWebToken'    => $varAPIWebToken,
-                'dataReport'        => $dataReport
+                'varAPIWebToken' => $varAPIWebToken,
+                'dataReport' => $dataReport
             ];
 
             return view('Process.BusinessTrip.BusinessTripSettlement.Reports.ReportBusinessTripSettlementDetail', $compact);
@@ -1122,7 +1126,7 @@ class BusinessTripSettlementController extends Controller
     public function ReportBusinessTripSettlementDetailData($project_code, $project_name_second, $site_code, $site_name_second, $bsf_number, $bsf_id)
     {
         try {
-            $varAPIWebToken         = Session::get('SessionLogin');
+            $varAPIWebToken = Session::get('SessionLogin');
             // $getReportAdvanceDetail = Helper_APICall::setCallAPIGateway(
             //     Helper_Environment::getUserSessionID_System(),
             //     $varAPIWebToken, 
@@ -1147,15 +1151,15 @@ class BusinessTripSettlementController extends Controller
                     "0" => [
                         "document" => [
                             "header" => [
-                                "recordID"                      => "76000000000002",
-                                "title"                         => "Advance Form",
-                                "number"                        => "Adv/QDC/2022/000239",
-                                "version"                       => "0",
-                                "date"                          => "2024-12-16",
-                                "businessDocumentType_RefID"    => "77000000000057",
-                                "brfNumber"                     => "BRF-24000212",
-                                "brfDate"                       => "2024-11-16",
-                                "brfTotal"                      => '3890000'
+                                "recordID" => "76000000000002",
+                                "title" => "Advance Form",
+                                "number" => "Adv/QDC/2022/000239",
+                                "version" => "0",
+                                "date" => "2024-12-16",
+                                "businessDocumentType_RefID" => "77000000000057",
+                                "brfNumber" => "BRF-24000212",
+                                "brfDate" => "2024-11-16",
+                                "brfTotal" => '3890000'
                             ],
                             "content" => [
                                 "general" => [
@@ -1182,7 +1186,7 @@ class BusinessTripSettlementController extends Controller
                                     ],
                                     "businessDocument" => [
                                         "businessDocumentList" => [
-                                            "recordID"  => "74000000020307",
+                                            "recordID" => "74000000020307",
                                             "formBusinessDocumentNumber_RefID" => "76000000000002",
                                             "type_RefID" => "77000000000057",
                                             "typeName" => "Advance Form",
@@ -1261,15 +1265,15 @@ class BusinessTripSettlementController extends Controller
                     "1" => [
                         "document" => [
                             "header" => [
-                                "recordID"                      => "76000000000002",
-                                "title"                         => "Advance Form",
-                                "number"                        => "Adv/QDC/2022/000239",
-                                "version"                       => "0",
-                                "date"                          => "2024-12-20",
-                                "businessDocumentType_RefID"    => "77000000000057",
-                                "brfNumber"                     => "BRF-24000215",
-                                "brfDate"                       => "2024-12-01",
-                                "brfTotal"                      => '2745000'
+                                "recordID" => "76000000000002",
+                                "title" => "Advance Form",
+                                "number" => "Adv/QDC/2022/000239",
+                                "version" => "0",
+                                "date" => "2024-12-20",
+                                "businessDocumentType_RefID" => "77000000000057",
+                                "brfNumber" => "BRF-24000215",
+                                "brfDate" => "2024-12-01",
+                                "brfTotal" => '2745000'
                             ],
                             "content" => [
                                 "general" => [
@@ -1296,7 +1300,7 @@ class BusinessTripSettlementController extends Controller
                                     ],
                                     "businessDocument" => [
                                         "businessDocumentList" => [
-                                            "recordID"  => "74000000020307",
+                                            "recordID" => "74000000020307",
                                             "formBusinessDocumentNumber_RefID" => "76000000000002",
                                             "type_RefID" => "77000000000057",
                                             "typeName" => "Advance Form",
@@ -1401,15 +1405,15 @@ class BusinessTripSettlementController extends Controller
                     "2" => [
                         "document" => [
                             "header" => [
-                                "recordID"                      => "76000000000002",
-                                "title"                         => "Advance Form",
-                                "number"                        => "Adv/QDC/2022/000239",
-                                "version"                       => "0",
-                                "date"                          => "2024-12-25",
-                                "businessDocumentType_RefID"    => "77000000000057",
-                                "brfNumber"                     => "BRF-24000225",
-                                "brfDate"                       => "2024-12-07",
-                                "brfTotal"                      => '4240000'
+                                "recordID" => "76000000000002",
+                                "title" => "Advance Form",
+                                "number" => "Adv/QDC/2022/000239",
+                                "version" => "0",
+                                "date" => "2024-12-25",
+                                "businessDocumentType_RefID" => "77000000000057",
+                                "brfNumber" => "BRF-24000225",
+                                "brfDate" => "2024-12-07",
+                                "brfTotal" => '4240000'
                             ],
                             "content" => [
                                 "general" => [
@@ -1436,7 +1440,7 @@ class BusinessTripSettlementController extends Controller
                                     ],
                                     "businessDocument" => [
                                         "businessDocumentList" => [
-                                            "recordID"  => "74000000020307",
+                                            "recordID" => "74000000020307",
                                             "formBusinessDocumentNumber_RefID" => "76000000000002",
                                             "type_RefID" => "77000000000057",
                                             "typeName" => "Advance Form",
@@ -1561,15 +1565,15 @@ class BusinessTripSettlementController extends Controller
             }, 0);
 
             $compact = [
-                'dataHeader'    => $splitResponse['header'],
-                'dataDetails'   => $splitResponse['content'],
-                'budgetCode'    => $project_code, 
-                'budgetName'    => $project_name_second,
-                'siteCode'      => $site_code,
-                'siteName'      => $site_name_second,
-                'bsfNumber'     => $bsf_number,
-                'bsfId'         => $bsf_id,
-                'totalBSF'      => $totalBSF
+                'dataHeader' => $splitResponse['header'],
+                'dataDetails' => $splitResponse['content'],
+                'budgetCode' => $project_code,
+                'budgetName' => $project_name_second,
+                'siteCode' => $site_code,
+                'siteName' => $site_name_second,
+                'bsfNumber' => $bsf_number,
+                'bsfId' => $bsf_id,
+                'totalBSF' => $totalBSF
             ];
 
             Session::put("isButtonReportBusinessTripSettlementDetailSubmit", true);
@@ -1582,17 +1586,17 @@ class BusinessTripSettlementController extends Controller
         }
     }
 
-    public function ReportBusinessTripSettlementDetailStore(Request $request) 
+    public function ReportBusinessTripSettlementDetailStore(Request $request)
     {
         try {
-            $project_code           = $request->bsf_number_budget;
-            $project_name_second    = $request->bsf_number_budget_name;
+            $project_code = $request->bsf_number_budget;
+            $project_name_second = $request->bsf_number_budget_name;
 
-            $site_code              = $request->bsf_number_sub_budget;
-            $site_name_second       = $request->bsf_number_sub_budget_name;
+            $site_code = $request->bsf_number_sub_budget;
+            $site_name_second = $request->bsf_number_sub_budget_name;
 
-            $bsf_number             = $request->bsf_number_trano;
-            $bsf_id                 = $request->bsf_number_id;
+            $bsf_number = $request->bsf_number_trano;
+            $bsf_id = $request->bsf_number_id;
 
             if (!$bsf_id) {
                 Session::forget("isButtonReportBusinessTripSettlementDetailSubmit");
@@ -1614,7 +1618,7 @@ class BusinessTripSettlementController extends Controller
         }
     }
 
-    public function PrintExportReportBusinessTripSettlementDetail(Request $request) 
+    public function PrintExportReportBusinessTripSettlementDetail(Request $request)
     {
         try {
             $dataReport = Session::get("dataReportBusinessTripSettlementDetail");
@@ -1634,7 +1638,7 @@ class BusinessTripSettlementController extends Controller
                     $pdf->output();
                     $dom_pdf = $pdf->getDomPDF();
 
-                    $canvas = $dom_pdf ->get_canvas();
+                    $canvas = $dom_pdf->get_canvas();
                     $width = $canvas->get_width();
                     $height = $canvas->get_height();
                     $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));

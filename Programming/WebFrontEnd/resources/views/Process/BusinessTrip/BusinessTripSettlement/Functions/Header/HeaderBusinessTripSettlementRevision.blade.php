@@ -6,19 +6,20 @@
         <div class="col-5 d-flex">
           <div>
             <span style="border-radius:0;" class="input-group-text form-control">
-              <a href="javascript:;" id="myBusinessTripSettlement" data-toggle="modal" data-target="#" style="display: block;">
+              <a href="javascript:;" id="myBusinessTripSettlement" data-toggle="modal" data-target="#"
+                style="display: block; cursor: not-allowed;">
                 <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="myBusinessTripSettlement">
               </a>
-              
-              <div id="loadingBudget" class="spinner-border spinner-border-sm" role="status" style="display: none;">
-                <span class="sr-only">Loading...</span>
-              </div>
             </span>
           </div>
           <div style="flex: 100%;">
             <div class="input-group">
-              <input type="text" class="form-control" id="brf_number" style="border-radius:0;">
-              <input type="hidden" class="form-control" id="brf_id" style="border-radius:0;">
+              <input type="text" class="form-control" id="brf_number" readonly style="border-radius:0;"
+                value="<?= $businessTripSettlementNumber; ?>">
+              <input type="hidden" class="form-control" id="brf_id" style="border-radius:0;"
+                value="<?= $businessTripSettlementID; ?>">
+              <input type="hidden" class="form-control" id="brf_settlement_id" style="border-radius:0;"
+                value="<?= $businessTripSettlementID; ?>">
             </div>
           </div>
         </div>
@@ -30,7 +31,8 @@
         <div class="col-5 d-flex">
           <div style="flex: 100%;">
             <div class="input-group">
-              <input type="text" class="form-control" id="requester_name" readonly style="border-radius:0;">
+              <input type="text" class="form-control" id="requester_name" readonly style="border-radius:0;"
+                value="<?= $requester['position'] . ' - ' . $requester['name']; ?> ">
             </div>
           </div>
         </div>
