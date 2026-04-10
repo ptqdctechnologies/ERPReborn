@@ -2,6 +2,7 @@
 @section('main')
     @include('Partials.navbar')
     @include('Partials.sidebar')
+    @include('getFunction.getBankLists')
     @include('Master.Supplier.Functions.PopUp.PopUpSupplierCategory')
     @include('Master.Supplier.Functions.PopUp.PopUpSupplierSpecialization')
 
@@ -137,4 +138,5 @@
     </div>
 
     @include('Partials.footer')
+    @include('Master.Supplier.Functions.Footer.FooterCreateSupplier')
 @endsection
