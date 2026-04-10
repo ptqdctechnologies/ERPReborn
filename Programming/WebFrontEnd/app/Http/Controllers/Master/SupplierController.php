@@ -17,9 +17,11 @@ class SupplierController extends Controller
     {
         $varAPIWebToken = Session::get('SessionLogin');
 
-        return view('Master.Supplier.Transactions.CreateSupplier', [
+        $compact = [
             'varAPIWebToken' => $varAPIWebToken
-        ]);
+        ];
+
+        return view('Master.Supplier.Transactions.CreateSupplier', $compact);
     }
 
     public function store(Request $request)
