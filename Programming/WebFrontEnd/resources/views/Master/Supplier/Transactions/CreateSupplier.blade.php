@@ -3,6 +3,9 @@
     @include('Partials.navbar')
     @include('Partials.sidebar')
     @include('getFunction.getBankLists')
+    @include('getFunction.getCountries')
+    @include('getFunction.getProvincies')
+    @include('getFunction.getCities')
     @include('Master.Supplier.Functions.PopUp.PopUpSupplierCategory')
     @include('Master.Supplier.Functions.PopUp.PopUpSupplierSpecialization')
 

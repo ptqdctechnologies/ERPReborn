@@ -269,12 +269,12 @@
                               </div>
                             </div>
 
-                            <!-- ACCOMMODATION, ENTERTAINMENT, OTHER COLUMN -->
+                            <!-- ALLOWANCE, ENTERTAINMENT, OTHER COLUMN -->
                             <div class="col-md-12 col-lg-2">
-                              <!-- ACCOMMODATION -->
+                              <!-- ALLOWANCE -->
                               <div class="row" style="margin-bottom: 1rem;">
                                 <div class="col-12 p-0" style="font-size: 0.9rem; font-weight: bold; margin-bottom: 1rem;">
-                                  Accommodation
+                                  Allowance
                                 </div>
                                 <div class="col-12 col-sm-12 col-md-12 col-lg-8 p-0">
                                   <input id="allowance" style="border-radius:0;" autocomplete="off"
