@@ -565,131 +565,53 @@ class PurchaseOrderController extends Controller
 
     public function ReportPOtoDO(Request $request)
     {
-        try {
-            $varAPIWebToken = Session::get('SessionLogin');
-            $isSubmitButton = $request->session()->get('isButtonReportPOtoDOSubmit');
+        $documentTypeRefID = $this->GetBusinessDocumentsTypeFromRedis('Purchase Order Form');
+        $sessionOrganizationalDepartmentName = Session::get('SessionOrganizationalDepartmentName');
+        $sessionOrganizationalJobPositionName = Session::get('SessionOrganizationalJobPositionName');
 
-            $dataReport = $isSubmitButton ? $request->session()->get('dataReportPOtoDO', []) : [];
+        $compact = [
+            'documentTypeRefID' => $documentTypeRefID,
+            'sessionOrganizationalDepartmentName' => $sessionOrganizationalDepartmentName,
+            'sessionOrganizationalJobPositionName' => $sessionOrganizationalJobPositionName
+        ];
 
-            $compact = [
-                'varAPIWebToken' => $varAPIWebToken,
-                'dataReport' => $dataReport
-            ];
-
-            return view('Purchase.PurchaseOrder.Reports.ReportPOtoDO', $compact);
-        } catch (\Throwable $th) {
-            Log::error("ReportPOtoDO Function Error at " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
-        }
-    }
-
-    public function ReportPOtoDOData($project_id, $site_id, $project_name, $project_code, $site_code)
-    {
-        try {
-            $varAPIWebToken = Session::get('SessionLogin');
-            $getReportPOtoDO = null;
-
-            // if (!Helper_Redis::getValue($varAPIWebToken, "ReportAdvanceSummary")) {
-            //     $getReportAdvanceSummary = Helper_APICall::setCallAPIGateway(
-            //         Helper_Environment::getUserSessionID_System(),
-            //         $varAPIWebToken,
-            //         'report.form.documentForm.finance.getReportAdvanceSummary',
-            //         'latest',
-            //         [
-            //             'parameter' => [
-            //                 'dataFilter' => [
-            //                     'budgetID' => 1,
-            //                     'subBudgetID' => 1,
-            //                     'workID' => 1,
-            //                     'productID' => 1,
-            //                     'beneficiaryID' => 1,
-            //                 ]
-            //             ]
-            //         ],
-            //         false
-            //     );
-            // } else {
-            //     $getReportAdvanceSummary = Helper_Redis::getValue($varAPIWebToken, "ReportAdvanceSummary");
-            // }
-
-            // DUMMY DATA
-            $getReportPOtoDO = [
-                [
-
-                    "DocumentNumber" => "PO01-24000082",
-                    "DocumentDateTimeTZ" => "2024-12-05 00:00:00+07",
-                    "TotalAdvance" => "2024-12-09 00:00:00+07",
-                    "TotalExpenseClaimCart" => "100.00",
-                    "TotalAmountDueToCompanyCart" => "DO01-2400001",
-                    "Sys_ID" => 76000000000054,
-                    "CombinedBudgetCode" => "Q000062",
-                    "CombinedBudgetName" => "XL Microcell 2007",
-                    "CombinedBudgetSectionCode" => "235",
-                    "CombinedBudgetSectionName" => "Ampang Kuranji - Padang",
-                    "RequesterWorkerJobsPosition_RefID" => 164000000000023,
-                    "RequesterWorkerName" => "Adhe Kurniawan",
-                    "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
-                    "BeneficiaryWorkerName" => "Batu Split 2/3",
-                    "CurrencyName" => "IDR",
-                    "Product_ID" => 88000000000527,
-                    "CombinedBudget_RefID" => 46000000000033,
-                    "CombinedBudgetSection_RefID" => 143000000000305,
-                    "remark" => "",
-                    "DepartingFrom" => "Jakarta",
-                    "DestinationTo" => "Batam",
-                    "Description" => "111003-0000"
-                ],
-
-            ];
-
-            $reportData = is_string($getReportPOtoDO) ? json_decode($getReportPOtoDO, true) : $getReportPOtoDO;
-
-            // $filteredData = array_filter($reportData, function ($item) use ($project_id, $site_id, $requester_id, $beneficiary_id) {
-            //     return 
-            //         (empty($project_id)     || $item['CombinedBudget_RefID'] == $project_id) &&
-            //         (empty($site_id)        || $item['CombinedBudgetSection_RefID'] == $site_id) &&
-            //         (empty($requester_id)   || $item['RequesterWorkerJobsPosition_RefID'] == $requester_id) &&
-            //         (empty($beneficiary_id) || $item['BeneficiaryWorkerJobsPosition_RefID'] == $beneficiary_id);
-            // });
-
-            // $totalAdvance = array_reduce($filteredData, function ($carry, $item) {
-            // $totalAdvance = array_reduce($reportData, function ($carry, $item) {
-            //     return $carry + ($item['TotalAdvance'] ?? 0);
-            // }, 0);
-
-            // $totalExpense = array_reduce($reportData, function ($carry, $item) {
-            //     return $carry + ($item['TotalExpenseClaimCart'] ?? 0);
-            // }, 0);
-
-            // $totalAmount = array_reduce($reportData, function ($carry, $item) {
-            //     return $carry + ($item['TotalAmountDueToCompanyCart'] ?? 0);
-            // }, 0);
-
-            $compact = [
-                // 'dataDetail'        => $filteredData,
-                'dataDetail' => $reportData,
-                'budgetCode' => $project_code,
-                'budgetName' => $project_name,
-                'siteCode' => $site_code,
-                'requesterName' => "",
-                'beneficiaryName' => "",
-                'total' => 0,
-                'totalExpense' => 0,
-                'totalAmount' => 0,
-            ];
-
-            Session::put("isButtonReportPOtoDOSubmit", true);
-            Session::put("dataReportPOtoDO", $compact);
-
-            return $compact;
-        } catch (\Throwable $th) {
-            Log::error("ReportPOtoDOData Error at " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
-        }
+        return view('Purchase.PurchaseOrder.Reports.ReportPOtoDO', $compact);
     }
 
     public function ReportPOtoDOStore(Request $request)
     {
+        try {
+            $date = $request->poToDoDate;
+            $budget = $request->budget_code;
+            $subBudget = $request->site_code;
+
+            $response = $this->purchaseOrderService->getPurchaseOrderToDeliveryOrder(
+                $budget,
+                $subBudget,
+                $date,
+            );
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                throw new \Exception('Failed to fetch Purchase Order To Delivery Order Report');
+            }
+
+            $compact = [
+                'status' => $response['metadata']['HTTPStatusCode'],
+                'data' => $response['data']['data']
+            ];
+
+            return response()->json($compact);
+        } catch (\Throwable $th) {
+            Log::error("Report Purchase Order To Delivery Order Store Function Error:" . $th->getMessage());
+
+            $compact = [
+                'status' => 500,
+                'message' => $th->getMessage()
+            ];
+
+            return response()->json($compact);
+        }
+
         try {
             $project_code = $request->project_code_second;
             $project_name = $request->project_name_second;
