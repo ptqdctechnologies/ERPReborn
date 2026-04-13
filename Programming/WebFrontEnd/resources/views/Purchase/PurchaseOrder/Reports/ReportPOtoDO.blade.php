@@ -77,7 +77,7 @@
                                                             Product</th>
                                                         <th
                                                             style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
-                                                            Qty</th>
+                                                            PO Qty</th>
                                                         <th
                                                             style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
                                                             DO Number</th>
@@ -95,7 +95,7 @@
                                                             Transporter</th>
                                                         <th
                                                             style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
-                                                            Qty</th>
+                                                            DO Qty</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody></tbody>

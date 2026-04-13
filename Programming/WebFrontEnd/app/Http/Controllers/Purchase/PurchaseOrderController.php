@@ -611,98 +611,40 @@ class PurchaseOrderController extends Controller
 
             return response()->json($compact);
         }
-
-        try {
-            $project_code = $request->project_code_second;
-            $project_name = $request->project_name_second;
-            $project_id = $request->project_id_second;
-
-            $site_id = $request->site_id_second;
-            $site_code = $request->site_code_second;
-
-            // $requester_id       = $request->worker_id_second;
-            // $requester_name     = $request->worker_name_second;
-
-            // $beneficiary_id     = $request->beneficiary_second_id;
-            // $beneficiary_name   = $request->beneficiary_second_person_name;
-
-            // dd($project_code, $project_name);
-
-            $errors = [];
-
-            if (!$project_id) {
-                $errors[] = 'Budget';
-            }
-            if (!$site_id) {
-                $errors[] = 'Sub Budget';
-            }
-            // if (!$requester_id) {
-            //     $errors[] = 'Requester';
-            // }
-            // if (!$beneficiary_id) {
-            //     $errors[] = 'Beneficiary';
-            // }
-
-            if (!empty($errors)) {
-                $message = implode(', ', $errors) . ' Cannot Be Empty';
-            }
-
-            if (isset($message)) {
-                Session::forget("isButtonReportPOtoDOSubmit");
-                Session::forget("dataReportPOtoDO");
-
-                return redirect()->route('PurchaseOrder.ReportPOtoDO')->with('NotFound', $message);
-            }
-
-            $compact = $this->ReportPOtoDOData($project_id, $site_id, $project_name, $project_code, $site_code);
-            // dd($compact);
-            if ($compact === null || empty($compact)) {
-                return redirect()->back()->with('NotFound', 'Data Not Found');
-            }
-
-            return redirect()->route('PurchaseOrder.ReportPOtoDO');
-        } catch (\Throwable $th) {
-            Log::error("ReportPOtoDOStore Error at " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
-        }
     }
 
     public function PrintExportReportPOtoDO(Request $request)
     {
         try {
-            $dataReport = Session::get("dataReportPOtoDO");
-            $print_type = $request->print_type;
-            $project_code_second_trigger = $request->project_code_second_trigger;
+            $type = $request->printType;
+            $dataPurchaseOrder = json_decode($request->dataReport, true);
 
-            if ($project_code_second_trigger == null) {
-                Session::forget("isButtonReportPOtoDOSubmit");
-                Session::forget("dataReportPOtoDO");
+            if ($dataPurchaseOrder) {
+                if ($type === "PDF") {
+                    $pdf = PDF::loadView('Purchase.PurchaseOrder.Reports.ReportPOtoDO_pdf', ['dataReport' => $dataPurchaseOrder])
+                        ->setPaper('a4', 'landscape');
 
-                return redirect()->route('PurchasOrder.ReportPOtoDO')->with('NotFound', 'Budget, & Sub Budget Cannot Empty');
-            }
-
-            if ($dataReport) {
-                if ($print_type === "PDF") {
-                    $pdf = PDF::loadView('Purchase.PurchaseOrder.Reports.ReportPOtoDO_pdf', ['dataReport' => $dataReport])->setPaper('a4', 'landscape');
                     $pdf->output();
                     $dom_pdf = $pdf->getDomPDF();
-
                     $canvas = $dom_pdf->get_canvas();
                     $width = $canvas->get_width();
                     $height = $canvas->get_height();
                     $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
                     $canvas->page_text(34, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
 
-                    return $pdf->download('Export Report PO to DO.pdf');
+                    return $pdf->download('Export Report Purchase Order to Account Payable.pdf');
+                } else if ($type === "EXCEL") {
+                    return Excel::download(new ExportReportPOtoDO($dataPurchaseOrder), 'Export Report PO to DO.xlsx');
                 } else {
-                    return Excel::download(new ExportReportPOtoDO, 'Export Report PO to DO.xlsx');
+                    throw new \Exception('Failed to Export Report Purchase Order to Delivery Order');
                 }
             } else {
-                return redirect()->route('PurchaseOrder.ReportPOtoDO')->with('NotFound', 'Budget, & Sub Budget Cannot Empty');
+                throw new \Exception('Purchase Order to Delivery Order Data is Empty');
             }
         } catch (\Throwable $th) {
-            Log::error("PrintExportReportPOtoDO Error at " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
+            Log::error("Print Export Report Purchase Order to Delivery Order Function Error: " . $th->getMessage());
+
+            return response()->json(['statusCode' => 400]);
         }
     }
 

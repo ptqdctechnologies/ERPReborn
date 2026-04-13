@@ -87,36 +87,6 @@
                 $('#table_container').css("display", "block");
 
                 HideLoading();
-
-                // if (response.status === 200 && response.data[0]) {
-                //     data = response.data;
-                //     dataReport = JSON.stringify(response.data);
-
-                //     filteredData = [...data];
-                //     currentPage = 1;
-                //     sortColumn = null;
-                //     sortOrder = 'asc';
-
-                //     renderPage();
-                //     renderPagination();
-
-                //     $('#table_container').css("display", "block");
-                // } else {
-                //     data = [];
-                //     dataReport = [];
-
-                //     filteredData = [...data];
-                //     currentPage = '-';
-                //     sortColumn = null;
-                //     sortOrder = 'asc';
-
-                //     renderPage();
-                //     renderPagination();
-
-                //     $('#table_container').css("display", "block");
-                // }
-
-                // HideLoading();
             },
             error: function (xhr, status, error) {
                 HideLoading();
@@ -129,11 +99,13 @@
     function exportDataReport() {
         ShowLoading();
 
+        console.log('printType', printType.value);
+
         $.ajax({
             type: 'POST',
             url: '{!! route("PurchaseOrder.PrintExportReportPOtoDO") !!}',
             data: {
-                dataReport,
+                dataReport: JSON.stringify(dataReport),
                 // budgetName: budgetName.value,
                 // receivedName: receivedName.value,
                 // deliveryFromName: deliveryFromName.value,
