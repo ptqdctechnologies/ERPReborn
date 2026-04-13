@@ -50,7 +50,7 @@
                 <div class="col-5 d-flex">
                     <div>
                         <span style="border-radius:0;" class="input-group-text form-control">
-                            <a href="javascript:;" id="countryTrigger">
+                            <a href="javascript:;" id="myCountryTrigger" data-toggle="modal" data-target="#myCountries">
                                 <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13"
                                     alt="countryTrigger">
                             </a>
@@ -60,8 +60,8 @@
                         <div class="input-group">
                             <input id="country_name" class="form-control" readonly name="country_name"
                                 style="border-radius:0; background-color: white;">
-                            <input id="bank_name_second_id" class="form-control" name="bank_code" hidden
-                                style="border-radius:0;">
+                            <input id="country_id" class="form-control" hidden name="country_id"
+                                style="border-radius:0; background-color: white;">
                         </div>
                     </div>
                 </div>
@@ -73,7 +73,7 @@
                 <div class="col-5 d-flex">
                     <div>
                         <span style="border-radius:0;" class="input-group-text form-control">
-                            <a href="javascript:;" id="provinceTrigger">
+                            <a href="javascript:;" id="provinceTrigger" data-toggle="modal" data-target="#myProvincies">
                                 <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13"
                                     alt="provinceTrigger">
                             </a>
@@ -96,7 +96,7 @@
                 <div class="col-5 d-flex">
                     <div>
                         <span style="border-radius:0;" class="input-group-text form-control">
-                            <a href="javascript:;" id="cityTrigger">
+                            <a href="javascript:;" id="cityTrigger" data-toggle="modal" data-target="#myCities">
                                 <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="cityTrigger">
                             </a>
                         </span>

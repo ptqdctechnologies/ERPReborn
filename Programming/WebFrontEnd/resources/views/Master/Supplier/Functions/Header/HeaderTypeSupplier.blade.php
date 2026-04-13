@@ -10,8 +10,7 @@
                     <select class="form-control" id="legal_entity" name="legal_entity" style="border-radius:0;"
                         type="text">
                         <option disabled selected>Select a Legal Entity</option>
-                        <option>PT (Perseroan Terbatas)</option>style="margin-top:
-                        1rem;"
+                        <option>PT (Perseroan Terbatas)</option>
                         <option>CV (Commanditaire Vennootschap)</option>
                         <option>Koperasi</option>
                         <option>Yayasan</option>
