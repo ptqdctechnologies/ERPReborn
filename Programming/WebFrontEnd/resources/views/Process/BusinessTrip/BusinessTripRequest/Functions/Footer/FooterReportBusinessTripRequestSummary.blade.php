@@ -60,7 +60,7 @@
 
         $.ajax({
             type: 'POST',
-            url: '{!! route("PurchaseOrder.ReportPurchaseOrderSummaryStore") !!}',
+            url: '{!! route("BusinessTripRequest.ReportBusinessTripRequestSummaryStore") !!}',
             data: {
                 budget_code: budgetCode.value,
                 site_code: subBudgetCode.value,
@@ -70,7 +70,92 @@
             },
             dataType: 'json',
             success: function (response) {
+                let data = (response.status === 200 && response.data[0]) ? response.data : [];
+                dataReport = data;
 
+                let totalBRF = data.reduce((total, row) => {
+                    return total +
+                        Utils.parseFloatSafe(row.totalTravelFares || 0) +
+                        Utils.parseFloatSafe(row.totalAllowance || 0) +
+                        Utils.parseFloatSafe(row.totalEntertainment || 0) +
+                        Utils.parseFloatSafe(row.totalOther || 0);
+                }, 0);
+
+                $('#table_summary').DataTable({
+                    destroy: true,
+                    data: data,
+                    deferRender: true,
+                    scrollCollapse: true,
+                    scroller: true,
+                    columns: [
+                        {
+                            data: null,
+                            render: function (data, type, row, meta) {
+                                return (meta.row + 1);
+                            }
+                        },
+                        {
+                            data: 'brfNumber',
+                            defaultContent: '-'
+                        },
+                        {
+                            data: null,
+                            className: "text-nowrap",
+                            render: function (data, type, row, meta) {
+                                return `${data.combinedBudgetSectionCode || ''} - ${data.combinedBudgetSectionName || ''}`;
+                            }
+                        },
+                        {
+                            data: 'departurePoint',
+                            defaultContent: '-'
+                        },
+                        {
+                            data: 'destinationPoint',
+                            defaultContent: '-'
+                        },
+                        {
+                            data: 'brfDate',
+                            defaultContent: '-'
+                        },
+                        {
+                            data: 'currencyISOCode',
+                            defaultContent: '-'
+                        },
+                        {
+                            data: null,
+                            defaultContent: '-'
+                        },
+                        {
+                            data: null,
+                            defaultContent: '-'
+                        },
+                        {
+                            data: null,
+                            defaultContent: '-',
+                            render: function (data, type, row, meta) {
+                                return Utils.formatCurrency(Utils.parseFloatSafe(
+                                    (data.totalTravelFares || 0) +
+                                    (data.totalAllowance || 0) +
+                                    (data.totalEntertainment || 0) +
+                                    (data.totalOther || 0)
+                                ));
+                            }
+                        },
+                        {
+                            data: 'remarks',
+                            className: "text-wrap",
+                            defaultContent: '-'
+                        }
+                    ],
+                    drawCallback: function (settings) {
+                        $('#table_summary tfoot th:nth-child(2)').text(Utils.formatCurrency(totalBRF));
+                    }
+                });
+
+                $('#table_summary').css("width", "100%");
+                $('#table_container').css("display", "block");
+
+                HideLoading();
             },
             error: function (xhr, status, error) {
                 HideLoading();

@@ -66,9 +66,6 @@
                                                         Date</th>
                                                     <th
                                                         style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
-                                                        Total</th>
-                                                    <th
-                                                        style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
                                                         Currency</th>
                                                     <th
                                                         style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
@@ -78,10 +75,7 @@
                                                         Beneficiary</th>
                                                     <th
                                                         style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
-                                                        Direct to Vendor</th>
-                                                    <th
-                                                        style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
-                                                        By Corp Card</th>
+                                                        Total</th>
                                                     <th
                                                         style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
                                                         Remark</th>
@@ -90,13 +84,13 @@
                                             <tbody></tbody>
                                             <tfoot>
                                                 <tr>
-                                                    <th colspan="6"
+                                                    <th colspan="9"
                                                         style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">
                                                         GRAND TOTAL</th>
                                                     <th
                                                         style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">
                                                     </th>
-                                                    <th colspan="6"
+                                                    <th
                                                         style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">
                                                     </th>
                                                 </tr>
