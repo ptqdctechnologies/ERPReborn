@@ -93,45 +93,51 @@ class AdvanceRequestController extends Controller
                 throw new \Exception('Failed to fetch Detail Advance Request');
             }
 
-            $dataAdvanceDetail = $response['data']['data'];
+            $details = $response['data']['data'] ?? [];
+            $header = $details[0] ?? [];
 
             $compact = [
                 'varAPIWebToken' => $varAPIWebToken,
                 'documentTypeRefID' => $documentTypeRefID,
-                'advance_RefID' => $dataAdvanceDetail[0]['advance_RefID'] ?? '',
+                'advance_RefID' => $header['advance_RefID'] ?? '',
                 'headerAdvanceRevision' => [
-                    'budgetCode' => $dataAdvanceDetail[0]['combinedBudgetCode'] ?? '',
-                    'budgetCodeId' => $dataAdvanceDetail[0]['combinedBudget_RefID'] ?? '',
-                    'budgetCodeName' => $dataAdvanceDetail[0]['combinedBudgetName'] ?? '',
-                    'subBudgetCode' => $dataAdvanceDetail[0]['combinedBudgetSectionCode'] ?? '',
-                    'subBudgetCodeId' => $dataAdvanceDetail[0]['combinedBudgetSection_RefID'] ?? '',
-                    'subBudgetCodeName' => $dataAdvanceDetail[0]['combinedBudgetSectionName'] ?? '',
+                    'budgetCode' => $header['combinedBudgetCode'] ?? '',
+                    'budgetCodeId' => $header['combinedBudget_RefID'] ?? '',
+                    'budgetCodeName' => $header['combinedBudgetName'] ?? '',
+                    'subBudgetCode' => $header['combinedBudgetSectionCode'] ?? '',
+                    'subBudgetCodeId' => $header['combinedBudgetSection_RefID'] ?? '',
+                    'subBudgetCodeName' => $header['combinedBudgetSectionName'] ?? '',
                 ],
                 'headerAdvanceRequestDetail' => [
-                    'requesterPosition' => $dataAdvanceDetail[0]['requesterWorkerJobPositionName'] ?? '',
-                    'requesterId' => $dataAdvanceDetail[0]['requesterWorkerJobsPosition_RefID'] ?? '',
-                    'requesterName' => $dataAdvanceDetail[0]['requesterWorkerName'] ?? '',
-                    'beneficiaryPosition' => $dataAdvanceDetail[0]['beneficiaryWorkerJobsPositionName'] ?? '',
-                    'beneficiaryId' => $dataAdvanceDetail[0]['beneficiaryWorkerJobsPosition_RefID'] ?? '',
-                    'beneficiaryName' => $dataAdvanceDetail[0]['beneficiaryWorkerName'] ?? '',
-                    'person_RefId' => $dataAdvanceDetail[0]['person_RefID'] ?? '',
-                    'bankAcronym' => $dataAdvanceDetail[0]['beneficiaryBankAcronym'] ?? '',
-                    'bankId' => $dataAdvanceDetail[0]['beneficiaryBank_RefID'] ?? '',
-                    'bankName' => $dataAdvanceDetail[0]['beneficiaryBankName'] ?? '',
-                    'bankAccountNumber' => $dataAdvanceDetail[0]['beneficiaryBankAccountNumber'] ?? '',
-                    'bankAccountId' => $dataAdvanceDetail[0]['beneficiaryBankAccount_RefID'] ?? '',
-                    'bankAccountName' => $dataAdvanceDetail[0]['beneficiaryBankAccountName'] ?? '',
+                    'requesterPosition' => $header['requesterWorkerJobPositionName'] ?? '',
+                    'requesterId' => $header['requesterWorkerJobsPosition_RefID'] ?? '',
+                    'requesterName' => $header['requesterWorkerName'] ?? '',
+                    'beneficiaryPosition' => $header['beneficiaryWorkerJobsPositionName'] ?? '',
+                    'beneficiaryId' => $header['beneficiaryWorkerJobsPosition_RefID'] ?? '',
+                    'beneficiaryName' => $header['beneficiaryWorkerName'] ?? '',
+                    'person_RefId' => $header['person_RefID'] ?? '',
+                    'bankAcronym' => $header['beneficiaryBankAcronym'] ?? '',
+                    'bankId' => $header['beneficiaryBank_RefID'] ?? '',
+                    'bankName' => $header['beneficiaryBankName'] ?? '',
+                    'bankAccountNumber' => $header['beneficiaryBankAccountNumber'] ?? '',
+                    'bankAccountId' => $header['beneficiaryBankAccount_RefID'] ?? '',
+                    'bankAccountName' => $header['beneficiaryBankAccountName'] ?? '',
                 ],
-                'dataAdvanceList' => $dataAdvanceDetail,
-                'fileAttachment' => $dataAdvanceDetail[0]['log_FileUpload_Pointer_RefID'] ?? null,
-                'remark' => $dataAdvanceDetail[0]['remarks'] ?? ''
+                'dataAdvanceList' => $details,
+                'fileAttachment' => $header['log_FileUpload_Pointer_RefID'] ?? null,
+                'remark' => $header['remarks'] ?? ''
             ];
 
             return view('Process.Advance.AdvanceRequest.Transactions.RevisionAdvanceRequest', $compact);
         } catch (\Throwable $th) {
-            Log::error("Revision Advance Index Function Error: " . $th->getMessage());
+            Log::error('Revision Advance Index Error', [
+                'message' => $th->getMessage(),
+                'advanceRefId' => $request->input('modal_advance_id')
+            ]);
 
-            return redirect()->route('AdvanceRequest.index', ['var' => 1])->with('NotFound', 'Process Error');
+            return redirect()
+                ->route('AdvanceRequest.index', ['var' => 1])
+                ->with('NotFound', 'Data cannot be displayed at this time. Please try again.');
         }
     }
 
