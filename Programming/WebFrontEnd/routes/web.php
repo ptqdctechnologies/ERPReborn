@@ -136,7 +136,8 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     //BusinessDocumentVersion
     Route::resource('BusinessDocumentVersion', 'Register\BusinessDocumentVersionController');
 
-    // Budget
+    // BUDGET
+    Route::post('BudgetPickList', 'Budget\BudgetController@BudgetPickList')->name('Budget.BudgetPickList');
     Route::post('RevisionModifyBudget', 'Budget\BudgetController@RevisionModifyBudget')->name('Budget.RevisionModifyBudget');
     Route::get('ModifyBudget', 'Budget\BudgetController@ModifyBudget')->name('Budget.ModifyBudget');
     Route::post('RevisionBudget', 'Budget\BudgetController@RevisionBudget')->name('Budget.RevisionBudget');
@@ -150,7 +151,8 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::post('PrintExportReportModifyBudgetDetail', 'Budget\BudgetController@PrintExportReportModifyBudgetDetail')->name('Budget.PrintExportReportModifyBudgetDetail');
     Route::post('BudgetImport', 'Budget\BudgetController@Import')->name('Budget.Import');
     Route::get('BudgetDownload', 'Budget\BudgetController@Download')->name('Budget.Download');
-    Route::resource('Budget', 'Budget\BudgetController');
+    Route::resource('Budget', 'Budget\BudgetController')->only(['index', 'store']);
+
     // Budget Expense
     Route::get('BudgetExpense/GetBudget', 'BudgetExpenseController@GetBudget')->name('BudgetExpense.GetBudget');
     Route::resource('BudgetExpense', 'BudgetExpenseController');
