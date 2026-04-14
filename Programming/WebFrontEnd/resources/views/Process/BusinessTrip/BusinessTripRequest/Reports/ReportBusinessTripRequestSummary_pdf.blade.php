@@ -86,13 +86,13 @@
           </table>
         </td>
 
-        <!-- BENEFICIARY -->
+        <!-- DATE RANGE -->
         <td style="width: 350px;">
           <table>
             <tr>
               <td style="width: 75px; height: 20px;">
                 <div style="font-size: 14px; font-weight: bold; line-height: 14px;">
-                  Beneficiary
+                  Date Range
                 </div>
               </td>
               <td style="width: 5px;">
@@ -155,11 +155,6 @@
         </td>
         <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
           <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-            Beneficiary
-          </div>
-        </td>
-        <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
             Total
           </div>
         </td>
@@ -214,11 +209,6 @@
         <td>
           <div style="margin-top: 4px; font-size: 12px;">
             <?= $data['currencyISOCode'] ?? '-'; ?>
-          </div>
-        </td>
-        <td>
-          <div style="margin-top: 4px; font-size: 12px;">
-            <?= '-'; ?>
           </div>
         </td>
         <td>
