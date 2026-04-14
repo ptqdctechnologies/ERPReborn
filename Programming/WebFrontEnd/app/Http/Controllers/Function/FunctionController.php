@@ -71,49 +71,6 @@ class FunctionController extends Controller
         return response()->json($varDataProject['data']['data']);
     }
 
-    //FUNCTION PROJECT (MODIFIED)
-    public function getNewProject(Request $request)
-    {
-        $varAPIWebToken = Session::get('SessionLogin');
-        $varGetRedisNewProject = [];
-
-        if (!Redis::get("getNewProject")) {
-            $varDataProject = Helper_APICall::setCallAPIGateway(
-                Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken,
-                'dataPickList.project.getProject',
-                'latest',
-                [
-                    'parameter' => null
-                ],
-                false
-            );
-
-            if (isset($varDataProject['data']['data']) && is_array($varDataProject['data']['data'])) {
-                $dataAPIProject = $varDataProject['data']['data'];
-
-                $varGetRedisNewProject = $this->syncDataWithRedis(
-                    $varAPIWebToken,
-                    "getNewProject",
-                    $dataAPIProject,
-                    86400
-                );
-            } else {
-                return response()->json(['error' => 'Invalid API response'], 500);
-            }
-        } else {
-            $varGetRedisNewProject = json_decode(
-                Helper_Redis::getValue(
-                    Helper_Environment::getUserSessionID_System(),
-                    "getNewProject"
-                ),
-                true
-            );
-        }
-
-        return response()->json($varGetRedisNewProject);
-    }
-
     // FUNCTION SITE PROJECT
     public function getSite(Request $request)
     {

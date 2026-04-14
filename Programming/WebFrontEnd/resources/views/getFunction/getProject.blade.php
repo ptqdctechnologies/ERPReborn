@@ -1,5 +1,6 @@
-@if ( request()->is('Invoice') || request()->is('DeliveryOrder') || request()->is('ReportPOtoAP') || request()->is('ReportInvoiceToCN') ||request()->is('ReportRemToDN') || (request()->is('Reimbursement') || request()->is('ReportDebitNoteSummary') || request()->is('ReportCNtoDN') ||request()->is('ReportAccountPayableSummary') || request()->is('ReportMaterialReceiveSummary') ||request()->is('ReportLoantoLoanSettlement') ||request()->is('ReportLoanSettlementSummary') ||request()->is('ReportCreditNoteSummary') ||request()->is('ReportReimbursementSummary') ||request()->is('ReportLoanSummary') ||request()->is('ReportBusinessTripRequestSummary') ||request()->is('ReportPRtoPO') ||request()->is('ReportDeliveryOrderSummary') || request()->is('ReportPurchaseOrderSummary') || request()->is('ReportPurchaseRequisitionSummary') || request()->is('ReportBusinessTripRequestDetail') || request()->is('ReportBusinessTripSettlementSummary') || request()->is('ReportBusinessTripSettlementDetail') || request()->is('ReportAdvanceSettlementSummary') || request()->is('ReportAdvanceSettlementDetail') || request()->is('BusinessTripRequest') || request()->is('AdvanceRequest') || request()->is('ReportAdvanceToASF') || request()->is('ReportBusinessTripToBSF') || request()->is('PurchaseRequisition') || request()->is('ReportMatReturnSummary') || request()->is('ReportPOtoDO') || request()->is('ReportDOToMaterialReceive')) )
-    <div id="myProjectSecond" class="modal fade" role="dialog" aria-labelledby="contohModalScrollableTitle" aria-hidden="true">
+@if (request()->is('Invoice') || request()->is('DeliveryOrder') || request()->is('ReportPOtoAP') || request()->is('ReportInvoiceToCN') || request()->is('ReportRemToDN') || (request()->is('Reimbursement') || request()->is('ReportDebitNoteSummary') || request()->is('ReportCNtoDN') || request()->is('ReportAccountPayableSummary') || request()->is('ReportMaterialReceiveSummary') || request()->is('ReportLoantoLoanSettlement') || request()->is('ReportLoanSettlementSummary') || request()->is('ReportCreditNoteSummary') || request()->is('ReportReimbursementSummary') || request()->is('ReportLoanSummary') || request()->is('ReportBusinessTripRequestSummary') || request()->is('ReportPRtoPO') || request()->is('ReportDeliveryOrderSummary') || request()->is('ReportPurchaseOrderSummary') || request()->is('ReportPurchaseRequisitionSummary') || request()->is('ReportBusinessTripRequestDetail') || request()->is('ReportBusinessTripSettlementSummary') || request()->is('ReportBusinessTripSettlementDetail') || request()->is('ReportAdvanceSettlementSummary') || request()->is('ReportAdvanceSettlementDetail') || request()->is('BusinessTripRequest') || request()->is('AdvanceRequest') || request()->is('ReportAdvanceToASF') || request()->is('ReportBusinessTripToBSF') || request()->is('PurchaseRequisition') || request()->is('ReportMatReturnSummary') || request()->is('ReportPOtoDO') || request()->is('ReportDOToMaterialReceive')))
+    <div id="myProjectSecond" class="modal fade" role="dialog" aria-labelledby="contohModalScrollableTitle"
+        aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -24,7 +25,8 @@
                                         <tfoot>
                                             <tr class="loadingGetProjectSecond">
                                                 <td colspan="3" class="p-0" style="height: 22rem;">
-                                                    <div class="d-flex flex-column justify-content-center align-items-center py-3">
+                                                    <div
+                                                        class="d-flex flex-column justify-content-center align-items-center py-3">
                                                         <div class="spinner-border" role="status">
                                                             <span class="sr-only">Loading...</span>
                                                         </div>
@@ -36,8 +38,10 @@
                                             </tr>
                                             <tr class="errorProjectMessageContainerSecond">
                                                 <td colspan="3" class="p-0" style="height: 22rem;">
-                                                    <div class="d-flex flex-column justify-content-center align-items-center py-3">
-                                                        <div id="errorProjectMessageSecond" class="mt-3 text-red" style="font-size: 1rem; font-weight: 700;"></div>
+                                                    <div
+                                                        class="d-flex flex-column justify-content-center align-items-center py-3">
+                                                        <div id="errorProjectMessageSecond" class="mt-3 text-red"
+                                                            style="font-size: 1rem; font-weight: 700;"></div>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -68,17 +72,17 @@
 
             var keys = 0;
             $.ajax({
-                type: 'GET',
-                url: '{!! route("getNewProject") !!}',
-                success: function(data) {
+                type: 'POST',
+                url: '{!! route("Budget.BudgetPickList") !!}',
+                success: function (data) {
                     $(".loadingGetProjectSecond").hide();
-                    
+
                     var no = 1;
                     var table = $('#tableGetProjectSecond').DataTable();
                     table.clear();
 
-                    if (Array.isArray(data) && data.length > 0) {
-                        $.each(data, function(key, val) {
+                    if (Array.isArray(data.data) && data.data.length > 0) {
+                        $.each(data.data, function (key, val) {
                             keys += 1;
                             table.row.add([
                                 '<input id="sys_id_project_second' + keys + '" value="' + val.sys_ID + '" data-trigger="sys_id_project_second" type="hidden">' + no++,
@@ -110,12 +114,12 @@
             });
         }
 
-        $(window).one('load', function(e) {
+        $(window).one('load', function (e) {
             getProjectSecond();
         });
 
-        $('#tableGetProjectSecond').on('click', 'tbody tr', function() {
-            var sysId       = $(this).find('input[data-trigger="sys_id_project_second"]').val();
+        $('#tableGetProjectSecond').on('click', 'tbody tr', function () {
+            var sysId = $(this).find('input[data-trigger="sys_id_project_second"]').val();
             var projectCode = $(this).find('td:nth-child(2)').text();
             var projectName = $(this).find('td:nth-child(3)').text();
 
@@ -128,7 +132,7 @@
             $('#myProjectSecond').modal('hide');
         });
     </script>
-@else 
+@else
     <div id="myProject" class="modal fade" role="dialog" aria-labelledby="contohModalScrollableTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
@@ -168,8 +172,8 @@
             }
         });
 
-        $(function() {
-            $('.myProject').one('click', function(e) {
+        $(function () {
+            $('.myProject').one('click', function (e) {
                 e.preventDefault();
 
                 var keys = 0;
@@ -177,11 +181,11 @@
                 $.ajax({
                     type: 'GET',
                     url: '{!! route("getProject") !!}',
-                    success: function(data) {
+                    success: function (data) {
                         var no = 1;
                         var t = $('#tableGetProject').DataTable();
                         t.clear();
-                        $.each(data, function(key, val) {
+                        $.each(data, function (key, val) {
                             keys += 1;
                             t.row.add([
                                 '<tbody><tr><input id="sys_id_budget' + keys + '" value="' + val.sys_ID + '" type="hidden"><td>' + no++ + '</td>',

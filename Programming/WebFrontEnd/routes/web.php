@@ -179,7 +179,6 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
 
     // FUNCTION
     Route::get('getProject', 'Function\FunctionController@getProject')->name('getProject');
-    Route::get('getNewProject', 'Function\FunctionController@getNewProject')->name('getNewProject');
     Route::get('getPurchaseRequisitionByBudgetID', 'Function\FunctionController@getPurchaseRequisitionByBudgetID')->name('getPurchaseRequisitionByBudgetID');
     Route::get('getSite', 'Function\FunctionController@getSite')->name('getSite');
     Route::get('getNewSite', 'Function\FunctionController@getNewSite')->name('getNewSite');
