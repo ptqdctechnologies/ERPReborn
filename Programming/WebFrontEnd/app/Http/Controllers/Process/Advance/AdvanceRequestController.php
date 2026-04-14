@@ -9,12 +9,10 @@ use App\Http\Controllers\ExportExcel\AdvanceRequest\ExportReportAdvanceSummary;
 use App\Http\Controllers\ExportExcel\AdvanceToASF\ExportReportAdvanceToASF;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Session;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
 use App\Helpers\ZhtHelper\System\Helper_Environment;
-use App\Helpers\ZhtHelper\Cache\Helper_Redis;
 use App\Services\Process\Advance\AdvanceRequestService;
 use App\Services\WorkflowService;
 use Carbon\Carbon;
@@ -25,8 +23,8 @@ class AdvanceRequestController extends Controller
 
     public function __construct(AdvanceRequestService $advanceRequestService, WorkflowService $workflowService)
     {
-        $this->advanceRequestService    = $advanceRequestService;
-        $this->workflowService          = $workflowService;
+        $this->advanceRequestService = $advanceRequestService;
+        $this->workflowService = $workflowService;
     }
 
     // +--------------------------------------------------------------------------------------------------------------------------+
@@ -36,14 +34,14 @@ class AdvanceRequestController extends Controller
     // INDEX FUNCTION
     public function index(Request $request)
     {
-        $var                = $request->query('var', 0);
-        $varAPIWebToken     = Session::get('SessionLogin');
-        $documentTypeRefID  = $this->GetBusinessDocumentsTypeFromRedis('Advance Form');
+        $var = $request->query('var', 0);
+        $varAPIWebToken = Session::get('SessionLogin');
+        $documentTypeRefID = $this->GetBusinessDocumentsTypeFromRedis('Advance Form');
 
         return view('Process.Advance.AdvanceRequest.Transactions.CreateAdvanceRequest', [
-            'var'                   => $var,
-            'varAPIWebToken'        => $varAPIWebToken,
-            'documentType_RefID'    => $documentTypeRefID
+            'var' => $var,
+            'varAPIWebToken' => $varAPIWebToken,
+            'documentType_RefID' => $documentTypeRefID
         ]);
     }
 
@@ -69,8 +67,8 @@ class AdvanceRequestController extends Controller
             }
 
             $compact = [
-                "documentNumber"    => $response['data']['businessDocument']['documentNumber'],
-                "status"            => $responseWorkflow['metadata']['HTTPStatusCode'],
+                "documentNumber" => $response['data']['businessDocument']['documentNumber'],
+                "status" => $responseWorkflow['metadata']['HTTPStatusCode'],
             ];
 
             return response()->json($compact);
@@ -82,7 +80,8 @@ class AdvanceRequestController extends Controller
     }
 
     // CALCULATE TOTAL
-    public function calculateTotal($filteredData, $key) {
+    public function calculateTotal($filteredData, $key)
+    {
         return array_reduce($filteredData, function ($carry, $item) use ($key) {
             return $carry + ($item[$key] ?? 0);
         }, 0);
@@ -92,9 +91,9 @@ class AdvanceRequestController extends Controller
     public function RevisionAdvanceIndex(Request $request)
     {
         try {
-            $varAPIWebToken     = Session::get('SessionLogin');
-            $advance_RefID      = $request->input('modal_advance_id');
-            $documentTypeRefID  = $this->GetBusinessDocumentsTypeFromRedis('Advance Revision Form');
+            $varAPIWebToken = Session::get('SessionLogin');
+            $advance_RefID = $request->input('modal_advance_id');
+            $documentTypeRefID = $this->GetBusinessDocumentsTypeFromRedis('Advance Revision Form');
 
             $response = $this->advanceRequestService->getDetail($advance_RefID);
 
@@ -105,35 +104,35 @@ class AdvanceRequestController extends Controller
             $dataAdvanceDetail = $response['data']['data'];
 
             $compact = [
-                'varAPIWebToken'                => $varAPIWebToken,
-                'documentTypeRefID'             => $documentTypeRefID,
-                'advance_RefID'                 => $dataAdvanceDetail[0]['advance_RefID'] ?? '', 
-                'headerAdvanceRevision'         => [
-                    'budgetCode'                => $dataAdvanceDetail[0]['combinedBudgetCode'] ?? '',
-                    'budgetCodeId'              => $dataAdvanceDetail[0]['combinedBudget_RefID'] ?? '', 
-                    'budgetCodeName'            => $dataAdvanceDetail[0]['combinedBudgetName'] ?? '',
-                    'subBudgetCode'             => $dataAdvanceDetail[0]['combinedBudgetSectionCode'] ?? '',
-                    'subBudgetCodeId'           => $dataAdvanceDetail[0]['combinedBudgetSection_RefID'] ?? '', 
-                    'subBudgetCodeName'         => $dataAdvanceDetail[0]['combinedBudgetSectionName'] ?? '',
+                'varAPIWebToken' => $varAPIWebToken,
+                'documentTypeRefID' => $documentTypeRefID,
+                'advance_RefID' => $dataAdvanceDetail[0]['advance_RefID'] ?? '',
+                'headerAdvanceRevision' => [
+                    'budgetCode' => $dataAdvanceDetail[0]['combinedBudgetCode'] ?? '',
+                    'budgetCodeId' => $dataAdvanceDetail[0]['combinedBudget_RefID'] ?? '',
+                    'budgetCodeName' => $dataAdvanceDetail[0]['combinedBudgetName'] ?? '',
+                    'subBudgetCode' => $dataAdvanceDetail[0]['combinedBudgetSectionCode'] ?? '',
+                    'subBudgetCodeId' => $dataAdvanceDetail[0]['combinedBudgetSection_RefID'] ?? '',
+                    'subBudgetCodeName' => $dataAdvanceDetail[0]['combinedBudgetSectionName'] ?? '',
                 ],
-                'headerAdvanceRequestDetail'    => [
-                    'requesterPosition'         => $dataAdvanceDetail[0]['requesterWorkerJobPositionName'] ?? '', 
-                    'requesterId'               => $dataAdvanceDetail[0]['requesterWorkerJobsPosition_RefID'] ?? '', 
-                    'requesterName'             => $dataAdvanceDetail[0]['requesterWorkerName'] ?? '', 
-                    'beneficiaryPosition'       => $dataAdvanceDetail[0]['beneficiaryWorkerJobsPositionName'] ?? '', 
-                    'beneficiaryId'             => $dataAdvanceDetail[0]['beneficiaryWorkerJobsPosition_RefID'] ?? '', 
-                    'beneficiaryName'           => $dataAdvanceDetail[0]['beneficiaryWorkerName'] ?? '', 
-                    'person_RefId'              => $dataAdvanceDetail[0]['person_RefID'] ?? '',
-                    'bankAcronym'               => $dataAdvanceDetail[0]['beneficiaryBankAcronym'] ?? '', 
-                    'bankId'                    => $dataAdvanceDetail[0]['beneficiaryBank_RefID'] ?? '', 
-                    'bankName'                  => $dataAdvanceDetail[0]['beneficiaryBankName'] ?? '', 
-                    'bankAccountNumber'         => $dataAdvanceDetail[0]['beneficiaryBankAccountNumber'] ?? '', 
-                    'bankAccountId'             => $dataAdvanceDetail[0]['beneficiaryBankAccount_RefID'] ?? '', 
-                    'bankAccountName'           => $dataAdvanceDetail[0]['beneficiaryBankAccountName'] ?? '', 
+                'headerAdvanceRequestDetail' => [
+                    'requesterPosition' => $dataAdvanceDetail[0]['requesterWorkerJobPositionName'] ?? '',
+                    'requesterId' => $dataAdvanceDetail[0]['requesterWorkerJobsPosition_RefID'] ?? '',
+                    'requesterName' => $dataAdvanceDetail[0]['requesterWorkerName'] ?? '',
+                    'beneficiaryPosition' => $dataAdvanceDetail[0]['beneficiaryWorkerJobsPositionName'] ?? '',
+                    'beneficiaryId' => $dataAdvanceDetail[0]['beneficiaryWorkerJobsPosition_RefID'] ?? '',
+                    'beneficiaryName' => $dataAdvanceDetail[0]['beneficiaryWorkerName'] ?? '',
+                    'person_RefId' => $dataAdvanceDetail[0]['person_RefID'] ?? '',
+                    'bankAcronym' => $dataAdvanceDetail[0]['beneficiaryBankAcronym'] ?? '',
+                    'bankId' => $dataAdvanceDetail[0]['beneficiaryBank_RefID'] ?? '',
+                    'bankName' => $dataAdvanceDetail[0]['beneficiaryBankName'] ?? '',
+                    'bankAccountNumber' => $dataAdvanceDetail[0]['beneficiaryBankAccountNumber'] ?? '',
+                    'bankAccountId' => $dataAdvanceDetail[0]['beneficiaryBankAccount_RefID'] ?? '',
+                    'bankAccountName' => $dataAdvanceDetail[0]['beneficiaryBankAccountName'] ?? '',
                 ],
-                'dataAdvanceList'               => $dataAdvanceDetail,
-                'fileAttachment'                => $dataAdvanceDetail[0]['log_FileUpload_Pointer_RefID'] ?? null, 
-                'remark'                        => $dataAdvanceDetail[0]['remarks'] ?? '' 
+                'dataAdvanceList' => $dataAdvanceDetail,
+                'fileAttachment' => $dataAdvanceDetail[0]['log_FileUpload_Pointer_RefID'] ?? null,
+                'remark' => $dataAdvanceDetail[0]['remarks'] ?? ''
             ];
 
             return view('Process.Advance.AdvanceRequest.Transactions.RevisionAdvanceRequest', $compact);
@@ -165,8 +164,8 @@ class AdvanceRequestController extends Controller
             }
 
             $compact = [
-                "documentNumber"    => $response['data'][0]['businessDocument']['documentNumber'],
-                "status"            => $responseWorkflow['metadata']['HTTPStatusCode'],
+                "documentNumber" => $response['data'][0]['businessDocument']['documentNumber'],
+                "status" => $responseWorkflow['metadata']['HTTPStatusCode'],
             ];
 
             return response()->json($compact);
@@ -183,23 +182,23 @@ class AdvanceRequestController extends Controller
         try {
 
             // if (Redis::get("DataListAdvance") == null) {
-                $varAPIWebToken = Session::get('SessionLogin');
-                $DataListAdvance = Helper_APICall::setCallAPIGateway(
-                    Helper_Environment::getUserSessionID_System(),
-                    $varAPIWebToken,
-                    'transaction.read.dataList.finance.getAdvance',
-                    'latest',
-                    [
-                        'parameter' => null,
-                        'SQLStatement' => [
-                            'pick' => null,
-                            'sort' => null,
-                            'filter' => null,
-                            'paging' => null
-                        ]
-                    ],
-                    false
-                );
+            $varAPIWebToken = Session::get('SessionLogin');
+            $DataListAdvance = Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken,
+                'transaction.read.dataList.finance.getAdvance',
+                'latest',
+                [
+                    'parameter' => null,
+                    'SQLStatement' => [
+                        'pick' => null,
+                        'sort' => null,
+                        'filter' => null,
+                        'paging' => null
+                    ]
+                ],
+                false
+            );
             // }
 
             // $DataListAdvance = json_decode(
@@ -239,14 +238,14 @@ class AdvanceRequestController extends Controller
 
     public function ReportAdvanceSummary(Request $request)
     {
-        $documentTypeRefID                      = $this->GetBusinessDocumentsTypeFromRedis('Advance Form');
-        $sessionOrganizationalDepartmentName    = Session::get('SessionOrganizationalDepartmentName');
-        $sessionOrganizationalJobPositionName   = Session::get('SessionOrganizationalJobPositionName');
-        
+        $documentTypeRefID = $this->GetBusinessDocumentsTypeFromRedis('Advance Form');
+        $sessionOrganizationalDepartmentName = Session::get('SessionOrganizationalDepartmentName');
+        $sessionOrganizationalJobPositionName = Session::get('SessionOrganizationalJobPositionName');
+
         $compact = [
-            'documentTypeRefID'                     => $documentTypeRefID,
-            'sessionOrganizationalDepartmentName'   => $sessionOrganizationalDepartmentName,
-            'sessionOrganizationalJobPositionName'  => $sessionOrganizationalJobPositionName
+            'documentTypeRefID' => $documentTypeRefID,
+            'sessionOrganizationalDepartmentName' => $sessionOrganizationalDepartmentName,
+            'sessionOrganizationalJobPositionName' => $sessionOrganizationalJobPositionName
         ];
 
         return view('Process.Advance.AdvanceRequest.Reports.ReportAdvanceSummary', $compact);
@@ -255,21 +254,21 @@ class AdvanceRequestController extends Controller
     public function ReportAdvanceSummaryStore(Request $request)
     {
         try {
-            $date           = $request->arfDate;
-            $requester      = $request->requester_id;
-            $beneficiary    = $request->beneficiary_id;
-            $budget         = [
-                "id"        => $request->budget_id,
-                "code"      => $request->budget_code,
+            $date = $request->arfDate;
+            $requester = $request->requester_id;
+            $beneficiary = $request->beneficiary_id;
+            $budget = [
+                "id" => $request->budget_id,
+                "code" => $request->budget_code,
             ];
-            $subBudget      = [
-                "id"        => $request->site_id,
-                "code"      => $request->site_code,
+            $subBudget = [
+                "id" => $request->site_id,
+                "code" => $request->site_code,
             ];
 
             $response = $this->advanceRequestService->getAdvanceSummary(
-                $budget['code'], 
-                $subBudget['code'], 
+                $budget['code'],
+                $subBudget['code'],
                 $requester,
                 $beneficiary,
                 $date
@@ -280,17 +279,17 @@ class AdvanceRequestController extends Controller
             }
 
             $compact = [
-                'status'    => $response['metadata']['HTTPStatusCode'],
-                'data'      => $response['data']['data']
+                'status' => $response['metadata']['HTTPStatusCode'],
+                'data' => $response['data']['data']
             ];
-            
+
             return response()->json($compact);
         } catch (\Throwable $th) {
             Log::error("Report Advance Summary Store Function Error:" . $th->getMessage());
 
             $compact = [
-                'status'    => 500,
-                'message'   => $th->getMessage()
+                'status' => 500,
+                'message' => $th->getMessage()
             ];
 
             return response()->json($compact);
@@ -309,10 +308,10 @@ class AdvanceRequestController extends Controller
                         ->setPaper('a4', 'landscape');
 
                     $pdf->output();
-                    $dom_pdf    = $pdf->getDomPDF();
-                    $canvas     = $dom_pdf ->get_canvas();
-                    $width      = $canvas->get_width();
-                    $height     = $canvas->get_height();
+                    $dom_pdf = $pdf->getDomPDF();
+                    $canvas = $dom_pdf->get_canvas();
+                    $width = $canvas->get_width();
+                    $height = $canvas->get_height();
                     $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
                     $canvas->page_text(34, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
 
@@ -340,16 +339,16 @@ class AdvanceRequestController extends Controller
         $dataReport = $isSubmitButton ? $request->session()->get('AdvanceSummaryReportDetailDataPDF', []) : [];
 
         $compact = [
-            'varAPIWebToken'    => $varAPIWebToken,
-            'dataReport'        => $isSubmitButton ? true : false,
-            "dataHeader"        => $dataReport["dataHeader"] ?? null,
-            "dataContent"       => $dataReport["dataContent"] ?? null,
-            "dataDetail"        => $dataReport["dataDetail"] ?? null,
-            "dataExcel"         => $dataReport["dataExcel"] ?? null,
-            "statusDetail"      => $dataReport["statusDetail"] ?? null,
-            "advance_RefID"     => $dataReport["advance_RefID"] ?? null,
-            "advance_number"    => $dataReport["advance_number"] ?? null,
-            "statusHeader"      => $dataReport["statusHeader"] ?? null
+            'varAPIWebToken' => $varAPIWebToken,
+            'dataReport' => $isSubmitButton ? true : false,
+            "dataHeader" => $dataReport["dataHeader"] ?? null,
+            "dataContent" => $dataReport["dataContent"] ?? null,
+            "dataDetail" => $dataReport["dataDetail"] ?? null,
+            "dataExcel" => $dataReport["dataExcel"] ?? null,
+            "statusDetail" => $dataReport["statusDetail"] ?? null,
+            "advance_RefID" => $dataReport["advance_RefID"] ?? null,
+            "advance_number" => $dataReport["advance_number"] ?? null,
+            "statusHeader" => $dataReport["statusHeader"] ?? null
         ];
 
         return view('Process.Advance.AdvanceRequest.Reports.ReportAdvanceSummaryDetail', $compact);
@@ -358,13 +357,13 @@ class AdvanceRequestController extends Controller
     public function ReportAdvanceSummaryDetailData($id, $number, $statusHeader)
     {
         try {
-            
+
             $varAPIWebToken = Session::get('SessionLogin');
 
             $filteredArray = Helper_APICall::setCallAPIGateway(
                 Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'report.form.documentForm.finance.getAdvance', 
+                $varAPIWebToken,
+                'report.form.documentForm.finance.getAdvance',
                 'latest',
                 [
                     'parameter' => [
@@ -377,63 +376,63 @@ class AdvanceRequestController extends Controller
                 return redirect()->back()->with('NotFound', 'Process Error');
             }
 
-            $document           = $filteredArray['data'][0]['document'];
-            $content            = $document['content'];
-            $general            = $content['general'];
-            $budget             = $general['budget'];
-            $bankAccount        = $general['bankAccount']['beneficiary'];
-            $involvedPersons    = $general['involvedPersons'][0];
-            $itemList           = $content['details']['itemList'][0];
+            $document = $filteredArray['data'][0]['document'];
+            $content = $document['content'];
+            $general = $content['general'];
+            $budget = $general['budget'];
+            $bankAccount = $general['bankAccount']['beneficiary'];
+            $involvedPersons = $general['involvedPersons'][0];
+            $itemList = $content['details']['itemList'][0];
 
-            $varDataExcel   = [];
-            $dataHeader     = [];
-            $i              = 0;
-            $totalAdvance   = 0;
+            $varDataExcel = [];
+            $dataHeader = [];
+            $i = 0;
+            $totalAdvance = 0;
 
             foreach ($content['details']['itemList'] as $collections) {
                 $totalAdvance += $collections['entities']['priceBaseCurrencyValue'];
 
-                $varDataExcel[$i]['no']                                 = $i + 1;
-                $varDataExcel[$i]['product_RefID']                      = $collections['entities']['product_RefID'];
-                $varDataExcel[$i]['productName']                        = $collections['entities']['productName'];
-                $varDataExcel[$i]['quantity']                           = number_format($collections['entities']['quantity'], 2);
-                $varDataExcel[$i]['productUnitPriceBaseCurrencyValue']  = number_format($collections['entities']['productUnitPriceBaseCurrencyValue'], 2);
-                $varDataExcel[$i]['priceBaseCurrencyValue']             = number_format($collections['entities']['priceBaseCurrencyValue'], 2);
+                $varDataExcel[$i]['no'] = $i + 1;
+                $varDataExcel[$i]['product_RefID'] = $collections['entities']['product_RefID'];
+                $varDataExcel[$i]['productName'] = $collections['entities']['productName'];
+                $varDataExcel[$i]['quantity'] = number_format($collections['entities']['quantity'], 2);
+                $varDataExcel[$i]['productUnitPriceBaseCurrencyValue'] = number_format($collections['entities']['productUnitPriceBaseCurrencyValue'], 2);
+                $varDataExcel[$i]['priceBaseCurrencyValue'] = number_format($collections['entities']['priceBaseCurrencyValue'], 2);
 
-                $dataHeader[$i]['Product_RefID']                        = $collections['entities']['product_RefID'];
-                $dataHeader[$i]['ProductName']                          = $collections['entities']['productName'];
-                $dataHeader[$i]['Quantity']                             = $collections['entities']['quantity'];
-                $dataHeader[$i]['QuantityUnitName']                     = $collections['entities']['quantityUnitName'];
-                $dataHeader[$i]['ProductUnitPriceBaseCurrencyValue']    = $collections['entities']['productUnitPriceBaseCurrencyValue'];
-                $dataHeader[$i]['PriceBaseCurrencyValue']               = $collections['entities']['priceBaseCurrencyValue'];
+                $dataHeader[$i]['Product_RefID'] = $collections['entities']['product_RefID'];
+                $dataHeader[$i]['ProductName'] = $collections['entities']['productName'];
+                $dataHeader[$i]['Quantity'] = $collections['entities']['quantity'];
+                $dataHeader[$i]['QuantityUnitName'] = $collections['entities']['quantityUnitName'];
+                $dataHeader[$i]['ProductUnitPriceBaseCurrencyValue'] = $collections['entities']['productUnitPriceBaseCurrencyValue'];
+                $dataHeader[$i]['PriceBaseCurrencyValue'] = $collections['entities']['priceBaseCurrencyValue'];
 
                 if ($i === 0) {
-                    $dataHeader[$i]['DocumentNumber']                       = $document['header']['number'];
-                    $dataHeader[$i]['Date']                                 = $document['header']['date'];
-                    $dataHeader[$i]['ProductUnitPriceCurrencyISOCode']      = $itemList['entities']['priceCurrencyISOCode'];
-                    $dataHeader[$i]['CombinedBudgetCode']                   = $budget['combinedBudgetCodeList'][0];
-                    $dataHeader[$i]['CombinedBudgetName']                   = $budget['combinedBudgetNameList'][0];
-                    $dataHeader[$i]['CombinedBudgetSectionCode']            = $budget['combinedBudgetSectionCodeList'][0];
-                    $dataHeader[$i]['CombinedBudgetSectionName']            = $budget['combinedBudgetSectionNameList'][0];
-                    $dataHeader[$i]['Log_FileUpload_Pointer_RefID']         = $general['attachmentFiles']['main']['log_FileUpload_Pointer_RefID'];
-                    $dataHeader[$i]['RequesterWorkerName']                  = $involvedPersons['requesterWorkerName'];
-                    $dataHeader[$i]['BeneficiaryWorkerName']                = $involvedPersons['beneficiaryWorkerName'];
-                    $dataHeader[$i]['BankAcronym']                          = $bankAccount['bankAcronym'];
-                    $dataHeader[$i]['BankAccountName']                      = $bankAccount['bankAccountName'];
-                    $dataHeader[$i]['BankAccountNumber']                    = $bankAccount['bankAccountNumber'];
+                    $dataHeader[$i]['DocumentNumber'] = $document['header']['number'];
+                    $dataHeader[$i]['Date'] = $document['header']['date'];
+                    $dataHeader[$i]['ProductUnitPriceCurrencyISOCode'] = $itemList['entities']['priceCurrencyISOCode'];
+                    $dataHeader[$i]['CombinedBudgetCode'] = $budget['combinedBudgetCodeList'][0];
+                    $dataHeader[$i]['CombinedBudgetName'] = $budget['combinedBudgetNameList'][0];
+                    $dataHeader[$i]['CombinedBudgetSectionCode'] = $budget['combinedBudgetSectionCodeList'][0];
+                    $dataHeader[$i]['CombinedBudgetSectionName'] = $budget['combinedBudgetSectionNameList'][0];
+                    $dataHeader[$i]['Log_FileUpload_Pointer_RefID'] = $general['attachmentFiles']['main']['log_FileUpload_Pointer_RefID'];
+                    $dataHeader[$i]['RequesterWorkerName'] = $involvedPersons['requesterWorkerName'];
+                    $dataHeader[$i]['BeneficiaryWorkerName'] = $involvedPersons['beneficiaryWorkerName'];
+                    $dataHeader[$i]['BankAcronym'] = $bankAccount['bankAcronym'];
+                    $dataHeader[$i]['BankAccountName'] = $bankAccount['bankAccountName'];
+                    $dataHeader[$i]['BankAccountNumber'] = $bankAccount['bankAccountNumber'];
                 }
 
                 $i++;
             }
-            
+
             $compact = [
-                'dataHeader'    => $dataHeader,
-                'dataContent'   => $general,
-                'dataExcel'     => $varDataExcel,
-                'statusDetail'  => 1,
+                'dataHeader' => $dataHeader,
+                'dataContent' => $general,
+                'dataExcel' => $varDataExcel,
+                'statusDetail' => 1,
                 'advance_RefID' => $document['header']['recordID'],
-                'advance_number'=> $document['header']['number'],
-                'statusHeader'  => $statusHeader,
+                'advance_number' => $document['header']['number'],
+                'statusHeader' => $statusHeader,
             ];
 
             // dd($filteredArray['metadata']['HTTPStatusCode'], $compact);
@@ -461,7 +460,7 @@ class AdvanceRequestController extends Controller
             if ($advance_RefID == "" && $advance_number == "") {
                 Session::forget("AdvanceSummaryReportDetailDataPDF");
                 Session::forget("AdvanceSummaryReportDetailDataExcel");
-                
+
                 return redirect()->route('AdvanceRequest.ReportAdvanceSummaryDetail')->with('NotFound', 'Advance Number Cannot Empty');
             }
 
@@ -496,7 +495,7 @@ class AdvanceRequestController extends Controller
                     $pdf->output();
                     $dom_pdf = $pdf->getDomPDF();
 
-                    $canvas = $dom_pdf ->get_canvas();
+                    $canvas = $dom_pdf->get_canvas();
                     $width = $canvas->get_width();
                     $height = $canvas->get_height();
                     $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
@@ -517,14 +516,14 @@ class AdvanceRequestController extends Controller
 
     public function ReportAdvanceToASF(Request $request)
     {
-        $documentTypeRefID                      = $this->GetBusinessDocumentsTypeFromRedis('Advance Form');
-        $sessionOrganizationalDepartmentName    = Session::get('SessionOrganizationalDepartmentName');
-        $sessionOrganizationalJobPositionName   = Session::get('SessionOrganizationalJobPositionName');
-        
+        $documentTypeRefID = $this->GetBusinessDocumentsTypeFromRedis('Advance Form');
+        $sessionOrganizationalDepartmentName = Session::get('SessionOrganizationalDepartmentName');
+        $sessionOrganizationalJobPositionName = Session::get('SessionOrganizationalJobPositionName');
+
         $compact = [
-            'documentTypeRefID'                     => $documentTypeRefID,
-            'sessionOrganizationalDepartmentName'   => $sessionOrganizationalDepartmentName,
-            'sessionOrganizationalJobPositionName'  => $sessionOrganizationalJobPositionName
+            'documentTypeRefID' => $documentTypeRefID,
+            'sessionOrganizationalDepartmentName' => $sessionOrganizationalDepartmentName,
+            'sessionOrganizationalJobPositionName' => $sessionOrganizationalJobPositionName
         ];
 
         return view('Process.Advance.AdvanceToASF.Reports.ReportAdvanceToASF', $compact);
@@ -534,29 +533,29 @@ class AdvanceRequestController extends Controller
     {
         try {
             $varAPIWebToken = Session::get('SessionLogin');
-            $projectCode    = $request->project_code;
-            $siteCode       = $request->site_code;
-            $requesterID    = $request->requester_id;
-            $date           = $request->date;
+            $projectCode = $request->project_code;
+            $siteCode = $request->site_code;
+            $requesterID = $request->requester_id;
+            $date = $request->date;
 
             if ($date) {
-                $dates      = explode(' - ', $date);
-                $startDate  = Carbon::createFromFormat('m/d/Y', trim($dates[0]))->startOfDay()->format('Y-m-d');
-                $endDate    = Carbon::createFromFormat('m/d/Y', trim($dates[1]))->endOfDay()->format('Y-m-d');
+                $dates = explode(' - ', $date);
+                $startDate = Carbon::createFromFormat('m/d/Y', trim($dates[0]))->startOfDay()->format('Y-m-d');
+                $endDate = Carbon::createFromFormat('m/d/Y', trim($dates[1]))->endOfDay()->format('Y-m-d');
             }
 
             $response = Helper_APICall::setCallAPIGateway(
                 Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'report.form.documentForm.finance.getAdvanceToAdvanceSettlementSummary', 
+                $varAPIWebToken,
+                'report.form.documentForm.finance.getAdvanceToAdvanceSettlementSummary',
                 'latest',
                 [
-                    'parameter'     => [
-                        'CombinedBudgetCode'                => $projectCode ?? null,
-                        'CombinedBudgetSectionCode'         => $siteCode ?? null,
+                    'parameter' => [
+                        'CombinedBudgetCode' => $projectCode ?? null,
+                        'CombinedBudgetSectionCode' => $siteCode ?? null,
                         'RequesterWorkerJobsPosition_RefID' => $requesterID ?? null,
-                        'StartDate'                         => $date ? $startDate : NULL,
-                        'EndDate'                           => $date ? $endDate : NULL,
+                        'StartDate' => $date ? $startDate : NULL,
+                        'EndDate' => $date ? $endDate : NULL,
                     ]
                 ]
             );
@@ -566,33 +565,33 @@ class AdvanceRequestController extends Controller
             }
 
             $compact = [
-                'status'    => $response['metadata']['HTTPStatusCode'],
-                'data'      => $response['data']['data']
+                'status' => $response['metadata']['HTTPStatusCode'],
+                'data' => $response['data']['data']
             ];
 
             return response()->json($compact);
         } catch (\Throwable $th) {
             Log::error("Report Advance To Advance Settlement Store Function Error: " . $th->getMessage());
-            
+
             return response()->json(["status" => 500]);
         }
     }
-    
+
     public function PrintExportReportAdvanceToASF(Request $request)
     {
         try {
-            $type               = $request->printType;
-            $advanceToASFData   = json_decode($request->dataReport, true);
+            $type = $request->printType;
+            $advanceToASFData = json_decode($request->dataReport, true);
 
             if ($advanceToASFData) {
                 if ($type == "PDF") {
                     $pdf = PDF::loadView('Process.Advance.AdvanceToASF.Reports.ReportAdvanceToASF_pdf', [
                         'dataArftoASF' => $advanceToASFData
-                        ])->setPaper('a4', 'landscape');
+                    ])->setPaper('a4', 'landscape');
                     $pdf->output();
                     $dom_pdf = $pdf->getDomPDF();
 
-                    $canvas = $dom_pdf ->get_canvas();
+                    $canvas = $dom_pdf->get_canvas();
                     $width = $canvas->get_width();
                     $height = $canvas->get_height();
                     $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
