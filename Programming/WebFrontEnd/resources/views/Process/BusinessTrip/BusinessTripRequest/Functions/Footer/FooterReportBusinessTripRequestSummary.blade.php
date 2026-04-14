@@ -127,10 +127,6 @@
                         },
                         {
                             data: null,
-                            defaultContent: '-'
-                        },
-                        {
-                            data: null,
                             defaultContent: '-',
                             render: function (data, type, row, meta) {
                                 return Utils.formatCurrency(Utils.parseFloatSafe(
@@ -169,10 +165,10 @@
         ShowLoading();
 
         $.ajax({
-            url: '{!! route("AdvanceRequest.PrintExportReportAdvanceSummary") !!}',
+            url: '{!! route("BusinessTripRequest.PrintExportReportBusinessTripRequestSummary") !!}',
             type: 'POST',
             data: {
-                dataReport,
+                dataReport: JSON.stringify(dataReport),
                 printType: printType.value
             },
             xhrFields: {
@@ -184,9 +180,9 @@
                 link.href = window.URL.createObjectURL(blob);
 
                 if (response.type === "application/pdf") {
-                    link.download = "Export Report Advance Summary.pdf";
+                    link.download = "Export Report Business Trip Summary.pdf";
                 } else {
-                    link.download = "Export Report Advance Summary.xlsx";
+                    link.download = "Export Report Business Trip Summary.xlsx";
                 }
 
                 link.click();
@@ -231,7 +227,7 @@
         } else {
             ErrorHandler.showErrorInputMessage("#budget_name", "#budgetMessage");
             ErrorHandler.showErrorInputMessage("#requester_name", "#requesterMessage");
-            ErrorHandler.showErrorInputMessage("#beneficiary_name", "#beneficiaryMessage");
+            // ErrorHandler.showErrorInputMessage("#beneficiary_name", "#beneficiaryMessage");
             ErrorHandler.showErrorInputMessage("#business_trip_date_range", "#dateRangeMessage");
         }
     }

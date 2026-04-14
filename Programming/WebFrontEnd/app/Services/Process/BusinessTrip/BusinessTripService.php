@@ -46,7 +46,7 @@ class BusinessTripService
                     'CombinedBudgetCode' => $budget,
                     'CombinedBudgetSectionCode' => $subBudget ? $subBudget : NULL,
                     'RequesterWorkerJobsPosition_RefID' => $requester ? $requester : NULL,
-                    'BeneficiaryWorkerJobsPosition_RefID' => $beneficiary ? $beneficiary : NULL,
+                    'BeneficiaryWorkerJobsPosition_RefID' => NULL, // $beneficiary ? $beneficiary : NULL,
                     'StartDate' => $date ? $startDate : NULL,
                     'EndDate' => $date ? $endDate : NULL
                 ]
