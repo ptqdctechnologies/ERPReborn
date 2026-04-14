@@ -176,60 +176,35 @@ class AdvanceRequestController extends Controller
         }
     }
 
-    // LIST DATA FUNCTION FOR SHOW DATA ADVANCE 
-    public function AdvanceListData(Request $request)
+    public function AdvancePickList(Request $request)
     {
-        try {
+        $projectId = (int) $request->input('project_id', 0);
+        $siteId = (int) $request->input('site_id', 0);
 
-            // if (Redis::get("DataListAdvance") == null) {
-            $varAPIWebToken = Session::get('SessionLogin');
-            $DataListAdvance = Helper_APICall::setCallAPIGateway(
-                Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken,
-                'transaction.read.dataList.finance.getAdvance',
-                'latest',
-                [
-                    'parameter' => null,
-                    'SQLStatement' => [
-                        'pick' => null,
-                        'sort' => null,
-                        'filter' => null,
-                        'paging' => null
-                    ]
-                ],
-                false
-            );
-            // }
+        $response = $this->advanceRequestService->getPickList();
 
-            // $DataListAdvance = json_decode(
-            //     Helper_Redis::getValue(
-            //         Helper_Environment::getUserSessionID_System(),
-            //         "DataListAdvance"
-            //     ),
-            //     true
-            // );
+        $status = $response['metadata']['HTTPStatusCode'];
+        $data = [];
 
-            $collection = collect($DataListAdvance["data"]);
-
-            $project_id = $request->project_id;
-            $site_id = $request->site_id;
-
-            if ($project_id != "") {
-                $collection = $collection->where('combinedBudget_RefID', $project_id);
-            }
-            if ($site_id != "") {
-                $collection = $collection->where('combinedBudgetSection_RefID', $site_id);
-            }
-
-            Log::error("collection", $collection);
-
-            $collection = $collection->all();
-
-            return response()->json($collection);
-        } catch (\Throwable $th) {
-            Log::error("Error at " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
+        if ($status == 200) {
+            $data = $response['data']['data'] ?? [];
         }
+
+        if ($projectId > 0 && $siteId > 0) {
+            $data = array_filter($data, function ($item) use ($projectId, $siteId) {
+                return
+                    isset($item['combinedBudget_RefID'], $item['combinedBudgetSection_RefID']) &&
+                    is_array($item['combinedBudget_RefID']) &&
+                    is_array($item['combinedBudgetSection_RefID']) &&
+                    in_array($projectId, $item['combinedBudget_RefID']) &&
+                    in_array($siteId, $item['combinedBudgetSection_RefID']);
+            });
+        }
+
+        return response()->json([
+            'data' => array_values($data),
+            'status' => $status
+        ]);
     }
 
     // +--------------------------------------------------------------------------------------------------------------------------+

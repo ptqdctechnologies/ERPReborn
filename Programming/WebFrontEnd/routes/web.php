@@ -262,7 +262,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::resource('TaxRecon', 'Accounting\TaxReconController');
 
     // ADVANCE REQUEST
-    Route::get('AdvanceListData', 'Process\Advance\AdvanceRequestController@AdvanceListData')->name('AdvanceRequest.AdvanceListData');
+    Route::post('AdvancePickList', 'Process\Advance\AdvanceRequestController@AdvancePickList')->name('AdvanceRequest.AdvancePickList');
     Route::get('ReportAdvanceToASF', 'Process\Advance\AdvanceRequestController@ReportAdvanceToASF')->name('AdvanceRequest.ReportAdvanceToASF');
     Route::post('ReportAdvanceToASFStore', 'Process\Advance\AdvanceRequestController@ReportAdvanceToASFStore')->name('AdvanceRequest.ReportAdvanceToASFStore');
     Route::get('ReportAdvanceSummary', 'Process\Advance\AdvanceRequestController@ReportAdvanceSummary')->name('AdvanceRequest.ReportAdvanceSummary');
