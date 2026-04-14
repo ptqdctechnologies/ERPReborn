@@ -276,9 +276,9 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::resource('AdvanceRequest', 'Process\Advance\AdvanceRequestController')->only(['index', 'store']);
 
     // ADVANCE SETTLEMENT
+    Route::post('AdvanceSettlementPickList', 'Process\Advance\AdvanceSettlementController@AdvanceSettlementPickList')->name('AdvanceSettlement.AdvanceSettlementPickList');
     Route::post('RevisionAdvanceSettlementIndex', 'Process\Advance\AdvanceSettlementController@RevisionAdvanceSettlementIndex')->name('AdvanceSettlement.RevisionAdvanceSettlementIndex');
     Route::get('AdvanceSettlementDetail', 'Process\Advance\AdvanceSettlementController@AdvanceSettlementDetail')->name('AdvanceSettlement.Detail');
-    Route::get('AdvanceSettlementListData', 'Process\Advance\AdvanceSettlementController@AdvanceSettlementListData')->name('AdvanceSettlement.AdvanceSettlementListData');
     Route::get('ReportAdvanceSettlementSummary', 'Process\Advance\AdvanceSettlementController@ReportAdvanceSettlementSummary')->name('AdvanceSettlement.ReportAdvanceSettlementSummary');
     Route::post('ReportAdvanceSettlementSummaryStore', 'Process\Advance\AdvanceSettlementController@ReportAdvanceSettlementSummaryStore')->name('AdvanceSettlement.ReportAdvanceSettlementSummaryStore');
     Route::post('PrintExportReportAdvanceSettlementSummary', 'Process\Advance\AdvanceSettlementController@PrintExportReportAdvanceSettlementSummary')->name('AdvanceSettlement.PrintExportReportAdvanceSettlementSummary');
@@ -286,7 +286,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::post('ReportAdvanceSettlementDetailStore', 'Process\Advance\AdvanceSettlementController@ReportAdvanceSettlementDetailStore')->name('AdvanceSettlement.ReportAdvanceSettlementDetailStore');
     Route::post('PrintExportReportAdvanceSettlementDetail', 'Process\Advance\AdvanceSettlementController@PrintExportReportAdvanceSettlementDetail')->name('AdvanceSettlement.PrintExportReportAdvanceSettlementDetail');
     Route::post('UpdatesAdvanceSettlement', 'Process\Advance\AdvanceSettlementController@updatesAdvanceSettlement')->name('AdvanceSettlement.UpdatesAdvanceSettlement');
-    Route::resource('AdvanceSettlement', 'Process\Advance\AdvanceSettlementController');
+    Route::resource('AdvanceSettlement', 'Process\Advance\AdvanceSettlementController')->only(['index', 'store']);
 
     // BUSINESS TRIP SETTLEMENT
     Route::get('GetBusinessTripSettlementList', 'Process\BusinessTrip\BusinessTripSettlementController@getBusinessTripSettlementList')->name('BusinessTripSettlement.GetBusinessTripSettlementList');

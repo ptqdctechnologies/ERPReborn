@@ -1,5 +1,6 @@
 <!-- GET ADVANCE SETTLEMENT -->
-<div id="myGetModalAdvanceSettlement" class="modal fade" role="dialog" aria-labelledby="contohModalScrollableTitle" aria-hidden="true">
+<div id="myGetModalAdvanceSettlement" class="modal fade" role="dialog" aria-labelledby="contohModalScrollableTitle"
+    aria-hidden="true" style="z-index: 9999;">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -10,8 +11,9 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
-                            <div class="card-body table-responsive p-0" style="height: 400px;">
-                                <table class="table table-head-fixed text-nowrap" id="tableGetModalAdvanceSettlement">
+                            <div class="card-body p-0">
+                                <table class="table table-head-fixed table-responsive w-100"
+                                    id="tableGetModalAdvanceSettlement">
                                     <thead>
                                         <tr>
                                             <th>No</th>
@@ -22,22 +24,16 @@
                                     </thead>
                                     <tbody></tbody>
                                     <tfoot>
-                                        <tr class="loadingGetModalAdvanceSettlement">
+                                        <tr id="loadingGetModalAdvanceSettlement">
                                             <td colspan="4" class="p-0" style="height: 22rem;">
-                                                <div class="d-flex flex-column justify-content-center align-items-center py-3">
+                                                <div
+                                                    class="d-flex flex-column justify-content-center align-items-center py-3">
                                                     <div class="spinner-border" role="status">
                                                         <span class="sr-only">Loading...</span>
                                                     </div>
                                                     <div class="mt-3" style="font-size: 0.75rem; font-weight: 700;">
                                                         Loading...
                                                     </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr class="errorModalAdvanceSettlementMessageContainerSecond">
-                                            <td colspan="4" class="p-0" style="height: 22rem;">
-                                                <div class="d-flex flex-column justify-content-center align-items-center py-3">
-                                                    <div id="errorModalAdvanceSettlementMessageSecond" class="mt-3 text-red" style="font-size: 1rem; font-weight: 700;"></div>
                                                 </div>
                                             </td>
                                         </tr>
@@ -53,75 +49,50 @@
 </div>
 
 <script>
-    $(".errorModalAdvanceSettlementMessageContainerSecond").hide();
-
     function getModalAdvanceSettlement() {
-        $('#tableGetModalAdvanceSettlement tbody').empty();
-        $(".loadingGetModalAdvanceSettlement").show();
-        $(".errorModalAdvanceSettlementMessageContainerSecond").hide();
-
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-        
-        var keys = 0;
         $.ajax({
-            type: 'GET',
-            url: '{!! route("getAdvanceSettlement") !!}',
-            success: function(data) {
-                $(".loadingGetModalAdvanceSettlement").hide();
+            type: 'POST',
+            url: '{!! route("AdvanceSettlement.AdvanceSettlementPickList") !!}',
+        })
+            .done(function (response) {
+                let data = (response.status == 200 && response.data[0]) ? response.data : [];
 
-                var no = 1;
-                var table = $('#tableGetModalAdvanceSettlement').DataTable();
-                table.clear();
-
-                if (Array.isArray(data) && data.length > 0) {
-                    $.each(data, function(key, val) {
-                        keys += 1;
-                        table.row.add([
-                            '<input id="sys_id_modal_advance_settlement' + keys + '" value="' + val.sys_ID + '" data-trigger="sys_id_modal_advance_settlement" type="hidden">' + no++,
-                            val.sys_Text || '-',
-                            '-',
-                            '-',
-                        ]).draw();
-                    });
-
-                    $("#tableGetModalAdvanceSettlement_length").show();
-                    $("#tableGetModalAdvanceSettlement_filter").show();
-                    $("#tableGetModalAdvanceSettlement_info").show();
-                    $("#tableGetModalAdvanceSettlement_paginate").show();
-                } else {
-                    $(".errorModalAdvanceSettlementMessageContainerSecond").show();
-                    $("#errorModalAdvanceSettlementMessageSecond").text(`Data not found.`);
-
-                    $("#tableGetModalAdvanceSettlement_length").hide();
-                    $("#tableGetModalAdvanceSettlement_filter").hide();
-                    $("#tableGetModalAdvanceSettlement_info").hide();
-                    $("#tableGetModalAdvanceSettlement_paginate").hide();
-                }
-            },
-            error: function (textStatus, errorThrown) {
-                $('#tableGetModalAdvanceSettlement tbody').empty();
-                $(".loadingGetModalAdvanceSettlement").hide();
-                $(".errorModalAdvanceSettlementMessageContainerSecond").show();
-                $("#errorModalAdvanceSettlementMessageSecond").text(`[${textStatus.status}] ${textStatus.responseJSON.message}`);
-            }
-        });
+                $('#tableGetModalAdvanceSettlement').DataTable({
+                    destroy: true,
+                    data: data,
+                    deferRender: true,
+                    scrollCollapse: true,
+                    scroller: true,
+                    columns: [
+                        {
+                            data: null,
+                            render: function (data, type, row, meta) {
+                                return '<input id="sys_id_modal_advance_settlement' + (meta.row + 1) + '" value="' + data.sys_ID + '" data-trigger="sys_id_modal_advance_settlement" type="hidden">' + (meta.row + 1)
+                            }
+                        },
+                        {
+                            data: 'sys_Text',
+                            defaultContent: '-',
+                            className: "align-middle text-nowrap"
+                        },
+                        {
+                            data: 'combinedBudgetCode',
+                            defaultContent: '-',
+                            className: "align-middle text-nowrap"
+                        },
+                        {
+                            data: 'combinedBudgetName',
+                            defaultContent: '-',
+                            className: "align-middle text-nowrap"
+                        }
+                    ]
+                });
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                console.error("Error:", errorThrown);
+            })
+            .always(function (jqXHR, textStatus, errorThrown) {
+                $("#loadingGetModalAdvanceSettlement").hide();
+            });
     }
-
-    $(window).one('load', function(e) {
-        getModalAdvanceSettlement();
-    });
-
-    $('#tableGetModalAdvanceSettlement').on('click', 'tbody tr', function() {
-        var sysId           = $(this).find('input[data-trigger="sys_id_modal_advance_settlement"]').val();
-        var trano           = $(this).find('td:nth-child(2)').text();
-
-        $("#advance_settlement_id").val(sysId);
-        $("#advance_settlement_number").val(trano);
-
-        $('#myGetModalAdvanceSettlement').modal('hide');
-    });
 </script>
