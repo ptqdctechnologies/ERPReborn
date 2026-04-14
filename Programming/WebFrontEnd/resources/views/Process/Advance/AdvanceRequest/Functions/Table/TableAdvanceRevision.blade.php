@@ -17,7 +17,8 @@ if (strpos($current_url, 'ReportDORequestDetail') !== false) {
 
 ?>
 
-<div id="PopUpTableAdvanceRevision" class="modal fade" role="dialog" aria-labelledby="contohModalScrollableTitle" aria-hidden="true">
+<div id="PopUpTableAdvanceRevision" class="modal fade" role="dialog" aria-labelledby="contohModalScrollableTitle"
+    aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -53,7 +54,7 @@ if (strpos($current_url, 'ReportDORequestDetail') !== false) {
 </div>
 
 
-<script>
+<!-- <script>
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -68,7 +69,6 @@ if (strpos($current_url, 'ReportDORequestDetail') !== false) {
 
             $.ajax({
                 type: 'GET',
-                url: '{!! route("getAdvance") !!}?project_id=' + $('#project_id').val() + '&site_id=' + $('#site_id').val(),
                 success: function(data) {
                     var result = data.data ? data.data : data;
 
@@ -102,10 +102,10 @@ if (strpos($current_url, 'ReportDORequestDetail') !== false) {
         });
 
     });
-</script>
+</script> -->
 
 <script>
-    $('#TableSearchArfRevision tbody').on('click', 'tr', function() {
+    $('#TableSearchArfRevision tbody').on('click', 'tr', function () {
 
         $('#advance_number').css("border", "1px solid #ced4da");
         $('#advance_number_icon').css("border", "1px solid #ced4da");

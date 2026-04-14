@@ -990,45 +990,6 @@ class FunctionController extends Controller
         }
     }
 
-    public function getAdvance(Request $request)
-    {
-        $projectId = (int) $request->input('project_id', 0);
-        $siteId = (int) $request->input('site_id', 0);
-        $varAPIWebToken = Session::get('SessionLogin');
-
-        $varData = Helper_APICall::setCallAPIGateway(
-            Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'dataPickList.finance.getAdvance',
-            'latest',
-            [
-                'parameter' => []
-            ],
-            false
-        );
-
-        if ($varData['metadata']['HTTPStatusCode'] !== 200) {
-            return response()->json($varData);
-        }
-
-        $DataAdvance = $varData['data']['data'];
-
-        $filteredData = $DataAdvance;
-
-        if ($projectId > 0 && $siteId > 0) {
-            $filteredData = array_filter($DataAdvance, function ($item) use ($projectId, $siteId) {
-                return
-                    isset($item['combinedBudget_RefID'], $item['combinedBudgetSection_RefID']) &&
-                    is_array($item['combinedBudget_RefID']) &&
-                    is_array($item['combinedBudgetSection_RefID']) &&
-                    in_array($projectId, $item['combinedBudget_RefID']) &&
-                    in_array($siteId, $item['combinedBudgetSection_RefID']);
-            });
-        }
-
-        return response()->json($filteredData);
-    }
-
     public function getAdvanceSettlement(Request $request)
     {
         try {

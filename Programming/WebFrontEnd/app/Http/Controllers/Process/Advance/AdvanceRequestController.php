@@ -79,14 +79,6 @@ class AdvanceRequestController extends Controller
         }
     }
 
-    // CALCULATE TOTAL
-    public function calculateTotal($filteredData, $key)
-    {
-        return array_reduce($filteredData, function ($carry, $item) use ($key) {
-            return $carry + ($item[$key] ?? 0);
-        }, 0);
-    }
-
     // REVISION FUNCTION FOR SHOW LIST DATA FILTER BY ID 
     public function RevisionAdvanceIndex(Request $request)
     {

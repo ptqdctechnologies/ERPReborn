@@ -188,7 +188,6 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('getChartOfAccountList', 'Function\FunctionController@getChartOfAccountList')->name('getChartOfAccountList');
     Route::get('getInvoiceList', 'Function\FunctionController@getInvoiceList')->name('getInvoiceList');
     Route::get('getWarehouseList', 'Function\FunctionController@getWarehouseList')->name('getWarehouseList');
-    Route::get('getAdvance', 'Function\FunctionController@getAdvance')->name('getAdvance');
     Route::get('getAdvanceSettlement', 'Function\FunctionController@getAdvanceSettlement')->name('getAdvanceSettlement');
     Route::get('getAdvanceDetail', 'Function\FunctionController@getAdvanceDetail')->name('getAdvanceDetail');
     Route::get('getDeliveryOrderList', 'Function\FunctionController@getDeliveryOrderList')->name('getDeliveryOrderList');
