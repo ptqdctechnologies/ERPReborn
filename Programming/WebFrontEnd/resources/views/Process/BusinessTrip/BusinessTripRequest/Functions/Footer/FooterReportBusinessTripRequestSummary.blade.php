@@ -344,7 +344,7 @@
         $('#myBeneficiaries').modal('hide');
     });
 
-    $(window).one('load', function () {
+    $(document).ready(function () {
         $('#business_trip_date_range').daterangepicker({
             autoUpdateInput: false,
             maxDate: moment(),
@@ -367,5 +367,8 @@
         $('#business_trip_date_range_container_icon').on('click', function () {
             $('#business_trip_date_range').trigger('click');
         });
+
+        getRequesters();
+        getBeneficiaries();
     });
 </script>

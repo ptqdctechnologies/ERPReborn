@@ -378,7 +378,7 @@
         $('#myBeneficiaries').modal('hide');
     });
 
-    $(window).one('load', function () {
+    $(document).ready(function () {
         $('#advance_summary_date_range').daterangepicker({
             autoUpdateInput: false,
             maxDate: moment(),
@@ -401,5 +401,8 @@
         $('#advance_summary_date_range_container_icon').on('click', function () {
             $('#advance_summary_date_range').trigger('click');
         });
+
+        getRequesters();
+        getBeneficiaries();
     });
 </script>
