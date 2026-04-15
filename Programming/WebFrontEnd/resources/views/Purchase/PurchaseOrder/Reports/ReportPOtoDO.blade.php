@@ -1,87 +1,120 @@
 @extends('Partials.app')
 @section('main')
-@include('Partials.navbar')
-@include('Partials.sidebar')
-@include('getFunction.getProjects')
-@include('getFunction.getSites')
+    @include('Partials.navbar')
+    @include('Partials.sidebar')
+    @include('getFunction.getProjects')
+    @include('getFunction.getSites')
 
-<div class="content-wrapper">
-    <section class="content">
-        <div class="container-fluid">
-            <!-- TITLE -->
-            <div class="row mb-1" style="background-color:#4B586A;">
-                <div class="col-sm-6" style="height:30px;">
-                    <label style="font-size:15px;position:relative;top:7px;color:white;">
-                        Report Purchase Order to Delivery Order
-                    </label>
+    <div class="content-wrapper">
+        <section class="content">
+            <div class="container-fluid">
+                <!-- TITLE -->
+                <div class="row mb-1" style="background-color:#4B586A;">
+                    <div class="col-sm-6" style="height:30px;">
+                        <label style="font-size:15px;position:relative;top:7px;color:white;">
+                            Report Purchase Order to Delivery Order
+                        </label>
+                    </div>
                 </div>
-            </div>
 
-            <div class="card">
-                <div class="tab-content p-3" id="nav-tabContent">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="row p-1" style="row-gap: 1rem;">
-                                        @include('Purchase.PurchaseOrder.Functions.Header.HeaderReportPOtoDO')
+                <div class="card">
+                    <input type="hidden" id="documentTypeRefID" value="<?= $documentTypeRefID; ?>">
+                    <input type="hidden" id="organizationalDepartmentName"
+                        value="<?= $sessionOrganizationalDepartmentName; ?>">
+                    <input type="hidden" id="organizationalJobPositionName"
+                        value="<?= $sessionOrganizationalJobPositionName; ?>">
+
+                    <div class="tab-content p-3" id="nav-tabContent">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="row p-1" style="row-gap: 1rem;">
+                                            @include('Purchase.PurchaseOrder.Functions.Header.HeaderReportPOtoDO')
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="col-12" id="table_container" style="display: none;">
-                            <div class="card">
-                                <div class="card-body p-0">
-                                    <div class="d-flex justify-content-between">
-                                        <label>
-                                            Show
-                                            <select id="limitSelect" style="border: 1px solid #aaa; border-radius: 3px; padding: 4px; background: transparent;">
-                                                <option value="10" selected>10</option>
-                                                <option value="25">25</option>
-                                                <option value="50">50</option>
-                                                <option value="100">100</option>
-                                            </select>
-                                            entries
-                                        </label>
-                                        <label>
-                                            Search:
-                                            <input type="text" id="searchInput" autocomplete="off" placeholder="Search..." style="border: 1px solid #aaa; border-radius: 3px; padding: 5px; margin-left: 3px; background: transparent;" />
-                                        </label>
-                                    </div>
-
-                                    <div class="table-responsive">
-                                        <table class="table table-head-fixed text-nowrap" id="table_summary">
-                                            <thead>
-                                                <tr>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">No</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">PO Number</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">PO Date</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Product Id</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Product Name</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Qty</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">DO Number</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">DO Date</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">To</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">From</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Transporter</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Qty</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody></tbody>
-                                            <tfoot></tfoot>
-                                        </table>
-                                    </div>
-
-                                    <div class="d-flex justify-content-between" style="padding-top: .755em; padding-bottom: .755em;">
-                                        <div>
-                                            Showing <span id="start_limit">1</span> to <span id="end_limit">10</span> of <span id="total_data">68</span> entries
+                            <div class="col-12" id="table_container" style="display: none;">
+                                <div class="card">
+                                    <div class="card-body p-0">
+                                        <div class="d-flex justify-content-between">
+                                            <label>
+                                                Show
+                                                <select id="limitSelect"
+                                                    style="border: 1px solid #aaa; border-radius: 3px; padding: 4px; background: transparent;">
+                                                    <option value="10" selected>10</option>
+                                                    <option value="25">25</option>
+                                                    <option value="50">50</option>
+                                                    <option value="100">100</option>
+                                                </select>
+                                                entries
+                                            </label>
+                                            <label>
+                                                Search:
+                                                <input type="text" id="searchInput" autocomplete="off"
+                                                    placeholder="Search..."
+                                                    style="border: 1px solid #aaa; border-radius: 3px; padding: 5px; margin-left: 3px; background: transparent;" />
+                                            </label>
                                         </div>
 
-                                        <div id="controls" style="cursor: pointer;">
-                                            <a class="paginate_button previous" id="prevPage">Previous</a>
-                                            <span id="pageNumbers"></span>
-                                            <a class="paginate_button next" id="nextPage">Next</a>
+                                        <div class="table-responsive">
+                                            <table class="table table-head-fixed text-nowrap" id="table_summary">
+                                                <thead>
+                                                    <tr>
+                                                        <th
+                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
+                                                            No</th>
+                                                        <th
+                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
+                                                            PO Number</th>
+                                                        <th
+                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
+                                                            PO Date</th>
+                                                        <th
+                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
+                                                            Product</th>
+                                                        <th
+                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
+                                                            PO Qty</th>
+                                                        <th
+                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
+                                                            DO Number</th>
+                                                        <th
+                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
+                                                            DO Date</th>
+                                                        <th
+                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
+                                                            From</th>
+                                                        <th
+                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
+                                                            To</th>
+                                                        <th
+                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
+                                                            Transporter</th>
+                                                        <th
+                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
+                                                            DO Qty</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody></tbody>
+                                                <tfoot></tfoot>
+                                            </table>
+                                        </div>
+
+                                        <div class="d-flex justify-content-between"
+                                            style="padding-top: .755em; padding-bottom: .755em;">
+                                            <div>
+                                                Showing <span id="start_limit">1</span> to <span id="end_limit">10</span> of
+                                                <span id="total_data">68</span> entries
+                                            </div>
+
+                                            <div id="controls" style="cursor: pointer;">
+                                                <a class="paginate_button previous" id="prevPage">Previous</a>
+                                                <span id="pageNumbers"></span>
+                                                <a class="paginate_button next" id="nextPage">Next</a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -90,10 +123,9 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-</div>
+        </section>
+    </div>
 
-@include('Partials.footer')
-@include('Purchase.PurchaseOrder.Functions.Footer.footerReportPOtoDO')
+    @include('Partials.footer')
+    @include('Purchase.PurchaseOrder.Functions.Footer.footerReportPOtoDO')
 @endsection

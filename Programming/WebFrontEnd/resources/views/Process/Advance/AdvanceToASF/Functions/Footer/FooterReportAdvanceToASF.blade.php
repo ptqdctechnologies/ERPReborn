@@ -1,34 +1,34 @@
 <script>
-    let isFromTo                        = false;
-    let data                            = [];
-    let dataReport                      = [];
-    let currentPage                     = 1;
-    let rowsPerPage                     = 10;
-    let filteredData                    = [...data];
-    let sortColumn                      = null;
-    let sortOrder                       = 'asc'; 
-    const documentTypeID                = document.getElementById("documentTypeRefID");
-    const organizationalDepartmentName  = document.getElementById("organizationalDepartmentName"); // Finance & Accounting
+    let isFromTo = false;
+    let data = [];
+    let dataReport = [];
+    let currentPage = 1;
+    let rowsPerPage = 10;
+    let filteredData = [...data];
+    let sortColumn = null;
+    let sortOrder = 'asc';
+    const documentTypeID = document.getElementById("documentTypeRefID");
+    const organizationalDepartmentName = document.getElementById("organizationalDepartmentName"); // Finance & Accounting
     const organizationalJobPositionName = document.getElementById("organizationalJobPositionName"); // General Manager
-    const projectID                     = document.getElementById("budget_id");
-    const projectCode                   = document.getElementById("budget_code");
-    const siteID                        = document.getElementById("sub_budget_id");
-    const siteCode                      = document.getElementById("sub_budget_code");
-    const requesterID                   = document.getElementById("requester_id");
-    const date                          = document.getElementById("advance_date_range");
-    const startLimit                    = document.getElementById("start_limit");
-    const endLimit                      = document.getElementById("end_limit");
-    const totalData                     = document.getElementById("total_data");
-    const printType                     = document.getElementById("print_type");
+    const projectID = document.getElementById("budget_id");
+    const projectCode = document.getElementById("budget_code");
+    const siteID = document.getElementById("sub_budget_id");
+    const siteCode = document.getElementById("sub_budget_code");
+    const requesterID = document.getElementById("requester_id");
+    const date = document.getElementById("advance_date_range");
+    const startLimit = document.getElementById("start_limit");
+    const endLimit = document.getElementById("end_limit");
+    const totalData = document.getElementById("total_data");
+    const printType = document.getElementById("print_type");
 
     function resetForm() {
-        isFromTo        = false;
-        data            = [];
-        currentPage     = 1;
-        rowsPerPage     = 10;
-        filteredData    = [...data];
-        sortColumn      = null;
-        sortOrder       = 'asc';
+        isFromTo = false;
+        data = [];
+        currentPage = 1;
+        rowsPerPage = 10;
+        filteredData = [...data];
+        sortColumn = null;
+        sortOrder = 'asc';
 
         $("#budget_name").css('background-color', '#fff');
         $(`#budget_name`).val("");
@@ -43,7 +43,7 @@
         $("#requester_name").css('background-color', '#fff');
         $(`#requester_name`).val("");
         $(`#requester_id`).val("");
-        
+
         $("#advance_date_range").css('background-color', '#fff');
         $(`#advance_date_range`).val("");
     }
@@ -61,7 +61,7 @@
                 date: date.value
             },
             dataType: 'json',
-            success: function(response) {
+            success: function (response) {
                 if (response.status === 200 && response.data[0]) {
                     data = response.data;
                     dataReport = JSON.stringify(response.data);
@@ -89,10 +89,10 @@
 
                     $('#table_container').css("display", "block");
                 }
-                
+
                 HideLoading();
             },
-            error: function(xhr, status, error) {
+            error: function (xhr, status, error) {
                 HideLoading();
                 ErrorNotif("An error occurred while processing the received data. Please try again later.");
                 console.log('xhr, status, error', xhr, status, error);
@@ -124,12 +124,12 @@
                 // mrDate: mrDate.value,
                 printType: printType.value
             },
-            xhrFields: { 
+            xhrFields: {
                 responseType: 'blob'
             },
-            success: function(response) {
-                let blob  = new Blob([response], { type: response.type });
-                let link  = document.createElement('a');
+            success: function (response) {
+                let blob = new Blob([response], { type: response.type });
+                let link = document.createElement('a');
                 link.href = window.URL.createObjectURL(blob);
 
                 if (response.type === "application/pdf") {
@@ -144,7 +144,7 @@
 
                 HideLoading();
             },
-            error: function(xhr, status, error) {
+            error: function (xhr, status, error) {
                 HideLoading();
                 ErrorNotif("An error occurred while processing the received data. Please try again later.");
                 console.log('xhr, status, error', xhr, status, error);
@@ -280,7 +280,7 @@
         const sortedData = sortData(filteredData);
 
         const searchQuery = document.querySelector('#searchInput').value;
-        const filteredAndSortedData = filterData(searchQuery, sortedData); 
+        const filteredAndSortedData = filterData(searchQuery, sortedData);
 
         const start = (currentPage - 1) * rowsPerPage;
         const end = start + rowsPerPage;
@@ -316,9 +316,9 @@
         const pageNumbersContainer = document.querySelector('#pageNumbers');
         const prevButton = document.querySelector('#prevPage');
         const nextButton = document.querySelector('#nextPage');
-        
+
         pageNumbersContainer.innerHTML = '';
-        
+
         const startLimit = (currentPage - 1) * rowsPerPage + 1;
         const endLimit = Math.min(currentPage * rowsPerPage, data.length);
         document.querySelector('#start_limit').textContent = isNaN(startLimit) ? '0' : startLimit;
@@ -370,7 +370,7 @@
 
         if (endPage < totalPages) {
             const dots = document.createElement('span');
-            
+
             if (data.length == 0) {
                 dots.textContent = '';
             } else {
@@ -421,10 +421,10 @@
     }
 
     function validateShowButton() {
-        const isBudgetIDNotEmpty        = projectID.value.trim() !== '';
-        const isSubBudgetIDNotEmpty     = siteID.value.trim() !== '';
-        const isRequesterIDNotEmpty     = requesterID.value.trim() !== '';
-        const isArfDateNotEmpty         = date.value.trim() !== '';
+        const isBudgetIDNotEmpty = projectID.value.trim() !== '';
+        const isSubBudgetIDNotEmpty = siteID.value.trim() !== '';
+        const isRequesterIDNotEmpty = requesterID.value.trim() !== '';
+        const isArfDateNotEmpty = date.value.trim() !== '';
 
         if (
             isBudgetIDNotEmpty ||
@@ -437,10 +437,10 @@
 
             if (
                 !isBudgetIDNotEmpty && organizationalDepartmentName.value === 'Finance & Accounting' || (
-                organizationalJobPositionName.value === 'General Manager' || 
-                organizationalJobPositionName.value === 'Senior Manager' || 
-                organizationalJobPositionName.value === 'Director'
-            )) {
+                    organizationalJobPositionName.value === 'General Manager' ||
+                    organizationalJobPositionName.value === 'Senior Manager' ||
+                    organizationalJobPositionName.value === 'Director'
+                )) {
                 getDataReport();
             } else {
                 if (isBudgetIDNotEmpty) {
@@ -473,37 +473,37 @@
                 combinedBudget_RefID: combinedBudgetID
             }
         })
-        .done(function(data, textStatus, jqXHR) {
-            console.log("Success:", data);
+            .done(function (data, textStatus, jqXHR) {
+                console.log("Success:", data);
 
-            if (data.status == 200) {
-                $("#budget_id").val(combinedBudgetID);
-                $("#budget_code").val(combinedBudgetCode);
-                $("#budget_name").val(`${combinedBudgetCode} - ${combinedBudgetName}`);
-                $("#budget_name").css('background-color', '#e9ecef');
+                if (data.status == 200) {
+                    $("#budget_id").val(combinedBudgetID);
+                    $("#budget_code").val(combinedBudgetCode);
+                    $("#budget_name").val(`${combinedBudgetCode} - ${combinedBudgetName}`);
+                    $("#budget_name").css('background-color', '#e9ecef');
 
-                getSites(combinedBudgetID);
+                    getSites(combinedBudgetID);
 
-                $("#mySitesTrigger").css('cursor', 'pointer');
-                $("#mySitesTrigger").attr({
-                    "data-toggle": "modal",
-                    "data-target": "#mySites"
-                });
-            } else {
-                ErrorHandler.notifToast(
-                    'error',
-                    'You are not included in this budget',
-                    'Error!'
-                );
-            }
-        })
-        .fail(function(jqXHR, textStatus, errorThrown) {
-            console.error("Error:", errorThrown);
-        })
-        .always(function(jqXHR, textStatus, errorThrown) {
-            $("#loadingBudget").hide();
-            $("#iconBudget").show();
-        });
+                    $("#mySitesTrigger").css('cursor', 'pointer');
+                    $("#mySitesTrigger").attr({
+                        "data-toggle": "modal",
+                        "data-target": "#mySites"
+                    });
+                } else {
+                    ErrorHandler.notifToast(
+                        'error',
+                        'You are not included in this budget',
+                        'Error!'
+                    );
+                }
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                console.error("Error:", errorThrown);
+            })
+            .always(function (jqXHR, textStatus, errorThrown) {
+                $("#loadingBudget").hide();
+                $("#iconBudget").show();
+            });
     }
 
     document.querySelectorAll('#table_summary th').forEach((header, index) => {
@@ -541,20 +541,20 @@
         }
     });
 
-    $('#tableProjects').on('click', 'tbody tr', async function() {
+    $('#tableProjects').on('click', 'tbody tr', async function () {
         const sysId = $(this).find('input[data-trigger="sys_id_project"]').val();
-        const code  = $(this).find('td:nth-child(2)').text();
-        const name  = $(this).find('td:nth-child(3)').text();
+        const code = $(this).find('td:nth-child(2)').text();
+        const name = $(this).find('td:nth-child(3)').text();
 
         if (organizationalDepartmentName.value === 'Finance & Accounting' || (
-            organizationalJobPositionName.value === 'General Manager' || 
-            organizationalJobPositionName.value === 'Senior Manager' || 
+            organizationalJobPositionName.value === 'General Manager' ||
+            organizationalJobPositionName.value === 'Senior Manager' ||
             organizationalJobPositionName.value === 'Director'
         )) {
             $("#budget_id").val(sysId);
             $("#budget_code").val(code);
             $("#budget_name").val(`${code} - ${name}`);
-            $("#budget_name").css({"background-color":"#e9ecef"});
+            $("#budget_name").css({ "background-color": "#e9ecef" });
 
             getSites(sysId);
 
@@ -575,34 +575,34 @@
         $('#myProjects').modal('toggle');
     });
 
-    $('#tableSites').on('click', 'tbody tr', function() {
-        const sysId       = $(this).find('input[data-trigger="sys_id_site"]').val();
-        const siteCode    = $(this).find('td:nth-child(2)').text();
-        const siteName    = $(this).find('td:nth-child(3)').text();
+    $('#tableSites').on('click', 'tbody tr', function () {
+        const sysId = $(this).find('input[data-trigger="sys_id_site"]').val();
+        const siteCode = $(this).find('td:nth-child(2)').text();
+        const siteName = $(this).find('td:nth-child(3)').text();
 
         $("#sub_budget_id").val(sysId);
         $("#sub_budget_code").val(siteCode);
         $("#sub_budget_name").val(`${siteCode} - ${siteName}`);
-        $("#sub_budget_name").css({"background-color":"#e9ecef"});
+        $("#sub_budget_name").css({ "background-color": "#e9ecef" });
 
         $('#mySites').modal('toggle');
     });
 
-    $('#tableRequesters').on('click', 'tbody tr', function() {
-        const sysId       = $(this).find('input[data-trigger="sys_id_requesters"]').val();
-        const name        = $(this).find('td:nth-child(2)').text();
-        const position    = $(this).find('td:nth-child(3)').text();
+    $('#tableRequesters').on('click', 'tbody tr', function () {
+        const sysId = $(this).find('input[data-trigger="sys_id_requesters"]').val();
+        const name = $(this).find('td:nth-child(2)').text();
+        const position = $(this).find('td:nth-child(3)').text();
 
         $("#requester_id").val(sysId);
         $("#requester_name").val(`${position} - ${name}`);
-        $("#requester_name").css({"background-color":"#e9ecef"});
+        $("#requester_name").css({ "background-color": "#e9ecef" });
 
         hideErrorInputMessage("#requester_name", "#requesterMessage");
 
         $('#myRequesters').modal('toggle');
     });
 
-    $(window).one('load', function() {
+    $(window).one('load', function () {
         renderPage();
         renderPagination();
 
@@ -614,13 +614,13 @@
             }
         });
 
-        $('#advance_date_range').on('apply.daterangepicker', function(ev, picker) {
+        $('#advance_date_range').on('apply.daterangepicker', function (ev, picker) {
             $("#advance_date_range").css('background-color', '#e9ecef');
             $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
             hideErrorInputMessage("#advance_date_range", "#dateRangeMessage");
         });
 
-        $('#advance_date_range').on('cancel.daterangepicker', function(ev, picker) {
+        $('#advance_date_range').on('cancel.daterangepicker', function (ev, picker) {
             $("#advance_date_range").css('background-color', '#fff');
             $(this).val('');
         });
@@ -628,5 +628,7 @@
         $('#advance_date_range_container_icon').on('click', function () {
             $('#advance_date_range').trigger('click');
         });
+
+        getRequesters();
     });
 </script>

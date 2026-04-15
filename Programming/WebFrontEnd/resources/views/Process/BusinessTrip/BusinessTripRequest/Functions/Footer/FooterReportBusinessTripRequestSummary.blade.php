@@ -74,11 +74,7 @@
                 dataReport = data;
 
                 let totalBRF = data.reduce((total, row) => {
-                    return total +
-                        Utils.parseFloatSafe(row.totalTravelFares || 0) +
-                        Utils.parseFloatSafe(row.totalAllowance || 0) +
-                        Utils.parseFloatSafe(row.totalEntertainment || 0) +
-                        Utils.parseFloatSafe(row.totalOther || 0);
+                    return total + Utils.parseFloatSafe(row.brfTotal || 0);
                 }, 0);
 
                 $('#table_summary').DataTable({
@@ -122,23 +118,14 @@
                             defaultContent: '-'
                         },
                         {
-                            data: null,
-                            defaultContent: '-'
-                        },
-                        {
-                            data: null,
+                            data: 'requesterName',
                             defaultContent: '-'
                         },
                         {
                             data: null,
                             defaultContent: '-',
                             render: function (data, type, row, meta) {
-                                return Utils.formatCurrency(Utils.parseFloatSafe(
-                                    (data.totalTravelFares || 0) +
-                                    (data.totalAllowance || 0) +
-                                    (data.totalEntertainment || 0) +
-                                    (data.totalOther || 0)
-                                ));
+                                return Utils.formatCurrency(Utils.parseFloatSafe(data.brfTotal));
                             }
                         },
                         {
@@ -169,10 +156,10 @@
         ShowLoading();
 
         $.ajax({
-            url: '{!! route("AdvanceRequest.PrintExportReportAdvanceSummary") !!}',
+            url: '{!! route("BusinessTripRequest.PrintExportReportBusinessTripRequestSummary") !!}',
             type: 'POST',
             data: {
-                dataReport,
+                dataReport: JSON.stringify(dataReport),
                 printType: printType.value
             },
             xhrFields: {
@@ -184,9 +171,9 @@
                 link.href = window.URL.createObjectURL(blob);
 
                 if (response.type === "application/pdf") {
-                    link.download = "Export Report Advance Summary.pdf";
+                    link.download = "Export Report Business Trip Summary.pdf";
                 } else {
-                    link.download = "Export Report Advance Summary.xlsx";
+                    link.download = "Export Report Business Trip Summary.xlsx";
                 }
 
                 link.click();
@@ -231,7 +218,7 @@
         } else {
             ErrorHandler.showErrorInputMessage("#budget_name", "#budgetMessage");
             ErrorHandler.showErrorInputMessage("#requester_name", "#requesterMessage");
-            ErrorHandler.showErrorInputMessage("#beneficiary_name", "#beneficiaryMessage");
+            // ErrorHandler.showErrorInputMessage("#beneficiary_name", "#beneficiaryMessage");
             ErrorHandler.showErrorInputMessage("#business_trip_date_range", "#dateRangeMessage");
         }
     }
@@ -348,7 +335,7 @@
         $('#myBeneficiaries').modal('hide');
     });
 
-    $(window).one('load', function () {
+    $(document).ready(function () {
         $('#business_trip_date_range').daterangepicker({
             autoUpdateInput: false,
             maxDate: moment(),
@@ -371,5 +358,8 @@
         $('#business_trip_date_range_container_icon').on('click', function () {
             $('#business_trip_date_range').trigger('click');
         });
+
+        getRequesters();
+        getBeneficiaries();
     });
 </script>

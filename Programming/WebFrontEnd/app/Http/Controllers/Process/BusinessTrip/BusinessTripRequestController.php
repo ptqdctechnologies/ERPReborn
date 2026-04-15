@@ -376,39 +376,35 @@ class BusinessTripRequestController extends Controller
     public function PrintExportReportBusinessTripRequestSummary(Request $request)
     {
         try {
-            $dataReport = Session::get("dataReportBusinessTripRequestSummary");
-            $print_type = $request->print_type;
-            $project_code_second_trigger = $request->project_code_second_trigger;
+            $type = $request->printType;
+            $dataBusinessTrip = json_decode($request->dataReport, true);
 
-            if ($project_code_second_trigger == null) {
-                Session::forget("isButtonReportBusinessTripRequestSummarySubmit");
-                Session::forget("dataReportBusinessTripRequestSummary");
+            if ($dataBusinessTrip) {
+                if ($type === "PDF") {
+                    $pdf = PDF::loadView('Process.BusinessTrip.BusinessTripRequest.Reports.ReportBusinessTripRequestSummary_pdf', ['dataReport' => $dataBusinessTrip])
+                        ->setPaper('a4', 'landscape');
 
-                return redirect()->route('BusinessTripRequest.ReportBusinessTripRequestSummary')->with('NotFound', 'Budget, Sub Budget, Requester, & Beneficiary Cannot Be Empty');
-            }
-
-            if ($dataReport) {
-                if ($print_type === "PDF") {
-                    $pdf = PDF::loadView('Process.BusinessTrip.BusinessTripRequest.Reports.ReportBusinessTripRequestSummary_pdf', ['dataReport' => $dataReport])->setPaper('a4', 'landscape');
                     $pdf->output();
                     $dom_pdf = $pdf->getDomPDF();
-
                     $canvas = $dom_pdf->get_canvas();
                     $width = $canvas->get_width();
                     $height = $canvas->get_height();
                     $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
                     $canvas->page_text(34, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
 
-                    return $pdf->download('Export Report Business Trip Request Summary.pdf');
+                    return $pdf->download('Export Report Purchase Order to Account Payable.pdf');
+                } else if ($type === "EXCEL") {
+                    return Excel::download(new ExportReportBusinessTripRequestSummary($dataBusinessTrip), 'Export Report PO to DO.xlsx');
                 } else {
-                    return Excel::download(new ExportReportBusinessTripRequestSummary, 'Export Report Business Trip Request Summary.xlsx');
+                    throw new \Exception('Failed to Export Report Business Trip');
                 }
             } else {
-                return redirect()->route('BusinessTripRequest.ReportBusinessTripRequestSummary')->with('NotFound', 'Budget, Sub Budget, Requester, & Beneficiary Cannot Empty');
+                throw new \Exception('Business Trip Data is Empty');
             }
         } catch (\Throwable $th) {
-            Log::error("PrintExportReportBusinessTripRequestSummary Error at " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
+            Log::error("Print Export Report Business Trip Request Summary Function Error: " . $th->getMessage());
+
+            return response()->json(['statusCode' => 400]);
         }
     }
 

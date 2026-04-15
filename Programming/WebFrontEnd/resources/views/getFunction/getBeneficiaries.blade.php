@@ -10,7 +10,8 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body table-responsive p-0" style="height: 400px;">
-                                <table class="table table-head-fixed text-nowrap" id="tableBeneficiaries" style="width: 100%;">
+                                <table class="table table-head-fixed text-nowrap" id="tableBeneficiaries"
+                                    style="width: 100%;">
                                     <thead>
                                         <tr>
                                             <th>No</th>
@@ -22,7 +23,8 @@
                                     <tfoot>
                                         <tr class="loadingBeneficiaries">
                                             <td colspan="3" class="p-0" style="height: 22rem;">
-                                                <div class="d-flex flex-column justify-content-center align-items-center py-3">
+                                                <div
+                                                    class="d-flex flex-column justify-content-center align-items-center py-3">
                                                     <div class="spinner-border" role="status">
                                                         <span class="sr-only">Loading...</span>
                                                     </div>
@@ -34,8 +36,10 @@
                                         </tr>
                                         <tr class="errorBeneficiariesMessageContainer">
                                             <td colspan="3" class="p-0" style="height: 22rem;">
-                                                <div class="d-flex flex-column justify-content-center align-items-center py-3">
-                                                    <div id="errorBeneficiariesMessage" class="mt-3 text-red" style="font-size: 1rem; font-weight: 700;"></div>
+                                                <div
+                                                    class="d-flex flex-column justify-content-center align-items-center py-3">
+                                                    <div id="errorBeneficiariesMessage" class="mt-3 text-red"
+                                                        style="font-size: 1rem; font-weight: 700;"></div>
                                                 </div>
                                             </td>
                                         </tr>
@@ -63,11 +67,11 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-        
+
         $.ajax({
             type: 'GET',
             url: '{!! route("getWorker") !!}',
-            success: function(data) {
+            success: function (data) {
                 $(".loadingBeneficiaries").hide();
 
                 var table = $('#tableBeneficiaries').DataTable();
@@ -88,7 +92,7 @@
                                         '<input id="sys_id_beneficiaries' + (meta.row + 1) + '" value="' + data.sys_ID + '" data-trigger="sys_id_beneficiaries" type="hidden">' +
                                         '<input id="person_ref_id_beneficiaries' + (meta.row + 1) + '" value="' + data.person_RefID + '" data-trigger="person_ref_id_beneficiaries" type="hidden">' +
                                         (meta.row + 1) +
-                                    '</td>';
+                                        '</td>';
                                 }
                             },
                             {
@@ -124,7 +128,7 @@
         });
     }
 
-    $(window).one('load', function(e) {
-        getBeneficiaries();
-    });
+    // $(document).ready(function () {
+    //     getBeneficiaries();
+    // });
 </script>

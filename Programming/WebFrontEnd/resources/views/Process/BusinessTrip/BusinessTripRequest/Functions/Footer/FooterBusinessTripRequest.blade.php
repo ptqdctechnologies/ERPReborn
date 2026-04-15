@@ -1,20 +1,20 @@
 <script>
-  const initialValue          = 0;
-  const totalBusinessTrip     = [];
-  const searchBudgetBtn       = document.getElementById('budget_detail_search');
-  const bankNameVendorID      = document.getElementById('bank_list_code');
-  const bankNameCorpCardID    = document.getElementById('bank_list_second_code');
-  const dateCommanceComp      = document.getElementById('dateCommance');
-  const dateEndComp           = document.getElementById('dateEnd');
-  const directToVendorComp    = document.getElementById('direct_to_vendor');
-  const byCorpCardComp        = document.getElementById('by_corp_card');
-  const toOtherComp           = document.getElementById('to_other');
+  const initialValue = 0;
+  const totalBusinessTrip = [];
+  const searchBudgetBtn = document.getElementById('budget_detail_search');
+  const bankNameVendorID = document.getElementById('bank_list_code');
+  const bankNameCorpCardID = document.getElementById('bank_list_second_code');
+  const dateCommanceComp = document.getElementById('dateCommance');
+  const dateEndComp = document.getElementById('dateEnd');
+  const directToVendorComp = document.getElementById('direct_to_vendor');
+  const byCorpCardComp = document.getElementById('by_corp_card');
+  const toOtherComp = document.getElementById('to_other');
 
-  let labelPayment            = '';
-  let documentTypeID          = document.getElementById("DocumentTypeID");
+  let labelPayment = '';
+  let documentTypeID = document.getElementById("DocumentTypeID");
   let currenctBudgetSelection = 0;
-  let date                    = new Date();
-  let today                   = new Date(date.setMonth(date.getMonth() - 3));
+  let date = new Date();
+  let today = new Date(date.setMonth(date.getMonth() - 3));
 
   const validation = {
     sectionOne: {
@@ -67,14 +67,14 @@
   }
 
   function calculateTotalPayment() {
-    const totalBrf            = parseFormattedNumber(document.getElementById("total_business_trip").value);
+    const totalBrf = parseFormattedNumber(document.getElementById("total_business_trip").value);
     const directToVendorInput = document.getElementById("direct_to_vendor");
-    const corpCardInput       = document.getElementById("by_corp_card");
-    const toOtherInput        = document.getElementById("to_other");
+    const corpCardInput = document.getElementById("by_corp_card");
+    const toOtherInput = document.getElementById("to_other");
 
     let directToVendor = parseFormattedNumber(directToVendorInput.value);
-    let corpCard       = parseFormattedNumber(corpCardInput.value);
-    let toOther        = parseFormattedNumber(toOtherInput.value);
+    let corpCard = parseFormattedNumber(corpCardInput.value);
+    let toOther = parseFormattedNumber(toOtherInput.value);
 
     let total = directToVendor + corpCard + toOther;
 
@@ -119,9 +119,9 @@
 
   function handleCheckboxSelection() {
     const checkboxes = document.querySelectorAll('#budgetTable tbody input[type="checkbox"]');
-    
+
     checkboxes.forEach((checkbox, index) => {
-      checkbox.addEventListener('change', function() {
+      checkbox.addEventListener('change', function () {
         if (this.checked) {
           $("#budgetDetailsMessage").hide();
 
@@ -149,9 +149,9 @@
   }
 
   function getSelectedRowData() {
-    const selectedCheckbox              = document.querySelector('#budgetTable tbody input[type="checkbox"]:checked');
-    const budgetDetailsInput            = document.getElementById('budgetDetailsData');
-    const totalBusinessTripInput        = document.getElementById('total_business_trip');
+    const selectedCheckbox = document.querySelector('#budgetTable tbody input[type="checkbox"]:checked');
+    const budgetDetailsInput = document.getElementById('budgetDetailsData');
+    const totalBusinessTripInput = document.getElementById('total_business_trip');
     const totalPaymentBusinessTripInput = document.getElementById('total_payment');
 
     if (selectedCheckbox) {
@@ -163,14 +163,14 @@
         productId: row.querySelector('input[id="product_RefID"]').value,
         workId: row.querySelector('input[id="workStructure_RefID"]').value
       };
-      
+
       // $("#var_combinedBudget_RefID").val(datas.sysId);
       $("#total_business_trip_request").val(datas.totalBudget);
       $("#total_balanced").val(datas.balanceBudget);
       $("#combinedBudgetSectionDetail_RefID").val(datas.sysId);
       $("#workStructure_RefID").val(datas.workId);
       $("#product_RefID").val(datas.productId);
-      
+
       budgetDetailsInput.value = JSON.stringify(datas);
       currenctBudgetSelection = parseFormattedNumber(datas.balanceBudget);
 
@@ -231,7 +231,7 @@
 
     ids.forEach(id => {
       const input = document.getElementById(id);
-      
+
       if (input && input.value) {
         const amount = parseCurrency(input.value);
 
@@ -252,11 +252,11 @@
       totalField.value = currencyTotal(total);
       $("#total_business_trip").css("border", "1px solid #ced4da");
       $("#totalBRFMessage").hide();
-    } 
+    }
     if (currenctBudgetSelection != 0 && total != 0 && currenctBudgetSelection < total) {
       totalField.value = currencyTotal(total);
       Swal.fire("Error", `Total Business Trip must not exceed the selected Balanced Budget`, "error");
-    } 
+    }
     if (currenctBudgetSelection != 0 && total == 0 && currenctBudgetSelection > total) {
       totalField.value = currencyTotal("0.00");
       $("#total_business_trip").css("border", "1px solid red");
@@ -275,7 +275,7 @@
 
     ids.forEach(id => {
       const input = document.getElementById(id);
-      
+
       if (input) {
         input.addEventListener('input', calculateTotalBRF);
       }
@@ -286,7 +286,7 @@
     $.ajax({
       type: 'GET',
       url: '{!! route("getBusinessTripCostComponentEntityNew") !!}',
-      success: function(data) {
+      success: function (data) {
         const containerMap = [
           { range: [0, 12], containerId: 'travel-fares-container', hidden: false },
           { range: [12, 13], containerId: 'allowance-container', hidden: true },
@@ -350,7 +350,7 @@
     }).then((result) => {
       if ('value' in result) {
         ShowLoading();
-        BusinessTripRequestStore({...formatData, comment: result.value});
+        BusinessTripRequestStore({ ...formatData, comment: result.value });
       }
     });
   }
@@ -366,7 +366,7 @@
       type: 'POST',
       data: formatData,
       url: '{{ route("BusinessTripRequest.store") }}',
-      success: function(res) {
+      success: function (res) {
         HideLoading();
 
         if (res.status === 200) {
@@ -395,7 +395,7 @@
           ErrorNotif("Data Cancel Inputed");
         }
       },
-      error: function(jqXHR, textStatus, errorThrown) {
+      error: function (jqXHR, textStatus, errorThrown) {
         console.log('error', jqXHR, textStatus, errorThrown);
       }
     });
@@ -406,8 +406,8 @@
 
     if (!isNotEmpty(validation.sectionFour.totalPayment.value) || validation.sectionFour.totalPayment.value == "0.00") {
       if (
-        !isNotEmpty(validation.sectionFour.directToVendor.value) && 
-        !isNotEmpty(validation.sectionFour.byCorpCard.value) && 
+        !isNotEmpty(validation.sectionFour.directToVendor.value) &&
+        !isNotEmpty(validation.sectionFour.byCorpCard.value) &&
         !isNotEmpty(validation.sectionFour.toOther.value)) {
         result = false;
       }
@@ -424,7 +424,7 @@
 
     if (
       (
-        isNotEmpty(validation.sectionFour.bankListCode.value) || 
+        isNotEmpty(validation.sectionFour.bankListCode.value) ||
         isNotEmpty(validation.sectionFour.bankAccountsID.value)
       ) && !isNotEmpty(validation.sectionFour.directToVendor.value)) {
       result = false;
@@ -441,7 +441,7 @@
 
     if (
       (
-        isNotEmpty(validation.sectionFour.bankListSecondCode.value) || 
+        isNotEmpty(validation.sectionFour.bankListSecondCode.value) ||
         isNotEmpty(validation.sectionFour.bankAccountsIDSecond.value)
       ) && !isNotEmpty(validation.sectionFour.byCorpCard.value)) {
       result = false;
@@ -461,14 +461,14 @@
 
     if (
       (
-        isNotEmpty(validation.sectionFour.beneficiarySecondID.value) || 
-        isNotEmpty(validation.sectionFour.bankListThirdCode.value) || 
+        isNotEmpty(validation.sectionFour.beneficiarySecondID.value) ||
+        isNotEmpty(validation.sectionFour.bankListThirdCode.value) ||
         isNotEmpty(validation.sectionFour.bankAccountsThirdID.value)
       ) && !isNotEmpty(validation.sectionFour.toOther.value)) {
       result = false;
     }
 
-    return isNotEmpty(validation.sectionOne.budgetID.value) && 
+    return isNotEmpty(validation.sectionOne.budgetID.value) &&
       isNotEmpty(validation.sectionOne.subBudgetID.value) &&
       isNotEmpty(validation.sectionTwo.requesterID.value) &&
       isNotEmpty(validation.sectionTwo.dateCommance.value) &&
@@ -482,7 +482,7 @@
   }
 
   function isSectionNotValid() {
-    return !isNotEmpty(validation.sectionOne.budgetID.value) && 
+    return !isNotEmpty(validation.sectionOne.budgetID.value) &&
       !isNotEmpty(validation.sectionOne.subBudgetID.value) &&
       !isNotEmpty(validation.sectionTwo.requesterID.value) &&
       !isNotEmpty(validation.sectionTwo.dateCommance.value) &&
@@ -496,11 +496,11 @@
   }
 
   function validationForm() {
-    const testing       = sumTravelFares();
+    const testing = sumTravelFares();
     const accommodation = document.getElementById("accommodation");
     const entertainment = document.getElementById("entertainment");
-    const other         = document.getElementById("other");
-    const totalBRF      = document.getElementById("total_business_trip");
+    const other = document.getElementById("other");
+    const totalBRF = document.getElementById("total_business_trip");
 
     if (isSectionValid()) {
       $("#travel_fares_modal_summary").text(decimalFormat(testing));
@@ -622,7 +622,7 @@
             $("#bankNameVendorMessage").show();
 
             return;
-          } 
+          }
 
           if (!isNotEmpty(validation.sectionFour.bankAccountsID.value)) {
             $("#bank_accountss").css("border", "1px solid red");
@@ -635,7 +635,7 @@
 
         if (
           (
-            isNotEmpty(validation.sectionFour.bankListCode.value) || 
+            isNotEmpty(validation.sectionFour.bankListCode.value) ||
             isNotEmpty(validation.sectionFour.bankAccountsID.value)
           ) && !isNotEmpty(validation.sectionFour.directToVendor.value)) {
           $("#direct_to_vendor").css("border", "1px solid red");
@@ -643,7 +643,7 @@
 
           return;
         }
-        
+
         if (isNotEmpty(validation.sectionFour.byCorpCard.value)) {
           if (!isNotEmpty(validation.sectionFour.bankListSecondCode.value)) {
             $("#bank_list_second_name").css("border", "1px solid red");
@@ -664,7 +664,7 @@
 
         if (
           (
-            isNotEmpty(validation.sectionFour.bankListSecondCode.value) || 
+            isNotEmpty(validation.sectionFour.bankListSecondCode.value) ||
             isNotEmpty(validation.sectionFour.bankAccountsIDSecond.value)
           ) && !isNotEmpty(validation.sectionFour.byCorpCard.value)) {
           $("#by_corp_card").css("border", "1px solid red");
@@ -701,8 +701,8 @@
 
         if (
           (
-            isNotEmpty(validation.sectionFour.beneficiarySecondID.value) || 
-            isNotEmpty(validation.sectionFour.bankListThirdCode.value) || 
+            isNotEmpty(validation.sectionFour.beneficiarySecondID.value) ||
+            isNotEmpty(validation.sectionFour.bankListThirdCode.value) ||
             isNotEmpty(validation.sectionFour.bankAccountsThirdID.value)
           ) && !isNotEmpty(validation.sectionFour.toOther.value)) {
           $("#to_other").css("border", "1px solid red");
@@ -724,11 +724,11 @@
     $.ajax({
       type: 'GET',
       url: '{!! route("getBudget") !!}?site_code=' + site_id,
-      success: function(data) {
+      success: function (data) {
         $(".loading").hide();
         searchBudgetBtn.style.display = 'block';
 
-        $.each(data, function(key, val2) {
+        $.each(data, function (key, val2) {
           let productColumn = `
             <td style="text-align: center;">-</td>
             <td style="text-align: left;">${val2.product_RefID} - ${val2.productName}</td>
@@ -752,24 +752,24 @@
             `;
           }
 
-          var html = 
+          var html =
             '<tr>' +
-              '<td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">' +
-                '<input hidden data-budget-id="sys_ID" value="' + val2.sys_ID + '">' +
-                '<input hidden id="workStructure_RefID" value="302000000000002">' +
-                '<input hidden id="product_RefID" value="' + val2.product_RefID + '">' +
-                '<input type="checkbox" aria-label="Checkbox for following text input">' +
-              '</td>' +
-              productColumn +
-              '<td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">' +
-                numberFormatPHPCustom(val2.quantity * val2.priceBaseCurrencyValue, 2) +
-              '</td>' +
-              '<td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">' +
-                val2.priceBaseCurrencyISOCode +
-              '</td>' +
-              '<td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">' +
-                numberFormatPHPCustom(val2.priceBaseCurrencyValue, 2) +
-              '</td>' +
+            '<td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">' +
+            '<input hidden data-budget-id="sys_ID" value="' + val2.sys_ID + '">' +
+            '<input hidden id="workStructure_RefID" value="302000000000002">' +
+            '<input hidden id="product_RefID" value="' + val2.product_RefID + '">' +
+            '<input type="checkbox" aria-label="Checkbox for following text input">' +
+            '</td>' +
+            productColumn +
+            '<td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">' +
+            numberFormatPHPCustom(val2.quantity * val2.priceBaseCurrencyValue, 2) +
+            '</td>' +
+            '<td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">' +
+            val2.priceBaseCurrencyISOCode +
+            '</td>' +
+            '<td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">' +
+            numberFormatPHPCustom(val2.priceBaseCurrencyValue, 2) +
+            '</td>' +
             '</tr>';
 
           $('table#budgetTable tbody').append(html);
@@ -796,7 +796,7 @@
       processData: false,
       data: form_data,
       type: method,
-      success: function(response) {
+      success: function (response) {
         HideLoading();
 
         if (response.message == "WorkflowError") {
@@ -808,7 +808,7 @@
 
           var t = $('#tableGetWorkFlow').DataTable();
           t.clear();
-          $.each(response.data, function(key, val) {
+          $.each(response.data, function (key, val) {
             t.row.add([
               '<td><span data-dismiss="modal" onclick="SelectWorkFlow(\'' + val.Sys_ID + '\', \'' + val.NextApprover_RefID + '\', \'' + response.approverEntity_RefID + '\', \'' + response.documentTypeID + '\');"><img src="{{ asset("AdminLTE-master/dist/img/add.png") }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></span></td>',
               '<td style="border:1px solid #e9ecef;">' + val.FullApproverPath + '</td></tr></tbody>'
@@ -816,9 +816,9 @@
           });
         } else {
           const formatData = {
-            workFlowPath_RefID: response.workFlowPath_RefID, 
-            nextApprover: response.nextApprover_RefID, 
-            approverEntity: response.approverEntity_RefID, 
+            workFlowPath_RefID: response.workFlowPath_RefID,
+            nextApprover: response.nextApprover_RefID,
+            approverEntity: response.approverEntity_RefID,
             documentTypeID: response.documentTypeID,
             storeData: response.storeData
           };
@@ -826,7 +826,7 @@
           SelectWorkFlow(formatData);
         }
       },
-      error: function(response) {
+      error: function (response) {
         HideLoading();
         CancelNotif("You don't have access", '/BusinessTripRequest?var=1');
         console.log('error response', response);
@@ -834,16 +834,16 @@
     });
   }
 
-  $('#budget_detail_search').on('input', function() {
+  $('#budget_detail_search').on('input', function () {
     const searchValue = $(this).val().toLowerCase();
-    
+
     const rows = $('#budgetTable tbody tr');
 
-    rows.each(function() {
+    rows.each(function () {
       const row = $(this);
       const productId = row.find('td:eq(1)').text().trim().toLowerCase();
       const productName = row.find('td:eq(2)').text().trim().toLowerCase();
-      
+
       if (productId.includes(searchValue) || productName.includes(searchValue)) {
         row.show();
       } else {
@@ -852,14 +852,14 @@
     });
   });
 
-  $('#budget_detail_search').on('change', function() {
+  $('#budget_detail_search').on('change', function () {
     if ($(this).val() === '') {
       $('#budgetTable tbody tr').show();
     }
   });
 
-  $('#tableProjects').on('click', 'tbody tr', async function() {
-    let sysId       = $(this).find('input[data-trigger="sys_id_project"]').val();
+  $('#tableProjects').on('click', 'tbody tr', async function () {
+    let sysId = $(this).find('input[data-trigger="sys_id_project"]').val();
     let projectCode = $(this).find('td:nth-child(2)').text();
     let projectName = $(this).find('td:nth-child(3)').text();
 
@@ -887,7 +887,7 @@
         $("#mySiteCodeSecondTrigger").prop("disabled", false);
 
         $("#project_code_second").css("border", "1px solid #ced4da");
-        $("#project_name_second").css({"background-color":"#e9ecef", "border": "1px solid #ced4da"});
+        $("#project_name_second").css({ "background-color": "#e9ecef", "border": "1px solid #ced4da" });
         $("#budgetMessage").hide();
       }
 
@@ -902,11 +902,11 @@
     }
   });
 
-  $('#tableSites').on('click', 'tbody tr', function() {
-    let sysId       = $(this).find('input[data-trigger="sys_id_site"]').val();
-    let siteCode    = $(this).find('td:nth-child(2)').text();
-    let siteName    = $(this).find('td:nth-child(3)').text();
-    
+  $('#tableSites').on('click', 'tbody tr', function () {
+    let sysId = $(this).find('input[data-trigger="sys_id_site"]').val();
+    let siteCode = $(this).find('td:nth-child(2)').text();
+    let siteName = $(this).find('td:nth-child(3)').text();
+
     $("#myWorker").prop("disabled", false);
     $("#requester_popup").prop("disabled", false);
     $("#beneficiary_second_popup").prop("disabled", false);
@@ -927,21 +927,21 @@
     $("#site_name_second").val(`${siteCode} - ${siteName}`);
 
     $("#site_code_second").css("border", "1px solid #ced4da");
-    $("#site_name_second").css({"background-color":"#e9ecef", "border": "1px solid #ced4da"});
+    $("#site_name_second").css({ "background-color": "#e9ecef", "border": "1px solid #ced4da" });
     $("#subBudgetMessage").hide();
 
     $('#mySites').modal('hide');
   });
 
-  $('#tableRequesters').on('click', 'tbody tr', function() {
-    const sysId         = $(this).find('input[data-trigger="sys_id_requesters"]').val();
-    const contactPhone  = $(this).find('input[data-trigger="contact_phone_requesters"]').val().split(',').map(v => v.trim().replace(/;$/, ''));
-    const name          = $(this).find('td:nth-child(2)').text();
-    const position      = $(this).find('td:nth-child(3)').text();
-    
+  $('#tableRequesters').on('click', 'tbody tr', function () {
+    const sysId = $(this).find('input[data-trigger="sys_id_requesters"]').val();
+    const contactPhone = $(this).find('input[data-trigger="contact_phone_requesters"]').val().split(',').map(v => v.trim().replace(/;$/, ''));
+    const name = $(this).find('td:nth-child(2)').text();
+    const position = $(this).find('td:nth-child(3)').text();
+
     $("#requester_id").val(sysId);
     $("#requester").val(`${position} - ${name}`);
-    $("#requester").css({"background-color":"#e9ecef", "border": "1px solid #ced4da"});
+    $("#requester").css({ "background-color": "#e9ecef", "border": "1px solid #ced4da" });
     $("#requester_detail").val(position);
     $("#requester_detail").css("border", "1px solid #ced4da");
     $("#contactPhone").val(contactPhone[3] || '-');
@@ -950,7 +950,7 @@
     $('#myRequesters').modal('hide');
   });
 
-  $('#dateCommance').change(function() {
+  $('#dateCommance').change(function () {
     $("#dateEnd").prop("disabled", false);
     var dateCommance = new Date($("#dateCommance").val());
     document.getElementById('dateEnd').setAttribute('min', dateCommance.toISOString().split('T')[0]);
@@ -959,12 +959,12 @@
     $("#dateCommenceTravelMessage").hide();
   });
 
-  $('#dateEnd').change(function() {
+  $('#dateEnd').change(function () {
     $("#dateEnd").css("border", "1px solid #ced4da");
     $("#dateEndTravelMessage").hide();
   });
 
-  $('#departingFrom').on('input', function(e) {
+  $('#departingFrom').on('input', function (e) {
     if (e.target.value) {
       $("#departingFrom").css("border", "1px solid #ced4da");
       $("#departingFromMessage").hide();
@@ -974,7 +974,7 @@
     }
   });
 
-  $('#destinationTo').on('input', function(e) {
+  $('#destinationTo').on('input', function (e) {
     if (e.target.value) {
       $("#destinationTo").css("border", "1px solid #ced4da");
       $("#destinationToMessage").hide();
@@ -984,7 +984,7 @@
     }
   });
 
-  $('#reasonTravel').on('input', function(e) {
+  $('#reasonTravel').on('input', function (e) {
     if (e.target.value) {
       $("#reasonTravel").css("border", "1px solid #ced4da");
       $("#reasonToTravelMessage").hide();
@@ -994,11 +994,11 @@
     }
   });
 
-  $('#tableBeneficiaries').on('click', 'tbody tr', function() {
-    let sysId           = $(this).find('input[data-trigger="sys_id_beneficiaries"]').val();
-    let personRefId     = $(this).find('input[data-trigger="person_ref_id_beneficiaries"]').val();
-    let personName      = $(this).find('td:nth-child(2)').text();
-    let personPosition  = $(this).find('td:nth-child(3)').text();
+  $('#tableBeneficiaries').on('click', 'tbody tr', function () {
+    let sysId = $(this).find('input[data-trigger="sys_id_beneficiaries"]').val();
+    let personRefId = $(this).find('input[data-trigger="person_ref_id_beneficiaries"]').val();
+    let personName = $(this).find('td:nth-child(2)').text();
+    let personPosition = $(this).find('td:nth-child(3)').text();
 
     $("#beneficiary_second_id").val(sysId);
     $("#beneficiary_second_person_ref_id").val(personRefId);
@@ -1008,7 +1008,7 @@
     $("#bank_list_popup_second").prop("disabled", false);
 
     $("#beneficiary_second_person_position").css("border", "1px solid #ced4da");
-    $("#beneficiary_second_person_name").css({"background-color":"#e9ecef", "border": "1px solid #ced4da"});
+    $("#beneficiary_second_person_name").css({ "background-color": "#e9ecef", "border": "1px solid #ced4da" });
     $("#beneficiaryToOtherMessage").hide();
 
     getBanks(personRefId, "BusinessTripRequest");
@@ -1016,16 +1016,16 @@
     $('#myBeneficiaries').modal('hide');
   });
 
-  $('#tableGetBankList').on('click', 'tbody tr', function() {
-    let sysId         = $(this).find('input[type="hidden"]').val();
-    let bankAcronym   = $(this).find('td:nth-child(2)').text();
-    let bankFullName  = $(this).find('td:nth-child(3)').text();
+  $('#tableGetBankList').on('click', 'tbody tr', function () {
+    let sysId = $(this).find('input[type="hidden"]').val();
+    let bankAcronym = $(this).find('td:nth-child(2)').text();
+    let bankFullName = $(this).find('td:nth-child(3)').text();
 
     if (labelPayment == "bank_name_vendor") {
       $("#bank_list_code").val(sysId);
       $("#bank_list_name").val(bankAcronym);
       $("#bank_list_detail").val(`${bankAcronym} - ${bankFullName}`);
-      $("#bank_list_detail").css({"background-color":"#e9ecef", "border": "1px solid #ced4da"});
+      $("#bank_list_detail").css({ "background-color": "#e9ecef", "border": "1px solid #ced4da" });
 
       $("#bank_accountss").val("");
       $("#bank_accounts_duplicate").val("");
@@ -1043,7 +1043,7 @@
       $("#bank_list_second_code").val(sysId);
       $("#bank_list_second_name").val(bankAcronym);
       $("#bank_list_second_detail").val(`${bankAcronym} - ${bankFullName}`);
-      $("#bank_list_second_detail").css({"background-color":"#e9ecef", "border": "1px solid #ced4da"});
+      $("#bank_list_second_detail").css({ "background-color": "#e9ecef", "border": "1px solid #ced4da" });
 
       $("#bank_accounts_second").val("");
       $("#bank_accounts_duplicate_second").val("");
@@ -1062,9 +1062,9 @@
     $('#myGetBankList').modal('hide');
   });
 
-  $('#tableBanksAccount').on('click', 'tbody tr', function() {
-    const sysID       = $(this).find('input[type="hidden"]').val();
-    const bankName    = $(this).find('td:nth-child(2)').text();
+  $('#tableBanksAccount').on('click', 'tbody tr', function () {
+    const sysID = $(this).find('input[type="hidden"]').val();
+    const bankName = $(this).find('td:nth-child(2)').text();
     const bankAccount = $(this).find('td:nth-child(3)').text();
     const accountName = $(this).find('td:nth-child(4)').text();
 
@@ -1078,7 +1078,7 @@
 
       $("#bankAccountVendorMessage").hide();
 
-      $("#bank_accountss").css({"background-color":"#e9ecef", "border": "1px solid #ced4da"});
+      $("#bank_accountss").css({ "background-color": "#e9ecef", "border": "1px solid #ced4da" });
     } else if (labelPayment == "bank_account_corp_card") {
       $("#bank_accounts_second").val(bankAccount);
       $("#bank_accounts_duplicate_second").val(bankAccount);
@@ -1089,34 +1089,34 @@
 
       $("#bankAccountCorpCardMessage").hide();
 
-      $("#bank_accounts_detail_second").css({"background-color":"#e9ecef", "border": "1px solid #ced4da"});
+      $("#bank_accounts_detail_second").css({ "background-color": "#e9ecef", "border": "1px solid #ced4da" });
     }
 
     $('#myBanksAccount').modal('hide');
   });
 
-  $('#direct_to_vendor').on('input', function(e) {
+  $('#direct_to_vendor').on('input', function (e) {
     if (e.target.value) {
       $("#direct_to_vendor").css("border", "1px solid #ced4da");
       $("#directToVendorMessage").hide();
     }
   });
 
-  $('#by_corp_card').on('input', function(e) {
+  $('#by_corp_card').on('input', function (e) {
     if (e.target.value) {
       $("#by_corp_card").css("border", "1px solid #ced4da");
       $("#byCorpCardMessage").hide();
     }
   });
 
-  $('#to_other').on('input', function(e) {
+  $('#to_other').on('input', function (e) {
     if (e.target.value) {
       $("#to_other").css("border", "1px solid #ced4da");
       $("#toOtherMessage").hide();
     }
   });
 
-  $(window).one('load', function(e) {
+  $(document).ready(function () {
     if (dateCommanceComp) {
       dateCommanceComp.setAttribute('min', today.toISOString().split('T')[0]);
     }
@@ -1154,5 +1154,8 @@
     $("#beneficiary_second_popup").prop("disabled", true);
     $("#bank_list_popup_second").prop("disabled", true);
     $("#bank_accounts_third_popup").prop("disabled", true);
+
+    getRequesters();
+    getBeneficiaries();
   });
 </script>

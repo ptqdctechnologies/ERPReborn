@@ -72,9 +72,6 @@
                                                         Requester</th>
                                                     <th
                                                         style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
-                                                        Beneficiary</th>
-                                                    <th
-                                                        style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
                                                         Total</th>
                                                     <th
                                                         style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
@@ -84,7 +81,7 @@
                                             <tbody></tbody>
                                             <tfoot>
                                                 <tr>
-                                                    <th colspan="9"
+                                                    <th colspan="8"
                                                         style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">
                                                         GRAND TOTAL</th>
                                                     <th

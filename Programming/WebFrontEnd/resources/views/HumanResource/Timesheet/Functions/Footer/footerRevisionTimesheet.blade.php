@@ -1,11 +1,11 @@
 <script>
-    let dataProject             = [];
-    let triggerUpdateByID       = '';
-    let siteUpdateID            = '';
-    let dataEvents              = {!! json_encode($dataEvents ?? []) !!};
-    let dataDetail              = {!! json_encode($dataDetails ?? []) !!};
+    let dataProject = [];
+    let triggerUpdateByID = '';
+    let siteUpdateID = '';
+    let dataEvents = {!! json_encode($dataEvents ?? []) !!};
+    let dataDetail = {!! json_encode($dataDetails ?? []) !!};
     const authorizedSelectRefID = document.getElementById('authorizedSelect_RefID');
-    const onBehalfSelectRefID   = document.getElementById('onBehalfSelect_RefID');
+    const onBehalfSelectRefID = document.getElementById('onBehalfSelect_RefID');
 
     function getAuthorized() {
         $.ajaxSetup({
@@ -15,18 +15,18 @@
         });
 
         $.ajax({
-            type: 'GET',
-            url: '{!! route("getNewProject") !!}',
-            success: function(data) {
-                if (data && Array.isArray(data)) {
-                    dataProject = data;
+            type: 'POST',
+            url: '{!! route("Budget.BudgetPickList") !!}',
+            success: function (data) {
+                if (data.data && Array.isArray(data.data)) {
+                    dataProject = data.data;
 
                     $('#authorizedSelect').empty();
                     $('#authorizedSelect').append('<option disabled selected>Select an Authorized</option>');
 
-                    data.forEach(function(project) {
+                    data.data.forEach(function (project) {
                         let isSelected = project.sys_ID == authorizedSelectRefID.value ? ' selected ' : ' ';
-                        $('#authorizedSelect').append('<option' + isSelected + 'value="' + project.sys_ID + '">' + project.sys_Text + '</option>');
+                        $('#authorizedSelect').append('<option' + isSelected + 'value="' + project.sys_ID + '">' + project.name + '</option>');
                     });
                 } else {
                     console.log('Data project code not found.');
@@ -49,17 +49,17 @@
         });
 
         $.ajax({
-            type: 'GET',
-            url: '{!! route("getNewProject") !!}',
-            success: function(data) {
-                if (data && Array.isArray(data)) {
-                    dataProject = data;
+            type: 'POST',
+            url: '{!! route("Budget.BudgetPickList") !!}',
+            success: function (data) {
+                if (data.data && Array.isArray(data.data)) {
+                    dataProject = data.data;
 
                     $('#projectSelect').empty();
                     $('#projectSelect').append('<option disabled selected>Select a Project Code</option>');
 
-                    data.forEach(function(project) {
-                        $('#projectSelect').append('<option value="' + project.sys_ID + '">' + project.sys_Text + '</option>');
+                    data.data.forEach(function (project) {
+                        $('#projectSelect').append('<option value="' + project.sys_ID + '">' + project.name + '</option>');
                     });
                 } else {
                     console.log('Data project code not found.');
@@ -85,7 +85,7 @@
         $.ajax({
             type: 'GET',
             url: '{!! route("getNewSite") !!}?project_code=' + project_RefID.value,
-            success: function(data) {
+            success: function (data) {
                 $("#siteLoading").hide();
 
                 if (triggerUpdateByID) {
@@ -94,7 +94,7 @@
                     $('#siteSelect').empty();
                     $('#siteSelect').append('<option disabled selected>Select a Site Code</option>');
 
-                    data.forEach(function(site) {
+                    data.forEach(function (site) {
                         $('#siteSelect').append('<option value="' + site.Sys_ID + '">' + '(' + site.Code + ') ' + site.Name + '</option>');
                     });
 
@@ -106,7 +106,7 @@
                         $('#siteSelect').empty();
                         $('#siteSelect').append('<option disabled selected>Select a Site Code</option>');
 
-                        data.forEach(function(site) {
+                        data.forEach(function (site) {
                             $('#siteSelect').append('<option value="' + site.Sys_ID + '">' + '(' + site.Code + ') ' + site.Name + '</option>');
                         });
 
@@ -132,12 +132,12 @@
         $.ajax({
             type: 'GET',
             url: '{!! route("getPerson") !!}',
-            success: function(data) {
+            success: function (data) {
                 if (data && Array.isArray(data)) {
                     $('#onBehalfSelect').empty();
                     $('#onBehalfSelect').append('<option disabled selected>Select a Person on Behalf</option>');
 
-                    data.forEach(function(person) {
+                    data.forEach(function (person) {
                         let isSelected = person.sys_ID == onBehalfSelectRefID.value ? ' selected ' : ' ';
                         $('#onBehalfSelect').append('<option' + isSelected + 'value="' + person.sys_ID + '">' + person.sys_Text + '</option>');
                     });
@@ -147,7 +147,7 @@
 
                 $("#onBehalfSelectContainer").show();
                 $("#onBehalfLoading").hide();
-            }, 
+            },
             error: function (textStatus, errorThrown) {
                 console.log('Function getPerson error: ', textStatus, errorThrown);
             },
@@ -170,7 +170,7 @@
     function convertToISODateTimeNew(dateStr, timeStr) {
         // Pecah tanggal dari format MM/DD/YYYY
         const [month, day, year] = dateStr.split('/');
-        
+
         // Gabungkan ke format YYYY-DD-MM
         const formattedDate = `${year}-${month}-${day}`;
 
@@ -183,15 +183,15 @@
     }
 
     function resetForm(params) {
-        document.getElementById("eventStartDate").value         = params.startDate;
-        document.getElementById("eventFinishDate").value        = params.finishDate;
-        document.getElementById("eventFromHours").value         = params.fromHours;
-        document.getElementById("eventToHours").value           = params.toHours;
-        document.getElementById("eventDailyAct").value          = params.dailyAct;
-        document.getElementById("eventModalLabel").innerHTML    = params.title;
-        document.getElementById("eventModalSubmit").innerHTML   = params.submit;
-        document.getElementById("projectSelect").value          = params.projectID;
-        document.getElementById("siteSelect").value             = params.siteID;
+        document.getElementById("eventStartDate").value = params.startDate;
+        document.getElementById("eventFinishDate").value = params.finishDate;
+        document.getElementById("eventFromHours").value = params.fromHours;
+        document.getElementById("eventToHours").value = params.toHours;
+        document.getElementById("eventDailyAct").value = params.dailyAct;
+        document.getElementById("eventModalLabel").innerHTML = params.title;
+        document.getElementById("eventModalSubmit").innerHTML = params.submit;
+        document.getElementById("projectSelect").value = params.projectID;
+        document.getElementById("siteSelect").value = params.siteID;
 
         $("#projectSelect").val(params.changeProjectID).change();
         $("#siteSelect").prop("disabled", params.changeDisabledSiteID);
@@ -199,15 +199,15 @@
     }
 
     function saveEvent() {
-        var uniqid      = Date.now();
-        var startDate   = document.getElementById("eventStartDate");
-        var finishDate  = document.getElementById("eventFinishDate");
-        var fromHours   = document.getElementById("eventFromHours");
-        var toHours     = document.getElementById("eventToHours");
-        var projectID   = document.getElementById("projectSelect");
-        var siteID      = document.getElementById("siteSelect");
-        var personID    = document.getElementById("onBehalfSelect");
-        var dailyAct    = document.getElementById("eventDailyAct");
+        var uniqid = Date.now();
+        var startDate = document.getElementById("eventStartDate");
+        var finishDate = document.getElementById("eventFinishDate");
+        var fromHours = document.getElementById("eventFromHours");
+        var toHours = document.getElementById("eventToHours");
+        var projectID = document.getElementById("projectSelect");
+        var siteID = document.getElementById("siteSelect");
+        var personID = document.getElementById("onBehalfSelect");
+        var dailyAct = document.getElementById("eventDailyAct");
         var findProject = dataProject.find((el) => el.sys_ID == projectID.value);
 
         const dataObject = {
@@ -239,7 +239,7 @@
         };
 
         if (triggerUpdateByID) {
-            var findIndex       = dataEvents.findIndex((val) => val.id == triggerUpdateByID);
+            var findIndex = dataEvents.findIndex((val) => val.id == triggerUpdateByID);
             var findIndexDetail = dataDetail.findIndex((val) => val.recordID == triggerUpdateByID);
 
             dataObject.id = triggerUpdateByID;
@@ -303,7 +303,7 @@
             reverseButtons: true
         }).then((result) => {
             ShowLoading();
-            RevisionTimesheetStore({...formatData, comment: result.value});
+            RevisionTimesheetStore({ ...formatData, comment: result.value });
         });
     }
 
@@ -318,7 +318,7 @@
             type: 'POST',
             data: formatData,
             url: '{{ route("Timesheet.updates") }}',
-            success: function(res) {
+            success: function (res) {
                 HideLoading();
 
                 if (res.status === 200) {
@@ -347,13 +347,13 @@
                     ErrorNotif("Data Cancel Inputed");
                 }
             },
-            error: function(jqXHR, textStatus, errorThrown) {
+            error: function (jqXHR, textStatus, errorThrown) {
                 console.log('error', jqXHR, textStatus, errorThrown);
             }
         });
     }
 
-    $("#FormSubmitTimesheet").on("submit", function(e) {
+    $("#FormSubmitTimesheet").on("submit", function (e) {
         e.preventDefault();
 
         const swalWithBootstrapButtons = Swal.mixin({
@@ -388,7 +388,7 @@
                     processData: false,
                     data: form_data,
                     type: method,
-                    success: function(response) {
+                    success: function (response) {
                         HideLoading();
 
                         if (response.message == "WorkflowError") {
@@ -400,7 +400,7 @@
 
                             var t = $('#tableGetWorkFlow').DataTable();
                             t.clear();
-                            $.each(response.data, function(key, val) {
+                            $.each(response.data, function (key, val) {
                                 t.row.add([
                                     '<td><span data-dismiss="modal" onclick="SelectWorkFlow(\'' + val.Sys_ID + '\', \'' + val.NextApprover_RefID + '\', \'' + response.approverEntity_RefID + '\', \'' + response.documentTypeID + '\');"><img src="{{ asset("AdminLTE-master/dist/img/add.png") }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></span></td>',
                                     '<td style="border:1px solid #e9ecef;">' + val.FullApproverPath + '</td></tr></tbody>'
@@ -408,9 +408,9 @@
                             });
                         } else {
                             const formatData = {
-                                workFlowPath_RefID: response.workFlowPath_RefID, 
-                                nextApprover: response.nextApprover_RefID, 
-                                approverEntity: response.approverEntity_RefID, 
+                                workFlowPath_RefID: response.workFlowPath_RefID,
+                                nextApprover: response.nextApprover_RefID,
+                                approverEntity: response.approverEntity_RefID,
                                 documentTypeID: response.documentTypeID,
                                 storeData: response.storeData
                             };
@@ -418,9 +418,9 @@
                             SelectWorkFlow(formatData);
                         }
                     },
-                    error: function(response) {
+                    error: function (response) {
                         console.log('response error', response);
-                        
+
                         HideLoading();
                         $("#submitTimesheet").prop("disabled", false);
                         CancelNotif("You don't have access", '/Timesheet');
@@ -483,7 +483,7 @@
                 center: 'title',
                 right: 'year,month,agendaWeek,agendaDay'
             },
-            events: function(start, end, timezone, callback) {
+            events: function (start, end, timezone, callback) {
                 $('#calendar').fullCalendar('removeEvents');
 
                 const visibleEvents = dataEvents.filter(event => {
@@ -491,7 +491,7 @@
                     const eventEnd = new Date(event.end || event.start);
                     return eventStart <= end && eventEnd >= start;
                 });
-                
+
                 callback(visibleEvents);
                 // This ensures the calendar always uses the current dataEvents array
                 // callback(dataEvents);
@@ -499,11 +499,11 @@
             // dayClick: function(date, event, view){
             //     console.log('dayClick', event);
             // },
-            select: function(resource, start, end){
+            select: function (resource, start, end) {
                 // console.log('select', resource);
                 $('#eventModal').modal('show');
             },
-            eventClick: function(info) {
+            eventClick: function (info) {
                 const { originData } = info;
 
                 triggerUpdateByID = info.id;

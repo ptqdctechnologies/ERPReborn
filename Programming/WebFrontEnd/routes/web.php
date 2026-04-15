@@ -136,7 +136,8 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     //BusinessDocumentVersion
     Route::resource('BusinessDocumentVersion', 'Register\BusinessDocumentVersionController');
 
-    // Budget
+    // BUDGET
+    Route::post('BudgetPickList', 'Budget\BudgetController@BudgetPickList')->name('Budget.BudgetPickList');
     Route::post('RevisionModifyBudget', 'Budget\BudgetController@RevisionModifyBudget')->name('Budget.RevisionModifyBudget');
     Route::get('ModifyBudget', 'Budget\BudgetController@ModifyBudget')->name('Budget.ModifyBudget');
     Route::post('RevisionBudget', 'Budget\BudgetController@RevisionBudget')->name('Budget.RevisionBudget');
@@ -150,7 +151,8 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::post('PrintExportReportModifyBudgetDetail', 'Budget\BudgetController@PrintExportReportModifyBudgetDetail')->name('Budget.PrintExportReportModifyBudgetDetail');
     Route::post('BudgetImport', 'Budget\BudgetController@Import')->name('Budget.Import');
     Route::get('BudgetDownload', 'Budget\BudgetController@Download')->name('Budget.Download');
-    Route::resource('Budget', 'Budget\BudgetController');
+    Route::resource('Budget', 'Budget\BudgetController')->only(['index', 'store']);
+
     // Budget Expense
     Route::get('BudgetExpense/GetBudget', 'BudgetExpenseController@GetBudget')->name('BudgetExpense.GetBudget');
     Route::resource('BudgetExpense', 'BudgetExpenseController');
@@ -177,7 +179,6 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
 
     // FUNCTION
     Route::get('getProject', 'Function\FunctionController@getProject')->name('getProject');
-    Route::get('getNewProject', 'Function\FunctionController@getNewProject')->name('getNewProject');
     Route::get('getPurchaseRequisitionByBudgetID', 'Function\FunctionController@getPurchaseRequisitionByBudgetID')->name('getPurchaseRequisitionByBudgetID');
     Route::get('getSite', 'Function\FunctionController@getSite')->name('getSite');
     Route::get('getNewSite', 'Function\FunctionController@getNewSite')->name('getNewSite');
@@ -187,7 +188,6 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('getChartOfAccountList', 'Function\FunctionController@getChartOfAccountList')->name('getChartOfAccountList');
     Route::get('getInvoiceList', 'Function\FunctionController@getInvoiceList')->name('getInvoiceList');
     Route::get('getWarehouseList', 'Function\FunctionController@getWarehouseList')->name('getWarehouseList');
-    Route::get('getAdvance', 'Function\FunctionController@getAdvance')->name('getAdvance');
     Route::get('getAdvanceSettlement', 'Function\FunctionController@getAdvanceSettlement')->name('getAdvanceSettlement');
     Route::get('getAdvanceDetail', 'Function\FunctionController@getAdvanceDetail')->name('getAdvanceDetail');
     Route::get('getDeliveryOrderList', 'Function\FunctionController@getDeliveryOrderList')->name('getDeliveryOrderList');
@@ -261,7 +261,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::resource('TaxRecon', 'Accounting\TaxReconController');
 
     // ADVANCE REQUEST
-    Route::get('AdvanceListData', 'Process\Advance\AdvanceRequestController@AdvanceListData')->name('AdvanceRequest.AdvanceListData');
+    Route::post('AdvancePickList', 'Process\Advance\AdvanceRequestController@AdvancePickList')->name('AdvanceRequest.AdvancePickList');
     Route::get('ReportAdvanceToASF', 'Process\Advance\AdvanceRequestController@ReportAdvanceToASF')->name('AdvanceRequest.ReportAdvanceToASF');
     Route::post('ReportAdvanceToASFStore', 'Process\Advance\AdvanceRequestController@ReportAdvanceToASFStore')->name('AdvanceRequest.ReportAdvanceToASFStore');
     Route::get('ReportAdvanceSummary', 'Process\Advance\AdvanceRequestController@ReportAdvanceSummary')->name('AdvanceRequest.ReportAdvanceSummary');
@@ -273,12 +273,12 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::post('PrintExportReportAdvanceSummaryDetail', 'Process\Advance\AdvanceRequestController@PrintExportReportAdvanceSummaryDetail')->name('AdvanceRequest.PrintExportReportAdvanceSummaryDetail');
     Route::post('PrintExportReportAdvanceToASF', 'Process\Advance\AdvanceRequestController@PrintExportReportAdvanceToASF')->name('AdvanceRequest.PrintExportReportAdvanceToASF');
     Route::post('UpdatesAdvanceRequest', 'Process\Advance\AdvanceRequestController@UpdatesAdvanceRequest')->name('AdvanceRequest.UpdatesAdvanceRequest');
-    Route::resource('AdvanceRequest', 'Process\Advance\AdvanceRequestController');
+    Route::resource('AdvanceRequest', 'Process\Advance\AdvanceRequestController')->only(['index', 'store']);
 
     // ADVANCE SETTLEMENT
+    Route::post('AdvanceSettlementPickList', 'Process\Advance\AdvanceSettlementController@AdvanceSettlementPickList')->name('AdvanceSettlement.AdvanceSettlementPickList');
     Route::post('RevisionAdvanceSettlementIndex', 'Process\Advance\AdvanceSettlementController@RevisionAdvanceSettlementIndex')->name('AdvanceSettlement.RevisionAdvanceSettlementIndex');
     Route::get('AdvanceSettlementDetail', 'Process\Advance\AdvanceSettlementController@AdvanceSettlementDetail')->name('AdvanceSettlement.Detail');
-    Route::get('AdvanceSettlementListData', 'Process\Advance\AdvanceSettlementController@AdvanceSettlementListData')->name('AdvanceSettlement.AdvanceSettlementListData');
     Route::get('ReportAdvanceSettlementSummary', 'Process\Advance\AdvanceSettlementController@ReportAdvanceSettlementSummary')->name('AdvanceSettlement.ReportAdvanceSettlementSummary');
     Route::post('ReportAdvanceSettlementSummaryStore', 'Process\Advance\AdvanceSettlementController@ReportAdvanceSettlementSummaryStore')->name('AdvanceSettlement.ReportAdvanceSettlementSummaryStore');
     Route::post('PrintExportReportAdvanceSettlementSummary', 'Process\Advance\AdvanceSettlementController@PrintExportReportAdvanceSettlementSummary')->name('AdvanceSettlement.PrintExportReportAdvanceSettlementSummary');
@@ -286,7 +286,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::post('ReportAdvanceSettlementDetailStore', 'Process\Advance\AdvanceSettlementController@ReportAdvanceSettlementDetailStore')->name('AdvanceSettlement.ReportAdvanceSettlementDetailStore');
     Route::post('PrintExportReportAdvanceSettlementDetail', 'Process\Advance\AdvanceSettlementController@PrintExportReportAdvanceSettlementDetail')->name('AdvanceSettlement.PrintExportReportAdvanceSettlementDetail');
     Route::post('UpdatesAdvanceSettlement', 'Process\Advance\AdvanceSettlementController@updatesAdvanceSettlement')->name('AdvanceSettlement.UpdatesAdvanceSettlement');
-    Route::resource('AdvanceSettlement', 'Process\Advance\AdvanceSettlementController');
+    Route::resource('AdvanceSettlement', 'Process\Advance\AdvanceSettlementController')->only(['index', 'store']);
 
     // BUSINESS TRIP SETTLEMENT
     Route::get('GetBusinessTripSettlementList', 'Process\BusinessTrip\BusinessTripSettlementController@getBusinessTripSettlementList')->name('BusinessTripSettlement.GetBusinessTripSettlementList');

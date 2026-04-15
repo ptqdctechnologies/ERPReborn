@@ -10,7 +10,8 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body table-responsive p-0" style="height: 400px;">
-                                <table class="table table-head-fixed text-nowrap" id="tableRequesters" style="width: 100%;">
+                                <table class="table table-head-fixed text-nowrap" id="tableRequesters"
+                                    style="width: 100%;">
                                     <thead>
                                         <tr>
                                             <th>No</th>
@@ -23,7 +24,8 @@
                                     <tfoot>
                                         <tr class="loadingRequesters">
                                             <td colspan="3" class="p-0" style="height: 22rem;">
-                                                <div class="d-flex flex-column justify-content-center align-items-center py-3">
+                                                <div
+                                                    class="d-flex flex-column justify-content-center align-items-center py-3">
                                                     <div class="spinner-border" role="status">
                                                         <span class="sr-only">Loading...</span>
                                                     </div>
@@ -35,8 +37,10 @@
                                         </tr>
                                         <tr class="errorRequestersMessageContainer">
                                             <td colspan="3" class="p-0" style="height: 22rem;">
-                                                <div class="d-flex flex-column justify-content-center align-items-center py-3">
-                                                    <div id="errorRequestersMessage" class="mt-3 text-red" style="font-size: 1rem; font-weight: 700;"></div>
+                                                <div
+                                                    class="d-flex flex-column justify-content-center align-items-center py-3">
+                                                    <div id="errorRequestersMessage" class="mt-3 text-red"
+                                                        style="font-size: 1rem; font-weight: 700;"></div>
                                                 </div>
                                             </td>
                                         </tr>
@@ -62,7 +66,7 @@
         $.ajax({
             type: 'GET',
             url: '{!! route("getWorker") !!}',
-            success: function(data) {
+            success: function (data) {
                 $(".loadingRequesters").hide();
 
                 var table = $('#tableRequesters').DataTable();
@@ -130,7 +134,7 @@
         });
     }
 
-    $(window).one('load', function(e) {
-        getRequesters();
-    });
+    // $(document).ready(function () {
+    //     getRequesters();
+    // });
 </script>

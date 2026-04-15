@@ -1,58 +1,58 @@
 <script>
-    let dataStore           = [];
-    const receiveDateValue  = {!! json_encode($header['receiveDate']) !!};
-    const dataTable         = {!! json_encode($dataDetail ?? []) !!};
+    let dataStore = [];
+    const receiveDateValue = {!! json_encode($header['receiveDate']) !!};
+    const dataTable = {!! json_encode($dataDetail ?? []) !!};
 
-    const receiveDate                       = document.getElementById("receive_date");
+    const receiveDate = document.getElementById("receive_date");
 
-    const addressDeliveryOrderFrom          = document.getElementById("address_delivery_order_from");
+    const addressDeliveryOrderFrom = document.getElementById("address_delivery_order_from");
     const addressDeliveryOrderFromDuplicate = document.getElementById("address_delivery_order_from_duplicate");
-    const idDeliveryOrderFromDuplicate      = document.getElementById("id_delivery_order_from_duplicate");
+    const idDeliveryOrderFromDuplicate = document.getElementById("id_delivery_order_from_duplicate");
 
-    const addressDeliveryOrderTo            = document.getElementById("address_delivery_order_to");
-    const addressDeliveryOrderToDuplicate   = document.getElementById("address_delivery_order_to_duplicate");
-    const idDeliveryOrderToDuplicate        = document.getElementById("id_delivery_order_to_duplicate");
+    const addressDeliveryOrderTo = document.getElementById("address_delivery_order_to");
+    const addressDeliveryOrderToDuplicate = document.getElementById("address_delivery_order_to_duplicate");
+    const idDeliveryOrderToDuplicate = document.getElementById("id_delivery_order_to_duplicate");
 
     function validateQtyAndPriceWithHighlight() {
-        let isValid                 = true;
-        const rows                  = document.querySelectorAll("#tableMaterialReceiveDetail tbody tr");
-        const budgetDetailsMessage  = document.getElementById("materialReceiveDetailMessage");
+        let isValid = true;
+        const rows = document.querySelectorAll("#tableMaterialReceiveDetail tbody tr");
+        const budgetDetailsMessage = document.getElementById("materialReceiveDetailMessage");
 
         if (budgetDetailsMessage) {
             budgetDetailsMessage.style.display = "none";
         }
 
         rows.forEach(row => {
-            const qtyInput  = row.querySelector('input[id^="qty_req"]');
+            const qtyInput = row.querySelector('input[id^="qty_req"]');
             const noteInput = row.querySelector('textarea[id^="note"]');
 
             if (!qtyInput || !noteInput) return;
 
-            const qty           = qtyInput.value.trim();
-            const qtyDetail     = qtyInput.getAttribute("data-default");
+            const qty = qtyInput.value.trim();
+            const qtyDetail = qtyInput.getAttribute("data-default");
 
-            const note          = noteInput.value.trim();
-            const noteDetail    = noteInput.getAttribute("data-default");
+            const note = noteInput.value.trim();
+            const noteDetail = noteInput.getAttribute("data-default");
 
-            const isQtyFilled   = qty !== "";
-            const isNoteFilled  = note !== "";
+            const isQtyFilled = qty !== "";
+            const isNoteFilled = note !== "";
 
-            qtyInput.style.border   = "1px solid #e9ecef";
+            qtyInput.style.border = "1px solid #e9ecef";
             noteInput.style.border = "1px solid #e9ecef";
-            
+
             if (
-                (isQtyFilled && !isNoteFilled && qtyDetail && noteDetail) || 
-                (!isQtyFilled && isNoteFilled && qtyDetail && noteDetail) || 
+                (isQtyFilled && !isNoteFilled && qtyDetail && noteDetail) ||
+                (!isQtyFilled && isNoteFilled && qtyDetail && noteDetail) ||
                 (!isQtyFilled && !isNoteFilled && qtyDetail && noteDetail)
             ) {
                 if (!isQtyFilled) {
-                    qtyInput.style.border   = "1px solid red";
+                    qtyInput.style.border = "1px solid red";
                 }
 
                 if (!isNoteFilled) {
                     priceInput.style.border = "1px solid red";
                 }
-                
+
                 if (budgetDetailsMessage) {
                     budgetDetailsMessage.style.display = "block";
                 }
@@ -66,8 +66,8 @@
 
     function calculateTotal() {
         let total = 0;
-        
-        document.querySelectorAll('input[id^="qty_req"]').forEach(function(input) {
+
+        document.querySelectorAll('input[id^="qty_req"]').forEach(function (input) {
             let value = parseFloat(input.value.replace(/,/g, ''));
             if (!isNaN(value)) {
                 total += value;
@@ -96,8 +96,8 @@
         let hasFullRow = false;
 
         rows.forEach((row, index) => {
-            const qty   = document.getElementById(`qty_req${index}`)?.value.trim();
-            const note  = document.getElementById(`note${index}`)?.value.trim();
+            const qty = document.getElementById(`qty_req${index}`)?.value.trim();
+            const note = document.getElementById(`note${index}`)?.value.trim();
 
             if (qty !== "" && note !== "") {
                 hasFullRow = true;
@@ -105,8 +105,8 @@
         });
 
         rows.forEach((row, index) => {
-            const qtyEl     = document.getElementById(`qty_req${index}`);
-            const noteEl    = document.getElementById(`note${index}`);
+            const qtyEl = document.getElementById(`qty_req${index}`);
+            const noteEl = document.getElementById(`note${index}`);
 
             if (hasFullRow) {
                 $(qtyEl).css("border", "1px solid #ced4da");
@@ -129,9 +129,9 @@
                     if (indexInput != index && (qtyEl.value.trim() == "" && noteEl.value.trim() == "")) {
                         $(qtyEl).css("border", "1px solid #ced4da");
                         $(noteEl).css("border", "1px solid #ced4da");
-                    } 
+                    }
                 } else {
-                    $(qtyEl).css("border", "1px solid red");noteEl
+                    $(qtyEl).css("border", "1px solid red"); noteEl
                     $(noteEl).css("border", "1px solid red");
                     $("#materialReceiveDetailMessage").show();
                 }
@@ -148,30 +148,30 @@
         const rows = sourceTable.getElementsByTagName('tr');
 
         for (let row of rows) {
-            const recordRefID                       = row.querySelector('input[id^="record_RefID"]');
-            const workStructureRefID                = row.querySelector('input[id^="workStructure_RefID"]');
-            const combinedBudgetSectionDetailRefID  = row.querySelector('input[id^="combinedBudgetSectionDetail_RefID"]');
-            const deliveryOrderDetailRefID          = row.querySelector('input[id^="deliveryOrderDetail_RefID"]');
-            const productRefID                      = row.querySelector('input[id^="product_RefID"]');
-            const quantityUnitRefID                 = row.querySelector('input[id^="quantityUnit_RefID"]');
-            const productUnitPriceCurrencyRefID     = row.querySelector('input[id^="productUnitPriceCurrency_RefID"]');
-            const qtyInput                          = row.querySelector('input[id^="qty_req"]');
-            const noteInput                         = row.querySelector('textarea[id^="note"]');
+            const recordRefID = row.querySelector('input[id^="record_RefID"]');
+            const workStructureRefID = row.querySelector('input[id^="workStructure_RefID"]');
+            const combinedBudgetSectionDetailRefID = row.querySelector('input[id^="combinedBudgetSectionDetail_RefID"]');
+            const deliveryOrderDetailRefID = row.querySelector('input[id^="deliveryOrderDetail_RefID"]');
+            const productRefID = row.querySelector('input[id^="product_RefID"]');
+            const quantityUnitRefID = row.querySelector('input[id^="quantityUnit_RefID"]');
+            const productUnitPriceCurrencyRefID = row.querySelector('input[id^="productUnitPriceCurrency_RefID"]');
+            const qtyInput = row.querySelector('input[id^="qty_req"]');
+            const noteInput = row.querySelector('textarea[id^="note"]');
 
             if (
                 qtyInput && noteInput &&
                 qtyInput.value.trim() !== '' &&
                 noteInput.value.trim() !== ''
             ) {
-                const productCode   = row.children[4].innerText.trim();
-                const qtyAvail      = row.children[6].innerText.trim();
-                const uom           = row.children[7].innerText.trim();
+                const productCode = row.children[4].innerText.trim();
+                const qtyAvail = row.children[6].innerText.trim();
+                const uom = row.children[7].innerText.trim();
 
-                const qty   = qtyInput.value.trim();
-                const note  = noteInput.value.trim();
+                const qty = qtyInput.value.trim();
+                const note = noteInput.value.trim();
 
-                let found           = false;
-                const existingRows  = targetTable.getElementsByTagName('tr');
+                let found = false;
+                const existingRows = targetTable.getElementsByTagName('tr');
 
                 for (let targetRow of existingRows) {
                     const recordID = targetRow.children[0].value.trim();
@@ -234,7 +234,7 @@
                     });
                 }
             } else {
-                const existingRows  = targetTable.getElementsByTagName('tr');
+                const existingRows = targetTable.getElementsByTagName('tr');
 
                 for (let targetRow of existingRows) {
                     const recordID = targetRow.children[0].value.trim();
@@ -255,11 +255,11 @@
     }
 
     function validationForm() {
-        const isReceiveDateNotEmpty     = receiveDate.value.trim() !== '';
-        const isDeliveryFromNotEmpty    = addressDeliveryOrderFrom.value.trim() !== '';
-        const isDeliveryToNotEmpty      = addressDeliveryOrderTo.value.trim() !== '';
-        const isTableNotEmpty           = checkOneLineBudgetContents();
-        const isInputNotEmpty           = validateQtyAndPriceWithHighlight();
+        const isReceiveDateNotEmpty = receiveDate.value.trim() !== '';
+        const isDeliveryFromNotEmpty = addressDeliveryOrderFrom.value.trim() !== '';
+        const isDeliveryToNotEmpty = addressDeliveryOrderTo.value.trim() !== '';
+        const isTableNotEmpty = checkOneLineBudgetContents();
+        const isInputNotEmpty = validateQtyAndPriceWithHighlight();
 
         if (isReceiveDateNotEmpty && isDeliveryFromNotEmpty && isDeliveryToNotEmpty && isTableNotEmpty && isInputNotEmpty) {
             $('#material_receive_submit_modal').modal('show');
@@ -309,7 +309,7 @@
 
         let totalRequest = 0;
 
-        $.each(dataDetail, function(key, val2) {
+        $.each(dataDetail, function (key, val2) {
             totalRequest += val2.quantity;
 
             dataStore.push({
@@ -324,7 +324,7 @@
                     productUnitPriceCurrencyValue: parseFloat(0),
                     remarks: val2.note,
                     combinedBudgetSectionDetail_RefID: val2.combinedBudgetSectionDetail_RefID,
-                    workStructure_RefID: 302000000000002
+                    workStructure_RefID: parseInt(val2.workStructure_RefID),
                 }
             });
 
@@ -333,7 +333,7 @@
                     <input id="record_RefID${key}" value="${val2.sys_ID}" type="hidden" />
                     <input id="deliveryOrderDetail_RefID${key}" value="${val2.deliveryOrderDetail_RefID}" type="hidden" />
 
-                    <td style="text-align: center;">-</td>
+                    <td style="text-align: center;">${val2.workCode || ''} - ${val2.workName || ''}</td>
                     <td style="text-align: center;">${val2.combinedBudgetSectionCode} - ${val2.combinedBudgetSectionName}</td>
                     <td style="text-align: center;">${val2.productCode || ''} - ${val2.productName || ''}</td>
                     <td style="text-align: center;">${currencyTotal(val2.qtyDO) || '-'}</td>
@@ -350,15 +350,15 @@
                     <input id="quantityUnit_RefID${key}" value="${val2.quantityUnit_RefID}" type="hidden" />
                     <input id="productUnitPriceCurrency_RefID${key}" value="${val2.sys_BaseCurrency_RefID}" type="hidden" />
                     <input id="combinedBudgetSectionDetail_RefID${key}" value="${val2.combinedBudgetSectionDetail_RefID}" type="hidden" />
-                    <input id="workStructure_RefID${key}" value="302000000000002" type="hidden" />
+                    <input id="workStructure_RefID${key}" value="${val2.workStructure_RefID}" type="hidden" />
                 </tr>
             `;
 
             tbody.append(row);
 
-            $(`#qty_req${key}`).on('keyup', function() {
-                var qty_req     = $(this).val().replace(/,/g, '');
-                var sumQty      = val2.quantity + val2.qtyAvailableDO;
+            $(`#qty_req${key}`).on('keyup', function () {
+                var qty_req = $(this).val().replace(/,/g, '');
+                var sumQty = val2.quantity + val2.qtyAvailableDO;
 
                 if (parseFloat(qty_req) > sumQty) {
                     $(this).val("");
@@ -370,7 +370,7 @@
                 checkOneLineBudgetContents(key);
             });
 
-            $(`#note${key}`).on('keyup', function() {
+            $(`#note${key}`).on('keyup', function () {
                 checkOneLineBudgetContents(key);
             });
 
@@ -420,7 +420,7 @@
         }).then((result) => {
             if ('value' in result) {
                 ShowLoading();
-                RevisionMaterialReceiveStore({...formatData, comment: result.value});
+                RevisionMaterialReceiveStore({ ...formatData, comment: result.value });
             }
         });
     }
@@ -436,7 +436,7 @@
             type: 'POST',
             data: formatData,
             url: '{{ route("MaterialReceive.UpdateMaterialReceive") }}',
-            success: function(res) {
+            success: function (res) {
                 HideLoading();
 
                 if (res.status == 200) {
@@ -464,7 +464,7 @@
                     ErrorNotif("Data Cancel Inputed");
                 }
             },
-            error: function(jqXHR, textStatus, errorThrown) {
+            error: function (jqXHR, textStatus, errorThrown) {
                 console.log('error', jqXHR, textStatus, errorThrown);
             }
         });
@@ -488,7 +488,7 @@
             processData: false,
             data: form_data,
             type: method,
-            success: function(response) {
+            success: function (response) {
                 HideLoading();
 
                 if (response.message == "WorkflowError") {
@@ -498,7 +498,7 @@
 
                     let t = $('#tableGetWorkFlow').DataTable();
                     t.clear();
-                    $.each(response.data, function(key, val) {
+                    $.each(response.data, function (key, val) {
                         t.row.add([
                             '<td><span data-dismiss="modal" onclick="SelectWorkFlow(\'' + val.Sys_ID + '\', \'' + val.NextApprover_RefID + '\', \'' + response.approverEntity_RefID + '\', \'' + response.documentTypeID + '\');"><img src="{{ asset("AdminLTE-master/dist/img/add.png") }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></span></td>',
                             '<td style="border:1px solid #e9ecef;">' + val.FullApproverPath + '</td></tr></tbody>'
@@ -506,9 +506,9 @@
                     });
                 } else {
                     const formatData = {
-                        workFlowPath_RefID: response.workFlowPath_RefID, 
-                        nextApprover: response.nextApprover_RefID, 
-                        approverEntity: response.approverEntity_RefID, 
+                        workFlowPath_RefID: response.workFlowPath_RefID,
+                        nextApprover: response.nextApprover_RefID,
+                        approverEntity: response.approverEntity_RefID,
                         documentTypeID: response.documentTypeID,
                         storeData: response.storeData
                     };
@@ -516,18 +516,18 @@
                     SelectWorkFlow(formatData);
                 }
             },
-            error: function(response) {
+            error: function (response) {
                 console.log('response error', response);
-                
+
                 HideLoading();
                 CancelNotif("You don't have access", "{{ route('MaterialReceive.index', ['var' => 1]) }}");
             }
         });
     }
 
-    $('#tableGetModalWarehouses').on('click', 'tbody tr', function() {
-        let sysId   = $(this).find('input[data-trigger="sys_id_modal_warehouse"]').val();
-        let name    = $(this).find('td:nth-child(2)').text();
+    $('#tableGetModalWarehouses').on('click', 'tbody tr', function () {
+        let sysId = $(this).find('input[data-trigger="sys_id_modal_warehouse"]').val();
+        let name = $(this).find('td:nth-child(2)').text();
         let address = $(this).find('td:nth-child(3)').text();
 
         $("#warehouse_id").val(sysId);
@@ -537,7 +537,7 @@
         $("#myGetModalWarehouses").modal('toggle');
     });
 
-    $('#address_delivery_order_from').on('input', function() {
+    $('#address_delivery_order_from').on('input', function () {
         if ($(this).val().trim() === addressDeliveryOrderFromDuplicate.value) {
             $("#id_delivery_order_from").val(idDeliveryOrderFromDuplicate.value);
         } else {
@@ -545,7 +545,7 @@
         }
     });
 
-    $('#address_delivery_order_to').on('input', function() {
+    $('#address_delivery_order_to').on('input', function () {
         if ($(this).val().trim() === addressDeliveryOrderToDuplicate.value) {
             $("#id_delivery_order_to").val(idDeliveryOrderToDuplicate.value);
         } else {
@@ -553,7 +553,7 @@
         }
     });
 
-    $(window).one('load', function(e) {
+    $(window).one('load', function (e) {
         viewMaterialReceiveDetail(dataTable);
 
         $('#startDate').datetimepicker({

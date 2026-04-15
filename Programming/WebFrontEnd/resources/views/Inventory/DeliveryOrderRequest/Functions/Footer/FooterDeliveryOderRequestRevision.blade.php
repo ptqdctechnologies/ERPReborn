@@ -1,12 +1,12 @@
 <script type="text/javascript">
-    $(document).ready(function() {
+    $(document).ready(function () {
 
         $(".WarehouseLeft").hide();
         $(".SiteLeft").hide();
         $(".Supplier").hide();
         $(".WarehouseRight").hide();
         $(".SiteRight").hide();
-        
+
         $(".UserRight").hide();
         $(".ArrowIcon").hide();
 
@@ -31,8 +31,8 @@
 
 
 <script type="text/javascript">
-    $(document).ready(function() {
-        $(".deliverType").on('click', function(e) {
+    $(document).ready(function () {
+        $(".deliverType").on('click', function (e) {
             e.preventDefault();
             var valType = $(".deliverType").val();
             if (valType == "Warehouse to Warehouse") {
@@ -41,7 +41,7 @@
                 $(".Supplier").hide();
                 $(".WarehouseRight").show();
                 $(".SiteRight").hide();
-                
+
                 $(".UserRight").hide();
                 $(".ArrowIcon").show();
             } else if (valType == "Warehouse to Site") {
@@ -50,7 +50,7 @@
                 $(".Supplier").hide();
                 $(".WarehouseRight").hide();
                 $(".SiteRight").show();
-                
+
                 $(".UserRight").hide();
                 $(".ArrowIcon").show();
             } else if (valType == "Warehouse to User") {
@@ -59,7 +59,7 @@
                 $(".Supplier").hide();
                 $(".WarehouseRight").hide();
                 $(".SiteRight").hide();
-                
+
                 $(".UserRight").show();
                 $(".ArrowIcon").show();
             } else if (valType == "Supplier to Warehouse") {
@@ -68,7 +68,7 @@
                 $(".Supplier").show();
                 $(".WarehouseRight").show();
                 $(".SiteRight").hide();
-                
+
                 $(".UserRight").hide();
                 $(".ArrowIcon").show();
             } else if (valType == "Supplier to Site") {
@@ -77,7 +77,7 @@
                 $(".Supplier").show();
                 $(".WarehouseRight").hide();
                 $(".SiteRight").show();
-                
+
                 $(".UserRight").hide();
                 $(".ArrowIcon").show();
             } else if (valType == "Site to Warehouse") {
@@ -86,17 +86,17 @@
                 $(".Supplier").hide();
                 $(".WarehouseRight").show();
                 $(".SiteRight").hide();
-                
+
                 $(".UserRight").hide();
                 $(".ArrowIcon").show();
             }
-            else{
+            else {
                 $(".WarehouseLeft").hide();
                 $(".SiteLeft").hide();
                 $(".Supplier").hide();
                 $(".WarehouseRight").hide();
                 $(".SiteRight").hide();
-                
+
                 $(".UserRight").hide();
                 $(".ArrowIcon").hide();
             }
@@ -107,8 +107,8 @@
 
 
 <script type="text/javascript">
-    $(document).ready(function() {
-        $(".Source").on('click', function(e) {
+    $(document).ready(function () {
+        $(".Source").on('click', function (e) {
             e.preventDefault();
             var valSource = $(".Source").val();
 
@@ -125,7 +125,7 @@
                 $("#SUTW").show();
                 $("#STS").show();
                 $("#SITW").hide();
-                
+
             } else if (valSource == "Order Picking") {
                 $(".ShowPO").hide();
                 $(".ShowOP").show();
@@ -160,72 +160,72 @@
             $(".Supplier").hide();
             $(".WarehouseRight").hide();
             $(".SiteRight").hide();
-            
+
             $(".UserRight").hide();
             $(".ArrowIcon").hide();
-            
+
         });
     });
 </script>
 
 <script>
-    $('#purchase_order2').one('click', function() {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
+    // $('#purchase_order2').one('click', function() {
+    //     $.ajaxSetup({
+    //         headers: {
+    //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //         }
+    //     });
 
-        $.ajax({
-            type: 'GET',
-            url: '{!! route("AdvanceRequest.AdvanceListData") !!}',
-            success: function(data) {
+    //     $.ajax({
+    //         type: 'GET',
+    //         url: '{!! route("AdvanceRequest.AdvanceListData") !!}',
+    //         success: function(data) {
 
-                TableSearchPoInDor(data);
+    //             TableSearchPoInDor(data);
 
-            }
-        });
-    });
+    //         }
+    //     });
+    // });
 </script>
 
 <script>
-    $('#order_picking2').one('click', function() {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
+    // $('#order_picking2').one('click', function () {
+    //     $.ajaxSetup({
+    //         headers: {
+    //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //         }
+    //     });
 
-        $.ajax({
-            type: 'GET',
-            url: '{!! route("AdvanceRequest.AdvanceListData") !!}',
-            success: function(data) {
+    //     $.ajax({
+    //         type: 'GET',
+    //         url: '{!! route("AdvanceRequest.AdvanceListData") !!}',
+    //         success: function (data) {
 
-                TableSearchOpInDor(data);
+    //             TableSearchOpInDor(data);
 
-            }
-        });
-    });
+    //         }
+    //     });
+    // });
 </script>
 
 <script>
-    $('#stock_movement2').one('click', function() {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
+    // $('#stock_movement2').one('click', function () {
+    //     $.ajaxSetup({
+    //         headers: {
+    //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //         }
+    //     });
 
-        $.ajax({
-            type: 'GET',
-            url: '{!! route("AdvanceRequest.AdvanceListData") !!}',
-            success: function(data) {
+    //     $.ajax({
+    //         type: 'GET',
+    //         url: '{!! route("AdvanceRequest.AdvanceListData") !!}',
+    //         success: function (data) {
 
-                TableSearchSmInDor(data);
+    //             TableSearchSmInDor(data);
 
-            }
-        });
-    });
+    //         }
+    //     });
+    // });
 </script>
 
 <script>
@@ -237,7 +237,7 @@
 
         var keys = 0;
 
-        $.each(data, function(key, val) {
+        $.each(data, function (key, val) {
             keys += 1;
             t.row.add([
                 '<tbody><tr><input id="purchase_order_id' + keys + '" value="' + val.Sys_ID + '" type="hidden"><input id="supplier_id' + keys + '" value="' + val.RequesterWorkerJobsPosition_RefID + '" type="hidden"><td>' + no++ + '</td>',
@@ -260,7 +260,7 @@
 
         var keys = 0;
 
-        $.each(data, function(key, val) {
+        $.each(data, function (key, val) {
             keys += 1;
             t.row.add([
                 '<tbody><tr><input id="order_picking_id' + keys + '" value="' + val.Sys_ID + '" type="hidden"><input id="supplier_id' + keys + '" value="' + val.RequesterWorkerJobsPosition_RefID + '" type="hidden"><td>' + no++ + '</td>',
@@ -283,7 +283,7 @@
 
         var keys = 0;
 
-        $.each(data, function(key, val) {
+        $.each(data, function (key, val) {
             keys += 1;
             t.row.add([
                 '<tbody><tr><input id="stock_movement_id' + keys + '" value="' + val.Sys_ID + '" type="hidden"><input id="supplier_id' + keys + '" value="' + val.RequesterWorkerJobsPosition_RefID + '" type="hidden"><td>' + no++ + '</td>',
@@ -298,8 +298,8 @@
 </script>
 
 <script>
-    $(function() {
-        $("#FormSubmitSearchPurchaseOrder").on("submit", function(e) { //id of form 
+    $(function () {
+        $("#FormSubmitSearchPurchaseOrder").on("submit", function (e) { //id of form 
             e.preventDefault();
 
             var action = $(this).attr("action"); //get submit action from form
@@ -315,7 +315,7 @@
                 processData: false,
                 data: form_data,
                 type: method,
-                success: function(data) {
+                success: function (data) {
 
                     TableSearchPoInDor(data);
 
@@ -326,8 +326,8 @@
 </script>
 
 <script>
-    $(function() {
-        $("#FormSubmitSearchOrderPicking").on("submit", function(e) { //id of form 
+    $(function () {
+        $("#FormSubmitSearchOrderPicking").on("submit", function (e) { //id of form 
             e.preventDefault();
 
             var action = $(this).attr("action"); //get submit action from form
@@ -343,7 +343,7 @@
                 processData: false,
                 data: form_data,
                 type: method,
-                success: function(data) {
+                success: function (data) {
 
                     TableSearchOpInDor(data);
 
@@ -355,8 +355,8 @@
 
 
 <script>
-    $(function() {
-        $("#FormSubmitSearchStockMovement").on("submit", function(e) { //id of form 
+    $(function () {
+        $("#FormSubmitSearchStockMovement").on("submit", function (e) { //id of form 
             e.preventDefault();
 
             var action = $(this).attr("action"); //get submit action from form
@@ -372,7 +372,7 @@
                 processData: false,
                 data: form_data,
                 type: method,
-                success: function(data) {
+                success: function (data) {
 
                     TableSearchSmInDor(data);
 
@@ -385,7 +385,7 @@
 <script>
     var keys = 0;
 
-    $('#TableSearchPoInDor tbody').on('click', 'tr', function() {
+    $('#TableSearchPoInDor tbody').on('click', 'tr', function () {
 
         $("#mySearchPurchaseOrder").modal('toggle');
 
@@ -408,7 +408,7 @@
         $.ajax({
             type: "POST",
             url: '{!! route("DeliveryOrderRequest.StoreValidateDeliveryOrderRequestSupplier") !!}?supplier_id=' + supplier_id + '&supplier=' + supplier + '&document_id=' + document_id,
-            success: function(data) {
+            success: function (data) {
                 var no = 1;
                 applied = 0;
                 TotalBudgetSelectedTamp = 0;
@@ -421,7 +421,7 @@
                     $("#supplier_id").val(data.supplier_id);
                     $("#supplier").val(data.supplier);
 
-                    $.each(data.data, function(key, value) {
+                    $.each(data.data, function (key, value) {
 
                         keys += 1;
 
@@ -489,7 +489,7 @@
         } else if (parseFloat(qty_val) > parseFloat(budget_qty_val)) {
 
             swal({
-                onOpen: function() {
+                onOpen: function () {
                     swal.disableConfirmButton();
                     Swal.fire("Error !", "Qty is over budget !", "error");
                 }
@@ -512,7 +512,7 @@
 <script>
     var keys = 0;
 
-    $('#TableSearchOpInDor tbody').on('click', 'tr', function() {
+    $('#TableSearchOpInDor tbody').on('click', 'tr', function () {
 
         $("#mySearchOrderPicking").modal('toggle');
 
@@ -535,7 +535,7 @@
         $.ajax({
             type: "POST",
             url: '{!! route("DeliveryOrderRequest.StoreValidateDeliveryOrderRequestSupplier") !!}?supplier_id=' + supplier_id + '&supplier=' + supplier + '&document_id=' + document_id,
-            success: function(data) {
+            success: function (data) {
                 var no = 1;
                 applied = 0;
                 TotalBudgetSelectedTamp = 0;
@@ -548,7 +548,7 @@
                     $("#supplier_id").val(data.supplier_id);
                     $("#supplier").val(data.supplier);
 
-                    $.each(data.data, function(key, value) {
+                    $.each(data.data, function (key, value) {
 
                         keys += 1;
 
@@ -616,7 +616,7 @@
         } else if (parseFloat(qty_val) > parseFloat(budget_qty_val)) {
 
             swal({
-                onOpen: function() {
+                onOpen: function () {
                     swal.disableConfirmButton();
                     Swal.fire("Error !", "Qty is over budget !", "error");
                 }
@@ -638,7 +638,7 @@
 <script>
     var keys = 0;
 
-    $('#TableSearchSmInDor tbody').on('click', 'tr', function() {
+    $('#TableSearchSmInDor tbody').on('click', 'tr', function () {
 
         $("#mySearchStockMovement").modal('toggle');
 
@@ -661,7 +661,7 @@
         $.ajax({
             type: "POST",
             url: '{!! route("DeliveryOrderRequest.StoreValidateDeliveryOrderRequestSupplier") !!}?supplier_id=' + supplier_id + '&supplier=' + supplier + '&document_id=' + document_id,
-            success: function(data) {
+            success: function (data) {
                 var no = 1;
                 applied = 0;
                 TotalBudgetSelectedTamp = 0;
@@ -674,7 +674,7 @@
                     $("#supplier_id").val(data.supplier_id);
                     $("#supplier").val(data.supplier);
 
-                    $.each(data.data, function(key, value) {
+                    $.each(data.data, function (key, value) {
 
                         keys += 1;
 
@@ -742,7 +742,7 @@
         } else if (parseFloat(qty_val) > parseFloat(budget_qty_val)) {
 
             swal({
-                onOpen: function() {
+                onOpen: function () {
                     swal.disableConfirmButton();
                     Swal.fire("Error !", "Qty is over budget !", "error");
                 }
@@ -778,7 +778,7 @@
     $.ajax({
         type: "POST",
         url: '{!! route("DeliveryOrderRequest.DeliveryOrderRequestListCartRevision") !!}?var_recordID=' + var_recordID,
-        success: function(data) {
+        success: function (data) {
             var no = 1;
             applied = 0;
             TotalBudgetList = 0;
@@ -786,7 +786,7 @@
             statusDisplay = [];
             statusDisplay2 = [];
             statusForm = [];
-            $.each(data, function(key, value) {
+            $.each(data, function (key, value) {
                 TotalBudgetSelected += +value.priceBaseCurrencyValue.replace(/,/g, '');
                 TotalQty += +value.quantity.replace(/,/g, '');
                 var html =
@@ -858,7 +858,7 @@
                 $('table.TableSourceDetailDor tbody').append(html);
 
                 //VALIDASI QTY
-                $('#qty_req' + key).keyup(function() {
+                $('#qty_req' + key).keyup(function () {
                     $(this).val(currency($(this).val()));
                     var qty_val = $(this).val().replace(/,/g, '');
                     var budget_qty_val = $("#budget_qty" + key).val();
@@ -869,7 +869,7 @@
                     } else if (parseFloat(qty_val) > parseFloat(budget_qty_val)) {
 
                         swal({
-                            onOpen: function() {
+                            onOpen: function () {
                                 swal.disableConfirmButton();
                                 Swal.fire("Error !", "Qty is over budget !", "error");
                             }
@@ -894,35 +894,35 @@
 
         $(".detailDorList").show();
         var date = new Date().toJSON().slice(0, 10).replace(/-/g, '-');
-        var getTrano = $("input[name='getTrano[]']").map(function() {
+        var getTrano = $("input[name='getTrano[]']").map(function () {
             return $(this).val();
         }).get();
-        var getWorkId = $("input[name='getWorkId[]']").map(function() {
+        var getWorkId = $("input[name='getWorkId[]']").map(function () {
             return $(this).val();
         }).get();
-        var getWorkName = $("input[name='getWorkName[]']").map(function() {
+        var getWorkName = $("input[name='getWorkName[]']").map(function () {
             return $(this).val();
         }).get();
-        var getProductId = $("input[name='getProductId[]']").map(function() {
+        var getProductId = $("input[name='getProductId[]']").map(function () {
             return $(this).val();
         }).get();
-        var getProductName = $("input[name='getProductName[]']").map(function() {
+        var getProductName = $("input[name='getProductName[]']").map(function () {
             return $(this).val();
         }).get();
-        var getUom = $("input[name='getUom[]']").map(function() {
+        var getUom = $("input[name='getUom[]']").map(function () {
             return $(this).val();
         }).get();
-        var getCurrency = $("input[name='getCurrency[]']").map(function() {
+        var getCurrency = $("input[name='getCurrency[]']").map(function () {
             return $(this).val();
         }).get();
-        var getPrice = $("input[name='getPrice[]']").map(function() {
+        var getPrice = $("input[name='getPrice[]']").map(function () {
             return $(this).val();
         }).get();
-        var getAverage = $("input[name='getAverage[]']").map(function() {
+        var getAverage = $("input[name='getAverage[]']").map(function () {
             return $(this).val();
         }).get();
 
-        var qty_req = $("input[name='qty_req[]']").map(function() {
+        var qty_req = $("input[name='qty_req[]']").map(function () {
             return $(this).val();
         }).get();
 
@@ -931,7 +931,7 @@
         var TotalBudgetSelected = 0;
         var TotalQty = 0;
 
-        $.each(qty_req, function(index, data) {
+        $.each(qty_req, function (index, data) {
             if (qty_req[index] != "" && qty_req[index] > "0.00" && qty_req[index] != "NaN.00") {
 
                 var putProductId = getProductId[index];
@@ -975,8 +975,8 @@
 </script>
 
 <script type="text/javascript">
-    $(document).ready(function() {
-        $(".deliverType").on('click', function(e) {
+    $(document).ready(function () {
+        $(".deliverType").on('click', function (e) {
             e.preventDefault();
             var valType = $(".deliverType").val();
             if (valType == "Warehouse to Site") {
@@ -1002,7 +1002,7 @@
             }
         });
 
-        $(".siteName1").on('click', function(e) {
+        $(".siteName1").on('click', function (e) {
             e.preventDefault();
             var valSite = $(".siteName1").val();
             if (valSite == "WH-001") {
@@ -1012,7 +1012,7 @@
             }
         });
 
-        $(".siteName2").on('click', function(e) {
+        $(".siteName2").on('click', function (e) {
             e.preventDefault();
             var valSite = $(".siteName2").val();
             if (valSite == "WH-001") {
@@ -1022,7 +1022,7 @@
             }
         });
 
-        $(".siteName3").on('click', function(e) {
+        $(".siteName3").on('click', function (e) {
             e.preventDefault();
             var valSite = $(".siteName3").val();
             if (valSite == "WH-001") {
@@ -1042,8 +1042,8 @@
 </script>
 
 <script>
-    $(function() {
-        $("#FormSubmitDorRevision").on("submit", function(e) { //id of form 
+    $(function () {
+        $("#FormSubmitDorRevision").on("submit", function (e) { //id of form 
             e.preventDefault();
 
             var requester_name = $("#requester_name").val();
@@ -1100,7 +1100,7 @@
                             processData: false,
                             data: form_data,
                             type: method,
-                            success: function(response) {
+                            success: function (response) {
 
                                 HideLoading();
 
@@ -1124,7 +1124,7 @@
                                 })
                             },
 
-                            error: function(response) { // handle the error
+                            error: function (response) { // handle the error
                                 Swal.fire("Cancelled", "Data Cancel Inputed", "error");
                             },
 

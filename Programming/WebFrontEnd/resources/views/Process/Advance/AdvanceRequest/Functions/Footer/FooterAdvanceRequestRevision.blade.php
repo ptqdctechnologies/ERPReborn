@@ -1,64 +1,64 @@
 <script>
-    let dataStore           = [];
-    let remark              = document.getElementById("remark");
-    let budgetDetailsAdd    = document.getElementById("budget-details-add");
-    let totalNextApprover   = 0;
-    let triggerButtonModal  = null;
-    let dataWorkflow        = {
+    let dataStore = [];
+    let remark = document.getElementById("remark");
+    let budgetDetailsAdd = document.getElementById("budget-details-add");
+    let totalNextApprover = 0;
+    let triggerButtonModal = null;
+    let dataWorkflow = {
         workFlowPathRefID: null,
         approverEntityRefID: null,
         comment: null
     };
-    const fileID            = document.getElementById("dataInput_Log_FileUpload");
-    const documentTypeID    = document.getElementById("DocumentTypeID");
-    const advanceRequestID  = document.getElementById("advanceRequestID");
-    const requesterID       = document.getElementById("worker_id_second");
-    const beneficiaryID     = document.getElementById("beneficiary_second_id");
-    const bankAccountID     = document.getElementById("bank_accounts_id");
-    const projectID         = document.getElementById("var_combinedBudget_RefID");
-    const siteCode          = document.getElementById('site_id_second');
-    const dataTable         = {!! json_encode($dataAdvanceList ?? []) !!};
+    const fileID = document.getElementById("dataInput_Log_FileUpload");
+    const documentTypeID = document.getElementById("DocumentTypeID");
+    const advanceRequestID = document.getElementById("advanceRequestID");
+    const requesterID = document.getElementById("worker_id_second");
+    const beneficiaryID = document.getElementById("beneficiary_second_id");
+    const bankAccountID = document.getElementById("bank_accounts_id");
+    const projectID = document.getElementById("var_combinedBudget_RefID");
+    const siteCode = document.getElementById('site_id_second');
+    const dataTable = {!! json_encode($dataAdvanceList ?? []) !!};
 
     function validateQtyAndPriceWithHighlight() {
-        let isValid                 = true;
-        const rows                  = document.querySelectorAll("#tableGetBudgetDetails tbody tr");
-        const budgetDetailsMessage  = document.getElementById("budgetDetailsMessage");
+        let isValid = true;
+        const rows = document.querySelectorAll("#tableGetBudgetDetails tbody tr");
+        const budgetDetailsMessage = document.getElementById("budgetDetailsMessage");
 
         if (budgetDetailsMessage) {
             budgetDetailsMessage.style.display = "none";
         }
 
         rows.forEach(row => {
-            const qtyInput      = row.querySelector('input[id^="qty_req"]');
-            const priceInput    = row.querySelector('input[id^="price_req"]');
+            const qtyInput = row.querySelector('input[id^="qty_req"]');
+            const priceInput = row.querySelector('input[id^="price_req"]');
 
             if (!qtyInput || !priceInput) return;
 
-            const qty           = qtyInput.value.trim();
-            const qtyDetail     = qtyInput.getAttribute("data-default");
+            const qty = qtyInput.value.trim();
+            const qtyDetail = qtyInput.getAttribute("data-default");
 
-            const price         = priceInput.value.trim();
-            const priceDetail   = priceInput.getAttribute("data-default");
+            const price = priceInput.value.trim();
+            const priceDetail = priceInput.getAttribute("data-default");
 
-            const isQtyFilled   = qty !== "";
+            const isQtyFilled = qty !== "";
             const isPriceFilled = price !== "";
 
-            qtyInput.style.border   = "1px solid #e9ecef";
+            qtyInput.style.border = "1px solid #e9ecef";
             priceInput.style.border = "1px solid #e9ecef";
 
             if (
-                (isQtyFilled && !isPriceFilled && qtyDetail && priceDetail) || 
-                (!isQtyFilled && isPriceFilled && qtyDetail && priceDetail) || 
+                (isQtyFilled && !isPriceFilled && qtyDetail && priceDetail) ||
+                (!isQtyFilled && isPriceFilled && qtyDetail && priceDetail) ||
                 (!isQtyFilled && !isPriceFilled && qtyDetail && priceDetail)
             ) {
                 if (!isQtyFilled) {
-                    qtyInput.style.border   = "1px solid red";
+                    qtyInput.style.border = "1px solid red";
                 }
 
                 if (!isPriceFilled) {
                     priceInput.style.border = "1px solid red";
                 }
-                
+
                 if (budgetDetailsMessage) {
                     budgetDetailsMessage.style.display = "block";
                 }
@@ -75,7 +75,7 @@
         let hasFullRow = false;
 
         rows.forEach((row, index) => {
-            const qty   = document.getElementById(`qty_req${index}`)?.value.trim();
+            const qty = document.getElementById(`qty_req${index}`)?.value.trim();
             const price = document.getElementById(`price_req${index}`)?.value.trim();
             const total = document.getElementById(`total_req${index}`)?.value.trim();
 
@@ -85,7 +85,7 @@
         });
 
         rows.forEach((row, index) => {
-            const qtyEl   = document.getElementById(`qty_req${index}`);
+            const qtyEl = document.getElementById(`qty_req${index}`);
             const priceEl = document.getElementById(`price_req${index}`);
             const totalEl = document.getElementById(`total_req${index}`);
 
@@ -114,7 +114,7 @@
                         $(qtyEl).css("border", "1px solid #ced4da");
                         $(priceEl).css("border", "1px solid #ced4da");
                         $(totalEl).css("border", "1px solid #ced4da");
-                    } 
+                    }
                 } else {
                     $(qtyEl).css("border", "1px solid red");
                     $(priceEl).css("border", "1px solid red");
@@ -129,8 +129,8 @@
 
     function calculateTotal() {
         let total = 0;
-        
-        document.querySelectorAll('input[id^="total_req"]').forEach(function(input) {
+
+        document.querySelectorAll('input[id^="total_req"]').forEach(function (input) {
             let value = parseFloat(input.value.replace(/,/g, '')); // Mengambil nilai dan menghilangkan koma
             if (!isNaN(value)) {
                 total += value;
@@ -177,19 +177,19 @@
         const rows = sourceTable.getElementsByTagName('tr');
 
         for (let row of rows) {
-            const recordRefID                           = row.querySelector('input[id^="recordID"]');
-            const productCode                           = row.querySelector('input[id^="productCode"]');
-            const productRefID                          = row.querySelector('input[id^="product_RefID"]');
-            const quantityUnitRefID                     = row.querySelector('input[id^="quantityUnit_RefID"]');
-            const productUnitPriceCurrencyRefID         = row.querySelector('input[id^="productUnitPriceCurrency_RefID"]');
-            const combinedBudgetSectionDetailRefID      = row.querySelector('input[id^="combinedBudgetSectionDetail_RefID"]');
-            const productUnitPriceCurrencyExchangeRate  = row.querySelector('input[id^="productUnitPriceCurrencyExchangeRate"]');
-            const workStructureRefID                    = row.querySelector('input[id^="workStructure_RefID"]');
+            const recordRefID = row.querySelector('input[id^="recordID"]');
+            const productCode = row.querySelector('input[id^="productCode"]');
+            const productRefID = row.querySelector('input[id^="product_RefID"]');
+            const quantityUnitRefID = row.querySelector('input[id^="quantityUnit_RefID"]');
+            const productUnitPriceCurrencyRefID = row.querySelector('input[id^="productUnitPriceCurrency_RefID"]');
+            const combinedBudgetSectionDetailRefID = row.querySelector('input[id^="combinedBudgetSectionDetail_RefID"]');
+            const productUnitPriceCurrencyExchangeRate = row.querySelector('input[id^="productUnitPriceCurrencyExchangeRate"]');
+            const workStructureRefID = row.querySelector('input[id^="workStructure_RefID"]');
 
-            const qtyInput      = row.querySelector('input[id^="qty_req"]');
-            const priceInput    = row.querySelector('input[id^="price_req"]');
-            const totalInput    = row.querySelector('input[id^="total_req"]');
-            const balanceInput  = row.querySelector('input[id^="balanced_qty"]');
+            const qtyInput = row.querySelector('input[id^="qty_req"]');
+            const priceInput = row.querySelector('input[id^="price_req"]');
+            const totalInput = row.querySelector('input[id^="total_req"]');
+            const balanceInput = row.querySelector('input[id^="balanced_qty"]');
 
             if (
                 qtyInput && priceInput && totalInput && balanceInput &&
@@ -198,22 +198,22 @@
                 totalInput.value.trim() !== '' &&
                 balanceInput.value.trim() !== ''
             ) {
-                const productName       = row.children[9].innerText.trim();
-                const productNameDup    = row.children[10].innerText.trim();
-                const qtyAvail          = row.children[11].innerText.trim();
-                const uom               = row.children[12].innerText.trim();
-                const uomDup            = row.children[13].innerText.trim();
-                const priceAvail        = row.children[13].innerText.trim();
-                const currency          = row.children[15].innerText.trim();
+                const productName = row.children[9].innerText.trim();
+                const productNameDup = row.children[10].innerText.trim();
+                const qtyAvail = row.children[11].innerText.trim();
+                const uom = row.children[12].innerText.trim();
+                const uomDup = row.children[13].innerText.trim();
+                const priceAvail = row.children[13].innerText.trim();
+                const currency = row.children[15].innerText.trim();
 
                 const price = priceInput.value.trim();
-                const qty   = qtyInput.value.trim();
+                const qty = qtyInput.value.trim();
                 const total = totalInput.value.trim();
 
                 let found = false;
                 const existingRows = targetTable.getElementsByTagName('tr');
                 for (let targetRow of existingRows) {
-                    const targetRecordID    = targetRow.children[0].value.trim();
+                    const targetRecordID = targetRow.children[0].value.trim();
                     const targetProductCode = targetRow.children[4].innerText;
                     const targetProductName = targetRow.children[5].innerText;
 
@@ -278,8 +278,8 @@
                     });
                 }
             } else {
-                const productName   = row.children[8].innerText.trim();
-                const existingRows  = targetTable.getElementsByTagName('tr');
+                const productName = row.children[8].innerText.trim();
+                const existingRows = targetTable.getElementsByTagName('tr');
 
                 for (let targetRow of existingRows) {
                     const targetCode = targetRow.children[4]?.innerText?.trim();
@@ -298,16 +298,14 @@
                 });
             }
         }
-        
-        updateGrandTotal();
 
-        console.log('dataStore', dataStore);
+        updateGrandTotal();
     }
 
     function validationForm() {
-        const isRemarkNotEmpty  = remark.value.trim() !== '';
-        const isTableNotEmpty   = checkOneLineBudgetContents();
-        const isInputNotEmpty   = validateQtyAndPriceWithHighlight();
+        const isRemarkNotEmpty = remark.value.trim() !== '';
+        const isTableNotEmpty = checkOneLineBudgetContents();
+        const isInputNotEmpty = validateQtyAndPriceWithHighlight();
 
         if (isRemarkNotEmpty && isTableNotEmpty && isInputNotEmpty) {
             $('#advanceRequestFormModal').modal('show');
@@ -329,7 +327,7 @@
         $.ajax({
             type: 'GET',
             url: '{!! route("getBudget") !!}?site_code=' + site_code,
-            success: function(data) {
+            success: function (data) {
                 $(".loadingBudgetDetails").hide();
                 $('#tableGetBudgetDetails tbody').empty();
                 $(".errorMessageContainerBudgetDetails").hide();
@@ -344,25 +342,25 @@
                         return totalBudget > (max.quantity * max.priceBaseCurrencyValue) ? item : max;
                     });
 
-                    data = data.filter(item => 
-                        item.productName !== "Unspecified Product" || 
+                    data = data.filter(item =>
+                        item.productName !== "Unspecified Product" ||
                         (item.productName === "Unspecified Product" && item === maxBudgetProduct)
                     );
                 }
 
-                $.each(data, function(key, val2) {
+                $.each(data, function (key, val2) {
                     let isUnspecified = '';
                     let balanced = currencyTotal(val2.quantityRemaining);
                     let totalBudget = val2.quantity * val2.priceBaseCurrencyValue;
 
-                    let findDataDetail = dataDetail.find(el => 
-                        el.product_RefID == val2.product_RefID && 
+                    let findDataDetail = dataDetail.find(el =>
+                        el.product_RefID == val2.product_RefID &&
                         el.productName == val2.productName);
 
-                    let findDataMiscellaneous = dataDetail.find(el => 
-                        el.combinedBudgetSubSectionLevel2_RefID == val2.combinedBudgetSubSectionLevel2_RefID && 
-                        el.combinedBudgetSubSectionLevel2Name == val2.combinedBudgetSubSectionLevel2Name && 
-                        el.product_RefID != val2.product_RefID && 
+                    let findDataMiscellaneous = dataDetail.find(el =>
+                        el.combinedBudgetSubSectionLevel2_RefID == val2.combinedBudgetSubSectionLevel2_RefID &&
+                        el.combinedBudgetSubSectionLevel2Name == val2.combinedBudgetSubSectionLevel2Name &&
+                        el.product_RefID != val2.product_RefID &&
                         el.productName != val2.productName);
 
                     let productColumn = `
@@ -538,7 +536,7 @@
                     tbody.append(row);
 
                     if (val2.productName === "Unspecified Product") {
-                        $(`#product_id${key}`).on('input', function() {
+                        $(`#product_id${key}`).on('input', function () {
                             if ($(this).val().trim() !== '') {
                                 $(`#qty_req${key}, #price_req${key}`).prop('disabled', false);
                             } else {
@@ -546,11 +544,11 @@
                             }
                         });
 
-                        $(`#qty_req${key}`).on('keyup', function() {
-                            var qty_req     = $(this).val().replace(/,/g, '');
-                            var price_req   = $(`#price_req${key}`).val().replace(/,/g, '');
-                            var total_req   = parseFloat(qty_req || 1) * parseFloat(price_req || 1);
-                            var total       = parseFloat(qty_req || 0) + parseFloat(balanced);
+                        $(`#qty_req${key}`).on('keyup', function () {
+                            var qty_req = $(this).val().replace(/,/g, '');
+                            var price_req = $(`#price_req${key}`).val().replace(/,/g, '');
+                            var total_req = parseFloat(qty_req || 1) * parseFloat(price_req || 1);
+                            var total = parseFloat(qty_req || 0) + parseFloat(balanced);
 
                             if (!qty_req) {
                                 $(`#qty_req${key}`).val('');
@@ -567,14 +565,14 @@
                             calculateTotal();
                         });
                     } else {
-                        $(`#qty_req${key}`).on('keyup', function() {
-                            var qty_req     = $(this).val().replace(/,/g, '');
-                            var price_req   = $(`#price_req${key}`).val().replace(/,/g, '');
-                            var total_req   = parseFloat(qty_req || 0) * parseFloat(price_req || 0);
+                        $(`#qty_req${key}`).on('keyup', function () {
+                            var qty_req = $(this).val().replace(/,/g, '');
+                            var price_req = $(`#price_req${key}`).val().replace(/,/g, '');
+                            var total_req = parseFloat(qty_req || 0) * parseFloat(price_req || 0);
                             var default_req = $(this).data('default');
                             var default_total = $(`#total_req${key}`).data('default');
-                            var total       = parseFloat(balanced) - parseFloat(qty_req || 0);
-                            var validate    = findDataDetail && findDataDetail.quantity ? parseFloat((parseFloat(val2.quantityRemaining) + parseFloat(findDataDetail.quantity)).toFixed(2)) : val2.quantityRemaining;
+                            var total = parseFloat(balanced) - parseFloat(qty_req || 0);
+                            var validate = findDataDetail && findDataDetail.quantity ? parseFloat((parseFloat(val2.quantityRemaining) + parseFloat(findDataDetail.quantity)).toFixed(2)) : val2.quantityRemaining;
 
                             if (parseFloat(qty_req) > validate) {
                                 $(`#qty_req${key}`).val(default_req);
@@ -589,22 +587,22 @@
 
                                 ErrorNotif("Total Req is over !");
                             } else {
-                                $(`#qty_req${key}`).css({"border": "1px solid #ced4da"});
-                                $(`#budgetDetailsMessage`).css({"display": "none"});
+                                $(`#qty_req${key}`).css({ "border": "1px solid #ced4da" });
+                                $(`#budgetDetailsMessage`).css({ "display": "none" });
                                 $(`#total_req${key}`).val(currencyTotal(total_req));
 
                                 if (Math.sign(total) == "-1") {
                                     $(`#balanced_qty${key}`).val(currencyTotal(0));
                                 } else {
                                     if (findDataDetail && findDataDetail.quantity && !qty_req) {
-                                        $(`#qty_req${key}`).css({"border": "1px solid red"});
-                                        $(`#budgetDetailsMessage`).css({"display": "block"});
+                                        $(`#qty_req${key}`).css({ "border": "1px solid red" });
+                                        $(`#budgetDetailsMessage`).css({ "display": "block" });
                                     } else {
                                         $(`#balanced_qty${key}`).val(total.toLocaleString('en-US', {
                                             minimumFractionDigits: 2,
                                             maximumFractionDigits: 2
                                         }));
-    
+
                                         checkOneLineBudgetContents(key);
                                     }
                                 }
@@ -614,17 +612,17 @@
                         });
                     }
 
-                    $(`#price_req${key}`).on('keyup', function() {
-                        var price_req   = $(this).val().replace(/,/g, '');
-                        var qty_req     = $(`#qty_req${key}`).val().replace(/,/g, '');
+                    $(`#price_req${key}`).on('keyup', function () {
+                        var price_req = $(this).val().replace(/,/g, '');
+                        var qty_req = $(`#qty_req${key}`).val().replace(/,/g, '');
                         var default_req = $(this).data('default');
                         var default_total = $(`#total_req${key}`).data('default');
-                        var total_req   = parseFloat(qty_req || 0) * parseFloat(price_req || 0);
-                        var total       = parseFloat(price_req || 0) + parseFloat(val2.priceBaseCurrencyValue);
+                        var total_req = parseFloat(qty_req || 0) * parseFloat(price_req || 0);
+                        var total = parseFloat(price_req || 0) + parseFloat(val2.priceBaseCurrencyValue);
 
                         if (findDataDetail && findDataDetail.productUnitPriceCurrencyValue && !price_req) {
-                            $(`#price_req${key}`).css({"border": "1px solid red"});
-                            $(`#budgetDetailsMessage`).css({"display": "block"});
+                            $(`#price_req${key}`).css({ "border": "1px solid red" });
+                            $(`#budgetDetailsMessage`).css({ "display": "block" });
                         } else {
                             if (parseFloat(price_req) > val2.priceBaseCurrencyValue) {
                                 $(`#price_req${key}`).val(default_req);
@@ -661,9 +659,7 @@
         let tbodyList = $('#tableAdvanceList tbody');
         tbodyList.empty();
 
-        console.log('dataDetail', dataDetail);
-
-        $.each(dataDetail, function(key, val2) {
+        $.each(dataDetail, function (key, val2) {
             dataStore.push({
                 recordID: parseInt(val2.sys_ID),
                 entities: {
@@ -680,8 +676,6 @@
             });
 
             let totalRequest = val2.quantity * val2.productUnitPriceCurrencyValue;
-
-            console.log('val2.productName', val2.productName);
 
             let rowList = `
                 <tr>
@@ -730,7 +724,7 @@
         }).then((result) => {
             if ('value' in result) {
                 ShowLoading();
-                RevisionAdvanceRequest({...formatData, comment: result.value});
+                RevisionAdvanceRequest({ ...formatData, comment: result.value });
             }
         });
     }
@@ -765,17 +759,11 @@
     }
 
     function RevisionAdvanceRequest() {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
         $.ajax({
             type: 'POST',
             data: {
                 workFlowPath_RefID: dataWorkflow.workFlowPathRefID,
-                approverEntity: dataWorkflow.approverEntityRefID, 
+                approverEntity: dataWorkflow.approverEntityRefID,
                 comment: dataWorkflow.comment,
                 storeData: {
                     advanceRequestID: advanceRequestID.value,
@@ -788,7 +776,7 @@
                 }
             },
             url: '{{ route("AdvanceRequest.UpdatesAdvanceRequest") }}',
-            success: function(res) {
+            success: function (res) {
                 HideLoading();
 
                 if (res.status === 200) {
@@ -816,7 +804,7 @@
                     ErrorNotif("Revision Advance Request Failed");
                 }
             },
-            error: function(jqXHR, textStatus, errorThrown) {
+            error: function (jqXHR, textStatus, errorThrown) {
                 console.log('error', jqXHR, textStatus, errorThrown);
             }
         });
@@ -840,12 +828,6 @@
     }
 
     function getWorkflow() {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
         $.ajax({
             type: 'POST',
             data: {
@@ -853,7 +835,7 @@
                 combinedBudget_RefID: projectID.value
             },
             url: '{!! route("GetWorkflow") !!}',
-            success: function(response) {
+            success: function (response) {
                 if (response.status === 200) {
                     totalNextApprover = response.data[0].nextApproverPath.length;
                     dataWorkflow.workFlowPathRefID = response.data[0].sys_ID;
@@ -866,21 +848,21 @@
                     Swal.fire("Error", "You don't have access", "error");
                 }
             },
-            error: function(jqXHR, textStatus, errorThrown) {
+            error: function (jqXHR, textStatus, errorThrown) {
                 console.log('jqXHR, textStatus, errorThrown', jqXHR, textStatus, errorThrown);
                 Swal.fire("Error", "Data Error", "error");
             }
         });
     }
 
-    $('#remark').on('input', function(e) {
+    $('#remark').on('input', function (e) {
         e.preventDefault();
 
         $("#remark").css("border", "1px solid #ced4da");
         $("#remarkMessage").hide();
     });
 
-    $('#tableGetModalAdvance').on('click', 'tbody tr', function() {
+    $('#tableGetModalAdvance').on('click', 'tbody tr', function () {
         const sysId = $(this).find('input[data-trigger="sys_id_modal_advance"]').val();
         const trano = $(this).find('td:nth-child(2)').text();
 
@@ -889,10 +871,10 @@
         $("#myGetModalAdvance").modal('toggle');
     });
 
-    $('#tableWorkflows').on('click', 'tbody tr', function() {
-        const sysId             = $(this).find('input[data-trigger="sys_id_approver"]').val();
-        const workflowName      = $(this).find('td:nth-child(2)').text();
-        const workflowPosition  = $(this).find('td:nth-child(3)').text();
+    $('#tableWorkflows').on('click', 'tbody tr', function () {
+        const sysId = $(this).find('input[data-trigger="sys_id_approver"]').val();
+        const workflowName = $(this).find('td:nth-child(2)').text();
+        const workflowPosition = $(this).find('td:nth-child(3)').text();
 
         dataWorkflow.approverEntityRefID = parseInt(sysId);
 
@@ -903,11 +885,14 @@
         });
     });
 
-    $(window).one('load', function(e) {
+    $('#revision_advance').on('click', function (e) {
+        getModalAdvance();
+    });
+
+    $(document).ready(function () {
         GetARFNumberDetail(dataTable);
         getBudgetDetails(siteCode.value, dataTable);
 
         getWorkflow();
-        getModalAdvance();
     });
 </script>

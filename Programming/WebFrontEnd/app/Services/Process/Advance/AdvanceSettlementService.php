@@ -16,11 +16,11 @@ class AdvanceSettlementService
 
         return Helper_APICall::setCallAPIGateway(
             Helper_Environment::getUserSessionID_System(),
-            $sessionToken, 
-            'dataPickList.finance.getAdvanceSettlement', 
+            $sessionToken,
+            'dataPickList.finance.getAdvanceSettlement',
             'latest',
             [
-            'parameter' => [
+                'parameter' => [
                 ]
             ]
         );
@@ -36,27 +36,53 @@ class AdvanceSettlementService
             'transaction.read.dataList.finance.getAdvanceSettlementDetail',
             'latest',
             [
-            'parameter' => [
-                'advanceSettlement_RefID' => (int) $advanceSettlementID,
+                'parameter' => [
+                    'advanceSettlement_RefID' => (int) $advanceSettlementID,
                 ],
-            'SQLStatement' => [
-                'pick' => null,
-                'sort' => null,
-                'filter' => null,
-                'paging' => null
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    'filter' => null,
+                    'paging' => null
                 ]
             ]
         );
     }
-    
+
+    public function getAdvanceSettlementSummary($budget, $subBudget, $date)
+    {
+        $sessionToken = Session::get('SessionLogin');
+
+        if ($date) {
+            $dates = explode(' - ', $date);
+            $startDate = Carbon::createFromFormat('m/d/Y', trim($dates[0]))->startOfDay()->format('Y-m-d');
+            $endDate = Carbon::createFromFormat('m/d/Y', trim($dates[1]))->endOfDay()->format('Y-m-d');
+        }
+
+        return Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
+            $sessionToken,
+            'report.form.documentForm.finance.getAdvanceSettlementSummary',
+            'latest',
+            [
+                'parameter' => [
+                    'CombinedBudgetCode' => $budget,
+                    'CombinedBudgetSectionCode' => $subBudget ? $subBudget : NULL,
+                    'StartDate' => $date ? $startDate : NULL,
+                    'EndDate' => $date ? $endDate : NULL
+                ]
+            ]
+        );
+    }
+
     public function create(Request $request): array
     {
-        $sessionToken   = Session::get('SessionLogin');
-        $careerRefID    = Session::get('SessionWorkerCareerInternal_RefID');
+        $sessionToken = Session::get('SessionLogin');
+        $careerRefID = Session::get('SessionWorkerCareerInternal_RefID');
 
-        $data           = $request->storeData;
-        $detailItems    = json_decode($data['advanceSettlementDetail'], true);
-        $fileID         = isset($data['dataInput_Log_FileUpload_1']) ? (int) $data['dataInput_Log_FileUpload_1'] : null;
+        $data = $request->storeData;
+        $detailItems = json_decode($data['advanceSettlementDetail'], true);
+        $fileID = isset($data['dataInput_Log_FileUpload_1']) ? (int) $data['dataInput_Log_FileUpload_1'] : null;
 
         return Helper_APICall::setCallAPIGateway(
             Helper_Environment::getUserSessionID_System(),
@@ -65,10 +91,10 @@ class AdvanceSettlementService
             'latest',
             [
                 'entities' => [
-                    "documentDateTimeTZ"                => date('Y-m-d'),
-                    "log_FileUpload_Pointer_RefID"      => $fileID,
+                    "documentDateTimeTZ" => date('Y-m-d'),
+                    "log_FileUpload_Pointer_RefID" => $fileID,
                     "requesterWorkerJobsPosition_RefID" => (int) $careerRefID,
-                    "remarks"                           => $data['var_remark'],
+                    "remarks" => $data['var_remark'],
                     "additionalData" => [
                         "itemList" => [
                             "items" => $detailItems
@@ -81,12 +107,12 @@ class AdvanceSettlementService
 
     public function updates(Request $request): array
     {
-        $sessionToken   = Session::get('SessionLogin');
-        $careerRefID    = Session::get('SessionWorkerCareerInternal_RefID');
+        $sessionToken = Session::get('SessionLogin');
+        $careerRefID = Session::get('SessionWorkerCareerInternal_RefID');
 
-        $data           = $request->storeData;
-        $detailItems    = json_decode($data['advanceSettlementDetail'], true);
-        $fileID         = isset($data['dataInput_Log_FileUpload_1']) ? (int) $data['dataInput_Log_FileUpload_1'] : null;
+        $data = $request->storeData;
+        $detailItems = json_decode($data['advanceSettlementDetail'], true);
+        $fileID = isset($data['dataInput_Log_FileUpload_1']) ? (int) $data['dataInput_Log_FileUpload_1'] : null;
 
         return Helper_APICall::setCallAPIGateway(
             Helper_Environment::getUserSessionID_System(),
@@ -94,43 +120,17 @@ class AdvanceSettlementService
             'transaction.update.finance.setAdvanceSettlement',
             'latest',
             [
-            'recordID' => (int) $detailItems[0]['advanceSettlement_RefID'],
-            'entities' => [
-                'documentDateTimeTZ'                => date('Y-m-d'),
-                'log_FileUpload_Pointer_RefID'      => $fileID,
-                'requesterWorkerJobsPosition_RefID' => (int) $careerRefID,
-                'remarks'                           => $data['var_remark'],
-                'additionalData'    => [
-                    'itemList'      => [
-                        'items'     => $detailItems
+                'recordID' => (int) $detailItems[0]['advanceSettlement_RefID'],
+                'entities' => [
+                    'documentDateTimeTZ' => date('Y-m-d'),
+                    'log_FileUpload_Pointer_RefID' => $fileID,
+                    'requesterWorkerJobsPosition_RefID' => (int) $careerRefID,
+                    'remarks' => $data['var_remark'],
+                    'additionalData' => [
+                        'itemList' => [
+                            'items' => $detailItems
                         ]
                     ]
-                ]
-            ]
-        );
-    }
-
-    public function getAdvanceSettlementSummary($budget, $subBudget, $date) 
-    {
-        $sessionToken = Session::get('SessionLogin');
-
-        if ($date) {
-            $dates      = explode(' - ', $date);
-            $startDate  = Carbon::createFromFormat('m/d/Y', trim($dates[0]))->startOfDay()->format('Y-m-d');
-            $endDate    = Carbon::createFromFormat('m/d/Y', trim($dates[1]))->endOfDay()->format('Y-m-d');
-        }
-
-        return Helper_APICall::setCallAPIGateway(
-            Helper_Environment::getUserSessionID_System(),
-            $sessionToken, 
-            'report.form.documentForm.finance.getAdvanceSettlementSummary', 
-            'latest',
-            [
-                'parameter'     => [
-                    'CombinedBudgetCode'        => $budget,
-                    'CombinedBudgetSectionCode' => $subBudget ? $subBudget : NULL,
-                    'StartDate'                 => $date ? $startDate : NULL,
-                    'EndDate'                   => $date ? $endDate : NULL
                 ]
             ]
         );
