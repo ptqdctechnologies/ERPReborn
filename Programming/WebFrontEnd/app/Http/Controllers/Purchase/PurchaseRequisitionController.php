@@ -77,11 +77,6 @@ class PurchaseRequisitionController extends Controller
         }
     }
 
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
     public function RevisionPurchaseRequest(Request $request)
     {
         try {
