@@ -51,7 +51,6 @@
             url: '{!! route("getNewSite") !!}?project_code=' + Project_RefID,
         })
             .done(function (response) {
-                console.log('response', response);
                 let data = response[0] ? response : [];
 
                 $('#tableSites').DataTable({

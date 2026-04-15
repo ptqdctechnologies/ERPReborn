@@ -81,6 +81,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::resource('dashboard', 'Dashboard\DashboardController')->only(['index']);
 
     // WAREHOUSE
+    Route::post('WarehousePickList', 'Register\Warehouse\WarehouseController@WarehousePickList')->name('Warehouse.WarehousePickList');
     Route::post('EditWarehouse', 'Register\Warehouse\WarehouseController@EditWarehouse')->name('Warehouse.EditWarehouse');
     Route::resource('Warehouse', 'Register\Warehouse\WarehouseController');
 
