@@ -360,6 +360,6 @@
         });
 
         getRequesters();
-        getBeneficiaries();
+        // getBeneficiaries();
     });
 </script>

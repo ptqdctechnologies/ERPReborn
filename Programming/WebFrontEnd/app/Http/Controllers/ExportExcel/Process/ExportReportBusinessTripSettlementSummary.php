@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\ExportExcel\Process;
 
-use Illuminate\Support\Facades\Session;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithHeadings;
@@ -13,47 +12,64 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class ExportReportBusinessTripSettlementSummary implements FromCollection, WithHeadings, ShouldAutoSize, WithStyles
 {
+    protected $dataBusinessTripSettlement;
+
+    public function __construct($dataBusinessTripSettlement)
+    {
+        $this->dataBusinessTripSettlement = $dataBusinessTripSettlement;
+    }
+
     public function collection()
     {
-        $data = Session::get("dataReportReportBusinessTripSettlementSummary");
+        $data = $this->dataBusinessTripSettlement;
+
+        $totalBsf = 0;
 
         $filteredData = [];
         $counter = 1;
-        foreach ($data['dataDetail'] as $item) {
+        foreach ($data as $item) {
+            $totalBsf += is_numeric($item['bsfTotal']) ? $item['bsfTotal'] : 0;
+
             $filteredData[] = [
-                'No'                                => $counter++,
-                'BSF Number'                        => $item['DocumentNumber'] ?? null,
-                'Sub Budget'                        => $item['CombinedBudgetSectionName'] ?? null,
-                'Departing From'                    => $item['DepartingFrom'] ?? null,
-                'Destination To'                    => $item['DestinationTo'] ?? null,
-                'Date'                              => date('d-m-Y', strtotime($item['DocumentDateTimeTZ'])) ?? null,
-                'Total Expense Claim'               => $item['TotalExpenseClaimCart'] ?? null,
-                'Total Amount Due to Company'       => $item['TotalAmountDueToCompanyCart'] ?? null,
-                'Total BSF'                         => $item['TotalAdvance'] ?? null,
-                'Currency'                          => $item['CurrencyName'] ?? null,
-                'Requester'                         => $item['RequesterWorkerName'] ?? null,
-                'Beneficiary'                       => $item['BeneficiaryWorkerName'] ?? null,
-                'Remark'                            => $item['remark'] ?? null,
+                'No' => $counter++,
+                'BSF Number' => $item['bsfNumber'] ?? '-',
+                'Sub Budget' => ($item['combinedBudgetSectionCode'] ?? '') . ' - ' . ($item['combinedBudgetSectionName'] ?? ''),
+                'Departing From' => $item['departurePoint'] ?? '-',
+                'Departing To' => $item['destinationPoint'] ?? '-',
+                'Date' => $item['bsfDate'] ?? '-',
+                'Currency' => $item['currencyISOCode'] ?? '-',
+                'Requester' => $item['requesterName'] ?? '-',
+                'Total' => isset($item['bsfTotal']) ? (string) $item['bsfTotal'] : '0',
+                'Remark' => $item['remarks'] ?? '-',
             ];
         }
+
+        $filteredData[] = [
+            'No' => 'GRAND TOTAL',
+            'BSF Number' => '',
+            'Sub Budget' => '',
+            'Departing From' => '',
+            'Departing To' => '',
+            'Date' => '',
+            'Currency' => '',
+            'Requester' => '',
+            'Total' => $totalBsf,
+            'Remark' => '',
+        ];
 
         return collect($filteredData);
     }
 
     public function headings(): array
     {
-        $data           = Session::get("dataReportReportBusinessTripSettlementSummary");
-        $requester      = $data['requesterName'] ?? '-';
-        $beneficiary    = $data['beneficiaryName'] ?? '-';
-
         return [
             [date('F j, Y')],
-            ["BUSINESS TRIP SETTLEMENT SUMMARY", " ", " ", " ", " ", " ", " "],
+            ["BUSINESS TRIP SETTLEMENT SUMMARY"],
             [date('h:i A')],
-            ["Budget", ": " . $data['budgetCode'] . ' - ' . $data['budgetName'], "Requester", ": " . $requester, "", "", "", "", "", "", ""],
-            ["Sub Budget", ": " . $data['siteCode'] . ' - ' . $data['siteName'], "Beneficiary", ": " . $beneficiary, "", "", "", "", "", "", ""],
-            ["", "", "", "", "", "", "", "", "", "", ""],
-            ["No", "BSF Number", "Sub Budget", "Departing From", "Destination To", "Date", "Total Expense Claim", "Total Amount Due to Company", "Total BSF", "Currency", "Requester", "Beneficiary", "Remark"]
+            ["Budget", ": -", "Requester", ": -"],
+            ["Sub Budget", ": -", "Date Range", ": -"],
+            [""],
+            ["No", "BSF Number", "Sub Budget", "Departing From", "Destination To", "Date", "Currency", "Requester", "Total", "Remark"],
         ];
     }
 
@@ -70,9 +86,8 @@ class ExportReportBusinessTripSettlementSummary implements FromCollection, WithH
                 'horizontal' => Alignment::HORIZONTAL_RIGHT,
             ]
         ];
-
-        $sheet->getStyle('A1:M1')->applyFromArray($styleArrayHeader0);
-        $sheet->mergeCells('A1:M1');
+        $sheet->getStyle('A1:J1')->applyFromArray($styleArrayHeader0);
+        $sheet->mergeCells('A1:J1');
 
         $styleArrayHeader1 = [
             'font' => [
@@ -85,11 +100,10 @@ class ExportReportBusinessTripSettlementSummary implements FromCollection, WithH
                 'horizontal' => Alignment::HORIZONTAL_CENTER,
             ]
         ];
+        $sheet->getStyle('A2:J2')->applyFromArray($styleArrayHeader1);
+        $sheet->mergeCells('A2:J2');
 
-        $sheet->getStyle('A2:M2')->applyFromArray($styleArrayHeader1);
-        $sheet->mergeCells('A2:M2');
-
-        $styleArrayHeader = [
+        $styleArrayHeader2 = [
             'font' => [
                 'bold' => true,
                 'color' => [
@@ -100,11 +114,10 @@ class ExportReportBusinessTripSettlementSummary implements FromCollection, WithH
                 'horizontal' => Alignment::HORIZONTAL_RIGHT,
             ]
         ];
+        $sheet->getStyle('A3:J3')->applyFromArray($styleArrayHeader2);
+        $sheet->mergeCells('A3:J3');
 
-        $sheet->getStyle('A3:M3')->applyFromArray($styleArrayHeader);
-        $sheet->mergeCells('A3:M3');
-
-        $styleArrayHeader2 = [
+        $styleArrayHeader3 = [
             'font' => [
                 'bold' => true,
                 'color' => [
@@ -113,13 +126,10 @@ class ExportReportBusinessTripSettlementSummary implements FromCollection, WithH
             ],
             'alignment' => [
                 'horizontal' => Alignment::HORIZONTAL_LEFT,
-            ],
+            ]
         ];
-
-        $sheet->getStyle('A4:A4')->applyFromArray($styleArrayHeader2);
-        $sheet->getStyle('A5:A5')->applyFromArray($styleArrayHeader2);
-        $sheet->getStyle('C4:C4')->applyFromArray($styleArrayHeader2);
-        $sheet->getStyle('C5:C5')->applyFromArray($styleArrayHeader2);
+        $sheet->getStyle('A4:J4')->applyFromArray($styleArrayHeader3);
+        $sheet->getStyle('A5:J5')->applyFromArray($styleArrayHeader3);
 
         $styleArrayHeader4 = [
             'font' => [
@@ -144,8 +154,7 @@ class ExportReportBusinessTripSettlementSummary implements FromCollection, WithH
                 ],
             ],
         ];
-
-        $sheet->getStyle('A7:M7')->applyFromArray($styleArrayHeader4);
+        $sheet->getStyle('A7:J7')->applyFromArray($styleArrayHeader4);
 
         $styleArrayContent = [
             'borders' => [
@@ -158,21 +167,10 @@ class ExportReportBusinessTripSettlementSummary implements FromCollection, WithH
             ],
         ];
 
-        $datas = Session::get("dataReportReportBusinessTripSettlementSummary");
-        $totalCell = count($datas['dataDetail']);
-        $lastCell = 'A8:M' . $totalCell + 7;
+        $datas = $this->dataBusinessTripSettlement;
+        $totalCell = count($datas);
+        $lastCell = 'A8:J' . $totalCell + 8;
         $sheet->getStyle($lastCell)->applyFromArray($styleArrayContent);
-
-        $totalExpense   = $datas['totalExpense'];
-        $totalAmount    = $datas['totalAmount'];
-        $total          = $datas['total'];
-
-        $sheet->insertNewRowBefore($totalCell + 8, 1);
-        $sheet->setCellValue('A' . $totalCell + 8, "GRAND TOTAL");
-        $sheet->setCellValue('G' . $totalCell + 8, $totalExpense);
-        $sheet->setCellValue('H' . $totalCell + 8, $totalAmount);
-        $sheet->setCellValue('I' . $totalCell + 8, $total);
-        $sheet->mergeCells('A' . $totalCell + 8 . ':' . 'F' . $totalCell + 8);
 
         $styleArrayFooter = [
             'font' => [
@@ -181,8 +179,13 @@ class ExportReportBusinessTripSettlementSummary implements FromCollection, WithH
                     'rgb' => '000000',
                 ],
             ],
+            'borders' => [
+                'allBorders' => [
+                    'borderStyle' => Border::BORDER_THIN,
+                ],
+            ],
             'alignment' => [
-                'horizontal' => Alignment::HORIZONTAL_LEFT,
+                'horizontal' => Alignment::HORIZONTAL_CENTER,
             ],
             'fill' => [
                 'fillType' => 'solid',
@@ -192,8 +195,7 @@ class ExportReportBusinessTripSettlementSummary implements FromCollection, WithH
                 ],
             ],
         ];
-
-        $sheet->getStyle('A' . $totalCell + 8 . ':' . 'M' . $totalCell + 8)->applyFromArray($styleArrayFooter);
-
+        $sheet->getStyle('A' . $totalCell + 8 . ':' . 'J' . $totalCell + 8)->applyFromArray($styleArrayFooter);
+        $sheet->mergeCells('A' . $totalCell + 8 . ':H' . $totalCell + 8);
     }
 }
