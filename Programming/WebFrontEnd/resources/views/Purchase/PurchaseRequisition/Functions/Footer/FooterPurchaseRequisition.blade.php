@@ -788,6 +788,20 @@
         // console.log('dataWorkflow', dataWorkflow);
     });
 
+    $('#revision_purchase_requisition').on('click', function (e) {
+        getModalPurchaseRequisition();
+    });
+
+    $('#tableGetModalPurchaseRequisition').on('click', 'tbody tr', function () {
+        const sysId = $(this).find('input[data-trigger="sys_id_modal_purchase_requisition"]').val();
+        const trano = $(this).find('td:nth-child(2)').text();
+
+        $("#modal_purchase_requisition_id").val(sysId);
+        $("#modal_purchase_requisition_document_number").val(trano);
+
+        $('#purchaseRequisitionModal').modal('toggle');
+    });
+
     $(document).on('input', '.number-without-negative', function () {
         allowNumbersWithoutNegative(this);
     });
