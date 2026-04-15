@@ -24,14 +24,12 @@ class ExportReportBusinessTripRequestSummary implements FromCollection, WithHead
     {
         $data = $this->dataBusinessTrip;
 
+        $totalBrf = 0;
+
         $filteredData = [];
         $counter = 1;
         foreach ($data as $item) {
-            $totalTravelFares = is_numeric($item['totalTravelFares']) ? $item['totalTravelFares'] : 0;
-            $totalAllowance = is_numeric($item['totalAllowance']) ? $item['totalAllowance'] : 0;
-            $totalEntertainment = is_numeric($item['totalEntertainment']) ? $item['totalEntertainment'] : 0;
-            $totalOther = is_numeric($item['totalOther']) ? $item['totalOther'] : 0;
-            $total = $totalTravelFares + $totalAllowance + $totalEntertainment + $totalOther;
+            $totalBrf += is_numeric($item['brfTotal']) ? $item['brfTotal'] : 0;
 
             $filteredData[] = [
                 'No' => $counter++,
@@ -41,8 +39,8 @@ class ExportReportBusinessTripRequestSummary implements FromCollection, WithHead
                 'Departing To' => $item['destinationPoint'] ?? '-',
                 'Date' => $item['brfDate'] ?? '-',
                 'Currency' => $item['currencyISOCode'] ?? '-',
-                'Requester' => '-',
-                'Total' => $total,
+                'Requester' => $item['requesterName'] ?? '-',
+                'Total' => isset($item['brfTotal']) ? (string) $item['brfTotal'] : '0',
                 'Remark' => $item['remarks'] ?? '-',
             ];
         }
@@ -56,7 +54,7 @@ class ExportReportBusinessTripRequestSummary implements FromCollection, WithHead
             'Date' => '',
             'Currency' => '',
             'Requester' => '',
-            'Total' => '',
+            'Total' => $totalBrf,
             'Remark' => '',
         ];
 

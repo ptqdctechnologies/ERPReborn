@@ -74,11 +74,7 @@
                 dataReport = data;
 
                 let totalBRF = data.reduce((total, row) => {
-                    return total +
-                        Utils.parseFloatSafe(row.totalTravelFares || 0) +
-                        Utils.parseFloatSafe(row.totalAllowance || 0) +
-                        Utils.parseFloatSafe(row.totalEntertainment || 0) +
-                        Utils.parseFloatSafe(row.totalOther || 0);
+                    return total + Utils.parseFloatSafe(row.brfTotal || 0);
                 }, 0);
 
                 $('#table_summary').DataTable({
@@ -122,19 +118,14 @@
                             defaultContent: '-'
                         },
                         {
-                            data: null,
+                            data: 'requesterName',
                             defaultContent: '-'
                         },
                         {
                             data: null,
                             defaultContent: '-',
                             render: function (data, type, row, meta) {
-                                return Utils.formatCurrency(Utils.parseFloatSafe(
-                                    (data.totalTravelFares || 0) +
-                                    (data.totalAllowance || 0) +
-                                    (data.totalEntertainment || 0) +
-                                    (data.totalOther || 0)
-                                ));
+                                return Utils.formatCurrency(Utils.parseFloatSafe(data.brfTotal));
                             }
                         },
                         {

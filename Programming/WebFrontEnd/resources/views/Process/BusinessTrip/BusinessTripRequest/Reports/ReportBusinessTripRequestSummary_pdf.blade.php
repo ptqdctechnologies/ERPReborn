@@ -167,14 +167,6 @@
 
       <?php $counter = 1; ?>
       <?php foreach ($dataReport as $data) { ?>
-      <?php
-  $total =
-    ($data['totalTravelFares'] ?? 0) +
-    ($data['totalAllowance'] ?? 0) +
-    ($data['totalEntertainment'] ?? 0) +
-    ($data['totalOther'] ?? 0);
-      ?>
-
       <tr>
         <td>
           <div style="margin-top: 4px; font-size: 12px;">
@@ -213,12 +205,17 @@
         </td>
         <td>
           <div style="margin-top: 4px; font-size: 12px;">
-            <?= '-'; ?>
+            <?= $data['requesterName'] ?? '-'; ?>
           </div>
         </td>
         <td>
           <div style="margin-top: 4px; font-size: 12px;">
-            <?= number_format($total, 0, ',', '.') ?>
+            <?= number_format(($data['brfTotal'] ?? 0), 0, ',', '.') ?>
+          </div>
+        </td>
+        <td>
+          <div style="margin-top: 4px; font-size: 12px;">
+            <?= $data['remarks'] ?? '-'; ?>
           </div>
         </td>
       </tr>
