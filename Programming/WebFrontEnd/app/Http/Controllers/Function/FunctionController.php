@@ -251,6 +251,42 @@ class FunctionController extends Controller
         return response()->json($varDataWorker['data']['data']);
     }
 
+    public function getRequester(Request $request)
+    {
+        $token = Session::get('SessionLogin');
+
+        $response = Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
+            $token,
+            'transaction.read.dataList.humanResource.getWorkerJobsPositionCurrent',
+            'latest',
+            [
+                'parameter' => [
+                    'worker_RefID' => null
+                ],
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    'filter' => null,
+                    'paging' => null
+                ]
+            ],
+            false
+        );
+
+        $status = $response['metadata']['HTTPStatusCode'];
+        $data = [];
+
+        if ($status == 200) {
+            $data = $response['data']['data'] ?? [];
+        }
+
+        return response()->json([
+            'data' => $data,
+            'status' => $status
+        ]);
+    }
+
     public function getChartOfAccountList(Request $request)
     {
         try {
