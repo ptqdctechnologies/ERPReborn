@@ -178,9 +178,11 @@ namespace App\Models\Database\SchSysAsset
                         'SchSysAsset.Func_GetData_WorkFlow_IsUserAllowed',
                         [
                             [$varBranchRefID, 'bigint'],
+
                             [$varUserRefID, 'bigint'],
                             [$varBusinessDocumentTypeRefID, 'bigint'],
                             [$varCombinedBudgetRefID, 'bigint'],
+
                             [$varMode, 'varchar']
                         ]
                         )
