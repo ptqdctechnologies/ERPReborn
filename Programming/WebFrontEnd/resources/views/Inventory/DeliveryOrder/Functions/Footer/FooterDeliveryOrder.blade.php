@@ -1,30 +1,30 @@
 <script>
-    let dataStore                   = [];
-    let indexPurchaseOrderDetail    = 0;
-    let indexInternalUseDetail      = 0;
-    let deliveryType                = null;
-    let deliveryDate                = null;
-    const referenceTypeValue        = document.getElementById("reference_type");
-    const transporterRefID          = document.getElementById("transporter_id");
+    let dataStore = [];
+    let indexPurchaseOrderDetail = 0;
+    let indexInternalUseDetail = 0;
+    let deliveryType = null;
+    let deliveryDate = null;
+    const referenceTypeValue = document.getElementById("reference_type");
+    const transporterRefID = document.getElementById("transporter_id");
 
     // PURCHASE ORDER
-    const purchaseOrderRefID            = document.getElementById("purchase_order_id");
-    const purchaseOrderDeliveryFrom     = document.getElementById("purchase_order_delivery_from");
-    const purchaseOrderDeliveryTo       = document.getElementById("purchase_order_delivery_to");
+    const purchaseOrderRefID = document.getElementById("purchase_order_id");
+    const purchaseOrderDeliveryFrom = document.getElementById("purchase_order_delivery_from");
+    const purchaseOrderDeliveryTo = document.getElementById("purchase_order_delivery_to");
 
     // INTERNAL USE
-    const internalUseBudgetCodeRefID    = document.getElementById("internal_use_budget_id");
+    const internalUseBudgetCodeRefID = document.getElementById("internal_use_budget_id");
     const internalUseSubBudgetCodeRefID = document.getElementById("internal_use_site_id");
-    const internalUseDeliveryFromRefID  = document.getElementById("internal_use_delivery_from_id");
-    const internalUseDeliveryToRefID    = document.getElementById("internal_use_delivery_to_id");
-    
+    const internalUseDeliveryFromRefID = document.getElementById("internal_use_delivery_from_id");
+    const internalUseDeliveryToRefID = document.getElementById("internal_use_delivery_to_id");
+
     // STOCK MOVEMENT
-    const stockMovementStatus               = document.getElementById('stock_movement_status');
-    const stockMovementBudgetCodeRefID      = document.getElementById("stock_movement_budget_id");
-    const stockMovementRequesterRefID       = document.getElementById("stock_movement_requester_id");
-    const stockMovementDeliveryFromRefID    = document.getElementById("stock_movement_delivery_from_id");
-    const stockMovementDeliveryToRefID      = document.getElementById("stock_movement_delivery_to_id");
-    
+    const stockMovementStatus = document.getElementById('stock_movement_status');
+    const stockMovementBudgetCodeRefID = document.getElementById("stock_movement_budget_id");
+    const stockMovementRequesterRefID = document.getElementById("stock_movement_requester_id");
+    const stockMovementDeliveryFromRefID = document.getElementById("stock_movement_delivery_from_id");
+    const stockMovementDeliveryToRefID = document.getElementById("stock_movement_delivery_to_id");
+
     function referenceType(source) {
         dataStore = [];
         indexPurchaseOrderDetail = 0;
@@ -46,13 +46,13 @@
         $(`#purchase_order_delivery_to_duplicate`).val("");
         $(`#purchase_order_delivery_to`).val("");
 
-        $("#purchase_order_delivery_from").css({"border": "1px solid #ced4da", "background-color": "#e9ecef"});
+        $("#purchase_order_delivery_from").css({ "border": "1px solid #ced4da", "background-color": "#e9ecef" });
         $("#purchase_order_delivery_from_message").hide();
 
-        $("#purchase_order_delivery_to").css({"border": "1px solid #ced4da", "background-color": "#e9ecef"});
+        $("#purchase_order_delivery_to").css({ "border": "1px solid #ced4da", "background-color": "#e9ecef" });
         $("#purchase_order_delivery_to_message").hide();
 
-        $("#purchase_order_number").css({"border": "1px solid #ced4da", "background-color": "#fff"});
+        $("#purchase_order_number").css({ "border": "1px solid #ced4da", "background-color": "#fff" });
         $("#purchase_order_message").hide();
 
         // INTERNAL USE
@@ -70,23 +70,23 @@
         $(`#internal_use_delivery_to_address`).val("");
 
         $("#internal_use_budget_code").css("border", "1px solid #ced4da");
-        $("#internal_use_budget_name").css({"border": "1px solid #ced4da", "background-color": "#fff"});
+        $("#internal_use_budget_name").css({ "border": "1px solid #ced4da", "background-color": "#fff" });
         $("#internal_use_budget_message").hide();
 
         $("#internal_use_site_code").css("border", "1px solid #ced4da");
-        $("#internal_use_site_name").css({"border": "1px solid #ced4da", "background-color": "#fff"});
+        $("#internal_use_site_name").css({ "border": "1px solid #ced4da", "background-color": "#fff" });
         $("#internal_use_site_trigger").css("cursor", "not-allowed");
         $("#internal_use_site_trigger").prop("disabled", true);
         $("#internal_use_site_message").hide();
 
         $("#internal_use_delivery_from_name").css("border", "1px solid #ced4da");
-        $("#internal_use_delivery_from_address").css({"border": "1px solid #ced4da", "background-color": "#fff"});
+        $("#internal_use_delivery_from_address").css({ "border": "1px solid #ced4da", "background-color": "#fff" });
         $("#internal_use_delivery_from_trigger").css("cursor", "not-allowed");
         $("#internal_use_delivery_from_trigger").prop("disabled", true);
         $("#internal_use_delivery_from_message").hide();
 
         $("#internal_use_delivery_to_name").css("border", "1px solid #ced4da");
-        $("#internal_use_delivery_to_address").css({"border": "1px solid #ced4da", "background-color": "#fff"});
+        $("#internal_use_delivery_to_address").css({ "border": "1px solid #ced4da", "background-color": "#fff" });
         $("#internal_use_delivery_to_trigger").css("cursor", "not-allowed");
         $("#internal_use_delivery_to_trigger").prop("disabled", true);
         $("#internal_use_delivery_to_message").hide();
@@ -106,27 +106,27 @@
         $(`#stock_movement_delivery_to_address`).val("");
 
         $("#stock_movement_budget_code").css("border", "1px solid #ced4da");
-        $("#stock_movement_budget_name").css({"border": "1px solid #ced4da", "background-color": "#fff"});
+        $("#stock_movement_budget_name").css({ "border": "1px solid #ced4da", "background-color": "#fff" });
         $("#stock_movement_budget_message").hide();
 
         $("#stock_movement_requester_position").css("border", "1px solid #ced4da");
-        $("#stock_movement_requester_name").css({"border": "1px solid #ced4da", "background-color": "#fff"});
+        $("#stock_movement_requester_name").css({ "border": "1px solid #ced4da", "background-color": "#fff" });
         $("#stock_movement_requester_trigger").css("cursor", "not-allowed");
         $("#stock_movement_requester_trigger").prop("disabled", true);
         $("#stock_movement_requester_message").hide();
 
         $("#stock_movement_delivery_from_name").css("border", "1px solid #ced4da");
-        $("#stock_movement_delivery_from_address").css({"border": "1px solid #ced4da", "background-color": "#fff"});
+        $("#stock_movement_delivery_from_address").css({ "border": "1px solid #ced4da", "background-color": "#fff" });
         $("#stock_movement_delivery_from_trigger").css("cursor", "not-allowed");
         $("#stock_movement_delivery_from_trigger").prop("disabled", true);
         $("#stock_movement_delivery_from_message").hide();
 
         $("#stock_movement_delivery_to_name").css("border", "1px solid #ced4da");
-        $("#stock_movement_delivery_to_address").css({"border": "1px solid #ced4da", "background-color": "#fff"});
+        $("#stock_movement_delivery_to_address").css({ "border": "1px solid #ced4da", "background-color": "#fff" });
         $("#stock_movement_delivery_to_trigger").css("cursor", "not-allowed");
         $("#stock_movement_delivery_to_trigger").prop("disabled", true);
         $("#stock_movement_delivery_to_message").hide();
-        
+
         $("#stock_movement_status").css("border", "1px solid #ced4da");
         $("#stock_movement_status_message").hide();
 
@@ -186,28 +186,28 @@
         switch (referenceTypeValue.value) {
             case "0":
                 for (let row of rows) {
-                    const referenceRefID        = row.querySelector('input[id^="reference_ID"]');
-                    const quantityUnitRefID     = row.querySelector('input[id^="quantityUnit_RefID"]');
-                    const productRefID          = row.querySelector('input[id^="product_RefID"]');
-                    const workStructureRefID    = row.querySelector('input[id^="workStructure_RefID"]');
-                    
-                    const qtyInput          = row.querySelector('input[id^="qty_req"]');
-                    const noteInput         = row.querySelector('textarea[id^="note"]');
+                    const referenceRefID = row.querySelector('input[id^="reference_ID"]');
+                    const quantityUnitRefID = row.querySelector('input[id^="quantityUnit_RefID"]');
+                    const productRefID = row.querySelector('input[id^="product_RefID"]');
+                    const workStructureRefID = row.querySelector('input[id^="workStructure_RefID"]');
+
+                    const qtyInput = row.querySelector('input[id^="qty_req"]');
+                    const noteInput = row.querySelector('textarea[id^="note"]');
 
                     if (qtyInput && qtyInput.value.trim() !== '') {
                         const refNumber = row.children[4].innerText.trim();
-                        const product   = row.children[7].innerText.trim();
-                        const uom       = row.children[8].innerText.trim();
+                        const product = row.children[7].innerText.trim();
+                        const uom = row.children[8].innerText.trim();
 
-                        const qty       = qtyInput.value.trim();
-                        const note      = noteInput.value.trim();
+                        const qty = qtyInput.value.trim();
+                        const note = noteInput.value.trim();
 
                         let found = false;
                         const existingRows = targetTable.getElementsByTagName('tr');
 
                         for (let targetRow of existingRows) {
-                            const targetReferenceRefID  = targetRow.children[0].value.trim();
-                            const targetProductRefID    = targetRow.children[1].value.trim();
+                            const targetReferenceRefID = targetRow.children[0].value.trim();
+                            const targetProductRefID = targetRow.children[1].value.trim();
 
                             if (targetReferenceRefID == referenceRefID.value && targetProductRefID == productRefID.value) {
                                 targetRow.children[5].innerText = qty;
@@ -257,11 +257,11 @@
                             });
                         }
                     } else {
-                        const existingRows  = targetTable.getElementsByTagName('tr');
+                        const existingRows = targetTable.getElementsByTagName('tr');
 
                         for (let targetRow of existingRows) {
-                            const targetReferenceRefID  = targetRow.children[0].value.trim();
-                            const targetProductRefID    = targetRow.children[1].value.trim();
+                            const targetReferenceRefID = targetRow.children[0].value.trim();
+                            const targetProductRefID = targetRow.children[1].value.trim();
 
                             if (targetReferenceRefID == referenceRefID.value && targetProductRefID == productRefID.value) {
                                 targetRow.remove();
@@ -278,28 +278,28 @@
                 break;
             case "1":
                 for (let row of rows) {
-                    const referenceRefID        = row.querySelector('input[id^="reference_ID"]');
-                    const quantityUnitRefID     = row.querySelector('input[id^="quantityUnit_RefID"]');
-                    const productRefID          = row.querySelector('input[id^="product_RefID"]');
-                    const workStructureRefID    = row.querySelector('input[id^="workStructure_RefID"]');
+                    const referenceRefID = row.querySelector('input[id^="reference_ID"]');
+                    const quantityUnitRefID = row.querySelector('input[id^="quantityUnit_RefID"]');
+                    const productRefID = row.querySelector('input[id^="product_RefID"]');
+                    const workStructureRefID = row.querySelector('input[id^="workStructure_RefID"]');
 
-                    const qtyInput          = row.querySelector('input[id^="internal_use_qty_req"]');
-                    const noteInput         = row.querySelector('textarea[id^="internal_use_note"]');
+                    const qtyInput = row.querySelector('input[id^="internal_use_qty_req"]');
+                    const noteInput = row.querySelector('textarea[id^="internal_use_note"]');
 
                     if (qtyInput && qtyInput.value.trim() !== '') {
                         const subBudget = row.children[5].innerText.trim();
-                        const product   = row.children[6].innerText.trim();
-                        const uom       = row.children[7].innerText.trim();
+                        const product = row.children[6].innerText.trim();
+                        const uom = row.children[7].innerText.trim();
 
-                        const qty       = qtyInput.value.trim();
-                        const note      = noteInput.value.trim();
+                        const qty = qtyInput.value.trim();
+                        const note = noteInput.value.trim();
 
                         let found = false;
                         const existingRows = targetTable.getElementsByTagName('tr');
 
                         for (let targetRow of existingRows) {
-                            const targetReferenceRefID  = targetRow.children[0].value.trim();
-                            const targetProductRefID    = targetRow.children[1].value.trim();
+                            const targetReferenceRefID = targetRow.children[0].value.trim();
+                            const targetProductRefID = targetRow.children[1].value.trim();
 
                             if (targetReferenceRefID == referenceRefID.value && targetProductRefID == productRefID.value) {
                                 targetRow.children[5].innerText = qty;
@@ -349,11 +349,11 @@
                             });
                         }
                     } else {
-                        const existingRows  = targetTable.getElementsByTagName('tr');
+                        const existingRows = targetTable.getElementsByTagName('tr');
 
                         for (let targetRow of existingRows) {
-                            const targetReferenceRefID  = targetRow.children[0].value.trim();
-                            const targetProductRefID    = targetRow.children[1].value.trim();
+                            const targetReferenceRefID = targetRow.children[0].value.trim();
+                            const targetProductRefID = targetRow.children[1].value.trim();
 
                             if (targetReferenceRefID == referenceRefID.value && targetProductRefID == productRefID.value) {
                                 targetRow.remove();
@@ -366,32 +366,32 @@
                         });
                     }
                 }
-                
+
                 break;
             case "2":
                 for (let row of rows) {
-                    const referenceRefID        = row.querySelector('input[id^="reference_ID"]');
-                    const quantityUnitRefID     = row.querySelector('input[id^="quantityUnit_RefID"]');
-                    const productRefID          = row.querySelector('input[id^="product_RefID"]');
-                    const workStructureRefID    = row.querySelector('input[id^="workStructure_RefID"]');
+                    const referenceRefID = row.querySelector('input[id^="reference_ID"]');
+                    const quantityUnitRefID = row.querySelector('input[id^="quantityUnit_RefID"]');
+                    const productRefID = row.querySelector('input[id^="product_RefID"]');
+                    const workStructureRefID = row.querySelector('input[id^="workStructure_RefID"]');
 
-                    const qtyInput          = row.querySelector('input[id^="stock_movement_qty_req"]');
-                    const noteInput         = row.querySelector('textarea[id^="stock_movement_note_req"]');
+                    const qtyInput = row.querySelector('input[id^="stock_movement_qty_req"]');
+                    const noteInput = row.querySelector('textarea[id^="stock_movement_note_req"]');
 
                     if (qtyInput && qtyInput.value.trim() !== '') {
-                        const product   = row.children[5].innerText.trim();
-                        const uom       = row.children[6].innerText.trim();
+                        const product = row.children[5].innerText.trim();
+                        const uom = row.children[6].innerText.trim();
 
-                        const qty       = qtyInput.value.trim();
-                        const note      = noteInput.value.trim();
+                        const qty = qtyInput.value.trim();
+                        const note = noteInput.value.trim();
 
                         let found = false;
                         const existingRows = targetTable.getElementsByTagName('tr');
 
                         for (let targetRow of existingRows) {
-                            const targetReferenceRefID  = targetRow.children[0].value.trim();
-                            const targetProductRefID    = targetRow.children[1].value.trim();
-                            
+                            const targetReferenceRefID = targetRow.children[0].value.trim();
+                            const targetProductRefID = targetRow.children[1].value.trim();
+
                             if (targetReferenceRefID == referenceRefID.value && targetProductRefID == productRefID.value) {
                                 targetRow.children[4].innerText = qty;
                                 found = true;
@@ -439,11 +439,11 @@
                             });
                         }
                     } else {
-                        const existingRows  = targetTable.getElementsByTagName('tr');
+                        const existingRows = targetTable.getElementsByTagName('tr');
 
                         for (let targetRow of existingRows) {
-                            const targetReferenceRefID  = targetRow.children[0].value.trim();
-                            const targetProductRefID    = targetRow.children[1].value.trim();
+                            const targetReferenceRefID = targetRow.children[0].value.trim();
+                            const targetProductRefID = targetRow.children[1].value.trim();
 
                             if (targetReferenceRefID == referenceRefID.value && targetProductRefID == productRefID.value) {
                                 targetRow.remove();
@@ -457,33 +457,33 @@
                     }
                 }
 
-                break;            
+                break;
             default:
                 break;
         }
     }
 
     function validationForm() {
-        const isReferenceTypeValueNotSelected   = referenceTypeValue.value.trim() !== 'Select a Source';
-        const isTransporterRefIDNotEmpty        = transporterRefID.value.trim() !== '';
+        const isReferenceTypeValueNotSelected = referenceTypeValue.value.trim() !== 'Select a Source';
+        const isTransporterRefIDNotEmpty = transporterRefID.value.trim() !== '';
 
         // PURCHASE ORDER
-        const isPurchaseOrderRefIDNotEmpty           = purchaseOrderRefID.value.trim() !== '';
-        const isPurchaseOrderDeliveryFromNotEmpty    = purchaseOrderDeliveryFrom.value.trim() !== '';
-        const isPurchaseOrderDeliveryToNotEmpty      = purchaseOrderDeliveryTo.value.trim() !== '';
+        const isPurchaseOrderRefIDNotEmpty = purchaseOrderRefID.value.trim() !== '';
+        const isPurchaseOrderDeliveryFromNotEmpty = purchaseOrderDeliveryFrom.value.trim() !== '';
+        const isPurchaseOrderDeliveryToNotEmpty = purchaseOrderDeliveryTo.value.trim() !== '';
 
         // INTERNAL USE
-        const isInternalUseBudgetCodeRefIDNotEmpty      = internalUseBudgetCodeRefID.value.trim() !== '';
-        const isInternalUseSubBudgetCodeRefIDNotEmpty   = internalUseSubBudgetCodeRefID.value.trim() !== '';
-        const isInternalUseDeliveryFromRefIDNotEmpty    = internalUseDeliveryFromRefID.value.trim() !== '';
-        const isInternalUseDeliveryToRefIDNotEmpty      = internalUseDeliveryToRefID.value.trim() !== '';
-        
+        const isInternalUseBudgetCodeRefIDNotEmpty = internalUseBudgetCodeRefID.value.trim() !== '';
+        const isInternalUseSubBudgetCodeRefIDNotEmpty = internalUseSubBudgetCodeRefID.value.trim() !== '';
+        const isInternalUseDeliveryFromRefIDNotEmpty = internalUseDeliveryFromRefID.value.trim() !== '';
+        const isInternalUseDeliveryToRefIDNotEmpty = internalUseDeliveryToRefID.value.trim() !== '';
+
         // STOCK MOVEMENT
-        const isStockMovementStatusNotEmpty             = stockMovementStatus.value.trim() !== '';
-        const isStockMovementBudgetCodeRefIDNotEmpty    = stockMovementBudgetCodeRefID.value.trim() !== '';
-        const isStockMovementRequesterRefIDNotEmpty     = stockMovementRequesterRefID.value.trim() !== '';
-        const isStockMovementDeliveryFromRefIDNotEmpty  = stockMovementDeliveryFromRefID.value.trim() !== '';
-        const isStockMovementDeliveryToRefIDNotEmpty    = stockMovementDeliveryToRefID.value.trim() !== '';
+        const isStockMovementStatusNotEmpty = stockMovementStatus.value.trim() !== '';
+        const isStockMovementBudgetCodeRefIDNotEmpty = stockMovementBudgetCodeRefID.value.trim() !== '';
+        const isStockMovementRequesterRefIDNotEmpty = stockMovementRequesterRefID.value.trim() !== '';
+        const isStockMovementDeliveryFromRefIDNotEmpty = stockMovementDeliveryFromRefID.value.trim() !== '';
+        const isStockMovementDeliveryToRefIDNotEmpty = stockMovementDeliveryToRefID.value.trim() !== '';
 
         if (!isReferenceTypeValueNotSelected) {
             $("#reference_type").css("border", "1px solid red");
@@ -499,7 +499,7 @@
                         if (!isPurchaseOrderRefIDNotEmpty && !isPurchaseOrderDeliveryFromNotEmpty && !isPurchaseOrderDeliveryToNotEmpty && !isTransporterRefIDNotEmpty) {
                             $("#transporter_name").css("border", "1px solid red");
                             $("#transporter_message").show();
-                            
+
                             $("#purchase_order_delivery_from").css("border", "1px solid red");
                             $("#purchase_order_delivery_from_message").show();
 
@@ -686,7 +686,7 @@
         }).then((result) => {
             if ('value' in result) {
                 ShowLoading();
-                deliveryOrderStore({...formatData, comment: result.value});
+                deliveryOrderStore({ ...formatData, comment: result.value });
             }
         });
     }
@@ -702,7 +702,7 @@
             type: 'POST',
             data: formatData,
             url: '{{ route("DeliveryOrder.store") }}',
-            success: function(res) {
+            success: function (res) {
                 HideLoading();
 
                 if (res.status === 200) {
@@ -730,7 +730,7 @@
                     ErrorNotif("Data Cancel Inputed");
                 }
             },
-            error: function(jqXHR, textStatus, errorThrown) {
+            error: function (jqXHR, textStatus, errorThrown) {
                 console.log('error', jqXHR, textStatus, errorThrown);
                 HideLoading();
                 ErrorNotif("Data Cancel Inputed");
@@ -757,7 +757,7 @@
             processData: false,
             data: form_data,
             type: method,
-            success: function(response) {
+            success: function (response) {
                 HideLoading();
 
                 if (response.message == "WorkflowError") {
@@ -767,7 +767,7 @@
 
                     var t = $('#tableGetWorkFlow').DataTable();
                     t.clear();
-                    $.each(response.data, function(key, val) {
+                    $.each(response.data, function (key, val) {
                         t.row.add([
                             '<td><span data-dismiss="modal" onclick="SelectWorkFlow(\'' + val.Sys_ID + '\', \'' + val.NextApprover_RefID + '\', \'' + response.approverEntity_RefID + '\', \'' + response.documentTypeID + '\');"><img src="{{ asset("AdminLTE-master/dist/img/add.png") }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></span></td>',
                             '<td style="border:1px solid #e9ecef;">' + val.FullApproverPath + '</td></tr></tbody>'
@@ -775,9 +775,9 @@
                     });
                 } else {
                     const formatData = {
-                        workFlowPath_RefID: response.workFlowPath_RefID, 
-                        nextApprover: response.nextApprover_RefID, 
-                        approverEntity: response.approverEntity_RefID, 
+                        workFlowPath_RefID: response.workFlowPath_RefID,
+                        nextApprover: response.nextApprover_RefID,
+                        approverEntity: response.approverEntity_RefID,
                         documentTypeID: response.documentTypeID,
                         storeData: response.storeData
                     };
@@ -785,9 +785,9 @@
                     selectWorkFlow(formatData);
                 }
             },
-            error: function(response) {
+            error: function (response) {
                 console.log('response error', response);
-                
+
                 HideLoading();
 
                 CancelNotif("You don't have access", "{{ route('DeliveryOrder.index', ['var' => 1]) }}");
@@ -796,119 +796,119 @@
     }
 
     // START OF PURCHASE ORDER TYPE
-        function calculateTotal() {
-            let total = 0;
-            
-            document.querySelectorAll('input[id^="qty_req"]').forEach(function(input) {
-                let value = parseFloat(input.value.replace(/,/g, '')); 
-                if (!isNaN(value)) {
-                    total += value;
-                }
-            });
+    function calculateTotal() {
+        let total = 0;
 
-            document.getElementById('total_reference_number').textContent = decimalFormat(parseFloat(total));
-        }
+        document.querySelectorAll('input[id^="qty_req"]').forEach(function (input) {
+            let value = parseFloat(input.value.replace(/,/g, ''));
+            if (!isNaN(value)) {
+                total += value;
+            }
+        });
 
-        function checkOneLineBudgetContents(indexInput) {
-            const rows = document.querySelectorAll("#table_reference_type_detail tbody tr");
-            let hasFullRow = false;
+        document.getElementById('total_reference_number').textContent = decimalFormat(parseFloat(total));
+    }
 
-            rows.forEach((row, index) => {
-                const qty   = document.getElementById(`qty_req${index}`)?.value.trim();
-                const note  = document.getElementById(`note${index}`)?.value.trim();
+    function checkOneLineBudgetContents(indexInput) {
+        const rows = document.querySelectorAll("#table_reference_type_detail tbody tr");
+        let hasFullRow = false;
 
-                if (qty !== "" && note !== "") {
-                    hasFullRow = true;
-                }
-            });
+        rows.forEach((row, index) => {
+            const qty = document.getElementById(`qty_req${index}`)?.value.trim();
+            const note = document.getElementById(`note${index}`)?.value.trim();
 
-            rows.forEach((row, index) => {
-                const qtyEl     = document.getElementById(`qty_req${index}`);
-                const noteEl    = document.getElementById(`note${index}`);
+            if (qty !== "" && note !== "") {
+                hasFullRow = true;
+            }
+        });
 
-                if (hasFullRow) {
-                    $(qtyEl).css("border", "1px solid #ced4da");
-                    $(noteEl).css("border", "1px solid #ced4da");
-                    $("#delivery_order_details_message").hide();
-                } else {
-                    if (indexInput > -1) {
-                        if (indexInput == index) {
-                            if (qtyEl.value.trim() != "" || noteEl.value.trim() != "") {
-                                $(qtyEl).css("border", "1px solid red");
-                                $(noteEl).css("border", "1px solid red");
-                                $("#delivery_order_details_message").show();
-                            } else {
-                                $(qtyEl).css("border", "1px solid #ced4da");
-                                $(noteEl).css("border", "1px solid #ced4da");
-                                $("#delivery_order_details_message").hide();
-                            }
-                        }
+        rows.forEach((row, index) => {
+            const qtyEl = document.getElementById(`qty_req${index}`);
+            const noteEl = document.getElementById(`note${index}`);
 
-                        if (indexInput != index && (qtyEl.value.trim() == "" && noteEl.value.trim() == "")) {
+            if (hasFullRow) {
+                $(qtyEl).css("border", "1px solid #ced4da");
+                $(noteEl).css("border", "1px solid #ced4da");
+                $("#delivery_order_details_message").hide();
+            } else {
+                if (indexInput > -1) {
+                    if (indexInput == index) {
+                        if (qtyEl.value.trim() != "" || noteEl.value.trim() != "") {
+                            $(qtyEl).css("border", "1px solid red");
+                            $(noteEl).css("border", "1px solid red");
+                            $("#delivery_order_details_message").show();
+                        } else {
                             $(qtyEl).css("border", "1px solid #ced4da");
                             $(noteEl).css("border", "1px solid #ced4da");
-                        } 
-                    } else {
-                        $(qtyEl).css("border", "1px solid red");
-                        $(noteEl).css("border", "1px solid red");
-                        $("#delivery_order_details_message").show();
+                            $("#delivery_order_details_message").hide();
+                        }
                     }
+
+                    if (indexInput != index && (qtyEl.value.trim() == "" && noteEl.value.trim() == "")) {
+                        $(qtyEl).css("border", "1px solid #ced4da");
+                        $(noteEl).css("border", "1px solid #ced4da");
+                    }
+                } else {
+                    $(qtyEl).css("border", "1px solid red");
+                    $(noteEl).css("border", "1px solid red");
+                    $("#delivery_order_details_message").show();
                 }
-            });
+            }
+        });
 
-            return hasFullRow;
-        }
+        return hasFullRow;
+    }
 
-        function getPurchaseOrderDetail(purchaseOrder_RefID, purchaseOrderNumber) {
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
+    function getPurchaseOrderDetail(purchaseOrder_RefID, purchaseOrderNumber) {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
 
-            $.ajax({
-                type: 'GET',
-                url: '{!! route("getPurchaseOrderDetail") !!}?purchase_order_id=' + purchaseOrder_RefID,
-                success: async function(data) {
-                    if (Array.isArray(data) && data.length > 0) {
-                        deliveryDate = data[0].deliveryDateTimeTZ;
-                        let deliveryFroms = `(${data[0]['supplierCode']}) ${data[0]['supplierName']} - ${data[0]['supplierAddress']}`;
-                        let deliveryToNonRefIDs = data[0]['deliveryTo_NonRefID'] ? data[0]['deliveryTo_NonRefID'].Address : '';
+        $.ajax({
+            type: 'GET',
+            url: '{!! route("getPurchaseOrderDetail") !!}?purchase_order_id=' + purchaseOrder_RefID,
+            success: async function (data) {
+                if (Array.isArray(data) && data.length > 0) {
+                    deliveryDate = data[0].deliveryDateTimeTZ;
+                    let deliveryFroms = `(${data[0]['supplierCode']}) ${data[0]['supplierName']} - ${data[0]['supplierAddress']}`;
+                    let deliveryToNonRefIDs = data[0]['deliveryTo_NonRefID'] ? data[0]['deliveryTo_NonRefID'].Address : '';
 
-                        $("#purchase_order_id").val(purchaseOrder_RefID);
-                        $("#purchase_order_number").val(purchaseOrderNumber);
-                        $("#purchase_order_budget").val(`${data[0]['combinedBudgetCode']} - ${data[0]['combinedBudgetName']}`);
+                    $("#purchase_order_id").val(purchaseOrder_RefID);
+                    $("#purchase_order_number").val(purchaseOrderNumber);
+                    $("#purchase_order_budget").val(`${data[0]['combinedBudgetCode']} - ${data[0]['combinedBudgetName']}`);
 
-                        $("#var_combinedBudget_RefID").val(data[0].combinedBudget_RefID);
+                    $("#var_combinedBudget_RefID").val(data[0].combinedBudget_RefID);
 
-                        $("#purchase_order_delivery_from_duplicate").val(deliveryFroms);
-                        $("#purchase_order_delivery_from").val(deliveryFroms);
-                        $("#purchase_order_delivery_from_id_duplicate").val(data[0]['supplier_RefID']);
-                        $("#purchase_order_delivery_from_id").val(data[0]['supplier_RefID']);
-                        $("#purchase_order_delivery_from").prop("disabled", false);
+                    $("#purchase_order_delivery_from_duplicate").val(deliveryFroms);
+                    $("#purchase_order_delivery_from").val(deliveryFroms);
+                    $("#purchase_order_delivery_from_id_duplicate").val(data[0]['supplier_RefID']);
+                    $("#purchase_order_delivery_from_id").val(data[0]['supplier_RefID']);
+                    $("#purchase_order_delivery_from").prop("disabled", false);
 
-                        $("#purchase_order_delivery_to").val(deliveryToNonRefIDs);
-                        $("#purchase_order_delivery_to_duplicate").val(deliveryToNonRefIDs);
-                        $("#purchase_order_delivery_to_id").val(data[0]['deliveryTo_RefID']);
-                        $("#purchase_order_delivery_to_id_duplicate").val(data[0]['deliveryTo_RefID']);
-                        $("#purchase_order_delivery_to").prop("disabled", false);
+                    $("#purchase_order_delivery_to").val(deliveryToNonRefIDs);
+                    $("#purchase_order_delivery_to_duplicate").val(deliveryToNonRefIDs);
+                    $("#purchase_order_delivery_to_id").val(data[0]['deliveryTo_RefID']);
+                    $("#purchase_order_delivery_to_id_duplicate").val(data[0]['deliveryTo_RefID']);
+                    $("#purchase_order_delivery_to").prop("disabled", false);
 
-                        $("#purchase_order_delivery_from").css("border", "1px solid #ced4da");
-                        $("#purchase_order_delivery_from_message").hide();
+                    $("#purchase_order_delivery_from").css("border", "1px solid #ced4da");
+                    $("#purchase_order_delivery_from_message").hide();
 
-                        $("#purchase_order_delivery_to").css("border", "1px solid #ced4da");
-                        $("#purchase_order_delivery_to_message").hide();
+                    $("#purchase_order_delivery_to").css("border", "1px solid #ced4da");
+                    $("#purchase_order_delivery_to_message").hide();
 
-                        $("#purchase_order_number").css({"border": "1px solid #ced4da", "background-color": "#e9ecef"});
-                        $("#purchase_order_message").hide();
+                    $("#purchase_order_number").css({ "border": "1px solid #ced4da", "background-color": "#e9ecef" });
+                    $("#purchase_order_message").hide();
 
-                        $("#loading-purchase-order").hide();
+                    $("#loading-purchase-order").hide();
 
-                        let modifyColumn = `<td rowspan="${data.length}" style="text-align: center; padding: 10px !important;">${purchaseOrderNumber}</td>`;
+                    let modifyColumn = `<td rowspan="${data.length}" style="text-align: center; padding: 10px !important;">${purchaseOrderNumber}</td>`;
 
-                        $.each(data, function(key, val) {
-                            let balanced = currencyTotal(val.quantity);
-                            let row = `
+                    $.each(data, function (key, val) {
+                        let balanced = currencyTotal(val.quantity);
+                        let row = `
                                 <tr>
                                     <input id="product_RefID${indexPurchaseOrderDetail}" value="${val.product_RefID}" type="hidden" />
                                     <input id="quantityUnit_RefID${indexPurchaseOrderDetail}" value="${val.quantityUnit_RefID}" type="hidden" />
@@ -934,91 +934,91 @@
                                 </tr>
                             `;
 
-                            $('#table_reference_type_detail tbody').append(row);
+                        $('#table_reference_type_detail tbody').append(row);
 
-                            $(`#qty_req${indexPurchaseOrderDetail}`).on('keyup', function() {
-                                var qty_req     = $(this).val().replace(/,/g, '');
-                                var data_index  = $(this).data('index');
-                                var result      = val.qtyAvail - qty_req;
+                        $(`#qty_req${indexPurchaseOrderDetail}`).on('keyup', function () {
+                            var qty_req = $(this).val().replace(/,/g, '');
+                            var data_index = $(this).data('index');
+                            var result = val.qtyAvail - qty_req;
 
-                                if (parseFloat(qty_req) > val.qtyAvail) {
-                                    $(this).val("");
-                                    $(`#balance${data_index}`).val(balanced);
-                                    ErrorNotif("Qty Request is over !");
-                                } else {
-                                    $(`#balance${data_index}`).val(result.toFixed(2));
-                                    calculateTotal();
-                                }
+                            if (parseFloat(qty_req) > val.qtyAvail) {
+                                $(this).val("");
+                                $(`#balance${data_index}`).val(balanced);
+                                ErrorNotif("Qty Request is over !");
+                            } else {
+                                $(`#balance${data_index}`).val(result.toFixed(2));
+                                calculateTotal();
+                            }
 
-                                checkOneLineBudgetContents(data_index);
-                            });
-
-                            $(`#note${indexPurchaseOrderDetail}`).on('keyup', function() {
-                                var data_index = $(this).data('index');
-
-                                checkOneLineBudgetContents(data_index);
-                            });
-
-                            indexPurchaseOrderDetail += 1;
+                            checkOneLineBudgetContents(data_index);
                         });
-                    } else {
 
-                    }
-                },
-                error: function (textStatus, errorThrown) {
+                        $(`#note${indexPurchaseOrderDetail}`).on('keyup', function () {
+                            var data_index = $(this).data('index');
+
+                            checkOneLineBudgetContents(data_index);
+                        });
+
+                        indexPurchaseOrderDetail += 1;
+                    });
+                } else {
+
                 }
-            });
-        }
-
-        $('#TableSearchPORevision').on('click', 'tbody tr', function () {
-            let table   = $('#TableSearchPORevision').DataTable();
-            let data    = table.row(this).data();
-
-            $("#loading-purchase-order").show();
-            
-            if (data) {
-                $("#mySearchPO").modal('toggle');
-
-                let purchaseOrder_RefID = data.sys_ID;
-                let purchaseOrderNumber = data.sys_Text;
-
-                getPurchaseOrderDetail(purchaseOrder_RefID, purchaseOrderNumber);
+            },
+            error: function (textStatus, errorThrown) {
             }
         });
+    }
+
+    $('#TableSearchPORevision').on('click', 'tbody tr', function () {
+        let table = $('#TableSearchPORevision').DataTable();
+        let data = table.row(this).data();
+
+        $("#loading-purchase-order").show();
+
+        if (data) {
+            $("#mySearchPO").modal('toggle');
+
+            let purchaseOrder_RefID = data.sys_ID;
+            let purchaseOrderNumber = data.sys_Text;
+
+            getPurchaseOrderDetail(purchaseOrder_RefID, purchaseOrderNumber);
+        }
+    });
     // END OF PURCHASE ORDER TYPE
 
     // START OF INTERNAL USE TYPE
-        function calculateTotalInternalUse() {
-            let total = 0;
-            
-            document.querySelectorAll('input[id^="internal_use_qty_req"]').forEach(function(input) {
-                let value = parseFloat(input.value.replace(/,/g, '')); 
-                if (!isNaN(value)) {
-                    total += value;
-                }
-            });
+    function calculateTotalInternalUse() {
+        let total = 0;
 
-            document.getElementById('total_reference_number').textContent = decimalFormat(parseFloat(total));
-        }
-        
-        function getBudgetDetails(site_code) {
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
+        document.querySelectorAll('input[id^="internal_use_qty_req"]').forEach(function (input) {
+            let value = parseFloat(input.value.replace(/,/g, ''));
+            if (!isNaN(value)) {
+                total += value;
+            }
+        });
 
-            $.ajax({
-                type: 'GET',
-                url: '{!! route("getBudget") !!}?site_code=' + site_code,
-                success: function(data) {
-                    if (Array.isArray(data) && data.length > 0) {
-                        $('#table_reference_type_detail tbody').show();
-                        $("#loading-internal-use").hide();
+        document.getElementById('total_reference_number').textContent = decimalFormat(parseFloat(total));
+    }
 
-                        $.each(data, function(key, val) {
-                            if (val.product_RefID) {
-                                let row = `
+    function getBudgetDetails(site_code) {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: 'GET',
+            url: '{!! route("getBudget") !!}?site_code=' + site_code,
+            success: function (data) {
+                if (Array.isArray(data) && data.length > 0) {
+                    $('#table_reference_type_detail tbody').show();
+                    $("#loading-internal-use").hide();
+
+                    $.each(data, function (key, val) {
+                        if (val.product_RefID) {
+                            let row = `
                                     <tr>
                                         <input id="product_RefID${indexInternalUseDetail}" value="${val.product_RefID}" type="hidden" />
                                         <input id="quantityUnit_RefID${indexInternalUseDetail}" value="${val.quantityUnit_RefID}" type="hidden" />
@@ -1048,96 +1048,96 @@
                                     </tr>
                                 `;
 
-                                $('#table_reference_type_detail tbody').append(row);
+                            $('#table_reference_type_detail tbody').append(row);
 
-                                $(`#internal_use_qty_req${indexInternalUseDetail}`).on('keyup', function() {
-                                    let qty_req     = $(this).val().replace(/,/g, '');
-                                    let data_index  = $(this).data('index');
-                                    let result      = val.quantityRemaining - qty_req;
+                            $(`#internal_use_qty_req${indexInternalUseDetail}`).on('keyup', function () {
+                                let qty_req = $(this).val().replace(/,/g, '');
+                                let data_index = $(this).data('index');
+                                let result = val.quantityRemaining - qty_req;
 
-                                    if (parseFloat(qty_req) > val.quantityRemaining) {
-                                        $(this).val("");
-                                        $(`#internal_use_balance_req${data_index}`).val("");
-                                        ErrorNotif("Qty Request is over !");
-                                    } else {
-                                        $(`#internal_use_balance_req${data_index}`).val(result);
-                                        calculateTotalInternalUse();
-                                    }
+                                if (parseFloat(qty_req) > val.quantityRemaining) {
+                                    $(this).val("");
+                                    $(`#internal_use_balance_req${data_index}`).val("");
+                                    ErrorNotif("Qty Request is over !");
+                                } else {
+                                    $(`#internal_use_balance_req${data_index}`).val(result);
+                                    calculateTotalInternalUse();
+                                }
 
-                                    // checkOneLineBudgetContents(indexInternalUseDetail);
-                                });
+                                // checkOneLineBudgetContents(indexInternalUseDetail);
+                            });
 
-                                indexInternalUseDetail += 1;
-                            }
-                        });
-                    } else {
+                            indexInternalUseDetail += 1;
+                        }
+                    });
+                } else {
 
-                    }
-                },
-                error: function (textStatus, errorThrown) {
                 }
-            });
-        }
-
-        $('#tableGetSiteSecond').on('click', 'tbody tr', function() {
-            let sysId    = $(this).find('input[data-trigger="sys_id_site_second"]').val();
-            let siteCode = $(this).find('td:nth-child(2)').text();
-            let siteName = $(this).find('td:nth-child(3)').text();
-
-            $("#internal_use_site_id").val(sysId);
-            $("#internal_use_site_code").val(siteCode);
-            $("#internal_use_site_name").val(`${siteCode} - ${siteName}`);
-
-            $("#internal_use_site_code").css("border", "1px solid #ced4da");
-            $("#internal_use_site_name").css({"border": "1px solid #ced4da", "background-color": "#e9ecef"});
-            $("#internal_use_site_message").hide();
-
-            $("#loading-internal-use").show();
-            $('#table_reference_type_detail tbody').hide();
-
-            getBudgetDetails(sysId);
-
-            $("#mySiteCodeSecond").modal('toggle');
+            },
+            error: function (textStatus, errorThrown) {
+            }
         });
+    }
+
+    $('#tableGetSiteSecond').on('click', 'tbody tr', function () {
+        let sysId = $(this).find('input[data-trigger="sys_id_site_second"]').val();
+        let siteCode = $(this).find('td:nth-child(2)').text();
+        let siteName = $(this).find('td:nth-child(3)').text();
+
+        $("#internal_use_site_id").val(sysId);
+        $("#internal_use_site_code").val(siteCode);
+        $("#internal_use_site_name").val(`${siteCode} - ${siteName}`);
+
+        $("#internal_use_site_code").css("border", "1px solid #ced4da");
+        $("#internal_use_site_name").css({ "border": "1px solid #ced4da", "background-color": "#e9ecef" });
+        $("#internal_use_site_message").hide();
+
+        $("#loading-internal-use").show();
+        $('#table_reference_type_detail tbody').hide();
+
+        getBudgetDetails(sysId);
+
+        $("#mySiteCodeSecond").modal('toggle');
+    });
     // END OF INTERNAL USE TYPE
 
     // START OF STOCK MOVEMENT TYPE
-        function calculateTotalStockMovement() {
-            let total = 0;
-            
-            document.querySelectorAll('input[id^="stock_movement_qty_req"]').forEach(function(input) {
-                let value = parseFloat(input.value.replace(/,/g, '')); 
-                if (!isNaN(value)) {
-                    total += value;
-                }
-            });
+    function calculateTotalStockMovement() {
+        let total = 0;
 
-            document.getElementById('total_reference_number').textContent = decimalFormat(parseFloat(total));
-        }
+        document.querySelectorAll('input[id^="stock_movement_qty_req"]').forEach(function (input) {
+            let value = parseFloat(input.value.replace(/,/g, ''));
+            if (!isNaN(value)) {
+                total += value;
+            }
+        });
 
-        function getStockDetail(deliveryFrom_RefID) {
-            let stockMovementBudget_RefID = document.getElementById("stock_movement_budget_id");
+        document.getElementById('total_reference_number').textContent = decimalFormat(parseFloat(total));
+    }
 
-            $("#loading-stock-movement").show();
-            $('#table_reference_type_detail tbody').empty();
+    function getStockDetail(deliveryFrom_RefID) {
+        let stockMovementBudget_RefID = document.getElementById("stock_movement_budget_id");
 
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
+        $("#loading-stock-movement").show();
+        $('#table_reference_type_detail tbody').empty();
 
-            $.ajax({
-                type: 'GET',
-                url: '{!! route("DeliveryOrder.StockDetail") !!}?combinedBudget_RefID=' + stockMovementBudget_RefID.value + '&warehouse_RefID=' + deliveryFrom_RefID,
-                success: async function(data) {
-                    $("#loading-stock-movement").hide();
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
 
-                    if (Array.isArray(data) && data.length > 0) {
-                        $('#table_reference_type_detail tbody').empty();
+        $.ajax({
+            type: 'GET',
+            url: '{!! route("DeliveryOrder.StockDetail") !!}?combinedBudget_RefID=' + stockMovementBudget_RefID.value + '&warehouse_RefID=' + deliveryFrom_RefID,
+            success: async function (data) {
+                $("#loading-stock-movement").hide();
 
-                        $.each(data, function(key, val) {
-                            let row = `
+                if (Array.isArray(data) && data.length > 0) {
+                    $('#table_reference_type_detail tbody').empty();
+
+                    $.each(data, function (key, val) {
+                        let row = `
                                 <tr>
                                     <input id="product_RefID${indexInternalUseDetail}" value="${val.Product_RefID}" type="hidden" />
                                     <input id="quantityUnit_RefID${indexInternalUseDetail}" value="${val.QuantityUnit_RefID}" type="hidden" />
@@ -1160,41 +1160,41 @@
                                 </tr>
                             `;
 
-                            $('#table_reference_type_detail tbody').append(row);
+                        $('#table_reference_type_detail tbody').append(row);
 
-                            $(`#stock_movement_qty_req${key}`).on('keyup', function() {
-                                let qty_req     = $(this).val().replace(/,/g, '');
-                                let result      = val.QuantityStok - qty_req;
+                        $(`#stock_movement_qty_req${key}`).on('keyup', function () {
+                            let qty_req = $(this).val().replace(/,/g, '');
+                            let result = val.QuantityStok - qty_req;
 
-                                if (parseFloat(qty_req) > val.QuantityStok) {
-                                    $(this).val("");
-                                    $(`#balance${key}`).val("");
-                                    ErrorNotif("Qty Request is over !");
-                                } else {
-                                    $(`#balance${key}`).val(result.toFixed(2));
-                                    calculateTotalStockMovement();
-                                }
+                            if (parseFloat(qty_req) > val.QuantityStok) {
+                                $(this).val("");
+                                $(`#balance${key}`).val("");
+                                ErrorNotif("Qty Request is over !");
+                            } else {
+                                $(`#balance${key}`).val(result.toFixed(2));
+                                calculateTotalStockMovement();
+                            }
 
-                                // checkOneLineBudgetContents(key);
-                            });
-
-                            $(`#stock_movement_note_req${key}`).on('keyup', function() {
-                                // var data_index = $(this).data('index');
-
-                                // checkOneLineBudgetContents(data_index);
-                            });
+                            // checkOneLineBudgetContents(key);
                         });
-                    }
-                },
-                error: function (textStatus, errorThrown) {
-                    $("#loading-stock-movement").hide();
+
+                        $(`#stock_movement_note_req${key}`).on('keyup', function () {
+                            // var data_index = $(this).data('index');
+
+                            // checkOneLineBudgetContents(data_index);
+                        });
+                    });
                 }
-            });
-        }
+            },
+            error: function (textStatus, errorThrown) {
+                $("#loading-stock-movement").hide();
+            }
+        });
+    }
     // END OF STOCK MOVEMENT TYPE
 
-    $('#tableGetProjectSecond').on('click', 'tbody tr', function() {
-        let sysId       = $(this).find('input[data-trigger="sys_id_project_second"]').val();
+    $('#tableGetProjectSecond').on('click', 'tbody tr', function () {
+        let sysId = $(this).find('input[data-trigger="sys_id_project_second"]').val();
         let projectCode = $(this).find('td:nth-child(2)').text();
         let projectName = $(this).find('td:nth-child(3)').text();
 
@@ -1204,7 +1204,7 @@
             $("#internal_use_budget_name").val(`${projectCode} - ${projectName}`);
 
             $("#internal_use_budget_code").css("border", "1px solid #ced4da");
-            $("#internal_use_budget_name").css({"border": "1px solid #ced4da", "background-color": "#e9ecef"});
+            $("#internal_use_budget_name").css({ "border": "1px solid #ced4da", "background-color": "#e9ecef" });
             $("#internal_use_budget_message").hide();
 
             $("#internal_use_site_trigger").css("cursor", "pointer");
@@ -1212,7 +1212,7 @@
 
             $("#internal_use_delivery_from_trigger").css("cursor", "pointer");
             $("#internal_use_delivery_from_trigger").prop("disabled", false);
-            
+
             $("#internal_use_delivery_to_trigger").css("cursor", "pointer");
             $("#internal_use_delivery_to_trigger").prop("disabled", false);
 
@@ -1223,7 +1223,7 @@
             $("#stock_movement_budget_name").val(`${projectCode} - ${projectName}`);
 
             $("#stock_movement_budget_code").css("border", "1px solid #ced4da");
-            $("#stock_movement_budget_name").css({"border": "1px solid #ced4da", "background-color": "#e9ecef"});
+            $("#stock_movement_budget_name").css({ "border": "1px solid #ced4da", "background-color": "#e9ecef" });
             $("#stock_movement_budget_message").hide();
 
             $("#stock_movement_requester_trigger").css("cursor", "pointer");
@@ -1241,25 +1241,25 @@
         $("#myProjectSecond").modal('toggle');
     });
 
-    $('#tableGetWorkerSecond').on('click', 'tbody tr', function() {
-        let sysId           = $(this).find('input[data-trigger="sys_id_worker_second"]').val();
-        let workerName      = $(this).find('td:nth-child(2)').text();
-        let workerPosition  = $(this).find('td:nth-child(3)').text();
+    $('#tableGetWorkerSecond').on('click', 'tbody tr', function () {
+        let sysId = $(this).find('input[data-trigger="sys_id_worker_second"]').val();
+        let workerName = $(this).find('td:nth-child(2)').text();
+        let workerPosition = $(this).find('td:nth-child(3)').text();
 
         $("#stock_movement_requester_id").val(sysId);
         $("#stock_movement_requester_position").val(workerPosition);
         $("#stock_movement_requester_name").val(`${workerPosition} - ${workerName}`);
 
         $("#stock_movement_requester_position").css("border", "1px solid #ced4da");
-        $("#stock_movement_requester_name").css({"border": "1px solid #ced4da", "background-color": "#e9ecef"});
+        $("#stock_movement_requester_name").css({ "border": "1px solid #ced4da", "background-color": "#e9ecef" });
         $("#stock_movement_requester_message").hide();
 
         $("#myWorkerSecond").modal('toggle');
     });
 
-    $('#tableGetModalWarehouses').on('click', 'tbody tr', function() {
-        let id      = $(this).find('input[data-trigger="sys_id_modal_warehouse"]').val();
-        let name    = $(this).find('td:nth-child(2)').text();
+    $('#tableGetModalWarehouses').on('click', 'tbody tr', function () {
+        let id = $(this).find('input[data-trigger="sys_id_modal_warehouse"]').val();
+        let name = $(this).find('td:nth-child(2)').text();
         let address = $(this).find('td:nth-child(3)').text();
 
         if (referenceTypeValue.value == "1") {
@@ -1269,7 +1269,7 @@
                 $("#internal_use_delivery_from_address").val(`${name} - ${address}`);
 
                 $("#internal_use_delivery_from_name").css("border", "1px solid #ced4da");
-                $("#internal_use_delivery_from_address").css({"border": "1px solid #ced4da", "background-color": "#e9ecef"});
+                $("#internal_use_delivery_from_address").css({ "border": "1px solid #ced4da", "background-color": "#e9ecef" });
                 $("#internal_use_delivery_from_message").hide();
             } else if (deliveryType == "to_internal_use") {
                 $("#internal_use_delivery_to_id").val(id);
@@ -1277,7 +1277,7 @@
                 $("#internal_use_delivery_to_address").val(`${name} - ${address}`);
 
                 $("#internal_use_delivery_to_name").css("border", "1px solid #ced4da");
-                $("#internal_use_delivery_to_address").css({"border": "1px solid #ced4da", "background-color": "#e9ecef"});
+                $("#internal_use_delivery_to_address").css({ "border": "1px solid #ced4da", "background-color": "#e9ecef" });
                 $("#internal_use_delivery_to_message").hide();
             }
         } else if (referenceTypeValue.value == "2") {
@@ -1287,7 +1287,7 @@
                 $("#stock_movement_delivery_from_address").val(`${name} - ${address}`);
 
                 $("#stock_movement_delivery_from_name").css("border", "1px solid #ced4da");
-                $("#stock_movement_delivery_from_address").css({"border": "1px solid #ced4da", "background-color": "#e9ecef"});
+                $("#stock_movement_delivery_from_address").css({ "border": "1px solid #ced4da", "background-color": "#e9ecef" });
                 $("#stock_movement_delivery_from_message").hide();
 
                 getStockDetail(id);
@@ -1297,7 +1297,7 @@
                 $("#stock_movement_delivery_to_address").val(`${name} - ${address}`);
 
                 $("#stock_movement_delivery_to_name").css("border", "1px solid #ced4da");
-                $("#stock_movement_delivery_to_address").css({"border": "1px solid #ced4da", "background-color": "#e9ecef"});
+                $("#stock_movement_delivery_to_address").css({ "border": "1px solid #ced4da", "background-color": "#e9ecef" });
                 $("#stock_movement_delivery_to_message").hide();
             }
         }
@@ -1306,14 +1306,14 @@
     });
 
     $('#tableTransporters tbody').on('click', 'tr', function () {
-        let sysId           = $(this).find('input[data-trigger="sys_id_transporters"]').val();
-        let address         = $(this).find('input[data-trigger="address_transporters"]').val();
-        let mobilePhone     = $(this).find('input[data-trigger="mobile_phone_transporters"]').val();
-        let officePhone     = $(this).find('input[data-trigger="office_phone_transporters"]').val();
-        let fax             = $(this).find('input[data-trigger="fax_transporters"]').val();
-        let email           = $(this).find('input[data-trigger="email_transporters"]').val();
-        let code            = $(this).find('td:nth-child(2)').text();
-        let name            = $(this).find('td:nth-child(3)').text();
+        let sysId = $(this).find('input[data-trigger="sys_id_transporters"]').val();
+        let address = $(this).find('input[data-trigger="address_transporters"]').val();
+        let mobilePhone = $(this).find('input[data-trigger="mobile_phone_transporters"]').val();
+        let officePhone = $(this).find('input[data-trigger="office_phone_transporters"]').val();
+        let fax = $(this).find('input[data-trigger="fax_transporters"]').val();
+        let email = $(this).find('input[data-trigger="email_transporters"]').val();
+        let code = $(this).find('td:nth-child(2)').text();
+        let name = $(this).find('td:nth-child(3)').text();
 
         $("#transporter_id").val(sysId);
         $("#transporter_name").val(`${code} - ${name}`);
@@ -1323,15 +1323,15 @@
         $("#transporter_handphone").val(mobilePhone);
         $("#transporter_address").val(address);
 
-        $("#transporter_name").css({"border": "1px solid #ced4da", "background-color": "#e9ecef"});
+        $("#transporter_name").css({ "border": "1px solid #ced4da", "background-color": "#e9ecef" });
         $("#transporter_message").hide();
 
         $("#myTransporters").modal('toggle');
     });
 
-    $('#purchase_order_delivery_from').on('input', function(e) {
-        let deliveryFromDuplicate       = document.getElementById("purchase_order_delivery_from_duplicate");
-        let deliveryFromDuplicateRefID  = document.getElementById("purchase_order_delivery_from_id_duplicate");
+    $('#purchase_order_delivery_from').on('input', function (e) {
+        let deliveryFromDuplicate = document.getElementById("purchase_order_delivery_from_duplicate");
+        let deliveryFromDuplicateRefID = document.getElementById("purchase_order_delivery_from_id_duplicate");
 
         if (e.target.value) {
             if (e.target.value == deliveryFromDuplicate.value) {
@@ -1348,10 +1348,10 @@
         }
     });
 
-    $('#purchase_order_delivery_to').on('input', function(e) {
-        let deliveryToDuplicate         = document.getElementById("purchase_order_delivery_to_duplicate");
-        let deliveryToDuplicateRefID    = document.getElementById("purchase_order_delivery_to_id_duplicate");
-        
+    $('#purchase_order_delivery_to').on('input', function (e) {
+        let deliveryToDuplicate = document.getElementById("purchase_order_delivery_to_duplicate");
+        let deliveryToDuplicateRefID = document.getElementById("purchase_order_delivery_to_id_duplicate");
+
         if (e.target.value) {
             if (e.target.value == deliveryToDuplicate.value) {
                 $("#purchase_order_delivery_to_id").val(deliveryToDuplicateRefID.value);
@@ -1365,5 +1365,10 @@
             $("#purchase_order_delivery_to").css("border", "1px solid red");
             $("#purchase_order_delivery_to_message").show();
         }
+    });
+
+    $(document).ready(function () {
+        getModalWarehouses();
+        getModalPurchaseOrder();
     });
 </script>

@@ -888,6 +888,7 @@
         getPaymentTerm();
         getVAT();
         getModalPurchaseRequisition();
+        getModalPurchaseOrder();
 
         $('#containerValuePPN').hide();
         $(".loadingPurchaseOrderTable").hide();
