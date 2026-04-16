@@ -1,9 +1,11 @@
-<div id="myPopUpDoRevision" class="modal fade" role="dialog" aria-hidden="true" style="margin-top: 180px;margin-left:6px;">
+<div id="myPopUpDoRevision" class="modal fade" role="dialog" aria-hidden="true"
+    style="margin-top: 180px;margin-left:6px;">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content" style="width:90%;">
             <div class="modal-header">
                 <div class="modal-body">
-                    <span style="font-size: 15px;position:relative;left:25%;font-weight:bold;">DELIVERY ORDER REVISION</span><br><br><br>
+                    <span style="font-size: 15px;position:relative;left:25%;font-weight:bold;">DELIVERY ORDER
+                        REVISION</span><br><br><br>
                     <div class="card" style="margin-left: 8%;">
                         <div class="card-body">
                             <div class="form-group">
@@ -12,19 +14,25 @@
                                         <td><label>Revision Number&nbsp;</label></td>
                                         <td>
                                             <div class="input-group">
-                                                <form id="edit_form" action="{{ route('DeliveryOrder.RevisionDeliveryOrderIndex') }}" method="post">
-                                                @csrf
-                                                    <input id="do_RefID" style="border-radius:0;" name="do_RefID" type="hidden" class="form-control" hidden>
+                                                <form id="edit_form"
+                                                    action="{{ route('DeliveryOrder.RevisionDeliveryOrderIndex') }}"
+                                                    method="post">
+                                                    @csrf
+                                                    <input id="do_RefID" style="border-radius:0;" name="do_RefID"
+                                                        type="hidden" class="form-control" hidden>
                                                 </form>
 
                                                 <div class="input-group-append">
-                                                    <span id="do_number_icon" style="border-radius:0;" class="input-group-text form-control">
+                                                    <span id="do_number_icon" style="border-radius:0;"
+                                                        class="input-group-text form-control">
                                                         <a data-toggle="modal" data-target="#PopUpTableDoRevision">
-                                                            <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="">
+                                                            <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}"
+                                                                width="13" alt="">
                                                         </a>
                                                     </span>
                                                 </div>
-                                                <input id="do_number" style="border-radius:0;" name="do_number" class="form-control" readonly>
+                                                <input id="do_number" style="border-radius:0;" name="do_number"
+                                                    class="form-control" readonly>
                                             </div>
                                         </td>
                                     </tr>
@@ -32,8 +40,10 @@
                             </div>
                         </div>
                     </div>
-                    <a id="cancel_button" class="btn btn-sm" data-dismiss="modal" style="margin-left: 38%;background-color:#e9ecef;border:1px solid #ced4da;">
-                        <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel"> Cancel
+                    <a id="cancel_button" class="btn btn-sm" data-dismiss="modal"
+                        style="margin-left: 38%;background-color:#e9ecef;border:1px solid #ced4da;">
+                        <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel">
+                        Cancel
                     </a>
                     <a id="edit_button" class="btn btn-sm" style="background-color:#e9ecef;border:1px solid #ced4da;">
                         <img src="{{ asset('AdminLTE-master/dist/img/edit.png') }}" width="13" alt="" title="Edit"> Edit
@@ -45,7 +55,8 @@
     </div>
 </div>
 
-<div id="PopUpTableDoRevision" class="modal fade" role="dialog" aria-labelledby="contohModalScrollableTitle" aria-hidden="true">
+<div id="PopUpTableDoRevision" class="modal fade" role="dialog" aria-labelledby="contohModalScrollableTitle"
+    aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -72,7 +83,8 @@
                                     <tfoot>
                                         <tr class="loadingGetDeliveryOrder">
                                             <td colspan="4" class="p-0" style="height: 22rem;">
-                                                <div class="d-flex flex-column justify-content-center align-items-center py-3">
+                                                <div
+                                                    class="d-flex flex-column justify-content-center align-items-center py-3">
                                                     <div class="spinner-border" role="status">
                                                         <span class="sr-only">Loading...</span>
                                                     </div>
@@ -84,8 +96,10 @@
                                         </tr>
                                         <tr class="errorDeliveryOrderMessageContainer">
                                             <td colspan="4" class="p-0" style="height: 22rem;">
-                                                <div class="d-flex flex-column justify-content-center align-items-center py-3">
-                                                    <div id="errorDeliveryOrderMessage" class="mt-3 text-red" style="font-size: 1rem; font-weight: 700;"></div>
+                                                <div
+                                                    class="d-flex flex-column justify-content-center align-items-center py-3">
+                                                    <div id="errorDeliveryOrderMessage" class="mt-3 text-red"
+                                                        style="font-size: 1rem; font-weight: 700;"></div>
                                                 </div>
                                             </td>
                                         </tr>
@@ -118,7 +132,7 @@
         $.ajax({
             type: 'GET',
             url: '{!! route("getDeliveryOrderList") !!}',
-            success: function(data) {
+            success: function (data) {
                 $(".loadingGetDeliveryOrder").hide();
 
                 var no = 1;
@@ -126,7 +140,7 @@
                 table.clear();
 
                 if (Array.isArray(data) && data.length > 0) {
-                    $.each(data, function(key, val) {
+                    $.each(data, function (key, val) {
                         keys += 1;
                         table.row.add([
                             '<input id="sys_id_do_revision' + keys + '" value="' + val.sys_ID + '" data-trigger="sys_id_do_revision" type="hidden">' + no++,
@@ -160,13 +174,13 @@
             }
         });
     }
-    
-    $(window).one('load', function(e) {
+
+    $(window).one('load', function (e) {
         getDOList();
     });
 
-    $('#TableSearchDeliveryOrder tbody').on('click', 'tr', function() {
-        var sysId       = $(this).find('input[data-trigger="sys_id_do_revision"]').val();
+    $('#TableSearchDeliveryOrder tbody').on('click', 'tr', function () {
+        var sysId = $(this).find('input[data-trigger="sys_id_do_revision"]').val();
         var projectName = $(this).find('td:nth-child(2)').text();
 
         $("#do_RefID").val(sysId);
@@ -175,7 +189,7 @@
         $('#PopUpTableDoRevision').modal('hide');
     });
 
-    $('#edit_button').on('click', function() {
+    $('#edit_button').on('click', function () {
         let deliveryOrder_RefID = $('#do_RefID').val();
 
         if (deliveryOrder_RefID) {
@@ -189,7 +203,7 @@
         }
     });
 
-    $('#cancel_button').on('click', function() {
+    $('#cancel_button').on('click', function () {
         $('#do_RefID').val("");
         $('#do_number').val("");
     });

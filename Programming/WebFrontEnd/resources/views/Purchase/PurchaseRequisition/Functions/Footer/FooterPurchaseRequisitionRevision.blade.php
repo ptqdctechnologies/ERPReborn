@@ -1,62 +1,62 @@
 <script>
-    let dataStore                   = [];
-    let totalNextApprover           = 0;
-    let dataWorkflow                = {
+    let dataStore = [];
+    let totalNextApprover = 0;
+    let dataWorkflow = {
         workFlowPathRefID: null,
         approverEntityRefID: null,
         comment: null
     };
-    let triggerButtonModal          = null;
-    const documentTypeID            = document.getElementById("DocumentTypeID");
-    const projectID                 = document.getElementById('project_id_second');
-    const siteCode                  = document.getElementById('site_id_second');
-    const deliverRefID              = document.getElementById("deliver_RefID");
-    const dateDelivery              = document.getElementById("dateCommance");
-    const purchaseRequestID         = document.getElementById("purchaseRequestID");
-    const remarks                   = document.getElementById("remarks");
-    const btnSubmit                 = document.getElementById("button_submit");
-    const dataTable                 = {!! json_encode($detail ?? []) !!};
+    let triggerButtonModal = null;
+    const documentTypeID = document.getElementById("DocumentTypeID");
+    const projectID = document.getElementById('project_id_second');
+    const siteCode = document.getElementById('site_id_second');
+    const deliverRefID = document.getElementById("deliver_RefID");
+    const dateDelivery = document.getElementById("dateCommance");
+    const purchaseRequestID = document.getElementById("purchaseRequestID");
+    const remarks = document.getElementById("remarks");
+    const btnSubmit = document.getElementById("button_submit");
+    const dataTable = {!! json_encode($detail ?? []) !!};
 
     function validateQtyAndPriceWithHighlight() {
-        let isValid                 = true;
-        const rows                  = document.querySelectorAll("#tableGetPRDetails tbody tr");
-        const budgetDetailsMessage  = document.getElementById("budgetDetailsMessage");
+        let isValid = true;
+        const rows = document.querySelectorAll("#tableGetPRDetails tbody tr");
+        const budgetDetailsMessage = document.getElementById("budgetDetailsMessage");
 
         if (budgetDetailsMessage) {
             budgetDetailsMessage.style.display = "none";
         }
 
         rows.forEach(row => {
-            const qtyInput      = row.querySelector('input[id^="qty_req"]');
-            const priceInput    = row.querySelector('input[id^="price_req"]');
+            const qtyInput = row.querySelector('input[id^="qty_req"]');
+            const priceInput = row.querySelector('input[id^="price_req"]');
 
             if (!qtyInput || !priceInput) return;
 
-            const qty           = qtyInput.value.trim();
-            const qtyDetail     = qtyInput.getAttribute("data-default");
+            const qty = qtyInput.value.trim();
+            const qtyDetail = qtyInput.getAttribute("data-default");
 
-            const price         = priceInput.value.trim();
-            const priceDetail   = qtyInput.getAttribute("data-default");
+            const price = priceInput.value.trim();
+            const priceDetail = qtyInput.getAttribute("data-default");
 
-            const isQtyFilled   = qty !== "";
+            const isQtyFilled = qty !== "";
             const isPriceFilled = price !== "";
 
-            qtyInput.style.border   = "1px solid #e9ecef";
+            qtyInput.style.border = "1px solid #e9ecef";
             priceInput.style.border = "1px solid #e9ecef";
 
             if (
-                (isQtyFilled && !isPriceFilled && qtyDetail && priceDetail) || 
-                (!isQtyFilled && isPriceFilled && qtyDetail && priceDetail) || 
+                (isQtyFilled && !isPriceFilled && qtyDetail && priceDetail) ||
+                (!isQtyFilled && isPriceFilled && qtyDetail && priceDetail) ||
                 (!isQtyFilled && !isPriceFilled && qtyDetail && priceDetail)
             ) {
                 if (!isQtyFilled) {
-                    qtyInput.style.border   = "1px solid red";
+                    qtyInput.style.border = "1px solid red";
                 }
 
                 if (!isPriceFilled) {
                     priceInput.style.border = "1px solid red";
                 }
-                
+
                 if (budgetDetailsMessage) {
                     budgetDetailsMessage.style.display = "block";
                 }
@@ -73,7 +73,7 @@
         let hasFullRow = false;
 
         rows.forEach((row, index) => {
-            const qty   = document.getElementById(`qty_req${index}`)?.value.trim();
+            const qty = document.getElementById(`qty_req${index}`)?.value.trim();
             const price = document.getElementById(`price_req${index}`)?.value.trim();
             const total = document.getElementById(`total_req${index}`)?.value.trim();
 
@@ -83,7 +83,7 @@
         });
 
         rows.forEach((row, index) => {
-            const qtyEl   = document.getElementById(`qty_req${index}`);
+            const qtyEl = document.getElementById(`qty_req${index}`);
             const priceEl = document.getElementById(`price_req${index}`);
             const totalEl = document.getElementById(`total_req${index}`);
 
@@ -112,7 +112,7 @@
                         $(qtyEl).css("border", "1px solid #ced4da");
                         $(priceEl).css("border", "1px solid #ced4da");
                         $(totalEl).css("border", "1px solid #ced4da");
-                    } 
+                    }
                 } else {
                     $(qtyEl).css("border", "1px solid red");
                     $(priceEl).css("border", "1px solid red");
@@ -146,8 +146,8 @@
 
     function calculateTotal() {
         let total = 0;
-        
-        document.querySelectorAll('input[id^="total_req"]').forEach(function(input) {
+
+        document.querySelectorAll('input[id^="total_req"]').forEach(function (input) {
             let value = parseFloat(input.value.replace(/,/g, '')); // Mengambil nilai dan menghilangkan koma
             if (!isNaN(value)) {
                 total += value;
@@ -164,52 +164,52 @@
         const rows = sourceTable.getElementsByTagName('tr');
 
         for (let row of rows) {
-            const recordRefID                           = row.querySelector('input[id^="recordID"]');
-            const productCode                           = row.querySelector('input[id^="productCode"]');
-            const productRefID                          = row.querySelector('input[id^="product_RefID"]');
-            const quantityUnitRefID                     = row.querySelector('input[id^="quantityUnit_RefID"]');
-            const productUnitPriceCurrencyRefID         = row.querySelector('input[id^="productUnitPriceCurrency_RefID"]');
-            const combinedBudgetSectionDetailRefID      = row.querySelector('input[id^="combinedBudgetSectionDetail_RefID"]');
-            const productUnitPriceCurrencyExchangeRate  = row.querySelector('input[id^="productUnitPriceCurrencyExchangeRate"]');
-            const workStructureRefID                    = row.querySelector('input[id^="workStructure_RefID"]');
+            const recordRefID = row.querySelector('input[id^="recordID"]');
+            const productCode = row.querySelector('input[id^="productCode"]');
+            const productRefID = row.querySelector('input[id^="product_RefID"]');
+            const quantityUnitRefID = row.querySelector('input[id^="quantityUnit_RefID"]');
+            const productUnitPriceCurrencyRefID = row.querySelector('input[id^="productUnitPriceCurrency_RefID"]');
+            const combinedBudgetSectionDetailRefID = row.querySelector('input[id^="combinedBudgetSectionDetail_RefID"]');
+            const productUnitPriceCurrencyExchangeRate = row.querySelector('input[id^="productUnitPriceCurrencyExchangeRate"]');
+            const workStructureRefID = row.querySelector('input[id^="workStructure_RefID"]');
 
-            const qtyInput      = row.querySelector('input[id^="qty_req"]');
-            const priceInput    = row.querySelector('input[id^="price_req"]');
-            const totalInput    = row.querySelector('input[id^="total_req"]');
-            const balanceInput  = row.querySelector('input[id^="balanced_qty"]');
-            const noteInput     = row.querySelector('textarea[id^="remark"]');
-            const assetSelect   = row.querySelector('select[id^="is_asset"]');
+            const qtyInput = row.querySelector('input[id^="qty_req"]');
+            const priceInput = row.querySelector('input[id^="price_req"]');
+            const totalInput = row.querySelector('input[id^="total_req"]');
+            const balanceInput = row.querySelector('input[id^="balanced_qty"]');
+            const noteInput = row.querySelector('textarea[id^="remark"]');
+            const assetSelect = row.querySelector('select[id^="is_asset"]');
 
             if (
-                qtyInput && priceInput && totalInput && balanceInput && assetSelect && 
-                qtyInput.value.trim()       !== '' &&
-                priceInput.value.trim()     !== '' &&
-                totalInput.value.trim()     !== '' &&
-                balanceInput.value.trim()   !== '' &&
-                assetSelect.value.trim()    !== '' 
+                qtyInput && priceInput && totalInput && balanceInput && assetSelect &&
+                qtyInput.value.trim() !== '' &&
+                priceInput.value.trim() !== '' &&
+                totalInput.value.trim() !== '' &&
+                balanceInput.value.trim() !== '' &&
+                assetSelect.value.trim() !== ''
             ) {
-                const productName   = row.children[9].innerText.trim();
-                const qtyAvail      = row.children[11].innerText.trim();
-                const uom           = row.children[12].innerText.trim();
-                const priceAvail    = row.children[13].innerText.trim();
-                const currency      = row.children[15].innerText.trim();
+                const productName = row.children[9].innerText.trim();
+                const qtyAvail = row.children[11].innerText.trim();
+                const uom = row.children[12].innerText.trim();
+                const priceAvail = row.children[13].innerText.trim();
+                const currency = row.children[15].innerText.trim();
 
                 const price = priceInput.value.trim();
-                const qty   = qtyInput.value.trim();
+                const qty = qtyInput.value.trim();
                 const total = totalInput.value.trim();
-                const note  = noteInput.value.trim();
+                const note = noteInput.value.trim();
 
-                let found           = false;
-                const existingRows  = targetTable.getElementsByTagName('tr');
+                let found = false;
+                const existingRows = targetTable.getElementsByTagName('tr');
 
                 for (let targetRow of existingRows) {
                     const targetRecordID = targetRow.children[0].value.trim();
                     if (targetRecordID == recordRefID.value) {
-                        found                               = true;
-                        targetRow.children[6].innerText     = price;
-                        targetRow.children[7].innerText     = qty;
-                        targetRow.children[8].innerText     = total;
-                        targetRow.children[9].innerText     = note;
+                        found = true;
+                        targetRow.children[6].innerText = price;
+                        targetRow.children[7].innerText = qty;
+                        targetRow.children[8].innerText = total;
+                        targetRow.children[9].innerText = note;
 
                         const indexToUpdate = dataStore.findIndex(item => item.recordID == recordRefID.value);
                         if (indexToUpdate !== -1) {
@@ -267,8 +267,8 @@
                     });
                 }
             } else {
-                const productName   = row.children[9].innerText.trim();
-                const existingRows  = targetTable.getElementsByTagName('tr');
+                const productName = row.children[9].innerText.trim();
+                const existingRows = targetTable.getElementsByTagName('tr');
 
                 for (let targetRow of existingRows) {
                     const targetName = targetRow.children[3]?.innerText?.trim();
@@ -289,9 +289,9 @@
     }
 
     function validationForm() {
-        const isDateDeliveryNotEmpty    = dateDelivery.value.trim() !== '';
-        const isTableNotEmpty           = checkOneLineBudgetContents();
-        const isInputNotEmpty           = validateQtyAndPriceWithHighlight();
+        const isDateDeliveryNotEmpty = dateDelivery.value.trim() !== '';
+        const isTableNotEmpty = checkOneLineBudgetContents();
+        const isInputNotEmpty = validateQtyAndPriceWithHighlight();
 
         if (isDateDeliveryNotEmpty && isTableNotEmpty && isInputNotEmpty) {
             $('#purchaseRequestFormModal').modal('show');
@@ -313,7 +313,7 @@
         $.ajax({
             type: 'GET',
             url: '{!! route("getBudget") !!}?site_code=' + site_code,
-            success: function(data) {
+            success: function (data) {
                 $(".loadingPRDetails").hide();
 
                 let tbody = $('#tableGetPRDetails tbody');
@@ -327,25 +327,25 @@
                         return totalBudget > (max.quantity * max.priceBaseCurrencyValue) ? item : max;
                     });
 
-                    data = data.filter(item => 
-                        item.productName !== "Unspecified Product" || 
+                    data = data.filter(item =>
+                        item.productName !== "Unspecified Product" ||
                         (item.productName === "Unspecified Product" && item === maxBudgetProduct)
                     );
                 }
 
-                $.each(data, function(key, val2) {
+                $.each(data, function (key, val2) {
                     let isUnspecified = '';
                     let balanced = currencyTotal(val2.quantityRemaining);
                     let totalBudget = val2.quantity * val2.priceBaseCurrencyValue;
 
-                    let findDataDetail = dataDetail.find(el => 
-                        el.product_RefID == val2.product_RefID && 
+                    let findDataDetail = dataDetail.find(el =>
+                        el.product_RefID == val2.product_RefID &&
                         el.productName == val2.productName);
 
-                    let findDataMiscellaneous = dataDetail.find(el => 
-                        el.combinedBudgetSubSectionLevel2_RefID == val2.combinedBudgetSubSectionLevel2_RefID && 
-                        el.combinedBudgetSubSectionLevel2Name == val2.combinedBudgetSubSectionLevel2Name && 
-                        el.product_RefID != val2.product_RefID && 
+                    let findDataMiscellaneous = dataDetail.find(el =>
+                        el.combinedBudgetSubSectionLevel2_RefID == val2.combinedBudgetSubSectionLevel2_RefID &&
+                        el.combinedBudgetSubSectionLevel2Name == val2.combinedBudgetSubSectionLevel2Name &&
+                        el.product_RefID != val2.product_RefID &&
                         el.productName != val2.productName);
 
                     let productColumn = `
@@ -533,7 +533,7 @@
                     tbody.append(row);
 
                     if (val2.productName === "Unspecified Product") {
-                        $(`#product_id${key}`).on('input', function() {
+                        $(`#product_id${key}`).on('input', function () {
                             if ($(this).val().trim() !== '') {
                                 $(`#qty_req${key}, #price_req${key}`).prop('disabled', false);
                             } else {
@@ -541,11 +541,11 @@
                             }
                         });
 
-                        $(`#qty_req${key}`).on('keyup', function() {
-                            var qty_req     = $(this).val().replace(/,/g, '');
-                            var price_req   = $(`#price_req${key}`).val().replace(/,/g, '');
-                            var total_req   = parseFloat(qty_req || 1) * parseFloat(price_req || 1);
-                            var total       = parseFloat(qty_req || 0) + parseFloat(balanced);
+                        $(`#qty_req${key}`).on('keyup', function () {
+                            var qty_req = $(this).val().replace(/,/g, '');
+                            var price_req = $(`#price_req${key}`).val().replace(/,/g, '');
+                            var total_req = parseFloat(qty_req || 1) * parseFloat(price_req || 1);
+                            var total = parseFloat(qty_req || 0) + parseFloat(balanced);
 
                             if (!qty_req) {
                                 $(`#qty_req${key}`).val('');
@@ -561,12 +561,12 @@
                             calculateTotal();
                         });
                     } else {
-                        $(`#qty_req${key}`).on('keyup', function() {
-                            var qty_req     = $(this).val().replace(/,/g, '');
-                            var price_req   = $(`#price_req${key}`).val().replace(/,/g, '');
-                            var total_req   = parseFloat(qty_req || 1) * parseFloat(price_req || 1);
-                            var total       = parseFloat(balanced) - parseFloat(qty_req || 0);
-                            var validate    = findDataDetail && findDataDetail.quantity ? parseFloat((parseFloat(val2.quantityRemaining) + parseFloat(findDataDetail.quantity)).toFixed(2)) : val2.quantityRemaining;
+                        $(`#qty_req${key}`).on('keyup', function () {
+                            var qty_req = $(this).val().replace(/,/g, '');
+                            var price_req = $(`#price_req${key}`).val().replace(/,/g, '');
+                            var total_req = parseFloat(qty_req || 1) * parseFloat(price_req || 1);
+                            var total = parseFloat(balanced) - parseFloat(qty_req || 0);
+                            var validate = findDataDetail && findDataDetail.quantity ? parseFloat((parseFloat(val2.quantityRemaining) + parseFloat(findDataDetail.quantity)).toFixed(2)) : val2.quantityRemaining;
 
                             if (parseFloat(qty_req) > validate) {
                                 if (findDataDetail) {
@@ -605,11 +605,11 @@
                         });
                     }
 
-                    $(`#price_req${key}`).on('keyup', function() {
-                        var price_req   = $(this).val().replace(/,/g, '');
-                        var qty_req     = $(`#qty_req${key}`).val().replace(/,/g, '');
-                        var total_req   = parseFloat(qty_req || 0) * parseFloat(price_req || 1);
-                        var total       = parseFloat(price_req || 0) + parseFloat(val2.priceBaseCurrencyValue);
+                    $(`#price_req${key}`).on('keyup', function () {
+                        var price_req = $(this).val().replace(/,/g, '');
+                        var qty_req = $(`#qty_req${key}`).val().replace(/,/g, '');
+                        var total_req = parseFloat(qty_req || 0) * parseFloat(price_req || 1);
+                        var total = parseFloat(price_req || 0) + parseFloat(val2.priceBaseCurrencyValue);
 
                         if (parseFloat(price_req) > val2.priceBaseCurrencyValue) {
                             if (findDataDetail) {
@@ -691,7 +691,7 @@
             type: 'POST',
             data: {
                 workFlowPath_RefID: dataWorkflow.workFlowPathRefID,
-                approverEntity: dataWorkflow.approverEntityRefID, 
+                approverEntity: dataWorkflow.approverEntityRefID,
                 comment: dataWorkflow.comment,
                 storeData: {
                     purchaseRequestID: purchaseRequestID.value,
@@ -702,7 +702,7 @@
                 }
             },
             url: '{{ route("PurchaseRequisition.UpdatePurchaseRequest") }}',
-            success: function(res) {
+            success: function (res) {
                 HideLoading();
 
                 if (res.status === 200) {
@@ -731,7 +731,7 @@
                     ErrorNotif("Data Cancel Inputed");
                 }
             },
-            error: function(jqXHR, textStatus, errorThrown) {
+            error: function (jqXHR, textStatus, errorThrown) {
                 console.log('error', jqXHR, textStatus, errorThrown);
             }
         });
@@ -768,7 +768,7 @@
                 combinedBudget_RefID: projectID.value
             },
             url: '{!! route("GetWorkflow") !!}',
-            success: function(response) {
+            success: function (response) {
                 if (response.status === 200) {
                     totalNextApprover = response.data[0].nextApproverPath.length;
                     dataWorkflow.workFlowPathRefID = response.data[0].sys_ID;
@@ -781,21 +781,21 @@
                     Swal.fire("Error", "You don't have access", "error");
                 }
             },
-            error: function(jqXHR, textStatus, errorThrown) {
+            error: function (jqXHR, textStatus, errorThrown) {
                 console.log('jqXHR, textStatus, errorThrown', jqXHR, textStatus, errorThrown);
                 Swal.fire("Error", "Data Error", "error");
             }
         });
     }
 
-    $('#dateCommance').on('change', function() {
+    $('#dateCommance').on('change', function () {
         $("#dateCommance").css("border", "1px solid #ced4da");
         $("#dateOfDeliveryMessage").hide();
     });
 
-    $('#tableGetModalWarehouses').on('click', 'tbody tr', function() {
-        let id      = $(this).find('input[data-trigger="sys_id_modal_warehouse"]').val();
-        let name    = $(this).find('td:nth-child(2)').text();
+    $('#tableGetModalWarehouses').on('click', 'tbody tr', function () {
+        let id = $(this).find('input[data-trigger="sys_id_modal_warehouse"]').val();
+        let name = $(this).find('td:nth-child(2)').text();
         let address = $(this).find('td:nth-child(3)').text();
 
         $("#deliver_RefID").val(id);
@@ -811,10 +811,10 @@
         $("#myGetModalWarehouses").modal('toggle');
     });
 
-    $('#tableWorkflows').on('click', 'tbody tr', function() {
-        const sysId             = $(this).find('input[data-trigger="sys_id_approver"]').val();
-        const workflowName      = $(this).find('td:nth-child(2)').text();
-        const workflowPosition  = $(this).find('td:nth-child(3)').text();
+    $('#tableWorkflows').on('click', 'tbody tr', function () {
+        const sysId = $(this).find('input[data-trigger="sys_id_approver"]').val();
+        const workflowName = $(this).find('td:nth-child(2)').text();
+        const workflowPosition = $(this).find('td:nth-child(3)').text();
 
         dataWorkflow.approverEntityRefID = parseInt(sysId);
 
@@ -825,7 +825,21 @@
         });
     });
 
-    $(window).one('load', function(e) {
+    $('#revision_purchase_requisition').on('click', function (e) {
+        getModalPurchaseRequisition();
+    });
+
+    $('#tableGetModalPurchaseRequisition').on('click', 'tbody tr', function () {
+        const sysId = $(this).find('input[data-trigger="sys_id_modal_purchase_requisition"]').val();
+        const trano = $(this).find('td:nth-child(2)').text();
+
+        $("#modal_purchase_requisition_id").val(sysId);
+        $("#modal_purchase_requisition_document_number").val(trano);
+
+        $('#purchaseRequisitionModal').modal('toggle');
+    });
+
+    $(window).one('load', function (e) {
         $('#dateOfDelivery').datetimepicker({
             format: 'YYYY-MM-DD'
         });
@@ -833,6 +847,7 @@
         $(".errorMessageContainerPRDetails").hide();
 
         getWorkflow();
+        getModalWarehouses();
         getBudget(siteCode.value, dataTable);
     });
 </script>

@@ -1,4 +1,5 @@
-<div id="myMaterialServiceRequest" class="modal fade" role="dialog" aria-labelledby="ModalScrollableTitle" aria-hidden="true">
+<div id="myMaterialServiceRequest" class="modal fade" role="dialog" aria-labelledby="ModalScrollableTitle"
+    aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -32,7 +33,7 @@
     </div>
 </div>
 
-<script>
+<!-- <script>
     $(function() {
         $('.myMaterialServiceRequest').one('click', function(e) {
             e.preventDefault();
@@ -46,7 +47,6 @@
 
             $.ajax({
                 type: 'GET',
-                url: '{!! route("PurchaseRequisition.PurchaseRequisitionListData") !!}',
                 success: function(data) {
                     console.log(data);
                     var no = 1;
@@ -83,4 +83,4 @@
 
     });
     
-</script>
+</script> -->

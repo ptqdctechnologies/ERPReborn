@@ -77,11 +77,6 @@ class PurchaseRequisitionController extends Controller
         }
     }
 
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
     public function RevisionPurchaseRequest(Request $request)
     {
         try {
@@ -160,29 +155,21 @@ class PurchaseRequisitionController extends Controller
         }
     }
 
-    public function PurchaseRequisitionListData(Request $request)
+    public function PurchaseRequisitionPickList(Request $request)
     {
-        $varAPIWebToken = $request->session()->get('SessionLogin');
-        $varDataPurchaseRequisition = Helper_APICall::setCallAPIGateway(
-            Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'transaction.read.dataList.supplyChain.getPurchaseRequisition',
-            'latest',
-            [
-                'parameter' => null,
-                'SQLStatement' => [
-                    'pick' => null,
-                    'sort' => null,
-                    'filter' => null,
-                    'paging' => null
-                ]
-            ]
-        );
-        $compact = [
-            'data' => $varDataPurchaseRequisition['data'],
-        ];
+        $response = $this->purchaseRequisitionService->getPickList();
 
-        return response()->json($compact);
+        $status = $response['metadata']['HTTPStatusCode'];
+        $data = [];
+
+        if ($status == 200) {
+            $data = $response['data']['data'] ?? [];
+        }
+
+        return response()->json([
+            'data' => $data,
+            'status' => $status
+        ]);
     }
 
     // +--------------------------------------------------------------------------------------------------------------------------+
