@@ -166,7 +166,9 @@
                                             <thead>
                                                 <tr>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Reference Number</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Work</th>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Budget</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: left;">Product</th>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Qty</th>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Price</th>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Total</th>
@@ -179,7 +181,7 @@
                                             <tbody></tbody>
                                             <tfoot>
                                                 <tr id="debit_note_loading_table" style="display: none;">
-                                                    <td colspan="9" class="p-0" style="border: 0px; height: 150px;">
+                                                    <td colspan="11" class="p-0" style="border: 0px; height: 150px;">
                                                         <div class="d-flex flex-column justify-content-center align-items-center py-3">
                                                             <div class="spinner-border" role="status">
                                                                 <span class="sr-only">Loading...</span>

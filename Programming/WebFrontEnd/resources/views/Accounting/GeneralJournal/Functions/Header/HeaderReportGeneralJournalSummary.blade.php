@@ -34,8 +34,24 @@
     </div>
 </div>
 <div class="col-sm-12 col-md-12 col-lg-3">
-    <!-- DATE -->
+    <!-- COA -->
     <div class="row p-0 align-items-center" style="margin-bottom: 1rem;">
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">COA</label>
+        <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
+            <div>
+                <span id="myCOATrigger" class="input-group-text form-control" data-toggle="modal" data-target="#myGetChartOfAccount" style="border-radius:0;cursor:pointer;">
+                    <i class="fas fa-gift"></i>
+                </span>
+            </div>
+            <div>
+                <input type="text" id="coa_number" class="form-control" style="border-radius:0;background-color:white;" readonly />
+                <input type="hidden" id="coa_id" class="form-control" style="border-radius:0;" name="coa_id" />
+            </div>
+        </div>
+    </div>
+
+    <!-- DATE -->
+    <div class="row p-0 align-items-center">
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Date</label>
         <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
             <div>
@@ -50,19 +66,37 @@
             </div>
         </div>
     </div>
-
+</div>
+<div class="col-sm-12 col-md-12 col-lg-3">
     <!-- JOURNAL TYPE -->
-    <div class="row p-0 align-items-center">
+    <div class="row p-0 align-items-center" style="margin-bottom: 1rem;">
         <label class="col-sm-3 col-md-4 col-lg-5 col-form-label p-0 text-bold">Journal Type</label>
         <div class="col-sm-9 col-md-8 col-lg-6 p-0 d-flex justify-content-end">
             <div style="background-color:white; width: 91%;">
-                <select class="form-control" id="journal_type" style="border-radius:0;" type="text">
+                <select type="text" class="form-control" id="journal_type" onChange="onChangeJournalType(this);" style="border-radius:0;">
                     <option disabled selected value="Select a Type">Select a Type</option>
                     <option value="SETTLEMENT">Settlement</option>
                     <option value="ADJUSTMENT">Adjustment</option>
-                    <!-- <option value="FIXED_ASSET">Fixed Asset</option>
-                    <option value="POSTING">Posting</option> -->
+                    <option value="FIXED_ASSET">Fixed Asset</option>
+                    <option value="POSTING">Posting</option>
                 </select>
+            </div>
+        </div>
+    </div>
+
+    <!-- TRANSACTION NUMBER -->
+    <div class="row p-0 align-items-center" id="transaction_type" style="display: none;">
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Transaction Number</label>
+        <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
+            <div>
+                <span id="myTransactionTypeTrigger" class="input-group-text form-control" data-toggle="modal" data-target="#" style="border-radius:0;cursor:pointer;">
+                    <i class="fas fa-gift"></i>
+                </span>
+            </div>
+            <div>
+                <input type="text" id="transaction_name" class="form-control" style="border-radius:0;background-color:white;" readonly />
+                <input type="hidden" id="transaction_id" class="form-control" style="border-radius:0;" name="transaction_id" />
+                <input type="hidden" id="transaction_code" class="form-control" style="border-radius:0;" name="transaction_code" />
             </div>
         </div>
     </div>

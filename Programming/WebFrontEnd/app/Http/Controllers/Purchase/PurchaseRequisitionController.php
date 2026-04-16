@@ -33,14 +33,14 @@ class PurchaseRequisitionController extends Controller
 
     public function index(Request $request)
     {
-        $var                = $request->query('var', 0);
-        $varAPIWebToken     = Session::get('SessionLogin');
-        $documentTypeRefID  = $this->GetBusinessDocumentsTypeFromRedis('Purchase Requisition Form');
+        $var = $request->query('var', 0);
+        $varAPIWebToken = Session::get('SessionLogin');
+        $documentTypeRefID = $this->GetBusinessDocumentsTypeFromRedis('Purchase Requisition Form');
 
         return view('Purchase.PurchaseRequisition.Transactions.CreatePurchaseRequisition', [
-            'var'                   => $var,
-            'varAPIWebToken'        => $varAPIWebToken,
-            'documentType_RefID'    => $documentTypeRefID
+            'var' => $var,
+            'varAPIWebToken' => $varAPIWebToken,
+            'documentType_RefID' => $documentTypeRefID
         ]);
     }
 
@@ -65,8 +65,8 @@ class PurchaseRequisitionController extends Controller
             }
 
             $compact = [
-                "documentNumber"    => $response['data']['businessDocument']['documentNumber'],
-                "status"            => $responseWorkflow['metadata']['HTTPStatusCode'],
+                "documentNumber" => $response['data']['businessDocument']['documentNumber'],
+                "status" => $responseWorkflow['metadata']['HTTPStatusCode'],
             ];
 
             return response()->json($compact);
@@ -77,19 +77,14 @@ class PurchaseRequisitionController extends Controller
         }
     }
 
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
     public function RevisionPurchaseRequest(Request $request)
     {
         try {
-            $varAPIWebToken     = $request->session()->get('SessionLogin');
-            $purchaseRequestID  = $request->modal_purchase_requisition_id;
-            $documentTypeRefID  = $this->GetBusinessDocumentsTypeFromRedis('Purchase Requisition Revision Form');
+            $varAPIWebToken = $request->session()->get('SessionLogin');
+            $purchaseRequestID = $request->modal_purchase_requisition_id;
+            $documentTypeRefID = $this->GetBusinessDocumentsTypeFromRedis('Purchase Requisition Revision Form');
 
-            $response           = $this->purchaseRequisitionService->getDetail($purchaseRequestID);
+            $response = $this->purchaseRequisitionService->getDetail($purchaseRequestID);
 
             if ($response['metadata']['HTTPStatusCode'] !== 200) {
                 throw new \Exception('Failed to fetch Detail Purchase Request');
@@ -100,24 +95,24 @@ class PurchaseRequisitionController extends Controller
             $convertDate = new DateTime($data[0]['deliveryDateTimeTZ']);
 
             $compact = [
-                'varAPIWebToken'        => $varAPIWebToken,
-                'documentTypeRefID'     => $documentTypeRefID,
-                'header'                => [
+                'varAPIWebToken' => $varAPIWebToken,
+                'documentTypeRefID' => $documentTypeRefID,
+                'header' => [
                     'purchaseRequestID' => $data[0]['purchaseRequisition_RefID'] ?? '-',
-                    'budgetID'          => $data[0]['combinedBudget_RefID'] ?? '-',
-                    'budgetName'        => $data[0]['combinedBudgetName'] ?? '-',
-                    'budgetCode'        => $data[0]['combinedBudgetCode'] ?? '-',
-                    'subBudgetID'       => $data[0]['combinedBudgetSection_RefID'] ?? '-',
-                    'subBudgetName'     => $data[0]['combinedBudgetSectionName'] ?? '-',
-                    'subBudgetCode'     => $data[0]['combinedBudgetSectionCode'] ?? '-',
-                    'deliverToID'       => $data[0]['deliveryTo_RefID'] ?? '-',
-                    'deliverToCode'     => $data[0]['deliveryToCode'] ?? '-',
-                    'deliverToName'     => $data[0]['deliveryToName'] ?? '-',
-                    'dateOfDelivery'    => $convertDate->format('Y-m-d') ?? '', 
-                    'remarks'           => nl2br(e($data[0]['remarks'])) ?? '-',
-                    'fileId'            => $data[0]['log_FileUpload_Pointer_RefID'] ?? null,
+                    'budgetID' => $data[0]['combinedBudget_RefID'] ?? '-',
+                    'budgetName' => $data[0]['combinedBudgetName'] ?? '-',
+                    'budgetCode' => $data[0]['combinedBudgetCode'] ?? '-',
+                    'subBudgetID' => $data[0]['combinedBudgetSection_RefID'] ?? '-',
+                    'subBudgetName' => $data[0]['combinedBudgetSectionName'] ?? '-',
+                    'subBudgetCode' => $data[0]['combinedBudgetSectionCode'] ?? '-',
+                    'deliverToID' => $data[0]['deliveryTo_RefID'] ?? '-',
+                    'deliverToCode' => $data[0]['deliveryToCode'] ?? '-',
+                    'deliverToName' => $data[0]['deliveryToName'] ?? '-',
+                    'dateOfDelivery' => $convertDate->format('Y-m-d') ?? '',
+                    'remarks' => nl2br(e($data[0]['remarks'])) ?? '-',
+                    'fileId' => $data[0]['log_FileUpload_Pointer_RefID'] ?? null,
                 ],
-                'detail'                => $data
+                'detail' => $data
             ];
 
             return view('Purchase.PurchaseRequisition.Transactions.RevisionPurchaseRequisition', $compact);
@@ -148,8 +143,8 @@ class PurchaseRequisitionController extends Controller
             }
 
             $compact = [
-                "documentNumber"    => $response['data'][0]['businessDocument']['documentNumber'],
-                "status"            => $responseWorkflow['metadata']['HTTPStatusCode'],
+                "documentNumber" => $response['data'][0]['businessDocument']['documentNumber'],
+                "status" => $responseWorkflow['metadata']['HTTPStatusCode'],
             ];
 
             return response()->json($compact);
@@ -160,29 +155,21 @@ class PurchaseRequisitionController extends Controller
         }
     }
 
-    public function PurchaseRequisitionListData(Request $request)
+    public function PurchaseRequisitionPickList(Request $request)
     {
-        $varAPIWebToken = $request->session()->get('SessionLogin');
-        $varDataPurchaseRequisition = Helper_APICall::setCallAPIGateway(
-            Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'transaction.read.dataList.supplyChain.getPurchaseRequisition',
-            'latest',
-            [
-                'parameter' => null,
-                'SQLStatement' => [
-                    'pick' => null,
-                    'sort' => null,
-                    'filter' => null,
-                    'paging' => null
-                ]
-            ]
-        );
-        $compact = [
-            'data' => $varDataPurchaseRequisition['data'],
-        ];
-            
-        return response()->json($compact);
+        $response = $this->purchaseRequisitionService->getPickList();
+
+        $status = $response['metadata']['HTTPStatusCode'];
+        $data = [];
+
+        if ($status == 200) {
+            $data = $response['data']['data'] ?? [];
+        }
+
+        return response()->json([
+            'data' => $data,
+            'status' => $status
+        ]);
     }
 
     // +--------------------------------------------------------------------------------------------------------------------------+
@@ -191,26 +178,36 @@ class PurchaseRequisitionController extends Controller
 
     public function ReportPurchaseRequisitionSummary(Request $request)
     {
-        return view('Purchase.PurchaseRequisition.Reports.ReportPurchaseRequisitionSummary');
+        $documentTypeRefID = $this->GetBusinessDocumentsTypeFromRedis('Purchase Requisition Form');
+        $sessionOrganizationalDepartmentName = Session::get('SessionOrganizationalDepartmentName');
+        $sessionOrganizationalJobPositionName = Session::get('SessionOrganizationalJobPositionName');
+
+        $compact = [
+            'documentTypeRefID' => $documentTypeRefID,
+            'sessionOrganizationalDepartmentName' => $sessionOrganizationalDepartmentName,
+            'sessionOrganizationalJobPositionName' => $sessionOrganizationalJobPositionName
+        ];
+
+        return view('Purchase.PurchaseRequisition.Reports.ReportPurchaseRequisitionSummary', $compact);
     }
 
     public function ReportPurchaseRequisitionSummaryStore(Request $request)
     {
         try {
-            $date           = $request->prDate;
-            $budget         = [
-                "id"        => $request->budget_id,
-                "code"      => $request->budget_code,
+            $date = $request->prDate;
+            $budget = [
+                "id" => $request->budget_id,
+                "code" => $request->budget_code,
             ];
-            $subBudget      = [
-                "id"        => $request->site_id,
-                "code"      => $request->site_code,
+            $subBudget = [
+                "id" => $request->site_id,
+                "code" => $request->site_code,
             ];
 
             $response = $this->purchaseRequisitionService->getPurchaseRequisitionSummary(
-                $budget['code'], 
+                $budget['code'],
                 $subBudget['code'],
-                $date 
+                $date
             );
 
             if ($response['metadata']['HTTPStatusCode'] !== 200) {
@@ -218,8 +215,8 @@ class PurchaseRequisitionController extends Controller
             }
 
             $compact = [
-                'status'    => $response['metadata']['HTTPStatusCode'],
-                'data'      => $response['data']['data']
+                'status' => $response['metadata']['HTTPStatusCode'],
+                'data' => $response['data']['data']
             ];
 
             return response()->json($compact);
@@ -227,8 +224,8 @@ class PurchaseRequisitionController extends Controller
             Log::error("Report Purchase Requisition Summary Store Function Error:" . $th->getMessage());
 
             $compact = [
-                'status'    => 500,
-                'message'   => $th->getMessage()
+                'status' => 500,
+                'message' => $th->getMessage()
             ];
 
             return response()->json($compact);
@@ -238,26 +235,26 @@ class PurchaseRequisitionController extends Controller
     public function PrintExportReportPurchaseRequisitionSummary(Request $request)
     {
         try {
-            $type                       = $request->printType;
-            $budgetName                 = $request->budgetName;
-            $subBudgetName              = $request->subBudgetName;
-            $prDate                     = $request->prDate;
+            $type = $request->printType;
+            $budgetName = $request->budgetName;
+            $subBudgetName = $request->subBudgetName;
+            $prDate = $request->prDate;
             $dataPurchaseRequestSummary = json_decode($request->dataReport, true);
 
             if ($dataPurchaseRequestSummary) {
                 if ($type === "PDF") {
                     $pdf = PDF::loadView('Purchase.PurchaseRequisition.Reports.ReportPurchaseRequestSummary_pdf', [
-                        'dataPR'        => $dataPurchaseRequestSummary, 
-                        'budgetName'    => $budgetName,
+                        'dataPR' => $dataPurchaseRequestSummary,
+                        'budgetName' => $budgetName,
                         'subBudgetName' => $subBudgetName,
-                        'prDate'        => $prDate
-                        ])->setPaper('a4', 'landscape');
-                    
+                        'prDate' => $prDate
+                    ])->setPaper('a4', 'landscape');
+
                     $pdf->output();
-                    $dom_pdf    = $pdf->getDomPDF();
-                    $canvas     = $dom_pdf ->get_canvas();
-                    $width      = $canvas->get_width();
-                    $height     = $canvas->get_height();
+                    $dom_pdf = $pdf->getDomPDF();
+                    $canvas = $dom_pdf->get_canvas();
+                    $width = $canvas->get_width();
+                    $height = $canvas->get_height();
                     $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
                     $canvas->page_text(34, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
 
@@ -279,99 +276,64 @@ class PurchaseRequisitionController extends Controller
 
     public function ReportPRtoPO(Request $request)
     {
-        $varAPIWebToken = $request->session()->get('SessionLogin');
-        $request->session()->forget("SessionPurchaseRequisitionNumber");
-        $dataPRtoPO = Session::get("ReportPRtoPODataPDF");
+        $documentTypeRefID = $this->GetBusinessDocumentsTypeFromRedis('Purchase Requisition Form');
+        $sessionOrganizationalDepartmentName = Session::get('SessionOrganizationalDepartmentName');
+        $sessionOrganizationalJobPositionName = Session::get('SessionOrganizationalJobPositionName');
 
-        if (!empty($_GET['var'])) {
-            $var =  $_GET['var'];
-        }
         $compact = [
-            'varAPIWebToken' => $varAPIWebToken,
-            'statusRevisi' => 1,
-            'statusHeader' => "Yes",
-            'statusDetail' => 1,
-            'dataHeader' => [],
-            'dataPRtoPO' => $dataPRtoPO
-        
+            'documentTypeRefID' => $documentTypeRefID,
+            'sessionOrganizationalDepartmentName' => $sessionOrganizationalDepartmentName,
+            'sessionOrganizationalJobPositionName' => $sessionOrganizationalJobPositionName
         ];
-        // dump($compact);
 
         return view('Purchase.PurchaseRequisition.Reports.ReportPRtoPO', $compact);
     }
 
-    public function ReportPRtoPOData( $project_code, $site_code)
+    public function ReportPRtoPOStore(Request $request)
     {
         try {
-            Log::error("Error at ",[$project_code, $site_code]);
-
             $varAPIWebToken = Session::get('SessionLogin');
+            $projectCode = $request->project_code;
+            $siteCode = $request->site_code;
+            $supplierID = $request->supplier_id;
+            $date = $request->date;
 
-            $filteredArray = Helper_APICall::setCallAPIGateway(
+            if ($date) {
+                $dates = explode(' - ', $date);
+                $startDate = Carbon::createFromFormat('m/d/Y', trim($dates[0]))->startOfDay()->format('Y-m-d');
+                $endDate = Carbon::createFromFormat('m/d/Y', trim($dates[1]))->endOfDay()->format('Y-m-d');
+            }
+
+            $response = Helper_APICall::setCallAPIGateway(
                 Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'report.form.documentForm.supplyChain.getPurchaseRequisitionToPurchaseOrderSummary', 
+                $varAPIWebToken,
+                'report.form.documentForm.supplyChain.getPurchaseRequisitionToPurchaseOrderSummary',
                 'latest',
                 [
                     'parameter' => [
-                        'CombinedBudgetCode' =>  $project_code,
-                        'CombinedBudgetSectionCode' =>  $site_code,
-                        'Supplier_RefID' => NULL
-                        // 'PurchaseRequisition_RefID' => (int) $PurchaseRequisition_refID
-                    ],
-                     'SQLStatement' => [
-                        'pick' => null,
-                        'sort' => null,
-                        'filter' => null,
-                        'paging' => null
-                        ]
+                        'CombinedBudgetCode' => $projectCode ?? null,
+                        'CombinedBudgetSectionCode' => $siteCode ?? null,
+                        'Supplier_RefID' => $supplierID ?? null,
+                        // 'StartDate'                 => $date ? $startDate : NULL,
+                        // 'EndDate'                   => $date ? $endDate : NULL,
+                    ]
                 ]
             );
-            
-            Log::error("Error at " ,$filteredArray);
-            if ($filteredArray['metadata']['HTTPStatusCode'] !== 200) {
-                return redirect()->back()->with('NotFound', 'Process Error');
 
-            }
-            Session::put("ReportPRtoPODataPDF", $filteredArray['data']['data']);
-            Session::put("dataReportPRtoPO", $filteredArray['data']['data']);
-            return $filteredArray['data']['data'];
-        }
-        catch (\Throwable $th) {
-            Log::error("Error at " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
-        }
-    }
-
-    public function ReportPRtoPOStore(Request $request)
-    {
-        // tes;
-        try {
-            $project_code = $request->project_code_second;
-            $site_code = $request->site_id_second;
-
-            $statusHeader = "Yes";
-            Log::error("Error at " ,[$request->all()]);
-            if ($project_code == "" && $site_code == "") {
-                Session::forget("ReportPRtoPODataPDF");
-                Session::forget("dataReportPRtoPO");
-                
-                return redirect()->route('PurchaseRequisition.ReportPRtoPO')->with('NotFound', 'Cannot Empty');
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                throw new \Exception('Failed to fetch Report Purchase Request To Purchase Order Store');
             }
 
-            $compact = $this->ReportPRtoPOData($project_code, $site_code);
-            // dd($compact);
-            // if ($compact['dataHeader'] == []) {
-            //     Session::forget("PPurchaseRequisitionSummaryReportDataPDF");
-            //     Session::forget("PPurchaseRequisitionSummaryReportDataExcel");
+            $compact = [
+                'status' => $response['metadata']['HTTPStatusCode'],
+                'data' => $response['data']['data']
+            ];
 
-            //     return redirect()->back()->with('NotFound', 'Data Not Found');
-            // }
-
-            return redirect()->route('PurchaseRequisition.ReportPRtoPO');
+            return response()->json($compact);
         } catch (\Throwable $th) {
-            Log::error("Error at " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
+            Log::error("Report Purchase Request To Purchase Order Store Function Error: " . $th->getMessage());
+
+            return response()->json(["status" => 500]);
         }
     }
 
@@ -383,7 +345,7 @@ class PurchaseRequisitionController extends Controller
             $dataPDF = Session::get("ReportPRtoPODataPDF");
             $dataExcel = Session::get("dataReportPRtoPO");
 
-            
+
             if ($dataPDF && $dataExcel) {
                 $print_type = $request->print_type;
                 if ($print_type == "PDF") {
@@ -394,7 +356,7 @@ class PurchaseRequisitionController extends Controller
                     $pdf->output();
                     $dom_pdf = $pdf->getDomPDF();
 
-                    $canvas = $dom_pdf ->get_canvas();
+                    $canvas = $dom_pdf->get_canvas();
                     $width = $canvas->get_width();
                     $height = $canvas->get_height();
                     $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
@@ -412,7 +374,7 @@ class PurchaseRequisitionController extends Controller
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }
-    
+
     public function ReportPurchaseRequisitionDetail(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
@@ -420,7 +382,7 @@ class PurchaseRequisitionController extends Controller
         $request->session()->forget("SessionPurchaseOrder");
         $var = 0;
         if (!empty($_GET['var'])) {
-            $var =  $_GET['var'];
+            $var = $_GET['var'];
         }
         $compact = [
             'varAPIWebToken' => $varAPIWebToken,

@@ -98,12 +98,21 @@
                 </div>
               <?php } ?>
             <?php } ?>
-
+            
             <!-- ADDITIONAL -->
             <?php if (isset($components['additional'])) { ?>
               <div class="col-12 ShowDocumentList">
                 <div class="card">
                   @include($components['additional'])
+                </div>
+              </div>
+            <?php } ?>
+
+            <!-- INFORMATION -->
+            <?php if (isset($components['information'])) { ?>
+              <div class="col-12 ShowDocumentList">
+                <div class="card">
+                  @include($components['information'])
                 </div>
               </div>
             <?php } ?>

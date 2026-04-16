@@ -14,8 +14,8 @@
                                     <thead>
                                         <tr>
                                             <th>No</th>
-                                            <th>Supplier Code</th>
-                                            <th>Supplier Name</th>
+                                            <th>Code</th>
+                                            <th>Name</th>
                                             <th>Address</th>
                                         </tr>
                                     </thead>
@@ -24,7 +24,8 @@
                                     <tfoot>
                                         <tr class="loadingSuppliers">
                                             <td colspan="4" class="p-0" style="height: 22rem;">
-                                                <div class="d-flex flex-column justify-content-center align-items-center py-3">
+                                                <div
+                                                    class="d-flex flex-column justify-content-center align-items-center py-3">
                                                     <div class="spinner-border" role="status">
                                                         <span class="sr-only">Loading...</span>
                                                     </div>
@@ -36,8 +37,10 @@
                                         </tr>
                                         <tr class="errorSuppliersMessageContainer">
                                             <td colspan="4" class="p-0" style="height: 22rem;">
-                                                <div class="d-flex flex-column justify-content-center align-items-center py-3">
-                                                    <div id="errorSuppliersMessage" class="mt-3 text-red" style="font-size: 1rem; font-weight: 700;"></div>
+                                                <div
+                                                    class="d-flex flex-column justify-content-center align-items-center py-3">
+                                                    <div id="errorSuppliersMessage" class="mt-3 text-red"
+                                                        style="font-size: 1rem; font-weight: 700;"></div>
                                                 </div>
                                             </td>
                                         </tr>
@@ -60,16 +63,10 @@
         $(".loadingSuppliers").show();
         $(".errorSuppliersMessageContainer").hide();
 
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
         $.ajax({
             type: 'GET',
             url: '{!! route("getSupplier") !!}',
-            success: function(data) {
+            success: function (data) {
                 $(".loadingSuppliers").hide();
 
                 var table = $('#tableSuppliers').DataTable();
@@ -89,7 +86,7 @@
                                     return '<td class="align-middle text-center">' +
                                         '<input id="sys_id_supplier' + (meta.row + 1) + '" value="' + data.sys_ID + '" data-trigger="sys_id_supplier" type="hidden">' +
                                         (meta.row + 1) +
-                                    '</td>';
+                                        '</td>';
                                 }
                             },
                             {
@@ -130,7 +127,7 @@
         });
     }
 
-    $(window).one('load', function(e) {
+    $(window).one('load', function (e) {
         getSuppliers();
     });
 </script>

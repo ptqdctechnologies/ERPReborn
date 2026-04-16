@@ -352,7 +352,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : getDataList_DeliveryOrderDetail_LatestVersion                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2025-11-25                                                                                           |
+        | ▪ Last Update     : 2026-03-26                                                                                           |
         | ▪ Creation Date   : 2025-03-27                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Detail Pesanan Pengiriman (DO) Versi Terakhir                                     |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -608,6 +608,9 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             $varReturn['data'][$idxArray]['priceBudget'] = $value["UnitPriceCurrencyValue_CombinedBudget_New"];
                             $varReturn['data'][$idxArray]['qtyStock'] = $value["Type"] === 1 ? $value["Quantity_TblWarehouseInboundDetail"] - ($value["Quantity_WarehouseOutboundDetail"] + $value["QtyReq"]) : 0;
                             $varReturn['data'][$idxArray]['stockPrice'] = $value["StockPrice"];
+                            $varReturn['data'][$idxArray]['workStructure_RefID'] = $value["WorkStructure_RefID"];
+                            $varReturn['data'][$idxArray]['workCode'] = $value["WorkCode"];
+                            $varReturn['data'][$idxArray]['workName'] = $value["WorkName"];
                             $varReturn['data'][$idxArray]['orderSequence'] = $idxArray + 1;
                             $idxArray++;
                         }
@@ -1081,13 +1084,13 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : getDataList_PurchaseOrderDetail_LatestVersion                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2025-12-31                                                                                           |
+        | ▪ Last Update     : 2026-03-16                                                                                           |
         | ▪ Creation Date   : 2025-03-05                                                                                           |
-        | ▪ Description     : Mendapatkan Daftar Detail Pesanan Pembelian (Purchase Order Detail) Versi Terakhir                                 |
+        | ▪ Description     : Mendapatkan Daftar Detail Pesanan Pembelian (Purchase Order Detail) Versi Terakhir                   |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varPurchaseOrder_RefID ► Purchase Order ID                                                                           |
+        |      ▪ (int)    varPurchaseOrder_RefID ► Purchase Order ID                                                               |
         |        ------------------------------                                                                                    |
         |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
         |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
@@ -1185,6 +1188,9 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         $varReturn['data'][$idxArray]['combinedBudgetSectionName'] = $value["CombinedBudgetSectionName"];
                         $varReturn['data'][$idxArray]['combinedBudgetSectionDetail_RefID'] = $value["CombinedBudgetSectionDetail_RefID"];
                         $varReturn['data'][$idxArray]['asset'] = $value["Asset"];
+                        $varReturn['data'][$idxArray]['workStructure_RefID'] = $value["WorkStructure_RefID"];
+                        $varReturn['data'][$idxArray]['workCode'] = $value["WorkCode"];
+                        $varReturn['data'][$idxArray]['workName'] = $value["WorkName"];
                         $idxArray++;
                     }
 
@@ -1580,7 +1586,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : getDataList_WarehouseInboundOrderDetail_LatestVersion                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2025-10-31                                                                                           |
+        | ▪ Last Update     : 2026-04-13                                                                                           |
         | ▪ Creation Date   : 2025-05-20                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Warehouse Inbound Order Detail Versi Terakhir                                     |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -1672,6 +1678,9 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                     $varReturn['data'][$idxArray]['warehouseName'] = $value["WarehouseName"];
                     $varReturn['data'][$idxArray]['warehouseAddress'] = $value["WarehouseAddress"];
                     $varReturn['data'][$idxArray]['combinedBudgetSectionDetail_RefID'] = $value["CombinedBudgetSectionDetail_RefID"];
+                    $varReturn['data'][$idxArray]['workStructure_RefID'] = $value["WorkStructure_RefID"];
+                    $varReturn['data'][$idxArray]['workCode'] = $value["WorkCode"];
+                    $varReturn['data'][$idxArray]['workName'] = $value["WorkName"];
                     $idxArray++;
                 }
 
@@ -2815,7 +2824,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : getDataListJSON_PurchaseRequisitionDetail                                                            |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-12-30                                                                                           |
+        | ▪ Last Update     : 2026-03-16                                                                                           |
         | ▪ Creation Date   : 2024-09-09                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Perincian Permintaan Pembelian (Purchase Requisition Detail)                      |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -2923,6 +2932,9 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             }
 			    $varReturn['data'][$idxArray]['qtyAvail'] = round((float) $value["Quantity"] - (float) $value["Quantity_TblPurchaseOrderDetail"], 2);
 			    $varReturn['data'][$idxArray]['asset'] = $value["Asset"];
+                            $varReturn['data'][$idxArray]['workStructure_RefID'] = $value["WorkStructure_RefID"];
+                            $varReturn['data'][$idxArray]['workCode'] = $value["WorkCode"];
+                            $varReturn['data'][$idxArray]['workName'] = $value["WorkName"];
                             $varReturn['data'][$idxArray]['orderSequence'] = $value["OrderSequence"];
                             $idxArray++;
                         }
@@ -4459,6 +4471,104 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             ]
                             )
                         );
+                return $varReturn;
+                }
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getReport_Form_DocumentForm_PurchaseOrderToPaymentInstructionSummary                                 |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2026-03-31                                                                                           |
+        | ▪ Creation Date   : 2026-03-27                                                                                           |
+        | ▪ Description     : Mendapatkan Laporan Form - Form Dokumen Purchase Order To Payment Instruction Summary                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |      ▪ (string)    varCombinedBudgetCode ► Combined Budget Code                                                          |
+        |      ▪ (string)    varCombinedBudgetSectionCode ► Combined Budget Section Code                                           |
+        |      ▪ (int)    varRequesterWorkerJobsPosition_RefID ► RequesterWorkerJobsPosition_RefID                                 |
+        |      ▪ (int)    varBeneficiaryWorkerJobsPosition_RefID ► BeneficiaryWorkerJobsPosition_RefID                             |
+        |      ▪ (int)    varStartDate ► StartDate                                                                                 |
+        |      ▪ (int)    varEndDate ► EndDate                                                                                     |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getReport_Form_DocumentForm_PurchaseOrderToPaymentInstructionSummary(
+            $varUserSession, int $varSysBranch_RefID, string  $varCombinedBudgetCode = null, string $varCombinedBudgetSectionCode = null, int $varSupplier_RefID = null, int $varPurchaseOrder_RefID = null, int $varAccountPayable_RefID = null, string  $varStartDate = null, string  $varEndDate = null,
+            )
+            {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession,
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-SupplyChain.Func_GetReport_DocForm_PurchaseOrderToPISummary',
+                            [
+                                [$varCombinedBudgetCode, 'varchar' ],
+                                [$varCombinedBudgetSectionCode, 'varchar' ],
+                                [$varSupplier_RefID, 'bigint' ],
+                                [$varPurchaseOrder_RefID, 'bigint' ],
+                                [$varAccountPayable_RefID, 'bigint' ],
+                                [$varStartDate, 'varchar'],
+                                [$varEndDate, 'varchar'],
+                            ]
+                            )
+                        );
+                return $varReturn;
+                }
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getReport_Form_DocumentForm_PurchaseOrderToDeliveryOrderSummary                                      |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2026-04-13                                                                                           |
+        | ▪ Creation Date   : 2026-04-13                                                                                           |
+        | ▪ Description     : Mendapatkan Laporan Form - Form Dokumen Pesanan Pembelian ke Order Pengiriman (Purchase Order to Delivery Order) |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |      ▪ (string)    varCombinedBudgetCode ► Combined Budget Code                                                          |
+        |      ▪ (string)    varCombinedBudgetSectionCode ► Combined Budget Section Code                                           |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getReport_Form_DocumentForm_PurchaseOrderToDeliveryOrderSummary(
+            $varUserSession, int $varSysBranch_RefID, string  $varCombinedBudgetCode = null, string $varCombinedBudgetSectionCode = null, string  $varStartDate = null, string  $varEndDate = null
+            )
+            {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession,
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-SupplyChain.Func_GetReport_DocForm_PurchaseOrderToDeliveryOrderSummary',
+                            [
+                                [$varCombinedBudgetCode, 'varchar' ],
+                                [$varCombinedBudgetSectionCode, 'varchar' ],
+                                [$varStartDate, 'varchar'],
+                                [$varEndDate, 'varchar'],
+                            ]
+                            )
+                        );
+
                 return $varReturn;
                 }
             catch (\Exception $ex) {

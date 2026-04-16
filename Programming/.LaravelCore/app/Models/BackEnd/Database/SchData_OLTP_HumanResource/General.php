@@ -1448,6 +1448,154 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataList_PersonBusinessTripDetail                                                                 |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2026-03-05                                                                                           |
+        | ▪ Creation Date   : 2026-03-05                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Detail Person Business Trip Versi Terakhir                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varPersonBusinessTrip_RefID ► Person Business Trip ID                                                    |
+        |        ------------------------------                                                                                    |
+        |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
+        |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
+        |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
+        |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataList_PersonBusinessTripDetail(
+            $varUserSession, int $varSysBranch_RefID, int $varPersonBusinessTrip_RefID = null,
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession,
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-HumanResource.Func_GetDataList_PersonBusinessTripDetail_NEW',
+                            [
+                                [$varPersonBusinessTrip_RefID, 'bigint' ],
+                            ]
+                            )
+                        );
+
+                return
+                    $varReturn;
+                }
+
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataList_PersonBusinessTripSettlementDetail                                                       |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2026-04-08                                                                                           |
+        | ▪ Creation Date   : 2026-04-08                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Detail Person Business Trip Versi Terakhir                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varPersonBusinessTrip_RefID ► Person Business Trip ID                                                    |
+        |        ------------------------------                                                                                    |
+        |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
+        |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
+        |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
+        |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataList_PersonBusinessTripSettlementDetail(
+            $varUserSession, int $varSysBranch_RefID, int $varPersonBusinessTrip_RefID = null,
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession,
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-HumanResource.Func_GetDataList_PersonBusinessTripSettlementDetail',
+                            [
+                                [$varPersonBusinessTrip_RefID, 'bigint' ],
+                            ]
+                            )
+                        );
+
+                return
+                    $varReturn;
+                }
+
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getReport_Form_DocumentForm_PersonBusinessTripToBSFSummary                                           |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2026-04-15                                                                                           |
+        | ▪ Creation Date   : 2026-04-15                                                                                           |
+        | ▪ Description     : Mendapatkan Laporan Form - Form Dokumen Business Trip to Business Trip Settlement Summary            |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |      ▪ (string)    varCombinedBudgetCode ► Combined Budget Code                                                          |
+        |      ▪ (string)    varCombinedBudgetSectionCode ► Combined Budget Section Code                                           |
+        |      ▪ (int)    varRequesterWorkerJobsPosition_RefID ► RequesterWorkerJobsPosition_RefID                                 |
+        |      ▪ (int)    varBeneficiaryWorkerJobsPosition_RefID ► BeneficiaryWorkerJobsPosition_RefID                             |
+        |      ▪ (int)    varStartDate ► StartDate                                                                                 |
+        |      ▪ (int)    varEndDate ► EndDate                                                                                     |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getReport_Form_DocumentForm_PersonBusinessTripToBSFSummary(
+            $varUserSession, int $varSysBranch_RefID, string  $varCombinedBudgetCode = null, string $varCombinedBudgetSectionCode = null, int $varRequester_RefID = null, int $varBusinessTrip_RefID = null, int $varBusinessTripSettlement_RefID = null, string  $varStartDate = null, string  $varEndDate = null,
+            )
+            {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession,
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-HumanResource.Func_GetReport_DocForm_PersonBusinessTripToBSFSummary',
+                            [
+                                [$varCombinedBudgetCode, 'varchar' ],
+                                [$varCombinedBudgetSectionCode, 'varchar' ],
+                                [$varRequester_RefID, 'bigint' ],
+                                [$varBusinessTrip_RefID, 'bigint' ],
+                                [$varBusinessTripSettlement_RefID, 'bigint' ],
+                                [$varStartDate, 'varchar'],
+                                [$varEndDate, 'varchar'],
+                            ]
+                            )
+                        );
+                return $varReturn;
+                }
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getDataListJSON_PersonBusinessTripSequence_AllVersion                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
@@ -2024,7 +2172,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         | ▪ Method Name     : Func_GetDataPickList_PersonBusinessTrip                                                              |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-11-25                                                                                           |
+        | ▪ Last Update     : 2026-04-06                                                                                           |
         | ▪ Creation Date   : 2022-11-25                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Pilihan Data Person Business Trip                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -2044,7 +2192,49 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                         $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
-                            'SchData-OLTP-HumanResource.Func_GetDataPickList_PersonBusinessTrip',
+                            'SchData-OLTP-HumanResource.Func_GetDataPickList_PersonBusinessTrip_NEW',
+                            [
+                                [$varSysBranch_RefID, 'bigint']
+                            ]
+                            )
+                        );
+
+                return
+                    $varReturn;
+                }
+
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataPickList_PersonBusinessTripSettlement                                                         |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2026-04-07                                                                                           |
+        | ▪ Creation Date   : 2026-04-07                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Pilihan Data Person Business Trip                                                 |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataPickList_PersonBusinessTripSettlement(
+            $varUserSession, int $varSysBranch_RefID)
+            {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession,
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-HumanResource.Func_GetDataPickList_PersonBusinessTripSettlement_NEW',
                             [
                                 [$varSysBranch_RefID, 'bigint']
                             ]
@@ -2736,6 +2926,108 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                     $varReturn;
                 }
 
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getReport_Form_DocumentForm_PersonBusinessTripSummary                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2026-04-09                                                                                           |
+        | ▪ Creation Date   : 2026-04-09                                                                                           |
+        | ▪ Description     : Mendapatkan Laporan Form - Form Dokumen Person Business Trip Summary                                 |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |      ▪ (string)    varCombinedBudgetCode ► Combined Budget Code                                                          |
+        |      ▪ (string)    varCombinedBudgetSectionCode ► Combined Budget Section Code                                           |
+        |      ▪ (int)    varRequesterWorkerJobsPosition_RefID ► RequesterWorkerJobsPosition_RefID                                 |
+        |      ▪ (int)    varBeneficiaryWorkerJobsPosition_RefID ► BeneficiaryWorkerJobsPosition_RefID                             |
+        |      ▪ (int)    varStartDate ► StartDate                                                                                 |
+        |      ▪ (int)    varEndDate ► EndDate                                                                                     |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getReport_Form_DocumentForm_PersonBusinessTripSummary(
+            $varUserSession, int $varSysBranch_RefID, string  $varCombinedBudgetCode = null, string $varCombinedBudgetSectionCode = null, int $varRequesterWorkerJobsPosition_RefID = null, int $varBeneficiaryWorkerJobsPosition_RefID = null, string  $varStartDate = null, string  $varEndDate = null,
+            )
+            {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession,
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-HumanResource.Func_GetReport_DocForm_PersonBusinessTripSummary',
+                            [
+                                [$varCombinedBudgetCode, 'varchar' ],
+                                [$varCombinedBudgetSectionCode, 'varchar' ],
+                                [$varRequesterWorkerJobsPosition_RefID, 'bigint' ],
+                                [$varBeneficiaryWorkerJobsPosition_RefID, 'bigint' ],
+                                [$varStartDate, 'varchar'],
+                                [$varEndDate, 'varchar'],
+                            ]
+                            )
+                        );
+                return $varReturn;
+                }
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getReport_Form_DocumentForm_PersonBusinessTripSettlementSummary                                      |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2026-04-14                                                                                           |
+        | ▪ Creation Date   : 2026-04-14                                                                                           |
+        | ▪ Description     : Mendapatkan Laporan Form - Form Dokumen Person Business Trip Settlement Summary                      |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |      ▪ (string)    varCombinedBudgetCode ► Combined Budget Code                                                          |
+        |      ▪ (string)    varCombinedBudgetSectionCode ► Combined Budget Section Code                                           |
+        |      ▪ (int)    varRequesterWorkerJobsPosition_RefID ► RequesterWorkerJobsPosition_RefID                                 |
+        |      ▪ (int)    varBeneficiaryWorkerJobsPosition_RefID ► BeneficiaryWorkerJobsPosition_RefID                             |
+        |      ▪ (int)    varStartDate ► StartDate                                                                                 |
+        |      ▪ (int)    varEndDate ► EndDate                                                                                     |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getReport_Form_DocumentForm_PersonBusinessTripSettlementSummary(
+            $varUserSession, int $varSysBranch_RefID, string  $varCombinedBudgetCode = null, string $varCombinedBudgetSectionCode = null, int $varRequesterWorkerJobsPosition_RefID = null, int $varBeneficiaryWorkerJobsPosition_RefID = null, string  $varStartDate = null, string  $varEndDate = null,
+            )
+            {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession,
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-HumanResource.Func_GetReport_DocForm_PersonBusinessTripSettlementSummary',
+                            [
+                                [$varCombinedBudgetCode, 'varchar' ],
+                                [$varCombinedBudgetSectionCode, 'varchar' ],
+                                [$varRequesterWorkerJobsPosition_RefID, 'bigint' ],
+                                [$varBeneficiaryWorkerJobsPosition_RefID, 'bigint' ],
+                                [$varStartDate, 'varchar'],
+                                [$varEndDate, 'varchar'],
+                            ]
+                            )
+                        );
+                return $varReturn;
+                }
             catch (\Exception $ex) {
                 return [];
                 }

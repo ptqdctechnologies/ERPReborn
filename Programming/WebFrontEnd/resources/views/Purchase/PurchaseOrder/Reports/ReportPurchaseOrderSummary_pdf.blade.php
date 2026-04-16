@@ -229,6 +229,16 @@
                 <?= number_format($dataDetail['total_Vat_Other_Currency'] ?? 0, 2); ?>
               </div>
             </td>
+            <td>
+              <div style="margin-top: 4px; font-size: 12px;">
+                <?= number_format($dataDetail['total_Equivalent_Value'] ?? 0, 2); ?>
+              </div>
+            </td>
+            <td>
+              <div style="margin-top: 4px; font-size: 12px;">
+                <?= number_format($dataDetail['total_Equivalent_Vat'] ?? 0, 2); ?>
+              </div>
+            </td>
           </tr>
         <?php } ?>
       </tbody>

@@ -10,7 +10,7 @@
 @include('getFunction.getBankLists')
 @include('getFunction.getBanksAccount')
 @include('getFunction.getWorkFlow')
-@include('getFunction.getBusinessTripRequest') 
+@include('getFunction.getBusinessTripRequest')
 @include('Process.BusinessTrip.BusinessTripRequest.Functions.PopUp.PopUpBusinessTripRequestRevision')
 @include('Process.BusinessTrip.BusinessTripRequest.Functions.PopUp.PopUpBusinessTripRequestSummaryData')
 
@@ -31,9 +31,11 @@
         <div class="card">
           <form method="post" action="{{ route('SelectWorkFlow') }}" id="FormSubmitBusinessTrip">
             @csrf
-            <input hidden id="DocumentTypeID" name="DocumentTypeID">
+            <input hidden id="DocumentTypeID" name="DocumentTypeID" value="<?= $documentType_RefID; ?>">
             <input hidden id="var_combinedBudget_RefID" name="var_combinedBudget_RefID" />
             <input hidden id="combinedBudgetSectionDetail_RefID" name="combinedBudgetSectionDetail_RefID" />
+            <input hidden id="workStructure_RefID" name="workStructure_RefID" />
+            <input hidden id="product_RefID" name="product_RefID" />
             <input hidden id="budgetDetailsData" />
 
             <!-- ADD NEW BUSINESS REQUEST TRIP FORM -->

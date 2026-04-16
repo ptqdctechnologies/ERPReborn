@@ -6,8 +6,6 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Collection;
 use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
 use App\Helpers\ZhtHelper\System\Helper_Environment;
 use App\Helpers\ZhtHelper\Cache\Helper_Redis;
@@ -24,21 +22,21 @@ class FunctionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    protected $advanceSettlementService, 
-        $businessDocumentTypeService, 
-        $businessTripService, 
-        $transporterService;
+    protected $advanceSettlementService,
+    $businessDocumentTypeService,
+    $businessTripService,
+    $transporterService;
 
     public function __construct(
-        AdvanceSettlementService $advanceSettlementService, 
-        BusinessTripService $businessTripService, 
+        AdvanceSettlementService $advanceSettlementService,
+        BusinessTripService $businessTripService,
         BusinessDocumentTypeService $businessDocumentTypeService,
-        TransporterService $transporterService)
-    {
-        $this->advanceSettlementService     = $advanceSettlementService;
-        $this->businessTripService          = $businessTripService;
-        $this->businessDocumentTypeService  = $businessDocumentTypeService;
-        $this->transporterService           = $transporterService;
+        TransporterService $transporterService
+    ) {
+        $this->advanceSettlementService = $advanceSettlementService;
+        $this->businessTripService = $businessTripService;
+        $this->businessDocumentTypeService = $businessDocumentTypeService;
+        $this->transporterService = $transporterService;
     }
 
     //FUNCTION PROJECT
@@ -71,49 +69,6 @@ class FunctionController extends Controller
         return response()->json($varDataProject['data']['data']);
     }
 
-    //FUNCTION PROJECT (MODIFIED)
-    public function getNewProject(Request $request)
-    {
-        $varAPIWebToken = Session::get('SessionLogin');
-        $varGetRedisNewProject = [];
-
-        if (!Redis::get("getNewProject")) {
-            $varDataProject = Helper_APICall::setCallAPIGateway(
-                Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken,
-                'dataPickList.project.getProject',
-                'latest',
-                [
-                    'parameter' => null
-                ],
-                false
-            );
-
-            if (isset($varDataProject['data']['data']) && is_array($varDataProject['data']['data'])) {
-                $dataAPIProject = $varDataProject['data']['data'];
-
-                $varGetRedisNewProject = $this->syncDataWithRedis(
-                    $varAPIWebToken, 
-                    "getNewProject", 
-                    $dataAPIProject,
-                    86400
-                );
-            } else {
-                return response()->json(['error' => 'Invalid API response'], 500);
-            }
-        } else {
-            $varGetRedisNewProject = json_decode(
-                Helper_Redis::getValue(
-                    Helper_Environment::getUserSessionID_System(),
-                    "getNewProject"
-                ),
-                true
-            );
-        }
-
-        return response()->json($varGetRedisNewProject);
-    }
-
     // FUNCTION SITE PROJECT
     public function getSite(Request $request)
     {
@@ -144,8 +99,8 @@ class FunctionController extends Controller
             true
         );
 
-        
-        if($project_code){
+
+        if ($project_code) {
             $num = 0;
             $filteredArray = [];
             for ($i = 0; $i < count($DataSubBudget); $i++) {
@@ -154,9 +109,7 @@ class FunctionController extends Controller
                     $num++;
                 }
             }
-        }   
-
-        else{
+        } else {
             $filteredArray = $DataSubBudget;
         }
 
@@ -166,9 +119,9 @@ class FunctionController extends Controller
     // FUNCTION SITE PROJECT (MODIFIED)
     public function getNewSite(Request $request)
     {
-        $project_code   = (int) $request->input('project_code') ?? null;
+        $project_code = (int) $request->input('project_code') ?? null;
         $varAPIWebToken = Session::get('SessionLogin');
-        $DataSubBudget  = [];
+        $DataSubBudget = [];
 
         if (!Redis::get("SubBudget")) {
             $varData = Helper_APICall::setCallAPIGateway(
@@ -188,8 +141,8 @@ class FunctionController extends Controller
                 $dataAPISubBudget = $varData['data']['data'];
 
                 $DataSubBudget = $this->syncDataWithRedis(
-                    $varAPIWebToken, 
-                    "getNewSite", 
+                    $varAPIWebToken,
+                    "getNewSite",
                     $dataAPISubBudget,
                     15
                 );
@@ -207,7 +160,7 @@ class FunctionController extends Controller
         }
 
         if ($project_code && isset($DataSubBudget)) {
-            $filteredData = array_filter($DataSubBudget, function($item) use ($project_code) {
+            $filteredData = array_filter($DataSubBudget, function ($item) use ($project_code) {
                 return $item['Project_RefID'] === $project_code;
             });
         } else {
@@ -298,11 +251,83 @@ class FunctionController extends Controller
         return response()->json($varDataWorker['data']['data']);
     }
 
+    public function getRequester(Request $request)
+    {
+        $token = Session::get('SessionLogin');
+
+        $response = Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
+            $token,
+            'transaction.read.dataList.humanResource.getWorkerJobsPositionCurrent',
+            'latest',
+            [
+                'parameter' => [
+                    'worker_RefID' => null
+                ],
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    'filter' => null,
+                    'paging' => null
+                ]
+            ],
+            false
+        );
+
+        $status = $response['metadata']['HTTPStatusCode'];
+        $data = [];
+
+        if ($status == 200) {
+            $data = $response['data']['data'] ?? [];
+        }
+
+        return response()->json([
+            'data' => $data,
+            'status' => $status
+        ]);
+    }
+
+    public function getBeneficiary(Request $request)
+    {
+        $token = Session::get('SessionLogin');
+
+        $response = Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
+            $token,
+            'transaction.read.dataList.humanResource.getWorkerJobsPositionCurrent',
+            'latest',
+            [
+                'parameter' => [
+                    'worker_RefID' => null
+                ],
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    'filter' => null,
+                    'paging' => null
+                ]
+            ],
+            false
+        );
+
+        $status = $response['metadata']['HTTPStatusCode'];
+        $data = [];
+
+        if ($status == 200) {
+            $data = $response['data']['data'] ?? [];
+        }
+
+        return response()->json([
+            'data' => $data,
+            'status' => $status
+        ]);
+    }
+
     public function getChartOfAccountList(Request $request)
     {
         try {
             $varAPIWebToken = Session::get('SessionLogin');
-            $varDataCOA     = Helper_APICall::setCallAPIGateway(
+            $varDataCOA = Helper_APICall::setCallAPIGateway(
                 Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken,
                 'dataPickList.accounting.getChartOfAccount',
@@ -326,7 +351,7 @@ class FunctionController extends Controller
     {
         try {
             $varAPIWebToken = Session::get('SessionLogin');
-            $varDataCN      = Helper_APICall::setCallAPIGateway(
+            $varDataCN = Helper_APICall::setCallAPIGateway(
                 Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken,
                 'dataPickList.finance.getCreditNote',
@@ -367,7 +392,7 @@ class FunctionController extends Controller
     {
         try {
             $varAPIWebToken = Session::get('SessionLogin');
-            $supplierID     = $request->input('supplier_id');
+            $supplierID = $request->input('supplier_id');
 
             $filter = null;
             if (!empty($supplierID) && $supplierID != 'undefined') {
@@ -380,12 +405,12 @@ class FunctionController extends Controller
                 'transaction.read.dataList.supplyChain.getSupplier',
                 'latest',
                 [
-                    'parameter'     => null,
-                    'SQLStatement'  => [
-                        'pick'      => null,
-                        'sort'      => null,
-                        'filter'    => $filter,
-                        'paging'    => null
+                    'parameter' => null,
+                    'SQLStatement' => [
+                        'pick' => null,
+                        'sort' => null,
+                        'filter' => $filter,
+                        'paging' => null
                     ]
                 ],
                 false
@@ -481,7 +506,7 @@ class FunctionController extends Controller
             [
                 'parameter' => [
                     "businessTripTransportationType_RefIDArray" => [
-                        (int)$TripTransportationType,
+                        (int) $TripTransportationType,
                     ]
                 ]
             ]
@@ -491,24 +516,24 @@ class FunctionController extends Controller
     }
 
     // FUNCTION BANK LIST
-    public function getBankList(Request $request) 
+    public function getBankList(Request $request)
     {
         $person_RefID = $request->input('person_RefID') ? (int) $request->input('person_RefID') : null;
 
         $varAPIWebToken = Session::get('SessionLogin');
         $varData = Helper_APICall::setCallAPIGateway(
             Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken, 
-            'transaction.read.dataList.master.getBank', 
-            'latest', 
+            $varAPIWebToken,
+            'transaction.read.dataList.master.getBank',
+            'latest',
             [
-            'parameter' => [
+                'parameter' => [
                 ],
-            'SQLStatement' => [
-                'pick' => null,
-                'sort' => null,
-                'filter' => null,
-                'paging' => null
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    'filter' => null,
+                    'paging' => null
                 ]
             ]
         );
@@ -517,32 +542,32 @@ class FunctionController extends Controller
     }
 
     // FUNCTION BANK ACCOUNT
-    public function getBankAccount(Request $request) 
+    public function getBankAccount(Request $request)
     {
-        $bank_RefID     = $request->input('bank_RefID') ? (int) $request->input('bank_RefID') : null;
-        $person_RefID   = $request->input('person_RefID') ? (int) $request->input('person_RefID') : null;
+        $bank_RefID = $request->input('bank_RefID') ? (int) $request->input('bank_RefID') : null;
+        $person_RefID = $request->input('person_RefID') ? (int) $request->input('person_RefID') : null;
 
         $varAPIWebToken = Session::get('SessionLogin');
         $varData = Helper_APICall::setCallAPIGateway(
             Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken, 
-            'transaction.read.dataList.master.getBankAccount', 
-            'latest', 
+            $varAPIWebToken,
+            'transaction.read.dataList.master.getBankAccount',
+            'latest',
             [
-            'parameter' => [
-                'bank_RefID' => $bank_RefID,
+                'parameter' => [
+                    'bank_RefID' => $bank_RefID,
                 ],
-            'SQLStatement' => [
-                'pick' => null,
-                'sort' => null,
-                'filter' => null,
-                'paging' => null
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    'filter' => null,
+                    'paging' => null
                 ]
             ]
         );
 
         if ($person_RefID && isset($varData['data']['data'])) {
-            $filteredData = array_filter($varData['data']['data'], function($item) use ($person_RefID) {
+            $filteredData = array_filter($varData['data']['data'], function ($item) use ($person_RefID) {
                 return $item['entity_RefID'] === $person_RefID;
             });
         } else {
@@ -689,9 +714,9 @@ class FunctionController extends Controller
     public function getDocumentType(Request $request)
     {
         try {
-            $sessionUserRefID   = Session::get('SessionUser_RefID');
-            $transName      = $request->input('name');
-            $filterName     = null;
+            $sessionUserRefID = Session::get('SessionUser_RefID');
+            $transName = $request->input('name');
+            $filterName = null;
 
             $response = json_decode(Helper_Redis::getValue($sessionUserRefID, 'BusinessDocumentType'), true);
 
@@ -827,7 +852,7 @@ class FunctionController extends Controller
 
         $collection = collect($varData['data']['data']);
         $collection = $collection->where('menuGroup_RefID', $menu_group_id);
-        
+
         $collection = $collection->where('type', $type);
 
         return response()->json($collection->all());
@@ -857,7 +882,7 @@ class FunctionController extends Controller
             false
         );
 
-        $filteredSubMenu = array_filter($varData['data']['data'], function($item) use ($selectedValue) {
+        $filteredSubMenu = array_filter($varData['data']['data'], function ($item) use ($selectedValue) {
             return $item['menuGroup_RefID'] == $selectedValue;
         });
 
@@ -870,16 +895,16 @@ class FunctionController extends Controller
             $varAPIWebToken = Session::get('SessionLogin');
             $varDataCustomer = Helper_APICall::setCallAPIGateway(
                 Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'dataPickList.customerRelation.getCustomer', 
-                'latest', 
+                $varAPIWebToken,
+                'dataPickList.customerRelation.getCustomer',
+                'latest',
                 [
-                    'parameter'     => null,
-                    'SQLStatement'  => [
-                        'pick'      => null,
-                        'sort'      => null,
-                        'filter'    => null,
-                        'paging'    => null
+                    'parameter' => null,
+                    'SQLStatement' => [
+                        'pick' => null,
+                        'sort' => null,
+                        'filter' => null,
+                        'paging' => null
                     ]
                 ]
             );
@@ -900,14 +925,14 @@ class FunctionController extends Controller
     public function getListTransactionByDocumentTypeID(Request $request)
     {
         try {
-            $varAPIWebToken             = Session::get('SessionLogin');
-            $businessDocumentTypeRefID  = $request->input('businessDocumentTypeRef_ID');
+            $varAPIWebToken = Session::get('SessionLogin');
+            $businessDocumentTypeRefID = $request->input('businessDocumentTypeRef_ID');
 
             $response = Helper_APICall::setCallAPIGateway(
                 Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'dataPickList.master.getBusinessDocumentFormLatestVersion', 
-                'latest', 
+                $varAPIWebToken,
+                'dataPickList.master.getBusinessDocumentFormLatestVersion',
+                'latest',
                 [
                     'parameter' => [
                         'businessDocumentType_RefID' => (int) $businessDocumentTypeRefID
@@ -951,47 +976,47 @@ class FunctionController extends Controller
             // }
 
             $varDataCustomer = [
-                'data'      => [
-                    'data'  => [
+                'data' => [
+                    'data' => [
                         [
-                            'sys_ID'    => '1',
-                            'sys_Text'  => 'INV/QDC/2025/000001'
+                            'sys_ID' => '1',
+                            'sys_Text' => 'INV/QDC/2025/000001'
                         ],
                         [
-                            'sys_ID'    => '2',
-                            'sys_Text'  => 'INV/QDC/2025/000002'
+                            'sys_ID' => '2',
+                            'sys_Text' => 'INV/QDC/2025/000002'
                         ],
                         [
-                            'sys_ID'    => '3',
-                            'sys_Text'  => 'INV/QDC/2025/000003'
+                            'sys_ID' => '3',
+                            'sys_Text' => 'INV/QDC/2025/000003'
                         ],
                         [
-                            'sys_ID'    => '4',
-                            'sys_Text'  => 'INV/QDC/2025/000004'
+                            'sys_ID' => '4',
+                            'sys_Text' => 'INV/QDC/2025/000004'
                         ],
                         [
-                            'sys_ID'    => '5',
-                            'sys_Text'  => 'INV/QDC/2025/000005'
+                            'sys_ID' => '5',
+                            'sys_Text' => 'INV/QDC/2025/000005'
                         ],
                         [
-                            'sys_ID'    => '6',
-                            'sys_Text'  => 'INV/QDC/2025/000006'
+                            'sys_ID' => '6',
+                            'sys_Text' => 'INV/QDC/2025/000006'
                         ],
                         [
-                            'sys_ID'    => '7',
-                            'sys_Text'  => 'INV/QDC/2025/000007'
+                            'sys_ID' => '7',
+                            'sys_Text' => 'INV/QDC/2025/000007'
                         ],
                         [
-                            'sys_ID'    => '8',
-                            'sys_Text'  => 'INV/QDC/2025/000008'
+                            'sys_ID' => '8',
+                            'sys_Text' => 'INV/QDC/2025/000008'
                         ],
                         [
-                            'sys_ID'    => '9',
-                            'sys_Text'  => 'INV/QDC/2025/000009'
+                            'sys_ID' => '9',
+                            'sys_Text' => 'INV/QDC/2025/000009'
                         ],
                         [
-                            'sys_ID'    => '10',
-                            'sys_Text'  => 'INV/QDC/2025/000010'
+                            'sys_ID' => '10',
+                            'sys_Text' => 'INV/QDC/2025/000010'
                         ],
                     ]
                 ]
@@ -1011,9 +1036,9 @@ class FunctionController extends Controller
 
             $response = Helper_APICall::setCallAPIGateway(
                 Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'transaction.read.dataList.master.getCurrency', 
-                'latest', 
+                $varAPIWebToken,
+                'transaction.read.dataList.master.getCurrency',
+                'latest',
                 [
                     'parameter' => null,
                     'SQLStatement' => [
@@ -1035,45 +1060,6 @@ class FunctionController extends Controller
 
             return response()->json([]);
         }
-    }
-
-    public function getAdvance(Request $request) 
-    {
-        $projectId     = (int) $request->input('project_id', 0);
-        $siteId        = (int) $request->input('site_id', 0);
-        $varAPIWebToken = Session::get('SessionLogin');
-
-        $varData = Helper_APICall::setCallAPIGateway(
-            Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'dataPickList.finance.getAdvance',
-            'latest',
-            [
-                'parameter' => []
-            ],
-            false
-        );
-
-        if ($varData['metadata']['HTTPStatusCode'] !== 200) {
-            return response()->json($varData);
-        }
-
-        $DataAdvance = $varData['data']['data'];
-
-        $filteredData = $DataAdvance;
-
-        if ($projectId > 0 && $siteId > 0) {
-            $filteredData = array_filter($DataAdvance, function ($item) use ($projectId, $siteId) {
-                return 
-                    isset($item['combinedBudget_RefID'], $item['combinedBudgetSection_RefID']) &&
-                    is_array($item['combinedBudget_RefID']) &&
-                    is_array($item['combinedBudgetSection_RefID']) &&
-                    in_array($projectId, $item['combinedBudget_RefID']) &&
-                    in_array($siteId, $item['combinedBudgetSection_RefID']);
-            });
-        }
-
-        return response()->json($filteredData);
     }
 
     public function getAdvanceSettlement(Request $request)
@@ -1099,16 +1085,16 @@ class FunctionController extends Controller
 
             $varData = Helper_APICall::setCallAPIGateway(
                 Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
+                $varAPIWebToken,
                 'dataPickList.finance.getReimbursement',
                 'latest',
                 [
-                    'parameter'     => null,
-                    'SQLStatement'  => [
-                        'pick'      => null,
-                        'sort'      => null,
-                        'filter'    => null,
-                        'paging'    => null
+                    'parameter' => null,
+                    'SQLStatement' => [
+                        'pick' => null,
+                        'sort' => null,
+                        'filter' => null,
+                        'paging' => null
                     ]
                 ]
             );
@@ -1123,11 +1109,11 @@ class FunctionController extends Controller
     public function getPerson(Request $request)
     {
         $varAPIWebToken = Session::get('SessionLogin');
-        
+
         $varDataPerson = Helper_APICall::setCallAPIGateway(
             Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken, 
-            'dataPickList.master.getPerson', 
+            $varAPIWebToken,
+            'dataPickList.master.getPerson',
             'latest',
             [
                 'parameter' => []
@@ -1137,16 +1123,16 @@ class FunctionController extends Controller
         return response()->json($varDataPerson['data']['data']);
     }
 
-    public function getAdvanceDetail(Request $request) 
+    public function getAdvanceDetail(Request $request)
     {
         $varAPIWebToken = Session::get('SessionLogin');
-        $advanceRefID   = $request->input('advanceRefID');
+        $advanceRefID = $request->input('advanceRefID');
 
         $varData = Helper_APICall::setCallAPIGateway(
             Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken, 
-            'transaction.read.dataList.finance.getAdvanceDetail', 
-            'latest', 
+            $varAPIWebToken,
+            'transaction.read.dataList.finance.getAdvanceDetail',
+            'latest',
             [
                 'parameter' => [
                     'advance_RefID' => (int) $advanceRefID
@@ -1170,7 +1156,7 @@ class FunctionController extends Controller
 
             $varData = Helper_APICall::setCallAPIGateway(
                 Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
+                $varAPIWebToken,
                 // 'transaction.read.dataList.supplyChain.getDeliveryOrder', 
                 'dataPickList.supplyChain.getDeliveryOrder',
                 'latest',
@@ -1195,8 +1181,8 @@ class FunctionController extends Controller
     public function getDeliveryOrderDetail(Request $request)
     {
         try {
-            $varAPIWebToken     = Session::get('SessionLogin');
-            $delivery_order_id  = $request->input('delivery_order_id');
+            $varAPIWebToken = Session::get('SessionLogin');
+            $delivery_order_id = $request->input('delivery_order_id');
 
             $varData = Helper_APICall::setCallAPIGateway(
                 Helper_Environment::getUserSessionID_System(),
@@ -1204,22 +1190,22 @@ class FunctionController extends Controller
                 'transaction.read.dataList.supplyChain.getDeliveryOrderDetail',
                 'latest',
                 [
-                'parameter' => [
-                    'deliveryOrder_RefID' => (int) $delivery_order_id
+                    'parameter' => [
+                        'deliveryOrder_RefID' => (int) $delivery_order_id
                     ],
-                'SQLStatement' => [
-                    'pick' => null,
-                    'sort' => null,
-                    'filter' => null,
-                    'paging' => null
+                    'SQLStatement' => [
+                        'pick' => null,
+                        'sort' => null,
+                        'filter' => null,
+                        'paging' => null
                     ]
                 ]
             );
 
             if ($varData['metadata']['HTTPStatusCode'] !== 200) {
                 $compact = [
-                    "statusCode"    => $varData['metadata']['HTTPStatusCode'],
-                    "message"       => $varData['data']['message']
+                    "statusCode" => $varData['metadata']['HTTPStatusCode'],
+                    "message" => $varData['data']['message']
                 ];
 
                 return response()->json($compact);
@@ -1232,57 +1218,24 @@ class FunctionController extends Controller
         }
     }
 
-    public function getPurchaseRequisitionList(Request $request) 
+    public function getLoanList(Request $request)
     {
         try {
             $varAPIWebToken = Session::get('SessionLogin');
-            $userSession    = Helper_Environment::getUserSessionID_System();
+            $userSession = Helper_Environment::getUserSessionID_System();
 
             $varData = Helper_APICall::setCallAPIGateway(
                 $userSession,
-                $varAPIWebToken, 
-                'dataPickList.supplyChain.getPurchaseRequisition', 
-                'latest', 
+                $varAPIWebToken,
+                'dataPickList.finance.getLoan',
+                'latest',
                 [
-                'parameter' => null,
-                'SQLStatement' => [
-                    'pick' => null,
-                    'sort' => null,
-                    'filter' => null,
-                    'paging' => null
-                    ]
-                ]
-            );
-
-            if ($varData['metadata']['HTTPStatusCode'] !== 200) {
-                return redirect()->back()->with('NotFound', 'Process Error');
-            }
-
-            return response()->json($varData['data']['data']);
-        } catch (\Throwable $th) {
-            Log::error("Error at getPurchaseRequisitionList: " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
-        }
-    }
-
-    public function getLoanList(Request $request) 
-    {
-        try {
-            $varAPIWebToken = Session::get('SessionLogin');
-            $userSession    = Helper_Environment::getUserSessionID_System();
-
-            $varData = Helper_APICall::setCallAPIGateway(
-                $userSession,
-                $varAPIWebToken, 
-                'dataPickList.finance.getLoan', 
-                'latest', 
-                [
-                'parameter' => null,
-                'SQLStatement' => [
-                    'pick' => null,
-                    'sort' => null,
-                    'filter' => null,
-                    'paging' => null
+                    'parameter' => null,
+                    'SQLStatement' => [
+                        'pick' => null,
+                        'sort' => null,
+                        'filter' => null,
+                        'paging' => null
                     ]
                 ]
             );
@@ -1298,24 +1251,24 @@ class FunctionController extends Controller
         }
     }
 
-    public function getLoanSettlementList(Request $request) 
+    public function getLoanSettlementList(Request $request)
     {
         try {
             $varAPIWebToken = Session::get('SessionLogin');
-            $userSession    = Helper_Environment::getUserSessionID_System();
+            $userSession = Helper_Environment::getUserSessionID_System();
 
             $varData = Helper_APICall::setCallAPIGateway(
                 $userSession,
-                $varAPIWebToken, 
-                'dataPickList.finance.getLoanSettlement', 
-                'latest', 
+                $varAPIWebToken,
+                'dataPickList.finance.getLoanSettlement',
+                'latest',
                 [
-                'parameter' => null,
-                'SQLStatement' => [
-                    'pick' => null,
-                    'sort' => null,
-                    'filter' => null,
-                    'paging' => null
+                    'parameter' => null,
+                    'SQLStatement' => [
+                        'pick' => null,
+                        'sort' => null,
+                        'filter' => null,
+                        'paging' => null
                     ]
                 ]
             );
@@ -1334,24 +1287,24 @@ class FunctionController extends Controller
     public function getPurchaseRequisitionDetail(Request $request)
     {
         try {
-            $varAPIWebToken             = Session::get('SessionLogin');
-            $userSession                = Helper_Environment::getUserSessionID_System();
-            $purchase_requisition_id    = $request->input('purchase_requisition_id');
+            $varAPIWebToken = Session::get('SessionLogin');
+            $userSession = Helper_Environment::getUserSessionID_System();
+            $purchase_requisition_id = $request->input('purchase_requisition_id');
 
             $varData = Helper_APICall::setCallAPIGateway(
                 Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'transaction.read.dataList.supplyChain.getPurchaseRequisitionDetail', 
-                'latest', 
+                $varAPIWebToken,
+                'transaction.read.dataList.supplyChain.getPurchaseRequisitionDetail',
+                'latest',
                 [
-                'parameter' => [
-                    'purchaseRequisition_RefID' => (int) $purchase_requisition_id
+                    'parameter' => [
+                        'purchaseRequisition_RefID' => (int) $purchase_requisition_id
                     ],
-                'SQLStatement' => [
-                    'pick' => null,
-                    'sort' => null,
-                    'filter' => null,
-                    'paging' => null
+                    'SQLStatement' => [
+                        'pick' => null,
+                        'sort' => null,
+                        'filter' => null,
+                        'paging' => null
                     ]
                 ]
             );
@@ -1371,20 +1324,20 @@ class FunctionController extends Controller
     {
         try {
             $varAPIWebToken = Session::get('SessionLogin');
-            $userSession    = Helper_Environment::getUserSessionID_System();
+            $userSession = Helper_Environment::getUserSessionID_System();
 
             $varData = Helper_APICall::setCallAPIGateway(
                 Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'transaction.read.dataList.master.getPaymentTerm', 
-                'latest', 
+                $varAPIWebToken,
+                'transaction.read.dataList.master.getPaymentTerm',
+                'latest',
                 [
-                'parameter' => null,
-                'SQLStatement' => [
-                    'pick' => null,
-                    'sort' => null,
-                    'filter' => null,
-                    'paging' => null
+                    'parameter' => null,
+                    'SQLStatement' => [
+                        'pick' => null,
+                        'sort' => null,
+                        'filter' => null,
+                        'paging' => null
                     ]
                 ]
             );
@@ -1404,7 +1357,7 @@ class FunctionController extends Controller
     {
         try {
             $varAPIWebToken = Session::get('SessionLogin');
-            $userSession    = Helper_Environment::getUserSessionID_System();
+            $userSession = Helper_Environment::getUserSessionID_System();
 
             $varData = Helper_APICall::setCallAPIGateway(
                 $userSession,
@@ -1412,12 +1365,12 @@ class FunctionController extends Controller
                 'transaction.read.dataList.taxation.getVat',
                 'latest',
                 [
-                'parameter' => null,
-                'SQLStatement' => [
-                    'pick' => null,
-                    'sort' => null,
-                    'filter' => null,
-                    'paging' => null
+                    'parameter' => null,
+                    'SQLStatement' => [
+                        'pick' => null,
+                        'sort' => null,
+                        'filter' => null,
+                        'paging' => null
                     ]
                 ]
             );
@@ -1433,15 +1386,15 @@ class FunctionController extends Controller
         }
     }
 
-    public function getPurchaseOrderList(Request $request) 
+    public function getPurchaseOrderList(Request $request)
     {
         try {
             $varAPIWebToken = Session::get('SessionLogin');
 
-            $start  = $request->input('start', 0);
+            $start = $request->input('start', 0);
             $length = $request->input('length', 10);
             $offset = $start;
-            $limit  = $length;
+            $limit = $length;
 
             $searchValue = $request->input('search.value');
             $filter = null;
@@ -1452,9 +1405,9 @@ class FunctionController extends Controller
 
             $varData = Helper_APICall::setCallAPIGateway(
                 Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'dataPickList.supplyChain.getPurchaseOrder', 
-                'latest', 
+                $varAPIWebToken,
+                'dataPickList.supplyChain.getPurchaseOrder',
+                'latest',
                 [
                     'parameter' => null,
                     'SQLStatement' => [
@@ -1468,35 +1421,35 @@ class FunctionController extends Controller
 
             if ($varData['metadata']['HTTPStatusCode'] !== 200) {
                 return response()->json([
-                    'draw'              => intval($request->input('draw')),
-                    'recordsTotal'      => 0,
-                    'recordsFiltered'   => 0,
-                    'data'              => []
+                    'draw' => intval($request->input('draw')),
+                    'recordsTotal' => 0,
+                    'recordsFiltered' => 0,
+                    'data' => []
                 ]);
             }
 
             $totalRecords = $varData['data']['totalRecords'];
 
             return response()->json([
-                'draw'              => intval($request->input('draw')),
-                'recordsTotal'      => $totalRecords,
-                'recordsFiltered'   => $totalRecords,
-                'data'              => $varData['data']['data']
+                'draw' => intval($request->input('draw')),
+                'recordsTotal' => $totalRecords,
+                'recordsFiltered' => $totalRecords,
+                'data' => $varData['data']['data']
             ]);
         } catch (\Throwable $th) {
             Log::error("Error at getPurchaseOrderList: " . $th->getMessage());
 
             return response()->json([
-                'draw'              => intval($request->input('draw')),
-                'recordsTotal'      => 0,
-                'recordsFiltered'   => 0,
-                'data'              => [],
-                'error'             => 'Internal Server Error'
+                'draw' => intval($request->input('draw')),
+                'recordsTotal' => 0,
+                'recordsFiltered' => 0,
+                'data' => [],
+                'error' => 'Internal Server Error'
             ]);
         }
     }
 
-    public function getPurchaseOrderDetail(Request $request) 
+    public function getPurchaseOrderDetail(Request $request)
     {
         try {
             $varAPIWebToken = Session::get('SessionLogin');
@@ -1556,11 +1509,11 @@ class FunctionController extends Controller
 
             if (empty($varData)) {
                 $varData = [
-                    ['name' => 'Taxi', 'value' => "221000000000026"],
-                    ['name' => 'Airplane', 'value' => "221000000000046"],
-                    ['name' => 'Train', 'value' => "221000000000043"],
-                    ['name' => 'Bus', 'value' => "221000000000039"],
-                    ['name' => 'Ship', 'value' => "221000000000050"],
+                    ['name' => 'Taxi', 'value' => "221000000000025"], // BEFORE => 221000000000026
+                    ['name' => 'Airplane', 'value' => "221000000000045"], // BEFORE => 221000000000046
+                    ['name' => 'Train', 'value' => "221000000000042"], // BEFORE => 221000000000043
+                    ['name' => 'Bus', 'value' => "221000000000038"], // BEFORE => 221000000000039
+                    ['name' => 'Ship', 'value' => "221000000000049"], // BEFORE => 221000000000050
                     ['name' => 'Tol/Road', 'value' => "221000000000004"],
                     ['name' => 'Park', 'value' => "221000000000005"],
                     ['name' => 'Excess Baggage', 'value' => "221000000000006"],
@@ -1587,15 +1540,15 @@ class FunctionController extends Controller
     {
         try {
             $varAPIWebToken = Session::get('SessionLogin');
-            $userSession    = Helper_Environment::getUserSessionID_System();
+            $userSession = Helper_Environment::getUserSessionID_System();
 
             $varData = Helper_APICall::setCallAPIGateway(
                 Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'dataPickList.humanResource.getPersonWorkTimeSheet', 
+                $varAPIWebToken,
+                'dataPickList.humanResource.getPersonWorkTimeSheet',
                 'latest',
                 [
-                'parameter' => [
+                    'parameter' => [
                     ]
                 ]
             );
@@ -1618,11 +1571,11 @@ class FunctionController extends Controller
 
             $varData = Helper_APICall::setCallAPIGateway(
                 Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'dataPickList.supplyChain.getWarehouse', 
+                $varAPIWebToken,
+                'dataPickList.supplyChain.getWarehouse',
                 'latest',
                 [
-                'parameter' => [
+                    'parameter' => [
                     ]
                 ]
             );
@@ -1645,11 +1598,11 @@ class FunctionController extends Controller
 
             $varData = Helper_APICall::setCallAPIGateway(
                 Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'dataPickList.accounting.getAssetCategory', 
+                $varAPIWebToken,
+                'dataPickList.accounting.getAssetCategory',
                 'latest',
                 [
-                'parameter' => [
+                    'parameter' => [
                     ]
                 ]
             );
@@ -1670,54 +1623,54 @@ class FunctionController extends Controller
     {
         return response()->json([
             [
-                "id"    => 1,
-                "code"  => 8231,
-                "name"  => "Pondasi"
+                "id" => 1,
+                "code" => 8231,
+                "name" => "Pondasi"
             ],
             [
-                "id"    => 2,
-                "code"  => 8232,
-                "name"  => "Dinding"
+                "id" => 2,
+                "code" => 8232,
+                "name" => "Dinding"
             ],
             [
-                "id"    => 3,
-                "code"  => 8233,
-                "name"  => "Atap"
+                "id" => 3,
+                "code" => 8233,
+                "name" => "Atap"
             ],
             [
-                "id"    => 4,
-                "code"  => 8234,
-                "name"  => "Plafon"
+                "id" => 4,
+                "code" => 8234,
+                "name" => "Plafon"
             ],
             [
-                "id"    => 5,
-                "code"  => 8235,
-                "name"  => "Lantai"
+                "id" => 5,
+                "code" => 8235,
+                "name" => "Lantai"
             ],
             [
-                "id"    => 6,
-                "code"  => 8236,
-                "name"  => "Pintu"
+                "id" => 6,
+                "code" => 8236,
+                "name" => "Pintu"
             ],
             [
-                "id"    => 7,
-                "code"  => 8237,
-                "name"  => "Jendela"
+                "id" => 7,
+                "code" => 8237,
+                "name" => "Jendela"
             ],
             [
-                "id"    => 8,
-                "code"  => 8238,
-                "name"  => "Kusen"
+                "id" => 8,
+                "code" => 8238,
+                "name" => "Kusen"
             ],
             [
-                "id"    => 9,
-                "code"  => 8239,
-                "name"  => "Keramik"
+                "id" => 9,
+                "code" => 8239,
+                "name" => "Keramik"
             ],
             [
-                "id"    => 10,
-                "code"  => 8240,
-                "name"  => "Cat"
+                "id" => 10,
+                "code" => 8240,
+                "name" => "Cat"
             ]
         ]);
     }
@@ -1729,11 +1682,11 @@ class FunctionController extends Controller
 
             $varData = Helper_APICall::setCallAPIGateway(
                 Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'dataPickList.master.getInstitutionBankAccount', 
+                $varAPIWebToken,
+                'dataPickList.master.getInstitutionBankAccount',
                 'latest',
                 [
-                'parameter' => [
+                    'parameter' => [
                     ]
                 ]
             );
@@ -1757,11 +1710,11 @@ class FunctionController extends Controller
 
             $varData = Helper_APICall::setCallAPIGateway(
                 Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'dataPickList.accounting.getDepreciationMethod', 
+                $varAPIWebToken,
+                'dataPickList.accounting.getDepreciationMethod',
                 'latest',
                 [
-                'parameter' => [
+                    'parameter' => [
                     ]
                 ]
             );
@@ -1781,19 +1734,19 @@ class FunctionController extends Controller
     public function getDepreciationRateYears(Request $request)
     {
         try {
-            $varAPIWebToken             = Session::get('SessionLogin');
-            $assetCategoryRefID         = $request->assetCategoryRef_ID;
-            $depreciationMethodRefID    = $request->depreciationMethodRef_ID;
+            $varAPIWebToken = Session::get('SessionLogin');
+            $assetCategoryRefID = $request->assetCategoryRef_ID;
+            $depreciationMethodRefID = $request->depreciationMethodRef_ID;
 
             $varData = Helper_APICall::setCallAPIGateway(
                 Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'dataPickList.accounting.getDepreciationRateYears', 
+                $varAPIWebToken,
+                'dataPickList.accounting.getDepreciationRateYears',
                 'latest',
                 [
-                'parameter' => [
-                    'assetCategory_RefID'       => (int) $assetCategoryRefID,
-                    'depreciationMethod_RefID'  => (int) $depreciationMethodRefID
+                    'parameter' => [
+                        'assetCategory_RefID' => (int) $assetCategoryRefID,
+                        'depreciationMethod_RefID' => (int) $depreciationMethodRefID
                     ]
                 ]
             );
@@ -1813,10 +1766,10 @@ class FunctionController extends Controller
     public function getBusinessDocumentTypeSendRedis()
     {
         try {
-            $varAPIWebToken     = Session::get('SessionLogin');
-            $sessionUserRefID   = Session::get('SessionUser_RefID');
-            $cacheKey           = 'BusinessDocumentType';
-            $cacheTTL           = 86400; // 24 hrs
+            $varAPIWebToken = Session::get('SessionLogin');
+            $sessionUserRefID = Session::get('SessionUser_RefID');
+            $cacheKey = 'BusinessDocumentType';
+            $cacheTTL = 86400; // 24 hrs
 
             $cachedData = Helper_Redis::getValue(Helper_Environment::getUserSessionID_System(), $cacheKey);
 
@@ -1827,12 +1780,14 @@ class FunctionController extends Controller
                     'transaction.read.dataList.master.getBusinessDocumentType',
                     'latest',
                     [
-                        'parameter'     => [],
-                        'SQLStatement'  => [
-                            'pick'      => null,
-                            'sort'      => null,
-                            'filter'    => null,
-                            'paging'    => null
+                        'parameter' => [
+                            'statusPayment' => NULL,
+                        ],
+                        'SQLStatement' => [
+                            'pick' => null,
+                            'sort' => null,
+                            'filter' => null,
+                            'paging' => null
                         ]
                     ],
                     false
@@ -1854,8 +1809,8 @@ class FunctionController extends Controller
     public function getBusinessDocumentIssuanceDispositionCount()
     {
         try {
-            $varAPIWebToken     = Session::get('SessionLogin');
-            $sessionUserRefID   = Session::get('SessionUser_RefID');
+            $varAPIWebToken = Session::get('SessionLogin');
+            $sessionUserRefID = Session::get('SessionUser_RefID');
 
             $response = Helper_APICall::setCallAPIGateway(
                 Helper_Environment::getUserSessionID_System(),
@@ -1863,8 +1818,8 @@ class FunctionController extends Controller
                 'report.form.resume.master.getBusinessDocumentIssuanceDispositionCount',
                 'latest',
                 [
-                    'parameter'     => [
-                        'recordID'  => (int) $sessionUserRefID
+                    'parameter' => [
+                        'recordID' => (int) $sessionUserRefID
                     ]
                 ],
                 false

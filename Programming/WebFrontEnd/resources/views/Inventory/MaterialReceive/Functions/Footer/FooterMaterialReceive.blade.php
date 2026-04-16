@@ -1,22 +1,22 @@
 <script>
-    let dataStore                           = [];
-    const deliveryOrderCode                 = document.getElementById("delivery_order_code");
-    const receiveDate                       = document.getElementById("receive_date");
-    const receiveIn                         = document.getElementById("warehouse_id");
-    const tableMaterialReceiveLists         = document.querySelector("#material_receive_list_table_modal tbody");
+    let dataStore = [];
+    const deliveryOrderCode = document.getElementById("delivery_order_code");
+    const receiveDate = document.getElementById("receive_date");
+    const receiveIn = document.getElementById("warehouse_id");
+    const tableMaterialReceiveLists = document.querySelector("#material_receive_list_table_modal tbody");
 
-    const addressDeliveryOrderFrom          = document.getElementById("address_delivery_order_from");
+    const addressDeliveryOrderFrom = document.getElementById("address_delivery_order_from");
     const addressDeliveryOrderFromDuplicate = document.getElementById("address_delivery_order_from_duplicate");
-    const idDeliveryOrderFromDuplicate      = document.getElementById("id_delivery_order_from_duplicate");
+    const idDeliveryOrderFromDuplicate = document.getElementById("id_delivery_order_from_duplicate");
 
-    const addressDeliveryOrderTo            = document.getElementById("address_delivery_order_to");
-    const addressDeliveryOrderToDuplicate   = document.getElementById("address_delivery_order_to_duplicate");
-    const idDeliveryOrderToDuplicate        = document.getElementById("id_delivery_order_to_duplicate");
+    const addressDeliveryOrderTo = document.getElementById("address_delivery_order_to");
+    const addressDeliveryOrderToDuplicate = document.getElementById("address_delivery_order_to_duplicate");
+    const idDeliveryOrderToDuplicate = document.getElementById("id_delivery_order_to_duplicate");
 
     function calculateTotal() {
         let total = 0;
-        
-        document.querySelectorAll('input[id^="qty_req"]').forEach(function(input) {
+
+        document.querySelectorAll('input[id^="qty_req"]').forEach(function (input) {
             let value = parseFloat(input.value.replace(/,/g, ''));
             if (!isNaN(value)) {
                 total += value;
@@ -30,7 +30,7 @@
         let total = 0;
         const rows = document.querySelectorAll('#material_receive_list_table_modal tbody tr');
         rows.forEach(row => {
-            const totalCell = row.children[4];
+            const totalCell = row.children[3];
             const value = parseFloat(totalCell.innerText.replace(/,/g, '')) || 0;
             total += value;
         });
@@ -43,8 +43,8 @@
         let hasFullRow = false;
 
         rows.forEach((row, index) => {
-            const qty   = document.getElementById(`qty_req${index}`)?.value.trim();
-            const note  = document.getElementById(`note${index}`)?.value.trim();
+            const qty = document.getElementById(`qty_req${index}`)?.value.trim();
+            const note = document.getElementById(`note${index}`)?.value.trim();
 
             if (qty !== "" && note !== "") {
                 hasFullRow = true;
@@ -52,8 +52,8 @@
         });
 
         rows.forEach((row, index) => {
-            const qtyEl     = document.getElementById(`qty_req${index}`);
-            const noteEl    = document.getElementById(`note${index}`);
+            const qtyEl = document.getElementById(`qty_req${index}`);
+            const noteEl = document.getElementById(`note${index}`);
 
             if (hasFullRow) {
                 $(qtyEl).css("border", "1px solid #ced4da");
@@ -76,9 +76,9 @@
                     if (indexInput != index && (qtyEl.value.trim() == "" && noteEl.value.trim() == "")) {
                         $(qtyEl).css("border", "1px solid #ced4da");
                         $(noteEl).css("border", "1px solid #ced4da");
-                    } 
+                    }
                 } else {
-                    $(qtyEl).css("border", "1px solid red");noteEl
+                    $(qtyEl).css("border", "1px solid red"); noteEl
                     $(noteEl).css("border", "1px solid red");
                     $("#deliveryOrderDetailMessage").show();
                 }
@@ -95,40 +95,40 @@
         const rows = sourceTable.getElementsByTagName('tr');
 
         for (let row of rows) {
-            const deliveryOrderDetail_RefID             = row.querySelector('input[id^="delivery_order_detail_id"]');
-            const product_RefID                         = row.querySelector('input[id^="product_RefID"]');
-            const combinedBudgetSectionDetailRefID      = row.querySelector('input[id^="combinedBudgetSectionDetail_RefID"]');
-            const quantityUnit_RefID                    = row.querySelector('input[id^="quantityUnit_RefID"]');
-            const productUnitPriceCurrency_RefID        = row.querySelector('input[id^="productUnitPriceCurrency_RefID"]');
-            const productUnitPriceCurrencyExchangeRate  = row.querySelector('input[id^="productUnitPriceCurrencyExchangeRate"]');
-            const productUnitPriceBaseCurrencyValue     = row.querySelector('input[id^="productUnitPriceBaseCurrencyValue"]');
-            const qtyInput                              = row.querySelector('input[id^="qty_req"]');
-            const noteInput                             = row.querySelector('textarea[id^="note"]');
+            const deliveryOrderDetail_RefID = row.querySelector('input[id^="delivery_order_detail_id"]');
+            const workStructureRefID = row.querySelector('input[id^="workStructure_RefID"]');
+            const product_RefID = row.querySelector('input[id^="product_RefID"]');
+            const combinedBudgetSectionDetailRefID = row.querySelector('input[id^="combinedBudgetSectionDetail_RefID"]');
+            const quantityUnit_RefID = row.querySelector('input[id^="quantityUnit_RefID"]');
+            const productUnitPriceCurrency_RefID = row.querySelector('input[id^="productUnitPriceCurrency_RefID"]');
+            const productUnitPriceCurrencyExchangeRate = row.querySelector('input[id^="productUnitPriceCurrencyExchangeRate"]');
+            const productUnitPriceBaseCurrencyValue = row.querySelector('input[id^="productUnitPriceBaseCurrencyValue"]');
+            const qtyInput = row.querySelector('input[id^="qty_req"]');
+            const noteInput = row.querySelector('textarea[id^="note"]');
 
             if (
                 qtyInput && noteInput &&
                 qtyInput.value.trim() !== '' &&
                 noteInput.value.trim() !== ''
             ) {
-                const transNumber   = row.children[0].value.trim();
-                const productCode   = row.children[2].value.trim();
-                const productName   = row.children[3].value.trim();
-                const qtyAvail      = row.children[5].value.trim();
-                const uom           = row.children[6].value.trim();
+                const transNumber = row.children[0].value.trim();
+                const productCode = row.children[15].innerText.trim();
+                const qtyAvail = row.children[5].value.trim();
+                const uom = row.children[6].value.trim();
 
-                const qty   = qtyInput.value.trim();
+                const qty = qtyInput.value.trim();
                 const price = productUnitPriceBaseCurrencyValue.value.trim();
-                const note  = noteInput.value.trim();
+                const note = noteInput.value.trim();
 
-                let found           = false;
-                const existingRows  = targetTable.getElementsByTagName('tr');
+                let found = false;
+                const existingRows = targetTable.getElementsByTagName('tr');
 
                 for (let targetRow of existingRows) {
                     const targetProductCode = targetRow.children[1].innerText.trim();
 
                     if (targetProductCode == productCode) {
-                        targetRow.children[4].innerText = qty;
-                        targetRow.children[5].innerText = note;
+                        targetRow.children[3].innerText = qty;
+                        targetRow.children[4].innerText = note;
                         found = true;
 
                         const indexToUpdate = dataStore.findIndex(item => item.entities.productCode == productCode);
@@ -144,7 +144,8 @@
                                     productUnitPriceCurrency_RefID: parseInt(productUnitPriceCurrency_RefID.value),
                                     productUnitPriceCurrencyExchangeRate: parseInt(productUnitPriceCurrencyExchangeRate.value),
                                     productUnitPriceCurrencyValue: parseFloat(price.replace(/,/g, '')),
-                                    combinedBudgetSectionDetail_RefID: parseInt(combinedBudgetSectionDetailRefID.value)
+                                    combinedBudgetSectionDetail_RefID: parseInt(combinedBudgetSectionDetailRefID.value),
+                                    workStructure_RefID: parseInt(workStructureRefID.value)
                                 }
                             };
                         }
@@ -155,8 +156,7 @@
                     const newRow = document.createElement('tr');
                     newRow.innerHTML = `
                         <input type="hidden" name="qty_avail[]" value="${qtyAvail}">
-                        <td style="text-align: left;padding: 0.8rem; width: 15% !important;">${productCode}</td>
-                        <td style="text-align: left;padding: 0.8rem;text-wrap: auto;">${productName}</td>
+                        <td style="text-align: left;padding: 0.8rem;text-wrap: auto;">${productCode}</td>
                         <td style="text-align: left;padding: 0.8rem;">${uom}</td>
                         <td style="text-align: right;padding: 0.8rem;">${qty}</td>
                         <td style="text-align: right;padding: 0.8rem;" hidden>${note}</td>
@@ -174,25 +174,42 @@
                             productUnitPriceCurrency_RefID: parseInt(productUnitPriceCurrency_RefID.value),
                             productUnitPriceCurrencyExchangeRate: parseInt(productUnitPriceCurrencyExchangeRate.value),
                             productUnitPriceCurrencyValue: parseFloat(price.replace(/,/g, '')),
-                            combinedBudgetSectionDetail_RefID: parseInt(combinedBudgetSectionDetailRefID.value)
+                            combinedBudgetSectionDetail_RefID: parseInt(combinedBudgetSectionDetailRefID.value),
+                            workStructure_RefID: parseInt(workStructureRefID.value)
                         }
                     });
                 }
+            } else {
+                const productCode = row.children[14].innerText.trim();
+                const existingRows = targetTable.getElementsByTagName('tr');
+
+                for (let targetRow of existingRows) {
+                    const targetProductCode = targetRow.children[1].innerText.trim();
+
+                    if (targetProductCode == productCode) {
+                        targetRow.remove();
+                        break;
+                    }
+                }
+
+                dataStore = dataStore.filter(item => {
+                    return !(item.entities.productCode === productCode);
+                });
             }
         }
-        
+
         dataStore = dataStore.filter(item => item !== undefined);
 
         updateGrandTotal();
     }
 
     function validationForm() {
-        const isDeliveryOrderCodeNotEmpty           = deliveryOrderCode.value.trim() !== '';
-        const isReceiveDateNotEmpty                 = receiveDate.value.trim() !== '';
-        const isReceiveInNotEmpty                   = receiveIn.value.trim() !== '';
-        const isAddressDeliveryOrderFromNotEmpty    = addressDeliveryOrderFrom.value.trim() !== '';
-        const isAddressDeliveryOrderToNotEmpty      = addressDeliveryOrderTo.value.trim() !== '';
-        const isTableNotEmpty                       = checkOneLineBudgetContents();
+        const isDeliveryOrderCodeNotEmpty = deliveryOrderCode.value.trim() !== '';
+        const isReceiveDateNotEmpty = receiveDate.value.trim() !== '';
+        const isReceiveInNotEmpty = receiveIn.value.trim() !== '';
+        const isAddressDeliveryOrderFromNotEmpty = addressDeliveryOrderFrom.value.trim() !== '';
+        const isAddressDeliveryOrderToNotEmpty = addressDeliveryOrderTo.value.trim() !== '';
+        const isTableNotEmpty = checkOneLineBudgetContents();
 
         if (isDeliveryOrderCodeNotEmpty && isReceiveDateNotEmpty && isReceiveInNotEmpty && isAddressDeliveryOrderFromNotEmpty && isAddressDeliveryOrderToNotEmpty && isTableNotEmpty) {
             $('#material_receive_submit_modal').modal('show');
@@ -267,7 +284,7 @@
         $.ajax({
             type: 'GET',
             url: '{!! route("getDeliveryOrderDetail") !!}?delivery_order_id=' + delivery_order_id,
-            success: async function(data) {
+            success: async function (data) {
                 let tbody = $('#tableMaterialReceiveDetail tbody');
                 tbody.empty();
 
@@ -293,7 +310,7 @@
                     $("#deliveryDateTimeTZ").val(data[0].deliveryDateTimeTZ);
                     $("#var_combinedBudget_RefID").val(data[0].combinedBudget_RefID);
 
-                    $("#delivery_order_code").css({"border": "1px solid #ced4da", "background-color": "#e9ecef"});
+                    $("#delivery_order_code").css({ "border": "1px solid #ced4da", "background-color": "#e9ecef" });
                     $("#deliveryOrderMessage").hide();
 
                     $("#do_type").val(formatLabel(data[0].type));
@@ -323,7 +340,7 @@
                         $("#do_status").val(data[0].stockMovementStatus);
                     }
 
-                    $.each(data, function(key, val2) {
+                    $.each(data, function (key, val2) {
                         let row = `
                             <tr>
                                 <input id="trano${key}" value="${delivery_order_number}" type="hidden" />
@@ -338,10 +355,11 @@
                                 <input id="productUnitPriceCurrency_RefID${key}" value="${val2.productUnitPriceCurrency_RefID}" type="hidden" />
                                 <input id="productUnitPriceCurrencyExchangeRate${key}" value="${val2.productUnitPriceCurrencyExchangeRate}" type="hidden" />
                                 <input id="productUnitPriceBaseCurrencyValue${key}" value="${val2.productUnitPriceBaseCurrencyValue}" type="hidden" />
+                                <input id="workStructure_RefID${key}" value="${val2.workStructure_RefID}" type="hidden" />
 
-                                <td style="text-align: center;">${data[0].combinedBudgetSectionCode + ' - ' + data[0].combinedBudgetSectionName}</td>
-                                <td style="text-align: center;">${val2.productCode}</td>
-                                <td style="text-align: center;text-wrap: auto;">${val2.productName}</td>
+                                <td style="text-align: center;">${val2.workCode} - ${val2.workName}</td>
+                                <td style="text-align: left;">${data[0].combinedBudgetSectionCode + ' - ' + data[0].combinedBudgetSectionName}</td>
+                                <td style="text-align: left;text-wrap: auto;">${val2.productCode} - ${val2.productName}</td>
                                 <td style="text-align: center;">${val2.qtyReq}</td>
                                 <td style="text-align: center;">${val2.qtyAvail}</td>
                                 <td style="text-align: center;">${val2.quantityUnitName}</td>
@@ -358,10 +376,10 @@
 
                         tbody.append(row);
 
-                        $(`#qty_req${key}`).on('keyup', function() {
-                            var qty_req     = $(this).val().replace(/,/g, '');
-                            var data_index  = $(this).data('index');
-                            var result      = val2.qtyReq - qty_req;
+                        $(`#qty_req${key}`).on('keyup', function () {
+                            var qty_req = $(this).val().replace(/,/g, '');
+                            var data_index = $(this).data('index');
+                            var result = val2.qtyReq - qty_req;
 
                             if (parseFloat(qty_req) > val2.qtyReq) {
                                 $(this).val("");
@@ -374,13 +392,14 @@
                             checkOneLineBudgetContents(key);
                         });
 
-                        $(`#note${key}`).on('keyup', function() {
+                        $(`#note${key}`).on('keyup', function () {
                             checkOneLineBudgetContents(key);
                         });
                     });
 
                     $(".loadingMaterialReceiveDetail").hide();
                     $("#tableMaterialReceiveDetail tbody").show();
+                    $(".errorMessageContainerMaterialReceiveDetail").hide();
                 } else {
                     $(".loadingMaterialReceiveDetail").hide();
                     $(".errorMessageContainerMaterialReceiveDetail").show();
@@ -391,6 +410,9 @@
                     $("#tableMaterialReceiveDetail_info").hide();
                     $("#tableMaterialReceiveDetail_paginate").hide();
                 }
+
+                $("#delivery_order_loading").hide();
+                $("#delivery_order_trigger").show();
             },
             error: function (textStatus, errorThrown) {
                 $('#tableMaterialReceiveDetail tbody').empty();
@@ -424,7 +446,7 @@
         }).then((result) => {
             if ('value' in result) {
                 ShowLoading();
-                MaterialReceiveStore({...formatData, comment: result.value});
+                MaterialReceiveStore({ ...formatData, comment: result.value });
             }
         });
     }
@@ -440,7 +462,7 @@
             type: 'POST',
             data: formatData,
             url: '{{ route("MaterialReceive.store") }}',
-            success: function(res) {
+            success: function (res) {
                 HideLoading();
 
                 if (res.status == 200) {
@@ -468,7 +490,7 @@
                     ErrorNotif("Data Cancel Inputed");
                 }
             },
-            error: function(jqXHR, textStatus, errorThrown) {
+            error: function (jqXHR, textStatus, errorThrown) {
                 console.log('error', jqXHR, textStatus, errorThrown);
             }
         });
@@ -488,7 +510,7 @@
         form_data.append('materialReceiveDetail', JSON.stringify(dataStore));
 
         ShowLoading();
-        
+
         $.ajax({
             url: action,
             dataType: 'json',
@@ -497,7 +519,7 @@
             processData: false,
             data: form_data,
             type: method,
-            success: function(response) {
+            success: function (response) {
                 HideLoading();
 
                 if (response.message == "WorkflowError") {
@@ -507,7 +529,7 @@
 
                     let t = $('#tableGetWorkFlow').DataTable();
                     t.clear();
-                    $.each(response.data, function(key, val) {
+                    $.each(response.data, function (key, val) {
                         t.row.add([
                             '<td><span data-dismiss="modal" onclick="SelectWorkFlow(\'' + val.Sys_ID + '\', \'' + val.NextApprover_RefID + '\', \'' + response.approverEntity_RefID + '\', \'' + response.documentTypeID + '\');"><img src="{{ asset("AdminLTE-master/dist/img/add.png") }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></span></td>',
                             '<td style="border:1px solid #e9ecef;">' + val.FullApproverPath + '</td></tr></tbody>'
@@ -515,9 +537,9 @@
                     });
                 } else {
                     const formatData = {
-                        workFlowPath_RefID: response.workFlowPath_RefID, 
-                        nextApprover: response.nextApprover_RefID, 
-                        approverEntity: response.approverEntity_RefID, 
+                        workFlowPath_RefID: response.workFlowPath_RefID,
+                        nextApprover: response.nextApprover_RefID,
+                        approverEntity: response.approverEntity_RefID,
                         documentTypeID: response.documentTypeID,
                         storeData: response.storeData
                     };
@@ -525,17 +547,17 @@
                     SelectWorkFlow(formatData);
                 }
             },
-            error: function(response) {
+            error: function (response) {
                 console.log('response error', response);
-                
+
                 HideLoading();
                 CancelNotif("You don't have access", "{{ route('MaterialReceive.index', ['var' => 1]) }}");
             }
         });
     }
 
-    $('#tableGetDeliveryOrder').on('click', 'tbody tr', function() {
-        let sysId       = $(this).find('input[data-trigger="sys_id_delivery_order"]').val();
+    $('#tableGetDeliveryOrder').on('click', 'tbody tr', function () {
+        let sysId = $(this).find('input[data-trigger="sys_id_delivery_order"]').val();
         let projectCode = $(this).find('td:nth-child(2)').text();
 
         GetDeliveryOrderDetail(sysId, projectCode);
@@ -543,21 +565,21 @@
         $("#myDeliveryOrder").modal('toggle');
     });
 
-    $('#tableGetModalWarehouses').on('click', 'tbody tr', function() {
-        let sysId   = $(this).find('input[data-trigger="sys_id_modal_warehouse"]').val();
-        let name    = $(this).find('td:nth-child(2)').text();
+    $('#tableGetModalWarehouses').on('click', 'tbody tr', function () {
+        let sysId = $(this).find('input[data-trigger="sys_id_modal_warehouse"]').val();
+        let name = $(this).find('td:nth-child(2)').text();
         let address = $(this).find('td:nth-child(3)').text();
 
         $("#warehouse_id").val(sysId);
         $("#warehouse_name").val(name);
         $("#warehouse_address").val(`${name} - ${address}`);
-        $("#warehouse_address").css({"border": "1px solid #ced4da", "background-color": "#e9ecef"});
+        $("#warehouse_address").css({ "border": "1px solid #ced4da", "background-color": "#e9ecef" });
         $("#receiveInMessage").hide();
 
         $("#myGetModalWarehouses").modal('toggle');
     });
 
-    $('#address_delivery_order_from').on('input', function() {
+    $('#address_delivery_order_from').on('input', function () {
         if ($(this).val().trim() === addressDeliveryOrderFromDuplicate.value) {
             $("#id_delivery_order_from").val(idDeliveryOrderFromDuplicate.value);
         } else {
@@ -565,7 +587,7 @@
         }
     });
 
-    $('#address_delivery_order_to').on('input', function() {
+    $('#address_delivery_order_to').on('input', function () {
         if ($(this).val().trim() === addressDeliveryOrderToDuplicate.value) {
             $("#id_delivery_order_to").val(idDeliveryOrderToDuplicate.value);
         } else {
@@ -573,7 +595,7 @@
         }
     });
 
-    $(window).one('load', function(e) {
+    $(document).ready(function () {
         $(".loadingMaterialReceiveDetail").hide();
         $(".errorMessageContainerMaterialReceiveDetail").hide();
 
@@ -590,5 +612,7 @@
                 $("#receiveDateMessage").hide();
             }
         });
+
+        getModalWarehouses();
     });
 </script>

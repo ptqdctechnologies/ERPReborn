@@ -20,27 +20,27 @@ class LoanSettlementController extends Controller
 {
     public function __construct(LoanSettlementService $loanSettlementService)
     {
-        $this->loanSettlementService  = $loanSettlementService;
+        $this->loanSettlementService = $loanSettlementService;
     }
 
     public function index(Request $request)
     {
-        $var                = $request->query('var', 0);
-        $varAPIWebToken     = Session::get('SessionLogin');
-        $documentTypeRefID  = $this->GetBusinessDocumentsTypeFromRedis('Loan Settlement Form');
+        $var = $request->query('var', 0);
+        $varAPIWebToken = Session::get('SessionLogin');
+        $documentTypeRefID = $this->GetBusinessDocumentsTypeFromRedis('Loan Settlement Form');
 
         return view('Process.LoanSettlement.Transactions.CreateLoanSettlement', [
-            'var'                   => $var,
-            'varAPIWebToken'        => $varAPIWebToken,
-            'documentType_RefID'    => $documentTypeRefID
+            'var' => $var,
+            'varAPIWebToken' => $varAPIWebToken,
+            'documentType_RefID' => $documentTypeRefID
         ]);
     }
 
     public function RevisionLoanSettlement(Request $request)
     {
-        $varAPIWebToken         = Session::get('SessionLogin');
-        $loanSettlementRefID    = $request->input('modal_loan_settlement_id');
-        $documentTypeRefID      = $this->GetBusinessDocumentsTypeFromRedis('Loan Settlement Revision Form');
+        $varAPIWebToken = Session::get('SessionLogin');
+        $loanSettlementRefID = $request->input('modal_loan_settlement_id');
+        $documentTypeRefID = $this->GetBusinessDocumentsTypeFromRedis('Loan Settlement Revision Form');
 
         $response = $this->loanSettlementService->getDetail($loanSettlementRefID);
 
@@ -51,40 +51,40 @@ class LoanSettlementController extends Controller
         $dataLoanSettlementDetail = $response['data']['data'];
 
         $compact = [
-            'varAPIWebToken'        => $varAPIWebToken,
-            'documentType_RefID'    => $documentTypeRefID,
-            'header'                => [
-                'loanType'          => '-',
-                'creditorDebitor'   => '-',
-                'currencyID'        => $dataLoanSettlementDetail[0]['Currency_RefID'],
-                'currencyCode'      => $dataLoanSettlementDetail[0]['ISOCode'],
-                'currencyExchange'  => $dataLoanSettlementDetail[0]['CurrencyExchangeRate'],
-                'bankID'            => '-',
-                'bankCode'          => '-',
-                'bankName'          => '-',
-                'bankAccountID'     => '-',
-                'bankAccountCode'   => '-',
-                'bankAccountName'   => '-',
-                'loanDate'          => '-',
-                'loanPrinciple'     => '-',
-                'lendingRate'       => '-',
-                'loanTotal'         => '-',
-                'loanTerm'          => '-',
-                'remark'            => $dataLoanSettlementDetail[0]['Notes']
+            'varAPIWebToken' => $varAPIWebToken,
+            'documentType_RefID' => $documentTypeRefID,
+            'header' => [
+                'loanType' => '-',
+                'creditorDebitor' => '-',
+                'currencyID' => $dataLoanSettlementDetail[0]['Currency_RefID'],
+                'currencyCode' => $dataLoanSettlementDetail[0]['ISOCode'],
+                'currencyExchange' => $dataLoanSettlementDetail[0]['CurrencyExchangeRate'],
+                'bankID' => '-',
+                'bankCode' => '-',
+                'bankName' => '-',
+                'bankAccountID' => '-',
+                'bankAccountCode' => '-',
+                'bankAccountName' => '-',
+                'loanDate' => '-',
+                'loanPrinciple' => '-',
+                'lendingRate' => '-',
+                'loanTotal' => '-',
+                'loanTerm' => '-',
+                'remark' => $dataLoanSettlementDetail[0]['Notes']
             ],
-            'detail'                => [
-                'settlementValue'   => $dataLoanSettlementDetail[0]['PrincipleSettlement'],
-                'penaltyValue'      => $dataLoanSettlementDetail[0]['PenaltySettlement'],
-                'interestValue'     => $dataLoanSettlementDetail[0]['InterestSettlement'],
-                'COASettlementID'   => '-',
+            'detail' => [
+                'settlementValue' => $dataLoanSettlementDetail[0]['PrincipleSettlement'],
+                'penaltyValue' => $dataLoanSettlementDetail[0]['PenaltySettlement'],
+                'interestValue' => $dataLoanSettlementDetail[0]['InterestSettlement'],
+                'COASettlementID' => '-',
                 'COASettlementCode' => $dataLoanSettlementDetail[0]['COA_Settlement_Code'],
                 'COASettlementName' => $dataLoanSettlementDetail[0]['COA_Settlement_Name'],
-                'COAPenaltyID'      => '-',
-                'COAPenaltyCode'    => $dataLoanSettlementDetail[0]['COA_Penalty_Code'],
-                'COAPenaltyName'    => $dataLoanSettlementDetail[0]['COA_Penalty_Name'],
-                'COAInterestID'     => '-',
-                'COAInterestCode'   => $dataLoanSettlementDetail[0]['COA_Interest_Code'],
-                'COAInterestName'   => $dataLoanSettlementDetail[0]['COA_Interest_Name'],
+                'COAPenaltyID' => '-',
+                'COAPenaltyCode' => $dataLoanSettlementDetail[0]['COA_Penalty_Code'],
+                'COAPenaltyName' => $dataLoanSettlementDetail[0]['COA_Penalty_Name'],
+                'COAInterestID' => '-',
+                'COAInterestCode' => $dataLoanSettlementDetail[0]['COA_Interest_Code'],
+                'COAInterestName' => $dataLoanSettlementDetail[0]['COA_Interest_Name'],
             ]
         ];
 
@@ -93,22 +93,34 @@ class LoanSettlementController extends Controller
 
     public function ReportLoanSettlementSummary(Request $request)
     {
-        return view('Process.LoanSettlement.Reports.ReportLoanSettlementSummary');
+        $documentTypeRefID = $this->GetBusinessDocumentsTypeFromRedis('Loan Settlement Form');
+        $sessionOrganizationalDepartmentName = Session::get('SessionOrganizationalDepartmentName');
+        $sessionOrganizationalJobPositionName = Session::get('SessionOrganizationalJobPositionName');
+
+        $compact = [
+            'documentTypeRefID' => $documentTypeRefID,
+            'sessionOrganizationalDepartmentName' => $sessionOrganizationalDepartmentName,
+            'sessionOrganizationalJobPositionName' => $sessionOrganizationalJobPositionName
+        ];
+
+        return view('Process.LoanSettlement.Reports.ReportLoanSettlementSummary', $compact);
     }
 
     public function ReportLoanSettlementSummaryStore(Request $request)
     {
         try {
-            $date           = $request->loanSettlementDate;
-            $budget         = [
-                "id"        => $request->budget_id,
-                "code"      => $request->budget_code,
+            $date = $request->loanSettlementDate;
+            $creditor = $request->creditor_id;
+            $debitor = $request->debitor_id;
+            $budget = [
+                "id" => $request->budget_id,
+                "code" => $request->budget_code,
             ];
 
             $response = $this->loanSettlementService->getLoanSettlementSummary(
                 $budget['code'],
-                null,
-                null,
+                $creditor,
+                $debitor,
                 $date
             );
 
@@ -117,8 +129,8 @@ class LoanSettlementController extends Controller
             }
 
             $compact = [
-                'status'    => $response['metadata']['HTTPStatusCode'],
-                'data'      => $response['data']['data']
+                'status' => $response['metadata']['HTTPStatusCode'],
+                'data' => $response['data']['data']
             ];
 
             return response()->json($compact);
@@ -126,8 +138,8 @@ class LoanSettlementController extends Controller
             Log::error("Report Loan Settlement Store Function Error:" . $th->getMessage());
 
             $compact = [
-                'status'    => 500,
-                'message'   => $th->getMessage()
+                'status' => 500,
+                'message' => $th->getMessage()
             ];
 
             return response()->json($compact);
@@ -140,7 +152,7 @@ class LoanSettlementController extends Controller
             $dataPDF = Session::get("LoanSettlementReportSummaryDataPDF");
             $dataExcel = Session::get("LoanSettlementReportSummaryDataExcel");
 
-            
+
             if ($dataPDF && $dataExcel) {
                 $print_type = $request->print_type;
                 if ($print_type == "PDF") {
@@ -151,7 +163,7 @@ class LoanSettlementController extends Controller
                     $pdf->output();
                     $dom_pdf = $pdf->getDomPDF();
 
-                    $canvas = $dom_pdf ->get_canvas();
+                    $canvas = $dom_pdf->get_canvas();
                     $width = $canvas->get_width();
                     $height = $canvas->get_height();
                     $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
@@ -179,8 +191,8 @@ class LoanSettlementController extends Controller
             $dataReport = $isSubmitButton ? $request->session()->get('dataReportLoanSettlementDetail', []) : [];
 
             $compact = [
-                'varAPIWebToken'    => $varAPIWebToken,
-                'dataReport'        => $dataReport
+                'varAPIWebToken' => $varAPIWebToken,
+                'dataReport' => $dataReport
             ];
 
             return view('Process.LoanSettlement.Reports.ReportLoanSettlementDetail', $compact);
@@ -193,7 +205,7 @@ class LoanSettlementController extends Controller
     public function ReportLoanSettlementDetailData($brf_trano, $brf_id, $brf_budget, $brf_budget_name, $brf_sub_budget, $brf_sub_budget_name)
     {
         try {
-            $varAPIWebToken         = Session::get('SessionLogin');
+            $varAPIWebToken = Session::get('SessionLogin');
             // $getReportAdvanceDetail = Helper_APICall::setCallAPIGateway(
             //     Helper_Environment::getUserSessionID_System(),
             //     $varAPIWebToken, 
@@ -211,12 +223,12 @@ class LoanSettlementController extends Controller
                     "0" => [
                         "document" => [
                             "header" => [
-                                "recordID"                      => "76000000000002",
-                                "title"                         => "Advance Form",
-                                "number"                        => "Adv/QDC/2022/000239",
-                                "version"                       => "0",
-                                "date"                          => "2022-12-13",
-                                "businessDocumentType_RefID"    => "77000000000057"
+                                "recordID" => "76000000000002",
+                                "title" => "Advance Form",
+                                "number" => "Adv/QDC/2022/000239",
+                                "version" => "0",
+                                "date" => "2022-12-13",
+                                "businessDocumentType_RefID" => "77000000000057"
                             ],
                             "content" => [
                                 "general" => [
@@ -243,7 +255,7 @@ class LoanSettlementController extends Controller
                                     ],
                                     "businessDocument" => [
                                         "businessDocumentList" => [
-                                            "recordID"  => "74000000020307",
+                                            "recordID" => "74000000020307",
                                             "formBusinessDocumentNumber_RefID" => "76000000000002",
                                             "type_RefID" => "77000000000057",
                                             "typeName" => "Advance Form",
@@ -317,37 +329,37 @@ class LoanSettlementController extends Controller
             $splitResponse = $getReportAdvanceDetail['data'][0]['document'];
 
             $compact = [
-                'dataHeaderOne'     => [
-                    'brfId'             => $brf_id,
-                    'brfNumber'         => $brf_trano,
-                    'budgetCode'        => $brf_budget,
-                    'budgetName'        => $brf_budget_name,
-                    'siteCode'          => $brf_sub_budget,
-                    'siteName'          => $brf_sub_budget_name,
-                    'productID'         => '820005-0000',
-                    'productName'       => 'Travel & Fares/Business Trip',
-                    'dateCommence'      => '2024-12-18',
-                    'dateEnd'           => '2024-12-20',
-                    'dateBRF'           => '2024-12-12',
-                    'contactPhone'      => '0896734873',
-                    'bankType'          => $splitResponse['content']['general']['bankAccount']['beneficiary']['bankAcronym'],
+                'dataHeaderOne' => [
+                    'brfId' => $brf_id,
+                    'brfNumber' => $brf_trano,
+                    'budgetCode' => $brf_budget,
+                    'budgetName' => $brf_budget_name,
+                    'siteCode' => $brf_sub_budget,
+                    'siteName' => $brf_sub_budget_name,
+                    'productID' => '820005-0000',
+                    'productName' => 'Travel & Fares/Business Trip',
+                    'dateCommence' => '2024-12-18',
+                    'dateEnd' => '2024-12-20',
+                    'dateBRF' => '2024-12-12',
+                    'contactPhone' => '0896734873',
+                    'bankType' => $splitResponse['content']['general']['bankAccount']['beneficiary']['bankAcronym'],
                     'bankAccountNumber' => $splitResponse['content']['general']['bankAccount']['beneficiary']['bankAccountNumber'],
-                    'bankAccountName'   => $splitResponse['content']['general']['bankAccount']['beneficiary']['bankAccountName'],
-                    'requester'         => $splitResponse['content']['general']['involvedPersons'][0]['requesterWorkerName'],
-                    'beneficiary'       => $splitResponse['content']['general']['involvedPersons'][0]['beneficiaryWorkerName'],
-                    'departingFrom'     => 'Jakarta',
-                    'destinationTo'     => 'Batam',
+                    'bankAccountName' => $splitResponse['content']['general']['bankAccount']['beneficiary']['bankAccountName'],
+                    'requester' => $splitResponse['content']['general']['involvedPersons'][0]['requesterWorkerName'],
+                    'beneficiary' => $splitResponse['content']['general']['involvedPersons'][0]['beneficiaryWorkerName'],
+                    'departingFrom' => 'Jakarta',
+                    'destinationTo' => 'Batam',
                 ],
-                'dataHeaderTwo'     => [
-                    'totalAllowance'        => '240000.00',
-                    'totalEntertainment'    => '100000.00',
-                    'totalOther'            => '100000.00',
-                    'totalTransport'        => '3450000.00',
-                    'totalAccommodation'    => '0.00',
-                    'totalBusinessTrip'     => '3890000.00',
+                'dataHeaderTwo' => [
+                    'totalAllowance' => '240000.00',
+                    'totalEntertainment' => '100000.00',
+                    'totalOther' => '100000.00',
+                    'totalTransport' => '3450000.00',
+                    'totalAccommodation' => '0.00',
+                    'totalBusinessTrip' => '3890000.00',
                 ],
-                'dataHeaderThree'   => [
-                    'reason'    => 'Silahturahmi PLN JBT dan cari info tender batam beserta info lain'
+                'dataHeaderThree' => [
+                    'reason' => 'Silahturahmi PLN JBT dan cari info tender batam beserta info lain'
                 ],
             ];
 
@@ -364,12 +376,12 @@ class LoanSettlementController extends Controller
     public function ReportLoanSettlementDetailStore(Request $request)
     {
         try {
-            $brf_trano              = $request->brf_number_trano;
-            $brf_id                 = $request->brf_number_id;
-            $brf_budget             = $request->brf_number_budget;
-            $brf_budget_name        = $request->brf_number_budget_name;
-            $brf_sub_budget         = $request->brf_number_sub_budget;
-            $brf_sub_budget_name    = $request->brf_number_sub_budget_name;
+            $brf_trano = $request->brf_number_trano;
+            $brf_id = $request->brf_number_id;
+            $brf_budget = $request->brf_number_budget;
+            $brf_budget_name = $request->brf_number_budget_name;
+            $brf_sub_budget = $request->brf_number_sub_budget;
+            $brf_sub_budget_name = $request->brf_number_sub_budget_name;
 
             if (!$brf_id) {
                 Session::forget("isButtonReportLoanSettlementDetailSubmit");
@@ -398,7 +410,7 @@ class LoanSettlementController extends Controller
      */
     public function create()
     {
-        
+
     }
 
     // Simpan post baru ke database
@@ -412,8 +424,8 @@ class LoanSettlementController extends Controller
             }
 
             $compact = [
-                "documentNumber"    => $response['data']['businessDocument']['documentNumber'],
-                "status"            => $response['metadata']['HTTPStatusCode'],
+                "documentNumber" => $response['data']['businessDocument']['documentNumber'],
+                "status" => $response['metadata']['HTTPStatusCode'],
                 // "status"            => $responseWorkflow['metadata']['HTTPStatusCode'],
             ];
 
@@ -464,8 +476,8 @@ class LoanSettlementController extends Controller
             }
 
             $compact = [
-                "documentNumber"    => $response['data'][0]['businessDocument']['documentNumber'],
-                "status"            => $response['metadata']['HTTPStatusCode'],
+                "documentNumber" => $response['data'][0]['businessDocument']['documentNumber'],
+                "status" => $response['metadata']['HTTPStatusCode'],
                 // "status"            => $responseWorkflow['metadata']['HTTPStatusCode'],
             ];
 

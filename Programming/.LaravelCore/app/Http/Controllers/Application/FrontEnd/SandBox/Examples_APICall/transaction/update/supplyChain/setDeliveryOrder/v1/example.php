@@ -21,7 +21,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         |                     ► http://172.28.0.4/transaction.update.supplyChain.setDeliveryOrder.v1_throughAPIGateway             |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-09-29                                                                                           |
+        | ▪ Last Update     : 2026-03-26                                                                                           |
         | ▪ Creation Date   : 2022-07-28                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -59,6 +59,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                     [
                                     "recordID" => 181000000000019,
                                     "entities" => [
+                                        "workStructure_RefID" => 302000000000002,
                                         "product_RefID" => 88000000000007,
                                         "quantity" => 25,
                                         "quantityUnit_RefID" => 73000000000036,
@@ -69,6 +70,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                     [
                                     "recordID" => 181000000000020,
                                     "entities" => [
+                                        "workStructure_RefID" => 302000000000001,
                                         "product_RefID" => 88000000000008,
                                         "quantity" => 20,
                                         "quantityUnit_RefID" => 73000000000037,

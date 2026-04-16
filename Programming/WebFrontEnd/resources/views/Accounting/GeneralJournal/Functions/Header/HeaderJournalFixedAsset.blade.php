@@ -13,7 +13,7 @@
                 <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Dep. Rate</th>
                 <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">COA</th>
                 <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">COA Status</th>
-                <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Value</th>
+                <!-- <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Value</th> -->
             </tr>
         </thead>
         <tbody id="journal_fixed_asset_body_table"></tbody>
@@ -32,4 +32,23 @@
             </tr>
         </tfoot>
     </table>
+</div>
+
+<!-- FOOTER -->
+<div class="card-body">
+    <div class="row">
+        <div class="col">
+            <div class="text-red" id="fixedAssetDetailsMessage" style="display: none;">
+                Please input at least one item.
+            </div>
+        </div>
+        <div class="col" style="margin-right: 20px; font-size: 0.77rem; color: #212529; font-weight: 600; display: none;">
+            <div class="text-right">
+                Total: <span id="total_fixed_asset_table">0.00</span>
+            </div>
+            <div class="text-right" style="margin-top: 5px; display: block;">
+                Balance: <span id="total_balance">0.00</span>
+            </div>
+        </div>
+    </div>
 </div>

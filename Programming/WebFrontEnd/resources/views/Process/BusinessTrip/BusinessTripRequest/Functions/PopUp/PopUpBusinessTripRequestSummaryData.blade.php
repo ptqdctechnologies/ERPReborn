@@ -50,7 +50,7 @@
         </div>
 
         <div class="row" style="margin-bottom: 1rem;">
-          <div class="col" style="font-size: 0.9rem;">
+          <div id="text_total_brf_modal_summary" class="col" style="font-size: 0.9rem;">
             Total BRF
           </div>
           <div id="total_brf_modal_summary" class="col text-right" style="font-size: 0.9rem;">

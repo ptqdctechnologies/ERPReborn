@@ -10,6 +10,7 @@
       <div class="modal-body">
         <div class="wrapper-budget card-body table-responsive p-0" style="max-height:200px;">
           <table class="table table-head-fixed text-nowrap table-sm" id="journal_summary_table" style="border: 1px solid #dee2e6;">
+            <thead></thead>
             <tbody></tbody>
           </table>
         </div>

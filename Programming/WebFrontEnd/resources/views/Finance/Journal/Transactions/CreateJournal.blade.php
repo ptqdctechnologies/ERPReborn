@@ -36,7 +36,7 @@
                                 <!-- TITLE -->
                                 <div class="card-header">
                                     <label class="card-title">
-                                        Journal
+                                        Cash & Bank
                                     </label>
                                     <div class="card-tools">
                                         <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -59,7 +59,7 @@
                                 <!-- HEADER -->
                                 <div class="card-header">
                                     <label class="card-title">
-                                        Detail Journal
+                                        Detail Cash & Bank
                                     </label>
                                     <div class="card-tools">
                                         <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -92,6 +92,35 @@
             @endif
         </div>
     </section>
+</div>
+
+<div class="modal fade" id="successFormModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-lg" role="document" style="min-height: calc(100vh - 3.5rem); display: flex; align-items: center;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="journal_success_title" style="margin: 0px;font-weight:bold;"></h3>
+      </div>
+      <div class="modal-body">
+        <div class="wrapper-budget card-body table-responsive p-0" style="max-height:200px;">
+          <table class="table table-head-fixed text-nowrap table-sm" id="journal_success_table" style="border: 1px solid #dee2e6;">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Reference Number</th>
+                    <th>Journal Number</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default btn-sm" onclick="cancelForm('{{ route('Journal.index', ['var' => 1]) }}')" style="background-color:#e9ecef;border:1px solid #ced4da;">
+            OK
+        </button>
+      </div>
+    </div>
+  </div>
 </div>
 
 @include('Finance.Journal.Functions.Footer.FooterJournal')

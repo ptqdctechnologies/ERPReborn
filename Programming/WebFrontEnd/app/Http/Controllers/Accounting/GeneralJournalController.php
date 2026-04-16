@@ -35,9 +35,12 @@ class GeneralJournalController extends Controller
         $varAPIWebToken     = Session::get('SessionLogin');
         $generalJournalID   = $request->input('modal_general_journal_id');
 
-        return view('Accounting.GeneralJournal.Transactions.RevisionGeneralJournal', [
-            'varAPIWebToken'        => $varAPIWebToken
-        ]);
+        $compact =  [
+            'varAPIWebToken' => $varAPIWebToken,
+            'type'           => 'POSTING' // SETTLEMENT OR ADJUSTMENT OR FIXED-ASSET OR POSTING
+        ];
+
+        return view('Accounting.GeneralJournal.Transactions.RevisionGeneralJournal', $compact);
     }
 
     public function update(Request $request, $id) {}

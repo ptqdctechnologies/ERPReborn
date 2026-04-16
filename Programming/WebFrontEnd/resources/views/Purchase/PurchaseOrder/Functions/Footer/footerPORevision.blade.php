@@ -230,6 +230,7 @@
             const productUnitPriceDiscountCurrencyRefID         = row.querySelector('input[id^="productUnitPriceDiscountCurrency_RefID"]');
             const productUnitPriceDiscountCurrencyValue         = row.querySelector('input[id^="productUnitPriceDiscountCurrencyValue"]');
             const productUnitPriceDiscountCurrencyExchangeRate  = row.querySelector('input[id^="productUnitPriceDiscountCurrencyExchangeRate"]');
+            const workStructureRefID                            = row.querySelector('input[id^="workStructure_RefID"]');
 
             if (
                 qtyInput && priceInput && totalInput && balanceInput && assetSelect &&
@@ -239,13 +240,13 @@
                 balanceInput.value.trim() !== '' &&
                 assetSelect.value.trim() !== ''
             ) {
-                const prNumber      = row.children[8].innerText.trim();
-                const productCode   = row.children[10].innerText.trim();
-                const productName   = row.children[11].innerText.trim();
-                const qtyAvail      = row.children[13].innerText.trim();
-                const uom           = row.children[14].innerText.trim();
-                const priceAvail    = row.children[15].innerText.trim();
-                const currency      = row.children[17].innerText.trim();
+                const prNumber      = row.children[10].innerText.trim();
+                const productCode   = row.children[12].innerText.trim();
+                const productName   = row.children[13].innerText.trim();
+                const qtyAvail      = row.children[15].innerText.trim();
+                const uom           = row.children[16].innerText.trim();
+                const priceAvail    = row.children[17].innerText.trim();
+                const currency      = row.children[19].innerText.trim();
 
                 const qty   = qtyInput.value.trim();
                 const price = priceInput.value.trim();
@@ -260,11 +261,11 @@
                     const recordID = targetRow.children[0].value.trim();
 
                     if (recordID == recordRefID.value) {
-                        targetRow.children[8].innerText = asset == '0' ? 'No' : 'Yes';
-                        targetRow.children[9].innerText = currencyTotal(price);
-                        targetRow.children[10].innerText = currencyTotal(qty);
-                        targetRow.children[11].innerText = currencyTotal(total);
-                        targetRow.children[12].innerText = note;
+                        targetRow.children[7].innerText = asset == '0' ? 'No' : 'Yes';
+                        targetRow.children[8].innerText = currencyTotal(price);
+                        targetRow.children[9].innerText = currencyTotal(qty);
+                        targetRow.children[10].innerText = currencyTotal(total);
+                        targetRow.children[11].innerText = note;
                         found = true;
 
                         const indexToUpdate = dataStore.findIndex(item => item.recordID == recordRefID.value);
@@ -273,6 +274,7 @@
                             dataStore[indexToUpdate] = {
                                 recordID: parseInt(recordRefID.value),
                                 entities: {
+                                    workStructure_RefID: parseInt(workStructureRefID.value),
                                     purchaseRequisitionDetail_RefID: parseInt(purchaseRequisitionDetailRefID.value),
                                     quantity: parseFloat(qty.replace(/,/g, '')),
                                     quantityUnit_RefID: parseInt(quantityUnitRefID.value),
@@ -298,8 +300,7 @@
                         <input type="hidden" name="qty_avail[]" value="${qtyAvail}">
                         <input type="hidden" name="price_avail[]" value="${priceAvail}">
                         <td style="text-align: left;padding: 0.8rem 0.5rem;">${prNumber}</td>
-                        <td style="text-align: right;padding: 0.8rem 0.5rem;">${productCode}</td>
-                        <td style="text-align: left;padding: 0.8rem 0.5rem;">${productName}</td>
+                        <td style="text-align: right;padding: 0.8rem 0.5rem;">${productCode ?? ''} - ${productName ?? ''}</td>
                         <td style="text-align: left;padding: 0.8rem 0.5rem;">${uom}</td>
                         <td style="text-align: left;padding: 0.8rem 0.5rem;" hidden>${currency}</td>
                         <td style="text-align: right;padding: 0.8rem 0.5rem;">${asset == '0' ? 'No' : 'Yes'}</td>
@@ -314,6 +315,7 @@
                     dataStore.push({
                         recordID: parseInt(recordRefID.value),
                         entities: {
+                            workStructure_RefID: parseInt(workStructureRefID.value),
                             purchaseRequisitionDetail_RefID: parseInt(purchaseRequisitionDetailRefID.value),
                             quantity: parseFloat(qty.replace(/,/g, '')),
                             quantityUnit_RefID: parseInt(quantityUnitRefID.value),
@@ -573,6 +575,7 @@
             dataStore.push({
                 recordID: val2.sys_ID,
                 entities: {
+                    workStructure_RefID: parseInt(val2.workStructure_RefID),
                     purchaseRequisitionDetail_RefID: parseInt(val2.purchaseRequisitionDetail_RefID),
                     quantity: parseFloat(val2.quantity.replace(/,/g, '')),
                     quantityUnit_RefID: parseInt(val2.quantityUnit_RefID),
@@ -599,11 +602,12 @@
                     <input id="productUnitPriceDiscountCurrency_RefID${key}" value="${val2.productUnitPriceDiscountCurrency_RefID}" type="hidden" />
                     <input id="productUnitPriceDiscountCurrencyValue${key}" value="${val2.productUnitPriceDiscountCurrencyValue || 1}" type="hidden" />
                     <input id="productUnitPriceDiscountCurrencyExchangeRate${key}" value="${val2.productUnitPriceDiscountCurrencyExchangeRate || 1}" type="hidden" />
+                    <input id="workStructure_RefID${key}" value="${val2.workStructure_RefID}" type="hidden" />
 
+                    <td style="text-align: center; padding: 10px !important;">${val2.workCode || ''} - ${val2.workName || ''}</td>
                     <td style="text-align: center; padding: 10px !important;">${val2.purchaseRequisitionNumber || '-'}</td>
                     <td style="text-align: center; padding: 10px !important;">${val2.combinedBudgetSectionCode + ' - ' + val2.combinedBudgetSectionName}</td>
-                    <td style="text-align: center; padding: 10px !important;">${val2.productCode || '-'}</td>
-                    <td style="text-align: center; padding: 10px !important;">${val2.productName || '-'}</td>
+                    <td style="text-align: center; padding: 10px !important;">${val2.productCode || ''} - ${val2.productName || ''}</td>
                     <td style="text-align: center; padding: 10px !important;">${currencyTotal(val2.qtyPR || 0)}</td>
                     <td style="text-align: center; padding: 10px !important;">${currencyTotal(val2.qtyAvail || 0)}</td>
                     <td style="text-align: center; padding: 10px !important;">${val2.quantityUnitName || '-'}</td>
@@ -686,25 +690,25 @@
                 checkOneLineBudgetContents(key);
             });
 
-            let rowList = `
-                <tr>
-                    <input type="hidden" name="record_RefID[]" value="${val2.sys_ID}">
-                    <input type="hidden" name="qty_avail[]" value="${currencyTotal(val2.quantity || 0)}">
-                    <input type="hidden" name="price_avail[]" value="${currencyTotal(val2.productUnitPriceCurrencyValue || 0)}">
-                    <td style="text-align: left;padding: 0.8rem 0.5rem;width: 100px;">${val2.purchaseRequisitionNumber || '-'}</td>
-                    <td style="text-align: right;padding: 0.8rem 0.5rem;width: 50px;">${val2.productCode}</td>
-                    <td style="text-align: right;padding: 0.8rem 0.5rem;width: 50px;">${val2.productName}</td>
-                    <td style="text-align: left;padding: 0.8rem 0.5rem;width: 20px;">${val2.quantityUnitName || '-'}</td>
-                    <td style="text-align: left;padding: 0.8rem 0.5rem;width: 40px;" hidden>${val2.productUnitPriceCurrencyISOCode || '-'}</td>
-                    <td style="text-align: left;padding: 0.8rem 0.5rem;width: 20px;">${val2.asset == '0' ? 'No' : 'Yes'}</td>
-                    <td style="text-align: right;padding: 0.8rem 0.5rem;width: 100px;">${currencyTotal(val2.productUnitPriceCurrencyValue || 0)}</td>
-                    <td style="text-align: right;padding: 0.8rem 0.5rem;width: 50px;">${currencyTotal(val2.quantity || 0)}</td>
-                    <td style="text-align: right;padding: 0.8rem 0.5rem;width: 100px;">${currencyTotal(totalReq || 0)}</td> 
-                    <td style="text-align: left;padding: 0.8rem 0.5rem;width: 150px;" hidden>${val2.note || '-'}</td>
-                </tr>
-            `;
+            // let rowList = `
+            //     <tr>
+            //         <input type="hidden" name="record_RefID[]" value="${val2.sys_ID}">
+            //         <input type="hidden" name="qty_avail[]" value="${currencyTotal(val2.quantity || 0)}">
+            //         <input type="hidden" name="price_avail[]" value="${currencyTotal(val2.productUnitPriceCurrencyValue || 0)}">
+            //         <td style="text-align: left;padding: 0.8rem 0.5rem;width: 100px;">${val2.purchaseRequisitionNumber || '-'}</td>
+            //         <td style="text-align: right;padding: 0.8rem 0.5rem;width: 50px;">${val2.productCode}</td>
+            //         <td style="text-align: right;padding: 0.8rem 0.5rem;width: 50px;">${val2.productName}</td>
+            //         <td style="text-align: left;padding: 0.8rem 0.5rem;width: 20px;">${val2.quantityUnitName || '-'}</td>
+            //         <td style="text-align: left;padding: 0.8rem 0.5rem;width: 40px;" hidden>${val2.productUnitPriceCurrencyISOCode || '-'}</td>
+            //         <td style="text-align: left;padding: 0.8rem 0.5rem;width: 20px;">${val2.asset == '0' ? 'No' : 'Yes'}</td>
+            //         <td style="text-align: right;padding: 0.8rem 0.5rem;width: 100px;">${currencyTotal(val2.productUnitPriceCurrencyValue || 0)}</td>
+            //         <td style="text-align: right;padding: 0.8rem 0.5rem;width: 50px;">${currencyTotal(val2.quantity || 0)}</td>
+            //         <td style="text-align: right;padding: 0.8rem 0.5rem;width: 100px;">${currencyTotal(totalReq || 0)}</td> 
+            //         <td style="text-align: left;padding: 0.8rem 0.5rem;width: 150px;" hidden>${val2.note || '-'}</td>
+            //     </tr>
+            // `;
 
-            tbodyList.append(rowList);
+            // tbodyList.append(rowList);
         });
 
         let allTotal = totalRequest + parseFloat(dataDetail[0].tariffCurrencyValue.replace(/,/g, ''))

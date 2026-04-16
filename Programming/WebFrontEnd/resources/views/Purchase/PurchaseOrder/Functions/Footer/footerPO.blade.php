@@ -1,39 +1,39 @@
 <script>
-    let indexPurchaseOrder          = 0;
-    let totalPurchaseOrder          = 0;
-    let vat                         = document.getElementById("vatOption");
-    let dataStore                   = [];
-    let msrIDList                   = [];
-    let totalNextApprover           = 0;
-    let dataWorkflow                = {
+    let indexPurchaseOrder = 0;
+    let totalPurchaseOrder = 0;
+    let vat = document.getElementById("vatOption");
+    let dataStore = [];
+    let msrIDList = [];
+    let totalNextApprover = 0;
+    let dataWorkflow = {
         workFlowPathRefID: null,
         approverEntityRefID: null,
         comment: null
     };
-    let triggerButtonModal          = null;
-    const fileID                    = document.getElementById("dataInput_Log_FileUpload");
-    const documentTypeID            = document.getElementById("DocumentTypeID");
-    const remarkPO                  = document.getElementById("remarkPO");
-    const paymentNotes              = document.getElementById("paymentNotes");
-    const internalNote              = document.getElementById("internalNote");
-    const supplierID                = document.getElementById("supplier_id");
-    const combinedBudgetTrigger     = document.getElementById("var_combinedBudget_RefID");
-    const msrNumber                 = document.getElementById("modal_purchase_requisition_document_numbers");
-    const dateOfDelivery            = document.getElementById("dateOfDelivery");
-    const deliveryTo                = document.getElementById("delivery_to");
-    const deliveryToDuplicate       = document.getElementById("deliveryToDuplicate");
-    const deliveryToDuplicateRefID  = document.getElementById("deliveryToDuplicate_RefID");
-    const deliveryToRefID           = document.getElementById("deliveryTo_RefID");
-    const supplierCode              = document.getElementById("supplier_code");
-    const ppn                       = document.getElementById('ppn');
-    const TotalBudgetSelecteds      = document.getElementById('TotalBudgetSelected');
-    const TotalBudgetSelectedPpn    = document.getElementById('TotalBudgetSelectedPpn');
-    const TotalPpns                 = document.getElementById('TotalPpn');
-    const downPaymentValue          = document.getElementById('downPaymentValue');
-    const termOfPaymentOption       = document.getElementById('termOfPaymentOption');
-    const tablePurchaseOrderLists   = document.querySelector("#tablePurchaseOrderList tbody");
-    const submitPurchaseOrder       = document.getElementById("submitPurchaseOrder");
-    const tariffCurrencyValue       = document.getElementById("tariffCurrencyValue");
+    let triggerButtonModal = null;
+    const fileID = document.getElementById("dataInput_Log_FileUpload");
+    const documentTypeID = document.getElementById("DocumentTypeID");
+    const remarkPO = document.getElementById("remarkPO");
+    const paymentNotes = document.getElementById("paymentNotes");
+    const internalNote = document.getElementById("internalNote");
+    const supplierID = document.getElementById("supplier_id");
+    const combinedBudgetTrigger = document.getElementById("var_combinedBudget_RefID");
+    const msrNumber = document.getElementById("modal_purchase_requisition_document_numbers");
+    const dateOfDelivery = document.getElementById("dateOfDelivery");
+    const deliveryTo = document.getElementById("delivery_to");
+    const deliveryToDuplicate = document.getElementById("deliveryToDuplicate");
+    const deliveryToDuplicateRefID = document.getElementById("deliveryToDuplicate_RefID");
+    const deliveryToRefID = document.getElementById("deliveryTo_RefID");
+    const supplierCode = document.getElementById("supplier_code");
+    const ppn = document.getElementById('ppn');
+    const TotalBudgetSelecteds = document.getElementById('TotalBudgetSelected');
+    const TotalBudgetSelectedPpn = document.getElementById('TotalBudgetSelectedPpn');
+    const TotalPpns = document.getElementById('TotalPpn');
+    const downPaymentValue = document.getElementById('downPaymentValue');
+    const termOfPaymentOption = document.getElementById('termOfPaymentOption');
+    const tablePurchaseOrderLists = document.querySelector("#tablePurchaseOrderList tbody");
+    const submitPurchaseOrder = document.getElementById("submitPurchaseOrder");
+    const tariffCurrencyValue = document.getElementById("tariffCurrencyValue");
 
     if (downPaymentValue) {
         downPaymentValue.addEventListener('input', function () {
@@ -62,7 +62,7 @@
         let hasFullRow = false;
 
         rows.forEach((row, index) => {
-            const qty   = document.getElementById(`qty_req${index}`)?.value.trim();
+            const qty = document.getElementById(`qty_req${index}`)?.value.trim();
             const price = document.getElementById(`price_req${index}`)?.value.trim();
             const total = document.getElementById(`total_req${index}`)?.value.trim();
 
@@ -72,7 +72,7 @@
         });
 
         rows.forEach((row, index) => {
-            const qtyEl   = document.getElementById(`qty_req${index}`);
+            const qtyEl = document.getElementById(`qty_req${index}`);
             const priceEl = document.getElementById(`price_req${index}`);
             const totalEl = document.getElementById(`total_req${index}`);
 
@@ -101,7 +101,7 @@
                         $(qtyEl).css("border", "1px solid #ced4da");
                         $(priceEl).css("border", "1px solid #ced4da");
                         $(totalEl).css("border", "1px solid #ced4da");
-                    } 
+                    }
                 } else {
                     $(qtyEl).css("border", "1px solid red");
                     $(priceEl).css("border", "1px solid red");
@@ -135,19 +135,20 @@
         const rows = sourceTable.getElementsByTagName('tr');
 
         for (let row of rows) {
-            const assetSelect                                   = row.querySelector('select[id^="asset"]');
-            const qtyInput                                      = row.querySelector('input[id^="qty_req"]');
-            const priceInput                                    = row.querySelector('input[id^="price_req"]');
-            const totalInput                                    = row.querySelector('input[id^="total_req"]');
-            const balanceInput                                  = row.querySelector('input[id^="balance"]');
-            const noteInput                                     = row.querySelector('textarea[id^="note"]');
-            const quantityUnit_RefID                            = row.querySelector('input[id^="quantityUnit_RefID"]');
-            const purchaseRequisitionDetail_RefID               = row.querySelector('input[id^="purchaseRequisitionDetail_RefID"]');
-            const productUnitPriceCurrency_RefID                = row.querySelector('input[id^="productUnitPriceCurrency_RefID"]');
-            const productUnitPriceCurrencyExchangeRate          = row.querySelector('input[id^="productUnitPriceCurrencyExchangeRate"]');
-            const productUnitPriceDiscountCurrency_RefID        = row.querySelector('input[id^="productUnitPriceDiscountCurrency_RefID"]');
-            const productUnitPriceDiscountCurrencyValue         = row.querySelector('input[id^="productUnitPriceDiscountCurrencyValue"]');
-            const productUnitPriceDiscountCurrencyExchangeRate  = row.querySelector('input[id^="productUnitPriceDiscountCurrencyExchangeRate"]');
+            const assetSelect = row.querySelector('select[id^="asset"]');
+            const qtyInput = row.querySelector('input[id^="qty_req"]');
+            const priceInput = row.querySelector('input[id^="price_req"]');
+            const totalInput = row.querySelector('input[id^="total_req"]');
+            const balanceInput = row.querySelector('input[id^="balance"]');
+            const noteInput = row.querySelector('textarea[id^="note"]');
+            const quantityUnit_RefID = row.querySelector('input[id^="quantityUnit_RefID"]');
+            const purchaseRequisitionDetail_RefID = row.querySelector('input[id^="purchaseRequisitionDetail_RefID"]');
+            const productUnitPriceCurrency_RefID = row.querySelector('input[id^="productUnitPriceCurrency_RefID"]');
+            const productUnitPriceCurrencyExchangeRate = row.querySelector('input[id^="productUnitPriceCurrencyExchangeRate"]');
+            const productUnitPriceDiscountCurrency_RefID = row.querySelector('input[id^="productUnitPriceDiscountCurrency_RefID"]');
+            const productUnitPriceDiscountCurrencyValue = row.querySelector('input[id^="productUnitPriceDiscountCurrencyValue"]');
+            const productUnitPriceDiscountCurrencyExchangeRate = row.querySelector('input[id^="productUnitPriceDiscountCurrencyExchangeRate"]');
+            const workStructure_RefID = row.querySelector('input[id^="workStructure_RefID"]');
 
             if (
                 qtyInput && priceInput && totalInput && assetSelect &&
@@ -156,39 +157,40 @@
                 totalInput.value.trim() !== '' &&
                 assetSelect.value.trim() !== ''
             ) {
-                const documentNumber    = row.children[0].value.trim();
-                const productCode       = row.children[9].value.trim();
-                const productName       = row.children[10].value.trim();
-                const uom               = row.children[13].value.trim();
-                const currency          = row.children[15].value.trim();
-                const qtyAvail          = row.children[12].value.trim();
-                const priceAvail        = row.children[14].value.trim();
+                const documentNumber = row.children[0].value.trim();
+                const productCode = row.children[9].value.trim();
+                const productName = row.children[10].value.trim();
+                const uom = row.children[13].value.trim();
+                const currency = row.children[15].value.trim();
+                const qtyAvail = row.children[12].value.trim();
+                const priceAvail = row.children[14].value.trim();
 
-                const qty   = qtyInput.value.trim();
+                const qty = qtyInput.value.trim();
                 const price = priceInput.value.trim();
                 const total = totalInput.value.trim();
-                const note  = noteInput.value.trim();
-                const asset  = assetSelect.value.trim();
+                const note = noteInput.value.trim();
+                const asset = assetSelect.value.trim();
 
                 let found = false;
                 const existingRows = targetTable.getElementsByTagName('tr');
 
                 for (let targetRow of existingRows) {
-                    const targetDocNumber   = targetRow.children[2].innerText.trim();
-                    const targetCode        = targetRow.children[1].value.trim();
+                    const targetDocNumber = targetRow.children[2].innerText.trim();
+                    const targetCode = targetRow.children[1].value.trim();
 
                     if (targetDocNumber === documentNumber && targetCode === productCode) {
-                        found                               = true;
-                        targetRow.children[7].innerText     = asset == '0' ? 'No' : 'Yes';
-                        targetRow.children[8].innerText     = price;
-                        targetRow.children[9].innerText     = qty;
-                        targetRow.children[10].innerText    = total;
+                        found = true;
+                        targetRow.children[6].innerText = asset == '0' ? 'No' : 'Yes';
+                        targetRow.children[7].innerText = price;
+                        targetRow.children[8].innerText = qty;
+                        targetRow.children[9].innerText = total;
 
                         // update dataStore
                         const indexToUpdate = dataStore.findIndex(item => item.entities.documentNumber === documentNumber && item.entities.product_RefID === productCode);
                         if (indexToUpdate !== -1) {
                             dataStore[indexToUpdate] = {
                                 entities: {
+                                    workStructure_RefID: parseInt(workStructure_RefID.value),
                                     purchaseRequisitionDetail_RefID: parseInt(purchaseRequisitionDetail_RefID.value),
                                     quantity: parseFloat(qty.replace(/,/g, '')),
                                     quantityUnit_RefID: parseInt(quantityUnit_RefID.value),
@@ -214,10 +216,9 @@
                         <input type="hidden" name="qty_avail[]" value="${qtyAvail}">
                         <input type="hidden" name="product_code[]" value="${productCode}">
                         <td style="text-align: left;padding: 0.8rem 0.5rem;width: 100px;">${documentNumber}</td>
-                        <td style="text-align: right;padding: 0.8rem 0.5rem;">${productCode}</td>
                         <td style="text-align: left;padding: 0.8rem 0.5rem;">
                             <div style="overflow: hidden;white-space: nowrap;text-overflow: ellipsis;width: 150px;">
-                                ${productName}
+                                ${productCode ?? ''} - ${productName ?? ''}
                             </div>
                         </td>
                         <td style="text-align: left;padding: 0.8rem 0.5rem;width: 20px;">${uom}</td>
@@ -233,6 +234,7 @@
                     // push to dataStore
                     dataStore.push({
                         entities: {
+                            workStructure_RefID: parseInt(workStructure_RefID.value),
                             purchaseRequisitionDetail_RefID: parseInt(purchaseRequisitionDetail_RefID.value),
                             quantity: parseFloat(qty.replace(/,/g, '')),
                             quantityUnit_RefID: parseInt(quantityUnit_RefID.value),
@@ -250,13 +252,13 @@
                     });
                 }
             } else {
-                const documentNumber    = row.children[0].value.trim();
-                const productCode       = row.children[9].value.trim();
-                const existingRows      = targetTable.getElementsByTagName('tr');
+                const documentNumber = row.children[0].value.trim();
+                const productCode = row.children[9].value.trim();
+                const existingRows = targetTable.getElementsByTagName('tr');
 
                 for (let targetRow of existingRows) {
-                    const targetDocNumber   = targetRow.children[2].innerText.trim();
-                    const targetCode        = targetRow.children[1].value.trim();
+                    const targetDocNumber = targetRow.children[2].innerText.trim();
+                    const targetCode = targetRow.children[1].value.trim();
 
                     if (targetDocNumber == documentNumber && targetCode == productCode) {
                         targetRow.remove();
@@ -274,13 +276,13 @@
     }
 
     function validationForm() {
-        const isDateOfDeliveryNotEmpty              = dateOfDelivery.value.trim() !== '';
-        const isMSRNumberNotEmpty                   = msrNumber.value.trim() !== '';
-        const isDeliveryToNotEmpty                  = deliveryTo.value.trim() !== '';
-        const isSupplierCodeNotEmpty                = supplierCode.value.trim() !== '';
-        const isDownPaymentValueNotEmpty            = downPaymentValue.value.trim() !== '';
-        const isTermOfPaymentOptionValueNotEmpty    = termOfPaymentOption.value.trim() !== 'Select a TOP';
-        const isTableNotEmpty                       = checkOneLineBudgetContents();
+        const isDateOfDeliveryNotEmpty = dateOfDelivery.value.trim() !== '';
+        const isMSRNumberNotEmpty = msrNumber.value.trim() !== '';
+        const isDeliveryToNotEmpty = deliveryTo.value.trim() !== '';
+        const isSupplierCodeNotEmpty = supplierCode.value.trim() !== '';
+        const isDownPaymentValueNotEmpty = downPaymentValue.value.trim() !== '';
+        const isTermOfPaymentOptionValueNotEmpty = termOfPaymentOption.value.trim() !== 'Select a TOP';
+        const isTableNotEmpty = checkOneLineBudgetContents();
 
         if (isDateOfDeliveryNotEmpty && isMSRNumberNotEmpty && isDeliveryToNotEmpty && isSupplierCodeNotEmpty && isDownPaymentValueNotEmpty && isTermOfPaymentOptionValueNotEmpty && isTableNotEmpty) {
             $('#purchaseOrderFormModal').modal('show');
@@ -344,7 +346,7 @@
 
     function getPaymentTerm() {
         $('#containerSelectTOP').hide();
-        
+
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -354,7 +356,7 @@
         $.ajax({
             type: 'GET',
             url: '{!! route("getPaymentTerm") !!}',
-            success: function(data) {
+            success: function (data) {
                 $('#containerLoadingTOP').hide();
 
                 if (data && Array.isArray(data)) {
@@ -363,7 +365,7 @@
                     $('#termOfPaymentOption').empty();
                     $('#termOfPaymentOption').append('<option disabled selected>Select a TOP</option>');
 
-                    data.forEach(function(project) {
+                    data.forEach(function (project) {
                         $('#termOfPaymentOption').append('<option value="' + project.sys_ID + '">' + project.name + '</option>');
                     });
                 } else {
@@ -388,7 +390,7 @@
         $.ajax({
             type: 'GET',
             url: '{!! route("getVAT") !!}',
-            success: function(data) {
+            success: function (data) {
                 $('#containerLoadingPPN').hide();
 
                 if (data && Array.isArray(data)) {
@@ -397,7 +399,7 @@
                     $('#vatOption').empty();
                     $('#vatOption').append('<option disabled selected value="Select a VAT">Select a VAT</option>');
 
-                    data.forEach(function(project) {
+                    data.forEach(function (project) {
                         $('#vatOption').append('<option value="' + project.tariffFixRate + '">' + project.tariffFixRate + '</option>');
                     });
                 } else {
@@ -411,8 +413,8 @@
     }
 
     function calculateTotal() {
-        var total   = 0;
-        document.querySelectorAll('input[id^="total_req"]').forEach(function(input) {
+        var total = 0;
+        document.querySelectorAll('input[id^="total_req"]').forEach(function (input) {
             let value = parseFloat(input.value.replace(/,/g, '')); // Mengambil nilai dan menghilangkan koma
             if (!isNaN(value)) {
                 total += value;
@@ -452,21 +454,15 @@
 
         $("#prNumberMessage").hide();
         // $("#deliveryToMessage").hide();
-        $("#modal_purchase_requisition_document_numbers").css({"border": "1px solid #ced4da", "background-color": "#e9ecef"});
+        $("#modal_purchase_requisition_document_numbers").css({ "border": "1px solid #ced4da", "background-color": "#e9ecef" });
         // $("#delivery_to").css("border", "1px solid #ced4da");
     }
 
     function getDetailPurchaseRequisition(purchase_requisition_number, purchase_requisition_id) {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
         $.ajax({
             type: 'GET',
             url: '{!! route("getPurchaseRequisitionDetail") !!}?purchase_requisition_id=' + purchase_requisition_id,
-            success: async function(data) {
+            success: async function (data) {
                 if (data && Array.isArray(data) && data.length > 0) {
                     $("#purchaseRequisitionTrigger").show();
                     $("#loading_workflow").hide();
@@ -474,8 +470,8 @@
                     $(".loadingPurchaseOrderTable").hide();
                     $("#tablePurchaseOrderDetail tbody").show();
 
-                    const isDuplicateMsr    = msrIDList.includes(data[0].purchaseRequisition_RefID);
-                    const currentBudget     = combinedBudgetTrigger.value;
+                    const isDuplicateMsr = msrIDList.includes(data[0].purchaseRequisition_RefID);
+                    const currentBudget = combinedBudgetTrigger.value;
 
                     if (currentBudget && currentBudget != data[0].combinedBudget_RefID) {
                         Swal.fire("Error", "Budget must be the same!", "error");
@@ -501,7 +497,7 @@
 
                     let modifyColumn = `<td rowspan="${data.length}" style="text-align: center; padding: 10px !important;">${purchase_requisition_number}</td>`;
 
-                    $.each(data, function(key, val2) {
+                    $.each(data, function (key, val2) {
                         let row = `
                             <tr>
                                 <input id="msr_number${indexPurchaseOrder}" value="${purchase_requisition_number}" type="hidden" />
@@ -520,13 +516,14 @@
                                 <input id="uom${indexPurchaseOrder}" value="${val2.quantityUnitName}" type="hidden" />
                                 <input id="unit_price${indexPurchaseOrder}" value="${val2.productUnitPriceBaseCurrencyValue}" type="hidden" />
                                 <input id="currency${indexPurchaseOrder}" value="${val2.priceCurrencyISOCode}" type="hidden" />
+                                <input id="workStructure_RefID${indexPurchaseOrder}" value="${val2.workStructure_RefID}" type="hidden" />
 
                                 ${key === 0 ? modifyColumn : ''}
+                                <td style="text-align: center; padding: 10px !important;">${val2.workCode ?? ''} - ${val2.workName ?? ''}</td>
                                 <td style="text-align: center; padding: 10px !important;">${val2.combinedBudgetSectionCode + ' - ' + val2.combinedBudgetSectionName}</td>
-                                <td style="text-align: center; padding: 10px !important;">${val2.productCode}</td>
                                 <td style="text-align: center; padding: 10px !important;">
                                     <div style="overflow: hidden;white-space: nowrap;text-overflow: ellipsis;width: 150px;">
-                                        ${val2.productName}
+                                        ${val2.productCode ?? ''} - ${val2.productName ?? ''}
                                     </div>
                                 </td>
                                 <td style="text-align: center; padding: 10px !important;">${currencyTotal(val2.quantity)}</td>
@@ -561,7 +558,7 @@
 
                         tbody.append(row);
 
-                        $(`#qty_req${indexPurchaseOrder}`).on('keyup', function() {
+                        $(`#qty_req${indexPurchaseOrder}`).on('keyup', function () {
                             var qty_req = $(this).val().replace(/,/g, '');
                             var data_index = $(this).data('index');
                             var data_total_request = $(this).data('total-request');
@@ -585,7 +582,7 @@
                             checkOneLineBudgetContents(data_index);
                         });
 
-                        $(`#price_req${indexPurchaseOrder}`).on('keyup', function() {
+                        $(`#price_req${indexPurchaseOrder}`).on('keyup', function () {
                             var price_req = $(this).val().replace(/,/g, '');
                             var data_index = $(this).data('index');
                             var data_total_request = $(this).data('total-request');
@@ -604,7 +601,7 @@
                                 $(`#total_req${data_index}`).val(currencyTotal(total_req));
                                 $(`#balance${data_index}`).val(currencyTotal(countBalance));
                             }
-                            
+
                             calculateTotal();
                             checkOneLineBudgetContents(data_index);
                         });
@@ -646,7 +643,7 @@
         }).then((result) => {
             if ('value' in result) {
                 ShowLoading();
-                PurchaseOrderStore({...formatData, comment: result.value});
+                PurchaseOrderStore({ ...formatData, comment: result.value });
             }
         });
     }
@@ -691,7 +688,7 @@
             type: 'POST',
             data: {
                 workFlowPath_RefID: dataWorkflow.workFlowPathRefID,
-                approverEntity: dataWorkflow.approverEntityRefID, 
+                approverEntity: dataWorkflow.approverEntityRefID,
                 comment: dataWorkflow.comment,
                 storeData: {
                     supplier_id: supplierID.value,
@@ -710,7 +707,7 @@
                 }
             },
             url: '{{ route("PurchaseOrder.store") }}',
-            success: function(res) {
+            success: function (res) {
                 HideLoading();
 
                 if (res.status === 200) {
@@ -738,7 +735,7 @@
                     ErrorNotif("Data Cancel Inputed");
                 }
             },
-            error: function(jqXHR, textStatus, errorThrown) {
+            error: function (jqXHR, textStatus, errorThrown) {
                 HideLoading();
                 ErrorNotif("Data Cancel Inputed");
             }
@@ -781,7 +778,7 @@
                 combinedBudget_RefID: combinedBudgetRefID
             },
             url: '{!! route("GetWorkflow") !!}',
-            success: function(response) {
+            success: function (response) {
                 if (response.status === 200) {
                     totalNextApprover = response.data[0].nextApproverPath.length;
                     dataWorkflow.workFlowPathRefID = response.data[0].sys_ID;
@@ -794,46 +791,46 @@
                     Swal.fire("Error", "Workflow Error", "error");
                 }
 
-                $("#loadingBudget").css({"display":"none"});
-                $("#myProjectSecondTrigger").css({"display":"block"});
+                $("#loadingBudget").css({ "display": "none" });
+                $("#myProjectSecondTrigger").css({ "display": "block" });
             },
-            error: function(jqXHR, textStatus, errorThrown) {
+            error: function (jqXHR, textStatus, errorThrown) {
                 console.log('jqXHR, textStatus, errorThrown', jqXHR, textStatus, errorThrown);
                 Swal.fire("Error", "Data Error", "error");
 
-                $("#loadingBudget").css({"display":"none"});
-                $("#myProjectSecondTrigger").css({"display":"block"});
+                $("#loadingBudget").css({ "display": "none" });
+                $("#myProjectSecondTrigger").css({ "display": "block" });
             }
         });
     }
 
     $('#tableSuppliers').on('click', 'tbody tr', function () {
-        const sysId     = $(this).find('input[data-trigger="sys_id_supplier"]').val();
-        const code      = $(this).find('td:nth-child(2)').text();
-        const name      = $(this).find('td:nth-child(3)').text();
-        const address   = $(this).find('td:nth-child(4)').text();
+        const sysId = $(this).find('input[data-trigger="sys_id_supplier"]').val();
+        const code = $(this).find('td:nth-child(2)').text();
+        const name = $(this).find('td:nth-child(3)').text();
+        const address = $(this).find('td:nth-child(4)').text();
 
         $("#supplier_id").val(sysId);
         $("#supplier_code").val(code);
         $("#supplier_name").val(`(${code}) ${name} - ${address}`);
 
         $("#supplier_code").css("border", "1px solid #ced4da");
-        $("#supplier_name").css({"border": "1px solid #ced4da", "background-color":"#e9ecef"});
+        $("#supplier_name").css({ "border": "1px solid #ced4da", "background-color": "#e9ecef" });
         $("#supplierMessage").hide();
 
         $('#mySuppliers').modal('hide');
     });
 
     $('#tableGetModalPurchaseRequisition').on('click', 'tbody tr', function () {
-        const $row          = $(this);
-        const sysId         = $row.find('input[data-trigger="sys_id_modal_purchase_requisition"]').val();
-        const sysIdBudget   = $row.find('input[data-trigger="sys_id_combinedBudget_purchase_requisition"]').val();
-        const trano         = $row.find('td:nth-child(2)').text();
+        const $row = $(this);
+        const sysId = $row.find('input[data-trigger="sys_id_modal_purchase_requisition"]').val();
+        const sysIdBudget = $row.find('input[data-trigger="sys_id_combinedBudget_purchase_requisition"]').val();
+        const trano = $row.find('td:nth-child(2)').text();
 
         getWorkflow(sysIdBudget, trano, sysId);
     });
-    
-    $('#delivery_to').on('input', function(e) {
+
+    $('#delivery_to').on('input', function (e) {
         if (e.target.value == deliveryToDuplicate.value) {
             $("#deliveryTo_RefID").val(deliveryToDuplicateRefID.value);
         } else {
@@ -844,7 +841,7 @@
         $("#delivery_to").css("border", "1px solid #ced4da");
     });
 
-    $('#downPaymentValue').on('input', function(e) {
+    $('#downPaymentValue').on('input', function (e) {
         if (!e.target.value) {
             $("#dpMessage").show();
             $("#downPaymentValue").css("border", "1px solid red");
@@ -854,17 +851,17 @@
         }
     });
 
-    $('#termOfPaymentOption').on('change', function(e) {
+    $('#termOfPaymentOption').on('change', function (e) {
         if (e.target.value) {
             $("#topMessage").hide();
             $("#termOfPaymentOption").css("border", "1px solid #ced4da");
         }
     });
 
-    $('#tableWorkflows').on('click', 'tbody tr', function() {
-        const sysId             = $(this).find('input[data-trigger="sys_id_approver"]').val();
-        const workflowName      = $(this).find('td:nth-child(2)').text();
-        const workflowPosition  = $(this).find('td:nth-child(3)').text();
+    $('#tableWorkflows').on('click', 'tbody tr', function () {
+        const sysId = $(this).find('input[data-trigger="sys_id_approver"]').val();
+        const workflowName = $(this).find('td:nth-child(2)').text();
+        const workflowPosition = $(this).find('td:nth-child(3)').text();
 
         // dataWorkflow.approverEntityRefID = sysId;
 
@@ -877,9 +874,21 @@
         // console.log('dataWorkflow', dataWorkflow);
     });
 
-    $(window).one('load', function(e) {
+    $('#tableGetModalPurchaseRequisition').on('click', 'tbody tr', function () {
+        const sysId = $(this).find('input[data-trigger="sys_id_modal_purchase_requisition"]').val();
+        const trano = $(this).find('td:nth-child(2)').text();
+
+        $("#modal_purchase_requisition_id").val(sysId);
+        $("#modal_purchase_requisition_document_number").val(trano);
+
+        $('#purchaseRequisitionModal').modal('toggle');
+    });
+
+    $(document).ready(function () {
         getPaymentTerm();
         getVAT();
+        getModalPurchaseRequisition();
+        getModalPurchaseOrder();
 
         $('#containerValuePPN').hide();
         $(".loadingPurchaseOrderTable").hide();

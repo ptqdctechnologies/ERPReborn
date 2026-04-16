@@ -12,7 +12,7 @@
         </div>
 
         <!-- JOURNAL TYPE -->
-        <div class="row" style="margin-bottom: 1rem;">
+        <div class="row">
             <div class="col-4 col-sm-4 col-md-3 col-lg-3 text-bold">
                 Journal Type
             </div>

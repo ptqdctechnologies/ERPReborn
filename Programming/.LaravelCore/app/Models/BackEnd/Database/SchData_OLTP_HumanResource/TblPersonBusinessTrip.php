@@ -44,7 +44,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0002.0000000                                                                                       |
-        | ▪ Last Update     : 2025-03-14                                                                                           |
+        | ▪ Last Update     : 2026-03-02                                                                                           |
         | ▪ Creation Date   : 2022-10-10                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -69,7 +69,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         public function setDataInsert(
             $varUserSession,
             string $varSysDataAnnotation = null, string $varSysDataValidityStartDateTimeTZ = null, string $varSysDataValidityFinishDateTimeTZ = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, $varSysBaseCurrency_RefID = null,
-            string $varDocumentDateTimeTZ = null, int $varCombinedBudgetSectionDetail_RefID = null, int $varPaymentDisbursementMethod_RefID = null,
+            string $varDocumentDateTimeTZ = null, int $varCombinedBudgetSectionDetail_RefID = null,
             array $varAdditionalData = []
             )
             {
@@ -78,7 +78,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                     $varUserSession, 
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                         $varUserSession,
-                        parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
+                        parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET_NEW',
                         [
                             [$varUserSession, 'bigint'],
                             [null, 'bigint'],
@@ -92,7 +92,6 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
 
                             [$varDocumentDateTimeTZ, 'timestamptz'],
                             [$varCombinedBudgetSectionDetail_RefID, 'bigint'],
-                            [$varPaymentDisbursementMethod_RefID, 'bigint'],
 
                             [
                                 ((count($varAdditionalData) === 0) 
@@ -118,7 +117,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         | ▪ Method Name     : setDataUpdate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0002.0000000                                                                                       |
-        | ▪ Last Update     : 2025-03-14                                                                                           |
+        | ▪ Last Update     : 2026-03-04                                                                                           |
         | ▪ Creation Date   : 2022-10-10                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -145,7 +144,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
             $varUserSession,
             int $varSysID,
             string $varSysDataAnnotation = null, string $varSysDataValidityStartDateTimeTZ = null, string $varSysDataValidityFinishDateTimeTZ = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, $varSysBaseCurrency_RefID = null,
-            string $varDocumentDateTimeTZ = null, int $varCombinedBudgetSectionDetail_RefID = null, int $varPaymentDisbursementMethod_RefID = null,
+            string $varDocumentDateTimeTZ = null, int $varCombinedBudgetSectionDetail_RefID = null,
             array $varAdditionalData = []
             )
             {
@@ -154,7 +153,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                     $varUserSession, 
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                         $varUserSession,
-                        parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
+                        parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET_NEW',
                         [
                             [$varUserSession, 'bigint'],
                             [$varSysID, 'bigint'],
@@ -168,7 +167,6 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
 
                             [$varDocumentDateTimeTZ, 'timestamptz'],
                             [$varCombinedBudgetSectionDetail_RefID, 'bigint'],
-                            [$varPaymentDisbursementMethod_RefID, 'bigint'],
 
                             [
                                 ((count($varAdditionalData) === 0) 

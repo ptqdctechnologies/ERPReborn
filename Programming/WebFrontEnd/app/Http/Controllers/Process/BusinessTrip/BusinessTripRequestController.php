@@ -6,10 +6,8 @@ use App\Http\Controllers\ExportExcel\Process\ExportReportBusinessTripRequestSumm
 use App\Http\Controllers\ExportExcel\Process\ExportReportBusinessTripRequestDetail;
 use App\Http\Controllers\ExportExcel\Process\ExportReportBusinessTripToBSF;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Input;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Session;
 use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
 use App\Helpers\ZhtHelper\System\Helper_Environment;
@@ -30,29 +28,24 @@ class BusinessTripRequestController extends Controller
         $this->workflowService = $workflowService;
     }
 
-    public function calculateTotal($filteredData, $key) {
+    public function calculateTotal($filteredData, $key)
+    {
         return array_reduce($filteredData, function ($carry, $item) use ($key) {
             return $carry + ($item[$key] ?? 0);
         }, 0);
     }
 
     public function index(Request $request)
-    {   
-        $varAPIWebToken = $request->session()->get('SessionLogin');
-        $request->session()->forget("SessionBusinessTripRequest");
+    {
+        $var = $request->query('var', 0);
+        $varAPIWebToken = Session::get('SessionLogin');
+        $documentTypeRefID = $this->GetBusinessDocumentsTypeFromRedis('Person Business Trip Form');
 
-        $var = 0;
-        if(!empty($_GET['var'])){
-            $var =  $_GET['var'];
-        }
-        
-        $compact = [
+        return view('Process.BusinessTrip.BusinessTripRequest.Transactions.CreateBusinessTripRequest', [
             'var' => $var,
             'varAPIWebToken' => $varAPIWebToken,
-            'statusRevisi' => 0,
-        ];
-    
-        return view('Process.BusinessTrip.BusinessTripRequest.Transactions.CreateBusinessTripRequest', $compact);
+            'documentType_RefID' => $documentTypeRefID
+        ]);
     }
 
     public function store(Request $request)
@@ -76,14 +69,38 @@ class BusinessTripRequestController extends Controller
             }
 
             $compact = [
-                "documentNumber"    => $response['data']['businessDocument']['documentNumber'],
-                "status"            => $responseWorkflow['metadata']['HTTPStatusCode'],
+                "documentNumber" => $response['data']['businessDocument']['documentNumber'],
+                "status" => $responseWorkflow['metadata']['HTTPStatusCode'],
             ];
 
             return response()->json($compact);
         } catch (\Throwable $th) {
             Log::error("Store Business Trip Request Function Error: " . $th->getMessage());
-            
+
+            return response()->json(["status" => 500]);
+        }
+    }
+
+    public function detail(Request $request)
+    {
+        try {
+            $personBusinessTripRefID = $request->person_business_trip_id;
+
+            $response = $this->businessTripService->getDetail($personBusinessTripRefID);
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                return response()->json($response);
+            }
+
+            $compact = [
+                'status' => $response['metadata']['HTTPStatusCode'],
+                'data' => $response['data']['data']
+            ];
+
+            return response()->json($compact);
+        } catch (\Throwable $th) {
+            Log::error("Detail Business Trip Request Function Error: " . $th->getMessage());
+
             return response()->json(["status" => 500]);
         }
     }
@@ -109,8 +126,8 @@ class BusinessTripRequestController extends Controller
             }
 
             $compact = [
-                "documentNumber"    => $response['data'][0]['businessDocument']['documentNumber'],
-                "status"            => $responseWorkflow['metadata']['HTTPStatusCode'],
+                "documentNumber" => $response['data'][0]['businessDocument']['documentNumber'],
+                "status" => $responseWorkflow['metadata']['HTTPStatusCode'],
             ];
 
             return response()->json($compact);
@@ -125,23 +142,23 @@ class BusinessTripRequestController extends Controller
         try {
 
             // if (Redis::get("DataListAdvance") == null) {
-                $varAPIWebToken = Session::get('SessionLogin');
-                    Helper_APICall::setCallAPIGateway(
-                    Helper_Environment::getUserSessionID_System(),
-                    $varAPIWebToken,
-                    'transaction.read.dataList.finance.getAdvance',
-                    'latest',
-                    [
-                        'parameter' => null,
-                        'SQLStatement' => [
-                            'pick' => null,
-                            'sort' => null,
-                            'filter' => null,
-                            'paging' => null
-                        ]
-                    ],
-                    false
-                );
+            $varAPIWebToken = Session::get('SessionLogin');
+            Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken,
+                'transaction.read.dataList.finance.getAdvance',
+                'latest',
+                [
+                    'parameter' => null,
+                    'SQLStatement' => [
+                        'pick' => null,
+                        'sort' => null,
+                        'filter' => null,
+                        'paging' => null
+                    ]
+                ],
+                false
+            );
             // }
 
             $DataListAdvance = json_decode(
@@ -173,18 +190,25 @@ class BusinessTripRequestController extends Controller
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }
-    
+
     public function RevisionBusinessTripRequestIndex(Request $request)
     {
         try {
-            $varAPIWebToken             = Session::get('SessionLogin');
-            $personBusinessTripRefID    = $request->input('brf_number_id');
+            $varAPIWebToken = Session::get('SessionLogin');
+            $personBusinessTripRefID = $request->input('brf_number_id');
+            $documentTypeRefID = $this->GetBusinessDocumentsTypeFromRedis('Person Business Trip Revision Form');
 
-            $responseTripSequence = $this->businessTripService->getPersonBusinessTripSequence($personBusinessTripRefID);
+            $response = $this->businessTripService->getDetail($personBusinessTripRefID);
 
-            if ($responseTripSequence['metadata']['HTTPStatusCode'] !== 200) {
-                return response()->json($responseTripSequence);
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                return response()->json($response);
             }
+
+            // $responseTripSequence = $this->businessTripService->getPersonBusinessTripSequence($personBusinessTripRefID);
+
+            // if ($responseTripSequence['metadata']['HTTPStatusCode'] !== 200) {
+            //     return response()->json($responseTripSequence);
+            // }
 
             $responseTripSequenceDetail = $this->businessTripService->getPersonBusinessTripSequenceDetail($personBusinessTripRefID);
 
@@ -192,89 +216,97 @@ class BusinessTripRequestController extends Controller
                 return response()->json($responseTripSequenceDetail);
             }
 
-            $dataTripSequence       = $responseTripSequence['data']['data'];
+            $dataResponse = $response['data']['data'];
+            // $dataTripSequence       = $responseTripSequence['data']['data'];
             $dataTripSequenceDetail = $responseTripSequenceDetail['data']['data'];
 
+            // dump($dataResponse);
+            // dump($dataTripSequenceDetail);
+
             $compact = [
-                'varAPIWebToken'                    => $varAPIWebToken ?? '',
-                'combinedBudgetSectionDetail_RefID' => 169000000000048,
-                'personBusinessTripRefID'           => $dataTripSequence[0]['personBusinessTrip_RefID'],
-                'personBusinessTripDetailRefID'     => $dataTripSequence[0]['sys_ID'],
-                'budget'            => [
-                    'id'            => $dataTripSequence[0]['combinedBudget_RefID'][0] ?? '-',
-                    'code'          => $dataTripSequence[0]['combinedBudgetCode'] ?? '-',
-                    'name'          => $dataTripSequence[0]['combinedBudgetName'] ?? '-'
+                'varAPIWebToken' => $varAPIWebToken ?? '',
+                'documentType_RefID' => $documentTypeRefID,
+                'combinedBudgetSectionDetail_RefID' => $dataResponse[0]['CombinedBudgetSectionDetail_RefID'],
+                'workStructure_RefID' => $dataResponse[0]['WorkStructure_RefID'] ?? '',
+                'workTemp' => $dataResponse[0]['WorkCode'] . ' - ' . $dataResponse[0]['WorkName'],
+                'product_RefID' => $dataResponse[0]['Product_RefID'] ?? '',
+                'personBusinessTripRefID' => $dataResponse[0]['PersonBusinessTrip_RefID'], // $dataTripSequence[0]['personBusinessTrip_RefID'],
+                'personBusinessTripDetailRefID' => $dataResponse[0]['Sys_ID'], // $dataTripSequence[0]['sys_ID'],
+                'budget' => [
+                    'id' => $dataResponse[0]['CombinedBudget_RefID'], // $dataTripSequence[0]['combinedBudget_RefID'][0] ?? '-',
+                    'code' => $dataResponse[0]['CombinedBudgetCode'], // $dataTripSequence[0]['combinedBudgetCode'] ?? '-',
+                    'name' => $dataResponse[0]['CombinedBudgetName'], // $dataTripSequence[0]['combinedBudgetName'] ?? '-'
                 ],
-                'subBudget'         => [
-                    'id'            => $dataTripSequence[0]['combinedBudgetSection_RefID'][0] ?? '-',
-                    'code'          => $dataTripSequence[0]['combinedBudgetSectionCode'] ?? '-',
-                    'name'          => $dataTripSequence[0]['combinedBudgetSectionName'] ?? '-'
+                'subBudget' => [
+                    'id' => $dataResponse[0]['CombinedBudgetSection_RefID'], // $dataTripSequence[0]['combinedBudgetSection_RefID'][0] ?? '-',
+                    'code' => $dataResponse[0]['CombinedBudgetSectionCode'], // $dataTripSequence[0]['combinedBudgetSectionCode'] ?? '-',
+                    'name' => $dataResponse[0]['CombinedBudgetSectionName'], // $dataTripSequence[0]['combinedBudgetSectionName'] ?? '-'
                 ],
-                'fileID'            => '',
-                'requester'         => [
-                    'id'            => $dataTripSequence[0]['requesterWorkerJobsPosition_RefID'] ?? '-',
-                    'name'          => $dataTripSequence[0]['requesterWorkerName'] ?? '-',
-                    'position'      => '-',
-                    'contact'       => '-'
+                'fileID' => $dataResponse[0]['Log_FileUpload_Pointer_RefID'],
+                'requester' => [
+                    'id' => $dataResponse[0]['RequesterWorkerJobsPosition_RefID'], // $dataTripSequence[0]['requesterWorkerJobsPosition_RefID'] ?? '-',
+                    'name' => $dataResponse[0]['RequesterWorkerName'], // $dataTripSequence[0]['requesterWorkerName'] ?? '-',
+                    'position' => $dataResponse[0]['RequesterWorkerPosition'],
+                    'contact' => $dataResponse[0]['RequesterWorkerContact']
                 ],
-                'dateTravel'        => [
-                    'commence'      => $dataTripSequence[0]['startDateTimeTZ'] ? Carbon::parse($dataTripSequence[0]['startDateTimeTZ'])->format('Y-m-d') : '-',
-                    'end'           => $dataTripSequence[0]['finishDateTimeTZ'] ? Carbon::parse($dataTripSequence[0]['finishDateTimeTZ'])->format('Y-m-d') : '-'
+                'dateTravel' => [
+                    'commence' => $dataResponse[0]['StartDateTimeTZ'] ? Carbon::parse($dataResponse[0]['StartDateTimeTZ'])->format('Y-m-d') : '-', // $dataTripSequence[0]['startDateTimeTZ'] ? Carbon::parse($dataTripSequence[0]['startDateTimeTZ'])->format('Y-m-d') : '-',
+                    'end' => $dataResponse[0]['FinishDateTimeTZ'] ? Carbon::parse($dataResponse[0]['FinishDateTimeTZ'])->format('Y-m-d') : '-' // $dataTripSequence[0]['finishDateTimeTZ'] ? Carbon::parse($dataTripSequence[0]['finishDateTimeTZ'])->format('Y-m-d') : '-'
                 ],
-                'departing'         => [
-                    'from'          => '-',
-                    'to'            => '-'
+                'departing' => [
+                    'from' => $dataResponse[0]['DeparturePoint'],
+                    'to' => $dataResponse[0]['DestinationPoint']
                 ],
-                'reason'            => '-',
-                'total'             => [
-                    'brf'           => $dataTripSequence[0]['amountBaseCurrencyValue'] ?? 0,
-                    'payment'       => 118670.07,
+                'reason' => $dataResponse[0]['ReasonToTravel'],
+                'total' => [
+                    'brf' => $dataResponse[0]['AmountBaseCurrencyValue'], // $dataTripSequence[0]['amountBaseCurrencyValue'] ?? 0,
+                    'payment' => 118670.07,
                 ],
                 'dataTripBudgetDetails' => $dataTripSequenceDetail,
-                'payment'           => [
-                    'directVendor'  => [
-                        'value'     => 30000.20,
-                        'bankName'  => [
-                            'id'    => 166000000000002,
-                            'code'  => 'BRI',
-                            'name'  => 'Bank Rakyat Indonesia'
+                'payment' => [
+                    'directVendor' => [
+                        'value' => 30000.20,
+                        'bankName' => [
+                            'id' => 166000000000002,
+                            'code' => 'BRI',
+                            'name' => 'Bank Rakyat Indonesia'
                         ],
-                        'bankAccount'   => [
-                            'id'        => 167000000000042,
-                            'number'    => 044101001553563,
-                            'name'      => 'PT QDC Technologies'
-                        ],
-                    ],
-                    'corpCard'  => [
-                        'value'     => 59184.20,
-                        'bankName'  => [
-                            'id'    => 166000000000005,
-                            'code'  => 'BCA',
-                            'name'  => 'Bank Central Asia'
-                        ],
-                        'bankAccount'   => [
-                            'id'        => 167000000000064,
-                            'number'    => 5520579321,
-                            'name'      => 'Belina Lindarwani'
+                        'bankAccount' => [
+                            'id' => 167000000000042,
+                            'number' => 044101001553563,
+                            'name' => 'PT QDC Technologies'
                         ],
                     ],
-                    'other'                 => [
-                        'value'             => 29485.67,
-                        'beneficiary'       => [
-                            'id'            => 164000000000559,
-                            'positionID'    => 25000000000559,
-                            'position'      => 'General Manager',
-                            'name'          => 'Adhe Kurniawan'
+                    'corpCard' => [
+                        'value' => 59184.20,
+                        'bankName' => [
+                            'id' => 166000000000005,
+                            'code' => 'BCA',
+                            'name' => 'Bank Central Asia'
                         ],
-                        'bankName'          => [
-                            'id'            => 166000000000002,
-                            'code'          => 'BRI',
-                            'name'          => 'Bank Rakyat Indonesia'
+                        'bankAccount' => [
+                            'id' => 167000000000064,
+                            'number' => 5520579321,
+                            'name' => 'Belina Lindarwani'
                         ],
-                        'bankAccount'       => [
-                            'id'            => 167000000000042,
-                            'number'        => 044101001553563,
-                            'name'          => 'PT QDC Technologies'
+                    ],
+                    'other' => [
+                        'value' => 29485.67,
+                        'beneficiary' => [
+                            'id' => 164000000000559,
+                            'positionID' => 25000000000559,
+                            'position' => 'General Manager',
+                            'name' => 'Adhe Kurniawan'
+                        ],
+                        'bankName' => [
+                            'id' => 166000000000002,
+                            'code' => 'BRI',
+                            'name' => 'Bank Rakyat Indonesia'
+                        ],
+                        'bankAccount' => [
+                            'id' => 167000000000042,
+                            'number' => 044101001553563,
+                            'name' => 'PT QDC Technologies'
                         ],
                     ],
                 ]
@@ -289,1503 +321,90 @@ class BusinessTripRequestController extends Controller
 
     public function ReportBusinessTripRequestSummary(Request $request)
     {
-        try {
-            $varAPIWebToken = Session::get('SessionLogin');
-            $isSubmitButton = $request->session()->get('isButtonReportBusinessTripRequestSummarySubmit');
+        $documentTypeRefID = $this->GetBusinessDocumentsTypeFromRedis('Person Business Trip Form');
+        $sessionOrganizationalDepartmentName = Session::get('SessionOrganizationalDepartmentName');
+        $sessionOrganizationalJobPositionName = Session::get('SessionOrganizationalJobPositionName');
 
-            $dataReport = $isSubmitButton ? $request->session()->get('dataReportBusinessTripRequestSummary', []) : [];
+        $compact = [
+            'documentTypeRefID' => $documentTypeRefID,
+            'sessionOrganizationalDepartmentName' => $sessionOrganizationalDepartmentName,
+            'sessionOrganizationalJobPositionName' => $sessionOrganizationalJobPositionName
+        ];
+
+        return view('Process.BusinessTrip.BusinessTripRequest.Reports.ReportBusinessTripRequestSummary', $compact);
+    }
+
+    public function ReportBusinessTripRequestSummaryStore(Request $request)
+    {
+        try {
+            $date = $request->brfDate;
+            $requester = $request->requester_id;
+            $beneficiary = $request->beneficiary_id;
+            $budget = $request->budget_code;
+            $subBudget = $request->site_code;
+
+            $response = $this->businessTripService->getBusinessTripSummary(
+                $budget,
+                $subBudget,
+                $requester,
+                $beneficiary,
+                $date
+            );
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                throw new \Exception('Failed to fetch Advance Summary Report');
+            }
 
             $compact = [
-                'varAPIWebToken' => $varAPIWebToken,
-                'dataReport' => $dataReport
+                'status' => $response['metadata']['HTTPStatusCode'],
+                'data' => $response['data']['data']
             ];
-    
-            return view('Process.BusinessTrip.BusinessTripRequest.Reports.ReportBusinessTripRequestSummary', $compact);
+
+            return response()->json($compact);
         } catch (\Throwable $th) {
-            Log::error("ReportBusinessTripRequestSummary Function Error at " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
-        }
-    }
-
-    public function ReportBusinessTripRequestSummaryData($project_id, $site_id, $requester_id, $beneficiary_id, $project_name, $project_code, $site_code, $requester_name, $beneficiary_name, $site_name, $requester_position, $beneficiary_position) 
-    {
-        try {
-            $varAPIWebToken             = Session::get('SessionLogin');
-            $getReportAdvanceSummary    = null;
-
-            // if (!Helper_Redis::getValue($varAPIWebToken, "ReportAdvanceSummary")) {
-            //     $getReportAdvanceSummary = Helper_APICall::setCallAPIGateway(
-            //         Helper_Environment::getUserSessionID_System(),
-            //         $varAPIWebToken,
-            //         'report.form.documentForm.finance.getReportAdvanceSummary',
-            //         'latest',
-            //         [
-            //             'parameter' => [
-            //                 'dataFilter' => [
-            //                     'budgetID' => 1,
-            //                     'subBudgetID' => 1,
-            //                     'workID' => 1,
-            //                     'productID' => 1,
-            //                     'beneficiaryID' => 1,
-            //                 ]
-            //             ]
-            //         ],
-            //         false
-            //     );
-            // } else {
-            //     $getReportAdvanceSummary = Helper_Redis::getValue($varAPIWebToken, "ReportAdvanceSummary");
-            // }
-
-            // DUMMY DATA (2 PAGE)
-            $getReportAdvanceSummary = [
-                [
-                    "DocumentNumber" => "BRF-24000229",
-                    "DocumentDateTimeTZ" => "2024-12-27 00:00:00+07",
-                    "TotalBusinessTrip" => "6300000.00",
-                    "Sys_ID" => 76000000000054,
-                    "CombinedBudgetCode" => "Q000062",
-                    "CombinedBudgetName" => "XL Microcell 2007",
-                    "CombinedBudgetSectionCode" => "254",
-                    "CombinedBudgetSectionName" => "Jatiagung Sidoarjo Infill",
-                    "RequesterWorkerJobsPosition_RefID" => 164000000000023,
-                    "RequesterWorkerName" => "Ahmad Faiz Haems Muda",
-                    "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
-                    "BeneficiaryWorkerName" => "Abdul Rachman",
-                    "CurrencyName" => "IDR",
-                    "Product_ID" => 88000000000527,
-                    "CombinedBudget_RefID" => 46000000000033,
-                    "CombinedBudgetSection_RefID" => 143000000000305,
-                    "remark" => "Presentasi project Tanjung Pinang",
-                    "DepartingFrom" => "Jakarta",
-                    "DestinationTo" => "Tanjung Pinang",
-                    "DirectToVendor" => "11632633.83",
-                    "ByCorpCard" => "5095132.82",
-                ],
-                [
-                    "DocumentNumber" => "BRF-24000228",
-                    "DocumentDateTimeTZ" => "2024-12-27 00:00:00+07",
-                    "TotalBusinessTrip" => "8400000.00",
-                    "Sys_ID" => 76000000000054,
-                    "CombinedBudgetCode" => "Q000062",
-                    "CombinedBudgetName" => "XL Microcell 2007",
-                    "CombinedBudgetSectionCode" => "254",
-                    "CombinedBudgetSectionName" => "Jatiagung Sidoarjo Infill",
-                    "RequesterWorkerJobsPosition_RefID" => 164000000000023,
-                    "RequesterWorkerName" => "Ahmad Choerul",
-                    "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
-                    "BeneficiaryWorkerName" => "Agnes Sutedja",
-                    "CurrencyName" => "IDR",
-                    "Product_ID" => 88000000000527,
-                    "CombinedBudget_RefID" => 46000000000033,
-                    "CombinedBudgetSection_RefID" => 143000000000305,
-                    "remark" => "Training teknisi Merauke",
-                    "DepartingFrom" => "Jakarta",
-                    "DestinationTo" => "Merauke",
-                    "DirectToVendor" => "12993994.42",
-                    "ByCorpCard" => "4296891.03",
-                ],
-                [
-                    "DocumentNumber" => "BRF-24000227",
-                    "DocumentDateTimeTZ" => "2024-12-27 00:00:00+07",
-                    "TotalBusinessTrip" => "5900000.00",
-                    "Sys_ID" => 76000000000054,
-                    "CombinedBudgetCode" => "Q000062",
-                    "CombinedBudgetName" => "XL Microcell 2007",
-                    "CombinedBudgetSectionCode" => "254",
-                    "CombinedBudgetSectionName" => "Jatiagung Sidoarjo Infill",
-                    "RequesterWorkerJobsPosition_RefID" => 164000000000023,
-                    "RequesterWorkerName" => "Achmad Yunadi",
-                    "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
-                    "BeneficiaryWorkerName" => "Agus Nuryadi",
-                    "CurrencyName" => "IDR",
-                    "Product_ID" => 88000000000527,
-                    "CombinedBudget_RefID" => 46000000000033,
-                    "CombinedBudgetSection_RefID" => 143000000000305,
-                    "remark" => "Maintenance BTS Pangkal Pinang",
-                    "DepartingFrom" => "Jakarta",
-                    "DestinationTo" => "Pangkal Pinang",
-                    "DirectToVendor" => "2389051.36",
-                    "ByCorpCard" => "8143150.32",
-                ],
-                [
-                    "DocumentNumber" => "BRF-24000226",
-                    "DocumentDateTimeTZ" => "2024-12-26 00:00:00+07",
-                    "TotalBusinessTrip" => "7600000.00",
-                    "Sys_ID" => 76000000000054,
-                    "CombinedBudgetCode" => "Q000062",
-                    "CombinedBudgetName" => "XL Microcell 2007",
-                    "CombinedBudgetSectionCode" => "254",
-                    "CombinedBudgetSectionName" => "Jatiagung Sidoarjo Infill",
-                    "RequesterWorkerJobsPosition_RefID" => 164000000000023,
-                    "RequesterWorkerName" => "Ahmad Choerul",
-                    "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
-                    "BeneficiaryWorkerName" => "Aden Bagus",
-                    "CurrencyName" => "IDR",
-                    "Product_ID" => 88000000000527,
-                    "CombinedBudget_RefID" => 46000000000033,
-                    "CombinedBudgetSection_RefID" => 143000000000305,
-                    "remark" => "Survey lokasi Gorontalo",
-                    "DepartingFrom" => "Jakarta",
-                    "DestinationTo" => "Gorontalo",
-                    "DirectToVendor" => "6054697.34",
-                    "ByCorpCard" => "12253790.16",
-                ],
-                [
-                    "DocumentNumber" => "BRF-24000225",
-                    "DocumentDateTimeTZ" => "2024-12-26 00:00:00+07",
-                    "TotalBusinessTrip" => "5200000.00",
-                    "Sys_ID" => 76000000000054,
-                    "CombinedBudgetCode" => "Q000062",
-                    "CombinedBudgetName" => "XL Microcell 2007",
-                    "CombinedBudgetSectionCode" => "254",
-                    "CombinedBudgetSectionName" => "Jatiagung Sidoarjo Infill",
-                    "RequesterWorkerJobsPosition_RefID" => 164000000000023,
-                    "RequesterWorkerName" => "Agnes Sutedja",
-                    "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
-                    "BeneficiaryWorkerName" => "Agus Salim",
-                    "CurrencyName" => "IDR",
-                    "Product_ID" => 88000000000527,
-                    "CombinedBudget_RefID" => 46000000000033,
-                    "CombinedBudgetSection_RefID" => 143000000000305,
-                    "remark" => "Meeting vendor Bengkulu",
-                    "DepartingFrom" => "Jakarta",
-                    "DestinationTo" => "Bengkulu",
-                    "DirectToVendor" => "9761372.59",
-                    "ByCorpCard" => "10151969.28",
-                ],
-                [
-                    "DocumentNumber" => "BRF-24000224",
-                    "DocumentDateTimeTZ" => "2024-12-25 00:00:00+07",
-                    "TotalBusinessTrip" => "6900000.00",
-                    "Sys_ID" => 76000000000054,
-                    "CombinedBudgetCode" => "Q000062",
-                    "CombinedBudgetName" => "XL Microcell 2007",
-                    "CombinedBudgetSectionCode" => "254",
-                    "CombinedBudgetSectionName" => "Jatiagung Sidoarjo Infill",
-                    "RequesterWorkerJobsPosition_RefID" => 164000000000023,
-                    "RequesterWorkerName" => "Abdul Rachman",
-                    "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
-                    "BeneficiaryWorkerName" => "Agnes Sutedja",
-                    "CurrencyName" => "IDR",
-                    "Product_ID" => 88000000000527,
-                    "CombinedBudget_RefID" => 46000000000033,
-                    "CombinedBudgetSection_RefID" => 143000000000305,
-                    "remark" => "Audit site Kendari",
-                    "DepartingFrom" => "Jakarta",
-                    "DestinationTo" => "Kendari",
-                    "DirectToVendor" => "4566099.89",
-                    "ByCorpCard" => "5316023.26",
-                ],
-                [
-                    "DocumentNumber" => "BRF-24000223",
-                    "DocumentDateTimeTZ" => "2024-12-24 00:00:00+07",
-                    "TotalBusinessTrip" => "4700000.00",
-                    "Sys_ID" => 76000000000054,
-                    "CombinedBudgetCode" => "Q000062",
-                    "CombinedBudgetName" => "XL Microcell 2007",
-                    "CombinedBudgetSectionCode" => "254",
-                    "CombinedBudgetSectionName" => "Jatiagung Sidoarjo Infill",
-                    "RequesterWorkerJobsPosition_RefID" => 164000000000023,
-                    "RequesterWorkerName" => "Abdul Rachman",
-                    "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
-                    "BeneficiaryWorkerName" => "Ahmad Fauzi",
-                    "CurrencyName" => "IDR",
-                    "Product_ID" => 88000000000527,
-                    "CombinedBudget_RefID" => 46000000000033,
-                    "CombinedBudgetSection_RefID" => 143000000000305,
-                    "remark" => "Training team Jambi",
-                    "DepartingFrom" => "Jakarta",
-                    "DestinationTo" => "Jambi",
-                    "DirectToVendor" => "5247421.23",
-                    "ByCorpCard" => "1215213.85",
-                ],
-                [
-                    "DocumentNumber" => "BRF-24000222",
-                    "DocumentDateTimeTZ" => "2024-12-23 00:00:00+07",
-                    "TotalBusinessTrip" => "8100000.00",
-                    "Sys_ID" => 76000000000054,
-                    "CombinedBudgetCode" => "Q000062",
-                    "CombinedBudgetName" => "XL Microcell 2007",
-                    "CombinedBudgetSectionCode" => "221",
-                    "CombinedBudgetSectionName" => "Halat Medan",
-                    "RequesterWorkerJobsPosition_RefID" => 164000000000023,
-                    "RequesterWorkerName" => "Adhe Kurniawan",
-                    "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
-                    "BeneficiaryWorkerName" => "Ahmad Faiz Haems Muda",
-                    "CurrencyName" => "IDR",
-                    "Product_ID" => 88000000000527,
-                    "CombinedBudget_RefID" => 46000000000033,
-                    "CombinedBudgetSection_RefID" => 143000000000305,
-                    "remark" => "Instalasi perangkat Ternate",
-                    "DepartingFrom" => "Jakarta",
-                    "DestinationTo" => "Ternate",
-                    "DirectToVendor" => "555701.37",
-                    "ByCorpCard" => "1085223.38",
-                ],
-                [
-                    "DocumentNumber" => "BRF-24000221",
-                    "DocumentDateTimeTZ" => "2024-12-20 00:00:00+07",
-                    "TotalBusinessTrip" => "5600000.00",
-                    "Sys_ID" => 76000000000054,
-                    "CombinedBudgetCode" => "Q000062",
-                    "CombinedBudgetName" => "XL Microcell 2007",
-                    "CombinedBudgetSectionCode" => "221",
-                    "CombinedBudgetSectionName" => "Halat Medan",
-                    "RequesterWorkerJobsPosition_RefID" => 164000000000023,
-                    "RequesterWorkerName" => "Adhe Kurniawan",
-                    "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
-                    "BeneficiaryWorkerName" => "Ahmad Choerul",
-                    "CurrencyName" => "IDR",
-                    "Product_ID" => 88000000000527,
-                    "CombinedBudget_RefID" => 46000000000033,
-                    "CombinedBudgetSection_RefID" => 143000000000305,
-                    "remark" => "Meeting koordinasi Mataram",
-                    "DepartingFrom" => "Jakarta",
-                    "DestinationTo" => "Mataram",
-                    "DirectToVendor" => "9846572.38",
-                    "ByCorpCard" => "7405033.38",
-                ],
-                [
-                    "DocumentNumber" => "BRF-24000220",
-                    "DocumentDateTimeTZ" => "2024-12-19 00:00:00+07",
-                    "TotalBusinessTrip" => "7300000.00",
-                    "Sys_ID" => 76000000000054,
-                    "CombinedBudgetCode" => "Q000062",
-                    "CombinedBudgetName" => "XL Microcell 2007",
-                    "CombinedBudgetSectionCode" => "221",
-                    "CombinedBudgetSectionName" => "Halat Medan",
-                    "RequesterWorkerJobsPosition_RefID" => 164000000000023,
-                    "RequesterWorkerName" => "Adhe Kurniawan",
-                    "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
-                    "BeneficiaryWorkerName" => "Aden Bagus",
-                    "CurrencyName" => "IDR",
-                    "Product_ID" => 88000000000527,
-                    "CombinedBudget_RefID" => 46000000000033,
-                    "CombinedBudgetSection_RefID" => 143000000000305,
-                    "remark" => "Survey lokasi Balikpapan",
-                    "DepartingFrom" => "Jakarta",
-                    "DestinationTo" => "Balikpapan",
-                    "DirectToVendor" => "412834.03",
-                    "ByCorpCard" => "7023584.36",
-                ],
-                [
-                    "DocumentNumber" => "BRF-24000219",
-                    "DocumentDateTimeTZ" => "2024-12-19 00:00:00+07",
-                    "TotalBusinessTrip" => "6400000.00",
-                    "Sys_ID" => 76000000000054,
-                    "CombinedBudgetCode" => "Q000062",
-                    "CombinedBudgetName" => "XL Microcell 2007",
-                    "CombinedBudgetSectionCode" => "221",
-                    "CombinedBudgetSectionName" => "Halat Medan",
-                    "RequesterWorkerJobsPosition_RefID" => 164000000000023,
-                    "RequesterWorkerName" => "Adhe Kurniawan",
-                    "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
-                    "BeneficiaryWorkerName" => "Achmad Yunadi",
-                    "CurrencyName" => "IDR",
-                    "Product_ID" => 88000000000527,
-                    "CombinedBudget_RefID" => 46000000000033,
-                    "CombinedBudgetSection_RefID" => 143000000000305,
-                    "remark" => "Maintenance BTS Kupang",
-                    "DepartingFrom" => "Jakarta",
-                    "DestinationTo" => "Kupang",
-                    "DirectToVendor" => "8144604.62",
-                    "ByCorpCard" => "1742125.93",
-                ],
-                [
-                    "DocumentNumber" => "BRF-24000218",
-                    "DocumentDateTimeTZ" => "2024-12-19 00:00:00+07",
-                    "TotalBusinessTrip" => "7100000.00",
-                    "Sys_ID" => 76000000000054,
-                    "CombinedBudgetCode" => "Q000062",
-                    "CombinedBudgetName" => "XL Microcell 2007",
-                    "CombinedBudgetSectionCode" => "221",
-                    "CombinedBudgetSectionName" => "Halat Medan",
-                    "RequesterWorkerJobsPosition_RefID" => 164000000000023,
-                    "RequesterWorkerName" => "Adhe Kurniawan",
-                    "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
-                    "BeneficiaryWorkerName" => "Abdul Rachman",
-                    "CurrencyName" => "IDR",
-                    "Product_ID" => 88000000000527,
-                    "CombinedBudget_RefID" => 46000000000033,
-                    "CombinedBudgetSection_RefID" => 143000000000305,
-                    "remark" => "Presentasi project Samarinda",
-                    "DepartingFrom" => "Jakarta",
-                    "DestinationTo" => "Samarinda",
-                    "DirectToVendor" => "1678891.67",
-                    "ByCorpCard" => "11445578.27",
-                ],
-                [
-                    "DocumentNumber" => "BRF-24000217",
-                    "DocumentDateTimeTZ" => "2024-12-18 00:00:00+07",
-                    "TotalBusinessTrip" => "4900000.00",
-                    "Sys_ID" => 76000000000054,
-                    "CombinedBudgetCode" => "Q000062",
-                    "CombinedBudgetName" => "XL Microcell 2007",
-                    "CombinedBudgetSectionCode" => "240",
-                    "CombinedBudgetSectionName" => "Cendana Andalas",
-                    "RequesterWorkerJobsPosition_RefID" => 164000000000023,
-                    "RequesterWorkerName" => "Agnes Sutedja",
-                    "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
-                    "BeneficiaryWorkerName" => "Ahmad Fauzi",
-                    "CurrencyName" => "IDR",
-                    "Product_ID" => 88000000000527,
-                    "CombinedBudget_RefID" => 46000000000033,
-                    "CombinedBudgetSection_RefID" => 143000000000305,
-                    "remark" => "Meeting vendor Malang",
-                    "DepartingFrom" => "Jakarta",
-                    "DestinationTo" => "Malang",
-                    "DirectToVendor" => "13076269.64",
-                    "ByCorpCard" => "3469770.83",
-                ],
-                [
-                    "DocumentNumber" => "BRF-24000216",
-                    "DocumentDateTimeTZ" => "2024-12-17 00:00:00+07",
-                    "TotalBusinessTrip" => "8800000.00",
-                    "Sys_ID" => 76000000000054,
-                    "CombinedBudgetCode" => "Q000062",
-                    "CombinedBudgetName" => "XL Microcell 2007",
-                    "CombinedBudgetSectionCode" => "240",
-                    "CombinedBudgetSectionName" => "Cendana Andalas",
-                    "RequesterWorkerJobsPosition_RefID" => 164000000000023,
-                    "RequesterWorkerName" => "Agnes Sutedja",
-                    "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
-                    "BeneficiaryWorkerName" => "Ahmad Faiz Haems Muda",
-                    "CurrencyName" => "IDR",
-                    "Product_ID" => 88000000000527,
-                    "CombinedBudget_RefID" => 46000000000033,
-                    "CombinedBudgetSection_RefID" => 143000000000305,
-                    "remark" => "Audit site Sorong",
-                    "DepartingFrom" => "Jakarta",
-                    "DestinationTo" => "Sorong",
-                    "DirectToVendor" => "3636630.76",
-                    "ByCorpCard" => "1019176.27",
-                ],
-                [
-                    "DocumentNumber" => "BRF-24000215",
-                    "DocumentDateTimeTZ" => "2024-12-13 00:00:00+07",
-                    "TotalBusinessTrip" => "5300000.00",
-                    "Sys_ID" => 76000000000054,
-                    "CombinedBudgetCode" => "Q000062",
-                    "CombinedBudgetName" => "XL Microcell 2007",
-                    "CombinedBudgetSectionCode" => "240",
-                    "CombinedBudgetSectionName" => "Cendana Andalas",
-                    "RequesterWorkerJobsPosition_RefID" => 164000000000023,
-                    "RequesterWorkerName" => "Agnes Sutedja",
-                    "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
-                    "BeneficiaryWorkerName" => "Ahmad Choerul",
-                    "CurrencyName" => "IDR",
-                    "Product_ID" => 88000000000527,
-                    "CombinedBudget_RefID" => 46000000000033,
-                    "CombinedBudgetSection_RefID" => 143000000000305,
-                    "remark" => "Training teknisi Padang",
-                    "DepartingFrom" => "Jakarta",
-                    "DestinationTo" => "Padang",
-                    "DirectToVendor" => "5584803.97",
-                    "ByCorpCard" => "1074832.13",
-                ],
-                [
-                    "DocumentNumber" => "BRF-24000214",
-                    "DocumentDateTimeTZ" => "2024-12-13 00:00:00+07",
-                    "TotalBusinessTrip" => "6700000.00",
-                    "Sys_ID" => 76000000000054,
-                    "CombinedBudgetCode" => "Q000062",
-                    "CombinedBudgetName" => "XL Microcell 2007",
-                    "CombinedBudgetSectionCode" => "240",
-                    "CombinedBudgetSectionName" => "Cendana Andalas",
-                    "RequesterWorkerJobsPosition_RefID" => 164000000000023,
-                    "RequesterWorkerName" => "Agnes Sutedja",
-                    "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
-                    "BeneficiaryWorkerName" => "Agus Salim",
-                    "CurrencyName" => "IDR",
-                    "Product_ID" => 88000000000527,
-                    "CombinedBudget_RefID" => 46000000000033,
-                    "CombinedBudgetSection_RefID" => 143000000000305,
-                    "remark" => "Instalasi perangkat Banjarmasin",
-                    "DepartingFrom" => "Jakarta",
-                    "DestinationTo" => "Banjarmasin",
-                    "DirectToVendor" => "11699956.83",
-                    "ByCorpCard" => "981594.58",
-                ],
-                [
-                    "DocumentNumber" => "BRF-24000213",
-                    "DocumentDateTimeTZ" => "2024-12-12 00:00:00+07",
-                    "TotalBusinessTrip" => "7800000.00",
-                    "Sys_ID" => 76000000000054,
-                    "CombinedBudgetCode" => "Q000062",
-                    "CombinedBudgetName" => "XL Microcell 2007",
-                    "CombinedBudgetSectionCode" => "240",
-                    "CombinedBudgetSectionName" => "Cendana Andalas",
-                    "RequesterWorkerJobsPosition_RefID" => 164000000000023,
-                    "RequesterWorkerName" => "Agnes Sutedja",
-                    "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
-                    "BeneficiaryWorkerName" => "Agus Nuryadi",
-                    "CurrencyName" => "IDR",
-                    "Product_ID" => 88000000000527,
-                    "CombinedBudget_RefID" => 46000000000033,
-                    "CombinedBudgetSection_RefID" => 143000000000305,
-                    "remark" => "Survey lokasi Pontianak",
-                    "DepartingFrom" => "Jakarta",
-                    "DestinationTo" => "Pontianak",
-                    "DirectToVendor" => "6191598.49",
-                    "ByCorpCard" => "2423840.88",
-                ],
-                [
-                    "DocumentNumber" => "BRF-24000212",
-                    "DocumentDateTimeTZ" => "2024-12-11 00:00:00+07",
-                    "TotalBusinessTrip" => "5100000.00",
-                    "Sys_ID" => 76000000000054,
-                    "CombinedBudgetCode" => "Q000062",
-                    "CombinedBudgetName" => "XL Microcell 2007",
-                    "CombinedBudgetSectionCode" => "248",
-                    "CombinedBudgetSectionName" => "Bukit Pakis Sby Infill",
-                    "RequesterWorkerJobsPosition_RefID" => 164000000000023,
-                    "RequesterWorkerName" => "Achmad Yunadi",
-                    "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
-                    "BeneficiaryWorkerName" => "Adhe Kurniawan",
-                    "CurrencyName" => "IDR",
-                    "Product_ID" => 88000000000527,
-                    "CombinedBudget_RefID" => 46000000000033,
-                    "CombinedBudgetSection_RefID" => 143000000000305,
-                    "remark" => "Meeting koordinasi Pekanbaru",
-                    "DepartingFrom" => "Jakarta",
-                    "DestinationTo" => "Pekanbaru",
-                    "DirectToVendor" => "3990965.70",
-                    "ByCorpCard" => "895938.52",
-                ],
-                [
-                    "DocumentNumber" => "BRF-24000211",
-                    "DocumentDateTimeTZ" => "2024-12-10 00:00:00+07",
-                    "TotalBusinessTrip" => "8200000.00",
-                    "Sys_ID" => 76000000000054,
-                    "CombinedBudgetCode" => "Q000062",
-                    "CombinedBudgetName" => "XL Microcell 2007",
-                    "CombinedBudgetSectionCode" => "248",
-                    "CombinedBudgetSectionName" => "Bukit Pakis Sby Infill",
-                    "RequesterWorkerJobsPosition_RefID" => 164000000000023,
-                    "RequesterWorkerName" => "Achmad Yunadi",
-                    "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
-                    "BeneficiaryWorkerName" => "Aden Bagus",
-                    "CurrencyName" => "IDR",
-                    "Product_ID" => 88000000000527,
-                    "CombinedBudget_RefID" => 46000000000033,
-                    "CombinedBudgetSection_RefID" => 143000000000305,
-                    "remark" => "Maintenance BTS Ambon",
-                    "DepartingFrom" => "Jakarta",
-                    "DestinationTo" => "Ambon",
-                    "DirectToVendor" => "4290339.17",
-                    "ByCorpCard" => "2207263.87",
-                ],
-                [
-                    "DocumentNumber" => "BRF-24000210",
-                    "DocumentDateTimeTZ" => "2024-12-10 00:00:00+07",
-                    "TotalBusinessTrip" => "6200000.00",
-                    "Sys_ID" => 76000000000054,
-                    "CombinedBudgetCode" => "Q000062",
-                    "CombinedBudgetName" => "XL Microcell 2007",
-                    "CombinedBudgetSectionCode" => "248",
-                    "CombinedBudgetSectionName" => "Bukit Pakis Sby Infill",
-                    "RequesterWorkerJobsPosition_RefID" => 164000000000023,
-                    "RequesterWorkerName" => "Achmad Yunadi",
-                    "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
-                    "BeneficiaryWorkerName" => "Agus Salim",
-                    "CurrencyName" => "IDR",
-                    "Product_ID" => 88000000000527,
-                    "CombinedBudget_RefID" => 46000000000033,
-                    "CombinedBudgetSection_RefID" => 143000000000305,
-                    "remark" => "Training team Yogyakarta",
-                    "DepartingFrom" => "Jakarta",
-                    "DestinationTo" => "Yogyakarta",
-                    "DirectToVendor" => "6506060.02",
-                    "ByCorpCard" => "6407582.00",
-                ],
-                [
-                    "DocumentNumber" => "BRF-24000209",
-                    "DocumentDateTimeTZ" => "2024-12-10 00:00:00+07",
-                    "TotalBusinessTrip" => "7500000.00",
-                    "Sys_ID" => 76000000000054,
-                    "CombinedBudgetCode" => "Q000062",
-                    "CombinedBudgetName" => "XL Microcell 2007",
-                    "CombinedBudgetSectionCode" => "235",
-                    "CombinedBudgetSectionName" => "Ampang Kuranji - Padang",
-                    "RequesterWorkerJobsPosition_RefID" => 164000000000023,
-                    "RequesterWorkerName" => "Abdul Rachman",
-                    "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
-                    "BeneficiaryWorkerName" => "Agus Salim",
-                    "CurrencyName" => "IDR",
-                    "Product_ID" => 88000000000527,
-                    "CombinedBudget_RefID" => 46000000000033,
-                    "CombinedBudgetSection_RefID" => 143000000000305,
-                    "remark" => "Presentasi project Denpasar",
-                    "DepartingFrom" => "Jakarta",
-                    "DestinationTo" => "Denpasar",
-                    "DirectToVendor" => "4580540.68",
-                    "ByCorpCard" => "7677468.37",
-                ],
-                [
-                    "DocumentNumber" => "BRF-24000208",
-                    "DocumentDateTimeTZ" => "2024-12-10 00:00:00+07",
-                    "TotalBusinessTrip" => "5800000.00",
-                    "Sys_ID" => 76000000000054,
-                    "CombinedBudgetCode" => "Q000062",
-                    "CombinedBudgetName" => "XL Microcell 2007",
-                    "CombinedBudgetSectionCode" => "235",
-                    "CombinedBudgetSectionName" => "Ampang Kuranji - Padang",
-                    "RequesterWorkerJobsPosition_RefID" => 164000000000023,
-                    "RequesterWorkerName" => "Abdul Rachman",
-                    "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
-                    "BeneficiaryWorkerName" => "Adhe Kurniawan",
-                    "CurrencyName" => "IDR",
-                    "Product_ID" => 88000000000527,
-                    "CombinedBudget_RefID" => 46000000000033,
-                    "CombinedBudgetSection_RefID" => 143000000000305,
-                    "remark" => "Survey lokasi Palembang",
-                    "DepartingFrom" => "Jakarta",
-                    "DestinationTo" => "Palembang",
-                    "DirectToVendor" => "9812027.67",
-                    "ByCorpCard" => "4722046.68",
-                ],
-                [
-                    "DocumentNumber" => "BRF-24000207",
-                    "DocumentDateTimeTZ" => "2024-12-09 00:00:00+07",
-                    "TotalBusinessTrip" => "9000000.00",
-                    "Sys_ID" => 76000000000054,
-                    "CombinedBudgetCode" => "Q000062",
-                    "CombinedBudgetName" => "XL Microcell 2007",
-                    "CombinedBudgetSectionCode" => "235",
-                    "CombinedBudgetSectionName" => "Ampang Kuranji - Padang",
-                    "RequesterWorkerJobsPosition_RefID" => 164000000000023,
-                    "RequesterWorkerName" => "Abdul Rachman",
-                    "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
-                    "BeneficiaryWorkerName" => "Aden Bagus",
-                    "CurrencyName" => "IDR",
-                    "Product_ID" => 88000000000527,
-                    "CombinedBudget_RefID" => 46000000000033,
-                    "CombinedBudgetSection_RefID" => 143000000000305,
-                    "remark" => "Audit site Jayapura",
-                    "DepartingFrom" => "Jakarta",
-                    "DestinationTo" => "Jayapura",
-                    "DirectToVendor" => "9217656.66",
-                    "ByCorpCard" => "1818964.19",
-                ],
-                [
-                    "DocumentNumber" => "BRF-24000206",
-                    "DocumentDateTimeTZ" => "2024-12-09 00:00:00+07",
-                    "TotalBusinessTrip" => "4200000.00",
-                    "Sys_ID" => 76000000000054,
-                    "CombinedBudgetCode" => "Q000062",
-                    "CombinedBudgetName" => "XL Microcell 2007",
-                    "CombinedBudgetSectionCode" => "235",
-                    "CombinedBudgetSectionName" => "Ampang Kuranji - Padang",
-                    "RequesterWorkerJobsPosition_RefID" => 164000000000023,
-                    "RequesterWorkerName" => "Abdul Rachman",
-                    "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
-                    "BeneficiaryWorkerName" => "Ahmad Faiz Haems Muda",
-                    "CurrencyName" => "IDR",
-                    "Product_ID" => 88000000000527,
-                    "CombinedBudget_RefID" => 46000000000033,
-                    "CombinedBudgetSection_RefID" => 143000000000305,
-                    "remark" => "Meeting koordinasi Semarang",
-                    "DepartingFrom" => "Jakarta",
-                    "DestinationTo" => "Semarang",
-                    "DirectToVendor" => "8767743.46",
-                    "ByCorpCard" => "2790922.28",
-                ],
-                [
-                    "DocumentNumber" => "BRF-24000205",
-                    "DocumentDateTimeTZ" => "2024-12-09 00:00:00+07",
-                    "TotalBusinessTrip" => "8500000.00",
-                    "Sys_ID" => 76000000000054,
-                    "CombinedBudgetCode" => "Q000062",
-                    "CombinedBudgetName" => "XL Microcell 2007",
-                    "CombinedBudgetSectionCode" => "235",
-                    "CombinedBudgetSectionName" => "Ampang Kuranji - Padang",
-                    "RequesterWorkerJobsPosition_RefID" => 164000000000023,
-                    "RequesterWorkerName" => "Abdul Rachman",
-                    "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
-                    "BeneficiaryWorkerName" => "Ahmad Fauzi",
-                    "CurrencyName" => "IDR",
-                    "Product_ID" => 88000000000527,
-                    "CombinedBudget_RefID" => 46000000000033,
-                    "CombinedBudgetSection_RefID" => 143000000000305,
-                    "remark" => "Maintenance BTS Manado",
-                    "DepartingFrom" => "Jakarta",
-                    "DestinationTo" => "Manado",
-                    "DirectToVendor" => "9445254.91",
-                    "ByCorpCard" => "11937158.49",
-                ],
-                [
-                    "DocumentNumber" => "BRF-24000204",
-                    "DocumentDateTimeTZ" => "2024-12-06 00:00:00+07",
-                    "TotalBusinessTrip" => "3800000.00",
-                    "Sys_ID" => 76000000000054,
-                    "CombinedBudgetCode" => "Q000062",
-                    "CombinedBudgetName" => "XL Microcell 2007",
-                    "CombinedBudgetSectionCode" => "235",
-                    "CombinedBudgetSectionName" => "Ampang Kuranji - Padang",
-                    "RequesterWorkerJobsPosition_RefID" => 164000000000023,
-                    "RequesterWorkerName" => "Abdul Rachman",
-                    "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
-                    "BeneficiaryWorkerName" => "Aldi Mulyadi",
-                    "CurrencyName" => "IDR",
-                    "Product_ID" => 88000000000527,
-                    "CombinedBudget_RefID" => 46000000000033,
-                    "CombinedBudgetSection_RefID" => 143000000000305,
-                    "remark" => "Training teknisi Bandung",
-                    "DepartingFrom" => "Jakarta",
-                    "DestinationTo" => "Bandung",
-                    "DirectToVendor" => "7185994.58",
-                    "ByCorpCard" => "513655.62",
-                ],
-                [
-                    "DocumentNumber" => "BRF-24000203",
-                    "DocumentDateTimeTZ" => "2024-12-05 00:00:00+07",
-                    "TotalBusinessTrip" => "7200000.00",
-                    "Sys_ID" => 76000000000054,
-                    "CombinedBudgetCode" => "Q000062",
-                    "CombinedBudgetName" => "XL Microcell 2007",
-                    "CombinedBudgetSectionCode" => "235",
-                    "CombinedBudgetSectionName" => "Ampang Kuranji - Padang",
-                    "RequesterWorkerJobsPosition_RefID" => 164000000000023,
-                    "RequesterWorkerName" => "Abdul Rachman",
-                    "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
-                    "BeneficiaryWorkerName" => "Agus Nuryadi",
-                    "CurrencyName" => "IDR",
-                    "Product_ID" => 88000000000527,
-                    "CombinedBudget_RefID" => 46000000000033,
-                    "CombinedBudgetSection_RefID" => 143000000000305,
-                    "remark" => "Instalasi perangkat Makassar",
-                    "DepartingFrom" => "Jakarta",
-                    "DestinationTo" => "Makassar",
-                    "DirectToVendor" => "5075630.00",
-                    "ByCorpCard" => "1780691.21",
-                ],
-                [
-                    "DocumentNumber" => "BRF-24000202",
-                    "DocumentDateTimeTZ" => "2024-12-04 00:00:00+07",
-                    "TotalBusinessTrip" => "5500000.00",
-                    "Sys_ID" => 76000000000054,
-                    "CombinedBudgetCode" => "Q000062",
-                    "CombinedBudgetName" => "XL Microcell 2007",
-                    "CombinedBudgetSectionCode" => "235",
-                    "CombinedBudgetSectionName" => "Ampang Kuranji - Padang",
-                    "RequesterWorkerJobsPosition_RefID" => 164000000000023,
-                    "RequesterWorkerName" => "Abdul Rachman",
-                    "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
-                    "BeneficiaryWorkerName" => "Ahmad Choerul",
-                    "CurrencyName" => "IDR",
-                    "Product_ID" => 88000000000527,
-                    "CombinedBudget_RefID" => 46000000000033,
-                    "CombinedBudgetSection_RefID" => 143000000000305,
-                    "remark" => "Meeting vendor Surabaya",
-                    "DepartingFrom" => "Jakarta",
-                    "DestinationTo" => "Surabaya",
-                    "DirectToVendor" => "668860.66",
-                    "ByCorpCard" => "9816691.90",
-                ],
-                [
-                    "DocumentNumber" => "BRF-24000201",
-                    "DocumentDateTimeTZ" => "2024-12-03 00:00:00+07",
-                    "TotalBusinessTrip" => "4500000.00",
-                    "Sys_ID" => 76000000000054,
-                    "CombinedBudgetCode" => "Q000062",
-                    "CombinedBudgetName" => "XL Microcell 2007",
-                    "CombinedBudgetSectionCode" => "235",
-                    "CombinedBudgetSectionName" => "Ampang Kuranji - Padang",
-                    "RequesterWorkerJobsPosition_RefID" => 164000000000023,
-                    "RequesterWorkerName" => "Abdul Rachman",
-                    "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
-                    "BeneficiaryWorkerName" => "Agnes Sutedja",
-                    "CurrencyName" => "IDR",
-                    "Product_ID" => 88000000000527,
-                    "CombinedBudget_RefID" => 46000000000033,
-                    "CombinedBudgetSection_RefID" => 143000000000305,
-                    "remark" => "Survey lokasi BTS Medan",
-                    "DepartingFrom" => "Jakarta",
-                    "DestinationTo" => "Medan",
-                    "DirectToVendor" => "163579.34",
-                    "ByCorpCard" => "3944147.35",
-                ],
-                [
-                    "DocumentNumber" => "BRF-24000200",
-                    "DocumentDateTimeTZ" => "2024-12-02 00:00:00+07",
-                    "TotalBusinessTrip" => "6000000.00",
-                    "Sys_ID" => 76000000000054,
-                    "CombinedBudgetCode" => "Q000062",
-                    "CombinedBudgetName" => "XL Microcell 2007",
-                    "CombinedBudgetSectionCode" => "235",
-                    "CombinedBudgetSectionName" => "Ampang Kuranji - Padang",
-                    "RequesterWorkerJobsPosition_RefID" => 164000000000023,
-                    "RequesterWorkerName" => "Abdul Rachman",
-                    "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
-                    "BeneficiaryWorkerName" => "Agnes Sutedja",
-                    "CurrencyName" => "IDR",
-                    "Product_ID" => 88000000000527,
-                    "CombinedBudget_RefID" => 46000000000033,
-                    "CombinedBudgetSection_RefID" => 143000000000305,
-                    "remark" => "BT Pak Sagala presentasi HTLS Batam",
-                    "DepartingFrom" => "Jakarta",
-                    "DestinationTo" => "Batam",
-                    "DirectToVendor" => "1906782.56",
-                    "ByCorpCard" => "789801.69",
-                ],
-            ];
-
-            // DUMMY DATA (2 PAGE)
-            // $getReportAdvanceSummary = [
-            //     [
-            //         "DocumentNumber" => "BRF-24000200",
-            //         "DocumentDateTimeTZ" => "2024-12-02 00:00:00+07",
-            //         "TotalBusinessTrip" => "6000000.00",
-            //         "Sys_ID" => 76000000000054,
-            //         "CombinedBudgetCode" => "Q000062",
-            //         "CombinedBudgetName" => "XL Microcell 2007",
-            //         "CombinedBudgetSectionCode" => "235",
-            //         "CombinedBudgetSectionName" => $site_name,
-            //         "RequesterWorkerJobsPosition_RefID" => 164000000000023,
-            //         "RequesterWorkerName" => $requester_name,
-            //         "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
-            //         "BeneficiaryWorkerName" => $beneficiary_name,
-            //         "CurrencyName" => "IDR",
-            //         "Product_ID" => 88000000000527,
-            //         "CombinedBudget_RefID" => 46000000000033,
-            //         "CombinedBudgetSection_RefID" => 143000000000305,
-            //         "remark" => "BT Pak Sagala presentasi HTLS Batam",
-            //         "DepartingFrom" => "Jakarta",
-            //         "DestinationTo" => "Batam"
-            //     ],
-            //     [
-            //         "DocumentNumber" => "BRF-24000201",
-            //         "DocumentDateTimeTZ" => "2024-12-02 00:00:00+07",
-            //         "TotalBusinessTrip" => "4500000.00",
-            //         "Sys_ID" => 76000000000054,
-            //         "CombinedBudgetCode" => "Q000062",
-            //         "CombinedBudgetName" => "XL Microcell 2007",
-            //         "CombinedBudgetSectionCode" => "235",
-            //         "CombinedBudgetSectionName" => $site_name,
-            //         "RequesterWorkerJobsPosition_RefID" => 164000000000023,
-            //         "RequesterWorkerName" => $requester_name,
-            //         "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
-            //         "BeneficiaryWorkerName" => $beneficiary_name,
-            //         "CurrencyName" => "IDR",
-            //         "Product_ID" => 88000000000527,
-            //         "CombinedBudget_RefID" => 46000000000033,
-            //         "CombinedBudgetSection_RefID" => 143000000000305,
-            //         "remark" => "Survey lokasi BTS Medan",
-            //         "DepartingFrom" => "Jakarta",
-            //         "DestinationTo" => "Medan"
-            //     ],
-            //     [
-            //         "DocumentNumber" => "BRF-24000202",
-            //         "DocumentDateTimeTZ" => "2024-12-02 00:00:00+07",
-            //         "TotalBusinessTrip" => "5500000.00",
-            //         "Sys_ID" => 76000000000054,
-            //         "CombinedBudgetCode" => "Q000062",
-            //         "CombinedBudgetName" => "XL Microcell 2007",
-            //         "CombinedBudgetSectionCode" => "235",
-            //         "CombinedBudgetSectionName" => $site_name,
-            //         "RequesterWorkerJobsPosition_RefID" => 164000000000023,
-            //         "RequesterWorkerName" => $requester_name,
-            //         "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
-            //         "BeneficiaryWorkerName" => $beneficiary_name,
-            //         "CurrencyName" => "IDR",
-            //         "Product_ID" => 88000000000527,
-            //         "CombinedBudget_RefID" => 46000000000033,
-            //         "CombinedBudgetSection_RefID" => 143000000000305,
-            //         "remark" => "Meeting vendor Surabaya",
-            //         "DepartingFrom" => "Jakarta",
-            //         "DestinationTo" => "Surabaya"
-            //     ],
-            //     [
-            //         "DocumentNumber" => "BRF-24000203",
-            //         "DocumentDateTimeTZ" => "2024-12-02 00:00:00+07",
-            //         "TotalBusinessTrip" => "7200000.00",
-            //         "Sys_ID" => 76000000000054,
-            //         "CombinedBudgetCode" => "Q000062",
-            //         "CombinedBudgetName" => "XL Microcell 2007",
-            //         "CombinedBudgetSectionCode" => "235",
-            //         "CombinedBudgetSectionName" => $site_name,
-            //         "RequesterWorkerJobsPosition_RefID" => 164000000000023,
-            //         "RequesterWorkerName" => $requester_name,
-            //         "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
-            //         "BeneficiaryWorkerName" => $beneficiary_name,
-            //         "CurrencyName" => "IDR",
-            //         "Product_ID" => 88000000000527,
-            //         "CombinedBudget_RefID" => 46000000000033,
-            //         "CombinedBudgetSection_RefID" => 143000000000305,
-            //         "remark" => "Instalasi perangkat Makassar",
-            //         "DepartingFrom" => "Jakarta",
-            //         "DestinationTo" => "Makassar"
-            //     ],
-            //     [
-            //         "DocumentNumber" => "BRF-24000204",
-            //         "DocumentDateTimeTZ" => "2024-12-02 00:00:00+07",
-            //         "TotalBusinessTrip" => "3800000.00",
-            //         "Sys_ID" => 76000000000054,
-            //         "CombinedBudgetCode" => "Q000062",
-            //         "CombinedBudgetName" => "XL Microcell 2007",
-            //         "CombinedBudgetSectionCode" => "235",
-            //         "CombinedBudgetSectionName" => $site_name,
-            //         "RequesterWorkerJobsPosition_RefID" => 164000000000023,
-            //         "RequesterWorkerName" => $requester_name,
-            //         "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
-            //         "BeneficiaryWorkerName" => $beneficiary_name,
-            //         "CurrencyName" => "IDR",
-            //         "Product_ID" => 88000000000527,
-            //         "CombinedBudget_RefID" => 46000000000033,
-            //         "CombinedBudgetSection_RefID" => 143000000000305,
-            //         "remark" => "Training teknisi Bandung",
-            //         "DepartingFrom" => "Jakarta",
-            //         "DestinationTo" => "Bandung"
-            //     ],
-            //     [
-            //         "DocumentNumber" => "BRF-24000205",
-            //         "DocumentDateTimeTZ" => "2024-12-02 00:00:00+07",
-            //         "TotalBusinessTrip" => "8500000.00",
-            //         "Sys_ID" => 76000000000054,
-            //         "CombinedBudgetCode" => "Q000062",
-            //         "CombinedBudgetName" => "XL Microcell 2007",
-            //         "CombinedBudgetSectionCode" => "235",
-            //         "CombinedBudgetSectionName" => $site_name,
-            //         "RequesterWorkerJobsPosition_RefID" => 164000000000023,
-            //         "RequesterWorkerName" => $requester_name,
-            //         "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
-            //         "BeneficiaryWorkerName" => $beneficiary_name,
-            //         "CurrencyName" => "IDR",
-            //         "Product_ID" => 88000000000527,
-            //         "CombinedBudget_RefID" => 46000000000033,
-            //         "CombinedBudgetSection_RefID" => 143000000000305,
-            //         "remark" => "Maintenance BTS Manado",
-            //         "DepartingFrom" => "Jakarta",
-            //         "DestinationTo" => "Manado"
-            //     ],
-            //     [
-            //         "DocumentNumber" => "BRF-24000206",
-            //         "DocumentDateTimeTZ" => "2024-12-02 00:00:00+07",
-            //         "TotalBusinessTrip" => "4200000.00",
-            //         "Sys_ID" => 76000000000054,
-            //         "CombinedBudgetCode" => "Q000062",
-            //         "CombinedBudgetName" => "XL Microcell 2007",
-            //         "CombinedBudgetSectionCode" => "235",
-            //         "CombinedBudgetSectionName" => $site_name,
-            //         "RequesterWorkerJobsPosition_RefID" => 164000000000023,
-            //         "RequesterWorkerName" => $requester_name,
-            //         "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
-            //         "BeneficiaryWorkerName" => $beneficiary_name,
-            //         "CurrencyName" => "IDR",
-            //         "Product_ID" => 88000000000527,
-            //         "CombinedBudget_RefID" => 46000000000033,
-            //         "CombinedBudgetSection_RefID" => 143000000000305,
-            //         "remark" => "Meeting koordinasi Semarang",
-            //         "DepartingFrom" => "Jakarta",
-            //         "DestinationTo" => "Semarang"
-            //     ],
-            //     [
-            //         "DocumentNumber" => "BRF-24000207",
-            //         "DocumentDateTimeTZ" => "2024-12-02 00:00:00+07",
-            //         "TotalBusinessTrip" => "9000000.00",
-            //         "Sys_ID" => 76000000000054,
-            //         "CombinedBudgetCode" => "Q000062",
-            //         "CombinedBudgetName" => "XL Microcell 2007",
-            //         "CombinedBudgetSectionCode" => "235",
-            //         "CombinedBudgetSectionName" => $site_name,
-            //         "RequesterWorkerJobsPosition_RefID" => 164000000000023,
-            //         "RequesterWorkerName" => $requester_name,
-            //         "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
-            //         "BeneficiaryWorkerName" => $beneficiary_name,
-            //         "CurrencyName" => "IDR",
-            //         "Product_ID" => 88000000000527,
-            //         "CombinedBudget_RefID" => 46000000000033,
-            //         "CombinedBudgetSection_RefID" => 143000000000305,
-            //         "remark" => "Audit site Jayapura",
-            //         "DepartingFrom" => "Jakarta",
-            //         "DestinationTo" => "Jayapura"
-            //     ],
-            //     [
-            //         "DocumentNumber" => "BRF-24000208",
-            //         "DocumentDateTimeTZ" => "2024-12-02 00:00:00+07",
-            //         "TotalBusinessTrip" => "5800000.00",
-            //         "Sys_ID" => 76000000000054,
-            //         "CombinedBudgetCode" => "Q000062",
-            //         "CombinedBudgetName" => "XL Microcell 2007",
-            //         "CombinedBudgetSectionCode" => "235",
-            //         "CombinedBudgetSectionName" => $site_name,
-            //         "RequesterWorkerJobsPosition_RefID" => 164000000000023,
-            //         "RequesterWorkerName" => $requester_name,
-            //         "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
-            //         "BeneficiaryWorkerName" => $beneficiary_name,
-            //         "CurrencyName" => "IDR",
-            //         "Product_ID" => 88000000000527,
-            //         "CombinedBudget_RefID" => 46000000000033,
-            //         "CombinedBudgetSection_RefID" => 143000000000305,
-            //         "remark" => "Survey lokasi Palembang",
-            //         "DepartingFrom" => "Jakarta",
-            //         "DestinationTo" => "Palembang"
-            //     ],
-            //     [
-            //         "DocumentNumber" => "BRF-24000209",
-            //         "DocumentDateTimeTZ" => "2024-12-02 00:00:00+07",
-            //         "TotalBusinessTrip" => "7500000.00",
-            //         "Sys_ID" => 76000000000054,
-            //         "CombinedBudgetCode" => "Q000062",
-            //         "CombinedBudgetName" => "XL Microcell 2007",
-            //         "CombinedBudgetSectionCode" => "235",
-            //         "CombinedBudgetSectionName" => $site_name,
-            //         "RequesterWorkerJobsPosition_RefID" => 164000000000023,
-            //         "RequesterWorkerName" => $requester_name,
-            //         "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
-            //         "BeneficiaryWorkerName" => $beneficiary_name,
-            //         "CurrencyName" => "IDR",
-            //         "Product_ID" => 88000000000527,
-            //         "CombinedBudget_RefID" => 46000000000033,
-            //         "CombinedBudgetSection_RefID" => 143000000000305,
-            //         "remark" => "Presentasi project Denpasar",
-            //         "DepartingFrom" => "Jakarta",
-            //         "DestinationTo" => "Denpasar"
-            //     ],
-            //     [
-            //         "DocumentNumber" => "BRF-24000210",
-            //         "DocumentDateTimeTZ" => "2024-12-02 00:00:00+07",
-            //         "TotalBusinessTrip" => "6200000.00",
-            //         "Sys_ID" => 76000000000054,
-            //         "CombinedBudgetCode" => "Q000062",
-            //         "CombinedBudgetName" => "XL Microcell 2007",
-            //         "CombinedBudgetSectionCode" => "235",
-            //         "CombinedBudgetSectionName" => $site_name,
-            //         "RequesterWorkerJobsPosition_RefID" => 164000000000023,
-            //         "RequesterWorkerName" => $requester_name,
-            //         "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
-            //         "BeneficiaryWorkerName" => $beneficiary_name,
-            //         "CurrencyName" => "IDR",
-            //         "Product_ID" => 88000000000527,
-            //         "CombinedBudget_RefID" => 46000000000033,
-            //         "CombinedBudgetSection_RefID" => 143000000000305,
-            //         "remark" => "Training team Yogyakarta",
-            //         "DepartingFrom" => "Jakarta",
-            //         "DestinationTo" => "Yogyakarta",
-            //     ],
-            //     [
-            //         "DocumentNumber" => "BRF-24000211",
-            //         "DocumentDateTimeTZ" => "2024-12-02 00:00:00+07",
-            //         "TotalBusinessTrip" => "8200000.00",
-            //         "Sys_ID" => 76000000000054,
-            //         "CombinedBudgetCode" => "Q000062",
-            //         "CombinedBudgetName" => "XL Microcell 2007",
-            //         "CombinedBudgetSectionCode" => "235",
-            //         "CombinedBudgetSectionName" => $site_name,
-            //         "RequesterWorkerJobsPosition_RefID" => 164000000000023,
-            //         "RequesterWorkerName" => $requester_name,
-            //         "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
-            //         "BeneficiaryWorkerName" => $beneficiary_name,
-            //         "CurrencyName" => "IDR",
-            //         "Product_ID" => 88000000000527,
-            //         "CombinedBudget_RefID" => 46000000000033,
-            //         "CombinedBudgetSection_RefID" => 143000000000305,
-            //         "remark" => "Maintenance BTS Ambon",
-            //         "DepartingFrom" => "Jakarta",
-            //         "DestinationTo" => "Ambon"
-            //     ],
-            //     [
-            //         "DocumentNumber" => "BRF-24000212",
-            //         "DocumentDateTimeTZ" => "2024-12-02 00:00:00+07",
-            //         "TotalBusinessTrip" => "5100000.00",
-            //         "Sys_ID" => 76000000000054,
-            //         "CombinedBudgetCode" => "Q000062",
-            //         "CombinedBudgetName" => "XL Microcell 2007",
-            //         "CombinedBudgetSectionCode" => "235",
-            //         "CombinedBudgetSectionName" => $site_name,
-            //         "RequesterWorkerJobsPosition_RefID" => 164000000000023,
-            //         "RequesterWorkerName" => $requester_name,
-            //         "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
-            //         "BeneficiaryWorkerName" => $beneficiary_name,
-            //         "CurrencyName" => "IDR",
-            //         "Product_ID" => 88000000000527,
-            //         "CombinedBudget_RefID" => 46000000000033,
-            //         "CombinedBudgetSection_RefID" => 143000000000305,
-            //         "remark" => "Meeting koordinasi Pekanbaru",
-            //         "DepartingFrom" => "Jakarta",
-            //         "DestinationTo" => "Pekanbaru"
-            //     ],
-            //     [
-            //         "DocumentNumber" => "BRF-24000213",
-            //         "DocumentDateTimeTZ" => "2024-12-02 00:00:00+07",
-            //         "TotalBusinessTrip" => "7800000.00",
-            //         "Sys_ID" => 76000000000054,
-            //         "CombinedBudgetCode" => "Q000062",
-            //         "CombinedBudgetName" => "XL Microcell 2007",
-            //         "CombinedBudgetSectionCode" => "235",
-            //         "CombinedBudgetSectionName" => $site_name,
-            //         "RequesterWorkerJobsPosition_RefID" => 164000000000023,
-            //         "RequesterWorkerName" => $requester_name,
-            //         "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
-            //         "BeneficiaryWorkerName" => $beneficiary_name,
-            //         "CurrencyName" => "IDR",
-            //         "Product_ID" => 88000000000527,
-            //         "CombinedBudget_RefID" => 46000000000033,
-            //         "CombinedBudgetSection_RefID" => 143000000000305,
-            //         "remark" => "Survey lokasi Pontianak",
-            //         "DepartingFrom" => "Jakarta",
-            //         "DestinationTo" => "Pontianak"
-            //     ],
-            //     [
-            //         "DocumentNumber" => "BRF-24000214",
-            //         "DocumentDateTimeTZ" => "2024-12-02 00:00:00+07",
-            //         "TotalBusinessTrip" => "6700000.00",
-            //         "Sys_ID" => 76000000000054,
-            //         "CombinedBudgetCode" => "Q000062",
-            //         "CombinedBudgetName" => "XL Microcell 2007",
-            //         "CombinedBudgetSectionCode" => "235",
-            //         "CombinedBudgetSectionName" => $site_name,
-            //         "RequesterWorkerJobsPosition_RefID" => 164000000000023,
-            //         "RequesterWorkerName" => $requester_name,
-            //         "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
-            //         "BeneficiaryWorkerName" => $beneficiary_name,
-            //         "CurrencyName" => "IDR",
-            //         "Product_ID" => 88000000000527,
-            //         "CombinedBudget_RefID" => 46000000000033,
-            //         "CombinedBudgetSection_RefID" => 143000000000305,
-            //         "remark" => "Instalasi perangkat Banjarmasin",
-            //         "DepartingFrom" => "Jakarta",
-            //         "DestinationTo" => "Banjarmasin"
-            //     ],
-            //     [
-            //         "DocumentNumber" => "BRF-24000215",
-            //         "DocumentDateTimeTZ" => "2024-12-02 00:00:00+07",
-            //         "TotalBusinessTrip" => "5300000.00",
-            //         "Sys_ID" => 76000000000054,
-            //         "CombinedBudgetCode" => "Q000062",
-            //         "CombinedBudgetName" => "XL Microcell 2007",
-            //         "CombinedBudgetSectionCode" => "235",
-            //         "CombinedBudgetSectionName" => $site_name,
-            //         "RequesterWorkerJobsPosition_RefID" => 164000000000023,
-            //         "RequesterWorkerName" => $requester_name,
-            //         "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
-            //         "BeneficiaryWorkerName" => $beneficiary_name,
-            //         "CurrencyName" => "IDR",
-            //         "Product_ID" => 88000000000527,
-            //         "CombinedBudget_RefID" => 46000000000033,
-            //         "CombinedBudgetSection_RefID" => 143000000000305,
-            //         "remark" => "Training teknisi Padang",
-            //         "DepartingFrom" => "Jakarta",
-            //         "DestinationTo" => "Padang"
-            //     ],
-            //     [
-            //         "DocumentNumber" => "BRF-24000216",
-            //         "DocumentDateTimeTZ" => "2024-12-02 00:00:00+07",
-            //         "TotalBusinessTrip" => "8800000.00",
-            //         "Sys_ID" => 76000000000054,
-            //         "CombinedBudgetCode" => "Q000062",
-            //         "CombinedBudgetName" => "XL Microcell 2007",
-            //         "CombinedBudgetSectionCode" => "235",
-            //         "CombinedBudgetSectionName" => $site_name,
-            //         "RequesterWorkerJobsPosition_RefID" => 164000000000023,
-            //         "RequesterWorkerName" => $requester_name,
-            //         "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
-            //         "BeneficiaryWorkerName" => $beneficiary_name,
-            //         "CurrencyName" => "IDR",
-            //         "Product_ID" => 88000000000527,
-            //         "CombinedBudget_RefID" => 46000000000033,
-            //         "CombinedBudgetSection_RefID" => 143000000000305,
-            //         "remark" => "Audit site Sorong",
-            //         "DepartingFrom" => "Jakarta",
-            //         "DestinationTo" => "Sorong"
-            //     ],
-            //     [
-            //         "DocumentNumber" => "BRF-24000217",
-            //         "DocumentDateTimeTZ" => "2024-12-02 00:00:00+07",
-            //         "TotalBusinessTrip" => "4900000.00",
-            //         "Sys_ID" => 76000000000054,
-            //         "CombinedBudgetCode" => "Q000062",
-            //         "CombinedBudgetName" => "XL Microcell 2007",
-            //         "CombinedBudgetSectionCode" => "235",
-            //         "CombinedBudgetSectionName" => $site_name,
-            //         "RequesterWorkerJobsPosition_RefID" => 164000000000023,
-            //         "RequesterWorkerName" => $requester_name,
-            //         "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
-            //         "BeneficiaryWorkerName" => $beneficiary_name,
-            //         "CurrencyName" => "IDR",
-            //         "Product_ID" => 88000000000527,
-            //         "CombinedBudget_RefID" => 46000000000033,
-            //         "CombinedBudgetSection_RefID" => 143000000000305,
-            //         "remark" => "Meeting vendor Malang",
-            //         "DepartingFrom" => "Jakarta",
-            //         "DestinationTo" => "Malang"
-            //     ],
-            //     [
-            //         "DocumentNumber" => "BRF-24000218",
-            //         "DocumentDateTimeTZ" => "2024-12-02 00:00:00+07",
-            //         "TotalBusinessTrip" => "7100000.00",
-            //         "Sys_ID" => 76000000000054,
-            //         "CombinedBudgetCode" => "Q000062",
-            //         "CombinedBudgetName" => "XL Microcell 2007",
-            //         "CombinedBudgetSectionCode" => "235",
-            //         "CombinedBudgetSectionName" => $site_name,
-            //         "RequesterWorkerJobsPosition_RefID" => 164000000000023,
-            //         "RequesterWorkerName" => $requester_name,
-            //         "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
-            //         "BeneficiaryWorkerName" => $beneficiary_name,
-            //         "CurrencyName" => "IDR",
-            //         "Product_ID" => 88000000000527,
-            //         "CombinedBudget_RefID" => 46000000000033,
-            //         "CombinedBudgetSection_RefID" => 143000000000305,
-            //         "remark" => "Presentasi project Samarinda",
-            //         "DepartingFrom" => "Jakarta",
-            //         "DestinationTo" => "Samarinda"
-            //     ],
-            //     [
-            //         "DocumentNumber" => "BRF-24000219",
-            //         "DocumentDateTimeTZ" => "2024-12-02 00:00:00+07",
-            //         "TotalBusinessTrip" => "6400000.00",
-            //         "Sys_ID" => 76000000000054,
-            //         "CombinedBudgetCode" => "Q000062",
-            //         "CombinedBudgetName" => "XL Microcell 2007",
-            //         "CombinedBudgetSectionCode" => "235",
-            //         "CombinedBudgetSectionName" => $site_name,
-            //         "RequesterWorkerJobsPosition_RefID" => 164000000000023,
-            //         "RequesterWorkerName" => $requester_name,
-            //         "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
-            //         "BeneficiaryWorkerName" => $beneficiary_name,
-            //         "CurrencyName" => "IDR",
-            //         "Product_ID" => 88000000000527,
-            //         "CombinedBudget_RefID" => 46000000000033,
-            //         "CombinedBudgetSection_RefID" => 143000000000305,
-            //         "remark" => "Maintenance BTS Kupang",
-            //         "DepartingFrom" => "Jakarta",
-            //         "DestinationTo" => "Kupang"
-            //     ],
-            //     [
-            //         "DocumentNumber" => "BRF-24000220",
-            //         "DocumentDateTimeTZ" => "2024-12-02 00:00:00+07",
-            //         "TotalBusinessTrip" => "7300000.00",
-            //         "Sys_ID" => 76000000000054,
-            //         "CombinedBudgetCode" => "Q000062",
-            //         "CombinedBudgetName" => "XL Microcell 2007",
-            //         "CombinedBudgetSectionCode" => "235",
-            //         "CombinedBudgetSectionName" => $site_name,
-            //         "RequesterWorkerJobsPosition_RefID" => 164000000000023,
-            //         "RequesterWorkerName" => $requester_name,
-            //         "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
-            //         "BeneficiaryWorkerName" => $beneficiary_name,
-            //         "CurrencyName" => "IDR",
-            //         "Product_ID" => 88000000000527,
-            //         "CombinedBudget_RefID" => 46000000000033,
-            //         "CombinedBudgetSection_RefID" => 143000000000305,
-            //         "remark" => "Survey lokasi Balikpapan",
-            //         "DepartingFrom" => "Jakarta",
-            //         "DestinationTo" => "Balikpapan"
-            //     ],
-            //     [
-            //         "DocumentNumber" => "BRF-24000221",
-            //         "DocumentDateTimeTZ" => "2024-12-02 00:00:00+07",
-            //         "TotalBusinessTrip" => "5600000.00",
-            //         "Sys_ID" => 76000000000054,
-            //         "CombinedBudgetCode" => "Q000062",
-            //         "CombinedBudgetName" => "XL Microcell 2007",
-            //         "CombinedBudgetSectionCode" => "235",
-            //         "CombinedBudgetSectionName" => $site_name,
-            //         "RequesterWorkerJobsPosition_RefID" => 164000000000023,
-            //         "RequesterWorkerName" => $requester_name,
-            //         "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
-            //         "BeneficiaryWorkerName" => $beneficiary_name,
-            //         "CurrencyName" => "IDR",
-            //         "Product_ID" => 88000000000527,
-            //         "CombinedBudget_RefID" => 46000000000033,
-            //         "CombinedBudgetSection_RefID" => 143000000000305,
-            //         "remark" => "Meeting koordinasi Mataram",
-            //         "DepartingFrom" => "Jakarta",
-            //         "DestinationTo" => "Mataram"
-            //     ],
-            //     [
-            //         "DocumentNumber" => "BRF-24000222",
-            //         "DocumentDateTimeTZ" => "2024-12-02 00:00:00+07",
-            //         "TotalBusinessTrip" => "8100000.00",
-            //         "Sys_ID" => 76000000000054,
-            //         "CombinedBudgetCode" => "Q000062",
-            //         "CombinedBudgetName" => "XL Microcell 2007",
-            //         "CombinedBudgetSectionCode" => "235",
-            //         "CombinedBudgetSectionName" => $site_name,
-            //         "RequesterWorkerJobsPosition_RefID" => 164000000000023,
-            //         "RequesterWorkerName" => $requester_name,
-            //         "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
-            //         "BeneficiaryWorkerName" => $beneficiary_name,
-            //         "CurrencyName" => "IDR",
-            //         "Product_ID" => 88000000000527,
-            //         "CombinedBudget_RefID" => 46000000000033,
-            //         "CombinedBudgetSection_RefID" => 143000000000305,
-            //         "remark" => "Instalasi perangkat Ternate",
-            //         "DepartingFrom" => "Jakarta",
-            //         "DestinationTo" => "Ternate"
-            //     ],
-            //     [
-            //         "DocumentNumber" => "BRF-24000223",
-            //         "DocumentDateTimeTZ" => "2024-12-02 00:00:00+07",
-            //         "TotalBusinessTrip" => "4700000.00",
-            //         "Sys_ID" => 76000000000054,
-            //         "CombinedBudgetCode" => "Q000062",
-            //         "CombinedBudgetName" => "XL Microcell 2007",
-            //         "CombinedBudgetSectionCode" => "235",
-            //         "CombinedBudgetSectionName" => $site_name,
-            //         "RequesterWorkerJobsPosition_RefID" => 164000000000023,
-            //         "RequesterWorkerName" => $requester_name,
-            //         "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
-            //         "BeneficiaryWorkerName" => $beneficiary_name,
-            //         "CurrencyName" => "IDR",
-            //         "Product_ID" => 88000000000527,
-            //         "CombinedBudget_RefID" => 46000000000033,
-            //         "CombinedBudgetSection_RefID" => 143000000000305,
-            //         "remark" => "Training team Jambi",
-            //         "DepartingFrom" => "Jakarta",
-            //         "DestinationTo" => "Jambi"
-            //     ],
-            //     [
-            //         "DocumentNumber" => "BRF-24000224",
-            //         "DocumentDateTimeTZ" => "2024-12-02 00:00:00+07",
-            //         "TotalBusinessTrip" => "6900000.00",
-            //         "Sys_ID" => 76000000000054,
-            //         "CombinedBudgetCode" => "Q000062",
-            //         "CombinedBudgetName" => "XL Microcell 2007",
-            //         "CombinedBudgetSectionCode" => "235",
-            //         "CombinedBudgetSectionName" => $site_name,
-            //         "RequesterWorkerJobsPosition_RefID" => 164000000000023,
-            //         "RequesterWorkerName" => $requester_name,
-            //         "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
-            //         "BeneficiaryWorkerName" => $beneficiary_name,
-            //         "CurrencyName" => "IDR",
-            //         "Product_ID" => 88000000000527,
-            //         "CombinedBudget_RefID" => 46000000000033,
-            //         "CombinedBudgetSection_RefID" => 143000000000305,
-            //         "remark" => "Audit site Kendari",
-            //         "DepartingFrom" => "Jakarta",
-            //         "DestinationTo" => "Kendari"
-            //     ],
-            //     [
-            //         "DocumentNumber" => "BRF-24000225",
-            //         "DocumentDateTimeTZ" => "2024-12-02 00:00:00+07",
-            //         "TotalBusinessTrip" => "5200000.00",
-            //         "Sys_ID" => 76000000000054,
-            //         "CombinedBudgetCode" => "Q000062",
-            //         "CombinedBudgetName" => "XL Microcell 2007",
-            //         "CombinedBudgetSectionCode" => "235",
-            //         "CombinedBudgetSectionName" => $site_name,
-            //         "RequesterWorkerJobsPosition_RefID" => 164000000000023,
-            //         "RequesterWorkerName" => $requester_name,
-            //         "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
-            //         "BeneficiaryWorkerName" => $beneficiary_name,
-            //         "CurrencyName" => "IDR",
-            //         "Product_ID" => 88000000000527,
-            //         "CombinedBudget_RefID" => 46000000000033,
-            //         "CombinedBudgetSection_RefID" => 143000000000305,
-            //         "remark" => "Meeting vendor Bengkulu",
-            //         "DepartingFrom" => "Jakarta",
-            //         "DestinationTo" => "Bengkulu"
-            //     ],
-            //     [
-            //         "DocumentNumber" => "BRF-24000226",
-            //         "DocumentDateTimeTZ" => "2024-12-02 00:00:00+07",
-            //         "TotalBusinessTrip" => "7600000.00",
-            //         "Sys_ID" => 76000000000054,
-            //         "CombinedBudgetCode" => "Q000062",
-            //         "CombinedBudgetName" => "XL Microcell 2007",
-            //         "CombinedBudgetSectionCode" => "235",
-            //         "CombinedBudgetSectionName" => $site_name,
-            //         "RequesterWorkerJobsPosition_RefID" => 164000000000023,
-            //         "RequesterWorkerName" => $requester_name,
-            //         "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
-            //         "BeneficiaryWorkerName" => $beneficiary_name,
-            //         "CurrencyName" => "IDR",
-            //         "Product_ID" => 88000000000527,
-            //         "CombinedBudget_RefID" => 46000000000033,
-            //         "CombinedBudgetSection_RefID" => 143000000000305,
-            //         "remark" => "Survey lokasi Gorontalo",
-            //         "DepartingFrom" => "Jakarta",
-            //         "DestinationTo" => "Gorontalo"
-            //     ],
-            //     [
-            //         "DocumentNumber" => "BRF-24000227",
-            //         "DocumentDateTimeTZ" => "2024-12-02 00:00:00+07",
-            //         "TotalBusinessTrip" => "5900000.00",
-            //         "Sys_ID" => 76000000000054,
-            //         "CombinedBudgetCode" => "Q000062",
-            //         "CombinedBudgetName" => "XL Microcell 2007",
-            //         "CombinedBudgetSectionCode" => "235",
-            //         "CombinedBudgetSectionName" => $site_name,
-            //         "RequesterWorkerJobsPosition_RefID" => 164000000000023,
-            //         "RequesterWorkerName" => $requester_name,
-            //         "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
-            //         "BeneficiaryWorkerName" => $beneficiary_name,
-            //         "CurrencyName" => "IDR",
-            //         "Product_ID" => 88000000000527,
-            //         "CombinedBudget_RefID" => 46000000000033,
-            //         "CombinedBudgetSection_RefID" => 143000000000305,
-            //         "remark" => "Maintenance BTS Pangkal Pinang",
-            //         "DepartingFrom" => "Jakarta",
-            //         "DestinationTo" => "Pangkal Pinang"
-            //     ],
-            //     [
-            //         "DocumentNumber" => "BRF-24000228",
-            //         "DocumentDateTimeTZ" => "2024-12-02 00:00:00+07",
-            //         "TotalBusinessTrip" => "8400000.00",
-            //         "Sys_ID" => 76000000000054,
-            //         "CombinedBudgetCode" => "Q000062",
-            //         "CombinedBudgetName" => "XL Microcell 2007",
-            //         "CombinedBudgetSectionCode" => "235",
-            //         "CombinedBudgetSectionName" => $site_name,
-            //         "RequesterWorkerJobsPosition_RefID" => 164000000000023,
-            //         "RequesterWorkerName" => $requester_name,
-            //         "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
-            //         "BeneficiaryWorkerName" => $beneficiary_name,
-            //         "CurrencyName" => "IDR",
-            //         "Product_ID" => 88000000000527,
-            //         "CombinedBudget_RefID" => 46000000000033,
-            //         "CombinedBudgetSection_RefID" => 143000000000305,
-            //         "remark" => "Training teknisi Merauke",
-            //         "DepartingFrom" => "Jakarta",
-            //         "DestinationTo" => "Merauke"
-            //     ],
-            //     [
-            //         "DocumentNumber" => "BRF-24000229",
-            //         "DocumentDateTimeTZ" => "2024-12-02 00:00:00+07",
-            //         "TotalBusinessTrip" => "6300000.00",
-            //         "Sys_ID" => 76000000000054,
-            //         "CombinedBudgetCode" => "Q000062",
-            //         "CombinedBudgetName" => "XL Microcell 2007",
-            //         "CombinedBudgetSectionCode" => "235",
-            //         "CombinedBudgetSectionName" => $site_name,
-            //         "RequesterWorkerJobsPosition_RefID" => 164000000000023,
-            //         "RequesterWorkerName" => $requester_name,
-            //         "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
-            //         "BeneficiaryWorkerName" => $beneficiary_name,
-            //         "CurrencyName" => "IDR",
-            //         "Product_ID" => 88000000000527,
-            //         "CombinedBudget_RefID" => 46000000000033,
-            //         "CombinedBudgetSection_RefID" => 143000000000305,
-            //         "remark" => "Presentasi project Tanjung Pinang",
-            //         "DepartingFrom" => "Jakarta",
-            //         "DestinationTo" => "Tanjung Pinang"
-            //     ]
-            // ];
-
-            $reportData = is_string($getReportAdvanceSummary) ? json_decode($getReportAdvanceSummary, true) : $getReportAdvanceSummary;
-
-            $filteredData = array_filter($reportData, function ($item) use ($project_code, $site_name, $requester_name, $beneficiary_name) {
-                return 
-                    (empty($project_code)     || $item['CombinedBudgetCode'] == $project_code) &&
-                    (empty($site_name)        || $item['CombinedBudgetSectionName'] == $site_name) &&
-                    (empty($requester_name)   || $item['RequesterWorkerName'] == $requester_name) &&
-                    (empty($beneficiary_name) || $item['BeneficiaryWorkerName'] == $beneficiary_name);
-                    // (empty($project_id)     || $item['CombinedBudget_RefID'] == $project_id) &&
-                    // (empty($site_id)        || $item['CombinedBudgetSection_RefID'] == $site_id) &&
-                    // (empty($requester_id)   || $item['RequesterWorkerJobsPosition_RefID'] == $requester_id) &&
-                    // (empty($beneficiary_id) || $item['BeneficiaryWorkerJobsPosition_RefID'] == $beneficiary_id);
-            });
-
-            // $totalAdvance = array_reduce($filteredData, function ($carry, $item) {
-            $totalAdvance = array_reduce($filteredData, function ($carry, $item) {
-                return $carry + ($item['TotalAdvance'] ?? 0);
-            }, 0);
+            Log::error("Report Business Trip Request Summary Store Function Error:" . $th->getMessage());
 
             $compact = [
-                // 'dataDetail'         => $filteredData,
-                'dataDetail'            => $filteredData,
-                'budgetCode'            => $project_code,
-                'budgetName'            => $project_name,
-                'budgetId'              => $project_id,
-                'siteCode'              => $site_code,
-                'siteName'              => $site_name,
-                'siteId'                => $site_id,
-                'requesterName'         => $requester_name,
-                'requesterId'           => $requester_id,
-                'requesterPosition'     => $requester_position,
-                'beneficiaryName'       => $beneficiary_name,
-                'beneficiaryId'         => $beneficiary_id,
-                'beneficiaryPosition'   => $beneficiary_position,
-                'total'                 => $totalAdvance,
+                'status' => 500,
+                'message' => $th->getMessage()
             ];
 
-            Session::put("isButtonReportBusinessTripRequestSummarySubmit", true);
-            Session::put("dataReportBusinessTripRequestSummary", $compact);
-
-            return $compact;
-        } catch (\Throwable $th) {
-            Log::error("ReportBusinessTripRequestSummaryData Error at " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
+            return response()->json($compact);
         }
     }
 
-    public function ReportBusinessTripRequestSummaryStore(Request $request) 
+    public function PrintExportReportBusinessTripRequestSummary(Request $request)
     {
         try {
-            $project_code           = $request->project_code_second;
-            $project_name           = $request->project_name_second;
-            $project_id             = $request->project_id_second;
+            $type = $request->printType;
+            $dataBusinessTrip = json_decode($request->dataReport, true);
 
-            $site_id                = $request->site_id_second;
-            $site_code              = $request->site_code_second;
-            $site_name              = $request->site_name_second;
+            if ($dataBusinessTrip) {
+                if ($type === "PDF") {
+                    $pdf = PDF::loadView('Process.BusinessTrip.BusinessTripRequest.Reports.ReportBusinessTripRequestSummary_pdf', ['dataReport' => $dataBusinessTrip])
+                        ->setPaper('a4', 'landscape');
 
-            $requester_id           = $request->worker_id_second;
-            $requester_name         = $request->worker_name_second;
-            $requester_position     = $request->worker_position_second;
-
-            $beneficiary_id         = $request->beneficiary_second_id;
-            $beneficiary_name       = $request->beneficiary_second_person_name;
-            $beneficiary_position   = $request->beneficiary_second_person_position;
-
-            if (!$project_id && !$site_id && !$requester_id && !$beneficiary_id) {
-                Session::forget("isButtonReportBusinessTripRequestSummarySubmit");
-                Session::forget("dataReportBusinessTripRequestSummary");
-
-                return redirect()->route('BusinessTripRequest.ReportBusinessTripRequestSummary')->with('NotFound', 'Budget, Sub Budget, Requester, & Beneficiary Cannot Be Empty');
-            }
-
-            $compact = $this->ReportBusinessTripRequestSummaryData($project_id, $site_id, $requester_id, $beneficiary_id, $project_name, $project_code, $site_code, $requester_name, $beneficiary_name, $site_name, $requester_position, $beneficiary_position);
-
-            if ($compact === null || empty($compact)) {
-                return redirect()->back()->with('NotFound', 'Data Not Found');
-            }
-            
-            return redirect()->route('BusinessTripRequest.ReportBusinessTripRequestSummary');
-        } catch (\Throwable $th) {
-            Log::error("ReportBusinessTripRequestSummaryStore Error at " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
-        }
-    }
-
-    public function PrintExportReportBusinessTripRequestSummary(Request $request) 
-    {
-        try {
-            $dataReport = Session::get("dataReportBusinessTripRequestSummary");
-            $print_type = $request->print_type;
-            $project_code_second_trigger = $request->project_code_second_trigger;
-
-            if ($project_code_second_trigger == null) {
-                Session::forget("isButtonReportBusinessTripRequestSummarySubmit");
-                Session::forget("dataReportBusinessTripRequestSummary");
-        
-                return redirect()->route('BusinessTripRequest.ReportBusinessTripRequestSummary')->with('NotFound', 'Budget, Sub Budget, Requester, & Beneficiary Cannot Be Empty');
-            }
-
-            if ($dataReport) {
-                if ($print_type === "PDF") {
-                    $pdf = PDF::loadView('Process.BusinessTrip.BusinessTripRequest.Reports.ReportBusinessTripRequestSummary_pdf', ['dataReport' => $dataReport])->setPaper('a4', 'landscape');
                     $pdf->output();
                     $dom_pdf = $pdf->getDomPDF();
-
-                    $canvas = $dom_pdf ->get_canvas();
+                    $canvas = $dom_pdf->get_canvas();
                     $width = $canvas->get_width();
                     $height = $canvas->get_height();
                     $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
                     $canvas->page_text(34, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
 
-                    return $pdf->download('Export Report Business Trip Request Summary.pdf');
+                    return $pdf->download('Export Report Purchase Order to Account Payable.pdf');
+                } else if ($type === "EXCEL") {
+                    return Excel::download(new ExportReportBusinessTripRequestSummary($dataBusinessTrip), 'Export Report PO to DO.xlsx');
                 } else {
-                    return Excel::download(new ExportReportBusinessTripRequestSummary, 'Export Report Business Trip Request Summary.xlsx');
+                    throw new \Exception('Failed to Export Report Business Trip');
                 }
             } else {
-                return redirect()->route('BusinessTripRequest.ReportBusinessTripRequestSummary')->with('NotFound', 'Budget, Sub Budget, Requester, & Beneficiary Cannot Empty');
+                throw new \Exception('Business Trip Data is Empty');
             }
         } catch (\Throwable $th) {
-            Log::error("PrintExportReportBusinessTripRequestSummary Error at " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
+            Log::error("Print Export Report Business Trip Request Summary Function Error: " . $th->getMessage());
+
+            return response()->json(['statusCode' => 400]);
         }
     }
 
@@ -1798,8 +417,8 @@ class BusinessTripRequestController extends Controller
             $dataReport = $isSubmitButton ? $request->session()->get('dataReportBusinessTripRequestDetail', []) : [];
 
             $compact = [
-                'varAPIWebToken'    => $varAPIWebToken,
-                'dataReport'        => $dataReport
+                'varAPIWebToken' => $varAPIWebToken,
+                'dataReport' => $dataReport
             ];
 
             return view('Process.BusinessTrip.BusinessTripRequest.Reports.ReportBusinessTripRequestDetail', $compact);
@@ -1812,7 +431,7 @@ class BusinessTripRequestController extends Controller
     public function ReportBusinessTripRequestDetailData($brf_trano, $brf_id, $brf_budget, $brf_budget_name, $brf_sub_budget, $brf_sub_budget_name)
     {
         try {
-            $varAPIWebToken         = Session::get('SessionLogin');
+            $varAPIWebToken = Session::get('SessionLogin');
             // $getReportAdvanceDetail = Helper_APICall::setCallAPIGateway(
             //     Helper_Environment::getUserSessionID_System(),
             //     $varAPIWebToken, 
@@ -1830,12 +449,12 @@ class BusinessTripRequestController extends Controller
                     "0" => [
                         "document" => [
                             "header" => [
-                                "recordID"                      => "76000000000002",
-                                "title"                         => "Advance Form",
-                                "number"                        => "Adv/QDC/2022/000239",
-                                "version"                       => "0",
-                                "date"                          => "2022-12-13",
-                                "businessDocumentType_RefID"    => "77000000000057"
+                                "recordID" => "76000000000002",
+                                "title" => "Advance Form",
+                                "number" => "Adv/QDC/2022/000239",
+                                "version" => "0",
+                                "date" => "2022-12-13",
+                                "businessDocumentType_RefID" => "77000000000057"
                             ],
                             "content" => [
                                 "general" => [
@@ -1862,7 +481,7 @@ class BusinessTripRequestController extends Controller
                                     ],
                                     "businessDocument" => [
                                         "businessDocumentList" => [
-                                            "recordID"  => "74000000020307",
+                                            "recordID" => "74000000020307",
                                             "formBusinessDocumentNumber_RefID" => "76000000000002",
                                             "type_RefID" => "77000000000057",
                                             "typeName" => "Advance Form",
@@ -1936,37 +555,37 @@ class BusinessTripRequestController extends Controller
             $splitResponse = $getReportAdvanceDetail['data'][0]['document'];
 
             $compact = [
-                'dataHeaderOne'     => [
-                    'brfId'             => $brf_id,
-                    'brfNumber'         => $brf_trano,
-                    'budgetCode'        => $brf_budget,
-                    'budgetName'        => $brf_budget_name,
-                    'siteCode'          => $brf_sub_budget,
-                    'siteName'          => $brf_sub_budget_name,
-                    'productID'         => '820005-0000',
-                    'productName'       => 'Travel & Fares/Business Trip',
-                    'dateCommence'      => '2024-12-18',
-                    'dateEnd'           => '2024-12-20',
-                    'dateBRF'           => '2024-12-12',
-                    'contactPhone'      => '0896734873',
-                    'bankType'          => $splitResponse['content']['general']['bankAccount']['beneficiary']['bankAcronym'],
+                'dataHeaderOne' => [
+                    'brfId' => $brf_id,
+                    'brfNumber' => $brf_trano,
+                    'budgetCode' => $brf_budget,
+                    'budgetName' => $brf_budget_name,
+                    'siteCode' => $brf_sub_budget,
+                    'siteName' => $brf_sub_budget_name,
+                    'productID' => '820005-0000',
+                    'productName' => 'Travel & Fares/Business Trip',
+                    'dateCommence' => '2024-12-18',
+                    'dateEnd' => '2024-12-20',
+                    'dateBRF' => '2024-12-12',
+                    'contactPhone' => '0896734873',
+                    'bankType' => $splitResponse['content']['general']['bankAccount']['beneficiary']['bankAcronym'],
                     'bankAccountNumber' => $splitResponse['content']['general']['bankAccount']['beneficiary']['bankAccountNumber'],
-                    'bankAccountName'   => $splitResponse['content']['general']['bankAccount']['beneficiary']['bankAccountName'],
-                    'requester'         => $splitResponse['content']['general']['involvedPersons'][0]['requesterWorkerName'],
-                    'beneficiary'       => $splitResponse['content']['general']['involvedPersons'][0]['beneficiaryWorkerName'],
-                    'departingFrom'     => 'Jakarta',
-                    'destinationTo'     => 'Batam',
+                    'bankAccountName' => $splitResponse['content']['general']['bankAccount']['beneficiary']['bankAccountName'],
+                    'requester' => $splitResponse['content']['general']['involvedPersons'][0]['requesterWorkerName'],
+                    'beneficiary' => $splitResponse['content']['general']['involvedPersons'][0]['beneficiaryWorkerName'],
+                    'departingFrom' => 'Jakarta',
+                    'destinationTo' => 'Batam',
                 ],
-                'dataHeaderTwo'     => [
-                    'totalAllowance'        => '240000.00',
-                    'totalEntertainment'    => '100000.00',
-                    'totalOther'            => '100000.00',
-                    'totalTransport'        => '3450000.00',
-                    'totalAccommodation'    => '0.00',
-                    'totalBusinessTrip'     => '3890000.00',
+                'dataHeaderTwo' => [
+                    'totalAllowance' => '240000.00',
+                    'totalEntertainment' => '100000.00',
+                    'totalOther' => '100000.00',
+                    'totalTransport' => '3450000.00',
+                    'totalAccommodation' => '0.00',
+                    'totalBusinessTrip' => '3890000.00',
                 ],
-                'dataHeaderThree'   => [
-                    'reason'    => 'Silahturahmi PLN JBT dan cari info tender batam beserta info lain'
+                'dataHeaderThree' => [
+                    'reason' => 'Silahturahmi PLN JBT dan cari info tender batam beserta info lain'
                 ],
             ];
 
@@ -1983,12 +602,12 @@ class BusinessTripRequestController extends Controller
     public function ReportBusinessTripRequestDetailStore(Request $request)
     {
         try {
-            $brf_trano              = $request->brf_number_trano;
-            $brf_id                 = $request->brf_number_id;
-            $brf_budget             = $request->brf_number_budget;
-            $brf_budget_name        = $request->brf_number_budget_name;
-            $brf_sub_budget         = $request->brf_number_sub_budget;
-            $brf_sub_budget_name    = $request->brf_number_sub_budget_name;
+            $brf_trano = $request->brf_number_trano;
+            $brf_id = $request->brf_number_id;
+            $brf_budget = $request->brf_number_budget;
+            $brf_budget_name = $request->brf_number_budget_name;
+            $brf_sub_budget = $request->brf_number_sub_budget;
+            $brf_sub_budget_name = $request->brf_number_sub_budget_name;
 
             if (!$brf_id) {
                 Session::forget("isButtonReportBusinessTripRequestDetailSubmit");
@@ -2019,8 +638,8 @@ class BusinessTripRequestController extends Controller
             $dataReport = $isSubmitButton ? $request->session()->get('dataReportBusinessTripToBSF', []) : [];
 
             $compact = [
-                'varAPIWebToken'    => $varAPIWebToken,
-                'dataReport'        => $dataReport
+                'varAPIWebToken' => $varAPIWebToken,
+                'dataReport' => $dataReport
             ];
 
             return view('Process.BusinessTrip.BusinessTripToBSF.Reports.ReportBusinessTripToBSF', $compact);
@@ -2030,7 +649,7 @@ class BusinessTripRequestController extends Controller
         }
     }
 
-    public function ReportBusinessTripToBSFData($project, $site, $requester) 
+    public function ReportBusinessTripToBSFData($project, $site, $requester)
     {
         try {
             $dataDummy = [
@@ -2427,36 +1046,36 @@ class BusinessTripRequestController extends Controller
             ];
 
             $filteredData = array_filter($dataDummy, function ($item) use ($project, $site, $requester) {
-                return 
-                    (empty($project['id'])      || $item['CombinedBudget_RefID'] == $project['id']) &&
-                    (empty($site['id'])         || $item['CombinedBudgetSection_RefID'] == $site['id']) &&
-                    (empty($requester['id'])    || $item['RequesterWorkerJobsPosition_RefID'] == $requester['id']);
+                return
+                    (empty($project['id']) || $item['CombinedBudget_RefID'] == $project['id']) &&
+                    (empty($site['id']) || $item['CombinedBudgetSection_RefID'] == $site['id']) &&
+                    (empty($requester['id']) || $item['RequesterWorkerJobsPosition_RefID'] == $requester['id']);
             });
 
             $compact = [
-                'project'                           => $project,
-                'site'                              => $site,
-                'requester'                         => $requester,
-                'dataDetail'                        => $filteredData,
-                'totalTravel'                       => $this->calculateTotal($filteredData, 'TotalTravel'),
-                'totalAllowance'                    => $this->calculateTotal($filteredData, 'TotalAllowance'),
-                'totalEntertainment'                => $this->calculateTotal($filteredData, 'TotalEntertainment'),
-                'totalOther'                        => $this->calculateTotal($filteredData, 'TotalOther'),
-                'totalPayment'                      => $this->calculateTotal($filteredData, 'TotalPayment'),
-                'totalBSFTravel'                    => $this->calculateTotal($filteredData, 'TotalBSFTravel'),
-                'totalBSFAllowance'                 => $this->calculateTotal($filteredData, 'TotalBSFAllowance'),
-                'totalBSFEntertainment'             => $this->calculateTotal($filteredData, 'TotalBSFEntertainment'),
-                'totalBSFOther'                     => $this->calculateTotal($filteredData, 'TotalBSFOther'),
-                'totalExpenseClaimTravel'           => $this->calculateTotal($filteredData, 'TotalExpenseClaimTravel'),
-                'totalExpenseClaimAllowance'        => $this->calculateTotal($filteredData, 'TotalExpenseClaimAllowance'),
-                'totalExpenseClaimEntertainment'    => $this->calculateTotal($filteredData, 'TotalExpenseClaimEntertainment'),
-                'totalExpenseClaimOther'            => $this->calculateTotal($filteredData, 'TotalExpenseClaimOther'),
-                'totalAmountToCompanyTravel'        => $this->calculateTotal($filteredData, 'TotalAmountToCompanyTravel'),
-                'totalAmountToCompanyAllowance'     => $this->calculateTotal($filteredData, 'TotalAmountToCompanyAllowance'),
+                'project' => $project,
+                'site' => $site,
+                'requester' => $requester,
+                'dataDetail' => $filteredData,
+                'totalTravel' => $this->calculateTotal($filteredData, 'TotalTravel'),
+                'totalAllowance' => $this->calculateTotal($filteredData, 'TotalAllowance'),
+                'totalEntertainment' => $this->calculateTotal($filteredData, 'TotalEntertainment'),
+                'totalOther' => $this->calculateTotal($filteredData, 'TotalOther'),
+                'totalPayment' => $this->calculateTotal($filteredData, 'TotalPayment'),
+                'totalBSFTravel' => $this->calculateTotal($filteredData, 'TotalBSFTravel'),
+                'totalBSFAllowance' => $this->calculateTotal($filteredData, 'TotalBSFAllowance'),
+                'totalBSFEntertainment' => $this->calculateTotal($filteredData, 'TotalBSFEntertainment'),
+                'totalBSFOther' => $this->calculateTotal($filteredData, 'TotalBSFOther'),
+                'totalExpenseClaimTravel' => $this->calculateTotal($filteredData, 'TotalExpenseClaimTravel'),
+                'totalExpenseClaimAllowance' => $this->calculateTotal($filteredData, 'TotalExpenseClaimAllowance'),
+                'totalExpenseClaimEntertainment' => $this->calculateTotal($filteredData, 'TotalExpenseClaimEntertainment'),
+                'totalExpenseClaimOther' => $this->calculateTotal($filteredData, 'TotalExpenseClaimOther'),
+                'totalAmountToCompanyTravel' => $this->calculateTotal($filteredData, 'TotalAmountToCompanyTravel'),
+                'totalAmountToCompanyAllowance' => $this->calculateTotal($filteredData, 'TotalAmountToCompanyAllowance'),
                 'totalAmountToCompanyEntertainment' => $this->calculateTotal($filteredData, 'TotalAmountToCompanyEntertainment'),
-                'totalAmountToCompanyOther'         => $this->calculateTotal($filteredData, 'TotalAmountToCompanyOther'),
-                'totalBusinessTripPayment'          => $this->calculateTotal($filteredData, 'TotalBusinessTripPayment'),
-                'totalBusinessTripSettlement'       => $this->calculateTotal($filteredData, 'TotalBusinessTripSettlement'),
+                'totalAmountToCompanyOther' => $this->calculateTotal($filteredData, 'TotalAmountToCompanyOther'),
+                'totalBusinessTripPayment' => $this->calculateTotal($filteredData, 'TotalBusinessTripPayment'),
+                'totalBusinessTripSettlement' => $this->calculateTotal($filteredData, 'TotalBusinessTripSettlement'),
             ];
 
             Session::put("isButtonReportBusinessTripToBSFSubmit", true);
@@ -2473,21 +1092,21 @@ class BusinessTripRequestController extends Controller
     {
         try {
             $project = [
-                'id'        => $request->project_id_second,
-                'code'      => $request->project_code_second,
-                'name'      => $request->project_name_second,
+                'id' => $request->project_id_second,
+                'code' => $request->project_code_second,
+                'name' => $request->project_name_second,
             ];
 
             $site = [
-                'id'        => $request->site_id_second,
-                'code'      => $request->site_code_second,
-                'name'      => $request->site_name_second,
+                'id' => $request->site_id_second,
+                'code' => $request->site_code_second,
+                'name' => $request->site_name_second,
             ];
 
             $requester = [
-                'id'        => $request->worker_id_second,
-                'name'      => $request->worker_name_second,
-                'position'  => $request->worker_position_second,
+                'id' => $request->worker_id_second,
+                'name' => $request->worker_name_second,
+                'position' => $request->worker_position_second,
             ];
 
             if (!$project['id'] && !$site['id'] && !$requester['id']) {
@@ -2510,7 +1129,7 @@ class BusinessTripRequestController extends Controller
         }
     }
 
-    public function PrintExportReportBusinessTripToBSF(Request $request) 
+    public function PrintExportReportBusinessTripToBSF(Request $request)
     {
         try {
             $dataReport = Session::get("dataReportBusinessTripToBSF");
@@ -2530,7 +1149,7 @@ class BusinessTripRequestController extends Controller
                     $pdf->output();
                     $dom_pdf = $pdf->getDomPDF();
 
-                    $canvas = $dom_pdf ->get_canvas();
+                    $canvas = $dom_pdf->get_canvas();
                     $width = $canvas->get_width();
                     $height = $canvas->get_height();
                     $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
@@ -2549,7 +1168,7 @@ class BusinessTripRequestController extends Controller
         }
     }
 
-    public function PrintExportReportBusinessTripRequestDetail(Request $request) 
+    public function PrintExportReportBusinessTripRequestDetail(Request $request)
     {
         try {
             $project_code_second_trigger = $request->project_code_second_trigger;
@@ -2559,7 +1178,7 @@ class BusinessTripRequestController extends Controller
             if ($project_code_second_trigger == null) {
                 Session::forget("isButtonReportBusinessTripRequestDetailSubmit");
                 Session::forget("dataReportBusinessTripRequestDetail");
-        
+
                 return redirect()->route('BusinessTripRequest.ReportBusinessTripRequestDetail')->with('NotFound', 'BRF Number Cannot Empty');
             }
 
@@ -2569,7 +1188,7 @@ class BusinessTripRequestController extends Controller
                     $pdf->output();
                     $dom_pdf = $pdf->getDomPDF();
 
-                    $canvas = $dom_pdf ->get_canvas();
+                    $canvas = $dom_pdf->get_canvas();
                     $width = $canvas->get_width();
                     $height = $canvas->get_height();
                     $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));

@@ -21,11 +21,11 @@ use App\Services\WorkflowService;
 class DeliveryOrderController extends Controller
 {
     protected $deliveryOrderService, $workflowService;
-    
+
     public function __construct(DeliveryOrderService $deliveryOrderService, WorkflowService $workflowService)
     {
         $this->deliveryOrderService = $deliveryOrderService;
-        $this->workflowService      = $workflowService;
+        $this->workflowService = $workflowService;
     }
 
     public function ReportDOToMaterialReceive(Request $request)
@@ -35,7 +35,7 @@ class DeliveryOrderController extends Controller
         $dataDOtoMR = Session::get("dotoMRReportSummaryDataPDF");
 
         if (!empty($_GET['var'])) {
-            $var =  $_GET['var'];
+            $var = $_GET['var'];
         }
         $compact = [
             'varAPIWebToken' => $varAPIWebToken,
@@ -43,7 +43,7 @@ class DeliveryOrderController extends Controller
             'statusHeader' => "Yes",
             'statusDetail' => 1,
             'dataDOtoMR' => $dataDOtoMR
-        
+
         ];
         // dump($dataDOtoMR);
 
@@ -51,33 +51,33 @@ class DeliveryOrderController extends Controller
     }
 
     public function ReportDOToMaterialReceiveData($project_code, $site_code)
-    {        
+    {
         try {
-            Log::error("Error at ",[$project_code, $site_code]);
+            Log::error("Error at ", [$project_code, $site_code]);
 
             $varAPIWebToken = Session::get('SessionLogin');
 
             $filteredArray = Helper_APICall::setCallAPIGateway(
                 Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'report.form.documentForm.supplyChain.getDeliveryOrderToWarehouseInboundOrderSummary', 
+                $varAPIWebToken,
+                'report.form.documentForm.supplyChain.getDeliveryOrderToWarehouseInboundOrderSummary',
                 'latest',
                 [
                     'parameter' => [
-                        'CombinedBudgetCode' =>  $project_code,
-                        'CombinedBudgetSectionCode' =>  $site_code,
+                        'CombinedBudgetCode' => $project_code,
+                        'CombinedBudgetSectionCode' => $site_code,
                         // 'Warehouse_RefID' => NULL
                     ],
-                     'SQLStatement' => [
+                    'SQLStatement' => [
                         'pick' => null,
                         'sort' => null,
                         'filter' => null,
                         'paging' => null
-                        ]
+                    ]
                 ]
             );
-            
-            Log::error("Error at " ,$filteredArray);
+
+            Log::error("Error at ", $filteredArray);
             if ($filteredArray['metadata']['HTTPStatusCode'] !== 200) {
                 return redirect()->back()->with('NotFound', 'Process Error');
 
@@ -85,8 +85,7 @@ class DeliveryOrderController extends Controller
             Session::put("dotoMRReportSummaryDataPDF", $filteredArray['data']['data']);
             Session::put("dotoMRReportSummaryDataExcel", $filteredArray['data']['data']);
             return $filteredArray['data']['data'];
-        }
-        catch (\Throwable $th) {
+        } catch (\Throwable $th) {
             Log::error("Error at " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
         }
@@ -100,11 +99,11 @@ class DeliveryOrderController extends Controller
             $site_code = $request->site_code_second;
 
             $statusHeader = "Yes";
-            Log::error("Error at " ,[$request->all()]);
+            Log::error("Error at ", [$request->all()]);
             if ($project_code == "" && $site_code == "") {
                 Session::forget("dotoMRReportSummaryDataPDF");
                 Session::forget("dotoMRReportSummaryDataExcel");
-                
+
                 return redirect()->route('DeliveryOrder.ReportDOToMaterialReceive')->with('NotFound', 'Cannot Empty');
             }
 
@@ -124,13 +123,13 @@ class DeliveryOrderController extends Controller
         }
     }
 
-    public function PrintExportReportDOToMaterialReceive(Request $request) 
+    public function PrintExportReportDOToMaterialReceive(Request $request)
     {
         try {
             $dataPDF = Session::get("dotoMRReportSummaryDataPDF");
             $dataExcel = Session::get("dotoMRReportSummaryDataExcel");
 
-            
+
             if ($dataPDF && $dataExcel) {
                 $print_type = $request->print_type;
                 if ($print_type == "PDF") {
@@ -141,7 +140,7 @@ class DeliveryOrderController extends Controller
                     $pdf->output();
                     $dom_pdf = $pdf->getDomPDF();
 
-                    $canvas = $dom_pdf ->get_canvas();
+                    $canvas = $dom_pdf->get_canvas();
                     $width = $canvas->get_width();
                     $height = $canvas->get_height();
                     $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
@@ -162,25 +161,35 @@ class DeliveryOrderController extends Controller
 
     public function ReportDeliveryOrderSummary(Request $request)
     {
-        return view('Inventory.DeliveryOrder.Reports.ReportDeliveryOrderSummary');
+        $documentTypeRefID = $this->GetBusinessDocumentsTypeFromRedis('Delivery Order Form');
+        $sessionOrganizationalDepartmentName = Session::get('SessionOrganizationalDepartmentName');
+        $sessionOrganizationalJobPositionName = Session::get('SessionOrganizationalJobPositionName');
+
+        $compact = [
+            'documentTypeRefID' => $documentTypeRefID,
+            'sessionOrganizationalDepartmentName' => $sessionOrganizationalDepartmentName,
+            'sessionOrganizationalJobPositionName' => $sessionOrganizationalJobPositionName
+        ];
+
+        return view('Inventory.DeliveryOrder.Reports.ReportDeliveryOrderSummary', $compact);
     }
 
     public function ReportDeliveryOrderSummaryStore(Request $request)
     {
         try {
-            $date           = $request->doDate;
-            $warehouse      = $request->warehouse_id;
-            $budget         = [
-                "id"        => $request->budget_id,
-                "code"      => $request->budget_code,
+            $date = $request->doDate;
+            $warehouse = $request->warehouse_id;
+            $budget = [
+                "id" => $request->budget_id,
+                "code" => $request->budget_code,
             ];
-            $subBudget      = [
-                "id"        => $request->site_id,
-                "code"      => $request->site_code,
+            $subBudget = [
+                "id" => $request->site_id,
+                "code" => $request->site_code,
             ];
 
             $response = $this->deliveryOrderService->getDeliveryOrderSummary(
-                $budget['code'], 
+                $budget['code'],
                 $subBudget['code'],
                 $warehouse,
                 $date
@@ -191,8 +200,8 @@ class DeliveryOrderController extends Controller
             }
 
             $compact = [
-                'status'    => $response['metadata']['HTTPStatusCode'],
-                'data'      => $response['data']['data']
+                'status' => $response['metadata']['HTTPStatusCode'],
+                'data' => $response['data']['data']
             ];
 
             return response()->json($compact);
@@ -200,8 +209,8 @@ class DeliveryOrderController extends Controller
             Log::error("Report Delivery Order Summary Store Function Error:" . $th->getMessage());
 
             $compact = [
-                'status'    => 500,
-                'message'   => $th->getMessage()
+                'status' => 500,
+                'message' => $th->getMessage()
             ];
 
             return response()->json($compact);
@@ -211,26 +220,26 @@ class DeliveryOrderController extends Controller
     public function PrintExportReportDeliveryOrderSummary(Request $request)
     {
         try {
-            $type                       = $request->printType;
-            $budgetName                 = $request->budgetName;
-            $subBudgetName              = $request->subBudgetName;
-            $warehouseName              = $request->warehouseName;
-            $doDate                     = $request->doDate;
-            $dataDeliveryOrderSummary   = json_decode($request->dataReport, true);
+            $type = $request->printType;
+            $budgetName = $request->budgetName;
+            $subBudgetName = $request->subBudgetName;
+            $warehouseName = $request->warehouseName;
+            $doDate = $request->doDate;
+            $dataDeliveryOrderSummary = json_decode($request->dataReport, true);
 
             if ($dataDeliveryOrderSummary) {
                 if ($type == "PDF") {
                     $pdf = PDF::loadView('Inventory.DeliveryOrder.Reports.ReportDeliveryOrderSummary_pdf', [
-                        'dataDO'        => $dataDeliveryOrderSummary,
-                        'budgetName'    => $budgetName,
+                        'dataDO' => $dataDeliveryOrderSummary,
+                        'budgetName' => $budgetName,
                         'subBudgetName' => $subBudgetName,
                         'warehouseName' => $warehouseName,
-                        'doDate'        => $doDate
-                        ])->setPaper('a4', 'landscape');
+                        'doDate' => $doDate
+                    ])->setPaper('a4', 'landscape');
                     $pdf->output();
                     $dom_pdf = $pdf->getDomPDF();
 
-                    $canvas = $dom_pdf ->get_canvas();
+                    $canvas = $dom_pdf->get_canvas();
                     $width = $canvas->get_width();
                     $height = $canvas->get_height();
                     $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
@@ -252,14 +261,14 @@ class DeliveryOrderController extends Controller
 
     public function index(Request $request)
     {
-        $var                = $request->query('var', 0);
-        $varAPIWebToken     = Session::get('SessionLogin');
-        $documentTypeRefID  = $this->GetBusinessDocumentsType('Delivery Order Form');
+        $var = $request->query('var', 0);
+        $varAPIWebToken = Session::get('SessionLogin');
+        $documentTypeRefID = $this->GetBusinessDocumentsType('Delivery Order Form');
 
         return view('Inventory.DeliveryOrder.Transactions.CreateDeliveryOrder', [
-            'var'                   => $var,
-            'varAPIWebToken'        => $varAPIWebToken,
-            'documentType_RefID'    => $documentTypeRefID
+            'var' => $var,
+            'varAPIWebToken' => $varAPIWebToken,
+            'documentType_RefID' => $documentTypeRefID
         ]);
     }
 
@@ -284,8 +293,8 @@ class DeliveryOrderController extends Controller
             }
 
             $compact = [
-                "documentNumber"    => $response['data']['businessDocument']['documentNumber'],
-                "status"            => $responseWorkflow['metadata']['HTTPStatusCode'],
+                "documentNumber" => $response['data']['businessDocument']['documentNumber'],
+                "status" => $responseWorkflow['metadata']['HTTPStatusCode'],
             ];
 
             return response()->json($compact);
@@ -316,8 +325,8 @@ class DeliveryOrderController extends Controller
             // }
 
             $compact = [
-                "documentNumber"    => $response['data'][0]['businessDocument']['documentNumber'],
-                "status"            => $response['metadata']['HTTPStatusCode'],
+                "documentNumber" => $response['data'][0]['businessDocument']['documentNumber'],
+                "status" => $response['metadata']['HTTPStatusCode'],
                 // "status"            => $responseWorkflow['metadata']['HTTPStatusCode'],
             ];
 
@@ -336,22 +345,22 @@ class DeliveryOrderController extends Controller
         $dataReport = $isSubmitButton ? $request->session()->get('dataReportDODetail', []) : [];
 
         $compact = [
-            'varAPIWebToken'    => [],
-            'dataReport'        => $dataReport
+            'varAPIWebToken' => [],
+            'dataReport' => $dataReport
         ];
 
         return view('Inventory.DeliveryOrder.Reports.ReportDODetail', $compact);
     }
 
-    public function ReportDODetailData($id) 
+    public function ReportDODetailData($id)
     {
         try {
             $varAPIWebToken = Session::get('SessionLogin');
 
             $filteredArray = Helper_APICall::setCallAPIGateway(
                 Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'report.form.documentForm.finance.getAdvance', 
+                $varAPIWebToken,
+                'report.form.documentForm.finance.getAdvance',
                 'latest',
                 [
                     'parameter' => [
@@ -368,15 +377,15 @@ class DeliveryOrderController extends Controller
 
             // DATA HEADER
             $dataHeaders = [
-                'doNumber'      => 'DO01-53000004',
-                'budget'        => $getData['content']['general']['budget']['combinedBudgetCodeList'][0],
-                'budgetName'    => $getData['content']['general']['budget']['combinedBudgetNameList'][0],
-                'subBudget'     => $getData['content']['general']['budget']['combinedBudgetSectionCodeList'][0],
-                'date'          => $getData['header']['date'],
-                'transporter'   => "VDR-2594 - Aman Jaya",
-                'deliveryFrom'  => "QDC",
-                'deliveryTo'    => 'Gudang Tigaraksa',
-                'PIC'           => $getData['content']['general']['involvedPersons'][0]['requesterWorkerName'],
+                'doNumber' => 'DO01-53000004',
+                'budget' => $getData['content']['general']['budget']['combinedBudgetCodeList'][0],
+                'budgetName' => $getData['content']['general']['budget']['combinedBudgetNameList'][0],
+                'subBudget' => $getData['content']['general']['budget']['combinedBudgetSectionCodeList'][0],
+                'date' => $getData['header']['date'],
+                'transporter' => "VDR-2594 - Aman Jaya",
+                'deliveryFrom' => "QDC",
+                'deliveryTo' => 'Gudang Tigaraksa',
+                'PIC' => $getData['content']['general']['involvedPersons'][0]['requesterWorkerName'],
             ];
 
             $dataDetails = [];
@@ -384,21 +393,21 @@ class DeliveryOrderController extends Controller
             $totalQty = 0;
             foreach ($getData['content']['details']['itemList'] as $dataReports) {
                 $totalQty += $dataReports['entities']['quantity'];
-            
-                $dataDetails[$i]['no']          = $i + 1;
-                $dataDetails[$i]['dorNumber']   = "DOR1-23000004";
-                $dataDetails[$i]['productId']   = $dataReports['entities']['product_RefID'];
+
+                $dataDetails[$i]['no'] = $i + 1;
+                $dataDetails[$i]['dorNumber'] = "DOR1-23000004";
+                $dataDetails[$i]['productId'] = $dataReports['entities']['product_RefID'];
                 $dataDetails[$i]['productName'] = $dataReports['entities']['productName'];
-                $dataDetails[$i]['qty']         = number_format($dataReports['entities']['quantity'], 2, ',', '.');
-                $dataDetails[$i]['uom']         = 'Set';
-                $dataDetails[$i]['remark']      = $dataReports['entities']['quantityUnitName'];
+                $dataDetails[$i]['qty'] = number_format($dataReports['entities']['quantity'], 2, ',', '.');
+                $dataDetails[$i]['uom'] = 'Set';
+                $dataDetails[$i]['remark'] = $dataReports['entities']['quantityUnitName'];
                 $i++;
             }
 
             $compact = [
-                'dataHeader'    => $dataHeaders,
-                'dataDetail'    => $dataDetails,
-                'totalQty'      => number_format($totalQty, 2, ',', '.'),
+                'dataHeader' => $dataHeaders,
+                'dataDetail' => $dataDetails,
+                'totalQty' => number_format($totalQty, 2, ',', '.'),
             ];
 
             Session::put("isButtonReportDODetailSubmit", true);
@@ -411,11 +420,11 @@ class DeliveryOrderController extends Controller
         }
     }
 
-    public function ReportDODetailStore(Request $request) 
+    public function ReportDODetailStore(Request $request)
     {
         try {
-            $advanceRefID   = $request->advance_RefID;
-            $advanceNumber  = $request->advance_number;
+            $advanceRefID = $request->advance_RefID;
+            $advanceNumber = $request->advance_number;
 
             if (!$advanceRefID && !$advanceNumber) {
                 Session::forget("isButtonReportDODetailSubmit");
@@ -437,7 +446,8 @@ class DeliveryOrderController extends Controller
         }
     }
 
-    public function PrintExportReportDODetail(Request $request) {
+    public function PrintExportReportDODetail(Request $request)
+    {
         try {
             $dataReport = Session::get("dataReportDODetail");
 
@@ -447,12 +457,12 @@ class DeliveryOrderController extends Controller
                     $pdf->output();
                     $dom_pdf = $pdf->getDomPDF();
 
-                    $canvas = $dom_pdf ->get_canvas();
+                    $canvas = $dom_pdf->get_canvas();
                     $width = $canvas->get_width();
                     $height = $canvas->get_height();
                     $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
                     $canvas->page_text(34, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
-    
+
                     return $pdf->download('Export Report Delivery Order Detail.pdf');
                 } else {
                     return Excel::download(new ExportReportDODetail, 'Export Report Delivery Order Detail.xlsx');
@@ -617,29 +627,29 @@ class DeliveryOrderController extends Controller
         return response()->json($compact);
     }
 
-    public function FormatText($text) 
+    public function FormatText($text)
     {
         $result = strtolower($text);
         $result = str_replace("_", " ", $result);
         $result = ucwords($result);
 
-        
+
         if ($text == "PERMANENT" || $text == "RENT") {
             $resultRefID = match ($text) {
-                "RENT"      => 0,
-                default     => 1,
+                "RENT" => 0,
+                default => 1,
             };
         } else {
             $resultRefID = match ($text) {
-                "PURCHASE_ORDER"    => 0,
-                "INTERNAL_USE"      => 1,
-                default             => 2,
+                "PURCHASE_ORDER" => 0,
+                "INTERNAL_USE" => 1,
+                default => 2,
             };
         }
 
         return [
-            'id'    => $resultRefID,
-            'text'  => $result
+            'id' => $resultRefID,
+            'text' => $result
         ];
     }
 
@@ -647,6 +657,7 @@ class DeliveryOrderController extends Controller
     {
         try {
             $varAPIWebToken = Session::get('SessionLogin');
+            $documentTypeRefID = $this->GetBusinessDocumentsType('Delivery Order Revision Form');
 
             $response = $this->deliveryOrderService->getDetail($request->do_RefID);
 
@@ -657,38 +668,39 @@ class DeliveryOrderController extends Controller
             $data = $response['data']['data'];
 
             $compact = [
-                'varAPIWebToken'                => $varAPIWebToken,
-                'header'                        => [
-                    'combinedBudget_RefID'      => $data[0]['combinedBudget_RefID'] ?? '',
-                    'combinedBudgetCode'        => $data[0]['combinedBudgetCode'] ?? '',
-                    'combinedBudgetName'        => $data[0]['combinedBudgetName'] ?? '',
+                'varAPIWebToken' => $varAPIWebToken,
+                'documentTypeRefID' => $documentTypeRefID,
+                'header' => [
+                    'combinedBudget_RefID' => $data[0]['combinedBudget_RefID'] ?? '',
+                    'combinedBudgetCode' => $data[0]['combinedBudgetCode'] ?? '',
+                    'combinedBudgetName' => $data[0]['combinedBudgetName'] ?? '',
                     'combinedBudgetSectionCode' => $data[0]['combinedBudgetSectionCode'] ?? '',
                     'combinedBudgetSectionName' => $data[0]['combinedBudgetSectionName'] ?? '',
-                    'doNumber'                  => $data[0]['documentNumber'] ?? '',
-                    'doID'                      => $data[0]['deliveryOrder_RefID'] ?? '',
-                    'doDetailID'                => $data[0]['deliveryOrderDetail_ID'] ?? '',
-                    'deliveryDate'              => $data[0]['deliveryDateTimeTZ'] ?? '',
-                    'deliveryFrom'              => $data[0]['deliveryFrom_NonRefID']['Address'] ?? '',
-                    'deliveryFromID'            => $data[0]['deliveryFrom_RefID'] ?? '',
-                    'deliveryTo'                => $data[0]['deliveryTo_NonRefID']['Address'] ?? '',
-                    'deliveryToID'              => $data[0]['deliveryTo_RefID'] ?? '',
-                    'transporterID'             => $data[0]['transporter_RefID'] ?? '',
-                    'transporterCode'           => $data[0]['transporterCode'] ?? '',
-                    'transporterName'           => $data[0]['transporterName'] ?? '',
-                    'transporterPhone'          => $data[0]['transporterPhone'] ?? '',
-                    'transporterFax'            => $data[0]['transporterFax'] ?? '',
-                    'transporterContact'        => $data[0]['transporterContactPerson'] ?? '',
-                    'transporterHandphone'      => $data[0]['transporterHandphone'] ?? '',
-                    'transporterAddress'        => $data[0]['transporterAddress'] ?? '',
-                    'fileID'                    => $data[0]['log_FileUpload_Pointer_RefID'] ?? null,
-                    'type'                      => $data[0]['type'] ? $this->FormatText($data[0]['type']) : null,
-                    'status'                    => $data[0]['stockMovementStatus'] ? $this->FormatText($data[0]['stockMovementStatus']) : null,
-                    'requesterID'               => $data[0]['stockMovementRequester_RefID'] ?? null,
-                    'requesterName'             => $data[0]['stockMovementRequesterName'] ?? null,
-                    'requesterPosition'         => $data[0]['stockMovementRequesterPosition'] ?? null,
-                    'remarks'                   => $data[0]['remarks'] ?? '',
+                    'doNumber' => $data[0]['documentNumber'] ?? '',
+                    'doID' => $data[0]['deliveryOrder_RefID'] ?? '',
+                    'doDetailID' => $data[0]['deliveryOrderDetail_ID'] ?? '',
+                    'deliveryDate' => $data[0]['deliveryDateTimeTZ'] ?? '',
+                    'deliveryFrom' => $data[0]['deliveryFrom_NonRefID']['Address'] ?? '',
+                    'deliveryFromID' => $data[0]['deliveryFrom_RefID'] ?? '',
+                    'deliveryTo' => $data[0]['deliveryTo_NonRefID']['Address'] ?? '',
+                    'deliveryToID' => $data[0]['deliveryTo_RefID'] ?? '',
+                    'transporterID' => $data[0]['transporter_RefID'] ?? '',
+                    'transporterCode' => $data[0]['transporterCode'] ?? '',
+                    'transporterName' => $data[0]['transporterName'] ?? '',
+                    'transporterPhone' => $data[0]['transporterPhone'] ?? '',
+                    'transporterFax' => $data[0]['transporterFax'] ?? '',
+                    'transporterContact' => $data[0]['transporterContactPerson'] ?? '',
+                    'transporterHandphone' => $data[0]['transporterHandphone'] ?? '',
+                    'transporterAddress' => $data[0]['transporterAddress'] ?? '',
+                    'fileID' => $data[0]['log_FileUpload_Pointer_RefID'] ?? null,
+                    'type' => $data[0]['type'] ? $this->FormatText($data[0]['type']) : null,
+                    'status' => $data[0]['stockMovementStatus'] ? $this->FormatText($data[0]['stockMovementStatus']) : null,
+                    'requesterID' => $data[0]['stockMovementRequester_RefID'] ?? null,
+                    'requesterName' => $data[0]['stockMovementRequesterName'] ?? null,
+                    'requesterPosition' => $data[0]['stockMovementRequesterPosition'] ?? null,
+                    'remarks' => $data[0]['remarks'] ?? '',
                 ],
-                'data'                          => $data
+                'data' => $data
             ];
 
             return view('Inventory.DeliveryOrder.Transactions.RevisionDeliveryOrder', $compact);

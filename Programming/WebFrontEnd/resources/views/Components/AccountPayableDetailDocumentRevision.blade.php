@@ -17,21 +17,23 @@
                     @endif
                 </tr>
                 <tr>
-                    <th class="text-center" style="vertical-align: middle; width: 170px; min-width: 170px; max-width: 170px; left: 0px; z-index: 10;position: sticky; background-color: white;">Product</th>
-                    <th class="text-center" style="vertical-align: middle; width: 145px; min-width: 145px; max-width: 145px; left: 170px; z-index: 10;position: sticky; background-color: white;">UOM</th>
-                    <th class="text-center" style="vertical-align: middle; width: 145px; min-width: 145px; max-width: 145px; left: 315px; z-index: 10;position: sticky; background-color: white;">Qty</th>
-                    <th class="text-center" style="vertical-align: middle; width: 110px; min-width: 110px; max-width: 110px; left: 460px; z-index: 10;position: sticky; background-color: white;">WHT (%)</th>
-                    <th class="text-center" style="vertical-align: middle; width: 110px; min-width: 110px; max-width: 110px; left: 570px; z-index: 10;position: sticky; background-color: white;">COA</th>
+                    <th class="text-center" style="vertical-align: middle; width: 170px; min-width: 170px; max-width: 170px; left: 0px; z-index: 10;position: sticky; background-color: white;">Work</th>
+                    <th class="text-center" style="vertical-align: middle; width: 170px; min-width: 170px; max-width: 170px; left: 170px; z-index: 10;position: sticky; background-color: white;">Product</th>
+                    <th class="text-center" style="vertical-align: middle; width: 145px; min-width: 145px; max-width: 145px; left: 315px; z-index: 10;position: sticky; background-color: white;">UOM</th>
+                    <th class="text-center" style="vertical-align: middle; width: 145px; min-width: 145px; max-width: 145px; left: 460px; z-index: 10;position: sticky; background-color: white;">Qty</th>
+                    <th class="text-center" style="vertical-align: middle; width: 110px; min-width: 110px; max-width: 110px; left: 570px; z-index: 10;position: sticky; background-color: white;">WHT (%)</th>
+                    <th class="text-center" style="vertical-align: middle; width: 110px; min-width: 110px; max-width: 110px; left: 680px; z-index: 10;position: sticky; background-color: white;">COA</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     @for($i = count($dataDetailGetTransactionHistory) - 1; $i >= 0; $i--)
-                        <td style="padding: 8px; width: 170px; min-width: 170px; max-width: 170px; position: sticky; background-color: white; left: 0px; z-index: 10;">{{ $dataDetailGetTransactionHistory[$i][count($dataDetailGetTransactionHistory[$i]) - 1]['productName'] }}</td>
-                        <td style="padding: 8px; width: 145px; min-width: 145px; max-width: 145px; position: sticky; background-color: white; left: 170px; z-index: 10;">{{ $dataDetailGetTransactionHistory[$i][count($dataDetailGetTransactionHistory[$i]) - 1]['quantityUnitName'] }}</td>
-                        <td style="padding: 8px; width: 145px; min-width: 145px; max-width: 145px; position: sticky; background-color: white; left: 315px; z-index: 10;">{{ $dataDetailGetTransactionHistory[$i][count($dataDetailGetTransactionHistory[$i]) - 1]['content']['quantity'] }}</td>
-                        <td style="padding: 8px; width: 110px; min-width: 110px; max-width: 110px; position: sticky; background-color: white; left: 460px; z-index: 10;">{{ $dataDetailGetTransactionHistory[$i][count($dataDetailGetTransactionHistory[$i]) - 1]['content']['WHT'] }}</td>
-                        <td style="padding: 8px; width: 110px; min-width: 110px; max-width: 110px; position: sticky; background-color: white; left: 570px; z-index: 10;">-</td>
+                        <td style="padding: 8px; width: 170px; min-width: 170px; max-width: 170px; position: sticky; background-color: white; left: 0px; z-index: 10;">-</td>
+                        <td style="padding: 8px; width: 170px; min-width: 170px; max-width: 170px; position: sticky; background-color: white; left: 170px; z-index: 10;">{{ $dataDetailGetTransactionHistory[$i][count($dataDetailGetTransactionHistory[$i]) - 1]['productName'] }}</td>
+                        <td style="padding: 8px; width: 145px; min-width: 145px; max-width: 145px; position: sticky; background-color: white; left: 315px; z-index: 10;">{{ $dataDetailGetTransactionHistory[$i][count($dataDetailGetTransactionHistory[$i]) - 1]['quantityUnitName'] }}</td>
+                        <td style="padding: 8px; width: 145px; min-width: 145px; max-width: 145px; position: sticky; background-color: white; left: 460px; z-index: 10;">{{ $dataDetailGetTransactionHistory[$i][count($dataDetailGetTransactionHistory[$i]) - 1]['content']['quantity'] }}</td>
+                        <td style="padding: 8px; width: 110px; min-width: 110px; max-width: 110px; position: sticky; background-color: white; left: 570px; z-index: 10;">{{ $dataDetailGetTransactionHistory[$i][count($dataDetailGetTransactionHistory[$i]) - 1]['content']['WHT'] }}</td>
+                        <td style="padding: 8px; width: 110px; min-width: 110px; max-width: 110px; position: sticky; background-color: white; left: 680px; z-index: 10;">-</td>
                     @endfor
                 </tr>
             </tbody>

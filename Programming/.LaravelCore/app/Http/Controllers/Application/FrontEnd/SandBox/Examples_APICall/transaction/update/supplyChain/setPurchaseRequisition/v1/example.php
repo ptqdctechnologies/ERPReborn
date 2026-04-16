@@ -21,7 +21,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         |                     ► http://172.28.0.4/transaction.update.supplyChain.setPurchaseRequisition.v1_throughAPIGateway       |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0001.0000000                                                                                       |
-        | ▪ Last Update     : 2025-12-16                                                                                           |
+        | ▪ Last Update     : 2026-03-13                                                                                           |
         | ▪ Creation Date   : 2022-07-27                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -61,6 +61,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                             [
                                             "recordID" => 84000000000108,
                                             "entities" => [
+                                                "workStructure_RefID" => 302000000000002,
                                                 "combinedBudgetSectionDetail_RefID" => 169000000000001,
                                                 "product_RefID" => 88000000000002,
                                                 "quantity" => 10,
@@ -75,6 +76,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                             [
                                             "recordID" => 84000000000109,
                                             "entities" => [
+                                                "workStructure_RefID" => 302000000000003,
                                                 "combinedBudgetSectionDetail_RefID" => 169000000000001,
                                                 "product_RefID" => 88000000000003,
                                                 "quantity" => 10,

@@ -744,7 +744,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         | ▪ Method Name     : getDataList_BusinessDocumentType                                                                     |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-10-28                                                                                           |
+        | ▪ Last Update     : 2026-02-24                                                                                           |
         | ▪ Creation Date   : 2020-10-28                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Jenis Dokumen Bisnis                                                              |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -763,6 +763,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         */
         public function getDataList_BusinessDocumentType(
             $varUserSession, int $varSysBranch_RefID,
+            int $varStatusPayment = null,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
             )
             {
@@ -772,17 +773,13 @@ namespace App\Models\Database\SchData_OLTP_Master
                         $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
-                            'SchData-OLTP-Master.Func_GetDataList_BusinessDocumentType',
+                            'SchData-OLTP-Master.Func_GetDataPickList_BusinessDocumentType',
                             [
                                 [$varSysBranch_RefID, 'bigint'],
-
-                                [$varPickStatement, 'varchar'],
-                                [$varSortStatement, 'varchar'],
-                                [$varFilterStatement, 'varchar'],
-                                [$varPagingStatement, 'varchar']
+                                [$varStatusPayment, 'smallint']
                             ]
                             )
-                        );
+			);
 
                 return
                     $varReturn;

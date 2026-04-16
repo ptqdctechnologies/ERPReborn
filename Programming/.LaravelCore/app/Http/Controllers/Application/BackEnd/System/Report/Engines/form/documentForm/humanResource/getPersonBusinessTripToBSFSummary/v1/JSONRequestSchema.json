@@ -1,0 +1,13 @@
+{
+"title": "JSON Request Schema",
+"description": "JSON Request Schema of report.form.documentForm.humanResource.PersonBusinessTripToBSFSummary (version 1)",
+"type": "object",
+"properties": {
+    "metadata": {
+        "type": "object",
+        "properties": {
+            }
+        }
+    },
+"required": [ "metadata", "data" ]
+}

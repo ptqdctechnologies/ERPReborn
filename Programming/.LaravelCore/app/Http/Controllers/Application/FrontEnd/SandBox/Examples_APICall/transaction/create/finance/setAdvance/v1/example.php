@@ -20,7 +20,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         |                     ► http://172.28.0.4/transaction.create.finance.setAdvance.v1_throughAPIGateway                       |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0001.0000000                                                                                       |
-        | ▪ Last Update     : 2025-01-09                                                                                           |
+        | ▪ Last Update     : 2026-03-11                                                                                           |
         | ▪ Creation Date   : 2022-09-19                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -57,6 +57,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                     "items" => [
                                             [
                                             "entities" => [
+                                                "workStructure_RefID" => 302000000000001,
                                                 "combinedBudgetSectionDetail_RefID" => 169000000000001,
                                                 "product_RefID" => 88000000000002,
                                                 "quantity" => 10,
@@ -69,6 +70,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                             ],
                                             [
                                             "entities" => [
+                                                "workStructure_RefID" => 302000000000002,
                                                 "combinedBudgetSectionDetail_RefID" => 169000000000001,
                                                 "product_RefID" => 88000000000003,
                                                 "quantity" => 5,

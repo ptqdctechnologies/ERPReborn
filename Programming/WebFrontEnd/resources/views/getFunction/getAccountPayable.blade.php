@@ -17,13 +17,15 @@
                                             <th>Trano</th>
                                             <th>Budget Code</th>
                                             <th>Budget Name</th>
+                                            <th>Supplier Code</th>
+                                            <th>Supplier Name</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                     </tbody>
                                     <tfoot>
                                         <tr class="loadingAccountPayables">
-                                            <td colspan="4" class="p-0" style="height: 22rem;">
+                                            <td colspan="6" class="p-0" style="height: 22rem;">
                                                 <div class="d-flex flex-column justify-content-center align-items-center py-3">
                                                     <div class="spinner-border" role="status">
                                                         <span class="sr-only">Loading...</span>
@@ -35,7 +37,7 @@
                                             </td>
                                         </tr>
                                         <tr class="errorAccountPayablesMessageContainer">
-                                            <td colspan="4" class="p-0" style="height: 22rem;">
+                                            <td colspan="6" class="p-0" style="height: 22rem;">
                                                 <div class="d-flex flex-column justify-content-center align-items-center py-3">
                                                     <div id="errorAccountPayablesMessage" class="mt-3 text-red" style="font-size: 1rem; font-weight: 700;"></div>
                                                 </div>
@@ -66,32 +68,78 @@
             }
         });
         
-        var keys = 0;
+        // var keys = 0;
         $.ajax({
             type: 'GET',
             url: '{!! route("AccountPayable.DataPickLists") !!}',
             success: function(data) {
                 $(".loadingAccountPayables").hide();
 
-                var no = 1;
+                // var no = 1;
                 var table = $('#tableAccountPayables').DataTable();
                 table.clear();
 
                 if (Array.isArray(data) && data.length > 0) {
-                    $.each(data, function(key, val) {
-                        keys += 1;
-                        table.row.add([
-                            '<input id="sys_id_account_payable' + keys + '" value="' + val.sys_ID + '" data-trigger="sys_id_modal_account_payable" type="hidden">' + no++,
-                            val.sys_Text || '-',
-                            val.combinedBudgetCode || '-',
-                            val.combinedBudgetName || '-',
-                        ]).draw();
+                    $('#tableAccountPayables').DataTable({
+                        destroy: true,
+                        data: data,
+                        deferRender: true,
+                        scrollCollapse: true,
+                        scroller: true,
+                        columns: [
+                            {
+                                data: null,
+                                render: function (data, type, row, meta) {
+                                    return '<td class="align-middle text-center">' +
+                                        '<input id="sys_id_account_payable' + (meta.row + 1) + '" value="' + data.sys_ID + '" data-trigger="sys_id_modal_account_payable" type="hidden">' +
+                                        (meta.row + 1) +
+                                    '</td>';
+                                }
+                            },
+                            {
+                                data: 'sys_Text',
+                                defaultContent: '-',
+                                className: "align-middle"
+                            },
+                            {
+                                data: 'combinedBudgetCode',
+                                defaultContent: '-',
+                                className: "align-middle"
+                            },
+                            {
+                                data: 'combinedBudgetName',
+                                defaultContent: '-',
+                                className: "align-middle"
+                            },
+                            {
+                                data: 'supplierCode',
+                                defaultContent: '-',
+                                className: "align-middle"
+                            },
+                            {
+                                data: 'supplierName',
+                                defaultContent: '-',
+                                className: "align-middle"
+                            }
+                        ]
                     });
 
-                    $("#tableAccountPayables_length").show();
-                    $("#tableAccountPayables_filter").show();
-                    $("#tableAccountPayables_info").show();
-                    $("#tableAccountPayables_paginate").show();
+                    $('#tableAccountPayables').css("width", "100%");
+
+                    // $.each(data, function(key, val) {
+                    //     keys += 1;
+                    //     table.row.add([
+                    //         '<input id="sys_id_account_payable' + keys + '" value="' + val.sys_ID + '" data-trigger="sys_id_modal_account_payable" type="hidden">' + no++,
+                    //         val.sys_Text || '-',
+                    //         val.combinedBudgetCode || '-',
+                    //         val.combinedBudgetName || '-',
+                    //     ]).draw();
+                    // });
+
+                    // $("#tableAccountPayables_length").show();
+                    // $("#tableAccountPayables_filter").show();
+                    // $("#tableAccountPayables_info").show();
+                    // $("#tableAccountPayables_paginate").show();
                 } else {
                     $(".errorAccountPayablesMessageContainer").show();
                     $("#errorAccountPayablesMessage").text(`Data not found.`);

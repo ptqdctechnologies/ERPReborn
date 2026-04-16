@@ -29,9 +29,8 @@
       if (
         materialReturnValueInput && materialReturnValueInput.value.trim() !== ''
       ) {
-        const subBudget   = row.children[1].innerText.trim();
-        const productCode = row.children[2].innerText.trim();
-        const productName = row.children[3].innerText.trim();
+        const subBudget   = row.children[2].innerText.trim();
+        const productCode = row.children[3].innerText.trim();
         const uom         = row.children[4].innerText.trim();
 
         const materialReturnValue = materialReturnValueInput.value.trim();
@@ -44,7 +43,7 @@
           const targetMaterialReceiveDetailRefID = targetRow.children[0]?.value?.trim();
 
           if (targetMaterialReceiveDetailRefID == materialReceiveDetailRefID.value) {
-            targetRow.children[5].innerText = materialReturnValue;
+            targetRow.children[4].innerText = materialReturnValue;
             found = true;
 
             const indexToUpdate = dataStore.findIndex(item => item.entities.warehouseInboundOrderDetail_RefID == materialReceiveDetailRefID.value);
@@ -69,7 +68,6 @@
 
             <td style="text-align: left;padding: 0.8rem 0.5rem;">${subBudget}</td>
             <td style="text-align: center;padding: 0.8rem 0.5rem;">${productCode}</td>
-            <td style="text-align: left;padding: 0.8rem 0.5rem;">${productName}</td>
             <td style="text-align: left;padding: 0.8rem 0.5rem;">${uom}</td>
             <td style="text-align: right;padding: 0.8rem 0.5rem;">${decimalFormat(materialReturnValue)}</td>
           `;
@@ -139,9 +137,9 @@
               <tr>
                 <input type="hidden" id="warehouseInboundOrderDetail_RefID[]" value="${val.sys_ID}">
 
+                <td style="text-align: center;">-</td>
                 <td style="text-align: center;">${val.combinedBudgetSectionCode} - ${val.combinedBudgetSectionName}</td>
-                <td style="text-align: center;">${val.productCode}</td>
-                <td style="text-align: center;">${val.productName}</td>
+                <td style="text-align: center;">${val.productCode || ''} - ${val.productName || ''}</td>
                 <td style="text-align: center;">${val.quantityUnitName}</td>
                 <td style="text-align: center;">${val.note}</td>
                 <td style="text-align: center;">${val.quantity}</td>

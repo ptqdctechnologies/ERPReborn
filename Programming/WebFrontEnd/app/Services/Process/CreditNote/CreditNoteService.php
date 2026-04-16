@@ -3,6 +3,7 @@
 namespace App\Services\Process\CreditNote;
 
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Session;
 use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
 use App\Helpers\ZhtHelper\System\Helper_Environment;
@@ -27,6 +28,32 @@ class CreditNoteService
                 'sort'      => null,
                 'filter'    => null,
                 'paging'    => null
+                ]
+            ]
+        );
+    }
+
+    public function getCreditNoteSummary($budget, $subBudget, $date, $supplier) 
+    {
+        $sessionToken = Session::get('SessionLogin');
+
+        if ($date) {
+            $dates      = explode(' - ', $date);
+            $startDate  = Carbon::createFromFormat('m/d/Y', trim($dates[0]))->startOfDay()->format('Y-m-d');
+            $endDate    = Carbon::createFromFormat('m/d/Y', trim($dates[1]))->endOfDay()->format('Y-m-d');
+        }
+
+        return Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
+            $sessionToken, 
+            'report.form.documentForm.finance.getCreditNoteSummary', 
+            'latest',
+            [
+                'parameter'     => [
+                    'CombinedBudgetCode'        => $budget,
+                    'CombinedBudgetSectionCode' => $subBudget ? $subBudget : NULL,
+                    // 'StartDate'              => $date ? $startDate : NULL,
+                    // 'EndDate'                => $date ? $endDate : NULL
                 ]
             ]
         );

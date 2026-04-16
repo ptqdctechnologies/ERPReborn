@@ -21,7 +21,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         |                     ► http://172.28.0.4/transaction.create.humanResource.setPersonBusinessTrip.v1_throughAPIGateway      |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0001.0000001                                                                                       |
-        | ▪ Last Update     : 2025-08-07                                                                                           |
+        | ▪ Last Update     : 2026-04-09                                                                                           |
         | ▪ Creation Date   : 2022-10-10                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -47,7 +47,6 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                         'entities' => [
                             'documentDateTimeTZ' => '2022-10-10',
                             'combinedBudgetSectionDetail_RefID' => 169000000000001,
-                            'paymentDisbursementMethod_RefID' => 218000000000002,
                             'additionalData' => [
                                 'itemList' => [
                                     'items' => [
@@ -56,23 +55,53 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                                 'sequence' => 1,
                                                 'log_FileUpload_Pointer_RefID' => null,
                                                 'requesterWorkerJobsPosition_RefID' => 164000000000497,
+                                                'workStructure_RefID' => 302000000000001,
+                                                'product_RefID' => 88000000000002,
                                                 'startDateTimeTZ' => '2022-10-10',
                                                 'finishDateTimeTZ' => '2022-10-14',
                                                 'departurePoint' => 'Jakarta',
                                                 'destinationPoint' => 'Kalimantan',
                                                 'reasonToTravel' => 'Monitoring Pekerjaan Proyek',
                                                 'businessTripAccommodationArrangementsType_RefID' => 219000000000002,
+                                                'currency_RefID' => 62000000000001,
+                                                'currencyExchangeRate' => 1,
+                                                'paymentToVendor_amountCurrencyValue' => 30000,
+                                                'paymentToVendor_paymentFundingDestination_RefID' => null,
+                                                'paymentToVendor_beneficiaryWorkerJobsPosition_RefID' => null,
+                                                'paymentToCreditCard_amountCurrencyValue' => 20000,
+                                                'paymentToCreditCard_paymentFundingDestination_RefID' => null,
+                                                'paymentToCreditCard_beneficiaryWorkerJobsPosition_RefID' => null,
+                                                'paymentToOther_amountCurrencyValue' => 20000,
+                                                'paymentToOther_paymentFundingDestination_RefID' => 198000000000054,
+                                                'paymentToOther_beneficiaryWorkerJobsPosition_RefID' => 164000000000439,
                                                 'remarks' => 'Catatan',
                                                 'additionalData' => [
                                                    'itemList' => [
                                                        'items' => [
+                                                               /**
+                                                                * List of businessTripCostComponentEntity_RefID values:
+                                                                * 221000000000025     => "Travel & Fares (Taxi)"
+                                                                * 221000000000049     => "Travel & Fares (Ship)"
+                                                                * 221000000000003     => "Travel & Fares (Fuel)"
+                                                                * 221000000000045     => "Travel & Fares (Airplane)"
+                                                                * 221000000000004     => "Travel & Fares (Tol/Road)"
+                                                                * 276000000000002     => "Travel & Fares (Hotel)"
+                                                                * 221000000000042     => "Travel & Fares (Train)"
+                                                                * 221000000000005     => "Travel & Fares (Park)"
+                                                                * 276000000000005     => "Travel & Fares (Mess)"
+                                                                * 221000000000038     => "Travel & Fares (Bus)"
+                                                                * 221000000000006     => "Travel & Fares (Excess Baggage)"
+                                                                * 276000000000004     => "Travel & Fares (Guest House)"
+                                                                * 81000000000001      => "Allowance"
+                                                                * 81000000000004      => "Entertainment"
+                                                                * 81000000000005      => "Others"
+                                                                */
                                                                [
                                                                'entities' => [
                                                                    'businessTripCostComponentEntity_RefID' => 81000000000001,
                                                                    'amountCurrency_RefID' => 62000000000001,
                                                                    'amountCurrencyValue' => 30000,
-                                                                   'amountCurrencyExchangeRate' => 1,
-                                                                   'remarks' => 'Catatan Pertama'
+                                                                   'amountCurrencyExchangeRate' => 1
                                                                    ]
                                                                ],
                                                                [
@@ -80,49 +109,11 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                                                    'businessTripCostComponentEntity_RefID' => 221000000000020,
                                                                    'amountCurrency_RefID' => 62000000000001,
                                                                    'amountCurrencyValue' => 40000,
-                                                                   'amountCurrencyExchangeRate' => 1,
-                                                                   'remarks' => 'Catatan Kedua'
+                                                                   'amountCurrencyExchangeRate' => 1
                                                                    ]
                                                                ]
                                                            ]
-                                                       ],
-                                                   'paymentItemList' => [
-                                                       'items' => [
-                                                                [
-                                                                //---> Payment To Vendor
-                                                                'entities' => [
-                                                                   'paymentMethod_RefID' => 175000000000004,
-                                                                   'amountCurrency_RefID' => 62000000000001,
-                                                                   'amountCurrencyValue' => 30000,
-                                                                   'amountCurrencyExchangeRate' => 1,
-                                                                   'paymentFundingDestination_RefID' => null,
-                                                                   'beneficiaryWorkerJobsPosition_RefID' => null
-                                                                   ]
-                                                                ],
-                                                                //---> Payment To Credit Card
-                                                                [
-                                                                'entities' => [
-                                                                    'paymentMethod_RefID' => 175000000000005,
-                                                                    'amountCurrency_RefID' => 62000000000001,
-                                                                    'amountCurrencyValue' => 20000,
-                                                                    'amountCurrencyExchangeRate' => 1,
-                                                                    'paymentFundingDestination_RefID' => null,
-                                                                    'beneficiaryWorkerJobsPosition_RefID' => null
-                                                                    ]
-                                                                ],
-                                                                //---> Payment To Employee
-                                                                [
-                                                                'entities' => [
-                                                                    'paymentMethod_RefID' => 175000000000004,
-                                                                    'amountCurrency_RefID' => 62000000000001,
-                                                                    'amountCurrencyValue' => 20000,
-                                                                    'amountCurrencyExchangeRate' => 1,
-                                                                    'paymentFundingDestination_RefID' => 198000000000054,
-                                                                    'beneficiaryWorkerJobsPosition_RefID' => 164000000000439
-                                                                    ]
-                                                                ]
-                                                            ]
-                                                        ]
+                                                       ]
                                                     ]
                                                 ]
                                             ]

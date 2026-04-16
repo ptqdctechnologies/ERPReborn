@@ -2,48 +2,55 @@
 @section('main')
 @include('Partials.navbar')
 @include('Partials.sidebar')
-@include('getFunction.getProject')
-@include('getFunction.getWarehouse')
-@include('getFunction.getWarehouse2')
-@include('Process.Advance.AdvanceRequest.Functions.Table.TableAdvanceRevision')
+@include('getFunction.getProjects')
 
 <div class="content-wrapper">
     <section class="content">
         <div class="container-fluid">
+            <!-- TITLE -->
             <div class="row mb-1" style="background-color:#4B586A;">
                 <div class="col-sm-6" style="height:30px;">
-                    <label style="font-size:15px;position:relative;top:7px;color:white;">Report Material Receive to Material Return</label>
+                    <label style="font-size:15px;position:relative;top:7px;color:white;">
+                        Report Material Receive to Material Return
+                    </label>
                 </div>
             </div>
+
             <div class="card">
                 <div class="tab-content p-3" id="nav-tabContent">
                     <div class="row">
-                        <div class="col-12 ShowDocument">
-                            @include('Inventory.MaterialReceive.Functions.Header.HeaderReportMatReceivetoMatReturn')
-                        </div>
-                        <?php if ($dataReport) { ?>
-                            <!-- <div class="col-12 ShowTableReportAdvanceSummary">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="form-group">
-                                                <table>
-                                                    <tr>
-                                                        <th style="padding-top: 7px;"><label>Budget&nbsp;</label></th>
-                                                        <td><b>:</b></td>
-                                                        <td><b><?= $dataReport['dataHeader']['budget']; ?></b></td>
-                                                    </tr>
-                                                </table>
-                                            </div>
-                                        </div>
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row p-1" style="row-gap: 1rem;">
+                                        @include('Inventory.MaterialReceive.Functions.Header.HeaderReportMatReceivetoMatReturn')
                                     </div>
                                 </div>
-                            </div> -->
-                            <div class="col-12 ShowTableReportAdvanceSummary">
-                                <div class="card">
-                                    <!-- DETAIL -->
-                                    <div class="card-body table-responsive p-0">
-                                        <table class="table table-head-fixed text-nowrap TableReportAdvanceSummary" id="DefaultFeatures">
+                            </div>
+                        </div>
+
+                        <div class="col-12" id="table_container" style="display: none;">
+                            <div class="card">
+                                <div class="card-body p-0">
+                                    <div class="d-flex justify-content-between">
+                                        <label>
+                                            Show
+                                            <select id="limitSelect" style="border: 1px solid #aaa; border-radius: 3px; padding: 4px; background: transparent;">
+                                                <option value="10" selected>10</option>
+                                                <option value="25">25</option>
+                                                <option value="50">50</option>
+                                                <option value="100">100</option>
+                                            </select>
+                                            entries
+                                        </label>
+                                        <label>
+                                            Search:
+                                            <input type="text" id="searchInput" autocomplete="off" placeholder="Search..." style="border: 1px solid #aaa; border-radius: 3px; padding: 5px; margin-left: 3px; background: transparent;" />
+                                        </label>
+                                    </div>
+
+                                    <div class="table-responsive">
+                                        <table class="table table-head-fixed text-nowrap" id="table_summary">
                                             <thead>
                                                 <tr>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">No</th>
@@ -54,35 +61,27 @@
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Material Return Number</th>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Date</th>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Return To</th>
+                                                </tr>
                                             </thead>
-                                            <tbody>
-                                                <?php foreach ($dataReport['dataDetail'] as $dataDetail) { ?>
-                                                    <tr>
-                                                        <td><?= $dataDetail['no']; ?></td>
-                                                        <td><?= $dataDetail['documentNumber']; ?></td>
-                                                        <td><?= $dataDetail['productCode'] . ' - ' . $dataDetail['productName']; ?></td>
-                                                        <td><?= $dataDetail['sourceCode'] . ' - ' . $dataDetail['sourceName']; ?></td>
-                                                        <td><?= $dataDetail['destinationCode'] . ' - ' . $dataDetail['destinationName']; ?></td>
-                                                        <td><?= $dataDetail['total']; ?></td>
-                                                        <td><?= $dataDetail['uom']; ?></td>
-                                                    </tr>
-                                                <?php } ?>
-                                            </tbody>
-                                            <tfoot>
-                                                <!-- <tr>
-                                                    <th colspan="5" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: right;background-color:#4B586A;color:white;">Total</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
-                                                        <?= $dataReport['total']; ?>
-                                                    </th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: right;background-color:#4B586A;color:white;"></th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: right;background-color:#4B586A;color:white;"></th>
-                                                </tr> -->
-                                            </tfoot>
+                                            <tbody></tbody>
+                                            <tfoot></tfoot>
                                         </table>
+                                    </div>
+
+                                    <div class="d-flex justify-content-between" style="padding-top: .755em; padding-bottom: .755em;">
+                                        <div>
+                                            Showing <span id="start_limit">1</span> to <span id="end_limit">10</span> of <span id="total_data">68</span> entries
+                                        </div>
+
+                                        <div id="controls" style="cursor: pointer;">
+                                            <a class="paginate_button previous" id="prevPage">Previous</a>
+                                            <span id="pageNumbers"></span>
+                                            <a class="paginate_button next" id="nextPage">Next</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        <?php }; Session::forget("isButtonReportMaterialReturnSubmit"); ?>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -90,6 +89,6 @@
     </section>
 </div>
 
-@include('Partials.footer')
 @include('Inventory.MaterialReceive.Functions.Footer.FooterReportMatReceivetoMatReturn')
+@include('Partials.footer')
 @endsection

@@ -43,9 +43,9 @@ class MaterialReceiveController extends Controller
     }
 
     public function ReportMatReceivetoMatReturnData(
-        $projectId, 
-        $siteId, 
-        $projectCode, 
+        $projectId,
+        $siteId,
+        $projectCode,
         $projectName,
         $subBudgetCode,
         $subBudgetName,
@@ -54,8 +54,7 @@ class MaterialReceiveController extends Controller
         $subBudgetCode2,
         $subBudgetName2,
         $subBudgetAddress2
-    ) 
-    {
+    ) {
         try {
             $varAPIWebToken = Session::get('SessionLogin');
 
@@ -88,52 +87,52 @@ class MaterialReceiveController extends Controller
 
             $collection = collect([
                 [
-                    'DocumentNumber'        => 'MR/QDC/2025/0000006',
-                    'ProductCode'           => '1000416',
-                    'ProductName'           => 'Cable NYY',
-                    'CombinedBudget_RefID'  => $projectId,
-                    'CombinedBudgetCode'    => $projectCode,
-                    'CombinedBudgetName'    => $projectName,
-                    'TotalAdvance'          => 5.00,
-                    'DocumentDateTimeTZ'    => '2025-05-16 14:36:22.706103+07',
-                    'SourceCode'            => $subBudgetCode,
-                    'SourceName'            => $subBudgetName,
-                    'DestinationCode'       => $subBudgetCode2,
-                    'DestinationName'       => $subBudgetName2,
-                    'Remark'                => 'Kondisi barang sesuai dan dipacking dalam box',
-                    'UOM'                   => 'pcs'
+                    'DocumentNumber' => 'MR/QDC/2025/0000006',
+                    'ProductCode' => '1000416',
+                    'ProductName' => 'Cable NYY',
+                    'CombinedBudget_RefID' => $projectId,
+                    'CombinedBudgetCode' => $projectCode,
+                    'CombinedBudgetName' => $projectName,
+                    'TotalAdvance' => 5.00,
+                    'DocumentDateTimeTZ' => '2025-05-16 14:36:22.706103+07',
+                    'SourceCode' => $subBudgetCode,
+                    'SourceName' => $subBudgetName,
+                    'DestinationCode' => $subBudgetCode2,
+                    'DestinationName' => $subBudgetName2,
+                    'Remark' => 'Kondisi barang sesuai dan dipacking dalam box',
+                    'UOM' => 'pcs'
                 ],
                 [
-                    'DocumentNumber'        => 'MR/QDC/2025/0000007',
-                    'ProductCode'           => '313344-0000',
-                    'ProductName'           => 'Charger-200A plus dioda dropper',
-                    'CombinedBudget_RefID'  => $projectId,
-                    'CombinedBudgetCode'    => $projectCode,
-                    'CombinedBudgetName'    => $projectName,
-                    'TotalAdvance'          => 20.00,
-                    'DocumentDateTimeTZ'    => '2025-05-17 10:54:22.706103+07',
-                    'SourceCode'            => $subBudgetCode,
-                    'SourceName'            => $subBudgetName,
-                    'DestinationCode'       => $subBudgetCode2,
-                    'DestinationName'       => $subBudgetName2,
-                    'Remark'                => 'Kondisi barang sesuai',
-                    'UOM'                   => 'pcs'
+                    'DocumentNumber' => 'MR/QDC/2025/0000007',
+                    'ProductCode' => '313344-0000',
+                    'ProductName' => 'Charger-200A plus dioda dropper',
+                    'CombinedBudget_RefID' => $projectId,
+                    'CombinedBudgetCode' => $projectCode,
+                    'CombinedBudgetName' => $projectName,
+                    'TotalAdvance' => 20.00,
+                    'DocumentDateTimeTZ' => '2025-05-17 10:54:22.706103+07',
+                    'SourceCode' => $subBudgetCode,
+                    'SourceName' => $subBudgetName,
+                    'DestinationCode' => $subBudgetCode2,
+                    'DestinationName' => $subBudgetName2,
+                    'Remark' => 'Kondisi barang sesuai',
+                    'UOM' => 'pcs'
                 ],
                 [
-                    'DocumentNumber'        => 'MR/QDC/2025/0000008',
-                    'ProductCode'           => '211096-0000',
-                    'ProductName'           => 'Steel Support Apparatus',
-                    'CombinedBudget_RefID'  => $projectId,
-                    'CombinedBudgetCode'    => $projectCode,
-                    'CombinedBudgetName'    => $projectName,
-                    'TotalAdvance'          => 10.00,
-                    'DocumentDateTimeTZ'    => '2025-05-18 17:49:22.706103+07',
-                    'SourceCode'            => $subBudgetCode,
-                    'SourceName'            => $subBudgetName,
-                    'DestinationCode'       => $subBudgetCode2,
-                    'DestinationName'       => $subBudgetName2,
-                    'Remark'                => 'Kondisi barang sesuai',
-                    'UOM'                   => 'kg'
+                    'DocumentNumber' => 'MR/QDC/2025/0000008',
+                    'ProductCode' => '211096-0000',
+                    'ProductName' => 'Steel Support Apparatus',
+                    'CombinedBudget_RefID' => $projectId,
+                    'CombinedBudgetCode' => $projectCode,
+                    'CombinedBudgetName' => $projectName,
+                    'TotalAdvance' => 10.00,
+                    'DocumentDateTimeTZ' => '2025-05-18 17:49:22.706103+07',
+                    'SourceCode' => $subBudgetCode,
+                    'SourceName' => $subBudgetName,
+                    'DestinationCode' => $subBudgetCode2,
+                    'DestinationName' => $subBudgetName2,
+                    'Remark' => 'Kondisi barang sesuai',
+                    'UOM' => 'kg'
                 ],
             ]);
 
@@ -147,36 +146,36 @@ class MaterialReceiveController extends Controller
             $collection = $collection->all();
 
             $dataHeaders = [
-                'budget'        => $projectCode . " - " . $projectName
+                'budget' => $projectCode . " - " . $projectName
             ];
 
             $dataDetails = [];
             $i = 0;
             $total = 0;
             foreach ($collection as $collections) {
-                $total                                  += $collections['TotalAdvance'];
+                $total += $collections['TotalAdvance'];
 
-                $dataDetails[$i]['no']                  = $i + 1;
-                $dataDetails[$i]['budgetCode']          = $collections['CombinedBudgetCode'];
-                $dataDetails[$i]['budgetName']          = $collections['CombinedBudgetName'];
-                $dataDetails[$i]['productCode']         = $collections['ProductCode'];
-                $dataDetails[$i]['productName']         = $collections['ProductName'];
-                $dataDetails[$i]['documentNumber']      = $collections['DocumentNumber'];
-                $dataDetails[$i]['sourceCode']          = $collections['SourceCode'];
-                $dataDetails[$i]['sourceName']          = $collections['SourceName'];
-                $dataDetails[$i]['destinationCode']     = $collections['DestinationCode'];
-                $dataDetails[$i]['destinationName']     = $collections['DestinationName'];
-                $dataDetails[$i]['uom']                 = $collections['UOM'];
-                $dataDetails[$i]['remark']              = $collections['Remark'];
-                $dataDetails[$i]['date']                = date('d-m-Y', strtotime($collections['DocumentDateTimeTZ']));
-                $dataDetails[$i]['total']               = number_format($collections['TotalAdvance'], 2);
+                $dataDetails[$i]['no'] = $i + 1;
+                $dataDetails[$i]['budgetCode'] = $collections['CombinedBudgetCode'];
+                $dataDetails[$i]['budgetName'] = $collections['CombinedBudgetName'];
+                $dataDetails[$i]['productCode'] = $collections['ProductCode'];
+                $dataDetails[$i]['productName'] = $collections['ProductName'];
+                $dataDetails[$i]['documentNumber'] = $collections['DocumentNumber'];
+                $dataDetails[$i]['sourceCode'] = $collections['SourceCode'];
+                $dataDetails[$i]['sourceName'] = $collections['SourceName'];
+                $dataDetails[$i]['destinationCode'] = $collections['DestinationCode'];
+                $dataDetails[$i]['destinationName'] = $collections['DestinationName'];
+                $dataDetails[$i]['uom'] = $collections['UOM'];
+                $dataDetails[$i]['remark'] = $collections['Remark'];
+                $dataDetails[$i]['date'] = date('d-m-Y', strtotime($collections['DocumentDateTimeTZ']));
+                $dataDetails[$i]['total'] = number_format($collections['TotalAdvance'], 2);
                 $i++;
             }
 
             $compact = [
-                'dataHeader'            => $dataHeaders,
-                'dataDetail'            => $dataDetails,
-                'total'                 => number_format($total, 2),
+                'dataHeader' => $dataHeaders,
+                'dataDetail' => $dataDetails,
+                'total' => number_format($total, 2),
             ];
 
             Session::put("isButtonReportMaterialReturnSubmit", true);
@@ -189,25 +188,25 @@ class MaterialReceiveController extends Controller
         }
     }
 
-    public function ReportMatReceivetoMatReturnStore(Request $request) 
+    public function ReportMatReceivetoMatReturnStore(Request $request)
     {
         try {
             // BUDGET
-            $budgetID       = $request->budget_id;
-            $budget         = $request->budget;
-            $budgetName     = $request->budget_name;
+            $budgetID = $request->budget_id;
+            $budget = $request->budget;
+            $budgetName = $request->budget_name;
 
             // SOURCE WAREHOUSE
-            $subBudgetID        = $request->sub_budget_id;
-            $subBudgetCode      = $request->sub_budget;
-            $subBudgetName      = $request->sub_budget_name;
-            $subBudgetAddress   = $request->sub_budget_address;
+            $subBudgetID = $request->sub_budget_id;
+            $subBudgetCode = $request->sub_budget;
+            $subBudgetName = $request->sub_budget_name;
+            $subBudgetAddress = $request->sub_budget_address;
 
             // DESTINATION WAREHOUSE
-            $subBudgetID2       = $request->sub_budget_id2;
-            $subBudgetCode2     = $request->sub_budget2;
-            $subBudgetName2     = $request->sub_budget_name2;
-            $subBudgetAddress2  = $request->sub_budget_address2;
+            $subBudgetID2 = $request->sub_budget_id2;
+            $subBudgetCode2 = $request->sub_budget2;
+            $subBudgetName2 = $request->sub_budget_name2;
+            $subBudgetAddress2 = $request->sub_budget_address2;
 
             // dd($request->all());
 
@@ -220,14 +219,14 @@ class MaterialReceiveController extends Controller
             // if (isset($message)) {
             //     Session::forget("isButtonReportMaterialReturnSubmit");
             //     Session::forget("dataReportMaterialReturn");
-        
+
             //     return redirect()->route('Inventory.ReportMatReceivetoMatReturn')->with('NotFound', $message);
             // }
 
             $compact = $this->ReportMatReceivetoMatReturnData(
-                $budgetID, 
-                $subBudgetID, 
-                $budget, 
+                $budgetID,
+                $subBudgetID,
+                $budget,
                 $budgetName,
                 $subBudgetCode,
                 $subBudgetName,
@@ -251,7 +250,7 @@ class MaterialReceiveController extends Controller
         }
     }
 
-    public function PrintExportReportMatReceivetoMatReturn(Request $request) 
+    public function PrintExportReportMatReceivetoMatReturn(Request $request)
     {
         try {
             $dataReport = Session::get("dataReportMaterialReturn");
@@ -262,12 +261,12 @@ class MaterialReceiveController extends Controller
                     $pdf->output();
                     $dom_pdf = $pdf->getDomPDF();
 
-                    $canvas = $dom_pdf ->get_canvas();
+                    $canvas = $dom_pdf->get_canvas();
                     $width = $canvas->get_width();
                     $height = $canvas->get_height();
                     $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
                     $canvas->page_text(34, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
-    
+
                     return $pdf->download('Export Report Material Receive Summary.pdf');
                 } else {
                     return Excel::download(new ExportReportMaterialReturnSummary, 'Export Report Material Receive Summary.xlsx');
@@ -283,27 +282,20 @@ class MaterialReceiveController extends Controller
 
     public function ReportMaterialReceiveSummary(Request $request)
     {
-        $varAPIWebToken = $request->session()->get('SessionLogin');
-        $request->session()->forget("SessionMaterialReceiveNumber");
-        $dataMR = Session::get("MaterialReceiveReportSummaryDataPDF");
+        $documentTypeRefID = $this->GetBusinessDocumentsTypeFromRedis('Warehouse Inbound Order Form');
+        $sessionOrganizationalDepartmentName = Session::get('SessionOrganizationalDepartmentName');
+        $sessionOrganizationalJobPositionName = Session::get('SessionOrganizationalJobPositionName');
 
-        if (!empty($_GET['var'])) {
-            $var =  $_GET['var'];
-        }
         $compact = [
-            'varAPIWebToken' => $varAPIWebToken,
-            'statusRevisi' => 1,
-            'statusHeader' => "Yes",
-            'statusDetail' => 1,
-            'dataMR' => $dataMR
-        
+            'documentTypeRefID' => $documentTypeRefID,
+            'sessionOrganizationalDepartmentName' => $sessionOrganizationalDepartmentName,
+            'sessionOrganizationalJobPositionName' => $sessionOrganizationalJobPositionName
         ];
-        // dump($dataMR);
 
         return view('Inventory.MaterialReceive.Reports.ReportMaterialReceiveSummary', $compact);
     }
 
-    public function ReportMaterialReceiveSummaryData( $project_code)
+    public function ReportMaterialReceiveSummaryData($project_code)
     {
         try {
             // Log::error("Error at ",[$project_code]);
@@ -312,8 +304,8 @@ class MaterialReceiveController extends Controller
 
             $filteredArray = Helper_APICall::setCallAPIGateway(
                 Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'report.form.documentForm.supplyChain.getWarehouseInboundOrderSummary', 
+                $varAPIWebToken,
+                'report.form.documentForm.supplyChain.getWarehouseInboundOrderSummary',
                 'latest',
                 [
                     'parameter' => [
@@ -321,15 +313,15 @@ class MaterialReceiveController extends Controller
                         'DeliveryFrom_RefID' => NULL,
                         'DeliveryTo_RefID' => NULL
                     ],
-                     'SQLStatement' => [
+                    'SQLStatement' => [
                         'pick' => null,
                         'sort' => null,
                         'filter' => null,
                         'paging' => null
-                        ]
+                    ]
                 ]
             );
-            
+
             // Log::error("Error at " ,$filteredArray);
             if ($filteredArray['metadata']['HTTPStatusCode'] !== 200) {
                 return redirect()->back()->with('NotFound', 'Process Error');
@@ -338,8 +330,7 @@ class MaterialReceiveController extends Controller
             Session::put("MaterialReceiveReportSummaryDataPDF", $filteredArray['data']['data']);
             Session::put("MaterialReceiveReportSummaryDataExcel", $filteredArray['data']['data']);
             return $filteredArray['data']['data'];
-        }
-        catch (\Throwable $th) {
+        } catch (\Throwable $th) {
             Log::error("Error at " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
         }
@@ -348,17 +339,17 @@ class MaterialReceiveController extends Controller
     public function ReportMaterialReceiveSummaryStore(Request $request)
     {
         try {
-            $receivedID     = $request->received_id;
+            $receivedID = $request->received_id;
             $deliveryFromID = $request->delivery_from_id;
-            $deliveryToID   = $request->delivery_to_id;
-            $date           = $request->mrDate;
-            $budget         = [
-                "id"        => $request->budget_id,
-                "code"      => $request->budget_code,
+            $deliveryToID = $request->delivery_to_id;
+            $date = $request->mrDate;
+            $budget = [
+                "id" => $request->budget_id,
+                "code" => $request->budget_code,
             ];
 
             $response = $this->materialReceiveService->getMaterialReceiveSummary(
-                $budget['code'], 
+                $budget['code'],
                 $receivedID,
                 $deliveryFromID,
                 $deliveryToID,
@@ -370,8 +361,8 @@ class MaterialReceiveController extends Controller
             }
 
             $compact = [
-                'status'    => $response['metadata']['HTTPStatusCode'],
-                'data'      => $response['data']['data']
+                'status' => $response['metadata']['HTTPStatusCode'],
+                'data' => $response['data']['data']
             ];
 
             return response()->json($compact);
@@ -379,8 +370,8 @@ class MaterialReceiveController extends Controller
             Log::error("Report Material Receive Summary Store Function Error:" . $th->getMessage());
 
             $compact = [
-                'status'    => 500,
-                'message'   => $th->getMessage()
+                'status' => 500,
+                'message' => $th->getMessage()
             ];
 
             return response()->json($compact);
@@ -390,28 +381,28 @@ class MaterialReceiveController extends Controller
     public function PrintExportReportMaterialReceiveSummary(Request $request)
     {
         try {
-            $type                   = $request->printType;
-            $budgetName             = $request->budgetName;
-            $receivedName           = $request->receivedName;
-            $deliveryFromName       = $request->deliveryFromName;
-            $deliveryToName         = $request->deliveryToName;
-            $mrDate                 = $request->mrDate;
+            $type = $request->printType;
+            $budgetName = $request->budgetName;
+            $receivedName = $request->receivedName;
+            $deliveryFromName = $request->deliveryFromName;
+            $deliveryToName = $request->deliveryToName;
+            $mrDate = $request->mrDate;
             $materialReceiveSummary = json_decode($request->dataReport, true);
 
             if ($materialReceiveSummary) {
                 if ($type == "PDF") {
                     $pdf = PDF::loadView('Inventory.MaterialReceive.Reports.ReportMaterialReceiveSummary_pdf', [
-                        'dataMR'            => $materialReceiveSummary,
-                        'budgetName'        => $budgetName,
-                        'receivedName'      => $receivedName,
-                        'deliveryFromName'  => $deliveryFromName,
-                        'deliveryToName'    => $deliveryToName,
-                        'mrDate'            => $mrDate
-                        ])->setPaper('a4', 'landscape');
+                        'dataMR' => $materialReceiveSummary,
+                        'budgetName' => $budgetName,
+                        'receivedName' => $receivedName,
+                        'deliveryFromName' => $deliveryFromName,
+                        'deliveryToName' => $deliveryToName,
+                        'mrDate' => $mrDate
+                    ])->setPaper('a4', 'landscape');
                     $pdf->output();
                     $dom_pdf = $pdf->getDomPDF();
 
-                    $canvas = $dom_pdf ->get_canvas();
+                    $canvas = $dom_pdf->get_canvas();
                     $width = $canvas->get_width();
                     $height = $canvas->get_height();
                     $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
@@ -435,14 +426,14 @@ class MaterialReceiveController extends Controller
 
     public function index(Request $request)
     {
-        $var                = $request->query('var', 0);
-        $varAPIWebToken     = Session::get('SessionLogin');
-        $documentTypeRefID  = $this->GetBusinessDocumentsTypeFromRedis('Warehouse Inbound Order Form');
+        $var = $request->query('var', 0);
+        $varAPIWebToken = Session::get('SessionLogin');
+        $documentTypeRefID = $this->GetBusinessDocumentsTypeFromRedis('Warehouse Inbound Order Form');
 
         return view('Inventory.MaterialReceive.Transactions.CreateMaterialReceive', [
-            'var'                   => $var,
-            'varAPIWebToken'        => $varAPIWebToken,
-            'documentType_RefID'    => $documentTypeRefID
+            'var' => $var,
+            'varAPIWebToken' => $varAPIWebToken,
+            'documentType_RefID' => $documentTypeRefID
         ]);
     }
 
@@ -467,8 +458,8 @@ class MaterialReceiveController extends Controller
             }
 
             $compact = [
-                "documentNumber"    => $response['data']['businessDocument']['documentNumber'],
-                "status"            => $responseWorkflow['metadata']['HTTPStatusCode'],
+                "documentNumber" => $response['data']['businessDocument']['documentNumber'],
+                "status" => $responseWorkflow['metadata']['HTTPStatusCode'],
             ];
 
             return response()->json($compact);
@@ -489,7 +480,7 @@ class MaterialReceiveController extends Controller
         return response()->json($compact);
     }
 
-    public function MaterialReceiveDetail(Request $request) 
+    public function MaterialReceiveDetail(Request $request)
     {
         try {
             $varAPIWebToken = Session::get('SessionLogin');
@@ -502,14 +493,14 @@ class MaterialReceiveController extends Controller
             return response()->json($response);
         } catch (\Throwable $th) {
             Log::error("Error at MaterialReceiveDetail: " . $th->getMessage());
-            
+
             $compact = [
-                'metadata'  => [
-                    'metadata'  => [
+                'metadata' => [
+                    'metadata' => [
                         'HTTPStatusCode' => 500
                     ]
                 ],
-                'message'   => 'Terjadi kesalahan saat memproses material receive detail. Silakan coba lagi nanti.'
+                'message' => 'Terjadi kesalahan saat memproses material receive detail. Silakan coba lagi nanti.'
             ];
 
             return response()->json($compact);
@@ -570,6 +561,7 @@ class MaterialReceiveController extends Controller
         try {
             $varAPIWebToken = Session::get('SessionLogin');
             $response = $this->materialReceiveService->getDetail($request->modal_material_receive_id);
+            $documentTypeRefID = $this->GetBusinessDocumentsTypeFromRedis('Warehouse Inbound Order Revision Form');
 
             if ($response['metadata']['HTTPStatusCode'] !== 200) {
                 return response()->json($response);
@@ -581,29 +573,30 @@ class MaterialReceiveController extends Controller
             // dump($data);
 
             $compact = [
-                'varAPIWebToken'    => $varAPIWebToken,
-                'header'            => [
-                    'combinedBudget_RefID'          => $data[0]['combinedBudget_RefID'] ?? '',
-                    'combinedBudgetCode'            => $data[0]['combinedBudgetCode'] ?? '',
-                    'combinedBudgetName'            => $data[0]['combinedBudgetName'] ?? '',
-                    'combinedBudgetSectionCode'     => $data[0]['combinedBudgetSectionCode'] ?? '',
-                    'combinedBudgetSectionName'     => $data[0]['combinedBudgetSectionName'] ?? '',
-                    'warehouseInboundOrderRefID'    => $data[0]['warehouseInboundOrder_RefID'] ?? '',
-                    'materialReceiveNumber'         => $data[0]['businessDocumentNumber'] ?? '',
-                    'transporterRefID'              => $data[0]['transporter_RefID'] ?? '',
-                    'receiveDate'                   => $receiveDate,
-                    'warehouseRefID'                => $data[0]['warehouse_RefID'] ?? '',
-                    'warehouseName'                 => $data[0]['warehouseName'] ?? '',
-                    'warehouseAddress'              => $data[0]['warehouseAddress'] ?? '',
-                    'deliveryDate'                  => $data[0]['deliveryDateTimeTZ'] ?? '',
-                    'deliveryFromRefID'             => $data[0]['deliveryFrom_RefID'] ?? '',
-                    'deliveryFromNonRefID'          => $data[0]['deliveryFrom_NonRefID']['Address'] ?? '',
-                    'deliveryToRefID'               => $data[0]['deliveryTo_RefID'] ?? '',
-                    'deliveryToNonRefID'            => $data[0]['deliveryTo_NonRefID']['Address'] ?? '',
-                    'fileID'                        => $data[0]['log_FileUpload_Pointer_RefID'] ?? null,
-                    'remarks'                       => $data[0]['remarks'] ?? '',
+                'varAPIWebToken' => $varAPIWebToken,
+                'documentType_RefID' => $documentTypeRefID,
+                'header' => [
+                    'combinedBudget_RefID' => $data[0]['combinedBudget_RefID'] ?? '',
+                    'combinedBudgetCode' => $data[0]['combinedBudgetCode'] ?? '',
+                    'combinedBudgetName' => $data[0]['combinedBudgetName'] ?? '',
+                    'combinedBudgetSectionCode' => $data[0]['combinedBudgetSectionCode'] ?? '',
+                    'combinedBudgetSectionName' => $data[0]['combinedBudgetSectionName'] ?? '',
+                    'warehouseInboundOrderRefID' => $data[0]['warehouseInboundOrder_RefID'] ?? '',
+                    'materialReceiveNumber' => $data[0]['businessDocumentNumber'] ?? '',
+                    'transporterRefID' => $data[0]['transporter_RefID'] ?? '',
+                    'receiveDate' => $receiveDate,
+                    'warehouseRefID' => $data[0]['warehouse_RefID'] ?? '',
+                    'warehouseName' => $data[0]['warehouseName'] ?? '',
+                    'warehouseAddress' => $data[0]['warehouseAddress'] ?? '',
+                    'deliveryDate' => $data[0]['deliveryDateTimeTZ'] ?? '',
+                    'deliveryFromRefID' => $data[0]['deliveryFrom_RefID'] ?? '',
+                    'deliveryFromNonRefID' => $data[0]['deliveryFrom_NonRefID']['Address'] ?? '',
+                    'deliveryToRefID' => $data[0]['deliveryTo_RefID'] ?? '',
+                    'deliveryToNonRefID' => $data[0]['deliveryTo_NonRefID']['Address'] ?? '',
+                    'fileID' => $data[0]['log_FileUpload_Pointer_RefID'] ?? null,
+                    'remarks' => $data[0]['remarks'] ?? '',
                 ],
-                'dataDetail'        => $data,
+                'dataDetail' => $data,
             ];
 
             // dump($compact);
@@ -615,7 +608,7 @@ class MaterialReceiveController extends Controller
         }
     }
 
-    public function UpdateMaterialReceive(Request $request) 
+    public function UpdateMaterialReceive(Request $request)
     {
         try {
             $response = $this->materialReceiveService->updates($request);
@@ -636,8 +629,8 @@ class MaterialReceiveController extends Controller
             }
 
             $compact = [
-                "documentNumber"    => $response['data'][0]['businessDocument']['documentNumber'],
-                "status"            => $responseWorkflow['metadata']['HTTPStatusCode'],
+                "documentNumber" => $response['data'][0]['businessDocument']['documentNumber'],
+                "status" => $responseWorkflow['metadata']['HTTPStatusCode'],
             ];
 
             return response()->json($compact);

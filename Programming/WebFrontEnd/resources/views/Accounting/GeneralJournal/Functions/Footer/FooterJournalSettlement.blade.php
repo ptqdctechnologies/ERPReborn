@@ -1,13 +1,13 @@
 <script>
-    let journalSettlementDetails = [];
-    let currentIndexPickProduct = 0;
-    let totalAdvanceSettlement = 0.00;
-    let totalDebitCreditSettlement = 0.00;
-    let valueCombinedBudgetCode = '';
-    let valueCombinedBudgetName = '';
-    let valueCombinedBudgetSectionCode = '';
-    let valueCombinedBudgetSectionName = '';
-    const documentType = document.getElementById('DocumentType');
+    let journalSettlementDetails        = [];
+    let currentIndexPickProduct         = 0;
+    let totalAdvanceSettlement          = 0.00;
+    let totalDebitCreditSettlement      = 0.00;
+    let valueCombinedBudgetCode         = '';
+    let valueCombinedBudgetName         = '';
+    let valueCombinedBudgetSectionCode  = '';
+    let valueCombinedBudgetSectionName  = '';
+    const documentType                  = document.getElementById('DocumentType');
 
     function pickProduct(index) {
         currentIndexPickProduct = index;
@@ -144,6 +144,7 @@
                                 ${row.combinedBudgetSectionCode} - ${row.combinedBudgetSectionName}
                             </td>
                             <td rowspan="2" style="text-align: center;">
+                                <input id="product_name${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" hidden value="${row.productCode} - ${row.productName}" />
                                 ${row.productCode} - ${row.productName}
                             </td>
                             <td style="border:1px solid #e9ecef;padding-right: .3rem;">
@@ -160,14 +161,14 @@
                                 </div>
                             </td>
                             <td style="border:1px solid #e9ecef;padding-right: .3rem;">
-                                <select class="form-control" id="accountingEntryRecordType_RefID${index}" onchange="updateField(${index}, 'accountingEntryRecordType_RefID', this.value)">
+                                <select class="form-control" id="accountingEntryRecordType_RefID${index}" onchange="{updateField(${index}, 'accountingEntryRecordType_RefID', this.value); checkOneLineSettlementContents(${index});}">
                                     <option value="" disabled selected>Select a ...</option>
                                     <option value="214000000000001" ${row.accountingEntryRecordType_RefID == '214000000000001' ? 'selected' : ''}>Debit</option>
                                     <option value="214000000000002" ${row.accountingEntryRecordType_RefID == '214000000000002' ? 'selected' : ''}>Credit</option>
                                 </select>
                             </td>
                             <td style="border:1px solid #e9ecef;padding-right: .3rem;">
-                                <input id="debit_credit${index}" class="form-control number-without-negative" onkeyup="onKeyUpDebitCredit(${index})" autocomplete="off" value="${row.debit_credit ? currencyTotal(row.debit_credit) : row.debit_credit}" style="border-radius:0px;" />
+                                <input id="debit_credit${index}" class="form-control number-without-negative" onkeyup="{onKeyUpDebitCredit(${index}); checkOneLineSettlementContents(${index});}" autocomplete="off" value="${row.debit_credit ? currencyTotal(row.debit_credit) : row.debit_credit}" style="border-radius:0px;" />
                             </td>
                         `;
                         tr2.innerHTML = `
@@ -180,19 +181,20 @@
                                             </a>
                                         </span>
                                     </div>
+                                    <input id="product_name${index + 1}" style="border-radius:0;width:130px;background-color:white;" class="form-control" hidden value="${row.productCode} - ${row.productName}" />
                                     <input id="coa_id${index + 1}" style="border-radius:0;width:130px;background-color:white;" class="form-control" hidden />
                                     <input id="coa_name${index + 1}" value="${journalSettlementDetails[index + 1].coa_name}" style="border-radius:0;width:130px;background-color: ${journalSettlementDetails[index + 1].coa_name ? '#e9ecef' : '#fff'};" class="form-control" readonly />
                                 </div>
                             </td>
                             <td style="border:1px solid #e9ecef;padding-right: .3rem;">
-                                <select class="form-control" id="accountingEntryRecordType_RefID${index + 1}" onchange="updateField(${index + 1}, 'accountingEntryRecordType_RefID', this.value)">
+                                <select class="form-control" id="accountingEntryRecordType_RefID${index + 1}" onchange="{updateField(${index + 1}, 'accountingEntryRecordType_RefID', this.value); checkOneLineSettlementContents(${index + 1});}">
                                     <option value="" disabled selected>Select a ...</option>
                                     <option value="214000000000001" ${journalSettlementDetails[index + 1].accountingEntryRecordType_RefID == '214000000000001' ? 'selected' : ''}>Debit</option>
                                     <option value="214000000000002" ${journalSettlementDetails[index + 1].accountingEntryRecordType_RefID == '214000000000002' ? 'selected' : ''}>Credit</option>
                                 </select>
                             </td>
                             <td style="border:1px solid #e9ecef;padding-right: .3rem;">
-                                <input id="debit_credit${index + 1}" class="form-control number-without-negative" onkeyup="onKeyUpDebitCredit(${index + 1})" autocomplete="off" value="${journalSettlementDetails[index + 1].debit_credit ? currencyTotal(journalSettlementDetails[index + 1].debit_credit) : journalSettlementDetails[index + 1].debit_credit}" style="border-radius:0px;" />
+                                <input id="debit_credit${index + 1}" class="form-control number-without-negative" onkeyup="{onKeyUpDebitCredit(${index + 1}); checkOneLineSettlementContents(${index + 1});}" autocomplete="off" value="${journalSettlementDetails[index + 1].debit_credit ? currencyTotal(journalSettlementDetails[index + 1].debit_credit) : journalSettlementDetails[index + 1].debit_credit}" style="border-radius:0px;" />
                             </td>
                         `;
                     } else {
@@ -240,14 +242,14 @@
                                 </div>
                             </td>
                             <td style="border:1px solid #e9ecef;padding-right: .3rem;">
-                                <select class="form-control" id="accountingEntryRecordType_RefID${index}" onchange="updateField(${index}, 'accountingEntryRecordType_RefID', this.value)">
+                                <select class="form-control" id="accountingEntryRecordType_RefID${index}" onchange="{updateField(${index}, 'accountingEntryRecordType_RefID', this.value); checkOneLineSettlementContents(${index});}">
                                     <option value="" disabled selected>Select a ...</option>
                                     <option value="214000000000001" ${row.accountingEntryRecordType_RefID == '214000000000001' ? 'selected' : ''}>Debit</option>
                                     <option value="214000000000002" ${row.accountingEntryRecordType_RefID == '214000000000002' ? 'selected' : ''}>Credit</option>
                                 </select>
                             </td>
                             <td style="border:1px solid #e9ecef;padding-right: .3rem;">
-                                <input id="debit_credit${index}" class="form-control number-without-negative" onkeyup="onKeyUpDebitCredit(${index})" autocomplete="off" value="${row.debit_credit ? currencyTotal(row.debit_credit) : row.debit_credit}" style="border-radius:0px;" />
+                                <input id="debit_credit${index}" class="form-control number-without-negative" onkeyup="{onKeyUpDebitCredit(${index}); checkOneLineSettlementContents(${index});}" autocomplete="off" value="${row.debit_credit ? currencyTotal(row.debit_credit) : row.debit_credit}" style="border-radius:0px;" />
                             </td>
                         `;
                         tr2.innerHTML = `
@@ -278,22 +280,27 @@
                                 </div>
                             </td>
                             <td style="border:1px solid #e9ecef;padding-right: .3rem;">
-                                <select class="form-control" id="accountingEntryRecordType_RefID${index + 1}" onchange="updateField(${index + 1}, 'accountingEntryRecordType_RefID', this.value)">
+                                <select class="form-control" id="accountingEntryRecordType_RefID${index + 1}" onchange="{updateField(${index + 1}, 'accountingEntryRecordType_RefID', this.value); checkOneLineSettlementContents(${index + 1});}">>
                                     <option value="" disabled selected>Select a ...</option>
                                     <option value="214000000000001" ${journalSettlementDetails[index + 1].accountingEntryRecordType_RefID == '214000000000001' ? 'selected' : ''}>Debit</option>
                                     <option value="214000000000002" ${journalSettlementDetails[index + 1].accountingEntryRecordType_RefID == '214000000000002' ? 'selected' : ''}>Credit</option>
                                 </select>
                             </td>
                             <td style="border:1px solid #e9ecef;padding-right: .3rem;">
-                                <input id="debit_credit${index + 1}" class="form-control number-without-negative" onkeyup="onKeyUpDebitCredit(${index + 1})" autocomplete="off" value="${journalSettlementDetails[index + 1].debit_credit ? currencyTotal(journalSettlementDetails[index + 1].debit_credit) : journalSettlementDetails[index + 1].debit_credit}" style="border-radius:0px;" />
+                                <input id="debit_credit${index + 1}" class="form-control number-without-negative" onkeyup="{onKeyUpDebitCredit(${index + 1}); checkOneLineSettlementContents(${index + 1});}" autocomplete="off" value="${journalSettlementDetails[index + 1].debit_credit ? currencyTotal(journalSettlementDetails[index + 1].debit_credit) : journalSettlementDetails[index + 1].debit_credit}" style="border-radius:0px;" />
                             </td>
                         `;
                     }
                 }
             }
 
-            tbody.appendChild(tr);
-            tbody.appendChild(tr2);
+            if (tr.querySelector('td')) {
+                tbody.appendChild(tr);
+            }
+            
+            if (tr2.querySelector('td')) {
+                tbody.appendChild(tr2);
+            }
         });
 
         $("#journal_settlement_loading_table").hide();
@@ -305,7 +312,7 @@
 
         $("#journal_settlement_loading_table").show();
         $('#journal_settlement_body_table').empty();
-        
+
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -465,7 +472,7 @@
                     $('#detail_sub_budget_information').text(`: ${data.data[0].combinedBudgetSectionCode} - ${data.data[0].combinedBudgetSectionName}`);
                     $('#detail_beneficiary_information').text(`: ${data.data[0].beneficiaryName}`);
                     $('#detail_bank_information').text(`: (${data.data[0].bankNameAcronym}) ${data.data[0].bankName} - ${data.data[0].bankAccount}`);
-                    $('#dataInput_Log_FileUpload').val('91000000000291');
+                    $('#dataInput_Log_FileUpload').val(null); // 91000000000291
                     $("#detail_attachment_information").append(divInputFile);
                     $('#total_unsettle_settlement').val(totalUnsettle);
                     $('#detail_transaction_table').css("width", "100%");
@@ -480,12 +487,210 @@
         });
     }
 
+    function checkOneLineSettlementContents(indexInput) {
+        const rows      = document.querySelectorAll("#journal_settlement_table tbody tr");
+        let hasFullRow  = false;
+
+        rows.forEach((row, index) => {
+            const coa           = document.getElementById(`coa_name${index}`)?.value.trim();
+            const coaStatus     = document.getElementById(`accountingEntryRecordType_RefID${index}`)?.value.trim();
+            const amountValue   = document.getElementById(`debit_credit${index}`)?.value.trim();
+
+            const nextCoa           = document.getElementById(`coa_name${index + 1}`)?.value.trim();
+            const nextCoaStatus     = document.getElementById(`accountingEntryRecordType_RefID${index + 1}`)?.value.trim();
+            const nextAmountValue   = document.getElementById(`debit_credit${index + 1}`)?.value.trim();
+
+            if (rows.length - 1 != index) {
+                if (coa !== '' && coaStatus !== '' && amountValue !== '' && nextCoa !== '' && nextCoaStatus !== '' && nextAmountValue !== '') {
+                    hasFullRow = true;
+                }
+            }
+        });
+
+        rows.forEach((row, index) => {
+            const coaEl         = document.getElementById(`coa_name${index}`);
+            const coaStatusEl   = document.getElementById(`accountingEntryRecordType_RefID${index}`);
+            const amountValueEl = document.getElementById(`debit_credit${index}`);
+
+            const nextCoaEl         = document.getElementById(`coa_name${index}`);
+            const nextCoaStatusEl   = document.getElementById(`accountingEntryRecordType_RefID${index}`);
+            const nextAmountValueEl = document.getElementById(`debit_credit${index}`);
+
+            if (hasFullRow) {
+                $(coaEl).css("border", "1px solid #ced4da");
+                $(coaStatusEl).css("border", "1px solid #ced4da");
+                $(amountValueEl).css("border", "1px solid #ced4da");
+                $(nextCoaEl).css("border", "1px solid #ced4da");
+                $(nextCoaStatusEl).css("border", "1px solid #ced4da");
+                $(nextAmountValueEl).css("border", "1px solid #ced4da");
+                $("#settlementDetailsMessage").hide();
+            } else {
+                if (indexInput > -1) {
+                    if (indexInput == index && rows.length - 1 != index) {
+                        if (
+                            coaEl.value.trim() != "" || 
+                            coaStatusEl.value.trim() != "" || 
+                            amountValueEl.value.trim() != "" || 
+                            nextCoaEl.value.trim() != "" || 
+                            nextCoaStatusEl.value.trim() != "" || 
+                            nextAmountValueEl.value.trim() != ""
+                        ) {
+                            $(coaEl).css("border", "1px solid red");
+                            $(coaStatusEl).css("border", "1px solid red");
+                            $(amountValueEl).css("border", "1px solid red");
+                            $(nextCoaEl).css("border", "1px solid red");
+                            $(nextCoaStatusEl).css("border", "1px solid red");
+                            $(nextAmountValueEl).css("border", "1px solid red");
+                            $("#settlementDetailsMessage").show();
+                        } else {
+                            $(coaEl).css("border", "1px solid #ced4da");
+                            $(coaStatusEl).css("border", "1px solid #ced4da");
+                            $(amountValueEl).css("border", "1px solid #ced4da");
+                            $(nextCoaEl).css("border", "1px solid #ced4da");
+                            $(nextCoaStatusEl).css("border", "1px solid #ced4da");
+                            $(nextAmountValueEl).css("border", "1px solid #ced4da");
+                            $("#settlementDetailsMessage").hide();
+                        }
+                    }
+
+                    if (indexInput != index && rows.length - 1 != index && (
+                        coaEl.value.trim() == "" && 
+                        coaStatusEl.value.trim() == "" && 
+                        amountValueEl.value.trim() == "" &&
+                        nextCoaEl.value.trim() == "" &&
+                        nextCoaStatusEl.value.trim() == "" &&
+                        nextAmountValueEl.value.trim() == "" 
+                    )) {
+                        $(coaEl).css("border", "1px solid #ced4da");
+                        $(coaStatusEl).css("border", "1px solid #ced4da");
+                        $(amountValueEl).css("border", "1px solid #ced4da");
+                        $(nextCoaEl).css("border", "1px solid #ced4da");
+                        $(nextCoaStatusEl).css("border", "1px solid #ced4da");
+                        $(nextAmountValueEl).css("border", "1px solid #ced4da");
+                    }
+                } else {
+                    $(coaEl).css("border", "1px solid red");
+                    $(coaStatusEl).css("border", "1px solid red");
+                    $(amountValueEl).css("border", "1px solid red");
+                    $(nextCoaEl).css("border", "1px solid red");
+                    $(nextCoaStatusEl).css("border", "1px solid red");
+                    $(nextAmountValueEl).css("border", "1px solid red");
+                    $("#settlementDetailsMessage").show();
+                }
+            }
+        });
+
+        return hasFullRow;
+    }
+
+    function summarySettlementData() {
+        const sourceTable = document.getElementById('journal_settlement_table').getElementsByTagName('tbody')[0];
+        const targetTable = document.getElementById('tableGeneralJournalList').getElementsByTagName('tbody')[0];
+
+        const rows = sourceTable.getElementsByTagName('tr');
+
+        for (let [index, row] of Array.from(rows).entries()) {
+            const productInput  = row.querySelector('input[id^="product_name"]');
+            const coaInput      = row.querySelector('input[id^="coa_name"]');
+            const coaSelect     = row.querySelector('select[id^="accountingEntryRecordType_RefID"]');
+            const valueInput    = row.querySelector('input[id^="debit_credit"]');
+
+            if (
+                rows.length - 1 != index && 
+                productInput && coaInput && coaSelect && valueInput &&
+                productInput.value.trim() !== '' &&
+                coaInput.value.trim() !== '' &&
+                coaSelect.value.trim() !== '' &&
+                valueInput.value.trim() !== ''
+            ) {
+                const products      = productInput.value.trim();
+                const coas          = coaInput.value.trim();
+                const coasStatus    = coaSelect.value.trim();
+                const values        = valueInput.value.trim();
+
+                let found = false;
+
+                if (!found) {
+                    dataStore.push({
+                        productName: products,
+                        coaName: coas,
+                        coaStatus: coasStatus,
+                        value: values
+                    });
+                }
+            }
+        }
+
+        $('#tableGeneralJournalList').DataTable({
+            destroy: true,
+            data: dataStore,
+            deferRender: true,
+            scrollCollapse: true,
+            scroller: true,
+            columns: [
+                {
+                    title: "No",
+                    data: null,
+                    render: function (data, type, row, meta) {
+                        return '<td class="align-middle text-center">' +
+                            (meta.row + 1) +
+                        '</td>';
+                    }
+                },
+                {
+                    title: "Product",
+                    data: 'productName',
+                    defaultContent: '-',
+                    className: "align-middle"
+                },
+                {
+                    title: "COA",
+                    data: 'coaName',
+                    defaultContent: '-',
+                    className: "align-middle"
+                },
+                {
+                    title: "COA Status",
+                    data: null,
+                    defaultContent: '-',
+                    render: function (data, type, row, meta) {
+                        return data.coaStatus == '214000000000001' ? 'Debit' : 'Credit';
+                    }
+                },
+                {
+                    title: "Value",
+                    data: null,
+                    defaultContent: '-',
+                    render: function (data, type, row, meta) {
+                        return currencyTotal(data.value);
+                    }
+                }
+            ]
+        });
+
+        $('#tableGeneralJournalList_length').hide();
+        $('#tableGeneralJournalList_filter').hide();
+        $('#tableGeneralJournalList').css("width", "100%");
+
+        $('#generalJournalFormModal').modal('show');
+    }
+
+    function validationSettlementForm() {
+        const isTableNotEmpty = checkOneLineSettlementContents();
+
+        if (isTableNotEmpty) {
+            summarySettlementData();
+        } else {
+            $("#settlementDetailsMessage").show();
+        }
+    }
+
     // $('#tableAllTransactions').on('click', 'tbody tr', function() {
     //     const sysId     = $(this).find('input[data-trigger="sys_id_transaction"]').val();
     //     const trano     = $(this).find('td:nth-child(2)').text();
     //     const project   = $(this).find('td:nth-child(3)').text();
     //     const site      = $(this).find('td:nth-child(4)').text();
-        
+
     //     $(`#transaction_id_settlement`).val(sysId);
     //     $(`#transaction_number_settlement`).val(trano);
     //     $(`#transaction_number_settlement`).css('background-color', '#e9ecef');

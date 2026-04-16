@@ -1,102 +1,306 @@
-@extends('Partials.app')
-@section('main')
+<!DOCTYPE html>
+<html lang="en">
 
-<div class="content-wrapper">
-    <section class="content">
-        <div class="container-fluid">
-            <div class="row mb-1">
-                <div class="col-sm-12">
-                    <center>
-                        <div style="text-align: center; font-size: 20px; font-weight: bold;">Report Debit Note Summary</div>
-                    </center>
-                    <br><br>
-                </div>
-            </div>
-            <div class="card">
-                <div class="tab-content p-3" id="nav-tabContent">
-                    <div class="row">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
+    
+    <title>ERP Reborn</title>
+    
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{{ asset('AdminLTE-master/dist/css/adminlte.min.css') }}">
+</head>
 
-                        <div class="col-12 ShowTableReportAdvanceSummary">
-                            <div class="card">
-                                <div class="card-body table-responsive p-0">
-                                    <table class="TableReportAdvanceSummary" id="TableReportAdvanceSummary" style="font-size: 13px;width:100%;border: 1px solid #ced4da;border-collapse: collapse;">
-                                        <thead>
-                                            <tr style="border: 1px solid #ced4da;border-collapse: collapse;">
-                                                <th rowspan="2" style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">No</th>
-                                                <th rowspan="2" style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">DN Number</th>
-                                                <th rowspan="2" style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Budget</th>
-                                                <th rowspan="2" style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Sub Budget</th>
-                                                <th rowspan="2" style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Date</th>
-                                                <th rowspan="2" style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Customer</th>
-                                                <th colspan="2" style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">DN IDR</th>
-                                                <th colspan="2" style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">DN Other Currency</th>
-                                                <th colspan="2" style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">DN Equivalent IDR</th>
-                                            </tr>
-                                            <tr style="border: 1px solid #ced4da;border-collapse: collapse;">
-                                                <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Total</th>
-                                                <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">VAT</th>
-                                                <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Total</th>
-                                                <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">VAT</th>
-                                                <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Total</th>
-                                                <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">VAT</th>
-                                            </tr>
-                                        </thead>
-                                        <?php 
-                                            $counter = 1; 
-                                            $grand_dntotalidr =0;    
-                                            $grand_dntaxidr =0;    
-                                            $grand_dntotalothercurrency =0;    
-                                            $grand_dntaxothercurrency =0;    
-                                            $grand_dntotalequivalent =0;    
-                                            $grand_dntaxequivalent =0;    
-                                        ?>
-                                        <?php foreach ($dataDN as $dataDetail) { ?>
-                                        <?php
-                                            $grand_dntotalidr +=$dataDetail['DN_Total_IDR'];    
-                                            $grand_dntaxidr +=$dataDetail['DN_Tax_IDR'];    
-                                            $grand_dntotalothercurrency +=$dataDetail['DN_Total_Other_Currency'];    
-                                            $grand_dntaxothercurrency +=$dataDetail['DN_Tax_OtherCurrency'];    
-                                            $grand_dntotalequivalent +=$dataDetail['DN_Total_Equivalent_IDR'];    
-                                            $grand_dntaxequivalent +=$dataDetail['DN_Tax_Equivalent'];
-                                        ?> 
-                                        <tbody>
-                                            <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;"><?= $counter++; ?></td>
-                                            <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ $dataDetail['DN_Number'] }}</td>
-                                            <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ $dataDetail['combinedBudgetCode']}} - {{ $dataDetail['combinedBudgetName']}}</td>
-                                            <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ $dataDetail['combinedBudgetSectionCode']}} - {{ $dataDetail['combinedBudgetSectionName']}}</td>
-                                            <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ date('Y-m-d', strtotime($dataDetail['date'])) }}</td>
-                                            <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ $dataDetail['supplierCode']}} - {{ $dataDetail['supplierName']}}</td>
-                                            <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ number_format($dataDetail['DN_Total_IDR'], 2, '.', ',') }}</td>
-                                            <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ number_format($dataDetail['DN_Tax_IDR'], 2, '.', ',') }}</td>
-                                            <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ number_format($dataDetail['DN_Total_Other_Currency'], 2, '.', ',') }}</td>
-                                            <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ number_format($dataDetail['DN_Tax_OtherCurrency'], 2, '.', ',') }}</td>
-                                            <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ number_format($dataDetail['DN_Total_Equivalent_IDR'], 2, '.', ',') }}</td>
-                                            <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ number_format($dataDetail['DN_Tax_Equivalent'], 2, '.', ',') }}</td>
-                                        
-                                        </tbody>
-                                        <?php } ?>
-
-                                        <tfoot>
-                                            <tr style="font-weight:bolder;border: 1px solid #ced4da;border-collapse: collapse;">
-                                                <td style="border: 1px solid #ced4da;border-collapse: collapse;padding: 5px;text-align:center;" colspan="6">GRAND TOTAL</td>
-                                                <td style="border: 1px solid #ced4da;border-collapse: collapse;padding: 5px;"><?= number_format($grand_dntotalidr, 2, '.', ','); ?></td>
-                                                <td style="border: 1px solid #ced4da;border-collapse: collapse;padding: 5px;"><?= number_format($grand_dntaxidr, 2, '.', ','); ?></td>
-                                                <td style="border: 1px solid #ced4da;border-collapse: collapse;padding: 5px;"><?= number_format($grand_dntotalothercurrency, 2, '.', ','); ?></td>
-                                                <td style="border: 1px solid #ced4da;border-collapse: collapse;padding: 5px;"><?= number_format($grand_dntaxothercurrency, 2, '.', ','); ?></td>
-                                                <td style="border: 1px solid #ced4da;border-collapse: collapse;padding: 5px;"><?= number_format($grand_dntotalequivalent, 2, '.', ','); ?></td>
-                                                <td style="border: 1px solid #ced4da;border-collapse: collapse;padding: 5px;"><?= number_format($grand_dntaxequivalent, 2, '.', ','); ?></td> 
-                                            </tr>
-                                        </tfoot>
-                            
-
-                                    </table>
-                                </div>
+<body>
+    <div class="card-body table-responsive p-0">
+        <div style="text-align: right; font-size: 14px;"><?= date('F j, Y'); ?></div>
+        <div style="text-align: center; font-size: 20px; font-weight: bold;">Debit Note Summary</div>
+        <div style="text-align: right; font-size: 14px;"><?= date('h:i A'); ?></div>
+    </div>
+    
+    <!-- HEADER -->
+    <table style="margin: 30px 0px 15px 1px;">
+        <tr>
+            <!-- BUDGET -->
+            <td style="width: 300px;">
+                <table>
+                    <tr>
+                        <td style="width: 75px; height: 20px;">
+                            <div style="font-size: 12px; font-weight: bold; line-height: 14px;">
+                                Budget
                             </div>
-                        </div>
+                        </td>
+                        <td style="font-size: 12px; width: 5px;">
+                            :
+                        </td>
+                        <td style="height: 20px;">
+                            <div style="font-size: 12px; line-height: 14px;">
+                                <?= $budgetName; ?>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            
+            <!-- CUSTOMER -->
+            <td style="width: 300px;">
+                <table>
+                    <tr>
+                        <td style="width: 75px; height: 20px;">
+                            <div style="font-size: 12px; font-weight: bold; line-height: 14px;">
+                                Customer
+                            </div>
+                        </td>
+                        <td style="font-size: 12px; width: 5px;">
+                            :
+                        </td>
+                        <td style="height: 20px;">
+                            <div style="font-size: 12px; line-height: 14px;">
+                                <?= $customerName; ?>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <!-- SUB BUDGET -->
+            <td style="width: 300px;">
+                <table>
+                    <tr>
+                        <td style="width: 75px; height: 20px;">
+                            <div style="font-size: 12px; font-weight: bold; line-height: 14px;">
+                                Sub Budget
+                            </div>
+                        </td>
+                        <td style="font-size: 12px; width: 5px;">
+                            :
+                        </td>
+                        <td style="height: 20px;">
+                            <div style="font-size: 12px; line-height: 14px;">
+                                <?= $subBudgetName; ?>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+
+            <!-- DATE -->
+            <td style="width: 300px;">
+                <table>
+                    <tr>
+                        <td style="width: 75px; height: 20px;">
+                            <div style="font-size: 12px; font-weight: bold; line-height: 14px;">
+                                Date
+                            </div>
+                        </td>
+                        <td style="font-size: 12px; width: 5px;">
+                            :
+                        </td>
+                        <td style="height: 20px;">
+                            <div style="font-size: 12px; line-height: 14px;">
+                                <?= $dnDate; ?>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+
+    <!-- DETAIL -->
+    <table style="margin-left: 1px; width: 100%;">
+        <thead>
+            <tr style="border-top: 1px solid black; border-bottom: 1px dotted black;">
+                <td rowspan="2" style="width: 20px; border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+                        No
                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
-</div>
-@endsection
+                </td>
+                <td rowspan="2" style="width: 20px; border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+                        DN Number
+                    </div>
+                </td>
+                <td rowspan="2" style="width: 20px; border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+                        Budget
+                    </div>
+                </td>
+                <td rowspan="2" style="width: 20px; border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+                        Sub Budget
+                    </div>
+                </td>
+                <td rowspan="2" style="width: 20px; border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+                        Date
+                    </div>
+                </td>
+                <td rowspan="2" style="width: 20px; border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+                        Customer
+                    </div>
+                </td>
+                <td colspan="2" style="width: 20px; border-top: 1px solid black; border-bottom: 1px solid black; height: 20px;">
+                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+                        DN IDR
+                    </div>
+                </td>
+                <td colspan="2" style="width: 20px; border-top: 1px solid black; border-bottom: 1px solid black; height: 20px;">
+                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+                        DN Other Currency
+                    </div>
+                </td>
+                <td colspan="2" style="width: 20px; border-top: 1px solid black; border-bottom: 1px solid black; height: 20px;">
+                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+                        DN Equivalent IDR
+                    </div>
+                </td>
+            </tr>
+            <tr style="border-top: 1px solid black; border-bottom: 1px dotted black;">
+                <td style="width: 20px; border-bottom: 1px dotted black; height: 20px;">
+                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+                        Total
+                    </div>
+                </td>
+                <td style="width: 20px; border-bottom: 1px dotted black; height: 20px;">
+                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+                        VAT
+                    </div>
+                </td>
+                <td style="width: 20px; border-bottom: 1px dotted black; height: 20px;">
+                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+                        Total
+                    </div>
+                </td>
+                <td style="width: 20px; border-bottom: 1px dotted black; height: 20px;">
+                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+                        VAT
+                    </div>
+                </td>
+                <td style="width: 20px; border-bottom: 1px dotted black; height: 20px;">
+                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+                        Total
+                    </div>
+                </td>
+                <td style="width: 20px; border-bottom: 1px dotted black; height: 20px;">
+                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+                        VAT
+                    </div>
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+            <?php 
+                $counter                    = 1;
+                $grandTotalIDR              = 0;
+                $grandVatIDR                = 0;
+                $grandTotalOtherCurrency    = 0;
+                $grandVatOtherCurrency      = 0;
+                $grandTotalEquivalentIDR    = 0;
+                $grandVatEquivalentIDR      = 0;
+            ?>
+            <?php foreach ($dataDN as $dataDetail) { ?>
+                <?php $grandTotalIDR            += $dataDetail['DN_Total_IDR'] ?? 0; ?>
+                <?php $grandVatIDR              += $dataDetail['DN_Tax_IDR'] ?? 0; ?>
+                <?php $grandTotalOtherCurrency  += $dataDetail['DN_Total_Other_Currency'] ?? 0; ?>
+                <?php $grandVatOtherCurrency    += $dataDetail['DN_Tax_OtherCurrency'] ?? 0; ?>
+                <?php $grandTotalEquivalentIDR  += $dataDetail['DN_Total_Equivalent_IDR'] ?? 0; ?>
+                <?php $grandVatEquivalentIDR    += $dataDetail['DN_Tax_Equivalent'] ?? 0; ?>
+
+                <tr>
+                    <td>
+                        <div style="margin-top: 4px; font-size: 12px;">
+                            <?= $counter++; ?>
+                        </div>
+                    </td>
+                    <td>
+                        <div style="margin-top: 4px; font-size: 12px;">
+                            <?= $dataDetail['DN_Number'] ?? '-'; ?>
+                        </div>
+                    </td>
+                    <td>
+                        <div style="margin-top: 4px; font-size: 12px;">
+                            <?= $dataDetail['combinedBudgetCode'] ?? ''; ?> - <?= $dataDetail['combinedBudgetName'] ?? ''; ?> 
+                        </div>
+                    </td>
+                    <td>
+                        <div style="margin-top: 4px; font-size: 12px;">
+                            <?= $dataDetail['combinedBudgetSectionCode'] ?? ''; ?> - <?= $dataDetail['combinedBudgetSectionName'] ?? ''; ?> 
+                        </div>
+                    </td>
+                    <td>
+                        <div style="margin-top: 4px; font-size: 12px;">
+                            <?= $dataDetail['date'] ?? '-'; ?>
+                        </div>
+                    </td>
+                    <td>
+                        <div style="margin-top: 4px; font-size: 12px;">
+                            <?= $dataDetail['supplierCode'] ?? ''; ?> - <?= $dataDetail['supplierName'] ?? ''; ?> 
+                        </div>
+                    </td>
+                    <td>
+                        <div style="margin-top: 4px; font-size: 12px;">
+                            <?= number_format($dataDetail['DN_Total_IDR'] ?? 0, 2); ?>
+                        </div>
+                    </td>
+                    <td>
+                        <div style="margin-top: 4px; font-size: 12px;">
+                            <?= number_format($dataDetail['DN_Tax_IDR'] ?? 0, 2); ?>
+                        </div>
+                    </td>
+                    <td>
+                        <div style="margin-top: 4px; font-size: 12px;">
+                            <?= number_format($dataDetail['DN_Total_Other_Currency'] ?? 0, 2); ?>
+                        </div>
+                    </td>
+                    <td>
+                        <div style="margin-top: 4px; font-size: 12px;">
+                            <?= number_format($dataDetail['DN_Tax_OtherCurrency'] ?? 0, 2); ?>
+                        </div>
+                    </td>
+                    <td>
+                        <div style="margin-top: 4px; font-size: 12px;">
+                            <?= number_format($dataDetail['DN_Total_Equivalent_IDR'] ?? 0, 2); ?>
+                        </div>
+                    </td>
+                    <td>
+                        <div style="margin-top: 4px; font-size: 12px;">
+                            <?= number_format($dataDetail['DN_Tax_Equivalent'] ?? 0, 2); ?>
+                        </div>
+                    </td>
+                </tr>
+            <?php } ?>
+        </tbody>
+
+        <div style="height: 16px;"></div>
+
+        <tr style="border-top: 1px solid black;">
+            <td colspan="6" style="height: 20px; text-align: left;">
+                <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">GRAND TOTAL</div>
+            </td>
+            <td style="height: 20px;">
+                <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"><?= number_format($grandTotalIDR, 2); ?></div>
+            </td>
+            <td style="height: 20px;">
+                <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"><?= number_format($grandVatIDR, 2); ?></div>
+            </td>
+            <td style="height: 20px;">
+                <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"><?= number_format($grandTotalOtherCurrency, 2); ?></div>
+            </td>
+            <td style="height: 20px;">
+                <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"><?= number_format($grandVatOtherCurrency, 2); ?></div>
+            </td>
+            <td style="height: 20px;">
+                <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"><?= number_format($grandTotalEquivalentIDR, 2); ?></div>
+            </td>
+            <td style="height: 20px;">
+                <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"><?= number_format($grandVatEquivalentIDR, 2); ?></div>
+            </td>
+        </tr>
+    </table>
+</body>
+
+</html>

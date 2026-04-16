@@ -20,56 +20,111 @@ class PurchaseOrderService
             'transaction.read.dataList.supplyChain.getPurchaseOrderDetail',
             'latest',
             [
-            'parameter' => [
-                'purchaseOrder_RefID' => (int) $purchaseOrderRefID
+                'parameter' => [
+                    'purchaseOrder_RefID' => (int) $purchaseOrderRefID
                 ],
-            'SQLStatement' => [
-                'pick' => null,
-                'sort' => null,
-                'filter' => null,
-                'paging' => null
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    'filter' => null,
+                    'paging' => null
                 ]
             ]
         );
     }
 
-    public function getPurchaseOrderSummary($budget, $subBudget, $date, $supplier) 
+    public function getPurchaseOrderSummary($budget, $subBudget, $date, $supplier)
     {
         $sessionToken = Session::get('SessionLogin');
 
         if ($date) {
-            $dates      = explode(' - ', $date);
-            $startDate  = Carbon::createFromFormat('m/d/Y', trim($dates[0]))->startOfDay()->format('Y-m-d');
-            $endDate    = Carbon::createFromFormat('m/d/Y', trim($dates[1]))->endOfDay()->format('Y-m-d');
+            $dates = explode(' - ', $date);
+            $startDate = Carbon::createFromFormat('m/d/Y', trim($dates[0]))->startOfDay()->format('Y-m-d');
+            $endDate = Carbon::createFromFormat('m/d/Y', trim($dates[1]))->endOfDay()->format('Y-m-d');
         }
 
         return Helper_APICall::setCallAPIGateway(
             Helper_Environment::getUserSessionID_System(),
-            $sessionToken, 
-            'report.form.documentForm.supplyChain.getPurchaseOrderSummary', 
+            $sessionToken,
+            'report.form.documentForm.supplyChain.getPurchaseOrderSummary',
             'latest',
             [
-                'parameter'     => [
-                    'CombinedBudgetCode'                    => $budget,
-                    'CombinedBudgetSectionCode'             => $subBudget ? $subBudget : NULL,
-                    'Supplier_RefID'                        => $supplier ? $supplier : NULL
-                    // 'StartDate'                             => $date ? $startDate : NULL,
-                    // 'EndDate'                               => $date ? $endDate : NULL
+                'parameter' => [
+                    'CombinedBudgetCode' => $budget,
+                    'CombinedBudgetSectionCode' => $subBudget ? $subBudget : NULL,
+                    'Supplier_RefID' => $supplier ? $supplier : NULL
+                    // 'StartDate'              => $date ? $startDate : NULL,
+                    // 'EndDate'                => $date ? $endDate : NULL
                 ]
             ]
         );
     }
 
-    public function create(Request $request): array 
+    public function getPurchaseOrderToDeliveryOrder($budget, $subBudget, $date)
     {
-        $sessionToken   = Session::get('SessionLogin');
-        $careerRefID    = Session::get('SessionWorkerCareerInternal_RefID');
+        $sessionToken = Session::get('SessionLogin');
 
-        $data                   = $request->storeData;
-        $deliveryToRefID        = isset($data['deliveryTo_RefID']) ? (int) $data['deliveryTo_RefID'] : null;
-        $vatRatio               = $data['vatValue'] && $data['vatValue'] != "Select a VAT" ? $data['vatValue'] : 0;
-        $purchaseOrderDetail    = json_decode($data['purchaseOrderDetail'], true);
-        $fileID                 = $data['dataInput_Log_FileUpload_1'] ? (int) $data['dataInput_Log_FileUpload_1'] : null;
+        if ($date) {
+            $dates = explode(' - ', $date);
+            $startDate = Carbon::createFromFormat('m/d/Y', trim($dates[0]))->startOfDay()->format('Y-m-d');
+            $endDate = Carbon::createFromFormat('m/d/Y', trim($dates[1]))->endOfDay()->format('Y-m-d');
+        }
+
+        return Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
+            $sessionToken,
+            'report.form.documentForm.supplyChain.getPurchaseOrderToDeliveryOrderSummary',
+            'latest',
+            [
+                'parameter' => [
+                    'CombinedBudgetCode' => $budget,
+                    'CombinedBudgetSectionCode' => $subBudget ? $subBudget : NULL,
+                    'StartDate' => $date ? $startDate : NULL,
+                    'EndDate' => $date ? $endDate : NULL
+                ]
+            ]
+        );
+    }
+
+    public function getPurchaseOrderToAccountPayable($budget, $subBudget, $date, $supplier, $purchaseOrder, $accountPayable)
+    {
+        $sessionToken = Session::get('SessionLogin');
+
+        if ($date) {
+            $dates = explode(' - ', $date);
+            $startDate = Carbon::createFromFormat('m/d/Y', trim($dates[0]))->startOfDay()->format('Y-m-d');
+            $endDate = Carbon::createFromFormat('m/d/Y', trim($dates[1]))->endOfDay()->format('Y-m-d');
+        }
+
+        return Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
+            $sessionToken,
+            'report.form.documentForm.supplyChain.getPurchaseOrderToPaymentInstructionSummary',
+            'latest',
+            [
+                'parameter' => [
+                    'CombinedBudgetCode' => $budget,
+                    'CombinedBudgetSectionCode' => $subBudget ? $subBudget : NULL,
+                    'Supplier_RefID' => $supplier ? $supplier : NULL,
+                    'PurchaseOrder_RefID' => $purchaseOrder ? $purchaseOrder : NULL,
+                    'AccountPayable_RefID' => $accountPayable ? $accountPayable : NULL,
+                    'StartDate' => $date ? $startDate : NULL,
+                    'EndDate' => $date ? $endDate : NULL
+                ]
+            ]
+        );
+    }
+
+    public function create(Request $request): array
+    {
+        $sessionToken = Session::get('SessionLogin');
+        $careerRefID = Session::get('SessionWorkerCareerInternal_RefID');
+
+        $data = $request->storeData;
+        $deliveryToRefID = isset($data['deliveryTo_RefID']) ? (int) $data['deliveryTo_RefID'] : null;
+        $vatRatio = $data['vatValue'] && $data['vatValue'] != "Select a VAT" ? $data['vatValue'] : 0;
+        $purchaseOrderDetail = json_decode($data['purchaseOrderDetail'], true);
+        $fileID = $data['dataInput_Log_FileUpload_1'] ? (int) $data['dataInput_Log_FileUpload_1'] : null;
 
         return Helper_APICall::setCallAPIGateway(
             Helper_Environment::getUserSessionID_System(),
@@ -77,47 +132,47 @@ class PurchaseOrderService
             'transaction.create.supplyChain.setPurchaseOrder',
             'latest',
             [
-            'entities' => [
-                "documentDateTimeTZ"                    => date('Y-m-d'),
-                "log_FileUpload_Pointer_RefID"          => $fileID,
-                "requesterWorkerJobsPosition_RefID"     => (int) $careerRefID,
-                "supplier_RefID"                        => (int) $data['supplier_id'],
-                "deliveryDateTimeTZ"                    => Carbon::createFromFormat('m/d/Y', $data['dateOfDelivery'])->format('Y-m-d'),
-                "deliveryDestination_RefID"             => $deliveryToRefID,
-                "supplierInvoiceBillingPurpose_RefID"   => null,
-                "remarks"                               => $data['remarkPO'],
-                "deliveryDestinationManualAddress"      => $data['delivery_to'],
-                "paymentNotes"                          => $data['paymentNotes'],
-                "internalNotes"                         => $data['internalNote'],
-                "downPayment"                           => (float) str_replace(',', '', $data['downPaymentValue']),
-                "termOfPayment_RefID"                   => (int) $data['termOfPaymentValue'],
-                "vatRatio"                              => $vatRatio,
-                "additionalData"                        => [
-                    "itemList"  => [
-                        "items" => $purchaseOrderDetail
+                'entities' => [
+                    "documentDateTimeTZ" => date('Y-m-d'),
+                    "log_FileUpload_Pointer_RefID" => $fileID,
+                    "requesterWorkerJobsPosition_RefID" => (int) $careerRefID,
+                    "supplier_RefID" => (int) $data['supplier_id'],
+                    "deliveryDateTimeTZ" => Carbon::createFromFormat('m/d/Y', $data['dateOfDelivery'])->format('Y-m-d'),
+                    "deliveryDestination_RefID" => $deliveryToRefID,
+                    "supplierInvoiceBillingPurpose_RefID" => null,
+                    "remarks" => $data['remarkPO'],
+                    "deliveryDestinationManualAddress" => $data['delivery_to'],
+                    "paymentNotes" => $data['paymentNotes'],
+                    "internalNotes" => $data['internalNote'],
+                    "downPayment" => (float) str_replace(',', '', $data['downPaymentValue']),
+                    "termOfPayment_RefID" => (int) $data['termOfPaymentValue'],
+                    "vatRatio" => $vatRatio,
+                    "additionalData" => [
+                        "itemList" => [
+                            "items" => $purchaseOrderDetail
                         ],
-                    "transactionTaxItemList" => [
-                        "items" => [
+                        "transactionTaxItemList" => [
+                            "items" => [
                                 [
-                                "entities" => [
-                                    "taxType_RefID"                 => null,
-                                    "tariffCurrency_RefID"          => null,
-                                    "tariffCurrencyValue"           => (float) str_replace(',', '', $data['tariffCurrencyValue'] ?? 0),
-                                    "tariffCurrencyExchangeRate"    => null,
-                                    "remarks"                       => null
+                                    "entities" => [
+                                        "taxType_RefID" => null,
+                                        "tariffCurrency_RefID" => null,
+                                        "tariffCurrencyValue" => (float) str_replace(',', '', $data['tariffCurrencyValue'] ?? 0),
+                                        "tariffCurrencyExchangeRate" => null,
+                                        "remarks" => null
                                     ]
                                 ],
                             ]
                         ],
-                    "additionalCostItemList" => [
-                        "items" => [
+                        "additionalCostItemList" => [
+                            "items" => [
                                 [
-                                "entities" => [
-                                    "transactionAdditionalCostType_RefID"   => null,
-                                    "priceCurrency_RefID"                   => null,
-                                    "priceCurrencyValue"                    => null,
-                                    "priceCurrencyExchangeRate"             => null,
-                                    "remarks"                               => null
+                                    "entities" => [
+                                        "transactionAdditionalCostType_RefID" => null,
+                                        "priceCurrency_RefID" => null,
+                                        "priceCurrencyValue" => null,
+                                        "priceCurrencyExchangeRate" => null,
+                                        "remarks" => null
                                     ]
                                 ]
                             ]
@@ -130,14 +185,14 @@ class PurchaseOrderService
 
     public function updates(Request $request): array
     {
-        $sessionToken   = Session::get('SessionLogin');
-        $careerRefID    = Session::get('SessionWorkerCareerInternal_RefID');
+        $sessionToken = Session::get('SessionLogin');
+        $careerRefID = Session::get('SessionWorkerCareerInternal_RefID');
 
-        $data                       = $request->storeData;
-        $detailItems                = json_decode($data['purchaseOrderDetail'], true);
-        $vatRatio                   = $data['vatValue'] && $data['vatValue'] != "Select a VAT" ? $data['vatValue'] : 0;
-        $fileID                     = isset($data['dataInput_Log_FileUpload_1']) ? (int) $data['dataInput_Log_FileUpload_1'] : null;
-        $deliveryDestinationRefID   = isset($data['delivery_to_id']) && $data['delivery_to_id'] ? (int) $data['delivery_to_id'] : null;
+        $data = $request->storeData;
+        $detailItems = json_decode($data['purchaseOrderDetail'], true);
+        $vatRatio = $data['vatValue'] && $data['vatValue'] != "Select a VAT" ? $data['vatValue'] : 0;
+        $fileID = isset($data['dataInput_Log_FileUpload_1']) ? (int) $data['dataInput_Log_FileUpload_1'] : null;
+        $deliveryDestinationRefID = isset($data['delivery_to_id']) && $data['delivery_to_id'] ? (int) $data['delivery_to_id'] : null;
 
         return Helper_APICall::setCallAPIGateway(
             Helper_Environment::getUserSessionID_System(),
@@ -145,51 +200,51 @@ class PurchaseOrderService
             'transaction.update.supplyChain.setPurchaseOrder',
             'latest',
             [
-            'recordID' => (int) $data['purchaseOrderRecord_RefID'],
-            'entities' => [
-                'documentDateTimeTZ'                    => date('Y-m-d'),
-                'log_FileUpload_Pointer_RefID'          => $fileID,
-                'requesterWorkerJobsPosition_RefID'     => (int) $careerRefID,
-                'supplier_RefID'                        => (int) $data['supplier_id'],
-                "deliveryDateTimeTZ"                    => $data['dateOfDelivery'],
-                "deliveryDestination_RefID"             => $deliveryDestinationRefID,
-                "supplierInvoiceBillingPurpose_RefID"   => null,
-                "remarks"                               => $data['remarkPO'],
-                "deliveryDestinationManualAddress"      => $data['delivery_to'],
-                "paymentNotes"                          => $data['paymentNotes'],
-                "internalNotes"                         => $data['internalNote'],
-                "downPayment"                           => (float) str_replace(',', '', $data['downPaymentValue']),
-                "termOfPayment_RefID"                   => (int) $data['termOfPaymentValue'],
-                "vatRatio"                              => $vatRatio,
-                'additionalData'    => [
-                    'itemList'      => [
-                        'items'     => $detailItems
+                'recordID' => (int) $data['purchaseOrderRecord_RefID'],
+                'entities' => [
+                    'documentDateTimeTZ' => date('Y-m-d'),
+                    'log_FileUpload_Pointer_RefID' => $fileID,
+                    'requesterWorkerJobsPosition_RefID' => (int) $careerRefID,
+                    'supplier_RefID' => (int) $data['supplier_id'],
+                    "deliveryDateTimeTZ" => $data['dateOfDelivery'],
+                    "deliveryDestination_RefID" => $deliveryDestinationRefID,
+                    "supplierInvoiceBillingPurpose_RefID" => null,
+                    "remarks" => $data['remarkPO'],
+                    "deliveryDestinationManualAddress" => $data['delivery_to'],
+                    "paymentNotes" => $data['paymentNotes'],
+                    "internalNotes" => $data['internalNote'],
+                    "downPayment" => (float) str_replace(',', '', $data['downPaymentValue']),
+                    "termOfPayment_RefID" => (int) $data['termOfPaymentValue'],
+                    "vatRatio" => $vatRatio,
+                    'additionalData' => [
+                        'itemList' => [
+                            'items' => $detailItems
                         ]
                     ],
-                    "transactionTaxItemList"    => [
-                        "items"                 => [
+                    "transactionTaxItemList" => [
+                        "items" => [
                             [
                                 "recordID" => (int) $data['transactionTaxDetail_RefID'],
                                 "entities" => [
-                                    "taxType_RefID"                 => null,
-                                    "tariffCurrency_RefID"          => null,
-                                    "tariffCurrencyValue"           => (float) str_replace(',', '', $data['tariffCurrencyValue']),
-                                    "tariffCurrencyExchangeRate"    => null,
-                                    "remarks"                       => null
+                                    "taxType_RefID" => null,
+                                    "tariffCurrency_RefID" => null,
+                                    "tariffCurrencyValue" => (float) str_replace(',', '', $data['tariffCurrencyValue']),
+                                    "tariffCurrencyExchangeRate" => null,
+                                    "remarks" => null
                                 ]
                             ],
                         ]
                     ],
-                    "additionalCostItemList"    => [
-                        "items"                 => [
+                    "additionalCostItemList" => [
+                        "items" => [
                             [
                                 "recordID" => null,
                                 "entities" => [
                                     "purchaseOrderAdditionalCostType_RefID" => null,
-                                    "priceCurrency_RefID"                   => null,
-                                    "priceCurrencyValue"                    => null,
-                                    "priceCurrencyExchangeRate"             => null,
-                                    "remarks"                               => null
+                                    "priceCurrency_RefID" => null,
+                                    "priceCurrencyValue" => null,
+                                    "priceCurrencyExchangeRate" => null,
+                                    "remarks" => null
                                 ]
                             ]
                         ]

@@ -29,7 +29,7 @@
             <div class="card">
                 <form method="post" action="{{ route('SelectWorkFlow') }}" id="FormSubmitReimbursement">
                 @csrf
-                    <input type="hidden" name="DocumentTypeID" id="DocumentTypeID" />
+                    <input type="hidden" name="DocumentTypeID" id="DocumentTypeID" value="<?= $documentTypeRefID; ?>" />
                     <input type="hidden" name="reimbursement_RefID" id="reimbursement_RefID" value="<?= $header['sys_RefID']; ?>" />
                     <input type="hidden" name="var_combinedBudget_RefID" id="var_combinedBudget_RefID" value="<?= $header['combinedBudget_RefID']; ?>" />
 
@@ -149,8 +149,8 @@
                                         <table class="table table-head-fixed text-nowrap table-sm" id="tableGetBudgetDetails">
                                             <thead>
                                                 <tr>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Product Code</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Product Name</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Work</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Product</th>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Currency</th>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;background: #4B586A;color: white;width: 80px;">Qty</th>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;background: #4B586A;color: white;width: 100px;">Price</th>

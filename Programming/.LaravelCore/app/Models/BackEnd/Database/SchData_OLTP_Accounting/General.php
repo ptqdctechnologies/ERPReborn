@@ -186,6 +186,53 @@ namespace App\Models\Database\SchData_OLTP_Accounting
                 return
                     [];
                 }
+			}
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataList_JournalDetail_LatestVersion                                                              |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2026-02-26                                                                                           |
+        | ▪ Creation Date   : 2026-02-26                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Detail Journal Versi Terakhir                                                     |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varJournal_RefID ► Journal ID                                                                            |
+        |        ------------------------------                                                                                    |
+        |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
+        |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
+        |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
+        |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataList_JournalDetail_LatestVersion(
+            $varUserSession, int $varJournal_RefID = null)
+            {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession,
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Accounting.Func_GetDataList_JournalDetail',
+                            [
+                                [$varJournal_RefID, 'bigint' ],
+                            ]
+                            )
+                        );
+
+                return
+                    $varReturn;
+                }
+
+            catch (\Exception $ex) {
+                return [];
+                }
             }
 
 

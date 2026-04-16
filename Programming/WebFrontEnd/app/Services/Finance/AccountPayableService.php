@@ -11,7 +11,7 @@ use Exception;
 
 class AccountPayableService
 {
-    public function summaryReport($project, $site, $supplier, $date): mixed
+    public function summaryReport($budget, $subBudget, $supplier, $date)
     {
         $sessionToken = Session::get('SessionLogin');
 
@@ -28,9 +28,9 @@ class AccountPayableService
             'latest',
             [
             'parameter' => [
-                'CombinedBudgetCode'        => $project['code'] ? $project['code'] : NULL,
-                'CombinedBudgetSectionCode' => $site['code'] ? $site['code'] : NULL,
-                'Supplier_RefID'            => $supplier['id'] ? (int) $supplier['id'] : NULL,
+                'CombinedBudgetCode'        => $budget ? $budget : NULL,
+                'CombinedBudgetSectionCode' => $subBudget ? $subBudget : NULL,
+                'Supplier_RefID'            => $supplier ? (int) $supplier : NULL,
                 'StartDate'                 => $date ? $startDate : NULL,
                 'EndDate'                   => $date ? $endDate : NULL,
                 ]

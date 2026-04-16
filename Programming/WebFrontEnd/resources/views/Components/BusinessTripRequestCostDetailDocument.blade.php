@@ -73,6 +73,16 @@
                     : <?= number_format($dataAdditional['totalBRF'], 2); ?>
                 </div>
             </div>
+
+            <!-- TOTAL BUDGET -->
+            <div class="row" style="margin-bottom: 1rem;">
+                <div class="col-sm-4 col-md-6 p-0 text-bold">
+                    Total Budget
+                </div>
+                <div class="col-sm-8 col-md-6 p-0">
+                    : -
+                </div>
+            </div>
         </div>
     </div>
 </div>

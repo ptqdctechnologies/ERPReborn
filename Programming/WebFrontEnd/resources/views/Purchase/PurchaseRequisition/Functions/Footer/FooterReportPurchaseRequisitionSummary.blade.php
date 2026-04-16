@@ -1,22 +1,36 @@
 <script>
-    let dataReport      = [];
-    const budgetID      = document.getElementById("budget_id");
-    const budgetCode    = document.getElementById("budget_code");
-    const budgetName    = document.getElementById("budget_name");
-    const subBudgetID   = document.getElementById("sub_budget_id");
-    const subBudgetCode = document.getElementById("sub_budget_code");
-    const subBudgetName = document.getElementById("sub_budget_name");
-    const prDate        = document.getElementById("purchase_requisition_date_range");
-    const printType     = document.getElementById("print_type");
+    let dataReport                      = [];
+    const documentTypeID                = document.getElementById("documentTypeRefID");
+    const organizationalDepartmentName  = document.getElementById("organizationalDepartmentName"); // Finance & Accounting
+    const organizationalJobPositionName = document.getElementById("organizationalJobPositionName"); // General Manager
+    const budgetID                      = document.getElementById("budget_id");
+    const budgetCode                    = document.getElementById("budget_code");
+    const budgetName                    = document.getElementById("budget_name");
+    const subBudgetID                   = document.getElementById("sub_budget_id");
+    const subBudgetCode                 = document.getElementById("sub_budget_code");
+    const subBudgetName                 = document.getElementById("sub_budget_name");
+    const prDate                        = document.getElementById("purchase_requisition_date_range");
+    const printType                     = document.getElementById("print_type");
+
+    function resetForm() {
+        dataReport = [];
+
+        $("#budget_name").css('background-color', '#fff');
+        $(`#budget_name`).val("");
+        $(`#budget_id`).val("");
+        $(`#budget_code`).val("");
+
+        $("#sub_budget_name").css('background-color', '#fff');
+        $(`#sub_budget_name`).val("");
+        $(`#sub_budget_id`).val("");
+        $(`#sub_budget_code`).val("");
+        
+        $("#purchase_requisition_date_range").css('background-color', '#fff');
+        $(`#purchase_requisition_date_range`).val("");
+    }
 
     function getDataReport() {
         ShowLoading();
-
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
 
         $.ajax({
             type: 'POST',
@@ -30,13 +44,13 @@
             },
             dataType: 'json',
             success: function(response) {
+                let totalIDR            = 0;
+                let totalOtherCurrency  = 0;
+                let totalEquivalentIDR  = 0;
+
                 if (response.status === 200 && response.data[0]) {
                     let data = response.data;
                     dataReport = JSON.stringify(data);
-
-                    let totalIDR            = 0;
-                    let totalOtherCurrency  = 0;
-                    let totalEquivalentIDR  = 0;
 
                     data.forEach(function(row) {
                         totalIDR            += parseFloat(row.total_IDR) || 0;
@@ -59,7 +73,8 @@
                             },
                             {
                                 data: 'documentNumber',
-                                defaultContent: '-'
+                                defaultContent: '-',
+                                className: "text-nowrap",
                             },
                             {
                                 data: null,
@@ -74,6 +89,7 @@
                             {
                                 data: null,
                                 defaultContent: '-',
+                                className: "text-nowrap",
                                 render: function (data, type, row, meta) {
                                     return `${data.combinedBudgetCode} - ${data.combinedBudgetName}`;
                                 }
@@ -96,21 +112,21 @@
                                 data: null,
                                 defaultContent: '-',
                                 render: function (data, type, row, meta) {
-                                    return currencyTotal(data.total_IDR);
+                                    return currencyTotal(data.total_IDR || '0');
                                 }
                             },
                             {
                                 data: null,
                                 defaultContent: '-',
                                 render: function (data, type, row, meta) {
-                                    return currencyTotal(data.total_Other_Currency);
+                                    return currencyTotal(data.total_Other_Currency || '0');
                                 }
                             },
                             {
                                 data: null,
                                 defaultContent: '-',
                                 render: function (data, type, row, meta) {
-                                    return currencyTotal(data.total_Equivalent_IDR);
+                                    return currencyTotal(data.total_Equivalent_IDR || '0');
                                 }
                             },
                             {
@@ -128,10 +144,23 @@
                     $('#table_summary').css("width", "100%");
                     $('#table_container').css("display", "block");
                 } else {
-                    $('#table_container').hide(); 
-                    $('#table_summary tbody').empty();
-                    $('#table_summary tfoot').empty();
-                    ErrorNotif("Error");
+                    dataReport = [];
+
+                    $('#table_summary').DataTable({
+                        destroy: true,
+                        data: [],
+                        deferRender: true,
+                        scrollCollapse: true,
+                        scroller: true,
+                        drawCallback: function(settings) {
+                            $('#table_summary tfoot th:nth-child(2)').text(currencyTotal(totalIDR));
+                            $('#table_summary tfoot th:nth-child(3)').text(currencyTotal(totalOtherCurrency)); 
+                            $('#table_summary tfoot th:nth-child(4)').text(currencyTotal(totalEquivalentIDR));
+                        }
+                    });
+
+                    $('#table_summary').css("width", "100%");
+                    $('#table_container').css("display", "block");
                 }
 
                 HideLoading();
@@ -146,12 +175,6 @@
 
     function exportDataReport() {
         ShowLoading();
-
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
 
         $.ajax({
             url: '{!! route("PurchaseRequisition.PrintExportReportPurchaseRequisitionSummary") !!}',
@@ -191,17 +214,117 @@
         });
     }
 
+    function validateShowButton() {
+        const isBudgetIDNotEmpty    = budgetID.value.trim() !== '';
+        const isPrDateNotEmpty      = prDate.value.trim() !== '';
+
+        if (
+            isBudgetIDNotEmpty ||
+            isPrDateNotEmpty
+        ) {
+            hideErrorInputMessage("#budget_name", "#budgetMessage");
+            hideErrorInputMessage("#purchase_requisition_date_range", "#dateRangeMessage");
+
+            if (
+                !isBudgetIDNotEmpty && organizationalDepartmentName.value === 'Finance & Accounting' || (
+                organizationalJobPositionName.value === 'General Manager' || 
+                organizationalJobPositionName.value === 'Senior Manager' || 
+                organizationalJobPositionName.value === 'Director'
+            )) {
+                getDataReport();
+            } else {
+                if (isBudgetIDNotEmpty) {
+                    getDataReport();
+                } else {
+                    showErrorInputMessage("#budget_name", "#budgetMessage");
+                }
+            }
+        } else {
+            showErrorInputMessage("#budget_name", "#budgetMessage");
+            showErrorInputMessage("#purchase_requisition_date_range", "#dateRangeMessage");
+        }
+    }
+
+    function validateExportButton() {
+        if (dataReport.length > 0) {
+            exportDataReport();
+        } else {
+            ErrorNotif("No data available to export. Please display the data first.");
+        }
+    }
+
+    function getWorkflow(combinedBudgetID, combinedBudgetCode, combinedBudgetName) {
+        $.ajax({
+            type: 'POST',
+            url: '{!! route("GetWorkflow") !!}',
+            data: {
+                businessDocumentType_RefID: documentTypeID.value,
+                combinedBudget_RefID: combinedBudgetID
+            }
+        })
+        .done(function(data, textStatus, jqXHR) {
+            console.log("Success:", data);
+
+            if (data.status == 200) {
+                $("#budget_id").val(combinedBudgetID);
+                $("#budget_code").val(combinedBudgetCode);
+                $("#budget_name").val(`${combinedBudgetCode} - ${combinedBudgetName}`);
+                $("#budget_name").css('background-color', '#e9ecef');
+
+                getSites(combinedBudgetID);
+
+                $("#mySitesTrigger").css('cursor', 'pointer');
+                $("#mySitesTrigger").attr({
+                    "data-toggle": "modal",
+                    "data-target": "#mySites"
+                });
+            } else {
+                ErrorHandler.notifToast(
+                    'error',
+                    'You are not included in this budget',
+                    'Error!'
+                );
+            }
+        })
+        .fail(function(jqXHR, textStatus, errorThrown) {
+            console.error("Error:", errorThrown);
+        })
+        .always(function(jqXHR, textStatus, errorThrown) {
+            $("#loadingBudget").hide();
+            $("#iconBudget").show();
+        });
+    }
+
     $('#tableProjects').on('click', 'tbody tr', function() {
-        let sysId   = $(this).find('input[data-trigger="sys_id_project"]').val();
-        let code    = $(this).find('td:nth-child(2)').text();
-        let name    = $(this).find('td:nth-child(3)').text();
+        const sysId   = $(this).find('input[data-trigger="sys_id_project"]').val();
+        const code    = $(this).find('td:nth-child(2)').text();
+        const name    = $(this).find('td:nth-child(3)').text();
 
-        $("#budget_id").val(sysId);
-        $("#budget_code").val(code);
-        $("#budget_name").val(`${code} - ${name}`);
-        $("#budget_name").css('background-color', '#e9ecef');
+        if (organizationalDepartmentName.value === 'Finance & Accounting' || (
+            organizationalJobPositionName.value === 'General Manager' || 
+            organizationalJobPositionName.value === 'Senior Manager' || 
+            organizationalJobPositionName.value === 'Director'
+        )) {
+            $("#budget_id").val(sysId);
+            $("#budget_code").val(code);
+            $("#budget_name").val(`${code} - ${name}`);
+            $("#budget_name").css('background-color', '#e9ecef');
 
-        getSites(sysId);
+            getSites(sysId);
+
+            $("#mySitesTrigger").css('cursor', 'pointer');
+            $("#mySitesTrigger").attr({
+                "data-toggle": "modal",
+                "data-target": "#mySites"
+            });
+        } else {
+            $("#loadingBudget").show();
+            $("#iconBudget").hide();
+
+            getWorkflow(sysId, code, name);
+        }
+
+        hideErrorInputMessage("#budget_name", "#budgetMessage");
 
         $('#myProjects').modal('hide');
     });
@@ -215,6 +338,8 @@
         $("#sub_budget_code").val(siteCode);
         $("#sub_budget_name").val(`${siteCode} - ${siteName}`);
         $("#sub_budget_name").css('background-color', '#e9ecef');
+
+        hideErrorInputMessage("#sub_budget_name", "#subBudgetMessage");
 
         $('#mySites').modal('hide');
     });
@@ -231,6 +356,7 @@
         $('#purchase_requisition_date_range').on('apply.daterangepicker', function(ev, picker) {
             $("#purchase_requisition_date_range").css('background-color', '#e9ecef');
             $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
+            hideErrorInputMessage("#purchase_requisition_date_range", "#dateRangeMessage");
         });
 
         $('#purchase_requisition_date_range').on('cancel.daterangepicker', function(ev, picker) {

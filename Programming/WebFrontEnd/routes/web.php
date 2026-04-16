@@ -20,11 +20,11 @@ use App\Http\Controllers\UserController;
     'get',
     '\App\Http\Controllers\Application\FrontEnd\SandBox\Controller_HelloWorld@ShowHelloWorld',
     'webWithoutCSRF'
-    );
+);
 
 //---[ Example Code - Dynamic Route ]----------------------------------------------------[START]---
 
-$varUserSession = 
+$varUserSession =
     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
 
 $varAPIWebToken = 
@@ -33,7 +33,7 @@ $varAPIWebToken =
 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_LaravelRoute::setDynamicRoute_Examples_APICall(
     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
     $varAPIWebToken
-    );
+);
 
 //---[ Example Code - Dynamic Route ]----------------------------------------------------[ END ]---
 
@@ -45,7 +45,7 @@ $varAPIWebToken =
     'match[post, get]',
     '\App\Http\Controllers\Application\FrontEnd\System\API\setAPIRedirect@main',
     'webWithoutCSRF'
-    );
+);
 
 //\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('getArchivedFileObjectDownload/{encodedData}', 'get', '\App\Http\Controllers\Application\FrontEnd\System\FileHandling\Controller@getArchivedFileObjectDownload', 'webWithoutCSRF');
 \App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('getFileObjectDownload', 'get', '\App\Http\Controllers\Application\FrontEnd\System\FileHandling\Controller@getFileObjectDownload', 'webWithoutCSRF');
@@ -66,7 +66,7 @@ Route::get('FlushCache', 'Auth\LoginController@FlushCache')->name('FlushCache');
 Route::get('SessionCheckingLogout', 'Auth\LoginController@SessionCheckingLogout')->name('SessionCheckingLogout');
 Route::get('SessionCheckingRedis', 'Auth\LoginController@SessionCheckingRedis')->name('SessionCheckingRedis');
 
-Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], function () {   
+Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], function () {
     // LOGOUT
     Route::get('logout', 'Auth\LoginController@logout')->name('logout');
     Route::get('SessionCheckingLogout', 'Auth\LoginController@SessionCheckingLogout')->name('SessionCheckingLogout');
@@ -76,16 +76,21 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('CheckingWorkflow', 'Controller@CheckingWorkflow')->name('CheckingWorkflow');
     Route::post('SelectWorkFlow', 'Controller@SelectWorkFlow')->name('SelectWorkFlow');
     Route::post('GetWorkflow', 'Controller@GetWorkflow')->name('GetWorkflow');
-    
+
     // DASHBOARD
     Route::resource('dashboard', 'Dashboard\DashboardController')->only(['index']);
 
     // WAREHOUSE
+    Route::post('WarehousePickList', 'Register\Warehouse\WarehouseController@WarehousePickList')->name('Warehouse.WarehousePickList');
     Route::post('EditWarehouse', 'Register\Warehouse\WarehouseController@EditWarehouse')->name('Warehouse.EditWarehouse');
     Route::resource('Warehouse', 'Register\Warehouse\WarehouseController');
 
+    // SUPPLIER
+    Route::resource('Supplier', 'Master\SupplierController');
+
     // PRODUCT
-    Route::resource('Product', 'Register\Product\ProductController');
+    Route::resource('Product', 'Master\ProductController');
+    // Route::resource('Product', 'Register\Product\ProductController');
 
     // APPROVAL DOCUMENT
     Route::get('ApprovalAccepted', 'Document\ApprovalDocumentController@ApprovalAccepted')->name('ApprovalDocument.ApprovalAccepted');
@@ -114,7 +119,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     //Currency
     Route::resource('Currency', 'Register\CurrencyController');
     //Country
-    Route::resource('Country', 'Register\CountryController');
+    Route::resource('Country', 'Register\OTHER\CountryController');
     //CountryAdministrativeAreaLevel1
     Route::resource('CountryAdministrativeAreaLevel1', 'Register\CountryAdministrativeAreaLevel1Controller');
     //CountryAdministrativeAreaLevel2
@@ -131,11 +136,9 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::resource('BusinessDocumentType', 'Register\BusinessDocumentTypeController');
     //BusinessDocumentVersion
     Route::resource('BusinessDocumentVersion', 'Register\BusinessDocumentVersionController');
-    //Supplier
-    Route::get('Supplier', 'Register\SupplierController@supplier')->name('supplier.index');
-    Route::get('addSupplier', 'Register\SupplierController@addSupplier')->name('supplier.addSupplier');
-    Route::post('revisionSupplier', 'Register\SupplierController@revisionSupplier')->name('supplier.revisionSupplier');
-    // Budget
+
+    // BUDGET
+    Route::post('BudgetPickList', 'Budget\BudgetController@BudgetPickList')->name('Budget.BudgetPickList');
     Route::post('RevisionModifyBudget', 'Budget\BudgetController@RevisionModifyBudget')->name('Budget.RevisionModifyBudget');
     Route::get('ModifyBudget', 'Budget\BudgetController@ModifyBudget')->name('Budget.ModifyBudget');
     Route::post('RevisionBudget', 'Budget\BudgetController@RevisionBudget')->name('Budget.RevisionBudget');
@@ -149,7 +152,8 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::post('PrintExportReportModifyBudgetDetail', 'Budget\BudgetController@PrintExportReportModifyBudgetDetail')->name('Budget.PrintExportReportModifyBudgetDetail');
     Route::post('BudgetImport', 'Budget\BudgetController@Import')->name('Budget.Import');
     Route::get('BudgetDownload', 'Budget\BudgetController@Download')->name('Budget.Download');
-    Route::resource('Budget', 'Budget\BudgetController');
+    Route::resource('Budget', 'Budget\BudgetController')->only(['index', 'store']);
+
     // Budget Expense
     Route::get('BudgetExpense/GetBudget', 'BudgetExpenseController@GetBudget')->name('BudgetExpense.GetBudget');
     Route::resource('BudgetExpense', 'BudgetExpenseController');
@@ -176,7 +180,8 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
 
     // FUNCTION
     Route::get('getProject', 'Function\FunctionController@getProject')->name('getProject');
-    Route::get('getNewProject', 'Function\FunctionController@getNewProject')->name('getNewProject');
+    Route::post('getRequester', 'Function\FunctionController@getRequester')->name('getRequester');
+    Route::post('getBeneficiary', 'Function\FunctionController@getBeneficiary')->name('getBeneficiary');
     Route::get('getPurchaseRequisitionByBudgetID', 'Function\FunctionController@getPurchaseRequisitionByBudgetID')->name('getPurchaseRequisitionByBudgetID');
     Route::get('getSite', 'Function\FunctionController@getSite')->name('getSite');
     Route::get('getNewSite', 'Function\FunctionController@getNewSite')->name('getNewSite');
@@ -186,13 +191,11 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('getChartOfAccountList', 'Function\FunctionController@getChartOfAccountList')->name('getChartOfAccountList');
     Route::get('getInvoiceList', 'Function\FunctionController@getInvoiceList')->name('getInvoiceList');
     Route::get('getWarehouseList', 'Function\FunctionController@getWarehouseList')->name('getWarehouseList');
-    Route::get('getAdvance', 'Function\FunctionController@getAdvance')->name('getAdvance');
     Route::get('getAdvanceSettlement', 'Function\FunctionController@getAdvanceSettlement')->name('getAdvanceSettlement');
     Route::get('getAdvanceDetail', 'Function\FunctionController@getAdvanceDetail')->name('getAdvanceDetail');
     Route::get('getDeliveryOrderList', 'Function\FunctionController@getDeliveryOrderList')->name('getDeliveryOrderList');
     Route::get('getReimbursementList', 'Function\FunctionController@getReimbursementList')->name('getReimbursementList');
     Route::get('getDeliveryOrderDetail', 'Function\FunctionController@getDeliveryOrderDetail')->name('getDeliveryOrderDetail');
-    Route::get('getPurchaseRequisitionList', 'Function\FunctionController@getPurchaseRequisitionList')->name('getPurchaseRequisitionList');
     Route::get('getLoanList', 'Function\FunctionController@getLoanList')->name('getLoanList');
     Route::get('getLoanSettlementList', 'Function\FunctionController@getLoanSettlementList')->name('getLoanSettlementList');
     Route::get('getPurchaseRequisitionDetail', 'Function\FunctionController@getPurchaseRequisitionDetail')->name('getPurchaseRequisitionDetail');
@@ -230,7 +233,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('getDepreciationRateYears', 'Function\FunctionController@getDepreciationRateYears')->name('getDepreciationRateYears');
     Route::get('getBusinessDocumentTypeSendRedis', 'Function\FunctionController@getBusinessDocumentTypeSendRedis')->name('getBusinessDocumentTypeSendRedis');
     Route::get('getBusinessDocumentIssuanceDispositionCount', 'Function\FunctionController@getBusinessDocumentIssuanceDispositionCount')->name('getBusinessDocumentIssuanceDispositionCount');
-    
+
     // ACCOUNT PAYABLE
     Route::get('AccountPayableDetail', 'Finance\AccountPayableController@AccountPayableDetail')->name('AccountPayable.Detail');
     Route::get('DataPickLists', 'Finance\AccountPayableController@DataPickLists')->name('AccountPayable.DataPickLists');
@@ -254,8 +257,13 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::post('RevisionGeneralJournal', 'Accounting\GeneralJournalController@RevisionGeneralJournal')->name('GeneralJournal.Revision');
     Route::resource('GeneralJournal', 'Accounting\GeneralJournalController');
 
+    // TAX RECON
+    Route::post('RevisionTaxRecon', 'Accounting\TaxReconController@RevisionTaxRecon')->name('TaxRecon.Revision');
+    Route::get('ReportTaxReconSummary', 'Accounting\TaxReconController@ReportTaxReconSummary')->name('TaxRecon.ReportTaxReconSummary');
+    Route::resource('TaxRecon', 'Accounting\TaxReconController');
+
     // ADVANCE REQUEST
-    Route::get('AdvanceListData', 'Process\Advance\AdvanceRequestController@AdvanceListData')->name('AdvanceRequest.AdvanceListData');
+    Route::post('AdvancePickList', 'Process\Advance\AdvanceRequestController@AdvancePickList')->name('AdvanceRequest.AdvancePickList');
     Route::get('ReportAdvanceToASF', 'Process\Advance\AdvanceRequestController@ReportAdvanceToASF')->name('AdvanceRequest.ReportAdvanceToASF');
     Route::post('ReportAdvanceToASFStore', 'Process\Advance\AdvanceRequestController@ReportAdvanceToASFStore')->name('AdvanceRequest.ReportAdvanceToASFStore');
     Route::get('ReportAdvanceSummary', 'Process\Advance\AdvanceRequestController@ReportAdvanceSummary')->name('AdvanceRequest.ReportAdvanceSummary');
@@ -267,12 +275,12 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::post('PrintExportReportAdvanceSummaryDetail', 'Process\Advance\AdvanceRequestController@PrintExportReportAdvanceSummaryDetail')->name('AdvanceRequest.PrintExportReportAdvanceSummaryDetail');
     Route::post('PrintExportReportAdvanceToASF', 'Process\Advance\AdvanceRequestController@PrintExportReportAdvanceToASF')->name('AdvanceRequest.PrintExportReportAdvanceToASF');
     Route::post('UpdatesAdvanceRequest', 'Process\Advance\AdvanceRequestController@UpdatesAdvanceRequest')->name('AdvanceRequest.UpdatesAdvanceRequest');
-    Route::resource('AdvanceRequest', 'Process\Advance\AdvanceRequestController');
+    Route::resource('AdvanceRequest', 'Process\Advance\AdvanceRequestController')->only(['index', 'store']);
 
     // ADVANCE SETTLEMENT
+    Route::post('AdvanceSettlementPickList', 'Process\Advance\AdvanceSettlementController@AdvanceSettlementPickList')->name('AdvanceSettlement.AdvanceSettlementPickList');
     Route::post('RevisionAdvanceSettlementIndex', 'Process\Advance\AdvanceSettlementController@RevisionAdvanceSettlementIndex')->name('AdvanceSettlement.RevisionAdvanceSettlementIndex');
     Route::get('AdvanceSettlementDetail', 'Process\Advance\AdvanceSettlementController@AdvanceSettlementDetail')->name('AdvanceSettlement.Detail');
-    Route::get('AdvanceSettlementListData', 'Process\Advance\AdvanceSettlementController@AdvanceSettlementListData')->name('AdvanceSettlement.AdvanceSettlementListData');
     Route::get('ReportAdvanceSettlementSummary', 'Process\Advance\AdvanceSettlementController@ReportAdvanceSettlementSummary')->name('AdvanceSettlement.ReportAdvanceSettlementSummary');
     Route::post('ReportAdvanceSettlementSummaryStore', 'Process\Advance\AdvanceSettlementController@ReportAdvanceSettlementSummaryStore')->name('AdvanceSettlement.ReportAdvanceSettlementSummaryStore');
     Route::post('PrintExportReportAdvanceSettlementSummary', 'Process\Advance\AdvanceSettlementController@PrintExportReportAdvanceSettlementSummary')->name('AdvanceSettlement.PrintExportReportAdvanceSettlementSummary');
@@ -280,18 +288,11 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::post('ReportAdvanceSettlementDetailStore', 'Process\Advance\AdvanceSettlementController@ReportAdvanceSettlementDetailStore')->name('AdvanceSettlement.ReportAdvanceSettlementDetailStore');
     Route::post('PrintExportReportAdvanceSettlementDetail', 'Process\Advance\AdvanceSettlementController@PrintExportReportAdvanceSettlementDetail')->name('AdvanceSettlement.PrintExportReportAdvanceSettlementDetail');
     Route::post('UpdatesAdvanceSettlement', 'Process\Advance\AdvanceSettlementController@updatesAdvanceSettlement')->name('AdvanceSettlement.UpdatesAdvanceSettlement');
-    Route::resource('AdvanceSettlement', 'Process\Advance\AdvanceSettlementController');
+    Route::resource('AdvanceSettlement', 'Process\Advance\AdvanceSettlementController')->only(['index', 'store']);
 
     // BUSINESS TRIP SETTLEMENT
-    Route::post('StoreValidateBusinessTripSettlement', 'Process\BusinessTrip\BusinessTripSettlementController@StoreValidateBusinessTripSettlement')->name('BusinessTripSettlement.StoreValidateBusinessTripSettlement');
-    Route::post('StoreValidateBusinessTripSettlement2', 'Process\BusinessTrip\BusinessTripSettlementController@StoreValidateBusinessTripSettlement2')->name('BusinessTripSettlement.StoreValidateBusinessTripSettlement2');
-    Route::post('StoreValidateBusinessTripSettlementRequester', 'Process\BusinessTrip\BusinessTripSettlementController@StoreValidateBusinessTripSettlementRequester')->name('BusinessTripSettlement.StoreValidateBusinessTripSettlementRequester');
-    Route::get('RevisionBusinessTripSettlementIndex', 'Process\BusinessTrip\BusinessTripSettlementController@RevisionBusinessTripSettlementIndex')->name('BusinessTripSettlement.RevisionBusinessTripSettlementIndex');
-    Route::get('BusinessTripSettlementListData', 'Process\BusinessTrip\BusinessTripSettlementController@BusinessTripSettlementListData')->name('BusinessTripSettlement.BusinessTripSettlementListData');
-    Route::get('BusinessTripRequestByBudgetID', 'Process\BusinessTrip\BusinessTripSettlementController@BusinessTripRequestByBudgetID')->name('BusinessTripSettlement.BusinessTripRequestByBudgetID');
-    Route::get('BusinessTripSettlementListDataById', 'Process\BusinessTrip\BusinessTripSettlementController@BusinessTripSettlementListDataById')->name('BusinessTripSettlement.BusinessTripSettlementListDataById');
-    Route::get('BusinessTripSettlementListCartRevision', 'Process\BusinessTrip\BusinessTripSettlementController@BusinessTripSettlementListCartRevision')->name('BusinessTripSettlement.BusinessTripSettlementListCartRevision');
-    Route::post('SearchBusinessTripRequest', 'Process\BusinessTrip\BusinessTripSettlementController@SearchBusinessTripRequest')->name('BusinessTripSettlement.SearchBusinessTripRequest');
+    Route::get('GetBusinessTripSettlementList', 'Process\BusinessTrip\BusinessTripSettlementController@getBusinessTripSettlementList')->name('BusinessTripSettlement.GetBusinessTripSettlementList');
+    Route::post('RevisionBusinessTripSettlementIndex', 'Process\BusinessTrip\BusinessTripSettlementController@RevisionBusinessTripSettlementIndex')->name('BusinessTripSettlement.RevisionBusinessTripSettlementIndex');
     Route::get('ReportBusinessTripSettlementSummary', 'Process\BusinessTrip\BusinessTripSettlementController@ReportBusinessTripSettlementSummary')->name('BusinessTripSettlement.ReportBusinessTripSettlementSummary');
     Route::post('ReportBusinessTripSettlementSummaryStore', 'Process\BusinessTrip\BusinessTripSettlementController@ReportBusinessTripSettlementSummaryStore')->name('BusinessTripSettlement.ReportBusinessTripSettlementSummaryStore');
     Route::post('PrintExportReportBusinessTripSettlementSummary', 'Process\BusinessTrip\BusinessTripSettlementController@PrintExportReportBusinessTripSettlementSummary')->name('BusinessTripSettlement.PrintExportReportBusinessTripSettlementSummary');
@@ -301,9 +302,8 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::resource('BusinessTripSettlement', 'Process\BusinessTrip\BusinessTripSettlementController');
 
     // BUSINESS TRIP REQUEST
+    Route::post('DetailBusinessTripRequest', 'Process\BusinessTrip\BusinessTripRequestController@detail')->name('BusinessTripRequest.Detail');
     Route::post('UpdatesBusinessTripRequest', 'Process\BusinessTrip\BusinessTripRequestController@UpdatesBusinessTripRequest')->name('BusinessTripRequest.UpdatesBusinessTripRequest');
-    Route::post('StoreValidateBusinessTripRequest', 'Process\BusinessTrip\BusinessTripRequestController@StoreValidateBusinessTripRequest')->name('BusinessTripRequest.StoreValidateBusinessTripRequest');
-    Route::post('StoreValidateBusinessTripRequest2', 'Process\BusinessTrip\BusinessTripRequestController@StoreValidateBusinessTripRequest2')->name('BusinessTripRequest.StoreValidateBusinessTripRequest2');
     Route::post('RevisionBusinessTripRequestIndex', 'Process\BusinessTrip\BusinessTripRequestController@RevisionBusinessTripRequestIndex')->name('BusinessTripRequest.RevisionBusinessTripRequestIndex');
     Route::get('BusinessTripRequestListData', 'Process\BusinessTrip\BusinessTripRequestController@BusinessTripRequestListData')->name('BusinessTripRequest.BusinessTripRequestListData');
     Route::get('ReportBusinessTripToBSF', 'Process\BusinessTrip\BusinessTripRequestController@ReportBusinessTripToBSF')->name('BusinessTripRequest.ReportBusinessTripToBSF');
@@ -318,6 +318,9 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::resource('BusinessTripRequest', 'Process\BusinessTrip\BusinessTripRequestController');
 
     // REIMBURSEMENT
+    Route::get('ReportRemToDN', 'Process\Reimbursement\ReimbursementController@ReportRemToDN')->name('Reimbursement.ReportRemToDN');
+    Route::post('ReportRemToDNStore', 'Process\Reimbursement\ReimbursementController@ReportRemToDNStore')->name('Reimbursement.ReportRemToDNStore');
+    Route::post('PrintExportReportRemToDN', 'Process\Reimbursement\ReimbursementController@PrintExportReportRemToDN')->name('Reimbursement.PrintExportReportRemToDN');
     Route::get('GetReimbursementDetail', 'Process\Reimbursement\ReimbursementController@GetReimbursementDetail')->name('Reimbursement.GetReimbursementDetail');
     Route::post('RevisionReimbursement', 'Process\Reimbursement\ReimbursementController@RevisionReimbursement')->name('Reimbursement.RevisionReimbursement');
     Route::post('UpdateReimbursement', 'Process\Reimbursement\ReimbursementController@UpdateReimbursement')->name('Reimbursement.UpdateReimbursement');
@@ -330,12 +333,12 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::post('StoreValidateReimbursableExpenditure', 'Process\Reimbursement\ReimbursableExpenditureController@StoreValidateReimbursableExpenditure')->name('ReimbursableExpenditure.StoreValidateReimbursableExpenditure');
     Route::post('StoreValidateReimbursableExpenditure2', 'Process\Reimbursement\ReimbursableExpenditureController@StoreValidateReimbursableExpenditure2')->name('ReimbursableExpenditure.StoreValidateReimbursableExpenditure2');
     Route::post('RevisionReimbursableExpenditure', 'Process\Reimbursement\ReimbursableExpenditureController@RevisionReimbursableExpenditureIndex')->name('ReimbursableExpenditure.RevisionReimbursableExpenditure');
-    Route::get('ReportReimbursementSummary', 'Process\Reimbursement\ReimbursableExpenditureController@ReportReimbursementSummary')->name('Reimbursement.ReportReimbursementSummary');
-    Route::post('ReportReimbursementSummaryStore', 'Process\Reimbursement\ReimbursableExpenditureController@ReportReimbursementSummaryStore')->name('Reimbursement.ReportReimbursementSummaryStore');
-    Route::post('PrintExportReportReimbursementSummary', 'Process\Reimbursement\ReimbursableExpenditureController@PrintExportReportReimbursementSummary')->name('Reimbursement.PrintExportReportReimbursementSummary');
-    Route::get('ReportRemToDN', 'Process\Reimbursement\ReimbursableExpenditureController@ReportRemToDN')->name('Reimbursement.ReportRemToDN');
-    Route::post('ReportRemToDNStore', 'Process\Reimbursement\ReimbursableExpenditureController@ReportRemToDNStore')->name('Reimbursement.ReportRemToDNStore');
-    Route::post('PrintExportReportRemToDN', 'Process\Reimbursement\ReimbursableExpenditureController@PrintExportReportRemToDN')->name('Reimbursement.PrintExportReportRemToDN');
+    // Route::get('ReportReimbursementSummary', 'Process\Reimbursement\ReimbursableExpenditureController@ReportReimbursementSummary')->name('Reimbursement.ReportReimbursementSummary');
+    // Route::post('ReportReimbursementSummaryStore', 'Process\Reimbursement\ReimbursableExpenditureController@ReportReimbursementSummaryStore')->name('Reimbursement.ReportReimbursementSummaryStore');
+    // Route::post('PrintExportReportReimbursementSummary', 'Process\Reimbursement\ReimbursableExpenditureController@PrintExportReportReimbursementSummary')->name('Reimbursement.PrintExportReportReimbursementSummary');
+    // Route::get('ReportRemToDN', 'Process\Reimbursement\ReimbursableExpenditureController@ReportRemToDN')->name('Reimbursement.ReportRemToDN');
+    // Route::post('ReportRemToDNStore', 'Process\Reimbursement\ReimbursableExpenditureController@ReportRemToDNStore')->name('Reimbursement.ReportRemToDNStore');
+    // Route::post('PrintExportReportRemToDN', 'Process\Reimbursement\ReimbursableExpenditureController@PrintExportReportRemToDN')->name('Reimbursement.PrintExportReportRemToDN');
     Route::get('ReportInvoiceToCN', 'Process\Reimbursement\ReimbursableExpenditureController@ReportInvoiceToCN')->name('Reimbursement.ReportInvoiceToCN');
     Route::post('ReportInvoiceToCNStore', 'Process\Reimbursement\ReimbursableExpenditureController@ReportInvoiceToCNStore')->name('Reimbursement.ReportInvoiceToCNStore');
     Route::post('PrintExportReportInvoiceToCN', 'Process\Reimbursement\ReimbursableExpenditureController@PrintExportReportInvoiceToCN')->name('Reimbursement.PrintExportReportInvoiceToCN');
@@ -347,8 +350,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::resource('Invoice', 'Finance\InvoiceController');
 
     // PURCHASE REQUISITION
-    Route::post('StoreValidatePurchaseRequisition', 'Purchase\PurchaseRequisitionController@StoreValidatePurchaseRequisition')->name('PurchaseRequisition.StoreValidatePurchaseRequisition');
-    Route::post('StoreValidatePurchaseRequisition2', 'Purchase\PurchaseRequisitionController@StoreValidatePurchaseRequisition2')->name('PurchaseRequisition.StoreValidatePurchaseRequisition2');
+    Route::post('PurchaseRequisitionPickList', 'Purchase\PurchaseRequisitionController@PurchaseRequisitionPickList')->name('PurchaseRequisition.PurchaseRequisitionPickList');
     Route::post('RevisionPurchaseRequest', 'Purchase\PurchaseRequisitionController@RevisionPurchaseRequest')->name('PurchaseRequisition.RevisionPurchaseRequest');
     Route::get('ReportPurchaseRequisitionDetailID/{id}', 'Purchase\PurchaseRequisitionController@ReportPurchaseRequisitionDetailID')->name('PurchaseRequisition.ReportPurchaseRequisitionDetailID');
     Route::post('PrintExportReportPurchaseRequisitionSummary', 'Purchase\PurchaseRequisitionController@PrintExportReportPurchaseRequisitionSummary')->name('PurchaseRequisition.PrintExportReportPurchaseRequisitionSummary');
@@ -360,9 +362,8 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::post('ReportPurchaseRequisitionSummaryStore', 'Purchase\PurchaseRequisitionController@ReportPurchaseRequisitionSummaryStore')->name('PurchaseRequisition.ReportPurchaseRequisitionSummaryStore');
     Route::get('ReportPurchaseRequisitionDetail', 'Purchase\PurchaseRequisitionController@ReportPurchaseRequisitionDetail')->name('PurchaseRequisition.ReportPurchaseRequisitionDetail');
     Route::post('ReportPurchaseRequisitionDetailStore', 'Purchase\PurchaseRequisitionController@ReportPurchaseRequisitionDetailStore')->name('PurchaseRequisition.ReportPurchaseRequisitionDetailStore');
-    Route::get('PurchaseRequisitionListData', 'Purchase\PurchaseRequisitionController@PurchaseRequisitionListData')->name('PurchaseRequisition.PurchaseRequisitionListData');
     Route::post('UpdatePurchaseRequest', 'Purchase\PurchaseRequisitionController@UpdatePurchaseRequest')->name('PurchaseRequisition.UpdatePurchaseRequest');
-    Route::resource('PurchaseRequisition', 'Purchase\PurchaseRequisitionController');
+    Route::resource('PurchaseRequisition', 'Purchase\PurchaseRequisitionController')->only(['index', 'store']);
 
     // PURCHASE ORDER
     Route::post('UpdatePurchaseOrder', 'Purchase\PurchaseOrderController@UpdatePurchaseOrder')->name('PurchaseOrder.UpdatePurchaseOrder');
@@ -457,7 +458,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
 
     // TIMESHEET
     Route::post('RevisionTimesheet', 'HumanResource\TimesheetController@RevisionTimesheet')->name('RevisionTimesheet.index');
-    Route::post('Timesheet/event', 'HumanResource\TimesheetController@event')->name('Timesheet.event');                                                                                                                                                                                                                                                                                                                                                                   
+    Route::post('Timesheet/event', 'HumanResource\TimesheetController@event')->name('Timesheet.event');
     Route::post('Timesheet/updates', 'HumanResource\TimesheetController@updates')->name('Timesheet.updates');
     Route::post('Timesheet/storeActivity', 'HumanResource\TimesheetController@storeActivity')->name('Timesheet.storeActivity');
     Route::get('ReportTimesheetSummary', 'HumanResource\TimesheetController@ReportTimesheetSummary')->name('Timesheet.ReportTimesheetSummary');
@@ -521,6 +522,9 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::post('ReportMatReceivetoMatReturnStore', 'Inventory\MaterialReceiveController@ReportMatReceivetoMatReturnStore')->name('Inventory.ReportMatReceivetoMatReturnStore');
     Route::post('PrintExportReportMatReceivetoMatReturn', 'Inventory\MaterialReceiveController@PrintExportReportMatReceivetoMatReturn')->name('Inventory.PrintExportReportMatReceivetoMatReturn');
     Route::resource('MaterialReceive', 'Inventory\MaterialReceiveController');
+
+    // SALLARY ALLOCATION
+    Route::resource('SallaryAllocation', 'HumanResource\SallaryAllocationController');
 
     // MATERIAL RETURN
     Route::get('List', 'Inventory\MaterialReturnController@List')->name('MaterialReturn.List');

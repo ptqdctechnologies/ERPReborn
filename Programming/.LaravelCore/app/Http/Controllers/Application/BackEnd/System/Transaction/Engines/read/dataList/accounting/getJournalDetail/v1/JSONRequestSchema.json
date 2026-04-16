@@ -1,0 +1,11 @@
+{
+    "title": "JSON Request Schema",
+    "description": "JSON Request Schema of transaction.read.dataList.finance.getLoanSettlementDetail (version 1)",
+    "type": "object",
+    "properties": {
+        },
+    "required": [
+        "metadata",
+        "data"
+        ]
+    }

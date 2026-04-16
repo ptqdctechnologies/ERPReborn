@@ -25,31 +25,6 @@
         "required": [ "API" ]
         },
     "data": {
-        "type": "object",
-        "properties": {
-            "parameter": {
-                "additionalProperties": false
-                },
-            "SQLStatement": {
-                "type": "object",
-                "properties": {
-                    "pick": {
-                        "type": [ "string", "null" ]
-                        },
-                    "sort": {
-                        "type": [ "string", "null" ]
-                        },
-                    "filter": {
-                        "type": [ "string", "null" ]
-                        },
-                    "paging": {
-                        "type": [ "string", "null" ]
-                        }
-                    },
-                "required": [ "pick", "sort", "filter", "paging" ]
-                }
-            },
-        "required": [ "parameter", "SQLStatement" ]
         }
     },
 "required": [ "metadata", "data" ]

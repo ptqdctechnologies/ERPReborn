@@ -96,7 +96,7 @@ class DocumentTypeMapper
                 'parameter' => ['paymentInstruction_RefID' => (int) $referenceId]
             ],
             'Person Business Trip Form' => [
-                'key'                       => 'transaction.read.dataList.humanResource.getPersonBusinessTripSequence',
+                'key'                       => 'transaction.read.dataList.humanResource.getPersonBusinessTripDetail',
                 'parameter'                 => ['personBusinessTrip_RefID' => (int) $referenceId],
             ],
             'Person Business Trip Settlement Form' => [
@@ -127,6 +127,11 @@ class DocumentTypeMapper
                 'businessDocument_RefID'    => (int) 74000000021494,
             ],
             'Sales Order Form' => [
+                'key'                       => '',
+                'parameter'                 => [],
+                'businessDocument_RefID'    => (int) 74000000021494,
+            ],
+            'Tax Recon Form' => [
                 'key'                       => '',
                 'parameter'                 => [],
                 'businessDocument_RefID'    => (int) 74000000021494,
@@ -344,7 +349,7 @@ class DocumentTypeMapper
             'General Journal Form'  => [
                 'dataHeader'        => [
                     'dateUpdate'    => null,
-                    'type'          => 'Settlement', // Settlement, Adjustment
+                    'type'          => 'Posting', // Settlement, Adjustment, Fixed Asset, Posting
                 ],
                 // 'textAreaFields'    => [
                 //     'title'         => 'Notes',
@@ -505,26 +510,28 @@ class DocumentTypeMapper
             ],
             'Person Business Trip Form' => [
                 'dataHeader'            => [
-                    'btNumber'              => $dataDetail['documentNumber'] ?? '-',
-                    'budgetCode'            => $dataDetail['combinedBudgetCode'] ?? '-',
-                    'budgetName'            => $dataDetail['combinedBudgetName'] ?? '-',
-                    'subBudgetCode'         => $dataDetail['combinedBudgetSectionCode'] ?? '-',
-                    'subBudgetName'         => $dataDetail['combinedBudgetSectionName'] ?? '-',
+                    'btNumber'              => $dataDetail['DocumentNumber'] ?? '-',
+                    'budgetCode'            => $dataDetail['CombinedBudgetCode'] ?? '-',
+                    'budgetName'            => $dataDetail['CombinedBudgetName'] ?? '-',
+                    'subBudgetCode'         => $dataDetail['CombinedBudgetSectionCode'] ?? '-',
+                    'subBudgetName'         => $dataDetail['CombinedBudgetSectionName'] ?? '-',
+                    'workCode'              => $dataDetail['WorkCode'] ?? '-',
+                    'workName'              => $dataDetail['WorkName'] ?? '-',
                     'description'           => '-',
-                    'dateCommenceTravel'    => $dataDetail['startDateTimeTZ'] ?? '-',
-                    'dateEndTravel'         => $dataDetail['finishDateTimeTZ'] ?? '-',
-                    'brfDate'               => $dataDetail['documentDateTimeTZ'] ?? '-',
+                    'dateCommenceTravel'    => $dataDetail['StartDateTimeTZ'] ?? '-',
+                    'dateEndTravel'         => $dataDetail['FinishDateTimeTZ'] ?? '-',
+                    'brfDate'               => $dataDetail['DocumentDateTimeTZ'] ?? '-',
                     'dateUpdate'            => null,
                     'date'                  => null,
-                    'fileID'                => null,
-                    'contactPhone'          => '-',
+                    'fileID'                => $dataDetail['Log_FileUpload_Pointer_RefID'] ?? null,
+                    'contactPhone'          => $dataDetail['RequesterWorkerContact'] ?? null,
                     'bankAccount'           => '-',
                     'bankName'              => '-',
-                    'accountNumber'         => '',
-                    'requesterName'         => $dataDetail['requesterWorkerName'] ?? '-',
+                    'accountNumber'         => '-',
+                    'requesterName'         => $dataDetail['RequesterWorkerName'] ?? '-',
                     'beneficiaryName'       => '-',
-                    'departingFrom'         => '-',
-                    'destinationTo'         => '-',
+                    'departingFrom'         => $dataDetail['DeparturePoint'] ?? '-',
+                    'destinationTo'         => $dataDetail['DestinationPoint'] ?? '-',
                 ],
                 'dataAdditional'    => [
                     'allowance'     => '240000.00',
@@ -536,12 +543,13 @@ class DocumentTypeMapper
                 ],
                 'textAreaFields'    => [
                     'title'         => 'Reason to Travel',
-                    'text'          => '-',
+                    'text'          => $dataDetail['ReasonToTravel'] ?? '-',
                 ],
                 'components'        => [
                     'detail'        => 'Components.BusinessTripRequestDetailDocument',
                     'table'         => 'Components.BusinessTripRequestDetailDocumentTable',
-                    'additional'    => 'Components.BusinessTripRequestCostDetailDocument'
+                    'additional'    => 'Components.BusinessTripRequestCostDetailDocument',
+                    'information'   => 'Components.BusinessTripRequestInformationDetailDocument'
                 ],
                 'resubmit'      => [
                     'url'       => 'BusinessTripRequest.RevisionBusinessTripRequestIndex',
@@ -782,6 +790,28 @@ class DocumentTypeMapper
                 'transactionType'        => 'CUSTOMER ORDER',
                 'businessDocument_RefID' => '',
             ],
+            'Tax Recon Form' => [
+                'dataHeader'        => [
+                    'date'              => $dataDetail['date'] ?? null,
+                    'dateUpdate'        => $dataDetail['dateUpdate'] ?? null,
+                    'authorizedCode'    => $dataDetail['combinedBudgetCode_Header'] ?? '',
+                    'authorizedName'    => $dataDetail['combinedBudgetName_Header'] ?? '',
+                    'timesheetNUmber'   => $dataDetail['businessDocumentNumber'] ?? '-',
+                    'onBehalfOf'        => $dataDetail['personName'] ?? '-',
+                    'taxType'           => 'PREPAID WHT', // VAT OR WHT OR PREPAID WHT
+                ],
+                'components'    => [
+                    'detail'    => 'Components.TaxReconDetailDocument',
+                    'table'     => 'Components.TaxReconDetailDocumentTable',
+                ],
+                'resubmit'      => [
+                    'url'       => 'TaxRecon.Revision',
+                    'name'      => '',
+                    'value'     => ''
+                ],
+                'transactionType'        => 'TAX RECONCILIATION',
+                'businessDocument_RefID' => '',
+            ],
             'Timesheet Form' => [
                 'dataHeader'        => [
                     'date'              => $dataDetail['date'] ?? null,
@@ -890,6 +920,7 @@ class DocumentTypeMapper
             'Reimbursement Form'            => 'Documents.Transactions.LogTransaction.LogTransactionReimbursement',
             'Sales Invoice Form'            => 'Documents.Transactions.LogTransaction.LogTransactionInvoice',
             'Sales Order Form'              => 'Documents.Transactions.LogTransaction.LogTransactionCustomerOrder',
+            'Tax Recon Form'                => 'Documents.Transactions.LogTransaction.LogTransactionCustomerOrder',
             'Warehouse Inbound Order Form'  => 'Documents.Transactions.LogTransaction.LogTransactionMaterialReceive',
             'Warehouse Outbound Order Form' => 'Documents.Transactions.LogTransaction.LogTransactionMaterialReturn'
         ];

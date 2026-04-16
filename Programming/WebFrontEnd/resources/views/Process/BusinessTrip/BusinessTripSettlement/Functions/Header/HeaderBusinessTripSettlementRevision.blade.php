@@ -1,40 +1,42 @@
 <div class="card-body">
-  <div class="row">
-    <div class="col-md-6">
-      <div class="form-group">
-        <table>
-          <tr>
-            <td style="padding-top: 12px;"><label>Bussines&nbsp;Trip&nbsp;Number</label></td>
-            <td>
-              <div class="input-group" style="width: 70%;">
-                <input id="bussines_trip_number" style="border-radius:0;" name="bussines_trip_number" class="form-control" readonly value="{{ $dataHeader['number'] }}">
-                <div class="input-group-append">
-                  <span style="border-radius:0;" class="input-group-text form-control">
-                    <a id="bussines_trip_number2" data-toggle="modal" data-target="#mySearchBrf" class="mySearchBrf"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
-                  </span>
-                </div>
-              </div>
-            </td>
-          </tr>
-        </table>
+  <div class="row py-3" style="gap: 1rem;">
+    <div class="col-md-12 col-lg-4">
+      <div class="row">
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Bussines Trip Number</label>
+        <div class="col-5 d-flex">
+          <div>
+            <span style="border-radius:0;" class="input-group-text form-control">
+              <a href="javascript:;" id="myBusinessTripSettlement" data-toggle="modal" data-target="#"
+                style="display: block; cursor: not-allowed;">
+                <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="myBusinessTripSettlement">
+              </a>
+            </span>
+          </div>
+          <div style="flex: 100%;">
+            <div class="input-group">
+              <input type="text" class="form-control" id="brf_number" readonly style="border-radius:0;"
+                value="<?= $businessTripSettlementNumber; ?>">
+              <input type="hidden" class="form-control" id="brf_id" style="border-radius:0;"
+                value="<?= $businessTripSettlementID; ?>">
+              <input type="hidden" class="form-control" id="brf_settlement_id" style="border-radius:0;"
+                value="<?= $businessTripSettlementID; ?>">
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-
-    <div class="col-md-6">
-      <div class="form-group">
-        <table>
-          <tr>
-            <td style="padding-top:12px;"><label>Requester</label></td>
-            <td style="padding-top:8px;">
-              <div class="input-group">
-                <input name="request_name" id="request_name" style="border-radius:0;" type="text" class="form-control" readonly value="{{ $dataContent['involvedPersons'][0]['requesterWorkerName']  }}" required>
-                <input name="request_name_id" id="request_name_id" style="border-radius:0;" type="hidden" class="form-control" value="{{ $dataContent['involvedPersons'][0]['requesterWorkerJobsPosition_RefID'] }}" readonly required>
-              </div>
-            </td>
-          </tr>
-        </table>
+    <div class="col-md-12 col-lg-4">
+      <div class="row">
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Requester</label>
+        <div class="col-5 d-flex">
+          <div style="flex: 100%;">
+            <div class="input-group">
+              <input type="text" class="form-control" id="requester_name" readonly style="border-radius:0;"
+                value="<?= $requester['position'] . ' - ' . $requester['name']; ?> ">
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-
   </div>
 </div>

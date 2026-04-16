@@ -48,12 +48,6 @@
     }
 
     function getDepreciationMethod() {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
         $.ajax({
             type: 'GET',
             url: '{!! route("getDepreciationMethod") !!}',
@@ -80,12 +74,6 @@
     }
 
     function getDepreciationRateYears(categoryID, depreciationMethodID) {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
         $.ajax({
             type: 'GET',
             url: '{!! route("getDepreciationRateYears") !!}?assetCategoryRef_ID=' + categoryID + '&depreciationMethodRef_ID=' + depreciationMethodID,
@@ -218,12 +206,6 @@
     }
 
     function getVAT() {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
         $.ajax({
             type: 'GET',
             url: '{!! route("getVAT") !!}',
@@ -278,6 +260,7 @@
         const rows = sourceTable.getElementsByTagName('tr');
 
         for (let row of rows) {
+            const workStructureRefID                    = row.querySelector('input[id^="workStructure_RefID"]');
             const purchaseOrderDetailRefID              = row.querySelector('input[id^="purchaseOrderDetail_RefID"]');
             const combinedBudgetSectionDetailRefID      = row.querySelector('input[id^="combinedBudgetSectionDetail_RefID"]');
             const productRefID                          = row.querySelector('input[id^="product_RefID"]');
@@ -298,8 +281,8 @@
                 coaRefID.value.trim() !== '' &&
                 assetSelect.value.trim() !== ''
             ) {
-                const product = row.children[6].innerText.trim();
-                const uom = row.children[10].innerText.trim();
+                const product = row.children[8].innerText.trim();
+                const uom = row.children[12].innerText.trim();
 
                 const qtyValue      = qtyInput.value.trim();
                 const totalValue    = totalInput.value.trim();
@@ -324,6 +307,7 @@
                         if (indexToUpdate !== -1) {
                             dataStore[indexToUpdate] = {
                                 entities: {
+                                    workStructure_RefID: parseInt(workStructureRefID.value),
                                     combinedBudgetSectionDetail_RefID: parseInt(combinedBudgetSectionDetailRefID.value),
                                     chartOfAccount_RefID: parseInt(coaRefID.value),
                                     product_RefID: parseInt(productRefID.value),
@@ -356,6 +340,7 @@
 
                     dataStore.push({
                         entities: {
+                            workStructure_RefID: parseInt(workStructureRefID.value),
                             combinedBudgetSectionDetail_RefID: parseInt(combinedBudgetSectionDetailRefID.value),
                             chartOfAccount_RefID: parseInt(coaRefID.value),
                             product_RefID: parseInt(productRefID.value),
@@ -602,12 +587,6 @@
     }
 
     function getPurchaseOrderDetail(purchaseOrderRefID) {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
         $.ajax({
             type: 'GET',
             url: '{!! route("getPurchaseOrderDetail") !!}?purchase_order_id=' + purchaseOrderRefID,
@@ -643,7 +622,11 @@
                                 <input type="hidden" id="quantityUnit_RefID[]" value="${val.quantityUnit_RefID}">
                                 <input type="hidden" id="productUnitPriceCurrency_RefID[]" value="${val.productUnitPriceCurrency_RefID}">
                                 <input type="hidden" id="productUnitPriceCurrencyExchangeRate[]" value="${val.productUnitPriceCurrencyExchangeRate}">
+                                <input type="hidden" id="workStructure_RefID[]" value="${val.workStructure_RefID}">
                                 
+                                <td style="text-align: center;">
+                                    ${val.workCode} - ${val.workName}
+                                </td>
                                 <td style="text-align: left;">
                                     <div style="overflow: hidden;white-space: nowrap;text-overflow: ellipsis;width: 200px;">
                                         ${val.productCode} - ${val.productName}
@@ -812,12 +795,6 @@
         const contractSigned    = document.querySelector('input[name="contract_signed"]:checked');
         const receiptOrigin     = document.querySelector('input[name="receipt_origin"]:checked');
 
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
         $.ajax({
             type: 'POST',
             data: {
@@ -905,12 +882,6 @@
         $(".loadingPurchaseOrderTable").show();
         $("#loading_workflow").show();
         $("#purchaseRequisitionTrigger").hide();
-
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
 
         $.ajax({
             type: 'POST',

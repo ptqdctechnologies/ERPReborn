@@ -1,104 +1,226 @@
-@extends('Partials.app')
-@section('main')
+<!DOCTYPE html>
+<html lang="en">
 
-<!-- <style>
-  table,
-  th,
-  td {
-    border: 1px solid #ced4da;
-    border-collapse: collapse;
-  }
-</style> -->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="csrf-token" content="{{ csrf_token() }}" />
 
-<div class="content-wrapper">
-  <section class="content">
-    <div class="container-fluid">
-      <div class="row mb-1">
-        <div class="col-sm-12">
-          <center>
-            <div style="text-align: center; font-size: 20px; font-weight: bold;">Report Reimbursement Summary</div>
-          </center>
-          <!-- <table style="float:left;">
-            <tr>
-              <td>Project</td>
-              <td>:</td>
-              <td><?= $dataRem[0]['combinedBudgetCode'] . ' - ' . $dataRem[0]['combinedBudgetName']; ?></td>
-            </tr>
-          </table> -->
-          <table style="float:right;">
-            <!-- <tr>
-              <td><img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('/AdminLTE-master/dist/img/qdc.png'))) }}" width="180"></td>
-            </tr> -->
-            </tr>
-          </table>
-          <br><br>
-        </div>
-      </div>
-      <div class="card">
-        <div class="tab-content p-3" id="nav-tabContent">
-          <div class="row">
+  <title>ERP Reborn</title>
 
-            <div class="col-12 ShowTableReportAdvanceSummary">
-              <div class="card">
-                <div class="card-body table-responsive p-0">
-                  <table class="TableReportAdvanceSummary" id="TableReportAdvanceSummary" style="font-size: 13px;width:100%;border: 1px solid #ced4da;border-collapse: collapse;">
-                    <thead>
-                      <tr style="border: 1px solid #ced4da;border-collapse: collapse;">
-                        <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">No</th>
-                        <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Reimbursement Number</th>
-                        <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Date</th>
-                        <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Budget</th>
-                        <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Supplier</th>
-                        <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Total IDR</th>
-                        <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Total Other Currency</th>
-                        <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Total Equivalent IDR</th>
-                        <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Remark</th>
-                      </tr>
-                    </thead>
-                    <?php 
-                      $counter = 1; 
-                      $grand_totalIDR=0;
-                      $grand_totalOther=0;
-                      $grand_totalEqui=0;
-                    ?>
-                    <?php foreach ($dataRem as $dataDetail) { ?>
-                      {{ $grand_totalIDR += $dataDetail['total_IDR'] }}
-                      {{ $grand_totalOther += $dataDetail['total_Other_Currency'] }}
-                      {{ $grand_totalEqui += $dataDetail['total_Equivalent_IDR'] }}
-                      <tbody>
-                        <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ $counter++ }}</td>
-                        <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ $dataDetail['reimbursementNumber'] }}</td>
-                        <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ date('Y-m-d', strtotime($dataDetail['date'])) }}</td>
-                        <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ $dataDetail['combinedBudgetCode'] }} - {{ $dataDetail['combinedBudgetName'] }}</td>
-                        <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ $dataDetail['vendor'] }}</td>
-                        <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ $dataDetail['total_IDR'] }}</td>
-                        <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ $dataDetail['total_Other_Currency'] }}</td>
-                        <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ $dataDetail['total_Equivalent_IDR'] }}</td>
-                        <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ $dataDetail['remarks'] }}</td>
-                        
-                      </tbody>
-                    <?php } ?>
+  <!-- Theme style -->
+  <link rel="stylesheet" href="{{ asset('AdminLTE-master/dist/css/adminlte.min.css') }}">
+</head>
 
-                      <tfoot>
-                        <tr style="font-weight:bolder;border: 1px solid #ced4da;border-collapse: collapse;">
-                          <td style="border: 1px solid #ced4da;border-collapse: collapse;padding: 5px;text-align:center;" colspan="5">GRAND TOTAL</td>
-                          <td style="border: 1px solid #ced4da;border-collapse: collapse;padding: 5px;">{{ $grand_totalIDR }}</td>
-                          <td style="border: 1px solid #ced4da;border-collapse: collapse;padding: 5px;">{{ $grand_totalOther}}</td>
-                          <td style="border: 1px solid #ced4da;border-collapse: collapse;padding: 5px;">{{ $grand_totalEqui}}</td>
-                          <td style="border: 1px solid #ced4da;border-collapse: collapse;padding: 5px;"></td>
-                        </tr>
-                      </tfoot>
-                    
+<body>
+  <div class="card-body table-responsive p-0">
+    <div style="text-align: right; font-size: 14px;"><?= date('F j, Y'); ?></div>
+    <div style="text-align: center; font-size: 20px; font-weight: bold;">Reimbursement Summary</div>
+    <div style="text-align: right; font-size: 14px;"><?= date('h:i A'); ?></div>
+  </div>
 
-                  </table>
-                </div>
+  <!-- HEADER -->
+  <table style="margin: 30px 0px 15px 1px;">
+    <tr>
+      <!-- BUDGET -->
+      <td style="width: 300px;">
+        <table>
+          <tr>
+            <td style="width: 75px; height: 20px;">
+              <div style="font-size: 12px; font-weight: bold; line-height: 14px;">
+                Budget
               </div>
-            </div>
-          </div>
-        </div>
-      </div>
+            </td>
+            <td style="font-size: 12px; width: 5px;">
+              :
+            </td>
+            <td style="height: 20px;">
+              <div style="font-size: 12px; line-height: 14px;">
+                <?= $budgetName; ?>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </td>
 
-    </div>
-  </section>
-</div>
-@endsection
+      <!-- CUSTOMER -->
+      <td style="width: 300px;">
+        <table>
+          <tr>
+            <td style="width: 75px; height: 20px;">
+              <div style="font-size: 12px; font-weight: bold; line-height: 14px;">
+                Customer
+              </div>
+            </td>
+            <td style="font-size: 12px; width: 5px;">
+              :
+            </td>
+            <td style="height: 20px;">
+              <div style="font-size: 12px; line-height: 14px;">
+                <?= $customerName ?? '-'; ?>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <!-- DATE -->
+      <td style="width: 300px;">
+        <table>
+          <tr>
+            <td style="width: 75px; height: 20px;">
+              <div style="font-size: 12px; font-weight: bold; line-height: 14px;">
+                Date
+              </div>
+            </td>
+            <td style="font-size: 12px; width: 5px;">
+              :
+            </td>
+            <td style="height: 20px;">
+              <div style="font-size: 12px; line-height: 14px;">
+                <?= $remDate ?? '-'; ?>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+
+  <!-- DETAIL -->
+  <table style="margin-left: 1px; width: 100%;">
+    <thead>
+      <tr style="border-top: 1px solid black; border-bottom: 1px dotted black;">
+        <td style="width: 20px; border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+            No
+          </div>
+        </td>
+        <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+            REM Number
+          </div>
+        </td>
+        <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+            Date
+          </div>
+        </td>
+        <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+            Budget
+          </div>
+        </td>
+        <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+            Customer
+          </div>
+        </td>
+        <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+            Total IDR
+          </div>
+        </td>
+        <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+            Total Other Currency
+          </div>
+        </td>
+        <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+            Total Equivalent IDR
+          </div>
+        </td>
+        <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+            Remark
+          </div>
+        </td>
+      </tr>
+    </thead>
+    <tbody>
+      <?php 
+        $counter                  = 1;
+        $grandTotalIDR            = 0;
+        $grandTotalOtherCurrency  = 0;
+        $grandTotalEquivalentIDR  = 0;
+      ?>
+      <?php foreach ($dataRem as $dataDetail) { ?>
+        <?php $grandTotalIDR            += $dataDetail['total_IDR'] ?? 0; ?>
+        <?php $grandTotalOtherCurrency  += $dataDetail['total_Other_Currency'] ?? 0; ?>
+        <?php $grandTotalEquivalentIDR  += $dataDetail['total_Equivalent_IDR'] ?? 0; ?>
+
+        <tr>
+          <td>
+            <div style="margin-top: 4px; font-size: 12px;">
+              <?= $counter++; ?>
+            </div>
+          </td>
+          <td>
+            <div style="margin-top: 4px; font-size: 12px;">
+              <?= $dataDetail['reimbursementNumber'] ?? '-'; ?>
+            </div>
+          </td>
+          <td>
+            <div style="margin-top: 4px; font-size: 12px;">
+              <?= $dataDetail['date'] ?? '-'; ?>
+            </div>
+          </td>
+          <td>
+            <div style="margin-top: 4px; font-size: 12px;">
+              <?= $dataDetail['combinedBudgetCode'] ?? ''; ?> - <?= $dataDetail['combinedBudgetName'] ?? ''; ?> 
+            </div>
+          </td>
+          <td>
+            <div style="margin-top: 4px; font-size: 12px;">
+              <?= $dataDetail['vendorCode'] ?? ''; ?> - <?= $dataDetail['vendor'] ?? ''; ?> 
+            </div>
+          </td>
+          <td>
+            <div style="margin-top: 4px; font-size: 12px;">
+              <?= number_format($dataDetail['total_IDR'] ?? 0, 2); ?>
+            </div>
+          </td>
+          <td>
+            <div style="margin-top: 4px; font-size: 12px;">
+              <?= number_format($dataDetail['total_Other_Currency'] ?? 0, 2); ?>
+            </div>
+          </td>
+          <td>
+            <div style="margin-top: 4px; font-size: 12px;">
+              <?= number_format($dataDetail['total_Equivalent_IDR'] ?? 0, 2); ?>
+            </div>
+          </td>
+          <td>
+            <div style="margin-top: 4px; font-size: 12px;">
+              <?= $dataDetail['remarks'] ?? '-'; ?>
+            </div>
+          </td>
+        </tr>
+      <?php } ?>
+    </tbody>
+
+    <div style="height: 16px;"></div>
+
+    <tr style="border-top: 1px solid black;">
+      <td colspan="5" style="height: 20px; text-align: left;">
+        <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">GRAND TOTAL</div>
+      </td>
+      <td style="height: 20px;">
+        <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"><?= number_format($grandTotalIDR, 2); ?></div>
+      </td>
+      <td style="height: 20px;">
+        <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"><?= number_format($grandTotalOtherCurrency, 2); ?></div>
+      </td>
+      <td style="height: 20px;">
+        <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"><?= number_format($grandTotalEquivalentIDR, 2); ?></div>
+      </td>
+      <td style="height: 20px;">
+        <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"></div>
+      </td>
+    </tr>
+  </table>
+</body>
+
+</html>

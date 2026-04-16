@@ -7,8 +7,8 @@
                         <li class="nav-item dropdown user-menu">
                             <a class="nav-link dropdown-toggle" data-toggle="dropdown" style="color:#4B586A;font-size:12px; padding: 2px;">
                                 <span style="position:relative;cursor:pointer;">
-                                    <img src="{{ asset('AdminLTE-master/dist/img/add.png') }}" width="25" alt="" style="border: 1px solid #ced4da;padding: 2px 4px;border-radius:3px;">
-                                    SELECT ACTION
+                                    <img src="{{ asset('AdminLTE-master/dist/img/add.png') }}" width="25" alt="" style="border: 1px solid #ced4da;padding: 2px 4px;border-radius:3px;"> 
+                                    SELECT ACTION 
                                 </span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-left" style="padding: 10px;font-size:14px;background-color:#4B586A;margin-top:8px;">
@@ -18,7 +18,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link myPopUpBusinessTripSettlementRevision" data-toggle="modal" data-target="#myPopUpBusinessTripSettlementRevision" style="color:white;padding-bottom:10px;cursor:pointer">
+                                    <a class="nav-link" data-toggle="modal" data-target="#myPopUpBusinessTripSettlementRevision" style="color:white;padding-bottom:10px;cursor:pointer">
                                         <i class="far fa-file nav-icon-sm"> Revision Business Trip Settlement</i>
                                     </a>
                                 </li>
@@ -30,37 +30,3 @@
         </div>
     </div>
 </div>
-
-<script>
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
-
-    $(function() {
-        $('.myPopUpBusinessTripSettlementRevision').on('click', function(e) {
-            e.preventDefault();
-            $.ajax({
-                type: 'GET',
-                url: '{!! route("BusinessTripSettlement.BusinessTripSettlementListData") !!}',
-                success: function(data) {
-                    var no = 1;
-                    t = $('#TableSearchBusinessTripSettlement').DataTable();
-                    t.clear();
-                    $.each(data, function(key, val) {
-                        keys += 1;
-                        t.row.add([
-                            '<tbody><tr><input id="sys_id_bsf_revision' + keys + '" value="' + val.Sys_ID + '" type="hidden"><td>' + no++ + '</td>',
-                            '<td>' + val.DocumentNumber + '</td>',
-                            '<td>' + val.CombinedBudgetCode + '</td>',
-                            '<td>' + val.CombinedBudgetName + '</td>',
-                            '<td>' + val.CombinedBudgetSectionCode + '</td>',
-                            '<td>' + val.CombinedBudgetSectionName + '</td></tr></tbody>'
-                        ]).draw();
-                    });
-                }
-            });
-        });
-    });
-</script>

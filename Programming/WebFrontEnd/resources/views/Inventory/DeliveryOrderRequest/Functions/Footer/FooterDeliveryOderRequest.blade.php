@@ -1,12 +1,12 @@
 <script type="text/javascript">
-    $(document).ready(function() {
+    $(document).ready(function () {
 
         $(".WarehouseLeft").hide();
         $(".SiteLeft").hide();
         $(".Supplier").hide();
         $(".WarehouseRight").hide();
         $(".SiteRight").hide();
-        
+
         $(".UserRight").hide();
         $(".ArrowIcon").hide();
 
@@ -24,14 +24,14 @@
 
         $(".ShowPO").hide();
         $(".ShowOP").hide();
-        
+
     });
 </script>
 
 
 <script type="text/javascript">
-    $(document).ready(function() {
-        $(".deliverType").on('click', function(e) {
+    $(document).ready(function () {
+        $(".deliverType").on('click', function (e) {
             e.preventDefault();
             var valType = $(".deliverType").val();
             if (valType == "Warehouse to Warehouse") {
@@ -40,7 +40,7 @@
                 $(".Supplier").hide();
                 $(".WarehouseRight").show();
                 $(".SiteRight").hide();
-                
+
                 $(".UserRight").hide();
                 $(".ArrowIcon").show();
             } else if (valType == "Warehouse to Site") {
@@ -49,7 +49,7 @@
                 $(".Supplier").hide();
                 $(".WarehouseRight").hide();
                 $(".SiteRight").show();
-                
+
                 $(".UserRight").hide();
                 $(".ArrowIcon").show();
             } else if (valType == "Warehouse to User") {
@@ -58,7 +58,7 @@
                 $(".Supplier").hide();
                 $(".WarehouseRight").hide();
                 $(".SiteRight").hide();
-                
+
                 $(".UserRight").show();
                 $(".ArrowIcon").show();
             } else if (valType == "Supplier to Warehouse") {
@@ -67,7 +67,7 @@
                 $(".Supplier").show();
                 $(".WarehouseRight").show();
                 $(".SiteRight").hide();
-                
+
                 $(".UserRight").hide();
                 $(".ArrowIcon").show();
             } else if (valType == "Supplier to Site") {
@@ -76,7 +76,7 @@
                 $(".Supplier").show();
                 $(".WarehouseRight").hide();
                 $(".SiteRight").show();
-                
+
                 $(".UserRight").hide();
                 $(".ArrowIcon").show();
             } else if (valType == "Site to Warehouse") {
@@ -85,17 +85,17 @@
                 $(".Supplier").hide();
                 $(".WarehouseRight").show();
                 $(".SiteRight").hide();
-                
+
                 $(".UserRight").hide();
                 $(".ArrowIcon").show();
             }
-            else{
+            else {
                 $(".WarehouseLeft").hide();
                 $(".SiteLeft").hide();
                 $(".Supplier").hide();
                 $(".WarehouseRight").hide();
                 $(".SiteRight").hide();
-                
+
                 $(".UserRight").hide();
                 $(".ArrowIcon").hide();
             }
@@ -106,36 +106,36 @@
 
 
 <script type="text/javascript">
-    $(document).ready(function() {
-        $(".Source").on('click', function(e) {
+    $(document).ready(function () {
+        $(".Source").on('click', function (e) {
             e.preventDefault();
 
             $(".ShowReceiver").hide();
             var valSource = $(".Source").val();
 
             //RESET FORM
-                $('.TableDorCart').find('tbody').empty();
-                $('.TableSourceDetailDor').find('tbody').empty();
-                $("#SubmitDor").prop("disabled", true);
+            $('.TableDorCart').find('tbody').empty();
+            $('.TableSourceDetailDor').find('tbody').empty();
+            $("#SubmitDor").prop("disabled", true);
             //END RESET FORM
-            
+
             if (valSource == "Purchase Order") {
                 $(".ShowPO").show();
                 $(".ShowOP").hide();
                 $(".ShowReceiver").hide();
-                
+
                 $("#WTH").hide();
                 $("#WTS").hide();
                 $("#WTU").hide();
                 $("#SUTW").show();
                 $("#STS").show();
                 $("#SITW").hide();
-                
+
             } else if (valSource == "Order Picking") {
                 $(".ShowPO").hide();
                 $(".ShowOP").show();
                 $(".ShowReceiver").hide();
-                
+
                 $("#WTH").show();
                 $("#WTS").show();
                 $("#WTU").hide();
@@ -163,52 +163,52 @@
             $(".Supplier").hide();
             $(".WarehouseRight").hide();
             $(".SiteRight").hide();
-            
+
             $(".UserRight").hide();
             $(".ArrowIcon").hide();
-            
+
         });
     });
 </script>
 
 <script>
-    $('#purchase_order2').one('click', function() {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
+    // $('#purchase_order2').one('click', function() {
+    //     $.ajaxSetup({
+    //         headers: {
+    //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //         }
+    //     });
 
-        $.ajax({
-            type: 'GET',
-            url: '{!! route("AdvanceRequest.AdvanceListData") !!}',
-            success: function(data) {
+    //     $.ajax({
+    //         type: 'GET',
+    //         url: '{!! route("AdvanceRequest.AdvanceListData") !!}',
+    //         success: function(data) {
 
-                TableSearchPoInDor(data);
+    //             TableSearchPoInDor(data);
 
-            }
-        });
-    });
+    //         }
+    //     });
+    // });
 </script>
 
 <script>
-    $('#order_picking2').one('click', function() {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
+    // $('#order_picking2').one('click', function () {
+    //     $.ajaxSetup({
+    //         headers: {
+    //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //         }
+    //     });
 
-        $.ajax({
-            type: 'GET',
-            url: '{!! route("AdvanceRequest.AdvanceListData") !!}',
-            success: function(data) {
+    //     $.ajax({
+    //         type: 'GET',
+    //         url: '{!! route("AdvanceRequest.AdvanceListData") !!}',
+    //         success: function (data) {
 
-                TableSearchOpInDor(data);
+    //             TableSearchOpInDor(data);
 
-            }
-        });
-    });
+    //         }
+    //     });
+    // });
 </script>
 
 <script>
@@ -220,7 +220,7 @@
 
         var keys = 0;
 
-        $.each(data, function(key, val) {
+        $.each(data, function (key, val) {
             keys += 1;
             t.row.add([
                 '<tbody><tr><input id="purchase_order_id' + keys + '" value="' + val.Sys_ID + '" type="hidden"><input id="supplier_id' + keys + '" value="' + val.RequesterWorkerJobsPosition_RefID + '" type="hidden"><td>' + no++ + '</td>',
@@ -243,7 +243,7 @@
 
         var keys = 0;
 
-        $.each(data, function(key, val) {
+        $.each(data, function (key, val) {
             keys += 1;
             t.row.add([
                 '<tbody><tr><input id="order_picking_id' + keys + '" value="' + val.Sys_ID + '" type="hidden"><input id="supplier_id' + keys + '" value="' + val.RequesterWorkerJobsPosition_RefID + '" type="hidden"><td>' + no++ + '</td>',
@@ -258,8 +258,8 @@
 </script>
 
 <script>
-    $(function() {
-        $("#FormSubmitSearchPurchaseOrder").on("submit", function(e) { //id of form 
+    $(function () {
+        $("#FormSubmitSearchPurchaseOrder").on("submit", function (e) { //id of form 
             e.preventDefault();
 
             var action = $(this).attr("action"); //get submit action from form
@@ -275,7 +275,7 @@
                 processData: false,
                 data: form_data,
                 type: method,
-                success: function(data) {
+                success: function (data) {
 
                     TableSearchPoInDor(data);
 
@@ -286,8 +286,8 @@
 </script>
 
 <script>
-    $(function() {
-        $("#FormSubmitSearchOrderPicking").on("submit", function(e) { //id of form 
+    $(function () {
+        $("#FormSubmitSearchOrderPicking").on("submit", function (e) { //id of form 
             e.preventDefault();
 
             var action = $(this).attr("action"); //get submit action from form
@@ -303,7 +303,7 @@
                 processData: false,
                 data: form_data,
                 type: method,
-                success: function(data) {
+                success: function (data) {
 
                     TableSearchOpInDor(data);
 
@@ -317,7 +317,7 @@
 <script>
     var keys = 0;
 
-    $('#TableSearchPoInDor tbody').on('click', 'tr', function() {
+    $('#TableSearchPoInDor tbody').on('click', 'tr', function () {
 
         $("#mySearchPurchaseOrder").modal('toggle');
 
@@ -340,7 +340,7 @@
         $.ajax({
             type: "POST",
             url: '{!! route("DeliveryOrderRequest.StoreValidateDeliveryOrderRequestSupplier") !!}?supplier_id=' + supplier_id + '&supplier=' + supplier + '&document_id=' + document_id,
-            success: function(data) {
+            success: function (data) {
                 var no = 1;
                 applied = 0;
                 TotalBudgetSelectedTamp = 0;
@@ -353,7 +353,7 @@
                     $("#supplier_id").val(data.supplier_id);
                     $("#supplier").val(data.supplier);
 
-                    $.each(data.data, function(key, value) {
+                    $.each(data.data, function (key, value) {
 
                         keys += 1;
 
@@ -392,8 +392,8 @@
                             '<td style="border:1px solid #e9ecef;">' + '<span id="putProductId' + keys + '">' + value.Product_RefID + '</span>' + '</td>' +
                             '<td style="border:1px solid #e9ecef;max-width:15px;overflow: hidden;" title="' + value.ProductName + '">' + '<span id="putProductName' + keys + '">' + value.ProductName + '</span>' + '</td>' +
                             '<td style="border:1px solid #e9ecef;">' + '<span">' + currencyTotal(value.Quantity) + '</span>' + '</td>' +
-                            '<td style="border:1px solid #e9ecef;">' + '<span">' + currencyTotal(value.Quantity) + '</span>' + '</td>' + 
-                            
+                            '<td style="border:1px solid #e9ecef;">' + '<span">' + currencyTotal(value.Quantity) + '</span>' + '</td>' +
+
 
                             '<td class="sticky-col second-col-dor-qty" style="border:1px solid #e9ecef;">' + '<input onkeyup="total_req(' + keys + ', this)" onkeypress="return isNumberKey(this, event);" id="total_req' + keys + '" style="border-radius:0;background-color:white;" name="total_req[]" class="form-control total_req" autocomplete="off" ' + statusForm[keys] + '>' + '</td>' +
                             '<td class="sticky-col first-col-dor-note" style="border:1px solid #e9ecef;">' + '<input id="balance_qty_po' + keys + '" style="border-radius:0;background-color:white;" name="balance_qty_po[]" disabled class="form-control balance_qty_po" value="' + currencyTotal(value.Quantity) + '">' + '</td>' +
@@ -418,7 +418,7 @@
 <script>
     var keys = 0;
 
-    $('#TableSearchOpInDor tbody').on('click', 'tr', function() {
+    $('#TableSearchOpInDor tbody').on('click', 'tr', function () {
 
         $("#mySearchOrderPicking").modal('toggle');
 
@@ -441,7 +441,7 @@
         $.ajax({
             type: "POST",
             url: '{!! route("DeliveryOrderRequest.StoreValidateDeliveryOrderRequestSupplier") !!}?supplier_id=' + supplier_id + '&supplier=' + supplier + '&document_id=' + document_id,
-            success: function(data) {
+            success: function (data) {
                 var no = 1;
                 applied = 0;
                 TotalBudgetSelectedTamp = 0;
@@ -454,7 +454,7 @@
                     $("#supplier_id").val(data.supplier_id);
                     $("#supplier").val(data.supplier);
 
-                    $.each(data.data, function(key, value) {
+                    $.each(data.data, function (key, value) {
 
                         keys += 1;
 
@@ -493,8 +493,8 @@
                             '<td style="border:1px solid #e9ecef;">' + '<span id="putProductId' + keys + '">' + value.Product_RefID + '</span>' + '</td>' +
                             '<td style="border:1px solid #e9ecef;max-width:15px;overflow: hidden;" title="' + value.ProductName + '">' + '<span id="putProductName' + keys + '">' + value.ProductName + '</span>' + '</td>' +
                             '<td style="border:1px solid #e9ecef;">' + '<span">' + currencyTotal(value.Quantity) + '</span>' + '</td>' +
-                            '<td style="border:1px solid #e9ecef;">' + '<span">' + currencyTotal(value.Quantity) + '</span>' + '</td>' + 
-                            
+                            '<td style="border:1px solid #e9ecef;">' + '<span">' + currencyTotal(value.Quantity) + '</span>' + '</td>' +
+
                             '<td class="sticky-col second-col-dor-qty" style="border:1px solid #e9ecef;">' + '<input onkeyup="total_req(' + keys + ', this)" onkeypress="return isNumberKey(this, event);" id="total_req' + keys + '" style="border-radius:0;background-color:white;" name="total_req[]" class="form-control total_req" autocomplete="off" ' + statusForm[keys] + '>' + '</td>' +
                             '<td class="sticky-col first-col-dor-note" style="border:1px solid #e9ecef;">' + '<input id="balance_qty_po' + keys + '" style="border-radius:0;background-color:white;" name="balance_qty_po[]" disabled class="form-control balance_qty_po" value="' + currencyTotal(value.Quantity) + '">' + '</td>' +
 
@@ -527,7 +527,7 @@
         } else if (parseFloat(qty_val) > parseFloat(budget_qty_val)) {
 
             swal({
-                onOpen: function() {
+                onOpen: function () {
                     swal.disableConfirmButton();
                     Swal.fire("Error !", "Qty is over budget !", "error");
                 }
@@ -556,32 +556,32 @@
 
         $(".DetailDorList").show();
         var date = new Date().toJSON().slice(0, 10).replace(/-/g, '-');
-        var getDocumentNumber = $("input[name='getDocumentNumber[]']").map(function() {
+        var getDocumentNumber = $("input[name='getDocumentNumber[]']").map(function () {
             return $(this).val();
         }).get();
-        var getWorkName = $("input[name='getWorkName[]']").map(function() {
+        var getWorkName = $("input[name='getWorkName[]']").map(function () {
             return $(this).val();
         }).get();
-        var getProductId = $("input[name='getProductId[]']").map(function() {
+        var getProductId = $("input[name='getProductId[]']").map(function () {
             return $(this).val();
         }).get();
-        var getProductName = $("input[name='getProductName[]']").map(function() {
+        var getProductName = $("input[name='getProductName[]']").map(function () {
             return $(this).val();
         }).get();
-        var getUom = $("input[name='getUom[]']").map(function() {
+        var getUom = $("input[name='getUom[]']").map(function () {
             return $(this).val();
         }).get();
-        var getCurrency = $("input[name='getCurrency[]']").map(function() {
+        var getCurrency = $("input[name='getCurrency[]']").map(function () {
             return $(this).val();
         }).get();
-        var getPrice = $("input[name='getPrice[]']").map(function() {
+        var getPrice = $("input[name='getPrice[]']").map(function () {
             return $(this).val();
         }).get();
-        var getTotal = $("input[name='getTotal[]']").map(function() {
+        var getTotal = $("input[name='getTotal[]']").map(function () {
             return $(this).val();
         }).get();
 
-        var total_req = $("input[name='total_req[]']").map(function() {
+        var total_req = $("input[name='total_req[]']").map(function () {
             return $(this).val();
         }).get();
 
@@ -590,7 +590,7 @@
         var TotalBudgetSelectedTamp = 0;
         var TotalQty = 0;
 
-        $.each(total_req, function(index, data) {
+        $.each(total_req, function (index, data) {
             if (total_req[index] != "" && total_req[index] > "0.00" && total_req[index] != "NaN.00") {
 
                 var putProductId = getProductId[index];
@@ -639,8 +639,8 @@
 </script>
 
 <script>
-    $(function() {
-        $("#FormSubmitDor").on("submit", function(e) { //id of form 
+    $(function () {
+        $("#FormSubmitDor").on("submit", function (e) { //id of form 
             e.preventDefault();
 
             var requester_name = $("#requester_name").val();
@@ -693,7 +693,7 @@
                             processData: false,
                             data: form_data,
                             type: method,
-                            success: function(response) {
+                            success: function (response) {
 
                                 HideLoading();
 
@@ -717,7 +717,7 @@
                                 })
                             },
 
-                            error: function(response) { // handle the error
+                            error: function (response) { // handle the error
                                 Swal.fire("Cancelled", "Data Cancel Inputed", "error");
                             },
 
@@ -752,7 +752,7 @@
 
 <!-- HIDE SEARCHING PLUGIN FROM DATATABLE -->
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('.TableSearchPoInDor').DataTable({
             "searching": false,
             "dom": 'rtip'
@@ -761,7 +761,7 @@
 </script>
 
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('.TableSearchOpInDor').DataTable({
             "searching": false,
             "dom": 'rtip'

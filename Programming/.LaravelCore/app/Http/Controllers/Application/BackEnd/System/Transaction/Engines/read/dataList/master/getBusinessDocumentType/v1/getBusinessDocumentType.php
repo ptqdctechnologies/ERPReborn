@@ -24,7 +24,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-11-13                                                                                           |
+        | ▪ Last Update     : 2026-02-24                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -43,7 +43,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-11-13                                                                                           |
+        | ▪ Last Update     : 2026-02-24                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -78,6 +78,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
                                     $varUserSession, 
                                     (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
 
+                                    $varData['parameter']['statusPayment'],
                                     $varData['SQLStatement']['pick'],
                                     $varData['SQLStatement']['sort'],
                                     $varData['SQLStatement']['filter'],

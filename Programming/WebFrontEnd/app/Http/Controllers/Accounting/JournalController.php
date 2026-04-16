@@ -17,14 +17,14 @@ class JournalController extends Controller
         $this->journalService = $journalService;
     }
 
-    public function index(Request $request) 
+    public function index(Request $request)
     {
-        $var                = $request->query('var', 0);
-        $varAPIWebToken     = Session::get('SessionLogin');
+        $var = $request->query('var', 0);
+        $varAPIWebToken = Session::get('SessionLogin');
 
         return view('Finance.Journal.Transactions.CreateJournal', [
-            'var'                   => $var,
-            'varAPIWebToken'        => $varAPIWebToken
+            'var' => $var,
+            'varAPIWebToken' => $varAPIWebToken
         ]);
     }
 
@@ -38,8 +38,9 @@ class JournalController extends Controller
             }
 
             $compact = [
-                "documentNumber"    => $response['data']['businessDocument']['documentNumber'],
-                "status"            => $response['metadata']['HTTPStatusCode'],
+                "documentJournalNumber" => $response['data']['businessDocument']['documentJournalNumber'],
+                "documentNumber" => $response['data']['businessDocument']['documentNumber'],
+                "status" => $response['metadata']['HTTPStatusCode'],
             ];
 
             return response()->json($compact);
@@ -60,8 +61,8 @@ class JournalController extends Controller
             }
 
             $compact = [
-                "data"      => $response['data']['data'],
-                "status"    => $response['metadata']['HTTPStatusCode'],
+                "data" => $response['data']['data'],
+                "status" => $response['metadata']['HTTPStatusCode'],
             ];
 
             return response()->json($compact);
@@ -69,8 +70,8 @@ class JournalController extends Controller
             Log::error("DataPickList Journal Function Error: " . $th->getMessage());
 
             $compact = [
-                "data"      => [],
-                "status"    => 500,
+                "data" => [],
+                "status" => 500,
             ];
 
             return response()->json($compact);
@@ -82,12 +83,22 @@ class JournalController extends Controller
         return view('Finance.Journal.Transactions.RevisionJournal');
     }
 
-    public function ReportPaymentJournal(Request $request) 
+    public function ReportPaymentJournal(Request $request)
     {
-        return view('Finance.Journal.Reports.ReportJournalSummary');
+        $documentTypeRefID = $this->GetBusinessDocumentsTypeFromRedis('Person Business Trip Form');
+        $sessionOrganizationalDepartmentName = Session::get('SessionOrganizationalDepartmentName');
+        $sessionOrganizationalJobPositionName = Session::get('SessionOrganizationalJobPositionName');
+
+        $compact = [
+            'documentTypeRefID' => $documentTypeRefID,
+            'sessionOrganizationalDepartmentName' => $sessionOrganizationalDepartmentName,
+            'sessionOrganizationalJobPositionName' => $sessionOrganizationalJobPositionName
+        ];
+
+        return view('Finance.Journal.Reports.ReportJournalSummary', $compact);
     }
 
-    public function ReportPaymentJournalStore(Request $request) 
+    public function ReportPaymentJournalStore(Request $request)
     {
         try {
             $dummyData = [
@@ -102,7 +113,8 @@ class JournalController extends Controller
                     "balance" => 325000,
                     "from_to" => "(BCA) 5750423347 - Agus Salim",
                     "coa_code" => "1-1102 - Bank",
-                    "attachment" => "-"
+                    "attachment" => "-",
+                    "payment_date" => "2025-08-28"
                 ],
                 [
                     "no" => 2,
@@ -115,7 +127,8 @@ class JournalController extends Controller
                     "balance" => 200000,
                     "from_to" => "(BNI) 8995885888 - PT QDC Technologies",
                     "coa_code" => "2-3001 - Hutang Lain - Lain",
-                    "attachment" => "-"
+                    "attachment" => "-",
+                    "payment_date" => "2025-10-18"
                 ],
                 [
                     "no" => 3,
@@ -128,7 +141,8 @@ class JournalController extends Controller
                     "balance" => 50000,
                     "from_to" => "(BNI) 8995885888 - PT QDC Technologies",
                     "coa_code" => "2-3001 - Hutang Lain - Lain",
-                    "attachment" => "-"
+                    "attachment" => "-",
+                    "payment_date" => "2025-11-03"
                 ],
                 [
                     "no" => 4,
@@ -141,7 +155,8 @@ class JournalController extends Controller
                     "balance" => 250000,
                     "from_to" => "(BCA) 5750423348 - Agus Salim",
                     "coa_code" => "1-1103 - Bank",
-                    "attachment" => "-"
+                    "attachment" => "-",
+                    "payment_date" => "2025-12-11"
                 ],
                 [
                     "no" => 5,
@@ -154,13 +169,14 @@ class JournalController extends Controller
                     "balance" => 300000,
                     "from_to" => "(BCA) 5750423349 - Agus Salim",
                     "coa_code" => "1-1104 - Bank",
-                    "attachment" => "-"
+                    "attachment" => "-",
+                    "payment_date" => "2025-09-01"
                 ]
             ];
 
             $compact = [
-                'status'    => 200,
-                'data'      => $dummyData
+                'status' => 200,
+                'data' => $dummyData
             ];
 
             return response()->json($compact);
@@ -168,8 +184,8 @@ class JournalController extends Controller
             Log::error("Report Payment Journal Store Function Error:" . $th->getMessage());
 
             $compact = [
-                'status'    => 500,
-                'message'   => $th->getMessage()
+                'status' => 500,
+                'message' => $th->getMessage()
             ];
 
             return response()->json($compact);

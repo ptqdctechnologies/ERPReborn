@@ -216,8 +216,8 @@ class DeliveryOrderService
                     'CombinedBudgetCode'        => $budget,
                     'CombinedBudgetSectionCode' => $subBudget ? $subBudget : NULL,
                     'Warehouse_RefID'           => $warehouse ? $warehouse : NULL,
-                    // 'StartDate'                 => $date ? $startDate : NULL,
-                    // 'EndDate'                   => $date ? $endDate : NULL
+                    'StartDate'                 => $date ? $startDate : NULL,
+                    'EndDate'                   => $date ? $endDate : NULL
                 ]
             ]
         );

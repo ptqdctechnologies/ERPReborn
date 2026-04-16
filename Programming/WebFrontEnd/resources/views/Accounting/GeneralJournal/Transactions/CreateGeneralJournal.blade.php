@@ -11,6 +11,7 @@
 @include('getFunction.getCategory')
 @include('Accounting.GeneralJournal.Functions.PopUp.PopUpGeneralJournalRevision')
 @include('Accounting.GeneralJournal.Functions.PopUp.PopUpJournalSettlement')
+@include('Accounting.GeneralJournal.Functions.PopUp.PopUpGeneralJournalSummaryData')
 
 <div class="content-wrapper">
     <section class="content">
@@ -121,6 +122,29 @@
                     </div>
                 </div>
 
+                <!-- DETAIL JOURNAL POSTING -->
+                <div class="tab-content detail-journal-posting px-3 pb-2" id="nav-tabContent" style="display: none;">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <!-- TITLE -->
+                                <div class="card-header">
+                                    <label class="card-title">
+                                        Posting
+                                    </label>
+                                    <div class="card-tools">
+                                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                            <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                @include('Accounting.GeneralJournal.Functions.Header.HeaderJournalPosting')
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- REMARK -->
                 <div class="tab-content px-3 pb-2 journal-remark" id="nav-tabContent" style="display: none;">
                     <div class="row">
@@ -155,7 +179,7 @@
                 <div class="tab-content px-3 pb-2 journal-button" id="nav-tabContent" style="display: none;">
                     <div class="row">
                         <div class="col">
-                            <button type="button" class="btn btn-default btn-sm float-right" onclick="validationForm()" style="margin-left: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
+                            <button type="button" class="btn btn-default btn-sm float-right" onclick="onClickSubmitButton()" style="margin-left: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
                                 <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" title="Submit to Account Payable"> Submit
                             </button>
 
@@ -171,6 +195,7 @@
     </section>
 </div>
 
+@include('Accounting.GeneralJournal.Functions.Footer.FooterJournalPosting')
 @include('Accounting.GeneralJournal.Functions.Footer.FooterJournalAdjustment')
 @include('Accounting.GeneralJournal.Functions.Footer.FooterJournalFixedAsset')
 @include('Accounting.GeneralJournal.Functions.Footer.FooterJournalSettlement')

@@ -8,6 +8,10 @@
     const generalJournalDate    = document.getElementById("general_journal_summary_date_range");
     const printType             = document.getElementById("print_type");
 
+    function onChangeJournalType(value) {
+        $('#transaction_type').css("display", "flex");
+    }
+
     function getDataReport() {
         ShowLoading();
 
@@ -92,7 +96,7 @@
                             ]
                         });
 
-                        $('#table_settlement_summary').css({"width": "100%", "display": "block"});
+                        $('#table_settlement_summary').css({"width": "100%", "display": "inline-table"});
                         $('#table_adjustment_summary').css("display", "none");
                         $('#table_asset_summary').css("display", "none");
                         $('#table_adjustment_summary_wrapper').css("display", "none");
@@ -146,7 +150,7 @@
                             ]
                         });
 
-                        $('#table_adjustment_summary').css({"width": "100%", "display": "block"});
+                        $('#table_adjustment_summary').css({"width": "100%", "display": "inline-table"});
                         $('#table_settlement_summary').css("display", "none");
                         $('#table_asset_summary').css("display", "none");
                         $('#table_settlement_summary_wrapper').css("display", "none");
@@ -207,7 +211,7 @@
                             ]
                         });
 
-                        $('#table_asset_summary').css({"width": "100%", "display": "block"});
+                        $('#table_asset_summary').css({"width": "100%", "display": "inline-table"});
                         $('#table_settlement_summary').css("display", "none");
                         $('#table_adjustment_summary').css("display", "none");
                         $('#table_settlement_summary_wrapper').css("display", "none");
@@ -306,6 +310,18 @@
         $("#sub_budget_name").css('background-color', '#e9ecef');
 
         $('#mySites').modal('hide');
+    });
+
+    $('#tableGetChartOfAccount').on('click', 'tbody tr', async function() {
+        const sysId = $(this).find('input[data-trigger="sys_id_modal_coa"]').val();
+        const code  = $(this).find('td:nth-child(2)').text();
+        const name  = $(this).find('td:nth-child(3)').text();
+
+        $(`#coa_id`).val(sysId);
+        $(`#coa_number`).val(`${code} - ${name}`);
+        $(`#coa_number`).css({"background-color": "#e9ecef", "border": "1px solid #ced4da"});
+
+        $('#myGetChartOfAccount').modal('hide');
     });
 
     $(window).one('load', function() {
