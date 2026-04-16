@@ -69,8 +69,13 @@ namespace App\Http\Controllers\Application\BackEnd\System\UserAction\Engines\doc
                                 (new \App\Models\Database\SchSysAsset\General())->getData_WorkFlow_IsUserAllowed(
                                     $varUserSession,
                                     (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
-                                    (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['userID'],
 
+                                    (
+                                    ($varData['parameter']['user_RefID']) ?
+                                        $varData['parameter']['user_RefID']
+                                        :
+                                        (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['userID']
+                                    ),
                                     $varData['parameter']['businessDocumentType_RefID'],
                                     $varData['parameter']['combinedBudget_RefID'],
                                     'SUBMITTER'

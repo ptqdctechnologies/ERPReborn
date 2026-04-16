@@ -8,7 +8,7 @@
 | ▪ API Key     : userAction.documentWorkFlow.userPrivilege.isUserAllowedToSubmit                                                  |
 | ▪ API Version : 1                                                                                                                |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2023 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2026 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\userAction\documentWorkFlow\userPrivilege\isUserAllowedToSubmit\v1
@@ -23,8 +23,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\use
         |                       userAction.documentWorkFlow.userPrivilege.isUserAllowedToSubmit.v1_throughAPIGateway               |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2023-02-15                                                                                           |
-        | ▪ Creation Date   : 2023-02-15                                                                                           |
+        | ▪ Last Update     : 2026-04-16                                                                                           |
+        | ▪ Creation Date   : 2026-04-16                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function throughAPIGateway($varAPIWebToken)
@@ -48,8 +48,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\use
                     //-----[ DATA ]---------( START )-----
                         [
                         'parameter' => [
-                            'user_RefID' => 4000000000359,
-                            'businessDocumentType_RefID' => 77000000000067,
+                            'user_RefID' => 4000000000029,
+                            'businessDocumentType_RefID' => 77000000000057,
                             'combinedBudget_RefID' => 46000000000009
                             ]
                         ]
