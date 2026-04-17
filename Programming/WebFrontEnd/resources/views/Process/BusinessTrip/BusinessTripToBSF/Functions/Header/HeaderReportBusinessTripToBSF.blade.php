@@ -1,113 +1,184 @@
-<div class="col-sm-12 col-md-12 col-lg-4">
-    <form method="POST" action="{{ route('BusinessTripRequest.ReportBusinessTripToBSFStore') }}">
-    @csrf
+<div class="col-sm-12 col-md-12 col-lg-3">
+    <!-- BRF NUMBER -->
+    <div class="row align-items-center">
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">BRF Number</label>
+        <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
+            <div>
+                <span id="myBusinessTripRequestTrigger" class="input-group-text form-control" data-toggle="modal"
+                    data-target="#myBusinessTripRequest" style="border-radius:0;cursor:pointer;">
+                    <i class="fas fa-gift"></i>
+                </span>
+            </div>
+            <div>
+                <input type="text" id="business_trip_number" class="form-control"
+                    style="border-radius:0;background-color:white;" readonly />
+                <input type="hidden" id="business_trip_id" class="form-control" style="border-radius:0;"
+                    name="business_trip_id" />
+            </div>
+        </div>
+    </div>
+    <div class="row" id="businessTripMessage" style="margin-top: .3rem;display: none;">
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+        <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end text-red">
+            Business Trip Number cannot be empty.
+        </div>
+    </div>
+
+    <!-- BSF NUMBER -->
+    <div class="row p-0 align-items-center" style="margin-top: 1rem;">
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">BSF Number</label>
+        <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
+            <div>
+                <span id="myBusinessTripSettlementTrigger" class="input-group-text form-control" data-toggle="modal"
+                    data-target="#myBusinessTripSettlement" style="border-radius:0;cursor:pointer;">
+                    <i class="fas fa-gift"></i>
+                </span>
+            </div>
+            <div>
+                <input type="text" id="business_trip_settlement_number" class="form-control"
+                    style="border-radius:0;background-color:white;" readonly />
+                <input type="hidden" id="business_trip_settlement_id" class="form-control" style="border-radius:0;"
+                    name="business_trip_settlement_id" />
+            </div>
+        </div>
+    </div>
+    <div class="row" id="businessTripSettlementMessage" style="margin-top: .3rem;display: none;">
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+        <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end text-red">
+            Business Trip Settlement Number cannot be empty.
+        </div>
+    </div>
+</div>
+<div class="col-sm-12 col-md-12 col-lg-3">
     <!-- BUDGET -->
-    <div class="row p-0 align-items-center" style="margin-bottom: 1rem;">
+    <div class="row align-items-center">
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Budget</label>
         <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
             <div>
-                <input id="project_code_second" style="border-radius:0;" name="project_code_second" class="form-control" size="34" value="<?= $dataReport['project']['code'] ?? ''; ?>" readonly>
-                <input id="project_id_second" style="border-radius:0;" name="project_id_second" class="form-control" value="<?= $dataReport['project']['id'] ?? ''; ?>" hidden>
-            </div>
-            <div>
-                <span style="border-radius:0;" class="input-group-text form-control">
-                    <a href="javascript:;" id="myProjectSecondTrigger" data-toggle="modal" data-target="#myProjectSecond">
-                        <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="myProjectSecondTrigger">
-                    </a>
+                <span id="myProjectsTrigger" class="input-group-text form-control" data-toggle="modal"
+                    data-target="#myProjects" style="border-radius:0;cursor:pointer;">
+                    <i id="iconBudget" class="fas fa-gift"></i>
+
+                    <div id="loadingBudget" class="spinner-border spinner-border-sm" role="status"
+                        style="display: none;">
+                        <span class="sr-only">Loading...</span>
+                    </div>
                 </span>
             </div>
-            <div class="d-sm-none d-md-none d-lg-block">
-                <input id="project_name_second" style="border-radius:0;" name="project_name_second" class="form-control invisible" value="<?= $dataReport['project']['name'] ?? ''; ?>" readonly>
+            <div>
+                <input type="text" id="budget_name" class="form-control" style="border-radius:0;background-color:white;"
+                    readonly />
+                <input type="hidden" id="budget_id" class="form-control" style="border-radius:0;" name="budget_id" />
+                <input type="hidden" id="budget_code" class="form-control" style="border-radius:0;"
+                    name="budget_code" />
             </div>
+        </div>
+    </div>
+    <div class="row" id="budgetMessage" style="margin-top: .3rem;display: none;">
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+        <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end text-red">
+            Budget cannot be empty.
         </div>
     </div>
 
     <!-- SUB BUDGET -->
-    <div class="row p-0 align-items-center">
+    <div class="row p-0 align-items-center" style="margin-top: 1rem;">
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Sub Budget</label>
         <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
             <div>
-                <input id="site_code_second" style="border-radius:0;" name="site_code_second" class="form-control" size="34" value="<?= $dataReport['site']['code'] ?? ''; ?>" readonly>
-                <input id="site_id_second" style="border-radius:0;" name="site_id_second" class="form-control" value="<?= $dataReport['site']['id'] ?? ''; ?>" hidden>
-            </div>
-            <div>
-                <span style="border-radius:0;" class="input-group-text form-control">
-                    <a href="javascript:;" id="mySiteCodeSecondTrigger" data-toggle="modal" data-target="#mySiteCodeSecond">
-                        <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="mySiteCodeSecondTrigger">
-                    </a>
+                <span id="mySitesTrigger" class="input-group-text form-control"
+                    style="border-radius:0;cursor:not-allowed;">
+                    <i class="fas fa-gift"></i>
                 </span>
             </div>
-            <div class="d-sm-none d-md-none d-lg-block">
-                <input id="site_name_second" style="border-radius:0;" name="site_name_second" class="form-control invisible" value="<?= $dataReport['site']['name'] ?? ''; ?>" readonly>
+            <div>
+                <input type="text" id="sub_budget_name" class="form-control"
+                    style="border-radius:0;background-color:white;" readonly />
+                <input type="hidden" id="sub_budget_id" class="form-control" style="border-radius:0;"
+                    name="sub_budget_id" />
+                <input type="hidden" id="sub_budget_code" class="form-control" style="border-radius:0;"
+                    name="sub_budget_code" />
             </div>
         </div>
     </div>
 </div>
-<div class="col-sm-12 col-md-12 col-lg-4">
+<div class="col-sm-12 col-md-12 col-lg-3">
     <!-- REQUESTER -->
-    <div class="row p-0 align-items-center" style="margin-bottom: 1rem;">
+    <div class="row p-0 align-items-center">
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Requester</label>
         <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
             <div>
-                <input id="worker_name_second" style="border-radius:0;" name="worker_name_second" class="form-control" size="34" value="<?= $dataReport['requester']['name'] ?? ''; ?>" readonly>
-                <input id="worker_id_second" style="border-radius:0;" name="worker_id_second" class="form-control" value="<?= $dataReport['requester']['id'] ?? ''; ?>" hidden>
-            </div>
-            <div>
-                <span style="border-radius:0;" class="input-group-text form-control">
-                    <a href="javascript:;" id="myWorkerSecondTrigger" data-toggle="modal" data-target="#myWorkerSecond">
-                        <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="myWorkerSecondTrigger">
-                    </a>
+                <span id="myRequestersTrigger" class="input-group-text form-control" data-toggle="modal"
+                    data-target="#myRequesters" style="border-radius:0;cursor:pointer;">
+                    <i class="fas fa-gift"></i>
                 </span>
             </div>
-            <div class="d-sm-none d-md-none d-lg-block">
-                <input id="worker_position_second" style="border-radius:0;" name="worker_position_second" class="form-control invisible" value="<?= $dataReport['requester']['position'] ?? ''; ?>">
+            <div>
+                <input type="text" id="requester_name" class="form-control"
+                    style="border-radius:0;background-color:white;" readonly />
+                <input type="hidden" id="requester_id" class="form-control" style="border-radius:0;"
+                    name="requester_id" />
             </div>
         </div>
     </div>
+    <div class="row" id="requesterMessage" style="margin-top: .3rem;display: none;">
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+        <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end text-red">
+            Requester cannot be empty.
+        </div>
+    </div>
 
-    <!-- DATE -->
-    <div class="row p-0 align-items-center">
-        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Date</label>
-        <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+    <!-- DATE RANGE -->
+    <div class="row p-0 align-items-center" style="margin-top: 1rem;">
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Date Range</label>
+        <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
             <div>
-                <div class="input-group" id="business_trip_date_range_container">
-                    <div class="input-group-prepend" style="margin-right: 0px; width: 27.78px;cursor: pointer;height: 21.8px;">
-                        <span class="input-group-text" id="business_trip_date_range_container_icon" style="border-radius: 0;">
+                <div class="input-group" id="brf_to_bsf_date_range_container">
+                    <div class="input-group-prepend"
+                        style="margin-right: 0px; width: 27.78px;cursor: pointer;height: 21.8px;">
+                        <span class="input-group-text" id="brf_to_bsf_date_range_container_icon"
+                            style="border-radius: 0;">
                             <i class="far fa-calendar-alt" style="width: 13px; height: 13px;"></i>
                         </span>
                     </div>
-                    <input readonly type="text" class="form-control" style="height: 21.8px;border-radius:0;background-color:white;" id="business_trip_date_range" name="business_trip_date_range" />
+                    <input readonly type="text" class="form-control"
+                        style="height: 21.8px;border-radius:0;background-color:white;" id="brf_to_bsf_date_range"
+                        name="brf_to_bsf_date_range" />
                 </div>
             </div>
         </div>
     </div>
-</div>
-<div class="col-sm-12 col-md-12 col-lg-4 d-flex flex-column flex-column-reverse">
-    <!-- SUBMIT -->
-    <div class="align-items-center justify-content-sm-end justify-content-md-end justify-content-lg-start row p-0" style="gap: 0.5rem;">
-        <button class="btn btn-default btn-sm" type="submit" style="margin-top: -5px;">
-            <img src="{{ asset('AdminLTE-master/dist/img/backwards.png') }}" width="12" alt="show" title="Show">
-            Show
-        </button>
-        <button type="button" class="btn btn-secondary btn-sm" style="margin-top: -5px;" onclick="resetForm()">
-            Reset
-        </button>
+    <div class="row" id="dateRangeMessage" style="margin-top: .3rem;display: none;">
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+        <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end text-red">
+            Date Range cannot be empty.
+        </div>
     </div>
-    </form>
-
-    <form method="POST" action="{{ route('BusinessTripRequest.PrintExportReportBusinessTripToBSF') }}">
-    @csrf
-    <input id="project_code_second_trigger" style="border-radius:0;" name="project_code_second_trigger" class="form-control" size="34" value="<?= $dataReport['project']['code'] ?? ''; ?>" readonly hidden>
-    <div class="align-items-center justify-content-sm-end justify-content-md-end justify-content-lg-start row align-items-center p-0" style="margin-bottom: 1rem; gap: 0.5rem;">
-        <select name="print_type" id="print_type" class="form-control" style="width: max-content;">
-            <option value="PDF">Export PDF</option>
-            <option value="Excel">Export Excel</option>
-        </select>
-        <button class="btn btn-default btn-sm" type="submit">
+</div>
+<div class="col-sm-12 col-md-12 col-lg-3">
+    <!-- EXPORT -->
+    <div class="row align-items-center" style="margin-bottom: 1rem; gap: 0.5rem;">
+        <div>
+            <select name="print_type" id="print_type" class="form-control">
+                <option value="PDF">Export PDF</option>
+                <option value="EXCEL">Export Excel</option>
+            </select>
+        </div>
+        <button type="button" class="btn btn-default btn-sm" onclick="validateExportButton()">
             <span>
-                <img src="{{ asset('AdminLTE-master/dist/img/printer.png') }}" width="17" alt="">
+                <img src="{{ asset('AdminLTE-master/dist/img/printer.png') }}" width="17" alt="" />
             </span>
         </button>
     </div>
-    </form>
+
+    <!-- SUBMIT -->
+    <div class="row" style="gap: 0.5rem;">
+        <button type="button" class="btn btn-default btn-sm" onclick="validateShowButton()" style="margin-top: -5px;">
+            <img src="{{ asset('AdminLTE-master/dist/img/backwards.png') }}" width="12" alt="show" title="Show">
+            Show
+        </button>
+        <button type="button" class="btn btn-secondary btn-sm" onclick="resetForm()" style="margin-top: -5px;">
+            Reset
+        </button>
+    </div>
 </div>
