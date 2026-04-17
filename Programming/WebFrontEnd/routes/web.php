@@ -27,7 +27,7 @@ use App\Http\Controllers\UserController;
 $varUserSession =
     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
 
-$varAPIWebToken = 
+$varAPIWebToken =
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoid2lzbnUudHJlbmdnb25vIiwiaWF0IjoxNzc2MzM3MDM3fQ.MzI3ZGI0YTExZjA2MTdiYzUxOTAzNmFhMmMyYTVlYzMwNmQzYTUxODdmYmRhNjRlNjNkMzRlNDgzNTliNzQ2Yg';
 
 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_LaravelRoute::setDynamicRoute_Examples_APICall(
@@ -539,6 +539,9 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::resource('MaterialReturn', 'Inventory\MaterialReturnController')->only(['index', 'store', 'update']);
 
     // WORKFLOW
+    Route::post('UserAllowedToSubmit', 'Admin\Workflow\WorkflowController@userAllowedToSubmit')->name('Workflow.UserAllowedToSubmit');
+    Route::post('UserAllowedToApprove', 'Admin\Workflow\WorkflowController@userAllowedToApprove')->name('Workflow.UserAllowedToApprove');
+    Route::post('UserAllowedToInvolve', 'Admin\Workflow\WorkflowController@userAllowedToInvolve')->name('Workflow.UserAllowedToInvolve');
     Route::post('WorkflowRoute/store', 'Admin\Workflow\WorkflowController@WorkflowRouteStore')->name('Workflow.WorkflowRouteStore');
     Route::get('WorkflowRoute', 'Admin\Workflow\WorkflowController@WorkflowRoute')->name('Workflow.WorkflowRoute');
     Route::resource('Workflow', 'Admin\Workflow\WorkflowController');

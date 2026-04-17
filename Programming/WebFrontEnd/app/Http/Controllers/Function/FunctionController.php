@@ -1773,7 +1773,7 @@ class FunctionController extends Controller
 
             $cachedData = Helper_Redis::getValue(Helper_Environment::getUserSessionID_System(), $cacheKey);
 
-            if (!$cachedData) {
+            if ($cachedData === null) {
                 $response = Helper_APICall::setCallAPIGateway(
                     Helper_Environment::getUserSessionID_System(),
                     $varAPIWebToken,
