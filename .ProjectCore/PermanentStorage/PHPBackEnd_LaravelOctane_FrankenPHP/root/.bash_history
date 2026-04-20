@@ -39,3 +39,5 @@ exit
 /zhtConf/Script/BashScript/Script.Maintenance.SystemUpdate.Composer.sh 
 exi
 exit
+/zhtConf/Script/BashScript/Script.Maintenance.SystemUpdate.Composer.sh 
+exit
