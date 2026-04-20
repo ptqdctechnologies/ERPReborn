@@ -1,6 +1,11 @@
 <script>
     let workflowState = [];
+    let currentIndexPickRequester = null;
     const budgetID = document.getElementById("project_id");
+
+    function pickRequester(index) {
+        currentIndexPickRequester = index;
+    }
 
     function addNextStep(newApproverName) {
         workflowState.splice(workflowState.length - 1, 0, {
@@ -70,11 +75,13 @@
                 
                 <div class="d-flex align-items-center" style="gap: 0.3rem;">
                     <div style="background-color: #e9ecef; padding: 4px; border: 1px solid #ced4da; margin-left: 60px;">
-                        <i class="fas fa-gift"></i>
+                        <span onclick="pickRequester(${i + 1})" data-toggle="modal" data-target="#myRequesters">
+                            <i class="fas fa-gift"></i>
+                        </span>
                     </div>
                     <div style="width: fit-content;">
                         <div class="input-group">
-                            <input id="workflow_detail_next${i + 1}}" class="form-control" readonly value="${approver.approverEntityName}" style="border-radius:0; width: 181px;">
+                            <input id="workflow_detail_next${i + 1}" class="form-control" readonly value="${approver.approverEntityName}" style="border-radius:0; width: 181px;">
                         </div>
                     </div>
                 </div>
@@ -111,6 +118,7 @@
                 console.error("Error:", errorThrown);
             })
             .always(function (jqXHR, textStatus, errorThrown) {
+                getRequesters();
                 $('#workflow_detail_loading').hide();
             });
     }
@@ -152,6 +160,32 @@
         $('#myBusinessDocumentType').modal('toggle');
     });
 
-    $(document).ready(function () {
+    $('#tableRequesters').on('click', 'tbody tr', function () {
+        const sysId = $(this).find('input[data-trigger="sys_id_requesters"]').val();
+        const name = $(this).find('td:nth-child(2)').text();
+        const position = $(this).find('td:nth-child(3)').text();
+
+        if (currentIndexPickRequester === "START") {
+            $("#workflow_detail_start").val(name);
+        } else if (currentIndexPickRequester === "END") {
+            $("#workflow_detail_end").val(name);
+        } else {
+            const findWorkflowState = workflowState.find(val => val.index == currentIndexPickRequester);
+
+            if (findWorkflowState) {
+                workflowState[currentIndexPickRequester - 1].entities.approverEntityName = name;
+            } else {
+                workflowState.push({
+                    index: currentIndexPickRequester,
+                    entities: {
+                        approverEntityName: name
+                    }
+                });
+            }
+
+            $(`#workflow_detail_next${currentIndexPickRequester}`).val(name);
+        }
+
+        $('#myRequesters').modal('hide');
     });
 </script>

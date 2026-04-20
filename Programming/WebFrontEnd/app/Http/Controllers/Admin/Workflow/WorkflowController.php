@@ -40,57 +40,6 @@ class WorkflowController extends Controller
 
     public function update(Request $request, $id)
     {
-        $input = $request->all();
-        dd($input);
-        $count_product = count($input['var_product_id']);
-        $varAPIWebToken = $request->session()->get('SessionLogin');
-
-        $advanceDetail = [];
-        if ($count_product > 0 && isset($count_product)) {
-            for ($n = 0; $n < $count_product; $n++) {
-                $advanceDetail[$n] = [
-                    'recordID' => ((!$input['var_recordIDDetail'][$n]) ? null : (int) $input['var_recordIDDetail'][$n]),
-                    'entities' => [
-                        "combinedBudgetSectionDetail_RefID" => (int) $input['var_combinedBudget'][$n],
-                        "product_RefID" => (int) $input['var_product_id'][$n],
-                        "quantity" => (float) $input['var_quantity'][$n],
-                        "quantityUnit_RefID" => 73000000000001,
-                        "productUnitPriceCurrency_RefID" => 62000000000001,
-                        "productUnitPriceCurrencyValue" => (float) $input['var_price'][$n],
-                        "productUnitPriceCurrencyExchangeRate" => 1,
-                        "remarks" => 'Catatan'
-                    ]
-                ];
-            }
-        }
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'transaction.update.finance.setAdvance',
-            'latest',
-            [
-                'recordID' => (int) $input['var_recordID'],
-                'entities' => [
-                    "documentDateTimeTZ" => '2022-03-07',
-                    "log_FileUpload_Pointer_RefID" => (int) $input['dataInput_Log_FileUpload_Pointer_RefID'],
-                    "requesterWorkerJobsPosition_RefID" => (int) $input['request_name_id'],
-                    "beneficiaryWorkerJobsPosition_RefID" => 25000000000439,
-                    "beneficiaryBankAccount_RefID" => 167000000000001,
-                    "internalNotes" => 'My Internal Notes',
-                    "remarks" => $input['var_remark'],
-                    "additionalData" => [
-                        "itemList" => [
-                            "items" => $advanceDetail
-                        ]
-                    ]
-                ]
-            ]
-        );
-        $compact = [
-            "status" => true,
-        ];
-
-        return response()->json($compact);
     }
 
     public function destroy($id)
@@ -99,21 +48,11 @@ class WorkflowController extends Controller
 
     public function WorkflowRoute(Request $request)
     {
-        $varAPIWebToken = $request->session()->get('SessionLogin');
-        $request->session()->forget("SessionAdvance");
+        $var = $request->query('var', 0);
 
-        $var = 0;
-        if (!empty($_GET['var'])) {
-            $var = $_GET['var'];
-        }
-        $compact = [
-            'var' => $var,
-            'varAPIWebToken' => $varAPIWebToken,
-            'start' => ['Aldi', 'Mul', 'Yadi', 'Utsman'],
-            'intermediate' => ['Toni', 'Muhammad'],
-            'end' => ['Deden', 'Agus']
-        ];
-        return view('Admin.Workflow.Transactions.CreateWorkflowRoute', $compact);
+        return view('Admin.Workflow.Transactions.CreateWorkflowRoute', [
+            'var' => $var
+        ]);
     }
 
     public function WorkflowRouteStore(Request $request)

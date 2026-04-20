@@ -3,6 +3,7 @@
     @include('Partials.navbar')
     @include('Partials.sidebar')
     @include('getFunction.getProjects')
+    @include('getFunction.getRequesters')
     @include('getFunction.getBusinessDocumentType')
 
     <div class="content-wrapper">
@@ -80,7 +81,7 @@
                                             title="Submit to Account Payable"> Submit
                                     </button>
 
-                                    <a onclick="cancelForm('{{ route('Loan.index', ['var' => 1]) }}')"
+                                    <a onclick="cancelForm('{{ route('Workflow.WorkflowRoute', ['var' => 1]) }}')"
                                         class="btn btn-default btn-sm float-right"
                                         style="background-color:#e9ecef;border:1px solid #ced4da;">
                                         <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt=""

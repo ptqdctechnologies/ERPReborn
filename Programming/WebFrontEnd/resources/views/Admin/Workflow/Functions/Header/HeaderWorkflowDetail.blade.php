@@ -23,7 +23,10 @@
                                 </div> -->
                                 <div
                                     style="background-color: #e9ecef; padding: 4px; border-radius: 2px; border: 1px solid #ced4da; margin-left: 60px;">
-                                    <i class="fas fa-gift"></i>
+                                    <span onclick="pickRequester('START')" data-toggle="modal"
+                                        data-target="#myRequesters">
+                                        <i class="fas fa-gift"></i>
+                                    </span>
                                 </div>
                                 <div style="width: fit-content;">
                                     <div class="input-group">
@@ -44,11 +47,15 @@
                                 <div class="d-flex align-items-center" style="gap: 0.3rem;">
                                     <div
                                         style="background-color: #e9ecef; padding: 4px; border: 1px solid #ced4da; margin-left: 60px;">
-                                        <i class="fas fa-gift"></i>
+                                        <span onclick="pickRequester('END')" data-toggle="modal"
+                                            data-target="#myRequesters">
+                                            <i class="fas fa-gift"></i>
+                                        </span>
                                     </div>
                                     <div style="width: fit-content;">
                                         <div class="input-group">
-                                            <input class="form-control" readonly style="border-radius:0; width: 181px;">
+                                            <input id="workflow_detail_end" class="form-control" readonly
+                                                style="border-radius:0; width: 181px;">
                                         </div>
                                     </div>
                                 </div>
