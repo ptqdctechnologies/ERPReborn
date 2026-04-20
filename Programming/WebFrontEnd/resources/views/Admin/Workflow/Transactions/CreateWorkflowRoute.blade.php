@@ -2,6 +2,8 @@
 @section('main')
     @include('Partials.navbar')
     @include('Partials.sidebar')
+    @include('getFunction.getProjects')
+    @include('getFunction.getBusinessDocumentType')
 
     <div class="content-wrapper">
         <section class="content">
@@ -38,85 +40,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="card-body">
-                                            <div class="row py-3" style="gap: 1rem;">
-                                                <div class="col-md-12 col-lg-4">
-                                                    <!-- BUDGET -->
-                                                    <div class="row">
-                                                        <label class="col-sm-3 col-md-4 col-lg-3 col-form-label p-0">Budget
-                                                            Code</label>
-                                                        <div class="col-4 d-flex p-0">
-                                                            <div>
-                                                                <span style="border-radius:0;"
-                                                                    class="input-group-text form-control">
-                                                                    <a href="javascript:;" id="myProjectTrigger"
-                                                                        data-toggle="modal" data-target="#myProjects"
-                                                                        style="display: block;">
-                                                                        <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}"
-                                                                            width="13" alt="myProjectTrigger">
-                                                                    </a>
-
-                                                                    <div id="loadingBudget"
-                                                                        class="spinner-border spinner-border-sm" role="status"
-                                                                        style="display: none;">
-                                                                        <span class="sr-only">Loading...</span>
-                                                                    </div>
-                                                                </span>
-                                                            </div>
-                                                            <div style="flex: 100%;">
-                                                                <div class="input-group">
-                                                                    <input id="project_name"
-                                                                        style="border-radius:0; background-color: white;"
-                                                                        class="form-control" readonly>
-                                                                    <input id="project_code" style="border-radius:0;"
-                                                                        class="form-control" hidden>
-                                                                    <input id="project_id" style="border-radius:0;"
-                                                                        class="form-control" hidden>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-md-12 col-lg-5">
-                                                    <!-- BUDGET -->
-                                                    <div class="row">
-                                                        <label class="col-sm-3 col-md-4 col-lg-3 col-form-label p-0">Transaction
-                                                            Type</label>
-                                                        <div class="col-4 d-flex p-0">
-                                                            <div>
-                                                                <span style="border-radius:0;"
-                                                                    class="input-group-text form-control">
-                                                                    <a href="javascript:;" id="myProjectTrigger"
-                                                                        data-toggle="modal" data-target="#myProjects"
-                                                                        style="display: block;">
-                                                                        <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}"
-                                                                            width="13" alt="myProjectTrigger">
-                                                                    </a>
-
-                                                                    <div id="loadingBudget"
-                                                                        class="spinner-border spinner-border-sm" role="status"
-                                                                        style="display: none;">
-                                                                        <span class="sr-only">Loading...</span>
-                                                                    </div>
-                                                                </span>
-                                                            </div>
-                                                            <div style="flex: 100%;">
-                                                                <div class="input-group">
-                                                                    <input id="project_name"
-                                                                        style="border-radius:0; background-color: white;"
-                                                                        class="form-control" readonly>
-                                                                    <input id="project_code" style="border-radius:0;"
-                                                                        class="form-control" hidden>
-                                                                    <input id="project_id" style="border-radius:0;"
-                                                                        class="form-control" hidden>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        @include('Admin.Workflow.Functions.Header.HeaderWorkflowType')
                                     </div>
                                 </div>
                             </div>
@@ -126,7 +50,7 @@
                         <div class="tab-content px-3 pb-2" id="nav-tabContent">
                             <div class="row">
                                 <div class="col-12">
-                                    <div class="card">
+                                    <div id="workflow_detail_container" class="card collapsed-card">
                                         <!-- HEADER -->
                                         <div class="card-header">
                                             <label class="card-title">
@@ -140,178 +64,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="card-body">
-                                            <div class="row py-3">
-                                                <section class="content">
-                                                    <div class="container-fluid">
-                                                        <div class="row">
-                                                            <div class="col-md-12">
-                                                                <div class="timeline mb-0">
-                                                                    <!-- START AREA -->
-                                                                    <div class="d-flex align-items-center"
-                                                                        style="margin-bottom: 15px; margin-right: 10px; position: relative; left: 5px; gap: 0.3rem;">
-                                                                        <span class="bg-blue"
-                                                                            style="border-radius: 4px; display: inline-block; font-weight: 600; padding: 5px;">START</span>
-                                                                        <div
-                                                                            style="background-color: #e9ecef; padding: 4px; border-radius: 2px; border: 1px solid #ced4da">
-                                                                            <i class="fas fa-plus"></i>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="d-flex align-items-center" style="gap: 0.3rem;">
-                                                                        <div
-                                                                            style="background-color: #e9ecef; padding: 4px; border-radius: 2px; border: 1px solid #ced4da; margin-left: 60px;">
-                                                                            <i class="fas fa-plus"></i>
-                                                                        </div>
-                                                                        <div
-                                                                            style="background-color: #e9ecef; padding: 4px; border-radius: 2px; border: 1px solid #ced4da">
-                                                                            <i class="fas fa-gift"></i>
-                                                                        </div>
-                                                                        <div style="width: fit-content;">
-                                                                            <div class="input-group">
-                                                                                <input class="form-control" readonly
-                                                                                    style="border-radius:0; background-color: white; width: 181px;">
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="d-flex align-items-center" style="gap: 0.3rem;">
-                                                                        <div
-                                                                            style="background-color: #e9ecef; padding: 4px; border-radius: 2px; border: 1px solid #ced4da; margin-left: 60px;">
-                                                                            <i class="fas fa-minus"></i>
-                                                                        </div>
-                                                                        <div
-                                                                            style="background-color: #e9ecef; padding: 4px; border-radius: 2px; border: 1px solid #ced4da">
-                                                                            <i class="fas fa-gift"></i>
-                                                                        </div>
-                                                                        <div style="width: fit-content;">
-                                                                            <div class="input-group">
-                                                                                <input class="form-control" readonly
-                                                                                    style="border-radius:0; background-color: white; width: 181px;">
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <!-- START AREA -->
-
-                                                                    <!-- NEXT 1 AREA -->
-                                                                    <div class="d-flex align-items-center"
-                                                                        style="margin-bottom: 15px; margin-right: 10px; position: relative; left: 5px; gap: 0.3rem;">
-                                                                        <span class="bg-green"
-                                                                            style="border-radius: 4px; display: inline-block; font-weight: 600; padding: 5px;">NEXT
-                                                                            1</span>
-                                                                        <div
-                                                                            style="background-color: #e9ecef; padding: 4px; border-radius: 2px; border: 1px solid #ced4da">
-                                                                            <i class="fas fa-chevron-down"></i>
-                                                                        </div>
-                                                                        <div
-                                                                            style="background-color: #e9ecef; padding: 4px; border-radius: 2px; border: 1px solid #ced4da">
-                                                                            <i class="fas fa-minus"></i>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="d-flex align-items-center" style="gap: 0.3rem;">
-                                                                        <div
-                                                                            style="background-color: #e9ecef; padding: 4px; border-radius: 2px; border: 1px solid #ced4da; margin-left: 60px;">
-                                                                            <i class="fas fa-gift"></i>
-                                                                        </div>
-                                                                        <div style="width: fit-content;">
-                                                                            <div class="input-group">
-                                                                                <input class="form-control" readonly
-                                                                                    style="border-radius:0; background-color: white; width: 181px;">
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <!-- NEXT 1 AREA -->
-
-                                                                    <!-- NEXT 2 AREA -->
-                                                                    <div class="d-flex align-items-center"
-                                                                        style="margin-bottom: 15px; margin-right: 10px; position: relative; left: 5px; gap: 0.3rem;">
-                                                                        <span class="bg-green"
-                                                                            style="border-radius: 4px; display: inline-block; font-weight: 600; padding: 5px;">NEXT
-                                                                            2</span>
-                                                                        <div
-                                                                            style="background-color: #e9ecef; padding: 4px; border-radius: 2px; border: 1px solid #ced4da">
-                                                                            <i class="fas fa-chevron-up"></i>
-                                                                        </div>
-                                                                        <div
-                                                                            style="background-color: #e9ecef; padding: 4px; border-radius: 2px; border: 1px solid #ced4da">
-                                                                            <i class="fas fa-chevron-down"></i>
-                                                                        </div>
-                                                                        <div
-                                                                            style="background-color: #e9ecef; padding: 4px; border-radius: 2px; border: 1px solid #ced4da">
-                                                                            <i class="fas fa-minus"></i>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="d-flex align-items-center" style="gap: 0.3rem;">
-                                                                        <div
-                                                                            style="background-color: #e9ecef; padding: 4px; border-radius: 2px; border: 1px solid #ced4da; margin-left: 60px;">
-                                                                            <i class="fas fa-gift"></i>
-                                                                        </div>
-                                                                        <div style="width: fit-content;">
-                                                                            <div class="input-group">
-                                                                                <input class="form-control" readonly
-                                                                                    style="border-radius:0; background-color: white; width: 181px;">
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <!-- NEXT 2 AREA -->
-
-                                                                    <!-- NEXT 3 AREA -->
-                                                                    <div class="d-flex align-items-center"
-                                                                        style="margin-bottom: 15px; margin-right: 10px; position: relative; left: 5px; gap: 0.3rem;">
-                                                                        <span class="bg-green"
-                                                                            style="border-radius: 4px; display: inline-block; font-weight: 600; padding: 5px;">NEXT
-                                                                            3</span>
-                                                                        <div
-                                                                            style="background-color: #e9ecef; padding: 4px; border-radius: 2px; border: 1px solid #ced4da">
-                                                                            <i class="fas fa-chevron-up"></i>
-                                                                        </div>
-                                                                        <div
-                                                                            style="background-color: #e9ecef; padding: 4px; border-radius: 2px; border: 1px solid #ced4da">
-                                                                            <i class="fas fa-minus"></i>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="d-flex align-items-center" style="gap: 0.3rem;">
-                                                                        <div
-                                                                            style="background-color: #e9ecef; padding: 4px; border-radius: 2px; border: 1px solid #ced4da; margin-left: 60px;">
-                                                                            <i class="fas fa-gift"></i>
-                                                                        </div>
-                                                                        <div style="width: fit-content;">
-                                                                            <div class="input-group">
-                                                                                <input class="form-control" readonly
-                                                                                    style="border-radius:0; background-color: white; width: 181px;">
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <!-- NEXT 3 AREA -->
-
-                                                                    <!-- END AREA -->
-                                                                    <div class="time-label" style="left: 15px;">
-                                                                        <span class="bg-blue">END</span>
-                                                                    </div>
-
-                                                                    <div class="d-flex align-items-center" style="gap: 0.3rem;">
-                                                                        <div
-                                                                            style="background-color: #e9ecef; padding: 4px; border-radius: 2px; border: 1px solid #ced4da; margin-left: 60px;">
-                                                                            <i class="fas fa-gift"></i>
-                                                                        </div>
-                                                                        <div style="width: fit-content;">
-                                                                            <div class="input-group">
-                                                                                <input class="form-control" readonly
-                                                                                    style="border-radius:0; background-color: white; width: 181px;">
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <!-- END AREA -->
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </section>
-                                            </div>
-                                        </div>
+                                        @include('Admin.Workflow.Functions.Header.HeaderWorkflowDetail')
                                     </div>
                                 </div>
                             </div>
@@ -343,4 +96,5 @@
     </div>
 
     @include('Partials.footer')
+    @include('Admin.Workflow.Functions.Footer.FooterWorkflowRoute')
 @endsection

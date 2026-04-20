@@ -1,172 +1,157 @@
 <script>
-    var idxStart = 1, idxIntermediate = 1, idxEnd = 1, cekStart = 0, cekIntemediate = 0, cekEnd = 0;
-    var add_start = $(".add_start");
-    var add_intermediate = $(".add_intermediate");
-    var add_end = $(".add_end");
-    $('.add_start_button').click(function () {
-            cekStart = 0;
-            addColomnStart();
+    let workflowState = [];
+    const budgetID = document.getElementById("project_id");
+
+    function addNextStep(newApproverName) {
+        workflowState.splice(workflowState.length - 1, 0, {
+            entities: {
+                approverEntityName: newApproverName
+            }
+        });
+
+        renderWorkflow();
+    }
+
+    function moveUp(index) {
+        if (index <= 0) return;
+        [workflowState[index], workflowState[index - 1]] =
+            [workflowState[index - 1], workflowState[index]];
+        renderWorkflow();
+    }
+
+    function moveDown(index) {
+        if (index >= workflowState.length - 1) return;
+        [workflowState[index], workflowState[index + 1]] =
+            [workflowState[index + 1], workflowState[index]];
+        renderWorkflow();
+    }
+
+    function deleteStep(index) {
+        if (index >= workflowState.length - 1) return;
+
+        workflowState.splice(index, 1);
+        renderWorkflow();
+    }
+
+    function renderWorkflow() {
+        $('.generated-next').remove();
+
+        if (!workflowState.length) return;
+
+        let lastItem = workflowState[workflowState.length - 1];
+
+        workflowState.slice(0, -1).forEach((item, i) => {
+            let approver = item.entities;
+
+            let html = `
+            <div class="generated-next">                
+                
+                <!-- NEXT ${i + 1} -->
+                <div class="d-flex align-items-center" style="margin-bottom: 15px; margin-right: 10px; position: relative; left: 5px; gap: 0.3rem;">
+                    <span class="bg-green" style="border-radius: 4px; font-weight: 600; padding: 5px;">
+                        NEXT ${i + 1}
+                    </span>
+                    ${i !== 0
+                    ? `<div onclick="moveUp(${i})" style="background-color: #e9ecef; padding: 4px; border: 1px solid #ced4da">
+                                <i class="fas fa-chevron-up"></i>
+                            </div>`
+                    : ''
+                }
+                    ${(i + 1) !== workflowState.length - 1
+                    ? `<div onclick="moveDown(${i})" style="background-color: #e9ecef; padding: 4px; border: 1px solid #ced4da">
+                    <i class="fas fa-chevron-down"></i>
+                    </div>`
+                    : ''
+                }
+                    <div onclick="deleteStep(${i})" style="background-color: #e9ecef; padding: 4px; border: 1px solid #ced4da">
+                        <i class="fas fa-minus"></i>
+                    </div>
+                </div>
+                
+                <div class="d-flex align-items-center" style="gap: 0.3rem;">
+                    <div style="background-color: #e9ecef; padding: 4px; border: 1px solid #ced4da; margin-left: 60px;">
+                        <i class="fas fa-gift"></i>
+                    </div>
+                    <div style="width: fit-content;">
+                        <div class="input-group">
+                            <input id="workflow_detail_next${i + 1}}" class="form-control" readonly value="${approver.approverEntityName}" style="border-radius:0; width: 181px;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            `;
+
+            $('#end-area').before(html);
+        });
+
+        if (lastItem) {
+            $('#end-area input.form-control').val(lastItem.entities.approverEntityName);
+        }
+
+        $('#workflow_detail_content').show();
+    }
+
+    function getWorkflow(businessDocumentTypeRefID) {
+        $.ajax({
+            type: 'POST',
+            url: '{!! route("GetWorkflow") !!}',
+            data: {
+                businessDocumentType_RefID: businessDocumentTypeRefID,
+                combinedBudget_RefID: budgetID.value
+            }
+        })
+            .done(function (response, textStatus, jqXHR) {
+                workflowState = response.data[0].nextApproverPath || [];
+
+                $('#workflow_detail_start').val(response.data[0].submitterEntityName || '');
+
+                renderWorkflow();
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                console.error("Error:", errorThrown);
+            })
+            .always(function (jqXHR, textStatus, errorThrown) {
+                $('#workflow_detail_loading').hide();
+            });
+    }
+
+    $('#tableProjects').on('click', 'tbody tr', async function () {
+        const id = $(this).find('input[data-trigger="sys_id_project"]').val();
+        const code = $(this).find('td:nth-child(2)').text();
+        const name = $(this).find('td:nth-child(3)').text();
+
+        $("#project_id").val(id);
+        $("#project_code").val(code);
+        $("#project_name").val(`${code} - ${name}`);
+        $("#project_name").css({ "background-color": "#e9ecef" });
+
+        getBusinessDocumentType();
+
+        $("#myBusinessDocumentTypeTrigger").css('cursor', 'pointer');
+        $("#myBusinessDocumentTypeTrigger").attr({
+            "data-toggle": "modal",
+            "data-target": "#myBusinessDocumentType"
+        });
+
+        $("#myProjects").modal('toggle');
     });
-    $('.add_intermediate_button').click(function () {
-            cekIntemediate = 0;
-            addColomnIntermediate();
+
+    $('#tableGetBusinessDocumentType').on('click', 'tbody tr', function () {
+        const id = $(this).find('input[data-trigger="sys_id_business_document"]').val();
+        const name = $(this).find('td:nth-child(2)').text();
+
+        $('#transaction_type_id').val(id);
+        $('#transaction_type_name').val(name);
+        $("#transaction_type_name").css({ "background-color": "#e9ecef", "border": "1px solid #ced4da" });
+
+        $('#workflow_detail_loading').show();
+        $('#workflow_detail_container').removeClass('collapsed-card');
+
+        getWorkflow(id);
+
+        $('#myBusinessDocumentType').modal('toggle');
     });
-    $('.add_end_button').click(function () {
-            cekEnd = 0;
-            addColomnEnd();
-    });
 
-    function addColomnStart(){ //on add input button click
-        if(cekStart == 0){
-            cekStart++;
-            idxStart++; //text box increment
-            $(add_start).append(
-                '<td>'
-                +   '<div class="input-group">'
-                +       '<input id="start' + idxStart + '" style="border-radius:0;background-color:white;width:10%;" name="start[]" class="form-control" readonly>'
-                +       '<div class="input-group-append">'
-                +           '<span style="border-radius:0;background-color:white;" class="input-group-text form-control">'
-                +               '<a href="#" id="" data-toggle="modal" data-target="#myUser" onclick="myUserStart('+ idxStart +')"><img src="{{ asset("AdminLTE-master/dist/img/box.png") }}" width="13" alt=""></a>'
-                +           '</span>&nbsp;'
-                +           '<span style="border-radius:0;background-color:white;" class="input-group-text form-control">'
-                +               '<a class="remove_start"><img src="{{ asset("AdminLTE-master/dist/img/cancel.png") }}" width="13" alt=""></a>'
-                +           '</span>'
-                +       '</div>'
-                +       '<br><br>'
-                +    '</div>'
-                +'</td>'
-
-            ); //add input box                
-        }                        
-    }
-
-    function addColomnIntermediate(){ //on add input button click
-        if(cekIntemediate == 0){
-            cekIntemediate++;
-            idxIntermediate++; //text box increment
-            $(add_intermediate).append(
-                '<td>'
-                +   '<div class="input-group">'
-                +       '<input id="intermediate' + idxIntermediate + '" style="border-radius:0;background-color:white;width:10%;" name="intermediate[]" class="form-control" readonly>'
-                +       '<div class="input-group-append">'
-                +           '<span style="border-radius:0;background-color:white;" class="input-group-text form-control">'
-                +               '<a href="#" id="" data-toggle="modal" data-target="#myUser" onclick="myUserIntermediate('+ idxIntermediate +')"><img src="{{ asset("AdminLTE-master/dist/img/box.png") }}" width="13" alt=""></a>'
-                +           '</span>&nbsp;'
-                +           '<span style="border-radius:0;background-color:white;" class="input-group-text form-control">'
-                +               '<a class="remove_intermediate"><img src="{{ asset("AdminLTE-master/dist/img/cancel.png") }}" width="13" alt=""></a>'
-                +           '</span>'
-                +       '</div>'
-                +       '<br><br>'
-                +    '</div>'
-                +'</td>'
-
-            ); //add input box                
-        }                        
-    }
-
-    function addColomnEnd(){ //on add input button click
-        if(cekEnd == 0){
-            cekEnd++;
-            idxEnd++; //text box increment
-            $(add_end).append(
-                '<td>'
-                +   '<div class="input-group">'
-                +       '<input id="end' + idxEnd + '" style="border-radius:0;background-color:white;width:10%;" name="end[]" class="form-control" readonly>'
-                +       '<div class="input-group-append">'
-                +           '<span style="border-radius:0;background-color:white" class="input-group-text form-control">'
-                +               '<a href="#" id="" data-toggle="modal" data-target="#myUser" onclick="myUserEnd('+ idxEnd +')"><img src="{{ asset("AdminLTE-master/dist/img/box.png") }}" width="13" alt=""></a>'
-                +           '</span>&nbsp;'
-                +           '<span style="border-radius:0;background-color:white;" class="input-group-text form-control">'
-                +               '<a class="remove_end"><img src="{{ asset("AdminLTE-master/dist/img/cancel.png") }}" width="13" alt=""></a>'
-                +           '</span>'
-                +       '</div>'
-                +       '<br><br>'
-                +    '</div>'
-                +'</td>'
-
-            ); //add input box                
-        }                        
-    }
-
-    $(add_start).on("click",".remove_start", function(e){ //user click on remove text
-        e.preventDefault(); $(this).parent().parent().parent('div').remove(); idxStart--;
-    })
-
-    $(add_intermediate).on("click",".remove_intermediate", function(e){ //user click on remove text
-        e.preventDefault(); $(this).parent().parent().parent('div').remove(); idxStart--;
-    })
-
-    $(add_end).on("click",".remove_end", function(e){ //user click on remove text
-        e.preventDefault(); $(this).parent().parent().parent('div').remove(); idxStart--;
-    })
-
-
-</script>
-
-<script>
-
-
-    document.addEventListener('DOMContentLoaded', (event) => {
-
-    var dragSrcEl = null;
-
-    function handleDragStart(e) {
-    this.style.opacity = '0.4';
-    
-    dragSrcEl = this;
-
-    e.dataTransfer.effectAllowed = 'move';
-    e.dataTransfer.setData('text/html', this.innerHTML);
-    }
-
-    function handleDragOver(e) {
-    if (e.preventDefault) {
-        e.preventDefault();
-    }
-
-    e.dataTransfer.dropEffect = 'move';
-    
-    return false;
-    }
-
-    function handleDragEnter(e) {
-    this.classList.add('over');
-    }
-
-    function handleDragLeave(e) {
-    this.classList.remove('over');
-    }
-
-    function handleDrop(e) {
-    if (e.stopPropagation) {
-        e.stopPropagation(); // stops the browser from redirecting.
-    }
-    
-    if (dragSrcEl != this) {
-        dragSrcEl.innerHTML = this.innerHTML;
-        this.innerHTML = e.dataTransfer.getData('text/html');
-    }
-    
-    return false;
-    }
-
-    function handleDragEnd(e) {
-    this.style.opacity = '1';
-    
-    items.forEach(function (item) {
-        item.classList.remove('over');
-    });
-    }
-
-
-    let items = document.querySelectorAll('.container .box');
-    items.forEach(function(item) {
-    item.addEventListener('dragstart', handleDragStart, false);
-    item.addEventListener('dragenter', handleDragEnter, false);
-    item.addEventListener('dragover', handleDragOver, false);
-    item.addEventListener('dragleave', handleDragLeave, false);
-    item.addEventListener('drop', handleDrop, false);
-    item.addEventListener('dragend', handleDragEnd, false);
-    });
+    $(document).ready(function () {
     });
 </script>
