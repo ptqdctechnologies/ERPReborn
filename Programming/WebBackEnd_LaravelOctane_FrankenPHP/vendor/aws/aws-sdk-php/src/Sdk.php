@@ -378,6 +378,8 @@ namespace Aws;
  * @method \Aws\MultiRegionClient createMultiRegionInspector2(array $args = [])
  * @method \Aws\InspectorScan\InspectorScanClient createInspectorScan(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionInspectorScan(array $args = [])
+ * @method \Aws\Interconnect\InterconnectClient createInterconnect(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionInterconnect(array $args = [])
  * @method \Aws\InternetMonitor\InternetMonitorClient createInternetMonitor(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionInternetMonitor(array $args = [])
  * @method \Aws\Invoicing\InvoicingClient createInvoicing(array $args = [])
@@ -494,6 +496,8 @@ namespace Aws;
  * @method \Aws\MultiRegionClient createMultiRegionMarketplaceCommerceAnalytics(array $args = [])
  * @method \Aws\MarketplaceDeployment\MarketplaceDeploymentClient createMarketplaceDeployment(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionMarketplaceDeployment(array $args = [])
+ * @method \Aws\MarketplaceDiscovery\MarketplaceDiscoveryClient createMarketplaceDiscovery(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionMarketplaceDiscovery(array $args = [])
  * @method \Aws\MarketplaceEntitlementService\MarketplaceEntitlementServiceClient createMarketplaceEntitlementService(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionMarketplaceEntitlementService(array $args = [])
  * @method \Aws\MarketplaceMetering\MarketplaceMeteringClient createMarketplaceMetering(array $args = [])
@@ -674,6 +678,8 @@ namespace Aws;
  * @method \Aws\S3\S3MultiRegionClient createMultiRegionS3(array $args = [])
  * @method \Aws\S3Control\S3ControlClient createS3Control(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionS3Control(array $args = [])
+ * @method \Aws\S3Files\S3FilesClient createS3Files(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionS3Files(array $args = [])
  * @method \Aws\S3Outposts\S3OutpostsClient createS3Outposts(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionS3Outposts(array $args = [])
  * @method \Aws\S3Tables\S3TablesClient createS3Tables(array $args = [])
@@ -714,6 +720,8 @@ namespace Aws;
  * @method \Aws\MultiRegionClient createMultiRegionSchemas(array $args = [])
  * @method \Aws\SecretsManager\SecretsManagerClient createSecretsManager(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionSecretsManager(array $args = [])
+ * @method \Aws\SecurityAgent\SecurityAgentClient createSecurityAgent(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionSecurityAgent(array $args = [])
  * @method \Aws\SecurityHub\SecurityHubClient createSecurityHub(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionSecurityHub(array $args = [])
  * @method \Aws\SecurityIR\SecurityIRClient createSecurityIR(array $args = [])
@@ -768,6 +776,8 @@ namespace Aws;
  * @method \Aws\MultiRegionClient createMultiRegionSupport(array $args = [])
  * @method \Aws\SupportApp\SupportAppClient createSupportApp(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionSupportApp(array $args = [])
+ * @method \Aws\Sustainability\SustainabilityClient createSustainability(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionSustainability(array $args = [])
  * @method \Aws\Swf\SwfClient createSwf(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionSwf(array $args = [])
  * @method \Aws\Synthetics\SyntheticsClient createSynthetics(array $args = [])
@@ -843,7 +853,7 @@ namespace Aws;
  */
 class Sdk
 {
-    const VERSION = '3.375.0';
+    const VERSION = '3.379.2';
 
     /** @var array Arguments for creating clients */
     private $args;

@@ -42,6 +42,7 @@ use Symfony\Component\TypeInfo\Type\NullableType;
 use Symfony\Component\TypeInfo\Type\ObjectType;
 use Symfony\Component\TypeInfo\Type\UnionType;
 use Symfony\Component\TypeInfo\Type\WrappingTypeInterface;
+use Symfony\Component\TypeInfo\TypeContext\TypeContextFactory;
 use Symfony\Component\TypeInfo\TypeIdentifier;
 use Symfony\Component\TypeInfo\TypeResolver\ReflectionTypeResolver;
 
@@ -575,6 +576,8 @@ abstract class AbstractObjectNormalizer extends AbstractNormalizer
                             // the builtinType is the inner one and the class is the class followed by []...[]
                             $typeIdentifier = TypeIdentifier::OBJECT;
                             $class = $innerType->getClassName().$dimensions;
+                            $context['key_type'] = $collectionKeyType;
+                            $context['value_type'] = $collectionValueType;
                         } else {
                             // default fallback (keep it as array)
                             if ($t instanceof ObjectType) {
@@ -704,11 +707,12 @@ abstract class AbstractObjectNormalizer extends AbstractNormalizer
 
         $parameterType = $parameter->getType();
         static $parameterTypeResolver;
+        static $parameterTypeContextFactory;
 
         if (null !== $parameterType && $parameterTypeResolver ??= class_exists(ReflectionTypeResolver::class) ? new ReflectionTypeResolver() : false) {
-            $resolvedParameterType = $parameterTypeResolver->resolve($parameterType);
+            $resolvedParameterType = $parameterTypeResolver->resolve($parameterType, ($parameterTypeContextFactory ??= new TypeContextFactory())->createFromClassName($class->name, $parameter->getDeclaringClass()?->name));
             if ($resolvedParameterType->isSatisfiedBy(static fn (Type $t) => match (true) {
-                $t instanceof BuiltinType && TypeIdentifier::NULL !== $t->getTypeIdentifier() => !$type->isIdentifiedBy($t->getTypeIdentifier()),
+                $t instanceof BuiltinType && !\in_array($t->getTypeIdentifier(), [TypeIdentifier::NULL, TypeIdentifier::MIXED], true) => !$type->isIdentifiedBy($t->getTypeIdentifier()),
                 $t instanceof ObjectType => !$type->isIdentifiedBy($t->getClassName()),
                 default => false,
             })) {
@@ -718,7 +722,7 @@ abstract class AbstractObjectNormalizer extends AbstractNormalizer
             if ($parameterType->isBuiltin()) {
                 $typeIdentifier = TypeIdentifier::tryFrom($parameterType->getName());
 
-                if (null !== $typeIdentifier && !$type->isIdentifiedBy($typeIdentifier)) {
+                if (null !== $typeIdentifier && TypeIdentifier::MIXED !== $typeIdentifier && !$type->isIdentifiedBy($typeIdentifier)) {
                     $type = Type::builtin($typeIdentifier);
                 }
             } elseif (!$type->isIdentifiedBy($parameterType->getName())) {
