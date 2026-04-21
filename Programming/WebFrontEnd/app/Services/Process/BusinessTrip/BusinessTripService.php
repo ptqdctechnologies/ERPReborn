@@ -54,6 +54,35 @@ class BusinessTripService
         );
     }
 
+    public function getBusinessTripToBSFSummary($budget, $subBudget, $date, $requester, $businessTripID, $businessTripSettlementID)
+    {
+        $sessionToken = Session::get('SessionLogin');
+
+        if ($date) {
+            $dates = explode(' - ', $date);
+            $startDate = Carbon::createFromFormat('m/d/Y', trim($dates[0]))->startOfDay()->format('Y-m-d');
+            $endDate = Carbon::createFromFormat('m/d/Y', trim($dates[1]))->endOfDay()->format('Y-m-d');
+        }
+
+        return Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
+            $sessionToken,
+            'report.form.documentForm.humanResource.getPersonBusinessTripToBSFSummary',
+            'latest',
+            [
+                'parameter' => [
+                    'CombinedBudgetCode' => $budget,
+                    'CombinedBudgetSectionCode' => $subBudget ? $subBudget : NULL,
+                    'Requester_RefID' => $requester ? $requester : NULL,
+                    'BusinessTrip_RefID' => $businessTripID ? $businessTripID : NULL,
+                    'BusinessTripSettlement_RefID' => $businessTripSettlementID ? $businessTripSettlementID : NULL,
+                    'StartDate' => $date ? $startDate : NULL,
+                    'EndDate' => $date ? $endDate : NULL
+                ]
+            ]
+        );
+    }
+
     public function getDetail($advanceRequestID)
     {
         $sessionToken = Session::get('SessionLogin');

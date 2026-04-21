@@ -272,6 +272,11 @@ class AdvanceRequestController extends Controller
     public function PrintExportReportAdvanceSummary(Request $request)
     {
         try {
+            $budget = $request->budgetName;
+            $subBudget = $request->subBudgetName;
+            $requester = $request->requesterName;
+            $beneficiary = $request->beneficiaryName;
+            $arfDate = $request->arfDate;
             $dataAdvanceSummary = json_decode($request->dataReport, true);
             $type = $request->printType;
 
@@ -290,7 +295,7 @@ class AdvanceRequestController extends Controller
 
                     return $pdf->download('Export Report Advance Summary.pdf');
                 } else if ($type === "EXCEL") {
-                    return Excel::download(new ExportReportAdvanceSummary($dataAdvanceSummary), 'Export Report Advance Summary.xlsx');
+                    return Excel::download(new ExportReportAdvanceSummary($dataAdvanceSummary, $budget, $subBudget, $requester, $beneficiary, $arfDate), 'Export Report Advance Summary.xlsx');
                 } else {
                     throw new \Exception('Failed to Export Advance Summary Report');
                 }

@@ -8,7 +8,8 @@
                     Name</label>
                 <div class="col-5 d-flex">
                     <div class="input-group">
-                        <input class="form-control" id="supplier_name" name="supplier_name" style="border-radius:0;">
+                        <input class="form-control" id="supplier_name" name="supplier_name" style="border-radius:0;"
+                            autocomplete="off">
                     </div>
                 </div>
             </div>
@@ -19,7 +20,8 @@
                     ID</label>
                 <div class="col-5 d-flex">
                     <div class="input-group">
-                        <input class="form-control" id="tax_id" name="tax_id" style="border-radius:0;">
+                        <input class="form-control number-only" id="tax_id" name="tax_id" style="border-radius:0;"
+                            autocomplete="off">
                     </div>
                 </div>
             </div>
@@ -29,7 +31,8 @@
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Phone</label>
                 <div class="col-5 d-flex">
                     <div class="input-group">
-                        <input class="form-control" id="phone_number" name="phone_number" style="border-radius:0;">
+                        <input class="form-control number-only" id="phone_number" name="phone_number"
+                            style="border-radius:0;" autocomplete="off">
                     </div>
                 </div>
             </div>
@@ -39,7 +42,7 @@
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Email</label>
                 <div class="col-5 d-flex">
                     <div class="input-group">
-                        <input class="form-control" id="email" name="email" style="border-radius:0;">
+                        <input class="form-control" id="email" name="email" style="border-radius:0;" autocomplete="off">
                     </div>
                 </div>
             </div>
@@ -129,7 +132,8 @@
                     Person</label>
                 <div class="col-5 d-flex">
                     <div class="input-group">
-                        <input class="form-control" id="contact_person" name="contact_person" style="border-radius:0;">
+                        <input class="form-control" id="contact_person" name="contact_person" style="border-radius:0;"
+                            autocomplete="off">
                     </div>
                 </div>
             </div>
@@ -164,7 +168,8 @@
                     Number</label>
                 <div class="col-5 d-flex">
                     <div class="input-group">
-                        <input class="form-control" id="account_number" name="account_number" style="border-radius:0;">
+                        <input class="form-control number-only" id="account_number" name="account_number"
+                            style="border-radius:0;" autocomplete="off">
                     </div>
                 </div>
             </div>
@@ -175,7 +180,8 @@
                     Name</label>
                 <div class="col-5 d-flex">
                     <div class="input-group">
-                        <input class="form-control" id="account_name" name="account_name" style="border-radius:0;">
+                        <input class="form-control" id="account_name" name="account_name" style="border-radius:0;"
+                            autocomplete="off">
                     </div>
                 </div>
             </div>

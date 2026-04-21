@@ -50,10 +50,18 @@
       $("#loading").show();
       $(".loader").show();
     },
+    showBudgetLoading: () => {
+      $("#loadingBudget").show();
+      $("#iconBudget").hide();
+    },
     hideLoading: () => {
       $("#loading").hide();
       $(".loader").hide();
-    }
+    },
+    hideBudgetLoading: () => {
+      $("#loadingBudget").hide();
+      $("#iconBudget").show();
+    },
   }
 
   // ============================================
@@ -739,6 +747,40 @@
         $("#loading_document_count").hide();
       }
     });
+  }
+
+  function userAllowedToInvolve(
+    combinedBudgetID,
+    combinedBudgetCode,
+    combinedBudgetName,
+    businessDocumentTypeID,
+    successFunction = () => { }
+  ) {
+    $.ajax({
+      type: 'POST',
+      url: '{!! route("Workflow.UserAllowedToInvolve") !!}',
+      data: {
+        businessDocumentType_RefID: businessDocumentTypeID,
+        combinedBudget_RefID: combinedBudgetID
+      }
+    })
+      .done(function (response, textStatus, jqXHR) {
+        // if (response.status == 200 && response.data.signAllowed) {
+        successFunction(combinedBudgetID, combinedBudgetCode, combinedBudgetName);
+        // } else {
+        //   ErrorHandler.notifToast(
+        //     'error',
+        //     'You are not included in this budget',
+        //     'Error!'
+        //   );
+        // }
+      })
+      .fail(function (jqXHR, textStatus, errorThrown) {
+        console.error("Error:", errorThrown);
+      })
+      .always(function (jqXHR, textStatus, errorThrown) {
+        Utils.hideBudgetLoading();
+      });
   }
 
   $(window).one('load', function (e) {

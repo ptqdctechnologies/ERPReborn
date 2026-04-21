@@ -30,37 +30,3 @@
         </div>
     </div>
 </div>
-
-<script>
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
-
-    $(function () {
-        // $('.myPopUpArfRevision').on('click', function(e) {
-        //     e.preventDefault();
-        //     $.ajax({
-        //         type: 'GET',
-        //         url: '{!! route("AdvanceRequest.AdvanceListData") !!}',
-        //         success: function(data) {
-        //             var no = 1; t = $('#TableSearchArfRevision').DataTable();
-        //             t.clear();
-        //             $.each(data, function(key, val) {
-        //                 t.row.add([
-        //                     '<tbody><tr><td>' + no++ + '</td>',
-        //                     '<td><span data-dismiss="modal" onclick="klikPopUpAdvanceRevision(\'' + val.sys_ID + '\', \'' + val.documentNumber + '\');">' + val.documentNumber + '</span></td>',
-        //                     '<td><span data-dismiss="modal" onclick="klikPopUpAdvanceRevision(\'' + val.sys_ID + '\', \'' + val.documentNumber + '\');">' + val.combinedBudget_RefID + '</span></td>',
-        //                     '<td><span data-dismiss="modal" onclick="klikPopUpAdvanceRevision(\'' + val.sys_ID + '\', \'' + val.documentNumber + '\');">' + val.combinedBudgetName + '</span></td>',
-        //                     '<td><span data-dismiss="modal" onclick="klikPopUpAdvanceRevision(\'' + val.sys_ID + '\', \'' + val.documentNumber + '\');">' + val.combinedBudgetSection_RefID + '</span></td>',
-        //                     '<td><span data-dismiss="modal" onclick="klikPopUpAdvanceRevision(\'' + val.sys_ID + '\', \'' + val.documentNumber + '\');">' + val.combinedBudgetSectionName + '</td></tr></tbody>'
-        //                 ]).draw();
-
-        //             });
-        //         }
-        //     });
-        // });
-
-    });
-</script>
