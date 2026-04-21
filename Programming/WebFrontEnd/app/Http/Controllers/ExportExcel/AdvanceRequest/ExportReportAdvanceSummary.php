@@ -84,7 +84,7 @@ class ExportReportAdvanceSummary implements FromCollection, WithHeadings, Should
             [date('h:i A')],
             ["Budget", ": " . $budget, "Requester", ": " . $requester, "Date Range", ": " . $arfDate],
             ["Sub Budget", ": " . $subBudget, "Beneficiary", ": " . $beneficiary],
-            ["", "", "", "", "", "", "", "", "", "", ""],
+            [""],
             ["No", "Advance Number", "Sub Budget", "Date", "Requester", "Beneficiary", "Total IDR", "Total Other Currency", "Total Equivalent IDR", "Remark"]
         ];
     }

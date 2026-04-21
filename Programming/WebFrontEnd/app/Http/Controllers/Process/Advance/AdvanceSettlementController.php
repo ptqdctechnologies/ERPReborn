@@ -411,6 +411,10 @@ class AdvanceSettlementController extends Controller
     public function PrintExportReportAdvanceSettlementSummary(Request $request)
     {
         try {
+            $budget = $request->budgetName;
+            $subBudget = $request->subBudgetName;
+            $requester = $request->requesterName;
+            $asfDate = $request->asfDate;
             $dataAdvanceSettlementSummary = json_decode($request->dataReport, true);
             $type = $request->printType;
 
@@ -429,7 +433,7 @@ class AdvanceSettlementController extends Controller
 
                     return $pdf->download('Export Report Advance Settlement Summary.pdf');
                 } else if ($type === "EXCEL") {
-                    return Excel::download(new ExportReportAdvanceSettlementSummary($dataAdvanceSettlementSummary), 'Export Report Advance Settlement Summary.xlsx');
+                    return Excel::download(new ExportReportAdvanceSettlementSummary($dataAdvanceSettlementSummary, $budget, $subBudget, $requester, $asfDate), 'Export Report Advance Settlement Summary.xlsx');
                 } else {
                     throw new \Exception('Failed to Export Advance Settlement Summary Report');
                 }

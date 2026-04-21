@@ -10,8 +10,24 @@
     const subBudgetName = document.getElementById("site_name");
     const subBudgetCode = document.getElementById("site_code");
     const requesterID = document.getElementById("requester_id");
+    const requesterName = document.getElementById("requester_name");
     const asfDate = document.getElementById("asfDate");
     const printType = document.getElementById("print_type");
+
+    function selectBudget(combinedBudgetID, combinedBudgetCode, combinedBudgetName) {
+        $("#budget_id").val(combinedBudgetID);
+        $("#budget_code").val(combinedBudgetCode);
+        $("#budget_name").val(`${combinedBudgetCode} - ${combinedBudgetName}`);
+        $("#budget_name").css('background-color', '#e9ecef');
+
+        getSites(combinedBudgetID);
+
+        $("#mySitesTrigger").css('cursor', 'pointer');
+        $("#mySitesTrigger").attr({
+            "data-toggle": "modal",
+            "data-target": "#mySites"
+        });
+    }
 
     function resetForm() {
         $("#budget_name").css('background-color', '#fff');
@@ -31,13 +47,13 @@
         $("#asfDate").css('background-color', '#fff');
         $(`#asfDate`).val("");
 
-        hideErrorInputMessage("#budget_name", "#budgetMessage");
-        hideErrorInputMessage("#requester_name", "#requesterMessage");
-        hideErrorInputMessage("#asfDate", "#dateRangeMessage");
+        ErrorHandler.hideErrorInputMessage("#budget_name", "#budgetMessage");
+        ErrorHandler.hideErrorInputMessage("#requester_name", "#requesterMessage");
+        ErrorHandler.hideErrorInputMessage("#asfDate", "#dateRangeMessage");
     }
 
     function getDataReport() {
-        ShowLoading();
+        Utils.showLoading();
 
         $.ajax({
             type: 'POST',
@@ -214,24 +230,33 @@
                     $('#table_container').css("display", "block");
                 }
 
-                HideLoading();
+                Utils.hideLoading();
             },
             error: function (xhr, status, error) {
-                HideLoading();
-                ErrorNotif("An error occurred while processing the received data. Please try again later.");
                 console.log('xhr, status, error', xhr, status, error);
+
+                Utils.hideLoading();
+                ErrorHandler.notifToast(
+                    'error',
+                    'An error occurred while processing the received data. Please try again later',
+                    'Error!'
+                );
             }
         });
     }
 
     function exportDataReport() {
-        ShowLoading();
+        Utils.showLoading();
 
         $.ajax({
             url: '{!! route("AdvanceSettlement.PrintExportReportAdvanceSettlementSummary") !!}',
             type: 'POST',
             data: {
                 dataReport,
+                budgetName: budgetName.value || '-',
+                subBudgetName: subBudgetName.value || '-',
+                requesterName: requesterName.value || '-',
+                asfDate: asfDate.value || '-',
                 printType: printType.value
             },
             xhrFields: {
@@ -252,12 +277,17 @@
 
                 window.URL.revokeObjectURL(link.href);
 
-                HideLoading();
+                Utils.hideLoading();
             },
             error: function (xhr, status, error) {
-                HideLoading();
-                ErrorNotif("An error occurred while processing the received data. Please try again later.");
                 console.log('xhr, status, error', xhr, status, error);
+
+                Utils.hideLoading();
+                ErrorHandler.notifToast(
+                    'error',
+                    'An error occurred while processing the received data. Please try again later',
+                    'Error!'
+                );
             }
         });
     }
@@ -267,33 +297,26 @@
         const isRequesterIDNotEmpty = requesterID.value.trim() !== '';
         const isAsfDateNotEmpty = asfDate.value.trim() !== '';
 
+        const isAuthorizedRole = Utils.isUserAuthorizedForReport();
+
         if (
             isBudgetIDNotEmpty ||
             isRequesterIDNotEmpty ||
             isAsfDateNotEmpty
         ) {
-            hideErrorInputMessage("#budget_name", "#budgetMessage");
-            hideErrorInputMessage("#requester_name", "#requesterMessage");
-            hideErrorInputMessage("#asfDate", "#dateRangeMessage");
+            ErrorHandler.hideErrorInputMessage("#budget_name", "#budgetMessage");
+            ErrorHandler.hideErrorInputMessage("#requester_name", "#requesterMessage");
+            ErrorHandler.hideErrorInputMessage("#asfDate", "#dateRangeMessage");
 
-            if (
-                !isBudgetIDNotEmpty && organizationalDepartmentName.value === 'Finance & Accounting' || (
-                    organizationalJobPositionName.value === 'General Manager' ||
-                    organizationalJobPositionName.value === 'Senior Manager' ||
-                    organizationalJobPositionName.value === 'Director'
-                )) {
+            if (isBudgetIDNotEmpty || isAuthorizedRole) {
                 getDataReport();
             } else {
-                if (isBudgetIDNotEmpty) {
-                    getDataReport();
-                } else {
-                    showErrorInputMessage("#budget_name", "#budgetMessage");
-                }
+                ErrorHandler.showErrorInputMessage("#budget_name", "#budgetMessage");
             }
         } else {
-            showErrorInputMessage("#budget_name", "#budgetMessage");
-            showErrorInputMessage("#requester_name", "#requesterMessage");
-            showErrorInputMessage("#asfDate", "#dateRangeMessage");
+            ErrorHandler.showErrorInputMessage("#budget_name", "#budgetMessage");
+            ErrorHandler.showErrorInputMessage("#requester_name", "#requesterMessage");
+            ErrorHandler.showErrorInputMessage("#asfDate", "#dateRangeMessage");
         }
     }
 
@@ -301,48 +324,12 @@
         if (dataReport.length > 0) {
             exportDataReport();
         } else {
-            ErrorNotif("No data available to export. Please display the data first.");
+            ErrorHandler.notifToast(
+                'error',
+                'No data available to export. Please display the data first',
+                'Error!'
+            );
         }
-    }
-
-    function getWorkflow(combinedBudgetID, combinedBudgetCode, combinedBudgetName) {
-        $.ajax({
-            type: 'POST',
-            url: '{!! route("GetWorkflow") !!}',
-            data: {
-                businessDocumentType_RefID: documentTypeID.value,
-                combinedBudget_RefID: combinedBudgetID
-            }
-        })
-            .done(function (data, textStatus, jqXHR) {
-                if (data.status == 200) {
-                    $("#budget_id").val(combinedBudgetID);
-                    $("#budget_code").val(combinedBudgetCode);
-                    $("#budget_name").val(`${combinedBudgetCode} - ${combinedBudgetName}`);
-                    $("#budget_name").css('background-color', '#e9ecef');
-
-                    getSites(combinedBudgetID);
-
-                    $("#mySitesTrigger").css('cursor', 'pointer');
-                    $("#mySitesTrigger").attr({
-                        "data-toggle": "modal",
-                        "data-target": "#mySites"
-                    });
-                } else {
-                    ErrorHandler.notifToast(
-                        'error',
-                        'You are not included in this budget',
-                        'Error!'
-                    );
-                }
-            })
-            .fail(function (jqXHR, textStatus, errorThrown) {
-                console.error("Error:", errorThrown);
-            })
-            .always(function (jqXHR, textStatus, errorThrown) {
-                $("#loadingBudget").hide();
-                $("#iconBudget").show();
-            });
     }
 
     $('#tableProjects').on('click', 'tbody tr', function () {
@@ -350,32 +337,20 @@
         const code = $(this).find('td:nth-child(2)').text();
         const name = $(this).find('td:nth-child(3)').text();
 
-        if (organizationalDepartmentName.value === 'Finance & Accounting' || (
-            organizationalJobPositionName.value === 'General Manager' ||
-            organizationalJobPositionName.value === 'Senior Manager' ||
-            organizationalJobPositionName.value === 'Director'
-        )) {
-            $("#budget_id").val(sysId);
-            $("#budget_code").val(code);
-            $("#budget_name").val(`${code} - ${name}`);
-            $("#budget_name").css('background-color', '#e9ecef');
+        $("#budget_id").val("");
+        $("#budget_code").val("");
+        $("#budget_name").val("");
+        $("#budget_name").css('background-color', '#fff');
 
-            hideErrorInputMessage("#budget_name", "#budgetMessage");
-            getSites(sysId);
-
-            $("#mySitesTrigger").css('cursor', 'pointer');
-            $("#mySitesTrigger").attr({
-                "data-toggle": "modal",
-                "data-target": "#mySites"
-            });
+        if (Utils.isUserAuthorizedForReport()) {
+            selectBudget(sysId, code, name);
         } else {
-            $("#loadingBudget").show();
-            $("#iconBudget").hide();
+            Utils.showBudgetLoading();
 
-            getWorkflow(sysId, code, name);
+            userAllowedToInvolve(sysId, code, name, documentTypeID.value, selectBudget);
         }
 
-        hideErrorInputMessage("#budget_name", "#budgetMessage");
+        ErrorHandler.hideErrorInputMessage("#budget_name", "#budgetMessage");
 
         $("#myProjects").modal('toggle');
     });
@@ -390,7 +365,7 @@
         $("#site_name").val(`${code} - ${name}`);
         $("#site_name").css('background-color', '#e9ecef');
 
-        hideErrorInputMessage("#sub_budget_name", "#subBudgetMessage");
+        ErrorHandler.hideErrorInputMessage("#sub_budget_name", "#subBudgetMessage");
 
         $("#mySites").modal('toggle');
     });
@@ -404,9 +379,9 @@
         $("#requester_name").val(`${position} - ${name}`);
         $("#requester_name").css('background-color', '#e9ecef');
 
-        hideErrorInputMessage("#requester_name", "#requesterMessage");
+        ErrorHandler.hideErrorInputMessage("#requester_name", "#requesterMessage");
 
-        $('#myRequesters').modal('hide');
+        $('#myRequesters').modal('toggle');
     });
 
     $(document).ready(function () {
@@ -421,7 +396,7 @@
         $('#asfDate').on('apply.daterangepicker', function (ev, picker) {
             $("#asfDate").css('background-color', '#e9ecef');
             $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
-            hideErrorInputMessage("#asfDate", "#dateRangeMessage");
+            ErrorHandler.hideErrorInputMessage("#asfDate", "#dateRangeMessage");
         });
 
         $('#asfDate').on('cancel.daterangepicker', function (ev, picker) {

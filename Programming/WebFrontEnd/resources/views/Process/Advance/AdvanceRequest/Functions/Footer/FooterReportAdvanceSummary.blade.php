@@ -313,7 +313,7 @@
 
         ErrorHandler.hideErrorInputMessage("#budget_name", "#budgetMessage");
 
-        $('#myProjects').modal('hide');
+        $("#myProjects").modal('toggle');
     });
 
     $('#tableSites').on('click', 'tbody tr', function () {
@@ -328,7 +328,7 @@
 
         ErrorHandler.hideErrorInputMessage("#sub_budget_name", "#subBudgetMessage");
 
-        $('#mySites').modal('hide');
+        $('#mySites').modal('toggle');
     });
 
     $('#tableRequesters').on('click', 'tbody tr', function () {
@@ -342,7 +342,7 @@
 
         ErrorHandler.hideErrorInputMessage("#requester_name", "#requesterMessage");
 
-        $('#myRequesters').modal('hide');
+        $('#myRequesters').modal('toggle');
     });
 
     $('#tableBeneficiaries').on('click', 'tbody tr', function () {
@@ -356,7 +356,7 @@
 
         ErrorHandler.hideErrorInputMessage("#beneficiary_name", "#beneficiaryMessage");
 
-        $('#myBeneficiaries').modal('hide');
+        $('#myBeneficiaries').modal('toggle');
     });
 
     $(document).ready(function () {
