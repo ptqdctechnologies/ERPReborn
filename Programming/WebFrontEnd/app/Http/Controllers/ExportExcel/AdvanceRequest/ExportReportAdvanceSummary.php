@@ -13,53 +13,58 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class ExportReportAdvanceSummary implements FromCollection, WithHeadings, ShouldAutoSize, WithStyles
 {
-    protected $dataAdvanceSummary;
+    protected $dataAdvanceSummary, $budget, $subBudget, $requester, $beneficiary, $arfDate;
 
-    public function __construct($dataAdvanceSummary)
+    public function __construct($dataAdvanceSummary, $budget, $subBudget, $requester, $beneficiary, $arfDate)
     {
         $this->dataAdvanceSummary = $dataAdvanceSummary;
+        $this->budget = $budget;
+        $this->subBudget = $subBudget;
+        $this->requester = $requester;
+        $this->beneficiary = $beneficiary;
+        $this->arfDate = $arfDate;
     }
 
     public function collection()
     {
         $data = $this->dataAdvanceSummary;
 
-        $totalIDR           = 0;
+        $totalIDR = 0;
         $totalOtherCurrency = 0;
         $totalEquivalentIDR = 0;
 
         $filteredData = [];
         $counter = 1;
         foreach ($data as $item) {
-            $totalIDR           += is_numeric($item['total_IDR']) ? $item['total_IDR'] : 0;
+            $totalIDR += is_numeric($item['total_IDR']) ? $item['total_IDR'] : 0;
             $totalOtherCurrency += is_numeric($item['total_Other_Currency']) ? $item['total_Other_Currency'] : 0;
             $totalEquivalentIDR += is_numeric($item['total_Equivalent_IDR']) ? $item['total_Equivalent_IDR'] : 0;
 
             $filteredData[] = [
-                'No'                    => $counter++,
-                'Advance Number'        => $item['advanceNumber'] ?? '-',
-                'Sub Budget'            => ($item['combinedBudgetSectionName'] ?? '') . ' - ' . ($item['combinedBudgetSectionName'] ?? ''),
-                'Date'                  => isset($item['advanceDate']) ? date('d-m-Y', strtotime($item['advanceDate'])) : '-',
-                'Requester'             => $item['requesterName'] ?? '-',
-                'Beneficiary'           => $item['beneficiaryName'] ?? '-',
-                'Total IDR'             => $item['total_IDR'] ?? '-',
-                'Total Other Currency'  => $item['total_Other_Currency'] ?? '-',
-                'Total Equivalent IDR'  => $item['total_Equivalent_IDR'] ?? '-',
-                'Remark'                => $item['remarks'] ?? '-',
+                'No' => $counter++,
+                'Advance Number' => $item['advanceNumber'] ?? '-',
+                'Sub Budget' => ($item['combinedBudgetSectionName'] ?? '') . ' - ' . ($item['combinedBudgetSectionName'] ?? ''),
+                'Date' => isset($item['advanceDate']) ? date('d-m-Y', strtotime($item['advanceDate'])) : '-',
+                'Requester' => $item['requesterName'] ?? '-',
+                'Beneficiary' => $item['beneficiaryName'] ?? '-',
+                'Total IDR' => $item['total_IDR'] ?? '-',
+                'Total Other Currency' => $item['total_Other_Currency'] ?? '-',
+                'Total Equivalent IDR' => $item['total_Equivalent_IDR'] ?? '-',
+                'Remark' => $item['remarks'] ?? '-',
             ];
         }
 
         $filteredData[] = [
-            'No'                    => 'GRAND TOTAL',
-            'Advance Number'        => '',
-            'Sub Budget'            => '',
-            'Date'                  => '',
-            'Requester'             => '',
-            'Beneficiary'           => '',
-            'Total IDR'             => $totalIDR,
-            'Total Other Currency'  => $totalOtherCurrency,
-            'Total Equivalent IDR'  => $totalEquivalentIDR,
-            'Remark'                => '',
+            'No' => 'GRAND TOTAL',
+            'Advance Number' => '',
+            'Sub Budget' => '',
+            'Date' => '',
+            'Requester' => '',
+            'Beneficiary' => '',
+            'Total IDR' => $totalIDR,
+            'Total Other Currency' => $totalOtherCurrency,
+            'Total Equivalent IDR' => $totalEquivalentIDR,
+            'Remark' => '',
         ];
 
         return collect($filteredData);
@@ -67,15 +72,20 @@ class ExportReportAdvanceSummary implements FromCollection, WithHeadings, Should
 
     public function headings(): array
     {
-        $data = $this->dataAdvanceSummary;
+        $budget = $this->budget;
+        $subBudget = $this->subBudget;
+        $requester = $this->requester;
+        $beneficiary = $this->beneficiary;
+        $arfDate = $this->arfDate;
 
         return [
             [date('F j, Y')],
             ["ADVANCE REQUEST SUMMARY", " ", " ", " ", " ", " ", " "],
             [date('h:i A')],
-            ["Budget", ": " . $data[0]['combinedBudgetCode'] . ' - ' . $data[0]['combinedBudgetName'], "", "", "", "", ""],
+            ["Budget", ": " . $budget, "Requester", ": " . $requester, "Date Range", ": " . $arfDate],
+            ["Sub Budget", ": " . $subBudget, "Beneficiary", ": " . $beneficiary],
             ["", "", "", "", "", "", "", "", "", "", ""],
-            ["No", "Advance Number", "Sub Budget", "Date", "Requester", "Beneficiary","Total IDR", "Total Other Currency","Total Equivalent IDR",  "Remark"]
+            ["No", "Advance Number", "Sub Budget", "Date", "Requester", "Beneficiary", "Total IDR", "Total Other Currency", "Total Equivalent IDR", "Remark"]
         ];
     }
 
@@ -139,6 +149,7 @@ class ExportReportAdvanceSummary implements FromCollection, WithHeadings, Should
         ];
 
         $sheet->getStyle('A4:J4')->applyFromArray($styleArrayHeader3);
+        $sheet->getStyle('A5:J5')->applyFromArray($styleArrayHeader3);
 
         $styleArrayHeader4 = [
             'font' => [
@@ -164,7 +175,7 @@ class ExportReportAdvanceSummary implements FromCollection, WithHeadings, Should
             ],
         ];
 
-        $sheet->getStyle('A6:J6')->applyFromArray($styleArrayHeader4);
+        $sheet->getStyle('A7:J7')->applyFromArray($styleArrayHeader4);
 
         $styleArrayContent = [
             'borders' => [
@@ -177,9 +188,9 @@ class ExportReportAdvanceSummary implements FromCollection, WithHeadings, Should
             ],
         ];
 
-        $datas      = $this->dataAdvanceSummary;
-        $totalCell  = count($datas);
-        $lastCell   = 'A6:J' . $totalCell + 6;
+        $datas = $this->dataAdvanceSummary;
+        $totalCell = count($datas);
+        $lastCell = 'A7:J' . $totalCell + 7;
         $sheet->getStyle($lastCell)->applyFromArray($styleArrayContent);
 
         $styleArrayFooter = [
@@ -206,7 +217,7 @@ class ExportReportAdvanceSummary implements FromCollection, WithHeadings, Should
             ],
         ];
 
-        $sheet->getStyle('A' . $totalCell + 7 . ':' . 'J' . $totalCell + 7)->applyFromArray($styleArrayFooter);
-        $sheet->mergeCells('A' . $totalCell + 7 . ':F' . $totalCell + 7);
+        $sheet->getStyle('A' . $totalCell + 8 . ':' . 'J' . $totalCell + 8)->applyFromArray($styleArrayFooter);
+        $sheet->mergeCells('A' . $totalCell + 8 . ':F' . $totalCell + 8);
     }
 }

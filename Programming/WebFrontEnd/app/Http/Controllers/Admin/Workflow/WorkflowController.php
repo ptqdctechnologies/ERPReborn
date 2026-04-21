@@ -145,7 +145,7 @@ class WorkflowController extends Controller
             'latest',
             [
                 'parameter' => [
-                    'user_RefID' => (int) 4000000000029,
+                    'user_RefID' => (int) $sessionUserRefID,
                     'businessDocumentType_RefID' => (int) $businessDocumentTypeRefID,
                     'combinedBudget_RefID' => (int) $combinedBudgetRefID
                 ]
