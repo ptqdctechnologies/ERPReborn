@@ -13,11 +13,15 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class ExportReportAdvanceToASF implements FromCollection, WithHeadings, ShouldAutoSize, WithStyles
 {
-    protected $advanceRequestToASF;
+    protected $advanceRequestToASF, $budgetName, $subBudgetName, $requesterName, $date;
 
-    public function __construct($advanceRequestToASF)
+    public function __construct($advanceRequestToASF, $budgetName, $subBudgetName, $requesterName, $date)
     {
         $this->advanceRequestToASF = $advanceRequestToASF;
+        $this->budgetName = $budgetName;
+        $this->subBudgetName = $subBudgetName;
+        $this->requesterName = $requesterName;
+        $this->date = $date;
     }
 
     public function collection()
@@ -28,21 +32,21 @@ class ExportReportAdvanceToASF implements FromCollection, WithHeadings, ShouldAu
         $counter = 1;
         foreach ($data as $item) {
             $filteredData[] = [
-                'No'                    => $counter++,
-                'ARF Number'            => $item['ARF_Number'] ?? null,
-                'Date'                  => date('d-m-Y', strtotime($item['ARF_Date'])) ?? null,
-                'Requester'             => $item['RequesterWorkerName'] ?? null,
-                'Total'                 => $item['ARF_Total_IDR'] ?? null,
-                'Payment'               => $item['advance_ToPayment'] ?? null,
-                'Status'                => $item['Status'] ?? null,
-                'ASF Number'            => $item['ASF_Number'] ?? null,
-                'ASF Date'              => date('d-m-Y', strtotime($item['ASF_Date'])) ?? null,
-                'Total ASF'             => $item['ASF_Total'] ?? null,
-                'Expense Claim'         => $item['expense_Claim_IDR'] ?? null,
+                'No' => $counter++,
+                'ARF Number' => $item['ARF_Number'] ?? null,
+                'Date' => date('d-m-Y', strtotime($item['ARF_Date'])) ?? null,
+                'Requester' => $item['RequesterWorkerName'] ?? null,
+                'Total' => $item['ARF_Total_IDR'] ?? null,
+                'Payment' => $item['advance_ToPayment'] ?? null,
+                'Status' => $item['Status'] ?? null,
+                'ASF Number' => $item['ASF_Number'] ?? null,
+                'ASF Date' => date('d-m-Y', strtotime($item['ASF_Date'])) ?? null,
+                'Total ASF' => $item['ASF_Total'] ?? null,
+                'Expense Claim' => $item['expense_Claim_IDR'] ?? null,
                 'Amount to the Company' => $item['amount_Due_Company_IDR'] ?? null,
                 // 'Description'           => $item['Description'] ?? null,
-                'Status ASF'            => $item['StatusASF'] ?? null,
-                'Advance to Payment'    => $item['advance_ToPayment'] ?? null,
+                'Status ASF' => $item['StatusASF'] ?? null,
+                'Advance to Payment' => $item['advance_ToPayment'] ?? null,
                 'Advance to Settlement' => $item['advance_ToSettlement'] ?? null,
             ];
         }
@@ -52,14 +56,18 @@ class ExportReportAdvanceToASF implements FromCollection, WithHeadings, ShouldAu
 
     public function headings(): array
     {
-        $data = $this->advanceRequestToASF;
+        $budgetName = $this->budgetName;
+        $subBudgetName = $this->subBudgetName;
+        $requesterName = $this->requesterName;
+        $date = $this->date;
+
         return [
             [date('F j, Y')],
             ["ADVANCE TO ASF"],
             [date('h:i A')],
-            ["Budget", ": " . $data[0]['combinedBudgetCode'] . ' - ' . $data[0]['combinedBudgetName']],
-            ["Sub Budget", ": " ],
-            ["", "", "", "", "", "", "", "", "", "", ""],
+            ["Budget", ": " . $budgetName, "Requester", ": " . $requesterName],
+            ["Sub Budget", ": " . $subBudgetName, "Date Range", ": " . $date],
+            [""],
             ["No", "Advance", "", "", "", "", "", "Settlement", "", "", "", "", "", "Balance", ""],
             ["", "ARF Number", "Date", "Requester", "Total", "Payment", "Status", "ASF Number", "Date", "Total", "Expense Claim", "Amount to the Company", "Status", "Advance to Payment", "Advance to Settlement"],
         ];
@@ -183,12 +191,12 @@ class ExportReportAdvanceToASF implements FromCollection, WithHeadings, ShouldAu
         $lastCell = 'A8:O' . $totalCell + 8;
         $sheet->getStyle($lastCell)->applyFromArray($styleArrayContent);
 
-        $total                  = $datas[0]['expense_Claim_IDR'];
-        $totalPayment           = $datas[0]['advance_ToPayment'];
-        $totalSettlement        = $datas[0]['ASF_Total'];
-        $totalExpenseClaim      = $datas[0]['expense_Claim_IDR'];
-        $totalAmountCompany     = $datas[0]['amount_Due_Company_IDR'];
-        $totalAdvancePayment    = $datas[0]['advance_ToPayment'];
+        $total = $datas[0]['expense_Claim_IDR'];
+        $totalPayment = $datas[0]['advance_ToPayment'];
+        $totalSettlement = $datas[0]['ASF_Total'];
+        $totalExpenseClaim = $datas[0]['expense_Claim_IDR'];
+        $totalAmountCompany = $datas[0]['amount_Due_Company_IDR'];
+        $totalAdvancePayment = $datas[0]['advance_ToPayment'];
         $totalAdvanceSettlement = $datas[0]['advance_ToSettlement'];
 
         $sheet->insertNewRowBefore($totalCell + 9, 1);

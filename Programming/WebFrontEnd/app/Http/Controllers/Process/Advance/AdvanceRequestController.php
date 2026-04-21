@@ -558,6 +558,10 @@ class AdvanceRequestController extends Controller
     public function PrintExportReportAdvanceToASF(Request $request)
     {
         try {
+            $budgetName = $request->budgetName;
+            $subBudgetName = $request->subBudgetName;
+            $requesterName = $request->requesterName;
+            $date = $request->date;
             $type = $request->printType;
             $advanceToASFData = json_decode($request->dataReport, true);
 
@@ -577,7 +581,7 @@ class AdvanceRequestController extends Controller
 
                     return $pdf->download('Export Report Advance Request To Advance Settlement.pdf');
                 } else if ($type == "EXCEL") {
-                    return Excel::download(new ExportReportAdvanceToASF($advanceToASFData), 'Export Report Advance to ASF .xlsx');
+                    return Excel::download(new ExportReportAdvanceToASF($advanceToASFData, $budgetName, $subBudgetName, $requesterName, $date), 'Export Report Advance to ASF .xlsx');
                 } else {
                     throw new \Exception('Failed to Export Report Advance Request To Advance Settlement');
                 }
