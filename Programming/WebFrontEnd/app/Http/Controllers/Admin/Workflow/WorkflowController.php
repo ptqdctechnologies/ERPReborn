@@ -87,7 +87,7 @@ class WorkflowController extends Controller
         $data = [];
 
         if ($status == 200) {
-            $data = $response['data'] ?? [];
+            $data = $response['data']['data'] ?? [];
         }
 
         return response()->json([
@@ -122,7 +122,7 @@ class WorkflowController extends Controller
         $data = [];
 
         if ($status == 200) {
-            $data = $response['data'] ?? [];
+            $data = $response['data']['data'] ?? [];
         }
 
         return response()->json([
@@ -157,7 +157,7 @@ class WorkflowController extends Controller
         $data = [];
 
         if ($status == 200) {
-            $data = $response['data'] ?? [];
+            $data = $response['data']['data'] ?? [];
         }
 
         return response()->json([

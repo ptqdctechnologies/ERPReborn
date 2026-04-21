@@ -765,15 +765,17 @@
       }
     })
       .done(function (response, textStatus, jqXHR) {
-        // if (response.status == 200 && response.data.signAllowed) {
-        successFunction(combinedBudgetID, combinedBudgetCode, combinedBudgetName);
-        // } else {
-        //   ErrorHandler.notifToast(
-        //     'error',
-        //     'You are not included in this budget',
-        //     'Error!'
-        //   );
-        // }
+        console.log('response', response);
+
+        if (response.status == 200 && response.data[0].signAccess) {
+          successFunction(combinedBudgetID, combinedBudgetCode, combinedBudgetName);
+        } else {
+          ErrorHandler.notifToast(
+            'error',
+            'You are not included in this budget',
+            'Error!'
+          );
+        }
       })
       .fail(function (jqXHR, textStatus, errorThrown) {
         console.error("Error:", errorThrown);
