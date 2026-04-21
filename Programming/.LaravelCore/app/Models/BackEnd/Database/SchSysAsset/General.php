@@ -165,33 +165,46 @@ namespace App\Models\Database\SchSysAsset
         |      ▪ (boolean) varReturn                                                                                               | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function getData_WorkFlow_IsUserAllowed(
+        public function getDataJSON_WorkFlow_IsUserAllowed(
             $varUserSession,
             int $varBranchRefID, int $varUserRefID, int $varBusinessDocumentTypeRefID, int $varCombinedBudgetRefID,
             string $varMode = null)
             {
-            $varReturn = 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+            try {
+                $varReturn = 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchSysAsset.Func_GetDataJSON_WorkFlow_IsUserAllowed',
+                            [
+                                [$varBranchRefID, 'bigint'],
+
+                                [$varUserRefID, 'bigint'],
+                                [$varBusinessDocumentTypeRefID, 'bigint'],
+                                [$varCombinedBudgetRefID, 'bigint'],
+
+                                [$varMode, 'varchar']
+                            ]
+                            )
+                        );
+
+                $varReturn['data'][0] =
+                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
-                        'SchSysAsset.Func_GetData_WorkFlow_IsUserAllowed',
-                        [
-                            [$varBranchRefID, 'bigint'],
+                        $varReturn['data'][0]['Func_GetDataJSON_WorkFlow_IsUserAllowed']
+                        );
 
-                            [$varUserRefID, 'bigint'],
-                            [$varBusinessDocumentTypeRefID, 'bigint'],
-                            [$varCombinedBudgetRefID, 'bigint'],
+                $varReturn['rowCount'] =
+                    count($varReturn['data']);
 
-                            [$varMode, 'varchar']
-                        ]
-                        )
-                    );
+                return
+                    $varReturn;
+                }
 
-            return
-                [
-                'SignAllowed' => (boolean) $varReturn['data'][0]['Func_GetData_WorkFlow_IsUserAllowed']                
-                ];
+            catch (\Exception $ex) {
+                return [];
+                }
             }
 
 

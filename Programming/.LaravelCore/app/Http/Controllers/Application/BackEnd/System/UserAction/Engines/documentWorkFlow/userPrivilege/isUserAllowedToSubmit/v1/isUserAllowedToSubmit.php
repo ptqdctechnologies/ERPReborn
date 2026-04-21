@@ -66,7 +66,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\UserAction\Engines\doc
                         if (!($varDataSend = 
                             \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead(
                                 $varUserSession,
-                                (new \App\Models\Database\SchSysAsset\General())->getData_WorkFlow_IsUserAllowed(
+                                (new \App\Models\Database\SchSysAsset\General())->getDataJSON_WorkFlow_IsUserAllowed(
                                     $varUserSession,
                                     (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
 
@@ -79,7 +79,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\UserAction\Engines\doc
                                     $varData['parameter']['businessDocumentType_RefID'],
                                     $varData['parameter']['combinedBudget_RefID'],
                                     'SUBMITTER'
-                                    )
+                                    ),
+                                FALSE
                                 )
                             ))
                             {
