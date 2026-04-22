@@ -13,6 +13,12 @@
                     </div>
                 </div>
             </div>
+            <div class="row" id="supplierNameMessage" style="margin-top: .3rem;display: none;">
+                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+                <div class="col text-red">
+                    Supplier cannot be empty.
+                </div>
+            </div>
 
             <!-- TAX ID -->
             <div class="row" style="margin-top: 1rem;">
@@ -20,8 +26,8 @@
                     ID</label>
                 <div class="col-5 d-flex">
                     <div class="input-group">
-                        <input class="form-control number-only" id="tax_id" name="tax_id" style="border-radius:0;"
-                            autocomplete="off">
+                        <input class="form-control number-without-characters" id="tax_id" name="tax_id"
+                            style="border-radius:0;" autocomplete="off">
                     </div>
                 </div>
             </div>
@@ -31,9 +37,15 @@
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Phone</label>
                 <div class="col-5 d-flex">
                     <div class="input-group">
-                        <input class="form-control number-only" id="phone_number" name="phone_number"
+                        <input class="form-control number-without-characters" id="phone_number" name="phone_number"
                             style="border-radius:0;" autocomplete="off">
                     </div>
+                </div>
+            </div>
+            <div class="row" id="phoneNumberMessage" style="margin-top: .3rem;display: none;">
+                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+                <div class="col text-red">
+                    Phone cannot be empty.
                 </div>
             </div>
 
@@ -44,6 +56,12 @@
                     <div class="input-group">
                         <input class="form-control" id="email" name="email" style="border-radius:0;" autocomplete="off">
                     </div>
+                </div>
+            </div>
+            <div class="row" id="emailMessage" style="margin-top: .3rem;display: none;">
+                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+                <div class="col text-red">
+                    Email cannot be empty.
                 </div>
             </div>
 
@@ -69,6 +87,12 @@
                     </div>
                 </div>
             </div>
+            <div class="row" id="countryMessage" style="margin-top: .3rem;display: none;">
+                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+                <div class="col text-red">
+                    Country cannot be empty.
+                </div>
+            </div>
 
             <!-- PROVINCE -->
             <div class="row" style="margin-top: 1rem;">
@@ -92,6 +116,12 @@
                     </div>
                 </div>
             </div>
+            <div class="row" id="provinceMessage" style="margin-top: .3rem;display: none;">
+                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+                <div class="col text-red">
+                    Province cannot be empty.
+                </div>
+            </div>
 
             <!-- CITY -->
             <div class="row" style="margin-top: 1rem;">
@@ -113,6 +143,12 @@
                     </div>
                 </div>
             </div>
+            <div class="row" id="cityMessage" style="margin-top: .3rem;display: none;">
+                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+                <div class="col text-red">
+                    City cannot be empty.
+                </div>
+            </div>
 
             <!-- ADDRESS -->
             <div class="row" style="margin-top: 1rem;">
@@ -120,6 +156,12 @@
                 <div class="col-5">
                     <textarea id="address" name="address" cols="30" rows="4" class="form-control"
                         autocomplete="off"></textarea>
+                </div>
+            </div>
+            <div class="row" id="addressMessage" style="margin-top: .3rem;display: none;">
+                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+                <div class="col text-red">
+                    Address cannot be empty.
                 </div>
             </div>
         </div>
@@ -135,6 +177,12 @@
                         <input class="form-control" id="contact_person" name="contact_person" style="border-radius:0;"
                             autocomplete="off">
                     </div>
+                </div>
+            </div>
+            <div class="row" id="contactPersonMessage" style="margin-top: .3rem;display: none;">
+                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+                <div class="col text-red">
+                    Contact Person cannot be empty.
                 </div>
             </div>
 
@@ -161,6 +209,12 @@
                     </div>
                 </div>
             </div>
+            <div class="row" id="bankNameMessage" style="margin-top: .3rem;display: none;">
+                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+                <div class="col text-red">
+                    Bank Name cannot be empty.
+                </div>
+            </div>
 
             <!-- ACCOUNT NUMBER -->
             <div class="row" style="margin-top: 1rem;">
@@ -168,9 +222,15 @@
                     Number</label>
                 <div class="col-5 d-flex">
                     <div class="input-group">
-                        <input class="form-control number-only" id="account_number" name="account_number"
+                        <input class="form-control number-without-characters" id="account_number" name="account_number"
                             style="border-radius:0;" autocomplete="off">
                     </div>
+                </div>
+            </div>
+            <div class="row" id="accountNumberMessage" style="margin-top: .3rem;display: none;">
+                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+                <div class="col text-red">
+                    Account Number cannot be empty.
                 </div>
             </div>
 
@@ -185,6 +245,12 @@
                     </div>
                 </div>
             </div>
+            <div class="row" id="accountNameMessage" style="margin-top: .3rem;display: none;">
+                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+                <div class="col text-red">
+                    Account Name cannot be empty.
+                </div>
+            </div>
 
             <!-- REMARK -->
             <div class="row" style="margin-top: 1rem;">
@@ -192,6 +258,12 @@
                 <div class="col-5">
                     <textarea id="remark" class="form-control" cols="30" rows="4" autocomplete="off"
                         name="remark"></textarea>
+                </div>
+            </div>
+            <div class="row" id="remarkMessage" style="margin-top: .3rem;display: none;">
+                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+                <div class="col text-red">
+                    Remark cannot be empty.
                 </div>
             </div>
         </div>
