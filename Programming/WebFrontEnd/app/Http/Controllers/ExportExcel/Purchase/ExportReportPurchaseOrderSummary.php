@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\ExportExcel\Purchase;
 
-use Illuminate\Support\Facades\Session;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithHeadings;
@@ -13,57 +12,61 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class ExportReportPurchaseOrderSummary implements FromCollection, WithHeadings, ShouldAutoSize, WithStyles
 {
-    protected $dataPurchaseOrderSummary;
+    protected $dataPurchaseOrderSummary, $budgetName, $subBudgetName, $supplierName, $poDate;
 
-    public function __construct($dataPurchaseOrderSummary)
+    public function __construct($dataPurchaseOrderSummary, $budgetName, $subBudgetName, $supplierName, $poDate)
     {
         $this->dataPurchaseOrderSummary = $dataPurchaseOrderSummary;
+        $this->budgetName = $budgetName;
+        $this->subBudgetName = $subBudgetName;
+        $this->supplierName = $supplierName;
+        $this->poDate = $poDate;
     }
 
     public function collection()
     {
         $data = $this->dataPurchaseOrderSummary;
 
-        $totalPOValue               = 0;
-        $totalPOVAT                 = 0;
-        $totalPOOtherCurrencyValue  = 0;
-        $totalPOOtherCurrencyVAT    = 0;
-        $totalPOEquivalentIDRValue  = 0;
-        $totalPOEquivalentIDRVAT    = 0;
+        $totalPOValue = 0;
+        $totalPOVAT = 0;
+        $totalPOOtherCurrencyValue = 0;
+        $totalPOOtherCurrencyVAT = 0;
+        $totalPOEquivalentIDRValue = 0;
+        $totalPOEquivalentIDRVAT = 0;
 
         $filteredData = [];
         $counter = 1;
         foreach ($data as $item) {
-            $totalPOValue               += is_numeric($item['total_Idr_WithoutVat']) ? $item['total_Idr_WithoutVat'] : 0;
-            $totalPOVAT                 += is_numeric($item['total_Vat_IDR']) ? $item['total_Vat_IDR'] : 0;
-            $totalPOOtherCurrencyValue  += is_numeric($item['total_Other_Currency_WithoutVat']) ? $item['total_Other_Currency_WithoutVat'] : 0;
-            $totalPOOtherCurrencyVAT    += is_numeric($item['total_Vat_Other_Currency']) ? $item['total_Vat_Other_Currency'] : 0;
-            $totalPOEquivalentIDRValue  += is_numeric($item['total_Equivalent_Value']) ? $item['total_Equivalent_Value'] : 0;
-            $totalPOEquivalentIDRVAT    += is_numeric($item['total_Equivalent_Vat']) ? $item['total_Equivalent_Vat'] : 0;
-            
+            $totalPOValue += is_numeric($item['total_Idr_WithoutVat']) ? $item['total_Idr_WithoutVat'] : 0;
+            $totalPOVAT += is_numeric($item['total_Vat_IDR']) ? $item['total_Vat_IDR'] : 0;
+            $totalPOOtherCurrencyValue += is_numeric($item['total_Other_Currency_WithoutVat']) ? $item['total_Other_Currency_WithoutVat'] : 0;
+            $totalPOOtherCurrencyVAT += is_numeric($item['total_Vat_Other_Currency']) ? $item['total_Vat_Other_Currency'] : 0;
+            $totalPOEquivalentIDRValue += is_numeric($item['total_Equivalent_Value']) ? $item['total_Equivalent_Value'] : 0;
+            $totalPOEquivalentIDRVAT += is_numeric($item['total_Equivalent_Vat']) ? $item['total_Equivalent_Vat'] : 0;
+
             $filteredData[] = [
-                'No'                        => $counter++,
-                'PO Number'                 => $item['documentNumber'] ?? '-',
-                'Supplier'                  => ($item['supplier_Code'] ?? '') . ' - ' . ($item['supplier_Name'] ?? ''),
-                'totalPOValue'              => $item['total_Idr_WithoutVat'] != 0 ? $item['total_Idr_WithoutVat'] : '0',
-                'totalPOVAT'                => $item['total_Vat_IDR'] != 0 ? $item['total_Vat_IDR'] : '0',
+                'No' => $counter++,
+                'PO Number' => $item['documentNumber'] ?? '-',
+                'Supplier' => ($item['supplier_Code'] ?? '') . ' - ' . ($item['supplier_Name'] ?? ''),
+                'totalPOValue' => $item['total_Idr_WithoutVat'] != 0 ? $item['total_Idr_WithoutVat'] : '0',
+                'totalPOVAT' => $item['total_Vat_IDR'] != 0 ? $item['total_Vat_IDR'] : '0',
                 'totalPOOtherCurrencyValue' => $item['total_Other_Currency_WithoutVat'] != 0 ? $item['total_Other_Currency_WithoutVat'] : '0',
-                'totalPOOtherCurrencyVAT'   => $item['total_Vat_Other_Currency'] != 0 ? $item['total_Vat_Other_Currency'] : '0',
+                'totalPOOtherCurrencyVAT' => $item['total_Vat_Other_Currency'] != 0 ? $item['total_Vat_Other_Currency'] : '0',
                 'totalPOEquivalentIDRValue' => $item['total_Equivalent_Value'] != 0 ? $item['total_Equivalent_Value'] : '0',
-                'totalPOEquivalentIDRVAT'   => $item['total_Equivalent_Vat'] != 0 ? $item['total_Equivalent_Vat'] : '0'
+                'totalPOEquivalentIDRVAT' => $item['total_Equivalent_Vat'] != 0 ? $item['total_Equivalent_Vat'] : '0'
             ];
         }
 
         $filteredData[] = [
-            'No'                        => 'GRAND TOTAL',
-            'PO Number'                 => '',
-            'Supplier'                  => '',
-            'totalPOValue'              => $totalPOValue != 0 ? $totalPOValue : '0',
-            'totalPOVAT'                => $totalPOVAT != 0 ? $totalPOVAT : '0',
+            'No' => 'GRAND TOTAL',
+            'PO Number' => '',
+            'Supplier' => '',
+            'totalPOValue' => $totalPOValue != 0 ? $totalPOValue : '0',
+            'totalPOVAT' => $totalPOVAT != 0 ? $totalPOVAT : '0',
             'totalPOOtherCurrencyValue' => $totalPOOtherCurrencyValue != 0 ? $totalPOOtherCurrencyValue : '0',
-            'totalPOOtherCurrencyVAT'   => $totalPOOtherCurrencyVAT != 0 ? $totalPOOtherCurrencyVAT : '0',
+            'totalPOOtherCurrencyVAT' => $totalPOOtherCurrencyVAT != 0 ? $totalPOOtherCurrencyVAT : '0',
             'totalPOEquivalentIDRValue' => $totalPOEquivalentIDRValue != 0 ? $totalPOEquivalentIDRValue : '0',
-            'totalPOEquivalentIDRVAT'   => $totalPOEquivalentIDRVAT != 0 ? $totalPOEquivalentIDRVAT : '0',
+            'totalPOEquivalentIDRVAT' => $totalPOEquivalentIDRVAT != 0 ? $totalPOEquivalentIDRVAT : '0',
         ];
 
         return collect($filteredData);
@@ -71,15 +74,18 @@ class ExportReportPurchaseOrderSummary implements FromCollection, WithHeadings, 
 
     public function headings(): array
     {
-        $data = $this->dataPurchaseOrderSummary;
+        $budgetName = $this->budgetName;
+        $subBudgetName = $this->subBudgetName;
+        $supplierName = $this->supplierName;
+        $poDate = $this->poDate;
 
         return [
             [date('F j, Y')],
-            ["PURCHASE ORDER SUMMARY", " ", " ", " ", " ", " ", " ", " ", " "],
+            ["PURCHASE ORDER SUMMARY"],
             [date('h:i A')],
-            ["Budget", ": -", "Supplier", ": -", "", "", "", "", ""],
-            ["Sub Budget", ": -", "Date", ": -", "", "", "", "", ""],
-            ["", "", "", "", "", "", "", "", ""],
+            ["Budget", ": " . $budgetName, "Supplier", ": " . $supplierName],
+            ["Sub Budget", ": " . $subBudgetName, "Date", ": " . $poDate],
+            [""],
             ["No", "PO Number", "Supplier", "PO", "", "PO Other Currency", "", "PO Equivalent IDR"],
             ["", "", "", "Value", "VAT", "Value", "VAT", "Value", "VAT"]
         ];
@@ -189,9 +195,9 @@ class ExportReportPurchaseOrderSummary implements FromCollection, WithHeadings, 
                 'horizontal' => Alignment::HORIZONTAL_LEFT,
             ],
         ];
-        $datas      = $this->dataPurchaseOrderSummary;
-        $totalCell  = count($datas);
-        $lastCell   = 'A9:I' . $totalCell + 9;
+        $datas = $this->dataPurchaseOrderSummary;
+        $totalCell = count($datas);
+        $lastCell = 'A9:I' . $totalCell + 9;
         $sheet->getStyle($lastCell)->applyFromArray($styleArrayContent);
 
         $styleArrayFooter = [
