@@ -864,6 +864,51 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataList_CombinedBudgetStockDetail_LatestVersion                                                  |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2026-04-22                                                                                           |
+        | ▪ Creation Date   : 2026-04-22                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Detail Credit Note Versi Terakhir                                                 |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataList_CombinedBudgetStockDetail_LatestVersion(
+            $varUserSession, int $varCombinedBudget_RefID = null, int $varWarehouse_RefID = null, int $varBranch_RefID = null, int $varCombinedBudgetSection_RefID = null)
+            {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession,
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Budgeting.Func_GetDataList_BudgetAndStock',
+                            [
+                                [$varCombinedBudget_RefID, 'bigint' ],
+                                [$varWarehouse_RefID, 'bigint' ],
+                                [$varBranch_RefID, 'bigint' ],
+                                [$varCombinedBudgetSection_RefID, 'bigint' ]
+                            ]
+                            )
+                        );
+
+                        // dd($varReturn);
+                return
+                    $varReturn;
+                }
+
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getDataList_CombinedBudgetSectionDetail                                                              |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
