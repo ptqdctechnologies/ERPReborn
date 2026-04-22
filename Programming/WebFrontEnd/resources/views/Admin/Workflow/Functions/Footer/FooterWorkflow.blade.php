@@ -186,6 +186,6 @@
             $(`#workflow_detail_next${currentIndexPickRequester}`).val(name);
         }
 
-        $('#myRequesters').modal('hide');
+        $('#myRequesters').modal('toggle');
     });
 </script>

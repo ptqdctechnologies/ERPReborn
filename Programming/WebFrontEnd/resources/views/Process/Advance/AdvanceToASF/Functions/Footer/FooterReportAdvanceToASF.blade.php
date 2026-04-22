@@ -11,15 +11,33 @@
     const organizationalDepartmentName = document.getElementById("organizationalDepartmentName"); // Finance & Accounting
     const organizationalJobPositionName = document.getElementById("organizationalJobPositionName"); // General Manager
     const projectID = document.getElementById("budget_id");
+    const projectName = document.getElementById("budget_name");
     const projectCode = document.getElementById("budget_code");
     const siteID = document.getElementById("sub_budget_id");
+    const siteName = document.getElementById("sub_budget_name");
     const siteCode = document.getElementById("sub_budget_code");
     const requesterID = document.getElementById("requester_id");
+    const requesterName = document.getElementById("requester_name");
     const date = document.getElementById("advance_date_range");
     const startLimit = document.getElementById("start_limit");
     const endLimit = document.getElementById("end_limit");
     const totalData = document.getElementById("total_data");
     const printType = document.getElementById("print_type");
+
+    function selectBudget(combinedBudgetID, combinedBudgetCode, combinedBudgetName) {
+        $("#budget_id").val(combinedBudgetID);
+        $("#budget_code").val(combinedBudgetCode);
+        $("#budget_name").val(`${combinedBudgetCode} - ${combinedBudgetName}`);
+        $("#budget_name").css('background-color', '#e9ecef');
+
+        getSites(combinedBudgetID);
+
+        $("#mySitesTrigger").css('cursor', 'pointer');
+        $("#mySitesTrigger").attr({
+            "data-toggle": "modal",
+            "data-target": "#mySites"
+        });
+    }
 
     function resetForm() {
         isFromTo = false;
@@ -49,7 +67,7 @@
     }
 
     function getDataReport() {
-        ShowLoading();
+        Utils.showLoading();
 
         $.ajax({
             type: 'POST',
@@ -62,66 +80,46 @@
             },
             dataType: 'json',
             success: function (response) {
-                if (response.status === 200 && response.data[0]) {
-                    data = response.data;
-                    dataReport = JSON.stringify(response.data);
+                data = (response.status === 200 && response.data[0]) ? response.data : [];
+                dataReport = data;
 
-                    filteredData = [...data];
-                    currentPage = 1;
-                    sortColumn = null;
-                    sortOrder = 'asc';
+                filteredData = [...data];
+                currentPage = (response.status === 200 && response.data[0]) ? 1 : '-';
+                sortColumn = null;
+                sortOrder = 'asc';
 
-                    renderPage();
-                    renderPagination();
+                renderPage();
+                renderPagination();
 
-                    $('#table_container').css("display", "block");
-                } else {
-                    data = [];
-                    dataReport = [];
+                $('#table_container').css("display", "block");
 
-                    filteredData = [...data];
-                    currentPage = '-';
-                    sortColumn = null;
-                    sortOrder = 'asc';
-
-                    renderPage();
-                    renderPagination();
-
-                    $('#table_container').css("display", "block");
-                }
-
-                HideLoading();
+                Utils.hideLoading();
             },
             error: function (xhr, status, error) {
-                HideLoading();
-                ErrorNotif("An error occurred while processing the received data. Please try again later.");
                 console.log('xhr, status, error', xhr, status, error);
+
+                Utils.hideLoading();
+                ErrorHandler.notifToast(
+                    'error',
+                    'An error occurred while processing the received data. Please try again later',
+                    'Error!'
+                );
             }
         });
     }
 
     function exportDataReport() {
-        ShowLoading();
-
-        console.log('printType', printType.value);
-        console.log('dataReport', dataReport);
-
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
+        Utils.showLoading();
 
         $.ajax({
             type: 'POST',
             url: '{!! route("AdvanceRequest.PrintExportReportAdvanceToASF") !!}',
             data: {
-                dataReport,
-                // budgetName: budgetName.value,
-                // receivedName: receivedName.value,
-                // deliveryFromName: deliveryFromName.value,
-                // deliveryToName: deliveryToName.value,
-                // mrDate: mrDate.value,
+                dataReport: JSON.stringify(dataReport),
+                budgetName: projectName.value || '-',
+                subBudgetName: siteName.value || '-',
+                requesterName: requesterName.value || '-',
+                date: date.value || '-',
                 printType: printType.value
             },
             xhrFields: {
@@ -142,12 +140,17 @@
 
                 window.URL.revokeObjectURL(link.href);
 
-                HideLoading();
+                Utils.hideLoading();
             },
             error: function (xhr, status, error) {
-                HideLoading();
-                ErrorNotif("An error occurred while processing the received data. Please try again later.");
                 console.log('xhr, status, error', xhr, status, error);
+
+                Utils.hideLoading();
+                ErrorHandler.notifToast(
+                    'error',
+                    'An error occurred while processing the received data. Please try again later',
+                    'Error!'
+                );
             }
         });
     }
@@ -426,33 +429,26 @@
         const isRequesterIDNotEmpty = requesterID.value.trim() !== '';
         const isArfDateNotEmpty = date.value.trim() !== '';
 
+        const isAuthorizedRole = Utils.isUserAuthorizedForReport();
+
         if (
             isBudgetIDNotEmpty ||
             isRequesterIDNotEmpty ||
             isArfDateNotEmpty
         ) {
-            hideErrorInputMessage("#budget_name", "#budgetMessage");
-            hideErrorInputMessage("#requester_name", "#requesterMessage");
-            hideErrorInputMessage("#advance_date_range", "#dateRangeMessage");
+            ErrorHandler.hideErrorInputMessage("#budget_name", "#budgetMessage");
+            ErrorHandler.hideErrorInputMessage("#requester_name", "#requesterMessage");
+            ErrorHandler.hideErrorInputMessage("#advance_date_range", "#dateRangeMessage");
 
-            if (
-                !isBudgetIDNotEmpty && organizationalDepartmentName.value === 'Finance & Accounting' || (
-                    organizationalJobPositionName.value === 'General Manager' ||
-                    organizationalJobPositionName.value === 'Senior Manager' ||
-                    organizationalJobPositionName.value === 'Director'
-                )) {
+            if (isBudgetIDNotEmpty || isAuthorizedRole) {
                 getDataReport();
             } else {
-                if (isBudgetIDNotEmpty) {
-                    getDataReport();
-                } else {
-                    showErrorInputMessage("#budget_name", "#budgetMessage");
-                }
+                ErrorHandler.showErrorInputMessage("#budget_name", "#budgetMessage");
             }
         } else {
-            showErrorInputMessage("#budget_name", "#budgetMessage");
-            showErrorInputMessage("#requester_name", "#requesterMessage");
-            showErrorInputMessage("#advance_date_range", "#dateRangeMessage");
+            ErrorHandler.showErrorInputMessage("#budget_name", "#budgetMessage");
+            ErrorHandler.showErrorInputMessage("#requester_name", "#requesterMessage");
+            ErrorHandler.showErrorInputMessage("#advance_date_range", "#dateRangeMessage");
         }
     }
 
@@ -460,50 +456,12 @@
         if (dataReport.length > 0) {
             exportDataReport();
         } else {
-            ErrorNotif("No data available to export. Please display the data first.");
+            ErrorHandler.notifToast(
+                'error',
+                'No data available to export. Please display the data first',
+                'Error!'
+            );
         }
-    }
-
-    function getWorkflow(combinedBudgetID, combinedBudgetCode, combinedBudgetName) {
-        $.ajax({
-            type: 'POST',
-            url: '{!! route("GetWorkflow") !!}',
-            data: {
-                businessDocumentType_RefID: documentTypeID.value,
-                combinedBudget_RefID: combinedBudgetID
-            }
-        })
-            .done(function (data, textStatus, jqXHR) {
-                console.log("Success:", data);
-
-                if (data.status == 200) {
-                    $("#budget_id").val(combinedBudgetID);
-                    $("#budget_code").val(combinedBudgetCode);
-                    $("#budget_name").val(`${combinedBudgetCode} - ${combinedBudgetName}`);
-                    $("#budget_name").css('background-color', '#e9ecef');
-
-                    getSites(combinedBudgetID);
-
-                    $("#mySitesTrigger").css('cursor', 'pointer');
-                    $("#mySitesTrigger").attr({
-                        "data-toggle": "modal",
-                        "data-target": "#mySites"
-                    });
-                } else {
-                    ErrorHandler.notifToast(
-                        'error',
-                        'You are not included in this budget',
-                        'Error!'
-                    );
-                }
-            })
-            .fail(function (jqXHR, textStatus, errorThrown) {
-                console.error("Error:", errorThrown);
-            })
-            .always(function (jqXHR, textStatus, errorThrown) {
-                $("#loadingBudget").hide();
-                $("#iconBudget").show();
-            });
     }
 
     document.querySelectorAll('#table_summary th').forEach((header, index) => {
@@ -546,31 +504,20 @@
         const code = $(this).find('td:nth-child(2)').text();
         const name = $(this).find('td:nth-child(3)').text();
 
-        if (organizationalDepartmentName.value === 'Finance & Accounting' || (
-            organizationalJobPositionName.value === 'General Manager' ||
-            organizationalJobPositionName.value === 'Senior Manager' ||
-            organizationalJobPositionName.value === 'Director'
-        )) {
-            $("#budget_id").val(sysId);
-            $("#budget_code").val(code);
-            $("#budget_name").val(`${code} - ${name}`);
-            $("#budget_name").css({ "background-color": "#e9ecef" });
+        $("#budget_id").val("");
+        $("#budget_code").val("");
+        $("#budget_name").val("");
+        $("#budget_name").css('background-color', '#fff');
 
-            getSites(sysId);
-
-            $("#mySitesTrigger").css('cursor', 'pointer');
-            $("#mySitesTrigger").attr({
-                "data-toggle": "modal",
-                "data-target": "#mySites"
-            });
+        if (Utils.isUserAuthorizedForReport()) {
+            selectBudget(sysId, code, name);
         } else {
-            $("#loadingBudget").show();
-            $("#iconBudget").hide();
+            Utils.showBudgetLoading();
 
-            getWorkflow(sysId, code, name);
+            userAllowedToInvolve(sysId, code, name, documentTypeID.value, selectBudget);
         }
 
-        hideErrorInputMessage("#budget_name", "#budgetMessage");
+        ErrorHandler.hideErrorInputMessage("#budget_name", "#budgetMessage");
 
         $('#myProjects').modal('toggle');
     });

@@ -542,8 +542,6 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::post('UserAllowedToSubmit', 'Admin\Workflow\WorkflowController@userAllowedToSubmit')->name('Workflow.UserAllowedToSubmit');
     Route::post('UserAllowedToApprove', 'Admin\Workflow\WorkflowController@userAllowedToApprove')->name('Workflow.UserAllowedToApprove');
     Route::post('UserAllowedToInvolve', 'Admin\Workflow\WorkflowController@userAllowedToInvolve')->name('Workflow.UserAllowedToInvolve');
-    Route::post('WorkflowRoute/store', 'Admin\Workflow\WorkflowController@WorkflowRouteStore')->name('Workflow.WorkflowRouteStore');
-    Route::get('WorkflowRoute', 'Admin\Workflow\WorkflowController@WorkflowRoute')->name('Workflow.WorkflowRoute');
     Route::resource('Workflow', 'Admin\Workflow\WorkflowController');
 
     // MATERIAL RECEIVE

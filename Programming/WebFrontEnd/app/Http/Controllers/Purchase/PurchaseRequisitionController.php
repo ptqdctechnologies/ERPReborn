@@ -260,7 +260,7 @@ class PurchaseRequisitionController extends Controller
 
                     return $pdf->download('Export Report Purchase Request Summary.pdf');
                 } else if ($type === "EXCEL") {
-                    return Excel::download(new ExportReportPurchaseRequisitionSummary($dataPurchaseRequestSummary), 'Export Report Purchase Request Summary.xlsx');
+                    return Excel::download(new ExportReportPurchaseRequisitionSummary($dataPurchaseRequestSummary, $budgetName, $subBudgetName, $prDate), 'Export Report Purchase Request Summary.xlsx');
                 } else {
                     throw new \Exception('Failed to Export Purchase Request Summary Report');
                 }

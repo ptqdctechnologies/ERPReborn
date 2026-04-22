@@ -52,7 +52,7 @@
     }
 
     function getDataReport() {
-        ShowLoading();
+        Utils.showLoading();
 
         $.ajax({
             type: 'POST',
@@ -166,28 +166,33 @@
                 $('#table_summary').css("width", "100%");
                 $('#table_container').css("display", "block");
 
-                HideLoading();
+                Utils.hideLoading();
             },
             error: function (xhr, status, error) {
-                HideLoading();
-                ErrorNotif("An error occurred while processing the received data. Please try again later.");
                 console.log('xhr, status, error', xhr, status, error);
+
+                Utils.hideLoading();
+                ErrorHandler.notifToast(
+                    'error',
+                    'An error occurred while processing the received data. Please try again later',
+                    'Error!'
+                );
             }
         });
     }
 
     function exportDataReport() {
-        ShowLoading();
+        Utils.showLoading();
 
         $.ajax({
             url: '{!! route("PurchaseOrder.PrintExportReportPurchaseOrderSummary") !!}',
             type: 'POST',
             data: {
                 dataReport: JSON.stringify(dataReport),
-                budgetName: budgetName.value,
-                subBudgetName: subBudgetName.value,
-                supplierName: supplierName.value,
-                poDate: poDate.value,
+                budgetName: budgetName.value || '-',
+                subBudgetName: subBudgetName.value || '-',
+                supplierName: supplierName.value || '-',
+                poDate: poDate.value || '-',
                 printType: printType.value
             },
             xhrFields: {
@@ -208,12 +213,17 @@
 
                 window.URL.revokeObjectURL(link.href);
 
-                HideLoading();
+                Utils.hideLoading();
             },
             error: function (xhr, status, error) {
-                HideLoading();
-                ErrorNotif("An error occurred while processing the received data. Please try again later.");
                 console.log('xhr, status, error', xhr, status, error);
+
+                Utils.hideLoading();
+                ErrorHandler.notifToast(
+                    'error',
+                    'An error occurred while processing the received data. Please try again later',
+                    'Error!'
+                );
             }
         });
     }
@@ -230,19 +240,19 @@
             isSupplierIDNotEmpty ||
             isPoDateNotEmpty
         ) {
-            hideErrorInputMessage("#budget_name", "#budgetMessage");
-            hideErrorInputMessage("#supplier_name", "#supplierMessage");
-            hideErrorInputMessage("#purchase_order_date_range", "#dateRangeMessage");
+            ErrorHandler.hideErrorInputMessage("#budget_name", "#budgetMessage");
+            ErrorHandler.hideErrorInputMessage("#supplier_name", "#supplierMessage");
+            ErrorHandler.hideErrorInputMessage("#purchase_order_date_range", "#dateRangeMessage");
 
             if (isBudgetIDNotEmpty || isAuthorizedRole) {
                 getDataReport();
             } else {
-                showErrorInputMessage("#budget_name", "#budgetMessage");
+                ErrorHandler.showErrorInputMessage("#budget_name", "#budgetMessage");
             }
         } else {
-            showErrorInputMessage("#budget_name", "#budgetMessage");
-            showErrorInputMessage("#supplier_name", "#supplierMessage");
-            showErrorInputMessage("#purchase_order_date_range", "#dateRangeMessage");
+            ErrorHandler.showErrorInputMessage("#budget_name", "#budgetMessage");
+            ErrorHandler.showErrorInputMessage("#supplier_name", "#supplierMessage");
+            ErrorHandler.showErrorInputMessage("#purchase_order_date_range", "#dateRangeMessage");
         }
     }
 
@@ -250,39 +260,12 @@
         if (dataReport.length > 0) {
             exportDataReport();
         } else {
-            ErrorNotif("No data available to export. Please display the data first.");
+            ErrorHandler.notifToast(
+                'error',
+                'No data available to export. Please display the data first',
+                'Error!'
+            );
         }
-    }
-
-    function getWorkflow(combinedBudgetID, combinedBudgetCode, combinedBudgetName) {
-        $.ajax({
-            type: 'POST',
-            url: '{!! route("GetWorkflow") !!}',
-            data: {
-                businessDocumentType_RefID: documentTypeID.value,
-                combinedBudget_RefID: combinedBudgetID
-            }
-        })
-            .done(function (data, textStatus, jqXHR) {
-                console.log("Success:", data);
-
-                if (data.status == 200) {
-                    selectBudget(combinedBudgetID, combinedBudgetCode, combinedBudgetName);
-                } else {
-                    ErrorHandler.notifToast(
-                        'error',
-                        'You are not included in this budget',
-                        'Error!'
-                    );
-                }
-            })
-            .fail(function (jqXHR, textStatus, errorThrown) {
-                console.error("Error:", errorThrown);
-            })
-            .always(function (jqXHR, textStatus, errorThrown) {
-                $("#loadingBudget").hide();
-                $("#iconBudget").show();
-            });
     }
 
     $('#tableProjects').on('click', 'tbody tr', function () {
@@ -290,18 +273,22 @@
         const code = $(this).find('td:nth-child(2)').text();
         const name = $(this).find('td:nth-child(3)').text();
 
+        $("#budget_id").val("");
+        $("#budget_code").val("");
+        $("#budget_name").val("");
+        $("#budget_name").css('background-color', '#fff');
+
         if (Utils.isUserAuthorizedForReport()) {
             selectBudget(sysId, code, name);
         } else {
-            $("#loadingBudget").show();
-            $("#iconBudget").hide();
+            Utils.showBudgetLoading();
 
-            getWorkflow(sysId, code, name);
+            userAllowedToInvolve(sysId, code, name, documentTypeID.value, selectBudget);
         }
 
-        hideErrorInputMessage("#budget_name", "#budgetMessage");
+        ErrorHandler.hideErrorInputMessage("#budget_name", "#budgetMessage");
 
-        $('#myProjects').modal('hide');
+        $('#myProjects').modal('toggle');
     });
 
     $('#tableSites').on('click', 'tbody tr', function () {
@@ -314,9 +301,9 @@
         $("#sub_budget_name").val(`${siteCode} - ${siteName}`);
         $("#sub_budget_name").css('background-color', '#e9ecef');
 
-        hideErrorInputMessage("#sub_budget_name", "#subBudgetMessage");
+        ErrorHandler.hideErrorInputMessage("#sub_budget_name", "#subBudgetMessage");
 
-        $('#mySites').modal('hide');
+        $('#mySites').modal('toggle');
     });
 
     $('#tableSuppliers').on('click', 'tbody tr', function () {
@@ -330,12 +317,12 @@
         $("#supplier_name").val(`${supplierCode} - ${supplierName}`);
         $("#supplier_name").css('background-color', '#e9ecef');
 
-        hideErrorInputMessage("#supplier_name", "#supplierMessage");
+        ErrorHandler.hideErrorInputMessage("#supplier_name", "#supplierMessage");
 
-        $('#mySuppliers').modal('hide');
+        $('#mySuppliers').modal('toggle');
     });
 
-    $(window).one('load', function () {
+    $(document).ready(function () {
         $('#purchase_order_date_range').daterangepicker({
             autoUpdateInput: false,
             maxDate: moment(),
@@ -347,7 +334,7 @@
         $('#purchase_order_date_range').on('apply.daterangepicker', function (ev, picker) {
             $("#purchase_order_date_range").css('background-color', '#e9ecef');
             $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
-            hideErrorInputMessage("#purchase_order_date_range", "#dateRangeMessage");
+            ErrorHandler.hideErrorInputMessage("#purchase_order_date_range", "#dateRangeMessage");
         });
 
         $('#purchase_order_date_range').on('cancel.daterangepicker', function (ev, picker) {

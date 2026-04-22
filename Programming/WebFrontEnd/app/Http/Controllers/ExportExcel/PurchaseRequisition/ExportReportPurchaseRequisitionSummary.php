@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\ExportExcel\PurchaseRequisition;
 
-use Illuminate\Support\Facades\Session;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithHeadings;
@@ -13,56 +12,59 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class ExportReportPurchaseRequisitionSummary implements FromCollection, WithHeadings, ShouldAutoSize, WithStyles
 {
-    protected $dataPurchaseRequestSummary;
+    protected $dataPurchaseRequestSummary, $budgetName, $subBudgetName, $prDate;
 
-    public function __construct($dataPurchaseRequestSummary)
+    public function __construct($dataPurchaseRequestSummary, $budgetName, $subBudgetName, $prDate)
     {
         $this->dataPurchaseRequestSummary = $dataPurchaseRequestSummary;
+        $this->budgetName = $budgetName;
+        $this->subBudgetName = $subBudgetName;
+        $this->prDate = $prDate;
     }
 
     public function collection()
     {
         $data = $this->dataPurchaseRequestSummary;
 
-        $totalIDR           = 0;
+        $totalIDR = 0;
         $totalOtherCurrency = 0;
         $totalEquivalentIDR = 0;
 
         $filteredData = [];
         $counter = 1;
         foreach ($data as $item) {
-            $totalIDR           += is_numeric($item['total_IDR']) ? $item['total_IDR'] : 0;
+            $totalIDR += is_numeric($item['total_IDR']) ? $item['total_IDR'] : 0;
             $totalOtherCurrency += is_numeric($item['total_Other_Currency']) ? $item['total_Other_Currency'] : 0;
             $totalEquivalentIDR += is_numeric($item['total_Equivalent_IDR']) ? $item['total_Equivalent_IDR'] : 0;
 
-            $dateOrigin     = new \DateTime($item['date']);
-            $resultOrigin   = $dateOrigin->format('Y-m-d');
-            $dateDelivery   = new \DateTime($item['dateOfDelivery']);
+            $dateOrigin = new \DateTime($item['date']);
+            $resultOrigin = $dateOrigin->format('Y-m-d');
+            $dateDelivery = new \DateTime($item['dateOfDelivery']);
             $resultDelivery = $dateDelivery->format('Y-m-d');
 
             $filteredData[] = [
-                'No'                    => $counter++,
-                'PR Number'             => $item['documentNumber'] ?? '-',
-                'Date'                  => $resultOrigin,
-                'Budget'                => ($item['combinedBudgetCode'] ?? '') . ' - ' . ($item['combinedBudgetName'] ?? ''),
-                'Date Of Delivery'      => $resultDelivery,
-                'Delivery To'           => $item['deliveryTo_NonRefID']['address'] ?? '-',
-                'Total IDR'             => $item['total_IDR'] != 0 ? $item['total_IDR'] : '0',
-                'Total Other Currency'  => $item['total_Other_Currency'] != 0 ? $item['total_Other_Currency'] : '0',
-                'Total Equivalent IDR'  => $item['total_Equivalent_IDR'] != 0 ? $item['total_Equivalent_IDR'] : '0',
+                'No' => $counter++,
+                'PR Number' => $item['documentNumber'] ?? '-',
+                'Date' => $resultOrigin,
+                'Budget' => ($item['combinedBudgetCode'] ?? '') . ' - ' . ($item['combinedBudgetName'] ?? ''),
+                'Date Of Delivery' => $resultDelivery,
+                'Delivery To' => $item['deliveryTo_NonRefID']['address'] ?? '-',
+                'Total IDR' => $item['total_IDR'] != 0 ? $item['total_IDR'] : '0',
+                'Total Other Currency' => $item['total_Other_Currency'] != 0 ? $item['total_Other_Currency'] : '0',
+                'Total Equivalent IDR' => $item['total_Equivalent_IDR'] != 0 ? $item['total_Equivalent_IDR'] : '0',
             ];
         }
 
         $filteredData[] = [
-            'No'                    => 'GRAND TOTAL',
-            'PR Number'             => '',
-            'Date'                  => '',
-            'Budget'                => '',
-            'Date Of Delivery'      => '',
-            'Delivery To'           => '',
-            'Total IDR'             => $totalIDR != 0 ? $totalIDR : '0',
-            'Total Other Currency'  => $totalOtherCurrency != 0 ? $totalOtherCurrency : '0',
-            'Total Equivalent IDR'  => $totalEquivalentIDR != 0 ? $totalEquivalentIDR : '0'
+            'No' => 'GRAND TOTAL',
+            'PR Number' => '',
+            'Date' => '',
+            'Budget' => '',
+            'Date Of Delivery' => '',
+            'Delivery To' => '',
+            'Total IDR' => $totalIDR != 0 ? $totalIDR : '0',
+            'Total Other Currency' => $totalOtherCurrency != 0 ? $totalOtherCurrency : '0',
+            'Total Equivalent IDR' => $totalEquivalentIDR != 0 ? $totalEquivalentIDR : '0'
         ];
 
         return collect($filteredData);
@@ -70,16 +72,18 @@ class ExportReportPurchaseRequisitionSummary implements FromCollection, WithHead
 
     public function headings(): array
     {
-        $data = $this->dataPurchaseRequestSummary;
+        $budgetName = $this->budgetName;
+        $subBudgetName = $this->subBudgetName;
+        $prDate = $this->prDate;
 
         return [
             [date('F j, Y')],
-            ["PURCHASE REQUEST SUMMARY", " ", " ", " ", " ", " ", " "],
+            ["PURCHASE REQUEST SUMMARY"],
             [date('h:i A')],
-            ["Budget", ": " . $data[0]['combinedBudgetCode'] . ' - ' . $data[0]['combinedBudgetName'], "", "Date", ": -", "", "", "", ""],
-            ["Sub Budget", ": -", "", "", "", "", "", "", "", "", ""],
-            ["", "", "", "", "", "", "", "", "", "", ""],
-            ["No", "PR Number","Date", "Budget", "Date Of Delivery", "Delivery To", "Total IDR", "Total Other Currency", "Total Equivalent IDR"],
+            ["Budget", ": " . $budgetName, "Date", ": " . $prDate],
+            ["Sub Budget", ": " . $subBudgetName],
+            [""],
+            ["No", "PR Number", "Date", "Budget", "Date Of Delivery", "Delivery To", "Total IDR", "Total Other Currency", "Total Equivalent IDR"],
         ];
     }
 
@@ -182,9 +186,9 @@ class ExportReportPurchaseRequisitionSummary implements FromCollection, WithHead
             ],
         ];
 
-        $datas      = $this->dataPurchaseRequestSummary;
-        $totalCell  = count($datas);
-        $lastCell   = 'A7:I' . $totalCell + 7;
+        $datas = $this->dataPurchaseRequestSummary;
+        $totalCell = count($datas);
+        $lastCell = 'A7:I' . $totalCell + 7;
         $sheet->getStyle($lastCell)->applyFromArray($styleArrayContent);
 
         $styleArrayFooter = [
