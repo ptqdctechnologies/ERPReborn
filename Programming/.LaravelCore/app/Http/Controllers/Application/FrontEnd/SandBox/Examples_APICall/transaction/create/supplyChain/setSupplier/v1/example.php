@@ -21,7 +21,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         |                     ► http://172.28.0.4/transaction.create.supplyChain.setSupplier.v1_throughAPIGateway                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-10-12                                                                                           |
+        | ▪ Last Update     : 2026-04-21                                                                                           |
         | ▪ Creation Date   : 2022-10-12                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -36,15 +36,46 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken, 
                 'transaction.create.supplyChain.setSupplier', 
-                'latest', 
+                'latest',
                 [
                 'entities' => [
-                    'entity_RefID' => 124000000000069,
-                    'code' => 'VDR0002'
+                    "supplierName" => "Supplier Indonesia",
+                    "taxID" => "123456789",
+                    "phoneNumber" => "08123456789",
+                    "email" => "supplier@example.com",
+                    "country" => "Indonesia",
+                    "province" => "DKI Jakarta",
+                    "city" => "Jakarta Selatan",
+                    "address" => "Jl. Sudirman No. 1",
+                    "contactPerson" => "Andi",
+                    "bank_RefID" => 166000000000001,
+                    "accountNumber" => "1234567890",
+                    "accountName" => "PT. Supplier Indonesia",
+                    "remark" => "My Remark",
+                    "legalEntity" => "PT (Perseroan Terbatas)",
+                    "log_FileUpload_Pointer_RefID" => null,
+                    "additionalData" => [
+                        "itemList" => [
+                            "items" => [
+                                    [
+                                    "entities" => [
+                                        "category_RefID" => 123456789,
+                                        "specialization_RefID" => 123456789
+                                        ]
+                                    ],
+                                    [
+                                    "entities" => [
+                                        "category_RefID" => 123456789,
+                                        "specialization_RefID" => 123456789
+                                        ]
+                                    ],
+                                ]
+                            ]
+                        ]
                     ]
                 ]
                 );
-            var_dump($varData);
+            return $varData;
             }
 
 
