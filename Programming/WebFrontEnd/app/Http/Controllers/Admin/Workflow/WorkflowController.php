@@ -12,18 +12,11 @@ class WorkflowController extends Controller
 {
     public function index(Request $request)
     {
-        $varAPIWebToken = $request->session()->get('SessionLogin');
-        $request->session()->forget("SessionAdvance");
+        $var = $request->query('var', 0);
 
-        $var = 0;
-        if (!empty($_GET['var'])) {
-            $var = $_GET['var'];
-        }
-        $compact = [
-            'var' => $var,
-            'varAPIWebToken' => $varAPIWebToken,
-        ];
-        return view('Admin.Workflow.Transactions.CreateWorkflow', $compact);
+        return view('Admin.Workflow.Transactions.CreateWorkflow', [
+            'var' => $var
+        ]);
     }
 
     public function create()
@@ -44,21 +37,6 @@ class WorkflowController extends Controller
 
     public function destroy($id)
     {
-    }
-
-    public function WorkflowRoute(Request $request)
-    {
-        $var = $request->query('var', 0);
-
-        return view('Admin.Workflow.Transactions.CreateWorkflowRoute', [
-            'var' => $var
-        ]);
-    }
-
-    public function WorkflowRouteStore(Request $request)
-    {
-        $input = $request->all();
-        dd($input);
     }
 
     public function userAllowedToSubmit(Request $request)
