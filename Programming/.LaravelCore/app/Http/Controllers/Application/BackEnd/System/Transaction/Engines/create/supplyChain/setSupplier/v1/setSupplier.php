@@ -23,7 +23,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-03-07                                                                                           |
+        | ▪ Last Update     : 2026-04-21                                                                                           |
         | ▪ Creation Date   : 2022-03-07                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -43,7 +43,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0002.0000000                                                                                       |
-        | ▪ Last Update     : 2025-02-11                                                                                           |
+        | ▪ Last Update     : 2026-04-21                                                                                           |
         | ▪ Creation Date   : 2022-03-07                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -90,8 +90,36 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
                                         )
                                     ),
 
-                                    $varData['entities']['entity_RefID'],
-                                    $varData['entities']['code']
+                                    $varData['entities']['supplierName'],
+                                    $varData['entities']['taxID'],
+                                    $varData['entities']['phoneNumber'],
+                                    $varData['entities']['email'],
+                                    $varData['entities']['country'],
+                                    $varData['entities']['province'],
+                                    $varData['entities']['city'],
+                                    $varData['entities']['address'],
+                                    $varData['entities']['contactPerson'],
+                                    $varData['entities']['bank_RefID'],
+                                    $varData['entities']['accountNumber'],
+                                    $varData['entities']['accountName'],
+                                    $varData['entities']['remark'],
+                                    $varData['entities']['legalEntity'],
+                                    $varData['entities']['log_FileUpload_Pointer_RefID'],
+
+                                    (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
+                                        $varUserSession,
+                                        'additionalData',
+                                        $varData['entities']
+                                        )
+                                        ?   (
+                                                (
+                                                !is_null($varData['entities']['additionalData'])
+                                                )
+                                                ? $varData['entities']['additionalData']
+                                                : []
+                                            )
+                                        : []
+                                    )
                                     )
                                 )
                             ))

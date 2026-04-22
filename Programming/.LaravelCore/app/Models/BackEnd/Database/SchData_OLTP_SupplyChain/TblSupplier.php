@@ -76,7 +76,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0001.0000000                                                                                       |
-        | ▪ Last Update     : 2025-02-11                                                                                           |
+        | ▪ Last Update     : 2026-04-21                                                                                           |
         | ▪ Creation Date   : 2022-10-12                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -99,7 +99,8 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         public function setDataInsert(
             $varUserSession,
             string $varSysDataAnnotation = null, string $varSysDataValidityStartDateTimeTZ = null, string $varSysDataValidityFinishDateTimeTZ = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, $varSysBaseCurrency_RefID = null,
-            int $varEntity_RefID = null, string $varCode = null
+            string $varSupplierName = null, string $varTaxID = null, string $varPhoneNumber = null, string $varEmail = null, string $varCountry = null, string $varProvince = null, string $varCity = null, string $varAddress = null, string $varContactPerson = null, int $varBank_RefID = null, string $varAccountNumber = null, string $varAccountName = null, string $varRemark = null, string $varLegalEntity = null, int $varLog_FileUpload_Pointer_RefID = null,
+            array $varAdditionalData = []
             )
             {
             $varReturn = 
@@ -107,7 +108,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                     $varUserSession, 
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                         $varUserSession,
-                        parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
+                        parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET_NEW',
                         [
                             [$varUserSession, 'bigint'],
                             [null, 'bigint'],
@@ -119,8 +120,32 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             [$varSysBranch_RefID, 'bigint'],
                             [$varSysBaseCurrency_RefID, 'bigint'],
 
-                            [$varEntity_RefID, 'bigint'],
-                            [$varCode, 'varchar']
+                            [$varSupplierName, 'varchar'],
+                            [$varTaxID, 'varchar'],
+                            [$varPhoneNumber, 'varchar'],
+                            [$varEmail, 'varchar'],
+                            [$varCountry, 'varchar'],
+                            [$varProvince, 'varchar'],
+                            [$varCity, 'varchar'],
+                            [$varAddress, 'varchar'],
+                            [$varContactPerson, 'varchar'],
+                            [$varBank_RefID, 'bigint'],
+                            [$varAccountNumber, 'varchar'],
+                            [$varAccountName, 'varchar'],
+                            [$varRemark, 'varchar'],
+                            [$varLegalEntity, 'varchar'],
+                            [$varLog_FileUpload_Pointer_RefID, 'bigint'],
+
+                            [
+                                ((count($varAdditionalData) === 0)
+                                    ? null
+                                    : \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode(
+                                        $varUserSession,
+                                        $varAdditionalData
+                                        )
+                                ),
+                                'json'
+                            ]
                         ]
                         )
                     );
