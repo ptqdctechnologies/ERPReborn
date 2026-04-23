@@ -1,6 +1,7 @@
 <script>
     let countryCodeTemp = null;
     const supplierName = document.getElementById("supplier_name");
+    const taxID = document.getElementById("tax_id");
     const phoneNumber = document.getElementById("phone_number");
     const email = document.getElementById("email");
     const countryName = document.getElementById("country_name");
@@ -8,6 +9,7 @@
     const cityName = document.getElementById("city_name");
     const address = document.getElementById("address");
     const contactPerson = document.getElementById("contact_person");
+    const bankID = document.getElementById("bank_id");
     const bankName = document.getElementById("bank_name");
     const accountNumber = document.getElementById("account_number");
     const accountName = document.getElementById("account_name");
@@ -38,6 +40,77 @@
         });
 
         return true;
+    }
+
+    function supplierStore() {
+        const dummy = [
+            {
+                entities: {
+                    category_RefID: 12345678,
+                    specialization_RefID: 12345678
+                }
+            },
+            {
+                entities: {
+                    category_RefID: 23456781,
+                    specialization_RefID: 23456781
+                }
+            }
+        ];
+
+        $.ajax({
+            type: 'POST',
+            url: '{!! route("Supplier.store") !!}',
+            data: {
+                supplier_name: supplierName.value,
+                tax_id: taxID.value || '',
+                phone_number: phoneNumber.value,
+                email: email.value,
+                country_name: countryName.value,
+                province_name: provinceName.value,
+                city_name: cityName.value,
+                address: address.value,
+                contact_person: contactPerson.value,
+                bank_id: bankID.value,
+                account_number: accountNumber.value,
+                account_name: accountName.value,
+                remark: remark.value,
+                legal_entity: legalEntity.value,
+                supplier_detail: JSON.stringify(dummy)
+            }
+        })
+            .done(function (response) {
+                console.log('response', response);
+
+                if (response.status === 200) {
+                    const swalWithBootstrapButtons = Swal.mixin({
+                        confirmButtonClass: 'btn btn-success btn-sm',
+                        cancelButtonClass: 'btn btn-danger btn-sm',
+                        buttonsStyling: true,
+                    });
+
+                    swalWithBootstrapButtons.fire({
+                        title: 'Successful !',
+                        type: 'success',
+                        html: 'Data has been saved',
+                        showCloseButton: false,
+                        showCancelButton: false,
+                        focusConfirm: false,
+                        confirmButtonText: '<span style="color:black;"> OK </span>',
+                        confirmButtonColor: '#4B586A',
+                        confirmButtonColor: '#e9ecef',
+                        reverseButtons: true
+                    }).then((result) => {
+                        Utils.cancelForm("{{ route('Supplier.index') }}");
+                    });
+                }
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                console.error("Error:", errorThrown);
+            })
+            .always(function (jqXHR, textStatus, errorThrown) {
+                Utils.hideLoading();
+            });
     }
 
     function validationForm() {
@@ -74,7 +147,8 @@
             isCategoryChecklist &&
             isSpecializationChecklist
         ) {
-            console.log('here');
+            Utils.showLoading();
+            supplierStore();
         } else {
             if (
                 !isSupplierNameNotEmpty &&
