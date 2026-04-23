@@ -39,22 +39,28 @@
         }
     });
 
-    $(function() {
-        $('.mySupplier').on('click', function(e) {
+    $(function () {
+        $('.mySupplier').on('click', function (e) {
             e.preventDefault();
             var keys = 0;
 
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
             $.ajax({
-                type: 'GET',
-                url: '{!! route("getSupplier") !!}',
-                success: function(data) {
+                type: 'POST',
+                url: '{!! route("Supplier.SupplierPickList") !!}',
+                success: function (data) {
                     console.log('data supplier', data);
-                    
+
                     var no = 1;
                     t = $('#tableGetSupplier').DataTable();
                     t.clear();
-                    $.each(data, function(key, val) {
-                        keys +=1;
+                    $.each(data.data, function (key, val) {
+                        keys += 1;
                         var code = val.code ? val.code : '-';
                         var name = val.name ? val.name : '-';
                         var address = val.address ? val.address : '-';
@@ -79,29 +85,29 @@
 
 <script>
     let currentType = null;
-    $(document).on('click', '.mySupplier', function() {
+    $(document).on('click', '.mySupplier', function () {
         currentType = $(this).data('type');
     });
 
-    $('#tableGetSupplier tbody').on('click', 'tr', function() {
+    $('#tableGetSupplier tbody').on('click', 'tr', function () {
         $("#mySupplier").modal('toggle');
 
-        var row             = $(this).closest("tr");
+        var row = $(this).closest("tr");
         var sys_id_supplier = row.find('input[data-trigger="sys_id_supplier"]').val();
-        var code            = row.find("td:nth-child(2)").text();
-        var name            = row.find("td:nth-child(3)").text();
-        var address         = row.find("td:nth-child(4)").text();
+        var code = row.find("td:nth-child(2)").text();
+        var name = row.find("td:nth-child(3)").text();
+        var address = row.find("td:nth-child(4)").text();
 
         if (currentType === 'creditor') {
             $("#creditor_id").val(sys_id_supplier);
             $("#creditor_code").val(code);
             $("#creditor_name").val(name);
-        } 
+        }
         else if (currentType === 'debitor') {
             $("#debitor_id").val(sys_id_supplier);
             $("#debitor_code").val(code);
             $("#debitor_name").val(name);
-        }else{
+        } else {
             $("#supplier_id").val(sys_id_supplier);
             $("#supplier_code").val(code);
             $("#supplier_name").val(name);

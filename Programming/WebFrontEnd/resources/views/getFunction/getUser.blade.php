@@ -42,14 +42,20 @@
     });
 
     function myUserStart(idx) {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
         $.ajax({
-            type: 'GET',
-            url: '{!! route("getSupplier") !!}',
-            success: function(data) {
+            type: 'POST',
+            url: '{!! route("Supplier.SupplierPickList") !!}',
+            success: function (data) {
                 var no = 1;
                 t = $('#tableGetUser').DataTable();
                 t.clear();
-                $.each(data, function(key, val) {
+                $.each(data.data, function (key, val) {
                     t.row.add([
                         '<tbody><tr><td>' + no++ + '</td>',
                         '<td><span data-dismiss="modal" onclick="ClickUserStart(\'' + val.sys_ID + '\', \'' + val.code + '\', \'' + val.fullName + '\', \'' + val.fullName + '\', \'' + idx + '\');">' + val.fullName + '</span></td>',
@@ -64,15 +70,20 @@
     }
 
     function myUserIntermediate(idx) {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
 
         $.ajax({
-            type: 'GET',
-            url: '{!! route("getSupplier") !!}',
-            success: function(data) {
+            type: 'POST',
+            url: '{!! route("Supplier.SupplierPickList") !!}',
+            success: function (data) {
                 var no = 1;
                 t = $('#tableGetUser').DataTable();
                 t.clear();
-                $.each(data, function(key, val) {
+                $.each(data.data, function (key, val) {
                     t.row.add([
                         '<tbody><tr><td>' + no++ + '</td>',
                         '<td><span data-dismiss="modal" onclick="ClickUserIntermediate(\'' + val.sys_ID + '\', \'' + val.code + '\', \'' + val.fullName + '\', \'' + val.fullName + '\', \'' + idx + '\');">' + val.fullName + '</span></td>',
@@ -87,14 +98,20 @@
     }
 
     function myUserEnd(idx) {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
         $.ajax({
-            type: 'GET',
-            url: '{!! route("getSupplier") !!}',
-            success: function(data) {
+            type: 'POST',
+            url: '{!! route("Supplier.SupplierPickList") !!}',
+            success: function (data) {
                 var no = 1;
                 t = $('#tableGetUser').DataTable();
                 t.clear();
-                $.each(data, function(key, val) {
+                $.each(data.data, function (key, val) {
                     t.row.add([
                         '<tbody><tr><td>' + no++ + '</td>',
                         '<td><span data-dismiss="modal" onclick="ClickUserEnd(\'' + val.sys_ID + '\', \'' + val.code + '\', \'' + val.fullName + '\', \'' + val.fullName + '\', \'' + idx + '\');">' + val.fullName + '</span></td>',
