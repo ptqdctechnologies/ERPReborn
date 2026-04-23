@@ -143,9 +143,10 @@
       //   'Success!'
       // );
     },
-    showErrorInputMessage: (componentId, messageId) => {
+    showErrorInputMessage: (componentId, containerMessageId, messageId = '', message = '') => {
       $(componentId).css("border", "1px solid red");
-      $(messageId).show();
+      $(containerMessageId).show();
+      $(messageId).text(message);
     },
     hideErrorInputMessage: (componentId, messageId) => {
       $(componentId).css("border", "1px solid #ced4da");

@@ -8,9 +8,18 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
 use App\Helpers\ZhtHelper\System\Helper_Environment;
+use App\Http\Requests\Master\Supplier\StoreSupplier;
+use App\Services\Master\Supplier\SupplierService;
 
 class SupplierController extends Controller
 {
+    protected $supplierService;
+
+    public function __construct(SupplierService $supplierService)
+    {
+        $this->supplierService = $supplierService;
+    }
+
     public function index(Request $request)
     {
         return view('Master.Supplier.Transactions.IndexSupplier');
@@ -27,11 +36,22 @@ class SupplierController extends Controller
         return view('Master.Supplier.Transactions.CreateSupplier', $compact);
     }
 
-    public function store(Request $request)
+    public function store(StoreSupplier $request)
     {
         try {
             $token = Session::get('SessionLogin');
-            $detailItems = json_decode($request->supplier_detail, true);
+
+            $detailItems = [];
+            foreach ($request->specialization as $category => $specs) {
+                foreach ($specs as $spec) {
+                    $detailItems[] = [
+                        "entities" => [
+                            "category_RefID" => (int) $category,
+                            "specialization_RefID" => (int) $spec
+                        ]
+                    ];
+                }
+            }
 
             $response = Helper_APICall::setCallAPIGateway(
                 Helper_Environment::getUserSessionID_System(),
@@ -53,7 +73,7 @@ class SupplierController extends Controller
                         "accountNumber" => $request->account_number,
                         "accountName" => $request->account_name,
                         "remark" => $request->remark,
-                        "legalEntity" => $request->legal_entity,
+                        "legalEntity" => $request->legal_entity_value,
                         "log_FileUpload_Pointer_RefID" => null,
                         "additionalData" => [
                             "itemList" => [
@@ -91,5 +111,24 @@ class SupplierController extends Controller
 
     public function destroy($id)
     {
+    }
+
+    public function SupplierPickList(Request $request)
+    {
+        $supplierID = $request->input('supplier_id');
+
+        $response = $this->supplierService->getPickList($supplierID);
+
+        $status = $response['metadata']['HTTPStatusCode'];
+        $data = [];
+
+        if ($status == 200) {
+            $data = $response['data']['data'] ?? [];
+        }
+
+        return response()->json([
+            'data' => $data,
+            'status' => $status
+        ]);
     }
 }

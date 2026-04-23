@@ -1,8 +1,8 @@
 <script>
     function getDataSuppliers() {
         $.ajax({
-            type: 'GET',
-            url: '{!! route("getSupplier") !!}',
+            type: 'POST',
+            url: '{!! route("Supplier.SupplierPickList") !!}',
             beforeSend: function () {
                 $('#loading-table').show();
             },
@@ -10,7 +10,7 @@
                 $('#loading-table').hide();
             },
             success: function (response) {
-                const suppliers = response ?? [];
+                const suppliers = response.data ?? [];
 
                 if (suppliers.length === 0) {
                     $('#table_supplier tbody').empty();

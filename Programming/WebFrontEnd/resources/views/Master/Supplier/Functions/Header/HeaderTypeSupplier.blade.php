@@ -22,9 +22,7 @@
             </div>
             <div class="row" id="legalEntityMessage" style="margin-top: .3rem;display: none;">
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
-                <div class="col text-red">
-                    Legal Entity cannot be empty.
-                </div>
+                <div class="col text-red" id="legalEntityMessageText"></div>
             </div>
 
             <!-- SUPPLIER CATEGORY -->
@@ -35,13 +33,13 @@
                     <div class="d-flex">
                         <div class="form-group w-100">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="mandor" name="category"
-                                    style="margin-top: 0;">
+                                <input class="form-check-input" type="checkbox" id="mandor" value="123"
+                                    name="category[]" style="margin-top: 0;">
                                 <label for="mandor" class="form-check-label">Mandor</label>
                             </div>
                             <div class="form-check" style="margin-top: .5rem;">
-                                <input class="form-check-input" type="checkbox" id="manufacture" name="category"
-                                    style="margin-top: 0;">
+                                <input class="form-check-input" type="checkbox" id="manufacture" value="456"
+                                    name="category[]" style="margin-top: 0;">
                                 <label for="manufacture" class="form-check-label">Manufacture</label>
                             </div>
                         </div>
@@ -57,9 +55,7 @@
             </div>
             <div class="row" id="categoryMessage" style="margin-top: .5rem;display: none;">
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
-                <div class="col text-red">
-                    Please check at least one box.
-                </div>
+                <div class="col text-red" id="categoryMessageText"></div>
             </div>
         </div>
 
@@ -73,18 +69,18 @@
                     <div class="d-flex">
                         <div class="form-group w-100" id="specialization_group">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="sipil" name="specialization"
-                                    style="margin-top: 0;">
+                                <input class="form-check-input" type="checkbox" id="sipil" value="147"
+                                    name="specialization[123][]" style="margin-top: 0;">
                                 <label for="sipil" class="form-check-label">Sipil</label>
                             </div>
                             <div class="form-check" style="margin-top: .5rem;">
-                                <input class="form-check-input" type="checkbox" id="tower" name="specialization"
-                                    style="margin-top: 0;">
+                                <input class="form-check-input" type="checkbox" id="tower" value="258"
+                                    name="specialization[123][]" style="margin-top: 0;">
                                 <label for="tower" class="form-check-label">Tower</label>
                             </div>
                             <div class="form-check" style="margin-top: .5rem;">
-                                <input class="form-check-input" type="checkbox" id="electrical" name="specialization"
-                                    style="margin-top: 0;">
+                                <input class="form-check-input" type="checkbox" id="electrical" value="369"
+                                    name="specialization[456][]" style="margin-top: 0;">
                                 <label for="electrical" class="form-check-label">Electrical</label>
                             </div>
                         </div>
@@ -100,9 +96,7 @@
             </div>
             <div class="row" id="specializationMessage" style="margin-top: .5rem;display: none;">
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
-                <div class="col text-red">
-                    Please check at least one box.
-                </div>
+                <div class="col text-red" id="specializationMessageText"></div>
             </div>
         </div>
     </div>

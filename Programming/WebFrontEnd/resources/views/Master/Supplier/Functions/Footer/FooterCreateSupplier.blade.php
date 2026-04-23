@@ -1,23 +1,85 @@
 <script>
     let countryCodeTemp = null;
-    const supplierName = document.getElementById("supplier_name");
-    const taxID = document.getElementById("tax_id");
-    const phoneNumber = document.getElementById("phone_number");
-    const email = document.getElementById("email");
-    const countryName = document.getElementById("country_name");
-    const provinceName = document.getElementById("province_name");
-    const cityName = document.getElementById("city_name");
-    const address = document.getElementById("address");
-    const contactPerson = document.getElementById("contact_person");
-    const bankID = document.getElementById("bank_id");
-    const bankName = document.getElementById("bank_name");
-    const accountNumber = document.getElementById("account_number");
-    const accountName = document.getElementById("account_name");
-    const remark = document.getElementById("remark");
-    const legalEntity = document.getElementById("legal_entity");
+    const formList = {
+        supplier_name: {
+            component: '#supplier_name',
+            containerMessageId: '#supplierNameMessage',
+            messageId: '#supplierNameMessageText'
+        },
+        phone_number: {
+            component: '#phone_number',
+            containerMessageId: '#phoneNumberMessage',
+            messageId: '#phoneNumberMessageText'
+        },
+        email: {
+            component: '#email',
+            containerMessageId: '#emailMessage',
+            messageId: '#emailMessageText'
+        },
+        country_name: {
+            component: '#country_name',
+            containerMessageId: '#countryMessage',
+            messageId: '#countryMessageText'
+        },
+        province_name: {
+            component: '#province_name',
+            containerMessageId: '#provinceMessage',
+            messageId: '#provinceMessageText'
+        },
+        city_name: {
+            component: '#city_name',
+            containerMessageId: '#cityMessage',
+            messageId: '#cityMessageText'
+        },
+        address: {
+            component: '#address',
+            containerMessageId: '#addressMessage',
+            messageId: '#addressMessageText'
+        },
+        contact_person: {
+            component: '#contact_person',
+            containerMessageId: '#contactPersonMessage',
+            messageId: '#contactPersonMessageText'
+        },
+        bank_id: {
+            component: '#bank_name',
+            containerMessageId: '#bankNameMessage',
+            messageId: '#bankNameMessageText'
+        },
+        account_number: {
+            component: '#account_number',
+            containerMessageId: '#accountNumberMessage',
+            messageId: '#accountNumberMessageText'
+        },
+        account_name: {
+            component: '#account_name',
+            containerMessageId: '#accountNameMessage',
+            messageId: '#accountNameMessageText'
+        },
+        remark: {
+            component: '#remark',
+            containerMessageId: '#remarkMessage',
+            messageId: '#remarkMessageText'
+        },
+        legal_entity_value: {
+            component: '#legal_entity',
+            containerMessageId: '#legalEntityMessage',
+            messageId: '#legalEntityMessageText'
+        },
+        category: {
+            component: '#category',
+            containerMessageId: '#categoryMessage',
+            messageId: '#categoryMessageText'
+        },
+        specialization: {
+            component: '#specialization',
+            containerMessageId: '#specializationMessage',
+            messageId: '#specializationMessageText'
+        }
+    };
 
     function validateCheckbox(value) {
-        const checkboxes = document.querySelectorAll(`input[name="${value}"]`);
+        const checkboxes = document.querySelectorAll(`input[name^="${value}"]`);
 
         let checked = [...checkboxes].some(cb => cb.checked);
 
@@ -40,233 +102,6 @@
         });
 
         return true;
-    }
-
-    function supplierStore() {
-        const dummy = [
-            {
-                entities: {
-                    category_RefID: 12345678,
-                    specialization_RefID: 12345678
-                }
-            },
-            {
-                entities: {
-                    category_RefID: 23456781,
-                    specialization_RefID: 23456781
-                }
-            }
-        ];
-
-        $.ajax({
-            type: 'POST',
-            url: '{!! route("Supplier.store") !!}',
-            data: {
-                supplier_name: supplierName.value,
-                tax_id: taxID.value || '',
-                phone_number: phoneNumber.value,
-                email: email.value,
-                country_name: countryName.value,
-                province_name: provinceName.value,
-                city_name: cityName.value,
-                address: address.value,
-                contact_person: contactPerson.value,
-                bank_id: bankID.value,
-                account_number: accountNumber.value,
-                account_name: accountName.value,
-                remark: remark.value,
-                legal_entity: legalEntity.value,
-                supplier_detail: JSON.stringify(dummy)
-            }
-        })
-            .done(function (response) {
-                console.log('response', response);
-
-                if (response.status === 200) {
-                    const swalWithBootstrapButtons = Swal.mixin({
-                        confirmButtonClass: 'btn btn-success btn-sm',
-                        cancelButtonClass: 'btn btn-danger btn-sm',
-                        buttonsStyling: true,
-                    });
-
-                    swalWithBootstrapButtons.fire({
-                        title: 'Successful !',
-                        type: 'success',
-                        html: 'Data has been saved',
-                        showCloseButton: false,
-                        showCancelButton: false,
-                        focusConfirm: false,
-                        confirmButtonText: '<span style="color:black;"> OK </span>',
-                        confirmButtonColor: '#4B586A',
-                        confirmButtonColor: '#e9ecef',
-                        reverseButtons: true
-                    }).then((result) => {
-                        Utils.cancelForm("{{ route('Supplier.index') }}");
-                    });
-                }
-            })
-            .fail(function (jqXHR, textStatus, errorThrown) {
-                console.error("Error:", errorThrown);
-            })
-            .always(function (jqXHR, textStatus, errorThrown) {
-                Utils.hideLoading();
-            });
-    }
-
-    function validationForm() {
-        const isSupplierNameNotEmpty = supplierName.value.trim() !== '';
-        const isPhoneNumberNotEmpty = phoneNumber.value.trim() !== '';
-        const isEmailNotEmpty = email.value.trim() !== '';
-        const isCountryNameNotEmpty = countryName.value.trim() !== '';
-        const isProvinceNameNotEmpty = provinceName.value.trim() !== '';
-        const isCityNameNotEmpty = cityName.value.trim() !== '';
-        const isAddressNotEmpty = address.value.trim() !== '';
-        const isContactPersonNotEmpty = contactPerson.value.trim() !== '';
-        const isBankNameNotEmpty = bankName.value.trim() !== '';
-        const isAccountNumberNotEmpty = accountNumber.value.trim() !== '';
-        const isAccountNameNotEmpty = accountName.value.trim() !== '';
-        const isRemarkNotEmpty = remark.value.trim() !== '';
-        const isLegalEntityNotEmpty = legalEntity.value.trim() !== '';
-        const isCategoryChecklist = validateCheckbox('category');
-        const isSpecializationChecklist = validateCheckbox('specialization');
-
-        if (
-            isSupplierNameNotEmpty &&
-            isPhoneNumberNotEmpty &&
-            isEmailNotEmpty &&
-            isCountryNameNotEmpty &&
-            isProvinceNameNotEmpty &&
-            isCityNameNotEmpty &&
-            isAddressNotEmpty &&
-            isContactPersonNotEmpty &&
-            isBankNameNotEmpty &&
-            isAccountNumberNotEmpty &&
-            isAccountNameNotEmpty &&
-            isRemarkNotEmpty &&
-            isLegalEntityNotEmpty &&
-            isCategoryChecklist &&
-            isSpecializationChecklist
-        ) {
-            Utils.showLoading();
-            supplierStore();
-        } else {
-            if (
-                !isSupplierNameNotEmpty &&
-                !isPhoneNumberNotEmpty &&
-                !isEmailNotEmpty &&
-                !isCountryNameNotEmpty &&
-                !isProvinceNameNotEmpty &&
-                !isCityNameNotEmpty &&
-                !isAddressNotEmpty &&
-                !isContactPersonNotEmpty &&
-                !isBankNameNotEmpty &&
-                !isAccountNumberNotEmpty &&
-                !isAccountNameNotEmpty &&
-                !isRemarkNotEmpty &&
-                !isLegalEntityNotEmpty &&
-                !isCategoryChecklist &&
-                !isSpecializationChecklist
-            ) {
-                ErrorHandler.showErrorInputMessage("#supplier_name", "#supplierNameMessage");
-                ErrorHandler.showErrorInputMessage("#phone_number", "#phoneNumberMessage");
-                ErrorHandler.showErrorInputMessage("#email", "#emailMessage");
-                ErrorHandler.showErrorInputMessage("#country_name", "#countryMessage");
-                ErrorHandler.showErrorInputMessage("#province_name", "#provinceMessage");
-                ErrorHandler.showErrorInputMessage("#city_name", "#cityMessage");
-                ErrorHandler.showErrorInputMessage("#address", "#addressMessage");
-                ErrorHandler.showErrorInputMessage("#contact_person", "#contactPersonMessage");
-                ErrorHandler.showErrorInputMessage("#bank_name", "#bankNameMessage");
-                ErrorHandler.showErrorInputMessage("#account_number", "#accountNumberMessage");
-                ErrorHandler.showErrorInputMessage("#account_name", "#accountNameMessage");
-                ErrorHandler.showErrorInputMessage("#remark", "#remarkMessage");
-                ErrorHandler.showErrorInputMessage("", "#categoryMessage");
-                ErrorHandler.showErrorInputMessage("", "#specializationMessage");
-                ErrorHandler.showErrorInputMessage("", "#legalEntityMessage");
-                $('#legal_entity').next('.select2-container')
-                    .find('.select2-selection')
-                    .css("border", "1px solid red");
-
-                return;
-            }
-            if (!isSupplierNameNotEmpty) {
-                ErrorHandler.showErrorInputMessage("#supplier_name", "#supplierNameMessage");
-
-                return;
-            }
-            if (!isPhoneNumberNotEmpty) {
-                ErrorHandler.showErrorInputMessage("#phone_number", "#phoneNumberMessage");
-
-                return;
-            }
-            if (!isEmailNotEmpty) {
-                ErrorHandler.showErrorInputMessage("#email", "#emailMessage");
-
-                return;
-            }
-            if (!isCountryNameNotEmpty) {
-                ErrorHandler.showErrorInputMessage("#country_name", "#countryMessage");
-
-                return;
-            }
-            if (!isProvinceNameNotEmpty) {
-                ErrorHandler.showErrorInputMessage("#province_name", "#provinceMessage");
-
-                return;
-            }
-            if (!isCityNameNotEmpty) {
-                ErrorHandler.showErrorInputMessage("#city_name", "#cityMessage");
-
-                return;
-            }
-            if (!isAddressNotEmpty) {
-                ErrorHandler.showErrorInputMessage("#address", "#addressMessage");
-
-                return;
-            }
-            if (!isContactPersonNotEmpty) {
-                ErrorHandler.showErrorInputMessage("#contact_person", "#contactPersonMessage");
-
-                return;
-            }
-            if (!isBankNameNotEmpty) {
-                ErrorHandler.showErrorInputMessage("#bank_name", "#bankNameMessage");
-
-                return;
-            }
-            if (!isAccountNumberNotEmpty) {
-                ErrorHandler.showErrorInputMessage("#account_number", "#accountNumberMessage");
-
-                return;
-            }
-            if (!isAccountNameNotEmpty) {
-                ErrorHandler.showErrorInputMessage("#account_name", "#accountNameMessage");
-
-                return;
-            }
-            if (!isRemarkNotEmpty) {
-                ErrorHandler.showErrorInputMessage("#remark", "#remarkMessage");
-
-                return;
-            }
-            if (!isLegalEntityNotEmpty) {
-                ErrorHandler.showErrorInputMessage("", "#legalEntityMessage");
-                $('#legal_entity').next('.select2-container')
-                    .find('.select2-selection')
-                    .css("border", "1px solid red");
-
-                return;
-            }
-            if (!isCategoryChecklist) {
-                ErrorHandler.showErrorInputMessage("", "#categoryMessage");
-
-                return;
-            }
-            if (!isSpecializationChecklist) {
-                ErrorHandler.showErrorInputMessage("", "#specializationMessage");
-
-                return;
-            }
-        }
     }
 
     $('#tableGetBankList').on('click', 'tbody tr', function () {
@@ -394,9 +229,76 @@
         }
     });
 
-    document.querySelectorAll('input[name="category"]').forEach(cb => {
+    $('#supplierForm').on('submit', function (e) {
+        e.preventDefault();
+
+        $.ajax({
+            type: 'POST',
+            url: '{!! route("Supplier.store") !!}',
+            data: $(this).serialize(),
+            beforeSend: function () {
+                Utils.showLoading();
+            }
+        })
+            .done(function (response) {
+                console.log('response', response);
+
+                if (response.status === 200) {
+                    const swalWithBootstrapButtons = Swal.mixin({
+                        confirmButtonClass: 'btn btn-success btn-sm',
+                        cancelButtonClass: 'btn btn-danger btn-sm',
+                        buttonsStyling: true,
+                    });
+
+                    swalWithBootstrapButtons.fire({
+                        title: 'Successful !',
+                        type: 'success',
+                        html: 'Data has been saved',
+                        showCloseButton: false,
+                        showCancelButton: false,
+                        focusConfirm: false,
+                        confirmButtonText: '<span style="color:black;"> OK </span>',
+                        confirmButtonColor: '#4B586A',
+                        confirmButtonColor: '#e9ecef',
+                        reverseButtons: true
+                    }).then((result) => {
+                        Utils.cancelForm("{{ route('Supplier.index') }}");
+                    });
+                }
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                console.error("Error:", errorThrown);
+
+                if (jqXHR.status === 422) {
+                    let errors = jqXHR.responseJSON.errors;
+
+                    $.each(errors, function (key, value) {
+                        console.log(key + ': ' + value[0]);
+
+                        if (formList[key]) {
+                            ErrorHandler.showErrorInputMessage(formList[key].component, formList[key].containerMessageId, formList[key].messageId, value[0]);
+
+                            if (formList[key].component == '#legal_entity') {
+                                $('#legal_entity').next('.select2-container')
+                                    .find('.select2-selection')
+                                    .css("border", "1px solid red");
+                            } else if (formList[key].component == '#category') {
+                                validateCheckbox('category');
+                            } else if (formList[key].component == '#specialization') {
+                                validateCheckbox('specialization');
+                            }
+                        }
+                    });
+                }
+            })
+            .always(function (jqXHR, textStatus, errorThrown) {
+                Utils.hideLoading();
+            });
+    });
+
+    document.querySelectorAll('input[name^="category"]').forEach(cb => {
         cb.addEventListener('change', () => {
-            const checkboxes = document.querySelectorAll('input[name="category"]');
+            const checkboxes = document.querySelectorAll('input[name^="category"]');
 
             const checked = [...checkboxes].some(c => c.checked);
 
@@ -410,9 +312,9 @@
         });
     });
 
-    document.querySelectorAll('input[name="specialization"]').forEach(cb => {
+    document.querySelectorAll('input[name^="specialization"]').forEach(cb => {
         cb.addEventListener('change', () => {
-            const checkboxes = document.querySelectorAll('input[name="specialization"]');
+            const checkboxes = document.querySelectorAll('input[name^="specialization"]');
 
             const checked = [...checkboxes].some(c => c.checked);
 

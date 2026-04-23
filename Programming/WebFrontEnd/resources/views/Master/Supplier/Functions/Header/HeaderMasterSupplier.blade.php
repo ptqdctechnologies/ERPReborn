@@ -15,9 +15,7 @@
             </div>
             <div class="row" id="supplierNameMessage" style="margin-top: .3rem;display: none;">
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
-                <div class="col text-red">
-                    Supplier cannot be empty.
-                </div>
+                <div class="col text-red" id="supplierNameMessageText"></div>
             </div>
 
             <!-- TAX ID -->
@@ -44,9 +42,7 @@
             </div>
             <div class="row" id="phoneNumberMessage" style="margin-top: .3rem;display: none;">
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
-                <div class="col text-red">
-                    Phone cannot be empty.
-                </div>
+                <div class="col text-red" id="phoneNumberMessageText"></div>
             </div>
 
             <!-- EMAIL -->
@@ -60,9 +56,7 @@
             </div>
             <div class="row" id="emailMessage" style="margin-top: .3rem;display: none;">
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
-                <div class="col text-red">
-                    Email cannot be empty.
-                </div>
+                <div class="col text-red" id="emailMessageText"></div>
             </div>
 
             <!-- COUNTRY -->
@@ -89,9 +83,7 @@
             </div>
             <div class="row" id="countryMessage" style="margin-top: .3rem;display: none;">
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
-                <div class="col text-red">
-                    Country cannot be empty.
-                </div>
+                <div class="col text-red" id="countryMessageText"></div>
             </div>
 
             <!-- PROVINCE -->
@@ -118,9 +110,7 @@
             </div>
             <div class="row" id="provinceMessage" style="margin-top: .3rem;display: none;">
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
-                <div class="col text-red">
-                    Province cannot be empty.
-                </div>
+                <div class="col text-red" id="provinceMessageText"></div>
             </div>
 
             <!-- CITY -->
@@ -145,9 +135,7 @@
             </div>
             <div class="row" id="cityMessage" style="margin-top: .3rem;display: none;">
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
-                <div class="col text-red">
-                    City cannot be empty.
-                </div>
+                <div class="col text-red" id="cityMessageText"></div>
             </div>
 
             <!-- ADDRESS -->
@@ -160,9 +148,7 @@
             </div>
             <div class="row" id="addressMessage" style="margin-top: .3rem;display: none;">
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
-                <div class="col text-red">
-                    Address cannot be empty.
-                </div>
+                <div class="col text-red" id="addressMessageText"></div>
             </div>
         </div>
 
@@ -181,9 +167,7 @@
             </div>
             <div class="row" id="contactPersonMessage" style="margin-top: .3rem;display: none;">
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
-                <div class="col text-red">
-                    Contact Person cannot be empty.
-                </div>
+                <div class="col text-red" id="contactPersonMessageText"></div>
             </div>
 
             <!-- BANK NAME -->
@@ -211,9 +195,7 @@
             </div>
             <div class="row" id="bankNameMessage" style="margin-top: .3rem;display: none;">
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
-                <div class="col text-red">
-                    Bank Name cannot be empty.
-                </div>
+                <div class="col text-red" id="bankNameMessageText"></div>
             </div>
 
             <!-- ACCOUNT NUMBER -->
@@ -229,9 +211,7 @@
             </div>
             <div class="row" id="accountNumberMessage" style="margin-top: .3rem;display: none;">
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
-                <div class="col text-red">
-                    Account Number cannot be empty.
-                </div>
+                <div class="col text-red" id="accountNumberMessageText"></div>
             </div>
 
             <!-- ACCOUNT NAME -->
@@ -247,9 +227,7 @@
             </div>
             <div class="row" id="accountNameMessage" style="margin-top: .3rem;display: none;">
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
-                <div class="col text-red">
-                    Account Name cannot be empty.
-                </div>
+                <div class="col text-red" id="accountNameMessageText"></div>
             </div>
 
             <!-- REMARK -->
@@ -262,9 +240,7 @@
             </div>
             <div class="row" id="remarkMessage" style="margin-top: .3rem;display: none;">
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
-                <div class="col text-red">
-                    Remark cannot be empty.
-                </div>
+                <div class="col text-red" id="remarkMessageText"></div>
             </div>
         </div>
     </div>

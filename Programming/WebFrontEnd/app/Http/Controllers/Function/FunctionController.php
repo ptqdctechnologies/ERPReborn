@@ -408,7 +408,7 @@ class FunctionController extends Controller
                     'parameter' => null,
                     'SQLStatement' => [
                         'pick' => null,
-                        'sort' => null,
+                        'sort' => '"Code" ASC',
                         'filter' => $filter,
                         'paging' => null
                     ]
