@@ -307,7 +307,7 @@
                 ErrorHandler.hideErrorInputMessage("", "#categoryMessage");
             } else {
                 checkboxes.forEach(c => c.style.outline = '1px solid red');
-                ErrorHandler.showErrorInputMessage("", "#categoryMessage");
+                ErrorHandler.showErrorInputMessage("", "#categoryMessage", "#categoryMessageText", "The category field is required.");
             }
         });
     });
@@ -323,7 +323,7 @@
                 ErrorHandler.hideErrorInputMessage("", "#specializationMessage");
             } else {
                 checkboxes.forEach(c => c.style.outline = '1px solid red');
-                ErrorHandler.showErrorInputMessage("", "#specializationMessage");
+                ErrorHandler.showErrorInputMessage("", "#specializationMessage", "#specializationMessageText", "The specialization field is required.");
             }
         });
     });
