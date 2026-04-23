@@ -12,7 +12,7 @@
                     <label class="col-sm-3 col-md-4 col-lg-1 col-form-label p-0">Code</label>
                     <div class="col-4">
                         <div class="input-group">
-                            <input class="form-control" id="supplier_name" name="supplier_name"
+                            <input class="form-control" id="supplier_category_code" name="supplier_category_code"
                                 style="border-radius:0;">
                         </div>
                     </div>
@@ -21,7 +21,7 @@
                     <label class="col-sm-3 col-md-4 col-lg-1 col-form-label p-0">Name</label>
                     <div class="col-4">
                         <div class="input-group">
-                            <input class="form-control" id="supplier_name" name="supplier_name"
+                            <input class="form-control" id="supplier_category_name" name="supplier_category_name"
                                 style="border-radius:0;">
                         </div>
                     </div>

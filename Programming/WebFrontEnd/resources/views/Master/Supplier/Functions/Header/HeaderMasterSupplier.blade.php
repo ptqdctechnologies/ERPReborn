@@ -13,6 +13,10 @@
                     </div>
                 </div>
             </div>
+            <div class="row" id="supplierNameMessage" style="margin-top: .3rem;display: none;">
+                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+                <div class="col text-red" id="supplierNameMessageText"></div>
+            </div>
 
             <!-- TAX ID -->
             <div class="row" style="margin-top: 1rem;">
@@ -20,8 +24,8 @@
                     ID</label>
                 <div class="col-5 d-flex">
                     <div class="input-group">
-                        <input class="form-control number-only" id="tax_id" name="tax_id" style="border-radius:0;"
-                            autocomplete="off">
+                        <input class="form-control number-without-characters" id="tax_id" name="tax_id"
+                            style="border-radius:0;" autocomplete="off">
                     </div>
                 </div>
             </div>
@@ -31,10 +35,14 @@
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Phone</label>
                 <div class="col-5 d-flex">
                     <div class="input-group">
-                        <input class="form-control number-only" id="phone_number" name="phone_number"
+                        <input class="form-control number-without-characters" id="phone_number" name="phone_number"
                             style="border-radius:0;" autocomplete="off">
                     </div>
                 </div>
+            </div>
+            <div class="row" id="phoneNumberMessage" style="margin-top: .3rem;display: none;">
+                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+                <div class="col text-red" id="phoneNumberMessageText"></div>
             </div>
 
             <!-- EMAIL -->
@@ -45,6 +53,10 @@
                         <input class="form-control" id="email" name="email" style="border-radius:0;" autocomplete="off">
                     </div>
                 </div>
+            </div>
+            <div class="row" id="emailMessage" style="margin-top: .3rem;display: none;">
+                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+                <div class="col text-red" id="emailMessageText"></div>
             </div>
 
             <!-- COUNTRY -->
@@ -69,6 +81,10 @@
                     </div>
                 </div>
             </div>
+            <div class="row" id="countryMessage" style="margin-top: .3rem;display: none;">
+                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+                <div class="col text-red" id="countryMessageText"></div>
+            </div>
 
             <!-- PROVINCE -->
             <div class="row" style="margin-top: 1rem;">
@@ -92,6 +108,10 @@
                     </div>
                 </div>
             </div>
+            <div class="row" id="provinceMessage" style="margin-top: .3rem;display: none;">
+                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+                <div class="col text-red" id="provinceMessageText"></div>
+            </div>
 
             <!-- CITY -->
             <div class="row" style="margin-top: 1rem;">
@@ -113,6 +133,10 @@
                     </div>
                 </div>
             </div>
+            <div class="row" id="cityMessage" style="margin-top: .3rem;display: none;">
+                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+                <div class="col text-red" id="cityMessageText"></div>
+            </div>
 
             <!-- ADDRESS -->
             <div class="row" style="margin-top: 1rem;">
@@ -121,6 +145,10 @@
                     <textarea id="address" name="address" cols="30" rows="4" class="form-control"
                         autocomplete="off"></textarea>
                 </div>
+            </div>
+            <div class="row" id="addressMessage" style="margin-top: .3rem;display: none;">
+                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+                <div class="col text-red" id="addressMessageText"></div>
             </div>
         </div>
 
@@ -136,6 +164,10 @@
                             autocomplete="off">
                     </div>
                 </div>
+            </div>
+            <div class="row" id="contactPersonMessage" style="margin-top: .3rem;display: none;">
+                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+                <div class="col text-red" id="contactPersonMessageText"></div>
             </div>
 
             <!-- BANK NAME -->
@@ -161,6 +193,10 @@
                     </div>
                 </div>
             </div>
+            <div class="row" id="bankNameMessage" style="margin-top: .3rem;display: none;">
+                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+                <div class="col text-red" id="bankNameMessageText"></div>
+            </div>
 
             <!-- ACCOUNT NUMBER -->
             <div class="row" style="margin-top: 1rem;">
@@ -168,10 +204,14 @@
                     Number</label>
                 <div class="col-5 d-flex">
                     <div class="input-group">
-                        <input class="form-control number-only" id="account_number" name="account_number"
+                        <input class="form-control number-without-characters" id="account_number" name="account_number"
                             style="border-radius:0;" autocomplete="off">
                     </div>
                 </div>
+            </div>
+            <div class="row" id="accountNumberMessage" style="margin-top: .3rem;display: none;">
+                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+                <div class="col text-red" id="accountNumberMessageText"></div>
             </div>
 
             <!-- ACCOUNT NAME -->
@@ -185,6 +225,10 @@
                     </div>
                 </div>
             </div>
+            <div class="row" id="accountNameMessage" style="margin-top: .3rem;display: none;">
+                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+                <div class="col text-red" id="accountNameMessageText"></div>
+            </div>
 
             <!-- REMARK -->
             <div class="row" style="margin-top: 1rem;">
@@ -193,6 +237,10 @@
                     <textarea id="remark" class="form-control" cols="30" rows="4" autocomplete="off"
                         name="remark"></textarea>
                 </div>
+            </div>
+            <div class="row" id="remarkMessage" style="margin-top: .3rem;display: none;">
+                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+                <div class="col text-red" id="remarkMessageText"></div>
             </div>
         </div>
     </div>

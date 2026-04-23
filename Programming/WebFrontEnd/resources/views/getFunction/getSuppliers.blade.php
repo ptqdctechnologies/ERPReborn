@@ -63,19 +63,25 @@
         $(".loadingSuppliers").show();
         $(".errorSuppliersMessageContainer").hide();
 
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
         $.ajax({
-            type: 'GET',
-            url: '{!! route("getSupplier") !!}',
+            type: 'POST',
+            url: '{!! route("Supplier.SupplierPickList") !!}',
             success: function (data) {
                 $(".loadingSuppliers").hide();
 
                 var table = $('#tableSuppliers').DataTable();
                 table.clear();
 
-                if (Array.isArray(data) && data.length > 0) {
+                if (Array.isArray(data.data) && data.data.length > 0) {
                     $('#tableSuppliers').DataTable({
                         destroy: true,
-                        data: data,
+                        data: data.data,
                         deferRender: true,
                         scrollCollapse: true,
                         scroller: true,

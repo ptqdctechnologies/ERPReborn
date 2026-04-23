@@ -86,6 +86,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::resource('Warehouse', 'Register\Warehouse\WarehouseController');
 
     // SUPPLIER
+    Route::post('SupplierPickList', 'Master\SupplierController@SupplierPickList')->name('Supplier.SupplierPickList');
     Route::resource('Supplier', 'Master\SupplierController');
 
     // PRODUCT
@@ -212,7 +213,6 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('getEntityBankAccount', 'Function\FunctionController@getEntityBankAccount')->name('getEntityBankAccount');
     Route::get('getProduct', 'Function\FunctionController@getProduct')->name('getProduct');
     Route::get('getWorker', 'Function\FunctionController@getWorker')->name('getWorker');
-    Route::get('getSupplier', 'Function\FunctionController@getSupplier')->name('getSupplier');
     Route::get('getDeliverTo', 'Function\FunctionController@getDeliverTo')->name('getDeliverTo');
     Route::get('getWarehouse', 'Function\FunctionController@getWarehouse')->name('getWarehouse');
     Route::get('getBusinessTripCostComponentEntity', 'Function\FunctionController@getBusinessTripCostComponentEntity')->name('getBusinessTripCostComponentEntity');

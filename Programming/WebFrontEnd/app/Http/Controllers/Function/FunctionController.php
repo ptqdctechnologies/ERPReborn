@@ -387,43 +387,6 @@ class FunctionController extends Controller
         }
     }
 
-    // FUNCTION SUPPLIER
-    public function getSupplier(Request $request)
-    {
-        try {
-            $varAPIWebToken = Session::get('SessionLogin');
-            $supplierID = $request->input('supplier_id');
-
-            $filter = null;
-            if (!empty($supplierID) && $supplierID != 'undefined') {
-                $filter = '"Sys_ID" = \'' . addslashes($supplierID) . '\'';
-            }
-
-            $varData = Helper_APICall::setCallAPIGateway(
-                Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken,
-                'transaction.read.dataList.supplyChain.getSupplier',
-                'latest',
-                [
-                    'parameter' => null,
-                    'SQLStatement' => [
-                        'pick' => null,
-                        'sort' => null,
-                        'filter' => $filter,
-                        'paging' => null
-                    ]
-                ],
-                false
-            );
-
-            return response()->json($varData['data']['data']);
-        } catch (\Throwable $th) {
-            Log::error("Error at getSupplier: " . $th->getMessage());
-
-            return response()->json();
-        }
-    }
-
     // FUNCTION DELIVER TO
     public function getDeliverTo(Request $request)
     {
