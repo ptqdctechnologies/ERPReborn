@@ -34,7 +34,7 @@ class StoreSupplier extends FormRequest
             'bank_id' => 'required',
             'account_number' => 'required|string',
             'account_name' => 'required|string',
-            'remark' => 'required|string',
+            // 'remark' => 'required|string',
             'legal_entity_value' => 'required|string',
             'category' => 'required|array',
             'specialization' => 'required|array'
