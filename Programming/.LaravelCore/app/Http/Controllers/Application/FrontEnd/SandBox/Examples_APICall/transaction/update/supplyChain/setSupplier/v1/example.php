@@ -21,7 +21,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         |                     ► http://172.28.0.4/transaction.update.supplyChain.setSupplier.v1_throughAPIGateway                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-07-27                                                                                           |
+        | ▪ Last Update     : 2026-04-24                                                                                           |
         | ▪ Creation Date   : 2022-07-27                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -38,14 +38,47 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                 'transaction.update.supplyChain.setSupplier', 
                 'latest', 
                 [
-                'recordID' => 126000000000001,
+                'recordID' => 126000000002236,
                 'entities' => [
-                    'entity_RefID' => 124000000000069,
-                    'code' => 'VDR0002'
+                    "supplierName" => "Supplier Nusa Indonesia",
+                    "taxID" => "123456789",
+                    "phoneNumber" => "08123456021",
+                    "email" => "supplier_nusa@example.com",
+                    "country" => "Indonesia",
+                    "province" => "DKI Jakarta",
+                    "city" => "Jakarta Selatan",
+                    "address" => "Jl. Mampang Prapatan No. 1",
+                    "contactPerson" => "Budi Santoso",
+                    "bank_RefID" => 166000000000002,
+                    "accountNumber" => "1234567890",
+                    "accountName" => "PT. Supplier Nusa Indonesia",
+                    "remark" => "My Remark Update Supplier",
+                    "legalEntity" => "PT (Perseroan Terbatas)",
+                    "log_FileUpload_Pointer_RefID" => null,
+                    'additionalData' => [
+                        'itemList' => [
+                            'items' => [
+                                    [
+                                    'recordID' => 304000000000019,
+                                    'entities' => [
+                                        "category_RefID" => 12345670,
+                                        "specialization_RefID" => 12345672
+                                        ]
+                                    ],
+                                    [
+                                    'recordID' => 304000000000020,
+                                    'entities' => [
+                                        "category_RefID" => 12345671,
+                                        "specialization_RefID" => 12345673
+                                        ]
+                                    ],
+                                ]
+                            ]
+                        ]
                     ]
                 ]
                 );
-            var_dump($varData);
+            return $varData;
             }
 
 
