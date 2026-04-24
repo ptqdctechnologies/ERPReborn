@@ -8,13 +8,11 @@ use App\Http\Controllers\ExportExcel\Inventory\ExportReportDODetail;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Session;
 use Maatwebsite\Excel\Facades\Excel;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
 use App\Helpers\ZhtHelper\System\Helper_Environment;
-use App\Helpers\ZhtHelper\Cache\Helper_Redis;
 use App\Services\Inventory\DeliveryOrderService;
 use App\Services\WorkflowService;
 
@@ -27,6 +25,192 @@ class DeliveryOrderController extends Controller
         $this->deliveryOrderService = $deliveryOrderService;
         $this->workflowService = $workflowService;
     }
+
+    public function FormatText($text)
+    {
+        $result = strtolower($text);
+        $result = str_replace("_", " ", $result);
+        $result = ucwords($result);
+
+
+        if ($text == "PERMANENT" || $text == "RENT") {
+            $resultRefID = match ($text) {
+                "RENT" => 0,
+                default => 1,
+            };
+        } else {
+            $resultRefID = match ($text) {
+                "PURCHASE_ORDER" => 0,
+                "INTERNAL_USE" => 1,
+                default => 2,
+            };
+        }
+
+        return [
+            'id' => $resultRefID,
+            'text' => $result
+        ];
+    }
+
+    // +--------------------------------------------------------------------------------------------------------------------------+
+    // |                                        TRANSACTIONS                                                                      |
+    // +--------------------------------------------------------------------------------------------------------------------------+
+
+    public function index(Request $request)
+    {
+        $var = $request->query('var', 0);
+        $varAPIWebToken = Session::get('SessionLogin');
+        $documentTypeRefID = $this->GetBusinessDocumentsType('Delivery Order Form');
+
+        return view('Inventory.DeliveryOrder.Transactions.CreateDeliveryOrder', [
+            'var' => $var,
+            'varAPIWebToken' => $varAPIWebToken,
+            'documentType_RefID' => $documentTypeRefID
+        ]);
+    }
+
+    public function store(Request $request)
+    {
+        try {
+            $response = $this->deliveryOrderService->create($request);
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                throw new \Exception('Failed to fetch Create Delivery Order');
+            }
+
+            $responseWorkflow = $this->workflowService->submit(
+                $response['data']['businessDocument']['businessDocument_RefID'],
+                $request->workFlowPath_RefID,
+                $request->comment,
+                $request->approverEntity,
+            );
+
+            if ($responseWorkflow['metadata']['HTTPStatusCode'] !== 200) {
+                throw new \Exception('Failed to fetch Submit Workflow Create Delivery Order');
+            }
+
+            $compact = [
+                "documentNumber" => $response['data']['businessDocument']['documentNumber'],
+                "status" => $responseWorkflow['metadata']['HTTPStatusCode'],
+            ];
+
+            return response()->json($compact);
+        } catch (\Throwable $th) {
+            Log::error("Store Delivery Order Function Error: " . $th->getMessage());
+
+            return response()->json(["status" => 500]);
+        }
+    }
+
+    public function updates(Request $request)
+    {
+        try {
+            $response = $this->deliveryOrderService->updates($request);
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                throw new \Exception('Failed to fetch Revision Delivery Order');
+            }
+
+            // $responseWorkflow = $this->workflowService->resubmit(
+            //     $response['data'][0]['businessDocument']['businessDocument_RefID'],
+            //     $request->comment,
+            //     $request->approverEntity,
+            // );
+
+            // if ($responseWorkflow['metadata']['HTTPStatusCode'] !== 200) {
+            //     throw new \Exception('Failed to fetch Submit Workflow Revision Delivery Order');
+            // }
+
+            $compact = [
+                "documentNumber" => $response['data'][0]['businessDocument']['documentNumber'],
+                "status" => $response['metadata']['HTTPStatusCode'],
+                // "status"            => $responseWorkflow['metadata']['HTTPStatusCode'],
+            ];
+
+            return response()->json($compact);
+        } catch (\Throwable $th) {
+            Log::error("Error at update: " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
+    public function RevisionDeliveryOrderIndex(Request $request)
+    {
+        try {
+            $varAPIWebToken = Session::get('SessionLogin');
+            $documentTypeRefID = $this->GetBusinessDocumentsType('Delivery Order Revision Form');
+
+            $response = $this->deliveryOrderService->getDetail($request->do_RefID);
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                return response()->json($response);
+            }
+
+            $data = $response['data']['data'];
+
+            $compact = [
+                'varAPIWebToken' => $varAPIWebToken,
+                'documentTypeRefID' => $documentTypeRefID,
+                'header' => [
+                    'combinedBudget_RefID' => $data[0]['combinedBudget_RefID'] ?? '',
+                    'combinedBudgetCode' => $data[0]['combinedBudgetCode'] ?? '',
+                    'combinedBudgetName' => $data[0]['combinedBudgetName'] ?? '',
+                    'combinedBudgetSectionCode' => $data[0]['combinedBudgetSectionCode'] ?? '',
+                    'combinedBudgetSectionName' => $data[0]['combinedBudgetSectionName'] ?? '',
+                    'doNumber' => $data[0]['documentNumber'] ?? '',
+                    'doID' => $data[0]['deliveryOrder_RefID'] ?? '',
+                    'doDetailID' => $data[0]['deliveryOrderDetail_ID'] ?? '',
+                    'deliveryDate' => $data[0]['deliveryDateTimeTZ'] ?? '',
+                    'deliveryFrom' => $data[0]['deliveryFrom_NonRefID']['Address'] ?? '',
+                    'deliveryFromID' => $data[0]['deliveryFrom_RefID'] ?? '',
+                    'deliveryTo' => $data[0]['deliveryTo_NonRefID']['Address'] ?? '',
+                    'deliveryToID' => $data[0]['deliveryTo_RefID'] ?? '',
+                    'transporterID' => $data[0]['transporter_RefID'] ?? '',
+                    'transporterCode' => $data[0]['transporterCode'] ?? '',
+                    'transporterName' => $data[0]['transporterName'] ?? '',
+                    'transporterPhone' => $data[0]['transporterPhone'] ?? '',
+                    'transporterFax' => $data[0]['transporterFax'] ?? '',
+                    'transporterContact' => $data[0]['transporterContactPerson'] ?? '',
+                    'transporterHandphone' => $data[0]['transporterHandphone'] ?? '',
+                    'transporterAddress' => $data[0]['transporterAddress'] ?? '',
+                    'fileID' => $data[0]['log_FileUpload_Pointer_RefID'] ?? null,
+                    'type' => $data[0]['type'] ? $this->FormatText($data[0]['type']) : null,
+                    'status' => $data[0]['stockMovementStatus'] ? $this->FormatText($data[0]['stockMovementStatus']) : null,
+                    'requesterID' => $data[0]['stockMovementRequester_RefID'] ?? null,
+                    'requesterName' => $data[0]['stockMovementRequesterName'] ?? null,
+                    'requesterPosition' => $data[0]['stockMovementRequesterPosition'] ?? null,
+                    'remarks' => $data[0]['remarks'] ?? '',
+                ],
+                'data' => $data
+            ];
+
+            return view('Inventory.DeliveryOrder.Transactions.RevisionDeliveryOrder', $compact);
+        } catch (\Throwable $th) {
+            Log::error("RevisionDeliveryOrderIndex Function Error at " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
+    public function StockDetail(Request $request)
+    {
+        try {
+            $response = $this->deliveryOrderService->stockDetail($request->combinedBudget_RefID, $request->warehouse_RefID);
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                throw new \Exception('Failed to fetch Stock Detail Delivery Order');
+            }
+
+            return response()->json($response['data']);
+        } catch (\Throwable $th) {
+            Log::error("Stock Detail Delivery Order Function Error: " . $th->getMessage());
+
+            return response()->json(["status" => 500]);
+        }
+    }
+
+    // +--------------------------------------------------------------------------------------------------------------------------+
+    // |                                        REPORTS                                                                           |
+    // +--------------------------------------------------------------------------------------------------------------------------+
 
     public function ReportDOToMaterialReceive(Request $request)
     {
@@ -259,84 +443,6 @@ class DeliveryOrderController extends Controller
         }
     }
 
-    public function index(Request $request)
-    {
-        $var = $request->query('var', 0);
-        $varAPIWebToken = Session::get('SessionLogin');
-        $documentTypeRefID = $this->GetBusinessDocumentsType('Delivery Order Form');
-
-        return view('Inventory.DeliveryOrder.Transactions.CreateDeliveryOrder', [
-            'var' => $var,
-            'varAPIWebToken' => $varAPIWebToken,
-            'documentType_RefID' => $documentTypeRefID
-        ]);
-    }
-
-    public function store(Request $request)
-    {
-        try {
-            $response = $this->deliveryOrderService->create($request);
-
-            if ($response['metadata']['HTTPStatusCode'] !== 200) {
-                throw new \Exception('Failed to fetch Create Delivery Order');
-            }
-
-            $responseWorkflow = $this->workflowService->submit(
-                $response['data']['businessDocument']['businessDocument_RefID'],
-                $request->workFlowPath_RefID,
-                $request->comment,
-                $request->approverEntity,
-            );
-
-            if ($responseWorkflow['metadata']['HTTPStatusCode'] !== 200) {
-                throw new \Exception('Failed to fetch Submit Workflow Create Delivery Order');
-            }
-
-            $compact = [
-                "documentNumber" => $response['data']['businessDocument']['documentNumber'],
-                "status" => $responseWorkflow['metadata']['HTTPStatusCode'],
-            ];
-
-            return response()->json($compact);
-        } catch (\Throwable $th) {
-            Log::error("Store Delivery Order Function Error: " . $th->getMessage());
-
-            return response()->json(["status" => 500]);
-        }
-    }
-
-    public function updates(Request $request)
-    {
-        try {
-            $response = $this->deliveryOrderService->updates($request);
-
-            if ($response['metadata']['HTTPStatusCode'] !== 200) {
-                throw new \Exception('Failed to fetch Revision Delivery Order');
-            }
-
-            // $responseWorkflow = $this->workflowService->resubmit(
-            //     $response['data'][0]['businessDocument']['businessDocument_RefID'],
-            //     $request->comment,
-            //     $request->approverEntity,
-            // );
-
-            // if ($responseWorkflow['metadata']['HTTPStatusCode'] !== 200) {
-            //     throw new \Exception('Failed to fetch Submit Workflow Revision Delivery Order');
-            // }
-
-            $compact = [
-                "documentNumber" => $response['data'][0]['businessDocument']['documentNumber'],
-                "status" => $response['metadata']['HTTPStatusCode'],
-                // "status"            => $responseWorkflow['metadata']['HTTPStatusCode'],
-            ];
-
-            return response()->json($compact);
-        } catch (\Throwable $th) {
-            Log::error("Error at update: " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
-        }
-    }
-
     public function ReportDODetail(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
@@ -473,448 +579,6 @@ class DeliveryOrderController extends Controller
         } catch (\Throwable $th) {
             Log::error("Error at PrintExportReportDODetail: " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
-        }
-    }
-
-    public function DeliveryOrderListData(Request $request)
-    {
-        try {
-
-            if (Redis::get("DataListAdvance") == null) {
-                $varAPIWebToken = Session::get('SessionLogin');
-                Helper_APICall::setCallAPIGateway(
-                    Helper_Environment::getUserSessionID_System(),
-                    $varAPIWebToken,
-                    'transaction.read.dataList.finance.getAdvance',
-                    'latest',
-                    [
-                        'parameter' => null,
-                        'SQLStatement' => [
-                            'pick' => null,
-                            'sort' => null,
-                            'filter' => null,
-                            'paging' => null
-                        ]
-                    ],
-                    false
-                );
-            }
-
-            $DataListAdvance = json_decode(
-                Helper_Redis::getValue(
-                    Helper_Environment::getUserSessionID_System(),
-                    "DataListAdvance"
-                ),
-                true
-            );
-
-
-            $collection = collect($DataListAdvance);
-
-            $project_id = $request->project_id;
-            $site_id = $request->site_id;
-
-            if ($project_id != "") {
-                $collection = $collection->where('CombinedBudget_RefID', $project_id);
-            }
-            if ($site_id != "") {
-                $collection = $collection->where('CombinedBudgetSection_RefID', $site_id);
-            }
-
-            $collection = $collection->all();
-
-            return response()->json($collection);
-        } catch (\Throwable $th) {
-            Log::error("Error at " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
-        }
-    }
-
-    public function DeliveryOrderListDataDor(Request $request)
-    {
-        $varAPIWebToken = $request->session()->get('SessionLogin');
-        $varDataAdvanceSettlement = Helper_APICall::setCallAPIGateway(
-            Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'transaction.read.dataList.finance.getAdvance',
-            'latest',
-            [
-                'parameter' => null,
-                'SQLStatement' => [
-                    'pick' => null,
-                    'sort' => null,
-                    'filter' => null,
-                    'paging' => null
-                ]
-            ]
-        );
-
-        return response()->json($varDataAdvanceSettlement['data']);
-    }
-
-    public function DeliveryOrderByBudgetID(Request $request)
-    {
-        $projectcode = $request->input('projectcode');
-        $varAPIWebToken = $request->session()->get('SessionLogin');
-        $varDataAdvanceRequest = Helper_APICall::setCallAPIGateway(
-            Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'transaction.read.dataList.finance.getAdvance',
-            'latest',
-            [
-                'parameter' => null,
-                'SQLStatement' => [
-                    'pick' => null,
-                    'sort' => null,
-                    'filter' => '"CombinedBudget_RefID" = ' . $projectcode . '',
-                    'paging' => null
-                ]
-            ]
-        );
-
-        $compact = [
-            'DataAdvanceRequest' => $varDataAdvanceRequest['data'],
-        ];
-        return response()->json($compact);
-    }
-
-    public function DeliveryOrderByDorID(Request $request)
-    {
-        $varAPIWebToken = $request->session()->get('SessionLogin');
-        $tamp = 0;
-        $status = 500;
-        $varDataDorList['data'] = [];
-        $sys_id = $request->input('sys_id');
-
-        $data = $request->session()->get("SessionDeliveryOrderID");
-
-        if ($request->session()->has("SessionDeliveryOrderID")) {
-            for ($i = 0; $i < count($data); $i++) {
-                if ($data[$i] == $sys_id) {
-                    $tamp = 1;
-                }
-            }
-        }
-
-        if ($tamp == 0) {
-
-            $varDataDorList = Helper_APICall::setCallAPIGateway(
-                Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken,
-                'transaction.read.dataList.finance.getAdvanceDetail',
-                'latest',
-                [
-                    'parameter' => [
-                        'advance_RefID' => (int) $sys_id,
-                    ],
-                    'SQLStatement' => [
-                        'pick' => null,
-                        'sort' => null,
-                        'filter' => null,
-                        'paging' => null
-                    ]
-                ]
-            );
-            $request->session()->push("SessionDeliveryOrderID", $sys_id);
-            $status = 200;
-        }
-
-        $compact = [
-            'DataDorList' => $varDataDorList['data'],
-            'sys_id' => $sys_id,
-            'status' => $status,
-        ];
-        return response()->json($compact);
-    }
-
-    public function FormatText($text)
-    {
-        $result = strtolower($text);
-        $result = str_replace("_", " ", $result);
-        $result = ucwords($result);
-
-
-        if ($text == "PERMANENT" || $text == "RENT") {
-            $resultRefID = match ($text) {
-                "RENT" => 0,
-                default => 1,
-            };
-        } else {
-            $resultRefID = match ($text) {
-                "PURCHASE_ORDER" => 0,
-                "INTERNAL_USE" => 1,
-                default => 2,
-            };
-        }
-
-        return [
-            'id' => $resultRefID,
-            'text' => $result
-        ];
-    }
-
-    public function RevisionDeliveryOrderIndex(Request $request)
-    {
-        try {
-            $varAPIWebToken = Session::get('SessionLogin');
-            $documentTypeRefID = $this->GetBusinessDocumentsType('Delivery Order Revision Form');
-
-            $response = $this->deliveryOrderService->getDetail($request->do_RefID);
-
-            if ($response['metadata']['HTTPStatusCode'] !== 200) {
-                return response()->json($response);
-            }
-
-            $data = $response['data']['data'];
-
-            $compact = [
-                'varAPIWebToken' => $varAPIWebToken,
-                'documentTypeRefID' => $documentTypeRefID,
-                'header' => [
-                    'combinedBudget_RefID' => $data[0]['combinedBudget_RefID'] ?? '',
-                    'combinedBudgetCode' => $data[0]['combinedBudgetCode'] ?? '',
-                    'combinedBudgetName' => $data[0]['combinedBudgetName'] ?? '',
-                    'combinedBudgetSectionCode' => $data[0]['combinedBudgetSectionCode'] ?? '',
-                    'combinedBudgetSectionName' => $data[0]['combinedBudgetSectionName'] ?? '',
-                    'doNumber' => $data[0]['documentNumber'] ?? '',
-                    'doID' => $data[0]['deliveryOrder_RefID'] ?? '',
-                    'doDetailID' => $data[0]['deliveryOrderDetail_ID'] ?? '',
-                    'deliveryDate' => $data[0]['deliveryDateTimeTZ'] ?? '',
-                    'deliveryFrom' => $data[0]['deliveryFrom_NonRefID']['Address'] ?? '',
-                    'deliveryFromID' => $data[0]['deliveryFrom_RefID'] ?? '',
-                    'deliveryTo' => $data[0]['deliveryTo_NonRefID']['Address'] ?? '',
-                    'deliveryToID' => $data[0]['deliveryTo_RefID'] ?? '',
-                    'transporterID' => $data[0]['transporter_RefID'] ?? '',
-                    'transporterCode' => $data[0]['transporterCode'] ?? '',
-                    'transporterName' => $data[0]['transporterName'] ?? '',
-                    'transporterPhone' => $data[0]['transporterPhone'] ?? '',
-                    'transporterFax' => $data[0]['transporterFax'] ?? '',
-                    'transporterContact' => $data[0]['transporterContactPerson'] ?? '',
-                    'transporterHandphone' => $data[0]['transporterHandphone'] ?? '',
-                    'transporterAddress' => $data[0]['transporterAddress'] ?? '',
-                    'fileID' => $data[0]['log_FileUpload_Pointer_RefID'] ?? null,
-                    'type' => $data[0]['type'] ? $this->FormatText($data[0]['type']) : null,
-                    'status' => $data[0]['stockMovementStatus'] ? $this->FormatText($data[0]['stockMovementStatus']) : null,
-                    'requesterID' => $data[0]['stockMovementRequester_RefID'] ?? null,
-                    'requesterName' => $data[0]['stockMovementRequesterName'] ?? null,
-                    'requesterPosition' => $data[0]['stockMovementRequesterPosition'] ?? null,
-                    'remarks' => $data[0]['remarks'] ?? '',
-                ],
-                'data' => $data
-            ];
-
-            return view('Inventory.DeliveryOrder.Transactions.RevisionDeliveryOrder', $compact);
-        } catch (\Throwable $th) {
-            Log::error("RevisionDeliveryOrderIndex Function Error at " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
-        }
-    }
-
-    public function DeliveryOrderListCartRevision(Request $request)
-    {
-
-        $varAPIWebToken = $request->session()->get('SessionLogin');
-        $var_recordID = $request->input('var_recordID');
-
-        $varData = Helper_APICall::setCallAPIGateway(
-            Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'transaction.read.dataList.finance.getAdvanceDetail',
-            'latest',
-            [
-                'parameter' => [
-                    'advance_RefID' => (int) $var_recordID,
-                ],
-                'SQLStatement' => [
-                    'pick' => null,
-                    'sort' => null,
-                    'filter' => null,
-                    'paging' => null
-                ]
-            ]
-        );
-        return response()->json($varData['data']);
-    }
-
-    public function StoreValidateDeliveryOrderSupplier(Request $request)
-    {
-        $tamp = 0;
-        $tamp2 = 0;
-        $status = 200;
-        $varDataAdvanceList['data'] = [];
-        $supplier_id = $request->input('supplier_id');
-        $supplier = $request->input('supplier');
-        $delivery_order_request_id = $request->input('delivery_order_request_id');
-
-        $data = Session::get("SessionDeliveryOrderSupplier");
-        $dataID = Session::get("SessionDeliveryOrderSupplierID");
-
-        if (Session::has("SessionDeliveryOrderSupplier")) {
-            for ($i = 0; $i < count($data); $i++) {
-                if ($data[$i] == $delivery_order_request_id) {
-                    $tamp = 1;
-                }
-            }
-            if ($tamp == 0) {
-                for ($i = 0; $i < count($dataID); $i++) {
-                    if ($dataID[$i] != $supplier_id) {
-                        $status = 500;
-                        $tamp2 = 1;
-                        break;
-                    }
-                }
-
-                if ($tamp2 == 0) {
-
-                    $varDataAdvanceList = $this->DeliveryOrderComplexBySupplierID($delivery_order_request_id);
-
-                    Session::push("SessionDeliveryOrderSupplier", $delivery_order_request_id);
-                    Session::push("SessionDeliveryOrderSupplierID", $supplier_id);
-                }
-            } else {
-                $status = 501;
-            }
-        } else {
-
-            $varDataAdvanceList = $this->DeliveryOrderComplexBySupplierID($delivery_order_request_id);
-
-            Session::push("SessionDeliveryOrderSupplier", $delivery_order_request_id);
-            Session::push("SessionDeliveryOrderSupplierID", $supplier_id);
-        }
-        $compact = [
-            'status' => $status,
-            'supplier_id' => $supplier_id,
-            'supplier' => $supplier,
-            'data' => $varDataAdvanceList,
-        ];
-
-        return response()->json($compact);
-    }
-
-    public function DeliveryOrderComplexBySupplierID($advance_RefID)
-    {
-        $varAPIWebToken = Session::get('SessionLogin');
-        if (Redis::get("DataListAdvanceDetailComplex") == null) {
-            Helper_APICall::setCallAPIGateway(
-                Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken,
-                'transaction.read.dataList.finance.getAdvanceDetailComplex',
-                'latest',
-                [
-                    'parameter' => [
-                        'advance_RefID' => 1,
-                    ],
-                    'SQLStatement' => [
-                        'pick' => null,
-                        'sort' => null,
-                        'filter' => null,
-                        'paging' => null
-                    ]
-                ],
-                false
-            );
-        }
-
-        $DataAdvanceDetailComplex = json_decode(
-            Helper_Redis::getValue(
-                Helper_Environment::getUserSessionID_System(),
-                "DataListAdvanceDetailComplex"
-            ),
-            true
-        );
-
-        $collection = collect($DataAdvanceDetailComplex);
-        $collection = $collection->where('Sys_ID_Advance', $advance_RefID);
-
-
-        $filteredArray = [];
-        $num = 0;
-        foreach ($collection->all() as $collections) {
-            $filteredArray[$num] = $collections;
-            $num++;
-        }
-
-        return $filteredArray;
-    }
-
-    public function SearchDeliveryOrderRequest(Request $request)
-    {
-        Session::forget("SessionDeliveryOrderSupplier");
-        Session::forget("SessionDeliveryOrderSupplierID");
-
-        if (Redis::get("DataListAdvance") == null) {
-            $varAPIWebToken = Session::get('SessionLogin');
-            Helper_APICall::setCallAPIGateway(
-                Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken,
-                'transaction.read.dataList.finance.getAdvance',
-                'latest',
-                [
-                    'parameter' => null,
-                    'SQLStatement' => [
-                        'pick' => null,
-                        'sort' => null,
-                        'filter' => null,
-                        'paging' => null
-                    ]
-                ],
-                false
-            );
-        }
-
-        $DataListAdvance = json_decode(
-            Helper_Redis::getValue(
-                Helper_Environment::getUserSessionID_System(),
-                "DataListAdvance"
-            ),
-            true
-        );
-
-        $collection = collect($DataListAdvance);
-
-        $budget_code = $request->input('budget_code');
-        $sub_budget_code = $request->input('sub_budget_code');
-        $supplier = $request->input('supplier');
-        $trano = $request->input('trano');
-
-        if ($budget_code != "") {
-            $collection = $collection->filter(function ($item) use ($budget_code) {
-                return strpos($item['CombinedBudgetCode'], $budget_code) !== false;
-            });
-        }
-        if ($sub_budget_code != "") {
-            $collection = $collection->filter(function ($item) use ($sub_budget_code) {
-                return strpos($item['CombinedBudgetSectionCode'], $sub_budget_code) !== false;
-            });
-        }
-        if ($supplier != "") {
-            $collection = $collection->filter(function ($item) use ($supplier) {
-                return strpos($item['RequesterWorkerName'], $supplier) !== false;
-            });
-        }
-        if ($trano != "") {
-            $collection = $collection->filter(function ($item) use ($trano) {
-                return strpos($item['DocumentNumber'], $trano) !== false;
-            });
-        }
-
-        return response()->json($collection->all());
-    }
-
-    public function StockDetail(Request $request)
-    {
-        try {
-            $response = $this->deliveryOrderService->stockDetail($request->combinedBudget_RefID, $request->warehouse_RefID);
-
-            if ($response['metadata']['HTTPStatusCode'] !== 200) {
-                throw new \Exception('Failed to fetch Stock Detail Delivery Order');
-            }
-
-            return response()->json($response['data']);
-        } catch (\Throwable $th) {
-            Log::error("Stock Detail Delivery Order Function Error: " . $th->getMessage());
-
-            return response()->json(["status" => 500]);
         }
     }
 }
