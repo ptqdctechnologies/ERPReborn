@@ -153,6 +153,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::post('PrintExportReportModifyBudgetDetail', 'Budget\BudgetController@PrintExportReportModifyBudgetDetail')->name('Budget.PrintExportReportModifyBudgetDetail');
     Route::post('BudgetImport', 'Budget\BudgetController@Import')->name('Budget.Import');
     Route::get('BudgetDownload', 'Budget\BudgetController@Download')->name('Budget.Download');
+    Route::get('BudgetStockDetail', 'Budget\BudgetController@BudgetStockDetail')->name('Budget.BudgetStockDetail');
     Route::resource('Budget', 'Budget\BudgetController')->only(['index', 'store']);
 
     // Budget Expense

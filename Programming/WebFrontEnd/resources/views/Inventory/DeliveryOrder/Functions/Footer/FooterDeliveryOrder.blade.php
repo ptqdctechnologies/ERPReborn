@@ -971,8 +971,8 @@
     }
 
     $('#TableSearchPORevision').on('click', 'tbody tr', function () {
-        let table = $('#TableSearchPORevision').DataTable();
-        let data = table.row(this).data();
+        const table = $('#TableSearchPORevision').DataTable();
+        const data = table.row(this).data();
 
         $("#loading-purchase-order").show();
 
@@ -1001,7 +1001,7 @@
         document.getElementById('total_reference_number').textContent = decimalFormat(parseFloat(total));
     }
 
-    function getBudgetDetails(site_code) {
+    function getBudgetDetails(combinedBudgetRefID, warehouseRefID, combinedBudgetSectionRefID) {
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -1010,29 +1010,31 @@
 
         $.ajax({
             type: 'GET',
-            url: '{!! route("getBudget") !!}?site_code=' + site_code,
+            url: '{!! route("Budget.BudgetStockDetail") !!}?combinedBudget_RefID=' + combinedBudgetRefID + '&warehouse_RefID=' + warehouseRefID + '&combinedBudgetSection_RefID=' + combinedBudgetSectionRefID,
             success: function (data) {
-                if (Array.isArray(data) && data.length > 0) {
+                console.log('data', data);
+
+                if (Array.isArray(data.data) && data.data.length > 0) {
                     $('#table_reference_type_detail tbody').show();
                     $("#loading-internal-use").hide();
 
-                    $.each(data, function (key, val) {
-                        if (val.product_RefID) {
+                    $.each(data.data, function (key, val) {
+                        if (val.Product_RefID) {
                             let row = `
                                     <tr>
-                                        <input id="product_RefID${indexInternalUseDetail}" value="${val.product_RefID}" type="hidden" />
-                                        <input id="quantityUnit_RefID${indexInternalUseDetail}" value="${val.quantityUnit_RefID}" type="hidden" />
-                                        <input id="reference_ID${indexInternalUseDetail}" value="${val.sys_ID}" type="hidden" />
+                                        <input id="product_RefID${indexInternalUseDetail}" value="${val.Product_RefID}" type="hidden" />
+                                        <input id="quantityUnit_RefID${indexInternalUseDetail}" value="${val.QuantityUnit_RefID}" type="hidden" />
+                                        <input id="reference_ID${indexInternalUseDetail}" value="${val.Sys_ID}" type="hidden" />
                                         <input id="workStructure_RefID${indexInternalUseDetail}" value="302000000000002" type="hidden" />
 
                                         <td style="text-align: center;">-</td>
-                                        <td style="text-align: center;">${val.combinedBudgetSectionCode} - ${val.combinedBudgetSectionName}</td>
-                                        <td style="text-align: left;">${val.productCode || ''} - ${val.productName || ''}</td>
-                                        <td style="text-align: center;">${val.quantityUnitName}</td>
-                                        <td style="text-align: center;">${currencyTotal(val.quantity)}</td>
-                                        <td style="text-align: center;">${currencyTotal(val.quantityRemaining)}</td>
-                                        <td style="text-align: center;">${currencyTotal(val.priceBaseCurrencyValue)}</td>
-                                        <td style="text-align: center;">${currencyTotal(val.quantity * val.priceBaseCurrencyValue)}</td>
+                                        <td style="text-align: center;">${val.CombinedBudgetSectionCode} - ${val.CombinedBudgetSectionName}</td>
+                                        <td style="text-align: left;">${val.ProductCode || ''} - ${val.ProductName || ''}</td>
+                                        <td style="text-align: center;">${val.QuantityUnitName}</td>
+                                        <td style="text-align: center;">${currencyTotal(val.Quantity || '0')}</td>
+                                        <td style="text-align: center;">${currencyTotal(val.QuantityRemaining || '0')}</td>
+                                        <td style="text-align: center;">${currencyTotal(val.PriceBaseCurrencyValue || '0')}</td>
+                                        <td style="text-align: center;">${currencyTotal((val.Quantity || '0') * (val.PriceBaseCurrencyValue || '0'))}</td>
                                         <td style="text-align: center;">-</td>
                                         <td style="text-align: center;">-</td>
                                         <td style="text-align: center;">-</td>
@@ -1053,9 +1055,9 @@
                             $(`#internal_use_qty_req${indexInternalUseDetail}`).on('keyup', function () {
                                 let qty_req = $(this).val().replace(/,/g, '');
                                 let data_index = $(this).data('index');
-                                let result = val.quantityRemaining - qty_req;
+                                let result = val.QuantityRemaining - qty_req;
 
-                                if (parseFloat(qty_req) > val.quantityRemaining) {
+                                if (parseFloat(qty_req) > val.QuantityRemaining) {
                                     $(this).val("");
                                     $(`#internal_use_balance_req${data_index}`).val("");
                                     ErrorNotif("Qty Request is over !");
@@ -1080,9 +1082,9 @@
     }
 
     $('#tableGetSiteSecond').on('click', 'tbody tr', function () {
-        let sysId = $(this).find('input[data-trigger="sys_id_site_second"]').val();
-        let siteCode = $(this).find('td:nth-child(2)').text();
-        let siteName = $(this).find('td:nth-child(3)').text();
+        const sysId = $(this).find('input[data-trigger="sys_id_site_second"]').val();
+        const siteCode = $(this).find('td:nth-child(2)').text();
+        const siteName = $(this).find('td:nth-child(3)').text();
 
         $("#internal_use_site_id").val(sysId);
         $("#internal_use_site_code").val(siteCode);
@@ -1092,10 +1094,10 @@
         $("#internal_use_site_name").css({ "border": "1px solid #ced4da", "background-color": "#e9ecef" });
         $("#internal_use_site_message").hide();
 
-        $("#loading-internal-use").show();
-        $('#table_reference_type_detail tbody').hide();
+        // $("#loading-internal-use").show();
+        // $('#table_reference_type_detail tbody').hide();
 
-        getBudgetDetails(sysId);
+        // getBudgetDetails(sysId);
 
         $("#mySiteCodeSecond").modal('toggle');
     });
@@ -1194,9 +1196,9 @@
     // END OF STOCK MOVEMENT TYPE
 
     $('#tableGetProjectSecond').on('click', 'tbody tr', function () {
-        let sysId = $(this).find('input[data-trigger="sys_id_project_second"]').val();
-        let projectCode = $(this).find('td:nth-child(2)').text();
-        let projectName = $(this).find('td:nth-child(3)').text();
+        const sysId = $(this).find('input[data-trigger="sys_id_project_second"]').val();
+        const projectCode = $(this).find('td:nth-child(2)').text();
+        const projectName = $(this).find('td:nth-child(3)').text();
 
         if (referenceTypeValue.value == "1") {
             $("#internal_use_budget_id").val(sysId);
@@ -1242,9 +1244,9 @@
     });
 
     $('#tableGetWorkerSecond').on('click', 'tbody tr', function () {
-        let sysId = $(this).find('input[data-trigger="sys_id_worker_second"]').val();
-        let workerName = $(this).find('td:nth-child(2)').text();
-        let workerPosition = $(this).find('td:nth-child(3)').text();
+        const sysId = $(this).find('input[data-trigger="sys_id_worker_second"]').val();
+        const workerName = $(this).find('td:nth-child(2)').text();
+        const workerPosition = $(this).find('td:nth-child(3)').text();
 
         $("#stock_movement_requester_id").val(sysId);
         $("#stock_movement_requester_position").val(workerPosition);
@@ -1258,9 +1260,9 @@
     });
 
     $('#tableGetModalWarehouses').on('click', 'tbody tr', function () {
-        let id = $(this).find('input[data-trigger="sys_id_modal_warehouse"]').val();
-        let name = $(this).find('td:nth-child(2)').text();
-        let address = $(this).find('td:nth-child(3)').text();
+        const id = $(this).find('input[data-trigger="sys_id_modal_warehouse"]').val();
+        const name = $(this).find('td:nth-child(2)').text();
+        const address = $(this).find('td:nth-child(3)').text();
 
         if (referenceTypeValue.value == "1") {
             if (deliveryType == "from_internal_use") {
@@ -1271,6 +1273,11 @@
                 $("#internal_use_delivery_from_name").css("border", "1px solid #ced4da");
                 $("#internal_use_delivery_from_address").css({ "border": "1px solid #ced4da", "background-color": "#e9ecef" });
                 $("#internal_use_delivery_from_message").hide();
+
+                $("#loading-internal-use").show();
+                $('#table_reference_type_detail tbody').hide();
+
+                getBudgetDetails(internalUseBudgetCodeRefID.value, id, internalUseSubBudgetCodeRefID.value);
             } else if (deliveryType == "to_internal_use") {
                 $("#internal_use_delivery_to_id").val(id);
                 $("#internal_use_delivery_to_name").val(name);
@@ -1306,14 +1313,14 @@
     });
 
     $('#tableTransporters tbody').on('click', 'tr', function () {
-        let sysId = $(this).find('input[data-trigger="sys_id_transporters"]').val();
-        let address = $(this).find('input[data-trigger="address_transporters"]').val();
-        let mobilePhone = $(this).find('input[data-trigger="mobile_phone_transporters"]').val();
-        let officePhone = $(this).find('input[data-trigger="office_phone_transporters"]').val();
-        let fax = $(this).find('input[data-trigger="fax_transporters"]').val();
-        let email = $(this).find('input[data-trigger="email_transporters"]').val();
-        let code = $(this).find('td:nth-child(2)').text();
-        let name = $(this).find('td:nth-child(3)').text();
+        const sysId = $(this).find('input[data-trigger="sys_id_transporters"]').val();
+        const address = $(this).find('input[data-trigger="address_transporters"]').val();
+        const mobilePhone = $(this).find('input[data-trigger="mobile_phone_transporters"]').val();
+        const officePhone = $(this).find('input[data-trigger="office_phone_transporters"]').val();
+        const fax = $(this).find('input[data-trigger="fax_transporters"]').val();
+        const email = $(this).find('input[data-trigger="email_transporters"]').val();
+        const code = $(this).find('td:nth-child(2)').text();
+        const name = $(this).find('td:nth-child(3)').text();
 
         $("#transporter_id").val(sysId);
         $("#transporter_name").val(`${code} - ${name}`);
@@ -1330,8 +1337,8 @@
     });
 
     $('#purchase_order_delivery_from').on('input', function (e) {
-        let deliveryFromDuplicate = document.getElementById("purchase_order_delivery_from_duplicate");
-        let deliveryFromDuplicateRefID = document.getElementById("purchase_order_delivery_from_id_duplicate");
+        const deliveryFromDuplicate = document.getElementById("purchase_order_delivery_from_duplicate");
+        const deliveryFromDuplicateRefID = document.getElementById("purchase_order_delivery_from_id_duplicate");
 
         if (e.target.value) {
             if (e.target.value == deliveryFromDuplicate.value) {
@@ -1349,8 +1356,8 @@
     });
 
     $('#purchase_order_delivery_to').on('input', function (e) {
-        let deliveryToDuplicate = document.getElementById("purchase_order_delivery_to_duplicate");
-        let deliveryToDuplicateRefID = document.getElementById("purchase_order_delivery_to_id_duplicate");
+        const deliveryToDuplicate = document.getElementById("purchase_order_delivery_to_duplicate");
+        const deliveryToDuplicateRefID = document.getElementById("purchase_order_delivery_to_id_duplicate");
 
         if (e.target.value) {
             if (e.target.value == deliveryToDuplicate.value) {
