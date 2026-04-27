@@ -1386,4 +1386,19 @@
             $("#purchase_order_delivery_to_message").show();
         }
     });
+
+    $('#tableGetDeliveryOrder').on('click', 'tbody tr', function () {
+        const sysId = $(this).find('input[data-trigger="sys_id_delivery_order"]').val();
+        const trano = $(this).find('td:nth-child(2)').text();
+
+        $("#do_RefID").val(sysId);
+        $("#do_number").val(trano);
+        $("#do_number").css({ "border": "1px solid #ced4da", "background-color": "#e9ecef" });
+
+        $("#myDeliveryOrder").modal('toggle');
+    });
+
+    $('#revision_delivery_order').on('click', function () {
+        getDeliveryOrder();
+    });
 </script>
