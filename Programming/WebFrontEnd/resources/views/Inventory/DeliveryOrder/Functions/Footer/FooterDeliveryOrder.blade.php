@@ -25,6 +25,17 @@
     const stockMovementDeliveryFromRefID = document.getElementById("stock_movement_delivery_from_id");
     const stockMovementDeliveryToRefID = document.getElementById("stock_movement_delivery_to_id");
 
+    function selectTransporters() {
+        $("#myTransportersTrigger").css('cursor', 'pointer');
+        $("#myTransportersTrigger").attr({
+            "data-toggle": "modal",
+            "data-target": "#myTransporters"
+        });
+
+        getTransporters();
+        getModalWarehouses();
+    }
+
     function referenceType(source) {
         dataStore = [];
         indexPurchaseOrderDetail = 0;
@@ -148,6 +159,7 @@
             $(".thead-internal-use").css("display", "none");
             $(".thead-stock-movement").css("display", "none");
 
+            getModalPurchaseOrder();
             // getReferenceNumber(source);
         } else if (source.value == "1") {
             $(".purchase-order-components").css("display", "none");
@@ -875,6 +887,8 @@
                     let deliveryFroms = `(${data[0]['supplierCode']}) ${data[0]['supplierName']} - ${data[0]['supplierAddress']}`;
                     let deliveryToNonRefIDs = data[0]['deliveryTo_NonRefID'] ? data[0]['deliveryTo_NonRefID'].Address : '';
 
+                    selectTransporters();
+
                     $("#purchase_order_id").val(purchaseOrder_RefID);
                     $("#purchase_order_number").val(purchaseOrderNumber);
                     $("#purchase_order_budget").val(`${data[0]['combinedBudgetCode']} - ${data[0]['combinedBudgetName']}`);
@@ -1239,7 +1253,6 @@
         }
 
         $("#var_combinedBudget_RefID").val(sysId);
-
         $("#myProjectSecond").modal('toggle');
     });
 
@@ -1372,10 +1385,5 @@
             $("#purchase_order_delivery_to").css("border", "1px solid red");
             $("#purchase_order_delivery_to_message").show();
         }
-    });
-
-    $(document).ready(function () {
-        getModalWarehouses();
-        getModalPurchaseOrder();
     });
 </script>

@@ -373,18 +373,19 @@ class FunctionController extends Controller
     // FUNCTION WORKER 
     public function getTransporter(Request $request)
     {
-        try {
-            $response = $this->transporterService->dataPickList();
+        $response = $this->transporterService->dataPickList();
 
-            if ($response['metadata']['HTTPStatusCode'] !== 200) {
-                return response()->json($response);
-            }
+        $status = $response['metadata']['HTTPStatusCode'];
+        $data = [];
 
-            return response()->json($response['data']['data']);
-        } catch (\Throwable $th) {
-            Log::error("Error at getTransporter: " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
+        if ($status == 200) {
+            $data = $response['data']['data'] ?? [];
         }
+
+        return response()->json([
+            'data' => $data,
+            'status' => $status
+        ]);
     }
 
     // FUNCTION DELIVER TO
