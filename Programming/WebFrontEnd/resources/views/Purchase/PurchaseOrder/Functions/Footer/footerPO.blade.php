@@ -346,6 +346,7 @@
 
     function getPaymentTerm() {
         $('#containerSelectTOP').hide();
+        $('#containerLoadingTOP').show();
 
         $.ajaxSetup({
             headers: {
@@ -364,6 +365,7 @@
 
                     $('#termOfPaymentOption').empty();
                     $('#termOfPaymentOption').append('<option disabled selected>Select a TOP</option>');
+                    $('#termOfPaymentOption').removeAttr('disabled');
 
                     data.forEach(function (project) {
                         $('#termOfPaymentOption').append('<option value="' + project.sys_ID + '">' + project.name + '</option>');
@@ -608,6 +610,10 @@
 
                         indexPurchaseOrder += 1;
                     });
+
+                    getPaymentTerm();
+                    getVAT();
+                    getSuppliers();
                 } else {
                     $(".loadingPurchaseOrderTable").hide();
                     $(".errorPurchaseOrderTable").show();
@@ -828,6 +834,8 @@
         const trano = $row.find('td:nth-child(2)').text();
 
         getWorkflow(sysIdBudget, trano, sysId);
+
+        $('#purchaseRequisitionModal').modal('toggle');
     });
 
     $('#delivery_to').on('input', function (e) {
@@ -872,20 +880,6 @@
         });
 
         // console.log('dataWorkflow', dataWorkflow);
-    });
-
-    $('#tableGetModalPurchaseRequisition').on('click', 'tbody tr', function () {
-        const sysId = $(this).find('input[data-trigger="sys_id_modal_purchase_requisition"]').val();
-        const trano = $(this).find('td:nth-child(2)').text();
-
-        $("#modal_purchase_requisition_id").val(sysId);
-        $("#modal_purchase_requisition_document_number").val(trano);
-
-        getPaymentTerm();
-        getVAT();
-        getSuppliers();
-
-        $('#purchaseRequisitionModal').modal('toggle');
     });
 
     $('#TableSearchPORevision tbody').on('click', 'tr', function () {
