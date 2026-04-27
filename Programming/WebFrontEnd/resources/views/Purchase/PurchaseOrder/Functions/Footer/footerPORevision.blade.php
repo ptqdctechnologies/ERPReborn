@@ -1,38 +1,38 @@
 <script>
-    let dataStore                   = [];
-    let totalNextApprover           = 0;
-    let dataWorkflow                = {
+    let dataStore = [];
+    let totalNextApprover = 0;
+    let dataWorkflow = {
         workFlowPathRefID: null,
         approverEntityRefID: null,
         comment: null
     };
-    let triggerButtonModal          = null;
-    let vat                         = document.getElementById("vatOption");
-    const documentTypeID            = document.getElementById("DocumentTypeID");
-    const budgetID                  = document.getElementById("var_combinedBudget_RefID");
-    const deliveryToIDs             = document.getElementById("delivery_to_id");
-    const termOfPaymentOption       = document.getElementById("termOfPaymentOption");
-    const vatOptionValues           = document.getElementById("vatOption");
-    const internalNote              = document.getElementById("internalNote");
+    let triggerButtonModal = null;
+    let vat = document.getElementById("vatOption");
+    const documentTypeID = document.getElementById("DocumentTypeID");
+    const budgetID = document.getElementById("var_combinedBudget_RefID");
+    const deliveryToIDs = document.getElementById("delivery_to_id");
+    const termOfPaymentOption = document.getElementById("termOfPaymentOption");
+    const vatOptionValues = document.getElementById("vatOption");
+    const internalNote = document.getElementById("internalNote");
     const transactionTaxDetailRefID = document.getElementById("transactionTaxDetail_RefID");
-    const paymentNotes              = document.getElementById("paymentNotes");
-    const remarkPO                  = document.getElementById("remarkPO");
-    const tariffCurrencyValue       = document.getElementById("tariffCurrencyValue");
-    const purchaseOrderRecordRefID  = document.getElementById("purchaseOrderRecord_RefID");
-    const dateOfDelivery            = document.getElementById("dateOfDelivery");
-    const fileID                    = document.getElementById("dataInput_Log_FileUpload");
-    const termOfPaymentID           = document.getElementById('termOfPaymentID');
-    const vatOptionValue            = document.getElementById('vatOptionValue');
-    const downPaymentValue          = document.getElementById('downPaymentValue');
-    const deliveryTo                = document.getElementById("delivery_to");
-    const supplierID                = document.getElementById("supplier_id");
-    const ppn                       = document.getElementById('ppn');
-    const TotalBudgetSelecteds      = document.getElementById('TotalBudgetSelected');
-    const TotalBudgetSelectedPpn    = document.getElementById('TotalBudgetSelectedPpn');
-    const TotalPpns                 = document.getElementById('TotalPpn');
-    const dataTable                 = {!! json_encode($detail ?? []) !!};
-    const deliveryToID              = {!! json_encode($header['deliveryToID'] ?? []) !!};
-    const deliveryToAddress         = {!! json_encode($header['deliveryTo'] ?? []) !!};
+    const paymentNotes = document.getElementById("paymentNotes");
+    const remarkPO = document.getElementById("remarkPO");
+    const tariffCurrencyValue = document.getElementById("tariffCurrencyValue");
+    const purchaseOrderRecordRefID = document.getElementById("purchaseOrderRecord_RefID");
+    const dateOfDelivery = document.getElementById("dateOfDelivery");
+    const fileID = document.getElementById("dataInput_Log_FileUpload");
+    const termOfPaymentID = document.getElementById('termOfPaymentID');
+    const vatOptionValue = document.getElementById('vatOptionValue');
+    const downPaymentValue = document.getElementById('downPaymentValue');
+    const deliveryTo = document.getElementById("delivery_to");
+    const supplierID = document.getElementById("supplier_id");
+    const ppn = document.getElementById('ppn');
+    const TotalBudgetSelecteds = document.getElementById('TotalBudgetSelected');
+    const TotalBudgetSelectedPpn = document.getElementById('TotalBudgetSelectedPpn');
+    const TotalPpns = document.getElementById('TotalPpn');
+    const dataTable = {!! json_encode($detail ?? []) !!};
+    const deliveryToID = {!! json_encode($header['deliveryToID'] ?? []) !!};
+    const deliveryToAddress = {!! json_encode($header['deliveryTo'] ?? []) !!};
 
     ppn.addEventListener('change', function () {
         if (this.value == "Yes") {
@@ -47,45 +47,45 @@
     });
 
     function validateQtyAndPriceWithHighlight() {
-        let isValid                 = true;
-        const rows                  = document.querySelectorAll("#tablePurchaseOrderDetail tbody tr");
-        const budgetDetailsMessage  = document.getElementById("budgetDetailsMessage");
+        let isValid = true;
+        const rows = document.querySelectorAll("#tablePurchaseOrderDetail tbody tr");
+        const budgetDetailsMessage = document.getElementById("budgetDetailsMessage");
 
         if (budgetDetailsMessage) {
             budgetDetailsMessage.style.display = "none";
         }
 
         rows.forEach(row => {
-            const qtyInput      = row.querySelector('input[id^="qty_req"]');
-            const priceInput    = row.querySelector('input[id^="price_req"]');
+            const qtyInput = row.querySelector('input[id^="qty_req"]');
+            const priceInput = row.querySelector('input[id^="price_req"]');
 
             if (!qtyInput || !priceInput) return;
 
-            const qty           = qtyInput.value.trim();
-            const qtyDetail     = qtyInput.getAttribute("data-default");
+            const qty = qtyInput.value.trim();
+            const qtyDetail = qtyInput.getAttribute("data-default");
 
-            const price         = priceInput.value.trim();
-            const priceDetail   = qtyInput.getAttribute("data-default");
+            const price = priceInput.value.trim();
+            const priceDetail = qtyInput.getAttribute("data-default");
 
-            const isQtyFilled   = qty !== "";
+            const isQtyFilled = qty !== "";
             const isPriceFilled = price !== "";
 
-            qtyInput.style.border   = "1px solid #e9ecef";
+            qtyInput.style.border = "1px solid #e9ecef";
             priceInput.style.border = "1px solid #e9ecef";
 
             if (
-                (isQtyFilled && !isPriceFilled && qtyDetail && priceDetail) || 
-                (!isQtyFilled && isPriceFilled && qtyDetail && priceDetail) || 
+                (isQtyFilled && !isPriceFilled && qtyDetail && priceDetail) ||
+                (!isQtyFilled && isPriceFilled && qtyDetail && priceDetail) ||
                 (!isQtyFilled && !isPriceFilled && qtyDetail && priceDetail)
             ) {
                 if (!isQtyFilled) {
-                    qtyInput.style.border   = "1px solid red";
+                    qtyInput.style.border = "1px solid red";
                 }
 
                 if (!isPriceFilled) {
                     priceInput.style.border = "1px solid red";
                 }
-                
+
                 if (budgetDetailsMessage) {
                     budgetDetailsMessage.style.display = "block";
                 }
@@ -102,7 +102,7 @@
         let hasFullRow = false;
 
         rows.forEach((row, index) => {
-            const qty   = document.getElementById(`qty_req${index}`)?.value.trim();
+            const qty = document.getElementById(`qty_req${index}`)?.value.trim();
             const price = document.getElementById(`price_req${index}`)?.value.trim();
             const total = document.getElementById(`total_req${index}`)?.value.trim();
 
@@ -112,7 +112,7 @@
         });
 
         rows.forEach((row, index) => {
-            const qtyEl   = document.getElementById(`qty_req${index}`);
+            const qtyEl = document.getElementById(`qty_req${index}`);
             const priceEl = document.getElementById(`price_req${index}`);
             const totalEl = document.getElementById(`total_req${index}`);
 
@@ -141,7 +141,7 @@
                         $(qtyEl).css("border", "1px solid #ced4da");
                         $(priceEl).css("border", "1px solid #ced4da");
                         $(totalEl).css("border", "1px solid #ced4da");
-                    } 
+                    }
                 } else {
                     $(qtyEl).css("border", "1px solid red");
                     $(priceEl).css("border", "1px solid red");
@@ -155,8 +155,8 @@
     }
 
     function calculateTotal() {
-        var total   = 0;
-        document.querySelectorAll('input[id^="total_req"]').forEach(function(input) {
+        var total = 0;
+        document.querySelectorAll('input[id^="total_req"]').forEach(function (input) {
             let value = parseFloat(input.value.replace(/,/g, '')); // Mengambil nilai dan menghilangkan koma
             if (!isNaN(value)) {
                 total += value;
@@ -193,13 +193,13 @@
         rows.forEach(row => {
             const totalCell = row.children[10];
             const input = totalCell.querySelector('input');
-            
+
             const value = parseFloat(totalCell.innerText.replace(/,/g, '')) || 0;
             if (input) {
                 const text = parseFloat(input.value.replace(/,/g, '')) || 0;
                 total += text;
             }
-            
+
             total += value;
         });
 
@@ -215,22 +215,22 @@
         const rows = sourceTable.getElementsByTagName('tr');
 
         for (let row of rows) {
-            const assetSelect   = row.querySelector('select[id^="asset"]');
-            const qtyInput      = row.querySelector('input[id^="qty_req"]');
-            const priceInput    = row.querySelector('input[id^="price_req"]');
-            const totalInput    = row.querySelector('input[id^="total_req"]');
-            const balanceInput  = row.querySelector('input[id^="balance"]');
-            const noteInput     = row.querySelector('textarea[id^="note"]');
+            const assetSelect = row.querySelector('select[id^="asset"]');
+            const qtyInput = row.querySelector('input[id^="qty_req"]');
+            const priceInput = row.querySelector('input[id^="price_req"]');
+            const totalInput = row.querySelector('input[id^="total_req"]');
+            const balanceInput = row.querySelector('input[id^="balance"]');
+            const noteInput = row.querySelector('textarea[id^="note"]');
 
-            const recordRefID                                   = row.querySelector('input[id^="record_RefID"]');
-            const purchaseRequisitionDetailRefID                = row.querySelector('input[id^="purchaseRequisitionDetail_RefID"]');
-            const quantityUnitRefID                             = row.querySelector('input[id^="quantityUnit_RefID"]');
-            const productUnitPriceCurrencyRefID                 = row.querySelector('input[id^="productUnitPriceCurrency_RefID"]');
-            const productUnitPriceCurrencyExchangeRate          = row.querySelector('input[id^="productUnitPriceCurrencyExchangeRate"]');
-            const productUnitPriceDiscountCurrencyRefID         = row.querySelector('input[id^="productUnitPriceDiscountCurrency_RefID"]');
-            const productUnitPriceDiscountCurrencyValue         = row.querySelector('input[id^="productUnitPriceDiscountCurrencyValue"]');
-            const productUnitPriceDiscountCurrencyExchangeRate  = row.querySelector('input[id^="productUnitPriceDiscountCurrencyExchangeRate"]');
-            const workStructureRefID                            = row.querySelector('input[id^="workStructure_RefID"]');
+            const recordRefID = row.querySelector('input[id^="record_RefID"]');
+            const purchaseRequisitionDetailRefID = row.querySelector('input[id^="purchaseRequisitionDetail_RefID"]');
+            const quantityUnitRefID = row.querySelector('input[id^="quantityUnit_RefID"]');
+            const productUnitPriceCurrencyRefID = row.querySelector('input[id^="productUnitPriceCurrency_RefID"]');
+            const productUnitPriceCurrencyExchangeRate = row.querySelector('input[id^="productUnitPriceCurrencyExchangeRate"]');
+            const productUnitPriceDiscountCurrencyRefID = row.querySelector('input[id^="productUnitPriceDiscountCurrency_RefID"]');
+            const productUnitPriceDiscountCurrencyValue = row.querySelector('input[id^="productUnitPriceDiscountCurrencyValue"]');
+            const productUnitPriceDiscountCurrencyExchangeRate = row.querySelector('input[id^="productUnitPriceDiscountCurrencyExchangeRate"]');
+            const workStructureRefID = row.querySelector('input[id^="workStructure_RefID"]');
 
             if (
                 qtyInput && priceInput && totalInput && balanceInput && assetSelect &&
@@ -240,18 +240,18 @@
                 balanceInput.value.trim() !== '' &&
                 assetSelect.value.trim() !== ''
             ) {
-                const prNumber      = row.children[10].innerText.trim();
-                const productCode   = row.children[12].innerText.trim();
-                const productName   = row.children[13].innerText.trim();
-                const qtyAvail      = row.children[15].innerText.trim();
-                const uom           = row.children[16].innerText.trim();
-                const priceAvail    = row.children[17].innerText.trim();
-                const currency      = row.children[19].innerText.trim();
+                const prNumber = row.children[10].innerText.trim();
+                const productCode = row.children[12].innerText.trim();
+                const productName = row.children[13].innerText.trim();
+                const qtyAvail = row.children[15].innerText.trim();
+                const uom = row.children[16].innerText.trim();
+                const priceAvail = row.children[17].innerText.trim();
+                const currency = row.children[19].innerText.trim();
 
-                const qty   = qtyInput.value.trim();
+                const qty = qtyInput.value.trim();
                 const price = priceInput.value.trim();
                 const total = totalInput.value.trim();
-                const note  = noteInput.value.trim();
+                const note = noteInput.value.trim();
                 const asset = assetSelect.value.trim();
 
                 let found = false;
@@ -269,7 +269,7 @@
                         found = true;
 
                         const indexToUpdate = dataStore.findIndex(item => item.recordID == recordRefID.value);
-                        
+
                         if (indexToUpdate !== -1) {
                             dataStore[indexToUpdate] = {
                                 recordID: parseInt(recordRefID.value),
@@ -355,10 +355,10 @@
     }
 
     function validationForm() {
-        const isDeliveryToNotEmpty          = deliveryTo.value.trim() !== '';
-        const isDownPaymentValueNotEmpty    = downPaymentValue.value.trim() !== '';
-        const isTableNotEmpty               = checkOneLineBudgetContents();
-        const isInputNotEmpty               = validateQtyAndPriceWithHighlight();
+        const isDeliveryToNotEmpty = deliveryTo.value.trim() !== '';
+        const isDownPaymentValueNotEmpty = downPaymentValue.value.trim() !== '';
+        const isTableNotEmpty = checkOneLineBudgetContents();
+        const isInputNotEmpty = validateQtyAndPriceWithHighlight();
 
         if (isDeliveryToNotEmpty && isDownPaymentValueNotEmpty && isTableNotEmpty && isInputNotEmpty) {
             $('#purchaseOrderFormModal').modal('show');
@@ -413,7 +413,7 @@
         }).then((result) => {
             if ('value' in result) {
                 ShowLoading();
-                RevisionPurchaseOrder({...formatData, comment: result.value});
+                RevisionPurchaseOrder({ ...formatData, comment: result.value });
             }
         });
     }
@@ -429,7 +429,7 @@
             type: 'POST',
             data: {
                 workFlowPath_RefID: dataWorkflow.workFlowPathRefID,
-                approverEntity: dataWorkflow.approverEntityRefID, 
+                approverEntity: dataWorkflow.approverEntityRefID,
                 comment: dataWorkflow.comment,
                 storeData: {
                     supplier_id: supplierID.value,
@@ -450,7 +450,7 @@
                 }
             },
             url: '{{ route("PurchaseOrder.UpdatePurchaseOrder") }}',
-            success: function(res) {
+            success: function (res) {
                 HideLoading();
 
                 if (res.status === 200) {
@@ -479,7 +479,7 @@
                     ErrorNotif("Data Cancel Inputed");
                 }
             },
-            error: function(jqXHR, textStatus, errorThrown) {
+            error: function (jqXHR, textStatus, errorThrown) {
                 HideLoading();
                 console.log('error', jqXHR, textStatus, errorThrown);
             }
@@ -488,7 +488,7 @@
 
     function getPaymentTerm() {
         $('#containerSelectTOP').hide();
-        
+
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -498,7 +498,7 @@
         $.ajax({
             type: 'GET',
             url: '{!! route("getPaymentTerm") !!}',
-            success: function(data) {
+            success: function (data) {
                 $('#containerLoadingTOP').hide();
 
                 if (data && Array.isArray(data)) {
@@ -507,7 +507,7 @@
                     $('#termOfPaymentOption').empty();
                     $('#termOfPaymentOption').append('<option disabled selected>Select a TOP</option>');
 
-                    data.forEach(function(project) {
+                    data.forEach(function (project) {
                         let isSelected = project.sys_ID == termOfPaymentID.value ? ' selected ' : ' ';
                         $('#termOfPaymentOption').append('<option' + isSelected + 'value="' + project.sys_ID + '">' + project.name + '</option>');
                     });
@@ -533,7 +533,7 @@
         $.ajax({
             type: 'GET',
             url: '{!! route("getVAT") !!}',
-            success: function(data) {
+            success: function (data) {
                 $('#containerLoadingPPN').hide();
 
                 if (data && Array.isArray(data)) {
@@ -542,7 +542,7 @@
                     $('#vatOption').empty();
                     $('#vatOption').append('<option disabled selected value="Select a VAT">Select a VAT</option>');
 
-                    data.forEach(function(project) {
+                    data.forEach(function (project) {
                         let isSelected = project.tariffFixRate == vatOptionValue.value ? ' selected ' : ' ';
                         $('#vatOption').append('<option' + isSelected + 'value="' + project.tariffFixRate + '">' + project.tariffFixRate + '</option>');
                     });
@@ -568,7 +568,7 @@
 
         let totalRequest = 0;
 
-        $.each(dataDetail, function(key, val2) {
+        $.each(dataDetail, function (key, val2) {
             let totalReq = val2.quantity * val2.productUnitPriceCurrencyValue;
             let balanced = totalReq - totalReq;
 
@@ -640,14 +640,14 @@
 
             tbody.append(row);
 
-            $(`#qty_req${key}`).on('keyup', function() {
-                var qty_req             = $(this).val().replace(/,/g, '');
-                var data_index          = $(this).data('index');
-                var data_total_request  = $(this).data('total-request');
-                var price_req           = $(`#price_req${data_index}`).val().replace(/,/g, '');
-                var total_req           = parseFloat(qty_req || 0) * parseFloat(price_req || 0);
-                var countBalance        = data_total_request - total_req;
-                var validate            = parseFloat((parseFloat(val2.qtyAvail) + parseFloat(val2.quantity)).toFixed(2));
+            $(`#qty_req${key}`).on('keyup', function () {
+                var qty_req = $(this).val().replace(/,/g, '');
+                var data_index = $(this).data('index');
+                var data_total_request = $(this).data('total-request');
+                var price_req = $(`#price_req${data_index}`).val().replace(/,/g, '');
+                var total_req = parseFloat(qty_req || 0) * parseFloat(price_req || 0);
+                var countBalance = data_total_request - total_req;
+                var validate = parseFloat((parseFloat(val2.qtyAvail) + parseFloat(val2.quantity)).toFixed(2));
 
                 countBalance = countBalance < 0.00 ? 0.00 : countBalance;
 
@@ -666,13 +666,13 @@
                 checkOneLineBudgetContents(key);
             });
 
-            $(`#price_req${key}`).on('keyup', function() {
-                var price_req           = $(this).val().replace(/,/g, '');
-                var data_index          = $(this).data('index');
-                var data_total_request  = $(this).data('total-request');
-                var qty_req             = $(`#qty_req${data_index}`).val().replace(/,/g, '');
-                var total_req           = parseFloat(qty_req || 0) * parseFloat(price_req || 0);
-                var countBalance        = data_total_request - total_req;
+            $(`#price_req${key}`).on('keyup', function () {
+                var price_req = $(this).val().replace(/,/g, '');
+                var data_index = $(this).data('index');
+                var data_total_request = $(this).data('total-request');
+                var qty_req = $(`#qty_req${data_index}`).val().replace(/,/g, '');
+                var total_req = parseFloat(qty_req || 0) * parseFloat(price_req || 0);
+                var countBalance = data_total_request - total_req;
 
                 countBalance = countBalance < 0.00 ? 0.00 : countBalance;
 
@@ -779,7 +779,7 @@
                 combinedBudget_RefID: budgetID.value
             },
             url: '{!! route("GetWorkflow") !!}',
-            success: function(response) {
+            success: function (response) {
                 if (response.status === 200) {
                     totalNextApprover = response.data[0].nextApproverPath.length;
                     dataWorkflow.workFlowPathRefID = response.data[0].sys_ID;
@@ -792,14 +792,14 @@
                     Swal.fire("Error", "You don't have access", "error");
                 }
             },
-            error: function(jqXHR, textStatus, errorThrown) {
+            error: function (jqXHR, textStatus, errorThrown) {
                 console.log('jqXHR, textStatus, errorThrown', jqXHR, textStatus, errorThrown);
                 Swal.fire("Error", "Data Error", "error");
             }
         });
     }
 
-    $('#delivery_to').on('input', function(e) {
+    $('#delivery_to').on('input', function (e) {
         if (e.target.value == deliveryToAddress) {
             $("#delivery_to_id").val(deliveryToID);
         } else {
@@ -807,10 +807,10 @@
         }
     });
 
-    $('#tableWorkflows').on('click', 'tbody tr', function() {
-        const sysId             = $(this).find('input[data-trigger="sys_id_approver"]').val();
-        const workflowName      = $(this).find('td:nth-child(2)').text();
-        const workflowPosition  = $(this).find('td:nth-child(3)').text();
+    $('#tableWorkflows').on('click', 'tbody tr', function () {
+        const sysId = $(this).find('input[data-trigger="sys_id_approver"]').val();
+        const workflowName = $(this).find('td:nth-child(2)').text();
+        const workflowPosition = $(this).find('td:nth-child(3)').text();
 
         dataWorkflow.approverEntityRefID = parseInt(sysId);
 
@@ -821,7 +821,26 @@
         });
     });
 
-    $(window).one('load', function(e) {
+    $('#TableSearchPORevision tbody').on('click', 'tr', function () {
+        const table = $('#TableSearchPORevision').DataTable();
+        const data = table.row(this).data();
+
+        if (data) {
+            $("#mySearchPO").modal('toggle');
+
+            const purchaseOrder_RefID = data.sys_ID;
+            const code = data.sys_Text;
+
+            $('#purchaseOrder_RefID').val(purchaseOrder_RefID);
+            $('#purchaseOrder_number').val(code);
+        }
+    });
+
+    $('#revision_purchase_order').on('click', function (e) {
+        getModalPurchaseOrder();
+    });
+
+    $(window).one('load', function (e) {
         if (vatOptionValue.value != "0.00") {
             $('#containerValuePPN').show();
         } else {

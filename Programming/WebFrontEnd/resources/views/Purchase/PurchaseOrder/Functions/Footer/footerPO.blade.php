@@ -881,14 +881,34 @@
         $("#modal_purchase_requisition_id").val(sysId);
         $("#modal_purchase_requisition_document_number").val(trano);
 
+        getPaymentTerm();
+        getVAT();
+        getSuppliers();
+
         $('#purchaseRequisitionModal').modal('toggle');
     });
 
-    $(document).ready(function () {
-        getPaymentTerm();
-        getVAT();
-        getModalPurchaseRequisition();
+    $('#TableSearchPORevision tbody').on('click', 'tr', function () {
+        const table = $('#TableSearchPORevision').DataTable();
+        const data = table.row(this).data();
+
+        if (data) {
+            $("#mySearchPO").modal('toggle');
+
+            const purchaseOrder_RefID = data.sys_ID;
+            const code = data.sys_Text;
+
+            $('#purchaseOrder_RefID').val(purchaseOrder_RefID);
+            $('#purchaseOrder_number').val(code);
+        }
+    });
+
+    $('#revision_purchase_order').on('click', function (e) {
         getModalPurchaseOrder();
+    });
+
+    $(document).ready(function () {
+        getModalPurchaseRequisition();
 
         $('#containerValuePPN').hide();
         $(".loadingPurchaseOrderTable").hide();

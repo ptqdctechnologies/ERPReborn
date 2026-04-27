@@ -133,7 +133,7 @@
         });
     }
 
-    $(window).one('load', function (e) {
-        getSuppliers();
-    });
+    // $(window).one('load', function (e) {
+    //     getSuppliers();
+    // });
 </script>
