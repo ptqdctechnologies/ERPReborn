@@ -1,13 +1,13 @@
 <script>
-    let dataStore       = [];
-    let deliveryFrom    = document.getElementById("delivery_from");
-    let deliveryTo      = document.getElementById("delivery_to");
-    const dataTable     = {!! json_encode($data ?? []) !!};
+    let dataStore = [];
+    let deliveryFrom = document.getElementById("delivery_from");
+    let deliveryTo = document.getElementById("delivery_to");
+    const dataTable = {!! json_encode($data ?? []) !!};
 
     function validateQtyAndPriceWithHighlight() {
-        let isValid                 = true;
-        const rows                  = document.querySelectorAll("#tableReferenceNumberDetail tbody tr");
-        const budgetDetailsMessage  = document.getElementById("deliveryOrderDetailsMessage");
+        let isValid = true;
+        const rows = document.querySelectorAll("#tableReferenceNumberDetail tbody tr");
+        const budgetDetailsMessage = document.getElementById("deliveryOrderDetailsMessage");
 
         if (budgetDetailsMessage) {
             budgetDetailsMessage.style.display = "none";
@@ -18,15 +18,15 @@
 
             if (!qtyInput) return;
 
-            const qty           = qtyInput.value.trim();
-            const qtyDetail     = qtyInput.getAttribute("data-quantity");
-            const isQtyFilled   = qty !== "";
+            const qty = qtyInput.value.trim();
+            const qtyDetail = qtyInput.getAttribute("data-quantity");
+            const isQtyFilled = qty !== "";
 
-            qtyInput.style.border   = "1px solid #e9ecef";
+            qtyInput.style.border = "1px solid #e9ecef";
 
             if (!isQtyFilled && qtyDetail) {
                 if (!isQtyFilled) {
-                    qtyInput.style.border   = "1px solid red";
+                    qtyInput.style.border = "1px solid red";
                 }
 
                 if (budgetDetailsMessage) {
@@ -45,8 +45,8 @@
         let hasFullRow = false;
 
         rows.forEach((row, index) => {
-            const qty   = document.getElementById(`qty_req${index}`)?.value.trim();
-            const note  = document.getElementById(`note${index}`)?.value.trim();
+            const qty = document.getElementById(`qty_req${index}`)?.value.trim();
+            const note = document.getElementById(`note${index}`)?.value.trim();
 
             if (qty !== "" && note !== "") {
                 hasFullRow = true;
@@ -54,8 +54,8 @@
         });
 
         rows.forEach((row, index) => {
-            const qtyEl     = document.getElementById(`qty_req${index}`);
-            const noteEl    = document.getElementById(`note${index}`);
+            const qtyEl = document.getElementById(`qty_req${index}`);
+            const noteEl = document.getElementById(`note${index}`);
 
             if (hasFullRow) {
                 $(qtyEl).css("border", "1px solid #ced4da");
@@ -78,7 +78,7 @@
                     if (indexInput != index && (qtyEl.value.trim() == "" && noteEl.value.trim() == "")) {
                         $(qtyEl).css("border", "1px solid #ced4da");
                         $(noteEl).css("border", "1px solid #ced4da");
-                    } 
+                    }
                 } else {
                     $(qtyEl).css("border", "1px solid red");
                     $(noteEl).css("border", "1px solid red");
@@ -92,8 +92,8 @@
 
     function calculateTotal() {
         let total = 0;
-        
-        document.querySelectorAll('input[id^="qty_req"]').forEach(function(input) {
+
+        document.querySelectorAll('input[id^="qty_req"]').forEach(function (input) {
             let value = parseFloat(input.value.replace(/,/g, '')); // Mengambil nilai dan menghilangkan koma
             if (!isNaN(value)) {
                 total += value;
@@ -125,28 +125,28 @@
         const rows = sourceTable.getElementsByTagName('tr');
 
         for (let row of rows) {
-            const recordRefID               = row.querySelector('input[id^="record_RefID"]');
-            const workStructureRefID        = row.querySelector('input[id^="workStructure_RefID"]');
-            const productRefID              = row.querySelector('input[id^="product_RefID"]');
-            const quantityUnitRefID         = row.querySelector('input[id^="quantityUnit_RefID"]');
-            const referenceRefID            = row.querySelector('input[id^="reference_ID"]');
-            const qtyInput                  = row.querySelector('input[id^="qty_req"]');
-            const noteInput                 = row.querySelector('textarea[id^="note"]');
+            const recordRefID = row.querySelector('input[id^="record_RefID"]');
+            const workStructureRefID = row.querySelector('input[id^="workStructure_RefID"]');
+            const productRefID = row.querySelector('input[id^="product_RefID"]');
+            const quantityUnitRefID = row.querySelector('input[id^="quantityUnit_RefID"]');
+            const referenceRefID = row.querySelector('input[id^="reference_ID"]');
+            const qtyInput = row.querySelector('input[id^="qty_req"]');
+            const noteInput = row.querySelector('textarea[id^="note"]');
 
             if (
                 qtyInput && noteInput &&
                 qtyInput.value.trim() !== '' &&
                 noteInput.value.trim() !== ''
             ) {
-                const product   = row.children[7].innerText.trim();
-                const uom       = row.children[8].innerText.trim();
-                const qtyAvail  = row.children[10].innerText.trim();
+                const product = row.children[7].innerText.trim();
+                const uom = row.children[8].innerText.trim();
+                const qtyAvail = row.children[10].innerText.trim();
 
-                const qty   = qtyInput.value.trim();
-                const note  = noteInput.value.trim();
+                const qty = qtyInput.value.trim();
+                const note = noteInput.value.trim();
 
-                let found           = false;
-                const existingRows  = targetTable.getElementsByTagName('tr');
+                let found = false;
+                const existingRows = targetTable.getElementsByTagName('tr');
 
                 for (let targetRow of existingRows) {
                     const recordID = targetRow.children[0].value.trim();
@@ -201,7 +201,7 @@
                     });
                 }
             } else {
-                const existingRows  = targetTable.getElementsByTagName('tr');
+                const existingRows = targetTable.getElementsByTagName('tr');
 
                 for (let targetRow of existingRows) {
                     const recordID = targetRow.children[0].value.trim();
@@ -222,10 +222,10 @@
     }
 
     function validationForm() {
-        const isDeliveryFromNotEmpty    = deliveryFrom.value.trim() !== '';
-        const isDeliveryToNotEmpty      = deliveryTo.value.trim() !== '';
-        const isTableNotEmpty           = checkOneLineBudgetContents();
-        const isInputNotEmpty           = validateQtyAndPriceWithHighlight();
+        const isDeliveryFromNotEmpty = deliveryFrom.value.trim() !== '';
+        const isDeliveryToNotEmpty = deliveryTo.value.trim() !== '';
+        const isTableNotEmpty = checkOneLineBudgetContents();
+        const isInputNotEmpty = validateQtyAndPriceWithHighlight();
 
         if (isDeliveryFromNotEmpty && isDeliveryToNotEmpty && isTableNotEmpty && isInputNotEmpty) {
             $('#delivery_order_submit_modal').modal('show');
@@ -268,7 +268,7 @@
         let tbodyList = $('#delivery_order_list_table_modal tbody');
         tbodyList.empty();
 
-        $.each(dataDetail, function(key, val2) {
+        $.each(dataDetail, function (key, val2) {
             totalRefNumberDetail += parseFloat(val2.qtyReq);
 
             dataStore.push({
@@ -373,12 +373,12 @@
 
             tbody.append(row);
 
-            $(`#qty_req${key}`).on('keyup', function() {
-                var qty_req         = $(this).val().replace(/,/g, '');
-                var data_index      = $(this).data('index');
-                var result          = val2.qtyAvail - qty_req;
-                var validate        = parseFloat((parseFloat(val2.qtyAvail) + parseFloat(val2.quantity)).toFixed(2));
-                var countBalance    = validate - qty_req;
+            $(`#qty_req${key}`).on('keyup', function () {
+                var qty_req = $(this).val().replace(/,/g, '');
+                var data_index = $(this).data('index');
+                var result = val2.qtyAvail - qty_req;
+                var validate = parseFloat((parseFloat(val2.qtyAvail) + parseFloat(val2.quantity)).toFixed(2));
+                var countBalance = validate - qty_req;
 
                 // if (qty_req > val2.qtyAvail) {
                 if (parseFloat(qty_req || 0) > validate) {
@@ -393,7 +393,7 @@
                 checkOneLineBudgetContents(key);
             });
 
-            $(`#note${key}`).on('keyup', function() {
+            $(`#note${key}`).on('keyup', function () {
                 checkOneLineBudgetContents(key);
             });
 
@@ -442,7 +442,7 @@
         }).then((result) => {
             if ('value' in result) {
                 ShowLoading();
-                RevisionDeliveryOrderStore({...formatData, comment: result.value});
+                RevisionDeliveryOrderStore({ ...formatData, comment: result.value });
             }
         });
     }
@@ -458,7 +458,7 @@
             type: 'POST',
             data: formatData,
             url: '{{ route("DeliveryOrder.updates") }}',
-            success: function(res) {
+            success: function (res) {
                 HideLoading();
 
                 if (res.status === 200) {
@@ -486,7 +486,7 @@
                     ErrorNotif("Data Cancel Inputed");
                 }
             },
-            error: function(jqXHR, textStatus, errorThrown) {
+            error: function (jqXHR, textStatus, errorThrown) {
                 console.log('error', jqXHR, textStatus, errorThrown);
                 HideLoading();
                 ErrorNotif("Data Cancel Inputed");
@@ -512,7 +512,7 @@
             processData: false,
             data: form_data,
             type: method,
-            success: function(response) {
+            success: function (response) {
                 HideLoading();
 
                 if (response.message == "WorkflowError") {
@@ -524,7 +524,7 @@
 
                     var t = $('#tableGetWorkFlow').DataTable();
                     t.clear();
-                    $.each(response.data, function(key, val) {
+                    $.each(response.data, function (key, val) {
                         t.row.add([
                             '<td><span data-dismiss="modal" onclick="SelectWorkFlow(\'' + val.Sys_ID + '\', \'' + val.NextApprover_RefID + '\', \'' + response.approverEntity_RefID + '\', \'' + response.documentTypeID + '\');"><img src="{{ asset("AdminLTE-master/dist/img/add.png") }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></span></td>',
                             '<td style="border:1px solid #e9ecef;">' + val.FullApproverPath + '</td></tr></tbody>'
@@ -532,9 +532,9 @@
                     });
                 } else {
                     const formatData = {
-                        workFlowPath_RefID: response.workFlowPath_RefID, 
-                        nextApprover: response.nextApprover_RefID, 
-                        approverEntity: response.approverEntity_RefID, 
+                        workFlowPath_RefID: response.workFlowPath_RefID,
+                        nextApprover: response.nextApprover_RefID,
+                        approverEntity: response.approverEntity_RefID,
                         documentTypeID: response.documentTypeID,
                         storeData: response.storeData
                     };
@@ -542,14 +542,29 @@
                     SelectWorkFlow(formatData);
                 }
             },
-            error: function(response) {
+            error: function (response) {
                 HideLoading();
                 CancelNotif("You don't have access", "{{ route('DeliveryOrder.index', ['var' => 1]) }}");
             }
         });
     }
 
-    $(window).on('load', function() {
+    $('#tableGetDeliveryOrder').on('click', 'tbody tr', function () {
+        const sysId = $(this).find('input[data-trigger="sys_id_delivery_order"]').val();
+        const trano = $(this).find('td:nth-child(2)').text();
+
+        $("#do_RefID").val(sysId);
+        $("#do_number").val(trano);
+        $("#do_number").css({ "border": "1px solid #ced4da", "background-color": "#e9ecef" });
+
+        $("#myDeliveryOrder").modal('toggle');
+    });
+
+    $('#revision_delivery_order').on('click', function () {
+        getDeliveryOrder();
+    });
+
+    $(document).ready(function () {
         GetReferenceNumberDetail(dataTable);
         // getDocumentType("Delivery Order Revision Form");
     });
