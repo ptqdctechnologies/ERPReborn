@@ -1207,6 +1207,22 @@
             }
         });
     }
+
+    $('#tableRequesters').on('click', 'tbody tr', function () {
+        const id = $(this).find('input[data-trigger="sys_id_worker_second"]').val();
+        const name = $(this).find('td:nth-child(2)').text();
+        const position = $(this).find('td:nth-child(3)').text();
+
+        $("#stock_movement_requester_id").val(id);
+        $("#stock_movement_requester_position").val(position);
+        $("#stock_movement_requester_name").val(`${position} - ${name}`);
+
+        $("#stock_movement_requester_position").css("border", "1px solid #ced4da");
+        $("#stock_movement_requester_name").css({ "border": "1px solid #ced4da", "background-color": "#e9ecef" });
+        $("#stock_movement_requester_message").hide();
+
+        $("#myRequesters").modal('toggle');
+    });
     // END OF STOCK MOVEMENT TYPE
 
     $('#tableGetProjectSecond').on('click', 'tbody tr', function () {
@@ -1250,26 +1266,12 @@
 
             $("#stock_movement_delivery_to_trigger").css("cursor", "pointer");
             $("#stock_movement_delivery_to_trigger").prop("disabled", false);
+
+            getRequesters();
         }
 
         $("#var_combinedBudget_RefID").val(sysId);
         $("#myProjectSecond").modal('toggle');
-    });
-
-    $('#tableGetWorkerSecond').on('click', 'tbody tr', function () {
-        const sysId = $(this).find('input[data-trigger="sys_id_worker_second"]').val();
-        const workerName = $(this).find('td:nth-child(2)').text();
-        const workerPosition = $(this).find('td:nth-child(3)').text();
-
-        $("#stock_movement_requester_id").val(sysId);
-        $("#stock_movement_requester_position").val(workerPosition);
-        $("#stock_movement_requester_name").val(`${workerPosition} - ${workerName}`);
-
-        $("#stock_movement_requester_position").css("border", "1px solid #ced4da");
-        $("#stock_movement_requester_name").css({ "border": "1px solid #ced4da", "background-color": "#e9ecef" });
-        $("#stock_movement_requester_message").hide();
-
-        $("#myWorkerSecond").modal('toggle');
     });
 
     $('#tableGetModalWarehouses').on('click', 'tbody tr', function () {
