@@ -225,7 +225,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('getMenuGroup', 'Function\FunctionController@getMenuGroup')->name('getMenuGroup');
     Route::get('getSubMenu', 'Function\FunctionController@getSubMenu')->name('getSubMenu');
     Route::get('getOneSubMenu', 'Function\FunctionController@getOneSubMenu')->name('getOneSubMenu');
-    Route::get('getTransporter', 'Function\FunctionController@getTransporter')->name('getTransporter');
+    Route::post('getTransporter', 'Function\FunctionController@getTransporter')->name('getTransporter');
     Route::get('getListTransactionByDocumentTypeID', 'Function\FunctionController@getListTransactionByDocumentTypeID')->name('getListTransactionByDocumentTypeID');
     Route::get('getAssetCategory', 'Function\FunctionController@getAssetCategory')->name('getAssetCategory');
     Route::get('getWorks', 'Function\FunctionController@getWorks')->name('getWorks');
