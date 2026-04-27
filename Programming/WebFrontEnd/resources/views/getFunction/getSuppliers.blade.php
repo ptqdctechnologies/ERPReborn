@@ -132,8 +132,4 @@
             }
         });
     }
-
-    // $(window).one('load', function (e) {
-    //     getSuppliers();
-    // });
 </script>

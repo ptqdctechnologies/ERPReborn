@@ -840,7 +840,7 @@
         getModalPurchaseOrder();
     });
 
-    $(window).one('load', function (e) {
+    $(document).ready(function () {
         if (vatOptionValue.value != "0.00") {
             $('#containerValuePPN').show();
         } else {

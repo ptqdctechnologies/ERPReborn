@@ -555,9 +555,10 @@
         $('#mySuppliers').modal('hide');
     });
 
-    $(window).one('load', function () {
+    $(document).ready(function () {
         renderPage();
         renderPagination();
+        getSuppliers();
 
         $('#purchase_request_date_range').daterangepicker({
             autoUpdateInput: false,
