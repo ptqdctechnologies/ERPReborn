@@ -613,6 +613,7 @@
             }
         });
 
+        getDeliveryOrder();
         getModalWarehouses();
     });
 </script>
