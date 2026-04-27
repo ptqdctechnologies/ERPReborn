@@ -1,48 +1,48 @@
 <script>
-    let totalTaxBased                   = 0;
-    let totalVAT                        = 0;
-    let totalWHT                        = 0;
-    let totalDeduction                  = 0;
-    let currentIndexPickCOA             = null;
-    let dataStore                       = [];
-    let depreciationRateYearsIDValue    = 0;
-    let depreciationRateValue           = 0;
-    let depreciationYearsValue          = 0;
-    let indexPurchaseOrder              = 0;
-    let totalNextApprover               = 0;
-    let triggerButtonModal              = null;
-    let dataWorkflow                    = {
+    let totalTaxBased = 0;
+    let totalVAT = 0;
+    let totalWHT = 0;
+    let totalDeduction = 0;
+    let currentIndexPickCOA = null;
+    let dataStore = [];
+    let depreciationRateYearsIDValue = 0;
+    let depreciationRateValue = 0;
+    let depreciationYearsValue = 0;
+    let indexPurchaseOrder = 0;
+    let totalNextApprover = 0;
+    let triggerButtonModal = null;
+    let dataWorkflow = {
         workFlowPathRefID: null,
         approverEntityRefID: null,
         comment: null
     };
-    const purchaseOrderNumber           = document.getElementById("purchase_order_number");
-    const supplierInvoiceNumber         = document.getElementById("supplier_invoice_number");
-    const paymentTransferNumber         = document.getElementById("payment_transfer_number");
-    const paymentTransferID             = document.getElementById("payment_transfer_id");
-    const valueVAT                      = document.getElementById('ppn');
-    const valueVATNumber                = document.getElementById('vat_number');
-    const notes                         = document.getElementById('account_payable_notes');
-    const categoryID                    = document.getElementById('category_id');
-    const categoryNumber                = document.getElementById('category_number');
-    const depreciationMethod            = document.getElementById('depreciation_method');
-    const depreciationRateYearsID       = document.getElementById("depreciation_rate_years_id");
-    const depreciationRatePercentage    = document.getElementById('depreciation_rate_percentage');
-    const depreciationRateYears         = document.getElementById('depreciation_rate_years');
-    const depreciationCOANumber         = document.getElementById('depreciation_coa_number');
-    const depreciationCOAID             = document.getElementById('depreciation_coa_id');
-    const deductionValue                = document.getElementById('budget_details_deduction');
-    const fileID                        = document.getElementById("dataInput_Log_FileUpload");
-    const documentTypeID                = document.getElementById("DocumentTypeID");
+    const purchaseOrderNumber = document.getElementById("purchase_order_number");
+    const supplierInvoiceNumber = document.getElementById("supplier_invoice_number");
+    const paymentTransferNumber = document.getElementById("payment_transfer_number");
+    const paymentTransferID = document.getElementById("payment_transfer_id");
+    const valueVAT = document.getElementById('ppn');
+    const valueVATNumber = document.getElementById('vat_number');
+    const notes = document.getElementById('account_payable_notes');
+    const categoryID = document.getElementById('category_id');
+    const categoryNumber = document.getElementById('category_number');
+    const depreciationMethod = document.getElementById('depreciation_method');
+    const depreciationRateYearsID = document.getElementById("depreciation_rate_years_id");
+    const depreciationRatePercentage = document.getElementById('depreciation_rate_percentage');
+    const depreciationRateYears = document.getElementById('depreciation_rate_years');
+    const depreciationCOANumber = document.getElementById('depreciation_coa_number');
+    const depreciationCOAID = document.getElementById('depreciation_coa_id');
+    const deductionValue = document.getElementById('budget_details_deduction');
+    const fileID = document.getElementById("dataInput_Log_FileUpload");
+    const documentTypeID = document.getElementById("DocumentTypeID");
 
     function calculateGrandTotal() {
         let result = (
-            (parseFloat(totalTaxBased)   || 0) +
-            (parseFloat(totalVAT)        || 0)
+            (parseFloat(totalTaxBased) || 0) +
+            (parseFloat(totalVAT) || 0)
         ) - (
-            (parseFloat(totalWHT)        || 0) +
-            (parseFloat(totalDeduction)  || 0)
-        );
+                (parseFloat(totalWHT) || 0) +
+                (parseFloat(totalDeduction) || 0)
+            );
 
         $("#invoice_details_grand_total").text(`Grand Total: ${decimalFormat(result)}`);
     }
@@ -51,7 +51,7 @@
         $.ajax({
             type: 'GET',
             url: '{!! route("getDepreciationMethod") !!}',
-            success: function(data) {
+            success: function (data) {
                 $('#containerLoadingDepreciationMethod').hide();
 
                 if (data && Array.isArray(data)) {
@@ -60,7 +60,7 @@
                     $('#depreciation_method').empty();
                     $('#depreciation_method').append('<option disabled selected value="Select a Method">Select a Method</option>');
 
-                    data.forEach(function(val) {
+                    data.forEach(function (val) {
                         $('#depreciation_method').append('<option value="' + val.sys_ID + '">' + val.name + '</option>');
                     });
                 } else {
@@ -77,7 +77,7 @@
         $.ajax({
             type: 'GET',
             url: '{!! route("getDepreciationRateYears") !!}?assetCategoryRef_ID=' + categoryID + '&depreciationMethodRef_ID=' + depreciationMethodID,
-            success: function(data) {
+            success: function (data) {
                 if (data && Array.isArray(data)) {
                     depreciationRateYearsIDValue = data[0]?.sys_ID;
                     depreciationRateValue = data[0]?.rate;
@@ -100,15 +100,15 @@
             }
         });
     }
-    
+
     function checkOneLineBudgetContents(indexInput) {
         const rows = document.querySelectorAll("#invoice_details_table tbody tr");
         let hasFullRow = false;
 
         rows.forEach((row, index) => {
-            const qty   = document.getElementById(`qty_ap${index}`)?.value.trim();
-            const wht   = document.getElementById(`wht${index}`)?.value.trim();
-            const coa   = document.getElementById(`coa_name${index}`)?.value.trim();
+            const qty = document.getElementById(`qty_ap${index}`)?.value.trim();
+            const wht = document.getElementById(`wht${index}`)?.value.trim();
+            const coa = document.getElementById(`coa_name${index}`)?.value.trim();
 
             if (qty !== "" && wht !== "" && coa !== "") {
                 hasFullRow = true;
@@ -145,7 +145,7 @@
                         $(qtyEl).css("border", "1px solid #ced4da");
                         $(whtEl).css("border", "1px solid #ced4da");
                         $(coaEl).css("border", "1px solid #ced4da");
-                    } 
+                    }
                 } else {
                     $(qtyEl).css("border", "1px solid red");
                     $(whtEl).css("border", "1px solid red");
@@ -209,12 +209,12 @@
         $.ajax({
             type: 'GET',
             url: '{!! route("getVAT") !!}',
-            success: function(data) {
+            success: function (data) {
                 if (data && Array.isArray(data)) {
                     $('#ppn').empty();
                     $('#ppn').append('<option disabled selected value="Sel..">Sel..</option>');
 
-                    data.forEach(function(project) {
+                    data.forEach(function (project) {
                         $('#ppn').append('<option value="' + project.tariffFixRate + '">' + project.tariffFixRate + '</option>');
                     });
                 } else {
@@ -238,8 +238,8 @@
     function calculateTotal() {
         let total = 0;
         let valueVatFix = isNaN(valueVAT.value) ? 0 : valueVAT.value;
-        
-        document.querySelectorAll('input[id^="total_ap"]').forEach(function(input) {
+
+        document.querySelectorAll('input[id^="total_ap"]').forEach(function (input) {
             let value = parseFloat(input.value.replace(/,/g, ''));
             if (!isNaN(value)) {
                 total += value;
@@ -248,7 +248,7 @@
 
         totalTaxBased = total;
         totalVAT = (total * valueVatFix) / 100;
-        
+
         document.getElementById('invoice_details_total').textContent = `Total Tax Based: ${decimalFormat(total)}`;
         document.getElementById('invoice_details_total_vat').textContent = `Total VAT: ${decimalFormat(totalVAT)}`;
     }
@@ -260,19 +260,19 @@
         const rows = sourceTable.getElementsByTagName('tr');
 
         for (let row of rows) {
-            const workStructureRefID                    = row.querySelector('input[id^="workStructure_RefID"]');
-            const purchaseOrderDetailRefID              = row.querySelector('input[id^="purchaseOrderDetail_RefID"]');
-            const combinedBudgetSectionDetailRefID      = row.querySelector('input[id^="combinedBudgetSectionDetail_RefID"]');
-            const productRefID                          = row.querySelector('input[id^="product_RefID"]');
-            const quantityUnitRefID                     = row.querySelector('input[id^="quantityUnit_RefID"]');
-            const productUnitPriceCurrencyRefID         = row.querySelector('input[id^="productUnitPriceCurrency_RefID"]');
-            const productUnitPriceCurrencyExchangeRate  = row.querySelector('input[id^="productUnitPriceCurrencyExchangeRate"]');
-            const assetSelect                           = row.querySelector('select[id^="asset"]');
-            const qtyInput                              = row.querySelector('input[id^="qty_ap"]');
-            const totalInput                            = row.querySelector('input[id^="total_ap"]');
-            const whtInput                              = row.querySelector('input[id^="wht"]');
-            const coaRefID                              = row.querySelector('input[id^="coa_id"]');
-            const coaInput                              = row.querySelector('input[id^="coa_name"]');
+            const workStructureRefID = row.querySelector('input[id^="workStructure_RefID"]');
+            const purchaseOrderDetailRefID = row.querySelector('input[id^="purchaseOrderDetail_RefID"]');
+            const combinedBudgetSectionDetailRefID = row.querySelector('input[id^="combinedBudgetSectionDetail_RefID"]');
+            const productRefID = row.querySelector('input[id^="product_RefID"]');
+            const quantityUnitRefID = row.querySelector('input[id^="quantityUnit_RefID"]');
+            const productUnitPriceCurrencyRefID = row.querySelector('input[id^="productUnitPriceCurrency_RefID"]');
+            const productUnitPriceCurrencyExchangeRate = row.querySelector('input[id^="productUnitPriceCurrencyExchangeRate"]');
+            const assetSelect = row.querySelector('select[id^="asset"]');
+            const qtyInput = row.querySelector('input[id^="qty_ap"]');
+            const totalInput = row.querySelector('input[id^="total_ap"]');
+            const whtInput = row.querySelector('input[id^="wht"]');
+            const coaRefID = row.querySelector('input[id^="coa_id"]');
+            const coaInput = row.querySelector('input[id^="coa_name"]');
 
             if (
                 qtyInput && whtInput && coaRefID && assetSelect &&
@@ -284,14 +284,14 @@
                 const product = row.children[8].innerText.trim();
                 const uom = row.children[12].innerText.trim();
 
-                const qtyValue      = qtyInput.value.trim();
-                const totalValue    = totalInput.value.trim();
-                const whtValue      = whtInput.value.trim();
-                const coaValue      = coaInput.value.trim();
-                const assetValue    = assetSelect.value.trim();
+                const qtyValue = qtyInput.value.trim();
+                const totalValue = totalInput.value.trim();
+                const whtValue = whtInput.value.trim();
+                const coaValue = coaInput.value.trim();
+                const assetValue = assetSelect.value.trim();
 
-                let found           = false;
-                const existingRows  = targetTable.getElementsByTagName('tr');
+                let found = false;
+                const existingRows = targetTable.getElementsByTagName('tr');
 
                 for (let targetRow of existingRows) {
                     const targetPurchaseOrderID = targetRow.children[0].value;
@@ -375,33 +375,33 @@
     }
 
     function validationForm() {
-        let isValid                                 = true;
-        const isPurchaseOrderNumberNotEmpty         = purchaseOrderNumber.value.trim() !== '';
-        const isSupplierInvoiceNumberNotEmpty       = supplierInvoiceNumber.value.trim() !== '';
-        const isPaymentTransferNumberNotEmpty       = paymentTransferNumber.value.trim() !== '';
-        const isReceiptInvoiceOriginNotEmpty        = document.querySelector('input[name="receipt_origin"]:checked');
-        const isContractPOSignedNotEmpty            = document.querySelector('input[name="contract_signed"]:checked');
-        const isVATOriginNotEmpty                   = document.querySelector('input[name="vat_origin"]:checked');
-        const isValueVATNotEmpty                    = valueVAT.value.trim() !== 'Sel..';
-        const isValueVATNumberNotEmpty              = valueVATNumber.value.trim() !== '';
-        const isFATPATDOOriginNotEmpty              = document.querySelector('input[name="basft_origin"]:checked');
+        let isValid = true;
+        const isPurchaseOrderNumberNotEmpty = purchaseOrderNumber.value.trim() !== '';
+        const isSupplierInvoiceNumberNotEmpty = supplierInvoiceNumber.value.trim() !== '';
+        const isPaymentTransferNumberNotEmpty = paymentTransferNumber.value.trim() !== '';
+        const isReceiptInvoiceOriginNotEmpty = document.querySelector('input[name="receipt_origin"]:checked');
+        const isContractPOSignedNotEmpty = document.querySelector('input[name="contract_signed"]:checked');
+        const isVATOriginNotEmpty = document.querySelector('input[name="vat_origin"]:checked');
+        const isValueVATNotEmpty = valueVAT.value.trim() !== 'Sel..';
+        const isValueVATNumberNotEmpty = valueVATNumber.value.trim() !== '';
+        const isFATPATDOOriginNotEmpty = document.querySelector('input[name="basft_origin"]:checked');
         // const isNotesNotEmpty                       = notes.value.trim() !== '';
-        const isAssetNotEmpty                       = document.querySelector('input[name="asset"]:checked');
-        const isCategoryNumberNotEmpty              = categoryNumber.value.trim() !== '';
-        const isDepreciationMethodNotEmpty          = depreciationMethod.value.trim() !== 'Select a Method';
-        const isDepreciationRatePercentageNotEmpty  = depreciationRatePercentage.value.trim() !== '';
-        const isDepreciationRateYearsNotEmpty       = depreciationRateYears.value.trim() !== '';
-        const isDepreciationCOANumberNotEmpty       = depreciationCOANumber.value.trim() !== '';
-        const isTableNotEmpty                       = checkOneLineBudgetContents();
-        const isDeductionValueNotEmpty              = deductionValue.value.trim() !== '';
+        const isAssetNotEmpty = document.querySelector('input[name="asset"]:checked');
+        const isCategoryNumberNotEmpty = categoryNumber.value.trim() !== '';
+        const isDepreciationMethodNotEmpty = depreciationMethod.value.trim() !== 'Select a Method';
+        const isDepreciationRatePercentageNotEmpty = depreciationRatePercentage.value.trim() !== '';
+        const isDepreciationRateYearsNotEmpty = depreciationRateYears.value.trim() !== '';
+        const isDepreciationCOANumberNotEmpty = depreciationCOANumber.value.trim() !== '';
+        const isTableNotEmpty = checkOneLineBudgetContents();
+        const isDeductionValueNotEmpty = deductionValue.value.trim() !== '';
 
         if (
-            isPurchaseOrderNumberNotEmpty && 
-            isSupplierInvoiceNumberNotEmpty && 
+            isPurchaseOrderNumberNotEmpty &&
+            isSupplierInvoiceNumberNotEmpty &&
             isPaymentTransferNumberNotEmpty &&
             isReceiptInvoiceOriginNotEmpty &&
             isContractPOSignedNotEmpty &&
-            isVATOriginNotEmpty && 
+            isVATOriginNotEmpty &&
             isFATPATDOOriginNotEmpty &&
             // isNotesNotEmpty &&
             isAssetNotEmpty &&
@@ -418,7 +418,7 @@
                     $("#vat_number_message").show();
                     isValid = false;
                 }
-            } 
+            }
             if (isAssetNotEmpty.value == "yes") {
                 if (!isCategoryNumberNotEmpty) {
                     $("#category_number").css("border", "1px solid red");
@@ -433,28 +433,28 @@
                     $("#depreciation_value_message").show();
                     $("#depreciation_value_text_message").text("Depreciation Rate cannot be empty.");
                     isValid = false;
-                } else if (!isDepreciationRateYearsNotEmpty) { 
+                } else if (!isDepreciationRateYearsNotEmpty) {
                     $("#depreciation_rate_years").css("border", "1px solid red");
                     $("#depreciation_value_message").show();
                     $("#depreciation_value_text_message").text("Depreciation Years cannot be empty.");
                     isValid = false;
-                } else if (!isDepreciationCOANumberNotEmpty) { 
+                } else if (!isDepreciationCOANumberNotEmpty) {
                     $("#depreciation_coa_number").css("border", "1px solid red");
                     $("#depreciation_coa_message").show();
                     isValid = false;
                 }
-            } 
+            }
             if (isValid) {
                 if (
                     (isVATOriginNotEmpty.value === "no" && isAssetNotEmpty.value === "no") ||
                     (isVATOriginNotEmpty.value === "yes" && isAssetNotEmpty.value === "no" && isValueVATNotEmpty && isValueVATNumberNotEmpty) ||
-                    (isVATOriginNotEmpty.value === "no" && isAssetNotEmpty.value === "yes" && 
-                    isCategoryNumberNotEmpty && isDepreciationMethodNotEmpty && 
-                    isDepreciationRatePercentageNotEmpty && isDepreciationRateYearsNotEmpty && isDepreciationCOANumberNotEmpty) ||
+                    (isVATOriginNotEmpty.value === "no" && isAssetNotEmpty.value === "yes" &&
+                        isCategoryNumberNotEmpty && isDepreciationMethodNotEmpty &&
+                        isDepreciationRatePercentageNotEmpty && isDepreciationRateYearsNotEmpty && isDepreciationCOANumberNotEmpty) ||
                     (isVATOriginNotEmpty.value === "yes" && isAssetNotEmpty.value === "yes" &&
-                    isValueVATNotEmpty && isValueVATNumberNotEmpty &&
-                    isCategoryNumberNotEmpty && isDepreciationMethodNotEmpty &&
-                    isDepreciationRatePercentageNotEmpty && isDepreciationRateYearsNotEmpty && isDepreciationCOANumberNotEmpty)
+                        isValueVATNotEmpty && isValueVATNumberNotEmpty &&
+                        isCategoryNumberNotEmpty && isDepreciationMethodNotEmpty &&
+                        isDepreciationRatePercentageNotEmpty && isDepreciationRateYearsNotEmpty && isDepreciationCOANumberNotEmpty)
                 ) {
                     summaryData();
                     $('#account_payable_submit_modal').modal('show');
@@ -462,10 +462,10 @@
             }
         } else {
             if (
-                !isPurchaseOrderNumberNotEmpty && 
-                !isSupplierInvoiceNumberNotEmpty && 
+                !isPurchaseOrderNumberNotEmpty &&
+                !isSupplierInvoiceNumberNotEmpty &&
                 !isPaymentTransferNumberNotEmpty &&
-                !isReceiptInvoiceOriginNotEmpty && 
+                !isReceiptInvoiceOriginNotEmpty &&
                 !isContractPOSignedNotEmpty &&
                 !isVATOriginNotEmpty &&
                 !isFATPATDOOriginNotEmpty &&
@@ -561,13 +561,13 @@
                         $("#depreciation_value_text_message").text("Depreciation Rate cannot be empty.");
                         return;
                     }
-                    if (!isDepreciationRateYearsNotEmpty) { 
+                    if (!isDepreciationRateYearsNotEmpty) {
                         $("#depreciation_rate_years").css("border", "1px solid red");
                         $("#depreciation_value_message").show();
                         $("#depreciation_value_text_message").text("Depreciation Years cannot be empty.");
                         return;
                     }
-                    if (!isDepreciationCOANumberNotEmpty) { 
+                    if (!isDepreciationCOANumberNotEmpty) {
                         $("#depreciation_coa_number").css("border", "1px solid red");
                         $("#depreciation_coa_message").show();
                         return;
@@ -590,13 +590,13 @@
         $.ajax({
             type: 'GET',
             url: '{!! route("getPurchaseOrderDetail") !!}?purchase_order_id=' + purchaseOrderRefID,
-            success: async function(data) {
+            success: async function (data) {
                 if (Array.isArray(data) && data.length > 0) {
                     $("#var_combinedBudget_RefID").val(data[0].combinedBudget_RefID);
 
                     $("#purchase_order_id").val(data[0].purchaseOrder_RefID);
                     $("#purchase_order_number").val(data[0].documentNumber);
-                    $("#purchase_order_number").css({"background-color": "#e9ecef", "border": "1px solid #ced4da"});
+                    $("#purchase_order_number").css({ "background-color": "#e9ecef", "border": "1px solid #ced4da" });
                     $("#purchase_order_message").hide();
 
                     $("#purchase_order_supplier").val(`${data[0].supplierCode} - ${data[0].supplierName}`);
@@ -613,7 +613,7 @@
 
                     getPaymentTransfer(data[0].supplier_RefID);
 
-                    $.each(data, function(key, val) {
+                    $.each(data, function (key, val) {
                         let row = `
                             <tr>
                                 <input type="hidden" id="purchaseOrderDetail_RefID[]" value="${val.sys_ID}">
@@ -670,11 +670,11 @@
 
                         $('#invoice_details_table tbody').append(row);
 
-                        $(`#qty_ap${indexPurchaseOrder}`).on('keyup', function() {
-                            let qty_ap      = $(this).val().replace(/,/g, '');
-                            let data_index  = $(this).data('index');
-                            let wht_ap      = $(`#wht${data_index}`).val().replace(/,/g, '');
-                            let total_ap    = parseFloat(qty_ap || 0) * val.productUnitPriceBaseCurrencyValue;
+                        $(`#qty_ap${indexPurchaseOrder}`).on('keyup', function () {
+                            let qty_ap = $(this).val().replace(/,/g, '');
+                            let data_index = $(this).data('index');
+                            let wht_ap = $(`#wht${data_index}`).val().replace(/,/g, '');
+                            let total_ap = parseFloat(qty_ap || 0) * val.productUnitPriceBaseCurrencyValue;
 
                             if (parseFloat(qty_ap) > val.qtyAvail) {
                                 $(this).val("");
@@ -689,16 +689,16 @@
                                     document.getElementById('invoice_details_total_wht').textContent = `Total WHT: ${currencyTotal(result)}`;
                                 }
                             }
-                            
+
                             calculateTotal();
                             calculateGrandTotal();
                             checkOneLineBudgetContents(data_index);
                         });
 
                         $(`#wht${indexPurchaseOrder}`).on('input', function () {
-                            let val         = this.value.replace(/[^\d]/g, '');
-                            let data_index  = $(this).data('index');
-                            let total_ap    = $(`#total_ap${data_index}`).val().replace(/,/g, '');
+                            let val = this.value.replace(/[^\d]/g, '');
+                            let data_index = $(this).data('index');
+                            let total_ap = $(`#total_ap${data_index}`).val().replace(/,/g, '');
 
                             if (parseInt(val) > 100) {
                                 $(this).val("");
@@ -755,7 +755,7 @@
         }).then((result) => {
             if ('value' in result) {
                 ShowLoading();
-                accountPayableStore({...formatData, comment: result.value});
+                accountPayableStore({ ...formatData, comment: result.value });
             }
         });
     }
@@ -790,16 +790,16 @@
     }
 
     function accountPayableStore() {
-        const VATOrigin         = document.querySelector('input[name="vat_origin"]:checked');
-        const BASTOrigin        = document.querySelector('input[name="basft_origin"]:checked');
-        const contractSigned    = document.querySelector('input[name="contract_signed"]:checked');
-        const receiptOrigin     = document.querySelector('input[name="receipt_origin"]:checked');
+        const VATOrigin = document.querySelector('input[name="vat_origin"]:checked');
+        const BASTOrigin = document.querySelector('input[name="basft_origin"]:checked');
+        const contractSigned = document.querySelector('input[name="contract_signed"]:checked');
+        const receiptOrigin = document.querySelector('input[name="receipt_origin"]:checked');
 
         $.ajax({
             type: 'POST',
             data: {
                 workFlowPath_RefID: dataWorkflow.workFlowPathRefID,
-                approverEntity: dataWorkflow.approverEntityRefID, 
+                approverEntity: dataWorkflow.approverEntityRefID,
                 comment: dataWorkflow.comment,
                 storeData: {
                     asset: 0,
@@ -825,7 +825,7 @@
                 }
             },
             url: '{{ route("AccountPayable.store") }}',
-            success: function(res) {
+            success: function (res) {
                 HideLoading();
 
                 if (res.status == 200) {
@@ -853,7 +853,7 @@
                     ErrorNotif("Create Account Payable Failed");
                 }
             },
-            error: function(jqXHR, textStatus, errorThrown) {
+            error: function (jqXHR, textStatus, errorThrown) {
                 HideLoading();
                 ErrorNotif("Data Cancel Inputed");
             }
@@ -890,7 +890,7 @@
                 combinedBudget_RefID: combinedBudgetRefID
             },
             url: '{!! route("GetWorkflow") !!}',
-            success: function(response) {
+            success: function (response) {
                 if (response.status === 200) {
                     totalNextApprover = response.data[0].nextApproverPath.length;
                     dataWorkflow.workFlowPathRefID = response.data[0].sys_ID;
@@ -903,17 +903,17 @@
                     Swal.fire("Error", "Workflow Error", "error");
                 }
             },
-            error: function(jqXHR, textStatus, errorThrown) {
+            error: function (jqXHR, textStatus, errorThrown) {
                 console.log('jqXHR, textStatus, errorThrown', jqXHR, textStatus, errorThrown);
                 Swal.fire("Error", "Data Error", "error");
 
-                $("#loadingBudget").css({"display":"none"});
-                $("#myProjectSecondTrigger").css({"display":"block"});
+                $("#loadingBudget").css({ "display": "none" });
+                $("#myProjectSecondTrigger").css({ "display": "block" });
             }
         });
     }
 
-    $('#supplier_invoice_number').on('input', function(e) {
+    $('#supplier_invoice_number').on('input', function (e) {
         if (!e.target.value) {
             $("#supplier_invoice_number").css("border", "1px solid red");
             $("#supplier_invoice_number_message").show();
@@ -943,16 +943,16 @@
         }
     });
 
-    $('#tableGetCategory').on('click', 'tbody tr', async function() {
+    $('#tableGetCategory').on('click', 'tbody tr', async function () {
         let sysId = $(this).find('input[data-trigger="sys_id_category"]').val();
-        let code  = $(this).find('td:nth-child(2)').text();
-        let name  = $(this).find('td:nth-child(3)').text();
+        let code = $(this).find('td:nth-child(2)').text();
+        let name = $(this).find('td:nth-child(3)').text();
 
         $(`#category_id`).val(sysId);
         $(`#category_number`).val(`${code} - ${name}`);
-        $(`#category_number`).css({'background-color': '#e9ecef', 'border': '1px solid #ced4da'});
+        $(`#category_number`).css({ 'background-color': '#e9ecef', 'border': '1px solid #ced4da' });
         $("#category_message").hide();
-        
+
         $('#myGetCategory').modal('hide');
 
         if (depreciationMethod.value != "Select a Method") {
@@ -962,30 +962,30 @@
         }
     });
 
-    $('#tableGetPaymentTransfer').on('click', 'tbody tr', async function() {
-        let sysId           = $(this).find('input[data-trigger="sys_id_payment"]').val();
-        let name            = $(this).find('td:nth-child(3)').text();
-        let bankCode        = $(this).find('td:nth-child(5)').text();
-        let bankAccount     = $(this).find('td:nth-child(7)').text();
-        let accountNumber   = $(this).find('td:nth-child(8)').text();
+    $('#tableGetPaymentTransfer').on('click', 'tbody tr', async function () {
+        let sysId = $(this).find('input[data-trigger="sys_id_payment"]').val();
+        let name = $(this).find('td:nth-child(3)').text();
+        let bankCode = $(this).find('td:nth-child(5)').text();
+        let bankAccount = $(this).find('td:nth-child(7)').text();
+        let accountNumber = $(this).find('td:nth-child(8)').text();
 
         if (name === "Others") {
             $(`#payment_transfer_number`).removeAttr("disabled");
             $(`#payment_transfer_number`).val("");
             $("#payment_transfer_id").val("");
-            $(`#payment_transfer_number`).css({'background-color': '#fff'});
+            $(`#payment_transfer_number`).css({ 'background-color': '#fff' });
         } else {
             $(`#payment_transfer_number`).val(`${bankAccount} - (${bankCode}) ${accountNumber}`);
             $("#payment_transfer_id").val(sysId);
-            $(`#payment_transfer_number`).css({'background-color': '#e9ecef', 'border': '1px solid #ced4da'});
+            $(`#payment_transfer_number`).css({ 'background-color': '#e9ecef', 'border': '1px solid #ced4da' });
         }
-        
+
         $("#payment_transfer_message").hide();
-        
+
         $('#myGetPaymentTransfer').modal('hide');
     });
 
-    $('#vat_number').on('input', function(e) {
+    $('#vat_number').on('input', function (e) {
         if (!e.target.value) {
             $("#vat_number").css("border", "1px solid red");
             $("#vat_number_message").show();
@@ -995,9 +995,9 @@
         }
     });
 
-    $('#depreciation_rate_percentage').on('input', function(e) {
+    $('#depreciation_rate_percentage').on('input', function (e) {
         const val = e.target.value;
-        
+
         if (!val) {
             $("#depreciation_rate_percentage").css("border", "1px solid red");
             $("#depreciation_value_text_message").text("Depreciation Rate cannot be empty.");
@@ -1016,7 +1016,7 @@
         }
     });
 
-    $('#depreciation_rate_years').on('input', function(e) {
+    $('#depreciation_rate_years').on('input', function (e) {
         const val = e.target.value;
 
         if (!val) {
@@ -1037,7 +1037,7 @@
         }
     });
 
-    $('#account_payable_notes').on('input', function(e) {
+    $('#account_payable_notes').on('input', function (e) {
         if (!e.target.value) {
             // $("#account_payable_notes").css("border", "1px solid red");
             // $("#account_payable_notes_message").show();
@@ -1047,20 +1047,20 @@
         }
     });
 
-    $('#tableGetChartOfAccount').on('click', 'tbody tr', async function() {
+    $('#tableGetChartOfAccount').on('click', 'tbody tr', async function () {
         let sysId = $(this).find('input[data-trigger="sys_id_modal_coa"]').val();
-        let code  = $(this).find('td:nth-child(2)').text();
-        let name  = $(this).find('td:nth-child(3)').text();
+        let code = $(this).find('td:nth-child(2)').text();
+        let name = $(this).find('td:nth-child(3)').text();
 
         if (currentIndexPickCOA === null) {
             $(`#depreciation_coa_id`).val(sysId);
             $(`#depreciation_coa_number`).val(`${code} - ${name}`);
-            $(`#depreciation_coa_number`).css({"background-color": "#e9ecef", "border": "1px solid #ced4da"});
+            $(`#depreciation_coa_number`).css({ "background-color": "#e9ecef", "border": "1px solid #ced4da" });
             $(`#depreciation_coa_message`).hide();
         } else {
             $(`#coa_id${currentIndexPickCOA}`).val(sysId);
             $(`#coa_name${currentIndexPickCOA}`).val(`${code} - ${name}`);
-            $(`#coa_name${currentIndexPickCOA}`).css({"background-color": "#e9ecef"});
+            $(`#coa_name${currentIndexPickCOA}`).css({ "background-color": "#e9ecef" });
             checkOneLineBudgetContents(currentIndexPickCOA);
 
             currentIndexPickCOA = null;
@@ -1069,9 +1069,9 @@
         $('#myGetChartOfAccount').modal('hide');
     });
 
-    $(`#budget_details_deduction`).on('keyup', function(e) {
+    $(`#budget_details_deduction`).on('keyup', function (e) {
         let val = e.target.value.replace(/,/g, '');
-        
+
         if (val <= totalTaxBased) {
             totalDeduction = val;
             $(`#invoice_details_total_deduction`).text(`Total Deduction: ${currencyTotal(val)}`);
@@ -1089,11 +1089,11 @@
         calculateGrandTotal();
     });
 
-    $('#tableAccountPayables').on('click', 'tbody tr', function() {
-        let sysId           = $(this).find('input[data-trigger="sys_id_modal_account_payable"]').val();
-        let trano           = $(this).find('td:nth-child(2)').text();
-        let budgetCode      = $(this).find('td:nth-child(3)').text();
-        let budgetName      = $(this).find('td:nth-child(4)').text();
+    $('#tableAccountPayables').on('click', 'tbody tr', function () {
+        let sysId = $(this).find('input[data-trigger="sys_id_modal_account_payable"]').val();
+        let trano = $(this).find('td:nth-child(2)').text();
+        let budgetCode = $(this).find('td:nth-child(3)').text();
+        let budgetName = $(this).find('td:nth-child(4)').text();
 
         $("#modal_account_payable_id").val(sysId);
         $("#modal_account_payable_document_number").val(trano);
@@ -1101,7 +1101,7 @@
         $('#myAccountPayables').modal('hide');
     });
 
-    $('#depreciation_method').on('change', function(e) {
+    $('#depreciation_method').on('change', function (e) {
         const value = e.target.value;
 
         if (value) {
@@ -1116,8 +1116,9 @@
         }
     });
 
-    $(window).one('load', function(e) {
+    $(window).one('load', function (e) {
         getVAT();
         getDepreciationMethod();
+        getModalPurchaseOrder();
     });
 </script>
