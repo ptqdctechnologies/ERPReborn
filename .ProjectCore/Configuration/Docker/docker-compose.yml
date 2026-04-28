@@ -4,7 +4,10 @@ services:
   #---> Services : PostgreSQL Database
   db-postgresql:
     container_name: 'postgresql'
-    image: 'erp-reborn-postgresql'
+    # image: 'erp-reborn-postgresql'
+    build:
+      context: '.'
+      dockerfile: './.ProjectCore/Configuration/Docker/PostgreSQL/Dockerfile'
     restart: 'unless-stopped'
     ports:
       - '15432:5432'
@@ -18,13 +21,13 @@ services:
       - './.ProjectCore/Configuration/Docker/PostgreSQL/System/var/lib/postgresql/18/docker/pg_hba.conf:/var/lib/postgresql/18/docker/pg_hba.conf'
       - './.ProjectCore/PermanentStorage/PostgreSQL/root/.bash_history:/root/.bash_history'
       - './.ProjectCore/PermanentStorage/PostgreSQL/var/lib/mysql/:/var/lib/mysql'
-      - './.ProjectCore/PermanentStorage/PostgreSQL/var/lib/postgresql/18/docker/:/var/lib/postgresql/18/docker'
+      - './.ProjectCore/PermanentStorage/PostgreSQL/var/lib/postgresql/18/data/:/var/lib/postgresql/18/data'
       - './.ProjectCore/Temp/MySQL/:/var/lib/mysql/temp'
       - './../ERPReborn-TemporaryStorage/BindMount/PostgreSQL/Temp/:/var/lib/postgresql/temp'
       - './Database/Structure/PostgreSQL/:/zhtConf/databaseStructure'
     environment:
       TZ: 'Asia/Jakarta'
-      PGDATA: '/var/lib/postgresql/18/docker'
+      PGDATA: '/var/lib/postgresql/18/data'
       POSTGRES_DB: 'postgres'
       POSTGRES_USER: 'postgres'
       POSTGRES_PASSWORD: '748159263'
@@ -37,7 +40,10 @@ services:
   #---> Services : Redis
   cache-redis:
     container_name: 'redis'
-    image: 'erp-reborn-redis'
+    # image: 'erp-reborn-redis'
+    build:
+      context: '.'
+      dockerfile: './.ProjectCore/Configuration/Docker/Redis/Dockerfile'
     restart: 'unless-stopped'
     ports:
       - '16379:6379'
@@ -50,8 +56,9 @@ services:
 
   #---> Services : PHP BackEnd Laravel Octane FrankenPHP
   php-backend-franken:
+    platform: linux/amd64
     container_name: 'php-backend-frankenPHP'
-    image: 'erp-reborn-php-backend-laraveloctane-frankenphp'
+    # image: 'erp-reborn-php-backend-laraveloctane-frankenphp'
     depends_on:
       - 'db-postgresql'
       - 'cache-redis'
@@ -87,11 +94,12 @@ services:
 
   #---> Services : PHP Apache BackEnd
   php-apache-backend:
+    platform: linux/amd64
     container_name: 'php-apache-backend'
     build:
       context: '.'
       dockerfile: './.ProjectCore/Configuration/Docker/PHPApacheBackEnd/Dockerfile'
-    image: 'erp-reborn-phpapache-backend'
+    # image: 'erp-reborn-phpapache-backend'
     depends_on:
       - 'db-postgresql'
       - 'cache-redis'
@@ -151,7 +159,11 @@ services:
   #---> Services : Authetication Samba
   auth-samba:
     container_name: 'samba'
-    image: 'erp-reborn-samba'
+    platform: linux/amd64
+    build:
+      context: '.'
+      dockerfile: './.ProjectCore/Configuration/Docker/Samba/Dockerfile'
+    # image: 'erp-reborn-samba'
     restart: 'unless-stopped'
     ports:
       - '10053:53'
@@ -195,8 +207,12 @@ services:
       app-network:
         ipv4_address: '172.28.0.7'
     volumes:
-      - './.ProjectCore/PermanentStorage/Samba/data:/var/lib/samba'
-      - './.ProjectCore/PermanentStorage/Samba/config/samba:/etc/samba/external'
+      # ── Samba data/config moved off the host bind mount because KIOXIA (APFS +
+      # ── noowners) strips extended attributes, causing `s3fs` provisioning to
+      # ── fail with "filesystem does not support posix ACLs". Docker-managed
+      # ── named volumes live on the Docker VM's ext4 fs which has full ACL support.
+      - 'volume-samba-data:/var/lib/samba'
+      - 'volume-samba-config:/etc/samba/external'
       - './.ProjectCore/Configuration/Docker/Samba/Script.ServiceRestart.sh:/usr/local/bin/Script.ServiceRestart.sh'
     environment:
       - DOMAIN=QDC-FILES.QDC.CO.ID
@@ -205,7 +221,11 @@ services:
       - DNSFORWARDER=192.168.1.1
         #- MULTISITE=true
       - NOCOMPLEXITY=true
-      - INSECURELDAP=false
+      # Set to `true` so Samba's provisioning writes
+      #   ldap server require strong auth = no
+      # into smb.conf, allowing plain ldap_bind() over 389 without SASL/LDAPS.
+      # This is only safe for local development / load testing.
+      - INSECURELDAP=true
       - HOSTIP=172.28.0.7
     dns_search:
       - qdc.co.id
@@ -438,6 +458,11 @@ services:
 
 #---> Docker Volumes
 volumes:
+  # Samba volumes are auto-managed (not external) so they are created on first
+  # `docker compose up` without requiring a separate `docker volume create` step.
+  # See the auth-samba service for the rationale.
+  volume-samba-data:
+  volume-samba-config:
   volume-mysql:
     external: true
   volume-percona:

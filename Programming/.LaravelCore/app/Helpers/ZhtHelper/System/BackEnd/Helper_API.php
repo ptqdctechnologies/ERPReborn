@@ -872,6 +872,13 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
         public static function setCallAPIEngine($varUserSession, $varAPIKey, $varAPIVersion, array $varData, string $varFunctionName=null, array $varRealDataRequest=null)
             {
             $varErrorMessage = null;
+            \Illuminate\Support\Facades\Log::info('[Helper_API.setCallAPIEngine] entering', [
+                'apiKey'            => $varAPIKey,
+                'apiVersion'        => $varAPIVersion,
+                'functionName'      => $varFunctionName,
+                'data_keys'         => array_keys($varData),
+                'hasRealDataRequest'=> !is_null($varRealDataRequest),
+            ]);
 
 /*
 //------------< BLOCKING >------------------
@@ -983,20 +990,37 @@ if (strcmp($varAPIKey, 'transaction.read.dataList.finance.getAdvance')==0)
                                 );
                         }
 
+                    $varEncodedForValidation = \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode(
+                        $varUserSession,
+                        $varRealDataRequest
+                        );
+                    \Illuminate\Support\Facades\Log::info('[Helper_API.setCallAPIEngine] about to validate', [
+                        'schemaFile'     => $varFilePathJSONValidation,
+                        'payload_length' => is_string($varEncodedForValidation) ? strlen($varEncodedForValidation) : gettype($varEncodedForValidation),
+                        'payload'        => is_string($varEncodedForValidation) ? $varEncodedForValidation : var_export($varEncodedForValidation, true),
+                        'realDataKeys'   => is_array($varRealDataRequest) ? array_keys($varRealDataRequest) : null,
+                    ]);
+
                     $varJSONSchemaValidationStatus =
                         \App\Helpers\ZhtHelper\General\Helper_JSON::getSchemaValidationFromFile(
                             $varUserSession,
-                            \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode(
-                                $varUserSession,
-                                $varRealDataRequest
-                                ),
+                            $varEncodedForValidation,
                             $varFilePathJSONValidation
                             );
+                    \Illuminate\Support\Facades\Log::info('[Helper_API.setCallAPIEngine] schema validation result', [
+                        'status' => $varJSONSchemaValidationStatus,
+                        'type'   => gettype($varJSONSchemaValidationStatus),
+                    ]);
 
                     if ($varJSONSchemaValidationStatus == false)
                         {
                         $varErrorMessage =
                             'JSON Request incompatible with API\'s Contract ('.$varAPIKey.' version '.$varAPIVersion.')';
+                        \Illuminate\Support\Facades\Log::warning('[Helper_API.setCallAPIEngine] SCHEMA VALIDATION FAILED — returning 400', [
+                            'apiKey'     => $varAPIKey,
+                            'apiVersion' => $varAPIVersion,
+                            'schemaFile' => $varFilePathJSONValidation,
+                        ]);
 
                         $varReturn =
                             \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail(
@@ -1004,7 +1028,7 @@ if (strcmp($varAPIKey, 'transaction.read.dataList.finance.getAdvance')==0)
                                 400,
                                 $varErrorMessage
                                 );
-                        }                
+                        }
                     }
                 
 /*

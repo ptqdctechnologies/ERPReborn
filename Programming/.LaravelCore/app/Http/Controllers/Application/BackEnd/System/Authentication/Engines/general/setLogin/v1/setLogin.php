@@ -75,6 +75,14 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
 
+            // [PROFILER] Step-timing instrumentation — remove once bottleneck is identified.
+            // Timings are logged to Laravel's log at the end of the function with prefix [setLogin.profile].
+            // Tail with:  docker exec php-apache-backend tail -f /var/www/html/WebBackEnd/storage/logs/laravel.log | grep setLogin.profile
+            $varProfile = ['start' => microtime(true)];
+
+            // [DB-PROFILER] Reset per-request DB counters so totals reflect only this login.
+            \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::resetDBStats();
+
             try {
                 $varSysDataProcess = 
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__,
@@ -139,20 +147,27 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                                     );
 
                         //---> LDAP Checking
-                            if (
-                                \App\Helpers\ZhtHelper\General\Helper_LDAP::getAuthenticationBySAMAccountName(
-                                    $varUserSession,
-                                    $varHost,
-                                    $varPort,
-                                    $varBaseDN,
-                                    $varUserName,
-                                    $varUserPassword
-                                    ) == true
-                                ) {
+                            \Illuminate\Support\Facades\Log::info('[setLogin] LDAP1 attempt', [
+                                'user'   => $varUserName,
+                                'host'   => $varHost,
+                                'port'   => $varPort,
+                                'baseDN' => $varBaseDN,
+                            ]);
+                            $varProfile['ldap_start'] = microtime(true); // [PROFILER]
+                            $varLDAP1Result = \App\Helpers\ZhtHelper\General\Helper_LDAP::getAuthenticationBySAMAccountName(
+                                $varUserSession, $varHost, $varPort, $varBaseDN, $varUserName, $varUserPassword
+                            );
+                            \Illuminate\Support\Facades\Log::info('[setLogin] LDAP1 result', [
+                                'result' => $varLDAP1Result,
+                                'type'   => gettype($varLDAP1Result),
+                            ]);
+                            if ($varLDAP1Result == true) {
                                 $varSignLoginSuccess = true;
                                 }
                             else
                                 {
+                                $varProfile['ldap1_end'] = microtime(true); // [PROFILER]
+
                                 //---> Reinitializing : varHost
                                     $varHost =
                                         \App\Helpers\ZhtHelper\System\Helper_Environment::getBackEndConfigEnvironment(
@@ -174,20 +189,28 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                                             'LDAP2_BASEDN'
                                             );
 
-                                if (
-                                    \App\Helpers\ZhtHelper\General\Helper_LDAP::getAuthenticationBySAMAccountName(
-                                        $varUserSession,
-                                        $varHost,
-                                        $varPort,
-                                        $varBaseDN,
-                                        $varUserName,
-                                        $varUserPassword
-                                        ) == true
-                                    ) {
-                                    $varSignLoginSuccess = 
-                                        true;
+                                \Illuminate\Support\Facades\Log::info('[setLogin] LDAP2 attempt (fallback)', [
+                                    'user'   => $varUserName,
+                                    'host'   => $varHost,
+                                    'port'   => $varPort,
+                                    'baseDN' => $varBaseDN,
+                                ]);
+                                $varLDAP2Result = \App\Helpers\ZhtHelper\General\Helper_LDAP::getAuthenticationBySAMAccountName(
+                                    $varUserSession, $varHost, $varPort, $varBaseDN, $varUserName, $varUserPassword
+                                );
+                                \Illuminate\Support\Facades\Log::info('[setLogin] LDAP2 result', [
+                                    'result' => $varLDAP2Result,
+                                    'type'   => gettype($varLDAP2Result),
+                                ]);
+                                if ($varLDAP2Result == true) {
+                                    $varSignLoginSuccess = true;
                                     }
                                 }
+                            $varProfile['ldap_end'] = microtime(true); // [PROFILER]
+                            \Illuminate\Support\Facades\Log::info('[setLogin] LDAP overall', [
+                                'success'     => $varSignLoginSuccess,
+                                'elapsed_ms'  => round(($varProfile['ldap_end'] - $varProfile['ldap_start']) * 1000, 1),
+                            ]);
 
                         //---> Jika Otentikasi berhasil
                             if (
@@ -259,6 +282,17 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                                         );  
                                 //var_dump(\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getCurrentYear($varUserSession));
 
+                                \Illuminate\Support\Facades\Log::info('[setLogin] TblLog_UserLoginSession::setDataInsert returned', [
+                                    'type'             => gettype($varBufferDB),
+                                    'is_array'         => is_array($varBufferDB),
+                                    'has_data_key'     => is_array($varBufferDB) && array_key_exists('data', $varBufferDB),
+                                    'data_row_0'       => is_array($varBufferDB) ? ($varBufferDB['data'][0] ?? null) : null,
+                                    'head'             => is_array($varBufferDB) ? array_slice($varBufferDB, 0, 3, true) : var_export($varBufferDB, true),
+                                ]);
+                                if (!isset($varBufferDB['data'][0]['SignRecordID'])) {
+                                    throw new \Exception('TblLog_UserLoginSession.setDataInsert did not return SignRecordID — stored proc Func_TblLog_UserLoginSession_INSERT may have failed. Check Postgres log and SysEngine role grants on SchSysConfig.');
+                                }
+
                                 //$varSysID = $varBufferDB['SignRecordID'];
                                 $varSysID =
                                     $varBufferDB['data'][0]['SignRecordID'];
@@ -270,6 +304,14 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                                         $varSysID
                                         );
                                 //dd($varBufferDB);
+                                $varProfile['db_session_written'] = microtime(true); // [PROFILER]
+                                \Illuminate\Support\Facades\Log::info('[setLogin] session written', [
+                                    'sys_id'            => $varSysID,
+                                    'rows_returned'     => is_array($varBufferDB) ? count($varBufferDB) : 'not-array',
+                                    'user_RefID'        => $varBufferDB[0]['User_RefID']   ?? null,
+                                    'LDAPUserID'        => $varBufferDB[0]['LDAPUserID']   ?? null,
+                                    'APIWebToken_head'  => isset($varBufferDB[0]['APIWebToken']) ? substr($varBufferDB[0]['APIWebToken'], 0, 16).'…' : null,
+                                ]);
 
                                 if (count($varBufferDB) > 0) {
                                     //---> Data Initailizing Base On Database Record
@@ -321,9 +363,20 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                                                 }
                                             }
 
-                                        catch (\Exception $ex) {
+                                        catch (\Throwable $ex) {
+                                            \Illuminate\Support\Facades\Log::error('[setLogin] privileges query FAILED', [
+                                                'class'   => get_class($ex),
+                                                'message' => $ex->getMessage(),
+                                                'file'    => $ex->getFile(),
+                                                'line'    => $ex->getLine(),
+                                            ]);
                                             $varDataUserAvailableOptionList = NULL;
                                             }
+                                    $varProfile['privileges_done'] = microtime(true); // [PROFILER]
+                                    \Illuminate\Support\Facades\Log::info('[setLogin] privileges resolved', [
+                                        'branch_count'            => is_array($varOptionList_BranchIDList ?? null) ? count($varOptionList_BranchIDList) : 0,
+                                        'user_available_is_null'  => is_null($varDataUserAvailableOptionList ?? null),
+                                    ]);
 
                                     //---> Insert Data to Redis
                                         $varRedisID =
@@ -346,6 +399,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                                                 ),
                                                 $varSessionIntervalInSeconds
                                             );
+                                    $varProfile['redis_primary_done'] = microtime(true); // [PROFILER]
 
                                     //---> Exceptional Condition : Branch ID In Additional Data Is Not Feasible
                                         if (strcmp(strtoupper((string) $varBranchID), 'AUTO') == 0) {
@@ -531,8 +585,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                                     }
 
 
-                                    // END REDIS HELPER LOGIN 
+                                    // END REDIS HELPER LOGIN
 //-----[ MULYADI CODE ]-----( END )-----
+                                    $varProfile['redis_cache_done'] = microtime(true); // [PROFILER]
 
                                     //---> Set Auto Login Branch And User Role
                                     if (($varBranchID != NULL) AND ($varUserRoleID != NULL))
@@ -563,7 +618,30 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
     */
                                         }
 
-                                    $varReturn = 
+                                    $varProfile['auto_login_done'] = microtime(true); // [PROFILER]
+
+                                    // [TIMING] Expose per-step timing in the response so k6 (and any
+                                    // other client) can measure LDAP latency independently of total
+                                    // request duration. All values are milliseconds.
+                                    $varDeltaMs = function ($from, $to) use ($varProfile) {
+                                        if (!isset($varProfile[$from], $varProfile[$to])) { return null; }
+                                        return round(($varProfile[$to] - $varProfile[$from]) * 1000, 2);
+                                    };
+                                    $varDataSend['serverTiming'] = [
+                                        'ldap_ms'           => $varDeltaMs('ldap_start',        'ldap_end'),
+                                        'ldap1_ms'          => $varDeltaMs('ldap_start',        'ldap1_end'),   // only if LDAP1 failed
+                                        'db_session_ms'     => $varDeltaMs('ldap_end',          'db_session_written'),
+                                        'privileges_ms'     => $varDeltaMs('db_session_written','privileges_done'),
+                                        'redis_primary_ms'  => $varDeltaMs('privileges_done',   'redis_primary_done'),
+                                        'redis_cache_ms'    => $varDeltaMs('redis_primary_done','redis_cache_done'),
+                                        'auto_login_ms'     => $varDeltaMs('redis_cache_done',  'auto_login_done'),
+                                        'engine_total_ms'   => round((microtime(true) - $varProfile['start']) * 1000, 2),
+                                        // [DB-PROFILER] Per-request DB breakdown across ALL queries
+                                        // executed during this request (reads vs writes, counts + totals).
+                                        'db' => \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getDBStats(),
+                                    ];
+
+                                    $varReturn =
                                         \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success(
                                             $varUserSession,
                                             $varDataSend,
@@ -593,7 +671,15 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                     }
 
-                catch (\Exception $ex) {
+                catch (\Throwable $ex) {
+                    \Illuminate\Support\Facades\Log::error('[setLogin] inner throwable caught', [
+                        'class'    => get_class($ex),
+                        'message'  => $ex->getMessage(),
+                        'file'     => $ex->getFile(),
+                        'line'     => $ex->getLine(),
+                        'trace_0'  => $ex->getTrace()[0]['function'] ?? null,
+                        'trace_1'  => $ex->getTrace()[1]['function'] ?? null,
+                    ]);
                     $varReturn =
                         \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail(
                             $varUserSession,
@@ -607,8 +693,34 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                 \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
                 }
 
-            catch (\Exception $ex) {
+            catch (\Throwable $ex) {
+                \Illuminate\Support\Facades\Log::error('[setLogin] OUTER throwable caught (likely suppressed before)', [
+                    'class'   => get_class($ex),
+                    'message' => $ex->getMessage(),
+                    'file'    => $ex->getFile(),
+                    'line'    => $ex->getLine(),
+                ]);
                 }
+
+            // [PROFILER] Emit step-timing breakdown. Wrapped in its own try so profiling
+            // failure can never break the login response.
+            try {
+                $varProfile['end'] = microtime(true);
+                $varPrev = $varProfile['start'];
+                $varSteps = [];
+                foreach ($varProfile as $varKey => $varTime) {
+                    if ($varKey === 'start') { continue; }
+                    $varSteps[$varKey] = round(($varTime - $varPrev) * 1000, 1);
+                    $varPrev = $varTime;
+                }
+                \Illuminate\Support\Facades\Log::info('[setLogin.profile] ' . json_encode([
+                    'total_ms' => round(($varProfile['end'] - $varProfile['start']) * 1000, 1),
+                    'user'     => $varUserName ?? null,
+                    'success'  => $varSignLoginSuccess ?? false,
+                    'steps_ms' => $varSteps,
+                    'db'       => \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getDBStats(),
+                ]));
+            } catch (\Throwable $exProfile) { /* never break login on profiler error */ }
 
             return
                 \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);

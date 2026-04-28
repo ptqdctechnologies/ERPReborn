@@ -1069,9 +1069,9 @@ namespace App\Models\Database\SchSysConfig
         */
         public function isExist_APIWebToken($varUserSession, string $varAPIWebToken)
             {
-            $varData = 
+            $varData =
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
+                    $varUserSession,
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                         $varUserSession,
                         'SchSysConfig.FuncSys_General_GetExistantionOnSystem_APIWebToken',
@@ -1080,6 +1080,22 @@ namespace App\Models\Database\SchSysConfig
                         ]
                         )
                     );
+
+            // [GUARD] If the stored procedure is missing, returned no rows, or the
+            // expected column is absent, the original code crashed with
+            // "Trying to access array offset on null" at line 1087. This check runs
+            // inside a do-while that generates a unique JWT — treating "no result"
+            // as "token doesn't exist" is safe (JWTs are generated uniquely anyway).
+            if (!isset($varData['data'][0]['FuncSys_General_GetExistantionOnSystem_APIWebToken']))
+                {
+                \Illuminate\Support\Facades\Log::warning('[SchSysConfig.General.isExist_APIWebToken] missing proc / empty result — defaulting to false', [
+                    'varData_isarray'  => is_array($varData),
+                    'data_key_present' => is_array($varData) && array_key_exists('data', $varData),
+                    'data_value'       => is_array($varData) ? ($varData['data'] ?? null) : null,
+                    'varData_head'     => is_array($varData) ? array_slice($varData, 0, 3, true) : gettype($varData),
+                ]);
+                return false;
+                }
 
             $varReturn =
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBooleanConvertion(

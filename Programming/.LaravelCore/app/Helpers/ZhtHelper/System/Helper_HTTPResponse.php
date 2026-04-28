@@ -443,15 +443,14 @@ namespace App\Helpers\ZhtHelper\System
                         catch (\Exception $ex) {
                             try {
                                 $varReturn = $varObjResponse->headers->get($varKey);
-                                if(is_string($varReturn)==TRUE)
+                                // [FIX] Same bug as Helper_HTTPRequest::getRequest_Header — the
+                                // `is_string` branch indexed [0] and truncated the header to its
+                                // first byte. Only unwrap single-element arrays; leave strings alone.
+                                if (is_array($varReturn) && count($varReturn) === 1)
                                     {
                                     $varReturn = $varReturn[0];
                                     }
-                                elseif(count($varReturn)==1)
-                                    {
-                                    $varReturn = $varReturn[0];
-                                    }
-                                } 
+                                }
                             catch (\Exception $ex) {
                                 }
                             }

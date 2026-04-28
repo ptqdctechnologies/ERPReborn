@@ -131,11 +131,13 @@ public static function getRequest_HeaderAPIWebToken($varUserSession)
                         {
                         //---> Non Guzzle Mode
                         $varReturn = $varObjRequest->header($varKey);
-                        if (is_string($varReturn)==TRUE)
-                            {
-                            $varReturn = $varReturn[0];
-                            }
-                        elseif (count($varReturn)==1)
+                        // [FIX] Laravel 12's Request::header($key) normally returns a string;
+                        // some versions/header-bags return a single-element array. The original
+                        // code branched on is_string and did $varReturn[0] — which in PHP indexes
+                        // the STRING and returns its first byte, truncating headers like
+                        // "2026-04-20T13:04:30..." down to "2". Only unwrap when it's actually
+                        // a single-element array; leave strings alone.
+                        if (is_array($varReturn) && count($varReturn) === 1)
                             {
                             $varReturn = $varReturn[0];
                             }

@@ -898,6 +898,58 @@ namespace App\Helpers\ZhtHelper\Database
         |      ▪ (array) varReturn                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
+        // [PROFILER] Per-request DB stats accumulator. Apache-mode processes are
+        // fresh per request so static state is already request-scoped. Under
+        // Octane/FrankenPHP, call resetDBStats() at request entry.
+        private static $dbStats = [
+            'total_queries' => 0, 'total_ms' => 0.0,
+            'read_queries'  => 0, 'read_ms'  => 0.0,
+            'write_queries' => 0, 'write_ms' => 0.0,
+            'other_queries' => 0, 'other_ms' => 0.0,
+            'slowest_ms'    => 0.0,
+            'slowest_kind'  => null,
+            'slowest_head'  => null,
+        ];
+
+        public static function resetDBStats(): void
+            {
+            self::$dbStats = [
+                'total_queries' => 0, 'total_ms' => 0.0,
+                'read_queries'  => 0, 'read_ms'  => 0.0,
+                'write_queries' => 0, 'write_ms' => 0.0,
+                'other_queries' => 0, 'other_ms' => 0.0,
+                'slowest_ms'    => 0.0,
+                'slowest_kind'  => null,
+                'slowest_head'  => null,
+            ];
+            }
+
+        public static function getDBStats(): array
+            {
+            $s = self::$dbStats;
+            $s['total_ms'] = round($s['total_ms'], 2);
+            $s['read_ms']  = round($s['read_ms'],  2);
+            $s['write_ms'] = round($s['write_ms'], 2);
+            $s['other_ms'] = round($s['other_ms'], 2);
+            $s['slowest_ms'] = round($s['slowest_ms'], 2);
+            return $s;
+            }
+
+        /**
+         * Classifies a SQL string as read / write / other by matching the stored-proc
+         * suffix convention (_SET/_INSERT/_UPDATE/_DELETE = write, _GET/_LIST = read)
+         * with raw DML keywords as a fallback.
+         */
+        private static function classifyQuery(string $sql): string
+            {
+            $head = substr(ltrim($sql), 0, 500);
+            if (preg_match('/Func[A-Za-z_]*_(SET|INSERT|UPDATE|DELETE)\s*\(/i', $head)) return 'write';
+            if (preg_match('/^\s*(INSERT|UPDATE|DELETE|CALL)\b/i', $head))              return 'write';
+            if (preg_match('/Func[A-Za-z_]*_(GET|LIST)\w*\s*\(/i', $head))              return 'read';
+            if (preg_match('/^\s*SELECT\b/i', $head))                                    return 'read';
+            return 'other';
+            }
+
         public static function getQueryExecution($varUserSession, $varSQLQuery)
             {
             /*
@@ -960,11 +1012,41 @@ namespace App\Helpers\ZhtHelper\Database
 
                                 //---> Inisialisasi [Data], [RowCount], [Notice]
                                 //$varDataTemp = self::getArrayFromQueryExecutionDataFetch_UsingLaravelConnection($varUserSession, $varSQLQuery);
-                                $varDataTemp = 
+                                // [PROFILER] Time ONLY the real query — skip the two SELECT NOW() brackets.
+                                $varProfilerStart = microtime(true);
+                                $varDataTemp =
                                     self::getArrayFromQueryExecutionDataFetch_UsingPGSQLConnection(
                                         $varUserSession,
                                         $varSQLQuery
                                         );
+                                $varProfilerMs = (microtime(true) - $varProfilerStart) * 1000;
+                                $varProfilerKind = self::classifyQuery($varSQLQuery);
+                                self::$dbStats['total_queries']                     += 1;
+                                self::$dbStats['total_ms']                          += $varProfilerMs;
+                                self::$dbStats[$varProfilerKind.'_queries']         += 1;
+                                self::$dbStats[$varProfilerKind.'_ms']              += $varProfilerMs;
+                                if ($varProfilerMs > self::$dbStats['slowest_ms']) {
+                                    self::$dbStats['slowest_ms']   = $varProfilerMs;
+                                    self::$dbStats['slowest_kind'] = $varProfilerKind;
+                                    self::$dbStats['slowest_head'] = substr(ltrim($varSQLQuery), 0, 120);
+                                }
+
+                                if (env('LOG_SQL', false)) {
+                                    $varCallerInfo = 'unknown';
+                                    foreach (debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 20) as $varFrame) {
+                                        if (isset($varFrame['file']) && strpos($varFrame['file'], 'Helper_PostgreSQL') === false) {
+                                            $varCallerInfo = str_replace(base_path() . '/', '', $varFrame['file']) . ':' . $varFrame['line'];
+                                            break;
+                                        }
+                                    }
+                                    \Illuminate\Support\Facades\Log::debug(sprintf(
+                                        '[SQL.query] kind=%-5s  time=%7.2fms  caller=%s  sql=%s',
+                                        $varProfilerKind,
+                                        $varProfilerMs,
+                                        $varCallerInfo,
+                                        preg_replace('/\s+/', ' ', trim($varSQLQuery))
+                                    ));
+                                }
 
                                 $varReturn['data'] = $varDataTemp['data'];
                                 $varReturn['rowCount'] = $varDataTemp['rowCount'];

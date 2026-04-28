@@ -144,26 +144,62 @@ namespace App\Helpers\ZhtHelper\General
             try {
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get authentication by SAM Account Name `'.$varSAMAccountName.'` with password `'.$varPassword.'`');
                 try {
+                    \Illuminate\Support\Facades\Log::info('[Helper_LDAP.bind] attempt', [
+                        'host'   => $varLDAPHost,
+                        'port'   => $varLDAPPort,
+                        'baseDN' => $varBaseDN,
+                        'sAMAccountName' => $varSAMAccountName,
+                    ]);
+
                     $ObjLDAPConnection = ldap_connect($varLDAPHost, $varLDAPPort);
                     if (!$ObjLDAPConnection)
                         {
+                        \Illuminate\Support\Facades\Log::warning('[Helper_LDAP.bind] ldap_connect returned false');
                         throw new \Exception("Connection Failed");
                         }
                     else
                         {
+                        // [PROFILER] Fail fast — without this, ldap_bind() blocks for the OS TCP
+                        // connect timeout (~60s) when the LDAP host is unreachable, making the
+                        // whole login endpoint appear to hang. 5s is enough for any healthy LAN DC.
+                        ldap_set_option($ObjLDAPConnection, LDAP_OPT_NETWORK_TIMEOUT, 5);
+                        // AD typically requires v3 + no referral chasing; make it explicit.
+                        ldap_set_option($ObjLDAPConnection, LDAP_OPT_PROTOCOL_VERSION, 3);
+                        ldap_set_option($ObjLDAPConnection, LDAP_OPT_REFERRALS, 0);
+
                         $varUserPrincipalName =
                             self::getUserPrincipalNameFromSAMAccountName(
                                 $varUserSession,
                                 $varBaseDN,
                                 $varSAMAccountName
                                 );
+                        \Illuminate\Support\Facades\Log::info('[Helper_LDAP.bind] constructed UPN', [
+                            'userPrincipalName' => $varUserPrincipalName,
+                        ]);
 
-                        if (!$ObjLDAPBind = ldap_bind($ObjLDAPConnection, $varUserPrincipalName, $varPassword))
+                        $varBindStart = microtime(true);
+                        $ObjLDAPBind = @ldap_bind($ObjLDAPConnection, $varUserPrincipalName, $varPassword);
+                        $varBindMs = round((microtime(true) - $varBindStart) * 1000, 1);
+
+                        if (!$ObjLDAPBind)
                             {
+                            // Capture the concrete LDAP error so we can tell apart
+                            // "user not found", "bad credentials", "server down", etc.
+                            \Illuminate\Support\Facades\Log::warning('[Helper_LDAP.bind] BIND FAILED', [
+                                'host'              => $varLDAPHost,
+                                'port'              => $varLDAPPort,
+                                'userPrincipalName' => $varUserPrincipalName,
+                                'ldap_errno'        => @ldap_errno($ObjLDAPConnection),
+                                'ldap_error'        => @ldap_error($ObjLDAPConnection),
+                                'bind_elapsed_ms'   => $varBindMs,
+                            ]);
                             throw new \Exception("LDAP Bind Failed");
                             }
                         else
                             {
+                            \Illuminate\Support\Facades\Log::info('[Helper_LDAP.bind] BIND OK', [
+                                'bind_elapsed_ms' => $varBindMs,
+                            ]);
                             unset($ObjLDAPBind);
                             $varReturn = true;
                             }
@@ -171,7 +207,13 @@ namespace App\Helpers\ZhtHelper\General
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                     }
 
-                catch (\Exception $ex) {
+                catch (\Throwable $ex) {
+                    \Illuminate\Support\Facades\Log::warning('[Helper_LDAP.bind] throwable', [
+                        'class'   => get_class($ex),
+                        'message' => $ex->getMessage(),
+                        'file'    => $ex->getFile(),
+                        'line'    => $ex->getLine(),
+                    ]);
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
                     }
                 \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);

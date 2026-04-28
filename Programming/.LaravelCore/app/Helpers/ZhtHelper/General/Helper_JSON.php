@@ -130,7 +130,15 @@ namespace App\Helpers\ZhtHelper\General
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                     }
 
-                catch (\Exception $ex) {
+                catch (\Throwable $ex) {
+                    \Illuminate\Support\Facades\Log::warning('[Helper_JSON.getSchemaValidationFromFile] REJECTED', [
+                        'schemaFile'   => $varJSONSchemaPathFile,
+                        'class'        => get_class($ex),
+                        'message'      => $ex->getMessage(),
+                        'file'         => $ex->getFile(),
+                        'line'         => $ex->getLine(),
+                        'payload_head' => substr($varJSONData, 0, 300),
+                    ]);
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
                     }
 

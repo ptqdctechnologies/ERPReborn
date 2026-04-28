@@ -12,6 +12,26 @@ namespace App\Http\Middleware\Application\BackEnd\API\Authentication
         public function terminate($varObjRequest, $varObjResponse)
             {
             $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
+
+            // [DEBUG] Dump the headers we are about to hand to Helper_DateTime so we
+            // can correlate caller input with the values logged inside the helper.
+            try {
+                $varAgentDatetime = \App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getRequest_Header($varUserSession, $varObjRequest, 'agent-datetime');
+                $varResponseDate  = \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::getResponse_Header($varUserSession, $varObjResponse, 'date');
+                \Illuminate\Support\Facades\Log::info('[Authentication.TerminateHandler] inputs to Helper_DateTime', [
+                    'request_agent_datetime'         => $varAgentDatetime,
+                    'request_agent_datetime_type'    => gettype($varAgentDatetime),
+                    'request_agent_datetime_length'  => is_string($varAgentDatetime) ? strlen($varAgentDatetime) : null,
+                    'request_agent_datetime_hex'     => is_string($varAgentDatetime) ? bin2hex($varAgentDatetime) : null,
+                    'response_date'                  => $varResponseDate,
+                    'response_date_type'              => gettype($varResponseDate),
+                    'response_date_hex'               => is_string($varResponseDate) ? bin2hex($varResponseDate) : null,
+                    'all_request_headers'            => \App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getRequest_Header($varUserSession, $varObjRequest),
+                ]);
+            } catch (\Throwable $ex) {
+                \Illuminate\Support\Facades\Log::error('[Authentication.TerminateHandler] failed to dump inputs: ' . $ex->getMessage());
+            }
+
             //---> Store API Access Request to Database
             (new \App\Models\Database\SchSysConfig\TblRotateLog_API())->setDataInsert(
                 $varUserSession, 

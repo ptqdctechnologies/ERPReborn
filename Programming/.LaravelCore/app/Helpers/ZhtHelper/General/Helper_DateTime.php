@@ -1125,11 +1125,64 @@ namespace App\Helpers\ZhtHelper\General
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get TimeStamp with TimeZone convertion from GMT to other Time Zone');
                 try {
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
-                    $varReturn = \App\Helpers\ZhtHelper\General\Helper_DateTime::getGMTDateTime($varUserSession, 'Y-m-d H:i:s', \App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession, $varGMTDateTime)+($varTimeZoneOffset*60*60)).($varTimeZoneOffset>=0?'+':'-').str_pad($varTimeZoneOffset, 2, '0', STR_PAD_LEFT);
+                    // [DEBUG] Verbose tracing of every input parameter and intermediate value.
+                    // Includes caller backtrace so we can see which middleware / controller invoked this.
+                    // Remove once the "string + int" TypeError origin is identified.
+                    $varUnixTimeRaw = \App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession, $varGMTDateTime);
+
+                    $varBacktrace = array_map(
+                        function ($f) { return ($f['class'] ?? '') . ($f['type'] ?? '') . ($f['function'] ?? '') . ':' . ($f['line'] ?? '?'); },
+                        array_slice(debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS), 0, 6)
+                    );
+
+                    \Illuminate\Support\Facades\Log::info('[Helper_DateTime.getTimeStampTZConvert_GMTToOtherTimeZone] inputs', [
+                        // ── Param 1: user session
+                        'varUserSession'         => var_export($varUserSession, true),
+                        'varUserSession_type'    => gettype($varUserSession),
+
+                        // ── Param 2: GMT datetime string (the one we suspect)
+                        'varGMTDateTime'         => $varGMTDateTime,
+                        'varGMTDateTime_export'  => var_export($varGMTDateTime, true),
+                        'varGMTDateTime_type'    => gettype($varGMTDateTime),
+                        'varGMTDateTime_length'  => is_string($varGMTDateTime) ? strlen($varGMTDateTime) : null,
+                        'varGMTDateTime_empty'   => empty($varGMTDateTime),
+                        'varGMTDateTime_isnull'  => is_null($varGMTDateTime),
+                        'varGMTDateTime_hex'     => is_string($varGMTDateTime) ? bin2hex($varGMTDateTime) : null,
+
+                        // ── Param 3: timezone offset
+                        'varTimeZoneOffset'      => $varTimeZoneOffset,
+                        'varTimeZoneOffset_type' => gettype($varTimeZoneOffset),
+
+                        // ── Intermediate: what getUnixTime() gave back
+                        'unixTime_raw'           => $varUnixTimeRaw,
+                        'unixTime_export'        => var_export($varUnixTimeRaw, true),
+                        'unixTime_type'          => gettype($varUnixTimeRaw),
+                        'unixTime_is_numeric'    => is_numeric($varUnixTimeRaw),
+                        'unixTime_is_bool'       => is_bool($varUnixTimeRaw),
+                        'unixTime_is_string'     => is_string($varUnixTimeRaw),
+
+                        // ── Sanity: direct strtotime bypass (skips Helper_DateTime logic)
+                        'strtotime_raw'          => @strtotime((string) $varGMTDateTime),
+                        'strtotime_type'         => gettype(@strtotime((string) $varGMTDateTime)),
+
+                        // ── Who called us
+                        'backtrace'              => $varBacktrace,
+                    ]);
+
+                    $varReturn = \App\Helpers\ZhtHelper\General\Helper_DateTime::getGMTDateTime($varUserSession, 'Y-m-d H:i:s', $varUnixTimeRaw + ($varTimeZoneOffset * 60 * 60)) . ($varTimeZoneOffset >= 0 ? '+' : '-') . str_pad($varTimeZoneOffset, 2, '0', STR_PAD_LEFT);
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
-                    } 
-                catch (\Exception $ex) {
+                    }
+                catch (\Throwable $ex) {
+                    // [DEBUG] Widened to \Throwable so TypeError (not an \Exception) is captured.
+                    \Illuminate\Support\Facades\Log::error('[Helper_DateTime.getTimeStampTZConvert_GMTToOtherTimeZone] FAILED', [
+                        'message' => $ex->getMessage(),
+                        'class'   => get_class($ex),
+                        'line'    => $ex->getLine(),
+                        'file'    => $ex->getFile(),
+                        'varGMTDateTime'    => $varGMTDateTime ?? null,
+                        'varTimeZoneOffset' => $varTimeZoneOffset ?? null,
+                    ]);
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
                     }
                 \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);

@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ERPReborn — Analysis Viewer</title>
+
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/sql.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/php.min.js"></script>
+
+<style>
+  :root {
+    --bg:        #0d1117;
+    --surface:   #161b22;
+    --border:    #30363d;
+    --text:      #e6edf3;
+    --muted:     #8b949e;
+    --accent:    #58a6ff;
+    --accent2:   #3fb950;
+    --warn:      #f85149;
+    --tag-crit:  #da3633;
+    --tag-high:  #fb8500;
+    --tag-med:   #d29922;
+    --tag-low:   #388bfd;
+    --sidebar-w: 280px;
+    --header-h:  48px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  /* ── Header ── */
+  header {
+    height: var(--header-h);
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    gap: 12px;
+    flex-shrink: 0;
+    z-index: 10;
+  }
+  header .logo {
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--accent);
+    letter-spacing: .5px;
+  }
+  header .breadcrumb {
+    font-size: 12px;
+    color: var(--muted);
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  header .breadcrumb span { color: var(--text); }
+
+  /* ── Body layout ── */
+  .layout {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+  }
+
+  /* ── Sidebar ── */
+  nav {
+    width: var(--sidebar-w);
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    overflow-y: auto;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .nav-section {
+    padding: 10px 0 4px;
+  }
+  .nav-section-title {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .8px;
+    color: var(--muted);
+    padding: 0 14px 6px;
+  }
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    cursor: pointer;
+    font-size: 12.5px;
+    color: var(--muted);
+    border-left: 3px solid transparent;
+    transition: all .15s;
+    line-height: 1.35;
+    word-break: break-word;
+  }
+  .nav-item:hover  { background: rgba(88,166,255,.06); color: var(--text); }
+  .nav-item.active {
+    background: rgba(88,166,255,.1);
+    color: var(--accent);
+    border-left-color: var(--accent);
+  }
+  .nav-item .icon { flex-shrink: 0; font-size: 13px; }
+  .sev {
+    flex-shrink: 0;
+    font-size: 9px;
+    font-weight: 700;
+    padding: 1px 5px;
+    border-radius: 3px;
+    letter-spacing: .4px;
+  }
+  .sev-critical { background: var(--tag-crit); color: #fff; }
+  .sev-high     { background: var(--tag-high); color: #000; }
+  .sev-medium   { background: var(--tag-med);  color: #000; }
+
+  nav .divider {
+    height: 1px;
+    background: var(--border);
+    margin: 6px 0;
+  }
+
+  /* ── Content ── */
+  main {
+    flex: 1;
+    overflow-y: auto;
+    padding: 32px 40px;
+    line-height: 1.7;
+  }
+
+  /* ── Welcome screen ── */
+  .welcome {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: var(--muted);
+    gap: 12px;
+    text-align: center;
+  }
+  .welcome .big { font-size: 48px; }
+  .welcome h2 { font-size: 18px; color: var(--text); }
+  .welcome p  { font-size: 13px; max-width: 320px; }
+
+  /* ── Markdown rendering ── */
+  #md h1 { font-size: 22px; font-weight: 700; color: var(--text);   margin: 0 0 20px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+  #md h2 { font-size: 17px; font-weight: 600; color: var(--accent); margin: 28px 0 10px; }
+  #md h3 { font-size: 14px; font-weight: 600; color: var(--text);   margin: 20px 0 8px; }
+  #md h4 { font-size: 13px; font-weight: 600; color: var(--muted);  margin: 16px 0 6px; text-transform: uppercase; letter-spacing: .5px; }
+
+  #md p  { margin: 0 0 12px; font-size: 13.5px; }
+  #md ul, #md ol { margin: 0 0 12px 20px; font-size: 13.5px; }
+  #md li { margin-bottom: 4px; }
+  #md a  { color: var(--accent); text-decoration: none; }
+  #md a:hover { text-decoration: underline; }
+
+  #md blockquote {
+    border-left: 3px solid var(--accent);
+    padding: 8px 16px;
+    margin: 0 0 14px;
+    background: rgba(88,166,255,.06);
+    border-radius: 0 4px 4px 0;
+    color: var(--muted);
+    font-size: 13px;
+  }
+  #md blockquote p { margin: 0; }
+
+  #md hr { border: none; border-top: 1px solid var(--border); margin: 24px 0; }
+
+  /* Tables */
+  #md table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 0 16px;
+    font-size: 13px;
+  }
+  #md th {
+    background: rgba(88,166,255,.1);
+    color: var(--accent);
+    font-weight: 600;
+    padding: 8px 12px;
+    text-align: left;
+    border: 1px solid var(--border);
+    white-space: nowrap;
+  }
+  #md td {
+    padding: 7px 12px;
+    border: 1px solid var(--border);
+    vertical-align: top;
+  }
+  #md tr:nth-child(even) td { background: rgba(255,255,255,.02); }
+  #md tr:hover         td { background: rgba(88,166,255,.05); }
+
+  /* Inline code */
+  #md code:not([class]) {
+    background: rgba(110,118,129,.2);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: "SFMono-Regular", Consolas, monospace;
+    font-size: 12px;
+    color: #ff7b72;
+  }
+
+  /* Code blocks */
+  #md pre {
+    background: #010409;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    margin: 0 0 16px;
+    overflow-x: auto;
+  }
+  #md pre code {
+    display: block;
+    padding: 14px 16px;
+    font-size: 12px;
+    line-height: 1.6;
+    font-family: "SFMono-Regular", Consolas, monospace;
+    background: none !important;
+    color: inherit;
+  }
+
+  /* Severity badges inside tables */
+  #md td:has(strong), #md th { }
+  #md strong { color: var(--text); }
+
+  /* Mermaid diagrams */
+  .mermaid-wrap {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 20px;
+    margin: 0 0 16px;
+    overflow-x: auto;
+    text-align: center;
+  }
+  .mermaid-wrap svg { max-width: 100%; height: auto; }
+
+  /* Loading spinner */
+  .loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 200px;
+    color: var(--muted);
+    font-size: 13px;
+    gap: 10px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .spinner {
+    width: 18px; height: 18px;
+    border: 2px solid var(--border);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: spin .7s linear infinite;
+  }
+
+  /* Error state */
+  .error-msg {
+    background: rgba(248,81,73,.1);
+    border: 1px solid rgba(248,81,73,.3);
+    border-radius: 6px;
+    padding: 14px 18px;
+    color: var(--warn);
+    font-size: 13px;
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar       { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--muted); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">⚡ ERPReborn</div>
+  <div class="breadcrumb" id="breadcrumb">Select a document from the sidebar</div>
+</header>
+
+<div class="layout">
+
+  <nav id="sidebar">
+
+    <div class="nav-section">
+      <div class="nav-section-title">Architecture</div>
+      <div class="nav-item" data-file="ANALYSIS-TblRotateLog_API.md" onclick="load(this)">
+        <span class="icon">📊</span>
+        <span>TblRotateLog_API Analysis</span>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="nav-section">
+      <div class="nav-section-title">SQL Analysis — Scenario 04</div>
+
+      <div class="nav-item" data-file="SQL-Analysis/INDEX.md" onclick="load(this)">
+        <span class="icon">📋</span>
+        <span>Index &amp; Summary</span>
+      </div>
+
+      <div class="nav-item" data-file="SQL-Analysis/SQL-01-GetUserIdentityByLDAPUserID.md" onclick="load(this)">
+        <span class="icon">🔍</span>
+        <span class="sev sev-critical">CRIT</span>
+        <span>GetUserIdentityByLDAPUserID</span>
+      </div>
+
+      <div class="nav-item" data-file="SQL-Analysis/SQL-03-CombinedBudgetSectionDetail.md" onclick="load(this)">
+        <span class="icon">🔍</span>
+        <span class="sev sev-critical">CRIT</span>
+        <span>CombinedBudgetSectionDetail</span>
+      </div>
+
+      <div class="nav-item" data-file="SQL-Analysis/SQL-04-GetDataPickSet_UserPrivileges.md" onclick="load(this)">
+        <span class="icon">🔍</span>
+        <span class="sev sev-high">HIGH</span>
+        <span>GetDataPickSet_UserPrivileges</span>
+      </div>
+
+      <div class="nav-item" data-file="SQL-Analysis/SQL-05-GetUserPrivilege_MenuLayout.md" onclick="load(this)">
+        <span class="icon">🔍</span>
+        <span class="sev sev-high">HIGH</span>
+        <span>GetUserPrivilege_MenuLayout</span>
+      </div>
+
+      <div class="nav-item" data-file="SQL-Analysis/SQL-06-TblLog_UserLoginSession_SET.md" onclick="load(this)">
+        <span class="icon">🔍</span>
+        <span class="sev sev-high">HIGH</span>
+        <span>TblLog_UserLoginSession_SET</span>
+      </div>
+
+      <div class="nav-item" data-file="SQL-Analysis/SQL-07-GetExistantionOnSystem_APIWebToken.md" onclick="load(this)">
+        <span class="icon">🔍</span>
+        <span class="sev sev-high">HIGH</span>
+        <span>GetExistantionOnSystem_APIWebToken</span>
+      </div>
+
+      <div class="nav-item" data-file="SQL-Analysis/SQL-08-SetUserSessionBranchAndUserRole.md" onclick="load(this)">
+        <span class="icon">🔍</span>
+        <span class="sev sev-medium">MED</span>
+        <span>SetUserSessionBranchAndUserRole</span>
+      </div>
+
+      <div class="nav-item" data-file="SQL-Analysis/SQL-09-JSONArray_ConvertKeysToCamelCase.md" onclick="load(this)">
+        <span class="icon">🔍</span>
+        <span class="sev sev-medium">MED</span>
+        <span>JSONArray_ConvertKeysToCamelCase</span>
+      </div>
+
+      <div class="nav-item" data-file="SQL-Analysis/SQL-10-GetDataList_BusinessDocumentTypeWorkFlowPath.md" onclick="load(this)">
+        <span class="icon">🔍</span>
+        <span class="sev sev-medium">MED</span>
+        <span>BusinessDocumentTypeWorkFlowPath</span>
+      </div>
+    </div>
+
+  </nav>
+
+  <main id="content">
+    <div class="welcome">
+      <div class="big">📑</div>
+      <h2>Analysis Viewer</h2>
+      <p>Select a document from the sidebar to view the analysis with rendered diagrams.</p>
+    </div>
+  </main>
+
+</div>
+
+<script>
+mermaid.initialize({
+  startOnLoad: false,
+  theme: 'dark',
+  themeVariables: {
+    background:       '#161b22',
+    primaryColor:     '#1f6feb',
+    primaryTextColor: '#e6edf3',
+    lineColor:        '#58a6ff',
+    secondaryColor:   '#21262d',
+    tertiaryColor:    '#0d1117',
+    edgeLabelBackground: '#161b22',
+  },
+  flowchart:  { htmlLabels: true, curve: 'basis' },
+  sequence:   { actorMargin: 50, useMaxWidth: true },
+  quadrantChart: { chartWidth: 500, chartHeight: 400 },
+  fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+});
+
+// Custom renderer: intercept mermaid fenced blocks
+const renderer = new marked.Renderer();
+let mermaidCounter = 0;
+
+renderer.code = function(token) {
+  const lang = (token.lang || '').trim().toLowerCase();
+  const code = token.text;
+
+  if (lang === 'mermaid') {
+    const id = 'mermaid-' + (++mermaidCounter);
+    return `<div class="mermaid-wrap"><div class="mermaid" id="${id}">${escapeHtml(code)}</div></div>`;
+  }
+
+  // Use highlight.js for other languages
+  const validLang = hljs.getLanguage(lang) ? lang : 'plaintext';
+  const highlighted = hljs.highlight(code, { language: validLang, ignoreIllegals: true }).value;
+  return `<pre><code class="hljs language-${validLang}">${highlighted}</code></pre>`;
+};
+
+marked.use({ renderer, gfm: true, breaks: false });
+
+function escapeHtml(str) {
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+}
+
+async function load(el) {
+  // Update active state
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  el.classList.add('active');
+
+  const file = el.dataset.file;
+  const name = el.querySelector('span:last-child').textContent.trim();
+
+  document.getElementById('breadcrumb').innerHTML =
+    `Documentation / Claude / <span>${file}</span>`;
+
+  const content = document.getElementById('content');
+  content.innerHTML = `<div class="loading"><div class="spinner"></div> Loading…</div>`;
+
+  try {
+    const res  = await fetch(file);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const text = await res.text();
+
+    mermaidCounter = 0;
+    const html = marked.parse(text);
+
+    content.innerHTML = `<div id="md">${html}</div>`;
+    content.scrollTop = 0;
+
+    // Render all mermaid blocks
+    const diagrams = content.querySelectorAll('.mermaid');
+    if (diagrams.length) {
+      await mermaid.run({ nodes: diagrams });
+    }
+
+  } catch (err) {
+    content.innerHTML = `
+      <div id="md">
+        <div class="error-msg">
+          <strong>Failed to load:</strong> ${file}<br>
+          <small>${err.message}</small><br><br>
+          Make sure the viewer is served via HTTP (not <code>file://</code>).<br>
+          Run: <code>make viewer</code>
+        </div>
+      </div>`;
+  }
+}
+
+// Auto-load via URL hash: viewer.html#SQL-Analysis/INDEX.md
+window.addEventListener('load', () => {
+  const hash = decodeURIComponent(location.hash.slice(1));
+  if (hash) {
+    const item = document.querySelector(`[data-file="${hash}"]`);
+    if (item) { item.click(); return; }
+  }
+});
+</script>
+</body>
+</html>
