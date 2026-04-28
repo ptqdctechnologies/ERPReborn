@@ -31,10 +31,13 @@ sudo dnf -y install docker-compose;
 ./BashScript/Script.Docker.BuildPermanentStorage.Grafana.sh;
 ./BashScript/Script.Docker.BuildPermanentStorage.Percona.sh;
 
+
 ./BashScript/Script.Docker.BuildTemporaryStorage.PostgreSQL.sh;
 ./BashScript/Script.Docker.BuildTemporaryStorage.OpenProject.sh;
 
+
 ./BashScript/Script.Docker.BuildVolume.All.sh;
+
 
 #./BashScript/Script.Docker.BuildImage.MinIO.sh;
 ./BashScript/Script.Docker.BuildImage.PostgreSQL.sh;
@@ -47,6 +50,11 @@ sudo dnf -y install docker-compose;
 ./BashScript/Script.Docker.BuildImage.PGAdmin4.sh;
 ./BashScript/Script.Docker.BuildImage.OpenProject.sh;
 ./BashScript/Script.Docker.BuildImage.Grafana.sh;
+./BashScript/Script.Docker.BuildImage.Grafana-Loki.sh;
 ./BashScript/Script.Docker.BuildImage.Percona.sh;
+
+
+./BashScript/Script.Docker.BuildImage.Grafana-Loki-Driver.sh;
+
 
 ./BashScript/Script.Docker.Start.sh;

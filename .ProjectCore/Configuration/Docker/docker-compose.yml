@@ -32,6 +32,12 @@ services:
       MYSQL_USER: 'SysEngine'
       MYSQL_PASSWORD: '748159263'
       MYSQL_ROOT_PASSWORD: '748159263'
+    logging:
+      driver: loki
+      options:
+        loki-url: "http://172.28.0.111:3100/loki/api/v1/push"
+        loki-batch-size: "400"
+        loki-external-labels: "job=erp-reborn-postgresql,container_name={{.Name}}"
 
 
   #---> Services : Redis
@@ -46,6 +52,12 @@ services:
         ipv4_address: '172.28.0.5'
     volumes:
       - 'volume-redis:/data'
+    logging:
+      driver: loki
+      options:
+        loki-url: "http://172.28.0.111:3100/loki/api/v1/push"
+        loki-batch-size: "400"
+        loki-external-labels: "job=erp-reborn-redis,container_name={{.Name}}"
 
 
   #---> Services : PHP BackEnd Laravel Octane FrankenPHP
@@ -83,6 +95,12 @@ services:
       APP_RUNTIME: 'Runtime\\FrankenPhpSymfony\\Runtime'
     working_dir: '/var/www/html/WebBackEnd'
     command: 'php artisan octane:frankenphp --workers=8 --caddyfile="/var/www/html/WebBackEnd/Caddyfile" --max-requests=1000 --watch'
+    logging:
+      driver: loki
+      options:
+        loki-url: "http://172.28.0.111:3100/loki/api/v1/push"
+        loki-batch-size: "400"
+        loki-external-labels: "job=erp-reborn-php-backend-laraveloctane-frankenphp,container_name={{.Name}}"
 
 
   #---> Services : PHP Apache BackEnd
@@ -119,6 +137,12 @@ services:
     environment:
       APP_FULL_BASE_URL: 'https://localhost:10433'
       COMPOSER_MEMORY_LIMIT: -1
+    logging:
+      driver: loki
+      options:
+        loki-url: "http://172.28.0.111:3100/loki/api/v1/push"
+        loki-batch-size: "400"
+        loki-external-labels: "job=erp-reborn-phpapache-backend,container_name={{.Name}}"
 
 
   #---> Services : PHP Apache FrontEnd
@@ -146,6 +170,12 @@ services:
       - './Programming/.SystemCore/SSLCertificate/ERPRebornLocalhost.key:/etc/ssl/private/ERPRebornLocalhost.key'
     environment:
       APP_FULL_BASE_URL: 'https://localhost:20433'
+    logging:
+      driver: loki
+      options:
+        loki-url: "http://172.28.0.111:3100/loki/api/v1/push"
+        loki-batch-size: "400"
+        loki-external-labels: "job=erp-reborn-phpapache-frontend,container_name={{.Name}}"
 
 
   #---> Services : Authetication Samba
@@ -216,6 +246,38 @@ services:
     tty: true
 
 
+#---> Services : Monitoring - Grafana
+  monitoring-grafana:
+    container_name: 'grafana'
+    image: 'erp-reborn-monitoring-grafana:latest'
+    restart: 'unless-stopped'
+    ports:
+      - '3000:3000'
+    networks:
+      app-network:
+        ipv4_address: '172.28.0.110'
+    volumes:
+      - './.ProjectCore/PermanentStorage/Grafana/var/lib/grafana/:/var/lib/grafana'
+    environment:
+      GF_SECURITY_ADMIN_USER: 'admin'
+      GF_SECURITY_ADMIN_PASSWORD: '748159263'
+
+
+#---> Services : Monitoring - Grafana Loki
+  monitoring-grafana-loki:
+    container_name: 'grafana-loki'
+    image: 'erp-reborn-monitoring-grafana-loki:latest'
+    restart: 'unless-stopped'
+    ports:
+      - '3100:3100'
+    networks:
+      app-network:
+        ipv4_address: '172.28.0.111'
+    environment:
+      GF_SECURITY_ADMIN_USER: 'admin'
+      GF_SECURITY_ADMIN_PASSWORD: '748159263'
+
+
 #---> Services : Monitoring - Percona
   monitoring-percona:
     container_name: 'percona'
@@ -227,7 +289,7 @@ services:
       - '40443:8443'
     networks:
       app-network:
-        ipv4_address: '172.28.0.111'
+        ipv4_address: '172.28.0.112'
     volumes:
       - './.ProjectCore/PermanentStorage/Percona/srv/:/srv'
     environment:
@@ -256,6 +318,12 @@ services:
     environment:
       PGADMIN_DEFAULT_EMAIL: 'pt.qdc.technologies@gmail.com'
       PGADMIN_DEFAULT_PASSWORD: 'qu1d151t3chn0'
+    logging:
+      driver: loki
+      options:
+        loki-url: "http://172.28.0.111:3100/loki/api/v1/push"
+        loki-batch-size: "400"
+        loki-external-labels: "job=erp-reborn-devtools-pgadmin4,container_name={{.Name}}"
 
 
   #---> Services : OpenProject
