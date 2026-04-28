@@ -4,6 +4,7 @@
     let indexInternalUseDetail = 0;
     let deliveryType = null;
     let deliveryDate = null;
+    let isAlreadyProcess = false;
     const referenceTypeValue = document.getElementById("reference_type");
     const transporterRefID = document.getElementById("transporter_id");
 
@@ -26,18 +27,23 @@
     const stockMovementDeliveryToRefID = document.getElementById("stock_movement_delivery_to_id");
 
     function selectTransporters() {
-        $("#myTransportersTrigger").css('cursor', 'pointer');
-        $("#myTransportersTrigger").attr({
-            "data-toggle": "modal",
-            "data-target": "#myTransporters"
-        });
+        if (!isAlreadyProcess) {
+            isAlreadyProcess = true;
 
-        getTransporters();
-        getModalWarehouses();
+            $("#myTransportersTrigger").css('cursor', 'pointer');
+            $("#myTransportersTrigger").attr({
+                "data-toggle": "modal",
+                "data-target": "#myTransporters"
+            });
+
+            getTransporters();
+            getModalWarehouses();
+        }
     }
 
     function referenceType(source) {
         dataStore = [];
+        isAlreadyProcess = false;
         indexPurchaseOrderDetail = 0;
         indexInternalUseDetail = 0;
         stockMovementStatus.value = '';

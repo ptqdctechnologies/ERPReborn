@@ -1,4 +1,5 @@
 <script>
+    let isAlreadyProcess = false;
     let indexPurchaseOrder = 0;
     let totalPurchaseOrder = 0;
     let vat = document.getElementById("vatOption");
@@ -611,9 +612,13 @@
                         indexPurchaseOrder += 1;
                     });
 
-                    getPaymentTerm();
-                    getVAT();
-                    getSuppliers();
+                    if (!isAlreadyProcess) {
+                        isAlreadyProcess = true;
+
+                        getPaymentTerm();
+                        getVAT();
+                        getSuppliers();
+                    }
                 } else {
                     $(".loadingPurchaseOrderTable").hide();
                     $(".errorPurchaseOrderTable").show();

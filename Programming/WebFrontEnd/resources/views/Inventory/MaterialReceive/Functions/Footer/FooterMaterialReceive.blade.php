@@ -332,6 +332,9 @@
                     $("#address_delivery_order_to").css("border", "1px solid #ced4da");
                     $("#deliveryToMessage").hide();
 
+                    $("#delivery_order_trigger").prop("disabled", true);
+                    $("#delivery_order_trigger").css({ "cursor": "not-allowed" });
+
                     $("#myGetModalWarehousesTrigger").css('cursor', 'pointer');
                     $("#myGetModalWarehousesTrigger").attr({
                         "data-toggle": "modal",

@@ -11,6 +11,7 @@
     let indexPurchaseOrder = 0;
     let totalNextApprover = 0;
     let triggerButtonModal = null;
+    let isAlreadyProcess = false;
     let dataWorkflow = {
         workFlowPathRefID: null,
         approverEntityRefID: null,
@@ -609,7 +610,8 @@
                     $("#invoice_details_table tbody").show();
                     $("#purchase_order_loading").hide();
                     $("#purchase_order_trigger").show();
-                    // $("#purchase_order_trigger").prop("disabled", true);
+                    $("#purchase_order_trigger").prop("disabled", true);
+                    $("#purchase_order_trigger").css("cursor", "not-allowed");
 
                     getVAT();
                     getDepreciationMethod();
