@@ -611,6 +611,8 @@
                     $("#purchase_order_trigger").show();
                     // $("#purchase_order_trigger").prop("disabled", true);
 
+                    getVAT();
+                    getDepreciationMethod();
                     getPaymentTransfer(data[0].supplier_RefID);
 
                     $.each(data, function (key, val) {
@@ -1116,9 +1118,11 @@
         }
     });
 
+    $('#revision_account_payable').on('click', function (e) {
+        getAccountPayable();
+    });
+
     $(document).ready(function () {
-        getVAT();
-        getDepreciationMethod();
         getModalPurchaseOrder();
     });
 </script>
