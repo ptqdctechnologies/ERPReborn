@@ -77,6 +77,7 @@ Referensi (12 Agustus 2024) : https://docs.docker.com/engine/install/fedora/
       dpage/pgadmin4 | latest
       openproject/community | 12
       grafana/grafana | latest
+      grafana/loki | latest
       percona/pmm-server | latest
    4. Rebuild Customized Images Docker yang terdiri atas :
       **Customized Image** | **Source Image**
@@ -89,6 +90,7 @@ Referensi (12 Agustus 2024) : https://docs.docker.com/engine/install/fedora/
       erp-reborn-devtools-pgadmin4 | dpage/pgadmin4:latest
       erp-reborn-devtools-openproject | openproject/community:12
       erp-reborn-monitoring-grafana | grafana/grafana:latest
+      erp-reborn-monitoring-grafana-loki | grafana/loki:latest
       erp-reborn-monitoring-percona | percona/pmm-server:latest
    6. Rebuild Network Docker yang berupa **erpreborn_app-network** (mode bridge)
    7. Menjalankankan grup container Docker melalui docker-compose dengan memanggil images :
@@ -103,7 +105,8 @@ Referensi (12 Agustus 2024) : https://docs.docker.com/engine/install/fedora/
       pgadmin4 | 172.28.0.100 | erp-reborn-devtools-pgadmin4
       openproject | 172.28.0.102 | erp-reborn-devtools-openproject
       grafana | 172.28.0.110 | erp-reborn-monitoring-grafana
-      percona | 172.28.0.111 | erp-reborn-monitoring-percona
+      grafana-loki | 172.28.0.111 | erp-reborn-monitoring-grafana-loki
+      percona | 172.28.0.112 | erp-reborn-monitoring-percona
 
 5. Setelah seluruh container terbentuk maka akan berjalan service didalam docker berupa :
    **Service** | **Local Host & Port** | **Container** | **NAT From**
@@ -118,7 +121,8 @@ Referensi (12 Agustus 2024) : https://docs.docker.com/engine/install/fedora/
    pgadmin4 | http://localhost:15050 | pgadmin4 | http://172.28.0.100:5050
    openproject | http://localhost:30080 | openproject | http://172.28.0.102
    grafana | http://localhost:13000 | grafana | http://172.28.0.110:3000
-   percona | http://localhost:40080<br />https://localhost:40443 | percona | http://172.28.0.111:8080<br />https://172.28.0.111:8443
+   grafana-loki | http://localhost:13100 | grafana-loki | http://172.28.0.111:3100
+   percona | http://localhost:40080<br />https://localhost:40443 | percona | http://172.28.0.112:8080<br />https://172.28.0.112:8443
 
 6. Untuk mematikan docker-composer tekan **[Ctrl+C]**
 
