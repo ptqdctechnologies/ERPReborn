@@ -332,6 +332,14 @@
                     $("#address_delivery_order_to").css("border", "1px solid #ced4da");
                     $("#deliveryToMessage").hide();
 
+                    $("#myGetModalWarehousesTrigger").css('cursor', 'pointer');
+                    $("#myGetModalWarehousesTrigger").attr({
+                        "data-toggle": "modal",
+                        "data-target": "#myGetModalWarehouses"
+                    });
+
+                    getModalWarehouses();
+
                     if (data[0].type == "STOCK_MOVEMENT") {
                         $("#requester_stock_movement_container").show();
                         $("#status_stock_movement_container").show();
@@ -614,6 +622,5 @@
         });
 
         getDeliveryOrder();
-        getModalWarehouses();
     });
 </script>
