@@ -1116,7 +1116,7 @@
         }
     });
 
-    $(window).one('load', function (e) {
+    $(document).ready(function () {
         getVAT();
         getDepreciationMethod();
         getModalPurchaseOrder();

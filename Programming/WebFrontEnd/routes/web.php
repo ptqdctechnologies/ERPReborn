@@ -237,7 +237,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
 
     // ACCOUNT PAYABLE
     Route::get('AccountPayableDetail', 'Finance\AccountPayableController@AccountPayableDetail')->name('AccountPayable.Detail');
-    Route::get('DataPickLists', 'Finance\AccountPayableController@DataPickLists')->name('AccountPayable.DataPickLists');
+    Route::post('DataPickLists', 'Finance\AccountPayableController@DataPickLists')->name('AccountPayable.DataPickLists');
     Route::post('RevisionAccountPayable', 'Finance\AccountPayableController@RevisionAccountPayable')->name('AccountPayable.RevisionAccountPayable');
     Route::post('UpdatesRevisionAccountPayable', 'Finance\AccountPayableController@UpdatesRevisionAccountPayable')->name('AccountPayable.UpdatesRevisionAccountPayable');
     Route::get('ReportAccountPayableSummary', 'Finance\AccountPayableController@ReportAccountPayableSummary')->name('AccountPayable.ReportAccountPayableSummary');
