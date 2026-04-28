@@ -1,0 +1,1 @@
+./../.ProjectCore/BashScript/Script.Docker.BuildPlugin.Grafana-Loki-Driver.sh
