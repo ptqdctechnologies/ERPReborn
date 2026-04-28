@@ -332,6 +332,17 @@
                     $("#address_delivery_order_to").css("border", "1px solid #ced4da");
                     $("#deliveryToMessage").hide();
 
+                    $("#delivery_order_trigger").prop("disabled", true);
+                    $("#delivery_order_trigger").css({ "cursor": "not-allowed" });
+
+                    $("#myGetModalWarehousesTrigger").css('cursor', 'pointer');
+                    $("#myGetModalWarehousesTrigger").attr({
+                        "data-toggle": "modal",
+                        "data-target": "#myGetModalWarehouses"
+                    });
+
+                    getModalWarehouses();
+
                     if (data[0].type == "STOCK_MOVEMENT") {
                         $("#requester_stock_movement_container").show();
                         $("#status_stock_movement_container").show();
@@ -595,6 +606,20 @@
         }
     });
 
+    $('#tableGetModalMaterialReceive').on('click', 'tbody tr', function () {
+        const sysId = $(this).find('input[data-trigger="sys_id_modal_material_receive"]').val();
+        const trano = $(this).find('td:nth-child(2)').text();
+
+        $("#modal_material_receive_id").val(sysId);
+        $("#modal_material_receive_document_number").val(trano);
+
+        $('#myGetModalMaterialReceive').modal('hide');
+    });
+
+    $('#revision_material_receive').on('click', function (e) {
+        getModalMaterialReceive();
+    });
+
     $(document).ready(function () {
         $(".loadingMaterialReceiveDetail").hide();
         $(".errorMessageContainerMaterialReceiveDetail").hide();
@@ -613,6 +638,6 @@
             }
         });
 
-        getModalWarehouses();
+        getDeliveryOrder();
     });
 </script>

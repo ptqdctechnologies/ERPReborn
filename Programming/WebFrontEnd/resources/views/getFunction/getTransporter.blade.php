@@ -31,8 +31,8 @@
 </div>
 
 <script>
-    $(function() {
-        $('.myTransporter').one('click', function(e) {
+    $(function () {
+        $('.myTransporter').one('click', function (e) {
             e.preventDefault();
             $.ajaxSetup({
                 headers: {
@@ -43,15 +43,15 @@
             var keys = 0;
 
             $.ajax({
-                type: 'GET',
+                type: 'POST',
                 url: '{!! route("getTransporter") !!}',
-                success: function(data) {
-                    console.log('data', data);
-                    
+                success: function (data) {
+                    console.log('data.data', data.data);
+
                     var no = 1;
                     var t = $('#tableGetTransporter').DataTable();
                     t.clear();
-                    $.each(data, function(key, val) {
+                    $.each(data.data, function (key, val) {
                         keys += 1;
                         t.row.add([
                             '<tbody><tr><input id="sys_id_transporter' + keys + '" value="' + val.sys_ID + '" data-trigger="sys_id_transporter" type="hidden"><input id="email_transporter' + keys + '" value="' + val.EMailAccount_Business + '" data-trigger="email_transporter" type="hidden"><td>' + no++ + '</td>',
@@ -72,15 +72,15 @@
 
         $("#myTransporter").modal('toggle');
 
-        var row                         = $(this).closest("tr");  
-        var id                          = row.find("td:nth-child(1)").text();
-        var sys_id_transporter          = $('#sys_id_transporter' + id).val();
-        var fax_transporter             = $('#fax_transporter' + id).val();
-        var phone_transporter           = $('#phone_transporter' + id).val();
-        var email_transporter           = $('#email_transporter' + id).val();
-        var office_phone_transporter    = $('#office_phone_transporter' + id).val();
-        var address_transporter         = $('#address_transporter' + id).val();
-        var name                        = row.find("td:nth-child(2)").text();
+        var row = $(this).closest("tr");
+        var id = row.find("td:nth-child(1)").text();
+        var sys_id_transporter = $('#sys_id_transporter' + id).val();
+        var fax_transporter = $('#fax_transporter' + id).val();
+        var phone_transporter = $('#phone_transporter' + id).val();
+        var email_transporter = $('#email_transporter' + id).val();
+        var office_phone_transporter = $('#office_phone_transporter' + id).val();
+        var address_transporter = $('#address_transporter' + id).val();
+        var name = row.find("td:nth-child(2)").text();
 
         $("#transporter_id").val(sys_id_transporter);
         $("#transporter").val(name);
@@ -93,5 +93,5 @@
         MandatoryFormFunctionFalse("#transporter", "#transporter_detail");
 
     });
-    
+
 </script>

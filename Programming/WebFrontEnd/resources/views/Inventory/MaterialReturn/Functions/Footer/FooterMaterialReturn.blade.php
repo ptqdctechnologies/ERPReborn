@@ -3,8 +3,8 @@
 
   function calculateTotal() {
     let total = 0;
-    
-    document.querySelectorAll('input[id^="qty_return"]').forEach(function(input) {
+
+    document.querySelectorAll('input[id^="qty_return"]').forEach(function (input) {
       let value = parseFloat(input.value.replace(/,/g, ''));
       if (!isNaN(value)) {
         total += value;
@@ -22,22 +22,22 @@
     const rows = sourceTable.getElementsByTagName('tr');
 
     for (let row of rows) {
-      const materialReceiveDetailRefID  = row.querySelector('input[id^="warehouseInboundOrderDetail_RefID"]');
-      const materialReturnValueInput    = row.querySelector('input[id^="qty_return"]');
-      const materialReturnNoteInput     = row.querySelector('textarea[id^="note"]');
+      const materialReceiveDetailRefID = row.querySelector('input[id^="warehouseInboundOrderDetail_RefID"]');
+      const materialReturnValueInput = row.querySelector('input[id^="qty_return"]');
+      const materialReturnNoteInput = row.querySelector('textarea[id^="note"]');
 
       if (
         materialReturnValueInput && materialReturnValueInput.value.trim() !== ''
       ) {
-        const subBudget   = row.children[2].innerText.trim();
+        const subBudget = row.children[2].innerText.trim();
         const productCode = row.children[3].innerText.trim();
-        const uom         = row.children[4].innerText.trim();
+        const uom = row.children[4].innerText.trim();
 
         const materialReturnValue = materialReturnValueInput.value.trim();
-        const materialReturnNote  = materialReturnNoteInput.value.trim();
+        const materialReturnNote = materialReturnNoteInput.value.trim();
 
         let found = false;
-        const existingRows  = targetTable.getElementsByTagName('tr');
+        const existingRows = targetTable.getElementsByTagName('tr');
 
         for (let targetRow of existingRows) {
           const targetMaterialReceiveDetailRefID = targetRow.children[0]?.value?.trim();
@@ -83,7 +83,7 @@
           });
         }
       } else {
-        const existingRows  = targetTable.getElementsByTagName('tr');
+        const existingRows = targetTable.getElementsByTagName('tr');
 
         for (let targetRow of existingRows) {
           const targetMaterialReceiveDetailRefID = targetRow.children[0]?.value?.trim();
@@ -97,7 +97,7 @@
         dataStore = dataStore.filter(item => item.entities.warehouseInboundOrderDetail_RefID != materialReceiveDetailRefID.value);
       }
     }
-    
+
     dataStore = dataStore.filter(item => item !== undefined);
 
     calculateTotal();
@@ -121,18 +121,18 @@
     $.ajax({
       type: 'POST',
       url: '{!! route("MaterialReceive.Detail") !!}?materialReceive_RefID=' + materialReceive_RefID,
-      success: async function(data) {
+      success: async function (data) {
         if (data.metadata.HTTPStatusCode == 200) {
           let result = data.data;
 
           $("#var_combinedBudget_RefID").val(result[0].combinedBudget_RefID);
 
-          $("#material_receive_number").css({"background-color":"#e9ecef"});
+          $("#material_receive_number").css({ "background-color": "#e9ecef" });
           $("#material_receive_number").val(materialReceiveNumber);
           $("#material_receive_id").val(materialReceive_RefID);
           $("#material_receive_budget_id").val(`${result[0].combinedBudgetCode} - ${result[0].combinedBudgetName}`);
 
-          $.each(result, function(key, val) {
+          $.each(result, function (key, val) {
             let row = `
               <tr>
                 <input type="hidden" id="warehouseInboundOrderDetail_RefID[]" value="${val.sys_ID}">
@@ -154,13 +154,13 @@
 
             $('#material_return_details_table tbody').append(row);
 
-            $(`#qty_return${key}`).on('keyup', function() {
-              let qty_return  = $(this).val().replace(/,/g, '');
+            $(`#qty_return${key}`).on('keyup', function () {
+              let qty_return = $(this).val().replace(/,/g, '');
 
               if (parseFloat(qty_return) > val.quantity) {
                 $(this).val("");
                 ErrorNotif("Qty Return is over!");
-              } 
+              }
 
               calculateTotal();
             });
@@ -179,7 +179,7 @@
       },
       error: function (textStatus, errorThrown) {
         console.log('getMaterialReceiveDetail', textStatus.status, errorThrown);
-        
+
         $('#material_return_details_table tbody').empty();
         $(".material_return_details_loading").hide();
         $(".material_return_details_error_message_container").show();
@@ -199,7 +199,7 @@
       type: 'POST',
       data: formatData,
       url: '{{ route("Reimbursement.store") }}',
-      success: function(res) {
+      success: function (res) {
         HideLoading();
 
         if (res.status === 200) {
@@ -227,7 +227,7 @@
           ErrorNotif("Data Cancel Inputed");
         }
       },
-      error: function(jqXHR, textStatus, errorThrown) {
+      error: function (jqXHR, textStatus, errorThrown) {
         console.log('error', jqXHR, textStatus, errorThrown);
 
         HideLoading();
@@ -260,7 +260,7 @@
     }).then((result) => {
       if ('value' in result) {
         ShowLoading();
-        materialReturnStore({...formatData, comment: result.value});
+        materialReturnStore({ ...formatData, comment: result.value });
       }
     });
   }
@@ -284,7 +284,7 @@
       data: form_data,
       type: method,
       // success: function(response) {
-      success: function(res) {
+      success: function (res) {
         HideLoading();
 
         if (res.status === 200) {
@@ -337,9 +337,9 @@
         //   selectWorkFlow(formatData);
         // }
       },
-      error: function(response) {
+      error: function (response) {
         console.log('response error', response);
-        
+
         HideLoading();
 
         CancelNotif("You don't have access", '/MaterialReturn?var=1');
@@ -347,13 +347,13 @@
     });
   }
 
-  $('#tableGetModalMaterialReceive').on('click', 'tbody tr', function() {
-    let sysId           = $(this).find('input[data-trigger="sys_id_modal_material_receive"]').val();
-    let trano           = $(this).find('td:nth-child(2)').text();
-    let budgetCode      = $(this).find('td:nth-child(3)').text();
-    let budgetName      = $(this).find('td:nth-child(4)').text();
-    let subBudgetCode   = $(this).find('td:nth-child(5)').text();
-    let subBudgetName   = $(this).find('td:nth-child(6)').text();
+  $('#tableGetModalMaterialReceive').on('click', 'tbody tr', function () {
+    let sysId = $(this).find('input[data-trigger="sys_id_modal_material_receive"]').val();
+    let trano = $(this).find('td:nth-child(2)').text();
+    let budgetCode = $(this).find('td:nth-child(3)').text();
+    let budgetName = $(this).find('td:nth-child(4)').text();
+    let subBudgetCode = $(this).find('td:nth-child(5)').text();
+    let subBudgetName = $(this).find('td:nth-child(6)').text();
 
     getMaterialReceiveDetail(sysId, trano);
 
@@ -361,13 +361,13 @@
   });
 
   $('#tableGetTransporter tbody').on('click', 'tr', function () {
-    let sysId               = $(this).find('input[data-trigger="sys_id_transporter"]').val();
-    let fax                 = $(this).find('input[data-trigger="fax_transporter"]').val();
-    let phone               = $(this).find('input[data-trigger="phone_transporter"]').val();
-    let email               = $(this).find('input[data-trigger="email_transporter"]').val();
-    let phoneOffice         = $(this).find('input[data-trigger="office_phone_transporter"]').val();
-    let address             = $(this).find('input[data-trigger="address_transporter"]').val();
-    let transporterNames    = $(this).find('td:nth-child(2)').text();
+    let sysId = $(this).find('input[data-trigger="sys_id_transporter"]').val();
+    let fax = $(this).find('input[data-trigger="fax_transporter"]').val();
+    let phone = $(this).find('input[data-trigger="phone_transporter"]').val();
+    let email = $(this).find('input[data-trigger="email_transporter"]').val();
+    let phoneOffice = $(this).find('input[data-trigger="office_phone_transporter"]').val();
+    let address = $(this).find('input[data-trigger="address_transporter"]').val();
+    let transporterNames = $(this).find('td:nth-child(2)').text();
 
     $("#transporter_id").val(sysId);
     $("#transporter_name").val(transporterNames);
@@ -389,5 +389,9 @@
     $("#material_return_number").val(trano);
 
     $('#myGetModalMaterialReturn').modal('hide');
+  });
+
+  $(document).ready(function () {
+    getModalMaterialReceive();
   });
 </script>

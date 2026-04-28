@@ -3,15 +3,15 @@
 
     function calculateTotal() {
         let total = 0;
-        
-        document.querySelectorAll('input[id^="qty_return"]').forEach(function(input) {
+
+        document.querySelectorAll('input[id^="qty_return"]').forEach(function (input) {
             let value = parseFloat(input.value.replace(/,/g, ''));
             if (!isNaN(value)) {
                 total += value;
             }
         });
 
-        document.getElementById('material_return_details_total').textContent   = decimalFormat(total);
+        document.getElementById('material_return_details_total').textContent = decimalFormat(total);
         document.getElementById('material_return_list_total_modal').textContent = `Total: ${decimalFormat(total)}`;
     }
 
@@ -22,34 +22,34 @@
         const rows = sourceTable.getElementsByTagName('tr');
 
         for (let row of rows) {
-            const recordRefID                   = row.querySelector('input[id^="record_RefID"]');
-            const materialReceiveDetailRefID    = row.querySelector('input[id^="warehouseInboundOrderDetail_RefID"]');
-            const materialReturnValueInput      = row.querySelector('input[id^="qty_return"]');
-            const materialReturnNoteInput       = row.querySelector('textarea[id^="note"]');
+            const recordRefID = row.querySelector('input[id^="record_RefID"]');
+            const materialReceiveDetailRefID = row.querySelector('input[id^="warehouseInboundOrderDetail_RefID"]');
+            const materialReturnValueInput = row.querySelector('input[id^="qty_return"]');
+            const materialReturnNoteInput = row.querySelector('textarea[id^="note"]');
 
             if (
                 materialReturnValueInput && materialReturnValueInput.value.trim() !== ''
             ) {
-                const subBudget   = row.children[3].innerText.trim();
+                const subBudget = row.children[3].innerText.trim();
                 const productCode = row.children[4].innerText.trim();
-                const uom         = row.children[5].innerText.trim();
+                const uom = row.children[5].innerText.trim();
 
                 const materialReturnValue = materialReturnValueInput.value.trim();
-                const materialReturnNote  = materialReturnNoteInput.value.trim();
+                const materialReturnNote = materialReturnNoteInput.value.trim();
 
                 let found = false;
-                const existingRows  = targetTable.getElementsByTagName('tr');
+                const existingRows = targetTable.getElementsByTagName('tr');
 
                 for (let targetRow of existingRows) {
-                    const targetRecordRefID                 = targetRow.children[0]?.value?.trim();
-                    const targetMaterialReceiveDetailRefID  = targetRow.children[1]?.value?.trim();
+                    const targetRecordRefID = targetRow.children[0]?.value?.trim();
+                    const targetMaterialReceiveDetailRefID = targetRow.children[1]?.value?.trim();
 
                     if (targetRecordRefID == recordRefID.value && targetMaterialReceiveDetailRefID == materialReceiveDetailRefID.value) {
                         targetRow.children[4].innerText = materialReturnValue;
                         found = true;
 
                         const indexToUpdate = dataStore.findIndex(item => item.recordID == recordRefID.value && item.entities.warehouseInboundOrderDetail_RefID == materialReceiveDetailRefID.value);
-                        
+
                         if (indexToUpdate !== -1) {
                             dataStore[indexToUpdate] = {
                                 recordID: parseInt(recordRefID.value),
@@ -86,13 +86,13 @@
                         }
                     });
                 }
-                
+
             } else {
-                const existingRows  = targetTable.getElementsByTagName('tr');
+                const existingRows = targetTable.getElementsByTagName('tr');
 
                 for (let targetRow of existingRows) {
-                    const targetRecordRefID                 = targetRow.children[0]?.value?.trim();
-                    const targetMaterialReceiveDetailRefID  = targetRow.children[1]?.value?.trim();
+                    const targetRecordRefID = targetRow.children[0]?.value?.trim();
+                    const targetMaterialReceiveDetailRefID = targetRow.children[1]?.value?.trim();
 
                     if (targetRecordRefID == recordRefID.value && targetMaterialReceiveDetailRefID == materialReceiveDetailRefID.value) {
                         targetRow.remove();
@@ -113,11 +113,11 @@
         summaryData();
         $('#material_return_submit_modal').modal('show');
     }
-    
+
     function getMaterialReturnDetails() {
         const dataTable = {!! json_encode($detail ?? []) !!};
 
-        $.each(dataTable, function(key, val) {
+        $.each(dataTable, function (key, val) {
             dataStore.push({
                 recordID: parseInt(val.Sys_ID),
                 entities: {
@@ -149,15 +149,15 @@
 
             $('#material_return_details_table tbody').append(row);
 
-            $(`#qty_return${key}`).on('keyup', function() {
-              let qty_return  = $(this).val().replace(/,/g, '');
+            $(`#qty_return${key}`).on('keyup', function () {
+                let qty_return = $(this).val().replace(/,/g, '');
 
-              if (parseFloat(qty_return) > val.QtyWarehouseInboundOrderDetail) {
-                $(this).val("");
-                ErrorNotif("Qty Return is over!");
-              } 
+                if (parseFloat(qty_return) > val.QtyWarehouseInboundOrderDetail) {
+                    $(this).val("");
+                    ErrorNotif("Qty Return is over!");
+                }
 
-              calculateTotal();
+                calculateTotal();
             });
 
             let rowList = `
@@ -195,7 +195,7 @@
             processData: false,
             data: form_data,
             type: method,
-            success: function(res) {
+            success: function (res) {
                 HideLoading();
 
                 if (res.status === 200) {
@@ -223,9 +223,9 @@
                     ErrorNotif("Data Cancel Inputed");
                 }
             },
-            error: function(response) {
+            error: function (response) {
                 console.log('response error', response);
-                
+
                 HideLoading();
                 CancelNotif("You don't have access", "{{ route('DebitNote.index', ['var' => 1]) }}");
             }
@@ -242,7 +242,7 @@
         $('#myGetModalMaterialReturn').modal('hide');
     });
 
-    $(window).one('load', function(e) {
+    $(document).ready(function () {
         getMaterialReturnDetails();
     });
 </script>

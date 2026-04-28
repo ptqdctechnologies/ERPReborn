@@ -338,7 +338,7 @@
         $("#titleSuppliers").text('Choose Debitor');
     });
 
-    $(window).one('load', function () {
+    $(document).ready(function () {
         $('#loan_settlement_date_range').daterangepicker({
             autoUpdateInput: false,
             maxDate: moment(),
@@ -361,5 +361,7 @@
         $('#loan_settlement_date_range_container_icon').on('click', function () {
             $('#loan_settlement_date_range').trigger('click');
         });
+
+        getSuppliers();
     });
 </script>

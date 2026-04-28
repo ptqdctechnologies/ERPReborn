@@ -612,4 +612,25 @@ class BudgetController extends Controller
     public function destroy(Request $request, $id)
     {
     }
+
+    public function BudgetStockDetail(Request $request)
+    {
+        $combinedBudgetRefID = (int) $request->input('combinedBudget_RefID', null);
+        $warehouseRefID = (int) $request->input('warehouse_RefID', null);
+        $combinedBudgetSectionRefID = (int) $request->input('combinedBudgetSection_RefID', null);
+
+        $response = $this->budgetService->getCombinedBudgetStockDetail($combinedBudgetRefID, $warehouseRefID, $combinedBudgetSectionRefID);
+
+        $status = $response['metadata']['HTTPStatusCode'];
+        $data = [];
+
+        if ($status == 200) {
+            $data = $response['data']['data'] ?? [];
+        }
+
+        return response()->json([
+            'data' => $data,
+            'status' => $status
+        ]);
+    }
 }

@@ -706,17 +706,18 @@ class MaterialReceiveController extends Controller
 
     public function MaterialReceiveList()
     {
-        try {
-            $response = $this->materialReceiveService->dataPickList();
+        $response = $this->materialReceiveService->dataPickList();
 
-            if ($response['metadata']['HTTPStatusCode'] !== 200) {
-                return response()->json($response);
-            }
+        $status = $response['metadata']['HTTPStatusCode'];
+        $data = [];
 
-            return response()->json($response['data']['data']);
-        } catch (\Throwable $th) {
-            Log::error("Error at MaterialReceiveList: " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
+        if ($status == 200) {
+            $data = $response['data']['data'] ?? [];
         }
+
+        return response()->json([
+            'data' => $data,
+            'status' => $status
+        ]);
     }
 }

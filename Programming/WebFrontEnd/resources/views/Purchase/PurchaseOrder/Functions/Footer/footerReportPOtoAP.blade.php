@@ -605,9 +605,10 @@
         $('#myAccountPayables').modal('hide');
     });
 
-    $(window).one('load', function () {
+    $(document).ready(function () {
         renderPage();
         renderPagination();
+        getSuppliers();
 
         $('#po_to_ap_date_range').daterangepicker({
             autoUpdateInput: false,

@@ -10,8 +10,9 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
-                            <div class="card-body table-responsive p-0" style="height: 400px;">
-                                <table class="table table-head-fixed text-nowrap" id="tableGetPaymentTransfer">
+                            <div class="card-body p-0">
+                                <table class="table table-head-fixed table-responsive w-100"
+                                    id="tableGetPaymentTransfer">
                                     <thead>
                                         <tr>
                                             <th>No</th>
@@ -26,7 +27,7 @@
                                     </thead>
                                     <tbody></tbody>
                                     <tfoot>
-                                        <tr class="loadingGetModalPaymentTransfer">
+                                        <tr id="loadingGetModalPaymentTransfer">
                                             <td colspan="8" class="p-0" style="height: 22rem;">
                                                 <div
                                                     class="d-flex flex-column justify-content-center align-items-center py-3">
@@ -36,15 +37,6 @@
                                                     <div class="mt-3" style="font-size: 0.75rem; font-weight: 700;">
                                                         Loading...
                                                     </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr class="errorModalPaymentTransferMessageContainer" style="display: none;">
-                                            <td colspan="8" class="p-0" style="height: 22rem;">
-                                                <div
-                                                    class="d-flex flex-column justify-content-center align-items-center py-3">
-                                                    <div id="errorModalPaymentTransferMessage" class="mt-3 text-red"
-                                                        style="font-size: 1rem; font-weight: 700;"></div>
                                                 </div>
                                             </td>
                                         </tr>
@@ -60,117 +52,83 @@
 </div>
 
 <script>
-    $(".errorModalPaymentTransferMessageContainer").hide();
+    let otherRow = {
+        code: '-',
+        name: 'Others',
+        address: '-',
+        bankCode: '-',
+        bankName: '-',
+        bankAccount: '-',
+        accountNumber: '-',
+        sys_ID: '-'
+    };
 
     function getPaymentTransfer(supplierID) {
-        $('#tableGetPaymentTransfer tbody').empty();
-        $(".loadingGetModalPaymentTransfer").show();
-        $(".errorModalPaymentTransferMessageContainer").hide();
-
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
         $.ajax({
             type: 'POST',
             url: '{!! route("Supplier.SupplierPickList") !!}?supplier_id=' + supplierID,
-            success: function (data) {
-                $(".loadingGetModalPaymentTransfer").hide();
+        })
+            .done(function (response) {
+                const data = (response.status == 200 && response.data[0]) ? response.data : [];
 
-                var table = $('#tableGetPaymentTransfer').DataTable();
-                table.clear();
+                data.unshift(otherRow);
 
-                if (Array.isArray(data.data) && data.data.length > 0) {
-                    var otherRow = {
-                        code: '-',
-                        name: 'Others',
-                        address: '-',
-                        bankCode: '-',
-                        bankName: '-',
-                        bankAccount: '-',
-                        accountNumber: '-',
-                        sys_ID: '-'
-                    };
-
-                    data.data.unshift(otherRow);
-
-                    $('#tableGetPaymentTransfer').DataTable({
-                        destroy: true,
-                        data: data.data,
-                        deferRender: true,
-                        scrollCollapse: true,
-                        scroller: true,
-                        columns: [
-                            {
-                                data: null,
-                                render: function (data, type, row, meta) {
-                                    return '<td class="align-middle text-center">' +
-                                        '<input id="sys_id_payment' + (meta.row + 1) + '" value="' + data.sys_ID + '" data-trigger="sys_id_payment" type="hidden">' +
-                                        (meta.row + 1) +
-                                        '</td>';
-                                }
-                            },
-                            {
-                                data: 'code',
-                                defaultContent: '-',
-                                className: "align-middle"
-                            },
-                            {
-                                data: 'name',
-                                defaultContent: '-',
-                                className: "align-middle"
-                            },
-                            {
-                                data: 'address',
-                                defaultContent: '-',
-                                className: "align-middle"
-                            },
-                            {
-                                data: 'bankCode',
-                                defaultContent: '-',
-                                className: "align-middle"
-                            },
-                            {
-                                data: 'bankName',
-                                defaultContent: '-',
-                                className: "align-middle"
-                            },
-                            {
-                                data: 'bankAccount',
-                                defaultContent: '-',
-                                className: "align-middle"
-                            },
-                            {
-                                data: 'accountNumber',
-                                defaultContent: '-',
-                                className: "align-middle"
+                $('#tableGetPaymentTransfer').DataTable({
+                    destroy: true,
+                    data: data,
+                    deferRender: true,
+                    scrollCollapse: true,
+                    scroller: true,
+                    columns: [
+                        {
+                            data: null,
+                            render: function (data, type, row, meta) {
+                                return '<input id="sys_id_payment' + (meta.row + 1) + '" value="' + data.sys_ID + '" data-trigger="sys_id_payment" type="hidden">' + (meta.row + 1)
                             }
-                        ]
-                    });
-
-                    $('#tableGetPaymentTransfer').css("width", "100%");
-                } else {
-                    $(".errorModalPaymentTransferMessageContainer").show();
-                    $("#errorModalPaymentTransferMessage").text(`Data not found.`);
-
-                    $("#tableGetPaymentTransfer_length").hide();
-                    $("#tableGetPaymentTransfer_filter").hide();
-                    $("#tableGetPaymentTransfer_info").hide();
-                    $("#tableGetPaymentTransfer_paginate").hide();
-                }
-            },
-            error: function (textStatus, errorThrown) {
-                $('#tableGetPaymentTransfer tbody').empty();
-                $(".loadingGetModalPaymentTransfer").hide();
-                $(".errorModalPaymentTransferMessageContainer").show();
-                $("#errorModalPaymentTransferMessage").text(`[${textStatus.status}] ${textStatus.responseJSON.message}`);
-            }
-        });
+                        },
+                        {
+                            data: 'code',
+                            defaultContent: '-',
+                            className: "align-middle text-nowrap"
+                        },
+                        {
+                            data: 'name',
+                            defaultContent: '-',
+                            className: "align-middle text-wrap"
+                        },
+                        {
+                            data: 'address',
+                            defaultContent: '-',
+                            className: "align-middle text-wrap"
+                        },
+                        {
+                            data: 'bankCode',
+                            defaultContent: '-',
+                            className: "align-middle text-nowrap"
+                        },
+                        {
+                            data: 'bankName',
+                            defaultContent: '-',
+                            className: "align-middle text-nowrap"
+                        },
+                        {
+                            data: 'bankAccount',
+                            defaultContent: '-',
+                            className: "align-middle text-nowrap"
+                        },
+                        {
+                            data: 'accountNumber',
+                            defaultContent: '-',
+                            className: "align-middle text-nowrap"
+                        }
+                    ]
+                });
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                console.error("Error:", errorThrown);
+            })
+            .always(function (jqXHR, textStatus, errorThrown) {
+                $("#loadingGetModalPaymentTransfer").hide();
+            });
     }
-
-    $(window).one('load', function (e) {
-        getPaymentTransfer();
-    });
 </script>

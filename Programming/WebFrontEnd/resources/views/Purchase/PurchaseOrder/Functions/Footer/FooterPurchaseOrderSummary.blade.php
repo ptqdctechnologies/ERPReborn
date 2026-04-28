@@ -345,5 +345,7 @@
         $('#purchase_order_date_range_container_icon').on('click', function () {
             $('#purchase_order_date_range').trigger('click');
         });
+
+        getSuppliers();
     });
 </script>

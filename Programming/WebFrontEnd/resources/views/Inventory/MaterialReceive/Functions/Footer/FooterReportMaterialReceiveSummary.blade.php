@@ -312,7 +312,7 @@
         $('#mySuppliers').modal('hide');
     });
 
-    $(window).one('load', function () {
+    $(document).ready(function () {
         $('#material_receive_date_range').daterangepicker({
             autoUpdateInput: false,
             maxDate: moment(),
@@ -335,5 +335,7 @@
         $('#material_receive_date_range_container_icon').on('click', function () {
             $('#material_receive_date_range').trigger('click');
         });
+
+        getSuppliers();
     });
 </script>

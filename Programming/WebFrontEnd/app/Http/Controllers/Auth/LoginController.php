@@ -80,7 +80,7 @@ class LoginController extends Controller
     }
 
     private function setLoginBranchAndRole($branchID, $roleID)
-        {
+    {
         $response = $this->loginService->setLoginBranchAndUserRole($this->token, $branchID, $roleID);
 
         if ($response['metadata']['HTTPStatusCode'] !== 200) {
@@ -99,21 +99,22 @@ class LoginController extends Controller
         Session::put('SessionLoginName', $userIdentity['personName']);
         Session::put('SessionWorkerCareerInternal_RefID', $userIdentity['workerCareerInternal_RefID']);
         Session::put('SessionUser_RefID', $userIdentity['user_RefID']);
+        Session::put('SessionBranch', $loginData['optionList']['institutionBranchList'][0]['ID']);
 
         $userRole = array_column($roleData, 'ID');
         Session::put('SessionRoleLogin', $userRole);
     }
 
     // FUNCTION STORE WHEN CLICK SUBMIT BUTTON IN PAGE 
-    public function loginStore(Request $request) 
+    public function loginStore(Request $request)
     {
         try {
-            $username   = $request->input('username');
-            $password   = $request->input('password');
+            $username = $request->input('username');
+            $password = $request->input('password');
 
-            $loginData  = $this->performLogin($username, $password);
-            $userRefID  = $loginData['userIdentities']['user_RefID'];
-            $roleData   = $loginData['optionList']['institutionBranchList'][0]['userRoleList'];
+            $loginData = $this->performLogin($username, $password);
+            $userRefID = $loginData['userIdentities']['user_RefID'];
+            $roleData = $loginData['optionList']['institutionBranchList'][0]['userRoleList'];
 
             // $institutionBranchData = $this->fetchInstitutionBranch($userRefID);
             // $institutionBranchID   = $institutionBranchData[0]['sys_ID'];
@@ -126,9 +127,9 @@ class LoginController extends Controller
             $this->storeSessionData($loginData, $roleData);
 
             return response()->json([
-                'responseDataLogin'                     => $loginData['userIdentities'], 
-                'responseDataInstitutionBranch'         => [],
-                'responseDataRole'                      => [],
+                'responseDataLogin' => $loginData['userIdentities'],
+                'responseDataInstitutionBranch' => [],
+                'responseDataRole' => [],
                 'responseDataSetLoginBranchAndUserRole' => []
             ]);
 
@@ -136,8 +137,8 @@ class LoginController extends Controller
             Log::error("Error at LoginStore: " . $th->getMessage());
 
             $compact = [
-                'statusCode'    => 500,
-                'message'       => 'Terjadi kesalahan saat memproses login. Silakan coba lagi nanti.'
+                'statusCode' => 500,
+                'message' => 'Terjadi kesalahan saat memproses login. Silakan coba lagi nanti.'
             ];
 
             return response()->json($compact);
@@ -161,7 +162,7 @@ class LoginController extends Controller
             // Cache::flush();
             // Session::flush();
             // Redis::flushDB();
-            
+
             AuthFacade::logout();
             Session::invalidate();
             Session::regenerateToken();

@@ -153,6 +153,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::post('PrintExportReportModifyBudgetDetail', 'Budget\BudgetController@PrintExportReportModifyBudgetDetail')->name('Budget.PrintExportReportModifyBudgetDetail');
     Route::post('BudgetImport', 'Budget\BudgetController@Import')->name('Budget.Import');
     Route::get('BudgetDownload', 'Budget\BudgetController@Download')->name('Budget.Download');
+    Route::get('BudgetStockDetail', 'Budget\BudgetController@BudgetStockDetail')->name('Budget.BudgetStockDetail');
     Route::resource('Budget', 'Budget\BudgetController')->only(['index', 'store']);
 
     // Budget Expense
@@ -224,7 +225,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('getMenuGroup', 'Function\FunctionController@getMenuGroup')->name('getMenuGroup');
     Route::get('getSubMenu', 'Function\FunctionController@getSubMenu')->name('getSubMenu');
     Route::get('getOneSubMenu', 'Function\FunctionController@getOneSubMenu')->name('getOneSubMenu');
-    Route::get('getTransporter', 'Function\FunctionController@getTransporter')->name('getTransporter');
+    Route::post('getTransporter', 'Function\FunctionController@getTransporter')->name('getTransporter');
     Route::get('getListTransactionByDocumentTypeID', 'Function\FunctionController@getListTransactionByDocumentTypeID')->name('getListTransactionByDocumentTypeID');
     Route::get('getAssetCategory', 'Function\FunctionController@getAssetCategory')->name('getAssetCategory');
     Route::get('getWorks', 'Function\FunctionController@getWorks')->name('getWorks');
@@ -236,7 +237,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
 
     // ACCOUNT PAYABLE
     Route::get('AccountPayableDetail', 'Finance\AccountPayableController@AccountPayableDetail')->name('AccountPayable.Detail');
-    Route::get('DataPickLists', 'Finance\AccountPayableController@DataPickLists')->name('AccountPayable.DataPickLists');
+    Route::post('DataPickLists', 'Finance\AccountPayableController@DataPickLists')->name('AccountPayable.DataPickLists');
     Route::post('RevisionAccountPayable', 'Finance\AccountPayableController@RevisionAccountPayable')->name('AccountPayable.RevisionAccountPayable');
     Route::post('UpdatesRevisionAccountPayable', 'Finance\AccountPayableController@UpdatesRevisionAccountPayable')->name('AccountPayable.UpdatesRevisionAccountPayable');
     Route::get('ReportAccountPayableSummary', 'Finance\AccountPayableController@ReportAccountPayableSummary')->name('AccountPayable.ReportAccountPayableSummary');
@@ -490,29 +491,22 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     // DELIVERY ORDER
     Route::get('StockDetail', 'Inventory\DeliveryOrderController@StockDetail')->name('DeliveryOrder.StockDetail');
     Route::post('RevisionDeliveryOrderIndex', 'Inventory\DeliveryOrderController@RevisionDeliveryOrderIndex')->name('DeliveryOrder.RevisionDeliveryOrderIndex');
-    Route::get('DeliveryOrderListData', 'Inventory\DeliveryOrderController@DeliveryOrderListData')->name('DeliveryOrder.DeliveryOrderListData');
-    Route::get('DeliveryOrderListDataDor', 'Inventory\DeliveryOrderController@DeliveryOrderListDataDor')->name('DeliveryOrder.DeliveryOrderListDataDor');
-    Route::post('DeliveryOrderListCartRevision', 'Inventory\DeliveryOrderController@DeliveryOrderListCartRevision')->name('DeliveryOrder.DeliveryOrderListCartRevision');
-    Route::get('DeliveryOrderByBudgetID', 'Inventory\DeliveryOrderController@DeliveryOrderByBudgetID')->name('DeliveryOrder.DeliveryOrderByBudgetID');
-    Route::get('DeliveryOrderByDorID', 'Inventory\DeliveryOrderController@DeliveryOrderByDorID')->name('DeliveryOrder.DeliveryOrderByDorID');
     Route::get('ReportDeliveryOrderSummary', 'Inventory\DeliveryOrderController@ReportDeliveryOrderSummary')->name('DeliveryOrder.ReportDeliveryOrderSummary');
     Route::post('ReportDeliveryOrderSummaryStore', 'Inventory\DeliveryOrderController@ReportDeliveryOrderSummaryStore')->name('DeliveryOrder.ReportDeliveryOrderSummaryStore');
     Route::post('PrintExportReportDeliveryOrderSummary', 'Inventory\DeliveryOrderController@PrintExportReportDeliveryOrderSummary')->name('DeliveryOrder.PrintExportReportDeliveryOrderSummary');
-    Route::post('StoreValidateDeliveryOrderSupplier', 'Inventory\DeliveryOrderController@StoreValidateDeliveryOrderSupplier')->name('DeliveryOrder.StoreValidateDeliveryOrderSupplier');
     Route::get('ReportDODetail', 'Inventory\DeliveryOrderController@ReportDODetail')->name('Inventory.ReportDODetail');
     Route::post('ReportDODetailStore', 'Inventory\DeliveryOrderController@ReportDODetailStore')->name('Inventory.ReportDODetailStore');
     Route::post('PrintExportReportDODetail', 'Inventory\DeliveryOrderController@PrintExportReportDODetail')->name('Inventory.PrintExportReportDODetail');
-    Route::post('SearchDeliveryOrderRequest', 'Inventory\DeliveryOrderController@SearchDeliveryOrderRequest')->name('DeliveryOrder.SearchDeliveryOrderRequest');
     Route::get('ReportDOToMaterialReceive', 'Inventory\DeliveryOrderController@ReportDOToMaterialReceive')->name('DeliveryOrder.ReportDOToMaterialReceive');
     Route::post('ReportDOToMaterialReceiveStore', 'Inventory\DeliveryOrderController@ReportDOToMaterialReceiveStore')->name('DeliveryOrder.ReportDOToMaterialReceiveStore');
     Route::post('PrintExportReportDOToMaterialReceive', 'Inventory\DeliveryOrderController@PrintExportReportDOToMaterialReceive')->name('DeliveryOrder.PrintExportReportDOToMaterialReceive');
     Route::post('updates', 'Inventory\DeliveryOrderController@updates')->name('DeliveryOrder.updates');
-    Route::resource('DeliveryOrder', 'Inventory\DeliveryOrderController');
+    Route::resource('DeliveryOrder', 'Inventory\DeliveryOrderController')->only(['index', 'store']);
 
     // MATERIAL RECEIVE
     Route::post('MaterialReceiveDetail', 'Inventory\MaterialReceiveController@MaterialReceiveDetail')->name('MaterialReceive.Detail');
     Route::post('RevisionMaterialReceiveIndex', 'Inventory\MaterialReceiveController@RevisionMaterialReceiveIndex')->name('MaterialReceive.RevisionMaterialReceiveIndex');
-    Route::get('MaterialReceiveList', 'Inventory\MaterialReceiveController@MaterialReceiveList')->name('MaterialReceive.MaterialReceiveList');
+    Route::post('MaterialReceiveList', 'Inventory\MaterialReceiveController@MaterialReceiveList')->name('MaterialReceive.MaterialReceiveList');
     Route::post('SearchDteliveryOrder', 'Inventory\MaterialReceiveController@SearchDeliveryOrder')->name('MaterialReceive.SearchDeliveryOrder');
     Route::post('UpdateMaterialReceive', 'Inventory\MaterialReceiveController@UpdateMaterialReceive')->name('MaterialReceive.UpdateMaterialReceive');
     Route::get('ReportMaterialReceiveSummary', 'Inventory\MaterialReceiveController@ReportMaterialReceiveSummary')->name('MaterialReceive.ReportMaterialReceiveSummary');

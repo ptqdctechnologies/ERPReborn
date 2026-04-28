@@ -10,15 +10,16 @@
                 </label>
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div>
-                        <span style="border-radius:0;" class="input-group-text form-control myTransporter">
-                            <a href="javascript:;" id="myTransporterTrigger" data-toggle="modal" data-target="#myTransporters" style="display: block;">
-                                <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="myTransporterTrigger" />
-                            </a>
+                        <span id="myTransportersTrigger" class="input-group-text form-control"
+                            style="border-radius:0;cursor:not-allowed;">
+                            <i class="fas fa-gift"></i>
                         </span>
                     </div>
                     <div>
-                        <input id="transporter_name" class="form-control" style="border-radius: 0; background-color: white;" size="16" readonly />
-                        <input id="transporter_id" name="transporter_id" class="form-control" style="border-radius:0;" hidden />
+                        <input id="transporter_name" class="form-control"
+                            style="border-radius: 0; background-color: white;" size="16" readonly />
+                        <input id="transporter_id" name="transporter_id" class="form-control" style="border-radius:0;"
+                            hidden />
                     </div>
                 </div>
             </div>
@@ -65,7 +66,8 @@
                 </label>
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div>
-                        <input id="transporter_contact" style="border-radius:0;" class="form-control" size="20" readonly>
+                        <input id="transporter_contact" style="border-radius:0;" class="form-control" size="20"
+                            readonly>
                     </div>
                 </div>
             </div>
@@ -77,7 +79,8 @@
                 </label>
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div>
-                        <input id="transporter_handphone" style="border-radius:0;" class="form-control" size="20" readonly>
+                        <input id="transporter_handphone" style="border-radius:0;" class="form-control" size="20"
+                            readonly>
                     </div>
                 </div>
             </div>
@@ -89,7 +92,8 @@
                 </label>
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div>
-                        <textarea id="transporter_address" rows="3" style="border-radius:0;" class="form-control" readonly></textarea>
+                        <textarea id="transporter_address" rows="3" style="border-radius:0;" class="form-control"
+                            readonly></textarea>
                     </div>
                 </div>
             </div>

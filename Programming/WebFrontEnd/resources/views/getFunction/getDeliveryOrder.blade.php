@@ -1,4 +1,5 @@
-<div id="myDeliveryOrder" class="modal fade" role="dialog" aria-labelledby="contohModalScrollableTitle" aria-hidden="true">
+<div id="myDeliveryOrder" class="modal fade" role="dialog" aria-labelledby="contohModalScrollableTitle"
+    aria-hidden="true" style="z-index: 9999;">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -24,7 +25,8 @@
                                     <tfoot>
                                         <tr class="loadingGetDeliveryOrder">
                                             <td colspan="4" class="p-0" style="height: 22rem;">
-                                                <div class="d-flex flex-column justify-content-center align-items-center py-3">
+                                                <div
+                                                    class="d-flex flex-column justify-content-center align-items-center py-3">
                                                     <div class="spinner-border" role="status">
                                                         <span class="sr-only">Loading...</span>
                                                     </div>
@@ -36,8 +38,10 @@
                                         </tr>
                                         <tr class="errorDeliveryOrderMessageContainerSecond">
                                             <td colspan="4" class="p-0" style="height: 22rem;">
-                                                <div class="d-flex flex-column justify-content-center align-items-center py-3">
-                                                    <div id="errorDeliveryOrderMessageSecond" class="mt-3 text-red" style="font-size: 1rem; font-weight: 700;"></div>
+                                                <div
+                                                    class="d-flex flex-column justify-content-center align-items-center py-3">
+                                                    <div id="errorDeliveryOrderMessageSecond" class="mt-3 text-red"
+                                                        style="font-size: 1rem; font-weight: 700;"></div>
                                                 </div>
                                             </td>
                                         </tr>
@@ -69,7 +73,7 @@
         $.ajax({
             type: 'GET',
             url: '{!! route("getDeliveryOrderList") !!}',
-            success: function(data) {
+            success: function (data) {
                 $(".loadingGetDeliveryOrder").hide();
 
                 var table = $('#tableGetDeliveryOrder').DataTable();
@@ -89,7 +93,7 @@
                                     return '<td class="align-middle text-center">' +
                                         '<input id="sys_id_delivery_order' + (meta.row + 1) + '" value="' + data.sys_ID + '" data-trigger="sys_id_delivery_order" type="hidden">' +
                                         (meta.row + 1) +
-                                    '</td>';
+                                        '</td>';
                                 }
                             },
                             {
@@ -129,8 +133,4 @@
             }
         });
     }
-
-    $(window).one('load', function(e) {
-        getDeliveryOrder();
-    });
 </script>

@@ -324,7 +324,7 @@
         $('#mySuppliers').modal('hide');
     });
 
-    $(window).one('load', function () {
+    $(document).ready(function () {
         $('#account_payable_summary_date_range').daterangepicker({
             autoUpdateInput: false,
             maxDate: moment(),
@@ -347,5 +347,7 @@
         $('#account_payable_summary_date_range_container_icon').on('click', function () {
             $('#account_payable_summary_date_range').trigger('click');
         });
+
+        getSuppliers();
     });
 </script>

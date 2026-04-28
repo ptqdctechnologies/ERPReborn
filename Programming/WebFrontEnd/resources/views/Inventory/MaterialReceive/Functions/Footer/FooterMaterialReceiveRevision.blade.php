@@ -526,13 +526,13 @@
     }
 
     $('#tableGetModalWarehouses').on('click', 'tbody tr', function () {
-        let sysId = $(this).find('input[data-trigger="sys_id_modal_warehouse"]').val();
-        let name = $(this).find('td:nth-child(2)').text();
-        let address = $(this).find('td:nth-child(3)').text();
+        const sysId = $(this).find('input[data-trigger="sys_id_modal_warehouse"]').val();
+        const name = $(this).find('td:nth-child(2)').text();
+        const address = $(this).find('td:nth-child(3)').text();
 
         $("#warehouse_id").val(sysId);
         $("#warehouse_name").val(name);
-        $("#warehouse_address").val(address);
+        $("#warehouse_address").val(`${name} - ${address}`);
 
         $("#myGetModalWarehouses").modal('toggle');
     });
@@ -553,7 +553,22 @@
         }
     });
 
-    $(window).one('load', function (e) {
+    $('#tableGetModalMaterialReceive').on('click', 'tbody tr', function () {
+        const sysId = $(this).find('input[data-trigger="sys_id_modal_material_receive"]').val();
+        const trano = $(this).find('td:nth-child(2)').text();
+
+        $("#modal_material_receive_id").val(sysId);
+        $("#modal_material_receive_document_number").val(trano);
+
+        $('#myGetModalMaterialReceive').modal('hide');
+    });
+
+    $('#revision_material_receive').on('click', function (e) {
+        getModalMaterialReceive();
+    });
+
+    $(document).ready(function () {
+        getModalWarehouses();
         viewMaterialReceiveDetail(dataTable);
 
         $('#startDate').datetimepicker({
