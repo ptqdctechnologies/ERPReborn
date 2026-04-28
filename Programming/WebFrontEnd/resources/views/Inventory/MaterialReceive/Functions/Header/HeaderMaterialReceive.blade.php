@@ -27,7 +27,7 @@
                         <input id="delivery_order_id" style="border-radius:0;" name="delivery_order_id"
                             class="form-control" hidden>
                         <input id="delivery_order_code" style="border-radius:0; background-color: white;"
-                            class="form-control" size="19" readonly>
+                            class="form-control" readonly>
                     </div>
                 </div>
             </div>
@@ -55,7 +55,7 @@
                                 </span>
                             </div>
 
-                            <input type="text" size="19" id="receive_date" name="receive_date"
+                            <input type="text" id="receive_date" name="receive_date"
                                 class="form-control datetimepicker-input" data-target="#startDate"
                                 style="height: 21.8px;border-radius:0;background-color:#fff;">
                         </div>
@@ -76,7 +76,7 @@
                 <label class="col-sm-3 col-md-4 col-lg-3 col-form-label p-0">
                     Receive in
                 </label>
-                <div class="col-sm-9 col-md-8 col-lg-6 d-flex p-0">
+                <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div style="background-color:#e9ecef;min-height:100%;border:1px solid #ced4da;">
                         <span style="border-radius:0;border:0;" class="input-group-text form-control">
                             <a href="javascript:;" id="myGetModalWarehousesTrigger"
@@ -86,7 +86,7 @@
                             </a>
                         </span>
                     </div>
-                    <div style="flex: 100%;">
+                    <div>
                         <div class="input-group">
                             <input hidden type="text" id="warehouse_id" name="warehouse_id" />
                             <textarea id="warehouse_name" class="form-control" style="border-radius:0;" rows="3"
@@ -116,7 +116,7 @@
                 </label>
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div>
-                        <input id="do_type" style="border-radius:0;" size="23" class="form-control" readonly>
+                        <input id="do_type" style="border-radius:0;" class="form-control" readonly>
                     </div>
                 </div>
             </div>
@@ -128,7 +128,7 @@
                 </label>
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div>
-                        <input id="budget_value" style="border-radius:0;" size="23" class="form-control" readonly>
+                        <input id="budget_value" style="border-radius:0;" class="form-control" readonly>
                     </div>
                 </div>
             </div>
@@ -140,7 +140,7 @@
                 </label>
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div>
-                        <input id="do_requester" style="border-radius:0;" size="23" class="form-control" readonly>
+                        <input id="do_requester" style="border-radius:0;" class="form-control" readonly>
                     </div>
                 </div>
             </div>
@@ -152,7 +152,7 @@
                 </label>
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div>
-                        <input id="do_status" style="border-radius:0;" size="23" class="form-control" readonly>
+                        <input id="do_status" style="border-radius:0;" class="form-control" readonly>
                     </div>
                 </div>
             </div>
@@ -167,7 +167,7 @@
                 </label>
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div>
-                        <input id="do_transporter" style="border-radius:0;" size="23" class="form-control" readonly>
+                        <input id="do_transporter" style="border-radius:0;" class="form-control" readonly>
                     </div>
                 </div>
             </div>
@@ -177,14 +177,14 @@
                 <label class="col-sm-3 col-md-4 col-lg-3 col-form-label p-0">
                     Delivery From
                 </label>
-                <div class="col-sm-9 col-md-8 col-lg-6 d-flex p-0">
-                    <div style="width: 100%;">
+                <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                    <div>
                         <input type="hidden" id="id_delivery_order_from_duplicate" style="border-radius:0;"
-                            class="form-control" size="24" readonly>
+                            class="form-control" readonly>
                         <input type="hidden" id="id_delivery_order_from" name="id_delivery_order_from"
-                            style="border-radius:0;" class="form-control" size="24" readonly>
+                            style="border-radius:0;" class="form-control" readonly>
                         <input type="hidden" id="address_delivery_order_from_duplicate" style="border-radius:0;"
-                            class="form-control" size="24" readonly>
+                            class="form-control" readonly>
                         <textarea id="address_delivery_order_from" name="address_delivery_order_from" rows="3"
                             style="border-radius:0;" class="form-control"></textarea>
                     </div>
@@ -204,14 +204,14 @@
                 <label class="col-sm-3 col-md-4 col-lg-3 col-form-label p-0">
                     Delivery To
                 </label>
-                <div class="col-sm-9 col-md-8 col-lg-6 d-flex p-0">
-                    <div style="width: 100%;">
+                <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                    <div>
                         <input type="hidden" id="id_delivery_order_to_duplicate" style="border-radius:0;"
-                            class="form-control" size="20" readonly>
+                            class="form-control" readonly>
                         <input type="hidden" id="id_delivery_order_to" name="id_delivery_order_to"
-                            style="border-radius:0;" class="form-control" size="20" readonly>
+                            style="border-radius:0;" class="form-control" readonly>
                         <input type="hidden" id="address_delivery_order_to_duplicate" style="border-radius:0;"
-                            class="form-control" size="20" readonly>
+                            class="form-control" readonly>
                         <textarea id="address_delivery_order_to" name="address_delivery_order_to" rows="3"
                             style="border-radius:0;" class="form-control"></textarea>
                     </div>
