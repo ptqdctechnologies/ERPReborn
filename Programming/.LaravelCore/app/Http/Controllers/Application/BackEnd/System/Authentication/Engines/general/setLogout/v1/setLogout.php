@@ -66,10 +66,19 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                         $varUserSession
                         );
 
+                    $varSessionEntity =
+                        \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession);
+
                     (new \App\Models\Cache\General\APIWebToken())->setDataDelete(
-                        $varUserSession, 
-                        (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['APIWebToken']
+                        $varUserSession,
+                        $varSessionEntity['APIWebToken']
                         );
+
+                    if (isset($varSessionEntity['userIdentities']['LDAPUserID'])) {
+                        \Illuminate\Support\Facades\Cache::forget(
+                            'user_identity:'.$varSessionEntity['userIdentities']['LDAPUserID']
+                            );
+                        }
 
                     $varDataSend = ['message' => 'User Logout Successfully'];
 
