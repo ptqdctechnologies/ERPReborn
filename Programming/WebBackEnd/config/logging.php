@@ -99,6 +99,20 @@ return [
         'emergency' => [
             'path' => storage_path('logs/laravel.log'),
         ],
+
+        'audit_api' => [
+            'driver'  => 'monolog',
+            'handler' => \App\Logging\LokiHandler::class,
+            'with'    => [
+                'endpoint' => env('LOKI_PUSH_URL', 'http://grafana-loki:3100/loki/api/v1/push'),
+                'timeout'  => (float) env('LOKI_TIMEOUT', 0.25),
+                'labels'   => [
+                    'app' => 'erp_reborn',
+                    'env' => env('APP_ENV', 'production'),
+                ],
+            ],
+            'formatter' => \App\Logging\LokiJsonFormatter::class,
+        ],
     ],
 
 ];

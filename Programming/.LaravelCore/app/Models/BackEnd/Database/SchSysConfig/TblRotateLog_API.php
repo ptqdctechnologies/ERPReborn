@@ -65,12 +65,26 @@ namespace App\Models\Database\SchSysConfig
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
+        /**
+         * @deprecated Use Log::channel('audit_api') instead. Tracked under the Loki migration plan §5.6.
+         */
         public function setDataInsert(
-            $varUserSession, 
-            string $varSysDataAnnotation = null, 
+            $varUserSession,
+            string $varSysDataAnnotation = null,
             string $varHostIPAddress, string $varURL, string $varNavigatorUserAgent, string $varRequestDateTimeTZ, string $varRequestHTTPHeader, string $varRequestHTTPBody, string $varResponseDateTimeTZ, int $varResponseHTTPStatus = null, string $varResponseHTTPHeader = null, string $varResponseHTTPBody = null)
             {
-            $varReturn = 
+            try
+                {
+                \Illuminate\Support\Facades\Log::channel('audit_api')->warning(
+                    'TblRotateLog_API::setDataInsert called — should be Loki now',
+                    ['caller' => debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2)[1] ?? null]
+                    );
+                }
+            catch (\Throwable)
+                {
+                }
+
+            $varReturn =
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                     $varUserSession, 
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
