@@ -1255,6 +1255,7 @@
             $("#internal_use_delivery_to_trigger").prop("disabled", false);
 
             getSiteSecond(sysId);
+            selectTransporters();
         } else if (referenceTypeValue.value == "2") {
             $("#stock_movement_budget_id").val(sysId);
             $("#stock_movement_budget_code").val(projectCode);
@@ -1274,6 +1275,7 @@
             $("#stock_movement_delivery_to_trigger").prop("disabled", false);
 
             getRequesters();
+            selectTransporters();
         }
 
         $("#var_combinedBudget_RefID").val(sysId);
