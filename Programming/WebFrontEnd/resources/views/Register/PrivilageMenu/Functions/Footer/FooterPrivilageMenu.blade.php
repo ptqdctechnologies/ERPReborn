@@ -12,7 +12,7 @@
         TableSubMenu();
     });
 
-    function TableSubMenu(){
+    function TableSubMenu() {
         $('#SelectAll').prop("checked", false);
         $('#UnSelectAll').prop("checked", false);
 
@@ -33,8 +33,8 @@
         $.ajax({
             type: 'GET',
             url: '{!! route(name: "getSubMenu") !!}?menu_group_id=' + ModulID + '&type=' + Type,
-            success: function(data) {
-                $.each(data, function(key, val) {
+            success: function (data) {
+                $.each(data, function (key, val) {
                     keys += 1;
                     var checkedSubMenu = "";
                     for (var i = 0; i < checkedValue.length; i++) {
@@ -43,45 +43,45 @@
                         }
                     }
 
-                    var html = 
+                    var html =
                         '<tr>' +
-                            '<td>' +
-                                '<div class="input-group">&nbsp;&nbsp;' +
-                                    '<span class="input-group-text">' +
-                                        '<input type="checkbox" ' + checkedSubMenu + ' name="Sub_Menu" id="Sub_Menu' + keys + '" class="Sub_Menu" value="' + val.defaultMenuAction_RefID + '">' +
-                                    '</span>' +
-                                    '<span style="position: relative;top:7px;left:15px;">' + val.caption + '</span>' +
-                                '</div>' +
-                            '</td>' +
+                        '<td>' +
+                        '<div class="input-group">&nbsp;&nbsp;' +
+                        '<span class="input-group-text">' +
+                        '<input type="checkbox" ' + checkedSubMenu + ' name="Sub_Menu" id="Sub_Menu' + keys + '" class="Sub_Menu" value="' + val.defaultMenuAction_RefID + '">' +
+                        '</span>' +
+                        '<span style="position: relative;top:7px;left:15px;">' + val.caption + '</span>' +
+                        '</div>' +
+                        '</td>' +
                         '</tr>';
 
                     $('table.TableSubMenu tbody').append(html);
 
-                    if(checkedValue.length > 0){
+                    if (checkedValue.length > 0) {
                         $("#SavePrivilageMenu").prop("disabled", false);
                     }
-                    else{
+                    else {
                         $("#SavePrivilageMenu").prop("disabled", true);
                     }
                 });
 
-                $('.Sub_Menu').click(function() {
+                $('.Sub_Menu').click(function () {
                     var id = $(this).val();
                     if ($(this).is(":checked")) {
                         $('#UnSelectAll').prop("checked", false);
                         checkedValue.push(id);
                     } else {
                         $('#SelectAll').prop("checked", false);
-                        var result = checkedValue.filter(function(elem) {
+                        var result = checkedValue.filter(function (elem) {
                             return elem != id;
                         });
                         checkedValue = result;
                     }
 
-                    if(checkedValue.length > 0){
+                    if (checkedValue.length > 0) {
                         $("#SavePrivilageMenu").prop("disabled", false);
                     }
-                    else{
+                    else {
                         $("#SavePrivilageMenu").prop("disabled", true);
                     }
 
@@ -98,21 +98,21 @@
         });
     }
 
-    $('#SelectAll').click(function() {
+    $('#SelectAll').click(function () {
         if ($(this).is(":checked")) {
             $('.Sub_Menu').prop("checked", true);
             $('#UnSelectAll').prop("checked", false);
 
             var sub_Menu = document.getElementsByClassName('Sub_Menu');
             if (checkedValue.length == 0) {
-                $.each(sub_Menu, function(key, value) {
+                $.each(sub_Menu, function (key, value) {
                     checkedValue.push(value.value);
                 });
-                
+
             }
-            else{
-                $.each(sub_Menu, function(key, value) {
-                    if(!checkedValue.includes(value.value)){
+            else {
+                $.each(sub_Menu, function (key, value) {
+                    if (!checkedValue.includes(value.value)) {
                         checkedValue.push(value.value);
                     }
                 });
@@ -120,38 +120,38 @@
         }
 
         $('#SelectAll').prop("checked", true);
-        if(checkedValue.length > 0){
+        if (checkedValue.length > 0) {
             $("#SavePrivilageMenu").prop("disabled", false);
         }
-        else{
+        else {
             $("#SavePrivilageMenu").prop("disabled", true);
         }
     });
 
-    $('#UnSelectAll').change(function() {
+    $('#UnSelectAll').change(function () {
         $('#SelectAll').prop("checked", false);
         $('#UnSelectAll').prop("checked", true);
         $('.Sub_Menu').prop("checked", false);
         var sub_Menu = document.getElementsByClassName('Sub_Menu');
 
-        $.each(sub_Menu, function(key, value) {
+        $.each(sub_Menu, function (key, value) {
             // checkedValue = checkedValue.filter(item => item !== value.value);
 
-            var result = checkedValue.filter(function(elem) {
+            var result = checkedValue.filter(function (elem) {
                 return elem != value.value;
             });
             checkedValue = result;
         });
 
-        if(checkedValue.length > 0){
+        if (checkedValue.length > 0) {
             $("#SavePrivilageMenu").prop("disabled", false);
         }
-        else{
+        else {
             $("#SavePrivilageMenu").prop("disabled", true);
         }
     });
 
-    $('#SavePrivilageMenu').click(function() {
+    $('#SavePrivilageMenu').click(function () {
         const swalWithBootstrapButtons = Swal.mixin({
             confirmButtonClass: 'btn btn-success btn-sm',
             cancelButtonClass: 'btn btn-danger btn-sm',
@@ -187,7 +187,7 @@
                     type: 'POST',
                     data: data,
                     url: '{!! route("PrivilageMenu.store") !!}',
-                    success: function(data) {
+                    success: function (data) {
                         HideLoading();
                         if (data.status == 200) {
                             const swalWithBootstrapButtons = Swal.mixin({
@@ -217,7 +217,7 @@
                             ErrorNotif("Data Cancel Inputed");
                         }
                     },
-                    error: function(jqXHR, textStatus, errorThrown) {
+                    error: function (jqXHR, textStatus, errorThrown) {
                         // FUNCTION ERROR NOTIFICATION 
                         ErrorNotif("Data Cancel Inputed");
                     }
@@ -232,7 +232,7 @@
         })
     });
 
-    // $(window).one('load', function(e) {
-    //     TableSubMenu();
-    // });
+    $(document).ready(function () {
+        getModalDepartment();
+    });
 </script>
