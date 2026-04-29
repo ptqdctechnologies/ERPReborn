@@ -21,7 +21,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         |                     ► http://172.28.0.4/transaction.create.supplyChain.setSupplier.v1_throughAPIGateway                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2026-04-21                                                                                           |
+        | ▪ Last Update     : 2026-04-29                                                                                           |
         | ▪ Creation Date   : 2022-10-12                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -52,7 +52,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                     "accountNumber" => "1234567890",
                     "accountName" => "PT. Supplier Indonesia",
                     "remark" => "My Remark",
-                    "legalEntity" => "PT (Perseroan Terbatas)",
+                    "institutionType_RefID" => 141000000000009,
                     "log_FileUpload_Pointer_RefID" => null,
                     "additionalData" => [
                         "itemList" => [
