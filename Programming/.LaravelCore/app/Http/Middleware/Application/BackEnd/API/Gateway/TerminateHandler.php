@@ -8,47 +8,82 @@ namespace App\Http\Middleware\Application\BackEnd\API\Gateway
             {
             return $next($varObjRequest);
             }
-            
+
         public function terminate($varObjRequest, $varObjResponse)
             {
             $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
-            //---> Store API Access Request to Database
-            $varDateAgent=
-            (new \App\Models\Database\SchSysConfig\TblRotateLog_API())->setDataInsert(
-                $varUserSession, 
-                null, 
-                \App\Helpers\ZhtHelper\General\Helper_Network::getClientIPAddress($varUserSession), 
-                url()->current(), 
-                $_SERVER['HTTP_USER_AGENT'], 
-                \App\Helpers\ZhtHelper\General\Helper_DateTime::getTimeStampTZConvert_GMTToOtherTimeZone($varUserSession, \App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getRequest_Header($varUserSession, $varObjRequest, 'agent-datetime'), \App\Helpers\ZhtHelper\General\Helper_DateTime::getHourOfTimeZoneOffset($varUserSession, 'Asia/Jakarta')), 
-                json_encode(\App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getRequest_Header($varUserSession, $varObjRequest)), 
-                \App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getRequest($varUserSession, $varObjRequest), 
-                \App\Helpers\ZhtHelper\General\Helper_DateTime::getTimeStampTZConvert_GMTToOtherTimeZone($varUserSession, \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::getResponse_Header($varUserSession, $varObjResponse, 'date'), \App\Helpers\ZhtHelper\General\Helper_DateTime::getHourOfTimeZoneOffset($varUserSession, 'Asia/Jakarta')), 
-                \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::getResponse_HTTPStatusCode($varUserSession, $varObjResponse), 
-                json_encode(\App\Helpers\ZhtHelper\System\Helper_HTTPResponse::getResponse_Header($varUserSession, $varObjResponse)), 
-                \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::getResponse_BodyContent($varUserSession, $varObjResponse)
+
+            $varAuditDriver = strtolower((string) env('AUDIT_LOG_DRIVER', 'both'));
+            $varWriteDB     = in_array($varAuditDriver, ['db',   'both'], true);
+            $varWriteLoki   = in_array($varAuditDriver, ['loki', 'both'], true);
+
+            $varIPAddress       = \App\Helpers\ZhtHelper\General\Helper_Network::getClientIPAddress($varUserSession);
+            $varURL             = url()->current();
+            $varMethod          = $varObjRequest->getMethod();
+            $varUserAgent       = $_SERVER['HTTP_USER_AGENT'] ?? null;
+            $varRequestHeaders  = \App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getRequest_Header($varUserSession, $varObjRequest);
+            $varRequestBody     = \App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getRequest($varUserSession, $varObjRequest);
+            $varResponseHeaders = \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::getResponse_Header($varUserSession, $varObjResponse);
+            $varResponseStatus  = \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::getResponse_HTTPStatusCode($varUserSession, $varObjResponse);
+            $varResponseBody    = \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::getResponse_BodyContent($varUserSession, $varObjResponse);
+
+            $varRequestDateTimeTZ = \App\Helpers\ZhtHelper\General\Helper_DateTime::getTimeStampTZConvert_GMTToOtherTimeZone(
+                $varUserSession,
+                \App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getRequest_Header($varUserSession, $varObjRequest, 'agent-datetime'),
+                \App\Helpers\ZhtHelper\General\Helper_DateTime::getHourOfTimeZoneOffset($varUserSession, 'Asia/Jakarta')
+                );
+            $varResponseDateTimeTZ = \App\Helpers\ZhtHelper\General\Helper_DateTime::getTimeStampTZConvert_GMTToOtherTimeZone(
+                $varUserSession,
+                \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::getResponse_Header($varUserSession, $varObjResponse, 'date'),
+                \App\Helpers\ZhtHelper\General\Helper_DateTime::getHourOfTimeZoneOffset($varUserSession, 'Asia/Jakarta')
                 );
 
-/*            $varSQL = "
-                SELECT 
-                    \"SignRecordID\" AS \"Sys_RPK\"
-                FROM 
-                    \"SchSysConfig\".\"Func_TblRotateLog_API_SET\"(
-                        ".(\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForVarChar($varUserSession, \App\Helpers\ZhtHelper\General\Helper_Network::getClientIPAddress($varUserSession)))."::cidr, 
-                        ".(\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForVarChar($varUserSession, url()->current()))."::varchar, 
-                        ".(\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForVarChar($varUserSession, $_SERVER['HTTP_USER_AGENT']))."::varchar, 
-                        ".(\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForVarChar($varUserSession, \App\Helpers\ZhtHelper\General\Helper_DateTime::getTimeStampTZConvert_GMTToOtherTimeZone($varUserSession, \App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getRequest_Header($varUserSession, $varObjRequest, 'agent-datetime'), \App\Helpers\ZhtHelper\General\Helper_DateTime::getHourOfTimeZoneOffset($varUserSession, 'Asia/Jakarta'))))."::timestamptz, 
-                        ".(\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForVarChar($varUserSession, json_encode(\App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getRequest_Header($varUserSession, $varObjRequest))))."::json, 
-                        ".(\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForVarChar($varUserSession, \App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getRequest($varUserSession, $varObjRequest)))."::varchar, 
-                        ".(\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForVarChar($varUserSession, \App\Helpers\ZhtHelper\General\Helper_DateTime::getTimeStampTZConvert_GMTToOtherTimeZone($varUserSession, \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::getResponse_Header($varUserSession, $varObjResponse, 'agent-datetime'), \App\Helpers\ZhtHelper\General\Helper_DateTime::getHourOfTimeZoneOffset($varUserSession, 'Asia/Jakarta'))))."::timestamptz, 
-                        ".(\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForBigInteger($varUserSession, \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::getResponse_HTTPStatusCode($varUserSession, $varObjResponse)))."::smallint, 
-                        ".(\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForVarChar($varUserSession, json_encode(\App\Helpers\ZhtHelper\System\Helper_HTTPResponse::getResponse_Header($varUserSession, $varObjResponse))))."::json, 
-                        ".(\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForVarChar($varUserSession, \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::getResponse_BodyContent($varUserSession, $varObjResponse)))."::varchar
-                        )
-                ";
-            $varDBData = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution($varUserSession, $varSQL);*/
-//            file_put_contents(getcwd().'./../tmp/1.txt', $varSQL);
-//            $x = $varDBData['data'][0]['Sys_RPK'];
+            if ($varWriteDB)
+                {
+                (new \App\Models\Database\SchSysConfig\TblRotateLog_API())->setDataInsert(
+                    $varUserSession,
+                    null,
+                    $varIPAddress,
+                    $varURL,
+                    $varUserAgent,
+                    $varRequestDateTimeTZ,
+                    json_encode($varRequestHeaders),
+                    $varRequestBody,
+                    $varResponseDateTimeTZ,
+                    $varResponseStatus,
+                    json_encode($varResponseHeaders),
+                    $varResponseBody
+                    );
+                }
+
+            if ($varWriteLoki)
+                {
+                try
+                    {
+                    \Illuminate\Support\Facades\Log::channel('audit_api')->info('api_access', [
+                        'phase'            => 'gateway',
+                        'session_id'       => $varUserSession,
+                        'ip'               => $varIPAddress,
+                        'url'              => $varURL,
+                        'method'           => $varMethod,
+                        'user_agent'       => $varUserAgent,
+                        'request_dt'       => $varRequestDateTimeTZ,
+                        'request_headers'  => $varRequestHeaders,
+                        'request_body'     => $varRequestBody,
+                        'response_dt'      => $varResponseDateTimeTZ,
+                        'response_status'  => $varResponseStatus,
+                        'response_headers' => $varResponseHeaders,
+                        'response_body'    => $varResponseBody,
+                    ]);
+                    }
+                catch (\Throwable $e)
+                    {
+                    \Illuminate\Support\Facades\Log::channel('single')->warning(
+                        'Loki audit emit failed (Gateway)',
+                        ['error' => $e->getMessage()]
+                        );
+                    }
+                }
             }
         }
     }
