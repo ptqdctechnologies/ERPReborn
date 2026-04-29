@@ -76,7 +76,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0001.0000000                                                                                       |
-        | ▪ Last Update     : 2026-04-21                                                                                           |
+        | ▪ Last Update     : 2026-04-29                                                                                           |
         | ▪ Creation Date   : 2022-10-12                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -99,7 +99,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         public function setDataInsert(
             $varUserSession,
             string $varSysDataAnnotation = null, string $varSysDataValidityStartDateTimeTZ = null, string $varSysDataValidityFinishDateTimeTZ = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, $varSysBaseCurrency_RefID = null,
-            string $varSupplierName = null, string $varTaxID = null, string $varPhoneNumber = null, string $varEmail = null, string $varCountry = null, string $varProvince = null, string $varCity = null, string $varAddress = null, string $varContactPerson = null, int $varBank_RefID = null, string $varAccountNumber = null, string $varAccountName = null, string $varRemark = null, string $varLegalEntity = null, int $varLog_FileUpload_Pointer_RefID = null,
+            string $varSupplierName = null, string $varTaxID = null, string $varPhoneNumber = null, string $varEmail = null, string $varCountry = null, string $varProvince = null, string $varCity = null, string $varAddress = null, string $varContactPerson = null, int $varBank_RefID = null, string $varAccountNumber = null, string $varAccountName = null, string $varRemark = null, int $varInstitutionType_RefID = null, int $varLog_FileUpload_Pointer_RefID = null,
             array $varAdditionalData = []
             )
             {
@@ -133,7 +133,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             [$varAccountNumber, 'varchar'],
                             [$varAccountName, 'varchar'],
                             [$varRemark, 'varchar'],
-                            [$varLegalEntity, 'varchar'],
+                            [$varInstitutionType_RefID, 'bigint'],
                             [$varLog_FileUpload_Pointer_RefID, 'bigint'],
 
                             [
@@ -160,7 +160,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : setDataUpdate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0001.0000000                                                                                       |
-        | ▪ Last Update     : 2026-04-24                                                                                           |
+        | ▪ Last Update     : 2026-04-29                                                                                           |
         | ▪ Creation Date   : 2022-10-12                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -185,7 +185,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
             $varUserSession,
             int $varSysID,
             string $varSysDataAnnotation = null, string $varSysDataValidityStartDateTimeTZ = null, string $varSysDataValidityFinishDateTimeTZ = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, $varSysBaseCurrency_RefID = null,
-            string $varSupplierName = null, string $varTaxID = null, string $varPhoneNumber = null, string $varEmail = null, string $varCountry = null, string $varProvince = null, string $varCity = null, string $varAddress = null, string $varContactPerson = null, int $varBank_RefID = null, string $varAccountNumber = null, string $varAccountName = null, string $varRemark = null, string $varLegalEntity = null, int $varLog_FileUpload_Pointer_RefID = null,
+            string $varSupplierName = null, string $varTaxID = null, string $varPhoneNumber = null, string $varEmail = null, string $varCountry = null, string $varProvince = null, string $varCity = null, string $varAddress = null, string $varContactPerson = null, int $varBank_RefID = null, string $varAccountNumber = null, string $varAccountName = null, string $varRemark = null, int $varInstitutionType_RefID = null, int $varLog_FileUpload_Pointer_RefID = null,
             array $varAdditionalData = []
             )
             {
@@ -219,7 +219,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             [$varAccountNumber, 'varchar'],
                             [$varAccountName, 'varchar'],
                             [$varRemark, 'varchar'],
-                            [$varLegalEntity, 'varchar'],
+                            [$varInstitutionType_RefID, 'bigint'],
                             [$varLog_FileUpload_Pointer_RefID, 'bigint'],
 
                             [

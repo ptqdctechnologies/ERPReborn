@@ -43,7 +43,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0002.0000000                                                                                       |
-        | ▪ Last Update     : 2026-04-21                                                                                           |
+        | ▪ Last Update     : 2026-04-29                                                                                           |
         | ▪ Creation Date   : 2022-03-07                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -103,7 +103,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
                                     $varData['entities']['accountNumber'],
                                     $varData['entities']['accountName'],
                                     $varData['entities']['remark'],
-                                    $varData['entities']['legalEntity'],
+                                    $varData['entities']['institutionType_RefID'],
                                     $varData['entities']['log_FileUpload_Pointer_RefID'],
 
                                     (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
