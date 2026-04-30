@@ -159,16 +159,16 @@
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Legal
                     Entity</label>
                 <div class="col-5">
-                    <select class="form-control" id="legal_entity" name="legal_entity_value" style="border-radius:0;"
-                        type="text">
+                    <select class="form-control" id="legal_entity" name="legal_entity_value"
+                        style="border-radius:0;width: 100%;" type="text">
                         <option value="" disabled selected>Select a Legal Entity</option>
-                        <option value="PT (Perseroan Terbatas)">PT (Perseroan Terbatas)</option>
+                        <!-- <option value="PT (Perseroan Terbatas)">PT (Perseroan Terbatas)</option>
                         <option value="CV (Commanditaire Vennootschap)">CV (Commanditaire Vennootschap)</option>
                         <option value="Koperasi">Koperasi</option>
                         <option value="Yayasan">Yayasan</option>
                         <option value="Firma (Fa)">Firma (Fa)</option>
                         <option value="Usaha Perseorangan">Usaha Perseorangan</option>
-                        <option value="Bentuk Lain Khusus (BUT)">Bentuk Lain Khusus (BUT)</option>
+                        <option value="Bentuk Lain Khusus (BUT)">Bentuk Lain Khusus (BUT)</option> -->
                     </select>
                 </div>
             </div>

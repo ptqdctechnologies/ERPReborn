@@ -104,6 +104,32 @@
         return true;
     }
 
+    function getInstitutionType() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: 'POST',
+            url: '{!! route("getInstitutionType") !!}',
+        })
+            .done(function (response) {
+                const data = (response.status == 200 && response.data[0]) ? response.data : [];
+
+                data.forEach(function (project) {
+                    $('#legal_entity').append('<option value="' + project.sys_ID + '">' + project.sys_Text + '</option>');
+                });
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                console.error("Error:", errorThrown);
+            })
+            .always(function (jqXHR, textStatus, errorThrown) {
+                $("#loadingGetModalAdvanceSettlement").hide();
+            });
+    }
+
     $('#tableGetBankList').on('click', 'tbody tr', function () {
         const id = $(this).find('input[type="hidden"]').val();
         const acronym = $(this).find('td:nth-child(2)').text();
@@ -356,5 +382,6 @@
         });
 
         getCountries();
+        getInstitutionType();
     });
 </script>
