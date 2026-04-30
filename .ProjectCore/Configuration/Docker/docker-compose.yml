@@ -252,7 +252,7 @@ services:
     image: 'erp-reborn-monitoring-grafana:latest'
     restart: 'unless-stopped'
     ports:
-      - '3000:3000'
+      - '13000:3000'
     networks:
       app-network:
         ipv4_address: '172.28.0.110'
@@ -269,7 +269,7 @@ services:
     image: 'erp-reborn-monitoring-grafana-loki:latest'
     restart: 'unless-stopped'
     ports:
-      - '3100:3100'
+      - '13100:3100'
     networks:
       app-network:
         ipv4_address: '172.28.0.111'
