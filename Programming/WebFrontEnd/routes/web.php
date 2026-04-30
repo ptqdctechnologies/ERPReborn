@@ -219,7 +219,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('getBusinessTripCostComponentEntity', 'Function\FunctionController@getBusinessTripCostComponentEntity')->name('getBusinessTripCostComponentEntity');
     Route::get('getDocumentType', 'Function\FunctionController@getDocumentType')->name('getDocumentType');
     Route::get('getCurrency', 'Function\FunctionController@getCurrency')->name('getCurrency');
-    Route::get('getDepartement', 'Function\FunctionController@getDepartement')->name('getDepartement');
+    Route::post('getDepartment', 'Function\FunctionController@getDepartment')->name('getDepartment');
     Route::get('getBusinessTripList', 'Function\FunctionController@getBusinessTripList')->name('getBusinessTripList');
     Route::get('getRole', 'Function\FunctionController@getRole')->name('getRole');
     Route::get('getMenuGroup', 'Function\FunctionController@getMenuGroup')->name('getMenuGroup');

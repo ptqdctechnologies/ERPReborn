@@ -700,13 +700,13 @@ class FunctionController extends Controller
         }
     }
 
-    //DEPARTEMENT
-    public function getDepartement()
+    // DEPARTMENT
+    public function getDepartment()
     {
-        $varAPIWebToken = Session::get('SessionLogin');
-        $varData = Helper_APICall::setCallAPIGateway(
+        $token = Session::get('SessionLogin');
+        $response = Helper_APICall::setCallAPIGateway(
             Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
+            $token,
             'transaction.read.dataList.sysConfig.getAppObject_UserRoleGroup',
             'latest',
             [
@@ -721,7 +721,17 @@ class FunctionController extends Controller
             false
         );
 
-        return response()->json($varData['data']['data']);
+        $status = $response['metadata']['HTTPStatusCode'];
+        $data = [];
+
+        if ($status == 200) {
+            $data = $response['data']['data'] ?? [];
+        }
+
+        return response()->json([
+            'data' => $data,
+            'status' => $status
+        ]);
     }
 
     //ROLE

@@ -296,6 +296,23 @@
             });
     });
 
+    document.querySelectorAll('.parent-checkbox').forEach(parent => {
+        parent.addEventListener('change', function () {
+            let parentValue = this.value;
+            let childGroup = document.querySelector(`.child-group[data-parent="${parentValue}"]`);
+            let children = childGroup.querySelectorAll('input[type="checkbox"]');
+
+            children.forEach(child => {
+                child.disabled = !this.checked;
+
+                // optional: uncheck saat disable
+                if (!this.checked) {
+                    child.checked = false;
+                }
+            });
+        });
+    });
+
     document.querySelectorAll('input[name^="category"]').forEach(cb => {
         cb.addEventListener('change', () => {
             const checkboxes = document.querySelectorAll('input[name^="category"]');
