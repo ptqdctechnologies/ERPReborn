@@ -29,8 +29,8 @@
 </div>
 
 <script>
-    $(function() {
-        $('.myRole').on('click', function(e) {
+    $(function () {
+        $('.myRole').on('click', function (e) {
             e.preventDefault();
 
             $.ajaxSetup({
@@ -45,11 +45,11 @@
             $.ajax({
                 type: 'GET',
                 url: '{!! route("getRole") !!}?departement_id=' + departement_id,
-                success: function(data) {
+                success: function (data) {
                     var no = 1;
                     var t = $('#tableGetRole').DataTable();
                     t.clear();
-                    $.each(data, function(key, val) {
+                    $.each(data, function (key, val) {
                         keys += 1;
                         t.row.add([
                             '<tbody><tr><input id="sys_id_role' + keys + '" value="' + val.sys_ID + '" type="hidden"><td>' + no++ + '</td>',
@@ -63,7 +63,7 @@
 </script>
 
 <script>
-    $('#tableGetRole tbody').on('click', 'tr', function() {
+    $('#tableGetRole tbody').on('click', 'tr', function () {
         $("#myRole").modal('toggle');
 
         var row = $(this).closest("tr");
@@ -79,7 +79,7 @@
         $('#TableSubMenu').find('tbody').empty();
 
         checkedValue = [];
-        
+
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -89,7 +89,7 @@
         $.ajax({
             type: 'GET',
             url: '{!! route("getMenuGroup") !!}',
-            success: function(data) {
+            success: function (data) {
                 $(".Modul").empty();
 
                 var option = "<option value='" + '' + "'>" + 'Select Modul' + "</option>";
@@ -109,14 +109,14 @@
 
         $.ajax({
             type: 'GET',
-            url: '{!! route("PrivilageMenu.DataListPrivilageMenu") !!}?sys_id_role=' + sys_id_role,
-            success: function(data) {
-                if(data.status == 200){
+            url: '{!! route("PrivilegeMenu.DataListPrivilegeMenu") !!}?sys_id_role=' + sys_id_role,
+            success: function (data) {
+                if (data.status == 200) {
                     $("#SavePrivilageMenu").prop("disabled", false);
 
                     var len = data.data.length;
                     for (var i = 0; i < len; i++) {
-                        if(!checkedValue.includes(data.data[i]['menuAction_RefID'])){
+                        if (!checkedValue.includes(data.data[i]['menuAction_RefID'])) {
                             checkedValue.push(data.data[i]['menuAction_RefID']);
                         }
                     }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Register\PrivilageMenu;
+namespace App\Http\Controllers\Register\PrivilegeMenu;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Session;
 use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
 use App\Helpers\ZhtHelper\System\Helper_Environment;
 
-class PrivilageMenuController extends Controller
+class PrivilegeMenuController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,10 +18,10 @@ class PrivilageMenuController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {   
+    {
         // dd(Session::get("PrivilageMenu"));
 
-        return view('Register.PrivilageMenu.Transactions.index');
+        return view('Register.PrivilegeMenu.Transactions.index');
     }
 
 
@@ -47,7 +47,7 @@ class PrivilageMenuController extends Controller
 
         // dd($varData);
 
-        if($varData['metadata']['HTTPStatusCode'] == "200"){
+        if ($varData['metadata']['HTTPStatusCode'] == "200") {
             Redis::del("RedisSetMenu" . $userRole_RefID);
         }
 
@@ -85,14 +85,15 @@ class PrivilageMenuController extends Controller
         // dd($varData);
 
         $compact = [
-            "data"      => $varData['data']['data'],
-            "status"    => $varData['metadata']['HTTPStatusCode']
+            "data" => $varData['data']['data'],
+            "status" => $varData['metadata']['HTTPStatusCode']
         ];
 
         return response()->json($compact);
     }
 
-    public function MenuManagement(Request $request) {
-        return view('Register.PrivilageMenu.Transactions.MenuManagement');
+    public function MenuManagement(Request $request)
+    {
+        return view('Register.PrivilegeMenu.Transactions.MenuManagement');
     }
 }

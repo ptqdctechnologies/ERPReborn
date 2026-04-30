@@ -174,11 +174,11 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::resource('BudgetType', 'BudgetTypeController');
     // CodeOfBudgeting
     Route::resource('CodeOfBudgeting', 'CodeOfBudgetingController');
-    // PrivilageMenu
-    Route::get('DataListPrivilageMenu', 'Register\PrivilageMenu\PrivilageMenuController@DataListPrivilageMenu')->name('PrivilageMenu.DataListPrivilageMenu');
+    // PrivilegeMenu
+    Route::get('DataListPrivilegeMenu', 'Register\PrivilegeMenu\PrivilegeMenuController@DataListPrivilegeMenu')->name('PrivilegeMenu.DataListPrivilegeMenu');
     // MenuManagement
-    Route::get('MenuManagement', 'Register\PrivilageMenu\PrivilageMenuController@MenuManagement')->name('PrivilageMenu.MenuManagement');
-    Route::resource('PrivilageMenu', 'Register\PrivilageMenu\PrivilageMenuController');
+    Route::get('MenuManagement', 'Register\PrivilegeMenu\PrivilegeMenuController@MenuManagement')->name('PrivilegeMenu.MenuManagement');
+    Route::resource('PrivilegeMenu', 'Register\PrivilegeMenu\PrivilegeMenuController');
 
     // FUNCTION
     Route::post('getInstitutionType', 'Function\FunctionController@getInstitutionType')->name('getInstitutionType');

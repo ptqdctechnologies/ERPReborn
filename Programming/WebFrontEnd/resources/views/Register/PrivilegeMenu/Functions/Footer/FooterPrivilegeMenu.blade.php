@@ -186,7 +186,7 @@
                 $.ajax({
                     type: 'POST',
                     data: data,
-                    url: '{!! route("PrivilageMenu.store") !!}',
+                    url: '{!! route("PrivilegeMenu.store") !!}',
                     success: function (data) {
                         HideLoading();
                         if (data.status == 200) {
