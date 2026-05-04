@@ -9935,6 +9935,7 @@ class ComposerStaticInitf3f23b9bfc4c5027395f1f35d83d1125
         'Symfony\\Component\\DependencyInjection\\Compiler\\CheckCircularReferencesPass' => __DIR__ . '/..' . '/symfony/dependency-injection/Compiler/CheckCircularReferencesPass.php',
         'Symfony\\Component\\DependencyInjection\\Compiler\\CheckDefinitionValidityPass' => __DIR__ . '/..' . '/symfony/dependency-injection/Compiler/CheckDefinitionValidityPass.php',
         'Symfony\\Component\\DependencyInjection\\Compiler\\CheckExceptionOnInvalidReferenceBehaviorPass' => __DIR__ . '/..' . '/symfony/dependency-injection/Compiler/CheckExceptionOnInvalidReferenceBehaviorPass.php',
+        'Symfony\\Component\\DependencyInjection\\Compiler\\CheckFactoryBuilderCircularReferencePass' => __DIR__ . '/..' . '/symfony/dependency-injection/Compiler/CheckFactoryBuilderCircularReferencePass.php',
         'Symfony\\Component\\DependencyInjection\\Compiler\\CheckReferenceValidityPass' => __DIR__ . '/..' . '/symfony/dependency-injection/Compiler/CheckReferenceValidityPass.php',
         'Symfony\\Component\\DependencyInjection\\Compiler\\CheckTypeDeclarationsPass' => __DIR__ . '/..' . '/symfony/dependency-injection/Compiler/CheckTypeDeclarationsPass.php',
         'Symfony\\Component\\DependencyInjection\\Compiler\\Compiler' => __DIR__ . '/..' . '/symfony/dependency-injection/Compiler/Compiler.php',

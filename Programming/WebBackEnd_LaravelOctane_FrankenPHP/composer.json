@@ -110,6 +110,7 @@
         }
     },
     "config": {
+	"process-timeout": 900,
         "optimize-autoloader": true,
         "preferred-install": "dist",
         "sort-packages": true,
@@ -117,7 +118,10 @@
             "pestphp/pest-plugin": true,
             "php-http/discovery": true,
             "symfony/runtime": true
-        }
+        },
+	"audit": {
+            "block-insecure": false
+	}
     },
     "minimum-stability": "stable",
     "prefer-stable": true

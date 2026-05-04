@@ -9160,6 +9160,7 @@ return array(
     'Symfony\\Component\\DependencyInjection\\Compiler\\CheckCircularReferencesPass' => $vendorDir . '/symfony/dependency-injection/Compiler/CheckCircularReferencesPass.php',
     'Symfony\\Component\\DependencyInjection\\Compiler\\CheckDefinitionValidityPass' => $vendorDir . '/symfony/dependency-injection/Compiler/CheckDefinitionValidityPass.php',
     'Symfony\\Component\\DependencyInjection\\Compiler\\CheckExceptionOnInvalidReferenceBehaviorPass' => $vendorDir . '/symfony/dependency-injection/Compiler/CheckExceptionOnInvalidReferenceBehaviorPass.php',
+    'Symfony\\Component\\DependencyInjection\\Compiler\\CheckFactoryBuilderCircularReferencePass' => $vendorDir . '/symfony/dependency-injection/Compiler/CheckFactoryBuilderCircularReferencePass.php',
     'Symfony\\Component\\DependencyInjection\\Compiler\\CheckReferenceValidityPass' => $vendorDir . '/symfony/dependency-injection/Compiler/CheckReferenceValidityPass.php',
     'Symfony\\Component\\DependencyInjection\\Compiler\\CheckTypeDeclarationsPass' => $vendorDir . '/symfony/dependency-injection/Compiler/CheckTypeDeclarationsPass.php',
     'Symfony\\Component\\DependencyInjection\\Compiler\\Compiler' => $vendorDir . '/symfony/dependency-injection/Compiler/Compiler.php',
