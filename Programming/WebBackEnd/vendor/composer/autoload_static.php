@@ -3305,8 +3305,6 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'App\\Http\\Middleware\\TrustHosts' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustHosts.php',
         'App\\Http\\Middleware\\TrustProxies' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustProxies.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
-        'App\\Logging\\LokiHandler' => __DIR__ . '/../..' . '/app/Logging/LokiHandler.php',
-        'App\\Logging\\LokiJsonFormatter' => __DIR__ . '/../..' . '/app/Logging/LokiJsonFormatter.php',
         'App\\Models\\Cache\\DefaultClassPrototype' => __DIR__ . '/../..' . '/app/Models/Cache/DefaultClassPrototype.php',
         'App\\Models\\Cache\\General\\APIWebToken' => __DIR__ . '/../..' . '/app/Models/Cache/General/APIWebToken.php',
         'App\\Models\\CloudStorage\\DefaultClassPrototype' => __DIR__ . '/../..' . '/app/Models/CloudStorage/DefaultClassPrototype.php',

@@ -2610,8 +2610,6 @@ return array(
     'App\\Http\\Middleware\\TrustHosts' => $baseDir . '/app/Http/Middleware/TrustHosts.php',
     'App\\Http\\Middleware\\TrustProxies' => $baseDir . '/app/Http/Middleware/TrustProxies.php',
     'App\\Http\\Middleware\\VerifyCsrfToken' => $baseDir . '/app/Http/Middleware/VerifyCsrfToken.php',
-    'App\\Logging\\LokiHandler' => $baseDir . '/app/Logging/LokiHandler.php',
-    'App\\Logging\\LokiJsonFormatter' => $baseDir . '/app/Logging/LokiJsonFormatter.php',
     'App\\Models\\Cache\\DefaultClassPrototype' => $baseDir . '/app/Models/Cache/DefaultClassPrototype.php',
     'App\\Models\\Cache\\General\\APIWebToken' => $baseDir . '/app/Models/Cache/General/APIWebToken.php',
     'App\\Models\\CloudStorage\\DefaultClassPrototype' => $baseDir . '/app/Models/CloudStorage/DefaultClassPrototype.php',
