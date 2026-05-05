@@ -21,7 +21,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         |                     ► http://172.28.0.4/transaction.update.supplyChain.setSupplier.v1_throughAPIGateway                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2026-04-24                                                                                           |
+        | ▪ Last Update     : 2026-05-04                                                                                           |
         | ▪ Creation Date   : 2022-07-27                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -38,7 +38,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                 'transaction.update.supplyChain.setSupplier', 
                 'latest', 
                 [
-                'recordID' => 126000000002236,
+                'recordID' => 126000000002253,
                 'entities' => [
                     "supplierName" => "Supplier Nusa Indonesia",
                     "taxID" => "123456789",
@@ -53,20 +53,20 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                     "accountNumber" => "1234567890",
                     "accountName" => "PT. Supplier Nusa Indonesia",
                     "remark" => "My Remark Update Supplier",
-                    "legalEntity" => "PT (Perseroan Terbatas)",
+                    "institutionType_RefID" => 141000000000009,
                     "log_FileUpload_Pointer_RefID" => null,
                     'additionalData' => [
                         'itemList' => [
                             'items' => [
                                     [
-                                    'recordID' => 304000000000019,
+                                    'recordID' => 304000000000046,
                                     'entities' => [
                                         "category_RefID" => 12345670,
                                         "specialization_RefID" => 12345672
                                         ]
                                     ],
                                     [
-                                    'recordID' => 304000000000020,
+                                    'recordID' => 304000000000047,
                                     'entities' => [
                                         "category_RefID" => 12345671,
                                         "specialization_RefID" => 12345673
