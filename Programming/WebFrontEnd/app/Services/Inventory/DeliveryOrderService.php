@@ -20,21 +20,21 @@ class DeliveryOrderService
             'transaction.read.dataList.supplyChain.getStockDetail',
             'latest',
             [
-            'parameter'     => [
-                'combinedBudget_RefID'  => (int) $combinedBudget_RefID,
-                'warehouse_RefID'       => (int) $warehouse_RefID
+                'parameter' => [
+                    'combinedBudget_RefID' => (int) $combinedBudget_RefID,
+                    'warehouse_RefID' => (int) $warehouse_RefID
                 ],
-            'SQLStatement'  => [
-                'pick'      => null,
-                'sort'      => null,
-                'filter'    => null,
-                'paging'    => null
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    'filter' => null,
+                    'paging' => null
                 ]
             ]
         );
     }
 
-    public function getDetail($deliveryOrderID) 
+    public function getDetail($deliveryOrderID)
     {
         $sessionToken = Session::get('SessionLogin');
 
@@ -59,27 +59,27 @@ class DeliveryOrderService
 
     public function create(Request $request): array
     {
-        $sessionToken                      = Session::get('SessionLogin');
+        $sessionToken = Session::get('SessionLogin');
         $SessionWorkerCareerInternal_RefID = Session::get('SessionWorkerCareerInternal_RefID');
 
         $data = $request->storeData;
 
         $deliveryDateTimeTZ = $data['delivery_date'] === "null" ? null : $data['delivery_date'];
 
-        $poFromRefID        = !empty($data['purchase_order_delivery_from_id']) ? (int) $data['purchase_order_delivery_from_id'] : null;
-        $poToRefID          = !empty($data['purchase_order_delivery_to_id']) ? (int) $data['purchase_order_delivery_to_id'] : null;
-        $poFromNonRefID     = $data['purchase_order_delivery_from'] ?? null;
-        $poToNonRefID       = $data['purchase_order_delivery_to'] ?? null;
+        $poFromRefID = !empty($data['purchase_order_delivery_from_id']) ? (int) $data['purchase_order_delivery_from_id'] : null;
+        $poToRefID = !empty($data['purchase_order_delivery_to_id']) ? (int) $data['purchase_order_delivery_to_id'] : null;
+        $poFromNonRefID = $data['purchase_order_delivery_from'] ?? null;
+        $poToNonRefID = $data['purchase_order_delivery_to'] ?? null;
 
-        $internalFromRefID  = !empty($data['internal_use_delivery_from_id']) ? (int) $data['internal_use_delivery_from_id'] : null;
-        $internalToRefID    = !empty($data['internal_use_delivery_to_id']) ? (int) $data['internal_use_delivery_to_id'] : null;
-        $internalFromName   = $data['internal_use_delivery_from_name'] ?? null;
-        $internalToName     = $data['internal_use_delivery_to_name'] ?? null;
+        $internalFromRefID = !empty($data['internal_use_delivery_from_id']) ? (int) $data['internal_use_delivery_from_id'] : null;
+        $internalToRefID = !empty($data['internal_use_delivery_to_id']) ? (int) $data['internal_use_delivery_to_id'] : null;
+        $internalFromName = $data['internal_use_delivery_from_name'] ?? null;
+        $internalToName = $data['internal_use_delivery_to_name'] ?? null;
 
-        $stockFromRefID     = !empty($data['stock_movement_delivery_from_id']) ? (int) $data['stock_movement_delivery_from_id'] : null;
-        $stockToRefID       = !empty($data['stock_movement_delivery_to_id']) ? (int) $data['stock_movement_delivery_to_id'] : null;
-        $stockFromName      = $data['stock_movement_delivery_from_name'] ?? null;
-        $stockToName        = $data['stock_movement_delivery_to_name'] ?? null;
+        $stockFromRefID = !empty($data['stock_movement_delivery_from_id']) ? (int) $data['stock_movement_delivery_from_id'] : null;
+        $stockToRefID = !empty($data['stock_movement_delivery_to_id']) ? (int) $data['stock_movement_delivery_to_id'] : null;
+        $stockFromName = $data['stock_movement_delivery_from_name'] ?? null;
+        $stockToName = $data['stock_movement_delivery_to_name'] ?? null;
 
         $referenceType = (int) $data['reference_type'];
 
@@ -110,25 +110,25 @@ class DeliveryOrderService
         $stockMovementStatus = isset($data['stock_movement_status']) && $data['stock_movement_status'] > -1 ? (int) $data['stock_movement_status'] : null;
         $stockRequesterRefID = !empty($data['stock_movement_requester_id']) ? (int) $data['stock_movement_requester_id'] : null;
 
-        $deliveryDetails     = json_decode($data['delivery_order_details'], true);
-        $fileID              = !empty($data['dataInput_Log_FileUpload_1']) ? (int) $data['dataInput_Log_FileUpload_1'] : null;
+        $deliveryDetails = json_decode($data['delivery_order_details'], true);
+        $fileID = !empty($data['dataInput_Log_FileUpload_1']) ? (int) $data['dataInput_Log_FileUpload_1'] : null;
 
         $payload = [
             'entities' => [
-                "documentDateTimeTZ"                => date('Y-m-d'),
-                "log_FileUpload_Pointer_RefID"      => $fileID,
+                "documentDateTimeTZ" => date('Y-m-d'),
+                "log_FileUpload_Pointer_RefID" => $fileID,
                 "requesterWorkerJobsPosition_RefID" => $SessionWorkerCareerInternal_RefID,
-                "transporter_RefID"                 => (int) $data['transporter_id'],
-                "deliveryDateTimeTZ"                => $deliveryDateTimeTZ,
-                "deliveryFrom_RefID"                => $deliveryFromRefID,
-                "deliveryFrom_NonRefID"             => $deliveryFromNonRefID,
-                "deliveryTo_RefID"                  => $deliveryToRefID,
-                "deliveryTo_NonRefID"               => $deliveryToNonRefID,
-                "stockMovementRequester_RefID"      => $stockRequesterRefID,
-                "stockMovementStatus"               => $stockMovementStatus,
-                "type"                              => $referenceType,
-                "remarks"                           => $data['var_remark'],
-                "additionalData"                    => [
+                "transporter_RefID" => (int) $data['transporter_id'],
+                "deliveryDateTimeTZ" => $deliveryDateTimeTZ,
+                "deliveryFrom_RefID" => $deliveryFromRefID,
+                "deliveryFrom_NonRefID" => $deliveryFromNonRefID,
+                "deliveryTo_RefID" => $deliveryToRefID,
+                "deliveryTo_NonRefID" => $deliveryToNonRefID,
+                "stockMovementRequester_RefID" => $stockRequesterRefID,
+                "stockMovementStatus" => $stockMovementStatus,
+                "type" => $referenceType,
+                "remarks" => $data['var_remark'],
+                "additionalData" => [
                     "itemList" => [
                         "items" => $deliveryDetails
                     ]
@@ -147,21 +147,21 @@ class DeliveryOrderService
 
     public function updates(Request $request): array
     {
-        $varAPIWebToken                     = Session::get('SessionLogin');
-        $SessionWorkerCareerInternal_RefID  = Session::get('SessionWorkerCareerInternal_RefID');
-        $revisionDeliveryOrderData          = $request->storeData;
-        $deliveryOrderDetail                = json_decode($revisionDeliveryOrderData['deliveryOrderDetail'], true);
-        $fileID                             = $revisionDeliveryOrderData['dataInput_Log_FileUpload_1'] ? (int) $revisionDeliveryOrderData['dataInput_Log_FileUpload_1'] : null;
+        $varAPIWebToken = Session::get('SessionLogin');
+        $SessionWorkerCareerInternal_RefID = Session::get('SessionWorkerCareerInternal_RefID');
+        $revisionDeliveryOrderData = $request->storeData;
+        $deliveryOrderDetail = json_decode($revisionDeliveryOrderData['deliveryOrderDetail'], true);
+        $fileID = $revisionDeliveryOrderData['dataInput_Log_FileUpload_1'] ? (int) $revisionDeliveryOrderData['dataInput_Log_FileUpload_1'] : null;
 
         $referenceType = (int) $revisionDeliveryOrderData['reference_RefID'];
 
         $stockMovementRequesterRefID = match ($referenceType) {
-            2       => (int) $revisionDeliveryOrderData['requester_RefID'],
+            2 => (int) $revisionDeliveryOrderData['requester_RefID'],
             default => null,
         };
 
         $stockMovementStatus = match ($referenceType) {
-            2       => (int) $revisionDeliveryOrderData['status_RefID'],
+            2 => (int) $revisionDeliveryOrderData['status_RefID'],
             default => null,
         };
 
@@ -171,24 +171,24 @@ class DeliveryOrderService
             'transaction.update.supplyChain.setDeliveryOrder',
             'latest',
             [
-            'recordID' => (int) $revisionDeliveryOrderData['do_id'],
-            'entities' => [
-                "documentDateTimeTZ"                => date('Y-m-d'),
-                "log_FileUpload_Pointer_RefID"      => $fileID,
-                "requesterWorkerJobsPosition_RefID" => (int) $SessionWorkerCareerInternal_RefID,
-                "transporter_RefID"                 => (int) $revisionDeliveryOrderData['transporter_id'],
-                "deliveryDateTimeTZ"                => $revisionDeliveryOrderData['deliveryDateTime'],
-                "deliveryFrom_RefID"                => null,
-                "deliveryFrom_NonRefID"             => $revisionDeliveryOrderData['delivery_from'],
-                "deliveryTo_RefID"                  => null,
-                "deliveryTo_NonRefID"               => $revisionDeliveryOrderData['delivery_to'],
-                "stockMovementRequester_RefID"      => $stockMovementRequesterRefID,
-                "stockMovementStatus"               => $stockMovementStatus, 
-                "type"                              => $referenceType,
-                "remarks"                           => $revisionDeliveryOrderData['var_remark'],
-                "additionalData"    => [
-                    "itemList"      => [
-                        "items"     => $deliveryOrderDetail
+                'recordID' => (int) $revisionDeliveryOrderData['do_id'],
+                'entities' => [
+                    "documentDateTimeTZ" => date('Y-m-d'),
+                    "log_FileUpload_Pointer_RefID" => $fileID,
+                    "requesterWorkerJobsPosition_RefID" => (int) $SessionWorkerCareerInternal_RefID,
+                    "transporter_RefID" => (int) $revisionDeliveryOrderData['transporter_id'],
+                    "deliveryDateTimeTZ" => $revisionDeliveryOrderData['deliveryDateTime'],
+                    "deliveryFrom_RefID" => null,
+                    "deliveryFrom_NonRefID" => $revisionDeliveryOrderData['delivery_from'],
+                    "deliveryTo_RefID" => null,
+                    "deliveryTo_NonRefID" => $revisionDeliveryOrderData['delivery_to'],
+                    "stockMovementRequester_RefID" => $stockMovementRequesterRefID,
+                    "stockMovementStatus" => $stockMovementStatus,
+                    "type" => $referenceType,
+                    "remarks" => $revisionDeliveryOrderData['var_remark'],
+                    "additionalData" => [
+                        "itemList" => [
+                            "items" => $deliveryOrderDetail
                         ]
                     ]
                 ]
@@ -201,23 +201,55 @@ class DeliveryOrderService
         $sessionToken = Session::get('SessionLogin');
 
         if ($date) {
-            $dates      = explode(' - ', $date);
-            $startDate  = Carbon::createFromFormat('m/d/Y', trim($dates[0]))->startOfDay()->format('Y-m-d');
-            $endDate    = Carbon::createFromFormat('m/d/Y', trim($dates[1]))->endOfDay()->format('Y-m-d');
+            $dates = explode(' - ', $date);
+            $startDate = Carbon::createFromFormat('m/d/Y', trim($dates[0]))->startOfDay()->format('Y-m-d');
+            $endDate = Carbon::createFromFormat('m/d/Y', trim($dates[1]))->endOfDay()->format('Y-m-d');
         }
 
         return Helper_APICall::setCallAPIGateway(
             Helper_Environment::getUserSessionID_System(),
-            $sessionToken, 
-            'report.form.documentForm.supplyChain.getDeliveryOrderSummary', 
+            $sessionToken,
+            'report.form.documentForm.supplyChain.getDeliveryOrderSummary',
             'latest',
             [
-                'parameter'     => [
-                    'CombinedBudgetCode'        => $budget,
+                'parameter' => [
+                    'CombinedBudgetCode' => $budget,
                     'CombinedBudgetSectionCode' => $subBudget ? $subBudget : NULL,
-                    'Warehouse_RefID'           => $warehouse ? $warehouse : NULL,
-                    'StartDate'                 => $date ? $startDate : NULL,
-                    'EndDate'                   => $date ? $endDate : NULL
+                    'Warehouse_RefID' => $warehouse ? $warehouse : NULL,
+                    'StartDate' => $date ? $startDate : NULL,
+                    'EndDate' => $date ? $endDate : NULL
+                ]
+            ]
+        );
+    }
+
+    public function getDeliveryOrderToMaterialReceive($budget, $date)
+    {
+        $sessionToken = Session::get('SessionLogin');
+
+        if ($date) {
+            $dates = explode(' - ', $date);
+            $startDate = Carbon::createFromFormat('m/d/Y', trim($dates[0]))->startOfDay()->format('Y-m-d');
+            $endDate = Carbon::createFromFormat('m/d/Y', trim($dates[1]))->endOfDay()->format('Y-m-d');
+        }
+
+        return Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
+            $sessionToken,
+            'report.form.documentForm.supplyChain.getDeliveryOrderToWarehouseInboundOrderSummary',
+            'latest',
+            [
+                'parameter' => [
+                    'CombinedBudgetCode' => $budget,
+                    'CombinedBudgetSectionCode' => NULL,
+                    // 'StartDate' => $date ? $startDate : NULL,
+                    // 'EndDate' => $date ? $endDate : NULL
+                ],
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    'filter' => null,
+                    'paging' => null
                 ]
             ]
         );
