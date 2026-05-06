@@ -1272,9 +1272,9 @@
             'dev_requirement' => false,
         ),
         'symfony/http-kernel' => array(
-            'pretty_version' => 'v7.4.8',
-            'version' => '7.4.8.0',
-            'reference' => '017e76ad089bac281553389269e259e155935e1a',
+            'pretty_version' => 'v7.4.10',
+            'version' => '7.4.10.0',
+            'reference' => '23486f59234c6fd6e8f1bec97124f3829d686627',
             'type' => 'library',
             'install_path' => __DIR__ . '/../symfony/http-kernel',
             'aliases' => array(),

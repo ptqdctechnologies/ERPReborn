@@ -64,3 +64,6 @@ vim composer.json
 /zhtConf/Script/BashScript/Script.Maintenance.SystemUpdate.Composer.sh 
 /zhtConf/Script/BashScript/Script.Maintenance.SystemUpdate.Composer.sh 
 exit
+/zhtConf/Script/BashScript/Script.Maintenance.SystemUpdate.Composer.sh 
+/zhtConf/Script/BashScript/Script.Maintenance.SystemUpdate.Composer.sh 
+exit
