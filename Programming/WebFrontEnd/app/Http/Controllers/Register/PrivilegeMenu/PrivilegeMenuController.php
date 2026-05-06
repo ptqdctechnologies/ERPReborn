@@ -59,7 +59,7 @@ class PrivilegeMenuController extends Controller
         return response()->json($compact);
     }
 
-    public function DataListPrivilageMenu(Request $request)
+    public function DataListPrivilegeMenu(Request $request)
     {
         $sys_id_role = $request->input('sys_id_role') ?? 95000000000001;
 

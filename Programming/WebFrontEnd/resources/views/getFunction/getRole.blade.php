@@ -1,16 +1,18 @@
-<div id="myRole" class="modal fade" role="dialog">
-    <div class="modal-dialog">
+<!-- GET ROLE -->
+<div id="myRole" class="modal fade" role="dialog" aria-labelledby="contohModalScrollableTitle" aria-hidden="true"
+    style="z-index: 9999;">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Choose Role</h4>
+                <h4 class="modal-title text-bold">Choose Role</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
-                            <div class="card-body table-responsive p-0" style="height: 400px;">
-                                <table class="table table-head-fixed text-nowrap" id="tableGetRole">
+                            <div class="card-body p-0">
+                                <table class="table table-head-fixed w-100" id="tableRole">
                                     <thead>
                                         <tr>
                                             <th>No</th>
@@ -18,6 +20,21 @@
                                         </tr>
                                     </thead>
                                     <tbody></tbody>
+                                    <tfoot>
+                                        <tr id="loadingGetModalRole">
+                                            <td colspan="2" class="p-0" style="height: 22rem;">
+                                                <div
+                                                    class="d-flex flex-column justify-content-center align-items-center py-3">
+                                                    <div class="spinner-border" role="status">
+                                                        <span class="sr-only">Loading...</span>
+                                                    </div>
+                                                    <div class="mt-3" style="font-size: 0.75rem; font-weight: 700;">
+                                                        Loading...
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tfoot>
                                 </table>
                             </div>
                         </div>
@@ -29,99 +46,40 @@
 </div>
 
 <script>
-    $(function () {
-        $('.myRole').on('click', function (e) {
-            e.preventDefault();
-
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-
-            var keys = 0;
-            var departement_id = $("#departement_id").val();
-
-            $.ajax({
-                type: 'GET',
-                url: '{!! route("getRole") !!}?departement_id=' + departement_id,
-                success: function (data) {
-                    var no = 1;
-                    var t = $('#tableGetRole').DataTable();
-                    t.clear();
-                    $.each(data, function (key, val) {
-                        keys += 1;
-                        t.row.add([
-                            '<tbody><tr><input id="sys_id_role' + keys + '" value="' + val.sys_ID + '" type="hidden"><td>' + no++ + '</td>',
-                            '<td>' + val.fullName + '</td></tr></tbody>',
-                        ]).draw();
-                    });
-                }
-            });
-        });
-    });
-</script>
-
-<script>
-    $('#tableGetRole tbody').on('click', 'tr', function () {
-        $("#myRole").modal('toggle');
-
-        var row = $(this).closest("tr");
-        var id = row.find("td:nth-child(1)").text();
-        var sys_id_role = $('#sys_id_role' + id).val();
-        var user_role_name = row.find("td:nth-child(2)").text();
-
-        $("#user_role_id").val(sys_id_role);
-        $("#user_role").val(user_role_name);
-
-        $("#Modul").prop("disabled", false);
-
-        $('#TableSubMenu').find('tbody').empty();
-
-        checkedValue = [];
-
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
+    function getModalRole(departement_id) {
         $.ajax({
-            type: 'GET',
-            url: '{!! route("getMenuGroup") !!}',
-            success: function (data) {
-                $(".Modul").empty();
+            type: 'POST',
+            url: '{!! route("getRole") !!}?departement_id=' + departement_id,
+        })
+            .done(function (response) {
+                const data = (response.status == 200 && response.data[0]) ? response.data : [];
 
-                var option = "<option value='" + '' + "'>" + 'Select Modul' + "</option>";
-                $(".Modul").append(option);
-
-                var len = data.data.length;
-                for (var i = 0; i < len; i++) {
-                    var ids = data.data[i].Sys_ID;
-                    var names = data.data[i].Name;
-                    var option2 = "<option value='" + ids + "'>" + names + "</option>";
-                    $(".Modul").append(option2);
-                }
-            }
-        });
-
-        $("#SavePrivilageMenu").prop("disabled", true);
-
-        $.ajax({
-            type: 'GET',
-            url: '{!! route("PrivilegeMenu.DataListPrivilegeMenu") !!}?sys_id_role=' + sys_id_role,
-            success: function (data) {
-                if (data.status == 200) {
-                    $("#SavePrivilageMenu").prop("disabled", false);
-
-                    var len = data.data.length;
-                    for (var i = 0; i < len; i++) {
-                        if (!checkedValue.includes(data.data[i]['menuAction_RefID'])) {
-                            checkedValue.push(data.data[i]['menuAction_RefID']);
-                        }
-                    }
-                }
-            }
-        });
-    });
+                $('#tableRole').DataTable({
+                    destroy: true,
+                    data: data,
+                    deferRender: true,
+                    scrollCollapse: true,
+                    scroller: true,
+                    columns: [
+                        {
+                            data: null,
+                            render: function (data, type, row, meta) {
+                                return '<input id="sys_id_modal_role' + (meta.row + 1) + '" value="' + data.sys_ID + '" data-trigger="sys_id_modal_role" type="hidden">' + (meta.row + 1)
+                            }
+                        },
+                        {
+                            data: 'name',
+                            defaultContent: '-',
+                            className: "align-middle text-wrap"
+                        },
+                    ]
+                });
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                console.error("Error:", errorThrown);
+            })
+            .always(function (jqXHR, textStatus, errorThrown) {
+                $("#loadingGetModalRole").hide();
+            });
+    }
 </script>

@@ -222,7 +222,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('getCurrency', 'Function\FunctionController@getCurrency')->name('getCurrency');
     Route::post('getDepartment', 'Function\FunctionController@getDepartment')->name('getDepartment');
     Route::get('getBusinessTripList', 'Function\FunctionController@getBusinessTripList')->name('getBusinessTripList');
-    Route::get('getRole', 'Function\FunctionController@getRole')->name('getRole');
+    Route::post('getRole', 'Function\FunctionController@getRole')->name('getRole');
     Route::get('getMenuGroup', 'Function\FunctionController@getMenuGroup')->name('getMenuGroup');
     Route::get('getSubMenu', 'Function\FunctionController@getSubMenu')->name('getSubMenu');
     Route::get('getOneSubMenu', 'Function\FunctionController@getOneSubMenu')->name('getOneSubMenu');

@@ -58,7 +58,7 @@
                                                             <input type="hidden" id="department_id" class="form-control"
                                                                 name="department_id" />
                                                             <input type="text" id="department_name" class="form-control"
-                                                                style="border-radius:0;" />
+                                                                readonly style="border-radius:0;background-color:#fff;" />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -71,18 +71,17 @@
                                                         class="col-sm-3 col-md-4 col-lg-3 col-form-label p-0">Role</label>
                                                     <div class="col-5 d-flex">
                                                         <div>
-                                                            <span id="myProjectsTrigger"
-                                                                class="input-group-text form-control" data-toggle="modal"
-                                                                data-target="#myProjects"
-                                                                style="border-radius:0;cursor:pointer;">
+                                                            <span id="myRoleTrigger" class="input-group-text form-control"
+                                                                data-toggle="modal" data-target="#myRole"
+                                                                style="border-radius:0;cursor:not-allowed;">
                                                                 <i id="iconBudget" class="fas fa-gift"></i>
                                                             </span>
                                                         </div>
                                                         <div>
                                                             <input type="hidden" id="role_id" class="form-control"
                                                                 name="role_id" />
-                                                            <input type="text" id="role_name" class="form-control"
-                                                                style="border-radius:0;" />
+                                                            <input type="text" id="role_name" class="form-control" readonly
+                                                                style="border-radius:0;background-color:#fff;" />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -120,9 +119,8 @@
                                                     <label
                                                         class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Modul</label>
                                                     <div class="col-5">
-                                                        <select class="form-control" name="termOfPaymentValue"
-                                                            id="termOfPaymentOption" style="border-radius:0;" type="text"
-                                                            disabled>
+                                                        <select class="form-control" id="modul" style="border-radius:0;"
+                                                            type="text" disabled>
                                                             <option disabled selected>Select a Modul</option>
                                                         </select>
                                                     </div>
@@ -133,10 +131,11 @@
                                                     <label class="col-sm-3 col-md-4 col-lg-3 col-form-label p-0">Menu
                                                         Type</label>
                                                     <div class="col-5">
-                                                        <select class="form-control" name="termOfPaymentValue"
-                                                            id="termOfPaymentOption" style="border-radius:0;" type="text"
-                                                            disabled>
-                                                            <option disabled selected>Select a Menu Type</option>
+                                                        <select class="form-control" id="menu_type" style="border-radius:0;"
+                                                            type="text" disabled>
+                                                            <option disabled selected value="">Select a Menu Type</option>
+                                                            <option value="Transaction"> Transaction </option>
+                                                            <option value="Report"> Report </option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -144,7 +143,7 @@
                                         </div>
 
                                         <div class="row pb-3" style="gap: 1rem;">
-                                            <table class="table table-head-fixed w-100">
+                                            <table id="privilege_menu_table" class="table table-head-fixed w-100">
                                                 <thead>
                                                     <tr>
                                                         <th
@@ -153,7 +152,7 @@
                                                                 <div class="input-group align-items-center"
                                                                     style="gap: 8px;">
                                                                     <span class="input-group-text">
-                                                                        <input type="checkbox" id="SelectAll">
+                                                                        <input type="checkbox" id="select_all">
                                                                     </span>
                                                                     <label class="form-check-label">Select All</label>
                                                                 </div>
@@ -166,28 +165,23 @@
                                                         </th>
                                                     </tr>
                                                 </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td style="padding-left: 0.29rem;">
-                                                            <div class="input-group">&nbsp;&nbsp;<span
-                                                                    class="input-group-text"><input type="checkbox"
-                                                                        name="Sub_Menu" id="Sub_Menu1" class="Sub_Menu"
-                                                                        value="256000000000001"></span><span
-                                                                    style="position: relative;top:7px;left:8px;">Login</span>
+                                                <tbody></tbody>
+                                                <tfoot>
+                                                    <tr id="privilege_menu_loading_table" style="display: none;">
+                                                        <td class="p-0" style="border: 0px; height: 150px;">
+                                                            <div
+                                                                class="d-flex flex-column justify-content-center align-items-center py-3">
+                                                                <div class="spinner-border" role="status">
+                                                                    <span class="sr-only">Loading...</span>
+                                                                </div>
+                                                                <div class="mt-3"
+                                                                    style="font-size: 0.75rem; font-weight: 700;">
+                                                                    Loading...
+                                                                </div>
                                                             </div>
                                                         </td>
                                                     </tr>
-                                                    <tr>
-                                                        <td style="padding-left: 0.29rem;">
-                                                            <div class="input-group">&nbsp;&nbsp;<span
-                                                                    class="input-group-text"><input type="checkbox"
-                                                                        name="Sub_Menu" id="Sub_Menu1" class="Sub_Menu"
-                                                                        value="256000000000001"></span><span
-                                                                    style="position: relative;top:7px;left:8px;">Login</span>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
+                                                </tfoot>
                                             </table>
                                         </div>
                                     </div>

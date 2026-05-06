@@ -765,15 +765,17 @@ class FunctionController extends Controller
     //ROLE
     public function getRole(Request $request)
     {
-        $varAPIWebToken = Session::get('SessionLogin');
-        $varData = Helper_APICall::setCallAPIGateway(
+        $token = Session::get('SessionLogin');
+        $departementID = $request->input('departement_id');
+
+        $response = Helper_APICall::setCallAPIGateway(
             Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
+            $token,
             'transaction.read.dataList.sysConfig.getAppObject_UserRole',
             'latest',
             [
                 'parameter' => [
-                    'userRoleGroup_RefID' => null
+                    'userRoleGroup_RefID' => $departementID ? (int) $departementID : NULL,
                 ],
                 'SQLStatement' => [
                     'pick' => null,
@@ -785,12 +787,17 @@ class FunctionController extends Controller
             false
         );
 
-        $departement_id = $request->input('departement_id');
+        $status = $response['metadata']['HTTPStatusCode'];
+        $data = [];
 
-        $collection = collect($varData['data']['data']);
-        $collection = $collection->where('userRoleGroup_RefID', $departement_id);
+        if ($status == 200) {
+            $data = $response['data']['data'] ?? [];
+        }
 
-        return response()->json($collection->all());
+        return response()->json([
+            'data' => $data,
+            'status' => $status
+        ]);
     }
 
     public function getMenuGroup(Request $request)
@@ -829,35 +836,40 @@ class FunctionController extends Controller
 
     public function getSubMenu(Request $request)
     {
-        $varAPIWebToken = Session::get('SessionLogin');
-        $varData = Helper_APICall::setCallAPIGateway(
+        $token = Session::get('SessionLogin');
+        $menuGroupID = $request->input('menu_group_id');
+        $menuType = $request->input('type');
+
+        $response = Helper_APICall::setCallAPIGateway(
             Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
+            $token,
             'transaction.read.dataList.sysConfig.getAppObject_Menu',
             'latest',
             [
                 'parameter' => [
-                    'menuGroup_RefID' => null
+                    'menuGroup_RefID' => (int) $menuGroupID
                 ],
                 'SQLStatement' => [
                     'pick' => null,
-                    'sort' => null,
-                    'filter' => null,
+                    'sort' => '"Caption" ASC',
+                    'filter' => "\"Type\" = '" . $menuType . "'",
                     'paging' => null
                 ]
             ],
             false
         );
 
-        $menu_group_id = $request->input('menu_group_id');
-        $type = $request->input('type');
+        $status = $response['metadata']['HTTPStatusCode'];
+        $data = [];
 
-        $collection = collect($varData['data']['data']);
-        $collection = $collection->where('menuGroup_RefID', $menu_group_id);
+        if ($status == 200) {
+            $data = $response['data']['data'] ?? [];
+        }
 
-        $collection = $collection->where('type', $type);
-
-        return response()->json($collection->all());
+        return response()->json([
+            'data' => $data,
+            'status' => $status
+        ]);
     }
 
     public function getOneSubMenu(Request $request)

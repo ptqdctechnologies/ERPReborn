@@ -1,28 +1,68 @@
 <script>
-    $("#user_role_popup").prop("disabled", true);
-    $("#SavePrivilageMenu").prop("disabled", true);
-    $("#Modul").prop("disabled", true);
-    var checkedValue = [];
+    let checkedValue = [];
+    const modulSelect = document.getElementById("modul");
+    const menuTypeSelect = document.getElementById("menu_type");
 
-    $('#Modul').on("change", function (e) {
-        TableSubMenu();
+    $('#modul').on("change", function (e) {
+        if (e.target.value && menuTypeSelect.value) {
+            getSubMenuTable(e.target.value, menuTypeSelect.value);
+        }
     });
 
-    $('#Type').on("change", function (e) {
-        TableSubMenu();
+    $('#menu_type').on("change", function (e) {
+        if (e.target.value && modulSelect.value) {
+            getSubMenuTable(modulSelect.value, e.target.value);
+        }
     });
 
-    function TableSubMenu() {
-        $('#SelectAll').prop("checked", false);
-        $('#UnSelectAll').prop("checked", false);
+    function getMenuGroup() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
 
-        $('#containerLoadingMenu').show();
+        $.ajax({
+            type: 'GET',
+            url: '{!! route("getMenuGroup") !!}',
+            success: function (response) {
+                const data = (response.data.length > 0 && response.data[0]) ? response.data : [];
 
-        var ModulID = $('#Modul').val();
-        var Type = $('#Type').val();
-        var keys = 0;
+                let select = $('#modul');
+                select.empty();
+                select.append('<option disabled selected value="">Select a Modul</option>');
 
-        $('#TableSubMenu').find('tbody').empty();
+                $.each(data, function (index, item) {
+                    select.append(
+                        `<option value="${item.Sys_ID}">${item.Name}</option>`
+                    );
+                });
+
+                select.prop('disabled', false);
+                $('#menu_type').prop('disabled', false);
+            }
+        });
+    }
+
+    function getPrivilegeMenu(role_id) {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: 'GET',
+            url: '{!! route("PrivilegeMenu.DataListPrivilegeMenu") !!}?sys_id_role=' + role_id,
+            success: function (response) {
+                console.log('response DataListPrivilegeMenu', response);
+            }
+        });
+    }
+
+    function getSubMenuTable(modul_id, menu_type) {
+        $('#privilege_menu_table tbody').empty();
+        $('#privilege_menu_loading_table').show();
 
         $.ajaxSetup({
             headers: {
@@ -32,70 +72,49 @@
 
         $.ajax({
             type: 'GET',
-            url: '{!! route(name: "getSubMenu") !!}?menu_group_id=' + ModulID + '&type=' + Type,
-            success: function (data) {
-                $.each(data, function (key, val) {
-                    keys += 1;
-                    var checkedSubMenu = "";
-                    for (var i = 0; i < checkedValue.length; i++) {
-                        if (checkedValue[i] == val.defaultMenuAction_RefID) {
-                            checkedSubMenu = "checked";
-                        }
-                    }
+            url: '{!! route(name: "getSubMenu") !!}?menu_group_id=' + modul_id + '&type=' + menu_type,
+            success: function (response) {
+                const data = (response.status == 200 && response.data[0]) ? response.data : [];
 
-                    var html =
-                        '<tr>' +
-                        '<td>' +
-                        '<div class="input-group">&nbsp;&nbsp;' +
-                        '<span class="input-group-text">' +
-                        '<input type="checkbox" ' + checkedSubMenu + ' name="Sub_Menu" id="Sub_Menu' + keys + '" class="Sub_Menu" value="' + val.defaultMenuAction_RefID + '">' +
-                        '</span>' +
-                        '<span style="position: relative;top:7px;left:15px;">' + val.caption + '</span>' +
-                        '</div>' +
-                        '</td>' +
-                        '</tr>';
+                let html = '';
 
-                    $('table.TableSubMenu tbody').append(html);
-
-                    if (checkedValue.length > 0) {
-                        $("#SavePrivilageMenu").prop("disabled", false);
-                    }
-                    else {
-                        $("#SavePrivilageMenu").prop("disabled", true);
-                    }
+                data.forEach(function (item, index) {
+                    html += `
+                        <tr>
+                            <td style="padding-left: 0.29rem;">
+                                <div class="input-group">
+                                    &nbsp;&nbsp;
+                                    <span class="input-group-text">
+                                        <input type="checkbox"
+                                            name="list_menu[]"
+                                            id="list_menu${index}"
+                                            value="${item.sys_ID}">
+                                    </span>
+                                    <span style="position: relative;top:7px;left:8px;">
+                                        ${item.caption}
+                                    </span>
+                                </div>
+                            </td>
+                        </tr>
+                    `;
                 });
 
-                $('.Sub_Menu').click(function () {
-                    var id = $(this).val();
-                    if ($(this).is(":checked")) {
-                        $('#UnSelectAll').prop("checked", false);
-                        checkedValue.push(id);
-                    } else {
-                        $('#SelectAll').prop("checked", false);
-                        var result = checkedValue.filter(function (elem) {
-                            return elem != id;
-                        });
-                        checkedValue = result;
-                    }
-
-                    if (checkedValue.length > 0) {
-                        $("#SavePrivilageMenu").prop("disabled", false);
-                    }
-                    else {
-                        $("#SavePrivilageMenu").prop("disabled", true);
-                    }
-
-                });
-
-                $('#containerLoadingMenu').hide();
+                $('#privilege_menu_table tbody').html(html);
+                $('#privilege_menu_loading_table').hide();
             },
-            error: function (textStatus, errorThrown, error) {
-                console.log('textStatus', textStatus);
-                console.log('errorThrown', errorThrown);
-                console.log('error', error);
-                $('#containerLoadingMenu').hide();
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log('error', errorThrown)
+
+                $('#privilege_menu_loading_table').hide();
+                $('#privilege_menu_table tbody').html(`
+                    <tr>
+                        <td style="text-align:center; padding:10px; color:#6c757d;">
+                            No Data Display Available
+                        </td>
+                    </tr>
+                `);
             }
-        });
+        })
     }
 
     $('#SelectAll').click(function () {
@@ -232,7 +251,42 @@
         })
     });
 
+    $('#tableDepartment').on('click', 'tbody tr', function () {
+        const id = $(this).find('input[data-trigger="sys_id_modal_department"]').val();
+        const name = $(this).find('td:nth-child(2)').text();
+
+        $("#department_id").val(id);
+        $("#department_name").val(name);
+        $("#department_name").css({ "background-color": "#e9ecef" });
+
+        $("#role_id").val("");
+        $("#role_name").val("");
+        $("#role_name").css({ "background-color": "#fff" });
+        $("#myRoleTrigger").prop("disabled", false);
+        $("#myRoleTrigger").css("cursor", "pointer");
+
+        getModalRole(id);
+
+        $("#myDepartment").modal('toggle');
+    });
+
+    $('#tableRole').on('click', 'tbody tr', function () {
+        const id = $(this).find('input[data-trigger="sys_id_modal_role"]').val();
+        const name = $(this).find('td:nth-child(2)').text();
+
+        $("#role_id").val(id);
+        $("#role_name").val(name);
+        $("#role_name").css({ "background-color": "#e9ecef" });
+
+        getMenuGroup();
+        getPrivilegeMenu(id);
+
+        $("#myRole").modal('toggle');
+    });
+
     $(document).ready(function () {
         getModalDepartment();
+
+        $("#myRoleTrigger").prop("disabled", true);
     });
 </script>
