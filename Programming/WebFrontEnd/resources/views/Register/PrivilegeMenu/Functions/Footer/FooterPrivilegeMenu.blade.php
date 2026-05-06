@@ -55,7 +55,13 @@
             type: 'GET',
             url: '{!! route("PrivilegeMenu.DataListPrivilegeMenu") !!}?sys_id_role=' + role_id,
             success: function (response) {
-                console.log('response DataListPrivilegeMenu', response);
+                const data = (response.status == 200 && response.data[0]) ? response.data : [];
+
+                for (let i = 0; i < data.length; i++) {
+                    if (!checkedValue.includes(data[i]['menuAction_RefID'])) {
+                        checkedValue.push(data[i]['menuAction_RefID']);
+                    }
+                }
             }
         });
     }
@@ -79,16 +85,20 @@
                 let html = '';
 
                 data.forEach(function (item, index) {
+                    let checked = "";
+                    for (var i = 0; i < checkedValue.length; i++) {
+                        if (checkedValue[i] == item.defaultMenuAction_RefID) {
+                            checked = "checked";
+                        }
+                    }
+
                     html += `
                         <tr>
                             <td style="padding-left: 0.29rem;">
                                 <div class="input-group">
                                     &nbsp;&nbsp;
                                     <span class="input-group-text">
-                                        <input type="checkbox"
-                                            name="list_menu[]"
-                                            id="list_menu${index}"
-                                            value="${item.sys_ID}">
+                                        <input type="checkbox" ${checked} name="list_menu[]" id="list_menu${index}" value="${item.sys_ID}">
                                     </span>
                                     <span style="position: relative;top:7px;left:8px;">
                                         ${item.caption}
@@ -278,13 +288,13 @@
         $("#role_name").val(name);
         $("#role_name").css({ "background-color": "#e9ecef" });
 
-        getMenuGroup();
         getPrivilegeMenu(id);
 
         $("#myRole").modal('toggle');
     });
 
     $(document).ready(function () {
+        getMenuGroup();
         getModalDepartment();
 
         $("#myRoleTrigger").prop("disabled", true);

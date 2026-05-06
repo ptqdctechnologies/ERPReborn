@@ -189,6 +189,27 @@
                             </div>
                         </div>
                     </div>
+
+                    <!-- BUTTON -->
+                    <div class="tab-content px-3 pb-2" id="nav-tabContent">
+                        <div class="row">
+                            <div class="col">
+                                <button type="button" class="btn btn-default btn-sm float-right"
+                                    style="margin-left: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
+                                    <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt=""
+                                        title="Submit to Account Payable"> Submit
+                                </button>
+
+                                <button type="button"
+                                    onclick="cancelForm('{{ route('PrivilegeMenu.index', ['var' => 1]) }}')"
+                                    class="btn btn-default btn-sm float-right"
+                                    style="background-color:#e9ecef;border:1px solid #ced4da;">
+                                    <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt=""
+                                        title="Cancel Account Payable List Cart"> Cancel
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
