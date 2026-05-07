@@ -193,9 +193,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                             if (
                                 $varSignLoginSuccess == true
                                 ) {
-                                //--->
-                                $varSessionIntervalInSeconds = (5 * 60);
-                                $varSessionIntervalInSeconds = (10 * 60 * 60);
+                                //---> Session lifetime: 24 hours
                                 $varSessionIntervalInSeconds = (24 * 60 * 60);
 
                                 //---> Penyusunan Option List
@@ -222,26 +220,22 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
             ];
         */
 
-                                //---> Generate APIWebToken
-                                $i = 0;
-                                do {
-                                    $varAPIWebToken =
-                                        \App\Helpers\ZhtHelper\General\Helper_HTTPAuthentication::getJSONWebToken(
-                                            $varUserSession,
-                                            $varUserName,
-                                            \App\Helpers\ZhtHelper\General\Helper_RandomNumber::getUniqueID($varUserSession),
-                                            'HS256',
-                                            (int) \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getCurrentUnixTime($varUserSession)
-                                            );
-                                    } 
-                                while ((new \App\Models\Database\SchSysConfig\General())->isExist_APIWebToken($varUserSession, $varAPIWebToken) == true);
+                                //---> Generate APIWebToken (single attempt — JWT input combines uniqueID + timestamp + HMAC)
+                                $varAPIWebToken =
+                                    \App\Helpers\ZhtHelper\General\Helper_HTTPAuthentication::getJSONWebToken(
+                                        $varUserSession,
+                                        $varUserName,
+                                        \App\Helpers\ZhtHelper\General\Helper_RandomNumber::getUniqueID($varUserSession),
+                                        'HS256',
+                                        time()
+                                        );
 
                                 //---> Insert Data to PostgreSQL
                                 $varBufferDB =
                                     (new \App\Models\Database\SchSysConfig\TblLog_UserLoginSession())->setDataInsert(
                                         6000000000001,
                                         null,
-                                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getCurrentYear($varUserSession),
+                                        (int) date('Y'),
                                         11000000000001,
 
                                         $varUserName,
@@ -419,42 +413,46 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                                     // 1
                                     //DATA BRANCH
 
-                                    if (Redis::get("Branch" . $user_RefID) == null) {
-                                        $varBranch =
+                                    $varBranchCacheKey = "Branch" . $user_RefID;
+                                    $varCachedBranch   =
+                                        \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
+                                            $varUserSession,
+                                            $varBranchCacheKey
+                                            );
+
+                                    if ($varCachedBranch === null || $varCachedBranch === false) {
+                                        $varDataBranch =
                                             (new \App\Models\Database\SchSysConfig\General())->getUserPrivilege_InstitutionBranch(
                                                 $varUserSession,
                                                 $user_RefID
                                             );
 
-                                        //SET REDIS BRANCH
-
                                         \App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(
                                             $varUserSession,
-                                            "Branch" . $user_RefID,
-                                            json_encode($varBranch),
+                                            $varBranchCacheKey,
+                                            json_encode($varDataBranch),
                                             $varTTL
                                         );
                                         }
-
-                                    $varDataBranch =
-                                        json_decode(
-                                            \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
-                                                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                                                "Branch" . $user_RefID
-                                                ),
-                                            true
-                                            );
+                                    else {
+                                        $varDataBranch = json_decode($varCachedBranch, true);
+                                        }
 
 
 
                                     // 2
                                     //GET REDIS BRANCH
 
-                                    if (Redis::get("Role" . $user_RefID) == null) {
-                                        //DATA ROLE
+                                    $varRoleCacheKey = "Role" . $user_RefID;
+                                    $varCachedRole   =
+                                        \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
+                                            $varUserSession,
+                                            $varRoleCacheKey
+                                            );
 
+                                    if ($varCachedRole === null || $varCachedRole === false) {
                                         if (count($varDataBranch) > 1) {
-                                            $varRole =
+                                            $varDataRole =
                                                 (new \App\Models\Database\SchSysConfig\General())->getDataList_UserRole(
                                                     $varUserSession,
                                                     $user_RefID,
@@ -463,37 +461,29 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                                             }
                                         else
                                             {
-                                            $varRole =
+                                            $varDataRole =
                                                 (new \App\Models\Database\SchSysConfig\General())->getUserPrivilege_Role(
                                                     $varUserSession,
                                                     $user_RefID,
                                                     $varDataBranch[0]['Sys_ID'],
-                                                    null,
+                                                    null
                                                 );
                                             }
 
-                                        // //SET REDIS ROLE
-
                                         \App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(
                                             $varUserSession,
-                                            "Role" . $user_RefID,
-                                            json_encode($varRole),
+                                            $varRoleCacheKey,
+                                            json_encode($varDataRole),
                                             $varTTL
                                         );
+                                    }
+                                    else {
+                                        $varDataRole = json_decode($varCachedRole, true);
                                     }
 
 
                                     // 3
                                     //DATA MENU
-
-                                    $varDataRole = 
-                                        json_decode(
-                                            \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
-                                                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                                                "Role".$user_RefID
-                                                ),
-                                            true
-                                            );
 
                                     if (count($varDataBranch) == 1) {
                                         foreach ($varDataRole as $varDataRoles) {
