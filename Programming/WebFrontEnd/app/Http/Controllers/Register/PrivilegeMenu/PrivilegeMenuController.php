@@ -3,12 +3,13 @@
 namespace App\Http\Controllers\Register\PrivilegeMenu;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Input;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Session;
 use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
 use App\Helpers\ZhtHelper\System\Helper_Environment;
+use App\Http\Requests\Admin\PrivilegeMenu\StorePrivilegeMenu;
+use Illuminate\Support\Facades\Log;
 
 class PrivilegeMenuController extends Controller
 {
@@ -17,7 +18,7 @@ class PrivilegeMenuController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         // dd(Session::get("PrivilageMenu"));
 
@@ -25,38 +26,37 @@ class PrivilegeMenuController extends Controller
     }
 
 
-    public function store(Request $request)
+    public function store(StorePrivilegeMenu $request)
     {
-        $userRole_RefID = $request->user_role_id;
-        $menuAction_RefIDArray = $request->checkedValue;
-        // dd($menuAction_RefIDArray);
-        $varAPIWebToken = Session::get('SessionLogin');
-        $varData = Helper_APICall::setCallAPIGateway(
-            Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'transaction.create.sysConfig.setAppObject_UserRolePrivileges_BulkData',
-            'latest',
-            [
-                'entities' => [
-                    'userRole_RefID' => (int) $userRole_RefID,
-                    'menuAction_RefIDArray' => array_map('intval', $menuAction_RefIDArray)
+        try {
+            $token = Session::get('SessionLogin');
+            $userRoleRefID = $request->role_id;
+            $menuActionRefIDArray = $request->list_menu;
 
+            $response = Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
+                $token,
+                'transaction.create.sysConfig.setAppObject_UserRolePrivileges_BulkData',
+                'latest',
+                [
+                    'entities' => [
+                        'userRole_RefID' => (int) $userRoleRefID,
+                        'menuAction_RefIDArray' => array_map('intval', $menuActionRefIDArray)
+                    ]
                 ]
-            ]
-        );
+            );
 
-        // dd($varData);
+            $compact = [
+                "documentNumber" => '-',
+                "status" => $response['metadata']['HTTPStatusCode'],
+            ];
 
-        if ($varData['metadata']['HTTPStatusCode'] == "200") {
-            Redis::del("RedisSetMenu" . $userRole_RefID);
+            return response()->json($compact);
+        } catch (\Throwable $th) {
+            Log::error("Store Privilege Menu Function Error: " . $th->getMessage());
+
+            return response()->json(["status" => 500]);
         }
-
-        $compact = [
-            "status" => $varData['metadata']['HTTPStatusCode'],
-        ];
-
-        // dd($compact);
-        return response()->json($compact);
     }
 
     public function DataListPrivilegeMenu(Request $request)
