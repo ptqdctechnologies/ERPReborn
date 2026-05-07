@@ -17,68 +17,68 @@
     //     isAdjustmentType = value;
     // }
 
-    function onChangeJournalType(element){
+    function onChangeJournalType(element) {
         var journalType = element.value;
-        if(journalType === "Select a Type"){
+        if (journalType === "Select a Type") {
             document.getElementById("journal_type_message").style.display = "flex";
-            document.querySelectorAll(".journal-type-settlement").forEach(function(el){
+            document.querySelectorAll(".journal-type-settlement").forEach(function (el) {
                 el.style.display = "none";
             });
         } else {
             journalTypeValue = journalType;
             document.getElementById("journal_type_message").style.display = "none";
-            if(journalType === "SETTLEMENT"){
-                document.querySelectorAll(".journal-type-settlement").forEach(function(el){
+            if (journalType === "SETTLEMENT") {
+                document.querySelectorAll(".journal-type-settlement").forEach(function (el) {
                     el.style.display = "flex";
                 });
-                document.querySelectorAll(".journal-type-fixed-asset").forEach(function(el){
+                document.querySelectorAll(".journal-type-fixed-asset").forEach(function (el) {
                     el.style.display = "none";
                 });
-                document.querySelectorAll(".journal-type-posting").forEach(function(el){
+                document.querySelectorAll(".journal-type-posting").forEach(function (el) {
                     el.style.display = "none";
                 });
 
                 $(".journal-remark").hide();
                 $(".journal-button").hide();
                 $('.detail-journal-adjustment').hide();
-            } else if(journalType === "FIXED_ASSET"){
-                document.querySelectorAll(".journal-type-fixed-asset").forEach(function(el){
+            } else if (journalType === "FIXED_ASSET") {
+                document.querySelectorAll(".journal-type-fixed-asset").forEach(function (el) {
                     el.style.display = "flex";
                 });
-                document.querySelectorAll(".journal-type-settlement").forEach(function(el){
+                document.querySelectorAll(".journal-type-settlement").forEach(function (el) {
                     el.style.display = "none";
                 });
-                document.querySelectorAll(".journal-type-posting").forEach(function(el){
+                document.querySelectorAll(".journal-type-posting").forEach(function (el) {
                     el.style.display = "none";
                 });
-                
+
                 $(".journal-remark").hide();
                 $(".journal-button").hide();
                 $('.detail-journal-adjustment').hide();
-            } else if(journalType === "POSTING"){
+            } else if (journalType === "POSTING") {
                 // document.querySelectorAll(".journal-type-posting").forEach(function(el){
                 //     el.style.display = "flex";
                 // });
-                document.querySelectorAll(".journal-type-fixed-asset").forEach(function(el){
+                document.querySelectorAll(".journal-type-fixed-asset").forEach(function (el) {
                     el.style.display = "none";
                 });
-                document.querySelectorAll(".journal-type-settlement").forEach(function(el){
+                document.querySelectorAll(".journal-type-settlement").forEach(function (el) {
                     el.style.display = "none";
                 });
 
                 initiateJournalPosting();
-                
+
                 // $(".journal-remark").hide();
                 // $(".journal-button").hide();
                 // $('.detail-journal-adjustment').hide();
             } else {
-                document.querySelectorAll(".journal-type-settlement").forEach(function(el){
+                document.querySelectorAll(".journal-type-settlement").forEach(function (el) {
                     el.style.display = "none";
                 });
-                document.querySelectorAll(".journal-type-fixed-asset").forEach(function(el){
+                document.querySelectorAll(".journal-type-fixed-asset").forEach(function (el) {
                     el.style.display = "none";
                 });
-                document.querySelectorAll(".journal-type-posting").forEach(function(el){
+                document.querySelectorAll(".journal-type-posting").forEach(function (el) {
                     el.style.display = "none";
                 });
                 initiateJournalAdjustment();
@@ -100,7 +100,7 @@
                 $('.detail-journal-fixed-asset').hide();
                 $('.detail-journal-posting').hide();
                 $("#journal_type").prop("disabled", true);
-                
+
                 getProductss();
             } else if (journalTypeValue === "FIXED_ASSET") {
                 $(".journal-remark").show();
@@ -127,7 +127,7 @@
                 $('.detail-journal-posting').show();
                 // $("#journal_type").prop("disabled", true);
             }
-            
+
             // $("#journal_type").prop("disabled", true);
         }
     }
@@ -144,13 +144,13 @@
         }
     }
 
-    $('#tableAccountPayables').on('click', 'tbody tr', function() {
-        const sysId         = $(this).find('input[data-trigger="sys_id_modal_account_payable"]').val();
-        const trano         = $(this).find('td:nth-child(2)').text();
-        const budgetCode    = $(this).find('td:nth-child(3)').text();
-        const budgetName    = $(this).find('td:nth-child(4)').text();
-        const supplierCode  = $(this).find('td:nth-child(5)').text();
-        const supplierName  = $(this).find('td:nth-child(6)').text();
+    $('#tableAccountPayables').on('click', 'tbody tr', function () {
+        const sysId = $(this).find('input[data-trigger="sys_id_modal_account_payable"]').val();
+        const trano = $(this).find('td:nth-child(2)').text();
+        const budgetCode = $(this).find('td:nth-child(3)').text();
+        const budgetName = $(this).find('td:nth-child(4)').text();
+        const supplierCode = $(this).find('td:nth-child(5)').text();
+        const supplierName = $(this).find('td:nth-child(6)').text();
 
         if (currentIndexPickAccountPayablePosting > -1) {
             updateJournalPostingField(currentIndexPickAccountPayablePosting, 'transaction_id_posting', trano);
@@ -164,15 +164,15 @@
             $(`#transaction_number_posting${currentIndexPickAccountPayablePosting}`).val(trano);
             $(`#budget_code_posting${currentIndexPickAccountPayablePosting}`).val(`${budgetCode} - ${budgetName}`);
             $(`#supplier_code_posting${currentIndexPickAccountPayablePosting}`).val(`${supplierCode} - ${supplierName}`);
-            $(`#transaction_number_posting${currentIndexPickAccountPayablePosting}`).css({"background-color": "#e9ecef"});
-            $(`#budget_code_posting${currentIndexPickAccountPayablePosting}`).css({"background-color": "#e9ecef"});
-            $(`#supplier_code_posting${currentIndexPickAccountPayablePosting}`).css({"background-color": "#e9ecef"});
+            $(`#transaction_number_posting${currentIndexPickAccountPayablePosting}`).css({ "background-color": "#e9ecef" });
+            $(`#budget_code_posting${currentIndexPickAccountPayablePosting}`).css({ "background-color": "#e9ecef" });
+            $(`#supplier_code_posting${currentIndexPickAccountPayablePosting}`).css({ "background-color": "#e9ecef" });
 
             currentIndexPickAccountPayablePosting = -1;
         } else {
             $("#transaction_id_fixed_asset").val(sysId);
             $("#transaction_number_fixed_asset").val(trano);
-            $(`#transaction_number_fixed_asset`).css({"background-color": "#e9ecef", "border": "1px solid #ced4da"});
+            $(`#transaction_number_fixed_asset`).css({ "background-color": "#e9ecef", "border": "1px solid #ced4da" });
 
             getDetailJournalFixedAsset(sysId);
             onClickGeneralJournalButton();
@@ -181,10 +181,10 @@
         $('#myAccountPayables').modal('hide');
     });
 
-    $('#tableGetChartOfAccount').on('click', 'tbody tr', async function() {
+    $('#tableGetChartOfAccount').on('click', 'tbody tr', async function () {
         let sysId = $(this).find('input[data-trigger="sys_id_modal_coa"]').val();
-        let code  = $(this).find('td:nth-child(2)').text();
-        let name  = $(this).find('td:nth-child(3)').text();
+        let code = $(this).find('td:nth-child(2)').text();
+        let name = $(this).find('td:nth-child(3)').text();
 
         if (journalTypeValue === "SETTLEMENT") {
             $(`#coa_id${currentIndexPickCOA}`).val(sysId);
@@ -207,16 +207,16 @@
             updateJournalAdjustmentField(currentIndexPickCOA, 'coa_adjustment_id', parseInt(sysId));
             updateJournalAdjustmentField(currentIndexPickCOA, 'coa_adjustment_name', `${code} - ${name}`);
         }
-        
+
         $('#myGetChartOfAccount').modal('hide');
     });
 
-    $('#tableAllTransactions').on('click', 'tbody tr', function() {
-        const sysId     = $(this).find('input[data-trigger="sys_id_transaction"]').val();
-        const trano     = $(this).find('td:nth-child(2)').text();
-        const project   = $(this).find('td:nth-child(3)').text();
-        const site      = $(this).find('td:nth-child(4)').text();
-        
+    $('#tableAllTransactions').on('click', 'tbody tr', function () {
+        const sysId = $(this).find('input[data-trigger="sys_id_transaction"]').val();
+        const trano = $(this).find('td:nth-child(2)').text();
+        const project = $(this).find('td:nth-child(3)').text();
+        const site = $(this).find('td:nth-child(4)').text();
+
         journalSettlementDetails = [];
         getDetailJournalSettlement(sysId);
 
@@ -232,8 +232,13 @@
         //     $(`#transaction_number_posting`).val(trano);
         //     $(`#transaction_number_posting`).css('background-color', '#e9ecef');
         // }
-        
+
         onClickGeneralJournalButton();
         $('#myAllTransactions').modal('hide');
     });
+
+    $(document).ready(function () {
+        getAccountPayable();
+    });
+
 </script>

@@ -174,13 +174,14 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::resource('BudgetType', 'BudgetTypeController');
     // CodeOfBudgeting
     Route::resource('CodeOfBudgeting', 'CodeOfBudgetingController');
-    // PrivilageMenu
-    Route::get('DataListPrivilageMenu', 'Register\PrivilageMenu\PrivilageMenuController@DataListPrivilageMenu')->name('PrivilageMenu.DataListPrivilageMenu');
+    // PrivilegeMenu
+    Route::get('DataListPrivilegeMenu', 'Register\PrivilegeMenu\PrivilegeMenuController@DataListPrivilegeMenu')->name('PrivilegeMenu.DataListPrivilegeMenu');
     // MenuManagement
-    Route::get('MenuManagement', 'Register\PrivilageMenu\PrivilageMenuController@MenuManagement')->name('PrivilageMenu.MenuManagement');
-    Route::resource('PrivilageMenu', 'Register\PrivilageMenu\PrivilageMenuController');
+    Route::get('MenuManagement', 'Register\PrivilegeMenu\PrivilegeMenuController@MenuManagement')->name('PrivilegeMenu.MenuManagement');
+    Route::resource('PrivilegeMenu', 'Register\PrivilegeMenu\PrivilegeMenuController');
 
     // FUNCTION
+    Route::post('getInstitutionType', 'Function\FunctionController@getInstitutionType')->name('getInstitutionType');
     Route::get('getProject', 'Function\FunctionController@getProject')->name('getProject');
     Route::post('getRequester', 'Function\FunctionController@getRequester')->name('getRequester');
     Route::post('getBeneficiary', 'Function\FunctionController@getBeneficiary')->name('getBeneficiary');
@@ -221,7 +222,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('getCurrency', 'Function\FunctionController@getCurrency')->name('getCurrency');
     Route::post('getDepartment', 'Function\FunctionController@getDepartment')->name('getDepartment');
     Route::get('getBusinessTripList', 'Function\FunctionController@getBusinessTripList')->name('getBusinessTripList');
-    Route::get('getRole', 'Function\FunctionController@getRole')->name('getRole');
+    Route::post('getRole', 'Function\FunctionController@getRole')->name('getRole');
     Route::get('getMenuGroup', 'Function\FunctionController@getMenuGroup')->name('getMenuGroup');
     Route::get('getSubMenu', 'Function\FunctionController@getSubMenu')->name('getSubMenu');
     Route::get('getOneSubMenu', 'Function\FunctionController@getOneSubMenu')->name('getOneSubMenu');

@@ -71,7 +71,7 @@ class SupplierService
                     "accountNumber" => $request->account_number,
                     "accountName" => $request->account_name,
                     "remark" => $request->remark,
-                    "legalEntity" => $request->legal_entity_value,
+                    "institutionType_RefID" => $request->legal_entity_value,
                     "log_FileUpload_Pointer_RefID" => null,
                     "additionalData" => [
                         "itemList" => [

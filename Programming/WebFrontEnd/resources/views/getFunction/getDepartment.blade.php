@@ -12,7 +12,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body p-0">
-                                <table class="table table-head-fixed w-100" id="tableGetDepartement">
+                                <table class="table table-head-fixed w-100" id="tableDepartment">
                                     <thead>
                                         <tr>
                                             <th>No</th>
@@ -54,7 +54,7 @@
             .done(function (response) {
                 const data = (response.status == 200 && response.data[0]) ? response.data : [];
 
-                $('#tableGetDepartement').DataTable({
+                $('#tableDepartment').DataTable({
                     destroy: true,
                     data: data,
                     deferRender: true,

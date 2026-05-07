@@ -419,19 +419,19 @@
             isSupplierIDNotEmpty ||
             isDateNotEmpty
         ) {
-            hideErrorInputMessage("#budget_name", "#budgetMessage");
-            hideErrorInputMessage("#supplier_name", "#supplierMessage");
-            hideErrorInputMessage("#purchase_request_date_range", "#dateRangeMessage");
+            ErrorHandler.hideErrorInputMessage("#budget_name", "#budgetMessage");
+            ErrorHandler.hideErrorInputMessage("#supplier_name", "#supplierMessage");
+            ErrorHandler.hideErrorInputMessage("#purchase_request_date_range", "#dateRangeMessage");
 
             if (isBudgetIDNotEmpty || isAuthorizedRole) {
                 getDataReport();
             } else {
-                showErrorInputMessage("#budget_name", "#budgetMessage");
+                ErrorHandler.showErrorInputMessage("#budget_name", "#budgetMessage");
             }
         } else {
-            showErrorInputMessage("#budget_name", "#budgetMessage");
-            showErrorInputMessage("#supplier_name", "#supplierMessage");
-            showErrorInputMessage("#purchase_request_date_range", "#dateRangeMessage");
+            ErrorHandler.showErrorInputMessage("#budget_name", "#budgetMessage");
+            ErrorHandler.showErrorInputMessage("#supplier_name", "#supplierMessage");
+            ErrorHandler.showErrorInputMessage("#purchase_request_date_range", "#dateRangeMessage");
         }
     }
 
@@ -439,39 +439,12 @@
         if (dataReport.length > 0) {
             exportDataReport();
         } else {
-            ErrorNotif("No data available to export. Please display the data first.");
+            ErrorHandler.notifToast(
+                'error',
+                'No data available to export. Please display the data first',
+                'Error!'
+            );
         }
-    }
-
-    function getWorkflow(combinedBudgetID, combinedBudgetCode, combinedBudgetName) {
-        $.ajax({
-            type: 'POST',
-            url: '{!! route("GetWorkflow") !!}',
-            data: {
-                businessDocumentType_RefID: documentTypeID.value,
-                combinedBudget_RefID: combinedBudgetID
-            }
-        })
-            .done(function (data, textStatus, jqXHR) {
-                console.log("Success:", data);
-
-                if (data.status == 200) {
-                    selectBudget(combinedBudgetID, combinedBudgetCode, combinedBudgetName);
-                } else {
-                    ErrorHandler.notifToast(
-                        'error',
-                        'You are not included in this budget',
-                        'Error!'
-                    );
-                }
-            })
-            .fail(function (jqXHR, textStatus, errorThrown) {
-                console.error("Error:", errorThrown);
-            })
-            .always(function (jqXHR, textStatus, errorThrown) {
-                $("#loadingBudget").hide();
-                $("#iconBudget").show();
-            });
     }
 
     document.querySelectorAll('#table_summary th').forEach((header, index) => {
@@ -514,16 +487,20 @@
         const code = $(this).find('td:nth-child(2)').text();
         const name = $(this).find('td:nth-child(3)').text();
 
+        $("#budget_id").val("");
+        $("#budget_code").val("");
+        $("#budget_name").val("");
+        $("#budget_name").css('background-color', '#fff');
+
         if (Utils.isUserAuthorizedForReport()) {
             selectBudget(sysId, code, name);
         } else {
-            $("#loadingBudget").show();
-            $("#iconBudget").hide();
+            Utils.showBudgetLoading();
 
-            getWorkflow(sysId, code, name);
+            userAllowedToInvolve(sysId, code, name, documentTypeID.value, selectBudget);
         }
 
-        hideErrorInputMessage("#budget_name", "#budgetMessage");
+        ErrorHandler.hideErrorInputMessage("#budget_name", "#budgetMessage");
 
         $('#myProjects').modal('toggle');
     });
@@ -552,6 +529,8 @@
         $("#supplier_name").val(`(${code}) ${name} - ${address}`);
         $("#supplier_name").css({ "background-color": "#e9ecef" });
 
+        ErrorHandler.hideErrorInputMessage("#supplier_name", "#supplierMessage");
+
         $('#mySuppliers').modal('hide');
     });
 
@@ -571,7 +550,7 @@
         $('#purchase_request_date_range').on('apply.daterangepicker', function (ev, picker) {
             $("#purchase_request_date_range").css('background-color', '#e9ecef');
             $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
-            hideErrorInputMessage("#purchase_request_date_range", "#dateRangeMessage");
+            ErrorHandler.hideErrorInputMessage("#purchase_request_date_range", "#dateRangeMessage");
         });
 
         $('#purchase_request_date_range').on('cancel.daterangepicker', function (ev, picker) {

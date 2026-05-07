@@ -270,54 +270,27 @@
         }
     }
 
-    function getWorkflow(combinedBudgetID, combinedBudgetCode, combinedBudgetName) {
-        $.ajax({
-            type: 'POST',
-            url: '{!! route("GetWorkflow") !!}',
-            data: {
-                businessDocumentType_RefID: documentTypeID.value,
-                combinedBudget_RefID: combinedBudgetID
-            }
-        })
-            .done(function (data, textStatus, jqXHR) {
-                console.log("Success:", data);
-
-                if (data.status == 200) {
-                    selectBudget(combinedBudgetID, combinedBudgetCode, combinedBudgetName);
-                } else {
-                    ErrorHandler.notifToast(
-                        'error',
-                        'You are not included in this budget',
-                        'Error!'
-                    );
-                }
-            })
-            .fail(function (jqXHR, textStatus, errorThrown) {
-                console.error("Error:", errorThrown);
-            })
-            .always(function (jqXHR, textStatus, errorThrown) {
-                $("#loadingBudget").hide();
-                $("#iconBudget").show();
-            });
-    }
-
     $('#tableProjects').on('click', 'tbody tr', function () {
         const sysId = $(this).find('input[data-trigger="sys_id_project"]').val();
         const code = $(this).find('td:nth-child(2)').text();
         const name = $(this).find('td:nth-child(3)').text();
 
+        $("#budget_id").val("");
+        $("#budget_code").val("");
+        $("#budget_name").val("");
+        $("#budget_name").css('background-color', '#fff');
+
         if (Utils.isUserAuthorizedForReport()) {
             selectBudget(sysId, code, name);
         } else {
-            $("#loadingBudget").show();
-            $("#iconBudget").hide();
+            Utils.showBudgetLoading();
 
-            getWorkflow(sysId, code, name);
+            userAllowedToInvolve(sysId, code, name, documentTypeID.value, selectBudget);
         }
 
         ErrorHandler.hideErrorInputMessage("#budget_name", "#budgetMessage");
 
-        $('#myProjects').modal('hide');
+        $('#myProjects').modal('toggle');
     });
 
     $('#tableSites').on('click', 'tbody tr', function () {
@@ -330,7 +303,7 @@
         $("#sub_budget_name").val(`${siteCode} - ${siteName}`);
         $("#sub_budget_name").css('background-color', '#e9ecef');
 
-        $('#mySites').modal('hide');
+        $('#mySites').modal('toggle');
     });
 
     $('#tableGetCustomer').on('click', 'tbody tr', function () {
@@ -345,10 +318,10 @@
 
         ErrorHandler.hideErrorInputMessage("#customer_name", "#customerMessage");
 
-        $('#myCustomers').modal('hide');
+        $('#myCustomers').modal('toggle');
     });
 
-    $(window).one('load', function () {
+    $(document).ready(function () {
         getModalCustomers();
 
         $('#credit_note_summary_date_range').daterangepicker({

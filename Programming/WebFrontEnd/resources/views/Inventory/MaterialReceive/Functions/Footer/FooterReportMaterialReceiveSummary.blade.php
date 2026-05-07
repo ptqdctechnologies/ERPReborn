@@ -53,7 +53,7 @@
     }
 
     function getDataReport() {
-        ShowLoading();
+        Utils.showLoading();
 
         $.ajax({
             type: 'POST',
@@ -127,19 +127,23 @@
                 $('#table_summary').css("width", "100%");
                 $('#table_container').css("display", "block");
 
-                HideLoading();
+                Utils.hideLoading();
             },
-            error: function (textStatus, errorThrown) {
-                $('#table_summary').DataTable().clear().draw();
-                HideLoading();
-                ErrorNotif("An error occurred while processing the received data. Please try again later.");
-                console.log(`[${textStatus.status}] ${textStatus.responseJSON.message}`);
+            error: function (xhr, status, error) {
+                console.log('xhr, status, error', xhr, status, error);
+
+                Utils.hideLoading();
+                ErrorHandler.notifToast(
+                    'error',
+                    'An error occurred while processing the received data. Please try again later',
+                    'Error!'
+                );
             }
         });
     }
 
     function exportDataReport() {
-        ShowLoading();
+        Utils.showLoading();
 
         $.ajax({
             type: 'POST',
@@ -171,12 +175,17 @@
 
                 window.URL.revokeObjectURL(link.href);
 
-                HideLoading();
+                Utils.hideLoading();
             },
             error: function (xhr, status, error) {
-                HideLoading();
-                ErrorNotif("An error occurred while processing the received data. Please try again later.");
                 console.log('xhr, status, error', xhr, status, error);
+
+                Utils.hideLoading();
+                ErrorHandler.notifToast(
+                    'error',
+                    'An error occurred while processing the received data. Please try again later',
+                    'Error!'
+                );
             }
         });
     }
@@ -221,7 +230,11 @@
         if (dataReport.length > 0) {
             exportDataReport();
         } else {
-            ErrorNotif("No data available to export. Please display the data first.");
+            ErrorHandler.notifToast(
+                'error',
+                'No data available to export. Please display the data first',
+                'Error!'
+            );
         }
     }
 
@@ -261,18 +274,22 @@
         const code = $(this).find('td:nth-child(2)').text();
         const name = $(this).find('td:nth-child(3)').text();
 
+        $("#budget_id").val("");
+        $("#budget_code").val("");
+        $("#budget_name").val("");
+        $("#budget_name").css('background-color', '#fff');
+
         if (Utils.isUserAuthorizedForReport()) {
             selectBudget(sysId, code, name);
         } else {
-            $("#loadingBudget").show();
-            $("#iconBudget").hide();
+            Utils.showBudgetLoading();
 
-            getWorkflow(sysId, code, name);
+            userAllowedToInvolve(sysId, code, name, documentTypeID.value, selectBudget);
         }
 
         ErrorHandler.hideErrorInputMessage("#budget_name", "#budgetMessage");
 
-        $('#myProjects').modal('hide');
+        $('#myProjects').modal('toggle');
     });
 
     $('#tableGetModalWarehouses').on('click', 'tbody tr', function () {
@@ -309,7 +326,7 @@
 
         ErrorHandler.hideErrorInputMessage("#delivery_from_name", "#deliveryFromMessage");
 
-        $('#mySuppliers').modal('hide');
+        $('#mySuppliers').modal('toggle');
     });
 
     $(document).ready(function () {
