@@ -54,7 +54,7 @@ sudo dnf -y install docker-compose;
 ./BashScript/Script.Docker.BuildImage.Percona.sh;
 
 
-./BashScript/Script.Docker.BuildImage.Grafana-Loki-Driver.sh;
+./BashScript/Script.Docker.BuildPlugin.Grafana-Loki-Driver.sh;
 
 
 ./BashScript/Script.Docker.Start.sh;
