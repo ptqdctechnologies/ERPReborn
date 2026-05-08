@@ -32,6 +32,7 @@ services:
       MYSQL_USER: 'SysEngine'
       MYSQL_PASSWORD: '748159263'
       MYSQL_ROOT_PASSWORD: '748159263'
+    stop_grace_period: 10s
     logging:
       driver: loki
       options:
@@ -52,6 +53,7 @@ services:
         ipv4_address: '172.28.0.5'
     volumes:
       - 'volume-redis:/data'
+    stop_grace_period: 10s
     logging:
       driver: loki
       options:
@@ -95,6 +97,7 @@ services:
       APP_RUNTIME: 'Runtime\\FrankenPhpSymfony\\Runtime'
     working_dir: '/var/www/html/WebBackEnd'
     command: 'php artisan octane:frankenphp --workers=8 --caddyfile="/var/www/html/WebBackEnd/Caddyfile" --max-requests=1000 --watch'
+    stop_grace_period: 10s
     logging:
       driver: loki
       options:
@@ -137,6 +140,8 @@ services:
     environment:
       APP_FULL_BASE_URL: 'https://localhost:10433'
       COMPOSER_MEMORY_LIMIT: -1
+    stop_signal: SIGTERM
+    stop_grace_period: 10s
     logging:
       driver: loki
       options:
@@ -170,6 +175,7 @@ services:
       - './Programming/.SystemCore/SSLCertificate/ERPRebornLocalhost.key:/etc/ssl/private/ERPRebornLocalhost.key'
     environment:
       APP_FULL_BASE_URL: 'https://localhost:20433'
+    stop_grace_period: 10s
     logging:
       driver: loki
       options:
@@ -261,6 +267,7 @@ services:
     environment:
       GF_SECURITY_ADMIN_USER: 'admin'
       GF_SECURITY_ADMIN_PASSWORD: '748159263'
+    stop_grace_period: 10s
 
 
 #---> Services : Monitoring - Grafana Loki
@@ -276,6 +283,7 @@ services:
     environment:
       GF_SECURITY_ADMIN_USER: 'admin'
       GF_SECURITY_ADMIN_PASSWORD: '748159263'
+    stop_grace_period: 10s
 
 
 #---> Services : Monitoring - Percona
@@ -299,6 +307,7 @@ services:
       PMM_AGENT_SETUP: 1
       PMM_DEBUG: 1
       PMM_TRACE: 1
+    stop_grace_period: 10s
 
 
 #---> Services : PGAdmin4
@@ -318,6 +327,7 @@ services:
     environment:
       PGADMIN_DEFAULT_EMAIL: 'pt.qdc.technologies@gmail.com'
       PGADMIN_DEFAULT_PASSWORD: 'qu1d151t3chn0'
+    stop_grace_period: 10s
     logging:
       driver: loki
       options:
@@ -327,28 +337,27 @@ services:
 
 
   #---> Services : OpenProject
-  openproject:
-    container_name: 'openproject'
-    image: 'erp-reborn-devtools-openproject'
-    restart: 'unless-stopped'
-    ports:
-      - '25432:5432'
-      - '30080:80'
-    environment:
-      OPENPROJECT_HTTPS: 'false'
-      SECRET_KEY_BASE: 'secret'
-      HOST__NAME: '172.28.0.101'
-      RAILS_MIN_THREADS: 8
-      RAILS_MAX_THREADS: 32
-      DATABASE_URL: 'postgresql://SysEngine:748159263@192.168.0.27:5432/dbERPReborn-Documentation-OpenProject'
-
-    networks:
-      app-network:
-        ipv4_address: '172.28.0.102'
-    volumes:
-      - './.ProjectCore/PermanentStorage/OpenProject/var/lib/openproject/pgdata/:/var/openproject/pgdata'
-      - './.ProjectCore/PermanentStorage/OpenProject/var/lib/openproject/assets/:/var/openproject/assets'
-      - './../ERPReborn-TemporaryStorage/BindMount/OpenProject/Temp/:/var/openproject/temp'
+  #openproject:
+  #  container_name: 'openproject'
+  #  image: 'erp-reborn-devtools-openproject'
+  #  restart: 'unless-stopped'
+  #  ports:
+  #    - '25432:5432'
+  #    - '30080:80'
+  #  environment:
+  #    OPENPROJECT_HTTPS: 'false'
+  #    SECRET_KEY_BASE: 'secret'
+  #    HOST__NAME: '172.28.0.101'
+  #    RAILS_MIN_THREADS: 8
+  #    RAILS_MAX_THREADS: 32
+  #    DATABASE_URL: 'postgresql://SysEngine:748159263@192.168.0.27:5432/dbERPReborn-Documentation-OpenProject'
+  #  networks:
+  #    app-network:
+  #      ipv4_address: '172.28.0.102'
+  #  volumes:
+  #    - './.ProjectCore/PermanentStorage/OpenProject/var/lib/openproject/pgdata/:/var/openproject/pgdata'
+  #    - './.ProjectCore/PermanentStorage/OpenProject/var/lib/openproject/assets/:/var/openproject/assets'
+  #    - './../ERPReborn-TemporaryStorage/BindMount/OpenProject/Temp/:/var/openproject/temp'
 
 
   #---> Services : Minio
