@@ -39,6 +39,8 @@ services:
         loki-url: "http://172.28.0.111:3100/loki/api/v1/push"
         loki-batch-size: "400"
         loki-external-labels: "job=erp-reborn-postgresql,container_name={{.Name}}"
+        loki-timeout: "5s"
+        loki-retries: "2"
 
 
   #---> Services : Redis
@@ -60,6 +62,8 @@ services:
         loki-url: "http://172.28.0.111:3100/loki/api/v1/push"
         loki-batch-size: "400"
         loki-external-labels: "job=erp-reborn-redis,container_name={{.Name}}"
+        loki-timeout: "5s"
+        loki-retries: "2"
 
 
   #---> Services : PHP BackEnd Laravel Octane FrankenPHP
@@ -104,6 +108,8 @@ services:
         loki-url: "http://172.28.0.111:3100/loki/api/v1/push"
         loki-batch-size: "400"
         loki-external-labels: "job=erp-reborn-php-backend-laraveloctane-frankenphp,container_name={{.Name}}"
+        loki-timeout: "5s"
+        loki-retries: "2"
 
 
   #---> Services : PHP Apache BackEnd
@@ -148,6 +154,8 @@ services:
         loki-url: "http://172.28.0.111:3100/loki/api/v1/push"
         loki-batch-size: "400"
         loki-external-labels: "job=erp-reborn-phpapache-backend,container_name={{.Name}}"
+        loki-timeout: "5s"
+        loki-retries: "2"
 
 
   #---> Services : PHP Apache FrontEnd
@@ -182,6 +190,8 @@ services:
         loki-url: "http://172.28.0.111:3100/loki/api/v1/push"
         loki-batch-size: "400"
         loki-external-labels: "job=erp-reborn-phpapache-frontend,container_name={{.Name}}"
+        loki-timeout: "5s"
+        loki-retries: "2"
 
 
   #---> Services : Authetication Samba
@@ -250,6 +260,14 @@ services:
       - NET_ADMIN
     privileged: true
     tty: true
+    logging:
+      driver: loki
+      options:
+        loki-url: "http://172.28.0.111:3100/loki/api/v1/push"
+        loki-batch-size: "400"
+        loki-external-labels: "job=erp-reborn-devtools-pgadmin4,container_name={{.Name}}"
+        loki-timeout: "5s"
+        loki-retries: "2"
 
 
 #---> Services : Monitoring - Grafana
@@ -334,6 +352,8 @@ services:
         loki-url: "http://172.28.0.111:3100/loki/api/v1/push"
         loki-batch-size: "400"
         loki-external-labels: "job=erp-reborn-devtools-pgadmin4,container_name={{.Name}}"
+        loki-timeout: "5s"
+        loki-retries: "2"
 
 
   #---> Services : OpenProject
