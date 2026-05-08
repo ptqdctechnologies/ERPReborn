@@ -151,6 +151,11 @@ namespace App\Helpers\ZhtHelper\General
                         }
                     else
                         {
+                        //---> Set LDAP connection options for performance
+                        ldap_set_option($ObjLDAPConnection, LDAP_OPT_PROTOCOL_VERSION, 3);
+                        ldap_set_option($ObjLDAPConnection, LDAP_OPT_NETWORK_TIMEOUT, 5);
+                        ldap_set_option($ObjLDAPConnection, LDAP_OPT_TIMELIMIT, 5);
+
                         $varUserPrincipalName =
                             self::getUserPrincipalNameFromSAMAccountName(
                                 $varUserSession,

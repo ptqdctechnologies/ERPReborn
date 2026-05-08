@@ -161,11 +161,15 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                                     //dd($varUserRoleID);
 
                                 //---> Initializing : varDataUserAccessPrivileges
-                                    $varDataUserAccessPrivileges =
-                                         \App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationUserPrivileges(
-                                            $varUserSession,
-                                            $varUserID
-                                            );
+                                    if (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'userAccessPrivileges', $varData) == TRUE) {
+                                        $varDataUserAccessPrivileges = $varData['userAccessPrivileges'];
+                                    } else {
+                                        $varDataUserAccessPrivileges =
+                                             \App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationUserPrivileges(
+                                                $varUserSession,
+                                                $varUserID
+                                                );
+                                    }
 
                                     $varDataUserAccessPrivileges = [
                                         'branch' => [
