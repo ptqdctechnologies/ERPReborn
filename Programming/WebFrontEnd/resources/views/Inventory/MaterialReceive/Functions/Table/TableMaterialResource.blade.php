@@ -3,14 +3,29 @@
     <table class="table table-head-fixed text-nowrap table-sm" id="tableMaterialReceiveDetail">
         <thead>
             <tr>
-                <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Work</th>
-                <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Sub Budget</th>
-                <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Product</th>
-                <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Qty DO</th>
-                <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Qty Avail</th>
-                <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">UOM</th>
-                <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Qty Receive</th>
-                <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;padding-right: 0;">Note</th>
+                <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">
+                    Work</th>
+                <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">
+                    Sub Budget</th>
+                <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">
+                    Product</th>
+                <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">
+                    Qty Good</th>
+                <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">
+                    Qty Reject</th>
+                <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">
+                    Qty Avail</th>
+                <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">
+                    UOM</th>
+                <th
+                    style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
+                    Qty Received Good</th>
+                <th
+                    style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
+                    Qty Received Reject</th>
+                <th
+                    style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;padding-right: 0;">
+                    Note</th>
             </tr>
         </thead>
         <tbody></tbody>
@@ -30,7 +45,8 @@
             <tr class="errorMessageContainerMaterialReceiveDetail">
                 <td colspan="8" class="p-0" style="border: 0px;">
                     <div class="d-flex flex-column justify-content-center align-items-center py-3">
-                        <div id="errorMessageMaterialReceiveDetail" class="mt-3 text-red" style="font-size: 1rem; font-weight: 700;"></div>
+                        <div id="errorMessageMaterialReceiveDetail" class="mt-3 text-red"
+                            style="font-size: 1rem; font-weight: 700;"></div>
                     </div>
                 </td>
             </tr>
@@ -39,7 +55,7 @@
 </div>
 
 <!-- FOOTER -->
- <div class="card-body tableShowHideBudget">
+<div class="card-body tableShowHideBudget">
     <div class="row">
         <div class="col">
             <div class="text-red" id="deliveryOrderDetailMessage" style="display: none;">
@@ -51,4 +67,3 @@
         </div>
     </div>
 </div>
-

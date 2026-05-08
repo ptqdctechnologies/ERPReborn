@@ -342,6 +342,9 @@
                     <td style="text-align: center; width: 100px;">
                         <input class="form-control number-without-negative" id="qty_req${key}" data-default="${currencyTotal(val2.quantity)}" autocomplete="off" style="border-radius:0px;" value="${currencyTotal(val2.quantity) || '-'}" />
                     </td>
+                    <td style="text-align: center; width: 100px;">
+                        <input class="form-control number-without-negative" id="qty_req${key}" data-default="" autocomplete="off" style="border-radius:0px;" value="" />
+                    </td>
                     <td style="text-align: center; width: 150px; padding: 0.5rem !important;">
                         <textarea id="note${key}" class="form-control" data-default="${val2.note}">${val2.note}</textarea>
                     </td>
