@@ -9,15 +9,15 @@ use App\Helpers\ZhtHelper\System\Helper_Environment;
 
 class LoginService
 {
-    public function login($username, $password) 
+    public function login($username, $password)
     {
         return Helper_APICall::setCallAPIAuthentication(
             Helper_Environment::getUserSessionID_System(),
-            $username, 
+            $username,
             $password,
             [
-                'branch_RefID'      => 'AUTO',
-                'userRole_RefID'    => 'AUTO'
+                'branch_RefID' => 'AUTO',
+                'userRole_RefID' => 'AUTO'
             ]
         );
         // return Helper_APICall::setCallAPIAuthentication(
@@ -27,31 +27,42 @@ class LoginService
         // );
     }
 
-    public function setLoginBranchAndUserRole($sessionToken, $branchRefID, $userRoleRefID) 
+    public function logout()
+    {
+        $token = Session::get('SessionLogin');
+        return Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
+            $token,
+            'authentication.general.setLogout',
+            'latest'
+        );
+    }
+
+    public function setLoginBranchAndUserRole($sessionToken, $branchRefID, $userRoleRefID)
     {
         return Helper_APICall::setCallAPIGateway(
             Helper_Environment::getUserSessionID_System(),
-            $sessionToken, 
+            $sessionToken,
             'authentication.general.setLoginBranchAndUserRole',
-            'latest', 
+            'latest',
             [
-            'branchID'      => (int) $branchRefID,
-            'userRoleID'    => (int) $userRoleRefID
+                'branchID' => (int) $branchRefID,
+                'userRoleID' => (int) $userRoleRefID
             ]
         );
     }
 
-    public function getInstitutionBranch($sessionToken, $userRefID) 
+    public function getInstitutionBranch($sessionToken, $userRefID)
     {
         return Helper_APICall::setCallAPIGateway(
             Helper_Environment::getUserSessionID_System(),
             $sessionToken,
             'authentication.userPrivilege.getInstitutionBranch',
-            'latest', 
+            'latest',
             [
-            'parameter' => [
-                'user_RefID' => (int) $userRefID,
-                'dateTimeTZ' => null
+                'parameter' => [
+                    'user_RefID' => (int) $userRefID,
+                    'dateTimeTZ' => null
                 ]
             ]
         );
@@ -62,13 +73,13 @@ class LoginService
         return Helper_APICall::setCallAPIGateway(
             Helper_Environment::getUserSessionID_System(),
             $sessionToken,
-            'authentication.userPrivilege.getRole', 
-            'latest', 
+            'authentication.userPrivilege.getRole',
+            'latest',
             [
-            'parameter' => [
-                'user_RefID'    => (int) $userRefID,
-                'branch_RefID'  => (int) $branchRefID,
-                'dateTimeTZ'    => null
+                'parameter' => [
+                    'user_RefID' => (int) $userRefID,
+                    'branch_RefID' => (int) $branchRefID,
+                    'dateTimeTZ' => null
                 ]
             ]
         );

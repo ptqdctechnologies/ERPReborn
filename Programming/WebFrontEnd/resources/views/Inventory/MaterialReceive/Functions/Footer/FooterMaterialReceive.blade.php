@@ -16,7 +16,7 @@
     function calculateTotal() {
         let total = 0;
 
-        document.querySelectorAll('input[id^="qty_req"]').forEach(function (input) {
+        document.querySelectorAll('input[id^="qty_good"]').forEach(function (input) {
             let value = parseFloat(input.value.replace(/,/g, ''));
             if (!isNaN(value)) {
                 total += value;
@@ -43,7 +43,7 @@
         let hasFullRow = false;
 
         rows.forEach((row, index) => {
-            const qty = document.getElementById(`qty_req${index}`)?.value.trim();
+            const qty = document.getElementById(`qty_good${index}`)?.value.trim();
             const note = document.getElementById(`note${index}`)?.value.trim();
 
             if (qty !== "" && note !== "") {
@@ -52,7 +52,7 @@
         });
 
         rows.forEach((row, index) => {
-            const qtyEl = document.getElementById(`qty_req${index}`);
+            const qtyEl = document.getElementById(`qty_good${index}`);
             const noteEl = document.getElementById(`note${index}`);
 
             if (hasFullRow) {
@@ -103,7 +103,7 @@
             const productUnitPriceCurrency_RefID = row.querySelector('input[id^="productUnitPriceCurrency_RefID"]');
             const productUnitPriceCurrencyExchangeRate = row.querySelector('input[id^="productUnitPriceCurrencyExchangeRate"]');
             const productUnitPriceBaseCurrencyValue = row.querySelector('input[id^="productUnitPriceBaseCurrencyValue"]');
-            const qtyInput = row.querySelector('input[id^="qty_req"]');
+            const qtyInput = row.querySelector('input[id^="qty_good"]');
             const noteInput = row.querySelector('textarea[id^="note"]');
 
             if (
@@ -372,10 +372,14 @@
                                 <td style="text-align: left;">${data[0].combinedBudgetSectionCode + ' - ' + data[0].combinedBudgetSectionName}</td>
                                 <td style="text-align: left;text-wrap: auto;">${val2.productCode} - ${val2.productName}</td>
                                 <td style="text-align: center;">${val2.qtyReq}</td>
+                                <td style="text-align: center;">-</td>
                                 <td style="text-align: center;">${val2.qtyAvail}</td>
                                 <td style="text-align: center;">${val2.quantityUnitName}</td>
                                 <td style="text-align: center; width: 100px;">
-                                    <input class="form-control number-without-negative" id="qty_req${key}" data-index=${key} data-default="" autocomplete="off" style="border-radius:0px;" />
+                                    <input class="form-control number-without-negative" id="qty_good${key}" data-index=${key} data-default="" autocomplete="off" style="border-radius:0px;" />
+                                </td>
+                                <td style="text-align: center; width: 100px;">
+                                    <input class="form-control number-without-negative" id="qty_reject${key}" data-index=${key} data-default="" autocomplete="off" style="border-radius:0px;" />
                                 </td>
                                 <td style="text-align: center; width: 150px; padding: 0.5rem !important;">
                                     <textarea id="note${key}" class="form-control" data-default=""></textarea>
@@ -387,12 +391,12 @@
 
                         tbody.append(row);
 
-                        $(`#qty_req${key}`).on('keyup', function () {
-                            var qty_req = $(this).val().replace(/,/g, '');
+                        $(`#qty_good${key}`).on('keyup', function () {
+                            var qty_good = $(this).val().replace(/,/g, '');
                             var data_index = $(this).data('index');
-                            var result = val2.qtyReq - qty_req;
+                            var result = val2.qtyReq - qty_good;
 
-                            if (parseFloat(qty_req) > val2.qtyReq) {
+                            if (parseFloat(qty_good) > val2.qtyReq) {
                                 $(this).val("");
                                 calculateTotal();
                                 ErrorNotif("Qty Receive is over!");
