@@ -20,7 +20,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\dat
         |                     ► http://172.28.0.4/dataPickList.supplyChain.getSupplier.v1_throughAPIGateway                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-10-12                                                                                           |
+        | ▪ Last Update     : 2026-05-11                                                                                           |
         | ▪ Creation Date   : 2022-10-12                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -41,7 +41,9 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\dat
                     ]
                 ]
                 );
-            var_dump($varData);
+
+            return
+                $varData;
             }
 
 
