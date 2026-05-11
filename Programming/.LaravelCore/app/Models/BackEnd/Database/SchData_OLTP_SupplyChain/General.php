@@ -3729,7 +3729,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : getDataPickList_Supplier                                                                             |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-10-12                                                                                           |
+        | ▪ Last Update     : 2026-05-11                                                                                           |
         | ▪ Creation Date   : 2022-10-12                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Pilihan Data Pemasok                                                              |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -3749,7 +3749,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
-                            'SchData-OLTP-SupplyChain.Func_GetDataPickList_Supplier',
+                            'SchData-OLTP-SupplyChain.Func_GetDataPickList_Supplier_NEW',
                             [
                                 [$varSysBranch_RefID, 'bigint' ]
                             ]
