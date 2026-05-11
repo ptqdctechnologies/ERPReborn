@@ -208,6 +208,10 @@
             arfPaymentCell.textContent = item.ARF_Payment ?? '-';
             row.appendChild(arfPaymentCell);
 
+            const balancePayment = document.createElement('td');
+            balancePayment.textContent = item.advance_ToPayment ?? '-';
+            row.appendChild(balancePayment);
+
             const arfStatusCell = document.createElement('td');
             arfStatusCell.textContent = item.ARF_Status ?? '-';
             row.appendChild(arfStatusCell);
@@ -232,17 +236,13 @@
             asfTotalCell.textContent = item.ASF_Total ?? '-';
             row.appendChild(asfTotalCell);
 
-            const asfStatusCell = document.createElement('td');
-            asfStatusCell.textContent = item.ASF_Status ?? '-';
-            row.appendChild(asfStatusCell);
-
-            const balancePayment = document.createElement('td');
-            balancePayment.textContent = item.advance_ToPayment ?? '-';
-            row.appendChild(balancePayment);
-
             const balanceSettlement = document.createElement('td');
             balanceSettlement.textContent = item.advance_ToSettlement ?? '-';
             row.appendChild(balanceSettlement);
+
+            const asfStatusCell = document.createElement('td');
+            asfStatusCell.textContent = item.ASF_Status ?? '-';
+            row.appendChild(asfStatusCell);
 
             tbody.appendChild(row);
             rowIndex++;
@@ -549,7 +549,7 @@
         $('#myRequesters').modal('toggle');
     });
 
-    $(window).one('load', function () {
+    $(document).ready(function () {
         renderPage();
         renderPagination();
 

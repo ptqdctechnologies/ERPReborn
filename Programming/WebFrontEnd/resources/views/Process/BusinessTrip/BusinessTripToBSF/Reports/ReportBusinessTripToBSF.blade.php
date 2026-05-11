@@ -69,15 +69,15 @@
                                                         <th rowspan="3"
                                                             style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;vertical-align:middle;">
                                                             No</th>
-                                                        <th colspan="8"
+                                                        <th colspan="9"
                                                             style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
                                                             Business Trip</th>
-                                                        <th colspan="4"
+                                                        <th colspan="5"
                                                             style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
                                                             Settlement</th>
-                                                        <th colspan="2"
-                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
-                                                            Balance</th>
+                                                        <!-- <th colspan="2"
+                                                                    style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
+                                                                    Balance</th> -->
                                                     </tr>
                                                     <tr>
                                                         <th rowspan="2"
@@ -103,6 +103,9 @@
                                                             Payment</th>
                                                         <th rowspan="2"
                                                             style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;vertical-align:middle;">
+                                                            Business Trip to Payment Balance</th>
+                                                        <th rowspan="2"
+                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;vertical-align:middle;">
                                                             Status</th>
 
                                                         <th rowspan="2"
@@ -116,14 +119,17 @@
                                                             Total</th>
                                                         <th rowspan="2"
                                                             style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;vertical-align:middle;">
+                                                            Business Trip to Settlement Balance</th>
+                                                        <th rowspan="2"
+                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;vertical-align:middle;">
                                                             Status</th>
 
-                                                        <th rowspan="2"
-                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;vertical-align:middle;">
-                                                            Business Trip to Payment</th>
-                                                        <th rowspan="2"
-                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;vertical-align:middle;">
-                                                            Business Trip to Settlement</th>
+                                                        <!-- <th rowspan="2"
+                                                                        style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;vertical-align:middle;">
+                                                                        Business Trip to Payment</th>
+                                                                    <th rowspan="2"
+                                                                        style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;vertical-align:middle;">
+                                                                        Business Trip to Settlement</th> -->
                                                     </tr>
                                                 </thead>
                                                 <tbody></tbody>

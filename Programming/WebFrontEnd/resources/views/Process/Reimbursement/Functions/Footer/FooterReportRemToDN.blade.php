@@ -175,6 +175,10 @@
             remTotalEquivalentCell.textContent = isNaN(item.REM_Total_Equivalent_IDR) ? '-' : Utils.formatCurrency(item.REM_Total_Equivalent_IDR);
             row.appendChild(remTotalEquivalentCell);
 
+            const balanceRemToPaymentCell = document.createElement('td');
+            balanceRemToPaymentCell.textContent = isNaN(item.balanceREM_ToPayment) ? '-' : Utils.formatCurrency(item.balanceREM_ToPayment);
+            row.appendChild(balanceRemToPaymentCell);
+
             const remStatusCell = document.createElement('td');
             remStatusCell.textContent = item.REM_Status ?? '-';
             row.appendChild(remStatusCell);
@@ -199,17 +203,13 @@
             dnTotalEquivalentCell.textContent = isNaN(item.REM_Total_Equivalent_IDR) ? '-' : Utils.formatCurrency(item.REM_Total_Equivalent_IDR);
             row.appendChild(dnTotalEquivalentCell);
 
-            const dnStatusCell = document.createElement('td');
-            dnStatusCell.textContent = item.DN_Status ?? '-';
-            row.appendChild(dnStatusCell);
-
-            const balanceRemToPaymentCell = document.createElement('td');
-            balanceRemToPaymentCell.textContent = isNaN(item.balanceREM_ToPayment) ? '-' : Utils.formatCurrency(item.balanceREM_ToPayment);
-            row.appendChild(balanceRemToPaymentCell);
-
             const balanceRemToDebitNoteCell = document.createElement('td');
             balanceRemToDebitNoteCell.textContent = isNaN(item.balanceREM_ToDN) ? '-' : Utils.formatCurrency(item.balanceREM_ToPayment);
             row.appendChild(balanceRemToDebitNoteCell);
+
+            const dnStatusCell = document.createElement('td');
+            dnStatusCell.textContent = item.DN_Status ?? '-';
+            row.appendChild(dnStatusCell);
 
             tbody.appendChild(row);
             rowIndex++;

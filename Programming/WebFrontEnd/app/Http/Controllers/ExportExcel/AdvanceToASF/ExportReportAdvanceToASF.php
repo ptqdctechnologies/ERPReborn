@@ -35,19 +35,19 @@ class ExportReportAdvanceToASF implements FromCollection, WithHeadings, ShouldAu
                 'No' => $counter++,
                 'ARF Number' => $item['ARF_Number'] ?? null,
                 'Date' => date('d-m-Y', strtotime($item['ARF_Date'])) ?? null,
-                'Requester' => $item['RequesterWorkerName'] ?? null,
+                'Requester' => $item['ARF_Requester'] ?? null,
                 'Total' => $item['ARF_Total_IDR'] ?? null,
                 'Payment' => $item['advance_ToPayment'] ?? null,
+                'Advance to Payment' => $item['advance_ToPayment'] ?? null,
                 'Status' => $item['Status'] ?? null,
                 'ASF Number' => $item['ASF_Number'] ?? null,
                 'ASF Date' => date('d-m-Y', strtotime($item['ASF_Date'])) ?? null,
-                'Total ASF' => $item['ASF_Total'] ?? null,
                 'Expense Claim' => $item['expense_Claim_IDR'] ?? null,
                 'Amount to the Company' => $item['amount_Due_Company_IDR'] ?? null,
+                'Total ASF' => $item['ASF_Total'] ?? null,
                 // 'Description'           => $item['Description'] ?? null,
-                'Status ASF' => $item['StatusASF'] ?? null,
-                'Advance to Payment' => $item['advance_ToPayment'] ?? null,
                 'Advance to Settlement' => $item['advance_ToSettlement'] ?? null,
+                'Status ASF' => $item['StatusASF'] ?? null,
             ];
         }
 
@@ -68,8 +68,8 @@ class ExportReportAdvanceToASF implements FromCollection, WithHeadings, ShouldAu
             ["Budget", ": " . $budgetName, "Requester", ": " . $requesterName],
             ["Sub Budget", ": " . $subBudgetName, "Date Range", ": " . $date],
             [""],
-            ["No", "Advance", "", "", "", "", "", "Settlement", "", "", "", "", "", "Balance", ""],
-            ["", "ARF Number", "Date", "Requester", "Total", "Payment", "Status", "ASF Number", "Date", "Total", "Expense Claim", "Amount to the Company", "Status", "Advance to Payment", "Advance to Settlement"],
+            ["No", "Advance", "", "", "", "", "", "", "Settlement", "", "", "", "", "", ""],
+            ["", "ARF Number", "Date", "Requester", "Total", "Payment", "Balance", "Status", "ASF Number", "Date", "Expense Claim", "Amount to the Company", "Total", "ARF to ASF", "Status"]
         ];
     }
 
@@ -170,9 +170,9 @@ class ExportReportAdvanceToASF implements FromCollection, WithHeadings, ShouldAu
 
         $sheet->getStyle('A7:O7')->applyFromArray($styleArrayHeader2);
         $sheet->mergeCells('A7:A8');
-        $sheet->mergeCells('B7:G7');
-        $sheet->mergeCells('H7:M7');
-        $sheet->mergeCells('N7:O7');
+        $sheet->mergeCells('B7:H7');
+        $sheet->mergeCells('I7:O7');
+        // $sheet->mergeCells('N7:O7');
         $sheet->getStyle('A8:O8')->applyFromArray($styleArrayHeader2);
 
         $styleArrayContent = [

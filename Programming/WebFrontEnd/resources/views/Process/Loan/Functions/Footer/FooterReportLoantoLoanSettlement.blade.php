@@ -138,6 +138,14 @@
                             defaultContent: '-'
                         },
                         {
+                            data: '-', // BALANCE - PRINCIPAL LOAN TO PAYMENT
+                            defaultContent: '-'
+                        },
+                        {
+                            data: '-', // BALANCE - PRINCIPAL LOAN TO SETTLEMENT
+                            defaultContent: '-'
+                        },
+                        {
                             data: '-', // TOTAL LOAN - TOTAL IDR
                             defaultContent: '-'
                         },
@@ -182,6 +190,10 @@
                             defaultContent: '-'
                         },
                         {
+                            data: '-', // BALANCE - SETTLEMENT TO PAYMENT
+                            defaultContent: '-'
+                        },
+                        {
                             data: '-', // PENALTY VALUE - TOTAL IDR
                             defaultContent: '-'
                         },
@@ -207,18 +219,6 @@
                         },
                         {
                             data: '-', // REMARK
-                            defaultContent: '-'
-                        },
-                        {
-                            data: '-', // BALANCE - PRINCIPAL LOAN TO PAYMENT
-                            defaultContent: '-'
-                        },
-                        {
-                            data: '-', // BALANCE - PRINCIPAL LOAN TO SETTLEMENT
-                            defaultContent: '-'
-                        },
-                        {
-                            data: '-', // BALANCE - SETTLEMENT TO PAYMENT
                             defaultContent: '-'
                         }
                     ],

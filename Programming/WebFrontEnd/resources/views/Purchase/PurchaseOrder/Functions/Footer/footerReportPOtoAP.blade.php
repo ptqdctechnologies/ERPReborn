@@ -202,6 +202,10 @@
             arfPaymentCell.textContent = item.purchaseOrderTotalIDR ?? '-';
             row.appendChild(arfPaymentCell);
 
+            const balancePayments = document.createElement('td');
+            balancePayments.textContent = item.balancePurchaseOrderToAccountPayable ?? '-';
+            row.appendChild(balancePayments);
+
             const arfStatusCell = document.createElement('td');
             arfStatusCell.textContent = item.purchaseOrderTotalOtherCurrency ?? '-';
             row.appendChild(arfStatusCell);
@@ -234,17 +238,13 @@
             balancePayment.textContent = item.accountPayableTotalEquivalentIDR ?? '-';
             row.appendChild(balancePayment);
 
-            const balanceSettlement = document.createElement('td');
-            balanceSettlement.textContent = item.accountPayableStatus ?? '-';
-            row.appendChild(balanceSettlement);
-
-            const balancePayments = document.createElement('td');
-            balancePayments.textContent = item.balancePurchaseOrderToAccountPayable ?? '-';
-            row.appendChild(balancePayments);
-
             const balanceSettlements = document.createElement('td');
             balanceSettlements.textContent = item.balanceAPtoPayment ?? '-';
             row.appendChild(balanceSettlements);
+
+            const balanceSettlement = document.createElement('td');
+            balanceSettlement.textContent = item.accountPayableStatus ?? '-';
+            row.appendChild(balanceSettlement);
 
             tbody.appendChild(row);
             rowIndex++;
