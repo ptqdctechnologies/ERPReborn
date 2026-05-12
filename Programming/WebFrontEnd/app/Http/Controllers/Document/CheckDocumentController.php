@@ -23,10 +23,10 @@ class CheckDocumentController extends Controller
 
     public function __construct(
         BusinessTripService $businessTripService,
-        CheckDocumentService $checkDocumentService, 
-        PurchaseOrderService $purchaseOrderService, 
-        DeliveryOrderService $deliveryOrderService)
-    {
+        CheckDocumentService $checkDocumentService,
+        PurchaseOrderService $purchaseOrderService,
+        DeliveryOrderService $deliveryOrderService
+    ) {
         $this->businessTripService = $businessTripService;
         $this->checkDocumentService = $checkDocumentService;
         $this->purchaseOrderService = $purchaseOrderService;
@@ -53,9 +53,9 @@ class CheckDocumentController extends Controller
     {
         try {
             $varAPIWebToken = Session::get('SessionLogin');
-            $sessionID      = Helper_Environment::getUserSessionID_System();
-            $documentType   = $request['businessDocumentTypeName'] ?? '';
-            $referenceId    = isset($request['transDetail_RefID']) ? (int) $request['transDetail_RefID'] : null;
+            $sessionID = Helper_Environment::getUserSessionID_System();
+            $documentType = $request['businessDocumentTypeName'] ?? '';
+            $referenceId = isset($request['transDetail_RefID']) ? (int) $request['transDetail_RefID'] : null;
 
             if (!$referenceId || !$documentType) {
                 throw new \Exception('Invalid request data.');
@@ -74,10 +74,10 @@ class CheckDocumentController extends Controller
                 $documentType === 'Loan Form' ||
                 $documentType === 'Loan Settlement Form' ||
                 $documentType === 'Modify Budget Form' ||
-                $documentType === 'Person Business Trip Settlement Form' || 
-                $documentType === 'Sales Invoice Form' || 
-                $documentType === 'Sallary Allocation Form' || 
-                $documentType === 'Sales Order Form' || 
+                $documentType === 'Person Business Trip Settlement Form' ||
+                $documentType === 'Sales Invoice Form' ||
+                $documentType === 'Sallary Allocation Form' ||
+                $documentType === 'Sales Order Form' ||
                 $documentType === 'Tax Recon Form'
             ) {
                 // JUST FOR TRIGGER, WHEN API KEY NOT READY
@@ -114,11 +114,11 @@ class CheckDocumentController extends Controller
                 throw new \Exception('API Error.');
             }
 
-            $dataDetail             = $responseData['data']['data'] ?? $responseData['data'] ?? [];
-            $businessDocumentRefID  = $dataDetail[0]['BusinessDocument_RefID'] ?? $dataDetail[0]['businessDocument_RefID'] ?? $apiConfig['businessDocument_RefID']; // Dummy: $apiConfig['businessDocument_RefID']
+            $dataDetail = $responseData['data']['data'] ?? $responseData['data'] ?? [];
+            $businessDocumentRefID = $dataDetail[0]['BusinessDocument_RefID'] ?? $dataDetail[0]['businessDocument_RefID'] ?? $apiConfig['businessDocument_RefID']; // Dummy: $apiConfig['businessDocument_RefID']
 
             $compact = [
-                'dataDetail'            => $dataDetail,
+                'dataDetail' => $dataDetail,
                 'businessDocumentRefID' => $businessDocumentRefID,
             ];
 
@@ -127,7 +127,7 @@ class CheckDocumentController extends Controller
             Log::error("Error at getDetailTransactionNumber: " . $th->getMessage());
 
             $compact = [
-                'dataDetail'            => [],
+                'dataDetail' => [],
                 'businessDocumentRefID' => 0,
             ];
 
@@ -139,7 +139,7 @@ class CheckDocumentController extends Controller
     {
         try {
             $varAPIWebToken = Session::get('SessionLogin');
-            $sessionID      = Helper_Environment::getUserSessionID_System();
+            $sessionID = Helper_Environment::getUserSessionID_System();
 
             $responseData = Helper_APICall::setCallAPIGateway(
                 $sessionID,
@@ -212,11 +212,11 @@ class CheckDocumentController extends Controller
     public function ShowDocument(Request $request)
     {
         try {
-            $varAPIWebToken             = Session::get('SessionLogin');
-            $businessDocumentNumber     = $request->input('businessDocumentNumber');
-            $businessDocumentTypeName   = $request->input('businessDocumentType_Name');
-            $transDetail_RefID          = $request->input('businessDocument_RefID');
-            $sourceData                 = 0;
+            $varAPIWebToken = Session::get('SessionLogin');
+            $businessDocumentNumber = $request->input('businessDocumentNumber');
+            $businessDocumentTypeName = $request->input('businessDocumentType_Name');
+            $transDetail_RefID = $request->input('businessDocument_RefID');
+            $sourceData = 0;
 
             // dd($businessDocumentNumber, $businessDocumentTypeName, $transDetail_RefID, $sourceData);
 
@@ -225,8 +225,8 @@ class CheckDocumentController extends Controller
             }
 
             $collection = $this->getDetailTransactionNumber([
-                'businessDocumentTypeName'  => $businessDocumentTypeName,
-                'transDetail_RefID'         => $transDetail_RefID
+                'businessDocumentTypeName' => $businessDocumentTypeName,
+                'transDetail_RefID' => $transDetail_RefID
             ]);
 
             if (count($collection['dataDetail']) === 0) {
@@ -239,9 +239,9 @@ class CheckDocumentController extends Controller
                 throw new \Exception('Failed to fetch Workflow History.');
             }
 
-            $approverStatus     = $this->determineApproverStatus($workflowHistory, $sourceData);
+            $approverStatus = $this->determineApproverStatus($workflowHistory, $sourceData);
 
-            $documentStatus     = $this->determineDocumentStatus($workflowHistory);
+            $documentStatus = $this->determineDocumentStatus($workflowHistory);
 
             $formatData = DocumentTypeMapper::formatData($businessDocumentTypeName, $collection['dataDetail'][0]);
 
@@ -266,28 +266,28 @@ class CheckDocumentController extends Controller
                 $dataHeaderGetTransactionHistory = $collectionGetTransactionHistory->where('type', 'Header')->values()->all();
 
                 $dataDetailGetTransactionHistory = $collectionGetTransactionHistory->where('type', 'Detail')
-                    ->groupBy(fn ($item) => $item['content']['sys_PID'])
+                    ->groupBy(fn($item) => $item['content']['sys_PID'])
                     ->values()
                     ->all();
-                
+
                 $compactTransactionHistory = [
-                    'dataHeaderTransactionHistory'      => $dataHeaderGetTransactionHistory,
-                    'dataDetailGetTransactionHistory'   => $dataDetailGetTransactionHistory
+                    'dataHeaderTransactionHistory' => $dataHeaderGetTransactionHistory,
+                    'dataDetailGetTransactionHistory' => $dataDetailGetTransactionHistory
                 ];
             }
 
             $compact = [
-                'varAPIWebToken'                => $varAPIWebToken,
-                'sourceData'                    => $sourceData,
-                'var'                           => 1,
-                'transactionForm'               => $businessDocumentTypeName,
-                'transactionNumber'             => $businessDocumentNumber,
-                'transactionDetail_RefID'       => $transDetail_RefID,
-                'dataWorkFlows'                 => $workflowHistory['data']['document']['content'],
-                'statusDocument'                => $documentStatus,
-                'approverStatus'                => $approverStatus,
-                'page'                          => 'Document Tracking',
-                'dataDetails'                   => $collection['dataDetail'],
+                'varAPIWebToken' => $varAPIWebToken,
+                'sourceData' => $sourceData,
+                'var' => 1,
+                'transactionForm' => $businessDocumentTypeName,
+                'transactionNumber' => $businessDocumentNumber,
+                'transactionDetail_RefID' => $transDetail_RefID,
+                'dataWorkFlows' => $workflowHistory['data']['document']['content'],
+                'statusDocument' => $documentStatus,
+                'approverStatus' => $approverStatus,
+                'page' => 'Document Tracking',
+                'dataDetails' => $collection['dataDetail'],
             ] + $formatData + $compactTransactionHistory;
 
             // dump($compact);
@@ -303,34 +303,34 @@ class CheckDocumentController extends Controller
     public function ShowDocumentByID(Request $request)
     {
         try {
-            $varAPIWebToken             = $request->session()->get('SessionLogin');
-            $varWorkerCareerInternal    = $request->session()->get('SessionWorkerCareerInternal_RefID');
-            $transDetail_RefID          = $request->input('formDocumentNumber_RefID');
-            $businessDocumentTypeName   = $request->input('businessDocumentTypeName');
-            $businessDocument_RefID     = $request->input('businessDocument_RefID');
-            $sourceData                 = "NO";
+            $varAPIWebToken = $request->session()->get('SessionLogin');
+            $varWorkerCareerInternal = $request->session()->get('SessionWorkerCareerInternal_RefID');
+            $transDetail_RefID = $request->input('formDocumentNumber_RefID');
+            $businessDocumentTypeName = $request->input('businessDocumentTypeName');
+            $businessDocument_RefID = $request->input('businessDocument_RefID');
+            $sourceData = "NO";
 
             if (!$transDetail_RefID || !$businessDocumentTypeName || !$businessDocument_RefID) {
                 return redirect()->back()->with('error', 'Data Not Found');
             }
 
             $collection = $this->getDetailTransactionNumber([
-                'businessDocumentTypeName'  => $businessDocumentTypeName,
-                'transDetail_RefID'         => $transDetail_RefID,
+                'businessDocumentTypeName' => $businessDocumentTypeName,
+                'transDetail_RefID' => $transDetail_RefID,
             ]);
 
             if (count($collection['dataDetail']) === 0) {
                 return redirect()->back()->with('error', 'Data Not Found');
             }
 
-            $workflowHistory    = $this->getWorkflowHistory($collection['businessDocumentRefID']);
+            $workflowHistory = $this->getWorkflowHistory($collection['businessDocumentRefID']);
 
             if (count($workflowHistory['data']['document']['content']['itemList']['ungrouped']) === 0) {
                 return redirect()->back()->with('error', 'Data Not Found');
             }
 
-            $approverStatus     = $this->determineApproverStatus($workflowHistory, $sourceData);
-            $documentStatus     = $this->determineDocumentStatus($workflowHistory);
+            $approverStatus = $this->determineApproverStatus($workflowHistory, $sourceData);
+            $documentStatus = $this->determineDocumentStatus($workflowHistory);
 
             $formatData = DocumentTypeMapper::formatData($businessDocumentTypeName, $collection['dataDetail'][0]);
 
@@ -353,30 +353,30 @@ class CheckDocumentController extends Controller
                 $dataHeaderGetTransactionHistory = $collectionGetTransactionHistory->where('type', 'Header')->values()->all();
 
                 $dataDetailGetTransactionHistory = $collectionGetTransactionHistory->where('type', 'Detail')
-                    ->groupBy(fn ($item) => $item['content']['sys_PID'])
+                    ->groupBy(fn($item) => $item['content']['sys_PID'])
                     ->values()
                     ->all();
-                
+
                 $compactTransactionHistory = [
-                    'dataHeaderTransactionHistory'      => $dataHeaderGetTransactionHistory,
-                    'dataDetailGetTransactionHistory'   => $dataDetailGetTransactionHistory
+                    'dataHeaderTransactionHistory' => $dataHeaderGetTransactionHistory,
+                    'dataDetailGetTransactionHistory' => $dataDetailGetTransactionHistory
                 ];
             }
 
             $compact = [
-                'varAPIWebToken'            => $varAPIWebToken,
-                'varWorkerCareerInternal'   => $varWorkerCareerInternal,
-                'var'                       => 1,
-                'dataDetails'               => $collection['dataDetail'],
-                'dataWorkFlows'             => $workflowHistory['data']['document']['content'],
-                'transactionDetail_RefID'   => $transDetail_RefID,
-                'statusApprover'            => $approverStatus,
-                'statusDocument'            => $documentStatus,
-                'transactionForm'           => $businessDocumentTypeName,
-                'page'                      => 'My Document'
+                'varAPIWebToken' => $varAPIWebToken,
+                'varWorkerCareerInternal' => $varWorkerCareerInternal,
+                'var' => 1,
+                'dataDetails' => $collection['dataDetail'],
+                'dataWorkFlows' => $workflowHistory['data']['document']['content'],
+                'transactionDetail_RefID' => $transDetail_RefID,
+                'statusApprover' => $approverStatus,
+                'statusDocument' => $documentStatus,
+                'transactionForm' => $businessDocumentTypeName,
+                'page' => 'My Document'
             ] + $formatData + $compactTransactionHistory;
 
-            return view('Documents.Transactions.IndexCheckDetailDocument',$compact);
+            return view('Documents.Transactions.IndexCheckDetailDocument', $compact);
         } catch (\Throwable $th) {
             Log::error("Error at ShowDocumentByID: " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
@@ -394,14 +394,14 @@ class CheckDocumentController extends Controller
                     'data' => [
                         'data' => [
                             [
-                                'sys_ID'    => 12345678,
-                                'sys_Text'  => 'BDT/QDC/2025/000001',
+                                'sys_ID' => 12345678,
+                                'sys_Text' => 'BDT/QDC/2025/000001',
                                 'combinedBudgetCode' => 'Q000196',
                                 'combinedBudgetSectionCode' => 'Q000062 ► 235'
                             ],
                             [
-                                'sys_ID'    => 23456781,
-                                'sys_Text'  => 'BDT/QDC/2025/000002',
+                                'sys_ID' => 23456781,
+                                'sys_Text' => 'BDT/QDC/2025/000002',
                                 'combinedBudgetCode' => 'Q000196',
                                 'combinedBudgetSectionCode' => 'Q000062 ► 235'
                             ],
@@ -414,14 +414,14 @@ class CheckDocumentController extends Controller
                     'data' => [
                         'data' => [
                             [
-                                'sys_ID'    => 12345678,
-                                'sys_Text'  => 'GL/QDC/2025/000001',
+                                'sys_ID' => 12345678,
+                                'sys_Text' => 'GL/QDC/2025/000001',
                                 'combinedBudgetCode' => 'Q000196',
                                 'combinedBudgetSectionCode' => 'Q000062 ► 235'
                             ],
                             [
-                                'sys_ID'    => 23456781,
-                                'sys_Text'  => 'GL/QDC/2025/000002',
+                                'sys_ID' => 23456781,
+                                'sys_Text' => 'GL/QDC/2025/000002',
                                 'combinedBudgetCode' => 'Q000196',
                                 'combinedBudgetSectionCode' => 'Q000062 ► 235'
                             ],
@@ -434,14 +434,14 @@ class CheckDocumentController extends Controller
                     'data' => [
                         'data' => [
                             [
-                                'sys_ID'    => 12345678,
-                                'sys_Text'  => 'CNB/QDC/2025/000001',
+                                'sys_ID' => 12345678,
+                                'sys_Text' => 'CNB/QDC/2025/000001',
                                 'combinedBudgetCode' => 'Q000196',
                                 'combinedBudgetSectionCode' => 'Q000062 ► 235'
                             ],
                             [
-                                'sys_ID'    => 23456781,
-                                'sys_Text'  => 'CNB/QDC/2025/000002',
+                                'sys_ID' => 23456781,
+                                'sys_Text' => 'CNB/QDC/2025/000002',
                                 'combinedBudgetCode' => 'Q000196',
                                 'combinedBudgetSectionCode' => 'Q000062 ► 235'
                             ],
@@ -454,14 +454,14 @@ class CheckDocumentController extends Controller
                     'data' => [
                         'data' => [
                             [
-                                'sys_ID'    => 12345678,
-                                'sys_Text'  => 'LN/QDC/2025/000001',
+                                'sys_ID' => 12345678,
+                                'sys_Text' => 'LN/QDC/2025/000001',
                                 'combinedBudgetCode' => 'Q000196',
                                 'combinedBudgetSectionCode' => 'Q000062 ► 235'
                             ],
                             [
-                                'sys_ID'    => 23456781,
-                                'sys_Text'  => 'LN/QDC/2025/000002',
+                                'sys_ID' => 23456781,
+                                'sys_Text' => 'LN/QDC/2025/000002',
                                 'combinedBudgetCode' => 'Q000196',
                                 'combinedBudgetSectionCode' => 'Q000062 ► 235'
                             ],
@@ -474,14 +474,14 @@ class CheckDocumentController extends Controller
                     'data' => [
                         'data' => [
                             [
-                                'sys_ID'    => 12345678,
-                                'sys_Text'  => 'LNS/QDC/2025/000001',
+                                'sys_ID' => 12345678,
+                                'sys_Text' => 'LNS/QDC/2025/000001',
                                 'combinedBudgetCode' => 'Q000196',
                                 'combinedBudgetSectionCode' => 'Q000062 ► 235'
                             ],
                             [
-                                'sys_ID'    => 23456781,
-                                'sys_Text'  => 'LNS/QDC/2025/000002',
+                                'sys_ID' => 23456781,
+                                'sys_Text' => 'LNS/QDC/2025/000002',
                                 'combinedBudgetCode' => 'Q000196',
                                 'combinedBudgetSectionCode' => 'Q000062 ► 235'
                             ],
@@ -494,14 +494,14 @@ class CheckDocumentController extends Controller
                     'data' => [
                         'data' => [
                             [
-                                'sys_ID'    => 12345678,
-                                'sys_Text'  => 'MOB/QDC/2025/000001',
+                                'sys_ID' => 12345678,
+                                'sys_Text' => 'MOB/QDC/2025/000001',
                                 'combinedBudgetCode' => 'Q000196',
                                 'combinedBudgetSectionCode' => 'Q000062 ► 235'
                             ],
                             [
-                                'sys_ID'    => 23456781,
-                                'sys_Text'  => 'MOB/QDC/2025/000002',
+                                'sys_ID' => 23456781,
+                                'sys_Text' => 'MOB/QDC/2025/000002',
                                 'combinedBudgetCode' => 'Q000196',
                                 'combinedBudgetSectionCode' => 'Q000062 ► 235'
                             ],
@@ -514,14 +514,14 @@ class CheckDocumentController extends Controller
                     'data' => [
                         'data' => [
                             [
-                                'sys_ID'    => 12345678,
-                                'sys_Text'  => 'BTStl/QDC/2025/000001',
+                                'sys_ID' => 12345678,
+                                'sys_Text' => 'BTStl/QDC/2025/000001',
                                 'combinedBudgetCode' => 'Q000196',
                                 'combinedBudgetSectionCode' => 'Q000062 ► 235'
                             ],
                             [
-                                'sys_ID'    => 23456781,
-                                'sys_Text'  => 'BTStl/QDC/2025/000002',
+                                'sys_ID' => 23456781,
+                                'sys_Text' => 'BTStl/QDC/2025/000002',
                                 'combinedBudgetCode' => 'Q000196',
                                 'combinedBudgetSectionCode' => 'Q000062 ► 235'
                             ],
@@ -534,14 +534,14 @@ class CheckDocumentController extends Controller
                     'data' => [
                         'data' => [
                             [
-                                'sys_ID'    => 12345678,
-                                'sys_Text'  => 'PRD/QDC/2025/000001',
+                                'sys_ID' => 12345678,
+                                'sys_Text' => 'PRD/QDC/2025/000001',
                                 'combinedBudgetCode' => '-',
                                 'combinedBudgetSectionCode' => '-'
                             ],
                             [
-                                'sys_ID'    => 23456781,
-                                'sys_Text'  => 'PRD/QDC/2025/000002',
+                                'sys_ID' => 23456781,
+                                'sys_Text' => 'PRD/QDC/2025/000002',
                                 'combinedBudgetCode' => '-',
                                 'combinedBudgetSectionCode' => '-'
                             ],
@@ -554,14 +554,14 @@ class CheckDocumentController extends Controller
                     'data' => [
                         'data' => [
                             [
-                                'sys_ID'    => 12345678,
-                                'sys_Text'  => 'SA/QDC/2025/000001',
+                                'sys_ID' => 12345678,
+                                'sys_Text' => 'SA/QDC/2025/000001',
                                 'combinedBudgetCode' => 'Q000196',
                                 'combinedBudgetSectionCode' => 'Q000062 ► 235'
                             ],
                             [
-                                'sys_ID'    => 23456781,
-                                'sys_Text'  => 'SA/QDC/2025/000002',
+                                'sys_ID' => 23456781,
+                                'sys_Text' => 'SA/QDC/2025/000002',
                                 'combinedBudgetCode' => 'Q000196',
                                 'combinedBudgetSectionCode' => 'Q000062 ► 235'
                             ],
@@ -574,14 +574,14 @@ class CheckDocumentController extends Controller
                     'data' => [
                         'data' => [
                             [
-                                'sys_ID'    => 73810928,
-                                'sys_Text'  => 'Inv/QDC/2025/000001',
+                                'sys_ID' => 73810928,
+                                'sys_Text' => 'Inv/QDC/2025/000001',
                                 'combinedBudgetCode' => 'Q000196',
                                 'combinedBudgetSectionCode' => 'Q000062 ► 235'
                             ],
                             [
-                                'sys_ID'    => 90381924,
-                                'sys_Text'  => 'Inv/QDC/2025/000002',
+                                'sys_ID' => 90381924,
+                                'sys_Text' => 'Inv/QDC/2025/000002',
                                 'combinedBudgetCode' => 'Q000196',
                                 'combinedBudgetSectionCode' => 'Q000062 ► 235'
                             ],
@@ -594,16 +594,36 @@ class CheckDocumentController extends Controller
                     'data' => [
                         'data' => [
                             [
-                                'sys_ID'    => 73810928,
-                                'sys_Text'  => 'CO/QDC/2025/000001',
+                                'sys_ID' => 73810928,
+                                'sys_Text' => 'CO/QDC/2025/000001',
                                 'combinedBudgetCode' => 'Q000196',
                                 'combinedBudgetSectionCode' => 'Q000062 ► 235'
                             ],
                             [
-                                'sys_ID'    => 90381924,
-                                'sys_Text'  => 'CO/QDC/2025/000002',
+                                'sys_ID' => 90381924,
+                                'sys_Text' => 'CO/QDC/2025/000002',
                                 'combinedBudgetCode' => 'Q000196',
                                 'combinedBudgetSectionCode' => 'Q000062 ► 235'
+                            ],
+                        ]
+                    ]
+                ];
+                break;
+            case "Supplier Form":
+                $varData = [
+                    'data' => [
+                        'data' => [
+                            [
+                                'sys_ID' => 12345678,
+                                'sys_Text' => 'VNDR/QDC/2025/000001',
+                                'combinedBudgetCode' => '-',
+                                'combinedBudgetSectionCode' => '-'
+                            ],
+                            [
+                                'sys_ID' => 23456781,
+                                'sys_Text' => 'VNDR/QDC/2025/000002',
+                                'combinedBudgetCode' => '-',
+                                'combinedBudgetSectionCode' => '-'
                             ],
                         ]
                     ]
@@ -614,14 +634,14 @@ class CheckDocumentController extends Controller
                     'data' => [
                         'data' => [
                             [
-                                'sys_ID'    => 73810928,
-                                'sys_Text'  => 'TXR/QDC/2025/000001',
+                                'sys_ID' => 73810928,
+                                'sys_Text' => 'TXR/QDC/2025/000001',
                                 'combinedBudgetCode' => 'Q000196',
                                 'combinedBudgetSectionCode' => 'Q000062 ► 235'
                             ],
                             [
-                                'sys_ID'    => 90381924,
-                                'sys_Text'  => 'TXR/QDC/2025/000002',
+                                'sys_ID' => 90381924,
+                                'sys_Text' => 'TXR/QDC/2025/000002',
                                 'combinedBudgetCode' => 'Q000196',
                                 'combinedBudgetSectionCode' => 'Q000062 ► 235'
                             ],
@@ -638,7 +658,7 @@ class CheckDocumentController extends Controller
                     'latest',
                     [
                         'parameter' => [
-                            'businessDocumentType_RefID' => (int)$DocumentTypeID
+                            'businessDocumentType_RefID' => (int) $DocumentTypeID
                         ]
                     ],
                     false
@@ -657,14 +677,14 @@ class CheckDocumentController extends Controller
     public function LogTransaction(Request $request)
     {
         try {
-            $id         = $request->input('id');
-            $docNum     = $request->input('docNum');
-            $docName    = $request->input('docName');
-            $page       = $request->input('page');
+            $id = $request->input('id');
+            $docNum = $request->input('docNum');
+            $docName = $request->input('docName');
+            $page = $request->input('page');
 
             // dd($id, $docNum, $docName, $page);
 
-            $response   = $this->checkDocumentService->getTransactionHistory($id);
+            $response = $this->checkDocumentService->getTransactionHistory($id);
 
             if ($response['metadata']['HTTPStatusCode'] !== 200) {
                 return response()->json($response);
@@ -681,19 +701,19 @@ class CheckDocumentController extends Controller
             $dataHeader = $collection->where('type', 'Header')->values()->all();
 
             $dataDetail = $collection->where('type', 'Detail')
-                ->groupBy(fn ($item) => $item['content']['sys_PID'])
+                ->groupBy(fn($item) => $item['content']['sys_PID'])
                 ->values()
                 ->all();
 
             $urlPage = $page == "Document Tracking" ? "CheckDocument.ShowDocument" : "CheckDocument.ShowDocumentByID";
 
             $compact = [
-                'data'              => $response['data'],
-                'documentNumber'    => $docNum,
-                'documentName'      => $docName,
-                'dataHeader'        => $dataHeader,
-                'dataDetail'        => $dataDetail,
-                'urlPage'           => $urlPage
+                'data' => $response['data'],
+                'documentNumber' => $docNum,
+                'documentName' => $docName,
+                'dataHeader' => $dataHeader,
+                'dataDetail' => $dataDetail,
+                'urlPage' => $urlPage
             ];
 
             // dump($compact);
@@ -705,12 +725,12 @@ class CheckDocumentController extends Controller
         }
     }
 
-    public function export(Request $request) 
+    public function export(Request $request)
     {
         try {
-            $printType          = $request->print_type;
-            $transactionRefID   = $request->transaction_RefID;
-            $transactionType    = $request->transactionType;
+            $printType = $request->print_type;
+            $transactionRefID = $request->transaction_RefID;
+            $transactionType = $request->transactionType;
 
             if ($transactionType === "DELIVERY ORDER") {
                 $response = $this->deliveryOrderService->getDetail($transactionRefID);
@@ -729,13 +749,13 @@ class CheckDocumentController extends Controller
             $arrData = [];
             if ($transactionType === "DELIVERY ORDER") {
                 $arrData = [
-                    'viewPDF'       => 'Inventory.DeliveryOrder.Reports.ReportDODetail_pdf',
-                    'filenamePDF'   => 'Delivery Order.pdf',
+                    'viewPDF' => 'Inventory.DeliveryOrder.Reports.ReportDODetail_pdf',
+                    'filenamePDF' => 'Delivery Order.pdf',
                 ];
             } else {
                 $arrData = [
-                    'viewPDF'       => 'Purchase.PurchaseOrder.Reports.ReportPurchaseOrderDetail_pdf',
-                    'filenamePDF'   => 'Purchase Order.pdf',
+                    'viewPDF' => 'Purchase.PurchaseOrder.Reports.ReportPurchaseOrderDetail_pdf',
+                    'filenamePDF' => 'Purchase Order.pdf',
                 ];
             }
 
@@ -746,8 +766,8 @@ class CheckDocumentController extends Controller
                 $pdf->output();
                 $dom_pdf = $pdf->getDomPDF();
 
-                $canvas = $dom_pdf ->get_canvas();
-                $width  = $canvas->get_width();
+                $canvas = $dom_pdf->get_canvas();
+                $width = $canvas->get_width();
                 $height = $canvas->get_height();
                 $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
                 $canvas->page_text(34, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
