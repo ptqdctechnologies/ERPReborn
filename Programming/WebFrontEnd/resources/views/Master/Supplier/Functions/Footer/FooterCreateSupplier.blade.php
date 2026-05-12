@@ -1,5 +1,7 @@
 <script>
     let countryCodeTemp = null;
+    let specializationData = [];
+    const containerMultipleSpecialization = document.getElementById("multiple-specialization");
     const formList = {
         supplier_name: {
             component: '#supplier_name',
@@ -128,6 +130,106 @@
             .always(function (jqXHR, textStatus, errorThrown) {
                 $("#loadingGetModalAdvanceSettlement").hide();
             });
+    }
+
+    function detailSpecialization() {
+        specializationData = [];
+        addSpecializationRow();
+    }
+
+    function addSpecializationRow() {
+        const newRow = {
+            code: "",
+            name: ""
+        };
+
+        specializationData.push(newRow);
+
+        renderTable();
+    }
+
+    function removeSpecializationRow(index) {
+        specializationData.splice(index, 1);
+        renderTable();
+    }
+
+    function updateField(index, field, value) {
+        specializationData[index][field] = value;
+    }
+
+    function renderTable() {
+        if (containerMultipleSpecialization) {
+            containerMultipleSpecialization.innerHTML = "";
+        }
+
+        specializationData.forEach((row, index) => {
+            const wrapper = document.createElement("div");
+            wrapper.className = "row align-items-center";
+
+            if (index === specializationData.length - 1) {
+                wrapper.innerHTML += `
+                <div class="col-sm-3 col-md-4 col-lg-1 col-form-label">
+                    <div class="icon-plus d-flex align-items-center justify-content-center"
+                        style="width:20px;height:20px;border-radius:100%;background-color:#4B586A;margin:2px;cursor:pointer;"
+                        onclick="addSpecializationRow()">
+                        <i class="fas fa-plus" style="color:#fff;"></i>
+                    </div>
+                </div>
+                <div class="col-4"></div>
+                <div class="col-4"></div>
+            `;
+            } else {
+                wrapper.innerHTML += `
+                <div class="col-sm-3 col-md-4 col-lg-1 col-form-label">
+                    <div class="icon-plus d-flex align-items-center justify-content-center"
+                        style="width:20px;height:20px;border-radius:100%;background-color:red;margin:2px;cursor:pointer;"
+                        onclick="removeSpecializationRow(${index})">
+                        <i class="fas fa-minus" style="color:#fff;"></i>
+                    </div>
+                </div>
+
+                <div class="col-4">
+                    <div class="row align-items-center" style="gap: 2rem;">
+                        <label class="col-sm-3 col-md-4 col-lg-1 col-form-label">Code</label>
+                        <div class="col">
+                            <div class="input-group">
+                                <input class="form-control"
+                                    id="supplier_specialization_code${index}"
+                                    name="supplier_specialization_code${index}"
+                                    onchange="updateField(${index}, 'code', this.value)"
+                                    style="border-radius:0;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-4">
+                    <div class="row align-items-center" style="gap: 2rem;">
+                        <label class="col-sm-3 col-md-4 col-lg-1 col-form-label">Name</label>
+                        <div class="col">
+                            <div class="input-group">
+                                <input class="form-control"
+                                    id="supplier_specialization_name${index}"
+                                    name="supplier_specialization_name${index}"
+                                    onchange="updateField(${index}, 'name', this.value)"
+                                    style="border-radius:0;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            }
+
+            if (containerMultipleSpecialization) {
+                containerMultipleSpecialization.appendChild(wrapper);
+            }
+        });
+
+        if (specializationData.length > 3) {
+            containerMultipleSpecialization.style.cssText = "height: 152px; overflow-y: scroll; overflow-x: hidden;";
+        } else {
+            containerMultipleSpecialization.removeAttribute('style');
+        }
     }
 
     $('#tableGetBankList').on('click', 'tbody tr', function () {
@@ -322,6 +424,20 @@
             });
     });
 
+    $('#add-category').on('click', function (e) {
+        $("#supplierSpecializationModal").modal('toggle');
+    });
+
+    $('#cancel-category').on('click', function (e) {
+        $("#supplierCategoryModal").modal('toggle');
+        $("#supplierSpecializationModal").modal('show');
+    });
+
+    $('#submit-category').on('click', function (e) {
+        $("#supplierCategoryModal").modal('toggle');
+        $("#supplierSpecializationModal").modal('show');
+    });
+
     document.querySelectorAll('.parent-checkbox').forEach(parent => {
         parent.addEventListener('change', function () {
             let parentValue = this.value;
@@ -374,6 +490,10 @@
     $(document).ready(function () {
         $('#legal_entity').select2();
 
+        $('#supplierSpecializationModal').on('hidden.bs.modal', function (e) {
+            detailSpecialization();
+        });
+
         $('#legal_entity').on('select2:select', function (e) {
             ErrorHandler.hideErrorInputMessage("", "#legalEntityMessage");
             $('#legal_entity').next('.select2-container')
@@ -383,5 +503,6 @@
 
         getCountries();
         getInstitutionType();
+        detailSpecialization();
     });
 </script>
