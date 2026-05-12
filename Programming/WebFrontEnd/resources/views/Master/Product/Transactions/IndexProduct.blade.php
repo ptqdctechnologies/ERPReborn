@@ -16,9 +16,20 @@
                 </div>
 
                 @include('Master.Product.Functions.Menu.MenuProduct')
+
                 <div class="card">
                     <div class="tab-content px-3 pt-4 pb-2" id="nav-tabContent">
                         <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="row p-1" style="row-gap: 1rem;">
+                                            @include('Master.Product.Functions.Header.HeaderIndexProduct')
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-body">
