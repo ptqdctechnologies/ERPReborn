@@ -428,15 +428,15 @@
         $("#supplierSpecializationModal").modal('toggle');
     });
 
-    $('#cancel-category').on('click', function (e) {
-        $("#supplierCategoryModal").modal('toggle');
-        $("#supplierSpecializationModal").modal('show');
-    });
+    // $('#cancel-category').on('click', function (e) {
+    //     $("#supplierCategoryModal").modal('toggle');
+    //     $("#supplierSpecializationModal").modal('show');
+    // });
 
-    $('#submit-category').on('click', function (e) {
-        $("#supplierCategoryModal").modal('toggle');
-        $("#supplierSpecializationModal").modal('show');
-    });
+    // $('#submit-category').on('click', function (e) {
+    //     $("#supplierCategoryModal").modal('toggle');
+    //     $("#supplierSpecializationModal").modal('show');
+    // });
 
     document.querySelectorAll('.parent-checkbox').forEach(parent => {
         parent.addEventListener('change', function () {
@@ -492,6 +492,11 @@
 
         $('#supplierSpecializationModal').on('hidden.bs.modal', function (e) {
             detailSpecialization();
+        });
+
+        $('#supplierCategoryModal').on('hidden.bs.modal', function (e) {
+            $("#supplierCategoryModal").modal('hide');
+            $("#supplierSpecializationModal").modal('show');
         });
 
         $('#legal_entity').on('select2:select', function (e) {

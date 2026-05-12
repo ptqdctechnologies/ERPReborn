@@ -23,6 +23,16 @@
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-body">
+                                        <div class="row p-1" style="row-gap: 1rem;">
+                                            @include('Master.Supplier.Functions.Header.HeaderIndexSupplier')
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-body">
                                         <div class="table-responsive">
                                             <table class="table table-head-fixed w-100" id="table_supplier">
                                                 <thead>
