@@ -23,7 +23,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         |                       transaction.update.supplyChain.setWarehouseInboundOrder.v1_throughAPIGateway                       |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2026-03-26                                                                                           |
+        | ▪ Last Update     : 2026-05-12                                                                                           |
         | ▪ Creation Date   : 2022-07-27                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -62,14 +62,15 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                     'entities' => [
                                         "deliveryOrderDetail_RefID" => 180000000000002,
                                         "workStructure_RefID" => 302000000000002,
-                                        "quantity" => 40,
                                         "product_RefID" => 88000000001664,
+                                        "qtyGood" => 65,
+                                        "qtyReject" => 20,
                                         "quantityUnit_RefID" => 73000000000001,
                                         "productUnitPriceCurrency_RefID" => 62000000000001,
                                         "productUnitPriceCurrencyExchangeRate" => 1,
                                         "productUnitPriceCurrencyValue" => 25000,
                                         'remarks' => 'Catatan Update - 3B',
-                                        "combinedBudgetSectionDetail_RefID" => 169000000000037,
+                                        "combinedBudgetSectionDetail_RefID" => 169000000000037
                                         ]
                                     ],
                                     [
@@ -77,14 +78,15 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                     'entities' => [
                                         "deliveryOrderDetail_RefID" => 180000000000003,
                                         "workStructure_RefID" => 302000000000001,
-                                        "quantity" => 50,
                                         "product_RefID" => 88000000001533,
+                                        "qtyGood" => 90,
+                                        "qtyReject" => 5,
                                         "quantityUnit_RefID" => 73000000000002,
                                         "productUnitPriceCurrency_RefID" => 62000000000001,
                                         "productUnitPriceCurrencyExchangeRate" => 1,
                                         "productUnitPriceCurrencyValue" => 30000,
                                         'remarks' => 'Catatan Update - 4B',
-                                        "combinedBudgetSectionDetail_RefID" => 169000000000037,
+                                        "combinedBudgetSectionDetail_RefID" => 169000000000037
                                         ]
                                     ],
                                 ]
