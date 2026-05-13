@@ -1672,11 +1672,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                 $listPidDoDetail = [];
                 foreach ($resultArray as $key => $value) {
                     if (in_array($value["Sys_PID_DO_Detail"], $listPidDoDetail)) {
-                        $arrayQtyMR[$value["Sys_PID_DO_Detail"]]["QtyMR"] = (float) $arrayQtyMR[$value["Sys_PID_DO_Detail"]]["QtyMR"] + (float) $value["Quantity"];
+                        $arrayQtyMR[$value["Sys_PID_DO_Detail"]]["QtyMR"] = (float) $arrayQtyMR[$value["Sys_PID_DO_Detail"]]["QtyMR"] + (float) $value["QuantityGood"];
                     } else {
                         array_push($listPidDoDetail, $value["Sys_PID_DO_Detail"]);
                         $arrayQtyMR[$value["Sys_PID_DO_Detail"]]["Sys_PID_DO_Detail"] = $value["Sys_PID_DO_Detail"];
-                        $arrayQtyMR[$value["Sys_PID_DO_Detail"]]["QtyMR"] = $value["Quantity"];
+                        $arrayQtyMR[$value["Sys_PID_DO_Detail"]]["QtyMR"] = $value["QuantityGood"];
                     }
                 }
 
@@ -1699,7 +1699,8 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                     $varReturn['data'][$idxArray]['product_RefID'] = $value["Product_RefID"];
                     $varReturn['data'][$idxArray]['productName'] = $value["ProductName"];
                     $varReturn['data'][$idxArray]['productCode'] = $value["ProductCode"];
-                    $varReturn['data'][$idxArray]['quantity'] = (float) $value["Quantity"];
+                    $varReturn['data'][$idxArray]['quantityGood'] = (float) $value["QuantityGood"];
+                    $varReturn['data'][$idxArray]['quantityReject'] = (float) $value["QuantityReject"];
                     $varReturn['data'][$idxArray]['quantityUnit_RefID'] = $value["QuantityUnit_RefID"];
                     $varReturn['data'][$idxArray]['warehouseInboundOrder_RefID'] = $value["WarehouseInboundOrder_RefID"];
                     $varReturn['data'][$idxArray]['note'] = $value["Note"];
