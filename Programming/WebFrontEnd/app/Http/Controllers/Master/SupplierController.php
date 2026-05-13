@@ -86,4 +86,23 @@ class SupplierController extends Controller
             'status' => $status
         ]);
     }
+
+    public function SupplierDetail(Request $request)
+    {
+        $supplierID = $request->input('supplier_id');
+
+        $response = $this->supplierService->getDetail($supplierID);
+
+        $status = $response['metadata']['HTTPStatusCode'];
+        $data = [];
+
+        if ($status == 200) {
+            $data = $response['data'] ?? [];
+        }
+
+        return response()->json([
+            'data' => $data,
+            'status' => $status
+        ]);
+    }
 }
