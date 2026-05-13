@@ -15,6 +15,7 @@
 
     function validateQtyAndPriceWithHighlight() {
         let isValid = true;
+
         const rows = document.querySelectorAll("#tableMaterialReceiveDetail tbody tr");
         const budgetDetailsMessage = document.getElementById("materialReceiveDetailMessage");
 
@@ -23,34 +24,50 @@
         }
 
         rows.forEach(row => {
-            const qtyInput = row.querySelector('input[id^="qty_req"]');
+            const qtyInput = row.querySelector('input[id^="qty_good"]');
+            const qtyRejectInput = row.querySelector('input[id^="qty_reject"]');
             const noteInput = row.querySelector('textarea[id^="note"]');
 
-            if (!qtyInput || !noteInput) return;
+            if (!qtyInput || !qtyRejectInput || !noteInput) return;
 
             const qty = qtyInput.value.trim();
             const qtyDetail = qtyInput.getAttribute("data-default");
+
+            const qtyReject = qtyRejectInput.value.trim();
+            const qtyRejectDetail = qtyRejectInput.getAttribute("data-default");
 
             const note = noteInput.value.trim();
             const noteDetail = noteInput.getAttribute("data-default");
 
             const isQtyFilled = qty !== "";
+            const isQtyRejectFilled = qtyReject !== "";
             const isNoteFilled = note !== "";
 
             qtyInput.style.border = "1px solid #e9ecef";
+            qtyRejectInput.style.border = "1px solid #e9ecef";
             noteInput.style.border = "1px solid #e9ecef";
 
-            if (
-                (isQtyFilled && !isNoteFilled && qtyDetail && noteDetail) ||
-                (!isQtyFilled && isNoteFilled && qtyDetail && noteDetail) ||
-                (!isQtyFilled && !isNoteFilled && qtyDetail && noteDetail)
-            ) {
+            const hasDefaultData = qtyDetail && qtyRejectDetail && noteDetail;
+
+            const isInvalid =
+                hasDefaultData &&
+                (
+                    (isQtyFilled || isQtyRejectFilled || isNoteFilled) &&
+                    (!isQtyFilled || !isQtyRejectFilled || !isNoteFilled)
+                );
+
+            if (isInvalid) {
+
                 if (!isQtyFilled) {
                     qtyInput.style.border = "1px solid red";
                 }
 
+                if (!isQtyRejectFilled) {
+                    qtyRejectInput.style.border = "1px solid red";
+                }
+
                 if (!isNoteFilled) {
-                    priceInput.style.border = "1px solid red";
+                    noteInput.style.border = "1px solid red";
                 }
 
                 if (budgetDetailsMessage) {
@@ -59,6 +76,26 @@
 
                 isValid = false;
             }
+
+            // if (
+            //     (isQtyFilled && !isNoteFilled && qtyDetail && noteDetail) ||
+            //     (!isQtyFilled && isNoteFilled && qtyDetail && noteDetail) ||
+            //     (!isQtyFilled && !isNoteFilled && qtyDetail && noteDetail)
+            // ) {
+            //     if (!isQtyFilled) {
+            //         qtyInput.style.border = "1px solid red";
+            //     }
+
+            //     if (!isNoteFilled) {
+            //         priceInput.style.border = "1px solid red";
+            //     }
+
+            //     if (budgetDetailsMessage) {
+            //         budgetDetailsMessage.style.display = "block";
+            //     }
+
+            //     isValid = false;
+            // }
         });
 
         return isValid;
@@ -67,7 +104,14 @@
     function calculateTotal() {
         let total = 0;
 
-        document.querySelectorAll('input[id^="qty_req"]').forEach(function (input) {
+        document.querySelectorAll('input[id^="qty_good"]').forEach(function (input) {
+            let value = parseFloat(input.value.replace(/,/g, ''));
+            if (!isNaN(value)) {
+                total += value;
+            }
+        });
+
+        document.querySelectorAll('input[id^="qty_reject"]').forEach(function (input) {
             let value = parseFloat(input.value.replace(/,/g, ''));
             if (!isNaN(value)) {
                 total += value;
@@ -84,6 +128,7 @@
         const rows = document.querySelectorAll('#material_receive_list_table_modal tbody tr');
         rows.forEach(row => {
             const totalCell = row.children[5];
+
             const value = parseFloat(totalCell.innerText.replace(/,/g, '')) || 0;
             total += value;
         });
@@ -96,42 +141,49 @@
         let hasFullRow = false;
 
         rows.forEach((row, index) => {
-            const qty = document.getElementById(`qty_req${index}`)?.value.trim();
+            const qty = document.getElementById(`qty_good${index}`)?.value.trim();
+            const qtyReject = document.getElementById(`qty_reject${index}`)?.value.trim();
             const note = document.getElementById(`note${index}`)?.value.trim();
 
-            if (qty !== "" && note !== "") {
+            if (qty !== "" && qtyReject !== "" && note !== "") {
                 hasFullRow = true;
             }
         });
 
         rows.forEach((row, index) => {
-            const qtyEl = document.getElementById(`qty_req${index}`);
+            const qtyEl = document.getElementById(`qty_good${index}`);
+            const qtyRejectEl = document.getElementById(`qty_reject${index}`);
             const noteEl = document.getElementById(`note${index}`);
 
             if (hasFullRow) {
                 $(qtyEl).css("border", "1px solid #ced4da");
+                $(qtyRejectEl).css("border", "1px solid #ced4da");
                 $(noteEl).css("border", "1px solid #ced4da");
                 $("#materialReceiveDetailMessage").hide();
             } else {
                 if (indexInput > -1) {
                     if (indexInput == index) {
-                        if (qtyEl.value.trim() != "" || noteEl.value.trim() != "") {
+                        if (qtyEl.value.trim() != "" || qtyRejectEl.value.trim() != "" || noteEl.value.trim() != "") {
                             $(qtyEl).css("border", "1px solid red");
+                            $(qtyRejectEl).css("border", "1px solid red");
                             $(noteEl).css("border", "1px solid red");
                             $("#materialReceiveDetailMessage").show();
                         } else {
                             $(qtyEl).css("border", "1px solid #ced4da");
+                            $(qtyRejectEl).css("border", "1px solid red");
                             $(noteEl).css("border", "1px solid #ced4da");
                             $("#materialReceiveDetailMessage").hide();
                         }
                     }
 
-                    if (indexInput != index && (qtyEl.value.trim() == "" && noteEl.value.trim() == "")) {
+                    if (indexInput != index && (qtyEl.value.trim() == "" && qtyRejectEl.value.trim() == "" && noteEl.value.trim() == "")) {
                         $(qtyEl).css("border", "1px solid #ced4da");
+                        $(qtyRejectEl).css("border", "1px solid #ced4da");
                         $(noteEl).css("border", "1px solid #ced4da");
                     }
                 } else {
-                    $(qtyEl).css("border", "1px solid red"); noteEl
+                    $(qtyEl).css("border", "1px solid red");
+                    $(qtyRejectEl).css("border", "1px solid red");
                     $(noteEl).css("border", "1px solid red");
                     $("#materialReceiveDetailMessage").show();
                 }
@@ -155,12 +207,14 @@
             const productRefID = row.querySelector('input[id^="product_RefID"]');
             const quantityUnitRefID = row.querySelector('input[id^="quantityUnit_RefID"]');
             const productUnitPriceCurrencyRefID = row.querySelector('input[id^="productUnitPriceCurrency_RefID"]');
-            const qtyInput = row.querySelector('input[id^="qty_req"]');
+            const qtyInput = row.querySelector('input[id^="qty_good"]');
+            const qtyRejectInput = row.querySelector('input[id^="qty_reject"]');
             const noteInput = row.querySelector('textarea[id^="note"]');
 
             if (
-                qtyInput && noteInput &&
+                qtyInput && qtyRejectInput && noteInput &&
                 qtyInput.value.trim() !== '' &&
+                qtyRejectInput.value.trim() !== '' &&
                 noteInput.value.trim() !== ''
             ) {
                 const productCode = row.children[4].innerText.trim();
@@ -168,6 +222,7 @@
                 const uom = row.children[7].innerText.trim();
 
                 const qty = qtyInput.value.trim();
+                const qtyReject = qtyRejectInput.value.trim();
                 const note = noteInput.value.trim();
 
                 let found = false;
@@ -178,7 +233,8 @@
 
                     if (recordID == recordRefID.value) {
                         targetRow.children[5].innerText = currencyTotal(qty);
-                        targetRow.children[6].innerText = note;
+                        targetRow.children[6].innerText = currencyTotal(qtyReject);
+                        targetRow.children[7].innerText = note;
                         found = true;
 
                         const indexToUpdate = dataStore.findIndex(item => item.recordID == recordRefID.value);
@@ -187,7 +243,8 @@
                                 recordID: parseInt(recordRefID.value),
                                 entities: {
                                     deliveryOrderDetail_RefID: parseInt(deliveryOrderDetailRefID.value),
-                                    quantity: parseFloat(qty.replace(/,/g, '')),
+                                    qtyGood: parseFloat(qty.replace(/,/g, '')),
+                                    qtyReject: parseFloat(qtyReject.replace(/,/g, '')),
                                     product_RefID: parseInt(productRefID.value),
                                     quantityUnit_RefID: parseInt(quantityUnitRefID.value),
                                     productUnitPriceCurrency_RefID: parseInt(productUnitPriceCurrencyRefID.value),
@@ -212,6 +269,7 @@
                             <td style="text-align: left;padding: 0.8rem;">${productCode || '-'}</td>
                             <td style="text-align: center;padding: 0.8rem;">${uom || '-'}</td>
                             <td style="text-align: center;padding: 0.8rem;">${currencyTotal(qty)}</td>
+                            <td style="text-align: center;padding: 0.8rem;">${currencyTotal(qtyReject)}</td>
                             <td style="text-align: center;padding: 0.8rem;">${note || '-'}</td>
                         </tr>
                     `;
@@ -221,7 +279,8 @@
                         recordID: parseInt(recordRefID.value),
                         entities: {
                             deliveryOrderDetail_RefID: parseInt(deliveryOrderDetailRefID.value),
-                            quantity: parseFloat(qty.replace(/,/g, '')),
+                            qtyGood: parseFloat(qty.replace(/,/g, '')),
+                            qtyReject: parseFloat(qtyReject.replace(/,/g, '')),
                             product_RefID: parseInt(productRefID.value),
                             quantityUnit_RefID: parseInt(quantityUnitRefID.value),
                             productUnitPriceCurrency_RefID: parseInt(productUnitPriceCurrencyRefID.value),
@@ -310,13 +369,14 @@
         let totalRequest = 0;
 
         $.each(dataDetail, function (key, val2) {
-            totalRequest += val2.quantity;
+            totalRequest += (val2.quantityGood + val2.quantityReject);
 
             dataStore.push({
                 recordID: parseInt(val2.sys_ID),
                 entities: {
                     deliveryOrderDetail_RefID: parseInt(val2.deliveryOrderDetail_RefID),
-                    quantity: parseFloat(val2.quantity),
+                    qtyGood: parseFloat(val2.quantityGood),
+                    qtyReject: parseFloat(val2.quantityReject),
                     product_RefID: parseInt(val2.product_RefID),
                     quantityUnit_RefID: parseInt(val2.quantityUnit_RefID),
                     productUnitPriceCurrency_RefID: parseInt(val2.sys_BaseCurrency_RefID),
@@ -337,13 +397,14 @@
                     <td style="text-align: center;">${val2.combinedBudgetSectionCode} - ${val2.combinedBudgetSectionName}</td>
                     <td style="text-align: center;">${val2.productCode || ''} - ${val2.productName || ''}</td>
                     <td style="text-align: center;">${currencyTotal(val2.qtyDO) || '-'}</td>
+                    <td style="text-align: center;">${currencyTotal(val2.qtyDO) || '-'}</td>
                     <td style="text-align: center;">${currencyTotal(val2.qtyAvailableDO) || '-'}</td>
                     <td style="text-align: center;">${val2.quantityUnitName || '-'}</td>
                     <td style="text-align: center; width: 100px;">
-                        <input class="form-control number-without-negative" id="qty_req${key}" data-default="${currencyTotal(val2.quantity)}" autocomplete="off" style="border-radius:0px;" value="${currencyTotal(val2.quantity) || '-'}" />
+                        <input class="form-control number-without-negative" id="qty_good${key}" data-default="${currencyTotal(val2.quantityGood)}" autocomplete="off" style="border-radius:0px;" value="${currencyTotal(val2.quantityGood) || '-'}" />
                     </td>
                     <td style="text-align: center; width: 100px;">
-                        <input class="form-control number-without-negative" id="qty_req${key}" data-default="" autocomplete="off" style="border-radius:0px;" value="" />
+                        <input class="form-control number-without-negative" id="qty_reject${key}" data-default="${currencyTotal(val2.quantityReject)}" autocomplete="off" style="border-radius:0px;" value="${currencyTotal(val2.quantityReject) || '-'}" />
                     </td>
                     <td style="text-align: center; width: 150px; padding: 0.5rem !important;">
                         <textarea id="note${key}" class="form-control" data-default="${val2.note}">${val2.note}</textarea>
@@ -359,13 +420,27 @@
 
             tbody.append(row);
 
-            $(`#qty_req${key}`).on('keyup', function () {
-                var qty_req = $(this).val().replace(/,/g, '');
-                var sumQty = val2.quantity + val2.qtyAvailableDO;
+            $(`#qty_good${key}`).on('keyup', function () {
+                let qty_good = $(this).val().replace(/,/g, '');
+                let sumQty = val2.quantityGood + val2.qtyAvailableDO;
 
-                if (parseFloat(qty_req) > sumQty) {
+                if (parseFloat(qty_good) > sumQty) {
                     $(this).val("");
-                    ErrorNotif("Qty Receive is over!");
+                    ErrorNotif("Qty Received Good is over!");
+                } else {
+                    calculateTotal();
+                }
+
+                checkOneLineBudgetContents(key);
+            });
+
+            $(`#qty_reject${key}`).on('keyup', function () {
+                let qty_reject = $(this).val().replace(/,/g, '');
+                let sumQty = val2.quantityReject + val2.qtyAvailableDO;
+
+                if (parseFloat(qty_reject) > sumQty) {
+                    $(this).val("");
+                    ErrorNotif("Qty Received Reject is over!");
                 } else {
                     calculateTotal();
                 }
@@ -384,7 +459,8 @@
                     <input type="hidden" name="qty_avail[]" value="${val2.quantity}">
                     <td style="text-align: center;padding: 0.8rem;">${val2.productCode || ''} - ${val2.productName || ''}</td>
                     <td style="text-align: center;padding: 0.8rem;">${val2.quantityUnitName || '-'}</td>
-                    <td style="text-align: center;padding: 0.8rem;">${val2.quantity || '-'}</td>
+                    <td style="text-align: center;padding: 0.8rem;">${val2.quantityGood || '-'}</td>
+                    <td style="text-align: center;padding: 0.8rem;">${val2.quantityReject || '-'}</td>
                     <td style="text-align: center;padding: 0.8rem;">${val2.note || '-'}</td>
                 </tr>
             `;
