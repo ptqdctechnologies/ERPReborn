@@ -119,10 +119,10 @@
                               No</th>
                             <th
                               style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;width: 10px;">
-                              Journal Number</th>
+                              Date</th>
                             <th
                               style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;width: 10px;">
-                              Date</th>
+                              Journal Number</th>
                             <th
                               style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;width: 10px;">
                               Description</th>
