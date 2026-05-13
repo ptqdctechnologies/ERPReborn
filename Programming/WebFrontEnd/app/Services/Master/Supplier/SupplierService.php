@@ -13,28 +13,56 @@ class SupplierService
     {
         $sessionToken = Session::get('SessionLogin');
 
-        $filter = null;
-        if (!empty($supplierID) && $supplierID != 'undefined') {
-            $filter = '"Sys_ID" = \'' . addslashes($supplierID) . '\'';
-        }
+        // $filter = null;
+        // if (!empty($supplierID) && $supplierID != 'undefined') {
+        //     $filter = '"Sys_ID" = \'' . addslashes($supplierID) . '\'';
+        // }
 
         return Helper_APICall::setCallAPIGateway(
             Helper_Environment::getUserSessionID_System(),
             $sessionToken,
-            'transaction.read.dataList.supplyChain.getSupplier',
+            'dataPickList.supplyChain.getSupplier',
+            'latest',
+            [
+                'parameter' => [],
+                // 'SQLStatement' => [
+                //     'pick' => null,
+                //     'sort' => '"Code" ASC',
+                //     'filter' => $filter,
+                //     'paging' => null
+                // ]
+            ],
+            false
+        );
+    }
+
+    public function getDetail($supplierID)
+    {
+        $sessionToken = Session::get('SessionLogin');
+
+        // $filter = null;
+        // if (!empty($supplierID) && $supplierID != 'undefined') {
+        //     $filter = '"Sys_ID" = \'' . addslashes($supplierID) . '\'';
+        // }
+
+        return Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
+            $sessionToken,
+            'transaction.read.dataList.supplyChain.getSupplierList',
             'latest',
             [
                 'parameter' => null,
                 'SQLStatement' => [
                     'pick' => null,
-                    'sort' => '"Code" ASC',
-                    'filter' => $filter,
+                    'sort' => null,
+                    'filter' => null,
                     'paging' => null
                 ]
             ],
             false
         );
     }
+
     public function create(Request $request)
     {
         $token = Session::get('SessionLogin');

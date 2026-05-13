@@ -104,11 +104,13 @@
             const productUnitPriceCurrencyExchangeRate = row.querySelector('input[id^="productUnitPriceCurrencyExchangeRate"]');
             const productUnitPriceBaseCurrencyValue = row.querySelector('input[id^="productUnitPriceBaseCurrencyValue"]');
             const qtyInput = row.querySelector('input[id^="qty_good"]');
+            const qtyRejectInput = row.querySelector('input[id^="qty_reject"]');
             const noteInput = row.querySelector('textarea[id^="note"]');
 
             if (
-                qtyInput && noteInput &&
+                qtyInput && qtyRejectInput && noteInput &&
                 qtyInput.value.trim() !== '' &&
+                qtyRejectInput.value.trim() !== '' &&
                 noteInput.value.trim() !== ''
             ) {
                 const transNumber = row.children[0].value.trim();
@@ -117,6 +119,7 @@
                 const uom = row.children[6].value.trim();
 
                 const qty = qtyInput.value.trim();
+                const qtyReject = qtyRejectInput.value.trim();
                 const price = productUnitPriceBaseCurrencyValue.value.trim();
                 const note = noteInput.value.trim();
 
@@ -128,7 +131,8 @@
 
                     if (targetProductCode == productCode) {
                         targetRow.children[3].innerText = qty;
-                        targetRow.children[4].innerText = note;
+                        targetRow.children[4].innerText = qtyReject;
+                        targetRow.children[5].innerText = note;
                         found = true;
 
                         const indexToUpdate = dataStore.findIndex(item => item.entities.productCode == productCode);
@@ -136,7 +140,8 @@
                             dataStore[indexToUpdate] = {
                                 entities: {
                                     deliveryOrderDetail_RefID: parseInt(deliveryOrderDetail_RefID.value),
-                                    quantity: parseFloat(qty.replace(/,/g, '')),
+                                    qtyGood: parseFloat(qty.replace(/,/g, '')),
+                                    qtyReject: parseFloat(qtyReject.replace(/,/g, '')),
                                     remarks: note,
                                     productCode: productCode,
                                     product_RefID: parseInt(product_RefID.value),
@@ -159,6 +164,7 @@
                         <td style="text-align: left;padding: 0.8rem;text-wrap: auto;">${productCode}</td>
                         <td style="text-align: left;padding: 0.8rem;">${uom}</td>
                         <td style="text-align: right;padding: 0.8rem;">${qty}</td>
+                        <td style="text-align: right;padding: 0.8rem;">${qtyReject}</td>
                         <td style="text-align: right;padding: 0.8rem;" hidden>${note}</td>
                     `;
                     targetTable.appendChild(newRow);
@@ -166,7 +172,8 @@
                     dataStore.push({
                         entities: {
                             deliveryOrderDetail_RefID: parseInt(deliveryOrderDetail_RefID.value),
-                            quantity: parseFloat(qty.replace(/,/g, '')),
+                            qtyGood: parseFloat(qty.replace(/,/g, '')),
+                            qtyReject: parseFloat(qtyReject.replace(/,/g, '')),
                             remarks: note,
                             productCode: productCode,
                             product_RefID: parseInt(product_RefID.value),
