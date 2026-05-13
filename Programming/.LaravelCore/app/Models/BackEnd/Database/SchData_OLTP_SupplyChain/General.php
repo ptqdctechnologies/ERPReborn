@@ -1633,7 +1633,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : getDataList_WarehouseInboundOrderDetail_LatestVersion                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2026-04-13                                                                                           |
+        | ▪ Last Update     : 2026-05-13                                                                                           |
         | ▪ Creation Date   : 2025-05-20                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Warehouse Inbound Order Detail Versi Terakhir                                     |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -1728,6 +1728,8 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                     $varReturn['data'][$idxArray]['workStructure_RefID'] = $value["WorkStructure_RefID"];
                     $varReturn['data'][$idxArray]['workCode'] = $value["WorkCode"];
                     $varReturn['data'][$idxArray]['workName'] = $value["WorkName"];
+                    $varReturn['data'][$idxArray]['quantityGood'] = (float) $value["QuantityGood"];
+                    $varReturn['data'][$idxArray]['quantityReject'] = (float) $value["QuantityReject"];
                     $idxArray++;
                 }
 
