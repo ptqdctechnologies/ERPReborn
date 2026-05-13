@@ -31,7 +31,7 @@
         <tbody></tbody>
         <tfoot>
             <tr class="loadingMaterialReceiveDetail">
-                <td colspan="8" class="p-0" style="border: 0px; height: 150px;">
+                <td colspan="10" class="p-0" style="border: 0px; height: 150px;">
                     <div class="d-flex flex-column justify-content-center align-items-center py-3">
                         <div class="spinner-border" role="status">
                             <span class="sr-only">Loading...</span>
@@ -43,7 +43,7 @@
                 </td>
             </tr>
             <tr class="errorMessageContainerMaterialReceiveDetail">
-                <td colspan="8" class="p-0" style="border: 0px;">
+                <td colspan="10" class="p-0" style="border: 0px;">
                     <div class="d-flex flex-column justify-content-center align-items-center py-3">
                         <div id="errorMessageMaterialReceiveDetail" class="mt-3 text-red"
                             style="font-size: 1rem; font-weight: 700;"></div>
