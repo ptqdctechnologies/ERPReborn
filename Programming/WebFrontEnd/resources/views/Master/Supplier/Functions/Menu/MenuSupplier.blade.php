@@ -16,13 +16,14 @@
                             <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-left"
                                 style="padding: 10px;font-size:14px;background-color:#4B586A;margin-top:8px;">
                                 <li class="nav-item">
-                                    <a href="{{ route('Supplier.create') }}" class="nav-link"
+                                    <a id="create_supplier" href="{{ route('Supplier.create') }}" class="nav-link"
                                         style="color:white;padding-bottom:10px;">
                                         <i class="far fa-file nav-icon-sm"> Create Supplier</i>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="javascript:;" class="nav-link" style="color:white;padding-bottom:10px;">
+                                    <a id="revision_supplier" href="javascript:;" class="nav-link" data-toggle="modal"
+                                        data-target="#mySupplierRevision" style="color:white;padding-bottom:10px;">
                                         <i class="far fa-file nav-icon-sm"> Revision Supplier</i>
                                     </a>
                                 </li>

@@ -133,6 +133,21 @@
         });
     }
 
+    $('#tableSuppliers').on('click', 'tbody tr', function () {
+        const sysId = $(this).find('input[data-trigger="sys_id_supplier"]').val();
+        const code = $(this).find('td:nth-child(2)').text();
+        const name = $(this).find('td:nth-child(3)').text();
+
+        $("#modal_loan_id").val(sysId);
+        $("#modal_supplier_document_number").val(`${code} - ${name}`);
+
+        $('#mySuppliers').modal('toggle');
+    });
+
+    $('#revision_supplier').on('click', function (e) {
+        getSuppliers();
+    });
+
     $(document).ready(function () {
         getDataSuppliers();
     });
