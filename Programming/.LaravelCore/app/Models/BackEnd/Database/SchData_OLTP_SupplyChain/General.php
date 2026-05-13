@@ -1633,7 +1633,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : getDataList_WarehouseInboundOrderDetail_LatestVersion                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2026-04-13                                                                                           |
+        | ▪ Last Update     : 2026-05-13                                                                                           |
         | ▪ Creation Date   : 2025-05-20                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Warehouse Inbound Order Detail Versi Terakhir                                     |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -1672,11 +1672,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                 $listPidDoDetail = [];
                 foreach ($resultArray as $key => $value) {
                     if (in_array($value["Sys_PID_DO_Detail"], $listPidDoDetail)) {
-                        $arrayQtyMR[$value["Sys_PID_DO_Detail"]]["QtyMR"] = (float) $arrayQtyMR[$value["Sys_PID_DO_Detail"]]["QtyMR"] + (float) $value["Quantity"];
+                        $arrayQtyMR[$value["Sys_PID_DO_Detail"]]["QtyMR"] = (float) $arrayQtyMR[$value["Sys_PID_DO_Detail"]]["QtyMR"] + (float) $value["QuantityGood"];
                     } else {
                         array_push($listPidDoDetail, $value["Sys_PID_DO_Detail"]);
                         $arrayQtyMR[$value["Sys_PID_DO_Detail"]]["Sys_PID_DO_Detail"] = $value["Sys_PID_DO_Detail"];
-                        $arrayQtyMR[$value["Sys_PID_DO_Detail"]]["QtyMR"] = $value["Quantity"];
+                        $arrayQtyMR[$value["Sys_PID_DO_Detail"]]["QtyMR"] = $value["QuantityGood"];
                     }
                 }
 
@@ -1699,7 +1699,8 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                     $varReturn['data'][$idxArray]['product_RefID'] = $value["Product_RefID"];
                     $varReturn['data'][$idxArray]['productName'] = $value["ProductName"];
                     $varReturn['data'][$idxArray]['productCode'] = $value["ProductCode"];
-                    $varReturn['data'][$idxArray]['quantity'] = (float) $value["Quantity"];
+                    $varReturn['data'][$idxArray]['quantityGood'] = (float) $value["QuantityGood"];
+                    $varReturn['data'][$idxArray]['quantityReject'] = (float) $value["QuantityReject"];
                     $varReturn['data'][$idxArray]['quantityUnit_RefID'] = $value["QuantityUnit_RefID"];
                     $varReturn['data'][$idxArray]['warehouseInboundOrder_RefID'] = $value["WarehouseInboundOrder_RefID"];
                     $varReturn['data'][$idxArray]['note'] = $value["Note"];
@@ -1728,6 +1729,8 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                     $varReturn['data'][$idxArray]['workStructure_RefID'] = $value["WorkStructure_RefID"];
                     $varReturn['data'][$idxArray]['workCode'] = $value["WorkCode"];
                     $varReturn['data'][$idxArray]['workName'] = $value["WorkName"];
+                    $varReturn['data'][$idxArray]['quantityGood'] = (float) $value["QuantityGood"];
+                    $varReturn['data'][$idxArray]['quantityReject'] = (float) $value["QuantityReject"];
                     $idxArray++;
                 }
 
