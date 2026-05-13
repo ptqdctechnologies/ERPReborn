@@ -125,6 +125,10 @@
             brfPaymentCell.textContent = item.brfPayment ?? '-';
             row.appendChild(brfPaymentCell);
 
+            const balancePaymentCell = document.createElement('td');
+            balancePaymentCell.textContent = item.balanceBrfToPayment ?? '-';
+            row.appendChild(balancePaymentCell);
+
             const brfStatusCell = document.createElement('td');
             brfStatusCell.textContent = item.brfStatus ?? '-';
             row.appendChild(brfStatusCell);
@@ -141,17 +145,13 @@
             bsfTotalCell.textContent = item.bsfTotal ?? '-';
             row.appendChild(bsfTotalCell);
 
-            const bsfStatusCell = document.createElement('td');
-            bsfStatusCell.textContent = item.bsfStatus ?? '-';
-            row.appendChild(bsfStatusCell);
-
-            const balancePaymentCell = document.createElement('td');
-            balancePaymentCell.textContent = item.balanceBrfToPayment ?? '-';
-            row.appendChild(balancePaymentCell);
-
             const balanceSettlementCell = document.createElement('td');
             balanceSettlementCell.textContent = item.balanceBrfToBsf ?? '-';
             row.appendChild(balanceSettlementCell);
+
+            const bsfStatusCell = document.createElement('td');
+            bsfStatusCell.textContent = item.bsfStatus ?? '-';
+            row.appendChild(bsfStatusCell);
 
             tbody.appendChild(row);
             rowIndex++;

@@ -72,6 +72,8 @@
             },
             dataType: 'json',
             success: function (response) {
+                console.log('response', response);
+
                 data = (response.status === 200 && response.data[0]) ? response.data : [];
                 dataReport = data;
 
@@ -220,6 +222,10 @@
             const doQtyCell = document.createElement('td');
             doQtyCell.textContent = item.deliveryOrderQty ?? '-';
             row.appendChild(doQtyCell);
+
+            const poToDoQtyCell = document.createElement('td');
+            poToDoQtyCell.textContent = '-';
+            row.appendChild(poToDoQtyCell);
 
             tbody.appendChild(row);
             rowIndex++;

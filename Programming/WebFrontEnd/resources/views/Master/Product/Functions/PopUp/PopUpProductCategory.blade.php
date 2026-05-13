@@ -1,10 +1,10 @@
-<div class="modal fade" id="supplierCategoryModal" tabindex="-1" role="dialog">
+<div class="modal fade" id="productCategoryModal" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-lg" role="document"
         style="min-height: calc(100vh - 3.5rem); display: flex; align-items: center;">
         <div class="modal-content">
             <div class="modal-header justify-content-center">
                 <h3 style="margin: 0px;font-weight:bold;">
-                    Supplier Category
+                    Category
                 </h3>
             </div>
             <div class="modal-body">
@@ -14,8 +14,8 @@
                             <label class="col-sm-3 col-md-4 col-lg-2 col-form-label p-0">Code</label>
                             <div class="col">
                                 <div class="input-group">
-                                    <input class="form-control" id="supplier_category_code"
-                                        name="supplier_category_code" style="border-radius:0;">
+                                    <input class="form-control" id="product_category_code" name="product_category_code"
+                                        style="border-radius:0;">
                                 </div>
                             </div>
                         </div>
@@ -25,8 +25,8 @@
                             <label class="col-sm-3 col-md-4 col-lg-2 col-form-label p-0">Name</label>
                             <div class="col">
                                 <div class="input-group">
-                                    <input class="form-control" id="supplier_category_name"
-                                        name="supplier_category_name" style="border-radius:0;">
+                                    <input class="form-control" id="product_category_name" name="product_category_name"
+                                        style="border-radius:0;">
                                 </div>
                             </div>
                         </div>

@@ -10,12 +10,12 @@
                 <div class="row mb-1" style="background-color:#4B586A;">
                     <div class="col-sm-6" style="height:30px;">
                         <label style="font-size:15px;position:relative;top:7px;color:white;">
-                            Supplier
+                            Product
                         </label>
                     </div>
                 </div>
 
-                @include('Master.Supplier.Functions.Menu.MenuSupplier')
+                @include('Master.Product.Functions.Menu.MenuProduct')
 
                 <div class="card">
                     <div class="tab-content px-3 pt-4 pb-2" id="nav-tabContent">
@@ -24,7 +24,7 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="row p-1" style="row-gap: 1rem;">
-                                            @include('Master.Supplier.Functions.Header.HeaderIndexSupplier')
+                                            @include('Master.Product.Functions.Header.HeaderIndexProduct')
                                         </div>
                                     </div>
                                 </div>
@@ -34,7 +34,7 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="table-responsive">
-                                            <table class="table table-head-fixed w-100" id="table_supplier">
+                                            <table class="table table-head-fixed w-100" id="table_product">
                                                 <thead>
                                                     <tr>
                                                         <th
@@ -48,7 +48,7 @@
                                                             Name</th>
                                                         <th
                                                             style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
-                                                            Address</th>
+                                                            UOM</th>
                                                         <th
                                                             style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
                                                             Action</th>
@@ -77,5 +77,5 @@
     </div>
 
     @include('Partials.footer')
-    @include('Master.Supplier.Functions.Footer.FooterSupplier')
+    @include('Master.Product.Functions.Footer.FooterProduct')
 @endsection

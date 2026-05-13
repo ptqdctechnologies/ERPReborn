@@ -25,10 +25,10 @@
     }
 
     function getListDocumentType(params) {
-        var keys                = 0;
-        var DocumentTypeID      = params.value;
-        var selectedOption      = $(params).find('option:selected');
-        var DocumentTypeName    = selectedOption.data('name');
+        var keys = 0;
+        var DocumentTypeID = params.value;
+        var selectedOption = $(params).find('option:selected');
+        var DocumentTypeName = selectedOption.data('name');
 
         $('#TableCheckDocument tbody').empty();
         $(".loadingGetCheckDocument").show();
@@ -37,7 +37,7 @@
         $("#TableCheckDocument_filter").hide();
         $("#TableCheckDocument_info").hide();
         $("#TableCheckDocument_paginate").hide();
-        
+
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -47,7 +47,7 @@
         $.ajax({
             type: 'GET',
             url: '{!! route("CheckDocument.ShowDocumentListData") !!}?DocumentTypeID=' + DocumentTypeID + '&DocumentTypeName=' + DocumentTypeName,
-            success: function(data) {
+            success: function (data) {
                 $(".loadingGetCheckDocument").hide();
 
                 var no = 1;
@@ -55,7 +55,7 @@
                 table.clear();
 
                 if (Array.isArray(data.data) && data.data.length > 0) {
-                    $.each(data.data, function(key, val) {
+                    $.each(data.data, function (key, val) {
                         keys += 1;
                         table.row.add([
                             '<input id="sys_id_check_document' + keys + '" value="' + val.sys_ID + '" data-trigger="sys_id_check_document" type="hidden">' + no++,
@@ -79,7 +79,7 @@
                     $("#TableCheckDocument_paginate").hide();
                 }
             },
-            error: function(textStatus, errorThrown) {
+            error: function (textStatus, errorThrown) {
                 $('#TableCheckDocument tbody').empty();
                 $(".loadingGetCheckDocument").hide();
                 $(".errorModalCheckDocumentMessageContainerSecond").show();
@@ -98,12 +98,12 @@
         $.ajax({
             type: 'GET',
             url: '{!! route("getDocumentType") !!}',
-            success: function(data) {
+            success: function (data) {
                 if (data && Array.isArray(data)) {
                     $('#DocumentType').empty();
                     $('#DocumentType').append('<option disabled selected>Select a Project Code</option>');
 
-                    data.forEach(function(document) {
+                    data.forEach(function (document) {
                         $('#DocumentType').append('<option value="' + document.sys_ID + '" data-name="' + document.name + '">' + document.name + '</option>');
                     });
 
@@ -113,25 +113,26 @@
                     $('#DocumentType').append('<option value="' + 56781234 + '" data-name="Modify Budget Form">Modify Budget Form</option>');
                     $('#DocumentType').append('<option value="' + 78912345 + '" data-name="Product Form">Product Form</option>');
                     $('#DocumentType').append('<option value="' + 12345678 + '" data-name="Sallary Allocation Form">Sallary Allocation Form</option>');
+                    $('#DocumentType').append('<option value="' + 23456781 + '" data-name="Supplier Form">Supplier Form</option>');
                     $('#DocumentType').append('<option value="' + 23456781 + '" data-name="Tax Recon Form">Tax Recon Form</option>');
                 } else {
                     console.log('Data document type not found.');
                 }
             },
-            error: function(response) {
+            error: function (response) {
                 console.log('error: ', response);
-                
+
                 ErrorNotif("Error getDocumentType!");
             }
         });
     }
 
-    $('#TableCheckDocument').on('click', 'tbody tr', async function() {
-        var sysId               = $(this).find('input[data-trigger="sys_id_check_document"]').val();
-        var docTypeName         = $(this).find('input[data-trigger="sys_document_type_name"]').val();
-        var trano               = $(this).find('td:nth-child(2)').text();
+    $('#TableCheckDocument').on('click', 'tbody tr', async function () {
+        var sysId = $(this).find('input[data-trigger="sys_id_check_document"]').val();
+        var docTypeName = $(this).find('input[data-trigger="sys_document_type_name"]').val();
+        var trano = $(this).find('td:nth-child(2)').text();
         var sysIdCombinedBudget = $(this).find('input[data-trigger="sys_id_combined_budget"]').val();
-        var sysIdDocumentType   = $(this).find('input[data-trigger="sys_id_document_type"]').val();
+        var sysIdDocumentType = $(this).find('input[data-trigger="sys_id_document_type"]').val();
 
         $('#mySearchCheckDocument').modal('hide');
 
@@ -144,12 +145,12 @@
 
             // const validate = await checkingWorkflow(sysIdDocumentType, sysIdCombinedBudget);
             // if (validate) {
-                $('.mySearchCheckDocument').show();
-                $('#loadingDocTracking').hide();
+            $('.mySearchCheckDocument').show();
+            $('#loadingDocTracking').hide();
 
-                $("#businessDocument_RefID").val(sysId);
-                $("#businessDocumentType_Name").val(docTypeName);
-                $("#businessDocumentNumber").val(trano);
+            $("#businessDocument_RefID").val(sysId);
+            $("#businessDocumentType_Name").val(docTypeName);
+            $("#businessDocumentNumber").val(trano);
             // } else {
             //     $('.mySearchCheckDocument').show();
             //     $('#loadingDocTracking').hide();
@@ -161,7 +162,7 @@
         }
     });
 
-    $('.ViewDocument').on('click', function() {
+    $('.ViewDocument').on('click', function () {
         $(".DocumentWorkflow").hide();
         $(".ShowDocumentList").show();
         $(".InternalNotes").show();
@@ -170,7 +171,7 @@
         $(".ViewDocument").hide();
     });
 
-    $(window).one('load', function(e) {
+    $(document).ready(function () {
         $(".loadingGetCheckDocument").hide();
         $(".errorModalCheckDocumentMessageContainerSecond").hide();
 
