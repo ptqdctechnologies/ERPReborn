@@ -21,7 +21,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         |                     ► http://172.28.0.4/transaction.update.supplyChain.setDeliveryOrder.v1_throughAPIGateway             |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2026-03-26                                                                                           |
+        | ▪ Last Update     : 2026-05-15                                                                                           |
         | ▪ Creation Date   : 2022-07-28                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -62,6 +62,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                         "workStructure_RefID" => 302000000000002,
                                         "product_RefID" => 88000000000007,
                                         "quantity" => 25,
+                                        "quantityGood" => 17,
+                                        "quantityReject" => 8,
                                         "quantityUnit_RefID" => 73000000000036,
                                         "remarks" => "Catatan 1 (NEW)",
                                         "reference_ID" => 73000000000039
@@ -73,6 +75,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                         "workStructure_RefID" => 302000000000001,
                                         "product_RefID" => 88000000000008,
                                         "quantity" => 20,
+                                        "quantityGood" => 15,
+                                        "quantityReject" => 5,
                                         "quantityUnit_RefID" => 73000000000037,
                                         "remarks" => "Catatan 2 (NEW)",
                                         "reference_ID" => 73000000000040
