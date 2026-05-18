@@ -247,6 +247,11 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::post('PrintExportReportAccountPayableSummary', 'Finance\AccountPayableController@PrintExportReportAccountPayableSummary')->name('AccountPayable.PrintExportReportAccountPayableSummary');
     Route::resource('AccountPayable', 'Finance\AccountPayableController');
 
+    // FINANCIAL REPORT
+    Route::get('ReportGeneralLedger', 'Finance\FinancialReportController@ReportGeneralLedger')->name('FinancialReport.ReportGeneralLedger');
+    Route::post('ReportGeneralLedgerStore', 'Finance\FinancialReportController@ReportGeneralLedgerStore')->name('FinancialReport.ReportGeneralLedgerStore');
+    Route::resource('FinancialReport', 'Finance\FinancialReportController');
+
     // JOURNAL
     Route::get('DataPickList', 'Accounting\JournalController@DataPickList')->name('Journal.DataPickList');
     Route::post('ReportPaymentJournalStore', 'Accounting\JournalController@ReportPaymentJournalStore')->name('Journal.ReportPaymentJournalStore');
@@ -255,7 +260,6 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::resource('Journal', 'Accounting\JournalController');
 
     // GENERAL JOURNAL
-    Route::get('ReportGeneralLedger', 'Accounting\GeneralJournalController@ReportGeneralLedger')->name('GeneralJournal.ReportGeneralLedger');
     Route::get('ReportGeneralJournalSummary', 'Accounting\GeneralJournalController@ReportGeneralJournalSummary')->name('GeneralJournal.ReportGeneralJournalSummary');
     Route::post('ReportGeneralJournalSummaryStore', 'Accounting\GeneralJournalController@ReportGeneralJournalSummaryStore')->name('GeneralJournal.ReportGeneralJournalSummaryStore');
     Route::post('RevisionGeneralJournal', 'Accounting\GeneralJournalController@RevisionGeneralJournal')->name('GeneralJournal.Revision');

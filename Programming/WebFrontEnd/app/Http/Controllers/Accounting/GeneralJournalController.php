@@ -269,9 +269,4 @@ class GeneralJournalController extends Controller
             return response()->json($compact);
         }
     }
-
-    public function ReportGeneralLedger(Request $request)
-    {
-        return view('Accounting.GeneralJournal.Reports.ReportGeneralLedger');
-    }
 }

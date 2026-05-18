@@ -14,13 +14,15 @@
                     style="border-radius:0;background-color:white;" readonly />
                 <input type="text" id="account_id" name="account_id" class="form-control"
                     style="border-radius:0;background-color:white;" readonly hidden />
+                <input type="text" id="account_number" name="account_number" class="form-control"
+                    style="border-radius:0;background-color:white;" readonly hidden />
             </div>
         </div>
     </div>
 
-    <!-- PERIOD -->
+    <!-- DATE RANGE -->
     <div class="row p-0 align-items-center" style="margin-top: 1rem;">
-        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Period</label>
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Date Range</label>
         <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
             <div>
                 <div class="input-group" id="general_ledger_date_range_container">
@@ -57,7 +59,7 @@
 
     <!-- SUBMIT -->
     <div class="row" style="gap: 0.5rem;">
-        <button type="button" class="btn btn-default btn-sm" onclick="validateShowButton()" style="margin-top: -5px;">
+        <button type="button" class="btn btn-default btn-sm" onclick="getDataReport()" style="margin-top: -5px;">
             <img src="{{ asset('AdminLTE-master/dist/img/backwards.png') }}" width="12" alt="show" title="Show">
             Show
         </button>
