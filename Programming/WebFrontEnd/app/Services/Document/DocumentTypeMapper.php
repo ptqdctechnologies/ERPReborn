@@ -104,6 +104,11 @@ class DocumentTypeMapper
                 'parameter' => [],
                 'businessDocument_RefID' => (int) 74000000021494,
             ],
+            'Product Form' => [
+                'key' => '',
+                'parameter' => [],
+                'businessDocument_RefID' => (int) 74000000021494,
+            ],
             'Purchase Order Form' => [
                 'key' => 'transaction.read.dataList.supplyChain.getPurchaseOrderDetail',
                 'parameter' => ['purchaseOrder_RefID' => (int) $referenceId],
@@ -610,6 +615,21 @@ class DocumentTypeMapper
                     'value' => ''
                 ],
                 'transactionType' => 'BUSINESS TRIP SETTLEMENT',
+                'businessDocument_RefID' => '',
+            ],
+            'Product Form' => [
+                'dataHeader' => [
+                    'dateUpdate' => null
+                ],
+                'components' => [
+                    'detail' => 'Components.ProductDetailDocument',
+                ],
+                'resubmit' => [
+                    'url' => '',
+                    'name' => '',
+                    'value' => ''
+                ],
+                'transactionType' => 'PRODUCT',
                 'businessDocument_RefID' => '',
             ],
             'Purchase Order Form' => [
