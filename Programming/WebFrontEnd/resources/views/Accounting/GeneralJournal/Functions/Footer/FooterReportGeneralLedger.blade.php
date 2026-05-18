@@ -1,5 +1,20 @@
 <script>
+    $('#tableInstitutionBankAccount').on('click', 'tbody tr', function () {
+        const sysId = $(this).find('input[data-trigger="sys_id_bank_account_list"]').val();
+        const bankAcronym = $(this).find('td:nth-child(2)').text();
+        const accountNumber = $(this).find('td:nth-child(3)').text();
+        const accountName = $(this).find('td:nth-child(4)').text();
+
+        $("#account_id").val(sysId);
+        $("#account_name").val(`(${bankAcronym}) ${accountNumber} - ${accountName}`);
+        $("#account_name").css('background-color', '#e9ecef');
+
+        $('#myInstitutionBankAccount').modal('toggle');
+    });
+
     $(document).ready(function () {
+        getInstitutionBankAccount();
+
         $('#general_ledger_date_range').daterangepicker({
             autoUpdateInput: false,
             maxDate: moment(),
