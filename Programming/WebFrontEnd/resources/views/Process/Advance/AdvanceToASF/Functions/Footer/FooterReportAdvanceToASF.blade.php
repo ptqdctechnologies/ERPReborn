@@ -552,6 +552,8 @@
     $(document).ready(function () {
         renderPage();
         renderPagination();
+        getModalAdvance();
+        getModalAdvanceSettlement();
 
         $('#advance_date_range').daterangepicker({
             autoUpdateInput: false,

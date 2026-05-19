@@ -4,8 +4,9 @@
     <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">ARF Number</label>
     <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
       <div>
-        <span id="" class="input-group-text form-control" style="border-radius:0;cursor:pointer;">
-          <i id="" class="fas fa-gift"></i>
+        <span id="myArfTrigger" class="input-group-text form-control" data-toggle="modal"
+          data-target="#myGetModalAdvance" style="border-radius:0;cursor:pointer;">
+          <i class="fas fa-gift"></i>
         </span>
       </div>
       <div>
@@ -20,7 +21,8 @@
     <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">ASF Number</label>
     <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
       <div>
-        <span id="" class="input-group-text form-control" style="border-radius:0;cursor:pointer;">
+        <span id="myAsfTrigger" class="input-group-text form-control" data-toggle="modal"
+          data-target="#myGetModalAdvanceSettlement" style="border-radius:0;cursor:pointer;">
           <i class="fas fa-gift"></i>
         </span>
       </div>
