@@ -216,7 +216,15 @@ namespace App\Helpers\ZhtHelper\Database
                             */
 
                             pg_last_notice($DBConnection, PGSQL_NOTICE_CLEAR);
+                            $varProfilerStartNs = hrtime(true);
                             $varResult = pg_query($DBConnection, $varSQLQuery);
+                            \App\Helpers\ZhtHelper\Logger\Helper_QueryProfiler::record(
+                                'pgsql',
+                                $varSQLQuery,
+                                (hrtime(true) - $varProfilerStartNs) / 1e6,
+                                ($varResult !== false),
+                                ($varResult === false ? pg_last_error($DBConnection) : null)
+                                );
                             $varNotice = pg_last_notice($DBConnection, PGSQL_NOTICE_ALL);
 
                             /*
@@ -1071,8 +1079,28 @@ namespace App\Helpers\ZhtHelper\Database
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
                     //$varSQLQuery = preg_replace('/\s+/', '', $varSQLQuery);
                     $varSQLQuery = ltrim(str_replace("\n", "" , $varSQLQuery));
-                    
-                    $varReturn = \Illuminate\Support\Facades\DB::select($varSQLQuery);
+
+                    $varProfilerStartNs = hrtime(true);
+                    try {
+                        $varReturn = \Illuminate\Support\Facades\DB::select($varSQLQuery);
+                        \App\Helpers\ZhtHelper\Logger\Helper_QueryProfiler::record(
+                            'laravel',
+                            $varSQLQuery,
+                            (hrtime(true) - $varProfilerStartNs) / 1e6,
+                            true,
+                            null
+                            );
+                        }
+                    catch (\Throwable $varProfilerEx) {
+                        \App\Helpers\ZhtHelper\Logger\Helper_QueryProfiler::record(
+                            'laravel',
+                            $varSQLQuery,
+                            (hrtime(true) - $varProfilerStartNs) / 1e6,
+                            false,
+                            $varProfilerEx->getMessage()
+                            );
+                        throw $varProfilerEx;
+                        }
                     
                     //dd(((array) \Illuminate\Support\Facades\DB::getConnections())['pgsql']);
                     //$connection = \Illuminate\Support\Facades\DB::connection();
