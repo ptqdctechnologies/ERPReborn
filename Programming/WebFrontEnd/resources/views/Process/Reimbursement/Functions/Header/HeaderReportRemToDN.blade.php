@@ -4,13 +4,16 @@
     <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">REM Number</label>
     <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
       <div>
-        <span id="" class="input-group-text form-control" style="border-radius:0;cursor:pointer;">
-          <i id="" class="fas fa-gift"></i>
+        <span class="input-group-text form-control" data-toggle="modal" data-target="#myGetModalReimbursement"
+          style="border-radius:0;cursor:pointer;">
+          <i class="fas fa-gift"></i>
         </span>
       </div>
       <div>
         <input type="text" id="rem_number" class="form-control" style="border-radius:0;background-color:white;"
           readonly />
+        <input type="text" id="rem_id" class="form-control" style="border-radius:0;background-color:white;" readonly
+          hidden />
       </div>
     </div>
   </div>
@@ -20,13 +23,16 @@
     <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">DN Number</label>
     <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
       <div>
-        <span id="" class="input-group-text form-control" style="border-radius:0;cursor:pointer;">
+        <span class="input-group-text form-control" data-toggle="modal" data-target="#myDebitNote"
+          style="border-radius:0;cursor:pointer;">
           <i class="fas fa-gift"></i>
         </span>
       </div>
       <div>
         <input type="text" id="dn_number" class="form-control" style="border-radius:0;background-color:white;"
           readonly />
+        <input type="text" id="dn_id" class="form-control" style="border-radius:0;background-color:white;" readonly
+          hidden />
       </div>
     </div>
   </div>

@@ -12,6 +12,8 @@
       <div>
         <input type="text" id="arf_number" class="form-control" style="border-radius:0;background-color:white;"
           readonly />
+        <input type="text" id="arf_id" class="form-control" style="border-radius:0;background-color:white;" readonly
+          hidden />
       </div>
     </div>
   </div>
@@ -29,6 +31,8 @@
       <div>
         <input type="text" id="asf_number" class="form-control" style="border-radius:0;background-color:white;"
           readonly />
+        <input type="text" id="asf_id" class="form-control" style="border-radius:0;background-color:white;" readonly
+          hidden />
       </div>
     </div>
   </div>

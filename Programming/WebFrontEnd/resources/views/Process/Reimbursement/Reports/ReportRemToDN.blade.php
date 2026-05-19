@@ -4,6 +4,8 @@
     @include('Partials.sidebar')
     @include('getFunction.getProjects')
     @include('getFunction.getCustomers')
+    @include('getFunction.getReimbursement')
+    @include('getFunction.getDebitNote')
 
     <div class="content-wrapper">
         <section class="content">
@@ -73,8 +75,8 @@
                                                             style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
                                                             Debit Note</th>
                                                         <!-- <th colspan="2"
-                                                                style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
-                                                                Balance</th> -->
+                                                                        style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
+                                                                        Balance</th> -->
                                                     </tr>
                                                     <tr>
                                                         <th

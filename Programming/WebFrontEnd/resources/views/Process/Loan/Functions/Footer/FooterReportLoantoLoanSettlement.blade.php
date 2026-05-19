@@ -348,6 +348,28 @@
         $('#myProjects').modal('toggle');
     });
 
+    $('#tableLoans').on('click', 'tbody tr', function () {
+        const sysId = $(this).find('input[data-trigger="sys_id_loans"]').val();
+        const name = $(this).find('td:nth-child(2)').text();
+
+        $("#loan_id").val(sysId);
+        $("#loan_number").val(name);
+        $("#loan_number").css('background-color', '#e9ecef');
+
+        $("#myLoans").modal('toggle');
+    });
+
+    $('#tableLoanSettlements').on('click', 'tbody tr', function () {
+        const sysID = $(this).find('input[data-trigger="sys_id_loan_settlements"]').val();
+        const trano = $(this).find('td:nth-child(2)').text();
+
+        $("#loan_settlement_id").val(sysID);
+        $("#loan_settlement_number").val(trano);
+        $("#loan_settlement_number").css('background-color', '#e9ecef');
+
+        $('#myLoanSettlements').modal('toggle');
+    });
+
     $('#myCreditorsTrigger').on('click', function () {
         isCreditorClicked = true;
         $("#titleSuppliers").text('Choose Creditor');

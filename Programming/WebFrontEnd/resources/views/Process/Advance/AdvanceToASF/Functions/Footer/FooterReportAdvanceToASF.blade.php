@@ -549,6 +549,28 @@
         $('#myRequesters').modal('toggle');
     });
 
+    $('#tableGetModalAdvance').on('click', 'tbody tr', async function () {
+        const sysId = $(this).find('input[data-trigger="sys_id_modal_advance"]').val();
+        const trano = $(this).find('td:nth-child(2)').text();
+
+        $("#arf_id").val(sysId);
+        $("#arf_number").val(trano);
+        $("#arf_number").css({ "background-color": "#e9ecef" });
+
+        $("#myGetModalAdvance").modal('toggle');
+    });
+
+    $('#tableGetModalAdvanceSettlement').on('click', 'tbody tr', function () {
+        const sysId = $(this).find('input[data-trigger="sys_id_modal_advance_settlement"]').val();
+        const trano = $(this).find('td:nth-child(2)').text();
+
+        $("#asf_id").val(sysId);
+        $("#asf_number").val(trano);
+        $("#asf_number").css({ "background-color": "#e9ecef" });
+
+        $('#myGetModalAdvanceSettlement').modal('toggle');
+    });
+
     $(document).ready(function () {
         renderPage();
         renderPagination();
