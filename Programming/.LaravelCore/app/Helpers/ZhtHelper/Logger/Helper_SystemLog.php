@@ -31,6 +31,7 @@ namespace App\Helpers\ZhtHelper\Logger
         private static $varDataLogOutputMaxSize;
         private static $varDataLogErrorIndentantionTab;
         private static $varDataLogOutputIndentantionTab;
+        private static $varTraceEnabled = null;
 
 
         /*
@@ -96,6 +97,27 @@ namespace App\Helpers\ZhtHelper\Logger
             }
 
 
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : isTraceEnabled                                                                                       |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Description     : Cek apakah trace logging aktif. Default OFF. Hidupkan via env SYSLOG_TRACE_ENABLED=true.            |
+        |                     Hasil di-memoize untuk seumur hidup proses agar overhead pengecekan env minimal.                     |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (bool) varReturn                                                                                                  |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        private static function isTraceEnabled()
+            {
+            if (self::$varTraceEnabled === null)
+                {
+                self::$varTraceEnabled = filter_var(env('SYSLOG_TRACE_ENABLED', false), FILTER_VALIDATE_BOOLEAN);
+                }
+            return self::$varTraceEnabled;
+            }
+
+
         private static function getCurrentOutputIndentation($varUserSession)
             {
             self::setAutoInit();
@@ -115,6 +137,18 @@ namespace App\Helpers\ZhtHelper\Logger
             
         public static function setLogOutputMethodProcessHeader($varUserSession, $varClassName, $varMethodName, $varCustomMessage=null)
             {
+            if (!self::isTraceEnabled())
+                {
+                return [
+                    'ClassName'            => $varClassName,
+                    'MethodName'           => $varMethodName,
+                    'Message'              => $varCustomMessage,
+                    'LogOutputIndentation' => 0,
+                    'Status'               => null,
+                    'StatusMessage'        => null,
+                    ];
+                }
+
             self::setAutoInit();
 
             $varData['ClassName'] = $varClassName;
@@ -129,6 +163,13 @@ namespace App\Helpers\ZhtHelper\Logger
 
         public static function setLogOutputMethodProcessStatus($varUserSession, &$varData, $varStatus, $varCustomMessage=null)
             {
+            if (!self::isTraceEnabled())
+                {
+                $varData['Status'] = $varStatus;
+                $varData['StatusMessage'] = $varCustomMessage;
+                return;
+                }
+
             self::setAutoInit();
 
             $varData['Status'] = $varStatus;
@@ -138,6 +179,11 @@ namespace App\Helpers\ZhtHelper\Logger
 
         public static function setLogOutputMethodProcessFooter($varUserSession, &$varData)
             {
+            if (!self::isTraceEnabled())
+                {
+                return;
+                }
+
             self::setAutoInit();
 
             $varDataSession = \App\Helpers\ZhtHelper\General\Helper_Session::get(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID());
@@ -185,6 +231,11 @@ namespace App\Helpers\ZhtHelper\Logger
 
         public static function setLogOutputMethodHeader($varUserSession, $varReturnInitialValue, $varClassName, $varMethodName, $varCustomMessage=null)
             {
+            if (!self::isTraceEnabled())
+                {
+                return $varReturnInitialValue;
+                }
+
             \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogIndentationIncrease($varUserSession);
             \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutput($varUserSession, $varClassName, '('.$varMethodName.') '.($varCustomMessage ? $varCustomMessage : 'Entry Point'));
             return $varReturnInitialValue;
@@ -192,6 +243,11 @@ namespace App\Helpers\ZhtHelper\Logger
 
         public static function setLogOutputMethodFooter($varUserSession, &$varReturn, $varClassName, $varMethodName, $varCustomMessage=null)
             {
+            if (!self::isTraceEnabled())
+                {
+                return $varReturn;
+                }
+
             $varDataSession =
                 \App\Helpers\ZhtHelper\General\Helper_Session::get(
                     \App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID()
@@ -358,6 +414,11 @@ namespace App\Helpers\ZhtHelper\Logger
         */
         public static function setLastLogOuputAppend($varUserSession, $varMessage=null)
             {
+            if (!self::isTraceEnabled())
+                {
+                return;
+                }
+
             $varDataSession = \App\Helpers\ZhtHelper\General\Helper_Session::get(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID());
             $varData=$varDataSession['Log']['Specific'][$varUserSession]['Output'][count($varDataSession['Log']['Specific'][$varUserSession]['Output'])-1];
             $varDataSession['Log']['Specific'][$varUserSession]['Output'][count($varDataSession['Log']['Specific'][$varUserSession]['Output'])-1] = substr($varData, 0, strlen($varData)-1).' ► '.$varMessage.']';
@@ -385,6 +446,11 @@ namespace App\Helpers\ZhtHelper\Logger
         */
         public static function setLogError($varUserSession, $varCallerID, $varMessage=null)
             {
+            if (!self::isTraceEnabled())
+                {
+                return;
+                }
+
             self::setAutoInit();
 
             $varDataSession = \App\Helpers\ZhtHelper\General\Helper_Session::get(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID());
@@ -425,6 +491,11 @@ namespace App\Helpers\ZhtHelper\Logger
         */
         public static function setLogOutput($varUserSession, $varCallerID, $varMessage=null)
             {
+            if (!self::isTraceEnabled())
+                {
+                return;
+                }
+
             self::setAutoInit();
 
             $varDataSession = \App\Helpers\ZhtHelper\General\Helper_Session::get(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID());
@@ -461,6 +532,11 @@ namespace App\Helpers\ZhtHelper\Logger
         */
         public static function setLogIndentationIncrease($varUserSession)
             {
+            if (!self::isTraceEnabled())
+                {
+                return;
+                }
+
             self::setAutoInit();
             self::init();
 
@@ -493,8 +569,13 @@ namespace App\Helpers\ZhtHelper\Logger
         */
         public static function setLogIndentationDecrease($varUserSession)
             {
+            if (!self::isTraceEnabled())
+                {
+                return;
+                }
+
             self::setAutoInit();
-            
+
             $varDataSession = \App\Helpers\ZhtHelper\General\Helper_Session::get(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID());
             $varOutputIndentation = \App\Helpers\ZhtHelper\General\Helper_Array::getArrayValue($varDataSession, 'Log::Specific::'.$varUserSession.'::OutputIndentation') - self::$varDataLogOutputIndentantionTab;
             \App\Helpers\ZhtHelper\General\Helper_Array::setArrayValue($varDataSession, 'Log::Specific::'.$varUserSession.'::OutputIndentation', $varOutputIndentation);            
