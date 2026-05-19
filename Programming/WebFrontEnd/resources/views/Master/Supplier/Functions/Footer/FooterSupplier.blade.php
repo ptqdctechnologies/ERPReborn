@@ -8,7 +8,7 @@
 
         $.ajax({
             type: 'POST',
-            url: '{!! route("Supplier.SupplierDetail") !!}',
+            url: '{!! route("Supplier.SupplierSummary") !!}',
             beforeSend: function () {
                 $('#loading-table').show();
             },

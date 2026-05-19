@@ -87,11 +87,11 @@ class SupplierController extends Controller
         ]);
     }
 
-    public function SupplierDetail(Request $request)
+    public function SupplierSummary(Request $request)
     {
         $supplierID = $request->input('supplier_id');
 
-        $response = $this->supplierService->getDetail($supplierID);
+        $response = $this->supplierService->getSummary($supplierID);
 
         $status = $response['metadata']['HTTPStatusCode'];
         $data = [];

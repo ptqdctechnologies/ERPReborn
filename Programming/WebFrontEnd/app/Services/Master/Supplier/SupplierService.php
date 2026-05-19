@@ -36,7 +36,7 @@ class SupplierService
         );
     }
 
-    public function getDetail($supplierID)
+    public function getSummary($supplierID)
     {
         $sessionToken = Session::get('SessionLogin');
 
