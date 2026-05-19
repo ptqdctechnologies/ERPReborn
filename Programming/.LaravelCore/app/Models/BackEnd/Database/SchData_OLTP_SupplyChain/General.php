@@ -611,6 +611,8 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             $varReturn['data'][$idxArray]['workStructure_RefID'] = $value["WorkStructure_RefID"];
                             $varReturn['data'][$idxArray]['workCode'] = $value["WorkCode"];
                             $varReturn['data'][$idxArray]['workName'] = $value["WorkName"];
+                            $varReturn['data'][$idxArray]['quantityGood'] = $value["QtyGood"];
+                            $varReturn['data'][$idxArray]['quantityReject'] = $value["QtyReject"];
                             $varReturn['data'][$idxArray]['orderSequence'] = $idxArray + 1;
                             $idxArray++;
                         }
