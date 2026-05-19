@@ -411,37 +411,13 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
                     }
                 else
                     {
-//$varSignConvertPHPArrayToJSONCamelCase = FALSE;
-                    //$varReturn = \App\Helpers\ZhtHelper\General\Helper_Array::getArrayKeyRename_CamelCase($varUserSession, $varDataSend);
                     if ($varSignConvertPHPArrayToJSONCamelCase == TRUE)
                         {
-                        $varReturn = 
-                            \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                                $varUserSession, 
-                                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                                    $varUserSession,
-                                    'SchSysAsset.Func_General_JSONArray_ConvertKeysToCamelCase',
-                                    [
-                                        [
-                                        \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode(
-                                            $varUserSession,
-                                            $varDataSend
-                                            ),
-                                        'json'
-                                        ]
-                                    ]
-                                    )
-                                );
-                        //dd($varReturn);
-
-                        $varReturn['data'] =
-                            \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
-                                $varUserSession,
-                                $varReturn['data'][0]['Func_General_JSONArray_ConvertKeysToCamelCase']
-                                );
-
                         $varReturn =
-                            $varReturn['data'];
+                            \App\Helpers\ZhtHelper\General\Helper_Array::getArrayKeyRename_CamelCase(
+                                $varUserSession,
+                                $varDataSend
+                                );
                         }
                     else
                         {
