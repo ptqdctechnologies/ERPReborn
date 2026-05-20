@@ -305,15 +305,17 @@
                     const productRefID = row.querySelector('input[id^="product_RefID"]');
                     const workStructureRefID = row.querySelector('input[id^="workStructure_RefID"]');
 
-                    const qtyInput = row.querySelector('input[id^="internal_use_qty_req"]');
+                    const qtyGoodInput = row.querySelector('input[id^="internal_use_qty_req_good"]');
+                    const qtyRejectInput = row.querySelector('input[id^="internal_use_qty_req_reject"]');
                     const noteInput = row.querySelector('textarea[id^="internal_use_note"]');
 
-                    if (qtyInput && qtyInput.value.trim() !== '') {
+                    if (qtyGoodInput && qtyGoodInput.value.trim() !== '' && qtyRejectInput && qtyRejectInput.value.trim() !== '') {
                         const subBudget = row.children[5].innerText.trim();
                         const product = row.children[6].innerText.trim();
                         const uom = row.children[7].innerText.trim();
 
-                        const qty = qtyInput.value.trim();
+                        const qty = qtyGoodInput.value.trim();
+                        const qtyReject = qtyRejectInput.value.trim();
                         const note = noteInput.value.trim();
 
                         let found = false;
@@ -325,6 +327,7 @@
 
                             if (targetReferenceRefID == referenceRefID.value && targetProductRefID == productRefID.value) {
                                 targetRow.children[5].innerText = qty;
+                                targetRow.children[6].innerText = qtyReject;
                                 found = true;
 
                                 // update dataStore
@@ -333,11 +336,13 @@
                                     dataStore[indexToUpdate] = {
                                         entities: {
                                             product_RefID: parseInt(productRefID.value),
-                                            quantity: parseFloat(qty.replace(/,/g, '')),
+                                            quantity: 0,
                                             quantityUnit_RefID: parseInt(quantityUnitRefID.value),
                                             remarks: note,
                                             reference_ID: parseInt(referenceRefID.value),
-                                            workStructure_RefID: parseInt(workStructureRefID.value)
+                                            workStructure_RefID: parseInt(workStructureRefID.value),
+                                            quantityGood: parseFloat(qty.replace(/,/g, '')),
+                                            quantityReject: parseFloat(qtyReject.replace(/,/g, ''))
                                         }
                                     };
                                 }
@@ -356,17 +361,20 @@
                                 <td style="text-align: left;padding: 0.8rem 0.5rem;width: 100px;">${product}</td>
                                 <td style="text-align: right;padding: 0.8rem 0.5rem;width: 100px;">${uom}</td>
                                 <td style="text-align: right;padding: 0.8rem 0.5rem;width: 100px;">${qty}</td>
+                                <td style="text-align: right;padding: 0.8rem 0.5rem;width: 100px;">${qtyReject}</td>
                             `;
                             targetTable.appendChild(newRow);
 
                             dataStore.push({
                                 entities: {
                                     product_RefID: parseInt(productRefID.value),
-                                    quantity: parseFloat(qty.replace(/,/g, '')),
+                                    quantity: 0,
                                     quantityUnit_RefID: parseInt(quantityUnitRefID.value),
                                     remarks: note,
                                     reference_ID: parseInt(referenceRefID.value),
-                                    workStructure_RefID: parseInt(workStructureRefID.value)
+                                    workStructure_RefID: parseInt(workStructureRefID.value),
+                                    quantityGood: parseFloat(qty.replace(/,/g, '')),
+                                    quantityReject: parseFloat(qtyReject.replace(/,/g, ''))
                                 }
                             });
                         }
@@ -1012,18 +1020,18 @@
     // END OF PURCHASE ORDER TYPE
 
     // START OF INTERNAL USE TYPE
-    function calculateTotalInternalUse() {
-        let total = 0;
+    // function calculateTotalInternalUse() {
+    //     let total = 0;
 
-        document.querySelectorAll('input[id^="internal_use_qty_req"]').forEach(function (input) {
-            let value = parseFloat(input.value.replace(/,/g, ''));
-            if (!isNaN(value)) {
-                total += value;
-            }
-        });
+    //     document.querySelectorAll('input[id^="internal_use_qty_req_good"]').forEach(function (input) {
+    //         let value = parseFloat(input.value.replace(/,/g, ''));
+    //         if (!isNaN(value)) {
+    //             total += value;
+    //         }
+    //     });
 
-        document.getElementById('total_reference_number').textContent = decimalFormat(parseFloat(total));
-    }
+    //     document.getElementById('total_reference_number').textContent = decimalFormat(parseFloat(total));
+    // }
 
     function getBudgetDetails(combinedBudgetRefID, warehouseRefID, combinedBudgetSectionRefID) {
         $.ajaxSetup({
@@ -1062,8 +1070,11 @@
                                         <td style="text-align: center;">-</td>
                                         <td style="text-align: center;">-</td>
                                         <td style="text-align: center;">-</td>
+                                        <td class="sticky-col forth-col-arf" style="border:1px solid #e9ecef;background-color:white; padding: 0.5rem !important; width: 100px;">
+                                            <input id="internal_use_qty_req_good${indexInternalUseDetail}" class="form-control number-without-negative" data-index=${indexInternalUseDetail} autocomplete="off" style="border-radius:0px;" />
+                                        </td>
                                         <td class="sticky-col third-col-arf" style="border:1px solid #e9ecef;background-color:white; padding: 0.5rem !important; width: 100px;">
-                                            <input id="internal_use_qty_req${indexInternalUseDetail}" class="form-control number-without-negative" data-index=${indexInternalUseDetail} autocomplete="off" style="border-radius:0px;" />
+                                            <input id="internal_use_qty_req_reject${indexInternalUseDetail}" class="form-control number-without-negative" data-index=${indexInternalUseDetail} autocomplete="off" style="border-radius:0px;" />
                                         </td>
                                         <td class="sticky-col second-col-arf" style="border:1px solid #e9ecef;background-color:white; padding: 0.5rem !important; width: 100px;">
                                             <input id="internal_use_balance_req${indexInternalUseDetail}" class="form-control number-without-negative" data-index=${indexInternalUseDetail} autocomplete="off" style="border-radius:0px;" readonly />
@@ -1076,22 +1087,22 @@
 
                             $('#table_reference_type_detail tbody').append(row);
 
-                            $(`#internal_use_qty_req${indexInternalUseDetail}`).on('keyup', function () {
-                                let qty_req = $(this).val().replace(/,/g, '');
-                                let data_index = $(this).data('index');
-                                let result = val.QuantityRemaining - qty_req;
+                            // $(`#internal_use_qty_req_good${indexInternalUseDetail}`).on('keyup', function () {
+                            //     let qty_req = $(this).val().replace(/,/g, '');
+                            //     let data_index = $(this).data('index');
+                            //     let result = val.QuantityRemaining - qty_req;
 
-                                if (parseFloat(qty_req) > val.QuantityRemaining) {
-                                    $(this).val("");
-                                    $(`#internal_use_balance_req${data_index}`).val("");
-                                    ErrorNotif("Qty Request is over !");
-                                } else {
-                                    $(`#internal_use_balance_req${data_index}`).val(result);
-                                    calculateTotalInternalUse();
-                                }
+                            //     if (parseFloat(qty_req) > val.QuantityRemaining) {
+                            //         $(this).val("");
+                            //         $(`#internal_use_balance_req${data_index}`).val("");
+                            //         ErrorNotif("Qty Request is over !");
+                            //     } else {
+                            //         $(`#internal_use_balance_req${data_index}`).val(result);
+                            //         calculateTotalInternalUse();
+                            //     }
 
-                                // checkOneLineBudgetContents(indexInternalUseDetail);
-                            });
+                            //     // checkOneLineBudgetContents(indexInternalUseDetail);
+                            // });
 
                             indexInternalUseDetail += 1;
                         }
