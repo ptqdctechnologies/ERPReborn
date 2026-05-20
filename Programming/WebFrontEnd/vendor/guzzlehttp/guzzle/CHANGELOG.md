@@ -2,6 +2,18 @@
 
 Please refer to [UPGRADING](UPGRADING.md) guide for upgrading to a major version.
 
+## 7.10.1 - 2026-05-19
+
+### Fixed
+
+- Fail clearly when cURL options cannot be applied
+- Fail clearly when the certificate option is malformed
+- Fail clearly when JSON decode depth is invalid
+- Fail clearly when session cookie data is malformed
+- Fail clearly when the stream progress option is not callable
+- Prevent response creation failures from exposing stale cURL responses
+
+
 ## 7.10.0 - 2025-08-23
 
 ### Added
