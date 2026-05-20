@@ -4,9 +4,9 @@
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category    : Example - API Call Controller                                                                                    |
 | ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\read\dataList\sysConfig          |
-|                 \getAppObject_MenuLayout\v1                                                                                            |
-| ▪ API Key     : transaction.read.dataList.sysConfig.getAppObject_MenuLayout                                                            |
-| ▪ API Version : 1                                                                                                                |
+|                 \getAppObject_MenuLayout\v1                                                                                      |
+| ▪ API Key     : transaction.read.dataList.sysConfig.getAppObject_MenuLayout                                                      |
+| ▪ API Version :                                                                                                                  |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2023 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
@@ -17,8 +17,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Call URL        : http(s)://<HOST>/transaction.read.dataList.sysConfig.getAppObject_MenuLayout.v1_throughAPIGateway          |
-        |                     ► http://172.28.0.4/transaction.read.dataList.sysConfig.getAppObject_MenuLayout.v1_throughAPIGateway       |
+        | ▪ Call URL        : http(s)://<HOST>/transaction.read.dataList.sysConfig.getAppObject_MenuLayout.v1_throughAPIGateway    |
+        |                     ► http://172.28.0.4/transaction.read.dataList.sysConfig.getAppObject_MenuLayout.v1_throughAPIGateway |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000001                                                                                       |
         | ▪ Last Update     : 2024-01-17                                                                                           |
@@ -65,9 +65,9 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Call URL        : http(s)://<HOST>/                                                                                    |
-        |                     transaction.read.dataList.sysConfig.getAppObject_MenuLayout.v1_throughAPIGatewayJQuery                     |
+        |                     transaction.read.dataList.sysConfig.getAppObject_MenuLayout.v1_throughAPIGatewayJQuery               |
         |                     ► http://172.28.0.4/                                                                                 |
-        |                       transaction.read.dataList.sysConfig.getAppObject_MenuLayout.v1_throughAPIGatewayJQuery                   |
+        |                       transaction.read.dataList.sysConfig.getAppObject_MenuLayout.v1_throughAPIGatewayJQuery             |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000001                                                                                       |
         | ▪ Last Update     : 2024-01-17                                                                                           |
