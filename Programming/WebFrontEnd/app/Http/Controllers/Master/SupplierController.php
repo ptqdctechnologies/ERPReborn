@@ -56,8 +56,54 @@ class SupplierController extends Controller
         }
     }
 
-    public function show($id)
+    public function revision(Request $request)
     {
+        try {
+            $varAPIWebToken = Session::get('SessionLogin');
+            $supplierRefID = $request->input('modal_supplier_id');
+
+            $response = $this->supplierService->getDetail($supplierRefID);
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                throw new \Exception('Failed to fetch Detail Supplier');
+            }
+
+            $details = $response['data']['data'] ?? [];
+            $header = $details[0] ?? [];
+            $compact = [
+                'varAPIWebToken' => $varAPIWebToken,
+                'supplierRefID' => $header['Supplier_RefID'] ?? '',
+                'headerSupplier' => [
+                    'supplierName' => $header['SupplierName'] ?? '',
+                    'taxID' => $header['Tax_ID'] ?? '',
+                    'phoneNumber' => $header['PhoneNumber'] ?? '',
+                    'email' => $header['Email'] ?? '',
+                    'country' => $header['Country'] ?? '',
+                    'province' => $header['Province'] ?? '',
+                    'city' => $header['City'] ?? '',
+                    'address' => $header['Address'] ?? '',
+                    'legalEntityRefID' => $header['LegalEntity'] ?? '',
+                    'contactPerson' => $header['ContactPerson'] ?? '',
+                    'bankRefID' => $header['Bank_RefID'] ?? '',
+                    'bankName' => $header['BankName'] ?? '',
+                    'bankAcronym' => $header['BankAcronym'] ?? '',
+                    'accountNumber' => $header['AccountNumber'] ?? '',
+                    'accountName' => $header['AccountName'] ?? '',
+                    'remark' => $header['Remark'] ?? '',
+                ],
+            ];
+
+            return view('Master.Supplier.Transactions.RevisionSupplier', $compact);
+        } catch (\Throwable $th) {
+            Log::error('Revision Supplier Error', [
+                'message' => $th->getMessage(),
+                'supplierRefID' => ''
+            ]);
+
+            return redirect()
+                ->route('Supplier.index')
+                ->with('NotFound', 'Data cannot be displayed at this time. Please try again.');
+        }
     }
 
     public function update(Request $request, $id)
@@ -87,11 +133,11 @@ class SupplierController extends Controller
         ]);
     }
 
-    public function SupplierDetail(Request $request)
+    public function SupplierSummary(Request $request)
     {
         $supplierID = $request->input('supplier_id');
 
-        $response = $this->supplierService->getDetail($supplierID);
+        $response = $this->supplierService->getSummary($supplierID);
 
         $status = $response['metadata']['HTTPStatusCode'];
         $data = [];

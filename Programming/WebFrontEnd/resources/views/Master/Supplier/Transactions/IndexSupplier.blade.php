@@ -2,6 +2,8 @@
 @section('main')
     @include('Partials.navbar')
     @include('Partials.sidebar')
+    @include('getFunction.getSuppliers')
+    @include('Master.Supplier.Functions.PopUp.PopUpSupplierRevision')
 
     <div class="content-wrapper">
         <section class="content">

@@ -609,6 +609,8 @@
         renderPage();
         renderPagination();
         getSuppliers();
+        getAccountPayable();
+        getModalPurchaseOrder();
 
         $('#po_to_ap_date_range').daterangepicker({
             autoUpdateInput: false,

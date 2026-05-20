@@ -531,13 +531,44 @@
 
         ErrorHandler.hideErrorInputMessage("#supplier_name", "#supplierMessage");
 
-        $('#mySuppliers').modal('hide');
+        $('#mySuppliers').modal('toggle');
+    });
+
+    $('#tableGetModalPurchaseRequisition').on('click', 'tbody tr', function () {
+        const $row = $(this);
+        const sysId = $row.find('input[data-trigger="sys_id_modal_purchase_requisition"]').val();
+        const sysIdBudget = $row.find('input[data-trigger="sys_id_combinedBudget_purchase_requisition"]').val();
+        const trano = $row.find('td:nth-child(2)').text();
+
+        $('#pr_id').val(sysId);
+        $('#pr_number').val(trano);
+        $("#pr_number").css({ "background-color": "#e9ecef" });
+
+        $('#purchaseRequisitionModal').modal('toggle');
+    });
+
+    $('#TableSearchPORevision tbody').on('click', 'tr', function () {
+        const table = $('#TableSearchPORevision').DataTable();
+        const data = table.row(this).data();
+
+        if (data) {
+            $("#mySearchPO").modal('toggle');
+
+            const purchaseOrder_RefID = data.sys_ID;
+            const code = data.sys_Text;
+
+            $('#po_id').val(purchaseOrder_RefID);
+            $('#po_number').val(code);
+            $("#po_number").css({ "background-color": "#e9ecef" });
+        }
     });
 
     $(document).ready(function () {
         renderPage();
-        renderPagination();
         getSuppliers();
+        renderPagination();
+        getModalPurchaseOrder();
+        getModalPurchaseRequisition();
 
         $('#purchase_request_date_range').daterangepicker({
             autoUpdateInput: false,

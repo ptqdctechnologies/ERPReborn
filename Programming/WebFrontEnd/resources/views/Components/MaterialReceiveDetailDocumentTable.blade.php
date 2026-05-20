@@ -3,38 +3,70 @@
         <table class="table table-head-fixed text-nowrap mb-0">
             <thead>
                 <tr>
-                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">NO</th>
-                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">WORK</th>
-                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">PRODUCT</th>
-                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">UOM</th>
-                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">QTY</th>
-                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">NOTE</th>
+                    <th
+                        style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
+                        NO</th>
+                    <th
+                        style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
+                        WORK</th>
+                    <th
+                        style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
+                        PRODUCT</th>
+                    <th
+                        style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
+                        UOM</th>
+                    <th
+                        style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
+                        QTY GOOD</th>
+                    <th
+                        style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
+                        QTY REJECT</th>
+                    <th
+                        style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
+                        NOTE</th>
                 </tr>
             </thead>
 
             <tbody>
-                <?php $no = 1; $grand_total = 0; ?>
+                <?php $no = 1;
+$grandTotalQtyGood = 0;
+$grandTotalQtyReject = 0; ?>
                 <?php foreach ($dataDetails as $dataDetail) { ?>
-                <?php $grand_total += $dataDetail['quantity'] ?? 0;  ?>
-                    <tr>
-                        <td style="border:1px solid #4B586A;color:#4B586A;text-align: center;"><?= $no++; ?></td>
-                        <td style="border:1px solid #4B586A;color:#4B586A;">-</td>
-                        <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['productCode'] ?? ''; ?> - <?= $dataDetail['productName'] ?? ''; ?></td>
-                        <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['quantityUnitName'] ?? '-'; ?></td>
-                        <td style="border:1px solid #4B586A;color:#4B586A;"><?= number_format($dataDetail['quantity'] ?? 0, 2); ?></td>
-                        <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['note'] ?? '-'; ?></td>
-                    </tr>
+                <?php    $grandTotalQtyGood += $dataDetail['quantityGood'] ?? 0;  ?>
+                <?php    $grandTotalQtyReject += $dataDetail['quantityReject'] ?? 0;  ?>
+                <tr>
+                    <td style="border:1px solid #4B586A;color:#4B586A;text-align: center;"><?= $no++; ?></td>
+                    <td style="border:1px solid #4B586A;color:#4B586A;">-</td>
+                    <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['productCode'] ?? ''; ?> -
+                        <?= $dataDetail['productName'] ?? ''; ?>
+                    </td>
+                    <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['quantityUnitName'] ?? '-'; ?>
+                    </td>
+                    <td style="border:1px solid #4B586A;color:#4B586A;">
+                        <?= number_format($dataDetail['quantityGood'] ?? 0, 2); ?>
+                    </td>
+                    <td style="border:1px solid #4B586A;color:#4B586A;">
+                        <?= number_format($dataDetail['quantityReject'] ?? 0, 2); ?>
+                    </td>
+                    <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['note'] ?? '-'; ?></td>
+                </tr>
                 <?php } ?>
             </tbody>
 
             <tfoot>
                 <tr>
-                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #4B586A;color:#4B586A;" colspan="4">
+                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #4B586A;color:#4B586A;"
+                        colspan="4">
                         GRAND TOTAL
                     </th>
                     <td style="border:1px solid #4B586A;color:#4B586A;">
                         <span id="GrandTotal">
-                            <?= number_format($grand_total, 2); ?>
+                            <?= number_format($grandTotalQtyGood, 2); ?>
+                        </span>
+                    </td>
+                    <td style="border:1px solid #4B586A;color:#4B586A;">
+                        <span id="GrandTotal">
+                            <?= number_format($grandTotalQtyReject, 2); ?>
                         </span>
                     </td>
                     <td style="border:1px solid #4B586A;color:#4B586A;"></td>

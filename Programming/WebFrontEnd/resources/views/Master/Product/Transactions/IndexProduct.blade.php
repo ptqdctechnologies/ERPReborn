@@ -2,6 +2,7 @@
 @section('main')
     @include('Partials.navbar')
     @include('Partials.sidebar')
+    @include('Master.Product.Functions.PopUp.PopUpProductRevision')
 
     <div class="content-wrapper">
         <section class="content">

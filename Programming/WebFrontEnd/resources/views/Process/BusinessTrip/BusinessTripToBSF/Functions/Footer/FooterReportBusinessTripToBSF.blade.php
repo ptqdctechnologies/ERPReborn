@@ -456,6 +456,8 @@
     $(document).ready(function () {
         renderPage();
         renderPagination();
+        getBusinessTripRequest();
+        getBusinessTripSettlement();
 
         $('#brf_to_bsf_date_range').daterangepicker({
             autoUpdateInput: false,

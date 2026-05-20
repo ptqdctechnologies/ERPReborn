@@ -499,6 +499,28 @@
         $('#myCustomers').modal('toggle');
     });
 
+    $('#tableGetModalReimbursement').on('click', 'tbody tr', function () {
+        const sysId = $(this).find('input[data-trigger="sys_id_modal_reimbursement"]').val();
+        const trano = $(this).find('td:nth-child(2)').text();
+
+        $("#rem_id").val(sysId);
+        $("#rem_number").val(trano);
+        $("#rem_number").css({ "background-color": "#e9ecef" });
+
+        $('#myGetModalReimbursement').modal('toggle');
+    });
+
+    $('#tableDebitNote').on('click', 'tbody tr', function () {
+        const sysId = $(this).find('input[data-trigger="sys_id_modal_dn"]').val();
+        const trano = $(this).find('td:nth-child(2)').text();
+
+        $("#dn_id").val(sysId);
+        $("#dn_number").val(trano);
+        $("#dn_number").css({ "background-color": "#e9ecef" });
+
+        $('#myDebitNote').modal('toggle');
+    });
+
     $(document).ready(function () {
         renderPage();
         renderPagination();

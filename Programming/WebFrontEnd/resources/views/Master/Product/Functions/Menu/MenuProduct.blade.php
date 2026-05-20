@@ -22,7 +22,8 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="javascript:;" class="nav-link" style="color:white;padding-bottom:10px;">
+                                    <a href="javascript:;" class="nav-link" data-toggle="modal"
+                                        data-target="#myProductRevision" style="color:white;padding-bottom:10px;">
                                         <i class="far fa-file nav-icon-sm"> Revision Product</i>
                                     </a>
                                 </li>

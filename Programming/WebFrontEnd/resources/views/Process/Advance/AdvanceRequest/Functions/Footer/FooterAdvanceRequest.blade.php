@@ -601,14 +601,18 @@
                 businessDocumentType_RefID: documentTypeID.value,
                 combinedBudget_RefID: combinedBudgetRefID
             },
-            url: '{!! route("GetWorkflow") !!}',
+            url: '{!! route("Workflow.UserAllowedToSubmit") !!}',
+            // url: '{!! route("GetWorkflow") !!}',
             success: function (response) {
-                if (response.status === 200) {
-                    totalNextApprover = response.data[0].nextApproverPath.length;
-                    dataWorkflow.workFlowPathRefID = response.data[0].sys_ID;
-                    dataWorkflow.approverEntityRefID = response.data[0].submitterEntity_RefID;
+                console.log('response', response);
 
-                    getWorkflows(response.data[0].nextApproverPath);
+                if (response.status === 200 && response.data[0].signAccess) {
+                    // totalNextApprover = response.data[0].nextApproverPath.length;
+                    dataWorkflow.workFlowPathRefID = response.data[0].workFlowPath_RefIDArray[0];
+                    // dataWorkflow.workFlowPathRefID = response.data[0].sys_ID;
+                    // dataWorkflow.approverEntityRefID = response.data[0].submitterEntity_RefID;
+
+                    // getWorkflows(response.data[0].nextApproverPath);
 
                     $("#var_combinedBudget_RefID").val(combinedBudgetRefID);
                     $("#project_id_second").val(combinedBudgetRefID);
@@ -622,7 +626,7 @@
                     getRequesters();
                     $("#mySiteCodeSecondTrigger").prop("disabled", false);
                 } else {
-                    Swal.fire("Error", "Workflow Error", "error");
+                    Swal.fire("Error", "You are not included in this budget", "error");
                 }
 
                 $("#loadingBudget").css({ "display": "none" });

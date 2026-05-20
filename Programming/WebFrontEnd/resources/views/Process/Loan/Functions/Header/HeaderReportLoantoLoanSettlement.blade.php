@@ -4,13 +4,16 @@
     <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Loan Number</label>
     <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
       <div>
-        <span id="" class="input-group-text form-control" style="border-radius:0;cursor:pointer;">
-          <i id="" class="fas fa-gift"></i>
+        <span class="input-group-text form-control" data-toggle="modal" data-target="#myLoans"
+          style="border-radius:0;cursor:pointer;">
+          <i class="fas fa-gift"></i>
         </span>
       </div>
       <div>
         <input type="text" id="loan_number" class="form-control" style="border-radius:0;background-color:white;"
           readonly />
+        <input type="text" id="loan_id" class="form-control" style="border-radius:0;background-color:white;" readonly
+          hidden />
       </div>
     </div>
   </div>
@@ -20,20 +23,23 @@
     <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Loan Settle Number</label>
     <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
       <div>
-        <span id="" class="input-group-text form-control" style="border-radius:0;cursor:pointer;">
-          <i id="" class="fas fa-gift"></i>
+        <span class="input-group-text form-control" data-toggle="modal" data-target="#myLoanSettlements"
+          style="border-radius:0;cursor:pointer;">
+          <i class="fas fa-gift"></i>
         </span>
       </div>
       <div>
         <input type="text" id="loan_settlement_number" class="form-control"
           style="border-radius:0;background-color:white;" readonly />
+        <input type="text" id="loan_settlement_id" class="form-control" style="border-radius:0;background-color:white;"
+          readonly hidden />
       </div>
     </div>
   </div>
 </div>
 <div class="col-sm-12 col-md-12 col-lg-3">
   <!-- BUDGET -->
-  <div class="row p-0 align-items-center" style="margin-bottom: 1rem;">
+  <div class="row p-0 align-items-center">
     <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Budget</label>
     <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
       <div>
@@ -62,7 +68,7 @@
   </div>
 
   <!-- DATE -->
-  <div class="row p-0 align-items-center">
+  <div class="row p-0 align-items-center" style="margin-top: 1rem;">
     <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Date</label>
     <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
       <div>
@@ -88,12 +94,12 @@
 </div>
 <div class="col-sm-12 col-md-12 col-lg-3">
   <!-- CREDITOR -->
-  <div class="row p-0 align-items-center" style="margin-bottom: 1rem;">
+  <div class="row p-0 align-items-center">
     <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Creditor</label>
     <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
       <div>
-        <span id="myCreditorsTrigger" class="input-group-text form-control" data-toggle="modal" data-target="#"
-          style="border-radius:0;cursor:pointer;">
+        <span id="myCreditorsTrigger" class="input-group-text form-control" data-toggle="modal"
+          data-target="#mySuppliers" style="border-radius:0;cursor:pointer;">
           <i class="fas fa-gift"></i>
         </span>
       </div>
@@ -113,12 +119,12 @@
   </div>
 
   <!-- DEBITOR -->
-  <div class="row p-0 align-items-center">
+  <div class="row p-0 align-items-center" style="margin-top: 1rem;">
     <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Debitor</label>
     <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
       <div>
-        <span id="myDebitorsTrigger" class="input-group-text form-control" data-toggle="modal" data-target="#"
-          style="border-radius:0;cursor:pointer;">
+        <span id="myDebitorsTrigger" class="input-group-text form-control" data-toggle="modal"
+          data-target="#mySuppliers" style="border-radius:0;cursor:pointer;">
           <i class="fas fa-gift"></i>
         </span>
       </div>

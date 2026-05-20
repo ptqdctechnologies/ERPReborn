@@ -2,6 +2,7 @@
 @section('main')
   @include('Partials.navbar')
   @include('Partials.sidebar')
+  @include('getFunction.getInstitutionBankAccount')
 
   <div class="content-wrapper">
     <section class="content">
@@ -22,94 +23,38 @@
                 <div class="card">
                   <div class="card-body">
                     <div class="row p-1" style="row-gap: 1rem;">
-                      @include('Accounting.GeneralJournal.Functions.Header.HeaderGeneralLedger')
+                      @include('Accounting.GeneralJournal.Functions.Header.HeaderReportGeneralLedger')
                     </div>
                   </div>
                 </div>
               </div>
 
               <div class="col-12" style="margin-bottom: 1rem;">
-                <div class="row" style="gap: 1rem;">
-                  <!-- OPENING BALANCE -->
-                  <div class="col px-0" style="border: 1px solid #ced4da; border-radius: 15px;">
-                    <div class="p-3 d-flex align-items-center justify-content-between text-bold"
-                      style="background-color: #e8f6e9; color: #000; font-size: small; border-top-left-radius: 14px; border-top-right-radius: 14px;">
-                      <div>OPENING BALANCE</div>
-                      <div class="d-flex align-items-center justify-content-center invisible"
-                        style="background-color: #36AE7C; padding: 5px; min-width: 25px; min-height: 25px; border-radius: 100%; color: #fff;">
-                        0</div>
-                    </div>
-                    <hr class="m-0" style="background-color: #ced4da;" />
-                    <div id="nominal_beginning_balance" class="p-3 text-bold" style="font-size: larger;">
-                      IDR 0.00
-                    </div>
-                  </div>
-
-                  <!-- TOTAL DEBIT -->
-                  <div class="col px-0" style="border: 1px solid #ced4da; border-radius: 15px;">
-                    <div class="p-3 d-flex align-items-center justify-content-between text-bold"
-                      style="background-color: #ffebed; color: #000; font-size: small; border-top-left-radius: 14px; border-top-right-radius: 14px;">
-                      <div>TOTAL DEBIT</div>
-                      <div id="total_cash_out" class="d-flex align-items-center justify-content-center"
-                        style="background-color: #EB5353; padding: 5px; min-width: 25px; min-height: 25px; border-radius: 100%; color: #fff;">
-                        0</div>
-                    </div>
-                    <hr class="m-0" style="background-color: #ced4da;" />
-                    <div id="nominal_cash_out" class="p-3 text-bold" style="font-size: larger;">
-                      IDR 0.00
-                    </div>
-                  </div>
-
-                  <!-- TOTAL CREDIT -->
-                  <div class="col px-0" style="border: 1px solid #ced4da; border-radius: 15px;">
-                    <div class="p-3 d-flex align-items-center justify-content-between text-bold"
-                      style="background-color: #e8eaf6; color: #000; font-size: small; border-top-left-radius: 14px; border-top-right-radius: 14px;">
-                      <div>TOTAL CREDIT</div>
-                      <div id="total_cash_in" class="d-flex align-items-center justify-content-center"
-                        style="background-color: #187498; padding: 5px; min-width: 25px; min-height: 25px; border-radius: 100%; color: #fff;">
-                        0</div>
-                    </div>
-                    <hr class="m-0" style="background-color: #ced4da;" />
-                    <div id="nominal_cash_in" class="p-3 text-bold" style="font-size: larger;">
-                      IDR 0.00
-                    </div>
-                  </div>
-
-                  <!-- CLOSING BALANCE -->
-                  <div class="col px-0" style="border: 1px solid #ced4da; border-radius: 15px;">
-                    <div class="p-3 d-flex align-items-center justify-content-between text-bold"
-                      style="background-color: #e8f6e9; color: #000; font-size: small; border-top-left-radius: 14px; border-top-right-radius: 14px;">
-                      <div>CLOSING BALANCE</div>
-                      <div class="d-flex align-items-center justify-content-center invisible"
-                        style="background-color: #F9D923; padding: 5px; min-width: 25px; min-height: 25px; border-radius: 100%; color: #fff;">
-                        0</div>
-                    </div>
-                    <hr class="m-0" style="background-color: #ced4da;" />
-                    <div id="nominal_ending_balance" class="p-3 text-bold" style="font-size: larger;">
-                      IDR 0.00
-                    </div>
-                  </div>
-
-                  <!-- TOTAL ENTRIES -->
-                  <div class="col px-0" style="border: 1px solid #ced4da; border-radius: 15px;">
-                    <div class="p-3 d-flex align-items-center justify-content-between text-bold"
-                      style="background-color: #e8f6e9; color: #000; font-size: small; border-top-left-radius: 14px; border-top-right-radius: 14px;">
-                      <div>TOTAL ENTRIES</div>
-                      <div class="d-flex align-items-center justify-content-center invisible"
-                        style="background-color: #F9D923; padding: 5px; min-width: 25px; min-height: 25px; border-radius: 100%; color: #fff;">
-                        0</div>
-                    </div>
-                    <hr class="m-0" style="background-color: #ced4da;" />
-                    <div id="nominal_ending_balance" class="p-3 text-bold" style="font-size: larger;">
-                      IDR 0.00
-                    </div>
-                  </div>
-                </div>
+                @include('Accounting.GeneralJournal.Functions.Header.HeaderReportGeneralLedgerCard')
               </div>
 
-              <div class="col-12" id="table_container">
+              <div class="col-12" id="table_container" style="display: none;">
                 <div class="card">
                   <div class="card-body p-0">
+                    <div class="d-flex justify-content-between">
+                      <label>
+                        Show
+                        <select id="limitSelect"
+                          style="border: 1px solid #aaa; border-radius: 3px; padding: 4px; background: transparent;">
+                          <option value="10" selected>10</option>
+                          <option value="25">25</option>
+                          <option value="50">50</option>
+                          <option value="100">100</option>
+                        </select>
+                        entries
+                      </label>
+                      <label>
+                        Search:
+                        <input type="text" id="searchInput" autocomplete="off" placeholder="Search..."
+                          style="border: 1px solid #aaa; border-radius: 3px; padding: 5px; margin-left: 3px; background: transparent;" />
+                      </label>
+                    </div>
+
                     <div class="table-responsive">
                       <table class="table table-head-fixed w-100" id="table_summary">
                         <thead>
@@ -119,10 +64,10 @@
                               No</th>
                             <th
                               style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;width: 10px;">
-                              Journal Number</th>
+                              Date</th>
                             <th
                               style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;width: 10px;">
-                              Date</th>
+                              Journal Number</th>
                             <th
                               style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;width: 10px;">
                               Description</th>
@@ -140,7 +85,21 @@
                               Balance (Rp)</th>
                           </tr>
                         </thead>
+                        <tbody></tbody>
                       </table>
+                    </div>
+
+                    <div class="d-flex justify-content-between" style="padding-top: .755em; padding-bottom: .755em;">
+                      <div>
+                        Showing <span id="start_limit">1</span> to <span id="end_limit">10</span> of
+                        <span id="total_data">68</span> entries
+                      </div>
+
+                      <div id="controls" style="cursor: pointer;">
+                        <a class="paginate_button previous" id="prevPage">Previous</a>
+                        <span id="pageNumbers"></span>
+                        <a class="paginate_button next" id="nextPage">Next</a>
+                      </div>
                     </div>
                   </div>
                 </div>

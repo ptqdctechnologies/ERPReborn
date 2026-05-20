@@ -5,7 +5,7 @@
         <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
             <div>
                 <span id="" class="input-group-text form-control" style="border-radius:0;cursor:pointer;">
-                    <i id="iconBudget" class="fas fa-gift"></i>
+                    <i id="" class="fas fa-gift"></i>
                 </span>
             </div>
             <div>

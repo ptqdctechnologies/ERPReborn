@@ -5,6 +5,8 @@
     @include('getFunction.getProjects')
     @include('getFunction.getSites')
     @include('getFunction.getRequesters')
+    @include('getFunction.getAdvance')
+    @include('getFunction.getAdvanceSettlement')
 
     <div class="content-wrapper">
         <section class="content">
