@@ -86,11 +86,13 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::resource('Warehouse', 'Register\Warehouse\WarehouseController');
 
     // SUPPLIER
+    Route::post('Supplier/revision', 'Master\SupplierController@revision')->name('Supplier.revision');
     Route::post('SupplierPickList', 'Master\SupplierController@SupplierPickList')->name('Supplier.SupplierPickList');
     Route::post('SupplierSummary', 'Master\SupplierController@SupplierSummary')->name('Supplier.SupplierSummary');
     Route::resource('Supplier', 'Master\SupplierController');
 
     // PRODUCT
+    Route::post('Product/revision', 'Master\ProductController@revision')->name('Product.revision');
     Route::resource('Product', 'Master\ProductController');
     // Route::resource('Product', 'Register\Product\ProductController');
 
