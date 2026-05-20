@@ -22,8 +22,9 @@ class ProductController extends Controller
     {
     }
 
-    public function show($id)
+    public function revision(Request $request)
     {
+        return view('Master.Product.Transactions.RevisionProduct');
     }
 
     public function update(Request $request, $id)

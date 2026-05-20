@@ -819,10 +819,10 @@ class DocumentTypeMapper
                 'dataHeader' => [
                     'dateUpdate' => null
                 ],
-                // 'textAreaFields'    => [
-                //     'title'         => 'Notes',
-                //     'text'          => '-',
-                // ],
+                'textAreaFields' => [
+                    'title' => 'Remarks',
+                    'text' => '-',
+                ],
                 'components' => [
                     'detail' => 'Components.SupplierDetailDocument',
                     'additional' => 'Components.SupplierCategoryDetailDocument'

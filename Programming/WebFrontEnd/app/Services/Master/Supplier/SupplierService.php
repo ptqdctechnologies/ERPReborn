@@ -9,6 +9,30 @@ use App\Helpers\ZhtHelper\System\Helper_Environment;
 
 class SupplierService
 {
+    public function getDetail($advanceRequestID)
+    {
+        $sessionToken = Session::get('SessionLogin');
+
+        return Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
+            $sessionToken,
+            'transaction.read.dataList.supplyChain.getSupplierDetail',
+            'latest',
+            [
+                'parameter' => [
+                    'supplier_RefID' => (int) $advanceRequestID,
+                ],
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    'filter' => null,
+                    'paging' => null
+                ]
+            ],
+            false
+        );
+    }
+
     public function getPickList($supplierID)
     {
         $sessionToken = Session::get('SessionLogin');
