@@ -21,8 +21,18 @@
             </div>
         </div>
 
+        <!-- DATE -->
+        <div class="row" style="margin-bottom: 1rem;">
+            <div class="col-4 col-sm-4 col-md-3 col-lg-3 text-bold">
+                Date
+            </div>
+            <div class="col">
+                : 2026-04-10
+            </div>
+        </div>
+
         <!-- UOM -->
-        <div class="row">
+        <div class="row" style="margin-bottom: 1rem;">
             <div class="col-4 col-sm-4 col-md-3 col-lg-3 text-bold">
                 Uom
             </div>
@@ -30,12 +40,7 @@
                 : ttk
             </div>
         </div>
-    </div>
-</div>
 
-<!-- RIGHT COLUMN -->
-<div class="col-12 col-md-5 col-lg-5">
-    <div class="form-group">
         <!-- CATEGORY -->
         <div class="row" style="margin-bottom: 1rem;">
             <div class="col-4 col-sm-4 col-md-3 col-lg-3 text-bold">
@@ -55,5 +60,11 @@
                 : -
             </div>
         </div>
+    </div>
+</div>
+
+<!-- RIGHT COLUMN -->
+<div class="col-12 col-md-5 col-lg-5">
+    <div class="form-group">
     </div>
 </div>
