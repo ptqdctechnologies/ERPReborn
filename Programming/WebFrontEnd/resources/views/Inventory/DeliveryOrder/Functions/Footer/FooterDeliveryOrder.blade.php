@@ -241,7 +241,9 @@
                                             quantityUnit_RefID: parseInt(quantityUnitRefID.value),
                                             remarks: note,
                                             reference_ID: parseInt(referenceRefID.value),
-                                            workStructure_RefID: parseInt(workStructureRefID.value)
+                                            workStructure_RefID: parseInt(workStructureRefID.value),
+                                            quantityGood: 0,
+                                            quantityReject: 0
                                         }
                                     };
                                 }
@@ -270,7 +272,9 @@
                                     quantityUnit_RefID: parseInt(quantityUnitRefID.value),
                                     remarks: note,
                                     reference_ID: parseInt(referenceRefID.value),
-                                    workStructure_RefID: parseInt(workStructureRefID.value)
+                                    workStructure_RefID: parseInt(workStructureRefID.value),
+                                    quantityGood: 0,
+                                    quantityReject: 0
                                 }
                             });
                         }
