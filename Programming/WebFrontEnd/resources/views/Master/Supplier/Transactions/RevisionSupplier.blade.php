@@ -3,9 +3,9 @@
     @include('Partials.navbar')
     @include('Partials.sidebar')
     @include('getFunction.getCities')
-    @include('getFunction.getSuppliers')
     @include('getFunction.getBankLists')
     @include('getFunction.getCountries')
+    @include('getFunction.getSuppliers')
     @include('getFunction.getProvincies')
     @include('Master.Supplier.Functions.PopUp.PopUpSupplierRevision')
     @include('Master.Supplier.Functions.PopUp.PopUpSupplierCategory')
@@ -18,7 +18,7 @@
                 <div class="row mb-1" style="background-color:#4B586A;">
                     <div class="col-sm-6" style="height:30px;">
                         <label style="font-size:15px;position:relative;top:7px;color:white;">
-                            Create Supplier
+                            Revision Supplier
                         </label>
                     </div>
                 </div>
@@ -46,7 +46,7 @@
                                         </div>
 
                                         <!-- BODY -->
-                                        @include('Master.Supplier.Functions.Header.HeaderMasterSupplier')
+                                        @include('Master.Supplier.Functions.Header.HeaderRevisionMasterSupplier')
                                     </div>
                                 </div>
                             </div>
@@ -71,50 +71,7 @@
                                         </div>
 
                                         <!-- BODY -->
-                                        @include('Master.Supplier.Functions.Header.HeaderTypeSupplier')
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- FILE ATTACHMENT -->
-                        <div class="tab-content px-3 pb-2" id="nav-tabContent">
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="card">
-                                        <!-- HEADER -->
-                                        <div class="card-header">
-                                            <label class="card-title">
-                                                Attachment
-                                            </label>
-                                            <div class="card-tools">
-                                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                                    <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-
-                                        <!-- BODY -->
-                                        <div class="card-body">
-                                            <div class="row py-3">
-                                                <div class="col-lg-5">
-                                                    <div class="row">
-                                                        <div class="col p-0">
-                                                            <input type="text" id="dataInput_Log_FileUpload"
-                                                                name="dataInput_Log_FileUpload_1" style="display:none">
-                                                            <?php echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxCreateDOM_DivCustom_InputFile(
-        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-        $varAPIWebToken,
-        'dataInput_Log_FileUpload',
-        null,
-        'dataInput_Return'
-    ) .
-        ''; ?>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        @include('Master.Supplier.Functions.Header.HeaderRevisionTypeSupplier')
                                     </div>
                                 </div>
                             </div>
@@ -145,5 +102,5 @@
     </div>
 
     @include('Partials.footer')
-    @include('Master.Supplier.Functions.Footer.FooterCreateSupplier')
+    @include('Master.Supplier.Functions.Footer.FooterRevisionSupplier')
 @endsection

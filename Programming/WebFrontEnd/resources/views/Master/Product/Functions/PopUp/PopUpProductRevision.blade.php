@@ -1,11 +1,11 @@
-<div id="mySupplierRevision" class="modal fade" role="dialog" aria-hidden="true"
+<div id="myProductRevision" class="modal fade" role="dialog" aria-hidden="true"
     style="margin-top: 180px;margin-left:6px;">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content" style="width:90%;">
             <div class="modal-header">
                 <div class="modal-body">
                     <span style="font-size: 15px;position:relative;left:35%;font-weight:bold;">
-                        SUPPLIER REVISION
+                        PRODUCT REVISION
                     </span>
                     <br><br><br>
 
@@ -19,24 +19,25 @@
                                         </td>
                                         <td>
                                             <div class="input-group">
-                                                <form id="editForm" action="{{ route('Supplier.revision') }}"
+                                                <form id="editForm" action="{{ route('Product.revision') }}"
                                                     method="POST">
                                                     @csrf
-                                                    <input id="modal_supplier_id" style="border-radius:0;"
-                                                        name="modal_supplier_id" type="hidden" class="form-control">
+                                                    <input id="modal_product_id" style="border-radius:0;"
+                                                        name="modal_product_id" type="hidden" class="form-control"
+                                                        value="123">
                                                 </form>
 
                                                 <div class="input-group-append" style="cursor: pointer;">
                                                     <span style="border-radius:0;" class="input-group-text form-control"
-                                                        id="modal_supplier_number_icon">
+                                                        id="modal_product_number_icon">
                                                         <a data-toggle="modal" data-target="#mySuppliers">
                                                             <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}"
                                                                 width="13" alt="">
                                                         </a>
                                                     </span>
                                                 </div>
-                                                <input required="" id="modal_supplier_number" style="border-radius:0;"
-                                                    name="modal_supplier_number" type="text" class="form-control"
+                                                <input required="" id="modal_product_number" style="border-radius:0;"
+                                                    name="modal_product_number" type="text" class="form-control"
                                                     required readonly>
                                             </div>
                                         </td>
@@ -62,20 +63,20 @@
 
 <script>
     $('.btn-edit').on('click', function () {
-        const loanRefID = $('#modal_supplier_id').val();
+        const loanRefID = $('#modal_product_id').val();
 
         if (loanRefID) {
             ShowLoading();
 
             $('#editForm').submit();
         } else {
-            $('#modal_supplier_number').focus();
-            $('#modal_supplier_number').css("border", "1px solid red");
+            $('#modal_product_number').focus();
+            $('#modal_product_number').css("border", "1px solid red");
         }
     });
 
     $('.btn-cancel').on('click', function () {
-        $('#modal_supplier_id').val("");
-        $('#modal_supplier_number').val("");
+        $('#modal_product_id').val("");
+        $('#modal_product_number').val("");
     });
 </script>

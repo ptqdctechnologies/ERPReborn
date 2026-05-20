@@ -138,8 +138,8 @@
         const code = $(this).find('td:nth-child(2)').text();
         const name = $(this).find('td:nth-child(3)').text();
 
-        $("#modal_loan_id").val(sysId);
-        $("#modal_supplier_document_number").val(`${code} - ${name}`);
+        $("#modal_supplier_id").val(sysId);
+        $("#modal_supplier_number").val(`${code} - ${name}`);
 
         $('#mySuppliers').modal('toggle');
     });
