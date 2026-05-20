@@ -10,7 +10,6 @@ use Illuminate\Foundation\Cloud\Events;
 use Illuminate\Foundation\Cloud\FailedJobProvider;
 use Illuminate\Foundation\Cloud\QueueConnector;
 use Illuminate\Queue\Connectors\SqsConnector;
-use Monolog\Formatter\JsonFormatter;
 use Monolog\Handler\SocketHandler;
 use PDO;
 
@@ -126,15 +125,22 @@ class Cloud
      */
     public static function configureManagedQueues(Application $app): void
     {
-        if (! Cloud::managedQueuesAreActive()) {
+        if (! isset($_SERVER['LARAVEL_CLOUD_MANAGED_QUEUES_CONFIG'])) {
             return;
         }
 
-        $app['config']->set('queue.connections.sqs.credentials', 'ecs');
+        $config = json_decode($_SERVER['LARAVEL_CLOUD_MANAGED_QUEUES_CONFIG'], associative: true, flags: JSON_THROW_ON_ERROR);
 
-        if (isset($_SERVER['LARAVEL_CLOUD_REGION'])) {
-            $app['config']->set('queue.connections.sqs.region', $_SERVER['LARAVEL_CLOUD_REGION']);
-        }
+        $config['connection']['after_commit'] ??= env('CLOUD_QUEUE_AFTER_COMMIT', false);
+
+        $config['connection']['overflow'] ??= [
+            'enabled' => env('CLOUD_QUEUE_OVERFLOW_ENABLED', false),
+            'store' => env('CLOUD_QUEUE_OVERFLOW_STORE'),
+            'always' => env('CLOUD_QUEUE_OVERFLOW_ALWAYS', false),
+            'delete_after_processing' => env('CLOUD_QUEUE_OVERFLOW_DELETE_AFTER_PROCESSING', true),
+        ];
+
+        $app['config']->set('queue.connections.cloud', $config);
     }
 
     /**
@@ -142,14 +148,14 @@ class Cloud
      */
     public static function bootManagedQueues(Application $app): void
     {
-        if (! Cloud::managedQueuesAreActive()) {
+        if (($_SERVER['LARAVEL_CLOUD_MANAGED_QUEUES'] ?? '0') !== '1') {
             return;
         }
 
         $app->singleton(Events::class, fn () => new Events(Cloud::socket()));
         $app->bind(QueueConnector::class, fn ($app) => new QueueConnector(new SqsConnector, $app));
 
-        $app['queue']->addConnector('sqs', $app->factory(QueueConnector::class));
+        $app['queue']->addConnector('cloud', $app->factory(QueueConnector::class));
 
         $failer = $app['queue.failer'];
         unset($app['queue.failer']);
@@ -172,7 +178,7 @@ class Cloud
             'driver' => 'monolog',
             'level' => $_ENV['LOG_LEVEL'] ?? $_SERVER['LOG_LEVEL'] ?? 'debug',
             'handler' => SocketHandler::class,
-            'formatter' => JsonFormatter::class,
+            'formatter' => LaravelCloudJsonFormatter::class,
             'formatter_with' => [
                 'includeStacktraces' => true,
             ],
@@ -191,13 +197,5 @@ class Cloud
         return $_ENV['LARAVEL_CLOUD_LOG_SOCKET'] ??
             $_SERVER['LARAVEL_CLOUD_LOG_SOCKET'] ??
                 'unix:///tmp/cloud-init.sock';
-    }
-
-    /**
-     * Determine if managed queues are active.
-     */
-    protected static function managedQueuesAreActive(): bool
-    {
-        return ($_SERVER['LARAVEL_CLOUD_MANAGED_QUEUES'] ?? null) === '1';
     }
 }

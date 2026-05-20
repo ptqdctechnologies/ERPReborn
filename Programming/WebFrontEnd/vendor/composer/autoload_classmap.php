@@ -3413,6 +3413,7 @@ return array(
     'Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize' => $vendorDir . '/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ValidatePostSize.php',
     'Illuminate\\Foundation\\Http\\Middleware\\VerifyCsrfToken' => $vendorDir . '/laravel/framework/src/Illuminate/Foundation/Http/Middleware/VerifyCsrfToken.php',
     'Illuminate\\Foundation\\Inspiring' => $vendorDir . '/laravel/framework/src/Illuminate/Foundation/Inspiring.php',
+    'Illuminate\\Foundation\\LaravelCloudJsonFormatter' => $vendorDir . '/laravel/framework/src/Illuminate/Foundation/LaravelCloudJsonFormatter.php',
     'Illuminate\\Foundation\\MaintenanceModeManager' => $vendorDir . '/laravel/framework/src/Illuminate/Foundation/MaintenanceModeManager.php',
     'Illuminate\\Foundation\\Mix' => $vendorDir . '/laravel/framework/src/Illuminate/Foundation/Mix.php',
     'Illuminate\\Foundation\\MixFileNotFoundException' => $vendorDir . '/laravel/framework/src/Illuminate/Foundation/MixFileNotFoundException.php',

@@ -4127,6 +4127,7 @@ class ComposerStaticInitba8dd78905df56b3237571f0ff8edc85
         'Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ValidatePostSize.php',
         'Illuminate\\Foundation\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/Http/Middleware/VerifyCsrfToken.php',
         'Illuminate\\Foundation\\Inspiring' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/Inspiring.php',
+        'Illuminate\\Foundation\\LaravelCloudJsonFormatter' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/LaravelCloudJsonFormatter.php',
         'Illuminate\\Foundation\\MaintenanceModeManager' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/MaintenanceModeManager.php',
         'Illuminate\\Foundation\\Mix' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/Mix.php',
         'Illuminate\\Foundation\\MixFileNotFoundException' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/MixFileNotFoundException.php',
