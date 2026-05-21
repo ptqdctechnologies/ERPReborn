@@ -69,15 +69,15 @@
                                                         <th rowspan="2"
                                                             style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
                                                             No</th>
-                                                        <th colspan="6"
+                                                        <th colspan="7"
                                                             style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
                                                             Purchase Requisition</th>
-                                                        <th colspan="7"
+                                                        <th colspan="8"
                                                             style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
                                                             Purchase Order</th>
                                                         <!-- <th rowspan="2"
-                                                                        style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
-                                                                        Balance</th> -->
+                                                                style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
+                                                                Balance</th> -->
                                                     </tr>
                                                     <tr>
                                                         <th
@@ -100,6 +100,9 @@
                                                             Total Equivalent IDR</th>
                                                         <th
                                                             style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
+                                                            Status</th>
+                                                        <th
+                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
                                                             Number</th>
                                                         <th
                                                             style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
@@ -119,6 +122,9 @@
                                                         <th
                                                             style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
                                                             PR to PO Balance</th>
+                                                        <th
+                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
+                                                            Status</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody></tbody>

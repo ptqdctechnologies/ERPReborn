@@ -1,145 +1,346 @@
-@extends('Partials.app')
-@section('main')
+<!DOCTYPE html>
+<html lang="en">
 
-<!-- <style>
-  table,
-  th,
-  td {
-    border: 1px solid #ced4da;
-    border-collapse: collapse;
-  }
-</style> -->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="csrf-token" content="{{ csrf_token() }}" />
 
-<div class="content-wrapper">
-  <section class="content">
-    <div class="container-fluid">
-      <div class="row mb-1">
-        <div class="col-sm-12">
-          <center>
-            <div style="text-align: center; font-size: 20px; font-weight: bold;">Purchase Requisition to Purchase Order Report</div>
-          </center>
-          <table style="float:left;">
-            <tr>
-              <td>Project</td>
-              <td>:</td>
-              <td><?= $dataPRtoPO[0]['combinedBudgetCode'] . ' - ' . $dataPRtoPO[0]['combinedBudgetName']; ?></td>
-            </tr>
-          </table>
-          <table style="float:right;">
-            <!-- <tr>
-              <td><img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('/AdminLTE-master/dist/img/qdc.png'))) }}" width="180"></td>
-            </tr> -->
-            </tr>
-          </table>
-          <br><br>
-        </div>
-      </div>
-      <div class="card">
-        <div class="tab-content p-3" id="nav-tabContent">
-          <div class="row">
+  <title>ERP Reborn</title>
 
-            <div class="col-12 ShowTableReportAdvanceSummary">
-              <div class="card">
-                <div class="card-body table-responsive p-0">
-                  <table class="TableReportAdvanceSummary" id="TableReportAdvanceSummary" style="font-size: 13px;width:100%;border: 1px solid #ced4da;border-collapse: collapse;">
-                    <thead>
-                      <tr>
-                          <th rowspan="2" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">No</th>
-                          <th colspan="6" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Purchase Requisition</th>
-                          <th colspan="6" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Purchase Order</th>
-                          <th rowspan="2" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Balance</th>
-                      </td>
-                      <tr>
-                          <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Number</th>
-                          <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Date</th>
-                          <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Product Name</th>
-                          <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Total IDR</th>
-                          <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Total Other Currency</th>
-                          <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Total Equivalent IDR</th>
-                          <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Number</th>
-                          <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Date</th>
-                          <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Qty</th>
-                          <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Total IDR</th>
-                          <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Total Other Currency</th>
-                          <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Total Equivalent IDR</th>
-                      </tr>
-                    </thead>
-                    <?php
-                                            // Grouping data berdasarkan PR_Number + PR_Date
-                                            $groupedData = [];
-                                            foreach ($dataPRtoPO as $row) {
-                                                $groupKey = $row['PR_Number'] . '|' . $row['PR_Date'];
-                                                if (!isset($groupedData[$groupKey])) {
-                                                    $groupedData[$groupKey] = [];
-                                                }
-                                                $groupedData[$groupKey][] = $row;
-                                            }
+  <!-- Theme style -->
+  <link rel="stylesheet" href="{{ asset('AdminLTE-master/dist/css/adminlte.min.css') }}">
+</head>
 
-                                            $counter = 1;
-                                            $grandTotal_PR = 0;
-                                            $grandTotal_PO = 0;
-                                            $grandTotal_qtyPO = 0;
-                                            $grandTotal_Balance = 0;
-                                        ?>
+<body>
+  <div class="card-body table-responsive p-0">
+    <div style="text-align: right; font-size: 14px;"><?= date('F j, Y'); ?></div>
+    <div style="text-align: center; font-size: 20px; font-weight: bold;">PR to PO</div>
+    <div style="text-align: right; font-size: 14px;"><?= date('h:i A'); ?></div>
+  </div>
 
-                                        <tbody>
-                                            @foreach ($groupedData as $groupKey => $rows)
-                                                <?php
-                                                    $rowspan = count($rows);
-                                                    $firstRow = true;
-                                                ?>
-                                                @foreach ($rows as $dataDetail)
-                                                    <?php
-                                                        $grandTotal_PR += $dataDetail['PR_Total'];
-                                                        $grandTotal_PO += $dataDetail['PO_Total'];
-                                                        $grandTotal_qtyPO += $dataDetail['PO_Qty'];
-                                                        $grandTotal_Balance += $dataDetail['balance'];
-                                                    ?>
-                                                    <tr>
-                                                        <td>{{ $counter++ }}</td>
-                                                        @if ($firstRow)
-                                                            
-                                                            <td rowspan="{{ $rowspan }}">{{ $dataDetail['PR_Number'] ?: '-' }}</td>
-                                                            <td rowspan="{{ $rowspan }}">{{ $dataDetail['PR_Date'] ? date('d-m-Y', strtotime($dataDetail['PR_Date'])) : '-' }}</td>
-                                                            <?php $firstRow = false; ?>
-                                                        @else
-                                                            <td style="display:none"></td>
-                                                            <td style="display:none"></td>
-                                                            <td style="display:none"></td>
-                                                        @endif
-
-                                                        <td>{{ $dataDetail['product_Code'] }} - {{ $dataDetail['product_Name'] }}</td>
-                                                        <td>{{ number_format($dataDetail['PR_Total'], 2, '.', ',') }}</td>
-                                                        <td>{{ number_format(0, 2, '.', ',') }}</td>
-                                                        <td>{{ number_format(0, 2, '.', ',') }}</td>
-                                                        <td>{{ $dataDetail['PO_Number'] ?: '-' }}</td>
-                                                        <td>{{ $dataDetail['PO_Date'] ? date('d-m-Y', strtotime($dataDetail['PO_Date'])) : '-' }}</td>
-                                                        <td>{{ $dataDetail['PO_Qty'] ? number_format($dataDetail['PO_Qty'], 2, '.', ',') : '-' }}</td>
-                                                        <td>{{ $dataDetail['PO_Total'] ? number_format($dataDetail['PO_Total'], 2, '.', ',') : '-' }}</td>
-                                                        <td>{{ $dataDetail['PO_Total'] ? number_format($dataDetail['PO_Total'], 2, '.', ',') : '-' }}</td>
-                                                        <td>{{ $dataDetail['PO_Total'] ? number_format($dataDetail['PO_Total'], 2, '.', ',') : '-' }}</td>
-                                                        <td>{{ $dataDetail['balance'] }}</td>
-                                                    </tr>
-                                                @endforeach
-                                        @endforeach
-                                        </tbody>
-
-                      <tfoot>
-                        <tr style="font-weight:bolder;border: 1px solid #ced4da;border-collapse: collapse;">
-                          
-                        </tr>
-                      </tfoot>
-                    
-
-                  </table>
-                </div>
+  <!-- HEADER -->
+  <table style="margin: 30px 0px 15px 1px;">
+    <tr>
+      <!-- PR NUMBER -->
+      <td style="width: 350px;">
+        <table>
+          <tr>
+            <td style="width: 80px; height: 20px;">
+              <div style="font-size: 12px; font-weight: bold; line-height: 14px;">
+                PR Number
               </div>
-            </div>
-          </div>
-        </div>
-      </div>
+            </td>
+            <td style="width: 5px;">
+              :
+            </td>
+            <td style="height: 20px;">
+              <div style="font-size: 12px; line-height: 14px;">
+                -
+              </div>
+            </td>
+          </tr>
+        </table>
+      </td>
 
-    </div>
-  </section>
-</div>
-@endsection
+      <!-- BUDGET -->
+      <td style="width: 350px;">
+        <table>
+          <tr>
+            <td style="width: 80px; height: 20px;">
+              <div style="font-size: 12px; font-weight: bold; line-height: 14px;">
+                Budget
+              </div>
+            </td>
+            <td style="width: 5px;">
+              :
+            </td>
+            <td style="height: 20px;">
+              <div style="font-size: 12px; line-height: 14px;">
+                -
+              </div>
+            </td>
+          </tr>
+        </table>
+      </td>
+
+      <!-- SUPPLIER -->
+      <td style="width: 350px;">
+        <table>
+          <tr>
+            <td style="width: 80px; height: 20px;">
+              <div style="font-size: 12px; font-weight: bold; line-height: 14px;">
+                Supplier
+              </div>
+            </td>
+            <td style="width: 5px;">
+              :
+            </td>
+            <td style="height: 20px;">
+              <div style="font-size: 12px; line-height: 14px;">
+                -
+              </div>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr>
+      <!-- PO NUMBER -->
+      <td style="width: 350px;">
+        <table>
+          <tr>
+            <td style="width: 80px; height: 20px;">
+              <div style="font-size: 12px; font-weight: bold; line-height: 14px;">
+                PO Number
+              </div>
+            </td>
+            <td style="width: 5px;">
+              :
+            </td>
+            <td style="height: 20px;">
+              <div style="font-size: 12px; line-height: 14px;">
+                -
+              </div>
+            </td>
+          </tr>
+        </table>
+      </td>
+
+      <!-- SUB BUDGET -->
+      <td style="width: 350px;">
+        <table>
+          <tr>
+            <td style="width: 80px; height: 20px;">
+              <div style="font-size: 12px; font-weight: bold; line-height: 14px;">
+                Sub Budget
+              </div>
+            </td>
+            <td style="width: 5px;">
+              :
+            </td>
+            <td style="height: 20px;">
+              <div style="font-size: 12px; line-height: 14px;">
+                -
+              </div>
+            </td>
+          </tr>
+        </table>
+      </td>
+
+      <!-- DATE RANGE -->
+      <td style="width: 350px;">
+        <table>
+          <tr>
+            <td style="width: 80px; height: 20px;">
+              <div style="font-size: 12px; font-weight: bold; line-height: 14px;">
+                Date Range
+              </div>
+            </td>
+            <td style="width: 5px;">
+              :
+            </td>
+            <td style="height: 20px;">
+              <div style="font-size: 12px; line-height: 14px;">
+                -
+              </div>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+
+  <!-- DETAIL -->
+  <table style="margin-left: 1px; width: 100%;">
+    <thead>
+      <tr style="border-top: 1px solid black; border-bottom: 1px dotted black;">
+        <td rowspan="2"
+          style="width: 20px; border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+            No
+          </div>
+        </td>
+        <td colspan="7" style="border-top: 1px solid black; height: 20px; text-align: center;">
+          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+            Purchase Requisition
+          </div>
+        </td>
+        <td colspan="8" style="border-top: 1px solid black; height: 20px; text-align: center;">
+          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+            Purchase Order
+          </div>
+        </td>
+      </tr>
+      <tr style="border-top: 1px solid black; border-bottom: 1px dotted black;">
+        <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+            Number
+          </div>
+        </td>
+        <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+            Date
+          </div>
+        </td>
+        <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+            Product Name
+          </div>
+        </td>
+        <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+            Total IDR
+          </div>
+        </td>
+        <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+            Total Other Currency
+          </div>
+        </td>
+        <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+            Total Equivalent IDR
+          </div>
+        </td>
+        <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+            Status
+          </div>
+        </td>
+        <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+            Number
+          </div>
+        </td>
+        <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+            Date
+          </div>
+        </td>
+        <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+            Qty
+          </div>
+        </td>
+        <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+            Total IDR
+          </div>
+        </td>
+        <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+            Total Other Currency
+          </div>
+        </td>
+        <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+            Total Equivalent IDR
+          </div>
+        </td>
+        <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+            PR to PO Balance
+          </div>
+        </td>
+        <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+            Status
+          </div>
+        </td>
+      </tr>
+    </thead>
+
+    <tbody>
+      <?php $counter = 1; ?>
+      <?php foreach ($dataPRtoPO as $data) { ?>
+      <tr>
+        <td>
+          <div style="margin-top: 4px; font-size: 12px;">
+            <?= $counter++; ?>
+          </div>
+        </td>
+        <td>
+          <div style="margin-top: 4px; font-size: 12px;">
+            <?= $data['PR_Number'] ?? '-'; ?>
+          </div>
+        </td>
+        <td>
+          <div style="margin-top: 4px; font-size: 12px;">
+            <?= date('d-m-Y', strtotime($data['PR_Date'])); ?>
+          </div>
+        </td>
+        <td>
+          <div style="margin-top: 4px; font-size: 12px;">
+            <?= $data['product_Code'] ?? ''; ?> -
+            <?= $data['product_Name'] ?? ''; ?>
+          </div>
+        </td>
+        <td>
+          <div style="margin-top: 4px; font-size: 12px;">
+            <?= $data['PR_Total'] ?? '-'; ?>
+          </div>
+        </td>
+        <td>
+          <div style="margin-top: 4px; font-size: 12px;">
+            <?= '-'; ?>
+          </div>
+        </td>
+        <td>
+          <div style="margin-top: 4px; font-size: 12px;">
+            <?= '-'; ?>
+          </div>
+        </td>
+        <td>
+          <div style="margin-top: 4px; font-size: 12px;">
+            <?= '-'; ?>
+          </div>
+        </td>
+        <td>
+          <div style="margin-top: 4px; font-size: 12px;">
+            <?= $data['PO_Number'] ?? '-'; ?>
+          </div>
+        </td>
+        <td>
+          <div style="margin-top: 4px; font-size: 12px;">
+            <?= date('d-m-Y', strtotime($data['PO_Date'])); ?>
+          </div>
+        </td>
+        <td>
+          <div style="margin-top: 4px; font-size: 12px;">
+            <?= $data['PO_Qty'] ?? '-'; ?>
+          </div>
+        </td>
+        <td>
+          <div style="margin-top: 4px; font-size: 12px;">
+            <?= $data['PO_Total'] ?? '-'; ?>
+          </div>
+        </td>
+        <td>
+          <div style="margin-top: 4px; font-size: 12px;">
+            <?= '-'; ?>
+          </div>
+        </td>
+        <td>
+          <div style="margin-top: 4px; font-size: 12px;">
+            <?= '-'; ?>
+          </div>
+        </td>
+        <td>
+          <div style="margin-top: 4px; font-size: 12px;">
+            <?= $data['balance'] ?? '-'; ?>
+          </div>
+        </td>
+        <td>
+          <div style="margin-top: 4px; font-size: 12px;">
+            <?= '-'; ?>
+          </div>
+        </td>
+      </tr>
+      <?php } ?>
+    </tbody>
+  </table>
+</body>
+
+</html>

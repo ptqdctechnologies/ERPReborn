@@ -201,6 +201,10 @@
             prTotalEquivalentCell.textContent = '-';
             row.appendChild(prTotalEquivalentCell);
 
+            const prStatusCell = document.createElement('td');
+            prStatusCell.textContent = '-';
+            row.appendChild(prStatusCell);
+
             const poNumberCell = document.createElement('td');
             poNumberCell.textContent = item.PO_Number ?? '-';
             row.appendChild(poNumberCell);
@@ -228,6 +232,10 @@
             const balance = document.createElement('td');
             balance.textContent = isNaN(item.balance) ? '-' : Utils.formatCurrency(item.balance);
             row.appendChild(balance);
+
+            const poStatusCell = document.createElement('td');
+            poStatusCell.textContent = '-';
+            row.appendChild(poStatusCell);
 
             tbody.appendChild(row);
             rowIndex++;

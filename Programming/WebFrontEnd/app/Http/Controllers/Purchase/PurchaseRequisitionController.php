@@ -339,39 +339,36 @@ class PurchaseRequisitionController extends Controller
 
     public function PrintExportReportPRtoPO(Request $request)
     {
-        ini_set('memory_limit', '512M');
-        set_time_limit(300);
         try {
-            $dataPDF = Session::get("ReportPRtoPODataPDF");
-            $dataExcel = Session::get("dataReportPRtoPO");
+            $dataPrToPo = json_decode($request->dataReport, true);
+            $type = $request->printType;
 
+            if ($dataPrToPo) {
+                if ($type === "PDF") {
+                    $pdf = PDF::loadView('Purchase.PurchaseRequisition.Reports.ReportPRtoPO_pdf', ['dataPRtoPO' => $dataPrToPo])
+                        ->setPaper('a4', 'landscape');
 
-            if ($dataPDF && $dataExcel) {
-                $print_type = $request->print_type;
-                if ($print_type == "PDF") {
-                    $dataPRtoPO = Session::get("ReportPRtoPODataPDF");
-                    // dd($dataPRtoPO);
-
-                    $pdf = PDF::loadView('Purchase.PurchaseRequisition.Reports.ReportPRtoPO_pdf', ['dataPRtoPO' => $dataPRtoPO])->setPaper('a4', 'landscape');
                     $pdf->output();
                     $dom_pdf = $pdf->getDomPDF();
-
                     $canvas = $dom_pdf->get_canvas();
                     $width = $canvas->get_width();
                     $height = $canvas->get_height();
                     $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
                     $canvas->page_text(34, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
 
-                    return $pdf->download('Export Report PR to PO .pdf');
-                } else if ($print_type == "Excel") {
-                    return Excel::download(new ExportReportPRtoPO, 'Export Report PR to PO .xlsx');
+                    return $pdf->download('Export Report PR to PO.pdf');
+                } else if ($type === "EXCEL") {
+                    return Excel::download(new ExportReportPRtoPO($dataPrToPo), 'Export Report PR to PO.xlsx');
+                } else {
+                    throw new \Exception('Failed to Export PR to PO Report');
                 }
             } else {
-                return redirect()->route('PurchaseRequisition.ReportPRtoPO')->with('NotFound', 'Data Cannot Empty');
+                throw new \Exception('PR to PO Data is Empty');
             }
         } catch (\Throwable $th) {
-            Log::error("Error at " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
+            Log::error("Print Export Report Purchase Request to Purchase Order Function Error: " . $th->getMessage());
+
+            return response()->json(['statusCode' => 400]);
         }
     }
 
