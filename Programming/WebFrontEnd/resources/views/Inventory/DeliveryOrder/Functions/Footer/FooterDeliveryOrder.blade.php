@@ -405,14 +405,18 @@
                     const productRefID = row.querySelector('input[id^="product_RefID"]');
                     const workStructureRefID = row.querySelector('input[id^="workStructure_RefID"]');
 
-                    const qtyInput = row.querySelector('input[id^="stock_movement_qty_req"]');
+                    const qtyGoodInput = row.querySelector('input[id^="stock_movement_qty_good_req"]');
+                    const qtyRejectInput = row.querySelector('input[id^="stock_movement_qty_reject_req"]');
+                    const priceInput = row.querySelector('input[id^="stock_movement_price_req"]');
                     const noteInput = row.querySelector('textarea[id^="stock_movement_note_req"]');
 
-                    if (qtyInput && qtyInput.value.trim() !== '') {
+                    if (qtyGoodInput && qtyGoodInput.value.trim() !== '' && qtyRejectInput && qtyRejectInput.value.trim() !== '') {
                         const product = row.children[5].innerText.trim();
                         const uom = row.children[6].innerText.trim();
 
-                        const qty = qtyInput.value.trim();
+                        const qty = qtyGoodInput.value.trim();
+                        const qtyReject = qtyRejectInput.value.trim();
+                        const price = priceInput.value.trim();
                         const note = noteInput.value.trim();
 
                         let found = false;
@@ -424,6 +428,8 @@
 
                             if (targetReferenceRefID == referenceRefID.value && targetProductRefID == productRefID.value) {
                                 targetRow.children[4].innerText = qty;
+                                targetRow.children[5].innerText = qtyReject;
+                                targetRow.children[6].innerText = price;
                                 found = true;
 
                                 // update dataStore
@@ -432,11 +438,13 @@
                                     dataStore[indexToUpdate] = {
                                         entities: {
                                             product_RefID: parseInt(productRefID.value),
-                                            quantity: parseFloat(qty.replace(/,/g, '')),
+                                            quantity: 0,
                                             quantityUnit_RefID: parseInt(quantityUnitRefID.value),
                                             remarks: note,
                                             reference_ID: parseInt(referenceRefID.value),
-                                            workStructure_RefID: parseInt(workStructureRefID.value)
+                                            workStructure_RefID: parseInt(workStructureRefID.value),
+                                            quantityGood: parseFloat(qty.replace(/,/g, '')),
+                                            quantityReject: parseFloat(qtyReject.replace(/,/g, ''))
                                         }
                                     };
                                 }
@@ -454,17 +462,21 @@
                                 <td style="text-align: left;padding: 0.8rem 0.5rem;width: 100px;">${product}</td>
                                 <td style="text-align: right;padding: 0.8rem 0.5rem;width: 100px;">${uom}</td>
                                 <td style="text-align: right;padding: 0.8rem 0.5rem;width: 100px;">${qty}</td>
+                                <td style="text-align: right;padding: 0.8rem 0.5rem;width: 100px;">${qtyReject}</td>
+                                <td style="text-align: right;padding: 0.8rem 0.5rem;width: 100px;">${price}</td>
                             `;
                             targetTable.appendChild(newRow);
 
                             dataStore.push({
                                 entities: {
                                     product_RefID: parseInt(productRefID.value),
-                                    quantity: parseFloat(qty.replace(/,/g, '')),
+                                    quantity: 0,
                                     quantityUnit_RefID: parseInt(quantityUnitRefID.value),
                                     remarks: note,
                                     reference_ID: parseInt(referenceRefID.value),
-                                    workStructure_RefID: parseInt(workStructureRefID.value)
+                                    workStructure_RefID: parseInt(workStructureRefID.value),
+                                    quantityGood: parseFloat(qty.replace(/,/g, '')),
+                                    quantityReject: parseFloat(qtyReject.replace(/,/g, ''))
                                 }
                             });
                         }
@@ -1139,18 +1151,18 @@
     // END OF INTERNAL USE TYPE
 
     // START OF STOCK MOVEMENT TYPE
-    function calculateTotalStockMovement() {
-        let total = 0;
+    // function calculateTotalStockMovement() {
+    //     let total = 0;
 
-        document.querySelectorAll('input[id^="stock_movement_qty_req"]').forEach(function (input) {
-            let value = parseFloat(input.value.replace(/,/g, ''));
-            if (!isNaN(value)) {
-                total += value;
-            }
-        });
+    //     document.querySelectorAll('input[id^="stock_movement_qty_good_req"]').forEach(function (input) {
+    //         let value = parseFloat(input.value.replace(/,/g, ''));
+    //         if (!isNaN(value)) {
+    //             total += value;
+    //         }
+    //     });
 
-        document.getElementById('total_reference_number').textContent = decimalFormat(parseFloat(total));
-    }
+    //     document.getElementById('total_reference_number').textContent = decimalFormat(parseFloat(total));
+    // }
 
     function getStockDetail(deliveryFrom_RefID) {
         let stockMovementBudget_RefID = document.getElementById("stock_movement_budget_id");
@@ -1175,45 +1187,59 @@
 
                     $.each(data, function (key, val) {
                         let row = `
-                                <tr>
-                                    <input id="product_RefID${indexInternalUseDetail}" value="${val.Product_RefID}" type="hidden" />
-                                    <input id="quantityUnit_RefID${indexInternalUseDetail}" value="${val.QuantityUnit_RefID}" type="hidden" />
-                                    <input id="reference_ID${indexInternalUseDetail}" value="${val.Warehouse_RefID}" type="hidden" />
-                                    <input id="workStructure_RefID${indexInternalUseDetail}" value="302000000000003" type="hidden" />
+                            <tr>
+                                <input id="product_RefID${indexInternalUseDetail}" value="${val.Product_RefID}" type="hidden" />
+                                <input id="quantityUnit_RefID${indexInternalUseDetail}" value="${val.QuantityUnit_RefID}" type="hidden" />
+                                <input id="reference_ID${indexInternalUseDetail}" value="${val.Warehouse_RefID}" type="hidden" />
+                                <input id="workStructure_RefID${indexInternalUseDetail}" value="302000000000003" type="hidden" />
 
-                                    <td style="text-align: center;">-</td>
-                                    <td style="text-align: center;">${val.ProductCode || ''} - ${val.ProductName || ''}</td>
-                                    <td style="text-align: center;">${val.QuantityUnitName || '-'}</td>
-                                    <td style="text-align: center;">${val.QuantityStok || '-'}</td>
-                                    <td style="border:1px solid #e9ecef;background-color:white; padding: 0.5rem !important; width: 100px;">
-                                        <input id="stock_movement_qty_req${key}" class="form-control number-without-negative" autocomplete="off" style="border-radius:0px;" />
-                                    </td>
-                                    <td style="border:1px solid #e9ecef;background-color:white; padding: 0.5rem !important; width: 100px;">
-                                        <input id="stock_movement_balance_req${key}" class="form-control number-without-negative" autocomplete="off" style="border-radius:0px;" readonly />
-                                    </td>
-                                    <td style="border:1px solid #e9ecef;background-color:white; padding: 0.5rem !important; width: 100px;">
-                                        <textarea id="stock_movement_note_req${key}" class="form-control"></textarea>
-                                    </td>
-                                </tr>
-                            `;
+                                <td style="text-align: center;">-</td>
+                                <td style="text-align: center;">${val.ProductCode || ''} - ${val.ProductName || ''}</td>
+                                <td style="text-align: center;">${val.QuantityUnitName || '-'}</td>
+                                <td style="text-align: center;">${val.QuantityStok || '-'}</td>
+                                <td style="text-align: center;">-</td>
+                                <td style="text-align: center;">-</td>
+                                <td style="border:1px solid #e9ecef;background-color:white; padding: 0.5rem !important; width: 100px;">
+                                    <input id="stock_movement_qty_good_req${key}" class="form-control number-without-negative" autocomplete="off" style="border-radius:0px;" />
+                                </td>
+                                <td style="border:1px solid #e9ecef;background-color:white; padding: 0.5rem !important; width: 100px;">
+                                    <input id="stock_movement_qty_reject_req${key}" class="form-control number-without-negative" autocomplete="off" style="border-radius:0px;" />
+                                </td>
+                                <td style="border:1px solid #e9ecef;background-color:white; padding: 0.5rem !important; width: 100px;">
+                                    <input id="stock_movement_total_req${key}" class="form-control number-without-negative" autocomplete="off" style="border-radius:0px;" readonly />
+                                </td>
+                                <td style="border:1px solid #e9ecef;background-color:white; padding: 0.5rem !important; width: 100px;">
+                                    <input id="stock_movement_price_req${key}" class="form-control number-without-negative" autocomplete="off" style="border-radius:0px;" />
+                                </td>
+                                <td style="border:1px solid #e9ecef;background-color:white; padding: 0.5rem !important; width: 100px;">
+                                    <input id="stock_movement_balance_req${key}" class="form-control number-without-negative" autocomplete="off" style="border-radius:0px;" readonly />
+                                </td>
+                                <td style="border:1px solid #e9ecef;background-color:white; padding: 0.5rem !important; width: 100px;">
+                                    <textarea id="stock_movement_condition_req${key}" class="form-control"></textarea>
+                                </td>
+                                <td style="border:1px solid #e9ecef;background-color:white; padding: 0.5rem !important; width: 100px;">
+                                    <textarea id="stock_movement_note_req${key}" class="form-control"></textarea>
+                                </td>
+                            </tr>
+                        `;
 
                         $('#table_reference_type_detail tbody').append(row);
 
-                        $(`#stock_movement_qty_req${key}`).on('keyup', function () {
-                            let qty_req = $(this).val().replace(/,/g, '');
-                            let result = val.QuantityStok - qty_req;
+                        // $(`#stock_movement_qty_good_req${key}`).on('keyup', function () {
+                        //     let qty_req = $(this).val().replace(/,/g, '');
+                        //     let result = val.QuantityStok - qty_req;
 
-                            if (parseFloat(qty_req) > val.QuantityStok) {
-                                $(this).val("");
-                                $(`#balance${key}`).val("");
-                                ErrorNotif("Qty Request is over !");
-                            } else {
-                                $(`#balance${key}`).val(result.toFixed(2));
-                                calculateTotalStockMovement();
-                            }
+                        //     if (parseFloat(qty_req) > val.QuantityStok) {
+                        //         $(this).val("");
+                        //         $(`#balance${key}`).val("");
+                        //         ErrorNotif("Qty Request is over !");
+                        //     } else {
+                        //         $(`#balance${key}`).val(result.toFixed(2));
+                        //         calculateTotalStockMovement();
+                        //     }
 
-                            // checkOneLineBudgetContents(key);
-                        });
+                        //     // checkOneLineBudgetContents(key);
+                        // });
 
                         $(`#stock_movement_note_req${key}`).on('keyup', function () {
                             // var data_index = $(this).data('index');
@@ -1230,7 +1256,7 @@
     }
 
     $('#tableRequesters').on('click', 'tbody tr', function () {
-        const id = $(this).find('input[data-trigger="sys_id_worker_second"]').val();
+        const id = $(this).find('input[data-trigger="sys_id_requesters"]').val();
         const name = $(this).find('td:nth-child(2)').text();
         const position = $(this).find('td:nth-child(3)').text();
 
