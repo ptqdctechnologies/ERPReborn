@@ -1377,7 +1377,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : getDataList_Supplier                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2026-05-11                                                                                           |
+        | ▪ Last Update     : 2026-05-21                                                                                           |
         | ▪ Creation Date   : 2026-05-11                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Pemasok                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -1395,7 +1395,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         */
         public function getDataList_SupplierList(
             $varUserSession, int $varSysBranch_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, array $varPagingStatement = null)
             {
             try {
                 $varReturn =
@@ -1405,9 +1405,61 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataList_SupplierList',
                             [
+                                [$varPagingStatement['limit'], 'bigint'],
+                                [$varPagingStatement['offset'], 'bigint']
                             ]
                             )
 		        );
+
+                // dd($varReturn);
+
+                // Extract the result data from the database query response
+                $resultArray = $varReturn['data'];
+                $varReturn['data'] = [];
+                
+                // Initialize variables for data restructuring
+                $sys_ID = null;
+                $idxArray = 0;
+                $idxArray2 = 0;
+                
+                // Iterate through the result array to group data by Sys_ID
+                foreach ($resultArray as $key => $value) {
+                    // Check if this is a new supplier (different Sys_ID)
+                    if ($sys_ID != $value["Sys_ID"]) {
+                        $idxArray2 = 0;
+                        // Populate main supplier information
+                        $varReturn['data'][$idxArray]['sys_ID'] = $value["Sys_ID"];
+                        $varReturn['data'][$idxArray]['code'] = $value["Code"];
+                        $varReturn['data'][$idxArray]['name'] = $value["Name"];
+                        $varReturn['data'][$idxArray]['tax_ID'] = $value["Tax_ID"];
+                        $varReturn['data'][$idxArray]['phone_Number'] = $value["PhoneNumber"];
+                        $varReturn['data'][$idxArray]['email'] = $value["Email"];
+                        $varReturn['data'][$idxArray]['country'] = $value["Country"];
+                        $varReturn['data'][$idxArray]['province'] = $value["Province"];
+                        $varReturn['data'][$idxArray]['city'] = $value["City"];
+                        $varReturn['data'][$idxArray]['address'] = $value["Address"];
+                        $varReturn['data'][$idxArray]['contactPerson'] = $value["ContactPerson"];
+                        $varReturn['data'][$idxArray]['bankAcronym'] = $value["BankAcronym"];
+                        $varReturn['data'][$idxArray]['bankName'] = $value["BankName"];
+                        $varReturn['data'][$idxArray]['accountNumber'] = $value["AccountNumber"];
+                        $varReturn['data'][$idxArray]['accountName'] = $value["AccountName"];
+                        $varReturn['data'][$idxArray]['institutionTypeName'] = $value["InstitutionTypeName"];
+                        $varReturn['data'][$idxArray]['type'][$idxArray2]['categoryName'] = $value["CategoryName"];
+                        $varReturn['data'][$idxArray]['type'][$idxArray2]['specializationName'] = $value["SpecializationName"];
+                        
+                        // Update current Sys_ID for the next iteration
+                        $sys_ID = $value["Sys_ID"];
+                        
+                        // Increment main array index for the next supplier
+                        $idxArray++;
+                    } else {
+                        $idxArray2++;
+                        // If the same supplier, we can add additional type information if needed
+                        // This part can be used to handle multiple categories/specializations for the same supplier   
+                        $varReturn['data'][$idxArray - 1]['type'][$idxArray2]['categoryName'] = $value["CategoryName"]; 
+                        $varReturn['data'][$idxArray - 1]['type'][$idxArray2]['specializationName'] = $value["SpecializationName"];
+                    }
+                }
 
                 return
                     $varReturn['data'];
