@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\ExportExcel\Process;
 
-use Illuminate\Support\Facades\Session;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithHeadings;
@@ -13,65 +12,89 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class ExportReportBusinessTripToBSF implements FromCollection, WithHeadings, ShouldAutoSize, WithStyles
 {
+    protected $dataReport;
+
+    public function __construct($dataReport)
+    {
+        $this->dataReport = $dataReport;
+    }
+
     public function collection()
     {
-        $data = Session::get("dataReportBusinessTripToBSF");
+        $data = $this->dataReport;
+
+        $totalBusinessTrip = 0;
+        $totalBusinessTripPayment = 0;
+        $totalBusinessTripBalance = 0;
+
+        $totalBusinessTripSettlement = 0;
+        $totalBusinessTripSettlementPayment = 0;
+        $totalBusinessTripSettlementBalance = 0;
 
         $filteredData = [];
         $counter = 1;
-        foreach ($data['dataDetail'] as $item) {
+        foreach ($data as $item) {
+            $totalBusinessTrip += is_numeric($item['brfTotal']) ? $item['brfTotal'] : 0;
+            $totalBusinessTripPayment += is_numeric($item['brfPayment']) ? $item['brfPayment'] : 0;
+            $totalBusinessTripBalance += is_numeric($item['balanceBrfToPayment']) ? $item['balanceBrfToPayment'] : 0;
+
+            $totalBusinessTripSettlement += is_numeric($item['bsfTotal']) ? $item['bsfTotal'] : 0;
+            $totalBusinessTripSettlementPayment += is_numeric($item['bsfPayment']) ? $item['bsfPayment'] : 0;
+            $totalBusinessTripSettlementBalance += is_numeric($item['balanceBrfToBsf']) ? $item['balanceBrfToBsf'] : 0;
+
             $filteredData[] = [
-                'No'                                    => $counter++,
-                'BRF Number'                            => $item['DocumentNumber'] ?? null,
-                'Date'                                  => date('d-m-Y', strtotime($item['DocumentDateTimeTZ'])) ?? null,
-                'Requester'                             => $item['RequesterWorkerName'] ?? null,
-                'Total Travel'                          => $item['TotalTravel'] ?? null,
-                'Total Allowance'                       => $item['TotalAllowance'] ?? null,
-                'Total Entertainment'                   => $item['TotalEntertainment'] ?? null,
-                'Total Other'                           => $item['TotalOther'] ?? null,
-                'Payment'                               => $item['TotalPayment'] ?? null,
-                'Status'                                => $item['Status'] ?? null,
-                'Date Commence Travel'                  => date('d-m-Y', strtotime($item['DateCommenceTravel'])) ?? null,
-                'Date End Travel'                       => date('d-m-Y', strtotime($item['DateEndTravel'])) ?? null,
-                'Document BSF Number'                   => $item['DocumentBSFNumber'] ?? null,
-                'BSF Date'                              => date('d-m-Y', strtotime($item['DocumentBSFDateTimeTZ'])) ?? null,
-                'Total BSF Travel'                      => $item['TotalBSFTravel'] ?? null,
-                'Total BSF Allowance'                   => $item['TotalBSFAllowance'] ?? null,
-                'Total BSF Entertainment'               => $item['TotalBSFEntertainment'] ?? null,
-                'Total BSF Other'                       => $item['TotalBSFOther'] ?? null,
-                'Total Expense Claim Travel'            => $item['TotalExpenseClaimTravel'] ?? null,
-                'Total Expense Claim Allowance'         => $item['TotalExpenseClaimAllowance'] ?? null,
-                'Total Expense Claim Entertainment'     => $item['TotalExpenseClaimEntertainment'] ?? null,
-                'Total Expense Claim Other'             => $item['TotalExpenseClaimOther'] ?? null,
-                'Total Amount To Company Travel'        => $item['TotalAmountToCompanyTravel'] ?? null,
-                'Total Amount To Company Allowance'     => $item['TotalAmountToCompanyAllowance'] ?? null,
-                'Total Amount To Company Entertainment' => $item['TotalAmountToCompanyEntertainment'] ?? null,
-                'Total Amount To Company Other'         => $item['TotalAmountToCompanyOther'] ?? null,
-                'Description'                           => $item['Description'] ?? null,
-                'Status BSF'                            => $item['StatusBSF'] ?? null,
-                'Total Business Trip Payment'           => $item['TotalBusinessTripPayment'] ?? null,
-                'Total Business Trip Settlement'        => $item['TotalBusinessTripSettlement'] ?? null,
+                'No' => $counter++,
+                'BRF Number' => $item['brfNumber'] ?? '-',
+                'BRF Date' => $item['brfDate'] ?? '-',
+                'BRF Requester' => $item['requesterName'] ?? '-',
+                'BRF Date Commence Travel' => $item['dateCommenceTravel'] ?? '-',
+                'BRF Date End Travel' => $item['dateEndTravel'] ?? '-',
+                'BRF Total' => $item['brfTotal'] ?? '-',
+                'BRF Payment' => $item['brfPayment'] ?? '-',
+                'BRF Balance' => $item['balanceBrfToPayment'] ?? '-',
+                'BRF Status' => $item['brfStatus'] ?? '-',
+                'BSF Number' => $item['bsfNumber'] ?? '-',
+                'BSF Date' => $item['bsfDate'] ?? '-',
+                'BSF Total' => $item['bsfTotal'] ?? '-',
+                'BSF Payment' => $item['bsfPayment'] ?? '-',
+                'BSF Balance' => $item['balanceBrfToBsf'] ?? '-',
+                'BSF Status' => $item['bsfStatus'] ?? '-',
             ];
         }
+
+        $filteredData[] = [
+            'No' => 'GRAND TOTAL',
+            'BRF Number' => '',
+            'BRF Date' => '',
+            'BRF Requester' => '',
+            'BRF Date Commence Travel' => '',
+            'BRF Date End Travel' => '',
+            'BRF Total' => $totalBusinessTrip,
+            'BRF Payment' => $totalBusinessTripPayment,
+            'BRF Balance' => $totalBusinessTripBalance,
+            'BRF Status' => '',
+            'BSF Number' => '',
+            'BSF Date' => '',
+            'BSF Total' => $totalBusinessTripSettlement,
+            'BSF Payment' => $totalBusinessTripSettlementPayment,
+            'BSF Balance' => $totalBusinessTripSettlementBalance,
+            'BSF Status' => ''
+        ];
 
         return collect($filteredData);
     }
 
     public function headings(): array
     {
-        $data = Session::get("dataReportBusinessTripToBSF");
-        $requester_name = $data['requester']['name'] ?? '-';
-
         return [
             [date('F j, Y')],
-            ["BUSINESS TRIP TO BSF"],
+            ["BUSINESS TRIP TO BUSINESS TRIP SETTLEMENT"],
             [date('h:i A')],
-            ["Budget", ": " . $data['project']['code'] . ' - ' . $data['project']['name'], "Requester", ": " . $requester_name, "", "", "", "", "", "", ""],
-            ["Sub Budget", ": " . $data['site']['code'] . ' - ' . $data['site']['name']],
-            ["", "", "", "", "", "", "", "", "", "", ""],
-            ["No", "Business Trip", "", "", "", "", "", "", "", "", "", "", "Settlement", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "Balance", ""],
-            ["", "BRF Number", "Date", "Requester", "Total Travel", "Total Allowance", "Total Entertainment", "Total Other", "Payment", "Status", "Date Commence Travel", "Date End Travel", "BSF Number", "Date", "Total Travel", "Total Allowance", "Total Entertainment", "Total Other", "Expense Claim", "", "", "", "Amount to the Company", "", "", "", "Description", "Status", "Business Trip To Payment", "Business Trip To Settlement"],
-            ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "","", "", "", "Travel", "Allowance", "Entertainment", "Other", "Travel", "Allowance", "Entertainment", "Other", "", "", "", ""],
+            ["BRF Number", ": -", "Budget", ": -", "Requester", ": -"],
+            ["BSF Number", ": -", "Sub Budget", ": -", "Date Range", ": -"],
+            [""],
+            ["No", "Business Trip", "", "", "", "", "", "", "", "", "Business Trip Settlement", "", "", "", "", ""],
+            ["", "BRF Number", "Date", "Requester", "Date Commence Travel", "Date End Travel", "Total", "Payment", "Business Trip to Payment Balance", "Status", "BSF Number", "Date", "Total", "Payment", "Business Trip to Settlement Balance", "Status"]
         ];
     }
 
@@ -88,8 +111,8 @@ class ExportReportBusinessTripToBSF implements FromCollection, WithHeadings, Sho
                 'horizontal' => Alignment::HORIZONTAL_RIGHT,
             ]
         ];
-        $sheet->getStyle('A1:AD1')->applyFromArray($styleArrayHeader0);
-        $sheet->mergeCells('A1:AD1');
+        $sheet->getStyle('A1:P1')->applyFromArray($styleArrayHeader0);
+        $sheet->mergeCells('A1:P1');
 
         $styleArrayHeader1 = [
             'font' => [
@@ -102,10 +125,10 @@ class ExportReportBusinessTripToBSF implements FromCollection, WithHeadings, Sho
                 'horizontal' => Alignment::HORIZONTAL_CENTER,
             ]
         ];
-        $sheet->getStyle('A2:AD2')->applyFromArray($styleArrayHeader1);
-        $sheet->mergeCells('A2:AD2');
+        $sheet->getStyle('A2:P2')->applyFromArray($styleArrayHeader1);
+        $sheet->mergeCells('A2:P2');
 
-        $styleArrayHeader = [
+        $styleArrayHeader2 = [
             'font' => [
                 'bold' => true,
                 'color' => [
@@ -116,36 +139,24 @@ class ExportReportBusinessTripToBSF implements FromCollection, WithHeadings, Sho
                 'horizontal' => Alignment::HORIZONTAL_RIGHT,
             ]
         ];
-        $sheet->getStyle('A3:AD3')->applyFromArray($styleArrayHeader);
-        $sheet->mergeCells('A3:AD3');
+        $sheet->getStyle('A3:P3')->applyFromArray($styleArrayHeader2);
+        $sheet->mergeCells('A3:P3');
+
+        $styleArrayHeader3 = [
+            'font' => [
+                'bold' => true,
+                'color' => [
+                    'rgb' => '000000',
+                ],
+            ],
+            'alignment' => [
+                'horizontal' => Alignment::HORIZONTAL_LEFT,
+            ]
+        ];
+        $sheet->getStyle('A4:P4')->applyFromArray($styleArrayHeader3);
+        $sheet->getStyle('A5:P5')->applyFromArray($styleArrayHeader3);
 
         $styleArrayHeader4 = [
-            'font' => [
-                'bold' => true,
-                'color' => [
-                    'rgb' => '000000',
-                ],
-            ],
-            'alignment' => [
-                'horizontal' => Alignment::HORIZONTAL_LEFT,
-            ]
-        ];
-        $sheet->getStyle('A4:AD4')->applyFromArray($styleArrayHeader4);
-
-        $styleArrayHeader5 = [
-            'font' => [
-                'bold' => true,
-                'color' => [
-                    'rgb' => '000000',
-                ],
-            ],
-            'alignment' => [
-                'horizontal' => Alignment::HORIZONTAL_LEFT,
-            ]
-        ];
-        $sheet->getStyle('A5:AD5')->applyFromArray($styleArrayHeader5);
-
-        $styleArrayHeader2 = [
             'font' => [
                 'bold' => true,
                 'color' => [
@@ -168,36 +179,11 @@ class ExportReportBusinessTripToBSF implements FromCollection, WithHeadings, Sho
                 ],
             ],
         ];
-        $sheet->getStyle('A7:AD7')->applyFromArray($styleArrayHeader2);
-        $sheet->mergeCells('A7:A9');
-        $sheet->getStyle('A8:AD8')->applyFromArray($styleArrayHeader2);
-        $sheet->getStyle('A9:AD9')->applyFromArray($styleArrayHeader2);
-        $sheet->mergeCells('B7:L7');
-        $sheet->mergeCells('B8:B9');
-        $sheet->mergeCells('C8:C9');
-        $sheet->mergeCells('D8:D9');
-        $sheet->mergeCells('E8:E9');
-        $sheet->mergeCells('F8:F9');
-        $sheet->mergeCells('G8:G9');
-        $sheet->mergeCells('H8:H9');
-        $sheet->mergeCells('I8:I9');
-        $sheet->mergeCells('J8:J9');
-        $sheet->mergeCells('K8:K9');
-        $sheet->mergeCells('L8:L9');
-        $sheet->mergeCells('M8:M9');
-        $sheet->mergeCells('N8:N9');
-        $sheet->mergeCells('O8:O9');
-        $sheet->mergeCells('P8:P9');
-        $sheet->mergeCells('Q8:Q9');
-        $sheet->mergeCells('R8:R9');
-        $sheet->mergeCells('S8:V8');
-        $sheet->mergeCells('W8:Z8');
-        $sheet->mergeCells('M7:AB7');
-        $sheet->mergeCells('AA8:AA9');
-        $sheet->mergeCells('AB8:AB9');
-        $sheet->mergeCells('AC8:AC9');
-        $sheet->mergeCells('AD8:AD9');
-        $sheet->mergeCells('AC7:AD7');
+        $sheet->getStyle('A7:P7')->applyFromArray($styleArrayHeader4);
+        $sheet->getStyle('A8:P8')->applyFromArray($styleArrayHeader4);
+        $sheet->mergeCells('A7:A8');
+        $sheet->mergeCells('B7:J7');
+        $sheet->mergeCells('K7:P7');
 
         $styleArrayContent = [
             'borders' => [
@@ -209,62 +195,21 @@ class ExportReportBusinessTripToBSF implements FromCollection, WithHeadings, Sho
                 'horizontal' => Alignment::HORIZONTAL_LEFT,
             ],
         ];
-
-        $datas = Session::get("dataReportBusinessTripToBSF");
-        $totalCell = count($datas['dataDetail']);
-        $lastCell = 'A9:AD' . $totalCell + 9;
+        $datas = $this->dataReport;
+        $totalCell = count($datas);
+        $lastCell = 'A9:P' . $totalCell + 9;
         $sheet->getStyle($lastCell)->applyFromArray($styleArrayContent);
-
-        $totalTravel                        = $datas['totalTravel'];
-        $totalAllowance                     = $datas['totalAllowance'];
-        $totalEntertainment                 = $datas['totalEntertainment'];
-        $totalOther                         = $datas['totalOther'];
-        $totalPayment                       = $datas['totalPayment'];
-        $totalBSFTravel                     = $datas['totalBSFTravel'];
-        $totalBSFAllowance                  = $datas['totalBSFAllowance'];
-        $totalBSFEntertainment              = $datas['totalBSFEntertainment'];
-        $totalBSFOther                      = $datas['totalBSFOther'];
-        $totalExpenseClaimTravel            = $datas['totalExpenseClaimTravel'];
-        $totalExpenseClaimAllowance         = $datas['totalExpenseClaimAllowance'];
-        $totalExpenseClaimEntertainment     = $datas['totalExpenseClaimEntertainment'];
-        $totalExpenseClaimOther             = $datas['totalExpenseClaimOther'];
-        $totalAmountToCompanyTravel         = $datas['totalAmountToCompanyTravel'];
-        $totalAmountToCompanyAllowance      = $datas['totalAmountToCompanyAllowance'];
-        $totalAmountToCompanyEntertainment  = $datas['totalAmountToCompanyEntertainment'];
-        $totalAmountToCompanyOther          = $datas['totalAmountToCompanyOther'];
-        $totalBusinessTripPayment           = $datas['totalBusinessTripPayment'];
-        $totalBusinessTripSettlement        = $datas['totalBusinessTripSettlement'];
-
-        $sheet->insertNewRowBefore($totalCell + 10, 1);
-        $sheet->setCellValue('A' . $totalCell + 10, "GRAND TOTAL");
-        $sheet->setCellValue('E' . $totalCell + 10, $totalTravel);
-        $sheet->setCellValue('F' . $totalCell + 10, $totalAllowance);
-        $sheet->setCellValue('G' . $totalCell + 10, $totalEntertainment);
-        $sheet->setCellValue('H' . $totalCell + 10, $totalOther);
-        $sheet->setCellValue('I' . $totalCell + 10, $totalPayment);
-        $sheet->setCellValue('O' . $totalCell + 10, $totalBSFTravel);
-        $sheet->setCellValue('P' . $totalCell + 10, $totalBSFAllowance);
-        $sheet->setCellValue('Q' . $totalCell + 10, $totalBSFEntertainment);
-        $sheet->setCellValue('R' . $totalCell + 10, $totalBSFOther);
-        $sheet->setCellValue('S' . $totalCell + 10, $totalExpenseClaimTravel);
-        $sheet->setCellValue('T' . $totalCell + 10, $totalExpenseClaimAllowance);
-        $sheet->setCellValue('U' . $totalCell + 10, $totalExpenseClaimEntertainment);
-        $sheet->setCellValue('V' . $totalCell + 10, $totalExpenseClaimOther);
-        $sheet->setCellValue('W' . $totalCell + 10, $totalAmountToCompanyTravel);
-        $sheet->setCellValue('X' . $totalCell + 10, $totalAmountToCompanyAllowance);
-        $sheet->setCellValue('Y' . $totalCell + 10, $totalAmountToCompanyEntertainment);
-        $sheet->setCellValue('Z' . $totalCell + 10, $totalAmountToCompanyOther);
-        $sheet->setCellValue('AC' . $totalCell + 10, $totalBusinessTripPayment);
-        $sheet->setCellValue('AD' . $totalCell + 10, $totalBusinessTripSettlement);
-        $sheet->mergeCells('A' . $totalCell + 10 . ':' . 'D' . $totalCell + 10);
-        $sheet->mergeCells('J' . $totalCell + 10 . ':' . 'N' . $totalCell + 10);
-        $sheet->mergeCells('AA' . $totalCell + 10 . ':' . 'AB' . $totalCell + 10);
 
         $styleArrayFooter = [
             'font' => [
                 'bold' => true,
                 'color' => [
                     'rgb' => '000000',
+                ],
+            ],
+            'borders' => [
+                'allBorders' => [
+                    'borderStyle' => Border::BORDER_THIN,
                 ],
             ],
             'alignment' => [
@@ -278,7 +223,7 @@ class ExportReportBusinessTripToBSF implements FromCollection, WithHeadings, Sho
                 ],
             ],
         ];
-
-        $sheet->getStyle('A' . $totalCell + 10 . ':' . 'AD' . $totalCell + 10)->applyFromArray($styleArrayFooter);
+        $sheet->getStyle('A' . $totalCell + 9 . ':' . 'P' . $totalCell + 9)->applyFromArray($styleArrayFooter);
+        $sheet->mergeCells('A' . $totalCell + 9 . ':F' . $totalCell + 9);
     }
 }

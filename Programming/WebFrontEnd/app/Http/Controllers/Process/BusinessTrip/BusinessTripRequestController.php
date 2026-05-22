@@ -688,23 +688,15 @@ class BusinessTripRequestController extends Controller
     public function PrintExportReportBusinessTripToBSF(Request $request)
     {
         try {
-            $dataReport = Session::get("dataReportBusinessTripToBSF");
-            $print_type = $request->print_type;
-            $project_code_second_trigger = $request->project_code_second_trigger;
+            $dataExport = json_decode($request->dataReport, true);
+            $type = $request->printType;
 
-            if ($project_code_second_trigger == null) {
-                Session::forget("isButtonReportBusinessTripToBSFSubmit");
-                Session::forget("dataReportBusinessTripToBSF");
+            if ($dataExport) {
+                if ($type === "PDF") {
+                    $pdf = PDF::loadView('Process.BusinessTrip.BusinessTripToBSF.Reports.ReportBusinessTripToBSF_pdf', ['dataReport' => $dataExport])->setPaper('a4', 'landscape');
 
-                return redirect()->route('BusinessTripRequest.ReportBusinessTripToBSF')->with('NotFound', 'Budget, Sub Budget, & Requester Cannot Be Empty');
-            }
-
-            if ($dataReport) {
-                if ($print_type === "PDF") {
-                    $pdf = PDF::loadView('Process.BusinessTrip.BusinessTripToBSF.Reports.ReportBusinessTripToBSF_pdf', ['dataReport' => $dataReport])->setPaper('a4', 'landscape');
                     $pdf->output();
                     $dom_pdf = $pdf->getDomPDF();
-
                     $canvas = $dom_pdf->get_canvas();
                     $width = $canvas->get_width();
                     $height = $canvas->get_height();
@@ -712,15 +704,18 @@ class BusinessTripRequestController extends Controller
                     $canvas->page_text(34, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
 
                     return $pdf->download('Export Business Trip To BSF.pdf');
+                } else if ($type === "EXCEL") {
+                    return Excel::download(new ExportReportBusinessTripToBSF($dataExport), 'Export Business Trip To BSF.xlsx');
                 } else {
-                    return Excel::download(new ExportReportBusinessTripToBSF, 'Export Business Trip To BSF.xlsx');
+                    throw new \Exception('Failed to Export Business Trip To BSF');
                 }
             } else {
-                return redirect()->route('BusinessTripRequest.ReportBusinessTripToBSF')->with('NotFound', 'Budget, Sub Budget, & Requester Cannot Be Empty');
+                throw new \Exception('Business Trip To Business Trip Settlement Data is Empty');
             }
         } catch (\Throwable $th) {
-            Log::error("PrintExportReportBusinessTripToBSF Function Error at " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
+            Log::error("Print Export Report Business Trip To BSF Function Error: " . $th->getMessage());
+
+            return response()->json(['statusCode' => 400]);
         }
     }
 
