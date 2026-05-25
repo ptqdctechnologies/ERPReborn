@@ -1,4 +1,7 @@
 <script>
+    let dataReport = [];
+    const printType = document.getElementById("print_type");
+
     function getDataSuppliers() {
         $('#table_supplier').DataTable({
             destroy: true,
@@ -6,7 +9,7 @@
             serverSide: true,
             searching: true,
             ordering: false,
-            pageLength: 10,
+            pageLength: 25,
             ajax: {
                 type: 'POST',
                 url: '{!! route("Supplier.SupplierSummary") !!}',
@@ -15,7 +18,16 @@
                 },
                 data: function (d) {
                     // d.supplier_id = $('#supplier_id').val();
+
                     return d;
+                },
+                dataSrc: function (json) {
+
+                    // simpan seluruh response
+                    dataReport = json.data;
+
+                    // wajib return data untuk DataTable
+                    return json.data;
                 },
                 beforeSend: function () {
                     $('#loading-table').show();
@@ -23,7 +35,7 @@
                 },
                 complete: function () {
                     $('#loading-table').hide();
-                }
+                },
             },
             columns: [
                 {
@@ -108,6 +120,61 @@
                 }
             ]
         });
+    }
+
+    function exportDataSuppliers() {
+        Utils.showLoading();
+
+        $.ajax({
+            url: '{!! route("Supplier.export") !!}',
+            type: 'POST',
+            data: {
+                dataReport: JSON.stringify(dataReport),
+                printType: printType.value
+            },
+            xhrFields: {
+                responseType: 'blob'
+            },
+            success: function (response) {
+                var blob = new Blob([response], { type: response.type });
+                var link = document.createElement('a');
+                link.href = window.URL.createObjectURL(blob);
+
+                if (response.type === "application/pdf") {
+                    link.download = "Supplier.pdf";
+                } else {
+                    link.download = "Supplier.xlsx";
+                }
+
+                link.click();
+
+                window.URL.revokeObjectURL(link.href);
+
+                Utils.hideLoading();
+            },
+            error: function (xhr, status, error) {
+                console.log('xhr, status, error', xhr, status, error);
+
+                Utils.hideLoading();
+                ErrorHandler.notifToast(
+                    'error',
+                    'An error occurred while processing the received data. Please try again later',
+                    'Error!'
+                );
+            }
+        });
+    }
+
+    function validateExportButton() {
+        if (dataReport.length > 0) {
+            exportDataReport();
+        } else {
+            ErrorHandler.notifToast(
+                'error',
+                'No data available to export. Please display the data first',
+                'Error!'
+            );
+        }
     }
 
     $('#tableSuppliers').on('click', 'tbody tr', function () {

@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers\Master;
 
+use App\Http\Controllers\ExportExcel\MasterData\ExportSupplier;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Log;
+use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Session;
 use App\Http\Requests\Master\Supplier\StoreSupplier;
 use App\Services\Master\Supplier\SupplierService;
@@ -162,5 +165,28 @@ class SupplierController extends Controller
             'recordsFiltered' => 3000,
             'data' => $data
         ]);
+    }
+
+    public function export(Request $request)
+    {
+        try {
+            $dataReport = json_decode($request->dataReport, true);
+            $type = $request->printType;
+
+            if ($dataReport) {
+                if ($type === "PDF") {
+                } else if ($type === "EXCEL") {
+                    return Excel::download(new ExportSupplier($dataReport), 'Supplier.xlsx');
+                } else {
+                    throw new \Exception('Failed to Export PR to PO Report');
+                }
+            } else {
+                throw new \Exception('Suppliers Data is Empty');
+            }
+        } catch (\Throwable $th) {
+            Log::error("Export Supplier Function Error: " . $th->getMessage());
+
+            return response()->json(['statusCode' => 400]);
+        }
     }
 }
