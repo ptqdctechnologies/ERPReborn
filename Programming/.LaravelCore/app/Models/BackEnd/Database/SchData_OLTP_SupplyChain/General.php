@@ -1377,7 +1377,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : getDataList_Supplier                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2026-05-11                                                                                           |
+        | ▪ Last Update     : 2026-05-21                                                                                           |
         | ▪ Creation Date   : 2026-05-11                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Pemasok                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -1395,7 +1395,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         */
         public function getDataList_SupplierList(
             $varUserSession, int $varSysBranch_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, array $varPagingStatement = null)
             {
             try {
                 $varReturn =
@@ -1405,9 +1405,61 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataList_SupplierList',
                             [
+                                [$varPagingStatement['limit'], 'bigint'],
+                                [$varPagingStatement['offset'], 'bigint']
                             ]
                             )
 		        );
+
+                // dd($varReturn);
+
+                // Extract the result data from the database query response
+                $resultArray = $varReturn['data'];
+                $varReturn['data'] = [];
+                
+                // Initialize variables for data restructuring
+                $sys_ID = null;
+                $idxArray = 0;
+                $idxArray2 = 0;
+                
+                // Iterate through the result array to group data by Sys_ID
+                foreach ($resultArray as $key => $value) {
+                    // Check if this is a new supplier (different Sys_ID)
+                    if ($sys_ID != $value["Sys_ID"]) {
+                        $idxArray2 = 0;
+                        // Populate main supplier information
+                        $varReturn['data'][$idxArray]['sys_ID'] = $value["Sys_ID"];
+                        $varReturn['data'][$idxArray]['code'] = $value["Code"];
+                        $varReturn['data'][$idxArray]['name'] = $value["Name"];
+                        $varReturn['data'][$idxArray]['tax_ID'] = $value["Tax_ID"];
+                        $varReturn['data'][$idxArray]['phone_Number'] = $value["PhoneNumber"];
+                        $varReturn['data'][$idxArray]['email'] = $value["Email"];
+                        $varReturn['data'][$idxArray]['country'] = $value["Country"];
+                        $varReturn['data'][$idxArray]['province'] = $value["Province"];
+                        $varReturn['data'][$idxArray]['city'] = $value["City"];
+                        $varReturn['data'][$idxArray]['address'] = $value["Address"];
+                        $varReturn['data'][$idxArray]['contactPerson'] = $value["ContactPerson"];
+                        $varReturn['data'][$idxArray]['bankAcronym'] = $value["BankAcronym"];
+                        $varReturn['data'][$idxArray]['bankName'] = $value["BankName"];
+                        $varReturn['data'][$idxArray]['accountNumber'] = $value["AccountNumber"];
+                        $varReturn['data'][$idxArray]['accountName'] = $value["AccountName"];
+                        $varReturn['data'][$idxArray]['institutionTypeName'] = $value["InstitutionTypeName"];
+                        $varReturn['data'][$idxArray]['type'][$idxArray2]['categoryName'] = $value["CategoryName"];
+                        $varReturn['data'][$idxArray]['type'][$idxArray2]['specializationName'] = $value["SpecializationName"];
+                        
+                        // Update current Sys_ID for the next iteration
+                        $sys_ID = $value["Sys_ID"];
+                        
+                        // Increment main array index for the next supplier
+                        $idxArray++;
+                    } else {
+                        $idxArray2++;
+                        // If the same supplier, we can add additional type information if needed
+                        // This part can be used to handle multiple categories/specializations for the same supplier   
+                        $varReturn['data'][$idxArray - 1]['type'][$idxArray2]['categoryName'] = $value["CategoryName"]; 
+                        $varReturn['data'][$idxArray - 1]['type'][$idxArray2]['specializationName'] = $value["SpecializationName"];
+                    }
+                }
 
                 return
                     $varReturn['data'];
@@ -3007,7 +3059,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : getDataListJSON_SupplierDetail                                                                       |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2026-05-05                                                                                           |
+        | ▪ Last Update     : 2026-05-22                                                                                           |
         | ▪ Creation Date   : 2026-05-05                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Perincian Permintaan Pembelian (Supplier Detail)                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -3042,6 +3094,57 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             ]
                             )
                         );
+
+
+                // Extract the result data from the database query response
+                $resultArray = $varReturn['data'];
+                $varReturn['data'] = [];
+                
+                // Initialize variables for data restructuring
+                $category_RefID = null;
+                $index = 0;
+                $index2 = 0;
+                
+                // Iterate through the result array to group data by Category_RefID
+                foreach ($resultArray as $key => $value) {
+                    // Check if this is a new supplier (different Category_RefID)
+                    if ($category_RefID != $value["Category_RefID"]) {
+                        $index2 = 0;
+                        // Populate main supplier information
+                        $varReturn['data'][$index]['Sys_ID'] = $value["Sys_ID"];
+                        $varReturn['data'][$index]['Supplier_RefID'] = $value["Supplier_RefID"];
+                        $varReturn['data'][$index]['SupplierCode'] = $value["SupplierCode"];
+                        $varReturn['data'][$index]['SupplierName'] = $value["SupplierName"];
+                        $varReturn['data'][$index]['Tax_ID'] = $value["Tax_ID"];
+                        $varReturn['data'][$index]['PhoneNumber'] = $value["PhoneNumber"];
+                        $varReturn['data'][$index]['Email'] = $value["Email"];
+                        $varReturn['data'][$index]['Country'] = $value["Country"];
+                        $varReturn['data'][$index]['Province'] = $value["Province"];
+                        $varReturn['data'][$index]['City'] = $value["City"];
+                        $varReturn['data'][$index]['Address'] = $value["Address"];
+                        $varReturn['data'][$index]['ContactPerson'] = $value["ContactPerson"];
+                        $varReturn['data'][$index]['Bank_RefID'] = $value["Bank_RefID"];
+                        $varReturn['data'][$index]['BankAcronym'] = $value["BankAcronym"];
+                        $varReturn['data'][$index]['BankName'] = $value["BankName"];
+                        $varReturn['data'][$index]['AccountNumber'] = $value["AccountNumber"];
+                        $varReturn['data'][$index]['AccountName'] = $value["AccountName"];
+                        $varReturn['data'][$index]['Remark'] = $value["Remark"];
+                        $varReturn['data'][$index]['LegalEntity'] = $value["LegalEntity"];
+                        $varReturn['data'][$index]['Log_FileUpload_Pointer_RefID'] = $value["Log_FileUpload_Pointer_RefID"];                        
+                        $varReturn['data'][$index]['Category_RefID'][$index2] = $value["Category_RefID"];
+                        $varReturn['data'][$index]['Specialization_RefID'][$index2] = $value["Specialization_RefID"];
+                        
+                        // Update current Category_RefID for the next iteration
+                        $category_RefID = $value["Category_RefID"];
+                        
+                        // Increment main array index for the next supplier
+                        $index++;
+                    } else {
+                        $index2++;                        
+                        $varReturn['data'][$index - 1]['Category_RefID'][$index2] = $value["Category_RefID"];
+                        $varReturn['data'][$index - 1]['Specialization_RefID'][$index2] = $value["Specialization_RefID"];
+                    }
+                }
 
                 return
                     $varReturn;

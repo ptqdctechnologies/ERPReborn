@@ -4,8 +4,8 @@
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category    : Example - API Call Controller                                                                                    |
 | ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\read\dataList\supplyChain        |
-|                 \getSupplierList\v1                                                                                                  |
-| ▪ API Key     : transaction.read.dataList.supplyChain.getSupplierList                                                                |
+|                 \getSupplierList\v1                                                                                              |
+| ▪ API Key     : transaction.read.dataList.supplyChain.getSupplierList                                                            |
 | ▪ API Version : 1                                                                                                                |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2026 ijonk7 (rizal.devapps@gmail.com)                                                                               |
@@ -17,11 +17,11 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Call URL        : http(s)://<HOST>/transaction.read.dataList.supplyChain.getSupplierList.v1_throughAPIGateway              |
-        |                     ► http://172.28.0.4/transaction.read.dataList.supplyChain.getSupplierList.v1_throughAPIGateway           |
+        | ▪ Call URL        : http(s)://<HOST>/transaction.read.dataList.supplyChain.getSupplierList.v1_throughAPIGateway          |
+        |                     ► http://172.28.0.4/transaction.read.dataList.supplyChain.getSupplierList.v1_throughAPIGateway       |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2026-05-11                                                                                           |
+        | ▪ Last Update     : 2026-05-21                                                                                           |
         | ▪ Creation Date   : 2026-05-11                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -43,7 +43,10 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                     'pick' => null,
                     'sort' => null,
                     'filter' => null,
-                    'paging' => null
+                    'paging' => [
+                        'limit' => 20,
+                        'offset' => 0
+                        ]
                     ]
                 ]
                 );
