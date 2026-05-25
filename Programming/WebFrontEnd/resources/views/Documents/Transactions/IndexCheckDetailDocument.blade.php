@@ -163,7 +163,8 @@
                   <!-- CONTENT -->
                   <div class="card-body">
                     <div class="row" style="">
-                      <textarea name="comment_approval" id="comment_approval" class="form-control"></textarea>
+                      <textarea name="comment_approval" id="comment_approval" class="form-control"
+                        style="border: 1px solid #000;"></textarea>
                     </div>
                   </div>
                 </div>
