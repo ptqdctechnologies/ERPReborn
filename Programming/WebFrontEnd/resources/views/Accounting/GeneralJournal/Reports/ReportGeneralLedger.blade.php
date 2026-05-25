@@ -29,11 +29,11 @@
                 </div>
               </div>
 
-              <div class="col-12" style="margin-bottom: 1rem;">
+              <div class="col-12">
                 @include('Accounting.GeneralJournal.Functions.Header.HeaderReportGeneralLedgerCard')
               </div>
 
-              <div class="col-12" id="table_container" style="display: none;">
+              <div class="col-12" id="table_container" style="display: none; margin-top: 1rem;">
                 <div class="card">
                   <div class="card-body p-0">
                     <div class="d-flex justify-content-between">

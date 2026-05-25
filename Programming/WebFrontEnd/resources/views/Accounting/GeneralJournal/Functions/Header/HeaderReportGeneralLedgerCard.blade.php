@@ -1,6 +1,7 @@
 <div class="row m-0" style="gap: 1rem;">
     <!-- OPENING BALANCE -->
-    <div class="col" style="border: 1px solid #E6EDFF; padding: 21.5px 20px; border-radius: 12px;">
+    <div id="opening-balance-card" class="col"
+        style="border: 1px solid #E6EDFF; padding: 21.5px 20px; border-radius: 12px; display: none;">
         <div class="row">
             <div class="col p-0">
                 <p class="text-bold mb-0" style="font-size: 28px; color: blue; line-height: 150%;">Rp 847.200.000
@@ -17,7 +18,8 @@
     </div>
 
     <!-- TOTAL DEBIT -->
-    <div class="col" style="border: 1px solid #E6EDFF; padding: 21.5px 20px; border-radius: 12px;">
+    <div id="total-debit-card" class="col"
+        style="border: 1px solid #E6EDFF; padding: 21.5px 20px; border-radius: 12px; display: none;">
         <div class="row">
             <div class="col p-0">
                 <p class="text-bold mb-0" style="font-size: 28px; color: red; line-height: 150%;">Rp 1.234.750.000
@@ -34,7 +36,8 @@
     </div>
 
     <!-- TOTAL CREDIT -->
-    <div class="col" style="border: 1px solid #E6EDFF; padding: 21.5px 20px; border-radius: 12px;">
+    <div id="total-credit-card" class="col"
+        style="border: 1px solid #E6EDFF; padding: 21.5px 20px; border-radius: 12px; display: none;">
         <div class="row">
             <div class="col p-0">
                 <p class="text-bold mb-0" style="font-size: 28px; color: green; line-height: 150%;">Rp 986.500.000
@@ -51,7 +54,8 @@
     </div>
 
     <!-- CLOSING BALANCE -->
-    <div class="col" style="border: 1px solid #E6EDFF; padding: 21.5px 20px; border-radius: 12px;">
+    <div id="closing-balance-card" class="col"
+        style="border: 1px solid #E6EDFF; padding: 21.5px 20px; border-radius: 12px; display: none;">
         <div class="row">
             <div class="col p-0">
                 <p class="text-bold mb-0" style="font-size: 28px; color: blue; line-height: 150%;">Rp
@@ -69,7 +73,8 @@
     </div>
 
     <!-- TOTAL ENTRIES -->
-    <div class="col" style="border: 1px solid #E6EDFF; padding: 21.5px 20px; border-radius: 12px;">
+    <div id="total-entries-card" class="col"
+        style="border: 1px solid #E6EDFF; padding: 21.5px 20px; border-radius: 12px; display: none;">
         <div class="row">
             <div class="col p-0">
                 <p class="text-bold mb-0" style="font-size: 28px; line-height: 150%;">38 entries
