@@ -135,20 +135,32 @@ class SupplierController extends Controller
 
     public function SupplierSummary(Request $request)
     {
-        $supplierID = $request->input('supplier_id');
+        $limit = $request->input('length', 10);
+        $offset = $request->input('start', 0);
+        $draw = $request->input('draw');
+        $search = $request->input('search.value');
 
-        $response = $this->supplierService->getSummary($supplierID);
+        $response = $this->supplierService->getSummary(
+            $search,
+            $limit,
+            $offset
+        );
 
         $status = $response['metadata']['HTTPStatusCode'];
+
         $data = [];
+        $total = 0;
 
         if ($status == 200) {
             $data = $response['data'] ?? [];
+            $total = count($data);
         }
 
         return response()->json([
-            'data' => $data,
-            'status' => $status
+            'draw' => intval($draw),
+            'recordsTotal' => 3000,
+            'recordsFiltered' => 3000,
+            'data' => $data
         ]);
     }
 }
