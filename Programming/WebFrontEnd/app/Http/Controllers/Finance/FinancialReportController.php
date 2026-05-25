@@ -2,15 +2,12 @@
 
 namespace App\Http\Controllers\Finance;
 
+use App\Http\Controllers\ExportExcel\Finance\ExportReportGeneralLedger;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Redis;
-use Illuminate\Support\Facades\Session;
-use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
-use App\Helpers\ZhtHelper\System\Helper_Environment;
-use App\Helpers\ZhtHelper\Cache\Helper_Redis;
-use Carbon\Carbon;
+use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class FinancialReportController extends Controller
 {
@@ -201,6 +198,41 @@ class FinancialReportController extends Controller
             ];
 
             return response()->json($compact);
+        }
+    }
+
+    public function PrintExportReportGeneralLedger(Request $request)
+    {
+        try {
+            $dataReport = json_decode($request->dataReport, true);
+            $type = $request->printType;
+
+            if ($dataReport) {
+                if ($type === "PDF") {
+                    $pdf = PDF::loadView('Accounting.GeneralJournal.Reports.ReportGeneralLedger_pdf', ['dataReport' => $dataReport])
+                        ->setPaper('a4', 'landscape');
+
+                    $pdf->output();
+                    $dom_pdf = $pdf->getDomPDF();
+                    $canvas = $dom_pdf->get_canvas();
+                    $width = $canvas->get_width();
+                    $height = $canvas->get_height();
+                    $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
+                    $canvas->page_text(34, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
+
+                    return $pdf->download('Export Report General Ledger.pdf');
+                } else if ($type === "EXCEL") {
+                    return Excel::download(new ExportReportGeneralLedger($dataReport), 'Export Report General Ledger.xlsx');
+                } else {
+
+                }
+            } else {
+
+            }
+        } catch (\Throwable $th) {
+            Log::error("Print Export Report General Ledger Function Error: " . $th->getMessage());
+
+            return response()->json(['statusCode' => 400]);
         }
     }
 }

@@ -1,7 +1,10 @@
 <!-- CONTENT -->
 <div class="card-body">
-    <div class="row" style="margin: .6rem 0rem; gap: 1rem; line-height: normal;">
-        <ul class="mb-0" style="margin-left: -1.1%;">
+    <div class="row text-bold" style="margin: .6rem .5rem .5rem .5rem; line-height: normal;">
+        SUPPLIER CATEGORY
+    </div>
+    <div class="row" style="margin: 0rem 0rem .6rem 0rem; gap: 1rem; line-height: normal;">
+        <ul class="mb-0" style="margin-left: -.4%;">
             <li style="margin-bottom: 0.5rem;"><span class="text-bold">Manufacture</span>
                 <ul class="d-flex"
                     style="column-gap: 2rem; row-gap: 0.3rem; padding-left: 1rem; flex-wrap: wrap; margin-top: 0.3rem;">

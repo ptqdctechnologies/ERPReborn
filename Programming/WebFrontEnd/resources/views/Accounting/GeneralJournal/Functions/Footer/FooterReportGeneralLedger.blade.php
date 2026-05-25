@@ -14,6 +14,7 @@
     const startLimit = document.getElementById("start_limit");
     const endLimit = document.getElementById("end_limit");
     const totalData = document.getElementById("total_data");
+    const printType = document.getElementById("print_type");
 
     function resetForm() {
         data = [];
@@ -56,6 +57,11 @@
                 renderPage();
                 renderPagination();
 
+                $('#opening-balance-card').css("display", "block");
+                $('#total-debit-card').css("display", "block");
+                $('#total-credit-card').css("display", "block");
+                $('#closing-balance-card').css("display", "block");
+                $('#total-entries-card').css("display", "block");
                 $('#table_container').css("display", "block");
 
                 Utils.hideLoading();
@@ -74,7 +80,41 @@
     }
 
     function exportDataReport() {
+        ShowLoading();
 
+        $.ajax({
+            type: 'POST',
+            url: '{!! route("FinancialReport.PrintExportReportGeneralLedger") !!}',
+            data: {
+                dataReport: JSON.stringify(dataReport),
+                printType: printType.value
+            },
+            xhrFields: {
+                responseType: 'blob'
+            },
+            success: function (response) {
+                let blob = new Blob([response], { type: response.type });
+                let link = document.createElement('a');
+                link.href = window.URL.createObjectURL(blob);
+
+                if (response.type === "application/pdf") {
+                    link.download = "Export Report General Ledger.pdf";
+                } else {
+                    link.download = "Export Report General Ledger.xlsx";
+                }
+
+                link.click();
+
+                window.URL.revokeObjectURL(link.href);
+
+                HideLoading();
+            },
+            error: function (xhr, status, error) {
+                HideLoading();
+                ErrorNotif("An error occurred while processing the received data. Please try again later.");
+                console.log('xhr, status, error', xhr, status, error);
+            }
+        })
     }
 
     function renderTable(data) {
@@ -287,6 +327,18 @@
         sortColumn = columnName; // Set the column to sort by
         renderPage(); // Re-render the table
         renderPagination();
+    }
+
+    function validateExportButton() {
+        if (dataReport.length > 0) {
+            exportDataReport();
+        } else {
+            ErrorHandler.notifToast(
+                'error',
+                'No data available to export. Please display the data first',
+                'Error!'
+            );
+        }
     }
 
     document.querySelectorAll('#table_summary th').forEach((header, index) => {

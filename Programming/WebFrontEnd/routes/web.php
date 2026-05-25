@@ -252,6 +252,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     // FINANCIAL REPORT
     Route::get('ReportGeneralLedger', 'Finance\FinancialReportController@ReportGeneralLedger')->name('FinancialReport.ReportGeneralLedger');
     Route::post('ReportGeneralLedgerStore', 'Finance\FinancialReportController@ReportGeneralLedgerStore')->name('FinancialReport.ReportGeneralLedgerStore');
+    Route::post('PrintExportReportGeneralLedger', 'Finance\FinancialReportController@PrintExportReportGeneralLedger')->name('FinancialReport.PrintExportReportGeneralLedger');
     Route::resource('FinancialReport', 'Finance\FinancialReportController');
 
     // JOURNAL

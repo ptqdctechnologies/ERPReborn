@@ -143,7 +143,7 @@ class DeliveryOrderController extends Controller
             $response = $this->deliveryOrderService->getDetail($request->do_RefID);
 
             if ($response['metadata']['HTTPStatusCode'] !== 200) {
-                return response()->json($response);
+                throw new \Exception('Failed to fetch Detail Delivery Order');
             }
 
             $data = $response['data']['data'];
@@ -186,8 +186,14 @@ class DeliveryOrderController extends Controller
 
             return view('Inventory.DeliveryOrder.Transactions.RevisionDeliveryOrder', $compact);
         } catch (\Throwable $th) {
-            Log::error("RevisionDeliveryOrderIndex Function Error at " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
+            Log::error('Revision Delivery Order Index Error', [
+                'message' => $th->getMessage(),
+                'doRefID' => $request->input('do_RefID')
+            ]);
+
+            return redirect()
+                ->route('DeliveryOrder.index', ['var' => 1])
+                ->with('NotFound', 'Data cannot be displayed at this time. Please try again.');
         }
     }
 
