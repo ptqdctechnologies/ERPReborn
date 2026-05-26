@@ -3,7 +3,7 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\create\master\setProduct\v1              |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\create\master\setProduct\v1                  |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2020 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
@@ -12,8 +12,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : setProduct                                                                                               |
-    | ▪ Description : Menangani API transaction.create.master.setProduct Version 1                                             |
+    | ▪ Class Name  : setProduct                                                                                                   |
+    | ▪ Description : Menangani API transaction.create.master.setProduct Version 1                                                 |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
     class setProduct extends \App\Http\Controllers\Controller
@@ -42,7 +42,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-12-10                                                                                           |
+        | ▪ Last Update     : 2026-05-25                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -61,14 +61,30 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
                     //-----[ MAIN CODE ]----------------------------------------------------------------------------( START POINT )-----
                     try{
                         if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataCreate($varUserSession, (new \App\Models\Database\SchData_OLTP_Master\TblProduct())->setDataInsert(
-                            $varUserSession, 
-                            null, 
+                            $varUserSession,
+
                             null,
-                            (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
-                            $varData['entities']['code'],
-                            $varData['entities']['name'],
-                            $varData['entities']['productType_RefID'],
-                            $varData['entities']['quantityUnit_RefID']
+                            null,
+                            null,
+                            null,
+                            (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken(
+                                $varUserSession
+                                )
+                            )['branchID'],
+                            (\App\Helpers\ZhtHelper\General\Helper_SystemParameter::getApplicationParameter_BaseCurrencyID(
+                                $varUserSession,
+                                (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken(
+                                    $varUserSession
+                                    )
+                                )['branchID'],
+                                'Env.System.BaseCurrency.ID'
+                                )
+                            ),
+
+                            $varData['entities']['category_RefID'],
+                            $varData['entities']['subCategory_RefID'],
+                            $varData['entities']['productName'],
+                            $varData['entities']['unitOfMeasure_RefID']
                             ))))
                             {
                             throw new \Exception();

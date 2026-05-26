@@ -44,7 +44,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-09-09                                                                                           |
+        | ▪ Last Update     : 2026-05-25                                                                                           |
         | ▪ Creation Date   : 2020-09-09                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -65,26 +65,30 @@ namespace App\Models\Database\SchData_OLTP_Master
         */
         public function setDataInsert(
             $varUserSession, 
-            string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null,
-            string $varCode = null, string $varName = null, int $varQuantityUnit_RefID = null, int $varProductType_RefID = null)
+            string $varSysDataAnnotation = null, string $varSysDataValidityStartDateTimeTZ = null, string $varSysDataValidityFinishDateTimeTZ = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, $varSysBaseCurrency_RefID = null,
+            int $varCategory_RefID = null, int $varSubCategory_RefID = null, string $varProductName = null, int $varUnitOfMeasure_RefID = null)
             {
             $varReturn =
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                     $varUserSession, 
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                         $varUserSession,
-                        parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
+                        parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET_NEW',
                         [
                             [$varUserSession, 'bigint'],
                             [null, 'bigint'],
+
                             [$varSysDataAnnotation, 'varchar'],
+                            [$varSysDataValidityStartDateTimeTZ, 'timestamptz'],
+                            [$varSysDataValidityFinishDateTimeTZ, 'timestamptz'],
                             [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                             [$varSysBranch_RefID, 'bigint'],
-
-                            [$varCode, 'varchar'],
-                            [$varName, 'varchar'],
-                            [$varQuantityUnit_RefID, 'bigint'],
-                            [$varProductType_RefID, 'bigint']
+                            [$varSysBaseCurrency_RefID, 'bigint'],
+                            
+                            [$varCategory_RefID, 'bigint'],
+                            [$varSubCategory_RefID, 'bigint'],
+                            [$varProductName, 'varchar'],
+                            [$varUnitOfMeasure_RefID, 'bigint']
                         ]
                         )
                     );
@@ -154,27 +158,33 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function setDataUpdate(
-            $varUserSession, 
-            int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null,
-            string $varCode = null, string $varName = null, int $varQuantityUnit_RefID = null, int $varProductType_RefID = null)
+            $varUserSession,
+            int $varSysID,
+            string $varSysDataAnnotation = null, string $varSysDataValidityStartDateTimeTZ = null, string $varSysDataValidityFinishDateTimeTZ = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, $varSysBaseCurrency_RefID = null,
+            int $varCategory_RefID = null, int $varSubCategory_RefID = null, string $varProductName = null, int $varUnitOfMeasure_RefID = null
+            )
             {
             $varReturn =
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                     $varUserSession, 
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                         $varUserSession,
-                        parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
+                        parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET_NEW',
                         [
                             [$varUserSession, 'bigint'],
                             [$varSysID, 'bigint'],
+
                             [$varSysDataAnnotation, 'varchar'],
+                            [$varSysDataValidityStartDateTimeTZ, 'timestamptz'],
+                            [$varSysDataValidityFinishDateTimeTZ, 'timestamptz'],
                             [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                             [$varSysBranch_RefID, 'bigint'],
-
-                            [$varCode, 'varchar'],
-                            [$varName, 'varchar'],
-                            [$varQuantityUnit_RefID, 'bigint'],
-                            [$varProductType_RefID, 'bigint']
+                            [$varSysBaseCurrency_RefID, 'bigint'],
+                            
+                            [$varCategory_RefID, 'bigint'],
+                            [$varSubCategory_RefID, 'bigint'],
+                            [$varProductName, 'varchar'],
+                            [$varUnitOfMeasure_RefID, 'bigint']
                         ]
                         )
                     );
