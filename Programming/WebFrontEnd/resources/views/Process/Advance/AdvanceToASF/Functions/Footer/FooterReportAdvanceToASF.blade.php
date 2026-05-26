@@ -324,6 +324,7 @@
             const link = document.createElement('a');
             link.href = '#';
             link.textContent = item.ARF_Payment ?? '0';
+            link.style.cssText = "text-decoration: underline;";
 
             link.addEventListener('click', async function (e) {
                 e.preventDefault();
@@ -365,6 +366,7 @@
             const asfLink = document.createElement('a');
             asfLink.href = '#';
             asfLink.textContent = '0';
+            asfLink.style.cssText = "text-decoration: underline;";
 
             asfLink.addEventListener('click', async function (e) {
                 e.preventDefault();
