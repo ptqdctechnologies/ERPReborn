@@ -45,7 +45,7 @@ class ExportReportAdvanceToASF implements FromCollection, WithHeadings, ShouldAu
                 'Expense Claim' => $item['expense_Claim_IDR'] ?? null,
                 'Amount to the Company' => $item['amount_Due_Company_IDR'] ?? null,
                 'Total ASF' => $item['ASF_Total'] ?? null,
-                // 'Description'           => $item['Description'] ?? null,
+                'ASF Payment' => '0',
                 'Advance to Settlement' => $item['advance_ToSettlement'] ?? null,
                 'Status ASF' => $item['StatusASF'] ?? null,
             ];
@@ -68,8 +68,8 @@ class ExportReportAdvanceToASF implements FromCollection, WithHeadings, ShouldAu
             ["Budget", ": " . $budgetName, "Requester", ": " . $requesterName],
             ["Sub Budget", ": " . $subBudgetName, "Date Range", ": " . $date],
             [""],
-            ["No", "Advance", "", "", "", "", "", "", "Settlement", "", "", "", "", "", ""],
-            ["", "ARF Number", "Date", "Requester", "Total", "Payment", "ARF to Payment Balance", "Status", "ASF Number", "Date", "Expense Claim", "Amount to the Company", "Total", "ARF to ASF Balance", "Status"]
+            ["No", "Advance", "", "", "", "", "", "", "Settlement", "", "", "", "", "", "", ""],
+            ["", "ARF Number", "Date", "Requester", "Total", "Payment", "ARF to Payment Balance", "Status", "ASF Number", "Date", "Expense Claim", "Amount to the Company", "Total", "Payment", "ARF to ASF Balance", "Status"]
         ];
     }
 
@@ -86,8 +86,8 @@ class ExportReportAdvanceToASF implements FromCollection, WithHeadings, ShouldAu
                 'horizontal' => Alignment::HORIZONTAL_RIGHT,
             ]
         ];
-        $sheet->getStyle('A1:O1')->applyFromArray($styleArrayHeader0);
-        $sheet->mergeCells('A1:O1');
+        $sheet->getStyle('A1:P1')->applyFromArray($styleArrayHeader0);
+        $sheet->mergeCells('A1:P1');
 
         $styleArrayHeader1 = [
             'font' => [
@@ -101,8 +101,8 @@ class ExportReportAdvanceToASF implements FromCollection, WithHeadings, ShouldAu
             ]
         ];
 
-        $sheet->getStyle('A2:O2')->applyFromArray($styleArrayHeader1);
-        $sheet->mergeCells('A2:O2');
+        $sheet->getStyle('A2:P2')->applyFromArray($styleArrayHeader1);
+        $sheet->mergeCells('A2:P2');
 
         $styleArrayHeader = [
             'font' => [
@@ -115,8 +115,8 @@ class ExportReportAdvanceToASF implements FromCollection, WithHeadings, ShouldAu
                 'horizontal' => Alignment::HORIZONTAL_RIGHT,
             ]
         ];
-        $sheet->getStyle('A3:O3')->applyFromArray($styleArrayHeader);
-        $sheet->mergeCells('A3:O3');
+        $sheet->getStyle('A3:P3')->applyFromArray($styleArrayHeader);
+        $sheet->mergeCells('A3:P3');
 
         $styleArrayHeader4 = [
             'font' => [
@@ -129,7 +129,7 @@ class ExportReportAdvanceToASF implements FromCollection, WithHeadings, ShouldAu
                 'horizontal' => Alignment::HORIZONTAL_LEFT,
             ]
         ];
-        $sheet->getStyle('A4:O4')->applyFromArray($styleArrayHeader4);
+        $sheet->getStyle('A4:P4')->applyFromArray($styleArrayHeader4);
 
         $styleArrayHeader5 = [
             'font' => [
@@ -142,7 +142,7 @@ class ExportReportAdvanceToASF implements FromCollection, WithHeadings, ShouldAu
                 'horizontal' => Alignment::HORIZONTAL_LEFT,
             ]
         ];
-        $sheet->getStyle('A5:O5')->applyFromArray($styleArrayHeader5);
+        $sheet->getStyle('A5:P5')->applyFromArray($styleArrayHeader5);
 
         $styleArrayHeader2 = [
             'font' => [
@@ -168,12 +168,12 @@ class ExportReportAdvanceToASF implements FromCollection, WithHeadings, ShouldAu
             ],
         ];
 
-        $sheet->getStyle('A7:O7')->applyFromArray($styleArrayHeader2);
+        $sheet->getStyle('A7:P7')->applyFromArray($styleArrayHeader2);
         $sheet->mergeCells('A7:A8');
         $sheet->mergeCells('B7:H7');
-        $sheet->mergeCells('I7:O7');
-        // $sheet->mergeCells('N7:O7');
-        $sheet->getStyle('A8:O8')->applyFromArray($styleArrayHeader2);
+        $sheet->mergeCells('I7:P7');
+        // $sheet->mergeCells('N7:P7');
+        $sheet->getStyle('A8:P8')->applyFromArray($styleArrayHeader2);
 
         $styleArrayContent = [
             'borders' => [
@@ -188,7 +188,7 @@ class ExportReportAdvanceToASF implements FromCollection, WithHeadings, ShouldAu
 
         $datas = $this->advanceRequestToASF;
         $totalCell = count($datas);
-        $lastCell = 'A8:O' . $totalCell + 8;
+        $lastCell = 'A8:P' . $totalCell + 8;
         $sheet->getStyle($lastCell)->applyFromArray($styleArrayContent);
 
         $total = $datas[0]['expense_Claim_IDR'];
@@ -231,7 +231,7 @@ class ExportReportAdvanceToASF implements FromCollection, WithHeadings, ShouldAu
             ],
         ];
 
-        $sheet->getStyle('A' . $totalCell + 9 . ':' . 'O' . $totalCell + 9)->applyFromArray($styleArrayFooter);
+        $sheet->getStyle('A' . $totalCell + 9 . ':' . 'P' . $totalCell + 9)->applyFromArray($styleArrayFooter);
 
     }
 }

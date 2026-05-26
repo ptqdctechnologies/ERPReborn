@@ -7,6 +7,7 @@
     @include('getFunction.getRequesters')
     @include('getFunction.getAdvance')
     @include('getFunction.getAdvanceSettlement')
+    @include('Process.Advance.AdvanceToASF.Functions.PopUp.PopUpReportAdvanceToASF')
 
     <div class="content-wrapper">
         <section class="content">
@@ -72,7 +73,7 @@
                                                         <th colspan="7"
                                                             style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
                                                             Advance Request</th>
-                                                        <th colspan="7"
+                                                        <th colspan="8"
                                                             style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
                                                             Advance Settlement</th>
                                                         <!-- <th colspan="2" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Balance</th> -->
@@ -115,6 +116,9 @@
                                                         <th
                                                             style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
                                                             Total</th>
+                                                        <th
+                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
+                                                            Payment</th>
                                                         <th
                                                             style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
                                                             ARF to ASF Balance</th>
