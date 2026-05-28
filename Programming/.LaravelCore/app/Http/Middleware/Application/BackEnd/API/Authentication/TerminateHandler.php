@@ -56,6 +56,8 @@ namespace App\Http\Middleware\Application\BackEnd\API\Authentication
                     );
                 }
 
+            $varDBProfile = \App\Helpers\ZhtHelper\Logger\Helper_QueryProfiler::getSnapshot();
+
             if ($varWriteLoki)
                 {
                 try
@@ -74,6 +76,7 @@ namespace App\Http\Middleware\Application\BackEnd\API\Authentication
                         'response_status'  => $varResponseStatus,
                         'response_headers' => $varResponseHeaders,
                         'response_body'    => $varResponseBody,
+                        'db_profile'       => $varDBProfile,
                     ]);
                     }
                 catch (\Throwable $e)
@@ -84,6 +87,9 @@ namespace App\Http\Middleware\Application\BackEnd\API\Authentication
                         );
                     }
                 }
+
+            //---> Wajib reset terakhir agar worker yang dipakai ulang (Octane/FrankenPHP) tidak membawa state request sebelumnya.
+            \App\Helpers\ZhtHelper\Logger\Helper_QueryProfiler::reset();
             }
         }
     }
