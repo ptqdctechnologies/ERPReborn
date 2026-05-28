@@ -78,6 +78,17 @@ namespace App\Http\Middleware\Application\BackEnd\API\Authentication
                         'response_body'    => $varResponseBody,
                         'db_profile'       => $varDBProfile,
                     ]);
+
+                    //---> Flush eksplisit per request. Wajib karena LokiHandler buffer via
+                    //     register_shutdown_function, yang di Octane/FrankenPHP worker hanya fire saat
+                    //     worker exit (bukan per request). Tanpa flush ini buffer tidak pernah dikirim.
+                    foreach (\Illuminate\Support\Facades\Log::channel('audit_api')->getLogger()->getHandlers() as $varLokiHandler)
+                        {
+                        if ($varLokiHandler instanceof \App\Logging\LokiHandler)
+                            {
+                            $varLokiHandler->flush();
+                            }
+                        }
                     }
                 catch (\Throwable $e)
                     {
