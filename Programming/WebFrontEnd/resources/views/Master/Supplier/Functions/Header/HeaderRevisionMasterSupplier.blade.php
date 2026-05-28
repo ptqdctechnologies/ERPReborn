@@ -9,7 +9,8 @@
                 <div class="col-5 d-flex">
                     <div class="input-group">
                         <input class="form-control" id="supplier_name" name="supplier_name" style="border-radius:0;"
-                            autocomplete="off" value="<?= $headerSupplier['supplierName']; ?>">
+                            autocomplete="off" value="<?= $headerSupplier['supplierName']; ?>"
+                            <?= $headerSupplier['status'] === 'FINAL APPROVED' ? 'disabled' : '' ?>>
                     </div>
                 </div>
             </div>
@@ -25,7 +26,8 @@
                 <div class="col-5 d-flex">
                     <div class="input-group">
                         <input class="form-control number-without-characters" id="tax_id" name="tax_id"
-                            style="border-radius:0;" autocomplete="off" value="<?= $headerSupplier['taxID']; ?>">
+                            style="border-radius:0;" autocomplete="off" value="<?= $headerSupplier['taxID']; ?>"
+                            <?= $headerSupplier['status'] === 'FINAL APPROVED' ? 'disabled' : '' ?>>
                     </div>
                 </div>
             </div>
@@ -36,7 +38,8 @@
                 <div class="col-5 d-flex">
                     <div class="input-group">
                         <input class="form-control number-without-characters" id="phone_number" name="phone_number"
-                            style="border-radius:0;" autocomplete="off" value="<?= $headerSupplier['phoneNumber']; ?>">
+                            style="border-radius:0;" autocomplete="off" value="<?= $headerSupplier['phoneNumber']; ?>"
+                            <?= $headerSupplier['status'] === 'FINAL APPROVED' ? 'disabled' : '' ?>>
                     </div>
                 </div>
             </div>
@@ -51,7 +54,7 @@
                 <div class="col-5 d-flex">
                     <div class="input-group">
                         <input class="form-control" id="email" name="email" style="border-radius:0;" autocomplete="off"
-                            value="<?= $headerSupplier['email']; ?>">
+                            value="<?= $headerSupplier['email']; ?>" <?= $headerSupplier['status'] === 'FINAL APPROVED' ? 'disabled' : '' ?>>
                     </div>
                 </div>
             </div>
@@ -143,8 +146,8 @@
             <div class="row" style="margin-top: 1rem;">
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Address</label>
                 <div class="col-5">
-                    <textarea id="address" name="address" cols="30" rows="4" class="form-control"
-                        autocomplete="off"><?= $headerSupplier['address']; ?></textarea>
+                    <textarea id="address" name="address" cols="30" rows="4" class="form-control" autocomplete="off"
+                        <?= $headerSupplier['status'] === 'FINAL APPROVED' ? 'disabled' : '' ?>><?= $headerSupplier['address']; ?></textarea>
                 </div>
             </div>
             <div class="row" id="addressMessage" style="margin-top: .3rem;display: none;">
@@ -155,13 +158,46 @@
 
         <!-- RIGHT -->
         <div class="col-md-12 col-lg-5">
+            <?php if ($headerSupplier['status'] == 'FINAL APPROVED') { ?>
+            <!-- STATUS -->
+            <div class="row" style="margin-bottom: 1rem;">
+                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Supplier Status</label>
+                <div class="col-5 d-flex" style="gap: 1rem;">
+                    <div class="form-check d-flex align-items-center">
+                        <input
+                            class="form-check-input"
+                            type="radio"
+                            name="radioGroup"
+                            id="active"
+                            checked
+                        />
+                        <label class="form-check-label" for="active">Active</label>
+                    </div>
+                    <div class="form-check d-flex align-items-center">
+                        <input
+                            class="form-check-input"
+                            type="radio"
+                            name="radioGroup"
+                            id="inactive"
+                        />
+                        <label class="form-check-label" for="inactive">Inactive</label>
+                    </div>
+                    <!-- <div class="form-check form-switch" style="margin-bottom: 0rem; min-height: auto;">
+                        <input class="form-check-input" type="checkbox" role="switch" id="switchCheckChecked" checked
+                            style="height: 1rem; width: 2rem;">
+                        <label class="form-check-label" for="switchCheckChecked">Checked switch checkbox input</label>
+                    </div> -->
+                </div>
+            </div>
+            <?php } ?>
+
             <!-- LEGAL ENTITY -->
             <div class="row">
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Legal
                     Entity</label>
                 <div class="col-5">
                     <select class="form-control" id="legal_entity" name="legal_entity_value"
-                        style="border-radius:0;width: 100%;" type="text">
+                        style="border-radius:0;width: 100%;" type="text" <?= $headerSupplier['status'] === 'FINAL APPROVED' ? 'disabled' : '' ?>>
                         <option value="" disabled selected>Select a Legal Entity</option>
                         <!-- <option value="PT (Perseroan Terbatas)">PT (Perseroan Terbatas)</option>
                         <option value="CV (Commanditaire Vennootschap)">CV (Commanditaire Vennootschap)</option>
@@ -185,7 +221,8 @@
                 <div class="col-5 d-flex">
                     <div class="input-group">
                         <input class="form-control" id="contact_person" name="contact_person" style="border-radius:0;"
-                            autocomplete="off" value="<?= $headerSupplier['contactPerson']; ?>">
+                            autocomplete="off" value="<?= $headerSupplier['contactPerson']; ?>"
+                            <?= $headerSupplier['status'] === 'FINAL APPROVED' ? 'disabled' : '' ?>>
                     </div>
                 </div>
             </div>
@@ -229,8 +266,8 @@
                 <div class="col-5 d-flex">
                     <div class="input-group">
                         <input class="form-control number-without-characters" id="account_number" name="account_number"
-                            value="<?= $headerSupplier['accountNumber']; ?>" style="border-radius:0;"
-                            autocomplete="off">
+                            value="<?= $headerSupplier['accountNumber']; ?>" style="border-radius:0;" autocomplete="off"
+                            <?= $headerSupplier['status'] === 'FINAL APPROVED' ? 'disabled' : '' ?>>
                     </div>
                 </div>
             </div>
@@ -246,7 +283,8 @@
                 <div class="col-5 d-flex">
                     <div class="input-group">
                         <input class="form-control" id="account_name" name="account_name"
-                            value="<?= $headerSupplier['accountName']; ?>" style="border-radius:0;" autocomplete="off">
+                            value="<?= $headerSupplier['accountName']; ?>" style="border-radius:0;" autocomplete="off"
+                            <?= $headerSupplier['status'] === 'FINAL APPROVED' ? 'disabled' : '' ?>>
                     </div>
                 </div>
             </div>
@@ -259,8 +297,8 @@
             <div class="row" style="margin-top: 1rem;">
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Remark</label>
                 <div class="col-5">
-                    <textarea id="remark" class="form-control" cols="30" rows="4" autocomplete="off"
-                        name="remark"><?= $headerSupplier['remark']; ?></textarea>
+                    <textarea id="remark" class="form-control" cols="30" rows="4" autocomplete="off" name="remark"
+                        <?= $headerSupplier['status'] === 'FINAL APPROVED' ? 'disabled' : '' ?>><?= $headerSupplier['remark']; ?></textarea>
                 </div>
             </div>
             <div class="row" id="remarkMessage" style="margin-top: .3rem;display: none;">

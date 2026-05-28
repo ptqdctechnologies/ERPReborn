@@ -93,6 +93,7 @@ class SupplierController extends Controller
                     'accountNumber' => $header['AccountNumber'] ?? '',
                     'accountName' => $header['AccountName'] ?? '',
                     'remark' => $header['Remark'] ?? '',
+                    'status' => 'FINAL APPROVED'
                 ],
             ];
 
@@ -161,8 +162,8 @@ class SupplierController extends Controller
 
         return response()->json([
             'draw' => intval($draw),
-            'recordsTotal' => 3000,
-            'recordsFiltered' => 3000,
+            'recordsTotal' => $total,
+            'recordsFiltered' => $total,
             'data' => $data
         ]);
     }

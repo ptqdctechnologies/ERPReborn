@@ -144,14 +144,14 @@
                 </div>
               </div>
 
-              <!-- COMMENT -->
+              <!-- INSERT COMMENT -->
               <?php if ($statusApprover == "YES") { ?>
               <div class="col-12">
                 <div class="card">
                   <!-- TITLE -->
                   <div class="card-header">
                     <label class="card-title">
-                      Comment
+                      Insert Comment
                     </label>
                     <div class="card-tools">
                       <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -164,7 +164,7 @@
                   <div class="card-body">
                     <div class="row" style="">
                       <textarea name="comment_approval" id="comment_approval" class="form-control"
-                        style="border: 1px solid #000;"></textarea>
+                        style="border: 1px solid #0d6efd;"></textarea>
                     </div>
                   </div>
                 </div>
