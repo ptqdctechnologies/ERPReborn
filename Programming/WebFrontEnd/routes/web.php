@@ -28,7 +28,7 @@ $varUserSession =
     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
 
 $varAPIWebToken =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoid2lzbnUudHJlbmdnb25vIiwiaWF0IjoxNzc2MzM3MDM3fQ.MzI3ZGI0YTExZjA2MTdiYzUxOTAzNmFhMmMyYTVlYzMwNmQzYTUxODdmYmRhNjRlNjNkMzRlNDgzNTliNzQ2Yg';
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoid2lzbnUudHJlbmdnb25vIiwiaWF0IjoxNzc5MjU4MjE1fQ.YWI1MmQwN2VhYjE2YTY2ZjEwNTY2MGI5MTU3NzliMzBhY2Q1NjNlMTM5ODBkYzE3ZjIzZDhmODFjZTY1NjgwZg';
 
 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_LaravelRoute::setDynamicRoute_Examples_APICall(
     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
@@ -86,10 +86,13 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::resource('Warehouse', 'Register\Warehouse\WarehouseController');
 
     // SUPPLIER
+    Route::post('Supplier/revision', 'Master\SupplierController@revision')->name('Supplier.revision');
     Route::post('SupplierPickList', 'Master\SupplierController@SupplierPickList')->name('Supplier.SupplierPickList');
+    Route::post('SupplierSummary', 'Master\SupplierController@SupplierSummary')->name('Supplier.SupplierSummary');
     Route::resource('Supplier', 'Master\SupplierController');
 
     // PRODUCT
+    Route::post('Product/revision', 'Master\ProductController@revision')->name('Product.revision');
     Route::resource('Product', 'Master\ProductController');
     // Route::resource('Product', 'Register\Product\ProductController');
 
@@ -245,6 +248,12 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::post('ReportAccountPayableSummaryStore', 'Finance\AccountPayableController@ReportAccountPayableSummaryStore')->name('AccountPayable.ReportAccountPayableSummaryStore');
     Route::post('PrintExportReportAccountPayableSummary', 'Finance\AccountPayableController@PrintExportReportAccountPayableSummary')->name('AccountPayable.PrintExportReportAccountPayableSummary');
     Route::resource('AccountPayable', 'Finance\AccountPayableController');
+
+    // FINANCIAL REPORT
+    Route::get('ReportGeneralLedger', 'Finance\FinancialReportController@ReportGeneralLedger')->name('FinancialReport.ReportGeneralLedger');
+    Route::post('ReportGeneralLedgerStore', 'Finance\FinancialReportController@ReportGeneralLedgerStore')->name('FinancialReport.ReportGeneralLedgerStore');
+    Route::post('PrintExportReportGeneralLedger', 'Finance\FinancialReportController@PrintExportReportGeneralLedger')->name('FinancialReport.PrintExportReportGeneralLedger');
+    Route::resource('FinancialReport', 'Finance\FinancialReportController');
 
     // JOURNAL
     Route::get('DataPickList', 'Accounting\JournalController@DataPickList')->name('Journal.DataPickList');

@@ -9,32 +9,84 @@ use App\Helpers\ZhtHelper\System\Helper_Environment;
 
 class SupplierService
 {
-    public function getPickList($supplierID)
+    public function getDetail($advanceRequestID)
     {
         $sessionToken = Session::get('SessionLogin');
-
-        $filter = null;
-        if (!empty($supplierID) && $supplierID != 'undefined') {
-            $filter = '"Sys_ID" = \'' . addslashes($supplierID) . '\'';
-        }
 
         return Helper_APICall::setCallAPIGateway(
             Helper_Environment::getUserSessionID_System(),
             $sessionToken,
-            'transaction.read.dataList.supplyChain.getSupplier',
+            'transaction.read.dataList.supplyChain.getSupplierDetail',
             'latest',
             [
-                'parameter' => null,
+                'parameter' => [
+                    'supplier_RefID' => (int) $advanceRequestID,
+                ],
                 'SQLStatement' => [
                     'pick' => null,
-                    'sort' => '"Code" ASC',
-                    'filter' => $filter,
+                    'sort' => null,
+                    'filter' => null,
                     'paging' => null
                 ]
             ],
             false
         );
     }
+
+    public function getPickList($supplierID)
+    {
+        $sessionToken = Session::get('SessionLogin');
+
+        // $filter = null;
+        // if (!empty($supplierID) && $supplierID != 'undefined') {
+        //     $filter = '"Sys_ID" = \'' . addslashes($supplierID) . '\'';
+        // }
+
+        return Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
+            $sessionToken,
+            'dataPickList.supplyChain.getSupplier',
+            'latest',
+            [
+                'parameter' => [],
+                // 'SQLStatement' => [
+                //     'pick' => null,
+                //     'sort' => '"Code" ASC',
+                //     'filter' => $filter,
+                //     'paging' => null
+                // ]
+            ],
+            false
+        );
+    }
+
+    public function getSummary($supplierID)
+    {
+        $sessionToken = Session::get('SessionLogin');
+
+        // $filter = null;
+        // if (!empty($supplierID) && $supplierID != 'undefined') {
+        //     $filter = '"Sys_ID" = \'' . addslashes($supplierID) . '\'';
+        // }
+
+        return Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
+            $sessionToken,
+            'transaction.read.dataList.supplyChain.getSupplierList',
+            'latest',
+            [
+                'parameter' => null,
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    'filter' => null,
+                    'paging' => null
+                ]
+            ],
+            false
+        );
+    }
+
     public function create(Request $request)
     {
         $token = Session::get('SessionLogin');

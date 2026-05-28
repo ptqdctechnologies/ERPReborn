@@ -21,6 +21,27 @@
     <!-- HEADER -->
     <table style="margin: 30px 0px 15px 1px;">
       <tr>
+        <!-- BRF NUMBER -->
+        <td style=" width: 350px;">
+          <table>
+            <tr>
+              <td style="width: 110px; height: 20px;">
+                <div style="font-size: 14px; font-weight: bold; line-height: 14px;">
+                  BRF Number
+                </div>
+              </td>
+              <td style="width: 5px;">
+                :
+              </td>
+              <td style="height: 20px;">
+                <div style="font-size: 14px; line-height: 14px;">
+                  -
+                </div>
+              </td>
+            </tr>
+          </table>
+        </td>
+
         <!-- BUDGET -->
         <td style=" width: 350px;">
           <table>
@@ -35,7 +56,7 @@
               </td>
               <td style="height: 20px;">
                 <div style="font-size: 14px; line-height: 14px;">
-                  <?= $dataReport['project']['code']; ?> - <?= $dataReport['project']['name']; ?>
+                  -
                 </div>
               </td>
             </tr>
@@ -55,16 +76,36 @@
                 :
               </td>
               <td style="height: 20px;">
-                <div style="font-size: 14px;line-height: 14px;">
-                  <?= $dataReport['requester']['name']; ?>
+                <div style="font-size: 14px; line-height: 14px;">
+                  -
                 </div>
               </td>
             </tr>
           </table>
         </td>
       </tr>
-
       <tr>
+        <!-- BSF NUMBER -->
+        <td style=" width: 350px;">
+          <table>
+            <tr>
+              <td style="width: 110px; height: 20px;">
+                <div style="font-size: 14px; font-weight: bold; line-height: 14px;">
+                  BSF Number
+                </div>
+              </td>
+              <td style="width: 5px;">
+                :
+              </td>
+              <td style="height: 20px;">
+                <div style="font-size: 14px; line-height: 14px;">
+                  -
+                </div>
+              </td>
+            </tr>
+          </table>
+        </td>
+
         <!-- SUB BUDGET -->
         <td style=" width: 350px;">
           <table>
@@ -78,8 +119,29 @@
                 :
               </td>
               <td style="height: 20px;">
-                <div style="font-size: 14px;line-height: 14px;">
-                  <?= $dataReport['site']['code']; ?> - <?= $dataReport['site']['name']; ?>
+                <div style="font-size: 14px; line-height: 14px;">
+                  -
+                </div>
+              </td>
+            </tr>
+          </table>
+        </td>
+
+        <!-- DATE RANGE -->
+        <td style=" width: 350px;">
+          <table>
+            <tr>
+              <td style="width: 110px; height: 20px;">
+                <div style="font-size: 14px; font-weight: bold; line-height: 14px;">
+                  Date Range
+                </div>
+              </td>
+              <td style="width: 5px;">
+                :
+              </td>
+              <td style="height: 20px;">
+                <div style="font-size: 14px; line-height: 14px;">
+                  -
                 </div>
               </td>
             </tr>
@@ -88,194 +150,102 @@
       </tr>
     </table>
 
-    <table class="TableReportAdvanceSummary" style="margin-left: 1px; width: 100%;" id="TableReportAdvanceSummary">
-      <tr style="border-top: 1px solid black; border-bottom: 1px solid black;">
-        <td rowspan="3" style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-            No
-          </div>
-        </td>
-        <td colspan="11" style="border-top: 1px solid black; height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-            Business Trip
-          </div>
-        </td>
-        <td colspan="16" style="border-top: 1px solid black; height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-            Settlement
-          </div>
-        </td>
-        <td colspan="2" style="border-top: 1px solid black; height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-            Balance
-          </div>
-        </td>
-      </tr>
-      <tr style="border-top: 1px solid black; border-bottom: 1px dotted black;">
-        <td rowspan="2" style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-            BRF Number
-          </div>
-        </td>
-        <td rowspan="2" style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-            Date
-          </div>
-        </td>
-        <td rowspan="2" style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-            Requester
-          </div>
-        </td>
-        <td rowspan="2" style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-            Total Travel
-          </div>
-        </td>
-        <td rowspan="2" style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-            Total Allowance
-          </div>
-        </td>
-        <td rowspan="2" style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-            Total Entertainment
-          </div>
-        </td>
-        <td rowspan="2" style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-            Total Other
-          </div>
-        </td>
-        <td rowspan="2" style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-            Payment
-          </div>
-        </td>
-        <td rowspan="2" style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-            Status
-          </div>
-        </td>
-        <td rowspan="2" style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-            Date Commence Travel
-          </div>
-        </td>
-        <td rowspan="2" style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-            Date End Travel
-          </div>
-        </td>
+    <table style="margin-left: 1px; width: 100%;">
+      <thead>
+        <tr style="border-top: 1px solid black; border-bottom: 1px solid black;">
+          <td rowspan="3" style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+            <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+              No
+            </div>
+          </td>
+          <td colspan="9" style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+            <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+              Business Trip
+            </div>
+          </td>
+          <td colspan="5" style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+            <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+              Settlement
+            </div>
+          </td>
+        </tr>
+        <tr style="border-top: 1px solid black; border-bottom: 1px dotted black;">
+          <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+            <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+              BRF Number
+            </div>
+          </td>
+          <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+            <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+              Date
+            </div>
+          </td>
+          <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+            <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+              Requester
+            </div>
+          </td>
+          <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+            <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+              Date Commence Travel
+            </div>
+          </td>
+          <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+            <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+              Date End Travel
+            </div>
+          </td>
+          <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+            <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+              Total
+            </div>
+          </td>
+          <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+            <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+              Payment
+            </div>
+          </td>
+          <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+            <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+              Business Trip to Payment Balance
+            </div>
+          </td>
+          <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+            <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+              Status
+            </div>
+          </td>
+          <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+            <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+              BRF Number
+            </div>
+          </td>
+          <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+            <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+              Date
+            </div>
+          </td>
+          <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+            <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+              Total
+            </div>
+          </td>
+          <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+            <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+              Business Trip to Settlement Balance
+            </div>
+          </td>
+          <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+            <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+              Status
+            </div>
+          </td>
+        </tr>
+      </thead>
 
-        <td rowspan="2" style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-            BSF Number
-          </div>
-        </td>
-        <td rowspan="2" style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-            Date
-          </div>
-        </td>
-        <td rowspan="2" style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-            Total Travel
-          </div>
-        </td>
-        <td rowspan="2" style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-            Total Allowance
-          </div>
-        </td>
-        <td rowspan="2" style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-            Total Entertainment
-          </div>
-        </td>
-        <td rowspan="2" style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-            Total Other
-          </div>
-        </td>
-
-        <td colspan="4" style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-            Expense Claim
-          </div>
-        </td>
-        <td colspan="4" style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-            Amount to the Company
-          </div>
-        </td>
-        <td rowspan="2" style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-            Description
-          </div>
-        </td>
-        <td rowspan="2" style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-            Status
-          </div>
-        </td>
-
-        <td rowspan="2" style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-            Business Trip to Payment
-          </div>
-        </td>
-        <td rowspan="2" style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-            Business Trip to Settlement
-          </div>
-        </td>
-      </tr>
-      <tr style="border-top: 1px solid black; border-bottom: 1px dotted black;">
-        <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-            Travel
-          </div>
-        </td>
-        <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-            Allowance
-          </div>
-        </td>
-        <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-            Entertainment
-          </div>
-        </td>
-        <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-            Other
-          </div>
-        </td>
-        <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-            Travel
-          </div>
-        </td>
-        <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-            Allowance
-          </div>
-        </td>
-        <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-            Entertainment
-          </div>
-        </td>
-        <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-            Other
-          </div>
-        </td>
-      </tr>
-
-      <?php $counter = 1; ?>
-      <?php foreach ($dataReport['dataDetail'] as $dataDetail) { ?>
+      <tbody>
+        <?php $counter = 1; ?>
+        <?php foreach ($dataReport as $data) { ?>
         <tr>
           <td>
             <div style="margin-top: 4px; font-size: 12px;">
@@ -284,218 +254,77 @@
           </td>
           <td>
             <div style="margin-top: 4px; font-size: 12px;">
-              <?= $dataDetail['DocumentNumber']; ?>
+              <?= $data['brfNumber'] ?? '-'; ?>
             </div>
           </td>
           <td>
             <div style="margin-top: 4px; font-size: 12px;">
-              <?= date('d-m-Y', strtotime($dataDetail['DocumentDateTimeTZ'])); ?>
+              <?= $data['brfDate'] ?? '-'; ?>
             </div>
           </td>
           <td>
             <div style="margin-top: 4px; font-size: 12px;">
-              <?= $dataDetail['RequesterWorkerName']; ?>
+              <?= $data['requesterName'] ?? '-'; ?>
             </div>
           </td>
           <td>
             <div style="margin-top: 4px; font-size: 12px;">
-              <?= number_format($dataDetail['TotalTravel'], 2, '.', ','); ?>
+              <?= $data['dateCommenceTravel'] ?? '-'; ?>
             </div>
           </td>
           <td>
             <div style="margin-top: 4px; font-size: 12px;">
-              <?= number_format($dataDetail['TotalAllowance'], 2, '.', ','); ?>
+              <?= $data['dateEndTravel'] ?? '-'; ?>
             </div>
           </td>
           <td>
             <div style="margin-top: 4px; font-size: 12px;">
-              <?= number_format($dataDetail['TotalEntertainment'], 2, '.', ','); ?>
+              <?= $data['brfTotal'] ?? '-'; ?>
             </div>
           </td>
           <td>
             <div style="margin-top: 4px; font-size: 12px;">
-              <?= number_format($dataDetail['TotalOther'], 2, '.', ','); ?>
+              <?= $data['brfPayment'] ?? '-'; ?>
             </div>
           </td>
           <td>
             <div style="margin-top: 4px; font-size: 12px;">
-              <?= number_format($dataDetail['TotalPayment'], 2, '.', ','); ?>
+              <?= $data['balanceBrfToPayment'] ?? '-'; ?>
             </div>
           </td>
           <td>
             <div style="margin-top: 4px; font-size: 12px;">
-              <?= $dataDetail['Status']; ?>
+              <?= $data['brfStatus'] ?? '-'; ?>
             </div>
           </td>
           <td>
             <div style="margin-top: 4px; font-size: 12px;">
-              <?= date('d-m-Y', strtotime($dataDetail['DateCommenceTravel'])); ?>
+              <?= $data['bsfNumber'] ?? '-'; ?>
             </div>
           </td>
           <td>
             <div style="margin-top: 4px; font-size: 12px;">
-              <?= date('d-m-Y', strtotime($dataDetail['DateEndTravel'])); ?>
+              <?= $data['bsfDate'] ?? '-'; ?>
             </div>
           </td>
           <td>
             <div style="margin-top: 4px; font-size: 12px;">
-              <?= $dataDetail['DocumentBSFNumber']; ?>
+              <?= $data['bsfTotal'] ?? '-'; ?>
             </div>
           </td>
           <td>
             <div style="margin-top: 4px; font-size: 12px;">
-              <?= date('d-m-Y', strtotime($dataDetail['DocumentBSFDateTimeTZ'])); ?>
+              <?= $data['balanceBrfToBsf'] ?? '-'; ?>
             </div>
           </td>
           <td>
             <div style="margin-top: 4px; font-size: 12px;">
-              <?= number_format($dataDetail['TotalBSFTravel'], 2, '.', ','); ?>
-            </div>
-          </td>
-          <td>
-            <div style="margin-top: 4px; font-size: 12px;">
-              <?= number_format($dataDetail['TotalBSFAllowance'], 2, '.', ','); ?>
-            </div>
-          </td>
-          <td>
-            <div style="margin-top: 4px; font-size: 12px;">
-              <?= number_format($dataDetail['TotalBSFEntertainment'], 2, '.', ','); ?>
-            </div>
-          </td>
-          <td>
-            <div style="margin-top: 4px; font-size: 12px;">
-              <?= number_format($dataDetail['TotalBSFOther'], 2, '.', ','); ?>
-            </div>
-          </td>
-          <td>
-            <div style="margin-top: 4px; font-size: 12px;">
-              <?= number_format($dataDetail['TotalExpenseClaimTravel'], 2, '.', ','); ?>
-            </div>
-          </td>
-          <td>
-            <div style="margin-top: 4px; font-size: 12px;">
-              <?= number_format($dataDetail['TotalExpenseClaimAllowance'], 2, '.', ','); ?>
-            </div>
-          </td>
-          <td>
-            <div style="margin-top: 4px; font-size: 12px;">
-              <?= number_format($dataDetail['TotalExpenseClaimEntertainment'], 2, '.', ','); ?>
-            </div>
-          </td>
-          <td>
-            <div style="margin-top: 4px; font-size: 12px;">
-              <?= number_format($dataDetail['TotalExpenseClaimOther'], 2, '.', ','); ?>
-            </div>
-          </td>
-          <td>
-            <div style="margin-top: 4px; font-size: 12px;">
-              <?= number_format($dataDetail['TotalAmountToCompanyTravel'], 2, '.', ','); ?>
-            </div>
-          </td>
-          <td>
-            <div style="margin-top: 4px; font-size: 12px;">
-              <?= number_format($dataDetail['TotalAmountToCompanyAllowance'], 2, '.', ','); ?>
-            </div>
-          </td>
-          <td>
-            <div style="margin-top: 4px; font-size: 12px;">
-              <?= number_format($dataDetail['TotalAmountToCompanyEntertainment'], 2, '.', ','); ?>
-            </div>
-          </td>
-          <td>
-            <div style="margin-top: 4px; font-size: 12px;">
-              <?= number_format($dataDetail['TotalAmountToCompanyOther'], 2, '.', ','); ?>
-            </div>
-          </td>
-          <td>
-            <div style="margin-top: 4px; font-size: 12px;">
-              <?= $dataDetail['Description']; ?>
-            </div>
-          </td>
-          <td>
-            <div style="margin-top: 4px; font-size: 12px;">
-              <?= $dataDetail['StatusBSF']; ?>
-            </div>
-          </td>
-          <td>
-            <div style="margin-top: 4px; font-size: 12px;">
-              <?= number_format($dataDetail['TotalBusinessTripPayment'], 2, '.', ','); ?>
-            </div>
-          </td>
-          <td>
-            <div style="margin-top: 4px; font-size: 12px;">
-              <?= number_format($dataDetail['TotalBusinessTripSettlement'], 2, '.', ','); ?>
+              <?= $data['bsfStatus'] ?? '-'; ?>
             </div>
           </td>
         </tr>
-      <?php } ?>
-
-      <div style="height: 16px;"></div>
-
-      <tr style="border-top: 1px solid black;">
-        <td style="height: 20px; text-align: left;" colspan="4">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">GRAND TOTAL</div>
-        </td>
-        <td style="height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"><?= number_format($dataReport['totalTravel'], 2, '.', ','); ?></div>
-        </td>
-        <td style="height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"><?= number_format($dataReport['totalAllowance'], 2, '.', ','); ?></div>
-        </td>
-        <td style="height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"><?= number_format($dataReport['totalEntertainment'], 2, '.', ','); ?></div>
-        </td>
-        <td style="height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"><?= number_format($dataReport['totalOther'], 2, '.', ','); ?></div>
-        </td>
-        <td style="height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"><?= number_format($dataReport['totalPayment'], 2, '.', ','); ?></div>
-        </td>
-        <td style="height: 20px; text-align: left;" colspan="5"></td>
-        <td style="height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"><?= number_format($dataReport['totalBSFTravel'], 2, '.', ','); ?></div>
-        </td>
-        <td style="height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"><?= number_format($dataReport['totalBSFAllowance'], 2, '.', ','); ?></div>
-        </td>
-        <td style="height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"><?= number_format($dataReport['totalBSFEntertainment'], 2, '.', ','); ?></div>
-        </td>
-        <td style="height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"><?= number_format($dataReport['totalBSFOther'], 2, '.', ','); ?></div>
-        </td>
-        <td style="height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"><?= number_format($dataReport['totalExpenseClaimTravel'], 2, '.', ','); ?></div>
-        </td>
-        <td style="height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"><?= number_format($dataReport['totalExpenseClaimAllowance'], 2, '.', ','); ?></div>
-        </td>
-        <td style="height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"><?= number_format($dataReport['totalExpenseClaimEntertainment'], 2, '.', ','); ?></div>
-        </td>
-        <td style="height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"><?= number_format($dataReport['totalExpenseClaimOther'], 2, '.', ','); ?></div>
-        </td>
-        <td style="height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"><?= number_format($dataReport['totalAmountToCompanyTravel'], 2, '.', ','); ?></div>
-        </td>
-        <td style="height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"><?= number_format($dataReport['totalAmountToCompanyAllowance'], 2, '.', ','); ?></div>
-        </td>
-        <td style="height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"><?= number_format($dataReport['totalAmountToCompanyEntertainment'], 2, '.', ','); ?></div>
-        </td>
-        <td style="height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"><?= number_format($dataReport['totalAmountToCompanyOther'], 2, '.', ','); ?></div>
-        </td>
-        <td style="height: 20px; text-align: left;" colspan="2"></td>
-        <td style="height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"><?= number_format($dataReport['totalBusinessTripPayment'], 2, '.', ','); ?></div>
-        </td>
-        <td style="height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"><?= number_format($dataReport['totalBusinessTripSettlement'], 2, '.', ','); ?></div>
-        </td>
-      </tr>
+        <?php } ?>
+      </tbody>
     </table>
   </div>
 </body>

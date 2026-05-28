@@ -1,129 +1,326 @@
-@extends('Partials.app')
-@section('main')
+<!DOCTYPE html>
+<html lang="en">
 
-<div class="content-wrapper">
-    <section class="content">
-        <div class="container-fluid">
-            <div class="row mb-1">
-                <div class="col-sm-12">
-                    <center>
-                        <div style="text-align: center; font-size: 20px; font-weight: bold;">Report Reimbursement To Debit Note</div>
-                    </center>
-                    <table style="float:right;">
-                        <!-- <tr>
-                        <td><img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('/AdminLTE-master/dist/img/qdc.png'))) }}" width="180"></td>
-                        </tr> -->
-                        </tr>
-                    </table>
-                    <br><br>
-                </div>
-            </div>
-            <div class="card">
-                <div class="tab-content p-3" id="nav-tabContent">
-                    <div class="row">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
 
-                        <div class="col-12 ShowTableReportAdvanceSummary">
-                            <div class="card">
-                                <div class="card-body table-responsive p-0">
-                                    <table class="TableReportAdvanceSummary" id="TableReportAdvanceSummary" style="font-size: 13px;width:100%;border: 1px solid #ced4da;border-collapse: collapse;">
-                                        <thead>
-                                            <tr style="border: 1px solid #ced4da;border-collapse: collapse;">
-                                                <th rowspan="2" style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">No</th>
-                                                <th colspan="8" style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Reimbursement</th>
-                                                <th colspan="6" style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Debit Note</th>
-                                                <th colspan="3" style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Balance</th>
-                                            </tr>
-                                            <tr style="border: 1px solid #ced4da;border-collapse: collapse;">
-                                                <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Number</th>
-                                                <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Date</th>
-                                                <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Budget</th>
-                                                <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Customer</th>
-                                                <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Total IDR</th>
-                                                <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Total Other Currency</th>
-                                                <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Total Equivalent IDR</th>
-                                                <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Status</th>
-                                                <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Number</th>
-                                                <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Date</th>
-                                                <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Total IDR</th>
-                                                <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Total Other Currency</th>
-                                                <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Total Equivalent IDR</th>
-                                                <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Status</th>
-                                                <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">REM to Payment</th>
-                                                <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">REM to DN</th>
-                                                <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">DN to Payment</th>
-                                            </tr>
-                                        </thead>
-                                        <?php 
-                                            $counter = 1; 
-                                            $grandTotal_REM_Total_IDR=0;
-                                            $grandTotal_REM_Total_Other_Currency=0;
-                                            $grandTotal_REM_Total_Equivalent_IDR=0;
-                                            $grandTotal_DN_Total_IDR=0;
-                                            $grandTotal_DN_Total_Other_Currency=0;
-                                            $grandTotal_DN_Total_Equivalent_IDR=0;
-                                            $grandTotal_balanceREM_ToPayment=0;
-                                            $grandTotal_balanceREM_ToDN=0;
-                                            $grandTotal_=0;
-                                        ?>
-                                        <?php foreach ($dataRemToDN as $dataDetail) { ?>
-                                            <?php $grandTotal_REM_Total_IDR += $dataDetail['REM_Total_IDR'];?>
-                                            <?php $grandTotal_REM_Total_Other_Currency += $dataDetail['REM_Total_Other_Currency'];?>
-                                            <?php $grandTotal_REM_Total_Equivalent_IDR += $dataDetail['REM_Total_Equivalent_IDR'];?>
-                                            <?php $grandTotal_DN_Total_IDR += $dataDetail['DN_Total_IDR'];?>
-                                            <?php $grandTotal_DN_Total_Other_Currency += $dataDetail['DN_Total_Other_Currency'];?>
-                                            <?php $grandTotal_DN_Total_Equivalent_IDR += $dataDetail['DN_Total_Equivalent_IDR'];?>
-                                            <?php $grandTotal_balanceREM_ToPayment += $dataDetail['balanceREM_ToPayment'];?>
-                                            <?php $grandTotal_balanceREM_ToDN += $dataDetail['balanceREM_ToDN'];?>
-                                            <?php $grandTotal_ += 0;?>
-                                            <tbody>
-                                                <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;"><?= $counter++; ?></td>
-                                                <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ $dataDetail['REM_Number'] }}</td>
-                                                <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ date('d-m-Y', strtotime($dataDetail['REM_Date'])) }}</td>
-                                                <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">-</td>
-                                                <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ $dataDetail['REM_CustomerCode'] }} - {{ $dataDetail['REM_CustomerName'] }}</td>
-                                                <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ $dataDetail['REM_Total_IDR'] }}</td>
-                                                <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ $dataDetail['REM_Total_Other_Currency'] }}</td>
-                                                <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ $dataDetail['REM_Total_Equivalent_IDR'] }}</td>
-                                                <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ $dataDetail['REM_Status'] }}</td>
-                                                <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ $dataDetail['DN_Number'] }}</td>
-                                                <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ date('d-m-Y', strtotime($dataDetail['DN_Date'])) }}</td>
-                                                <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ $dataDetail['DN_Total_IDR'] }}</td>
-                                                <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ $dataDetail['DN_Total_Other_Currency'] }}</td>
-                                                <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ $dataDetail['DN_Total_Equivalent_IDR'] }}</td>
-                                                <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ $dataDetail['DN_Status'] }}</td>
-                                                <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ $dataDetail['balanceREM_ToPayment'] }}</td>
-                                                <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ $dataDetail['balanceREM_ToDN'] }}</td>
-                                                <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ number_format(0, 2, '.', ',') }}</td>
+    <title>ERP Reborn</title>
 
-                                            </tbody>
-                                        <?php } ?>
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{{ asset('AdminLTE-master/dist/css/adminlte.min.css') }}">
+</head>
 
-                                        <tfoot>
-                                            <tr style="font-weight:bolder;border: 1px solid #ced4da;border-collapse: collapse;">
-                                                <td style="border: 1px solid #ced4da;border-collapse: collapse;padding: 5px;text-align:center;" colspan="5">GRAND TOTAL</td>
-                                                <td style="border: 1px solid #ced4da;border-collapse: collapse;padding: 5px;"><?= number_format($grandTotal_REM_Total_IDR, 2, '.', ','); ?></td>
-                                                <td style="border: 1px solid #ced4da;border-collapse: collapse;padding: 5px;"><?= number_format($grandTotal_REM_Total_Other_Currency, 2, '.', ','); ?></td>
-                                                <td style="border: 1px solid #ced4da;border-collapse: collapse;padding: 5px;"><?= number_format($grandTotal_REM_Total_Equivalent_IDR, 2, '.', ','); ?></td>
-                                                <td style="border: 1px solid #ced4da;border-collapse: collapse;padding: 5px;text-align:center;" colspan="3"></td>
-                                                <td style="border: 1px solid #ced4da;border-collapse: collapse;padding: 5px;"><?= number_format($grandTotal_DN_Total_IDR, 2, '.', ','); ?></td>
-                                                <td style="border: 1px solid #ced4da;border-collapse: collapse;padding: 5px;"><?= number_format($grandTotal_DN_Total_Other_Currency, 2, '.', ','); ?></td>
-                                                <td style="border: 1px solid #ced4da;border-collapse: collapse;padding: 5px;"><?= number_format($grandTotal_DN_Total_Equivalent_IDR, 2, '.', ','); ?></td> 
-                                                <td style="border: 1px solid #ced4da;border-collapse: collapse;padding: 5px;text-align:center;"></td>
-                                                <td style="border: 1px solid #ced4da;border-collapse: collapse;padding: 5px;"><?= number_format($grandTotal_balanceREM_ToPayment, 2, '.', ','); ?></td>
-                                                <td style="border: 1px solid #ced4da;border-collapse: collapse;padding: 5px;"><?= number_format($grandTotal_balanceREM_ToDN, 2, '.', ','); ?></td>
-                                                <td style="border: 1px solid #ced4da;border-collapse: collapse;padding: 5px;"><?= number_format($grandTotal_, 2, '.', ','); ?></td> 
-                                            </tr>
-                                        </tfoot>
-                            
+<body>
+    <div class="card-body table-responsive p-0">
+        <div style="text-align: right; font-size: 14px;"><?= date('F j, Y'); ?></div>
+        <div style="text-align: center; font-size: 20px; font-weight: bold;">Reimbursement to Debit Note</div>
+        <div style="text-align: right; font-size: 14px;"><?= date('h:i A'); ?></div>
+    </div>
 
-                                    </table>
-                                </div>
+    <!-- HEADER -->
+    <table style="margin: 30px 0px 15px 1px;">
+        <tr>
+            <!-- REM NUMBER -->
+            <td style="width: 350px;">
+                <table>
+                    <tr>
+                        <td style="width: 80px; height: 20px;">
+                            <div style="font-size: 12px; font-weight: bold; line-height: 14px;">
+                                REM Number
                             </div>
-                        </div>
+                        </td>
+                        <td style="width: 5px;">
+                            :
+                        </td>
+                        <td style="height: 20px;">
+                            <div style="font-size: 12px; line-height: 14px;">
+                                -
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+
+            <!-- BUDGET -->
+            <td style="width: 350px;">
+                <table>
+                    <tr>
+                        <td style="width: 80px; height: 20px;">
+                            <div style="font-size: 12px; font-weight: bold; line-height: 14px;">
+                                Budget
+                            </div>
+                        </td>
+                        <td style="width: 5px;">
+                            :
+                        </td>
+                        <td style="height: 20px;">
+                            <div style="font-size: 12px; line-height: 14px;">
+                                -
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+
+            <!-- DATE RANGE -->
+            <td style="width: 350px;">
+                <table>
+                    <tr>
+                        <td style="width: 80px; height: 20px;">
+                            <div style="font-size: 12px; font-weight: bold; line-height: 14px;">
+                                Date Range
+                            </div>
+                        </td>
+                        <td style="width: 5px;">
+                            :
+                        </td>
+                        <td style="height: 20px;">
+                            <div style="font-size: 12px; line-height: 14px;">
+                                -
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <!-- DN NUMBER -->
+            <td style="width: 350px;">
+                <table>
+                    <tr>
+                        <td style="width: 80px; height: 20px;">
+                            <div style="font-size: 12px; font-weight: bold; line-height: 14px;">
+                                DN Number
+                            </div>
+                        </td>
+                        <td style="width: 5px;">
+                            :
+                        </td>
+                        <td style="height: 20px;">
+                            <div style="font-size: 12px; line-height: 14px;">
+                                -
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+
+            <!-- CUSTOMER -->
+            <td style="width: 350px;">
+                <table>
+                    <tr>
+                        <td style="width: 80px; height: 20px;">
+                            <div style="font-size: 12px; font-weight: bold; line-height: 14px;">
+                                Budget
+                            </div>
+                        </td>
+                        <td style="width: 5px;">
+                            :
+                        </td>
+                        <td style="height: 20px;">
+                            <div style="font-size: 12px; line-height: 14px;">
+                                -
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+
+    <!-- DETAIL -->
+    <table style="margin-left: 1px; width: 100%;">
+        <thead>
+            <tr style="border-top: 1px solid black; border-bottom: 1px dotted black;">
+                <td rowspan="2"
+                    style="width: 20px; border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+                        No
                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
-</div>
-@endsection
+                </td>
+                <td colspan="8"
+                    style="width: 20px; border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+                        Reimbursement
+                    </div>
+                </td>
+                <td colspan="7"
+                    style="width: 20px; border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+                        Debit Note
+                    </div>
+                </td>
+            </tr>
+            <tr style="border-top: 1px solid black; border-bottom: 1px dotted black;">
+                <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+                        Number
+                    </div>
+                </td>
+                <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+                        Date
+                    </div>
+                </td>
+                <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+                        Customer
+                    </div>
+                </td>
+                <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+                        Total IDR
+                    </div>
+                </td>
+                <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+                        Total Other Currency
+                    </div>
+                </td>
+                <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+                        Total Equivalent IDR
+                    </div>
+                </td>
+                <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+                        REM to Payment Balance
+                    </div>
+                </td>
+                <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+                        Status
+                    </div>
+                </td>
+                <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+                        Number
+                    </div>
+                </td>
+                <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+                        Date
+                    </div>
+                </td>
+                <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+                        Total IDR
+                    </div>
+                </td>
+                <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+                        Total Other Currency
+                    </div>
+                </td>
+                <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+                        Total Equivalent IDR
+                    </div>
+                </td>
+                <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+                        REM to DN Balance
+                    </div>
+                </td>
+                <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+                        Status
+                    </div>
+                </td>
+            </tr>
+        </thead>
+
+        <tbody>
+            <?php $counter = 1; ?>
+            <?php foreach ($dataReport as $data) { ?>
+            <tr>
+                <td>
+                    <div style="margin-top: 4px; font-size: 12px;">
+                        <?= $counter++; ?>
+                    </div>
+                </td>
+                <td>
+                    <div style="margin-top: 4px; font-size: 12px;">
+                        <?= $data['REM_Number'] ?? '-'; ?>
+                    </div>
+                </td>
+                <td>
+                    <div style="margin-top: 4px; font-size: 12px;">
+                        <?= $data['REM_Date'] ?? '-'; ?>
+                    </div>
+                </td>
+                <td>
+                    <div style="margin-top: 4px; font-size: 12px;">
+                        <?= $data['REM_CustomerCode'] ?? ''; ?> -
+                        <?= $data['REM_CustomerName'] ?? ''; ?>
+                    </div>
+                </td>
+                <td>
+                    <div style="margin-top: 4px; font-size: 12px;">
+                        <?= $data['REM_Total_IDR'] ?? '-'; ?>
+                    </div>
+                </td>
+                <td>
+                    <div style="margin-top: 4px; font-size: 12px;">
+                        <?= $data['REM_Total_Other_Currency'] ?? '-'; ?>
+                    </div>
+                </td>
+                <td>
+                    <div style="margin-top: 4px; font-size: 12px;">
+                        <?= $data['REM_Total_Equivalent_IDR'] ?? '-'; ?>
+                    </div>
+                </td>
+                <td>
+                    <div style="margin-top: 4px; font-size: 12px;">
+                        <?= $data['balanceREM_ToPayment'] ?? '-'; ?>
+                    </div>
+                </td>
+                <td>
+                    <div style="margin-top: 4px; font-size: 12px;">
+                        <?= $data['REM_Status'] ?? '-'; ?>
+                    </div>
+                </td>
+                <td>
+                    <div style="margin-top: 4px; font-size: 12px;">
+                        <?= $data['DN_Number'] ?? '-'; ?>
+                    </div>
+                </td>
+                <td>
+                    <div style="margin-top: 4px; font-size: 12px;">
+                        <?= $data['DN_Date'] ?? '-'; ?>
+                    </div>
+                </td>
+                <td>
+                    <div style="margin-top: 4px; font-size: 12px;">
+                        <?= $data['DN_Total_IDR'] ?? '-'; ?>
+                    </div>
+                </td>
+                <td>
+                    <div style="margin-top: 4px; font-size: 12px;">
+                        <?= $data['DN_Total_Other_Currency'] ?? '-'; ?>
+                    </div>
+                </td>
+                <td>
+                    <div style="margin-top: 4px; font-size: 12px;">
+                        <?= $data['DN_Total_Equivalent_IDR'] ?? '-'; ?>
+                    </div>
+                </td>
+                <td>
+                    <div style="margin-top: 4px; font-size: 12px;">
+                        <?= $data['balanceREM_ToDN'] ?? '-'; ?>
+                    </div>
+                </td>
+                <td>
+                    <div style="margin-top: 4px; font-size: 12px;">
+                        <?= $data['DN_Status'] ?? '-'; ?>
+                    </div>
+                </td>
+            </tr>
+            <?php } ?>
+        </tbody>
+    </table>
+</body>
+
+</html>

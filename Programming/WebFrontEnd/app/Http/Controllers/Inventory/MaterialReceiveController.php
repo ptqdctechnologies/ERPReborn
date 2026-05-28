@@ -27,6 +27,235 @@ class MaterialReceiveController extends Controller
         $this->workflowService = $workflowService;
     }
 
+    // +--------------------------------------------------------------------------------------------------------------------------+
+    // |                                        TRANSACTIONS                                                                      |
+    // +--------------------------------------------------------------------------------------------------------------------------+
+
+    public function index(Request $request)
+    {
+        $var = $request->query('var', 0);
+        $varAPIWebToken = Session::get('SessionLogin');
+        $documentTypeRefID = $this->GetBusinessDocumentsTypeFromRedis('Warehouse Inbound Order Form');
+
+        return view('Inventory.MaterialReceive.Transactions.CreateMaterialReceive', [
+            'var' => $var,
+            'varAPIWebToken' => $varAPIWebToken,
+            'documentType_RefID' => $documentTypeRefID
+        ]);
+    }
+
+    public function store(Request $request)
+    {
+        try {
+            $response = $this->materialReceiveService->create($request);
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                return response()->json($response);
+            }
+
+            $responseWorkflow = $this->workflowService->submit(
+                $response['data']['businessDocument']['businessDocument_RefID'],
+                $request->workFlowPath_RefID,
+                $request->comment,
+                $request->approverEntity,
+            );
+
+            if ($responseWorkflow['metadata']['HTTPStatusCode'] !== 200) {
+                return response()->json($responseWorkflow);
+            }
+
+            $compact = [
+                "documentNumber" => $response['data']['businessDocument']['documentNumber'],
+                "status" => $responseWorkflow['metadata']['HTTPStatusCode'],
+            ];
+
+            return response()->json($compact);
+        } catch (\Throwable $th) {
+            Log::error("Error at store: " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
+    public function update(Request $request, $id)
+    {
+        $input = $request->all();
+        dd($input);
+        $compact = [
+            "status" => true,
+        ];
+
+        return response()->json($compact);
+    }
+
+    public function UpdateMaterialReceive(Request $request)
+    {
+        try {
+            $response = $this->materialReceiveService->updates($request);
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                return response()->json($response);
+            }
+
+            $responseWorkflow = $this->workflowService->submit(
+                $response['data'][0]['businessDocument']['businessDocument_RefID'],
+                $request->workFlowPath_RefID,
+                $request->comment,
+                $request->approverEntity,
+            );
+
+            if ($responseWorkflow['metadata']['HTTPStatusCode'] !== 200) {
+                return response()->json($responseWorkflow);
+            }
+
+            $compact = [
+                "documentNumber" => $response['data'][0]['businessDocument']['documentNumber'],
+                "status" => $responseWorkflow['metadata']['HTTPStatusCode'],
+            ];
+
+            return response()->json($compact);
+        } catch (\Throwable $th) {
+            Log::error("Error at " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
+    public function RevisionMaterialReceiveIndex(Request $request)
+    {
+        try {
+            $varAPIWebToken = Session::get('SessionLogin');
+            $response = $this->materialReceiveService->getDetail($request->modal_material_receive_id);
+            $documentTypeRefID = $this->GetBusinessDocumentsTypeFromRedis('Warehouse Inbound Order Revision Form');
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                return response()->json($response);
+            }
+
+            $data = $response['data'];
+            $receiveDate = $data[0]['receiveDateTimeTZ'] ? Carbon::parse($data[0]['receiveDateTimeTZ'])->toDateString() : '';
+
+            // dump($data);
+
+            $compact = [
+                'varAPIWebToken' => $varAPIWebToken,
+                'documentType_RefID' => $documentTypeRefID,
+                'header' => [
+                    'combinedBudget_RefID' => $data[0]['combinedBudget_RefID'] ?? '',
+                    'combinedBudgetCode' => $data[0]['combinedBudgetCode'] ?? '',
+                    'combinedBudgetName' => $data[0]['combinedBudgetName'] ?? '',
+                    'combinedBudgetSectionCode' => $data[0]['combinedBudgetSectionCode'] ?? '',
+                    'combinedBudgetSectionName' => $data[0]['combinedBudgetSectionName'] ?? '',
+                    'warehouseInboundOrderRefID' => $data[0]['warehouseInboundOrder_RefID'] ?? '',
+                    'materialReceiveNumber' => $data[0]['businessDocumentNumber'] ?? '',
+                    'transporterRefID' => $data[0]['transporter_RefID'] ?? '',
+                    'receiveDate' => $receiveDate,
+                    'warehouseRefID' => $data[0]['warehouse_RefID'] ?? '',
+                    'warehouseName' => $data[0]['warehouseName'] ?? '',
+                    'warehouseAddress' => $data[0]['warehouseAddress'] ?? '',
+                    'deliveryDate' => $data[0]['deliveryDateTimeTZ'] ?? '',
+                    'deliveryFromRefID' => $data[0]['deliveryFrom_RefID'] ?? '',
+                    'deliveryFromNonRefID' => $data[0]['deliveryFrom_NonRefID']['Address'] ?? '',
+                    'deliveryToRefID' => $data[0]['deliveryTo_RefID'] ?? '',
+                    'deliveryToNonRefID' => $data[0]['deliveryTo_NonRefID']['Address'] ?? '',
+                    'fileID' => $data[0]['log_FileUpload_Pointer_RefID'] ?? null,
+                    'remarks' => $data[0]['remarks'] ?? '',
+                ],
+                'dataDetail' => $data,
+            ];
+
+            // dump($compact);
+
+            return view('Inventory.MaterialReceive.Transactions.RevisionMaterialReceive', $compact);
+        } catch (\Throwable $th) {
+            Log::error("Error at " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
+    public function MaterialReceiveList()
+    {
+        $response = $this->materialReceiveService->dataPickList();
+
+        $status = $response['metadata']['HTTPStatusCode'];
+        $data = [];
+
+        if ($status == 200) {
+            $data = $response['data']['data'] ?? [];
+        }
+
+        return response()->json([
+            'data' => $data,
+            'status' => $status
+        ]);
+    }
+
+    public function SearchDeliveryOrder(Request $request)
+    {
+        Session::forget("SessionDeliveryOrderRequestSupplier");
+        Session::forget("SessionDeliveryOrderRequestSupplierID");
+
+        if (Redis::get("DataListAdvance") == null) {
+            $varAPIWebToken = Session::get('SessionLogin');
+            Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken,
+                'transaction.read.dataList.finance.getAdvance',
+                'latest',
+                [
+                    'parameter' => null,
+                    'SQLStatement' => [
+                        'pick' => null,
+                        'sort' => null,
+                        'filter' => null,
+                        'paging' => null
+                    ]
+                ],
+                false
+            );
+        }
+
+        $DataListAdvance = json_decode(
+            Helper_Redis::getValue(
+                Helper_Environment::getUserSessionID_System(),
+                "DataListAdvance"
+            ),
+            true
+        );
+
+        $collection = collect($DataListAdvance);
+
+        $budget_code = $request->input('budget_code');
+        $sub_budget_code = $request->input('sub_budget_code');
+        $supplier = $request->input('supplier');
+        $trano = $request->input('trano');
+
+        if ($budget_code != "") {
+            $collection = $collection->filter(function ($item) use ($budget_code) {
+                return strpos($item['CombinedBudgetCode'], $budget_code) !== false;
+            });
+        }
+        if ($sub_budget_code != "") {
+            $collection = $collection->filter(function ($item) use ($sub_budget_code) {
+                return strpos($item['CombinedBudgetSectionCode'], $sub_budget_code) !== false;
+            });
+        }
+        if ($supplier != "") {
+            $collection = $collection->filter(function ($item) use ($supplier) {
+                return strpos($item['RequesterWorkerName'], $supplier) !== false;
+            });
+        }
+        if ($trano != "") {
+            $collection = $collection->filter(function ($item) use ($trano) {
+                return strpos($item['DocumentNumber'], $trano) !== false;
+            });
+        }
+
+        return response()->json($collection->all());
+    }
+
+    // +--------------------------------------------------------------------------------------------------------------------------+
+    // |                                        REPORTS                                                                           |
+    // +--------------------------------------------------------------------------------------------------------------------------+
+
     public function ReportMatReceivetoMatReturn(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
@@ -424,62 +653,6 @@ class MaterialReceiveController extends Controller
         }
     }
 
-    public function index(Request $request)
-    {
-        $var = $request->query('var', 0);
-        $varAPIWebToken = Session::get('SessionLogin');
-        $documentTypeRefID = $this->GetBusinessDocumentsTypeFromRedis('Warehouse Inbound Order Form');
-
-        return view('Inventory.MaterialReceive.Transactions.CreateMaterialReceive', [
-            'var' => $var,
-            'varAPIWebToken' => $varAPIWebToken,
-            'documentType_RefID' => $documentTypeRefID
-        ]);
-    }
-
-    public function store(Request $request)
-    {
-        try {
-            $response = $this->materialReceiveService->create($request);
-
-            if ($response['metadata']['HTTPStatusCode'] !== 200) {
-                return response()->json($response);
-            }
-
-            $responseWorkflow = $this->workflowService->submit(
-                $response['data']['businessDocument']['businessDocument_RefID'],
-                $request->workFlowPath_RefID,
-                $request->comment,
-                $request->approverEntity,
-            );
-
-            if ($responseWorkflow['metadata']['HTTPStatusCode'] !== 200) {
-                return response()->json($responseWorkflow);
-            }
-
-            $compact = [
-                "documentNumber" => $response['data']['businessDocument']['documentNumber'],
-                "status" => $responseWorkflow['metadata']['HTTPStatusCode'],
-            ];
-
-            return response()->json($compact);
-        } catch (\Throwable $th) {
-            Log::error("Error at store: " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
-        }
-    }
-
-    public function update(Request $request, $id)
-    {
-        $input = $request->all();
-        dd($input);
-        $compact = [
-            "status" => true,
-        ];
-
-        return response()->json($compact);
-    }
-
     public function MaterialReceiveDetail(Request $request)
     {
         try {
@@ -554,170 +727,5 @@ class MaterialReceiveController extends Controller
         }
 
         return response()->json($filteredArray);
-    }
-
-    public function RevisionMaterialReceiveIndex(Request $request)
-    {
-        try {
-            $varAPIWebToken = Session::get('SessionLogin');
-            $response = $this->materialReceiveService->getDetail($request->modal_material_receive_id);
-            $documentTypeRefID = $this->GetBusinessDocumentsTypeFromRedis('Warehouse Inbound Order Revision Form');
-
-            if ($response['metadata']['HTTPStatusCode'] !== 200) {
-                return response()->json($response);
-            }
-
-            $data = $response['data'];
-            $receiveDate = $data[0]['receiveDateTimeTZ'] ? Carbon::parse($data[0]['receiveDateTimeTZ'])->toDateString() : '';
-
-            // dump($data);
-
-            $compact = [
-                'varAPIWebToken' => $varAPIWebToken,
-                'documentType_RefID' => $documentTypeRefID,
-                'header' => [
-                    'combinedBudget_RefID' => $data[0]['combinedBudget_RefID'] ?? '',
-                    'combinedBudgetCode' => $data[0]['combinedBudgetCode'] ?? '',
-                    'combinedBudgetName' => $data[0]['combinedBudgetName'] ?? '',
-                    'combinedBudgetSectionCode' => $data[0]['combinedBudgetSectionCode'] ?? '',
-                    'combinedBudgetSectionName' => $data[0]['combinedBudgetSectionName'] ?? '',
-                    'warehouseInboundOrderRefID' => $data[0]['warehouseInboundOrder_RefID'] ?? '',
-                    'materialReceiveNumber' => $data[0]['businessDocumentNumber'] ?? '',
-                    'transporterRefID' => $data[0]['transporter_RefID'] ?? '',
-                    'receiveDate' => $receiveDate,
-                    'warehouseRefID' => $data[0]['warehouse_RefID'] ?? '',
-                    'warehouseName' => $data[0]['warehouseName'] ?? '',
-                    'warehouseAddress' => $data[0]['warehouseAddress'] ?? '',
-                    'deliveryDate' => $data[0]['deliveryDateTimeTZ'] ?? '',
-                    'deliveryFromRefID' => $data[0]['deliveryFrom_RefID'] ?? '',
-                    'deliveryFromNonRefID' => $data[0]['deliveryFrom_NonRefID']['Address'] ?? '',
-                    'deliveryToRefID' => $data[0]['deliveryTo_RefID'] ?? '',
-                    'deliveryToNonRefID' => $data[0]['deliveryTo_NonRefID']['Address'] ?? '',
-                    'fileID' => $data[0]['log_FileUpload_Pointer_RefID'] ?? null,
-                    'remarks' => $data[0]['remarks'] ?? '',
-                ],
-                'dataDetail' => $data,
-            ];
-
-            // dump($compact);
-
-            return view('Inventory.MaterialReceive.Transactions.RevisionMaterialReceive', $compact);
-        } catch (\Throwable $th) {
-            Log::error("Error at " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
-        }
-    }
-
-    public function UpdateMaterialReceive(Request $request)
-    {
-        try {
-            $response = $this->materialReceiveService->updates($request);
-
-            if ($response['metadata']['HTTPStatusCode'] !== 200) {
-                return response()->json($response);
-            }
-
-            $responseWorkflow = $this->workflowService->submit(
-                $response['data'][0]['businessDocument']['businessDocument_RefID'],
-                $request->workFlowPath_RefID,
-                $request->comment,
-                $request->approverEntity,
-            );
-
-            if ($responseWorkflow['metadata']['HTTPStatusCode'] !== 200) {
-                return response()->json($responseWorkflow);
-            }
-
-            $compact = [
-                "documentNumber" => $response['data'][0]['businessDocument']['documentNumber'],
-                "status" => $responseWorkflow['metadata']['HTTPStatusCode'],
-            ];
-
-            return response()->json($compact);
-        } catch (\Throwable $th) {
-            Log::error("Error at " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
-        }
-    }
-
-    public function SearchDeliveryOrder(Request $request)
-    {
-        Session::forget("SessionDeliveryOrderRequestSupplier");
-        Session::forget("SessionDeliveryOrderRequestSupplierID");
-
-        if (Redis::get("DataListAdvance") == null) {
-            $varAPIWebToken = Session::get('SessionLogin');
-            Helper_APICall::setCallAPIGateway(
-                Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken,
-                'transaction.read.dataList.finance.getAdvance',
-                'latest',
-                [
-                    'parameter' => null,
-                    'SQLStatement' => [
-                        'pick' => null,
-                        'sort' => null,
-                        'filter' => null,
-                        'paging' => null
-                    ]
-                ],
-                false
-            );
-        }
-
-        $DataListAdvance = json_decode(
-            Helper_Redis::getValue(
-                Helper_Environment::getUserSessionID_System(),
-                "DataListAdvance"
-            ),
-            true
-        );
-
-        $collection = collect($DataListAdvance);
-
-        $budget_code = $request->input('budget_code');
-        $sub_budget_code = $request->input('sub_budget_code');
-        $supplier = $request->input('supplier');
-        $trano = $request->input('trano');
-
-        if ($budget_code != "") {
-            $collection = $collection->filter(function ($item) use ($budget_code) {
-                return strpos($item['CombinedBudgetCode'], $budget_code) !== false;
-            });
-        }
-        if ($sub_budget_code != "") {
-            $collection = $collection->filter(function ($item) use ($sub_budget_code) {
-                return strpos($item['CombinedBudgetSectionCode'], $sub_budget_code) !== false;
-            });
-        }
-        if ($supplier != "") {
-            $collection = $collection->filter(function ($item) use ($supplier) {
-                return strpos($item['RequesterWorkerName'], $supplier) !== false;
-            });
-        }
-        if ($trano != "") {
-            $collection = $collection->filter(function ($item) use ($trano) {
-                return strpos($item['DocumentNumber'], $trano) !== false;
-            });
-        }
-
-        return response()->json($collection->all());
-    }
-
-    public function MaterialReceiveList()
-    {
-        $response = $this->materialReceiveService->dataPickList();
-
-        $status = $response['metadata']['HTTPStatusCode'];
-        $data = [];
-
-        if ($status == 200) {
-            $data = $response['data']['data'] ?? [];
-        }
-
-        return response()->json([
-            'data' => $data,
-            'status' => $status
-        ]);
     }
 }

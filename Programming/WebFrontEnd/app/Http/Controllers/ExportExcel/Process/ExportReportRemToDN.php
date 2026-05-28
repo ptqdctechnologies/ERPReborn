@@ -2,74 +2,88 @@
 
 namespace App\Http\Controllers\ExportExcel\Process;
 
-use Illuminate\Support\Facades\Session;
 use Maatwebsite\Excel\Concerns\FromCollection;
-use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
-use Maatwebsite\Excel\Concerns\WithEvents;
-use Maatwebsite\Excel\Events\BeforeSheet;
-use Maatwebsite\Excel\Events\AfterSheet;
+use Maatwebsite\Excel\Concerns\WithHeadings;
+use Maatwebsite\Excel\Concerns\WithStyles;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Border;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class ExportReportRemToDN implements FromCollection, WithHeadings, ShouldAutoSize, WithEvents
+class ExportReportRemToDN implements FromCollection, WithHeadings, ShouldAutoSize, WithStyles
 {
-    protected $totals = [];
+    protected $dataReport;
+
+    public function __construct($dataReport)
+    {
+        $this->dataReport = $dataReport;
+    }
 
     public function collection()
     {
-        $data = Session::get("RemToDNReportSummaryDataExcel");
+        $data = $this->dataReport;
+
+        $totalReimbursementIDR = 0;
+        $totalReimbursementOtherCurrency = 0;
+        $totalReimbursementEquivalentIDR = 0;
+        $totalReimbursementPaymentBalance = 0;
+
+        $totalDebitNoteIDR = 0;
+        $totalDebitNoteOtherCurrency = 0;
+        $totalDebitNoteEquivalentIDR = 0;
+        $totalDebitNoteBalance = 0;
+
         $filteredData = [];
         $counter = 1;
-
-        // init totals
-        $this->totals = [
-            'REM_Total_IDR' => 0,
-            'REM_Total_Other_Currency' => 0,
-            'REM_Total_Equivalent_IDR' => 0,
-            'DN_Total_IDR' => 0,
-            'DN_Total_Other_Currency' => 0,
-            'DN_Total_Equivalent_IDR' => 0,
-            'REM_ToPayment' => 0,
-            'REM_ToDN' => 0,
-            'DN_ToPayment' => 0, // selalu 0
-        ];
-
         foreach ($data as $item) {
+            $totalReimbursementIDR += is_numeric($item['REM_Total_IDR']) ? $item['REM_Total_IDR'] : 0;
+            $totalReimbursementOtherCurrency += is_numeric($item['REM_Total_Other_Currency']) ? $item['REM_Total_Other_Currency'] : 0;
+            $totalReimbursementEquivalentIDR += is_numeric($item['REM_Total_Equivalent_IDR']) ? $item['REM_Total_Equivalent_IDR'] : 0;
+            $totalReimbursementPaymentBalance += is_numeric($item['balanceREM_ToPayment']) ? $item['balanceREM_ToPayment'] : 0;
+
+            $totalDebitNoteIDR += is_numeric($item['DN_Total_IDR']) ? $item['DN_Total_IDR'] : 0;
+            $totalDebitNoteOtherCurrency += is_numeric($item['DN_Total_Other_Currency']) ? $item['DN_Total_Other_Currency'] : 0;
+            $totalDebitNoteEquivalentIDR += is_numeric($item['DN_Total_Equivalent_IDR']) ? $item['DN_Total_Equivalent_IDR'] : 0;
+            $totalDebitNoteBalance += is_numeric($item['balanceREM_ToDN']) ? $item['balanceREM_ToDN'] : 0;
+
             $filteredData[] = [
-                'No'                                => $counter++,
-                'Number'                            => $item['REM_Number'] ?? null,
-                'Date'                              => isset($item['REM_Date']) ? date('d-m-Y', strtotime($item['REM_Date'])) : null,
-                'Budget'                            => '-',
-                'Customer'                          => ($item['REM_CustomerCode'] ?? '') .'-'. ($item['REM_CustomerName'] ?? ''),
-                'Total IDR'                         => $item['REM_Total_IDR'] ?? null,
-                'Total Other Currency'              => $item['REM_Total_Other_Currency'] ?? null,
-                'Total Equivalent IDR'              => $item['REM_Total_Equivalent_IDR'] ?? null,
-                'Status'                            => $item['REM_Status'] ?? null,
-                'Number2'                           => $item['DN_Number'] ?? null,
-                'Date2'                             => isset($item['DN_Date']) ? date('d-m-Y', strtotime($item['DN_Date'])) : null,
-                'Total IDR2'                        => $item['DN_Total_IDR'] ?? null,
-                'Total Other Currency2'             => $item['DN_Total_Other_Currency'] ?? null,
-                'Total Equivalent IDR2'             => $item['DN_Total_Equivalent_IDR'] ?? null,
-                'Status2'                           => $item['DN_Status'] ?? null,
-                'REM to Payment'                    => $item['balanceREM_ToPayment'] ?? null,
-                'REM to DN'                         => $item['balanceREM_ToDN'] ?? null,
-                'DN to Payment'                     => 0,
+                'No' => $counter++,
+                'REM Number' => $item['REM_Number'] ?? '-',
+                'REM Date' => $item['REM_Date'] ?? '-',
+                'REM Customer' => ($item['REM_CustomerCode'] ?? '') . ' - ' . ($item['REM_CustomerName'] ?? ''),
+                'REM Total IDR' => isset($item['REM_Total_IDR']) ? (string) $item['REM_Total_IDR'] : '0',
+                'REM Total Other Currency' => isset($item['REM_Total_Other_Currency']) ? (string) $item['REM_Total_Other_Currency'] : '0',
+                'REM Total Equivalent IDR' => isset($item['REM_Total_Equivalent_IDR']) ? (string) $item['REM_Total_Equivalent_IDR'] : '0',
+                'REM To Payment Balance' => isset($item['balanceREM_ToPayment']) ? (string) $item['balanceREM_ToPayment'] : '0',
+                'REM Status' => $item['REM_Status'] ?? '-',
+                'DN Number' => $item['DN_Number'] ?? '-',
+                'DN Date' => $item['DN_Date'] ?? '-',
+                'DN Total IDR' => isset($item['DN_Total_IDR']) ? (string) $item['DN_Total_IDR'] : '0',
+                'DN Total Other Currency' => isset($item['DN_Total_Other_Currency']) ? (string) $item['DN_Total_Other_Currency'] : '0',
+                'DN Total Equivalent IDR' => isset($item['DN_Total_Equivalent_IDR']) ? (string) $item['DN_Total_Equivalent_IDR'] : '0',
+                'REM To DN Balance' => isset($item['balanceREM_ToDN']) ? (string) $item['balanceREM_ToDN'] : '0',
+                'DN Status' => $item['DN_Status'] ?? '-'
             ];
-
-            // sum totals
-            $this->totals['REM_Total_IDR'] += $item['REM_Total_IDR'] ?? 0;
-            $this->totals['REM_Total_Other_Currency'] += $item['REM_Total_Other_Currency'] ?? 0;
-            $this->totals['REM_Total_Equivalent_IDR'] += $item['REM_Total_Equivalent_IDR'] ?? 0;
-
-            $this->totals['DN_Total_IDR'] += $item['DN_Total_IDR'] ?? 0;
-            $this->totals['DN_Total_Other_Currency'] += $item['DN_Total_Other_Currency'] ?? 0;
-            $this->totals['DN_Total_Equivalent_IDR'] += $item['DN_Total_Equivalent_IDR'] ?? 0;
-
-            $this->totals['REM_ToPayment'] += $item['balanceREM_ToPayment'] ?? 0;
-            $this->totals['REM_ToDN'] += $item['balanceREM_ToDN'] ?? 0;
-            // DN_ToPayment tetap 0
         }
+
+        $filteredData[] = [
+            'No' => 'GRAND TOTAL',
+            'REM Number' => '',
+            'REM Date' => '',
+            'REM Customer' => '',
+            'REM Total IDR' => $totalReimbursementIDR,
+            'REM Total Other Currency' => $totalReimbursementOtherCurrency,
+            'REM Total Equivalent IDR' => $totalReimbursementEquivalentIDR,
+            'REM To Payment Balance' => $totalReimbursementPaymentBalance,
+            'REM Status' => '',
+            'DN Number' => '',
+            'DN Date' => '',
+            'DN Total IDR' => $totalDebitNoteIDR,
+            'DN Total Other Currency' => $totalDebitNoteOtherCurrency,
+            'DN Total Equivalent IDR' => $totalDebitNoteEquivalentIDR,
+            'REM To DN Balance' => $totalDebitNoteBalance,
+            'DN Status' => ''
+        ];
 
         return collect($filteredData);
     }
@@ -77,85 +91,144 @@ class ExportReportRemToDN implements FromCollection, WithHeadings, ShouldAutoSiz
     public function headings(): array
     {
         return [
-            ["No", "","", "", "REIMBURSEMENT", "", "", "", "","", "", "", "DEBIT NOTE", "","", "", "BALANCE", ""],
-            ["", "Number", "Date", "Budget", "Customer",
-             "Total IDR", "Total Other Currency", "Total Equivalent IDR", "Status",
-             "Number2","Date2",
-             "Total IDR2", "Total Other Currency2", "Total Equivalent IDR2", "Status2",
-             "REM to Payment", "Rem to DN", "DN to Payment" ],
+            [date('F j, Y')],
+            ["REIMBURSEMENT TO DEBIT NOTE"],
+            [date('h:i A')],
+            ["REM Number", ": -", "Budget", ": -", "Date Range", ": -"],
+            ["DN Number", ": -", "Customer", ": -"],
+            [""],
+            ["No", "Reimbursement", "", "", "", "", "", "", "", "Debit Note", "", "", "", "", "", ""],
+            ["", "Number", "Date", "Customer", "Total IDR", "Total Other Currency", "Total Equivalent IDR", "REM to Payment Balance", "Status", "Number", "Date", "Total IDR", "Total Other Currency", "Total Equivalent IDR", "REM to DN Balance", "Status"]
         ];
     }
 
-    public function registerEvents(): array
+    public function styles(Worksheet $sheet)
     {
-        return [
-            BeforeSheet::class => function (BeforeSheet $event) {
-                $sheet = $event->sheet->getDelegate();
-
-                $sheet->setCellValue('A1', date('F j, Y'))
-                    ->mergeCells('A1:R1')
-                    ->getStyle('A1:R1')
-                    ->applyFromArray([
-                        'font' => ['bold' => true],
-                        'alignment' => ['horizontal' => Alignment::HORIZONTAL_RIGHT],
-                ]);
-
-                $sheet->setCellValue('A2', 'Report Reimbursement to Debit Note')
-                    ->mergeCells('A2:R2')
-                    ->getStyle('A2:R2')
-                    ->applyFromArray([
-                        'font' => ['bold' => true],
-                        'alignment' => ['horizontal' => Alignment::HORIZONTAL_CENTER],
-                ]);
-
-                $sheet->setCellValue('A3', date('h:i A'))
-                    ->mergeCells('A3:R3')
-                    ->getStyle('A3:R3')
-                    ->applyFromArray([
-                        'font' => ['bold' => true],
-                        'alignment' => ['horizontal' => Alignment::HORIZONTAL_RIGHT],
-                ]);
-            },
-
-            AfterSheet::class => function (AfterSheet $event) {
-                $sheet = $event->sheet->getDelegate();
-
-                // cari baris terakhir data
-                $lastRow = $sheet->getHighestRow();
-                $row = $lastRow + 1;
-
-                // Label Grand Total di kolom Customer (E)
-                $sheet->setCellValue("E{$row}", "Grand Total");
-
-                // REM totals (F, G, H)
-                $sheet->setCellValue("F{$row}", $this->totals['REM_Total_IDR']);
-                $sheet->setCellValue("G{$row}", $this->totals['REM_Total_Other_Currency']);
-                $sheet->setCellValue("H{$row}", $this->totals['REM_Total_Equivalent_IDR']);
-
-                // Status kosong (I)
-                $sheet->setCellValue("I{$row}", "");
-
-                // DN totals (L, M, N)
-                $sheet->setCellValue("L{$row}", $this->totals['DN_Total_IDR']);
-                $sheet->setCellValue("M{$row}", $this->totals['DN_Total_Other_Currency']);
-                $sheet->setCellValue("N{$row}", $this->totals['DN_Total_Equivalent_IDR']);
-
-                // Status2 kosong (O)
-                $sheet->setCellValue("O{$row}", "");
-
-                // Balance (P, Q, R)
-                $sheet->setCellValue("P{$row}", $this->totals['REM_ToPayment']);
-                $sheet->setCellValue("Q{$row}", $this->totals['REM_ToDN']);
-                $sheet->setCellValue("R{$row}", $this->totals['DN_ToPayment']); // 0
-
-                // styling
-                $sheet->getStyle("E{$row}:R{$row}")->applyFromArray([
-                    'font' => ['bold' => true],
-                    'borders' => [
-                        'top' => ['borderStyle' => Border::BORDER_THIN],
-                    ],
-                ]);
-            }
+        $styleArrayHeader0 = [
+            'font' => [
+                'bold' => true,
+                'color' => [
+                    'rgb' => '000000',
+                ],
+            ],
+            'alignment' => [
+                'horizontal' => Alignment::HORIZONTAL_RIGHT,
+            ]
         ];
+        $sheet->getStyle('A1:P1')->applyFromArray($styleArrayHeader0);
+        $sheet->mergeCells('A1:P1');
+
+        $styleArrayHeader1 = [
+            'font' => [
+                'bold' => true,
+                'color' => [
+                    'rgb' => '000000',
+                ],
+            ],
+            'alignment' => [
+                'horizontal' => Alignment::HORIZONTAL_CENTER,
+            ]
+        ];
+        $sheet->getStyle('A2:P2')->applyFromArray($styleArrayHeader1);
+        $sheet->mergeCells('A2:P2');
+
+        $styleArrayHeader2 = [
+            'font' => [
+                'bold' => true,
+                'color' => [
+                    'rgb' => '000000',
+                ],
+            ],
+            'alignment' => [
+                'horizontal' => Alignment::HORIZONTAL_RIGHT,
+            ]
+        ];
+        $sheet->getStyle('A3:P3')->applyFromArray($styleArrayHeader2);
+        $sheet->mergeCells('A3:P3');
+
+        $styleArrayHeader3 = [
+            'font' => [
+                'bold' => true,
+                'color' => [
+                    'rgb' => '000000',
+                ],
+            ],
+            'alignment' => [
+                'horizontal' => Alignment::HORIZONTAL_LEFT,
+            ]
+        ];
+        $sheet->getStyle('A4:P4')->applyFromArray($styleArrayHeader3);
+        $sheet->getStyle('A5:P5')->applyFromArray($styleArrayHeader3);
+
+        $styleArrayHeader4 = [
+            'font' => [
+                'bold' => true,
+                'color' => [
+                    'rgb' => '000000',
+                ],
+            ],
+            'alignment' => [
+                'horizontal' => Alignment::HORIZONTAL_CENTER,
+            ],
+            'borders' => [
+                'allBorders' => [
+                    'borderStyle' => Border::BORDER_THIN,
+                ],
+            ],
+            'fill' => [
+                'fillType' => 'solid',
+                'rotation' => 0,
+                'color' => [
+                    'rgb' => 'E9ECEF',
+                ],
+            ],
+        ];
+        $sheet->getStyle('A7:P7')->applyFromArray($styleArrayHeader4);
+        $sheet->getStyle('A8:P8')->applyFromArray($styleArrayHeader4);
+        $sheet->mergeCells('A7:A8');
+        $sheet->mergeCells('B7:I7');
+        $sheet->mergeCells('J7:P7');
+
+        $styleArrayContent = [
+            'borders' => [
+                'allBorders' => [
+                    'borderStyle' => Border::BORDER_THIN,
+                ],
+            ],
+            'alignment' => [
+                'horizontal' => Alignment::HORIZONTAL_LEFT,
+            ],
+        ];
+        $datas = $this->dataReport;
+        $totalCell = count($datas);
+        $lastCell = 'A9:P' . $totalCell + 9;
+        $sheet->getStyle($lastCell)->applyFromArray($styleArrayContent);
+
+        $styleArrayFooter = [
+            'font' => [
+                'bold' => true,
+                'color' => [
+                    'rgb' => '000000',
+                ],
+            ],
+            'borders' => [
+                'allBorders' => [
+                    'borderStyle' => Border::BORDER_THIN,
+                ],
+            ],
+            'alignment' => [
+                'horizontal' => Alignment::HORIZONTAL_CENTER,
+            ],
+            'fill' => [
+                'fillType' => 'solid',
+                'rotation' => 0,
+                'color' => [
+                    'rgb' => 'E9ECEF',
+                ],
+            ],
+        ];
+        $sheet->getStyle('A' . $totalCell + 9 . ':' . 'P' . $totalCell + 9)->applyFromArray($styleArrayFooter);
+        $sheet->mergeCells('A' . $totalCell + 9 . ':D' . $totalCell + 9);
+        $sheet->mergeCells('I' . $totalCell + 9 . ':K' . $totalCell + 9);
     }
 }

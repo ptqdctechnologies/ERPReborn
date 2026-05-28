@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Process\Reimbursement;
 use Illuminate\Http\Request;
 use App\Http\Controllers\ExportExcel\Process\ExportReportReimbursementDetail;
 use App\Http\Controllers\ExportExcel\Process\ExportReportReimbursementSummary;
+use App\Http\Controllers\ExportExcel\Process\ExportReportRemToDN;
 use Illuminate\Support\Facades\Input;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Log;
@@ -325,6 +326,36 @@ class ReimbursementController extends Controller
 
     public function PrintExportReportRemToDN(Request $request)
     {
+        try {
+            $dataReport = json_decode($request->dataReport, true);
+            $type = $request->printType;
 
+            if ($dataReport) {
+                if ($type === "PDF") {
+                    $pdf = PDF::loadView('Process.Reimbursement.Reports.ReportRemToDN_pdf', ['dataReport' => $dataReport])
+                        ->setPaper('a4', 'landscape');
+
+                    $pdf->output();
+                    $dom_pdf = $pdf->getDomPDF();
+                    $canvas = $dom_pdf->get_canvas();
+                    $width = $canvas->get_width();
+                    $height = $canvas->get_height();
+                    $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
+                    $canvas->page_text(34, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
+
+                    return $pdf->download('Export Report REM to DN.pdf');
+                } else if ($type === "EXCEL") {
+                    return Excel::download(new ExportReportRemToDN($dataReport), 'Export Report PR to PO.xlsx');
+                } else {
+                    throw new \Exception('Failed to Export PR to PO Report');
+                }
+            } else {
+                throw new \Exception('REM to DN Data is Empty');
+            }
+        } catch (\Throwable $th) {
+            Log::error("Print Export Report Reimbursement to Debit Note Function Error: " . $th->getMessage());
+
+            return response()->json(['statusCode' => 400]);
+        }
     }
 }

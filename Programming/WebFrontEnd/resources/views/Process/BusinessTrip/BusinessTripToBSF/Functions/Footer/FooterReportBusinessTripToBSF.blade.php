@@ -39,8 +39,6 @@
             },
             dataType: 'json',
             success: function (response) {
-                console.log('response', response);
-
                 data = (response.status === 200 && response.data[0]) ? response.data : [];
                 dataReport = data;
 
@@ -60,6 +58,49 @@
                 HideLoading();
                 ErrorNotif("An error occurred while processing the received data. Please try again later.");
                 console.log('xhr, status, error', xhr, status, error);
+            }
+        });
+    }
+
+    function exportDataReport() {
+        Utils.showLoading();
+
+        $.ajax({
+            type: 'POST',
+            url: '{!! route("BusinessTripRequest.PrintExportReportBusinessTripToBSF") !!}',
+            data: {
+                dataReport: JSON.stringify(dataReport),
+                printType: printType.value
+            },
+            xhrFields: {
+                responseType: 'blob'
+            },
+            success: function (response) {
+                let blob = new Blob([response], { type: response.type });
+                let link = document.createElement('a');
+                link.href = window.URL.createObjectURL(blob);
+
+                if (response.type === "application/pdf") {
+                    link.download = 'Report Business Trip To Business Trip Settlement.pdf';
+                } else {
+                    link.download = 'Report Business Trip To Business Trip Settlement.xlsx';
+                }
+
+                link.click();
+
+                window.URL.revokeObjectURL(link.href);
+
+                Utils.hideLoading();
+            },
+            error: function (xhr, status, error) {
+                console.log('xhr, status, error', xhr, status, error);
+
+                Utils.hideLoading();
+                ErrorHandler.notifToast(
+                    'error',
+                    'An error occurred while processing the received data. Please try again later',
+                    'Error!'
+                );
             }
         });
     }
@@ -125,6 +166,10 @@
             brfPaymentCell.textContent = item.brfPayment ?? '-';
             row.appendChild(brfPaymentCell);
 
+            const balancePaymentCell = document.createElement('td');
+            balancePaymentCell.textContent = item.balanceBrfToPayment ?? '-';
+            row.appendChild(balancePaymentCell);
+
             const brfStatusCell = document.createElement('td');
             brfStatusCell.textContent = item.brfStatus ?? '-';
             row.appendChild(brfStatusCell);
@@ -141,17 +186,17 @@
             bsfTotalCell.textContent = item.bsfTotal ?? '-';
             row.appendChild(bsfTotalCell);
 
-            const bsfStatusCell = document.createElement('td');
-            bsfStatusCell.textContent = item.bsfStatus ?? '-';
-            row.appendChild(bsfStatusCell);
-
-            const balancePaymentCell = document.createElement('td');
-            balancePaymentCell.textContent = item.balanceBrfToPayment ?? '-';
-            row.appendChild(balancePaymentCell);
+            const bsfPaymentCell = document.createElement('td');
+            bsfPaymentCell.textContent = item.bsfPayment ?? '-';
+            row.appendChild(bsfPaymentCell);
 
             const balanceSettlementCell = document.createElement('td');
             balanceSettlementCell.textContent = item.balanceBrfToBsf ?? '-';
             row.appendChild(balanceSettlementCell);
+
+            const bsfStatusCell = document.createElement('td');
+            bsfStatusCell.textContent = item.bsfStatus ?? '-';
+            row.appendChild(bsfStatusCell);
 
             tbody.appendChild(row);
             rowIndex++;
@@ -336,6 +381,18 @@
         getDataReport();
     }
 
+    function validateExportButton() {
+        if (dataReport.length > 0) {
+            exportDataReport();
+        } else {
+            ErrorHandler.notifToast(
+                'error',
+                'No data available to export. Please display the data first',
+                'Error!'
+            );
+        }
+    }
+
     document.querySelectorAll('#table_summary th').forEach((header, index) => {
         header.addEventListener('click', () => {
             sortByColumn(index);
@@ -456,6 +513,8 @@
     $(document).ready(function () {
         renderPage();
         renderPagination();
+        getBusinessTripRequest();
+        getBusinessTripSettlement();
 
         $('#brf_to_bsf_date_range').daterangepicker({
             autoUpdateInput: false,

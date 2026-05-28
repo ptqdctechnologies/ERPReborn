@@ -10,6 +10,7 @@
     const creditorID = document.getElementById("creditor_id");
     const debitorID = document.getElementById("debitor_id");
     const loanToSettlementDate = document.getElementById("loan_to_settlement_date_range");
+    const printType = document.getElementById("print_type");
 
     function selectBudget(id, code, name) {
         $("#budget_id").val(id);
@@ -138,6 +139,14 @@
                             defaultContent: '-'
                         },
                         {
+                            data: '-', // BALANCE - PRINCIPAL LOAN TO PAYMENT
+                            defaultContent: '-'
+                        },
+                        {
+                            data: '-', // BALANCE - PRINCIPAL LOAN TO SETTLEMENT
+                            defaultContent: '-'
+                        },
+                        {
                             data: '-', // TOTAL LOAN - TOTAL IDR
                             defaultContent: '-'
                         },
@@ -147,6 +156,10 @@
                         },
                         {
                             data: '-', // TOTAL LOAN - TOTAL EQUIVALENT IDR
+                            defaultContent: '-'
+                        },
+                        {
+                            data: '-', // LOAN STATUS
                             defaultContent: '-'
                         },
                         {
@@ -182,6 +195,10 @@
                             defaultContent: '-'
                         },
                         {
+                            data: '-', // BALANCE - SETTLEMENT TO PAYMENT
+                            defaultContent: '-'
+                        },
+                        {
                             data: '-', // PENALTY VALUE - TOTAL IDR
                             defaultContent: '-'
                         },
@@ -206,19 +223,11 @@
                             defaultContent: '-'
                         },
                         {
+                            data: '-', // STATUS
+                            defaultContent: '-'
+                        },
+                        {
                             data: '-', // REMARK
-                            defaultContent: '-'
-                        },
-                        {
-                            data: '-', // BALANCE - PRINCIPAL LOAN TO PAYMENT
-                            defaultContent: '-'
-                        },
-                        {
-                            data: '-', // BALANCE - PRINCIPAL LOAN TO SETTLEMENT
-                            defaultContent: '-'
-                        },
-                        {
-                            data: '-', // BALANCE - SETTLEMENT TO PAYMENT
                             defaultContent: '-'
                         }
                     ],
@@ -229,8 +238,8 @@
                         $('#table_summary tfoot th:nth-child(5)').text(currencyTotal(totalLoanIDR));
                         $('#table_summary tfoot th:nth-child(6)').text(currencyTotal(totalLoanOtherCurrency));
                         $('#table_summary tfoot th:nth-child(7)').text(currencyTotal(totalLoanEquivalent));
+                        $('#table_summary tfoot th:nth-child(8)').text(currencyTotal(totalLoanEquivalent));
                         $('#table_summary tfoot th:nth-child(9)').text(currencyTotal(totalSettlementIDR));
-                        $('#table_summary tfoot th:nth-child(10)').text(currencyTotal(totalSettlementOtherCurrency));
                         $('#table_summary tfoot th:nth-child(11)').text(currencyTotal(totalSettlementEquivalent));
                         $('#table_summary tfoot th:nth-child(12)').text(currencyTotal(totalPenaltyIDR));
                         $('#table_summary tfoot th:nth-child(13)').text(currencyTotal(totalPenaltyOtherCurrency));
@@ -238,9 +247,9 @@
                         $('#table_summary tfoot th:nth-child(15)').text(currencyTotal(totalInterestIDR));
                         $('#table_summary tfoot th:nth-child(16)').text(currencyTotal(totalInterestOtherCurrency));
                         $('#table_summary tfoot th:nth-child(17)').text(currencyTotal(totalInterestEquivalent));
-                        $('#table_summary tfoot th:nth-child(19)').text(currencyTotal(totalBalancePrincipalPayment));
-                        $('#table_summary tfoot th:nth-child(20)').text(currencyTotal(totalBalancePrincipalSettlement));
-                        $('#table_summary tfoot th:nth-child(21)').text(currencyTotal(totalBalanceSettlementPayment));
+                        $('#table_summary tfoot th:nth-child(18)').text(currencyTotal(totalBalancePrincipalPayment));
+                        $('#table_summary tfoot th:nth-child(19)').text(currencyTotal(totalBalancePrincipalSettlement));
+                        $('#table_summary tfoot th:nth-child(20)').text(currencyTotal(totalBalanceSettlementPayment));
                     }
                 });
 
@@ -254,6 +263,49 @@
                 HideLoading();
                 ErrorNotif("An error occurred while processing the received data. Please try again later.");
                 console.log(`[${textStatus.status}] ${textStatus.responseJSON.message}`);
+            }
+        });
+    }
+
+    function exportDataReport() {
+        Utils.showLoading();
+
+        $.ajax({
+            type: 'POST',
+            url: '{!! route("Loan.PrintExportReportLoantoLoanSettlement") !!}',
+            data: {
+                dataReport: JSON.stringify(dataReport),
+                printType: printType.value
+            },
+            xhrFields: {
+                responseType: 'blob'
+            },
+            success: function (response) {
+                let blob = new Blob([response], { type: response.type });
+                let link = document.createElement('a');
+                link.href = window.URL.createObjectURL(blob);
+
+                if (response.type === "application/pdf") {
+                    link.download = 'Report Loan To Loan Settlement.pdf';
+                } else {
+                    link.download = 'Report Loan To Loan Settlement.xlsx';
+                }
+
+                link.click();
+
+                window.URL.revokeObjectURL(link.href);
+
+                Utils.hideLoading();
+            },
+            error: function (xhr, status, error) {
+                console.log('xhr, status, error', xhr, status, error);
+
+                Utils.hideLoading();
+                ErrorHandler.notifToast(
+                    'error',
+                    'An error occurred while processing the received data. Please try again later',
+                    'Error!'
+                );
             }
         });
     }
@@ -346,6 +398,28 @@
         ErrorHandler.hideErrorInputMessage("#budget_name", "#budgetMessage");
 
         $('#myProjects').modal('toggle');
+    });
+
+    $('#tableLoans').on('click', 'tbody tr', function () {
+        const sysId = $(this).find('input[data-trigger="sys_id_loans"]').val();
+        const name = $(this).find('td:nth-child(2)').text();
+
+        $("#loan_id").val(sysId);
+        $("#loan_number").val(name);
+        $("#loan_number").css('background-color', '#e9ecef');
+
+        $("#myLoans").modal('toggle');
+    });
+
+    $('#tableLoanSettlements').on('click', 'tbody tr', function () {
+        const sysID = $(this).find('input[data-trigger="sys_id_loan_settlements"]').val();
+        const trano = $(this).find('td:nth-child(2)').text();
+
+        $("#loan_settlement_id").val(sysID);
+        $("#loan_settlement_number").val(trano);
+        $("#loan_settlement_number").css('background-color', '#e9ecef');
+
+        $('#myLoanSettlements').modal('toggle');
     });
 
     $('#myCreditorsTrigger').on('click', function () {

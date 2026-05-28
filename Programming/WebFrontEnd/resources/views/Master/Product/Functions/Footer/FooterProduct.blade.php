@@ -1,6 +1,4 @@
 <script>
-    const params = new URLSearchParams(window.location.search);
-
     function getDataProducts() {
         $.ajax({
             type: 'GET',
@@ -75,8 +73,6 @@
     }
 
     $(document).ready(function () {
-        if (params.get("var") == 1) {
-            getDataProducts();
-        }
+        getDataProducts();
     });
 </script>

@@ -2,10 +2,12 @@
 @section('main')
     @include('Partials.navbar')
     @include('Partials.sidebar')
+    @include('getFunction.getCities')
+    @include('getFunction.getSuppliers')
     @include('getFunction.getBankLists')
     @include('getFunction.getCountries')
     @include('getFunction.getProvincies')
-    @include('getFunction.getCities')
+    @include('Master.Supplier.Functions.PopUp.PopUpSupplierRevision')
     @include('Master.Supplier.Functions.PopUp.PopUpSupplierCategory')
     @include('Master.Supplier.Functions.PopUp.PopUpSupplierSpecialization')
 

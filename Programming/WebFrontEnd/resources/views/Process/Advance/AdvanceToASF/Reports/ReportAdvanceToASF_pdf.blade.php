@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
@@ -21,6 +22,27 @@
     <!-- HEADER -->
     <table style="margin: 30px 0px 15px 1px;">
       <tr>
+        <!-- ARF NUMBER -->
+        <td style=" width: 350px;">
+          <table>
+            <tr>
+              <td style="width: 110px; height: 20px;">
+                <div style="font-size: 14px; font-weight: bold; line-height: 14px;">
+                  ARF Number
+                </div>
+              </td>
+              <td style="width: 5px;">
+                :
+              </td>
+              <td style="height: 20px;">
+                <div style="font-size: 14px; line-height: 14px;">
+                  -
+                </div>
+              </td>
+            </tr>
+          </table>
+        </td>
+
         <!-- BUDGET -->
         <td style=" width: 350px;">
           <table>
@@ -35,7 +57,7 @@
               </td>
               <td style="height: 20px;">
                 <div style="font-size: 14px; line-height: 14px;">
-                  <?= $dataArftoASF[0]['combinedBudgetCode']; ?> - <?= $dataArftoASF[0]['combinedBudgetName']; ?>
+                  -
                 </div>
               </td>
             </tr>
@@ -56,21 +78,63 @@
               </td>
               <td style="height: 20px;">
                 <div style="font-size: 14px;line-height: 14px;">
-                  
+                  -
                 </div>
               </td>
             </tr>
           </table>
         </td>
       </tr>
-
-      <!-- <tr>
+      <tr>
+        <!-- ASF NUMBER -->
         <td style=" width: 350px;">
           <table>
             <tr>
               <td style="width: 110px; height: 20px;">
                 <div style="font-size: 14px; font-weight: bold; line-height: 14px;">
-                  Requester
+                  ASF Number
+                </div>
+              </td>
+              <td style="width: 5px;">
+                :
+              </td>
+              <td style="height: 20px;">
+                <div style="font-size: 14px; line-height: 14px;">
+                  -
+                </div>
+              </td>
+            </tr>
+          </table>
+        </td>
+
+        <!-- SUB BUDGET -->
+        <td style=" width: 350px;">
+          <table>
+            <tr>
+              <td style="width: 110px; height: 20px;">
+                <div style="font-size: 14px; font-weight: bold; line-height: 14px;">
+                  Sub Budget
+                </div>
+              </td>
+              <td style="width: 5px;">
+                :
+              </td>
+              <td style="height: 20px;">
+                <div style="font-size: 14px; line-height: 14px;">
+                  -
+                </div>
+              </td>
+            </tr>
+          </table>
+        </td>
+
+        <!-- DATE RANGE -->
+        <td style=" width: 350px;">
+          <table>
+            <tr>
+              <td style="width: 110px; height: 20px;">
+                <div style="font-size: 14px; font-weight: bold; line-height: 14px;">
+                  Date Range
                 </div>
               </td>
               <td style="width: 5px;">
@@ -78,113 +142,111 @@
               </td>
               <td style="height: 20px;">
                 <div style="font-size: 14px;line-height: 14px;">
-                  <?= $dataArftoASF[0]['budget_Requester']; ?>
+                  -
                 </div>
               </td>
             </tr>
           </table>
         </td>
-      </tr> -->
+      </tr>
     </table>
 
-    <table class="TableReportAdvanceSummary" style="margin-left: 1px; width: 100%;" id="TableReportAdvanceSummary">
-      <tr style="border-top: 1px solid black; border-bottom: 1px solid black;">
-        <td rowspan="2" style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-            No
-          </div>
-        </td>
-        <td colspan="6" style="border-top: 1px solid black; height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-            Advance Request
-          </div>
-        </td>
-        <td colspan="6" style="border-top: 1px solid black; height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-            Advance Settlement
-          </div>
-        </td>
-        <td colspan="2" style="border-top: 1px solid black; height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-            Balance
-          </div>
-        </td>
-      </tr>
-      <tr style="border-top: 1px solid black; border-bottom: 1px dotted black;">
-        <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-            Number
-          </div>
-        </td>
-        <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-            Date
-          </div>
-        </td>
-        <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-            Requester
-          </div>
-        </td>
-        <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-            Total
-          </div>
-        </td>
-        <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-            Payment
-          </div>
-        </td>
-        <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-            Status
-          </div>
-        </td>
-        <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-            Number
-          </div>
-        </td>
-        <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-            Date
-          </div>
-        </td>
-        <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-            Expense Claim
-          </div>
-        </td>
-        <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-            Amount to the Company
-          </div>
-        </td>
-        <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-            Total
-          </div>
-        </td>
-        <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-            Status
-          </div>
-        </td>
-        <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-            Advance to Payment
-          </div>
-        </td>
-        <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-            Advance to Settlement
-          </div>
-        </td>
-      </tr>
+    <table style="margin-left: 1px; width: 100%;">
+      <thead>
+        <tr style="border-top: 1px solid black; border-bottom: 1px solid black;">
+          <td rowspan="2" style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+            <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+              No
+            </div>
+          </td>
+          <td colspan="7" style="border-top: 1px solid black; height: 20px;">
+            <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+              Advance Request
+            </div>
+          </td>
+          <td colspan="7" style="border-top: 1px solid black; height: 20px;">
+            <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+              Advance Settlement
+            </div>
+          </td>
+        </tr>
+        <tr style="border-top: 1px solid black; border-bottom: 1px dotted black;">
+          <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+            <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+              Number
+            </div>
+          </td>
+          <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+            <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+              Date
+            </div>
+          </td>
+          <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+            <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+              Requester
+            </div>
+          </td>
+          <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+            <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+              Total
+            </div>
+          </td>
+          <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+            <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+              Payment
+            </div>
+          </td>
+          <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+            <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+              ARF to Payment Balance
+            </div>
+          </td>
+          <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+            <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+              Status
+            </div>
+          </td>
+          <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+            <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+              Number
+            </div>
+          </td>
+          <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+            <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+              Date
+            </div>
+          </td>
+          <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+            <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+              Expense Claim
+            </div>
+          </td>
+          <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+            <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+              Amount to the Company
+            </div>
+          </td>
+          <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+            <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+              Total
+            </div>
+          </td>
+          <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+            <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+              ARF to ASF Balance
+            </div>
+          </td>
+          <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+            <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+              Status
+            </div>
+          </td>
+        </tr>
+      </thead>
 
-      <?php $counter = 1; ?>
-      <?php foreach ($dataArftoASF as $dataDetail) { ?>
+      <tbody>
+        <?php $counter = 1; ?>
+        <?php foreach ($dataArftoASF as $data) { ?>
         <tr>
           <td>
             <div style="margin-top: 4px; font-size: 12px;">
@@ -193,86 +255,77 @@
           </td>
           <td>
             <div style="margin-top: 4px; font-size: 12px;">
-              <?= $dataDetail['ARF_Number']; ?>
+              <?= $data['ARF_Number'] ?? '-'; ?>
             </div>
           </td>
           <td>
             <div style="margin-top: 4px; font-size: 12px;">
-              <?= date('d-m-Y', strtotime($dataDetail['ARF_Date'])); ?>
+              <?= date('d-m-Y', strtotime($data['ARF_Date'])); ?>
             </div>
           </td>
           <td>
             <div style="margin-top: 4px; font-size: 12px;">
-              <?= $dataDetail['ARF_Requester']; ?>
+              <?= $data['ARF_Requester'] ?? '-'; ?>
             </div>
           </td>
           <td>
             <div style="margin-top: 4px; font-size: 12px;">
-              <?= $dataDetail['ARF_Total_IDR']; ?>
-            </div>
-          </td> 
-          <td>
-            <div style="margin-top: 4px; font-size: 12px;">
-              <?= $dataDetail['ARF_Payment']; ?>
-            </div>
-          </td> 
-          <td>
-            <div style="margin-top: 4px; font-size: 12px;">
-              <?= $dataDetail['ARF_Status']; ?>
-            </div>
-          </td>
-          
-          <td>
-            <div style="margin-top: 4px; font-size: 12px;">
-              <?= $dataDetail['ASF_Number']; ?>
+              <?= $data['ARF_Total_IDR'] ?? '-'; ?>
             </div>
           </td>
           <td>
             <div style="margin-top: 4px; font-size: 12px;">
-              <?= date('d-m-Y', strtotime($dataDetail['ASF_Date'])); ?>
+              <?= $data['ARF_Payment'] ?? '-'; ?>
             </div>
           </td>
           <td>
             <div style="margin-top: 4px; font-size: 12px;">
-              <?= $dataDetail['expense_Claim_IDR']; ?>
+              <?= $data['advance_ToPayment'] ?? '-'; ?>
             </div>
           </td>
           <td>
             <div style="margin-top: 4px; font-size: 12px;">
-              <?= $dataDetail['amount_Due_Company_IDR']; ?>
+              <?= $data['ARF_Status'] ?? '-'; ?>
             </div>
           </td>
           <td>
             <div style="margin-top: 4px; font-size: 12px;">
-              <?= $dataDetail['ASF_Total']; ?>
+              <?= $data['ASF_Number'] ?? '-'; ?>
             </div>
           </td>
           <td>
             <div style="margin-top: 4px; font-size: 12px;">
-              <?= $dataDetail['ASF_Status']; ?>
+              <?= $data['ASF_Date'] ?? '-'; ?>
             </div>
           </td>
           <td>
             <div style="margin-top: 4px; font-size: 12px;">
-              <?= $dataDetail['advance_ToPayment']; ?>
+              <?= $data['expense_Claim_IDR'] ?? '-'; ?>
             </div>
           </td>
           <td>
             <div style="margin-top: 4px; font-size: 12px;">
-              <?= $dataDetail['advance_ToSettlement']; ?>
+              <?= $data['amount_Due_Company_IDR'] ?? '-'; ?>
+            </div>
+          </td>
+          <td>
+            <div style="margin-top: 4px; font-size: 12px;">
+              <?= $data['ASF_Total'] ?? '-'; ?>
+            </div>
+          </td>
+          <td>
+            <div style="margin-top: 4px; font-size: 12px;">
+              <?= $data['advance_ToSettlement'] ?? '-'; ?>
+            </div>
+          </td>
+          <td>
+            <div style="margin-top: 4px; font-size: 12px;">
+              <?= $data['ASF_Status'] ?? '-'; ?>
             </div>
           </td>
         </tr>
-      <?php } ?>
-
-      <div style="height: 16px;"></div>
-
-      <tr style="border-top: 1px solid black;">
-        <td style="height: 20px; text-align: left;" colspan="4">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">GRAND TOTAL</div>
-        </td>
-        
-      </tr>
+        <?php } ?>
+      </tbody>
     </table>
   </div>
 </body>

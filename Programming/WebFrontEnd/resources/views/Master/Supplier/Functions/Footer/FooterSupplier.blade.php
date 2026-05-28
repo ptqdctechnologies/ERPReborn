@@ -8,7 +8,7 @@
 
         $.ajax({
             type: 'POST',
-            url: '{!! route("Supplier.SupplierPickList") !!}',
+            url: '{!! route("Supplier.SupplierSummary") !!}',
             beforeSend: function () {
                 $('#loading-table').show();
             },
@@ -49,26 +49,81 @@
                             className: "align-middle text-nowrap"
                         },
                         {
-                            data: 'address',
+                            data: 'tax_ID',
                             defaultContent: '-',
-                            className: "align-middle text-wrap"
+                            className: "align-middle text-nowrap"
                         },
                         {
-                            data: null,
-                            className: "align-middle text-center",
-                            render: function (data) {
-                                return `
-                                    <div class="d-flex justify-content-center" style="gap: .5rem;">
-                                        <button class="btn btn-sm btn-warning btn-edit" data-id="${data.sys_ID}">
-                                            Edit
-                                        </button>
-                                    </div>
-                                `;
-                                // <button class="btn btn-sm btn-danger btn-delete" data-id="${data.sys_ID}">
-                                //     Hapus
-                                // </button>
-                            }
-                        }
+                            data: 'phoneNumber',
+                            defaultContent: '-',
+                            className: "align-middle text-nowrap"
+                        },
+                        {
+                            data: 'email',
+                            defaultContent: '-',
+                            className: "align-middle text-nowrap"
+                        },
+                        {
+                            data: 'country',
+                            defaultContent: '-',
+                            className: "align-middle text-nowrap"
+                        },
+                        {
+                            data: 'province',
+                            defaultContent: '-',
+                            className: "align-middle text-nowrap"
+                        },
+                        {
+                            data: 'city',
+                            defaultContent: '-',
+                            className: "align-middle text-nowrap"
+                        },
+                        {
+                            data: 'institutionTypeName',
+                            defaultContent: '-',
+                            className: "align-middle text-nowrap"
+                        },
+                        {
+                            data: 'contactPerson',
+                            defaultContent: '-',
+                            className: "align-middle text-wrap line-height-normal"
+                        },
+                        {
+                            data: 'bankAcronym',
+                            defaultContent: '-',
+                            className: "align-middle text-wrap line-height-normal"
+                        },
+                        {
+                            data: 'accountNumber',
+                            defaultContent: '-',
+                            className: "align-middle text-nowrap"
+                        },
+                        {
+                            data: 'accountName',
+                            defaultContent: '-',
+                            className: "align-middle text-nowrap"
+                        },
+                        {
+                            data: 'address',
+                            defaultContent: '-',
+                            className: "align-middle text-wrap line-height-normal"
+                        },
+                        // {
+                        //     data: null,
+                        //     className: "align-middle text-center",
+                        //     render: function (data) {
+                        //         return `
+                        //             <div class="d-flex justify-content-center" style="gap: .5rem;">
+                        //                 <button class="btn btn-sm btn-warning btn-edit" data-id="${data.sys_ID}">
+                        //                     Edit
+                        //                 </button>
+                        //             </div>
+                        //         `;
+                        //         // <button class="btn btn-sm btn-danger btn-delete" data-id="${data.sys_ID}">
+                        //         //     Hapus
+                        //         // </button>
+                        //     }
+                        // }
                     ]
                 });
             },
@@ -77,6 +132,21 @@
             }
         });
     }
+
+    $('#tableSuppliers').on('click', 'tbody tr', function () {
+        const sysId = $(this).find('input[data-trigger="sys_id_supplier"]').val();
+        const code = $(this).find('td:nth-child(2)').text();
+        const name = $(this).find('td:nth-child(3)').text();
+
+        $("#modal_supplier_id").val(sysId);
+        $("#modal_supplier_number").val(`${code} - ${name}`);
+
+        $('#mySuppliers').modal('toggle');
+    });
+
+    $('#revision_supplier').on('click', function (e) {
+        getSuppliers();
+    });
 
     $(document).ready(function () {
         getDataSuppliers();

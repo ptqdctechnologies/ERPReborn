@@ -208,6 +208,10 @@
             arfPaymentCell.textContent = item.ARF_Payment ?? '-';
             row.appendChild(arfPaymentCell);
 
+            const balancePayment = document.createElement('td');
+            balancePayment.textContent = item.advance_ToPayment ?? '-';
+            row.appendChild(balancePayment);
+
             const arfStatusCell = document.createElement('td');
             arfStatusCell.textContent = item.ARF_Status ?? '-';
             row.appendChild(arfStatusCell);
@@ -232,17 +236,13 @@
             asfTotalCell.textContent = item.ASF_Total ?? '-';
             row.appendChild(asfTotalCell);
 
-            const asfStatusCell = document.createElement('td');
-            asfStatusCell.textContent = item.ASF_Status ?? '-';
-            row.appendChild(asfStatusCell);
-
-            const balancePayment = document.createElement('td');
-            balancePayment.textContent = item.advance_ToPayment ?? '-';
-            row.appendChild(balancePayment);
-
             const balanceSettlement = document.createElement('td');
             balanceSettlement.textContent = item.advance_ToSettlement ?? '-';
             row.appendChild(balanceSettlement);
+
+            const asfStatusCell = document.createElement('td');
+            asfStatusCell.textContent = item.ASF_Status ?? '-';
+            row.appendChild(asfStatusCell);
 
             tbody.appendChild(row);
             rowIndex++;
@@ -549,9 +549,33 @@
         $('#myRequesters').modal('toggle');
     });
 
-    $(window).one('load', function () {
+    $('#tableGetModalAdvance').on('click', 'tbody tr', async function () {
+        const sysId = $(this).find('input[data-trigger="sys_id_modal_advance"]').val();
+        const trano = $(this).find('td:nth-child(2)').text();
+
+        $("#arf_id").val(sysId);
+        $("#arf_number").val(trano);
+        $("#arf_number").css({ "background-color": "#e9ecef" });
+
+        $("#myGetModalAdvance").modal('toggle');
+    });
+
+    $('#tableGetModalAdvanceSettlement').on('click', 'tbody tr', function () {
+        const sysId = $(this).find('input[data-trigger="sys_id_modal_advance_settlement"]').val();
+        const trano = $(this).find('td:nth-child(2)').text();
+
+        $("#asf_id").val(sysId);
+        $("#asf_number").val(trano);
+        $("#asf_number").css({ "background-color": "#e9ecef" });
+
+        $('#myGetModalAdvanceSettlement').modal('toggle');
+    });
+
+    $(document).ready(function () {
         renderPage();
         renderPagination();
+        getModalAdvance();
+        getModalAdvanceSettlement();
 
         $('#advance_date_range').daterangepicker({
             autoUpdateInput: false,

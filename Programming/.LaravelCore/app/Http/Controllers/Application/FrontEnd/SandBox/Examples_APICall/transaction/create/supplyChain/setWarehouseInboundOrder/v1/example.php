@@ -21,7 +21,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         |                     ► http://172.28.0.4/transaction.create.supplyChain.setWarehouseInboundOrder.v1_throughAPIGateway     |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2026-03-26                                                                                           |
+        | ▪ Last Update     : 2026-05-12                                                                                           |
         | ▪ Creation Date   : 2025-04-15                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -61,28 +61,30 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                         'entities' => [
                                             "deliveryOrderDetail_RefID" => 181000000000001,
                                             "workStructure_RefID" => 302000000000001,
-                                            "quantity" => 25,
+                                            "qtyGood" => 30,
+                                            "qtyReject" => 10,
                                             "product_RefID" => 88000000001664,
                                             "quantityUnit_RefID" => 73000000000001,
                                             "productUnitPriceCurrency_RefID" => 62000000000001,
                                             "productUnitPriceCurrencyExchangeRate" => 1,
                                             "productUnitPriceCurrencyValue" => 25000,
                                             'remarks' => 'Catatan Detail - 11',
-                                            "combinedBudgetSectionDetail_RefID" => 169000000000037,
+                                            "combinedBudgetSectionDetail_RefID" => 169000000000037
                                             ]
                                         ],
                                         [
                                         'entities' => [
                                             "deliveryOrderDetail_RefID" => 181000000000002,
                                             "workStructure_RefID" => 302000000000002,
-                                            "quantity" => 30,
+                                            "qtyGood" => 35,
+                                            "qtyReject" => 15,
                                             "product_RefID" => 88000000001533,
                                             "quantityUnit_RefID" => 73000000000002,
                                             "productUnitPriceCurrency_RefID" => 62000000000001,
                                             "productUnitPriceCurrencyExchangeRate" => 1,
                                             "productUnitPriceCurrencyValue" => 30000,
                                             'remarks' => 'Catatan Detail - 22',
-                                            "combinedBudgetSectionDetail_RefID" => 169000000000037,
+                                            "combinedBudgetSectionDetail_RefID" => 169000000000037
                                             ]
                                         ],
                                     ]

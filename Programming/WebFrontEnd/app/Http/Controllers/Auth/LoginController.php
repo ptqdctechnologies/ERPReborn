@@ -149,25 +149,17 @@ class LoginController extends Controller
     public function logout(Request $request)
     {
         try {
-            $varAPIWebToken = Session::get('SessionLogin');
-            Redis::del("ERPReborn::APIWebToken::" . $varAPIWebToken);
+            $response = $this->loginService->logout();
 
-            $status = "success";
-            $message = 'Thank you for your visit';
-            if ($request->input('message') == "Session_Expired") {
-                $message = 'Your session expired';
-                $status = "error";
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                throw new \Exception('Logout failed');
             }
-
-            // Cache::flush();
-            // Session::flush();
-            // Redis::flushDB();
 
             AuthFacade::logout();
             Session::invalidate();
             Session::regenerateToken();
 
-            return redirect('/')->with([$status => $message]);
+            return redirect('/')->with([$response['metadata']['HTTPStatusCode'] => $response['data']['message']]);
         } catch (\Throwable $th) {
             Log::error("Error at logout: " . $th->getMessage());
 
@@ -196,13 +188,22 @@ class LoginController extends Controller
     // FUNCTION REMOVE CACHE, SESSION, REDIS
     public function FlushCache()
     {
-        // Cache::flush();
-        // Session::flush();
-        // Redis::flushDB();
-        AuthFacade::logout();
-        Session::invalidate();
-        Session::regenerateToken();
+        try {
+            $response = $this->loginService->logout();
 
-        return redirect()->back();
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                throw new \Exception('Logout failed');
+            }
+
+            AuthFacade::logout();
+            Session::invalidate();
+            Session::regenerateToken();
+
+            return redirect('/')->with([$response['metadata']['HTTPStatusCode'] => $response['data']['message']]);
+        } catch (\Throwable $th) {
+            Log::error("Error at logout: " . $th->getMessage());
+
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
     }
 }

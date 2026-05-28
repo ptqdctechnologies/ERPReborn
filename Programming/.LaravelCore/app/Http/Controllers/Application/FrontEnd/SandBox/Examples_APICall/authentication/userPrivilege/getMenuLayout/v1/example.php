@@ -27,28 +27,35 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\aut
         */
         public function throughAPIGateway($varAPIWebToken)
             {
-            //---Parameter Set---
+            //-----[ PARAMETER SET ]-----
             if (!$varAPIWebToken) {
                 $varAPIWebToken =
                     \App\Helpers\ZhtHelper\System\Helper_Environment::getAPIWebToken_System();
                 }
 
-            //---Core---
+            //-----[ CORE ]-----
             $varData =
                 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                    $varAPIWebToken,
-                    'authentication.userPrivilege.getMenuLayout', 
-                    'latest', 
-                    [
-                    'parameter' => [
-                        'branch_RefID' => 11000000000004,
-                        'user_RefID' => 4000000000359
+                    //-----[ METADATA ]-----( START )-----
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                        $varAPIWebToken,
+                        'authentication.userPrivilege.getMenuLayout', 
+                        'latest',
+                    //-----[ METADATA ]-----(  END  )-----
+
+                    //-----[ DATA ]---------( START )-----
+                        [
+                        'parameter' => [
+                            'branch_RefID' => 11000000000004,
+                            'user_RefID' => 4000000000359
+                            ]
                         ]
-                    ]
+                    //-----[ DATA ]---------(  END  )-----
                     );
 
-            var_dump($varData);
+            //-----[ DATA RETURN ]-----
+            return
+                $varData;
             }
 
 

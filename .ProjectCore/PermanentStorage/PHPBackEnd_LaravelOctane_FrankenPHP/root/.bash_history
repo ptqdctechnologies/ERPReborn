@@ -67,3 +67,16 @@ exit
 /zhtConf/Script/BashScript/Script.Maintenance.SystemUpdate.Composer.sh 
 /zhtConf/Script/BashScript/Script.Maintenance.SystemUpdate.Composer.sh 
 exit
+/zhtConf/Script/BashScript/Script.Maintenance.SystemUpdate.Composer.sh 
+eit
+exit
+/zhtConf/Script/BashScript/Script.Maintenance.SystemUpdate.Composer.sh 
+exit
+/zhtConf/Script/BashScript/Script.Maintenance.SystemUpdate.Composer.sh 
+/zhtConf/Script/BashScript/Script.Maintenance.SystemUpdate.Composer.sh 
+exit
+/zhtConf/Script/BashScript/Script.Maintenance.SystemUpdate.Composer.sh 
+composer audit
+/zhtConf/Script/BashScript/Script.Maintenance.SystemUpdate.Composer.sh 
+vim /zhtConf/Script/BashScript/Script.Maintenance.SystemUpdate.Composer.sh 
+exit

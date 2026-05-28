@@ -175,6 +175,10 @@
             remTotalEquivalentCell.textContent = isNaN(item.REM_Total_Equivalent_IDR) ? '-' : Utils.formatCurrency(item.REM_Total_Equivalent_IDR);
             row.appendChild(remTotalEquivalentCell);
 
+            const balanceRemToPaymentCell = document.createElement('td');
+            balanceRemToPaymentCell.textContent = isNaN(item.balanceREM_ToPayment) ? '-' : Utils.formatCurrency(item.balanceREM_ToPayment);
+            row.appendChild(balanceRemToPaymentCell);
+
             const remStatusCell = document.createElement('td');
             remStatusCell.textContent = item.REM_Status ?? '-';
             row.appendChild(remStatusCell);
@@ -188,28 +192,24 @@
             row.appendChild(dnDateCell);
 
             const dnTotalIDRCell = document.createElement('td');
-            dnTotalIDRCell.textContent = isNaN(item.REM_Total_IDR) ? '-' : Utils.formatCurrency(item.REM_Total_IDR);
+            dnTotalIDRCell.textContent = isNaN(item.DN_Total_IDR) ? '-' : Utils.formatCurrency(item.DN_Total_IDR);
             row.appendChild(dnTotalIDRCell);
 
             const dnTotalOtherCell = document.createElement('td');
-            dnTotalOtherCell.textContent = isNaN(item.REM_Total_Other_Currency) ? '-' : Utils.formatCurrency(item.REM_Total_Other_Currency);
+            dnTotalOtherCell.textContent = isNaN(item.DN_Total_Other_Currency) ? '-' : Utils.formatCurrency(item.DN_Total_Other_Currency);
             row.appendChild(dnTotalOtherCell);
 
             const dnTotalEquivalentCell = document.createElement('td');
-            dnTotalEquivalentCell.textContent = isNaN(item.REM_Total_Equivalent_IDR) ? '-' : Utils.formatCurrency(item.REM_Total_Equivalent_IDR);
+            dnTotalEquivalentCell.textContent = isNaN(item.DN_Total_Equivalent_IDR) ? '-' : Utils.formatCurrency(item.DN_Total_Equivalent_IDR);
             row.appendChild(dnTotalEquivalentCell);
+
+            const balanceRemToDebitNoteCell = document.createElement('td');
+            balanceRemToDebitNoteCell.textContent = isNaN(item.balanceREM_ToDN) ? '-' : Utils.formatCurrency(item.balanceREM_ToDN);
+            row.appendChild(balanceRemToDebitNoteCell);
 
             const dnStatusCell = document.createElement('td');
             dnStatusCell.textContent = item.DN_Status ?? '-';
             row.appendChild(dnStatusCell);
-
-            const balanceRemToPaymentCell = document.createElement('td');
-            balanceRemToPaymentCell.textContent = isNaN(item.balanceREM_ToPayment) ? '-' : Utils.formatCurrency(item.balanceREM_ToPayment);
-            row.appendChild(balanceRemToPaymentCell);
-
-            const balanceRemToDebitNoteCell = document.createElement('td');
-            balanceRemToDebitNoteCell.textContent = isNaN(item.balanceREM_ToDN) ? '-' : Utils.formatCurrency(item.balanceREM_ToPayment);
-            row.appendChild(balanceRemToDebitNoteCell);
 
             tbody.appendChild(row);
             rowIndex++;
@@ -497,6 +497,28 @@
         ErrorHandler.hideErrorInputMessage("#customer_name", "#customerMessage");
 
         $('#myCustomers').modal('toggle');
+    });
+
+    $('#tableGetModalReimbursement').on('click', 'tbody tr', function () {
+        const sysId = $(this).find('input[data-trigger="sys_id_modal_reimbursement"]').val();
+        const trano = $(this).find('td:nth-child(2)').text();
+
+        $("#rem_id").val(sysId);
+        $("#rem_number").val(trano);
+        $("#rem_number").css({ "background-color": "#e9ecef" });
+
+        $('#myGetModalReimbursement').modal('toggle');
+    });
+
+    $('#tableDebitNote').on('click', 'tbody tr', function () {
+        const sysId = $(this).find('input[data-trigger="sys_id_modal_dn"]').val();
+        const trano = $(this).find('td:nth-child(2)').text();
+
+        $("#dn_id").val(sysId);
+        $("#dn_number").val(trano);
+        $("#dn_number").css({ "background-color": "#e9ecef" });
+
+        $('#myDebitNote').modal('toggle');
     });
 
     $(document).ready(function () {

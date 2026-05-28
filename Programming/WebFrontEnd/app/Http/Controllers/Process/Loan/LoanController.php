@@ -233,6 +233,39 @@ class LoanController extends Controller
     public function PrintExportReportLoantoLoanSettlement(Request $request)
     {
         try {
+            $type = $request->printType;
+            $dataReport = json_decode($request->dataReport, true);
+
+            if ($dataReport) {
+                if ($type == "PDF") {
+                    $pdf = PDF::loadView('Process.Loan.Reports.ReportLoantoLoanSettlement_pdf', [
+                        'dataloantosettle' => $dataReport
+                    ])->setPaper('a4', 'landscape');
+                    $pdf->output();
+                    $dom_pdf = $pdf->getDomPDF();
+
+                    $canvas = $dom_pdf->get_canvas();
+                    $width = $canvas->get_width();
+                    $height = $canvas->get_height();
+                    $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
+                    $canvas->page_text(34, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
+
+                    return $pdf->download('Export Report Loan to Loan Settlement.pdf');
+                } else if ($type == "EXCEL") {
+                    return Excel::download(new ExportReportLoantoLoanSettlement($dataReport), 'Export Report Loan to Loan Settlement.xlsx');
+                } else {
+                    throw new \Exception('Failed to Export Report Loan To Loan Settlement');
+                }
+            } else {
+                throw new \Exception('Loan To Loan Settlement Data is Empty');
+            }
+        } catch (\Throwable $th) {
+            Log::error("Print Export Report Loan To Loan Settlement Function Error: " . $th->getMessage());
+
+            return response()->json(['statusCode' => 400]);
+        }
+
+        try {
             $dataPDF = Session::get("LoanSettlementReportSummaryDataPDF");
             $dataExcel = Session::get("LoanSettlementReportSummaryDataExcel");
 

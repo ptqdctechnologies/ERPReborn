@@ -166,11 +166,11 @@
             noCell.textContent = isNaN(rowNumber) ? '-' : rowNumber;
             row.appendChild(noCell);
 
-            const arfNumberCell = document.createElement('td');
-            arfNumberCell.textContent = item.purchaseOrderNumber ?? '-';
+            const poNumberCell = document.createElement('td');
+            poNumberCell.textContent = item.purchaseOrderNumber ?? '-';
 
             if (lastTransactionNumber === item.purchaseOrderNumber) {
-                arfNumberCell.style.display = 'none';
+                poNumberCell.style.display = 'none';
                 rowspan++;
             } else {
                 if (rowspan > 1) {
@@ -184,67 +184,67 @@
                 rowspan = 1;
             }
 
-            row.appendChild(arfNumberCell);
+            row.appendChild(poNumberCell);
 
-            const arfDateCell = document.createElement('td');
-            arfDateCell.textContent = `${item.combinedBudgetCode ?? ''} - ${item.combinedBudgetName ?? ''}`;
-            row.appendChild(arfDateCell);
+            const poBudgetCell = document.createElement('td');
+            poBudgetCell.textContent = `${item.combinedBudgetCode ?? ''} - ${item.combinedBudgetName ?? ''}`;
+            row.appendChild(poBudgetCell);
 
-            const arfRequesterCell = document.createElement('td');
-            arfRequesterCell.textContent = item.purchaseOrderDate ?? '-';
-            row.appendChild(arfRequesterCell);
+            const poDateCell = document.createElement('td');
+            poDateCell.textContent = item.purchaseOrderDate ?? '-';
+            row.appendChild(poDateCell);
 
-            const arfTotalCell = document.createElement('td');
-            arfTotalCell.textContent = `${item.supplierCode ?? ''} - ${item.supplierName ?? ''}`;
-            row.appendChild(arfTotalCell);
+            const poSupplierCell = document.createElement('td');
+            poSupplierCell.textContent = `${item.supplierCode ?? ''} - ${item.supplierName ?? ''}`;
+            row.appendChild(poSupplierCell);
 
-            const arfPaymentCell = document.createElement('td');
-            arfPaymentCell.textContent = item.purchaseOrderTotalIDR ?? '-';
-            row.appendChild(arfPaymentCell);
+            const poTotalIdrCell = document.createElement('td');
+            poTotalIdrCell.textContent = item.purchaseOrderTotalIDR ?? '-';
+            row.appendChild(poTotalIdrCell);
 
-            const arfStatusCell = document.createElement('td');
-            arfStatusCell.textContent = item.purchaseOrderTotalOtherCurrency ?? '-';
-            row.appendChild(arfStatusCell);
+            const poTotalOtherCurrencyCell = document.createElement('td');
+            poTotalOtherCurrencyCell.textContent = item.purchaseOrderTotalOtherCurrency ?? '-';
+            row.appendChild(poTotalOtherCurrencyCell);
 
-            const asfNumberCell = document.createElement('td');
-            asfNumberCell.textContent = item.purchaseOrderTotalEquivalentIDR ?? '-';
-            row.appendChild(asfNumberCell);
+            const poTotalEquivalentIdrCell = document.createElement('td');
+            poTotalEquivalentIdrCell.textContent = item.purchaseOrderTotalEquivalentIDR ?? '-';
+            row.appendChild(poTotalEquivalentIdrCell);
 
-            const asfDateCell = document.createElement('td');
-            asfDateCell.textContent = item.purchaseOrderStatus ?? '-';
-            row.appendChild(asfDateCell);
+            const poToApBalanceCell = document.createElement('td');
+            poToApBalanceCell.textContent = item.balancePurchaseOrderToAccountPayable ?? '-';
+            row.appendChild(poToApBalanceCell);
 
-            const asfExpenseCell = document.createElement('td');
-            asfExpenseCell.textContent = item.accountPayableNumber ?? '-';
-            row.appendChild(asfExpenseCell);
+            const poStatusCell = document.createElement('td');
+            poStatusCell.textContent = item.purchaseOrderStatus ?? '-';
+            row.appendChild(poStatusCell);
 
-            const asfAmountCell = document.createElement('td');
-            asfAmountCell.textContent = item.accountPayableDate ?? '-';
-            row.appendChild(asfAmountCell);
+            const apNumberCell = document.createElement('td');
+            apNumberCell.textContent = item.accountPayableNumber ?? '-';
+            row.appendChild(apNumberCell);
 
-            const asfTotalCell = document.createElement('td');
-            asfTotalCell.textContent = item.accountPayableTotalIDR ?? '-';
-            row.appendChild(asfTotalCell);
+            const apDateCell = document.createElement('td');
+            apDateCell.textContent = item.accountPayableDate ?? '-';
+            row.appendChild(apDateCell);
 
-            const asfStatusCell = document.createElement('td');
-            asfStatusCell.textContent = item.accountPayableTotalOtherCurrency ?? '-';
-            row.appendChild(asfStatusCell);
+            const apTotalIdrCell = document.createElement('td');
+            apTotalIdrCell.textContent = item.accountPayableTotalIDR ?? '-';
+            row.appendChild(apTotalIdrCell);
 
-            const balancePayment = document.createElement('td');
-            balancePayment.textContent = item.accountPayableTotalEquivalentIDR ?? '-';
-            row.appendChild(balancePayment);
+            const apTotalOtherCurrencyCell = document.createElement('td');
+            apTotalOtherCurrencyCell.textContent = item.accountPayableTotalOtherCurrency ?? '-';
+            row.appendChild(apTotalOtherCurrencyCell);
 
-            const balanceSettlement = document.createElement('td');
-            balanceSettlement.textContent = item.accountPayableStatus ?? '-';
-            row.appendChild(balanceSettlement);
+            const apTotalEquivalentIdrCell = document.createElement('td');
+            apTotalEquivalentIdrCell.textContent = item.accountPayableTotalEquivalentIDR ?? '-';
+            row.appendChild(apTotalEquivalentIdrCell);
 
-            const balancePayments = document.createElement('td');
-            balancePayments.textContent = item.balancePurchaseOrderToAccountPayable ?? '-';
-            row.appendChild(balancePayments);
+            const apToPaymentBalanceCell = document.createElement('td');
+            apToPaymentBalanceCell.textContent = item.balanceAPtoPayment ?? '-';
+            row.appendChild(apToPaymentBalanceCell);
 
-            const balanceSettlements = document.createElement('td');
-            balanceSettlements.textContent = item.balanceAPtoPayment ?? '-';
-            row.appendChild(balanceSettlements);
+            const apStatusCell = document.createElement('td');
+            apStatusCell.textContent = item.accountPayableStatus ?? '-';
+            row.appendChild(apStatusCell);
 
             tbody.appendChild(row);
             rowIndex++;
@@ -291,20 +291,22 @@
         const end = start + rowsPerPage;
         const pageData = filteredAndSortedData.length > 0 ? filteredAndSortedData.slice(start, end) : [{
             "no": "",
-            "arf_number": "",
-            "arf_date": "",
-            "arf_requester": "",
-            "arf_total": "",
-            "arf_payment": "",
-            "arf_status": "",
-            "asf_number": "",
-            "asf_date": "",
-            "asf_expense_claim": "",
-            "asf_amount_company": "",
-            "asf_total": "",
-            "asf_status": "",
-            "balance_payment": "",
-            "balance_settlement": ""
+            "po_number": "",
+            "po_budget": "",
+            "po_date": "",
+            "po_supplier": "",
+            "po_total_idr": "",
+            "po_total_other_currency": "",
+            "po_total_equivalent_idr": "",
+            "po_to_ap_balance": "",
+            "po_status": "",
+            "ap_number": "",
+            "ap_date": "",
+            "ap_total_idr": "",
+            "ap_total_other_currency": "",
+            "ap_total_equivalent_idr": "",
+            "ap_to_payment_balance": "",
+            "ap_status": ""
         }];
 
         startLimit.textContent = start + 1;
@@ -609,6 +611,8 @@
         renderPage();
         renderPagination();
         getSuppliers();
+        getAccountPayable();
+        getModalPurchaseOrder();
 
         $('#po_to_ap_date_range').daterangepicker({
             autoUpdateInput: false,
