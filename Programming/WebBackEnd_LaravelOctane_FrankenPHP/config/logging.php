@@ -54,8 +54,7 @@ return [
 
         'stack' => [
             'driver' => 'stack',
-            //'channels' => explode(',', (string) env('LOG_STACK', 'single')),
-            'channels' => ['stderr'],
+            'channels' => explode(',', (string) env('LOG_STACK', 'stderr')),
             'ignore_exceptions' => false,
         ],
 
@@ -131,6 +130,22 @@ return [
 
         'emergency' => [
             'path' => storage_path('logs/laravel.log'),
+        ],
+
+        'loki' => [
+            'driver'    => 'monolog',
+            'handler'   => \App\Logging\LokiHandler::class,
+            'with'      => [
+                'endpoint' => env('LOKI_PUSH_URL', 'http://grafana-loki:3100/loki/api/v1/push'),
+                'timeout'  => (float) env('LOKI_TIMEOUT', 0.25),
+                'labels'   => [
+                    'app' => 'erp_reborn',
+                    'env' => env('APP_ENV', 'production'),
+                    'job' => 'laravel',
+                ],
+            ],
+            'formatter' => \Monolog\Formatter\JsonFormatter::class,
+            'level'     => env('LOG_LEVEL', 'debug'),
         ],
 
         'audit_api' => [
