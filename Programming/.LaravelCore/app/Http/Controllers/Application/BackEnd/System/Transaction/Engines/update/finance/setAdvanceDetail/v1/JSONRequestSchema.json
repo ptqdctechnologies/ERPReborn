@@ -77,6 +77,10 @@
                         "type": [ "number", "null" ],
                         "minimum": 0
                         },
+                    "workStructure_RefID": {
+                        "type": [ "number", "null" ],
+                        "minimum": 0
+                        },
                     "remarks": {
                         "type": [ "string", "null" ],
                         "minLength": 1,
@@ -92,6 +96,7 @@
                     "productUnitPriceCurrency_RefID",
                     "productUnitPriceCurrencyValue",
                     "productUnitPriceCurrencyExchangeRate",
+                    "workStructure_RefID",
                     "remarks"
                     ]
                 }
