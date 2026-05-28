@@ -25,9 +25,7 @@
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <div class="row p-1" style="row-gap: 1rem;">
-                                            @include('Master.Supplier.Functions.Header.HeaderIndexSupplier')
-                                        </div>
+                                        @include('Master.Supplier.Functions.Header.HeaderIndexSupplier')
                                     </div>
                                 </div>
                             </div>
@@ -86,16 +84,23 @@
                                                             Address</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td colspan="15">
-                                                            <div id="loading-table"
-                                                                style="display:none;text-align:center;padding:20px;">
-                                                                <div class="spinner-border text-primary"></div>
+                                                <tbody></tbody>
+                                                <tfoot>
+                                                    <tr id="loading-table">
+                                                        <td colspan="15" class="p-0" style="height: 22rem;">
+                                                            <div
+                                                                class="d-flex flex-column justify-content-center align-items-center py-3">
+                                                                <div class="spinner-border" role="status">
+                                                                    <span class="sr-only">Loading...</span>
+                                                                </div>
+                                                                <div class="mt-3"
+                                                                    style="font-size: 0.75rem; font-weight: 700;">
+                                                                    Loading...
+                                                                </div>
                                                             </div>
                                                         </td>
                                                     </tr>
-                                                </tbody>
+                                                </tfoot>
                                             </table>
                                         </div>
                                     </div>

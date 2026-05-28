@@ -60,14 +60,9 @@ class SupplierService
         );
     }
 
-    public function getSummary($supplierID)
+    public function getSummary($search, $limit = 10, $offset = 0)
     {
         $sessionToken = Session::get('SessionLogin');
-
-        // $filter = null;
-        // if (!empty($supplierID) && $supplierID != 'undefined') {
-        //     $filter = '"Sys_ID" = \'' . addslashes($supplierID) . '\'';
-        // }
 
         return Helper_APICall::setCallAPIGateway(
             Helper_Environment::getUserSessionID_System(),
@@ -75,12 +70,15 @@ class SupplierService
             'transaction.read.dataList.supplyChain.getSupplierList',
             'latest',
             [
-                'parameter' => null,
+                'parameter' => [],
                 'SQLStatement' => [
                     'pick' => null,
                     'sort' => null,
                     'filter' => null,
-                    'paging' => null
+                    'paging' => [
+                        'limit' => (int) $limit,
+                        'offset' => (int) $offset
+                    ]
                 ]
             ],
             false

@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers\Master;
 
+use App\Http\Controllers\ExportExcel\MasterData\ExportSupplier;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Log;
+use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Session;
 use App\Http\Requests\Master\Supplier\StoreSupplier;
 use App\Services\Master\Supplier\SupplierService;
@@ -90,6 +93,7 @@ class SupplierController extends Controller
                     'accountNumber' => $header['AccountNumber'] ?? '',
                     'accountName' => $header['AccountName'] ?? '',
                     'remark' => $header['Remark'] ?? '',
+                    'status' => 'FINAL APPROVED'
                 ],
             ];
 
@@ -135,20 +139,55 @@ class SupplierController extends Controller
 
     public function SupplierSummary(Request $request)
     {
-        $supplierID = $request->input('supplier_id');
+        $limit = $request->input('length', 10);
+        $offset = $request->input('start', 0);
+        $draw = $request->input('draw');
+        $search = $request->input('search.value');
 
-        $response = $this->supplierService->getSummary($supplierID);
+        $response = $this->supplierService->getSummary(
+            $search,
+            $limit,
+            $offset
+        );
 
         $status = $response['metadata']['HTTPStatusCode'];
+
         $data = [];
+        $total = 0;
 
         if ($status == 200) {
             $data = $response['data'] ?? [];
+            $total = count($data);
         }
 
         return response()->json([
-            'data' => $data,
-            'status' => $status
+            'draw' => intval($draw),
+            'recordsTotal' => $total,
+            'recordsFiltered' => $total,
+            'data' => $data
         ]);
+    }
+
+    public function export(Request $request)
+    {
+        try {
+            $dataReport = json_decode($request->dataReport, true);
+            $type = $request->printType;
+
+            if ($dataReport) {
+                if ($type === "PDF") {
+                } else if ($type === "EXCEL") {
+                    return Excel::download(new ExportSupplier($dataReport), 'Supplier.xlsx');
+                } else {
+                    throw new \Exception('Failed to Export PR to PO Report');
+                }
+            } else {
+                throw new \Exception('Suppliers Data is Empty');
+            }
+        } catch (\Throwable $th) {
+            Log::error("Export Supplier Function Error: " . $th->getMessage());
+
+            return response()->json(['statusCode' => 400]);
+        }
     }
 }

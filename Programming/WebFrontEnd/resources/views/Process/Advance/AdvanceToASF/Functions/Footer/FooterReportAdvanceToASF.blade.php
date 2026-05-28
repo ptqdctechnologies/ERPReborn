@@ -24,6 +24,122 @@
     const totalData = document.getElementById("total_data");
     const printType = document.getElementById("print_type");
 
+    function modalPayment(params, title) {
+        // buka modal dulu
+        $('#paymentModal').modal('show');
+
+        // loading state
+        // document.getElementById('modalBody').innerHTML = 'Loading...';
+
+        try {
+
+            // misalnya pakai id payment
+            // const paymentId = item.id;
+
+            // hit API
+            // const response = await fetch(`/api/payment/${paymentId}`);
+
+            // if (!response.ok) {
+            //     throw new Error('Gagal mengambil data');
+            // }
+
+            // const result = await response.json();
+            document.getElementById('paymentModalLabel').textContent = `${title ?? '-'}`;
+
+            // render hasil API ke modal
+            // document.getElementById('modalBody').innerHTML = `
+            //     <p><strong>Payment No:</strong> -</p>
+            //     <p><strong>Customer:</strong> -</p>
+            //     <p><strong>Amount:</strong> -</p>
+            //     <p><strong>Status:</strong> -</p>
+            // `;
+
+            const dummyData = [
+                {
+                    transaction_number: 'TRX/QDC/2026/001',
+                    payment_value: 1500000,
+                    currency: 'IDR',
+                    payment_number_date: '2026-05-26'
+                },
+                {
+                    transaction_number: 'TRX/QDC/2026/002',
+                    payment_value: 2750000,
+                    currency: 'IDR',
+                    payment_number_date: '2026-05-25'
+                },
+                {
+                    transaction_number: 'TRX/QDC/2026/003',
+                    payment_value: 3200000,
+                    currency: 'IDR',
+                    payment_number_date: '2026-05-24'
+                },
+                {
+                    transaction_number: 'TRX/QDC/2026/004',
+                    payment_value: 4500000,
+                    currency: 'IDR',
+                    payment_number_date: '2026-05-23'
+                },
+                {
+                    transaction_number: 'TRX/QDC/2026/005',
+                    payment_value: 1850000,
+                    currency: 'IDR',
+                    payment_number_date: '2026-05-22'
+                }
+            ];
+
+            $('#paymentTable').DataTable({
+                destroy: true,
+                data: dummyData,
+                deferRender: true,
+                scrollCollapse: true,
+                scroller: true,
+                // paging: false,     // mematikan limit/pagination
+                searching: false, // mematikan search
+                lengthChange: false, // mematikan dropdown limit per halaman
+                // info: false        // opsional: hilangkan tulisan "Showing 1 to ..."
+                columns: [
+                    {
+                        data: null,
+                        render: function (data, type, row, meta) {
+                            return (meta.row + 1);
+                        }
+                    },
+                    {
+                        data: 'transaction_number',
+                        defaultContent: '-',
+                        className: "text-nowrap",
+                    },
+                    {
+                        data: 'payment_number_date',
+                        defaultContent: '-',
+                        className: "text-nowrap",
+                    },
+                    {
+                        data: 'payment_value',
+                        defaultContent: '-',
+                        className: "text-nowrap",
+                    },
+                    {
+                        data: 'currency',
+                        defaultContent: '-',
+                        className: "text-nowrap",
+                    },
+                    {
+                        data: '-',
+                        defaultContent: '-',
+                        className: "text-nowrap",
+                    }
+                ]
+            });
+        } catch (error) {
+            document.getElementById('modalBody').innerHTML = `
+                <div class="text-danger">
+                    ${error.message}
+                </div>
+            `;
+        }
+    }
+
     function selectBudget(combinedBudgetID, combinedBudgetCode, combinedBudgetName) {
         $("#budget_id").val(combinedBudgetID);
         $("#budget_code").val(combinedBudgetCode);
@@ -205,7 +321,17 @@
             row.appendChild(arfTotalCell);
 
             const arfPaymentCell = document.createElement('td');
-            arfPaymentCell.textContent = item.ARF_Payment ?? '-';
+            const link = document.createElement('a');
+            link.href = '#';
+            link.textContent = item.ARF_Payment ?? '0';
+            link.style.cssText = "text-decoration: underline;";
+
+            link.addEventListener('click', async function (e) {
+                e.preventDefault();
+
+                modalPayment(item, item.ARF_Number);
+            });
+            arfPaymentCell.appendChild(link);
             row.appendChild(arfPaymentCell);
 
             const balancePayment = document.createElement('td');
@@ -235,6 +361,20 @@
             const asfTotalCell = document.createElement('td');
             asfTotalCell.textContent = item.ASF_Total ?? '-';
             row.appendChild(asfTotalCell);
+
+            const asfPaymentCell = document.createElement('td');
+            const asfLink = document.createElement('a');
+            asfLink.href = '#';
+            asfLink.textContent = '0';
+            asfLink.style.cssText = "text-decoration: underline;";
+
+            asfLink.addEventListener('click', async function (e) {
+                e.preventDefault();
+
+                modalPayment(item, item.ASF_Number);
+            });
+            asfPaymentCell.appendChild(asfLink);
+            row.appendChild(asfPaymentCell);
 
             const balanceSettlement = document.createElement('td');
             balanceSettlement.textContent = item.advance_ToSettlement ?? '-';

@@ -1,75 +1,75 @@
 @extends('Partials.app')
 @section('main')
-@include('Partials.navbar')
-@include('Partials.sidebar')
-@include('Documents.Functions.PopUp.SearchCheckDocument')
+  @include('Partials.navbar')
+  @include('Partials.sidebar')
+  @include('Documents.Functions.PopUp.SearchCheckDocument')
 
-<div class="content-wrapper">
-  <section class="content">
-    <div class="container-fluid">
-      <input type="hidden" id="sourceData" value="{{ $sourceData }}">
-      <!-- TITLE -->
-      <div class="row mb-1" style="background-color:#4B586A;">
-        <div class="col-sm-6" style="height:30px;">
-          <label style="font-size:15px;position:relative;top:7px;color:white;">
-            Check Document
-          </label>
+  <div class="content-wrapper">
+    <section class="content">
+      <div class="container-fluid">
+        <input type="hidden" id="sourceData" value="{{ $sourceData }}">
+        <!-- TITLE -->
+        <div class="row mb-1" style="background-color:#4B586A;">
+          <div class="col-sm-6" style="height:30px;">
+            <label style="font-size:15px;position:relative;top:7px;color:white;">
+              Check Document
+            </label>
+          </div>
         </div>
-      </div>
 
-      @include('Documents.Functions.Menu.MenuCheckDocument')
+        @include('Documents.Functions.Menu.MenuCheckDocument')
 
-      <?php if ($var == 1) { ?>
-      <div class="card" style="position:relative;bottom:10px;">
-        <div class="tab-content px-3 pt-4 pb-2" id="nav-tabContent">
-          <!-- BUTTON VIEW DOCUMENT TRANSACTION -->
-          {{-- <div class="row">
-            <div class="card ViewDocument" style="background-color:#e9ecef;border:1px solid #ced4da;margin-left:10px;">
-              <a class="btn btn-default btn-sm">
-                View Document Transaction
-              </a>
-            </div>
-          </div> --}}
+        <?php if ($var == 1) { ?>
+        <div class="card" style="position:relative;bottom:10px;">
+          <div class="tab-content px-3 pt-4 pb-2" id="nav-tabContent">
+            <!-- BUTTON VIEW DOCUMENT TRANSACTION -->
+            {{-- <div class="row">
+              <div class="card ViewDocument" style="background-color:#e9ecef;border:1px solid #ced4da;margin-left:10px;">
+                <a class="btn btn-default btn-sm">
+                  View Document Transaction
+                </a>
+              </div>
+            </div> --}}
 
-          <div class="row">
-            {{-- @include('Documents.Transactions.DocumentWorkflow') --}}
+            <div class="row">
+              {{-- @include('Documents.Transactions.DocumentWorkflow') --}}
 
-            <!-- HEADER -->
-            <div class="col-12 ShowDocumentList">
-              <div class="card">
-                <!-- TITLE -->
-                <div class="card-header">
-                  <h3 class="text-bold text-center text-uppercase">
-                    <?= $transactionType; ?>
-                  </h3>
-                </div>
+              <!-- HEADER -->
+              <div class="col-12 ShowDocumentList">
+                <div class="card">
+                  <!-- TITLE -->
+                  <div class="card-header">
+                    <h3 class="text-bold text-center text-uppercase">
+                      <?= $transactionType; ?>
+                    </h3>
+                  </div>
 
-                <!-- CONTENT -->
-                <?php if (isset($components['detail'])) { ?>
+                  <!-- CONTENT -->
+                  <?php  if (isset($components['detail'])) { ?>
                   <div class="card-body">
                     <div class="row" style="margin: .6rem 0rem; gap: 1rem; line-height: normal;">
                       @include($components['detail'])
                     </div>
                   </div>
-                <?php } ?>
+                  <?php  } ?>
 
-                <?php if (isset($components['customDetail'])) { ?>
+                  <?php  if (isset($components['customDetail'])) { ?>
                   @include($components['customDetail'])
-                <?php } ?>
+                  <?php  } ?>
+                </div>
               </div>
-            </div>
 
-            <!-- OTHER ADDITIONAL -->
-            <?php if (isset($components['otherAdditional']) && $dataHeader['dateUpdate']) { ?>
+              <!-- OTHER ADDITIONAL -->
+              <?php  if (isset($components['otherAdditional']) && $dataHeader['dateUpdate']) { ?>
               <div class="col-12 ShowDocumentList">
                 <div class="card">
                   @include($components['otherAdditional'])
                 </div>
               </div>
-            <?php } ?>
+              <?php  } ?>
 
-            <!-- TABLE HEADER LOG HISTORY -->
-            <?php if (isset($components['headerRevision']) && $dataHeader['dateUpdate']) { ?>
+              <!-- TABLE HEADER LOG HISTORY -->
+              <?php  if (isset($components['headerRevision']) && $dataHeader['dateUpdate']) { ?>
               <div class="col-12 ShowDocumentList">
                 <div class="card">
                   <div class="card-body p-0">
@@ -77,9 +77,9 @@
                   </div>
                 </div>
               </div>
-            <?php } ?>
+              <?php  } ?>
 
-            <?php if (isset($components['revision']) && isset($dataHeader['dateUpdate'])) { ?>
+              <?php  if (isset($components['revision']) && isset($dataHeader['dateUpdate'])) { ?>
               <div class="col-12 ShowDocumentList">
                 <div class="card">
                   <div class="card-body p-0">
@@ -87,38 +87,38 @@
                   </div>
                 </div>
               </div>
-            <?php } else { ?>
-              <?php if (isset($components['table'])) { ?>
-                <div class="col-12 ShowDocumentList">
-                  <div class="card">
-                    <div class="card-body p-0">
-                      @include($components['table'])
-                    </div>
+              <?php  } else { ?>
+              <?php    if (isset($components['table'])) { ?>
+              <div class="col-12 ShowDocumentList">
+                <div class="card">
+                  <div class="card-body p-0">
+                    @include($components['table'])
                   </div>
                 </div>
-              <?php } ?>
-            <?php } ?>
-            
-            <!-- ADDITIONAL -->
-            <?php if (isset($components['additional'])) { ?>
+              </div>
+              <?php    } ?>
+              <?php  } ?>
+
+              <!-- ADDITIONAL -->
+              <?php  if (isset($components['additional'])) { ?>
               <div class="col-12 ShowDocumentList">
                 <div class="card">
                   @include($components['additional'])
                 </div>
               </div>
-            <?php } ?>
+              <?php  } ?>
 
-            <!-- INFORMATION -->
-            <?php if (isset($components['information'])) { ?>
+              <!-- INFORMATION -->
+              <?php  if (isset($components['information'])) { ?>
               <div class="col-12 ShowDocumentList">
                 <div class="card">
                   @include($components['information'])
                 </div>
               </div>
-            <?php } ?>
+              <?php  } ?>
 
-            <!-- TEXT AREA FIELD (Remarks, Reason To Travel) -->
-            <?php if (isset($textAreaFields) && !$dataHeader['dateUpdate']) { ?>
+              <!-- TEXT AREA FIELD (Remarks, Reason To Travel) -->
+              <?php  if (isset($textAreaFields) && !$dataHeader['dateUpdate']) { ?>
               <div class="col-12 ShowDocumentList">
                 <div class="card">
                   <!-- TITLE -->
@@ -132,7 +132,7 @@
                       </button>
                     </div>
                   </div>
-                  
+
                   <!-- CONTENT -->
                   <div class="card-body">
                     <div class="row" style="margin: .6rem 0rem;">
@@ -143,59 +143,65 @@
                   </div>
                 </div>
               </div>
-            <?php } ?>
+              <?php  } ?>
 
-            <!-- APPROVAL HISTORY -->
-            <div class="col-12 ShowDocumentList">
-              <div class="card">
-                <!-- TITLE -->
-                <div class="card-header">
-                  <label class="card-title">
-                    Approval History
-                  </label>
-                  <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                      <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
-                    </button>
+              <!-- APPROVAL HISTORY -->
+              <div class="col-12 ShowDocumentList">
+                <div class="card">
+                  <!-- TITLE -->
+                  <div class="card-header">
+                    <label class="card-title">
+                      Approval History
+                    </label>
+                    <div class="card-tools">
+                      <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                        <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
+                      </button>
+                    </div>
                   </div>
-                </div>
 
-                <!-- CONTENT -->
-                <div class="card-body">
-                  <div class="row text-bold" style="margin-top: .7rem; gap: 1rem;">
-                    Last Status : 
+                  <!-- CONTENT -->
+                  <div class="card-body">
+                    <div class="row text-bold" style="margin-top: .7rem; gap: 1rem;">
+                      <?php  $endWorkflow = end($dataWorkFlows['itemList']['ungrouped'])['entities']['currentApproval']['workFlowPathActionName']; ?>
+                      Last Status :
                       @if(isset($dataWorkFlows))
                         @if($statusDocument == 0)
-                          Waiting Approval from {{ $dataWorkFlows['itemList']['ungrouped'][count($dataWorkFlows['itemList']['ungrouped']) - 1]['entities']['nextDefaultApproval']['approverEntityName'] }}
+                          Waiting
+                          {{ $endWorkflow == 'Rejection To Resubmit' ? 'Resubmit' : 'Approval' }}
+                          from
+                          {{ $dataWorkFlows['itemList']['ungrouped'][count($dataWorkFlows['itemList']['ungrouped']) - 1]['entities']['nextDefaultApproval']['approverEntityName'] }}
                         @elseif($statusDocument == 1)
                           Final Approved
                         @elseif($statusDocument == 2)
                           Document Doesn't Has Workflow
                         @endif
                       @endif
-                  </div>
-                  <div class="row" style="margin-top: .7rem; gap: 1rem;">
-                    @include('Components.ApprovalHistory')
+                    </div>
+                    <div class="row" style="margin-top: .7rem; gap: 1rem;">
+                      @include('Components.ApprovalHistory')
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
 
-            <!-- BUTTON APPROVAL -->
-            <div class="col-12 text-right">
-              <!-- CANCEL -->
-              <a class="btn btn-default btn-sm" onclick="cancelForm('{{ route('CheckDocument.index', ['var' => 1]) }}')" style="background-color:#e9ecef;border:1px solid #ced4da;">
-                <img src="{{ asset('images/Icon/Pagination/Previous-300-32.png') }}" width="13" alt="" title="Cancel"> Back
-              </a>
+              <!-- BUTTON APPROVAL -->
+              <div class="col-12 text-right">
+                <!-- CANCEL -->
+                <a class="btn btn-default btn-sm" onclick="cancelForm('{{ route('CheckDocument.index', ['var' => 1]) }}')"
+                  style="background-color:#e9ecef;border:1px solid #ced4da;">
+                  <img src="{{ asset('images/Icon/Pagination/Previous-300-32.png') }}" width="13" alt="" title="Cancel">
+                  Back
+                </a>
+              </div>
             </div>
           </div>
         </div>
+        <?php } ?>
       </div>
-      <?php } ?>
-    </div>
-  </section>
-</div>
+    </section>
+  </div>
 
-@include('Partials.footer')
-@include('Documents.Functions.Footer.FooterCheckDocument')
+  @include('Partials.footer')
+  @include('Documents.Functions.Footer.FooterCheckDocument')
 @endsection

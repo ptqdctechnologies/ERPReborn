@@ -7,6 +7,7 @@
     @include('getFunction.getRequesters')
     @include('getFunction.getBusinessTripRequests')
     @include('getFunction.getBusinessTripSettlement')
+    @include('Process.BusinessTrip.BusinessTripToBSF.Functions.PopUp.PopUpReportBusinessTripToBSF')
 
     <div class="content-wrapper">
         <section class="content">

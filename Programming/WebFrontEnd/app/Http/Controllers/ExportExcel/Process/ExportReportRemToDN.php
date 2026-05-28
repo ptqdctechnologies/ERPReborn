@@ -54,6 +54,7 @@ class ExportReportRemToDN implements FromCollection, WithHeadings, ShouldAutoSiz
                 'REM Total IDR' => isset($item['REM_Total_IDR']) ? (string) $item['REM_Total_IDR'] : '0',
                 'REM Total Other Currency' => isset($item['REM_Total_Other_Currency']) ? (string) $item['REM_Total_Other_Currency'] : '0',
                 'REM Total Equivalent IDR' => isset($item['REM_Total_Equivalent_IDR']) ? (string) $item['REM_Total_Equivalent_IDR'] : '0',
+                'REM Payment' => '0',
                 'REM To Payment Balance' => isset($item['balanceREM_ToPayment']) ? (string) $item['balanceREM_ToPayment'] : '0',
                 'REM Status' => $item['REM_Status'] ?? '-',
                 'DN Number' => $item['DN_Number'] ?? '-',
@@ -61,6 +62,7 @@ class ExportReportRemToDN implements FromCollection, WithHeadings, ShouldAutoSiz
                 'DN Total IDR' => isset($item['DN_Total_IDR']) ? (string) $item['DN_Total_IDR'] : '0',
                 'DN Total Other Currency' => isset($item['DN_Total_Other_Currency']) ? (string) $item['DN_Total_Other_Currency'] : '0',
                 'DN Total Equivalent IDR' => isset($item['DN_Total_Equivalent_IDR']) ? (string) $item['DN_Total_Equivalent_IDR'] : '0',
+                'DN Payment' => '0',
                 'REM To DN Balance' => isset($item['balanceREM_ToDN']) ? (string) $item['balanceREM_ToDN'] : '0',
                 'DN Status' => $item['DN_Status'] ?? '-'
             ];
@@ -74,6 +76,7 @@ class ExportReportRemToDN implements FromCollection, WithHeadings, ShouldAutoSiz
             'REM Total IDR' => $totalReimbursementIDR,
             'REM Total Other Currency' => $totalReimbursementOtherCurrency,
             'REM Total Equivalent IDR' => $totalReimbursementEquivalentIDR,
+            'REM Payment' => '0',
             'REM To Payment Balance' => $totalReimbursementPaymentBalance,
             'REM Status' => '',
             'DN Number' => '',
@@ -81,6 +84,7 @@ class ExportReportRemToDN implements FromCollection, WithHeadings, ShouldAutoSiz
             'DN Total IDR' => $totalDebitNoteIDR,
             'DN Total Other Currency' => $totalDebitNoteOtherCurrency,
             'DN Total Equivalent IDR' => $totalDebitNoteEquivalentIDR,
+            'DN Payment' => '0',
             'REM To DN Balance' => $totalDebitNoteBalance,
             'DN Status' => ''
         ];
@@ -97,8 +101,8 @@ class ExportReportRemToDN implements FromCollection, WithHeadings, ShouldAutoSiz
             ["REM Number", ": -", "Budget", ": -", "Date Range", ": -"],
             ["DN Number", ": -", "Customer", ": -"],
             [""],
-            ["No", "Reimbursement", "", "", "", "", "", "", "", "Debit Note", "", "", "", "", "", ""],
-            ["", "Number", "Date", "Customer", "Total IDR", "Total Other Currency", "Total Equivalent IDR", "REM to Payment Balance", "Status", "Number", "Date", "Total IDR", "Total Other Currency", "Total Equivalent IDR", "REM to DN Balance", "Status"]
+            ["No", "Reimbursement", "", "", "", "", "", "", "", "", "Debit Note", "", "", "", "", "", "", ""],
+            ["", "Number", "Date", "Customer", "Total IDR", "Total Other Currency", "Total Equivalent IDR", "Payment", "REM to Payment Balance", "Status", "Number", "Date", "Total IDR", "Total Other Currency", "Total Equivalent IDR", "Payment", "REM to DN Balance", "Status"]
         ];
     }
 
@@ -115,8 +119,8 @@ class ExportReportRemToDN implements FromCollection, WithHeadings, ShouldAutoSiz
                 'horizontal' => Alignment::HORIZONTAL_RIGHT,
             ]
         ];
-        $sheet->getStyle('A1:P1')->applyFromArray($styleArrayHeader0);
-        $sheet->mergeCells('A1:P1');
+        $sheet->getStyle('A1:R1')->applyFromArray($styleArrayHeader0);
+        $sheet->mergeCells('A1:R1');
 
         $styleArrayHeader1 = [
             'font' => [
@@ -129,8 +133,8 @@ class ExportReportRemToDN implements FromCollection, WithHeadings, ShouldAutoSiz
                 'horizontal' => Alignment::HORIZONTAL_CENTER,
             ]
         ];
-        $sheet->getStyle('A2:P2')->applyFromArray($styleArrayHeader1);
-        $sheet->mergeCells('A2:P2');
+        $sheet->getStyle('A2:R2')->applyFromArray($styleArrayHeader1);
+        $sheet->mergeCells('A2:R2');
 
         $styleArrayHeader2 = [
             'font' => [
@@ -143,8 +147,8 @@ class ExportReportRemToDN implements FromCollection, WithHeadings, ShouldAutoSiz
                 'horizontal' => Alignment::HORIZONTAL_RIGHT,
             ]
         ];
-        $sheet->getStyle('A3:P3')->applyFromArray($styleArrayHeader2);
-        $sheet->mergeCells('A3:P3');
+        $sheet->getStyle('A3:R3')->applyFromArray($styleArrayHeader2);
+        $sheet->mergeCells('A3:R3');
 
         $styleArrayHeader3 = [
             'font' => [
@@ -157,8 +161,8 @@ class ExportReportRemToDN implements FromCollection, WithHeadings, ShouldAutoSiz
                 'horizontal' => Alignment::HORIZONTAL_LEFT,
             ]
         ];
-        $sheet->getStyle('A4:P4')->applyFromArray($styleArrayHeader3);
-        $sheet->getStyle('A5:P5')->applyFromArray($styleArrayHeader3);
+        $sheet->getStyle('A4:R4')->applyFromArray($styleArrayHeader3);
+        $sheet->getStyle('A5:R5')->applyFromArray($styleArrayHeader3);
 
         $styleArrayHeader4 = [
             'font' => [
@@ -183,11 +187,11 @@ class ExportReportRemToDN implements FromCollection, WithHeadings, ShouldAutoSiz
                 ],
             ],
         ];
-        $sheet->getStyle('A7:P7')->applyFromArray($styleArrayHeader4);
-        $sheet->getStyle('A8:P8')->applyFromArray($styleArrayHeader4);
+        $sheet->getStyle('A7:R7')->applyFromArray($styleArrayHeader4);
+        $sheet->getStyle('A8:R8')->applyFromArray($styleArrayHeader4);
         $sheet->mergeCells('A7:A8');
-        $sheet->mergeCells('B7:I7');
-        $sheet->mergeCells('J7:P7');
+        $sheet->mergeCells('B7:J7');
+        $sheet->mergeCells('K7:R7');
 
         $styleArrayContent = [
             'borders' => [
@@ -201,7 +205,7 @@ class ExportReportRemToDN implements FromCollection, WithHeadings, ShouldAutoSiz
         ];
         $datas = $this->dataReport;
         $totalCell = count($datas);
-        $lastCell = 'A9:P' . $totalCell + 9;
+        $lastCell = 'A9:R' . $totalCell + 9;
         $sheet->getStyle($lastCell)->applyFromArray($styleArrayContent);
 
         $styleArrayFooter = [
@@ -227,8 +231,8 @@ class ExportReportRemToDN implements FromCollection, WithHeadings, ShouldAutoSiz
                 ],
             ],
         ];
-        $sheet->getStyle('A' . $totalCell + 9 . ':' . 'P' . $totalCell + 9)->applyFromArray($styleArrayFooter);
+        $sheet->getStyle('A' . $totalCell + 9 . ':' . 'R' . $totalCell + 9)->applyFromArray($styleArrayFooter);
         $sheet->mergeCells('A' . $totalCell + 9 . ':D' . $totalCell + 9);
-        $sheet->mergeCells('I' . $totalCell + 9 . ':K' . $totalCell + 9);
+        $sheet->mergeCells('J' . $totalCell + 9 . ':L' . $totalCell + 9);
     }
 }

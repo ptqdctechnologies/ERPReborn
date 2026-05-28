@@ -140,13 +140,13 @@
                         No
                     </div>
                 </td>
-                <td colspan="8"
+                <td colspan="9"
                     style="width: 20px; border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
                     <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
                         Reimbursement
                     </div>
                 </td>
-                <td colspan="7"
+                <td colspan="8"
                     style="width: 20px; border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
                     <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
                         Debit Note
@@ -186,6 +186,11 @@
                 </td>
                 <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
                     <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+                        Payment
+                    </div>
+                </td>
+                <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
                         REM to Payment Balance
                     </div>
                 </td>
@@ -217,6 +222,11 @@
                 <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
                     <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
                         Total Equivalent IDR
+                    </div>
+                </td>
+                <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+                        Payment
                     </div>
                 </td>
                 <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
@@ -274,6 +284,11 @@
                 </td>
                 <td>
                     <div style="margin-top: 4px; font-size: 12px;">
+                        -
+                    </div>
+                </td>
+                <td>
+                    <div style="margin-top: 4px; font-size: 12px;">
                         <?= $data['balanceREM_ToPayment'] ?? '-'; ?>
                     </div>
                 </td>
@@ -305,6 +320,11 @@
                 <td>
                     <div style="margin-top: 4px; font-size: 12px;">
                         <?= $data['DN_Total_Equivalent_IDR'] ?? '-'; ?>
+                    </div>
+                </td>
+                <td>
+                    <div style="margin-top: 4px; font-size: 12px;">
+                        -
                     </div>
                 </td>
                 <td>
