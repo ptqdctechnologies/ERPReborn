@@ -80,3 +80,6 @@ composer audit
 /zhtConf/Script/BashScript/Script.Maintenance.SystemUpdate.Composer.sh 
 vim /zhtConf/Script/BashScript/Script.Maintenance.SystemUpdate.Composer.sh 
 exit
+vim /zhtConf/Script/BashScript/Script.Maintenance.SystemUpdate.Composer.sh 
+/zhtConf/Script/BashScript/Script.Maintenance.SystemUpdate.Composer.sh 
+exit
