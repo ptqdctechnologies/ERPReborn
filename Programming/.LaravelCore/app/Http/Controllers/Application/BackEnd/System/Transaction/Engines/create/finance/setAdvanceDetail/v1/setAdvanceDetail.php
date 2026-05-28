@@ -98,6 +98,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
                                     $varData['entities']['productUnitPriceCurrency_RefID'],
                                     $varData['entities']['productUnitPriceCurrencyValue'],
                                     $varData['entities']['productUnitPriceCurrencyExchangeRate'],
+                                    $varData['entities']['workStructure_RefID'],
                                     $varData['entities']['remarks']
                                     )
                                 )

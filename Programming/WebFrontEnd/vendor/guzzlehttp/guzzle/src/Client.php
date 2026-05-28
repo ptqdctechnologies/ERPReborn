@@ -87,8 +87,12 @@ class Client implements ClientInterface, \Psr\Http\Client\ClientInterface
         $uri = $args[0];
         $opts = $args[1] ?? [];
 
-        return \substr($method, -5) === 'Async'
-            ? $this->requestAsync(\substr($method, 0, -5), $uri, $opts)
+        $isAsync = \substr($method, -5) === 'Async';
+        $method = $isAsync ? \substr($method, 0, -5) : $method;
+        $method = \strtoupper($method);
+
+        return $isAsync
+            ? $this->requestAsync($method, $uri, $opts)
             : $this->request($method, $uri, $opts);
     }
 
@@ -156,7 +160,7 @@ class Client implements ClientInterface, \Psr\Http\Client\ClientInterface
         // Remove request modifying parameter because it can be done up-front.
         $headers = $options['headers'] ?? [];
         $body = $options['body'] ?? null;
-        $version = $options['version'] ?? '1.1';
+        $version = self::normalizeProtocolVersion($options['version'] ?? '1.1');
         // Merge the URI into the base URI.
         $uri = $this->buildUri(Psr7\Utils::uriFor($uri), $options);
         if (\is_array($body)) {
@@ -326,6 +330,11 @@ class Client implements ClientInterface, \Psr\Http\Client\ClientInterface
     private function transfer(RequestInterface $request, array $options): PromiseInterface
     {
         $request = $this->applyOptions($request, $options);
+
+        if ('' === $request->getProtocolVersion()) {
+            $request = Psr7\Utils::modifyRequest($request, ['version' => '1.1']);
+        }
+
         /** @var HandlerStack $handler */
         $handler = $options['handler'];
 
@@ -386,7 +395,7 @@ class Client implements ClientInterface, \Psr\Http\Client\ClientInterface
         ) {
             // Ensure that we don't have the header in different case and set the new value.
             $options['_conditional'] = Psr7\Utils::caselessRemove(['Accept-Encoding'], $options['_conditional']);
-            $modify['set_headers']['Accept-Encoding'] = $options['decode_content'];
+            $modify['set_headers']['Accept-Encoding'] = (string) $options['decode_content'];
         }
 
         if (isset($options['body'])) {
@@ -440,7 +449,7 @@ class Client implements ClientInterface, \Psr\Http\Client\ClientInterface
         }
 
         if (isset($options['version'])) {
-            $modify['version'] = $options['version'];
+            $modify['version'] = self::normalizeProtocolVersion($options['version']);
         }
 
         $request = Psr7\Utils::modifyRequest($request, $modify);
@@ -467,6 +476,18 @@ class Client implements ClientInterface, \Psr\Http\Client\ClientInterface
         }
 
         return $request;
+    }
+
+    /**
+     * @param string|float $version
+     */
+    private static function normalizeProtocolVersion($version): string
+    {
+        if ('' === $version) {
+            return '1.1';
+        }
+
+        return \is_float($version) ? \number_format($version, 1, '.', '') : (string) $version;
     }
 
     /**

@@ -5,4 +5,5 @@ cd /var/www/html/WebBackEnd;
 composer self-update;
 git config --global --add safe.directory '*';
 composer update -W;
+composer audit;
 cd -;
