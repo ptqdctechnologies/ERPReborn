@@ -14,8 +14,8 @@
 
 clear;
 
-sudo docker exec -it php-apache-backend /bin/bash -c "composer self-update; cd /var/www/html/WebBackEnd; git config --global --add safe.directory '*'; composer update; cd -; ";
-sudo docker exec -it php-apache-frontend /bin/bash -c "composer self-update; cd /var/www/html/WebFrontEnd; git config --global --add safe.directory '*'; composer update; cd -; ";
+sudo docker exec -it php-apache-backend /bin/bash -c "composer self-update; cd /var/www/html/WebBackEnd; git config --global --add safe.directory '*'; composer update; composer audit; cd -; ";
+sudo docker exec -it php-apache-frontend /bin/bash -c "composer self-update; cd /var/www/html/WebFrontEnd; git config --global --add safe.directory '*'; composer update; composer audit; cd -; ";
 
 ./BashScript/Script.Docker.Reinitializing.LaravelFolderOwnership.sh;
 
