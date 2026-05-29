@@ -264,39 +264,6 @@ class LoanController extends Controller
 
             return response()->json(['statusCode' => 400]);
         }
-
-        try {
-            $dataPDF = Session::get("LoanSettlementReportSummaryDataPDF");
-            $dataExcel = Session::get("LoanSettlementReportSummaryDataExcel");
-
-
-            if ($dataPDF && $dataExcel) {
-                $print_type = $request->print_type;
-                if ($print_type == "PDF") {
-                    $dataloantosettle = Session::get("LoanSettlementReportSummaryDataPDF");
-                    // dd($dataloantosettle);
-
-                    $pdf = PDF::loadView('Process.Loan.Reports.ReportLoantoLoanSettlement_pdf', ['dataloantosettle' => $dataloantosettle])->setPaper('a4', 'landscape');
-                    $pdf->output();
-                    $dom_pdf = $pdf->getDomPDF();
-
-                    $canvas = $dom_pdf->get_canvas();
-                    $width = $canvas->get_width();
-                    $height = $canvas->get_height();
-                    $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
-                    $canvas->page_text(34, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
-
-                    return $pdf->download('Export Report Loan to Loan Settlement.pdf');
-                } else if ($print_type == "Excel") {
-                    return Excel::download(new ExportReportLoantoLoanSettlement, 'Export Report Loan to Loan Settlement.xlsx');
-                }
-            } else {
-                return redirect()->route('Loan.ReportLoantoLoanSettlement')->with('NotFound', 'Data Cannot Empty');
-            }
-        } catch (\Throwable $th) {
-            Log::error("Error at " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
-        }
     }
 
     public function ReportLoanSummary(Request $request)

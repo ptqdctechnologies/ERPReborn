@@ -69,7 +69,7 @@ class ExportReportAdvanceToASF implements FromCollection, WithHeadings, ShouldAu
             ["Sub Budget", ": " . $subBudgetName, "Date Range", ": " . $date],
             [""],
             ["No", "Advance", "", "", "", "", "", "", "Settlement", "", "", "", "", "", "", ""],
-            ["", "ARF Number", "Date", "Requester", "Total", "Payment", "ARF to Payment Balance", "Status", "ASF Number", "Date", "Expense Claim", "Amount to the Company", "Total", "Payment", "ARF to ASF Balance", "Status"]
+            ["", "ARF Number", "Date", "Requester", "Total", "Payment", "ARF to Payment Balance", "ARF Status", "ASF Number", "Date", "Expense Claim", "Amount to the Company", "Total", "Payment", "ARF to ASF Balance", "ASF Status"]
         ];
     }
 

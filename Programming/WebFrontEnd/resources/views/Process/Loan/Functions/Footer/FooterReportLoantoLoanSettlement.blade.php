@@ -159,6 +159,10 @@
                             defaultContent: '-'
                         },
                         {
+                            data: '-', // LOAN PAYMENT
+                            defaultContent: '-'
+                        },
+                        {
                             data: '-', // LOAN STATUS
                             defaultContent: '-'
                         },
@@ -223,11 +227,15 @@
                             defaultContent: '-'
                         },
                         {
-                            data: '-', // STATUS
+                            data: '-', // LOAN SETTLEMENT PAYMENT
                             defaultContent: '-'
                         },
                         {
-                            data: '-', // REMARK
+                            data: '-', // LOAN SETTLEMENT STATUS
+                            defaultContent: '-'
+                        },
+                        {
+                            data: '-', // LOAN SETTLEMENT REMARK
                             defaultContent: '-'
                         }
                     ],
@@ -240,16 +248,18 @@
                         $('#table_summary tfoot th:nth-child(7)').text(currencyTotal(totalLoanEquivalent));
                         $('#table_summary tfoot th:nth-child(8)').text(currencyTotal(totalLoanEquivalent));
                         $('#table_summary tfoot th:nth-child(9)').text(currencyTotal(totalSettlementIDR));
-                        $('#table_summary tfoot th:nth-child(11)').text(currencyTotal(totalSettlementEquivalent));
-                        $('#table_summary tfoot th:nth-child(12)').text(currencyTotal(totalPenaltyIDR));
-                        $('#table_summary tfoot th:nth-child(13)').text(currencyTotal(totalPenaltyOtherCurrency));
-                        $('#table_summary tfoot th:nth-child(14)').text(currencyTotal(totalPenaltyEquivalent));
-                        $('#table_summary tfoot th:nth-child(15)').text(currencyTotal(totalInterestIDR));
-                        $('#table_summary tfoot th:nth-child(16)').text(currencyTotal(totalInterestOtherCurrency));
-                        $('#table_summary tfoot th:nth-child(17)').text(currencyTotal(totalInterestEquivalent));
-                        $('#table_summary tfoot th:nth-child(18)').text(currencyTotal(totalBalancePrincipalPayment));
-                        $('#table_summary tfoot th:nth-child(19)').text(currencyTotal(totalBalancePrincipalSettlement));
-                        $('#table_summary tfoot th:nth-child(20)').text(currencyTotal(totalBalanceSettlementPayment));
+                        $('#table_summary tfoot th:nth-child(10)').text(currencyTotal(0));
+                        $('#table_summary tfoot th:nth-child(12)').text(currencyTotal(totalSettlementEquivalent));
+                        $('#table_summary tfoot th:nth-child(13)').text(currencyTotal(totalPenaltyIDR));
+                        $('#table_summary tfoot th:nth-child(14)').text(currencyTotal(totalPenaltyOtherCurrency));
+                        $('#table_summary tfoot th:nth-child(15)').text(currencyTotal(totalPenaltyEquivalent));
+                        $('#table_summary tfoot th:nth-child(16)').text(currencyTotal(totalInterestIDR));
+                        $('#table_summary tfoot th:nth-child(17)').text(currencyTotal(totalInterestOtherCurrency));
+                        $('#table_summary tfoot th:nth-child(18)').text(currencyTotal(totalInterestEquivalent));
+                        $('#table_summary tfoot th:nth-child(19)').text(currencyTotal(totalBalancePrincipalPayment));
+                        $('#table_summary tfoot th:nth-child(20)').text(currencyTotal(totalBalancePrincipalSettlement));
+                        $('#table_summary tfoot th:nth-child(21)').text(currencyTotal(totalBalanceSettlementPayment));
+                        $('#table_summary tfoot th:nth-child(22)').text(currencyTotal(0));
                     }
                 });
 

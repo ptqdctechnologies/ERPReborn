@@ -99,7 +99,7 @@ class ExportReportPOtoAP implements FromCollection, WithHeadings, ShouldAutoSize
             ["AP Number", ": -", "Sub Budget", ": -", "Date Range", ": -"],
             [""],
             ["No", "Purchase Order", "", "", "", "", "", "", "", "", "Account Payable", "", "", "", "", "", ""],
-            ["", "Number", "Budget", "Date", "Supplier", "Total IDR", "Total Other Currency", "Total Equivalent IDR", "PO to AP Balance", "Status", "Number", "Date", "Total IDR", "Total Other Currency", "Total Equivalent IDR", "AP to Payment Balance", "Status"]
+            ["", "Number", "Budget", "Date", "Supplier", "Total IDR", "Total Other Currency", "Total Equivalent IDR", "PO to AP Balance", "PO Status", "Number", "Date", "Total IDR", "Total Other Currency", "Total Equivalent IDR", "AP to Payment Balance", "AP Status"]
         ];
     }
 
