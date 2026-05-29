@@ -163,14 +163,16 @@
                   <!-- CONTENT -->
                   <div class="card-body">
                     <div class="row text-bold" style="margin-top: .7rem; gap: 1rem;">
-                      <?php  $endWorkflow = end($dataWorkFlows['itemList']['ungrouped'])['entities']['currentApproval']['workFlowPathActionName']; ?>
+                      <?php  $endWorkflow = end($dataWorkFlows['itemList']['ungrouped'])['entities']['currentApproval']; ?>
                       Last Status :
                       @if(isset($dataWorkFlows))
                         @if($statusDocument == 0)
-                          Waiting
-                          {{ $endWorkflow == 'Rejection To Resubmit' ? 'Resubmit' : 'Approval' }}
-                          from
-                          {{ $dataWorkFlows['itemList']['ungrouped'][count($dataWorkFlows['itemList']['ungrouped']) - 1]['entities']['nextDefaultApproval']['approverEntityName'] }}
+                          @if($endWorkflow['workFlowPathActionName'] == 'Rejection To Resubmit')
+                            Rejected from {{ $endWorkflow['approverEntityName'] }}
+                          @else
+                            Waiting Approval from
+                            {{ $dataWorkFlows['itemList']['ungrouped'][count($dataWorkFlows['itemList']['ungrouped']) - 1]['entities']['nextDefaultApproval']['approverEntityName'] }}
+                          @endif
                         @elseif($statusDocument == 1)
                           Final Approved
                         @elseif($statusDocument == 2)
