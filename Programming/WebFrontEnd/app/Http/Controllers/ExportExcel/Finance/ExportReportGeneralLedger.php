@@ -42,7 +42,8 @@ class ExportReportGeneralLedger implements FromCollection, WithHeadings, ShouldA
                 'Ref Doc' => $item['refDocument'] ?? '-',
                 'Debit' => $item['debit'] ?? '-',
                 'Credit' => $item['credit'] ?? '-',
-                'Balance' => $item['balance'] ?? '-'
+                'Balance' => $item['balance'] ?? '-',
+                'COA' => ($item['chartOfAccountCode'] ?? '') . ' - ' . ($item['chartOfAccountName'] ?? ''),
             ];
         }
 
@@ -54,7 +55,8 @@ class ExportReportGeneralLedger implements FromCollection, WithHeadings, ShouldA
             'Ref Doc' => '',
             'Debit' => $totalDebit,
             'Credit' => $totalCredit,
-            'Balance' => $totalBalance
+            'Balance' => $totalBalance,
+            'COA' => ''
         ];
 
         return collect($filteredData);
@@ -68,7 +70,7 @@ class ExportReportGeneralLedger implements FromCollection, WithHeadings, ShouldA
             [date('h:i A')],
             ["Account Name", ": ", "Date Range", ": "],
             [""],
-            ["No", "Date", "Journal Number", "Description", "Ref Doc", "Debit (Rp)", "Credit (Rp)", "Balance (Rp)"]
+            ["No", "Date", "Journal Number", "Description", "Ref Doc", "Debit (Rp)", "Credit (Rp)", "Balance (Rp)", "COA"]
         ];
     }
 
@@ -85,8 +87,8 @@ class ExportReportGeneralLedger implements FromCollection, WithHeadings, ShouldA
                 'horizontal' => Alignment::HORIZONTAL_RIGHT,
             ]
         ];
-        $sheet->getStyle('A1:H1')->applyFromArray($styleArrayHeader0);
-        $sheet->mergeCells('A1:H1');
+        $sheet->getStyle('A1:I1')->applyFromArray($styleArrayHeader0);
+        $sheet->mergeCells('A1:I1');
 
         $styleArrayHeader1 = [
             'font' => [
@@ -99,8 +101,8 @@ class ExportReportGeneralLedger implements FromCollection, WithHeadings, ShouldA
                 'horizontal' => Alignment::HORIZONTAL_CENTER,
             ]
         ];
-        $sheet->getStyle('A2:H2')->applyFromArray($styleArrayHeader1);
-        $sheet->mergeCells('A2:H2');
+        $sheet->getStyle('A2:I2')->applyFromArray($styleArrayHeader1);
+        $sheet->mergeCells('A2:I2');
 
         $styleArrayHeader = [
             'font' => [
@@ -113,8 +115,8 @@ class ExportReportGeneralLedger implements FromCollection, WithHeadings, ShouldA
                 'horizontal' => Alignment::HORIZONTAL_RIGHT,
             ]
         ];
-        $sheet->getStyle('A3:H3')->applyFromArray($styleArrayHeader);
-        $sheet->mergeCells('A3:H3');
+        $sheet->getStyle('A3:I3')->applyFromArray($styleArrayHeader);
+        $sheet->mergeCells('A3:I3');
 
         $styleArrayHeader4 = [
             'font' => [
@@ -127,7 +129,7 @@ class ExportReportGeneralLedger implements FromCollection, WithHeadings, ShouldA
                 'horizontal' => Alignment::HORIZONTAL_LEFT,
             ]
         ];
-        $sheet->getStyle('A4:H4')->applyFromArray($styleArrayHeader4);
+        $sheet->getStyle('A4:I4')->applyFromArray($styleArrayHeader4);
 
         $styleArrayHeader6 = [
             'font' => [
@@ -152,7 +154,7 @@ class ExportReportGeneralLedger implements FromCollection, WithHeadings, ShouldA
                 ],
             ],
         ];
-        $sheet->getStyle('A6:H6')->applyFromArray($styleArrayHeader6);
+        $sheet->getStyle('A6:I6')->applyFromArray($styleArrayHeader6);
 
         $styleArrayContent = [
             'borders' => [
@@ -166,7 +168,7 @@ class ExportReportGeneralLedger implements FromCollection, WithHeadings, ShouldA
         ];
         $datas = $this->dataReport;
         $totalCell = count($datas);
-        $lastCell = 'A7:H' . $totalCell + 6;
+        $lastCell = 'A7:I' . $totalCell + 6;
         $sheet->getStyle($lastCell)->applyFromArray($styleArrayContent);
 
         $styleArrayFooter = [
@@ -193,7 +195,7 @@ class ExportReportGeneralLedger implements FromCollection, WithHeadings, ShouldA
             ],
         ];
 
-        $sheet->getStyle('A' . $totalCell + 7 . ':' . 'H' . $totalCell + 7)->applyFromArray($styleArrayFooter);
+        $sheet->getStyle('A' . $totalCell + 7 . ':' . 'I' . $totalCell + 7)->applyFromArray($styleArrayFooter);
         $sheet->mergeCells('A' . $totalCell + 7 . ':E' . $totalCell + 7);
     }
 }

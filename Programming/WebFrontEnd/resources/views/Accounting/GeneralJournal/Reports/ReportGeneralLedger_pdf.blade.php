@@ -110,6 +110,11 @@
             Balance (Rp)
           </div>
         </td>
+        <td style="width: 20px; border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+            COA
+          </div>
+        </td>
       </tr>
     </thead>
 
@@ -155,6 +160,11 @@
         <td>
           <div style="margin-top: 4px; font-size: 12px;">
             <?= $data['balance'] ?? '-'; ?>
+          </div>
+        </td>
+        <td>
+          <div style="margin-top: 4px; font-size: 12px;">
+            <?= $data['chartOfAccountCode'] ?? ''; ?> - <?= $data['chartOfAccountName'] ?? ''; ?>
           </div>
         </td>
       </tr>
