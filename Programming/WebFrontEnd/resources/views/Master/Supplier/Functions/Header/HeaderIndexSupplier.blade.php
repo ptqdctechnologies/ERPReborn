@@ -30,8 +30,8 @@
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Supplier Category</label>
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
                     <div>
-                        <span id="" class="input-group-text form-control" style="border-radius:0;cursor:pointer;">
-                            <i id="iconBudget" class="fas fa-gift"></i>
+                        <span class="input-group-text form-control" style="border-radius:0;cursor:pointer;">
+                            <i class="fas fa-gift"></i>
                         </span>
                     </div>
                     <div>
@@ -46,8 +46,9 @@
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Country</label>
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
                     <div>
-                        <span id="" class="input-group-text form-control" style="border-radius:0;cursor:pointer;">
-                            <i id="iconBudget" class="fas fa-gift"></i>
+                        <span id="myCountryTrigger" data-toggle="modal" data-target="#myCountries"
+                            class="input-group-text form-control" style="border-radius:0;cursor:pointer;">
+                            <i class="fas fa-gift"></i>
                         </span>
                     </div>
                     <div>
@@ -63,8 +64,9 @@
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Province</label>
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
                     <div>
-                        <span id="" class="input-group-text form-control" style="border-radius:0;cursor:pointer;">
-                            <i id="iconBudget" class="fas fa-gift"></i>
+                        <span id="provinceTrigger" data-toggle="modal" data-target="#myProvincies"
+                            class="input-group-text form-control" style="border-radius:0;cursor:pointer;">
+                            <i class="fas fa-gift"></i>
                         </span>
                     </div>
                     <div>
@@ -79,8 +81,9 @@
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">City</label>
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
                     <div>
-                        <span id="" class="input-group-text form-control" style="border-radius:0;cursor:pointer;">
-                            <i id="iconBudget" class="fas fa-gift"></i>
+                        <span id="cityTrigger" data-toggle="modal" data-target="#myCities"
+                            class="input-group-text form-control" style="border-radius:0;cursor:pointer;">
+                            <i class="fas fa-gift"></i>
                         </span>
                     </div>
                     <div>

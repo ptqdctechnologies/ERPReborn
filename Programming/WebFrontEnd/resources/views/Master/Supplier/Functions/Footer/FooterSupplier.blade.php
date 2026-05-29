@@ -1,6 +1,24 @@
 <script>
     let dataReport = [];
+    let countryCodeTemp = null;
     const printType = document.getElementById("print_type");
+
+    function resetForm() {
+        $(`#supplier_code`).val("");
+        $(`#supplier_name`).val("");
+
+        $("#supplier_category").css('background-color', '#fff');
+        $(`#supplier_category`).val("");
+
+        $("#supplier_country").css('background-color', '#fff');
+        $(`#supplier_country`).val("");
+
+        $("#supplier_province").css('background-color', '#fff');
+        $(`#supplier_province`).val("");
+
+        $("#supplier_city").css('background-color', '#fff');
+        $(`#supplier_city`).val("");
+    }
 
     function getDataSuppliers() {
         $('#table_supplier').DataTable({
@@ -121,6 +139,10 @@
                     data: 'address',
                     defaultContent: '-',
                     className: "align-middle text-wrap line-height-normal"
+                },
+                {
+                    data: '-',
+                    defaultContent: '-'
                 }
             ]
         });
@@ -196,7 +218,46 @@
         getSuppliers();
     });
 
+    $('#tableCountries').on('click', 'tbody tr', function () {
+        const id = $(this).find('input[data-trigger="sys_id_country"]').val();
+        const code = $(this).find('td:nth-child(2)').text();
+        const name = $(this).find('td:nth-child(3)').text();
+
+        countryCodeTemp = code;
+
+        $("#supplier_country").val(name);
+        $("#supplier_country").css('background-color', '#e9ecef');
+
+        getProvincies(code);
+
+        $("#myCountries").modal('toggle');
+    });
+
+    $('#tableProvincies').on('click', 'tbody tr', function () {
+        const id = $(this).find('input[data-trigger="sys_id_province"]').val();
+        const code = $(this).find('td:nth-child(2)').text();
+        const name = $(this).find('td:nth-child(3)').text();
+
+        $("#supplier_province").val(name);
+        $("#supplier_province").css('background-color', '#e9ecef');
+
+        getCities(countryCodeTemp, code);
+
+        $("#myProvincies").modal('toggle');
+    });
+
+    $('#tableCities').on('click', 'tbody tr', function () {
+        const id = $(this).find('input[data-trigger="sys_id_country"]').val();
+        const name = $(this).find('td:nth-child(2)').text();
+
+        $("#supplier_city").val(name);
+        $("#supplier_city").css('background-color', '#e9ecef');
+
+        $("#myCities").modal('toggle');
+    });
+
     $(document).ready(function () {
+        getCountries();
         getDataSuppliers();
     });
 </script>

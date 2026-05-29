@@ -2,7 +2,10 @@
 @section('main')
     @include('Partials.navbar')
     @include('Partials.sidebar')
+    @include('getFunction.getCities')
     @include('getFunction.getSuppliers')
+    @include('getFunction.getCountries')
+    @include('getFunction.getProvincies')
     @include('Master.Supplier.Functions.PopUp.PopUpSupplierRevision')
 
     <div class="content-wrapper">
@@ -82,12 +85,15 @@
                                                         <th
                                                             style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
                                                             Address</th>
+                                                        <th
+                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;vertical-align:middle;">
+                                                            Category</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody></tbody>
                                                 <tfoot>
                                                     <tr id="loading-table">
-                                                        <td colspan="15" class="p-0" style="height: 22rem;">
+                                                        <td colspan="16" class="p-0" style="height: 22rem;">
                                                             <div
                                                                 class="d-flex flex-column justify-content-center align-items-center py-3">
                                                                 <div class="spinner-border" role="status">
