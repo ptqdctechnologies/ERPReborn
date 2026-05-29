@@ -7,9 +7,13 @@
             destroy: true,
             processing: true,
             serverSide: true,
-            searching: true,
+            searching: false,
             ordering: false,
-            pageLength: 25,
+            lengthMenu: [
+                [10, 20, 50, 100, -1],
+                [10, 20, 50, 100, "All"]
+            ],
+            pageLength: 20,
             ajax: {
                 type: 'POST',
                 url: '{!! route("Supplier.SupplierSummary") !!}',

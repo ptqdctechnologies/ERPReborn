@@ -162,8 +162,8 @@ class SupplierController extends Controller
 
         return response()->json([
             'draw' => intval($draw),
-            'recordsTotal' => $total,
-            'recordsFiltered' => $total,
+            'recordsTotal' => 3000,
+            'recordsFiltered' => 3000,
             'data' => $data
         ]);
     }
