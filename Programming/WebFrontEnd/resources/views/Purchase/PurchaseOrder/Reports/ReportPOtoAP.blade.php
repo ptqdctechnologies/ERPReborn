@@ -77,8 +77,8 @@
                                                             style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
                                                             Account Payable</th>
                                                         <!-- <th colspan="2"
-                                                                                    style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
-                                                                                    Balance</th> -->
+                                                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
+                                                                                            Balance</th> -->
                                                     </tr>
                                                     <tr>
                                                         <th
@@ -107,7 +107,7 @@
                                                             PO to AP Balance</th>
                                                         <th
                                                             style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
-                                                            Status</th>
+                                                            PO Status</th>
 
                                                         <th
                                                             style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
@@ -129,14 +129,14 @@
                                                             AP to Payment Balance</th>
                                                         <th
                                                             style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
-                                                            Status</th>
+                                                            AP Status</th>
 
                                                         <!-- <th
-                                                                        style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
-                                                                        PO to AP</th>
-                                                                    <th
-                                                                        style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
-                                                                        AP to Payment</th> -->
+                                                                                style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
+                                                                                PO to AP</th>
+                                                                            <th
+                                                                                style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
+                                                                                AP to Payment</th> -->
                                                     </tr>
                                                 </thead>
                                                 <tbody></tbody>

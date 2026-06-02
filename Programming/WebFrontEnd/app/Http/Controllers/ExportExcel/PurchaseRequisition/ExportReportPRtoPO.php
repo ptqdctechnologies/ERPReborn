@@ -94,7 +94,7 @@ class ExportReportPRtoPO implements FromCollection, WithHeadings, ShouldAutoSize
             ["PO Number", ": -", "Sub Budget", ": -", "Date Range", ": -"],
             [""],
             ["No", "Purchase Requisition", "", "", "", "", "", "", "Purchase Order", "", "", "", "", "", ""],
-            ["", "Number", "Date", "Product", "Total IDR", "Total Other Currency", "Total Equivalent IDR", "Status", "Number", "Date", "Qty", "Total IDR", "Total Other Currency", "Total Equivalent IDR", "PR to PO Balance", "Status"]
+            ["", "Number", "Date", "Product", "Total IDR", "Total Other Currency", "Total Equivalent IDR", "PR Status", "Number", "Date", "Qty", "Total IDR", "Total Other Currency", "Total Equivalent IDR", "PR to PO Balance", "PO Status"]
         ];
     }
 

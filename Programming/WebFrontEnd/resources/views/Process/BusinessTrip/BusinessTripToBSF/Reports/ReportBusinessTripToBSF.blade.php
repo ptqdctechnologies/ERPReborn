@@ -104,7 +104,7 @@
                                                             Business Trip to Payment Balance</th>
                                                         <th rowspan="2"
                                                             style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;vertical-align:middle;">
-                                                            Status</th>
+                                                            BRF Status</th>
 
                                                         <th rowspan="2"
                                                             style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;vertical-align:middle;">
@@ -122,8 +122,8 @@
                                                             style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;vertical-align:middle;">
                                                             Business Trip to Settlement Balance</th>
                                                         <th rowspan="2"
-                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;vertical-align:middle;">
-                                                            Status</th>
+                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;vertical-align:middle; padding-right: 10px;">
+                                                            BSF Status</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody></tbody>

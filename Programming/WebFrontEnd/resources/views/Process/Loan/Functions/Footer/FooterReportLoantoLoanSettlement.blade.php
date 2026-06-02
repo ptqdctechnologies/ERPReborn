@@ -1,6 +1,11 @@
 <script>
-    let isCreditorClicked = false;
+    let data = [];
     let dataReport = [];
+    let currentPage = 1;
+    let rowsPerPage = 10;
+    let filteredData = [...data];
+    let sortColumn = null;
+    let sortOrder = 'asc';
     const documentTypeID = document.getElementById("documentTypeRefID");
     const organizationalDepartmentName = document.getElementById("organizationalDepartmentName"); // Finance & Accounting
     const organizationalJobPositionName = document.getElementById("organizationalJobPositionName"); // General Manager
@@ -10,6 +15,9 @@
     const creditorID = document.getElementById("creditor_id");
     const debitorID = document.getElementById("debitor_id");
     const loanToSettlementDate = document.getElementById("loan_to_settlement_date_range");
+    const startLimit = document.getElementById("start_limit");
+    const endLimit = document.getElementById("end_limit");
+    const totalData = document.getElementById("total_data");
     const printType = document.getElementById("print_type");
 
     function selectBudget(id, code, name) {
@@ -56,213 +64,25 @@
             },
             dataType: 'json',
             success: function (response) {
-                let totalPrincipalIDR = 0;
-                let totalPrincipalOther = 0;
-                let totalPrincipalEquivalent = 0;
-
-                let totalLoanIDR = 0;
-                let totalLoanOtherCurrency = 0;
-                let totalLoanEquivalent = 0;
-
-                let totalSettlementIDR = 0;
-                let totalSettlementOtherCurrency = 0;
-                let totalSettlementEquivalent = 0;
-
-                let totalPenaltyIDR = 0;
-                let totalPenaltyOtherCurrency = 0;
-                let totalPenaltyEquivalent = 0;
-
-                let totalInterestIDR = 0;
-                let totalInterestOtherCurrency = 0;
-                let totalInterestEquivalent = 0;
-
-                let totalBalancePrincipalPayment = 0;
-                let totalBalancePrincipalSettlement = 0;
-                let totalBalanceSettlementPayment = 0;
-
-                let data = (response.status === 200 && response.data[0]) ? response.data : [];
+                data = (response.status === 200 && response.data[0]) ? response.data : [];
                 dataReport = data;
 
-                $('#table_summary').DataTable({
-                    destroy: true,
-                    data: data,
-                    deferRender: true,
-                    scrollCollapse: true,
-                    scroller: true,
-                    columns: [
-                        {
-                            data: null,
-                            render: function (data, type, row, meta) {
-                                return (meta.row + 1);
-                            }
-                        },
-                        {
-                            data: 'loanNumber',
-                            defaultContent: '-'
-                        },
-                        {
-                            data: 'loanDate',
-                            defaultContent: '-'
-                        },
-                        {
-                            data: null,
-                            defaultContent: '-',
-                            render: function (data, type, row, meta) {
-                                return data.loanDebitorName ? data.loanDebitorName : '-';
-                            }
-                        },
-                        {
-                            data: null,
-                            defaultContent: '-',
-                            render: function (data, type, row, meta) {
-                                return data.loanCreditorName ? data.loanCreditorName : '-';
-                            }
-                        },
-                        {
-                            data: '-', // RATE
-                            defaultContent: '-'
-                        },
-                        {
-                            data: '-', // TERM
-                            defaultContent: '-'
-                        },
-                        {
-                            data: '-', // PRINCIPAL LOAN - TOTAL IDR
-                            defaultContent: '-'
-                        },
-                        {
-                            data: '-', // PRINCIPAL LOAN - TOTAL OTHER CURRENCY
-                            defaultContent: '-'
-                        },
-                        {
-                            data: '-', // PRINCIPAL LOAN - TOTAL EQUIVALENT IDR
-                            defaultContent: '-'
-                        },
-                        {
-                            data: '-', // BALANCE - PRINCIPAL LOAN TO PAYMENT
-                            defaultContent: '-'
-                        },
-                        {
-                            data: '-', // BALANCE - PRINCIPAL LOAN TO SETTLEMENT
-                            defaultContent: '-'
-                        },
-                        {
-                            data: '-', // TOTAL LOAN - TOTAL IDR
-                            defaultContent: '-'
-                        },
-                        {
-                            data: '-', // TOTAL LOAN - TOTAL OTHER CURRENCY
-                            defaultContent: '-'
-                        },
-                        {
-                            data: '-', // TOTAL LOAN - TOTAL EQUIVALENT IDR
-                            defaultContent: '-'
-                        },
-                        {
-                            data: '-', // LOAN STATUS
-                            defaultContent: '-'
-                        },
-                        {
-                            data: '-', // LOAN REMARK
-                            defaultContent: '-'
-                        },
-                        {
-                            data: 'loanSettleNumber', // LOAN SETTLEMENT NUMBER
-                            defaultContent: '-'
-                        },
-                        {
-                            data: 'loanSettleDate', // LOAN SETTLEMENT DATE
-                            defaultContent: '-'
-                        },
-                        {
-                            data: '-', // LOAN SETTLEMENT DEBITOR
-                            defaultContent: '-'
-                        },
-                        {
-                            data: '-', // LOAN SETTLEMENT CREDITOR
-                            defaultContent: '-'
-                        },
-                        {
-                            data: '-', // SETTLEMENT VALUE - TOTAL IDR
-                            defaultContent: '-'
-                        },
-                        {
-                            data: '-', // SETTLEMENT VALUE - TOTAL OTHER CURRENCY
-                            defaultContent: '-'
-                        },
-                        {
-                            data: '-', // SETTLEMENT VALUE - TOTAL EQUIVALENT IDR
-                            defaultContent: '-'
-                        },
-                        {
-                            data: '-', // BALANCE - SETTLEMENT TO PAYMENT
-                            defaultContent: '-'
-                        },
-                        {
-                            data: '-', // PENALTY VALUE - TOTAL IDR
-                            defaultContent: '-'
-                        },
-                        {
-                            data: '-', // PENALTY VALUE - TOTAL OTHER CURRENCY
-                            defaultContent: '-'
-                        },
-                        {
-                            data: '-', // PENALTY VALUE - TOTAL EQUIVALENT IDR
-                            defaultContent: '-'
-                        },
-                        {
-                            data: '-', // INTEREST VALUE - TOTAL IDR
-                            defaultContent: '-'
-                        },
-                        {
-                            data: '-', // INTEREST VALUE - TOTAL OTHER CURRENCY
-                            defaultContent: '-'
-                        },
-                        {
-                            data: '-', // INTEREST VALUE - TOTAL EQUIVALENT IDR
-                            defaultContent: '-'
-                        },
-                        {
-                            data: '-', // STATUS
-                            defaultContent: '-'
-                        },
-                        {
-                            data: '-', // REMARK
-                            defaultContent: '-'
-                        }
-                    ],
-                    drawCallback: function (settings) {
-                        $('#table_summary tfoot th:nth-child(2)').text(currencyTotal(totalPrincipalIDR));
-                        $('#table_summary tfoot th:nth-child(3)').text(currencyTotal(totalPrincipalOther));
-                        $('#table_summary tfoot th:nth-child(4)').text(currencyTotal(totalPrincipalEquivalent));
-                        $('#table_summary tfoot th:nth-child(5)').text(currencyTotal(totalLoanIDR));
-                        $('#table_summary tfoot th:nth-child(6)').text(currencyTotal(totalLoanOtherCurrency));
-                        $('#table_summary tfoot th:nth-child(7)').text(currencyTotal(totalLoanEquivalent));
-                        $('#table_summary tfoot th:nth-child(8)').text(currencyTotal(totalLoanEquivalent));
-                        $('#table_summary tfoot th:nth-child(9)').text(currencyTotal(totalSettlementIDR));
-                        $('#table_summary tfoot th:nth-child(11)').text(currencyTotal(totalSettlementEquivalent));
-                        $('#table_summary tfoot th:nth-child(12)').text(currencyTotal(totalPenaltyIDR));
-                        $('#table_summary tfoot th:nth-child(13)').text(currencyTotal(totalPenaltyOtherCurrency));
-                        $('#table_summary tfoot th:nth-child(14)').text(currencyTotal(totalPenaltyEquivalent));
-                        $('#table_summary tfoot th:nth-child(15)').text(currencyTotal(totalInterestIDR));
-                        $('#table_summary tfoot th:nth-child(16)').text(currencyTotal(totalInterestOtherCurrency));
-                        $('#table_summary tfoot th:nth-child(17)').text(currencyTotal(totalInterestEquivalent));
-                        $('#table_summary tfoot th:nth-child(18)').text(currencyTotal(totalBalancePrincipalPayment));
-                        $('#table_summary tfoot th:nth-child(19)').text(currencyTotal(totalBalancePrincipalSettlement));
-                        $('#table_summary tfoot th:nth-child(20)').text(currencyTotal(totalBalanceSettlementPayment));
-                    }
-                });
+                filteredData = [...data];
+                currentPage = (response.status === 200 && response.data[0]) ? 1 : '-';
+                sortColumn = null;
+                sortOrder = 'asc';
 
-                $('#table_summary').css("width", "100%");
+                renderPage();
+                renderPagination();
+
                 $('#table_container').css("display", "block");
 
                 HideLoading();
             },
-            error: function (textStatus, errorThrown) {
-                $('#table_summary').DataTable().clear().draw();
+            error: function (xhr, status, error) {
                 HideLoading();
                 ErrorNotif("An error occurred while processing the received data. Please try again later.");
-                console.log(`[${textStatus.status}] ${textStatus.responseJSON.message}`);
+                console.log('xhr, status, error', xhr, status, error);
             }
         });
     }
@@ -310,6 +130,350 @@
         });
     }
 
+    function renderTable(data) {
+        const tbody = document.querySelector('#table_summary tbody');
+        tbody.innerHTML = '';
+
+        // let lastTransactionNumber = null;
+        // let rowspan = 1;
+        let rowIndex = 0;
+
+        data.forEach((item, ind) => {
+            const row = document.createElement('tr');
+
+            const rowNumber = (currentPage - 1) * rowsPerPage + ind + 1;
+
+            const noCell = document.createElement('td');
+            noCell.textContent = isNaN(rowNumber) ? '-' : rowNumber;
+            row.appendChild(noCell);
+
+            const loanNumberCell = document.createElement('td');
+            loanNumberCell.textContent = item.loanNumber ?? '-';
+            row.appendChild(loanNumberCell);
+
+            const loanDateCell = document.createElement('td');
+            loanDateCell.textContent = item.loanDate ?? '-';
+            row.appendChild(loanDateCell);
+
+            const loanDebitorCell = document.createElement('td');
+            loanDebitorCell.textContent = item.loanDebitorName ?? '-';
+            row.appendChild(loanDebitorCell);
+
+            const loanCreditorCell = document.createElement('td');
+            loanCreditorCell.textContent = item.loanCreditorName ?? '-';
+            row.appendChild(loanCreditorCell);
+
+            const loanRateCell = document.createElement('td');
+            loanRateCell.textContent = '-';
+            row.appendChild(loanRateCell);
+
+            const loanTermCell = document.createElement('td');
+            loanTermCell.textContent = '-';
+            row.appendChild(loanTermCell);
+
+            const loanPrincipalIDRCell = document.createElement('td');
+            loanPrincipalIDRCell.textContent = '-';
+            row.appendChild(loanPrincipalIDRCell);
+
+            const loanPrincipalOtherCurrencyCell = document.createElement('td');
+            loanPrincipalOtherCurrencyCell.textContent = '-';
+            row.appendChild(loanPrincipalOtherCurrencyCell);
+
+            const loanPrincipalEquivalentIDRCell = document.createElement('td');
+            loanPrincipalEquivalentIDRCell.textContent = '-';
+            row.appendChild(loanPrincipalEquivalentIDRCell);
+
+            const loanPrincipalToPaymentCell = document.createElement('td');
+            loanPrincipalToPaymentCell.textContent = '-';
+            row.appendChild(loanPrincipalToPaymentCell);
+
+            const loanPrincipalToSettlementCell = document.createElement('td');
+            loanPrincipalToSettlementCell.textContent = '-';
+            row.appendChild(loanPrincipalToSettlementCell);
+
+            const loanIDRCell = document.createElement('td');
+            loanIDRCell.textContent = '-';
+            row.appendChild(loanIDRCell);
+
+            const loanOtherCurrencyCell = document.createElement('td');
+            loanOtherCurrencyCell.textContent = '-';
+            row.appendChild(loanOtherCurrencyCell);
+
+            const loanEquivalentIDRCell = document.createElement('td');
+            loanEquivalentIDRCell.textContent = '-';
+            row.appendChild(loanEquivalentIDRCell);
+
+            const loanPaymentCell = document.createElement('td');
+            loanPaymentCell.textContent = '-';
+            row.appendChild(loanPaymentCell);
+
+            const loanStatusCell = document.createElement('td');
+            loanStatusCell.textContent = '-';
+            row.appendChild(loanStatusCell);
+
+            const loanRemarkCell = document.createElement('td');
+            loanRemarkCell.textContent = '-';
+            row.appendChild(loanRemarkCell);
+
+            const loanSettlementNumberCell = document.createElement('td');
+            loanSettlementNumberCell.textContent = item.loanSettleNumber ?? '-';
+            row.appendChild(loanSettlementNumberCell);
+
+            const loanSettlementDateCell = document.createElement('td');
+            loanSettlementDateCell.textContent = item.loanSettleDate ?? '-';
+            row.appendChild(loanSettlementDateCell);
+
+            const loanSettlementDebitorCell = document.createElement('td');
+            loanSettlementDebitorCell.textContent = '-';
+            row.appendChild(loanSettlementDebitorCell);
+
+            const loanSettlementCreditorCell = document.createElement('td');
+            loanSettlementCreditorCell.textContent = '-';
+            row.appendChild(loanSettlementCreditorCell);
+
+            const loanSettlementIDRCell = document.createElement('td');
+            loanSettlementIDRCell.textContent = '-';
+            row.appendChild(loanSettlementIDRCell);
+
+            const loanSettlementOtherCurrencyCell = document.createElement('td');
+            loanSettlementOtherCurrencyCell.textContent = '-';
+            row.appendChild(loanSettlementOtherCurrencyCell);
+
+            const loanSettlementEquivalentIDRCell = document.createElement('td');
+            loanSettlementEquivalentIDRCell.textContent = '-';
+            row.appendChild(loanSettlementEquivalentIDRCell);
+
+            const loanSettlementPaymentCell = document.createElement('td');
+            loanSettlementPaymentCell.textContent = '-';
+            row.appendChild(loanSettlementPaymentCell);
+
+            const loanSettlementPenaltyIDRCell = document.createElement('td');
+            loanSettlementPenaltyIDRCell.textContent = '-';
+            row.appendChild(loanSettlementPenaltyIDRCell);
+
+            const loanSettlementPenaltyOtherCurrencyCell = document.createElement('td');
+            loanSettlementPenaltyOtherCurrencyCell.textContent = '-';
+            row.appendChild(loanSettlementPenaltyOtherCurrencyCell);
+
+            const loanSettlementPenaltyEquivalentIDRCell = document.createElement('td');
+            loanSettlementPenaltyEquivalentIDRCell.textContent = '-';
+            row.appendChild(loanSettlementPenaltyEquivalentIDRCell);
+
+            const loanSettlementInterestIDRCell = document.createElement('td');
+            loanSettlementInterestIDRCell.textContent = '-';
+            row.appendChild(loanSettlementInterestIDRCell);
+
+            const loanSettlementInterestOtherCurrencyCell = document.createElement('td');
+            loanSettlementInterestOtherCurrencyCell.textContent = '-';
+            row.appendChild(loanSettlementInterestOtherCurrencyCell);
+
+            const loanSettlementInterestEquivalentIDRCell = document.createElement('td');
+            loanSettlementInterestEquivalentIDRCell.textContent = '-';
+            row.appendChild(loanSettlementInterestEquivalentIDRCell);
+
+            const loanSettlementPaymentItemCell = document.createElement('td');
+            loanSettlementPaymentItemCell.textContent = '-';
+            row.appendChild(loanSettlementPaymentItemCell);
+
+            const loanSettlementStatusCell = document.createElement('td');
+            loanSettlementStatusCell.textContent = '-';
+            row.appendChild(loanSettlementStatusCell);
+
+            const loanSettlementRemarkCell = document.createElement('td');
+            loanSettlementRemarkCell.textContent = '-';
+            row.appendChild(loanSettlementRemarkCell);
+
+            tbody.appendChild(row);
+            rowIndex++;
+        });
+    }
+
+    function updatePaginationInfo() {
+        const pageInfo = document.querySelector('#pageNumbers');
+        pageInfo.textContent = `${currentPage}`;
+    }
+
+    function filterData(query, data) {
+        if (!query) return data;
+
+        const q = query.toLowerCase();
+
+        return data.filter(item =>
+            Object.values(item).some(val =>
+                val != null && val.toString().toLowerCase().includes(q)
+            )
+        );
+    }
+
+    function changePage(page) {
+        currentPage = page;
+        renderPage();
+    }
+
+    function renderPage() {
+        const sortedData = sortData(filteredData);
+
+        const searchQuery = document.querySelector('#searchInput').value;
+        const filteredAndSortedData = filterData(searchQuery, sortedData);
+
+        const start = (currentPage - 1) * rowsPerPage;
+        const end = start + rowsPerPage;
+        const pageData = filteredAndSortedData.length > 0 ? filteredAndSortedData.slice(start, end) : [{
+            "no": "",
+            "loan_number": "",
+            "loan_date": "",
+            "loan_debitor": "",
+            "loan_creditor": "",
+            "loan_rate": "",
+            "loan_term": "",
+            "loan_principal_idr": "",
+            "loan_principal_other_currency": "",
+            "loan_principal_equivalent_idr": "",
+            "loan_principal_payment": "",
+            "loan_principal_settlement": "",
+            "loan_total_idr": "",
+            "loan_total_other_currency": "",
+            "loan_total_equivalent_idr": "",
+            "loan_payment": "",
+            "loan_status": "",
+            "loan_remark": "",
+            "loan_settlement_number": "",
+            "loan_settlement_date": "",
+            "loan_settlement_debitor": "",
+            "loan_settlement_creditor": "",
+            "loan_settlement_settlement_idr": "",
+            "loan_settlement_settlement_other_currency": "",
+            "loan_settlement_settlement_equivalent_idr": "",
+            "loan_settlement_settlement_to_payment": "",
+            "loan_settlement_penalty_idr": "",
+            "loan_settlement_penalty_other_currency": "",
+            "loan_settlement_penalty_equivalent_idr": "",
+            "loan_settlement_interest_idr": "",
+            "loan_settlement_interest_other_currency": "",
+            "loan_settlement_interest_equivalent_idr": "",
+            "loan_settlement_payment": "",
+            "loan_settlement_status": "",
+            "loan_settlement_remark": ""
+        }];
+
+        startLimit.textContent = start + 1;
+        endLimit.textContent = Math.min(end, filteredAndSortedData.length);
+        totalData.textContent = filteredAndSortedData.length;
+
+        renderTable(pageData);
+        updatePaginationInfo(filteredAndSortedData.length); // Update the page info based on filtered data
+    }
+
+    function renderPagination() {
+        totalPages = Math.ceil(data.length / rowsPerPage);
+
+        const pageNumbersContainer = document.querySelector('#pageNumbers');
+        const prevButton = document.querySelector('#prevPage');
+        const nextButton = document.querySelector('#nextPage');
+
+        pageNumbersContainer.innerHTML = '';
+
+        const startLimit = (currentPage - 1) * rowsPerPage + 1;
+        const endLimit = Math.min(currentPage * rowsPerPage, data.length);
+        document.querySelector('#start_limit').textContent = isNaN(startLimit) ? '0' : startLimit;
+        document.querySelector('#end_limit').textContent = isNaN(endLimit) ? '0' : endLimit;
+        document.querySelector('#total_data').textContent = data.length;
+
+        let startPage = Math.max(1, currentPage - 1);
+        let endPage = Math.min(totalPages, currentPage + 1);
+
+        if (currentPage === 1) {
+            endPage = Math.min(3, totalPages);
+        }
+
+        if (currentPage === totalPages) {
+            startPage = Math.max(1, totalPages - 2);
+        }
+
+        if (startPage > 1) {
+            const dots = document.createElement('span');
+
+            if (data.length == 0) {
+                dots.textContent = '';
+            } else {
+                dots.textContent = '...';
+            }
+
+            pageNumbersContainer.appendChild(dots);
+        }
+
+        for (let i = startPage; i <= endPage; i++) {
+            const pageNumber = document.createElement('a');
+            pageNumber.textContent = i;
+            pageNumber.style.padding = '.5em 1em';
+            pageNumber.style.cursor = 'pointer';
+
+            if (i == currentPage) {
+                pageNumber.style.background = 'linear-gradient(to bottom, rgba(230, 230, 230, 0.1) 0%, rgba(0, 0, 0, 0.1) 100%)';
+                pageNumber.style.border = '1px solid rgba(0, 0, 0, 0.3)';
+            }
+
+            pageNumber.addEventListener('click', () => {
+                currentPage = i;
+                renderPage();
+                renderPagination();
+            });
+
+            pageNumbersContainer.appendChild(pageNumber);
+        }
+
+        if (endPage < totalPages) {
+            const dots = document.createElement('span');
+
+            if (data.length == 0) {
+                dots.textContent = '';
+            } else {
+                dots.textContent = '...';
+            }
+
+            pageNumbersContainer.appendChild(dots);
+        }
+
+        prevButton.style.marginRight = '0.5rem';
+        prevButton.style.pointerEvents = currentPage == 1 ? 'none' : 'auto';
+        prevButton.style.opacity = currentPage == 1 ? '0.5' : '1';
+
+        nextButton.style.marginLeft = '0.5rem';
+        nextButton.style.pointerEvents = currentPage == totalPages ? 'none' : 'auto';
+        nextButton.style.opacity = currentPage == totalPages ? '0.5' : '1';
+    }
+
+    function sortData(data) {
+        if (!sortColumn) return data; // If no column is being sorted, return the data as-is
+
+        return [...data].sort((a, b) => {
+            const aValue = a[sortColumn];
+            const bValue = b[sortColumn];
+
+            if (aValue < bValue) return sortOrder === 'asc' ? -1 : 1;
+            if (aValue > bValue) return sortOrder === 'asc' ? 1 : -1;
+            return 0;
+        });
+    }
+
+    function sortByColumn(index) {
+        if (!data.length) return;
+
+        const columnNames = Object.keys(data[0]); // Get the column names based on the data
+        const columnName = columnNames[index];
+
+        // Toggle the sort order if the same column is clicked again
+        if (sortColumn === columnName && sortOrder === 'asc') {
+            sortOrder = 'desc';
+        } else {
+            sortOrder = 'asc';
+        }
+
+        sortColumn = columnName; // Set the column to sort by
+        renderPage(); // Re-render the table
+        renderPagination();
+    }
+
     function validateShowButton() {
         const isBudgetIDNotEmpty = budgetID.value.trim() !== '';
         const isCreditorIDNotEmpty = creditorID.value.trim() !== '';
@@ -349,6 +513,41 @@
             ErrorNotif("No data available to export. Please display the data first.");
         }
     }
+
+    document.querySelectorAll('#table_summary th').forEach((header, index) => {
+        header.addEventListener('click', () => {
+            sortByColumn(index);
+        });
+    });
+
+    document.querySelector('#searchInput').addEventListener('input', () => {
+        currentPage = 1;
+        renderPage();
+        renderPagination();
+    });
+
+    document.querySelector('#limitSelect').addEventListener('change', (e) => {
+        rowsPerPage = parseInt(e.target.value);
+        currentPage = 1;
+        renderPage();
+        renderPagination();
+    });
+
+    document.querySelector('#prevPage').addEventListener('click', () => {
+        if (currentPage > 1) {
+            currentPage--;
+            renderPage();
+            renderPagination();
+        }
+    });
+
+    document.querySelector('#nextPage').addEventListener('click', () => {
+        if (currentPage * rowsPerPage < filteredData.length) {
+            currentPage++;
+            renderPage();
+            renderPagination();
+        }
+    });
 
     $('#tableSuppliers').on('click', 'tbody tr', function () {
         const sysId = $(this).find('input[data-trigger="sys_id_supplier"]').val();
@@ -456,6 +655,8 @@
             $('#loan_to_settlement_date_range').trigger('click');
         });
 
+        renderPage();
+        renderPagination();
         getSuppliers();
     });
 </script>

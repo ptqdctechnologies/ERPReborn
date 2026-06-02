@@ -94,7 +94,7 @@ class ExportReportBusinessTripToBSF implements FromCollection, WithHeadings, Sho
             ["BSF Number", ": -", "Sub Budget", ": -", "Date Range", ": -"],
             [""],
             ["No", "Business Trip", "", "", "", "", "", "", "", "", "Business Trip Settlement", "", "", "", "", ""],
-            ["", "BRF Number", "Date", "Requester", "Date Commence Travel", "Date End Travel", "Total", "Payment", "Business Trip to Payment Balance", "Status", "BSF Number", "Date", "Total", "Payment", "Business Trip to Settlement Balance", "Status"]
+            ["", "BRF Number", "Date", "Requester", "Date Commence Travel", "Date End Travel", "Total", "Payment", "Business Trip to Payment Balance", "BRF Status", "BSF Number", "Date", "Total", "Payment", "Business Trip to Settlement Balance", "BSF Status"]
         ];
     }
 

@@ -41,7 +41,8 @@ class ExportSupplier implements FromCollection, WithHeadings, ShouldAutoSize, Wi
                 'Bank Name' => $item['bankAcronym'] ?? '-',
                 'Account Number' => $item['accountNumber'] ?? '-',
                 'Account Name' => $item['accountName'] ?? '-',
-                'Address' => $item['address'] ?? '-'
+                'Address' => $item['address'] ?? '-',
+                'Category' => '-'
             ];
         }
 
@@ -57,7 +58,7 @@ class ExportSupplier implements FromCollection, WithHeadings, ShouldAutoSize, Wi
             ["Supplier Code", ": -", "Supplier Category", ": -", "Province", ": -"],
             ["Supplier Name", ": -", "Country", ": -", "City", ": -"],
             [""],
-            ["No", "Code", "Name", "Tax ID", "Phone", "Email", "Country", "Province", "City", "Legal Entity", "Contact Person", "Bank Name", "Account Number", "Account Name", "Address"]
+            ["No", "Code", "Name", "Tax ID", "Phone", "Email", "Country", "Province", "City", "Legal Entity", "Contact Person", "Bank Name", "Account Number", "Account Name", "Address", "Category"]
         ];
     }
 
@@ -74,8 +75,8 @@ class ExportSupplier implements FromCollection, WithHeadings, ShouldAutoSize, Wi
                 'horizontal' => Alignment::HORIZONTAL_RIGHT,
             ]
         ];
-        $sheet->getStyle('A1:O1')->applyFromArray($styleArrayHeader0);
-        $sheet->mergeCells('A1:O1');
+        $sheet->getStyle('A1:P1')->applyFromArray($styleArrayHeader0);
+        $sheet->mergeCells('A1:P1');
 
         $styleArrayHeader1 = [
             'font' => [
@@ -88,8 +89,8 @@ class ExportSupplier implements FromCollection, WithHeadings, ShouldAutoSize, Wi
                 'horizontal' => Alignment::HORIZONTAL_CENTER,
             ]
         ];
-        $sheet->getStyle('A2:O2')->applyFromArray($styleArrayHeader1);
-        $sheet->mergeCells('A2:O2');
+        $sheet->getStyle('A2:P2')->applyFromArray($styleArrayHeader1);
+        $sheet->mergeCells('A2:P2');
 
         $styleArrayHeader2 = [
             'font' => [
@@ -102,8 +103,8 @@ class ExportSupplier implements FromCollection, WithHeadings, ShouldAutoSize, Wi
                 'horizontal' => Alignment::HORIZONTAL_RIGHT,
             ]
         ];
-        $sheet->getStyle('A3:O3')->applyFromArray($styleArrayHeader2);
-        $sheet->mergeCells('A3:O3');
+        $sheet->getStyle('A3:P3')->applyFromArray($styleArrayHeader2);
+        $sheet->mergeCells('A3:P3');
 
         $styleArrayHeader3 = [
             'font' => [
@@ -116,8 +117,8 @@ class ExportSupplier implements FromCollection, WithHeadings, ShouldAutoSize, Wi
                 'horizontal' => Alignment::HORIZONTAL_LEFT,
             ]
         ];
-        $sheet->getStyle('A4:O4')->applyFromArray($styleArrayHeader3);
-        $sheet->getStyle('A5:O5')->applyFromArray($styleArrayHeader3);
+        $sheet->getStyle('A4:P4')->applyFromArray($styleArrayHeader3);
+        $sheet->getStyle('A5:P5')->applyFromArray($styleArrayHeader3);
 
         $styleArrayHeader4 = [
             'font' => [
@@ -142,7 +143,7 @@ class ExportSupplier implements FromCollection, WithHeadings, ShouldAutoSize, Wi
                 ],
             ],
         ];
-        $sheet->getStyle('A7:O7')->applyFromArray($styleArrayHeader4);
+        $sheet->getStyle('A7:P7')->applyFromArray($styleArrayHeader4);
 
         $styleArrayContent = [
             'borders' => [
@@ -156,7 +157,7 @@ class ExportSupplier implements FromCollection, WithHeadings, ShouldAutoSize, Wi
         ];
         $datas = $this->dataReport;
         $totalCell = count($datas);
-        $lastCell = 'A7:O' . $totalCell + 7;
+        $lastCell = 'A7:P' . $totalCell + 7;
         $sheet->getStyle($lastCell)->applyFromArray($styleArrayContent);
     }
 }

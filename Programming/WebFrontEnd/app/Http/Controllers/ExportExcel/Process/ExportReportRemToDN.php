@@ -102,7 +102,7 @@ class ExportReportRemToDN implements FromCollection, WithHeadings, ShouldAutoSiz
             ["DN Number", ": -", "Customer", ": -"],
             [""],
             ["No", "Reimbursement", "", "", "", "", "", "", "", "", "Debit Note", "", "", "", "", "", "", ""],
-            ["", "Number", "Date", "Customer", "Total IDR", "Total Other Currency", "Total Equivalent IDR", "Payment", "REM to Payment Balance", "Status", "Number", "Date", "Total IDR", "Total Other Currency", "Total Equivalent IDR", "Payment", "REM to DN Balance", "Status"]
+            ["", "Number", "Date", "Customer", "Total IDR", "Total Other Currency", "Total Equivalent IDR", "Payment", "REM to Payment Balance", "REM Status", "Number", "Date", "Total IDR", "Total Other Currency", "Total Equivalent IDR", "Payment", "REM to DN Balance", "DN Status"]
         ];
     }
 

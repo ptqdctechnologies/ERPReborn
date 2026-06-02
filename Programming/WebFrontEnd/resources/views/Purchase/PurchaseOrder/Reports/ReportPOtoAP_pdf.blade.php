@@ -181,12 +181,17 @@
           </td>
           <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
             <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+              Budget
+            </div>
+          </td>
+          <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+            <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
               Date
             </div>
           </td>
           <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
             <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-              Product Name
+              Supplier
             </div>
           </td>
           <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
@@ -206,7 +211,12 @@
           </td>
           <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
             <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-              Status
+              PO to AP Balance
+            </div>
+          </td>
+          <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+            <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+              PO Status
             </div>
           </td>
           <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
@@ -221,11 +231,6 @@
           </td>
           <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
             <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-              Qty
-            </div>
-          </td>
-          <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
-            <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
               Total IDR
             </div>
           </td>
@@ -241,12 +246,12 @@
           </td>
           <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
             <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-              PR to PO Balance
+              AP to Payment Balance
             </div>
           </td>
           <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
             <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-              Status
+              AP Status
             </div>
           </td>
         </tr>

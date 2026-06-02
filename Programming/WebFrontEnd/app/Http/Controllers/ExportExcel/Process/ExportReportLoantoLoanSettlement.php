@@ -98,24 +98,26 @@ class ExportReportLoantoLoanSettlement implements FromCollection, WithHeadings, 
                 'Loan IDR' => '-',
                 'Loan Other Currency' => '-',
                 'Loan Equivalent IDR' => '-',
+                'Loan Payment' => '-',
                 'Loan Status' => '-',
                 'Loan Remark' => '-',
                 'Settlement Number' => $item['loanSettleNumber'] ?? null,
                 'Settlement Date' => $item['loanSettleDate'] ?? null,
                 'Settlement Debitor' => '-',
                 'Settlement Creditor' => '-',
-                'Settlement IDR' => '-',
-                'Settlement Other Currency' => '-',
-                'Settlement Equivalent IDR' => '-',
-                'Settlement Payment' => '-',
+                'Settlement Value IDR' => '-',
+                'Settlement Value Other Currency' => '-',
+                'Settlement Value Equivalent IDR' => '-',
+                'Settlement Value Payment' => '-',
                 'Settlement Penalty IDR' => '-',
                 'Settlement Penalty Other Currency' => '-',
                 'Settlement Penalty Equivalent IDR' => '-',
                 'Settlement Interest IDR' => '-',
                 'Settlement Interest Other Currency' => '-',
                 'Settlement Interest Equivalent IDR' => '-',
-                'Settlement Interest Status' => '-',
-                'Settlement Interest Remark' => '-'
+                'Settlement Payment' => '-',
+                'Settlement Status' => '-',
+                'Settlement Remark' => '-'
             ];
         }
 
@@ -135,24 +137,26 @@ class ExportReportLoantoLoanSettlement implements FromCollection, WithHeadings, 
             'Loan IDR' => $totalLoanIDR,
             'Loan Other Currency' => $totalLoanOtherCurrency,
             'Loan Equivalent IDR' => $totalLoanEquivalentIDR,
+            'Loan Payment' => '-',
             'Loan Status' => '-',
             'Loan Remark' => '-',
-            'Settlement Number' => '-',
-            'Settlement Date' => '-',
+            'Settlement Number' => '',
+            'Settlement Date' => '',
             'Settlement Debitor' => '-',
             'Settlement Creditor' => '-',
-            'Settlement IDR' => $totalSettlementIDR,
-            'Settlement Other Currency' => $totalSettlementOtherCurrency,
-            'Settlement Equivalent IDR' => $totalSettlementEquivalentIDR,
-            'Settlement Payment' => $totalSettlementPayment,
+            'Settlement Value IDR' => $totalSettlementIDR,
+            'Settlement Value Other Currency' => $totalSettlementOtherCurrency,
+            'Settlement Value Equivalent IDR' => $totalSettlementEquivalentIDR,
+            'Settlement Value Payment' => $totalSettlementPayment,
             'Settlement Penalty IDR' => $totalSettlementPenaltyIDR,
             'Settlement Penalty Other Currency' => $totalSettlementPenaltyOtherCurrency,
             'Settlement Penalty Equivalent IDR' => $totalSettlementPenaltyEquivalentIDR,
             'Settlement Interest IDR' => $totalSettlementInterestIDR,
             'Settlement Interest Other Currency' => $totalSettlementInterestOtherCurrency,
             'Settlement Interest Equivalent IDR' => $totalSettlementInterestEquivalentIDR,
-            'Settlement Interest Status' => '-',
-            'Settlement Interest Remark' => '-'
+            'Settlement Payment' => '-',
+            'Settlement Status' => '-',
+            'Settlement Remark' => '-'
         ];
 
         return collect($filteredData);
@@ -170,6 +174,7 @@ class ExportReportLoantoLoanSettlement implements FromCollection, WithHeadings, 
             [
                 "No",
                 "Loan",
+                "",
                 "",
                 "",
                 "",
@@ -203,7 +208,8 @@ class ExportReportLoantoLoanSettlement implements FromCollection, WithHeadings, 
                 "Total Loan",
                 "",
                 "",
-                "Status",
+                "Payment",
+                "Loan Status",
                 "Remark",
                 "Number",
                 "Date",
@@ -219,7 +225,8 @@ class ExportReportLoantoLoanSettlement implements FromCollection, WithHeadings, 
                 "Interest Value",
                 "",
                 "",
-                "Status",
+                "Payment",
+                "Loan Settlement Status",
                 "Remark"
             ],
             [
@@ -238,6 +245,7 @@ class ExportReportLoantoLoanSettlement implements FromCollection, WithHeadings, 
                 "Total IDR",
                 "Total Other Currency",
                 "Total Equivalent IDR",
+                "",
                 "",
                 "",
                 "",
@@ -271,8 +279,8 @@ class ExportReportLoantoLoanSettlement implements FromCollection, WithHeadings, 
                 'horizontal' => Alignment::HORIZONTAL_RIGHT,
             ]
         ];
-        $sheet->getStyle('A1:AG1')->applyFromArray($styleArrayHeader0);
-        $sheet->mergeCells('A1:AG1');
+        $sheet->getStyle('A1:AI1')->applyFromArray($styleArrayHeader0);
+        $sheet->mergeCells('A1:AI1');
 
         $styleArrayHeader1 = [
             'font' => [
@@ -285,8 +293,8 @@ class ExportReportLoantoLoanSettlement implements FromCollection, WithHeadings, 
                 'horizontal' => Alignment::HORIZONTAL_CENTER,
             ]
         ];
-        $sheet->getStyle('A2:AG2')->applyFromArray($styleArrayHeader1);
-        $sheet->mergeCells('A2:AG2');
+        $sheet->getStyle('A2:AI2')->applyFromArray($styleArrayHeader1);
+        $sheet->mergeCells('A2:AI2');
 
         $styleArrayHeader2 = [
             'font' => [
@@ -299,8 +307,8 @@ class ExportReportLoantoLoanSettlement implements FromCollection, WithHeadings, 
                 'horizontal' => Alignment::HORIZONTAL_RIGHT,
             ]
         ];
-        $sheet->getStyle('A3:AG3')->applyFromArray($styleArrayHeader2);
-        $sheet->mergeCells('A3:AG3');
+        $sheet->getStyle('A3:AI3')->applyFromArray($styleArrayHeader2);
+        $sheet->mergeCells('A3:AI3');
 
         $styleArrayHeader3 = [
             'font' => [
@@ -313,8 +321,8 @@ class ExportReportLoantoLoanSettlement implements FromCollection, WithHeadings, 
                 'horizontal' => Alignment::HORIZONTAL_LEFT,
             ]
         ];
-        $sheet->getStyle('A4:AG4')->applyFromArray($styleArrayHeader3);
-        $sheet->getStyle('A5:AG5')->applyFromArray($styleArrayHeader3);
+        $sheet->getStyle('A4:AI4')->applyFromArray($styleArrayHeader3);
+        $sheet->getStyle('A5:AI5')->applyFromArray($styleArrayHeader3);
 
         $styleArrayHeader4 = [
             'font' => [
@@ -339,17 +347,17 @@ class ExportReportLoantoLoanSettlement implements FromCollection, WithHeadings, 
                 ],
             ],
         ];
-        $sheet->getStyle('A7:AG7')->applyFromArray($styleArrayHeader4);
-        $sheet->getStyle('A8:AG8')->applyFromArray($styleArrayHeader4);
-        $sheet->getStyle('A9:AG9')->applyFromArray($styleArrayHeader4);
+        $sheet->getStyle('A7:AI7')->applyFromArray($styleArrayHeader4);
+        $sheet->getStyle('A8:AI8')->applyFromArray($styleArrayHeader4);
+        $sheet->getStyle('A9:AI9')->applyFromArray($styleArrayHeader4);
         $sheet->mergeCells('A7:A9');
-        $sheet->mergeCells('B7:Q7');
-        $sheet->mergeCells('R7:AG7');
+        $sheet->mergeCells('B7:R7');
+        $sheet->mergeCells('S7:AI7');
         $sheet->mergeCells('H8:L8');
         $sheet->mergeCells('M8:O8');
-        $sheet->mergeCells('V8:Y8');
-        $sheet->mergeCells('Z8:AB8');
-        $sheet->mergeCells('AC8:AE8');
+        $sheet->mergeCells('W8:Z8');
+        $sheet->mergeCells('AA8:AC8');
+        $sheet->mergeCells('AD8:AF8');
         $sheet->mergeCells('B8:B9');
         $sheet->mergeCells('C8:C9');
         $sheet->mergeCells('D8:D9');
@@ -362,7 +370,9 @@ class ExportReportLoantoLoanSettlement implements FromCollection, WithHeadings, 
         $sheet->mergeCells('S8:S9');
         $sheet->mergeCells('T8:T9');
         $sheet->mergeCells('U8:U9');
-        $sheet->mergeCells('AF8:AF9');
+        $sheet->mergeCells('V8:V9');
         $sheet->mergeCells('AG8:AG9');
+        $sheet->mergeCells('AH8:AH9');
+        $sheet->mergeCells('AI8:AI9');
     }
 }
