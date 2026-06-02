@@ -25,17 +25,6 @@
                         <select class="form-control" id="uom" name="uom_value" style="border-radius:0;width: 100%;"
                             type="text">
                             <option value="" disabled selected>Select a Unit of Measure</option>
-                            <option value="73000000000002">Pcs</option>
-                            <option value="73000000000002">Unit</option>
-                            <option value="73000000000002">Set</option>
-                            <option value="73000000000002">Lot</option>
-                            <option value="73000000000002">Box</option>
-                            <option value="73000000000002">Pack</option>
-                            <option value="73000000000002">Bottle</option>
-                            <option value="73000000000002">Kg</option>
-                            <option value="73000000000002">Ton</option>
-                            <option value="73000000000002">Cm</option>
-                            <option value="73000000000002">Ltr</option>
                         </select>
                     </div>
                     <div>

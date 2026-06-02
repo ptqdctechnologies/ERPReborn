@@ -72,5 +72,5 @@
     </div>
 
     @include('Partials.footer')
-    @include('Master.Product.Functions.Footer.FooterProduct')
+    @include('Master.Product.Functions.Footer.FooterCreateProduct')
 @endsection
