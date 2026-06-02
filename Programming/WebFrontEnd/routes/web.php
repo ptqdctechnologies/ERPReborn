@@ -185,6 +185,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::resource('PrivilegeMenu', 'Register\PrivilegeMenu\PrivilegeMenuController');
 
     // FUNCTION
+    Route::post('getQuantityUnit', 'Function\FunctionController@getQuantityUnit')->name('getQuantityUnit');
     Route::post('getInstitutionType', 'Function\FunctionController@getInstitutionType')->name('getInstitutionType');
     Route::get('getProject', 'Function\FunctionController@getProject')->name('getProject');
     Route::post('getRequester', 'Function\FunctionController@getRequester')->name('getRequester');
