@@ -20,50 +20,53 @@
 
                 @include('Master.Product.Functions.Menu.MenuProduct')
 
-                <div class="card">
-                    <div class="tab-content px-3 pt-4 pb-2" id="nav-tabContent">
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="card">
-                                    <!-- HEADER -->
-                                    <div class="card-header">
-                                        <label class="card-title">
-                                            Master Product
-                                        </label>
-                                        <div class="card-tools">
-                                            <button type="button" class="btn btn-tool" data-card-widget="collapse"
-                                                aria-label="Collapse Section Budget Information">
-                                                <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
-                                            </button>
+                <form id="productForm">
+                    @csrf
+                    <div class="card">
+                        <div class="tab-content px-3 pt-4 pb-2" id="nav-tabContent">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="card">
+                                        <!-- HEADER -->
+                                        <div class="card-header">
+                                            <label class="card-title">
+                                                Master Product
+                                            </label>
+                                            <div class="card-tools">
+                                                <button type="button" class="btn btn-tool" data-card-widget="collapse"
+                                                    aria-label="Collapse Section Budget Information">
+                                                    <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
+                                                </button>
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    @include('Master.Product.Functions.Header.HeaderMasterProduct')
+                                        @include('Master.Product.Functions.Header.HeaderMasterProduct')
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- BUTTON -->
+                        <div class="tab-content px-3 pb-2" id="nav-tabContent">
+                            <div class="row">
+                                <div class="col">
+                                    <button type="submit" class="btn btn-default btn-sm float-right"
+                                        style="margin-left: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
+                                        <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt=""
+                                            title="Submit to Advance"> Submit
+                                    </button>
+
+                                    <button type="button" class="btn btn-default btn-sm float-right"
+                                        onclick="cancelForm('{{ route('Product.index') }}')"
+                                        style="background-color:#e9ecef;border:1px solid #ced4da;">
+                                        <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt=""
+                                            title="Cancel to Account Payable"> Cancel
+                                    </button>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <!-- BUTTON -->
-                    <div class="tab-content px-3 pb-2" id="nav-tabContent">
-                        <div class="row">
-                            <div class="col">
-                                <button type="button" class="btn btn-default btn-sm float-right" onclick="validationForm()"
-                                    style="margin-left: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
-                                    <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt=""
-                                        title="Submit to Advance"> Submit
-                                </button>
-
-                                <a onclick="cancelForm('{{ route('Product.index') }}')"
-                                    class="btn btn-default btn-sm float-right"
-                                    style="background-color:#e9ecef;border:1px solid #ced4da;">
-                                    <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt=""
-                                        title="Cancel Advance List Cart"> Cancel
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                </form>
             </div>
         </section>
     </div>
