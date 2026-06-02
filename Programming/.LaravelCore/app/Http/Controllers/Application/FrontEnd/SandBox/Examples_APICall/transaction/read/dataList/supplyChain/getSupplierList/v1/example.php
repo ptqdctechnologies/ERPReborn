@@ -21,7 +21,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         |                     ► http://172.28.0.4/transaction.read.dataList.supplyChain.getSupplierList.v1_throughAPIGateway       |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2026-05-21                                                                                           |
+        | ▪ Last Update     : 2026-06-02                                                                                           |
         | ▪ Creation Date   : 2026-05-11                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -44,7 +44,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                     'sort' => null,
                     'filter' => null,
                     'paging' => [
-                        'limit' => 20,
+                        'limit' => "20",
+                        // 'limit' => "ALL",
                         'offset' => 0
                         ]
                     ]
