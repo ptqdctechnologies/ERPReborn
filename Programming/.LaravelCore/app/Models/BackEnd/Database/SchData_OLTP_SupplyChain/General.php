@@ -1377,7 +1377,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : getDataList_Supplier                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2026-05-21                                                                                           |
+        | ▪ Last Update     : 2026-06-02                                                                                           |
         | ▪ Creation Date   : 2026-05-11                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Pemasok                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -1405,13 +1405,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataList_SupplierList',
                             [
-                                [$varPagingStatement['limit'], 'bigint'],
+                                [$varPagingStatement['limit'], 'varchar'],
                                 [$varPagingStatement['offset'], 'bigint']
                             ]
                             )
 		        );
-
-                // dd($varReturn);
 
                 // Extract the result data from the database query response
                 $resultArray = $varReturn['data'];
@@ -1460,9 +1458,10 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         $varReturn['data'][$idxArray - 1]['type'][$idxArray2]['specializationName'] = $value["SpecializationName"];
                     }
                 }
+	            $varReturn['totalRecords'] = $resultArray[0]['TotalRecords'];
 
                 return
-                    $varReturn['data'];
+                    $varReturn;
                 }
 
             catch (\Exception $ex) {
