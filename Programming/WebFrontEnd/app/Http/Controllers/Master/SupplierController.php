@@ -118,7 +118,7 @@ class SupplierController extends Controller
     {
     }
 
-    public function SupplierPickList(Request $request)
+    public function picklist(Request $request)
     {
         $supplierID = $request->input('supplier_id');
 
@@ -137,7 +137,7 @@ class SupplierController extends Controller
         ]);
     }
 
-    public function SupplierSummary(Request $request)
+    public function summary(Request $request)
     {
         $limit = $request->input('length', 10);
         $offset = $request->input('start', 0);

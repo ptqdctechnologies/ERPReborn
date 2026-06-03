@@ -34,7 +34,7 @@
             pageLength: 20,
             ajax: {
                 type: 'POST',
-                url: '{!! route("Supplier.SupplierSummary") !!}',
+                url: '{!! route("Supplier.summary") !!}',
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },

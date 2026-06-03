@@ -72,7 +72,7 @@
 
         $.ajax({
             type: 'POST',
-            url: '{!! route("Supplier.SupplierPickList") !!}',
+            url: '{!! route("Supplier.picklist") !!}',
             success: function (data) {
                 $(".loadingSuppliers").hide();
 
