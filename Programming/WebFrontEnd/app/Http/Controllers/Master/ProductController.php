@@ -57,22 +57,75 @@ class ProductController extends Controller
 
     public function revision(Request $request)
     {
-        return view('Master.Product.Transactions.RevisionProduct');
+        try {
+            $token = Session::get('SessionLogin');
+            $productID = $request->input('modal_product_id');
+
+            $response = $this->productService->getDetail($productID);
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                throw new \Exception('Failed to fetch Detail Product');
+            }
+
+            $details = $response['data']['data'] ?? [];
+            $header = $details[0] ?? [];
+            $compact = [
+                'token' => $token,
+                'productRefID' => $header['Sys_ID'] ?? '',
+                'header' => [
+                    'productCode' => $header['ProductCode'] ?? '',
+                    'productName' => $header['ProductName'] ?? '',
+                    'unitOfMeasureID' => $header['UnitOfMeasure_RefID'] ?? '',
+                    'unitOfMeasureName' => $header['UnitOfMeasureName'] ?? '',
+                    'categoryID' => $header['Category_RefID'] ?? '',
+                    'categoryName' => $header['CategoryName'] ?? '',
+                    'subCategoryID' => $header['SubCategory_RefID'] ?? '',
+                    'subCategoryName' => $header['SubCategoryName'] ?? '',
+                ]
+            ];
+
+            return view('Master.Product.Transactions.RevisionProduct', $compact);
+        } catch (\Throwable $th) {
+            Log::error('Revision Product Error', [
+                'message' => $th->getMessage(),
+                'productRefID' => ''
+            ]);
+
+            return redirect()
+                ->route('Product.index')
+                ->with('NotFound', 'Data cannot be displayed at this time. Please try again.');
+        }
     }
 
     public function update(Request $request, $id)
     {
+        try {
+            $response = $this->productService->update(
+                $id,
+                $request->category_value,
+                $request->sub_category_value,
+                $request->product_name,
+                $request->uom_value
+            );
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                throw new \Exception('Failed to fetch Update Product');
+            }
+
+            $compact = [
+                "documentNumber" => '-',
+                "status" => $response['metadata']['HTTPStatusCode'],
+            ];
+
+            return response()->json($compact);
+        } catch (\Throwable $th) {
+            Log::error("Update Product Function Error: " . $th->getMessage());
+
+            return response()->json(["status" => 500]);
+        }
     }
 
     public function destroy($id)
-    {
-    }
-
-    public function RevisionProduct()
-    {
-    }
-
-    public function ReportProductSummary(Request $request)
     {
     }
 }

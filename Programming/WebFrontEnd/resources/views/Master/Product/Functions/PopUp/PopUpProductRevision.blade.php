@@ -23,14 +23,13 @@
                                                     method="POST">
                                                     @csrf
                                                     <input id="modal_product_id" style="border-radius:0;"
-                                                        name="modal_product_id" type="hidden" class="form-control"
-                                                        value="123">
+                                                        name="modal_product_id" type="hidden" class="form-control">
                                                 </form>
 
                                                 <div class="input-group-append" style="cursor: pointer;">
                                                     <span style="border-radius:0;" class="input-group-text form-control"
                                                         id="modal_product_number_icon">
-                                                        <a data-toggle="modal" data-target="#mySuppliers">
+                                                        <a data-toggle="modal" data-target="#myProductss">
                                                             <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}"
                                                                 width="13" alt="">
                                                         </a>
@@ -63,9 +62,9 @@
 
 <script>
     $('.btn-edit').on('click', function () {
-        const loanRefID = $('#modal_product_id').val();
+        const productRefID = $('#modal_product_id').val();
 
-        if (loanRefID) {
+        if (productRefID) {
             ShowLoading();
 
             $('#editForm').submit();

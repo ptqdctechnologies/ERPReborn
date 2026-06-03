@@ -1,4 +1,5 @@
 <script>
+    const unitOfMeasureID = {!! json_encode($header['unitOfMeasureID'] ?? 0) !!};
     const formList = {
         product_name: {
             component: '#product_name',
@@ -36,8 +37,14 @@
             .done(function (response) {
                 const data = (response.status == 200 && response.data[0]) ? response.data : [];
 
-                data.forEach(function (project) {
-                    $('#uom').append('<option value="' + project.sys_ID + '">' + project.name + '</option>');
+                data.forEach(function (item) {
+                    const selected = item.sys_ID == unitOfMeasureID ? ' selected' : '';
+
+                    $('#uom').append(
+                        '<option value="' + item.sys_ID + '"' + selected + '>' +
+                        item.name +
+                        '</option>'
+                    );
                 });
             })
             .fail(function (jqXHR, textStatus, errorThrown) {
@@ -60,8 +67,8 @@
         e.preventDefault();
 
         $.ajax({
-            type: 'POST',
-            url: '{!! route("Product.store") !!}',
+            type: 'PUT',
+            url: '{!! route("Product.update", $productRefID) !!}',
             data: $(this).serialize(),
             beforeSend: function () {
                 Utils.showLoading();
