@@ -64,7 +64,7 @@ class SupplierService
     {
         $sessionToken = Session::get('SessionLogin');
 
-        $formatLimit = $limit == -1 ? 'ALL' : (int) $limit;
+        $formatLimit = $limit == -1 ? 'ALL' : $limit;
 
         return Helper_APICall::setCallAPIGateway(
             Helper_Environment::getUserSessionID_System(),

@@ -156,14 +156,14 @@ class SupplierController extends Controller
         $total = 0;
 
         if ($status == 200) {
-            $data = $response['data'] ?? [];
-            $total = count($data);
+            $data = $response['data']['data'] ?? [];
+            $total = $response['data']['totalRecords'] ?? count($data);
         }
 
         return response()->json([
             'draw' => intval($draw),
-            'recordsTotal' => 3000,
-            'recordsFiltered' => 3000,
+            'recordsTotal' => $total,
+            'recordsFiltered' => $total,
             'data' => $data
         ]);
     }
