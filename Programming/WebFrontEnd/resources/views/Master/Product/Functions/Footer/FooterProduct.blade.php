@@ -47,22 +47,22 @@
                             defaultContent: '-',
                             className: "align-middle"
                         },
-                        {
-                            data: null,
-                            className: "align-middle text-center",
-                            render: function (data) {
-                                return `
-                                    <div class="d-flex justify-content-center" style="gap: .5rem;">
-                                        <button class="btn btn-sm btn-warning btn-edit" data-id="${data.sys_ID}">
-                                            Edit
-                                        </button>
-                                    </div>
-                                `;
-                                // <button class="btn btn-sm btn-danger btn-delete" data-id="${data.sys_ID}">
-                                //     Hapus
-                                // </button>
-                            }
-                        }
+                        // {
+                        //     data: null,
+                        //     className: "align-middle text-center",
+                        //     render: function (data) {
+                        //         return `
+                        //             <div class="d-flex justify-content-center" style="gap: .5rem;">
+                        //                 <button class="btn btn-sm btn-warning btn-edit" data-id="${data.sys_ID}">
+                        //                     Edit
+                        //                 </button>
+                        //             </div>
+                        //         `;
+                        //         // <button class="btn btn-sm btn-danger btn-delete" data-id="${data.sys_ID}">
+                        //         //     Hapus
+                        //         // </button>
+                        //     }
+                        // }
                     ]
                 });
             },

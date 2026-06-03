@@ -1858,4 +1858,38 @@ class FunctionController extends Controller
             return response()->json($compact);
         }
     }
+
+    public function getQuantityUnit()
+    {
+        $token = Session::get('SessionLogin');
+
+        $response = Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
+            $token,
+            'transaction.read.dataList.master.getQuantityUnit',
+            'latest',
+            [
+                'parameter' => null,
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    'filter' => null,
+                    'paging' => null
+                ]
+            ],
+            false
+        );
+
+        $status = $response['metadata']['HTTPStatusCode'];
+        $data = [];
+
+        if ($status == 200) {
+            $data = $response['data']['data'] ?? [];
+        }
+
+        return response()->json([
+            'data' => array_values($data),
+            'status' => $status
+        ]);
+    }
 }
