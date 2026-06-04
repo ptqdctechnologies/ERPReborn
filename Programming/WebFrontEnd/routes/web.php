@@ -93,6 +93,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::resource('Supplier', 'Master\SupplierController');
 
     // PRODUCT
+    Route::post('Product/export', 'Master\ProductController@export')->name('Product.export');
     Route::post('Product/revision', 'Master\ProductController@revision')->name('Product.revision');
     Route::resource('Product', 'Master\ProductController');
     // Route::resource('Product', 'Register\Product\ProductController');

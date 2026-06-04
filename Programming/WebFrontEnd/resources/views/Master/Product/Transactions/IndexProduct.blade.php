@@ -63,7 +63,7 @@
                                                 </thead>
                                                 <tbody>
                                                     <tr>
-                                                        <td colspan="5">
+                                                        <td colspan="6">
                                                             <div id="loading-table"
                                                                 style="display:none;text-align:center;padding:20px;">
                                                                 <div class="spinner-border text-primary"></div>

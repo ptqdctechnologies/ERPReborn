@@ -1,4 +1,7 @@
 <script>
+    let dataReport = [];
+    const printType = document.getElementById("print_type");
+
     function getDataProducts() {
         $.ajax({
             type: 'GET',
@@ -11,6 +14,7 @@
             },
             success: function (response) {
                 let products = response?.data?.data ?? [];
+                dataReport = products;
 
                 if (products.length === 0) {
                     $('#table_product tbody').empty();
@@ -78,6 +82,49 @@
             },
             error: function (textStatus, errorThrown) {
                 $('#table_product tbody').empty();
+            }
+        });
+    }
+
+    function exportDataProducts() {
+        Utils.showLoading();
+
+        $.ajax({
+            url: '{!! route("Product.export") !!}',
+            type: 'POST',
+            data: {
+                dataReport: JSON.stringify(dataReport),
+                printType: printType.value
+            },
+            xhrFields: {
+                responseType: 'blob'
+            },
+            success: function (response) {
+                var blob = new Blob([response], { type: response.type });
+                var link = document.createElement('a');
+                link.href = window.URL.createObjectURL(blob);
+
+                if (response.type === "application/pdf") {
+                    link.download = "Product.pdf";
+                } else {
+                    link.download = "Product.xlsx";
+                }
+
+                link.click();
+
+                window.URL.revokeObjectURL(link.href);
+
+                Utils.hideLoading();
+            },
+            error: function (xhr, status, error) {
+                console.log('xhr, status, error', xhr, status, error);
+
+                Utils.hideLoading();
+                ErrorHandler.notifToast(
+                    'error',
+                    'An error occurred while processing the received data. Please try again later',
+                    'Error!'
+                );
             }
         });
     }

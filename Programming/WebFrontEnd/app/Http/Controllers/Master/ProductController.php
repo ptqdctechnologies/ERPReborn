@@ -7,7 +7,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 use App\Services\Master\Product\ProductService;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Requests\Master\Product\StoreProduct;
+use App\Http\Controllers\ExportExcel\MasterData\ExportProduct;
 
 class ProductController extends Controller
 {
@@ -127,5 +129,28 @@ class ProductController extends Controller
 
     public function destroy($id)
     {
+    }
+
+    public function export(Request $request)
+    {
+        try {
+            $dataReport = json_decode($request->dataReport, true);
+            $type = $request->printType;
+
+            if ($dataReport) {
+                if ($type === "PDF") {
+                } else if ($type === "EXCEL") {
+                    return Excel::download(new ExportProduct($dataReport), 'Product.xlsx');
+                } else {
+                    throw new \Exception('Failed to Export Product');
+                }
+            } else {
+                throw new \Exception('Products Data is Empty');
+            }
+        } catch (\Throwable $th) {
+            Log::error("Export Product Function Error: " . $th->getMessage());
+
+            return response()->json(['statusCode' => 400]);
+        }
     }
 }

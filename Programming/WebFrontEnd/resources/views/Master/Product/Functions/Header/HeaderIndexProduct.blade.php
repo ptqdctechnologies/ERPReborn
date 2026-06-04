@@ -69,7 +69,7 @@
                 <option value="EXCEL">Export Excel</option>
             </select>
         </div>
-        <button type="button" class="btn btn-default btn-sm" onclick="validateExportButton()">
+        <button type="button" class="btn btn-default btn-sm" onclick="exportDataProducts()">
             <span>
                 <img src="{{ asset('AdminLTE-master/dist/img/printer.png') }}" width="17" alt="" />
             </span>
