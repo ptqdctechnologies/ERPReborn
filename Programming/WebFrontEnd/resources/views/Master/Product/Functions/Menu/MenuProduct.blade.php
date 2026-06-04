@@ -16,13 +16,13 @@
                             <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-left"
                                 style="padding: 10px;font-size:14px;background-color:#4B586A;margin-top:8px;">
                                 <li class="nav-item">
-                                    <a href="{{ route('Product.create') }}" class="nav-link"
+                                    <a id="create_product" href="{{ route('Product.create') }}" class="nav-link"
                                         style="color:white;padding-bottom:10px;">
                                         <i class="far fa-file nav-icon-sm"> Create Product</i>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="javascript:;" class="nav-link" data-toggle="modal"
+                                    <a id="revision_product" href="javascript:;" class="nav-link" data-toggle="modal"
                                         data-target="#myProductRevision" style="color:white;padding-bottom:10px;">
                                         <i class="far fa-file nav-icon-sm"> Revision Product</i>
                                     </a>

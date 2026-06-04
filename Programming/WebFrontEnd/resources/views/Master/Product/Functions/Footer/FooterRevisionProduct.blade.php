@@ -146,6 +146,10 @@
         $('#myProductss').modal('toggle');
     });
 
+    $('#revision_product').on('click', function (e) {
+        getProductss();
+    });
+
     $(document).ready(function () {
         $('#uom').select2();
         $('#category').select2();
@@ -170,7 +174,6 @@
                 .css("border", "1px solid #ced4da");
         });
 
-        getProductss();
         getQuantityUnit();
     });
 </script>

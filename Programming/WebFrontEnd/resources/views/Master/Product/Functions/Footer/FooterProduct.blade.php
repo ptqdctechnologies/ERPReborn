@@ -47,6 +47,16 @@
                             defaultContent: '-',
                             className: "align-middle"
                         },
+                        {
+                            data: null,
+                            defaultContent: '-',
+                            className: "align-middle"
+                        },
+                        {
+                            data: null,
+                            defaultContent: '-',
+                            className: "align-middle"
+                        },
                         // {
                         //     data: null,
                         //     className: "align-middle text-center",
@@ -71,6 +81,22 @@
             }
         });
     }
+
+    $('#tableGetProductss').on('click', 'tbody tr', async function () {
+        const sysId = $(this).find('input[data-trigger="sys_id_product"]').val();
+        const code = $(this).find('td:nth-child(2)').text();
+        const name = $(this).find('td:nth-child(3)').text();
+
+        $(`#modal_product_id`).val(sysId);
+        $(`#modal_product_number`).val(`${code} - ${name}`);
+        $(`#modal_product_number`).css('background-color', '#e9ecef');
+
+        $('#myProductss').modal('toggle');
+    });
+
+    $('#revision_product').on('click', function (e) {
+        getProductss();
+    });
 
     $(document).ready(function () {
         getDataProducts();
