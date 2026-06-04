@@ -1377,7 +1377,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : getDataList_Supplier                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2026-06-02                                                                                           |
+        | ▪ Last Update     : 2026-06-03                                                                                           |
         | ▪ Creation Date   : 2026-05-11                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Pemasok                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -1419,11 +1419,13 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                 $sys_ID = null;
                 $idxArray = 0;
                 $idxArray2 = 0;
+                $categoryName = '';
                 
                 // Iterate through the result array to group data by Sys_ID
                 foreach ($resultArray as $key => $value) {
                     // Check if this is a new supplier (different Sys_ID)
                     if ($sys_ID != $value["Sys_ID"]) {
+                        // Reset nested index untuk supplier baru
                         $idxArray2 = 0;
                         // Populate main supplier information
                         $varReturn['data'][$idxArray]['sys_ID'] = $value["Sys_ID"];
@@ -1443,22 +1445,32 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         $varReturn['data'][$idxArray]['accountName'] = $value["AccountName"];
                         $varReturn['data'][$idxArray]['institutionTypeName'] = $value["InstitutionTypeName"];
                         $varReturn['data'][$idxArray]['type'][$idxArray2]['categoryName'] = $value["CategoryName"];
-                        $varReturn['data'][$idxArray]['type'][$idxArray2]['specializationName'] = $value["SpecializationName"];
+                        $varReturn['data'][$idxArray]['type'][$idxArray2]['specializationName'] = [$value["SpecializationName"]];
                         
-                        // Update current Sys_ID for the next iteration
+                        // Update current Sys_ID & CategoryName for the next iteration
                         $sys_ID = $value["Sys_ID"];
+                        $categoryName = $value["CategoryName"];
                         
                         // Increment main array index for the next supplier
                         $idxArray++;
                     } else {
-                        $idxArray2++;
-                        // If the same supplier, we can add additional type information if needed
-                        // This part can be used to handle multiple categories/specializations for the same supplier   
-                        $varReturn['data'][$idxArray - 1]['type'][$idxArray2]['categoryName'] = $value["CategoryName"]; 
-                        $varReturn['data'][$idxArray - 1]['type'][$idxArray2]['specializationName'] = $value["SpecializationName"];
+                        // Supplier sama (Sys_ID sama), cek apakah category sama atau berbeda
+                        if ($categoryName == $value["CategoryName"]) {
+                            // Category sama: tambah specialization ke array existing
+                            array_push($varReturn['data'][$idxArray - 1]['type'][$idxArray2]['specializationName'], $value["SpecializationName"]);
+                        } else {
+                            // Category berbeda: buat entry type/category baru
+                            $idxArray2++;
+                            $varReturn['data'][$idxArray - 1]['type'][$idxArray2]['categoryName'] = $value["CategoryName"];
+                            $varReturn['data'][$idxArray - 1]['type'][$idxArray2]['specializationName'] = [$value["SpecializationName"]];
+                        }
+                                    // Update current category untuk tracking berikutnya
+                                                
+			            $categoryName = $value["CategoryName"];
                     }
-                }
-	            $varReturn['totalRecords'] = $resultArray[0]['TotalRecords'];
+				}
+					// Set total records count dari first record
+					$varReturn['totalRecords'] = $resultArray[0]['TotalRecords'];
 
                 return
                     $varReturn;
