@@ -1,6 +1,6 @@
 # ERPReborn
 
-![LogoERPReborn](https://i.ibb.co/fnL12cm/Logo-Phoenix.png)
+![LogoERPReborn](https://i.ibb.co.com/j7J0ZRh/Logo-Background-Transparan-200x200.png)
 
 
 ```diff
