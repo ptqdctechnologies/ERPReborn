@@ -21,11 +21,19 @@
             <div class="row" style="margin-top: 1rem;">
                 <label class="col-sm-3 col-md-4 col-lg-3 col-form-label p-0">Unit of Measure (uom)</label>
                 <div class="col-6 d-flex" style="gap: 1rem;">
-                    <div style="width: 100%;">
-                        <select class="form-control" id="uom" name="uom_value" style="border-radius:0;width: 100%;"
-                            type="text">
-                            <option value="" disabled selected>Select a Unit of Measure</option>
-                        </select>
+                    <div class="d-flex justify-content-sm-end justify-content-md-end" style="width: 100%;">
+                        <div>
+                            <span id="myUomTrigger" class="input-group-text form-control" data-toggle="modal"
+                                data-target="#myUom" style="border-radius:0;cursor:pointer;">
+                                <i class="fas fa-gift"></i>
+                            </span>
+                        </div>
+                        <div>
+                            <input type="text" id="uom_name" class="form-control"
+                                style="border-radius:0;background-color:white;" readonly />
+                            <input type="hidden" id="uom_value" class="form-control" style="border-radius:0;"
+                                name="uom_value" />
+                        </div>
                     </div>
                     <div>
                         <button type="button" id="add_uom" class="btn btn-default btn-sm" data-toggle="modal"

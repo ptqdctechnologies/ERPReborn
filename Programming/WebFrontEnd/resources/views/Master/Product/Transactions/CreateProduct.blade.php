@@ -2,6 +2,7 @@
 @section('main')
     @include('Partials.navbar')
     @include('Partials.sidebar')
+    @include('getFunction.getUom')
     @include('getFunction.getProductss')
     @include('Master.Product.Functions.PopUp.PopUpProductCategory')
     @include('Master.Product.Functions.PopUp.PopUpProductSubCategory')

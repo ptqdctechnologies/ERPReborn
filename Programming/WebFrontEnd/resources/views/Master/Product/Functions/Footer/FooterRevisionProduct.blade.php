@@ -23,38 +23,6 @@
         }
     };
 
-    function getQuantityUnit() {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
-        $.ajax({
-            type: 'POST',
-            url: '{!! route("getQuantityUnit") !!}',
-        })
-            .done(function (response) {
-                const data = (response.status == 200 && response.data[0]) ? response.data : [];
-
-                data.forEach(function (item) {
-                    const selected = item.sys_ID == unitOfMeasureID ? ' selected' : '';
-
-                    $('#uom').append(
-                        '<option value="' + item.sys_ID + '"' + selected + '>' +
-                        item.name +
-                        '</option>'
-                    );
-                });
-            })
-            .fail(function (jqXHR, textStatus, errorThrown) {
-                console.error("Error:", errorThrown);
-            })
-            .always(function (jqXHR, textStatus, errorThrown) {
-                // $("#loadingGetModalAdvanceSettlement").hide();
-            });
-    }
-
     $('#product_name').on('input', function (e) {
         if (!e.target.value) {
             ErrorHandler.showErrorInputMessage("#product_name", "#productNameMessage");
@@ -134,6 +102,19 @@
             });
     });
 
+    $('#tableGetUom').on('click', 'tbody tr', async function () {
+        const sysId = $(this).find('input[data-trigger="sys_id_uom"]').val();
+        const name = $(this).find('td:nth-child(2)').text();
+
+        $(`#uom_value`).val(sysId);
+        $(`#uom_name`).val(name);
+        $(`#uom_name`).css('background-color', '#e9ecef');
+
+        ErrorHandler.hideErrorInputMessage("#uom_name", "#uomMessage");
+
+        $('#myUom').modal('toggle');
+    });
+
     $('#tableGetProductss').on('click', 'tbody tr', async function () {
         const sysId = $(this).find('input[data-trigger="sys_id_product"]').val();
         const code = $(this).find('td:nth-child(2)').text();
@@ -146,21 +127,18 @@
         $('#myProductss').modal('toggle');
     });
 
+    $('#myUomTrigger').on('click', function (e) {
+        getUom();
+    });
+
     $('#revision_product').on('click', function (e) {
         getProductss();
     });
 
     $(document).ready(function () {
-        $('#uom').select2();
         $('#category').select2();
         $('#sub_category').select2();
 
-        $('#uom').on('select2:select', function (e) {
-            ErrorHandler.hideErrorInputMessage("", "#uomMessage");
-            $('#uom').next('.select2-container')
-                .find('.select2-selection')
-                .css("border", "1px solid #ced4da");
-        });
         $('#category').on('select2:select', function (e) {
             ErrorHandler.hideErrorInputMessage("", "#categoryMessage");
             $('#category').next('.select2-container')
@@ -173,7 +151,5 @@
                 .find('.select2-selection')
                 .css("border", "1px solid #ced4da");
         });
-
-        getQuantityUnit();
     });
 </script>

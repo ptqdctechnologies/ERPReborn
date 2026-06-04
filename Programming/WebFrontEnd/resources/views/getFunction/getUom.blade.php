@@ -1,72 +1,39 @@
-<div id="mySearchUomRevision" class="modal fade" role="dialog" aria-labelledby="contohModalScrollableTitle" aria-hidden="true">
+<div id="myUom" class="modal fade" role="dialog" aria-labelledby="contohModalScrollableTitle" aria-hidden="true"
+    style="z-index: 9999;'">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Choose UOM</h4>
+                <label class="card-title">Choose UoM</label>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
-                <form>
-                    <div class="form-group">
-                        <table>
-                            <tr>
-                                <td><label>Code</label></td>
-                                <td>
-                                    <div class="input-group">
-                                        <input autocomplete="off" style="border-radius:0;" type="text" class="form-control" id="code_uom" onkeyup="searchUomCode()">
-                                        <br><br>
-                                    </div>
-                                </td>
-                                <td><label>Name</label></td>
-                                <td>
-                                    <div class="input-group">
-                                        <input autocomplete="off" style="border-radius:0;" type="text" class="form-control" id="name_uom" onkeyup="searchUomName()">
-                                        <br><br>
-                                    </div>
-                                </td>
-                                <td><label>Description</label></td>
-                                <td>
-                                    <div class="input-group">
-                                        <input autocomplete="off" style="border-radius:0;" type="text" class="form-control" id="description_uom" onkeyup="searchDescriptionName()">
-                                        <br><br>
-                                    </div>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                </form>
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body table-responsive p-0" style="height: 400px;">
-                                <table class="table table-head-fixed text-nowrap" id="tableSearchUom">
+                                <table class="table table-head-fixed text-nowrap" id="tableGetUom">
                                     <thead>
                                         <tr>
                                             <th>No</th>
-                                            <th>UOM Code</th>
-                                            <th>UOM Name</th>
-                                            <th>UOM Description</th>
+                                            <th>Name</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        @php $no=1; @endphp
-                                        @for($i = 1; $i < 20; $i++)
-                                        <tr>
-                                            <td>{{ $no++ }}</td>
-                                            <td>
-                                                <span class="tag tag-success">
-                                                    <p data-dismiss="modal" class="kliktableSearchUom" data-id="UOM Code {{ $i }}" data-name="UOM Name {{ $i }}">UOM Code {{$i}}</p>
-                                                </span>
-                                            </td>
-                                            <td>
-                                                <p>UOM Name {{$i}}</p>
-                                            </td>
-                                            <td>
-                                                <p>UOM Description {{$i}}</p>
+                                    <tbody></tbody>
+                                    <tfoot>
+                                        <tr id="loadingGetModalUom">
+                                            <td colspan="2" class="p-0" style="height: 22rem;">
+                                                <div
+                                                    class="d-flex flex-column justify-content-center align-items-center py-3">
+                                                    <div class="spinner-border" role="status">
+                                                        <span class="sr-only">Loading...</span>
+                                                    </div>
+                                                    <div class="mt-3" style="font-size: 0.75rem; font-weight: 700;">
+                                                        Loading...
+                                                    </div>
+                                                </div>
                                             </td>
                                         </tr>
-                                        @endfor
-                                    </tbody>
+                                    </tfoot>
                                 </table>
                             </div>
                         </div>
@@ -76,84 +43,48 @@
         </div>
     </div>
 </div>
-<!--|----------------------------------------------------------------------------------|
-    |                            End Function My Project Code                          |
-    |----------------------------------------------------------------------------------|-->
-<script>
-    function searchUomCode() {
-        // Declare variables
-        var input, filter, table, tr, td, i, txtValue;
-        input = document.getElementById("code_uom");
-        filter = input.value.toUpperCase();
-        table = document.getElementById("tableSearchUom");
-        tr = table.getElementsByTagName("tr");
-
-        // Loop through all table rows, and hide those who don't match the search query
-        for (i = 0; i < tr.length; i++) {
-            td = tr[i].getElementsByTagName("td")[1];
-            if (td) {
-                txtValue = td.textContent || td.innerText;
-                if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                    tr[i].style.display = "";
-                } else {
-                    tr[i].style.display = "none";
-                }
-            }
-        }
-    }
-
-    function searchUomName() {
-        // Declare variables
-        var input, filter, table, tr, td, i, txtValue;
-        input = document.getElementById("name_uom");
-        filter = input.value.toUpperCase();
-        table = document.getElementById("tableSearchUom");
-        tr = table.getElementsByTagName("tr");
-
-        // Loop through all table rows, and hide those who don't match the search query
-        for (i = 0; i < tr.length; i++) {
-            td = tr[i].getElementsByTagName("td")[2];
-            if (td) {
-                txtValue = td.textContent || td.innerText;
-                if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                    tr[i].style.display = "";
-                } else {
-                    tr[i].style.display = "none";
-                }
-            }
-        }
-    }
-
-    function searchDescriptionName() {
-        // Declare variables
-        var input, filter, table, tr, td, i, txtValue;
-        input = document.getElementById("description_uom");
-        filter = input.value.toUpperCase();
-        table = document.getElementById("tableSearchUom");
-        tr = table.getElementsByTagName("tr");
-
-        // Loop through all table rows, and hide those who don't match the search query
-        for (i = 0; i < tr.length; i++) {
-            td = tr[i].getElementsByTagName("td")[3];
-            if (td) {
-                txtValue = td.textContent || td.innerText;
-                if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                    tr[i].style.display = "";
-                } else {
-                    tr[i].style.display = "none";
-                }
-            }
-        }
-    }
-</script>
 
 <script>
-    $(function() {
-        $(".kliktableSearchUom").on('click', function(e) {
-            e.preventDefault(); // in chase you change to a link or button
-            var $this = $(this);
-            var code = $this.data("id");
-            $("#uomCode").val(code);
+    function getUom() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
         });
-    });
+
+        $.ajax({
+            type: 'POST',
+            url: '{!! route("getQuantityUnit") !!}',
+        })
+            .done(function (response) {
+                const data = response.data && response.data[0] ? response.data : [];
+
+                $('#tableGetUom').DataTable({
+                    destroy: true,
+                    data: data,
+                    deferRender: true,
+                    scrollCollapse: true,
+                    scroller: true,
+                    columns: [
+                        {
+                            data: null,
+                            render: function (data, type, row, meta) {
+                                return '<input id="sys_id_uom' + (meta.row + 1) + '" value="' + data.sys_ID + '" data-trigger="sys_id_uom" type="hidden">' + (meta.row + 1)
+                            }
+                        },
+                        {
+                            data: 'name',
+                            defaultContent: '-',
+                            className: "align-middle"
+                        }
+                    ]
+                });
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                console.error("Error:", errorThrown);
+            })
+            .always(function (jqXHR, textStatus, errorThrown) {
+                $("#loadingGetModalUom").hide();
+            });
+    }
 </script>
