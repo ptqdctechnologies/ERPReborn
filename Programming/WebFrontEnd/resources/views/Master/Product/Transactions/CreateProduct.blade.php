@@ -5,6 +5,7 @@
     @include('getFunction.getUom')
     @include('getFunction.getProductss')
     @include('getFunction.getProductCategories')
+    @include('getFunction.getProductSubCategories')
     @include('Master.Product.Functions.PopUp.PopUpProductCategory')
     @include('Master.Product.Functions.PopUp.PopUpProductSubCategory')
     @include('Master.Product.Functions.PopUp.PopUpProductUom')

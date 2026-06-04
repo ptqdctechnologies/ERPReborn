@@ -127,6 +127,19 @@
         $('#myProductCategory').modal('toggle');
     });
 
+    $('#tableGetProductSubCategory').on('click', 'tbody tr', async function () {
+        const sysId = $(this).find('input[data-trigger="sys_id_product_sub_category"]').val();
+        const name = $(this).find('td:nth-child(2)').text();
+
+        $(`#sub_category_value`).val(sysId);
+        $(`#sub_category`).val(name);
+        $(`#sub_category`).css('background-color', '#e9ecef');
+
+        ErrorHandler.hideErrorInputMessage("#sub_category", "#subCategoryMessage");
+
+        $('#myProductSubCategory').modal('toggle');
+    });
+
     $('#tableGetProductss').on('click', 'tbody tr', async function () {
         const sysId = $(this).find('input[data-trigger="sys_id_product"]').val();
         const code = $(this).find('td:nth-child(2)').text();
@@ -143,22 +156,15 @@
         getProductCategory();
     });
 
+    $('#myProductSubCategoryTrigger').on('click', function (e) {
+        getProductSubCategory();
+    });
+
     $('#myUomTrigger').on('click', function (e) {
         getUom();
     });
 
     $('#revision_product').on('click', function (e) {
         getProductss();
-    });
-
-    $(document).ready(function () {
-        $('#sub_category').select2();
-
-        $('#sub_category').on('select2:select', function (e) {
-            ErrorHandler.hideErrorInputMessage("", "#subCategoryMessage");
-            $('#sub_category').next('.select2-container')
-                .find('.select2-selection')
-                .css("border", "1px solid #ced4da");
-        });
     });
 </script>

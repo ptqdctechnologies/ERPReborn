@@ -4,6 +4,7 @@
     @include('Partials.sidebar')
     @include('getFunction.getProductss')
     @include('getFunction.getProductCategories')
+    @include('getFunction.getProductSubCategories')
     @include('Master.Product.Functions.PopUp.PopUpProductRevision')
 
     <div class="content-wrapper">
