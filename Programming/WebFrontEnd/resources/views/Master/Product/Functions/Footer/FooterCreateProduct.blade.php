@@ -11,7 +11,7 @@
             messageId: '#uomMessageText'
         },
         category_value: {
-            component: '#category',
+            component: '#category_name',
             containerMessageId: '#categoryMessage',
             messageId: '#categoryMessageText'
         },
@@ -79,11 +79,7 @@
                         if (formList[key]) {
                             ErrorHandler.showErrorInputMessage(formList[key].component, formList[key].containerMessageId, formList[key].messageId, value[0]);
 
-                            if (formList[key].component == '#category') {
-                                $('#category').next('.select2-container')
-                                    .find('.select2-selection')
-                                    .css("border", "1px solid red");
-                            } else if (formList[key].component == '#sub_category') {
+                            if (formList[key].component == '#sub_category') {
                                 $('#sub_category').next('.select2-container')
                                     .find('.select2-selection')
                                     .css("border", "1px solid red");
@@ -110,6 +106,19 @@
         $('#myUom').modal('toggle');
     });
 
+    $('#tableGetProductCategory').on('click', 'tbody tr', async function () {
+        const sysId = $(this).find('input[data-trigger="sys_id_product_category"]').val();
+        const name = $(this).find('td:nth-child(2)').text();
+
+        $(`#category_value`).val(sysId);
+        $(`#category_name`).val(name);
+        $(`#category_name`).css('background-color', '#e9ecef');
+
+        ErrorHandler.hideErrorInputMessage("#category_name", "#categoryMessage");
+
+        $('#myProductCategory').modal('toggle');
+    });
+
     $('#tableGetProductss').on('click', 'tbody tr', async function () {
         const sysId = $(this).find('input[data-trigger="sys_id_product"]').val();
         const code = $(this).find('td:nth-child(2)').text();
@@ -122,6 +131,10 @@
         $('#myProductss').modal('toggle');
     });
 
+    $('#myProductCategoryTrigger').on('click', function (e) {
+        getProductCategory();
+    });
+
     $('#myUomTrigger').on('click', function (e) {
         getUom();
     });
@@ -131,15 +144,8 @@
     });
 
     $(document).ready(function () {
-        $('#category').select2();
         $('#sub_category').select2();
 
-        $('#category').on('select2:select', function (e) {
-            ErrorHandler.hideErrorInputMessage("", "#categoryMessage");
-            $('#category').next('.select2-container')
-                .find('.select2-selection')
-                .css("border", "1px solid #ced4da");
-        });
         $('#sub_category').on('select2:select', function (e) {
             ErrorHandler.hideErrorInputMessage("", "#subCategoryMessage");
             $('#sub_category').next('.select2-container')

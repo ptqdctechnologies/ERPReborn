@@ -26,10 +26,19 @@
     <div class="row p-0 align-items-center">
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Category</label>
         <div class="col-sm-9 col-md-8 col-lg-6 d-flex p-0">
-            <div style="width: 100%;">
-                <select class="form-control" id="category" name="category_value" style="border-radius:0;" type="text">
-                    <option value="" disabled selected>Select a Category</option>
-                </select>
+            <div class="d-flex" style="width: 100%;">
+                <div>
+                    <span id="myProductCategoryTrigger" class="input-group-text form-control" data-toggle="modal"
+                        data-target="#myProductCategory" style="border-radius:0;cursor:pointer;">
+                        <i class="fas fa-gift"></i>
+                    </span>
+                </div>
+                <div>
+                    <input type="text" id="category_name" class="form-control"
+                        style="border-radius:0;background-color:white;" readonly />
+                    <input type="hidden" id="category_value" class="form-control" style="border-radius:0;"
+                        name="category_value" />
+                </div>
             </div>
         </div>
     </div>
