@@ -4860,7 +4860,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         | ▪ Method Name     : getReport_Form_DocumentForm_AdvanceSummary                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-12-09                                                                                           |
+        | ▪ Last Update     : 2026-16-05                                                                                           |
         | ▪ Creation Date   : 2025-12-09                                                                                           |
         | ▪ Description     : Mendapatkan Laporan Form - Form Dokumen Advance Summary                                              |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -4878,7 +4878,9 @@ namespace App\Models\Database\SchData_OLTP_Finance
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_DocumentForm_AdvanceSummary_New(
-            $varUserSession, int $varSysBranch_RefID, string  $varCombinedBudgetCode = null, string $varCombinedBudgetSectionCode = null, int $varRequesterWorkerJobsPosition_RefID = null, int $varBeneficiaryWorkerJobsPosition_RefID = null, string  $varStartDate = null, string  $varEndDate = null,
+            $varUserSession, int $varSysBranch_RefID, 
+            string  $varCombinedBudgetCode = null, string $varCombinedBudgetSectionCode = null, int $varRequesterWorkerJobsPosition_RefID = null, int $varBeneficiaryWorkerJobsPosition_RefID = null, string  $varStartDate = null, string  $varEndDate = null,
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, array $varPagingStatement = null
             )
             {
             try {
@@ -4895,9 +4897,14 @@ namespace App\Models\Database\SchData_OLTP_Finance
                                 [$varBeneficiaryWorkerJobsPosition_RefID, 'bigint' ],
                                 [$varStartDate, 'varchar'],
                                 [$varEndDate, 'varchar'],
+                                [$varPagingStatement['limit'], 'varchar'],
+                                [$varPagingStatement['offset'], 'bigint']
                             ]
                             )
                         );
+                // Set total records count dari first record
+                $varReturn['totalRecords'] = $varReturn['data'][0]['TotalRecords'];
+                
                 return $varReturn;
                 }
             catch (\Exception $ex) {

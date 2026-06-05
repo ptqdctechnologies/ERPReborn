@@ -45,7 +45,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\do
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000001                                                                                       |
         | ▪ Create date     : 2025-12-09                                                                                           |
-        | ▪ Last Update     : 2025-12-09                                                                                           |
+        | ▪ Last Update     : 2026-06-05                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -71,7 +71,12 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\do
                             $varData['parameter']['RequesterWorkerJobsPosition_RefID'],
                             $varData['parameter']['BeneficiaryWorkerJobsPosition_RefID'],
                             $varData['parameter']['StartDate'],
-                            $varData['parameter']['EndDate']
+                            $varData['parameter']['EndDate'],
+                            
+                            $varData['SQLStatement']['pick'],
+                            $varData['SQLStatement']['sort'],
+                            $varData['SQLStatement']['filter'],
+                            $varData['SQLStatement']['paging']
                             ))))
                             {
                             throw new \Exception();
