@@ -53,9 +53,6 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
                     // 'EndDate' => NULL,
                     ],
                 'SQLStatement' => [
-                    'pick' => null,
-                    'sort' => null,
-                    'filter' => null,
                     'paging' => [
                         'limit' => "20",
                         // 'limit' => "ALL",
