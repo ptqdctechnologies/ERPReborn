@@ -72,10 +72,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\do
                             $varData['parameter']['BeneficiaryWorkerJobsPosition_RefID'],
                             $varData['parameter']['StartDate'],
                             $varData['parameter']['EndDate'],
-                            
-                            $varData['SQLStatement']['pick'],
-                            $varData['SQLStatement']['sort'],
-                            $varData['SQLStatement']['filter'],
+
                             $varData['SQLStatement']['paging']
                             ))))
                             {

@@ -4880,7 +4880,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         public function getReport_Form_DocumentForm_AdvanceSummary_New(
             $varUserSession, int $varSysBranch_RefID, 
             string  $varCombinedBudgetCode = null, string $varCombinedBudgetSectionCode = null, int $varRequesterWorkerJobsPosition_RefID = null, int $varBeneficiaryWorkerJobsPosition_RefID = null, string  $varStartDate = null, string  $varEndDate = null,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, array $varPagingStatement = null
+            array $varPagingStatement = null
             )
             {
             try {
