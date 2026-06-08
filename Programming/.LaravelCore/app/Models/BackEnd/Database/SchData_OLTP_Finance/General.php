@@ -195,7 +195,11 @@ namespace App\Models\Database\SchData_OLTP_Finance
         |      ▪ (int)    varPagination_PageShow ► Pagination Page Show                                                            |
         |      ------------------------------                                                                                      |
         |      ▪ (string) varBusinessDocumentNumber ► Business Document Number                                                     |
-        |      ▪ (int)    varCombinedBudget_RefID ► Combined Budget Reference ID                                                   |
+        |      ▪ (string) varDocumentDateStart ► Document Date Start                                                               |
+        |      ▪ (string) varDocumentDateFinish ► Document Date Finish                                                             |
+        |      ▪ (string) varRequesterName ► Requester Name                                                                        |
+        |      ▪ (string) varCombinedBudget ► Combined Budget                                                                      |
+        |      ▪ (string) varCombinedBudgetSection ► Combined Budget Section                                                       |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
