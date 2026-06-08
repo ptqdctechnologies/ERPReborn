@@ -45,7 +45,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\do
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000001                                                                                       |
         | ▪ Create date     : 2025-10-30                                                                                           |
-        | ▪ Last Update     : 2025-07-30                                                                                           |
+        | ▪ Last Update     : 2026-06-08                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -70,7 +70,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\do
                             $varData['parameter']['CombinedBudgetSectionCode'],
                             $varData['parameter']['RequesterWorkerJobsPosition_RefID'],
                             $varData['parameter']['StartDate'],
-                            $varData['parameter']['EndDate']
+                            $varData['parameter']['EndDate'],
+
+                            $varData['SQLStatement']['paging']
                             ))))
                             {
                             throw new \Exception();

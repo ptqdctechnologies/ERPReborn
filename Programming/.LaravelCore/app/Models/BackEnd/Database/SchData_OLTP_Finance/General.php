@@ -4918,7 +4918,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         | ▪ Method Name     : getReport_Form_DocumentForm_AdvanceToAdvanceSettlementSummary                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-10-30                                                                                           |
+        | ▪ Last Update     : 2026-06-08                                                                                           |
         | ▪ Creation Date   : 2025-07-30                                                                                           |
         | ▪ Description     : Mendapatkan Laporan Form - Form Dokumen Advance To Advance Settlement Summary                        |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -4933,7 +4933,8 @@ namespace App\Models\Database\SchData_OLTP_Finance
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_DocumentForm_AdvanceToAdvanceSettlementSummary(
-            $varUserSession, int $varSysBranch_RefID, string  $varCombinedBudgetCode = null, string $varCombinedBudgetSectionCode = null, int $varRequesterWorkerJobsPosition_RefID = null, string  $varStartDate = null, string  $varEndDate = null,
+		$varUserSession, int $varSysBranch_RefID, string  $varCombinedBudgetCode = null, string $varCombinedBudgetSectionCode = null, int $varRequesterWorkerJobsPosition_RefID = null, string  $varStartDate = null, string  $varEndDate = null,
+		array $varPagingStatement = null
             )
             {
             try {
@@ -4949,9 +4950,14 @@ namespace App\Models\Database\SchData_OLTP_Finance
                                 [$varRequesterWorkerJobsPosition_RefID, 'bigint' ],
                                 [$varStartDate, 'varchar'],
                                 [$varEndDate, 'varchar'],
+                                [$varPagingStatement['limit'], 'varchar'],
+                                [$varPagingStatement['offset'], 'bigint']
                             ]
                             )
-                        );
+		    );
+                // Set total records count dari first record
+                $varReturn['totalRecords'] = $varReturn['data'][0]['TotalRecords'];
+		
                 return $varReturn;
                 }
             catch (\Exception $ex) {
