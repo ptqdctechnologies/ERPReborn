@@ -21,7 +21,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
         |                     ► http://172.28.0.4/report.form.documentForm.humanResource.getPersonBusinessTripToBSFSummary.v1_throughAPIGateway          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2026-04-15                                                                                           |
+        | ▪ Last Update     : 2026-06-08                                                                                           |
         | ▪ Creation Date   : 2026-04-15                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -54,6 +54,13 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
                     'BusinessTripSettlement_RefID' => NULL,
                     'StartDate' => NULL,
                     'EndDate' => NULL,
+                    ],
+                'SQLStatement' => [
+                    'paging' => [
+                        'limit' => "20",
+                        // 'limit' => "ALL",
+                        'offset' => 0
+                        ]
                     ]
                 ]
                 );

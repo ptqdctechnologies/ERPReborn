@@ -44,7 +44,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\do
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Create date     : 2026-04-15                                                                                           |
+        | ▪ Create date     : 2026-06-08                                                                                           |
         | ▪ Last Update     : 2026-04-15                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -72,7 +72,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\do
                             $varData['parameter']['BusinessTrip_RefID'],
                             $varData['parameter']['BusinessTripSettlement_RefID'],
                             $varData['parameter']['StartDate'],
-                            $varData['parameter']['EndDate']
+                            $varData['parameter']['EndDate'],
+
+                            $varData['SQLStatement']['paging']
                             ))))
                             {
                             throw new \Exception();

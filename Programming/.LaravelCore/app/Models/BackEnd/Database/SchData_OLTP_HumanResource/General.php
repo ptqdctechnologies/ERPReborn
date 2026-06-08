@@ -1547,7 +1547,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         | ▪ Method Name     : getReport_Form_DocumentForm_PersonBusinessTripToBSFSummary                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2026-04-15                                                                                           |
+        | ▪ Last Update     : 2026-06-08                                                                                           |
         | ▪ Creation Date   : 2026-04-15                                                                                           |
         | ▪ Description     : Mendapatkan Laporan Form - Form Dokumen Business Trip to Business Trip Settlement Summary            |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -1565,7 +1565,8 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_DocumentForm_PersonBusinessTripToBSFSummary(
-            $varUserSession, int $varSysBranch_RefID, string  $varCombinedBudgetCode = null, string $varCombinedBudgetSectionCode = null, int $varRequester_RefID = null, int $varBusinessTrip_RefID = null, int $varBusinessTripSettlement_RefID = null, string  $varStartDate = null, string  $varEndDate = null,
+		$varUserSession, int $varSysBranch_RefID, string  $varCombinedBudgetCode = null, string $varCombinedBudgetSectionCode = null, int $varRequester_RefID = null, int $varBusinessTrip_RefID = null, int $varBusinessTripSettlement_RefID = null, string  $varStartDate = null, string  $varEndDate = null,
+		array $varPagingStatement = null
             )
             {
             try {
@@ -1583,9 +1584,14 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                                 [$varBusinessTripSettlement_RefID, 'bigint' ],
                                 [$varStartDate, 'varchar'],
                                 [$varEndDate, 'varchar'],
+                                [$varPagingStatement['limit'], 'varchar'],
+                                [$varPagingStatement['offset'], 'bigint']
                             ]
                             )
                         );
+                // Set total records count dari first record
+		$varReturn['totalRecords'] = $varReturn['data'][0]['TotalRecords'];
+
                 return $varReturn;
                 }
             catch (\Exception $ex) {
