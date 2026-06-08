@@ -60,142 +60,129 @@
     }
 
     function getDataReport() {
-        Utils.showLoading();
+        let totalIDR = 0;
+        let totalOtherCurrency = 0;
+        let totalEquivalentIDR = 0;
 
-        $.ajax({
-            type: 'POST',
-            url: '{!! route("AdvanceRequest.ReportAdvanceSummaryStore") !!}',
-            data: {
-                budget_id: budgetID.value,
-                budget_code: budgetCode.value,
-                site_id: subBudgetID.value,
-                site_code: subBudgetCode.value,
-                requester_id: requesterID.value,
-                beneficiary_id: beneficiaryID.value,
-                arfDate: arfDate.value
-            },
-            dataType: 'json',
-            success: function (response) {
-                let totalIDR = 0;
-                let totalOtherCurrency = 0;
-                let totalEquivalentIDR = 0;
+        $('#table_summary').DataTable({
+            destroy: true,
+            processing: true,
+            serverSide: true,
+            searching: false,
+            ordering: false,
+            lengthMenu: [
+                [10, 20, 50, 100, -1],
+                [10, 20, 50, 100, "All"]
+            ],
+            pageLength: 20,
+            ajax: {
+                type: 'POST',
+                url: '{!! route("AdvanceRequest.ReportAdvanceSummaryStore") !!}',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: function (d) {
+                    d.budget_id = budgetID.value;
+                    d.budget_code = budgetCode.value;
+                    d.site_id = subBudgetID.value;
+                    d.site_code = subBudgetCode.value;
+                    d.requester_id = requesterID.value;
+                    d.beneficiary_id = beneficiaryID.value;
+                    d.arfDate = arfDate.value;
 
-                if (response.status === 200 && response.data[0]) {
-                    let data = response.data;
-                    dataReport = JSON.stringify(data);
+                    return d;
+                },
+                dataSrc: function (json) {
 
-                    data.forEach(function (row) {
+                    // simpan seluruh response
+                    dataReport = json.data;
+
+                    json.data.forEach(function (row) {
                         totalIDR += parseFloat(row.total_IDR) || 0;
                         totalOtherCurrency += parseFloat(row.total_Other_Currency) || 0;
                         totalEquivalentIDR += parseFloat(row.total_Equivalent_IDR) || 0;
                     });
 
-                    $('#table_summary').DataTable({
-                        destroy: true,
-                        data: data,
-                        deferRender: true,
-                        scrollCollapse: true,
-                        scroller: true,
-                        columns: [
-                            {
-                                data: null,
-                                render: function (data, type, row, meta) {
-                                    return (meta.row + 1);
-                                }
-                            },
-                            {
-                                data: 'advanceNumber',
-                                defaultContent: '-',
-                                className: "text-nowrap",
-                            },
-                            {
-                                data: null,
-                                defaultContent: '-',
-                                className: "text-nowrap",
-                                render: function (data, type, row, meta) {
-                                    return `${data.combinedBudgetSectionCode} - ${data.combinedBudgetSectionName}`;
-                                }
-                            },
-                            {
-                                data: 'advanceDate',
-                                defaultContent: '-'
-                            },
-                            {
-                                data: 'requesterName',
-                                defaultContent: '-',
-                                className: "text-nowrap",
-                            },
-                            {
-                                data: 'beneficiaryName',
-                                defaultContent: '-',
-                                className: "text-nowrap",
-                            },
-                            {
-                                data: null,
-                                defaultContent: '-',
-                                render: function (data, type, row, meta) {
-                                    return currencyTotal(data.total_IDR || '0');
-                                }
-                            },
-                            {
-                                data: null,
-                                defaultContent: '-',
-                                render: function (data, type, row, meta) {
-                                    return currencyTotal(data.total_Other_Currency || '0');
-                                }
-                            },
-                            {
-                                data: null,
-                                defaultContent: '-',
-                                render: function (data, type, row, meta) {
-                                    return currencyTotal(data.total_Equivalent_IDR || '0');
-                                }
-                            },
-                            {
-                                data: 'remarks',
-                                defaultContent: '-'
-                            }
-                        ],
-                        drawCallback: function (settings) {
-                            $('#table_summary tfoot th:nth-child(2)').text(currencyTotal(totalIDR));
-                            $('#table_summary tfoot th:nth-child(3)').text(currencyTotal(totalOtherCurrency));
-                            $('#table_summary tfoot th:nth-child(4)').text(currencyTotal(totalEquivalentIDR));
-                        }
-                    });
+                    // wajib return data untuk DataTable
+                    return json.data;
+                },
+                beforeSend: function () {
+                    Utils.showLoading();
+
+                    $('#table_summary tbody').empty();
+                    $('#table_container').css("display", "none");
+                },
+                complete: function () {
+                    Utils.hideLoading();
 
                     $('#table_summary').css("width", "100%");
                     $('#table_container').css("display", "block");
-                } else {
-                    dataReport = [];
-
-                    $('#table_summary').DataTable({
-                        destroy: true,
-                        data: [],
-                        deferRender: true,
-                        scrollCollapse: true,
-                        scroller: true,
-                        drawCallback: function (settings) {
-                            $('#table_summary tfoot th:nth-child(2)').text(currencyTotal(totalIDR));
-                            $('#table_summary tfoot th:nth-child(3)').text(currencyTotal(totalOtherCurrency));
-                            $('#table_summary tfoot th:nth-child(4)').text(currencyTotal(totalEquivalentIDR));
-                        }
-                    });
-
-                    $('#table_summary').css("width", "100%");
-                    $('#table_container').css("display", "block");
-                }
-
-                Utils.hideLoading();
+                },
             },
-            error: function (xhr, status, error) {
-                console.log('xhr, status, error', xhr, status, error);
-
-                Utils.hideLoading();
-                ErrorHandler.notifToast(
-                    'error',
-                    'An error occurred while processing the received data. Please try again later',
-                    'Error!'
-                );
+            columns: [
+                {
+                    data: null,
+                    render: function (data, type, row, meta) {
+                        return (meta.row + meta.settings._iDisplayStart + 1);
+                    }
+                },
+                {
+                    data: 'advanceNumber',
+                    defaultContent: '-',
+                    className: "text-nowrap",
+                },
+                {
+                    data: null,
+                    defaultContent: '-',
+                    className: "text-nowrap",
+                    render: function (data, type, row, meta) {
+                        return `${data.combinedBudgetSectionCode} - ${data.combinedBudgetSectionName}`;
+                    }
+                },
+                {
+                    data: 'advanceDate',
+                    defaultContent: '-'
+                },
+                {
+                    data: 'requesterName',
+                    defaultContent: '-',
+                    className: "text-nowrap",
+                },
+                {
+                    data: 'beneficiaryName',
+                    defaultContent: '-',
+                    className: "text-nowrap",
+                },
+                {
+                    data: null,
+                    defaultContent: '-',
+                    render: function (data, type, row, meta) {
+                        return currencyTotal(data.total_IDR || '0');
+                    }
+                },
+                {
+                    data: null,
+                    defaultContent: '-',
+                    render: function (data, type, row, meta) {
+                        return currencyTotal(data.total_Other_Currency || '0');
+                    }
+                },
+                {
+                    data: null,
+                    defaultContent: '-',
+                    render: function (data, type, row, meta) {
+                        return currencyTotal(data.total_Equivalent_IDR || '0');
+                    }
+                },
+                {
+                    data: 'remarks',
+                    defaultContent: '-'
+                }
+            ],
+            drawCallback: function (settings) {
+                $('#table_summary tfoot th:nth-child(2)').text(currencyTotal(totalIDR));
+                $('#table_summary tfoot th:nth-child(3)').text(currencyTotal(totalOtherCurrency));
+                $('#table_summary tfoot th:nth-child(4)').text(currencyTotal(totalEquivalentIDR));
             }
         });
     }
@@ -207,12 +194,12 @@
             url: '{!! route("AdvanceRequest.PrintExportReportAdvanceSummary") !!}',
             type: 'POST',
             data: {
-                dataReport,
                 budgetName: budgetName.value || '-',
                 subBudgetName: subBudgetName.value || '-',
                 requesterName: requesterName.value || '-',
                 beneficiaryName: beneficiaryName.value || '-',
                 arfDate: arfDate.value || '-',
+                dataReport: JSON.stringify(dataReport),
                 printType: printType.value
             },
             xhrFields: {
