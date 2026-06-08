@@ -9,7 +9,7 @@ use App\Helpers\ZhtHelper\System\Helper_Environment;
 
 class SupplierService
 {
-    public function getDetail($advanceRequestID)
+    public function getDetail($supplierID)
     {
         $sessionToken = Session::get('SessionLogin');
 
@@ -20,7 +20,7 @@ class SupplierService
             'latest',
             [
                 'parameter' => [
-                    'supplier_RefID' => (int) $advanceRequestID,
+                    'supplier_RefID' => (int) $supplierID,
                 ],
                 'SQLStatement' => [
                     'pick' => null,
@@ -64,7 +64,7 @@ class SupplierService
     {
         $sessionToken = Session::get('SessionLogin');
 
-        $formatLimit = $limit == -1 ? 'ALL' : (int) $limit;
+        $formatLimit = $limit == -1 ? 'ALL' : $limit;
 
         return Helper_APICall::setCallAPIGateway(
             Helper_Environment::getUserSessionID_System(),

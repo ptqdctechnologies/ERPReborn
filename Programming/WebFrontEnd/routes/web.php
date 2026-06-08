@@ -87,12 +87,13 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
 
     // SUPPLIER
     Route::post('Supplier/revision', 'Master\SupplierController@revision')->name('Supplier.revision');
-    Route::post('SupplierPickList', 'Master\SupplierController@SupplierPickList')->name('Supplier.SupplierPickList');
-    Route::post('SupplierSummary', 'Master\SupplierController@SupplierSummary')->name('Supplier.SupplierSummary');
+    Route::post('Supplier/picklist', 'Master\SupplierController@picklist')->name('Supplier.picklist');
+    Route::post('Supplier/summary', 'Master\SupplierController@summary')->name('Supplier.summary');
     Route::post('Supplier/export', 'Master\SupplierController@export')->name('Supplier.export');
     Route::resource('Supplier', 'Master\SupplierController');
 
     // PRODUCT
+    Route::post('Product/export', 'Master\ProductController@export')->name('Product.export');
     Route::post('Product/revision', 'Master\ProductController@revision')->name('Product.revision');
     Route::resource('Product', 'Master\ProductController');
     // Route::resource('Product', 'Register\Product\ProductController');

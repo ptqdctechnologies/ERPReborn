@@ -2,6 +2,9 @@
 @section('main')
     @include('Partials.navbar')
     @include('Partials.sidebar')
+    @include('getFunction.getProductss')
+    @include('getFunction.getProductCategories')
+    @include('getFunction.getProductSubCategories')
     @include('Master.Product.Functions.PopUp.PopUpProductRevision')
 
     <div class="content-wrapper">
@@ -50,11 +53,17 @@
                                                         <th
                                                             style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
                                                             UOM</th>
+                                                        <th
+                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
+                                                            Category</th>
+                                                        <th
+                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
+                                                            Sub Category</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <tr>
-                                                        <td colspan="5">
+                                                        <td colspan="6">
                                                             <div id="loading-table"
                                                                 style="display:none;text-align:center;padding:20px;">
                                                                 <div class="spinner-border text-primary"></div>

@@ -50,7 +50,7 @@
 
         $.ajax({
             type: 'POST',
-            url: '{!! route("Supplier.SupplierPickList") !!}',
+            url: '{!! route("Supplier.picklist") !!}',
             success: function (data) {
                 var no = 1;
                 t = $('#tableGetUser').DataTable();
@@ -78,7 +78,7 @@
 
         $.ajax({
             type: 'POST',
-            url: '{!! route("Supplier.SupplierPickList") !!}',
+            url: '{!! route("Supplier.picklist") !!}',
             success: function (data) {
                 var no = 1;
                 t = $('#tableGetUser').DataTable();
@@ -106,7 +106,7 @@
 
         $.ajax({
             type: 'POST',
-            url: '{!! route("Supplier.SupplierPickList") !!}',
+            url: '{!! route("Supplier.picklist") !!}',
             success: function (data) {
                 var no = 1;
                 t = $('#tableGetUser').DataTable();

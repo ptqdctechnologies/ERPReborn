@@ -6,7 +6,7 @@
             messageId: '#productNameMessageText'
         },
         uom_value: {
-            component: '#uom_name',
+            component: '#uom',
             containerMessageId: '#uomMessage',
             messageId: '#uomMessageText'
         },
@@ -34,8 +34,8 @@
         e.preventDefault();
 
         $.ajax({
-            type: 'POST',
-            url: '{!! route("Product.store") !!}',
+            type: 'PUT',
+            url: '{!! route("Product.update", $productRefID) !!}',
             data: $(this).serialize(),
             beforeSend: function () {
                 Utils.showLoading();
@@ -79,7 +79,15 @@
                         if (formList[key]) {
                             ErrorHandler.showErrorInputMessage(formList[key].component, formList[key].containerMessageId, formList[key].messageId, value[0]);
 
-                            if (formList[key].component == '#sub_category') {
+                            if (formList[key].component == '#uom') {
+                                $('#uom').next('.select2-container')
+                                    .find('.select2-selection')
+                                    .css("border", "1px solid red");
+                            } else if (formList[key].component == '#category') {
+                                $('#category').next('.select2-container')
+                                    .find('.select2-selection')
+                                    .css("border", "1px solid red");
+                            } else if (formList[key].component == '#sub_category') {
                                 $('#sub_category').next('.select2-container')
                                     .find('.select2-selection')
                                     .css("border", "1px solid red");

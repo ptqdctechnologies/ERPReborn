@@ -118,7 +118,7 @@ class SupplierController extends Controller
     {
     }
 
-    public function SupplierPickList(Request $request)
+    public function picklist(Request $request)
     {
         $supplierID = $request->input('supplier_id');
 
@@ -137,7 +137,7 @@ class SupplierController extends Controller
         ]);
     }
 
-    public function SupplierSummary(Request $request)
+    public function summary(Request $request)
     {
         $limit = $request->input('length', 10);
         $offset = $request->input('start', 0);
@@ -156,14 +156,14 @@ class SupplierController extends Controller
         $total = 0;
 
         if ($status == 200) {
-            $data = $response['data'] ?? [];
-            $total = count($data);
+            $data = $response['data']['data'] ?? [];
+            $total = $response['data']['totalRecords'] ?? count($data);
         }
 
         return response()->json([
             'draw' => intval($draw),
-            'recordsTotal' => 3000,
-            'recordsFiltered' => 3000,
+            'recordsTotal' => $total,
+            'recordsFiltered' => $total,
             'data' => $data
         ]);
     }

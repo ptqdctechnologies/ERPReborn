@@ -66,7 +66,7 @@
     function getPaymentTransfer(supplierID) {
         $.ajax({
             type: 'POST',
-            url: '{!! route("Supplier.SupplierPickList") !!}?supplier_id=' + supplierID,
+            url: '{!! route("Supplier.picklist") !!}?supplier_id=' + supplierID,
         })
             .done(function (response) {
                 const data = (response.status == 200 && response.data[0]) ? response.data : [];
