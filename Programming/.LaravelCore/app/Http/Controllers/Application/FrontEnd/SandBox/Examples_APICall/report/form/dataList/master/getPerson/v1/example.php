@@ -3,22 +3,21 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category    : Example - API Call Controller                                                                                    |
-| ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\report\form\dataList\master                  |
-|                 \getInstitutionType\v1                                                                                           |
-| ▪ API Key     : report.form.dataList.master.getInstitutionType                                                                   |
+| ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\report\form\dataList\master\getPerson\v1     |
+| ▪ API Key     : report.form.dataList.master.getPerson                                                                            |
 | ▪ API Version : 1                                                                                                                |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2026 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\report\form\dataList\master\getInstitutionType\v1
+namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\report\form\dataList\master\getPerson\v1
     {
     class example extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Call URL        : http(s)://<HOST>/report.form.dataList.master.getInstitutionType.v1_throughAPIGateway                 |
-        |                     ► http://172.28.0.4/report.form.dataList.master.getInstitutionType.v1_throughAPIGateway              |
+        | ▪ Call URL        : http(s)://<HOST>/report.form.dataList.master.getPerson.v1_throughAPIGateway                          |
+        |                     ► http://172.28.0.4/report.form.dataList.master.getPerson.v1_throughAPIGateway                       |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2026-06-08                                                                                           |
@@ -39,7 +38,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
                     //-----[ METADATA ]-----( START )-----
                         \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                         $varAPIWebToken, 
-                        'report.form.dataList.master.getInstitutionType', 
+                        'report.form.dataList.master.getPerson', 
                         'latest',
                     //-----[ METADATA ]-----(  END  )-----
 
@@ -51,8 +50,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
                                 'pageShow' => 1
                                 ],
                             'dataFilter' => [
-                                'name' => NULL,           //'Perusahaan',
-                                'companyName' => NULL     //'Indonesia'
+                                'name' => 'Teguh',                                //'Teguh',
+                                'citizenIdentityNumber' => '3174092710810006'     //'3174092710810006'
                                 ],
                             ]
                         ]
@@ -67,8 +66,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Call URL        : http(s)://<HOST>/transaction.read.dataList.master.getInstitutionType.v1_throughAPIGatewayJQuery      |
-        |                     ► http://172.28.0.4/transaction.read.dataList.master.getInstitutionType.v1_throughAPIGatewayJQuery   |
+        | ▪ Call URL        : http(s)://<HOST>/transaction.read.dataList.master.getPerson.v1_throughAPIGatewayJQuery               |
+        |                     ► http://172.28.0.4/transaction.read.dataList.master.getPerson.v1_throughAPIGatewayJQuery            |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2022-09-08                                                                                           |
@@ -98,7 +97,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
                     //-----[ METADATA ]-----( START )-----
                         \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                         $varAPIWebToken, 
-                        'transaction.read.dataList.master.getInstitutionType', 
+                        'transaction.read.dataList.master.getPerson', 
                         'latest',
                     //-----[ METADATA ]-----(  END  )-----
 
