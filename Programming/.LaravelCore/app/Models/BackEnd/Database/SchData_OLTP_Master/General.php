@@ -4563,6 +4563,69 @@ namespace App\Models\Database\SchData_OLTP_Master
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getReport_Form_DataList_InstitutionType                                                              |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2026-06-08                                                                                           |
+        | ▪ Creation Date   : 2026-06-08                                                                                           |
+        | ▪ Description     : Mendapatkan Laporan Form - Daftar Jenis Institusi                                                    |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |      ------------------------------                                                                                      |
+        |      ▪ (int)    varPagination_PageSize ► Pagination Page Size                                                            |
+        |      ▪ (int)    varPagination_PageShow ► Pagination Page Show                                                            |
+        |      ------------------------------                                                                                      |
+        |      ▪ (string) varName ► Name                                                                                           |
+        |      ▪ (string) varCountryName ► Country Name                                                                            |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getReport_Form_DataList_InstitutionType(
+            $varUserSession, int $varSysBranch_RefID,
+            int $varPagination_PageSize = null, int $varPagination_PageShow = null,
+            string $varName = null, string $varCountryName = null)
+            {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession,
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Master.Func_GetReport_DataList_InstitutionType',
+                            [
+                                [$varSysBranch_RefID, 'bigint'],
+
+                                [$varPagination_PageSize, 'bigint'],
+                                [$varPagination_PageShow, 'bigint'],
+
+                                [$varName, 'varchar'],
+                                [$varCountryName, 'varchar']
+                            ]
+                            )
+                        );
+
+                $varReturn['data'] =
+                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                        $varUserSession,
+                        $varReturn['data'][0]['Func_GetReport_DataList_InstitutionType']
+                        );
+
+                return
+                     $varReturn;
+                }
+
+            catch (\Exception $ex) {
+                return
+                    [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getReport_Form_Resume_BusinessDocumentDispositionHistory                                             |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
