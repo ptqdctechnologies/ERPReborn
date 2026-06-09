@@ -4019,10 +4019,10 @@ namespace App\Models\Database\SchData_OLTP_Master
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getDataPickList_Product                                                                              |
+        | ▪ Method Name     : getDataPickList_Product_NEW                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-12-28                                                                                           |
+        | ▪ Last Update     : 2026-06-09                                                                                           |
         | ▪ Creation Date   : 2022-12-28                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Pilihan Data Product                                                              |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -4036,8 +4036,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_Product(
-            $varUserSession, int $varSysBranch_RefID,
-            string $varDateTime = null
+            $varUserSession, int $varSysBranch_RefID
             )
             {
             try {
@@ -4046,11 +4045,9 @@ namespace App\Models\Database\SchData_OLTP_Master
                         $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
-                            'SchData-OLTP-Master.Func_GetDataPickList_Product',
+                            'SchData-OLTP-Master.Func_GetDataPickList_Product_NEW',
                             [
-                                [$varSysBranch_RefID, 'bigint'],
-
-                                [$varDateTime, 'timestamptz']
+                                [$varSysBranch_RefID, 'bigint']
                             ]
                             )
                         );
