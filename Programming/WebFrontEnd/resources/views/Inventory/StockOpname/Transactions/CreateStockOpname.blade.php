@@ -23,8 +23,21 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="card">
+                                    <!-- HEADER -->
+                                    <div class="card-header">
+                                        <label class="card-title">
+                                            Stock Opname Information
+                                        </label>
+                                        <div class="card-tools">
+                                            <button type="button" class="btn btn-tool" data-card-widget="collapse"
+                                                aria-label="Collapse Section Budget Information">
+                                                <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+
                                     <div class="card-body">
-                                        <div class="row p-1" style="row-gap: 1rem;">
+                                        <div class="row py-3">
                                             <div class="col-sm-12 col-md-12 col-lg-3">
                                                 <div class="row p-0 align-items-center">
                                                     <label
@@ -56,63 +69,161 @@
                         </div>
                     </div>
 
+                    <div class="tab-content px-3 pb-4" id="nav-tabContent">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="row m-0" style="gap: 1rem;">
+                                    <!-- TOTAL ITEMS -->
+                                    <div class="col"
+                                        style="border: 1px solid #E6EDFF; padding: 10.5px 20px; border-radius: 12px;">
+                                        <div class="row">
+                                            <div class="col p-0">
+                                                <p class="text-bold mb-0" style="font-size: 28px; line-height: 150%;">10
+                                                </p>
+                                                <p class="mb-0" style="font-size: 16px;">Total Items</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- COUNTED -->
+                                    <div class="col"
+                                        style="border: 1px solid #E6EDFF; padding: 10.5px 20px; border-radius: 12px;">
+                                        <div class="row">
+                                            <div class="col p-0">
+                                                <p class="text-bold mb-0"
+                                                    style="font-size: 28px; color: green; line-height: 150%;">10
+                                                </p>
+                                                <p class="mb-0" style="font-size: 16px;">Counted</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- SHORTAGE -->
+                                    <div class="col"
+                                        style="border: 1px solid #E6EDFF; padding: 10.5px 20px; border-radius: 12px;">
+                                        <div class="row">
+                                            <div class="col p-0">
+                                                <p class="text-bold mb-0"
+                                                    style="font-size: 28px; color: red; line-height: 150%;">10
+                                                </p>
+                                                <p class="mb-0" style="font-size: 16px;">Shortage</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- REJECT UNITS -->
+                                    <div class="col"
+                                        style="border: 1px solid #E6EDFF; padding: 10.5px 20px; border-radius: 12px;">
+                                        <div class="row">
+                                            <div class="col p-0">
+                                                <p class="text-bold mb-0"
+                                                    style="font-size: 28px; color: brown; line-height: 150%;">10
+                                                </p>
+                                                <p class="mb-0" style="font-size: 16px;">Reject Units</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="tab-content px-3 pb-2" id="nav-tabContent">
                         <div class="row">
                             <div class="col-12">
                                 <div class="card">
-                                    <div class="wrapper-budget card-body table-responsive p-0" style="height: 230px;">
-                                        <table class="table table-head-fixed text-nowrap table-sm" id="tableStockOpname">
-                                            <thead>
-                                                <tr>
-                                                    <th
-                                                        style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">
-                                                        Code</th>
-                                                    <th
-                                                        style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">
-                                                        Name</th>
-                                                    <th
-                                                        style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">
-                                                        Unit</th>
-                                                    <th
-                                                        style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">
-                                                        System</th>
-                                                    <th
-                                                        style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center; width: 115px;">
-                                                        Good</th>
-                                                    <th
-                                                        style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center; width: 115px;">
-                                                        Reject</th>
-                                                    <th
-                                                        style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">
-                                                        Total</th>
-                                                    <th
-                                                        style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">
-                                                        Status</th>
-                                                    <th
-                                                        style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">
-                                                        Owner</th>
-                                                    <th
-                                                        style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">
-                                                        Note</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody></tbody>
-                                            <tfoot>
-                                                <tr id="loadingTableStockOpname" style="display: none;">
-                                                    <td colspan="11" class="p-0" style="border: 0px; height: 150px;">
-                                                        <div
-                                                            class="d-flex flex-column justify-content-center align-items-center py-3">
-                                                            <div class="spinner-border" role="status">
-                                                                <span class="sr-only">Loading...</span>
-                                                            </div>
-                                                            <div class="mt-3" style="font-size: 0.75rem; font-weight: 700;">
-                                                                Loading...
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            </tfoot>
-                                        </table>
+                                    <!-- HEADER -->
+                                    <div class="card-header">
+                                        <label class="card-title">
+                                            Stock Opname Details
+                                        </label>
+                                        <div class="card-tools">
+                                            <button type="button" class="btn btn-tool" data-card-widget="collapse"
+                                                aria-label="Collapse Section Budget Information">
+                                                <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div class="card-body py-0 px-1">
+                                        <div class="row justify-content-between" style="margin: 1rem 0rem;">
+                                            <div class="col d-flex align-items-center" style="gap: .5rem;">
+                                                <p style="min-width: fit-content; margin: 0;">Product Status: </p>
+                                                <select class="form-control" id="legal_entity" name="legal_entity_value"
+                                                    style="border-radius:4px; max-width: 15%;" type="text">
+                                                    <option value="" disabled selected>Select a Status</option>
+                                                </select>
+                                            </div>
+                                            <div class="col d-flex align-items-center justify-content-end"
+                                                style="gap: .5rem;">
+                                                <p style="min-width: fit-content; margin: 0;">Search Product: </p>
+                                                <input type="text" id="warehouse_name" class="form-control"
+                                                    placeholder="Search..." autocomplete="off"
+                                                    style="border-radius: 4px; max-width: 17%;" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="wrapper-budget table-responsive" style="height: 230px;">
+                                                <table class="table table-head-fixed text-nowrap table-sm"
+                                                    id="tableStockOpname">
+                                                    <thead>
+                                                        <tr>
+                                                            <th
+                                                                style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">
+                                                                Code</th>
+                                                            <th
+                                                                style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">
+                                                                Name</th>
+                                                            <th
+                                                                style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">
+                                                                Unit</th>
+                                                            <th
+                                                                style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">
+                                                                System</th>
+                                                            <th
+                                                                style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center; width: 115px;">
+                                                                Good</th>
+                                                            <th
+                                                                style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center; width: 115px;">
+                                                                Reject</th>
+                                                            <th
+                                                                style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">
+                                                                Total</th>
+                                                            <th
+                                                                style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">
+                                                                Status</th>
+                                                            <th
+                                                                style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">
+                                                                Owner</th>
+                                                            <th
+                                                                style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">
+                                                                Note</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody></tbody>
+                                                    <tfoot>
+                                                        <tr id="loadingTableStockOpname" style="display: none;">
+                                                            <td colspan="11" class="p-0"
+                                                                style="border: 0px; height: 150px;">
+                                                                <div
+                                                                    class="d-flex flex-column justify-content-center align-items-center py-3">
+                                                                    <div class="spinner-border" role="status">
+                                                                        <span class="sr-only">Loading...</span>
+                                                                    </div>
+                                                                    <div class="mt-3"
+                                                                        style="font-size: 0.75rem; font-weight: 700;">
+                                                                        Loading...
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tfoot>
+                                                </table>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
