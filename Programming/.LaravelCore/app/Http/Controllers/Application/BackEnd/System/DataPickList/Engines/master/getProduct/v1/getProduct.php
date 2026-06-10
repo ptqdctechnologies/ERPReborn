@@ -43,7 +43,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\DataPickList\Engines\m
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-12-28                                                                                           |
+        | ▪ Last Update     : 2026-06-09                                                                                           |
         | ▪ Creation Date   : 2022-12-28                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -67,7 +67,6 @@ namespace App\Http\Controllers\Application\BackEnd\System\DataPickList\Engines\m
                             $varUserSession, 
                             (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
 
-                            $varData['parameter']['dateTime'], 
                             ))))
                             {
                             throw new \Exception();

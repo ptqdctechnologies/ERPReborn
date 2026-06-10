@@ -20,7 +20,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\dat
         |                     ► http://172.28.0.4/dataPickList.master.getProduct.v1_throughAPIGateway                              |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-12-28                                                                                           |
+        | ▪ Last Update     : 2026-06-09                                                                                           |
         | ▪ Creation Date   : 2022-12-28                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -38,11 +38,11 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\dat
                 'latest',
                 [
                 'parameter' => [
-                    'dateTime' => null
                     ]
                 ]
                 );
-            var_dump($varData);
+
+                return $varData;
             }
 
 
