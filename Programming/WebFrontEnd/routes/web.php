@@ -161,7 +161,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('BudgetStockDetail', 'Budget\BudgetController@BudgetStockDetail')->name('Budget.BudgetStockDetail');
     Route::resource('Budget', 'Budget\BudgetController')->only(['index', 'store']);
 
-    // Budget Expense
+    // BUDGET EXPENSE
     Route::get('BudgetExpense/GetBudget', 'BudgetExpenseController@GetBudget')->name('BudgetExpense.GetBudget');
     Route::resource('BudgetExpense', 'BudgetExpenseController');
     // Budget ExpenseGroup
@@ -184,6 +184,9 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     // MenuManagement
     Route::get('MenuManagement', 'Register\PrivilegeMenu\PrivilegeMenuController@MenuManagement')->name('PrivilegeMenu.MenuManagement');
     Route::resource('PrivilegeMenu', 'Register\PrivilegeMenu\PrivilegeMenuController');
+
+    // BUDGET PROGRESS
+    Route::resource('BudgetProgress', 'Budget\BudgetProgressController');
 
     // FUNCTION
     Route::post('getQuantityUnit', 'Function\FunctionController@getQuantityUnit')->name('getQuantityUnit');
@@ -529,6 +532,9 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::post('ReportMatReceivetoMatReturnStore', 'Inventory\MaterialReceiveController@ReportMatReceivetoMatReturnStore')->name('Inventory.ReportMatReceivetoMatReturnStore');
     Route::post('PrintExportReportMatReceivetoMatReturn', 'Inventory\MaterialReceiveController@PrintExportReportMatReceivetoMatReturn')->name('Inventory.PrintExportReportMatReceivetoMatReturn');
     Route::resource('MaterialReceive', 'Inventory\MaterialReceiveController');
+
+    // STOCK OPNAME
+    Route::resource('StockOpname', 'Inventory\StockOpnameController');
 
     // SALLARY ALLOCATION
     Route::resource('SallaryAllocation', 'HumanResource\SallaryAllocationController');

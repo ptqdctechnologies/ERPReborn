@@ -834,18 +834,21 @@
                 businessDocumentType_RefID: documentTypeID.value,
                 combinedBudget_RefID: projectID.value
             },
-            url: '{!! route("GetWorkflow") !!}',
+            url: '{!! route("Workflow.UserAllowedToSubmit") !!}',
+            // url: '{!! route("GetWorkflow") !!}',
             success: function (response) {
-                if (response.status === 200) {
-                    totalNextApprover = response.data[0].nextApproverPath.length;
+                if (response.status === 200 && response.data[0].signAccess) {
+                    // totalNextApprover = response.data[0].nextApproverPath.length;
                     dataWorkflow.workFlowPathRefID = response.data[0].sys_ID;
-                    dataWorkflow.approverEntityRefID = response.data[0].submitterEntity_RefID;
+                    // dataWorkflow.approverEntityRefID = response.data[0].submitterEntity_RefID;
 
                     getWorkflows(response.data[0].nextApproverPath);
                 } else {
                     $("#button_submit").prop("disabled", true);
 
-                    Swal.fire("Error", "You don't have access", "error");
+                    Swal.fire("Error", "You don't have access", "error").then((res) => {
+                        Utils.cancelForm('{{ route('AdvanceRequest.index', ['var' => 1]) }}');
+                    });
                 }
             },
             error: function (jqXHR, textStatus, errorThrown) {

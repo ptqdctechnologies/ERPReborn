@@ -13,6 +13,7 @@ class DeliveryOrderService
     public function stockDetail($combinedBudget_RefID, $warehouse_RefID)
     {
         $sessionToken = Session::get('SessionLogin');
+        $budgetID = $combinedBudget_RefID != "" ? (int) $combinedBudget_RefID : NULL;
 
         return Helper_APICall::setCallAPIGateway(
             Helper_Environment::getUserSessionID_System(),
@@ -21,7 +22,7 @@ class DeliveryOrderService
             'latest',
             [
                 'parameter' => [
-                    'combinedBudget_RefID' => (int) $combinedBudget_RefID,
+                    'combinedBudget_RefID' => $budgetID,
                     'warehouse_RefID' => (int) $warehouse_RefID
                 ],
                 'SQLStatement' => [
