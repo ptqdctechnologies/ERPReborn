@@ -4935,7 +4935,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : getReport_Form_DocumentForm_WarehouseInboundOrderSummary                                             |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2026-02-13                                                                                           |
+        | ▪ Last Update     : 2026-06-11                                                                                           |
         | ▪ Creation Date   : 2025-08-01                                                                                           |
         | ▪ Description     : Mendapatkan Laporan Form - Form Dokumen PurchaseOrder                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -4950,7 +4950,8 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_DocumentForm_WarehouseInboundOrderSummary(
-            $varUserSession, int $varSysBranch_RefID, string  $varCombinedBudgetCode = null, int $varDeliveryFrom_RefID = null, int $varDeliveryTo_RefID = null, string  $varStartDate = null, string  $varEndDate = null
+		$varUserSession, int $varSysBranch_RefID, string  $varCombinedBudgetCode = null, int $varDeliveryFrom_RefID = null, int $varDeliveryTo_RefID = null, string  $varStartDate = null, string  $varEndDate = null,
+		array $varPagingStatement = null
             )
             {
             try {
@@ -4966,9 +4967,13 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                                 [$varDeliveryTo_RefID, 'bigint' ],
                                 [$varStartDate, 'varchar'],
                                 [$varEndDate, 'varchar'],
+                                [$varPagingStatement['limit'], 'varchar'],
+                                [$varPagingStatement['offset'], 'bigint']
                             ]
                             )
                         );
+	            $varReturn['totalRecords'] = $varReturn['data'][0]['TotalRecords'];
+
                 return $varReturn;
                 }
             catch (\Exception $ex) {
