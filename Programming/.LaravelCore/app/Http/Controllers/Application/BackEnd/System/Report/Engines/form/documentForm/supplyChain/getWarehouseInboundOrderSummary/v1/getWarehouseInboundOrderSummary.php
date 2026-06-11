@@ -45,7 +45,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\do
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000001                                                                                       |
         | ▪ Create date     : 2025-08-01                                                                                           |
-        | ▪ Last Update     : 2026-02-13                                                                                           |
+        | ▪ Last Update     : 2026-06-11                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -70,7 +70,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\do
                             $varData['parameter']['DeliveryFrom_RefID'],
                             $varData['parameter']['DeliveryTo_RefID'],
                             $varData['parameter']['StartDate'],
-                            $varData['parameter']['EndDate']
+                            $varData['parameter']['EndDate'],
+                            
+                            $varData['SQLStatement']['paging']
                             ))))
                             {
                             throw new \Exception();
