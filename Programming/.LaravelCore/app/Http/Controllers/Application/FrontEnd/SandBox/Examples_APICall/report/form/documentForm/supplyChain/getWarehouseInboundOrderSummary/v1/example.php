@@ -21,7 +21,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
         |                     ► http://172.28.0.4/report.form.documentForm.supplyChain.getWarehouseInboundOrderSummary.v1_throughAPIGateway |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2026-02-13                                                                                           |
+        | ▪ Last Update     : 2026-06-11                                                                                           |
         | ▪ Creation Date   : 2025-08-01                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -43,12 +43,19 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
                     'DeliveryFrom_RefID' => 126000000000001,
                     'DeliveryTo_RefID' => 126000000000005,
                     'StartDate' => '2025-01-01',
-                    'EndDate' => '2026-02-12',
+                    'EndDate' => '2026-06-12',
                     // 'CombinedBudgetCode' => NULL,
                     // 'DeliveryFrom_RefID' => NULL,
                     // 'DeliveryTo_RefID' => NULL,
                     // 'StartDate' => NULL,
                     // 'EndDate' => NULL,
+                ],
+                'SQLStatement' => [
+                    'paging' => [
+                        'limit' => "20",
+                        // 'limit' => "ALL",
+                        'offset' => 0
+                        ]
                     ]
                 ]
                 );
