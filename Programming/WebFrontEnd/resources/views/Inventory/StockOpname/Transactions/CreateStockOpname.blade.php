@@ -78,7 +78,8 @@
                                         style="border: 1px solid #E6EDFF; padding: 10.5px 20px; border-radius: 12px;">
                                         <div class="row">
                                             <div class="col p-0">
-                                                <p class="text-bold mb-0" style="font-size: 28px; line-height: 150%;">10
+                                                <p id="total_items" class="text-bold mb-0"
+                                                    style="font-size: 28px; line-height: 150%;">0
                                                 </p>
                                                 <p class="mb-0" style="font-size: 16px;">Total Items</p>
                                             </div>
@@ -90,8 +91,8 @@
                                         style="border: 1px solid #E6EDFF; padding: 10.5px 20px; border-radius: 12px;">
                                         <div class="row">
                                             <div class="col p-0">
-                                                <p class="text-bold mb-0"
-                                                    style="font-size: 28px; color: green; line-height: 150%;">10
+                                                <p id="counted_items" class="text-bold mb-0"
+                                                    style="font-size: 28px; color: green; line-height: 150%;">0
                                                 </p>
                                                 <p class="mb-0" style="font-size: 16px;">Counted</p>
                                             </div>
@@ -103,8 +104,8 @@
                                         style="border: 1px solid #E6EDFF; padding: 10.5px 20px; border-radius: 12px;">
                                         <div class="row">
                                             <div class="col p-0">
-                                                <p class="text-bold mb-0"
-                                                    style="font-size: 28px; color: red; line-height: 150%;">10
+                                                <p id="shortage_items" class="text-bold mb-0"
+                                                    style="font-size: 28px; color: red; line-height: 150%;">0
                                                 </p>
                                                 <p class="mb-0" style="font-size: 16px;">Shortage</p>
                                             </div>
@@ -116,8 +117,8 @@
                                         style="border: 1px solid #E6EDFF; padding: 10.5px 20px; border-radius: 12px;">
                                         <div class="row">
                                             <div class="col p-0">
-                                                <p class="text-bold mb-0"
-                                                    style="font-size: 28px; color: brown; line-height: 150%;">10
+                                                <p id="reject_units" class="text-bold mb-0"
+                                                    style="font-size: 28px; color: brown; line-height: 150%;">0
                                                 </p>
                                                 <p class="mb-0" style="font-size: 16px;">Reject Units</p>
                                             </div>
@@ -166,7 +167,7 @@
 
                                     <div class="row">
                                         <div class="col-12">
-                                            <div class="wrapper-budget table-responsive" style="height: 230px;">
+                                            <div class="wrapper-budget table-responsive" style="height: 350px;">
                                                 <table class="table table-head-fixed text-nowrap table-sm"
                                                     id="tableStockOpname">
                                                     <thead>
@@ -199,7 +200,7 @@
                                                                 style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">
                                                                 Owner</th>
                                                             <th
-                                                                style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">
+                                                                style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center; width: 250px;">
                                                                 Note</th>
                                                         </tr>
                                                     </thead>
