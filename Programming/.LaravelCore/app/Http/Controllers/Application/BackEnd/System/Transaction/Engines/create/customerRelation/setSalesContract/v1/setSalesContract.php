@@ -42,7 +42,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-07-01                                                                                           |
+        | ▪ Last Update     : 2026-06-12                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -60,13 +60,47 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
                 try {
                     //-----[ MAIN CODE ]----------------------------------------------------------------------------( START POINT )-----
                     try{
-                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataCreate($varUserSession, (new \App\Models\Database\SchData_OLTP_CustomerRelation\TblSalesContract())->setDataInsert(
-                            $varUserSession, 
-                            null, 
-                            null,
-                            (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
-                            $varData['entities']['businessDocumentVersion_RefID'],
-                            $varData['entities']['salesOrder_RefID']
+                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataCreate(
+                            $varUserSession, (new \App\Models\Database\SchData_OLTP_CustomerRelation\TblSalesContract())->setDataInsert(
+                                    $varUserSession,
+
+                                    null,
+                                    null,
+                                    null,
+                                    null,
+                                    (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken(
+                                        $varUserSession
+                                        )
+                                    )['branchID'],
+                                    (\App\Helpers\ZhtHelper\General\Helper_SystemParameter::getApplicationParameter_BaseCurrencyID(
+                                        $varUserSession,
+                                        (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken(
+                                            $varUserSession
+                                            )
+                                        )['branchID'],
+                                        'Env.System.BaseCurrency.ID'
+                                        )
+                                    ),
+
+                                    $varData['entities']['log_FileUpload_Pointer_RefID'],
+                                    $varData['entities']['combinedBudget_RefID'],
+                                    $varData['entities']['currency_RefID'],
+                                    $varData['entities']['documentDateTimeTZ'],
+
+                                    (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
+                                        $varUserSession,
+                                        'additionalData',
+                                        $varData['entities']
+                                        )
+                                        ?   (
+                                                (
+                                                !is_null($varData['entities']['additionalData'])
+                                                )
+                                                ? $varData['entities']['additionalData']
+                                                : []
+                                            )
+                                        : []
+                                    )
                             ))))
                             {
                             throw new \Exception();
