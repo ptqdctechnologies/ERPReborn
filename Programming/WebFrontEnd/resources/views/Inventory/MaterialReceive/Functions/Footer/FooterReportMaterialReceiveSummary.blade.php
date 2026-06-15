@@ -53,93 +53,123 @@
     }
 
     function getDataReport() {
-        Utils.showLoading();
+        let totalQtyGood = 0;
+        let totalQtyReject = 0;
 
-        $.ajax({
-            type: 'POST',
-            url: '{!! route("MaterialReceive.ReportMaterialReceiveSummaryStore") !!}',
-            data: {
-                budget_id: budgetID.value,
-                budget_code: budgetCode.value,
-                received_id: receivedID.value,
-                delivery_from_id: deliveryFromID.value,
-                delivery_to_id: deliveryToID.value,
-                mrDate: mrDate.value
+        $('#table_summary').DataTable({
+            destroy: true,
+            processing: true,
+            serverSide: true,
+            searching: false,
+            ordering: false,
+            lengthMenu: [
+                [10, 20, 50, 100, -1],
+                [10, 20, 50, 100, "All"]
+            ],
+            pageLength: 20,
+            ajax: {
+                type: 'POST',
+                url: '{!! route("MaterialReceive.ReportMaterialReceiveSummaryStore") !!}',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: function (d) {
+                    d.budget_id = budgetID.value;
+                    d.budget_code = budgetCode.value;
+                    d.received_id = receivedID.value;
+                    d.delivery_from_id = deliveryFromID.value;
+                    d.delivery_to_id = deliveryToID.value;
+                    d.mrDate = mrDate.value;
+
+                    return d;
+                },
+                dataSrc: function (json) {
+                    dataReport = json.data;
+
+                    json.data.forEach(function (row) {
+                        totalQtyGood += parseFloat(row.qtyGood) || 0;
+                        totalQtyReject += parseFloat(row.qtyReject) || 0;
+                    });
+
+                    return json.data;
+                },
+                beforeSend: function () {
+                    Utils.showLoading();
+
+                    $('#table_summary tbody').empty();
+                    $('#table_container').css("display", "none");
+                },
+                complete: function () {
+                    Utils.hideLoading();
+
+                    $('#table_summary').css("width", "100%");
+                    $('#table_container').css("display", "block");
+                },
             },
-            dataType: 'json',
-            success: function (response) {
-                let data = (response.status === 200 && response.data[0]) ? response.data : [];
-                dataReport = data;
-
-                $('#table_summary').DataTable({
-                    destroy: true,
-                    data: data,
-                    deferRender: true,
-                    scrollCollapse: true,
-                    scroller: true,
-                    columns: [
-                        {
-                            data: null,
-                            render: function (data, type, row, meta) {
-                                return (meta.row + 1);
-                            }
-                        },
-                        {
-                            data: 'MR_Number',
-                            defaultContent: '-'
-                        },
-                        {
-                            data: null,
-                            defaultContent: '-',
-                            render: function (data, type, row, meta) {
-                                let dateOrigin = new Date(data.date);
-                                let formattedDate = dateOrigin.toISOString().split('T')[0];
-                                return formattedDate;
-                            }
-                        },
-                        {
-                            data: 'combinedBudgetName',
-                            defaultContent: '-'
-                        },
-                        {
-                            data: 'referenceNumber',
-                            defaultContent: '-'
-                        },
-                        {
-                            data: 'deliveryFrom_NonRefID.address',
-                            defaultContent: '-'
-                        },
-                        {
-                            data: 'deliveryTo_NonRefID.address',
-                            defaultContent: '-'
-                        },
-                        {
-                            data: 'receiveAt',
-                            defaultContent: '-'
-                        },
-                        {
-                            data: 'remarks',
-                            defaultContent: '-'
-                        }
-                    ]
-                });
-
-                $('#table_summary').css("width", "100%");
-                $('#table_container').css("display", "block");
-
-                Utils.hideLoading();
-            },
-            error: function (xhr, status, error) {
-                console.log('xhr, status, error', xhr, status, error);
-
-                Utils.hideLoading();
-                ErrorHandler.notifToast(
-                    'error',
-                    'An error occurred while processing the received data. Please try again later',
-                    'Error!'
-                );
+            columns: [
+                {
+                    data: null,
+                    render: function (data, type, row, meta) {
+                        return (meta.row + meta.settings._iDisplayStart + 1);
+                    }
+                },
+                {
+                    data: 'MR_Number',
+                    defaultContent: '-'
+                },
+                {
+                    data: null,
+                    defaultContent: '-',
+                    render: function (data, type, row, meta) {
+                        let dateOrigin = new Date(data.date);
+                        let formattedDate = dateOrigin.toISOString().split('T')[0];
+                        return formattedDate;
+                    }
+                },
+                {
+                    data: 'combinedBudgetName',
+                    defaultContent: '-'
+                },
+                {
+                    data: null,
+                    defaultContent: '-',
+                    render: function (data, type, row, meta) {
+                        return currencyTotal(data.qtyGood || '0');
+                    }
+                },
+                {
+                    data: null,
+                    defaultContent: '-',
+                    render: function (data, type, row, meta) {
+                        return currencyTotal(data.qtyReject || '0');
+                    }
+                },
+                {
+                    data: 'referenceNumber',
+                    defaultContent: '-'
+                },
+                {
+                    data: 'deliveryFrom_NonRefID.address',
+                    defaultContent: '-'
+                },
+                {
+                    data: 'deliveryTo_NonRefID.address',
+                    defaultContent: '-'
+                },
+                {
+                    data: 'receiveAt',
+                    defaultContent: '-'
+                },
+                {
+                    data: 'remarks',
+                    defaultContent: '-'
+                }
+            ],
+            drawCallback: function (settings) {
+                $('#table_summary tfoot th:nth-child(2)').text(currencyTotal(totalQtyGood));
+                $('#table_summary tfoot th:nth-child(3)').text(currencyTotal(totalQtyReject));
             }
-        });
+        })
     }
 
     function exportDataReport() {
