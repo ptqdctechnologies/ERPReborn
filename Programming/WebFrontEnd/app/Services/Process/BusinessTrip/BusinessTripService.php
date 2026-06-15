@@ -54,7 +54,7 @@ class BusinessTripService
         );
     }
 
-    public function getBusinessTripToBSFSummary($budget, $subBudget, $date, $requester, $businessTripID, $businessTripSettlementID)
+    public function getBusinessTripToBSFSummary($budget, $subBudget, $date, $requester, $businessTripID, $businessTripSettlementID, $limit, $offset)
     {
         $sessionToken = Session::get('SessionLogin');
 
@@ -78,6 +78,12 @@ class BusinessTripService
                     'BusinessTripSettlement_RefID' => $businessTripSettlementID ? $businessTripSettlementID : NULL,
                     'StartDate' => $date ? $startDate : NULL,
                     'EndDate' => $date ? $endDate : NULL
+                ],
+                'SQLStatement' => [
+                    'paging' => [
+                        'limit' => $limit,
+                        'offset' => $offset
+                    ]
                 ]
             ]
         );

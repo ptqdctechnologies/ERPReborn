@@ -17,12 +17,12 @@ class ExportReportMaterialReceiveSummary implements FromCollection, WithHeadings
 
     public function __construct($materialReceiveSummary, $budgetName, $receivedName, $deliveryFromName, $deliveryToName, $mrDate)
     {
-        $this->materialReceiveSummary   = $materialReceiveSummary;
-        $this->budgetName               = $budgetName == null ? '-' : $budgetName;
-        $this->receivedName             = $receivedName == null ? '-' : $receivedName;
-        $this->deliveryFromName         = $deliveryFromName == null ? '-' : $deliveryFromName;
-        $this->deliveryToName           = $deliveryToName == null ? '-' : $deliveryToName;
-        $this->mrDate                   = $mrDate == null ? '-' : $mrDate;
+        $this->materialReceiveSummary = $materialReceiveSummary;
+        $this->budgetName = $budgetName == null ? '-' : $budgetName;
+        $this->receivedName = $receivedName == null ? '-' : $receivedName;
+        $this->deliveryFromName = $deliveryFromName == null ? '-' : $deliveryFromName;
+        $this->deliveryToName = $deliveryToName == null ? '-' : $deliveryToName;
+        $this->mrDate = $mrDate == null ? '-' : $mrDate;
     }
 
     public function collection()
@@ -33,15 +33,17 @@ class ExportReportMaterialReceiveSummary implements FromCollection, WithHeadings
         $counter = 1;
         foreach ($data as $item) {
             $filteredData[] = [
-                'No'                                =>  $counter++,
-                'MR Number'                         =>  $item['MR_Number'] ?? null,
-                'Date'                              =>  date('Y-m-d', strtotime($item['date'])) ?? null,
-                'Budget'                            =>  $item['combinedBudgetName'] ?? '-',
-                'Reference Number'                  =>  $item['referenceNumber'] ?? null,
-                'Delivery From'                     =>  $item['deliveryFrom_NonRefID']['address']?? '-',
-                'Delivery To'                       =>  $item['deliveryTo_NonRefID']['address'] ?? '-',
-                'Receive At'                        =>  $item['receiveAt'] ?? '-',
-                'Remarks'                           =>  $item['remarks'] ?? '-',
+                'No' => $counter++,
+                'MR Number' => $item['MR_Number'] ?? null,
+                'Date' => date('Y-m-d', strtotime($item['date'])) ?? null,
+                'Budget' => $item['combinedBudgetName'] ?? '-',
+                'Qty Good' => $item['qtyGood'] ?? '-',
+                'Qty Reject' => $item['qtyReject'] ?? '-',
+                'Reference Number' => $item['referenceNumber'] ?? null,
+                'Delivery From' => $item['deliveryFrom_NonRefID']['address'] ?? '-',
+                'Delivery To' => $item['deliveryTo_NonRefID']['address'] ?? '-',
+                'Receive At' => $item['receiveAt'] ?? '-',
+                'Remarks' => $item['remarks'] ?? '-',
             ];
         }
 
@@ -59,7 +61,7 @@ class ExportReportMaterialReceiveSummary implements FromCollection, WithHeadings
             ["Budget", ": " . $this->budgetName, "Delivery From", ": " . $this->deliveryFromName, "Date", ": " . $this->mrDate],
             ["Received At", ": " . $this->receivedName, "Delivery To", ": " . $this->deliveryToName],
             [""],
-            ["No", "MR Number","Date", "Budget","Reference Number", "Delivery From", "Delivery To", "Receive At", "Remarks"]
+            ["No", "MR Number", "Date", "Budget", "Qty Good", "Qty Reject", "Reference Number", "Delivery From", "Delivery To", "Receive At", "Remarks"]
         ];
     }
 
@@ -77,8 +79,8 @@ class ExportReportMaterialReceiveSummary implements FromCollection, WithHeadings
             ]
         ];
 
-        $sheet->getStyle('A1:I1')->applyFromArray($styleArrayHeader0);
-        $sheet->mergeCells('A1:I1');
+        $sheet->getStyle('A1:K1')->applyFromArray($styleArrayHeader0);
+        $sheet->mergeCells('A1:K1');
 
         $styleArrayHeader1 = [
             'font' => [
@@ -92,8 +94,8 @@ class ExportReportMaterialReceiveSummary implements FromCollection, WithHeadings
             ]
         ];
 
-        $sheet->getStyle('A2:I2')->applyFromArray($styleArrayHeader1);
-        $sheet->mergeCells('A2:I2');
+        $sheet->getStyle('A2:K2')->applyFromArray($styleArrayHeader1);
+        $sheet->mergeCells('A2:K2');
 
         $styleArrayHeader2 = [
             'font' => [
@@ -107,8 +109,8 @@ class ExportReportMaterialReceiveSummary implements FromCollection, WithHeadings
             ]
         ];
 
-        $sheet->getStyle('A3:I3')->applyFromArray($styleArrayHeader2);
-        $sheet->mergeCells('A3:I3');
+        $sheet->getStyle('A3:K3')->applyFromArray($styleArrayHeader2);
+        $sheet->mergeCells('A3:K3');
 
         $styleArrayHeader3 = [
             'font' => [
@@ -122,8 +124,8 @@ class ExportReportMaterialReceiveSummary implements FromCollection, WithHeadings
             ]
         ];
 
-        $sheet->getStyle('A4:I4')->applyFromArray($styleArrayHeader3);
-        $sheet->getStyle('A5:I5')->applyFromArray($styleArrayHeader3);
+        $sheet->getStyle('A4:K4')->applyFromArray($styleArrayHeader3);
+        $sheet->getStyle('A5:K5')->applyFromArray($styleArrayHeader3);
 
         $styleArrayHeader4 = [
             'font' => [
@@ -149,7 +151,7 @@ class ExportReportMaterialReceiveSummary implements FromCollection, WithHeadings
             ],
         ];
 
-        $sheet->getStyle('A7:I7')->applyFromArray($styleArrayHeader4);
+        $sheet->getStyle('A7:K7')->applyFromArray($styleArrayHeader4);
 
         $styleArrayContent = [
             'borders' => [
@@ -162,9 +164,9 @@ class ExportReportMaterialReceiveSummary implements FromCollection, WithHeadings
             ],
         ];
 
-        $data       = $this->materialReceiveSummary;
-        $totalCell  = count($data);
-        $lastCell   = 'A7:I' . $totalCell + 7;
+        $data = $this->materialReceiveSummary;
+        $totalCell = count($data);
+        $lastCell = 'A7:K' . $totalCell + 7;
         $sheet->getStyle($lastCell)->applyFromArray($styleArrayContent);
     }
 }

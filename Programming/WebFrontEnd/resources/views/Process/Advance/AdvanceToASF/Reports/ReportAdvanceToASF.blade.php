@@ -52,15 +52,16 @@
                                                     <option value="25">25</option>
                                                     <option value="50">50</option>
                                                     <option value="100">100</option>
+                                                    <option value="ALL">All</option>
                                                 </select>
                                                 entries
                                             </label>
-                                            <label>
-                                                Search:
-                                                <input type="text" id="searchInput" autocomplete="off"
-                                                    placeholder="Search..."
-                                                    style="border: 1px solid #aaa; border-radius: 3px; padding: 5px; margin-left: 3px; background: transparent;" />
-                                            </label>
+                                            <!-- <label>
+                                                    Search:
+                                                    <input type="text" id="searchInput" autocomplete="off"
+                                                        placeholder="Search..."
+                                                        style="border: 1px solid #aaa; border-radius: 3px; padding: 5px; margin-left: 3px; background: transparent;" />
+                                                </label> -->
                                         </div>
 
                                         <div class="table-responsive">

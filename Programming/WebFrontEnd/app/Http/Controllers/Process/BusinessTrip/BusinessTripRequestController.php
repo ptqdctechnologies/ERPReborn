@@ -654,13 +654,25 @@ class BusinessTripRequestController extends Controller
             $businessTripID = $request->business_trip_id;
             $businessTripSettlementID = $request->business_trip_settlement_id;
 
+            $page = (int) ($request->page ?? 1);
+
+            if ($request->limit === 'ALL') {
+                $limit = 'ALL';
+                $offset = 0;
+            } else {
+                $limit = (int) ($request->limit ?? 10);
+                $offset = ($page - 1) * $limit;
+            }
+
             $response = $this->businessTripService->getBusinessTripToBSFSummary(
                 $budgetCode,
                 $siteCode,
                 $date,
                 $requesterID,
                 $businessTripID,
-                $businessTripSettlementID
+                $businessTripSettlementID,
+                $limit,
+                $offset
             );
 
             if ($response['metadata']['HTTPStatusCode'] !== 200) {
@@ -669,7 +681,11 @@ class BusinessTripRequestController extends Controller
 
             $compact = [
                 'status' => $response['metadata']['HTTPStatusCode'],
-                'data' => $response['data']['data']
+                'data' => $response['data']['data'],
+                'totalRecords' => $response['data']['totalRecords'],
+                'rowCount' => $response['data']['rowCount'],
+                'page' => $page,
+                'limit' => $limit
             ];
 
             return response()->json($compact);

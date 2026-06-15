@@ -153,7 +153,7 @@
     <table style="margin-left: 1px; width: 100%;">
       <thead>
         <tr style="border-top: 1px solid black; border-bottom: 1px solid black;">
-          <td rowspan="3" style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+          <td rowspan="2" style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
             <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
               No
             </div>

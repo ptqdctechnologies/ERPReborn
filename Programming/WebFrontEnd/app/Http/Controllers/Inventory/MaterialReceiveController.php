@@ -524,50 +524,12 @@ class MaterialReceiveController extends Controller
         return view('Inventory.MaterialReceive.Reports.ReportMaterialReceiveSummary', $compact);
     }
 
-    public function ReportMaterialReceiveSummaryData($project_code)
-    {
-        try {
-            // Log::error("Error at ",[$project_code]);
-
-            $varAPIWebToken = Session::get('SessionLogin');
-
-            $filteredArray = Helper_APICall::setCallAPIGateway(
-                Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken,
-                'report.form.documentForm.supplyChain.getWarehouseInboundOrderSummary',
-                'latest',
-                [
-                    'parameter' => [
-                        'CombinedBudgetCode' => $project_code,
-                        'DeliveryFrom_RefID' => NULL,
-                        'DeliveryTo_RefID' => NULL
-                    ],
-                    'SQLStatement' => [
-                        'pick' => null,
-                        'sort' => null,
-                        'filter' => null,
-                        'paging' => null
-                    ]
-                ]
-            );
-
-            // Log::error("Error at " ,$filteredArray);
-            if ($filteredArray['metadata']['HTTPStatusCode'] !== 200) {
-                return redirect()->back()->with('NotFound', 'Process Error');
-
-            }
-            Session::put("MaterialReceiveReportSummaryDataPDF", $filteredArray['data']['data']);
-            Session::put("MaterialReceiveReportSummaryDataExcel", $filteredArray['data']['data']);
-            return $filteredArray['data']['data'];
-        } catch (\Throwable $th) {
-            Log::error("Error at " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
-        }
-    }
-
     public function ReportMaterialReceiveSummaryStore(Request $request)
     {
         try {
+            $limit = $request->input('length', 10);
+            $offset = $request->input('start', 0);
+            $draw = $request->input('draw');
             $receivedID = $request->received_id;
             $deliveryFromID = $request->delivery_from_id;
             $deliveryToID = $request->delivery_to_id;
@@ -582,16 +544,23 @@ class MaterialReceiveController extends Controller
                 $receivedID,
                 $deliveryFromID,
                 $deliveryToID,
-                $date
+                $date,
+                $limit,
+                $offset
             );
 
             if ($response['metadata']['HTTPStatusCode'] !== 200) {
                 throw new \Exception('Failed to fetch Material Receive Summary Report');
             }
 
+            $totalRecords = $response['data']['totalRecords'] ?? $response['data']['rowCount'];
+
             $compact = [
                 'status' => $response['metadata']['HTTPStatusCode'],
-                'data' => $response['data']['data']
+                'data' => $response['data']['data'],
+                'draw' => intval($draw),
+                'recordsTotal' => $totalRecords,
+                'recordsFiltered' => $totalRecords
             ];
 
             return response()->json($compact);

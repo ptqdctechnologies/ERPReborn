@@ -97,14 +97,14 @@
                                         <div class="row justify-content-between" style="margin: 1rem 0rem;">
                                             <div class="col d-flex align-items-center" style="gap: .5rem;">
                                                 <!-- <p style="min-width: fit-content; margin: 0;">Product Status: </p>
-                                                                                <select class="form-control" id="legal_entity" name="legal_entity_value"
-                                                                                    style="border-radius:4px; max-width: 15%;" type="text">
-                                                                                    <option value="" disabled selected>Select a Status</option>
-                                                                                </select> -->
+                                                                                            <select class="form-control" id="legal_entity" name="legal_entity_value"
+                                                                                                style="border-radius:4px; max-width: 15%;" type="text">
+                                                                                                <option value="" disabled selected>Select a Status</option>
+                                                                                            </select> -->
                                             </div>
                                             <div class="col d-flex align-items-center justify-content-end"
                                                 style="gap: .5rem;">
-                                                <p style="min-width: fit-content; margin: 0;">Search: </p>
+                                                <p style="min-width: fit-content; margin: 0;">Sub Budget: </p>
                                                 <input type="text" id="warehouse_name" class="form-control"
                                                     placeholder="Search..." autocomplete="off"
                                                     style="border-radius: 4px; max-width: 17%;" />
@@ -118,10 +118,10 @@
                                                 <tr>
                                                     <th
                                                         style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">
-                                                        Code</th>
+                                                        Sub Budget Code</th>
                                                     <th
                                                         style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">
-                                                        Site Name</th>
+                                                        Sub Budget Name</th>
                                                     <th
                                                         style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center; width: 15%;">
                                                         Last Progress</th>

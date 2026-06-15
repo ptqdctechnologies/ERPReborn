@@ -7,10 +7,14 @@
   <meta name="csrf-token" content="{{ csrf_token() }}" />
 
   <title>ERP Reborn</title>
-
-  <!-- Theme style -->
-  <link rel="stylesheet" href="{{ asset('AdminLTE-master/dist/css/adminlte.min.css') }}">
-</head>
+  <!-- <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: sans-serif; font-size: 10px; color: #000; line-height: 1.2; }
+    table { width: 100%; border-collapse: collapse; table-layout: fixed; word-wrap: break-word; }
+    td, th { overflow: hidden; }
+    .card-body { padding: 10px; }
+    .TableReportAdvanceSummary thead td { background-color: #f8f9fa; }
+  </style> -->
 
 <body>
   <div class="card-body table-responsive p-0">
