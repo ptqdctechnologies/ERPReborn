@@ -283,6 +283,11 @@ class AdvanceRequestController extends Controller
     public function PrintExportReportAdvanceSummary(Request $request)
     {
         try {
+            ini_set('memory_limit', '512M');
+            set_time_limit(180);
+
+            $startTime = microtime(true);
+
             $budget = $request->budgetName;
             $subBudget = $request->subBudgetName;
             $requester = $request->requesterName;
@@ -293,10 +298,13 @@ class AdvanceRequestController extends Controller
 
             if ($dataAdvanceSummary) {
                 if ($type === "PDF") {
+                    $renderStart = microtime(true);
+
                     $pdf = PDF::loadView('Process.Advance.AdvanceRequest.Reports.ReportAdvanceSummary_pdf', ['dataARF' => $dataAdvanceSummary])
                         ->setPaper('a4', 'landscape');
 
                     $pdf->output();
+
                     $dom_pdf = $pdf->getDomPDF();
                     $canvas = $dom_pdf->get_canvas();
                     $width = $canvas->get_width();
@@ -472,6 +480,11 @@ class AdvanceRequestController extends Controller
     public function PrintExportReportAdvanceSummaryDetail(Request $request)
     {
         try {
+            ini_set('memory_limit', '512M');
+            set_time_limit(180);
+
+            $startTime = microtime(true);
+
             $dataPDF = Session::get("AdvanceSummaryReportDetailDataPDF");
             $dataExcel = Session::get("AdvanceSummaryReportDetailDataExcel");
 
@@ -480,8 +493,13 @@ class AdvanceRequestController extends Controller
                 if ($print_type == "PDF") {
                     $dataAdvance = Session::get("AdvanceSummaryReportDetailDataPDF");
 
+                    $renderStart = microtime(true);
+
                     $pdf = PDF::loadView('Process.Advance.AdvanceRequest.Reports.PrintReportAdvanceSummaryDetail', ['dataReport' => $dataAdvance]);
                     $pdf->output();
+
+                    Log::info('PDF Export [AdvanceSummaryDetail] - render: ' . round((microtime(true) - $renderStart) * 1000) . 'ms');
+
                     $dom_pdf = $pdf->getDomPDF();
 
                     $canvas = $dom_pdf->get_canvas();
@@ -489,6 +507,8 @@ class AdvanceRequestController extends Controller
                     $height = $canvas->get_height();
                     $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
                     $canvas->page_text(34, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
+
+                    Log::info('PDF Export [AdvanceSummaryDetail] - total: ' . round((microtime(true) - $startTime) * 1000) . 'ms');
 
                     return $pdf->download('Export Report Advance Summary Detail.pdf');
                 } else if ($print_type == "Excel") {
@@ -545,6 +565,12 @@ class AdvanceRequestController extends Controller
                         'RequesterWorkerJobsPosition_RefID' => $requesterID ?? null,
                         'StartDate' => $date ? $startDate : NULL,
                         'EndDate' => $date ? $endDate : NULL,
+                    ],
+                    'SQLStatement' => [
+                        'paging' => [
+                            'limit' => "20",
+                            'offset' => 0
+                        ]
                     ]
                 ]
             );
@@ -569,6 +595,11 @@ class AdvanceRequestController extends Controller
     public function PrintExportReportAdvanceToASF(Request $request)
     {
         try {
+            ini_set('memory_limit', '512M');
+            set_time_limit(180);
+
+            $startTime = microtime(true);
+
             $budgetName = $request->budgetName;
             $subBudgetName = $request->subBudgetName;
             $requesterName = $request->requesterName;
@@ -576,12 +607,19 @@ class AdvanceRequestController extends Controller
             $type = $request->printType;
             $advanceToASFData = json_decode($request->dataReport, true);
 
+            Log::info('PDF Export [AdvanceToASF] - json_decode: ' . round((microtime(true) - $startTime) * 1000) . 'ms, rows: ' . (is_array($advanceToASFData) ? count($advanceToASFData) : 0));
+
             if ($advanceToASFData) {
                 if ($type == "PDF") {
+                    $renderStart = microtime(true);
+
                     $pdf = PDF::loadView('Process.Advance.AdvanceToASF.Reports.ReportAdvanceToASF_pdf', [
                         'dataArftoASF' => $advanceToASFData
                     ])->setPaper('a4', 'landscape');
                     $pdf->output();
+
+                    Log::info('PDF Export [AdvanceToASF] - render: ' . round((microtime(true) - $renderStart) * 1000) . 'ms');
+
                     $dom_pdf = $pdf->getDomPDF();
 
                     $canvas = $dom_pdf->get_canvas();
@@ -589,6 +627,8 @@ class AdvanceRequestController extends Controller
                     $height = $canvas->get_height();
                     $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
                     $canvas->page_text(34, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
+
+                    Log::info('PDF Export [AdvanceToASF] - total: ' . round((microtime(true) - $startTime) * 1000) . 'ms');
 
                     return $pdf->download('Export Report Advance Request To Advance Settlement.pdf');
                 } else if ($type == "EXCEL") {

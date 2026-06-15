@@ -8,8 +8,14 @@
 
   <title>ERP Reborn</title>
 
-  <!-- Theme style -->
-  <link rel="stylesheet" href="{{ asset('AdminLTE-master/dist/css/adminlte.min.css') }}">
+  <!-- <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: sans-serif; font-size: 12px; color: #000; }
+    table { border-collapse: collapse; }
+    .card-body { padding: 1rem; }
+    .table-responsive { overflow: visible; }
+    .p-0 { padding: 0 !important; }
+  </style> -->
 </head>
 
 <body>
