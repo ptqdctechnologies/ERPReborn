@@ -7,6 +7,8 @@
     let filteredData = [...data];
     let sortColumn = null;
     let sortOrder = 'asc';
+    let totalRecords = 0;
+    let totalPages = 0;
     const documentTypeID = document.getElementById("documentTypeRefID");
     const organizationalDepartmentName = document.getElementById("organizationalDepartmentName"); // Finance & Accounting
     const organizationalJobPositionName = document.getElementById("organizationalJobPositionName"); // General Manager
@@ -139,8 +141,43 @@
         }
     }
 
-    function getDataReport() {
-        ShowLoading();
+    function resetForm() {
+        isFromTo = false;
+        data = [];
+        currentPage = 1;
+        rowsPerPage = 10;
+        filteredData = [...data];
+        sortColumn = null;
+        sortOrder = 'asc';
+
+        $("#business_trip_number").css('background-color', '#fff');
+        $(`#business_trip_number`).val("");
+        $(`#business_trip_id`).val("");
+
+        $("#business_trip_settlement_number").css('background-color', '#fff');
+        $(`#business_trip_settlement_number`).val("");
+        $(`#business_trip_settlement_id`).val("");
+
+        $("#budget_name").css('background-color', '#fff');
+        $(`#budget_name`).val("");
+        $(`#budget_id`).val("");
+        $(`#budget_code`).val("");
+
+        $("#sub_budget_name").css('background-color', '#fff');
+        $(`#sub_budget_name`).val("");
+        $(`#sub_budget_id`).val("");
+        $(`#sub_budget_code`).val("");
+
+        $("#requester_name").css('background-color', '#fff');
+        $(`#requester_name`).val("");
+        $(`#requester_id`).val("");
+
+        $("#brf_to_bsf_date_range").css('background-color', '#fff');
+        $(`#brf_to_bsf_date_range`).val("");
+    }
+
+    function getDataReport(page = currentPage) {
+        Utils.showLoading();
 
         $.ajax({
             type: 'POST',
@@ -152,28 +189,38 @@
                 business_trip_id: businessTripID.value,
                 business_trip_settlement_id: businessTripSettlementID.value,
                 brfToBsfDate: brfToBsfDate.value,
+                page: page,
+                limit: rowsPerPage
             },
             dataType: 'json',
             success: function (response) {
-                data = (response.status === 200 && response.data[0]) ? response.data : [];
+
+                data = response.data || [];
+
+                currentPage = response.page;
+                rowsPerPage = response.limit;
+
+                totalRecords = response.totalRecords;
+                totalPages = Math.ceil(totalRecords / rowsPerPage);
+
                 dataReport = data;
 
-                filteredData = [...data];
-                currentPage = (response.status === 200 && response.data[0]) ? 1 : '-';
-                sortColumn = null;
-                sortOrder = 'asc';
-
-                renderPage();
+                renderTable(data);
                 renderPagination();
 
-                $('#table_container').css("display", "block");
+                $('#table_container').show();
 
-                HideLoading();
+                Utils.hideLoading();
             },
             error: function (xhr, status, error) {
-                HideLoading();
-                ErrorNotif("An error occurred while processing the received data. Please try again later.");
                 console.log('xhr, status, error', xhr, status, error);
+
+                Utils.hideLoading();
+                ErrorHandler.notifToast(
+                    'error',
+                    'An error occurred while processing the received data. Please try again later',
+                    'Error!'
+                );
             }
         });
     }
@@ -235,7 +282,7 @@
             const rowNumber = (currentPage - 1) * rowsPerPage + ind + 1;
 
             const noCell = document.createElement('td');
-            noCell.textContent = isNaN(rowNumber) ? '-' : rowNumber;
+            noCell.textContent = isNaN(rowNumber) ? ind + 1 : rowNumber;
             row.appendChild(noCell);
 
             const brfNumberCell = document.createElement('td');
@@ -370,41 +417,11 @@
     }
 
     function renderPage() {
-        const sortedData = sortData(filteredData);
-
-        const searchQuery = document.querySelector('#searchInput').value;
-        const filteredAndSortedData = filterData(searchQuery, sortedData);
-
-        const start = (currentPage - 1) * rowsPerPage;
-        const end = start + rowsPerPage;
-        const pageData = filteredAndSortedData.length > 0 ? filteredAndSortedData.slice(start, end) : [{
-            "no": "",
-            "brf_number": "",
-            "brf_date": "",
-            "brf_requester": "",
-            "brf_commence_travel": "",
-            "brf_end_travel": "",
-            "brf_total": "",
-            "brf_payment": "",
-            "brf_status": "",
-            "bsf_number": "",
-            "bsf_date": "",
-            "bsf_total": "",
-            "bsf_status": "",
-            "balance_payment": "",
-            "balance_settlement": ""
-        }];
-
-        startLimit.textContent = start + 1;
-        endLimit.textContent = Math.min(end, filteredAndSortedData.length);
-        totalData.textContent = filteredAndSortedData.length;
-
-        renderTable(pageData);
-        updatePaginationInfo(filteredAndSortedData.length); // Update the page info based on filtered data
+        renderTable(data);
     }
 
     function renderPagination() {
-        totalPages = Math.ceil(data.length / rowsPerPage);
+        totalPages = Math.ceil(totalRecords / rowsPerPage);
 
         const pageNumbersContainer = document.querySelector('#pageNumbers');
         const prevButton = document.querySelector('#prevPage');
@@ -412,11 +429,30 @@
 
         pageNumbersContainer.innerHTML = '';
 
-        const startLimit = (currentPage - 1) * rowsPerPage + 1;
-        const endLimit = Math.min(currentPage * rowsPerPage, data.length);
-        document.querySelector('#start_limit').textContent = isNaN(startLimit) ? '0' : startLimit;
-        document.querySelector('#end_limit').textContent = isNaN(endLimit) ? '0' : endLimit;
-        document.querySelector('#total_data').textContent = data.length;
+        // Tambahkan di sini
+        if (rowsPerPage === 'ALL') {
+            document.getElementById('prevPage').style.display = 'none';
+            document.getElementById('nextPage').style.display = 'none';
+            // document.getElementById('pageNumbers').textContent = '1';
+            // document.getElementById('pageNumbers').style.padding = '.5em 1em';
+            // document.getElementById('pageNumbers').style.marginRight = '0.5rem';
+            // document.getElementById('pageNumbers').style.cursor = 'pointer';
+            // document.getElementById('pageNumbers').style.background = 'linear-gradient(to bottom, rgba(230, 230, 230, 0.1) 0%, rgba(0, 0, 0, 0.1) 100%)';
+            // document.getElementById('pageNumbers').style.border = '1px solid rgba(0, 0, 0, 0.3)';
+        } else {
+            document.getElementById('prevPage').style.display = 'inline';
+            document.getElementById('nextPage').style.display = 'inline';
+        }
+
+        const startLimitValue =
+            totalRecords === 0 ? 0 : ((currentPage - 1) * rowsPerPage) + 1;
+
+        const endLimitValue =
+            Math.min(currentPage * rowsPerPage, totalRecords);
+
+        document.querySelector('#start_limit').textContent = rowsPerPage == 'ALL' ? 1 : startLimitValue;
+        document.querySelector('#end_limit').textContent = rowsPerPage == 'ALL' ? totalRecords : endLimitValue;
+        document.querySelector('#total_data').textContent = totalRecords;
 
         let startPage = Math.max(1, currentPage - 1);
         let endPage = Math.min(totalPages, currentPage + 1);
@@ -453,9 +489,10 @@
             }
 
             pageNumber.addEventListener('click', () => {
-                currentPage = i;
-                renderPage();
-                renderPagination();
+                // currentPage = i;
+                // renderPage();
+                // renderPagination();
+                getDataReport(i);
             });
 
             pageNumbersContainer.appendChild(pageNumber);
@@ -535,32 +572,37 @@
         });
     });
 
-    document.querySelector('#searchInput').addEventListener('input', () => {
-        currentPage = 1;
-        renderPage();
-        renderPagination();
-    });
+    // document.querySelector('#searchInput').addEventListener('input', () => {
+    //     currentPage = 1;
+    //     renderPage();
+    //     renderPagination();
+    // });
 
     document.querySelector('#limitSelect').addEventListener('change', (e) => {
-        rowsPerPage = parseInt(e.target.value);
-        currentPage = 1;
-        renderPage();
-        renderPagination();
+        // rowsPerPage = parseInt(e.target.value);
+        // currentPage = 1;
+        // renderPage();
+        // renderPagination();
+
+        rowsPerPage = e.target.value;
+        getDataReport(1);
     });
 
     document.querySelector('#prevPage').addEventListener('click', () => {
         if (currentPage > 1) {
-            currentPage--;
-            renderPage();
-            renderPagination();
+            // currentPage--;
+            // renderPage();
+            // renderPagination();
+            getDataReport(currentPage - 1);
         }
     });
 
     document.querySelector('#nextPage').addEventListener('click', () => {
         if (currentPage * rowsPerPage < filteredData.length) {
-            currentPage++;
-            renderPage();
-            renderPagination();
+            // currentPage++;
+            // renderPage();
+            // renderPagination();
+            getDataReport(currentPage + 1);
         }
     });
 

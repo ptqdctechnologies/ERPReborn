@@ -443,12 +443,12 @@
         if (rowsPerPage === 'ALL') {
             document.getElementById('prevPage').style.display = 'none';
             document.getElementById('nextPage').style.display = 'none';
-            document.getElementById('pageNumbers').textContent = '1';
-            document.getElementById('pageNumbers').style.padding = '.5em 1em';
-            document.getElementById('pageNumbers').style.marginRight = '0.5rem';
-            document.getElementById('pageNumbers').style.cursor = 'pointer';
-            document.getElementById('pageNumbers').style.background = 'linear-gradient(to bottom, rgba(230, 230, 230, 0.1) 0%, rgba(0, 0, 0, 0.1) 100%)';
-            document.getElementById('pageNumbers').style.border = '1px solid rgba(0, 0, 0, 0.3)';
+            // document.getElementById('pageNumbers').textContent = '1';
+            // document.getElementById('pageNumbers').style.padding = '.5em 1em';
+            // document.getElementById('pageNumbers').style.marginRight = '0.5rem';
+            // document.getElementById('pageNumbers').style.cursor = 'pointer';
+            // document.getElementById('pageNumbers').style.background = 'linear-gradient(to bottom, rgba(230, 230, 230, 0.1) 0%, rgba(0, 0, 0, 0.1) 100%)';
+            // document.getElementById('pageNumbers').style.border = '1px solid rgba(0, 0, 0, 0.3)';
         } else {
             document.getElementById('prevPage').style.display = 'inline';
             document.getElementById('nextPage').style.display = 'inline';
