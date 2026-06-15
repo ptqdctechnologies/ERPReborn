@@ -547,6 +547,16 @@ class AdvanceRequestController extends Controller
             $requesterID = $request->requester_id;
             $date = $request->date;
 
+            $page = (int) ($request->page ?? 1);
+
+            if ($request->limit === 'ALL') {
+                $limit = 'ALL';
+                $offset = 0;
+            } else {
+                $limit = (int) ($request->limit ?? 10);
+                $offset = ($page - 1) * $limit;
+            }
+
             if ($date) {
                 $dates = explode(' - ', $date);
                 $startDate = Carbon::createFromFormat('m/d/Y', trim($dates[0]))->startOfDay()->format('Y-m-d');
@@ -568,8 +578,8 @@ class AdvanceRequestController extends Controller
                     ],
                     'SQLStatement' => [
                         'paging' => [
-                            'limit' => "20",
-                            'offset' => 0
+                            'limit' => $limit,
+                            'offset' => $offset
                         ]
                     ]
                 ]
@@ -581,7 +591,11 @@ class AdvanceRequestController extends Controller
 
             $compact = [
                 'status' => $response['metadata']['HTTPStatusCode'],
-                'data' => $response['data']['data']
+                'data' => $response['data']['data'],
+                'totalRecords' => $response['data']['totalRecords'],
+                'rowCount' => $response['data']['rowCount'],
+                'page' => $page,
+                'limit' => $limit
             ];
 
             return response()->json($compact);
