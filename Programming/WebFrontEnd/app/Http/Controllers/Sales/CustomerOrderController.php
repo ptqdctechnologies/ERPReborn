@@ -63,6 +63,24 @@ class CustomerOrderController extends Controller
 
     public function store(Request $request)
     {
+        try {
+            $response = $this->customerOrderService->create($request);
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                throw new \Exception('Failed to fetch Create Customer Order => ' . $response['data']['message']);
+            }
+
+            $compact = [
+                "documentNumber" => $response['data']['businessDocument']['documentNumber'],
+                "status" => $response['metadata']['HTTPStatusCode'],
+            ];
+
+            return response()->json($compact);
+        } catch (\Throwable $th) {
+            Log::error("Store Customer Order Function Error: " . $th->getMessage());
+
+            return response()->json(["status" => 500]);
+        }
     }
 
     public function update(Request $request, $id)

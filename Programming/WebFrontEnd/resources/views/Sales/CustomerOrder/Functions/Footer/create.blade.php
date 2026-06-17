@@ -3,8 +3,14 @@
     let dataAddManual = [];
     let indexSubBudget = null;
     let documentTypeID = document.getElementById("DocumentTypeID");
+    let dataWorkflow = {
+        workFlowPathRefID: null,
+        approverEntityRefID: null,
+        comment: null
+    };
     const budgetID = document.getElementById("project_id");
     const currencyID = document.getElementById("currency_id");
+    const fileID = document.getElementById("dataInput_Log_FileUpload");
     const coFile = document.getElementById("excel_name");
 
     function detailAddManual() {
@@ -44,6 +50,7 @@
             minimumFractionDigits: 2,
             maximumFractionDigits: 2
         });
+
         document.getElementById('manually_total').textContent = total.toLocaleString('en-US', {
             minimumFractionDigits: 2,
             maximumFractionDigits: 2
@@ -161,10 +168,12 @@
         const tbody = document.getElementById("table_tbody_add_manually");
 
         const newRow = {
-            sub_budget_id: "",
-            sub_budget_name: "",
-            value: "",
-            note: "",
+            entities: {
+                combinedBudgetSection_RefID: "",
+                sub_budget_name: "",
+                value: "",
+                notes: ""
+            }
         };
 
         dataAddManual.push(newRow);
@@ -178,7 +187,7 @@
     }
 
     function updateField(index, field, value) {
-        dataAddManual[index][field] = value;
+        dataAddManual[index].entities[field] = value;
 
         console.log("Updated:", dataAddManual); // untuk debugging
     }
@@ -227,15 +236,15 @@
                                     </a>
                                 </span>
                             </div>
-                            <input type="hidden" id="sub_budget_id${index}" value="${row.sub_budget_id}">
-                            <input type="text" id="sub_budget_name${index}" class="form-control" readonly value="${row.sub_budget_name}" onchange="updateField(${index}, 'sub_budget_name', this.value)" style="background-color: white;">
+                            <input type="hidden" id="combinedBudgetSection_RefID${index}" value="${row.entities.combinedBudgetSection_RefID}">
+                            <input type="text" id="sub_budget_name${index}" class="form-control" readonly value="${row.entities.sub_budget_name}" onchange="updateField(${index}, 'sub_budget_name', this.value)" style="background-color: ${row.entities.sub_budget_name ? '#e9ecef' : 'white'};">
                         </div>
                     </td>
                     <td>
-                        <input type="text" id="value${index}" class="form-control form-control number-without-negative" value="${row.value}" onkeyup="calculateTotal()" onchange="updateField(${index}, 'value', this.value)">
+                        <input type="text" id="value${index}" class="form-control form-control number-without-negative" value="${row.entities.value ? Utils.formatCurrency(row.entities.value) : row.entities.value}" onkeyup="calculateTotal()" onchange="updateField(${index}, 'value', parseFloat(this.value.replace(/,/g, '')))">
                     </td>
                     <td>
-                        <textarea id="note${index}" class="form-control" onchange="updateField(${index}, 'note', this.value)">${row.note}</textarea>
+                        <textarea id="notes${index}" class="form-control" onchange="updateField(${index}, 'notes', this.value)">${row.entities.notes}</textarea>
                     </td>
                 `;
             }
@@ -258,6 +267,91 @@
 
     function pickSubBudget(index) {
         indexSubBudget = index;
+    }
+
+    function submitForm() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: 'POST',
+            data: {
+                // workFlowPath_RefID: dataWorkflow.workFlowPathRefID,
+                // approverEntity: dataWorkflow.approverEntityRefID,
+                comment: dataWorkflow.comment,
+                storeData: {
+                    combinedBudgetRefID: budgetID.value,
+                    currencyRefID: currencyID.value,
+                    logFileUploadPointerRefID: fileID.value,
+                    customerOrderDetail: JSON.stringify(dataAddManual.filter(val => val.entities.combinedBudgetSection_RefID))
+                }
+            },
+            url: '{!! route("CustomerOrder.store") !!}',
+            success: function (res) {
+                HideLoading();
+
+                if (res.status == 200) {
+                    const swalWithBootstrapButtons = Swal.mixin({
+                        confirmButtonClass: 'btn btn-success btn-sm',
+                        cancelButtonClass: 'btn btn-danger btn-sm',
+                        buttonsStyling: true,
+                    });
+
+                    swalWithBootstrapButtons.fire({
+                        title: 'Successful !',
+                        type: 'success',
+                        html: 'Data has been saved. Your transaction number is ' + '<span style="color:#0046FF;font-weight:bold;">' + res.documentNumber + '</span>',
+                        showCloseButton: false,
+                        showCancelButton: false,
+                        focusConfirm: false,
+                        confirmButtonText: '<span style="color:black;"> OK </span>',
+                        confirmButtonColor: '#4B586A',
+                        confirmButtonColor: '#e9ecef',
+                        reverseButtons: true
+                    }).then((result) => {
+                        cancelForm("{{ route('CustomerOrder.index', ['var' => 1]) }}");
+                    });
+                } else {
+                    ErrorNotif("Create Customer Order Failed");
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                HideLoading();
+                ErrorNotif("Internal Server Error");
+            }
+        });
+    }
+
+    function commentWorkflow() {
+        const swalWithBootstrapButtons = Swal.mixin({
+            confirmButtonClass: 'btn btn-success btn-sm',
+            cancelButtonClass: 'btn btn-danger btn-sm',
+            buttonsStyling: true,
+        });
+
+        swalWithBootstrapButtons.fire({
+            title: 'Comment',
+            text: "Please write your comment here",
+            type: 'question',
+            input: 'textarea',
+            showCloseButton: false,
+            showCancelButton: true,
+            focusConfirm: false,
+            cancelButtonText: '<span style="color:black;"> Cancel </span>',
+            confirmButtonText: '<span style="color:black;"> OK </span>',
+            cancelButtonColor: '#DDDAD0',
+            confirmButtonColor: '#DDDAD0',
+            reverseButtons: true
+        }).then((result) => {
+            if ('value' in result) {
+                dataWorkflow.comment = result.value;
+                ShowLoading();
+                submitForm();
+            }
+        });
     }
 
     function validationForm() {
@@ -291,7 +385,7 @@
                 }
             }
             if (isValid) {
-                // HERE
+                commentWorkflow();
             }
         } else {
             if (
@@ -394,7 +488,7 @@
                                         </a>
                                     </span>
                                 </div>
-                                <input id="sub_budget_id${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" hidden />
+                                <input id="combinedBudgetSection_RefID${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" hidden />
                                 <input id="sub_budget_code${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" hidden value="${row[1] ?? ''}" />
                                 <input id="sub_budget_name${index}" style="border-radius:0;width:130px;background-color:white;border-color:red;" class="form-control" data-invalid="true" readonly value="${row[1] ?? ''} - ${row[2] ?? ''}" />
                             </div>
@@ -412,7 +506,7 @@
                                             </a>
                                         </span>
                                     </div>
-                                    <input id="sub_budget_id${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" hidden value="${result.sys_id}" />
+                                    <input id="combinedBudgetSection_RefID${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" hidden value="${result.sys_id}" />
                                     <input id="sub_budget_code${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" hidden value="${result.code}" />
                                     <input id="sub_budget_name${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" data-invalid="true" readonly value="${result.code} - ${result.name}" />
                                 </div>
@@ -479,16 +573,16 @@
     $('#tableSites').on('click', 'tbody tr', function () {
         if (indexSubBudget === null) return;
 
-        let sysId = $(this).find('input[data-trigger="sys_id_site"]').val();
-        let siteCode = $(this).find('td:nth-child(2)').text();
-        let siteName = $(this).find('td:nth-child(3)').text();
+        const sysId = $(this).find('input[data-trigger="sys_id_site"]').val();
+        const siteCode = $(this).find('td:nth-child(2)').text();
+        const siteName = $(this).find('td:nth-child(3)').text();
 
         $(`#sub_budget_id${indexSubBudget}`).val(sysId);
         $(`#sub_budget_name${indexSubBudget}`).val(`${siteCode} - ${siteName}`);
-        $(`#sub_budget_name${indexSubBudget}`).css('border', '1px solid #ced4da');
+        $(`#sub_budget_name${indexSubBudget}`).css({ 'border': '1px solid #ced4da', 'background-color': '#e9ecef' });
         $(`#sub_budget_name${indexSubBudget}`).attr('data-invalid', 'false');
 
-        updateField(indexSubBudget, 'sub_budget_id', sysId);
+        updateField(indexSubBudget, 'combinedBudgetSection_RefID', sysId);
         updateField(indexSubBudget, 'sub_budget_name', `${siteCode} - ${siteName}`);
 
         $('#mySites').modal('toggle');
