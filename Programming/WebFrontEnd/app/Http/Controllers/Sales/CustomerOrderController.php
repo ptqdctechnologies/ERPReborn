@@ -19,14 +19,14 @@ class CustomerOrderController extends Controller
         $this->customerOrderService = $customerOrderService;
     }
 
-    public function download() 
+    public function download()
     {
         $file = public_path('files/template-customer-order.xlsx');
-        
+
         return response()->download($file);
     }
 
-    public function import(Request $request) 
+    public function import(Request $request)
     {
         $request->validate([
             'excel_file' => 'required|mimes:xlsx,xls'
@@ -43,28 +43,45 @@ class CustomerOrderController extends Controller
         ]);
     }
 
-    public function index(Request $request)
+    public function index()
     {
-        $var                = $request->query('var', 0);
-        $varAPIWebToken     = Session::get('SessionLogin');
-        $documentTypeRefID  = $this->GetBusinessDocumentsTypeFromRedis('Sales Order Form');
+        return view('Sales.CustomerOrder.Transactions.index');
+    }
 
-        return view('Sales.CustomerOrder.Transactions.CreateCustomerOrder', [
-            'var'                   => $var,
-            'varAPIWebToken'        => $varAPIWebToken,
-            'documentType_RefID'    => $documentTypeRefID
+    public function create(Request $request)
+    {
+        $varAPIWebToken = Session::get('SessionLogin');
+        $documentTypeRefID = $this->GetBusinessDocumentsTypeFromRedis('Sales Order Form');
+
+        // dump($varAPIWebToken);
+
+        return view('Sales.CustomerOrder.Transactions.create', [
+            'varAPIWebToken' => $varAPIWebToken,
+            'documentType_RefID' => $documentTypeRefID
         ]);
     }
 
-    public function Revision(Request $request) 
+    public function store(Request $request)
+    {
+    }
+
+    public function update(Request $request, $id)
+    {
+    }
+
+    public function destroy($id)
+    {
+    }
+
+    public function Revision(Request $request)
     {
         try {
-            $varAPIWebToken     = $request->session()->get('SessionLogin');
-            $documentTypeRefID  = $this->GetBusinessDocumentsTypeFromRedis('Sales Order Revision Form');
+            $varAPIWebToken = $request->session()->get('SessionLogin');
+            $documentTypeRefID = $this->GetBusinessDocumentsTypeFromRedis('Sales Order Revision Form');
 
             $compact = [
-                'varAPIWebToken'        => $varAPIWebToken,
-                'documentType_RefID'    => $documentTypeRefID,
+                'varAPIWebToken' => $varAPIWebToken,
+                'documentType_RefID' => $documentTypeRefID,
             ];
 
             return view('Sales.CustomerOrder.Transactions.RevisionCustomerOrder', $compact);
@@ -73,27 +90,27 @@ class CustomerOrderController extends Controller
         }
     }
 
-    public function ReportCustomerOrderSummary(Request $request) 
+    public function ReportCustomerOrderSummary(Request $request)
     {
         $isSubmitButton = Session::get('isButtonReportCustomerOrderSummary');
-        $dataSummary    = $isSubmitButton ? Session::get('dataReportCustomerOrderSummary') : [];
+        $dataSummary = $isSubmitButton ? Session::get('dataReportCustomerOrderSummary') : [];
 
         return view('Sales.CustomerOrder.Reports.ReportCustomerOrderSummary', [
             'dataSummary' => $dataSummary
         ]);
     }
 
-    public function ReportCustomerOrderSummaryStore(Request $request) 
+    public function ReportCustomerOrderSummaryStore(Request $request)
     {
         try {
             $project = [
-                'id'    => $request->budget_id,
-                'name'  => $request->budget_name,
+                'id' => $request->budget_id,
+                'name' => $request->budget_name,
             ];
 
             $site = [
-                'id'    => $request->sub_budget_id,
-                'name'  => $request->sub_budget_name,
+                'id' => $request->sub_budget_id,
+                'name' => $request->sub_budget_name,
             ];
 
             $date = $request->customer_order_date_range;
@@ -110,7 +127,7 @@ class CustomerOrderController extends Controller
             return redirect()->route('CustomerOrder.ReportSummary');
         } catch (\Throwable $th) {
             Log::error("Report Customer Order Summary Store Function Error: " . $th->getMessage());
-            
+
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }

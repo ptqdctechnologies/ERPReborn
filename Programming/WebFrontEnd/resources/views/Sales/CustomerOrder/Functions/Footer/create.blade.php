@@ -1,11 +1,11 @@
 <script>
-    let data            = [];
-    let dataAddManual   = [];
-    let indexSubBudget  = null;
-    let documentTypeID  = document.getElementById("DocumentTypeID");
-    const budgetID      = document.getElementById("project_id");
-    const currencyID    = document.getElementById("currency_id");
-    const coFile        = document.getElementById("excel_name");
+    let data = [];
+    let dataAddManual = [];
+    let indexSubBudget = null;
+    let documentTypeID = document.getElementById("DocumentTypeID");
+    const budgetID = document.getElementById("project_id");
+    const currencyID = document.getElementById("currency_id");
+    const coFile = document.getElementById("excel_name");
 
     function detailAddManual() {
         dataAddManual = [];
@@ -32,7 +32,7 @@
     function calculateTotal() {
         let total = 0;
 
-        document.querySelectorAll('input[id^="value"]').forEach(function(input) {
+        document.querySelectorAll('input[id^="value"]').forEach(function (input) {
             let value = parseFloat(input.value.replace(/,/g, '')); // Mengambil nilai dan menghilangkan koma
 
             if (!isNaN(value)) {
@@ -55,8 +55,8 @@
         let hasFullRow = false;
 
         rows.forEach((row, index) => {
-            const qty   = document.getElementById(`sub_budget_name${index}`)?.value.trim();
-            const wht   = document.getElementById(`value${index}`)?.value.trim();
+            const qty = document.getElementById(`sub_budget_name${index}`)?.value.trim();
+            const wht = document.getElementById(`value${index}`)?.value.trim();
 
             if (qty !== "" && wht !== "") {
                 hasFullRow = true;
@@ -88,7 +88,7 @@
                     if (indexInput != index && (qtyEl.value.trim() == "" && whtEl.value.trim() == "")) {
                         $(qtyEl).css("border", "1px solid #ced4da");
                         $(whtEl).css("border", "1px solid #ced4da");
-                    } 
+                    }
                 } else {
                     $(qtyEl).css("border", "1px solid red");
                     $(whtEl).css("border", "1px solid red");
@@ -105,8 +105,8 @@
         let hasFullRow = false;
 
         rows.forEach((row, index) => {
-            const qty   = document.getElementById(`sub_budget_name${index}`)?.value.trim();
-            const wht   = document.getElementById(`value${index}`)?.value.trim();
+            const qty = document.getElementById(`sub_budget_name${index}`)?.value.trim();
+            const wht = document.getElementById(`value${index}`)?.value.trim();
             // const coa   = document.getElementById(`coa_name${index}`)?.value.trim();
 
             if (qty !== "" && wht !== "") {
@@ -144,7 +144,7 @@
                         $(qtyEl).css("border", "1px solid #ced4da");
                         $(whtEl).css("border", "1px solid #ced4da");
                         // $(coaEl).css("border", "1px solid #ced4da");
-                    } 
+                    }
                 } else {
                     $(qtyEl).css("border", "1px solid red");
                     $(whtEl).css("border", "1px solid red");
@@ -266,12 +266,12 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-        
+
         var keys = 0;
         $.ajax({
             type: 'GET',
             url: '{!! route("getNewSite") !!}?project_code=' + Project_RefID,
-            success: function(response) {
+            success: function (response) {
                 $(".loadingSites").hide();
 
                 var no = 1;
@@ -279,7 +279,7 @@
                 table.clear();
 
                 if (Array.isArray(response) && response.length > 0) {
-                    $.each(response, function(key, val) {
+                    $.each(response, function (key, val) {
                         keys += 1;
                         table.row.add([
                             '<input id="sys_id_site' + keys + '" value="' + val.Sys_ID + '" data-trigger="sys_id_site" type="hidden">' + no++,
@@ -322,17 +322,17 @@
     }
 
     function validationForm() {
-        let isValid                         = true;
-        const isBudgetIDNotEmpty            = budgetID.value.trim() !== '';
-        const isCurrencyIDNotEmpty          = currencyID.value.trim() !== '';
-        const isCustomerOrderTypeNotEmpty   = document.querySelector('input[name="type_customer_order"]:checked');
-        const isCOFileNotEmpty              = coFile.value.trim() !== '';
-        const isTableImportNotEmpty         = checkOneLineImportContents();
-        const isTableManuallyNotEmpty       = checkOneLineManuallyContents();
-        
+        let isValid = true;
+        const isBudgetIDNotEmpty = budgetID.value.trim() !== '';
+        const isCurrencyIDNotEmpty = currencyID.value.trim() !== '';
+        const isCustomerOrderTypeNotEmpty = document.querySelector('input[name="type_customer_order"]:checked');
+        const isCOFileNotEmpty = coFile.value.trim() !== '';
+        const isTableImportNotEmpty = checkOneLineImportContents();
+        const isTableManuallyNotEmpty = checkOneLineManuallyContents();
+
         if (
             isBudgetIDNotEmpty &&
-            isCurrencyIDNotEmpty && 
+            isCurrencyIDNotEmpty &&
             isCustomerOrderTypeNotEmpty
         ) {
             if (isCustomerOrderTypeNotEmpty.value === "type_import_from_excel") {
@@ -357,7 +357,7 @@
         } else {
             if (
                 !isBudgetIDNotEmpty &&
-                !isCurrencyIDNotEmpty && 
+                !isCurrencyIDNotEmpty &&
                 !isCustomerOrderTypeNotEmpty
             ) {
                 $("#project_name").css("border", "1px solid red");
@@ -367,7 +367,7 @@
                 $("#currency_message").show();
                 $("#type_message").show();
                 return;
-            } 
+            }
             if (!isBudgetIDNotEmpty) {
                 $("#project_name").css("border", "1px solid red");
                 $("#project_message").show();
@@ -381,11 +381,45 @@
             if (!isCustomerOrderTypeNotEmpty) {
                 $("#type_message").show();
                 return;
-            } 
+            }
         }
     }
 
-    $('#excel_file').on('change', function() {
+    function getWorkflow(combinedBudgetRefID, combinedBudgetCode, combinedBudgetName) {
+        $.ajax({
+            type: 'POST',
+            data: {
+                businessDocumentType_RefID: '77000000000057',
+                combinedBudget_RefID: combinedBudgetRefID
+            },
+            url: '{!! route("Workflow.UserAllowedToSubmit") !!}',
+            success: function (response) {
+                if (response.status === 200 && response.data[0].signAccess) {
+                    convertSubBudgetToVariable(combinedBudgetRefID);
+
+                    $("#project_id").val(combinedBudgetRefID);
+                    $("#project_name").val(`${combinedBudgetCode} - ${combinedBudgetName}`);
+                    $("#project_name").css('background-color', '#e9ecef');
+
+                    $("#type_import_from_excel").prop("disabled", false);
+                    $("#type_add_manually").prop("disabled", false);
+                    $("#myProjectsTrigger").prop("disabled", true);
+                    $("#myProjectsTrigger").css("cursor", "not-allowed");
+                } else {
+                    Swal.fire("Error", "You are not included in this budget", "error");
+                }
+
+                $("#project_loading").css({ "display": "none" });
+                $("#myProjectsTrigger").css({ "display": "block" });
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log('jqXHR, textStatus, errorThrown', jqXHR, textStatus, errorThrown);
+                Swal.fire("Error", "Data Error", "error");
+            }
+        });
+    }
+
+    $('#excel_file').on('change', function () {
         let fileName = this.files[0].name;
         $('#excel_name').val(fileName);
         $('#excel_name').css('background-color', '#e9ecef');
@@ -405,7 +439,7 @@
             data: formData,
             processData: false,
             contentType: false,
-            success: function(res) {
+            success: function (res) {
                 $('#table_import_from_excel tbody').empty();
 
                 res.rows.slice(1).forEach((row, index) => {
@@ -469,68 +503,46 @@
         });
     });
 
-    $('#tableProjects').on('click', 'tbody tr', async function() {
-        let sysId   = $(this).find('input[data-trigger="sys_id_project"]').val();
-        let code    = $(this).find('td:nth-child(2)').text();
-        let name    = $(this).find('td:nth-child(3)').text();
+    $('#tableProjects').on('click', 'tbody tr', async function () {
+        const sysId = $(this).find('input[data-trigger="sys_id_project"]').val();
+        const code = $(this).find('td:nth-child(2)').text();
+        const name = $(this).find('td:nth-child(3)').text();
+
+        getWorkflow(sysId, code, name);
 
         $("#project_id").val("");
         $("#project_name").val("");
-        
         $("#project_name").css("border", "1px solid #ced4da");
         $("#project_message").hide();
-        $("#project_loading").css({"display":"block"});
-        $("#myProjectsTrigger").css({"display":"none"});
 
-        $('#myProjects').modal('hide');
+        $("#project_loading").css({ "display": "block" });
+        $("#myProjectsTrigger").css({ "display": "none" });
 
-        try {
-            var checkWorkFlow = await checkingWorkflow(sysId, documentTypeID.value);
-
-            if (checkWorkFlow) {
-                $("#var_combinedBudget_RefID").val(sysId);
-                $("#project_id").val(sysId);
-                $("#project_name").val(`${code} - ${name}`);
-                $("#project_name").css('background-color', '#e9ecef');
-                
-                convertSubBudgetToVariable(sysId);
-                $("#type_import_from_excel").prop("disabled", false);
-                $("#type_add_manually").prop("disabled", false);
-                $("#myProjectsTrigger").prop("disabled", true);
-                $("#myProjectsTrigger").css("cursor", "not-allowed");
-            }
-            
-            $("#project_loading").css({"display":"none"});
-            $("#myProjectsTrigger").css({"display":"block"});
-        } catch (error) {
-            console.error('Error checking workflow:', error);
-
-            Swal.fire("Error", "Error Checking Workflow", "error");
-        }
+        $('#myProjects').modal('toggle');
     });
 
-    $('#tableCurrencies').on('click', 'tbody tr', function() {
-        let sysId   = $(this).find('input[data-trigger="sys_id_currencies"]').val();
-        let code    = $(this).find('td:nth-child(2)').text();
-        let name    = $(this).find('td:nth-child(3)').text();
+    $('#tableCurrencies').on('click', 'tbody tr', function () {
+        let sysId = $(this).find('input[data-trigger="sys_id_currencies"]').val();
+        let code = $(this).find('td:nth-child(2)').text();
+        let name = $(this).find('td:nth-child(3)').text();
 
         $("#currency_id").val(sysId);
         $("#currency_name").val(`${code} - ${name}`);
-        $("#currency_name").css({"background-color": "#e9ecef", "border": "1px solid #ced4da"});
+        $("#currency_name").css({ "background-color": "#e9ecef", "border": "1px solid #ced4da" });
         $("#currency_message").hide();
 
         $("#myCurrenciesTrigger").prop("disabled", true);
         $("#myCurrenciesTrigger").css("cursor", "not-allowed");
 
-        $('#myCurrencies').modal('hide');
+        $('#myCurrencies').modal('toggle');
     });
 
-    $('#tableSites').on('click', 'tbody tr', function() {
+    $('#tableSites').on('click', 'tbody tr', function () {
         if (indexSubBudget === null) return;
 
-        let sysId       = $(this).find('input[data-trigger="sys_id_site"]').val();
-        let siteCode    = $(this).find('td:nth-child(2)').text();
-        let siteName    = $(this).find('td:nth-child(3)').text();
+        let sysId = $(this).find('input[data-trigger="sys_id_site"]').val();
+        let siteCode = $(this).find('td:nth-child(2)').text();
+        let siteName = $(this).find('td:nth-child(3)').text();
 
         $(`#sub_budget_id${indexSubBudget}`).val(sysId);
         $(`#sub_budget_name${indexSubBudget}`).val(`${siteCode} - ${siteName}`);
@@ -540,10 +552,10 @@
         updateField(indexSubBudget, 'sub_budget_id', sysId);
         updateField(indexSubBudget, 'sub_budget_name', `${siteCode} - ${siteName}`);
 
-        $('#mySites').modal('hide');
+        $('#mySites').modal('toggle');
     });
 
-    $(window).one('load', function() {
+    $(window).one('load', function () {
         detailAddManual();
     });
 </script>
