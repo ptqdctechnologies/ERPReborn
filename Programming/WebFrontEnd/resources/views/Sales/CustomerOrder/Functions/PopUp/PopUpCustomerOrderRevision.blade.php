@@ -1,31 +1,40 @@
-<div id="myPopUpCustomerOrderRevision" class="modal fade" role="dialog" aria-hidden="true" style="margin-top: 180px;margin-left:6px;">
+<div id="myPopUpCustomerOrderRevision" class="modal fade" role="dialog" aria-hidden="true"
+    style="margin-top: 180px;margin-left:6px;">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content" style="width:90%;">
             <div class="modal-header">
                 <div class="modal-body">
-                    <span style="font-size: 15px;position:relative;left:17%;font-weight:bold;">CUSTOMER ORDER REVISION</span><br><br><br>
+                    <span style="font-size: 15px;position:relative;left:17%;font-weight:bold;">CUSTOMER ORDER
+                        REVISION</span><br><br><br>
                     <div class="card" style="margin-left: 8%;">
                         <div class="card-body">
                             <div class="form-group">
                                 <table>
                                     <tr>
-                                        <td style="padding-top: 20px;"><label>Revision Number &nbsp;&nbsp;&nbsp;&nbsp;</label></td>
+                                        <td style="padding-top: 20px;"><label>Revision Number
+                                                &nbsp;&nbsp;&nbsp;&nbsp;</label></td>
                                         <td>
                                             <div class="input-group">
-                                                <form id="edit_form" action="{{ route('CustomerOrder.Revision') }}" method="post">
-                                                @csrf
-                                                    <input id="customer_order_id" style="border-radius:0;" name="customer_order_id" type="hidden" class="form-control" />
+                                                <form id="edit_form" action="{{ route('CustomerOrder.Revision') }}"
+                                                    method="post">
+                                                    @csrf
+                                                    <input id="customer_order_id" style="border-radius:0;"
+                                                        name="customer_order_id" type="hidden" class="form-control" />
                                                 </form>
 
                                                 <div class="input-group-append">
-                                                    <span id="customer_order_number_icon" style="border-radius:0;cursor:pointer;" class="input-group-text form-control">
-                                                        <a data-toggle="modal" data-target="#myDebitNote">
-                                                            <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="box_revision" />
+                                                    <span id="customer_order_number_icon"
+                                                        style="border-radius:0;cursor:pointer;"
+                                                        class="input-group-text form-control">
+                                                        <a data-toggle="modal" data-target="#myCustomerOrder">
+                                                            <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}"
+                                                                width="13" alt="box_revision" />
                                                         </a>
                                                     </span>
                                                 </div>
-                                                
-                                                <input id="customer_order_number" style="border-radius:0;" type="text" class="form-control" readonly />
+
+                                                <input id="customer_order_number" style="border-radius:0;" type="text"
+                                                    class="form-control" readonly />
                                             </div>
                                         </td>
                                     </tr>
@@ -33,8 +42,10 @@
                             </div>
                         </div>
                     </div>
-                    <a id="cancel_button" class="btn btn-sm" data-dismiss="modal" style="margin-left: 38%;background-color:#e9ecef;border:1px solid #ced4da;">
-                        <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel"> Cancel
+                    <a id="cancel_button" class="btn btn-sm" data-dismiss="modal"
+                        style="margin-left: 38%;background-color:#e9ecef;border:1px solid #ced4da;">
+                        <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel">
+                        Cancel
                     </a>
                     <a id="edit_button" class="btn btn-sm" style="background-color:#e9ecef;border:1px solid #ced4da;">
                         <img src="{{ asset('AdminLTE-master/dist/img/edit.png') }}" width="13" alt="" title="Edit"> Edit
@@ -47,21 +58,21 @@
 </div>
 
 <script>
-    $('#edit_button').on('click', function() {
+    $('#edit_button').on('click', function () {
         let customerOrderRefID = $('#customer_order_id').val();
 
-        // if (customerOrderRefID) {
+        if (customerOrderRefID) {
             ShowLoading();
 
             $('#edit_form').submit();
-        // } else {
-        //     $('#customer_order_number').focus();
-        //     $('#customer_order_number').css("border", "1px solid red");
-        //     $('#customer_order_number_icon').css("border", "1px solid red");
-        // }
+        } else {
+            $('#customer_order_number').focus();
+            $('#customer_order_number').css("border", "1px solid red");
+            $('#customer_order_number_icon').css("border", "1px solid red");
+        }
     });
 
-    $('#cancel_button').on('click', function() {
+    $('#cancel_button').on('click', function () {
         $('#customer_order_id').val("");
         $('#customer_order_number').val("");
     });

@@ -19,14 +19,14 @@ class CustomerOrderController extends Controller
         $this->customerOrderService = $customerOrderService;
     }
 
-    public function download() 
+    public function download()
     {
         $file = public_path('files/template-customer-order.xlsx');
-        
+
         return response()->download($file);
     }
 
-    public function import(Request $request) 
+    public function import(Request $request)
     {
         $request->validate([
             'excel_file' => 'required|mimes:xlsx,xls'
@@ -43,57 +43,154 @@ class CustomerOrderController extends Controller
         ]);
     }
 
-    public function index(Request $request)
+    public function index()
     {
-        $var                = $request->query('var', 0);
-        $varAPIWebToken     = Session::get('SessionLogin');
-        $documentTypeRefID  = $this->GetBusinessDocumentsTypeFromRedis('Sales Order Form');
+        return view('Sales.CustomerOrder.Transactions.index');
+    }
 
-        return view('Sales.CustomerOrder.Transactions.CreateCustomerOrder', [
-            'var'                   => $var,
-            'varAPIWebToken'        => $varAPIWebToken,
-            'documentType_RefID'    => $documentTypeRefID
+    public function create(Request $request)
+    {
+        $varAPIWebToken = Session::get('SessionLogin');
+        $documentTypeRefID = $this->GetBusinessDocumentsTypeFromRedis('Sales Order Form');
+
+        // dump($varAPIWebToken);
+
+        return view('Sales.CustomerOrder.Transactions.create', [
+            'varAPIWebToken' => $varAPIWebToken,
+            'documentType_RefID' => $documentTypeRefID
         ]);
     }
 
-    public function Revision(Request $request) 
+    public function store(Request $request)
     {
         try {
-            $varAPIWebToken     = $request->session()->get('SessionLogin');
-            $documentTypeRefID  = $this->GetBusinessDocumentsTypeFromRedis('Sales Order Revision Form');
+            $response = $this->customerOrderService->create($request);
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                throw new \Exception('Failed to fetch Create Customer Order => ' . $response['data']['message']);
+            }
 
             $compact = [
-                'varAPIWebToken'        => $varAPIWebToken,
-                'documentType_RefID'    => $documentTypeRefID,
+                "documentNumber" => $response['data']['businessDocument']['documentNumber'],
+                "status" => $response['metadata']['HTTPStatusCode'],
             ];
 
-            return view('Sales.CustomerOrder.Transactions.RevisionCustomerOrder', $compact);
+            return response()->json($compact);
         } catch (\Throwable $th) {
-            //throw $th;
+            Log::error("Store Customer Order Function Error: " . $th->getMessage());
+
+            return response()->json(["status" => 500]);
         }
     }
 
-    public function ReportCustomerOrderSummary(Request $request) 
+    public function update(Request $request, $id)
+    {
+        try {
+            $response = $this->customerOrderService->update($id, $request);
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                throw new \Exception('Failed to fetch Update Customer Order => ' . $response['data']['message']);
+            }
+
+            $compact = [
+                "documentNumber" => $response['data'][0]['businessDocument']['documentNumber'],
+                "status" => $response['metadata']['HTTPStatusCode'],
+            ];
+
+            return response()->json($compact);
+        } catch (\Throwable $th) {
+            Log::error("Update Customer Order Function Error: " . $th->getMessage());
+
+            return response()->json(["status" => 500]);
+        }
+    }
+
+    public function destroy($id)
+    {
+    }
+
+    public function picklist()
+    {
+        $response = $this->customerOrderService->getPickList();
+
+        $status = $response['metadata']['HTTPStatusCode'];
+        $data = [];
+
+        if ($status == 200) {
+            $data = $response['data']['data'] ?? [];
+        }
+
+        return response()->json([
+            'data' => $data,
+            'status' => $status
+        ]);
+    }
+
+    public function Revision(Request $request)
+    {
+        try {
+            $varAPIWebToken = $request->session()->get('SessionLogin');
+            $customerRefID = $request->input('customer_order_id');
+            $documentTypeRefID = $this->GetBusinessDocumentsTypeFromRedis('Sales Order Revision Form');
+
+            $response = $this->customerOrderService->getDetail($customerRefID);
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                throw new \Exception('Failed to fetch Detail Customer Order');
+            }
+
+            $details = $response['data']['data'] ?? [];
+            $header = $details[0] ?? [];
+
+            $compact = [
+                'varAPIWebToken' => $varAPIWebToken,
+                'documentType_RefID' => $documentTypeRefID,
+                'customerOrder_RefID' => $header['CustomerOrder_RefID'] ?? '',
+                'header' => [
+                    'combinedBudget_RefID' => $header['CombinedBudget_RefID'] ?? '',
+                    'combinedBudgetCode' => $header['CombinedBudgetCode'] ?? '',
+                    'combinedBudgetName' => $header['CombinedBudgetName'] ?? '',
+                    'currency_RefID' => $header['Currency_RefID'] ?? '',
+                    'currencyCode' => $header['CurrencyISOCode'] ?? '',
+                    'currencyName' => $header['CurrencyName'] ?? '',
+                ],
+                'details' => $details
+            ];
+
+            return view('Sales.CustomerOrder.Transactions.revision', $compact);
+        } catch (\Throwable $th) {
+            Log::error('Customer Order Index Error', [
+                'message' => $th->getMessage(),
+                'customerRefID' => $request->input('customer_order_id')
+            ]);
+
+            return redirect()
+                ->route('CustomerOrder.index', ['var' => 1])
+                ->with('NotFound', 'Data cannot be displayed at this time. Please try again.');
+        }
+    }
+
+    public function ReportCustomerOrderSummary(Request $request)
     {
         $isSubmitButton = Session::get('isButtonReportCustomerOrderSummary');
-        $dataSummary    = $isSubmitButton ? Session::get('dataReportCustomerOrderSummary') : [];
+        $dataSummary = $isSubmitButton ? Session::get('dataReportCustomerOrderSummary') : [];
 
         return view('Sales.CustomerOrder.Reports.ReportCustomerOrderSummary', [
             'dataSummary' => $dataSummary
         ]);
     }
 
-    public function ReportCustomerOrderSummaryStore(Request $request) 
+    public function ReportCustomerOrderSummaryStore(Request $request)
     {
         try {
             $project = [
-                'id'    => $request->budget_id,
-                'name'  => $request->budget_name,
+                'id' => $request->budget_id,
+                'name' => $request->budget_name,
             ];
 
             $site = [
-                'id'    => $request->sub_budget_id,
-                'name'  => $request->sub_budget_name,
+                'id' => $request->sub_budget_id,
+                'name' => $request->sub_budget_name,
             ];
 
             $date = $request->customer_order_date_range;
@@ -110,7 +207,7 @@ class CustomerOrderController extends Controller
             return redirect()->route('CustomerOrder.ReportSummary');
         } catch (\Throwable $th) {
             Log::error("Report Customer Order Summary Store Function Error: " . $th->getMessage());
-            
+
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }

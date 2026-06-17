@@ -7,15 +7,19 @@
         <div class="col-5 d-flex">
           <div id="myProjectsTriggerContainer">
             <span style="border-radius:0;" class="input-group-text form-control">
-              <a href="javascript:;" id="myProjectsTrigger" data-toggle="modal" data-target="#myProjects" style="display: block;">
+              <a href="javascript:;" id="myProjectsTrigger" data-toggle="modal" data-target="#myProjects"
+                style="display: block;">
                 <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="myProjectsTriggers">
               </a>
             </span>
           </div>
           <div style="flex: 100%;">
             <div class="input-group">
-              <input type="text" id="project_name" class="form-control" readonly style="border-radius:0;">
-              <input type="hidden" id="project_id" class="form-control" name="project_id" style="border-radius:0;">
+              <input type="text" id="budget_name" class="form-control"
+                value="<?= $header['combinedBudgetCode']; ?> - <?= $header['combinedBudgetName']; ?>" readonly
+                style="border-radius:0;">
+              <input type="hidden" id="budget_id" class="form-control" value="<?= $header['combinedBudget_RefID']; ?>"
+                name="budget_id" style="border-radius:0;">
             </div>
           </div>
         </div>
@@ -36,8 +40,11 @@
           </div>
           <div style="flex: 100%;">
             <div class="input-group">
-              <input type="text" id="currency_name" class="form-control" readonly style="border-radius:0;">
-              <input type="hidden" id="currency_id" class="form-control" style="border-radius:0;" name="currency_id">
+              <input type="text" id="currency_name" class="form-control"
+                value="<?= $header['currencyCode']; ?> - <?= $header['currencyName']; ?>" readonly
+                style="border-radius:0;">
+              <input type="hidden" id="currency_id" class="form-control" value="<?= $header['currency_RefID']; ?>"
+                style="border-radius:0;" name="currency_id">
             </div>
           </div>
         </div>
