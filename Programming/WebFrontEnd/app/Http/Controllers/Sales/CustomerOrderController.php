@@ -91,6 +91,23 @@ class CustomerOrderController extends Controller
     {
     }
 
+    public function picklist()
+    {
+        $response = $this->customerOrderService->getPickList();
+
+        $status = $response['metadata']['HTTPStatusCode'];
+        $data = [];
+
+        if ($status == 200) {
+            $data = $response['data']['data'] ?? [];
+        }
+
+        return response()->json([
+            'data' => $data,
+            'status' => $status
+        ]);
+    }
+
     public function Revision(Request $request)
     {
         try {
@@ -102,7 +119,7 @@ class CustomerOrderController extends Controller
                 'documentType_RefID' => $documentTypeRefID,
             ];
 
-            return view('Sales.CustomerOrder.Transactions.RevisionCustomerOrder', $compact);
+            return view('Sales.CustomerOrder.Transactions.revision', $compact);
         } catch (\Throwable $th) {
             //throw $th;
         }

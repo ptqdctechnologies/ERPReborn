@@ -568,6 +568,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::post('CustomerOrderRevision', 'Sales\CustomerOrderController@Revision')->name('CustomerOrder.Revision');
     Route::get('CustomerOrderDownload', 'Sales\CustomerOrderController@download')->name('CustomerOrder.Download');
     Route::post('CustomerOrderImport', 'Sales\CustomerOrderController@import')->name('CustomerOrder.Import');
+    Route::get('CustomerOrderPicklist', 'Sales\CustomerOrderController@picklist')->name('CustomerOrder.Picklist');
     Route::resource('CustomerOrder', 'Sales\CustomerOrderController');
 
     // SETTING

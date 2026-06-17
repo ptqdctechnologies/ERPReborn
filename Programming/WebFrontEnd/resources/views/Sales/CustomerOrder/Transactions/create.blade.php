@@ -5,6 +5,7 @@
     @include('getFunction.getProjects')
     @include('getFunction.getSites')
     @include('getFunction.getCurrencies')
+    @include('getFunction.getCustomerOrder')
     @include('Sales.CustomerOrder.Functions.PopUp.PopUpCustomerOrderRevision')
 
     <div class="content-wrapper">

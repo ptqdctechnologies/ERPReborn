@@ -16,13 +16,14 @@
                             <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-left"
                                 style="padding: 10px;font-size:14px;background-color:#4B586A;margin-top:8px;">
                                 <li class="nav-item">
-                                    <a href="{{ route('CustomerOrder.create') }}" class="nav-link"
-                                        style="color:white;padding-bottom:10px;">
+                                    <a id="create_customer_order" href="{{ route('CustomerOrder.create') }}"
+                                        class="nav-link" style="color:white;padding-bottom:10px;">
                                         <i class="far fa-file nav-icon-sm"> Create Customer Order</i>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" data-toggle="modal" data-target="#myPopUpCustomerOrderRevision"
+                                    <a id="revision_customer_order" class="nav-link" data-toggle="modal"
+                                        data-target="#myPopUpCustomerOrderRevision"
                                         style="color:white;padding-bottom:10px;cursor:pointer">
                                         <i class="far fa-file nav-icon-sm"> Revision Customer Order</i>
                                     </a>

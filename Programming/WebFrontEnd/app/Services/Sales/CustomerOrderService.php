@@ -10,6 +10,22 @@ use App\Helpers\ZhtHelper\System\Helper_Environment;
 
 class CustomerOrderService
 {
+    public function getPickList()
+    {
+        $sessionToken = Session::get('SessionLogin');
+
+        return Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
+            $sessionToken,
+            'dataPickList.customerRelation.getSalesContract',
+            'latest',
+            [
+                'parameter' => null
+            ],
+            false
+        );
+    }
+
     public function create(Request $request): array
     {
         $sessionToken = Session::get('SessionLogin');
