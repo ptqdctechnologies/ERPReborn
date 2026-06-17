@@ -577,15 +577,25 @@
         const siteCode = $(this).find('td:nth-child(2)').text();
         const siteName = $(this).find('td:nth-child(3)').text();
 
-        $(`#sub_budget_id${indexSubBudget}`).val(sysId);
-        $(`#sub_budget_name${indexSubBudget}`).val(`${siteCode} - ${siteName}`);
-        $(`#sub_budget_name${indexSubBudget}`).css({ 'border': '1px solid #ced4da', 'background-color': '#e9ecef' });
-        $(`#sub_budget_name${indexSubBudget}`).attr('data-invalid', 'false');
+        const findData = dataAddManual.find(val => val.entities.combinedBudgetSection_RefID == sysId);
 
-        updateField(indexSubBudget, 'combinedBudgetSection_RefID', sysId);
-        updateField(indexSubBudget, 'sub_budget_name', `${siteCode} - ${siteName}`);
+        if (findData) {
+            ErrorHandler.notifToast(
+                'error',
+                'The Sub Budget already exists. Please select a different Sub Budget.',
+                'Error!'
+            );
+        } else {
+            $(`#sub_budget_id${indexSubBudget}`).val(sysId);
+            $(`#sub_budget_name${indexSubBudget}`).val(`${siteCode} - ${siteName}`);
+            $(`#sub_budget_name${indexSubBudget}`).css({ 'border': '1px solid #ced4da', 'background-color': '#e9ecef' });
+            $(`#sub_budget_name${indexSubBudget}`).attr('data-invalid', 'false');
 
-        $('#mySites').modal('toggle');
+            updateField(indexSubBudget, 'combinedBudgetSection_RefID', sysId);
+            updateField(indexSubBudget, 'sub_budget_name', `${siteCode} - ${siteName}`);
+
+            $('#mySites').modal('toggle');
+        }
     });
 
     $('#tableCustomerOrder').on('click', 'tbody tr', function () {
