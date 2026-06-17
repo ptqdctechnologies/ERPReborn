@@ -4838,14 +4838,6 @@ namespace App\Models\Database\SchData_OLTP_Master
                             )
                         );
 
-                /*
-                return [
-                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
-                        $varUserSession,
-                        $varReturn['data'][0]['Func_GetReport_Resume_BusinessDocumentIssuanceDispositionCount'])
-                    ];
-                */
-
                 $varReturn['data'] = 
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
