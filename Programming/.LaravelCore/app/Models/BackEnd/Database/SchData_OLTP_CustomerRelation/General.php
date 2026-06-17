@@ -256,5 +256,57 @@ namespace App\Models\Database\SchData_OLTP_CustomerRelation
                 return [];
                 }
             }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getReport_Form_DocumentForm_SalesContractSummary                                                     |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2026-06-17                                                                                           |
+        | ▪ Creation Date   : 2026-06-17                                                                                           |
+        | ▪ Description     : Mendapatkan Laporan Form - Form Dokumen Sales Contract                                               |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |      ▪ (string)    varCombinedBudgetCode ► Combined Budget Code                                                          |
+        |      ▪ (string)    varCombinedBudgetSectionCode ► Combined Budget Section Code                                           |
+        |      ▪ (string)    varStartDate ► Start Date                                                                             |
+        |      ▪ (string)    varEndDate ► End Date                                                                                 |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getReport_Form_DocumentForm_SalesContractSummary(
+		$varUserSession, int $varSysBranch_RefID, string  $varCombinedBudgetCode = null, string  $varCombinedBudgetSectionCode = null, string  $varStartDate = null, string  $varEndDate = null,
+		array $varPagingStatement = null
+            )
+            {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession,
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-CustomerRelation.Func_GetReport_DocForm_SalesContractSummary',
+                            [
+                                [$varCombinedBudgetCode, 'varchar' ],
+                                [$varCombinedBudgetSectionCode, 'varchar' ],
+                                [$varStartDate, 'varchar'],
+                                [$varEndDate, 'varchar'],
+                                [$varPagingStatement['limit'], 'varchar'],
+                                [$varPagingStatement['offset'], 'bigint']
+                            ]
+                            )
+                        );
+	            $varReturn['totalRecords'] = $varReturn['data'][0]['TotalRecords'];
+
+                return $varReturn;
+                }
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
         }
     }
