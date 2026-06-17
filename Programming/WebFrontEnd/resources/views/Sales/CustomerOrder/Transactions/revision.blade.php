@@ -21,7 +21,6 @@
 
                 <div class="card">
                     <input type="hidden" name="DocumentTypeID" id="DocumentTypeID" value="<?= $documentType_RefID; ?>">
-                    <input type="hidden" name="var_combinedBudget_RefID" id="var_combinedBudget_RefID">
 
                     <!-- CUSTOMER ORDER -->
                     <div class="tab-content px-3 pt-4 pb-2" id="nav-tabContent">
@@ -119,18 +118,18 @@
                     <div class="tab-content px-3 pb-2" id="nav-tabContent">
                         <div class="row">
                             <div class="col">
-                                <button type="button" class="btn btn-default btn-sm float-right"
+                                <button type="submit" class="btn btn-default btn-sm float-right" onclick="validationForm()"
                                     style="margin-left: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
                                     <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt=""
-                                        title="Submit to Account Payable"> Submit
+                                        title="Submit to Customer Order"> Submit
                                 </button>
 
-                                <a onclick="cancelForm('{{ route('CustomerOrder.index', ['var' => 1]) }}')"
-                                    class="btn btn-default btn-sm float-right"
+                                <button type="button" class="btn btn-default btn-sm float-right"
+                                    onclick="cancelForm('{{ route('CustomerOrder.index') }}')"
                                     style="background-color:#e9ecef;border:1px solid #ced4da;">
                                     <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt=""
-                                        title="Cancel Account Payable List Cart"> Cancel
-                                </a>
+                                        title="Cancel to Customer Order"> Cancel
+                                </button>
                             </div>
                         </div>
                     </div>

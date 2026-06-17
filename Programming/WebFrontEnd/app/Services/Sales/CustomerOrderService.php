@@ -26,6 +26,30 @@ class CustomerOrderService
         );
     }
 
+    public function getDetail($customerOrderRefID)
+    {
+        $sessionToken = Session::get('SessionLogin');
+
+        return Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
+            $sessionToken,
+            'transaction.read.dataList.customerRelation.getSalesContractDetail',
+            'latest',
+            [
+                'parameter' => [
+                    'salesContract_RefID' => (int) $customerOrderRefID,
+                ],
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    'filter' => null,
+                    'paging' => null
+                ]
+            ],
+            false
+        );
+    }
+
     public function create(Request $request): array
     {
         $sessionToken = Session::get('SessionLogin');
@@ -43,6 +67,35 @@ class CustomerOrderService
                     "log_FileUpload_Pointer_RefID" => $fileID,
                     "combinedBudget_RefID" => $data['combinedBudgetRefID'],
                     "currency_RefID" => $data['currencyRefID'],
+                    "documentDateTimeTZ" => date('Y-m-d'),
+                    "additionalData" => [
+                        "itemList" => [
+                            "items" => $detailItems
+                        ]
+                    ]
+                ]
+            ]
+        );
+    }
+
+    public function update($id, $request)
+    {
+        $sessionToken = Session::get('SessionLogin');
+        $data = $request->storeData;
+        $detailItems = json_decode($data['customerOrderDetail'], true);
+        $fileID = isset($data['logFileUploadPointerRefID']) ? (int) $data['logFileUploadPointerRefID'] : null;
+
+        return Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
+            $sessionToken,
+            'transaction.update.customerRelation.setSalesContract',
+            'latest',
+            [
+                'recordID' => (int) $id,
+                'entities' => [
+                    "log_FileUpload_Pointer_RefID" => $fileID,
+                    "combinedBudget_RefID" => (int) $data['combinedBudgetRefID'],
+                    "currency_RefID" => (int) $data['currencyRefID'],
                     "documentDateTimeTZ" => date('Y-m-d'),
                     "additionalData" => [
                         "itemList" => [

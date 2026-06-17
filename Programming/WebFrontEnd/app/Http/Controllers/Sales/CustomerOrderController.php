@@ -85,6 +85,24 @@ class CustomerOrderController extends Controller
 
     public function update(Request $request, $id)
     {
+        try {
+            $response = $this->customerOrderService->update($id, $request);
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                throw new \Exception('Failed to fetch Update Customer Order => ' . $response['data']['message']);
+            }
+
+            $compact = [
+                "documentNumber" => $response['data'][0]['businessDocument']['documentNumber'],
+                "status" => $response['metadata']['HTTPStatusCode'],
+            ];
+
+            return response()->json($compact);
+        } catch (\Throwable $th) {
+            Log::error("Update Customer Order Function Error: " . $th->getMessage());
+
+            return response()->json(["status" => 500]);
+        }
     }
 
     public function destroy($id)
@@ -112,16 +130,43 @@ class CustomerOrderController extends Controller
     {
         try {
             $varAPIWebToken = $request->session()->get('SessionLogin');
+            $customerRefID = $request->input('customer_order_id');
             $documentTypeRefID = $this->GetBusinessDocumentsTypeFromRedis('Sales Order Revision Form');
+
+            $response = $this->customerOrderService->getDetail($customerRefID);
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                throw new \Exception('Failed to fetch Detail Customer Order');
+            }
+
+            $details = $response['data']['data'] ?? [];
+            $header = $details[0] ?? [];
 
             $compact = [
                 'varAPIWebToken' => $varAPIWebToken,
                 'documentType_RefID' => $documentTypeRefID,
+                'customerOrder_RefID' => $header['CustomerOrder_RefID'] ?? '',
+                'header' => [
+                    'combinedBudget_RefID' => $header['CombinedBudget_RefID'] ?? '',
+                    'combinedBudgetCode' => $header['CombinedBudgetCode'] ?? '',
+                    'combinedBudgetName' => $header['CombinedBudgetName'] ?? '',
+                    'currency_RefID' => $header['Currency_RefID'] ?? '',
+                    'currencyCode' => $header['CurrencyISOCode'] ?? '',
+                    'currencyName' => $header['CurrencyName'] ?? '',
+                ],
+                'details' => $details
             ];
 
             return view('Sales.CustomerOrder.Transactions.revision', $compact);
         } catch (\Throwable $th) {
-            //throw $th;
+            Log::error('Customer Order Index Error', [
+                'message' => $th->getMessage(),
+                'customerRefID' => $request->input('customer_order_id')
+            ]);
+
+            return redirect()
+                ->route('CustomerOrder.index', ['var' => 1])
+                ->with('NotFound', 'Data cannot be displayed at this time. Please try again.');
         }
     }
 
