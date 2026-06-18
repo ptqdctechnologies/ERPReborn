@@ -44,7 +44,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0001.0000000                                                                                       |
-        | ▪ Last Update     : 2025-01-22                                                                                           |
+        | ▪ Last Update     : 2026-06-18                                                                                           |
         | ▪ Creation Date   : 2023-11-13                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -72,7 +72,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         public function setDataInsert(
             $varUserSession,
             string $varSysDataAnnotation = null, string $varSysDataValidityStartDateTimeTZ = null, string $varSysDataValidityFinishDateTimeTZ = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, $varSysBaseCurrency_RefID = null,
-            string $varDocumentDateTimeTZ = null, int $varLog_FileUpload_Pointer_RefID = null, int $varRequesterWorkerJobsPosition_RefID = null, float $varAmountRoundOff = null, string $varTermAndConditions = null, string $varRemarks = null,
+            string $varDocumentDateTimeTZ = null, int $varLog_FileUpload_Pointer_RefID = null, int $varCombinedBudget_RefID = null, int $varCustomer_RefID = null, int $varCurrency_RefID = null, int $varVatStatus = null, float $varVatValue = 0, string $varVatNumber = null, string $varRemarks = null,
             array $varAdditionalData = []
             )
             {
@@ -81,7 +81,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
                     $varUserSession, 
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                         $varUserSession,
-                        parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
+                        parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET_NEW',
                         [
                             [$varUserSession, 'bigint'],
                             [null, 'bigint'],
@@ -95,13 +95,16 @@ namespace App\Models\Database\SchData_OLTP_Finance
 
                             [$varDocumentDateTimeTZ, 'timestamptz'],
                             [$varLog_FileUpload_Pointer_RefID, 'bigint'],
-                            [$varRequesterWorkerJobsPosition_RefID, 'bigint'],
-                            [$varAmountRoundOff, 'numeric'],
-                            [$varTermAndConditions, 'varchar'],
+                            [$varCombinedBudget_RefID, 'bigint'],
+                            [$varCustomer_RefID, 'bigint'],
+                            [$varCurrency_RefID, 'bigint'],
+                            [$varVatStatus, 'smallint'],
+                            [$varVatValue, 'numeric'],
+                            [$varVatNumber, 'varchar'],
                             [$varRemarks, 'varchar'],
 
                             [
-                                ((count($varAdditionalData) === 0) 
+                                ((count($varAdditionalData) === 0)
                                     ? null
                                     : \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode(
                                         $varUserSession,
