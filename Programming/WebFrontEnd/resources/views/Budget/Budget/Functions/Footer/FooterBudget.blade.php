@@ -1,214 +1,34 @@
 <script>
-    let data                    = [];
-    let dataProducts            = [];
-    let dataWorks               = [];
-    let dataCurrencies          = [];
-    let dataAddManual           = [];
-    let dataExcel               = [];
-    let dataTimelineDate        = [];
-    let indexSubBudget          = null;
-    let indexWork               = null;
-    let indexProduct            = null;
-    let indexCurrency           = null;
-    let indexStartDate          = null;
+    let dataSubBudget = [];
+    let dataProducts = [];
+    let dataWorks = [];
+    let dataCurrencies = [];
+    let dataExcel = [];
+    let dataTimelineDate = [];
+    let indexSubBudget = null;
+    let indexWork = null;
+    let indexProduct = null;
+    let indexCurrency = null;
+    let indexStartDate = null;
 
     function findSubBudgetByCode(codeToFind) {
-        // const normalizeString = (str) => {
-        //     return str
-        //         .toLowerCase()                   // Mengubah menjadi lowercase
-        //         .trim()                           // Menghapus spasi ekstra
-        //         .replace(/[^\w\s]/g, '');         // Menghapus simbol selain huruf dan angka
-        // };
-
-        return data.find(item => item.code == codeToFind);
+        return dataSubBudget.find(item => item.Code == codeToFind);
     }
 
     function findWorkByCode(codeToFind) {
-        // const normalizeString = (str) => {
-        //     return str
-        //         .toLowerCase()                   // Mengubah menjadi lowercase
-        //         .trim()                           // Menghapus spasi ekstra
-        //         .replace(/[^\w\s]/g, '');         // Menghapus simbol selain huruf dan angka
-        // };
-
         return dataWorks.find(item => item.code == codeToFind);
     }
 
     function findProductByCode(codeToFind) {
-        // const normalizeString = (str) => {
-        //     return str
-        //         .toLowerCase()                   // Mengubah menjadi lowercase
-        //         .trim()                           // Menghapus spasi ekstra
-        //         .replace(/[^\w\s]/g, '');         // Menghapus simbol selain huruf dan angka
-        // };
-
         return dataProducts.find(item => item.code == codeToFind);
     }
 
     function findCurrencyByISOCode(codeToFind) {
-        // const normalizeString = (str) => {
-        //     return str
-        //         .toLowerCase()                   // Mengubah menjadi lowercase
-        //         .trim()                           // Menghapus spasi ekstra
-        //         .replace(/[^\w\s]/g, '');         // Menghapus simbol selain huruf dan angka
-        // };
-
         return dataCurrencies.find(item => item.ISOCode == codeToFind);
     }
 
     function findTimelineDateByCode(codeToFind) {
-        // const normalizeString = (str) => {
-        //     return str
-        //         .toLowerCase()                   // Mengubah menjadi lowercase
-        //         .trim()                           // Menghapus spasi ekstra
-        //         .replace(/[^\w\s]/g, '');         // Menghapus simbol selain huruf dan angka
-        // };
-
         return dataTimelineDate.find(item => item && item.code == codeToFind);
-    }
-
-    function convertSubBudgetToVariable(Project_RefID) {
-        $('#tableSites tbody').empty();
-        $(".loadingSites").show();
-        $(".errorSitesMessageContainer").hide();
-
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-        
-        var keys = 0;
-        $.ajax({
-            type: 'GET',
-            url: '{!! route("getNewSite") !!}?project_code=' + Project_RefID,
-            success: function(response) {
-                $(".loadingSites").hide();
-
-                var no = 1;
-                var table = $('#tableSites').DataTable();
-                table.clear();
-
-                if (Array.isArray(response) && response.length > 0) {
-                    $.each(response, function(key, val) {
-                        keys += 1;
-                        table.row.add([
-                            '<input id="sys_id_site' + keys + '" value="' + val.Sys_ID + '" data-trigger="sys_id_site" type="hidden">' + no++,
-                            val.Code || '-',
-                            val.Name || '-',
-                        ]).draw();
-
-                        data.push({
-                            sys_id: val.Sys_ID,
-                            code: val.Code,
-                            name: val.Name
-                        });
-                    });
-
-                    $("#tableSites_length").show();
-                    $("#tableSites_filter").show();
-                    $("#tableSites_info").show();
-                    $("#tableSites_paginate").show();
-                } else {
-                    $(".errorSitesMessageContainer").show();
-                    $("#errorSitesMessage").text(`No Data Available in Table.`);
-
-                    $("#tableSites_length").hide();
-                    $("#tableSites_filter").hide();
-                    $("#tableSites_info").hide();
-                    $("#tableSites_paginate").hide();
-                }
-            },
-            error: function (textStatus, errorThrown) {
-                $('#tableSites tbody').empty();
-                $(".loadingSites").hide();
-                $(".errorSitesMessageContainer").show();
-                $("#errorSitesMessage").text(`[${textStatus.status}] ${textStatus.responseJSON.message}`);
-            }
-        });
-    }
-
-    function convertProductToVariable() {
-        $('#tableGetProductss tbody').empty();
-        $(".loadingGetModalProductss").show();
-        $(".errorModalProductssMessageContainer").hide();
-
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
-        $.ajax({
-            type: 'GET',
-            url: '{!! route("getProduct") !!}',
-            success: function(data) {
-                $(".loadingGetModalProductss").hide();
-
-                var table = $('#tableGetProductss').DataTable();
-                table.clear();
-
-                if (Array.isArray(data.data.data) && data.data.data.length > 0) {
-                    dataProducts = data.data.data;
-
-                    $('#tableGetProductss').DataTable({
-                        destroy: true,
-                        data: data.data.data,
-                        deferRender: true,
-                        scrollCollapse: true,
-                        scroller: true,
-                        columns: [
-                            {
-                                data: null,
-                                render: function (data, type, row, meta) {
-                                    return '<td class="align-middle text-center">' +
-                                        '<input id="sys_id_product' + (meta.row + 1) + '" value="' + data.sys_ID + '" data-trigger="sys_id_productss" type="hidden">' +
-                                        (meta.row + 1) +
-                                    '</td>';
-                                }
-                            },
-                            {
-                                data: 'code',
-                                defaultContent: '-',
-                                className: "align-middle"
-                            },
-                            {
-                                data: 'name',
-                                defaultContent: '-',
-                                className: "align-middle text-wrap"
-                            },
-                            {
-                                data: 'quantityUnitName',
-                                defaultContent: '-',
-                                className: "align-middle"
-                            }
-                        ]
-                    });
-
-                    $('#tableGetProductss').css("width", "revert-layer");
-
-                    $("#tableGetProductss_length").show();
-                    $("#tableGetProductss_filter").show();
-                    $("#tableGetProductss_info").show();
-                    $("#tableGetProductss_paginate").show();
-                } else {
-                    $('#tableGetProductss tbody').empty();
-                    $(".errorModalProductssMessageContainer").show();
-                    $("#errorModalProductssMessage").text(`Data not found.`);
-
-                    $("#tableGetProductss_length").hide();
-                    $("#tableGetProductss_filter").hide();
-                    $("#tableGetProductss_info").hide();
-                    $("#tableGetProductss_paginate").hide();
-                }
-            },
-            error: function (textStatus, errorThrown) {
-                $('#tableGetProductss tbody').empty();
-                $(".loadingGetModalProductss").hide();
-                $(".errorModalProductssMessageContainer").show();
-                $("#errorModalProductssMessage").text(`[${textStatus.status}] ${textStatus.responseJSON.message}`);
-            }
-        });
     }
 
     function pickSubBudget(index) {
@@ -231,11 +51,270 @@
         indexCurrency = index;
     }
 
+    function getCustomSites(Project_RefID) {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: 'GET',
+            url: '{!! route("getNewSite") !!}?project_code=' + Project_RefID,
+        })
+            .done(function (response) {
+                let data = response[0] ? response : [];
+                dataSubBudget = data;
+
+                $('#tableSites').DataTable({
+                    destroy: true,
+                    data: data,
+                    deferRender: true,
+                    scrollCollapse: true,
+                    scroller: true,
+                    columns: [
+                        {
+                            data: null,
+                            render: function (data, type, row, meta) {
+                                return '<input id="sys_id_site' + (meta.row + 1) + '" value="' + data.Sys_ID + '" data-trigger="sys_id_site" type="hidden">' + (meta.row + 1)
+                            }
+                        },
+                        {
+                            data: 'Code',
+                            defaultContent: '-',
+                            className: "align-middle text-wrap"
+                        },
+                        {
+                            data: 'Name',
+                            defaultContent: '-',
+                            className: "align-middle text-wrap"
+                        }
+                    ]
+                });
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                console.error("Error:", errorThrown);
+            })
+            .always(function (jqXHR, textStatus, errorThrown) {
+                $("#loadingSites").hide();
+            });
+    }
+
+    function getCustomProducts() {
+        $(".loadingGetModalProductss").show();
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: 'GET',
+            url: '{!! route("getProduct") !!}',
+        })
+            .done(function (response) {
+                let data = response.data.data ? response.data.data : [];
+                dataProducts = data;
+
+                $('#tableGetProductss').DataTable({
+                    destroy: true,
+                    data: data,
+                    deferRender: true,
+                    scrollCollapse: true,
+                    scroller: true,
+                    columns: [
+                        {
+                            data: null,
+                            render: function (data, type, row, meta) {
+                                return '<td class="align-middle text-center">' +
+                                    '<input id="sys_id_product' + (meta.row + 1) + '" value="' + data.sys_ID + '" data-trigger="sys_id_product" type="hidden">' +
+                                    (meta.row + 1) +
+                                    '</td>';
+                            }
+                        },
+                        {
+                            data: 'code',
+                            defaultContent: '-',
+                            className: "align-middle"
+                        },
+                        {
+                            data: 'name',
+                            defaultContent: '-',
+                            className: "align-middle text-wrap"
+                        },
+                        {
+                            data: 'quantityUnitName',
+                            defaultContent: '-',
+                            className: "align-middle"
+                        }
+                    ]
+                });
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                console.error("Error:", errorThrown);
+            })
+            .always(function (jqXHR, textStatus, errorThrown) {
+                $(".loadingGetModalProductss").hide();
+            });
+    }
+
+    function getCustomWorks() {
+        $(".loadingGetModalWorks").show();
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: 'GET',
+            url: '{!! route("getWorks") !!}',
+        })
+            .done(function (response) {
+                let data = response[0] ? response : [];
+                dataWorks = data;
+
+                $('#tableWorks').DataTable({
+                    destroy: true,
+                    data: data,
+                    deferRender: true,
+                    scrollCollapse: true,
+                    scroller: true,
+                    columns: [
+                        {
+                            data: null,
+                            render: function (data, type, row, meta) {
+                                return '<td class="align-middle text-center">' +
+                                    '<input id="sys_id_work' + (meta.row + 1) + '" value="' + data.id + '" type="hidden">' +
+                                    (meta.row + 1) +
+                                    '</td>';
+                            }
+                        },
+                        {
+                            data: 'code',
+                            defaultContent: '-',
+                            className: "align-middle"
+                        },
+                        {
+                            data: 'name',
+                            defaultContent: '-',
+                            className: "align-middle text-wrap"
+                        }
+                    ]
+                });
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                console.error("Error:", errorThrown);
+            })
+            .always(function (jqXHR, textStatus, errorThrown) {
+                $(".loadingGetModalWorks").hide();
+            });
+    }
+
+    function getCustomCurrencies() {
+        $(".loadingCurrencies").show();
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: 'GET',
+            url: '{!! route("getCurrency") !!}',
+        })
+            .done(function (response) {
+                let data = response.data ? response.data : [];
+                dataCurrencies = data;
+
+                $('#tableCurrencies').DataTable({
+                    destroy: true,
+                    data: data,
+                    deferRender: true,
+                    scrollCollapse: true,
+                    scroller: true,
+                    columns: [
+                        {
+                            data: null,
+                            render: function (data, type, row, meta) {
+                                return '<td class="align-middle text-center">' +
+                                    '<input id="sys_id_currencies' + (meta.row + 1) + '" value="' + data.sys_ID + '" data-trigger="sys_id_currencies" type="hidden">' +
+                                    (meta.row + 1) +
+                                    '</td>';
+                            }
+                        },
+                        {
+                            data: 'ISOCode',
+                            defaultContent: '-',
+                            className: "align-middle"
+                        },
+                        {
+                            data: 'name',
+                            defaultContent: '-',
+                            className: "align-middle text-wrap"
+                        }
+                    ]
+                });
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                console.error("Error:", errorThrown);
+            })
+            .always(function (jqXHR, textStatus, errorThrown) {
+                $(".loadingCurrencies").hide();
+            });
+    }
+
+    function workflowValidate(combinedBudgetRefID, combinedBudgetCode, combinedBudgetName) {
+        $.ajax({
+            type: 'POST',
+            url: '{!! route("Workflow.UserAllowedToSubmit") !!}',
+            data: {
+                businessDocumentType_RefID: '77000000000057',
+                combinedBudget_RefID: combinedBudgetRefID
+            },
+            success: function (response) {
+                if (response.status === 200 && response.data[0].signAccess) {
+                    $("#project_id").val(combinedBudgetRefID);
+                    $("#project_name").val(`${combinedBudgetCode} - ${combinedBudgetName}`);
+                    $("#project_name").css('background-color', '#e9ecef');
+
+                    $("#type_import_from_excel").prop("disabled", false);
+                    $("#type_add_manually").prop("disabled", false);
+
+                    $("#myProjectsTrigger").prop("disabled", true);
+                    $("#myProjectsTrigger").css("cursor", "not-allowed");
+
+                    $("#excel_file").prop("disabled", false);
+                    $("#uploadBudgetFile").css("cursor", "pointer");
+
+                    getCustomSites(combinedBudgetRefID);
+
+                    getCustomWorks();
+                } else {
+                    Swal.fire("Error", "You are not included in this budget", "error");
+                }
+
+                $("#iconBudget").show();
+                $("#loadingBudget").hide();
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log('jqXHR, textStatus, errorThrown', jqXHR, textStatus, errorThrown);
+                Swal.fire("Error", "Data Error", "error");
+
+                $("#loadingBudget").css({ "display": "none" });
+                $("#myProjectSecondTrigger").css({ "display": "block" });
+            }
+        });
+    }
+
     function showTimeline() {
         $('#table_timeline tbody').empty();
 
         const groupingDataExcelByWork = dataExcel.reduce((acc, currentItem) => {
-            const key           = currentItem[3]; 
+            const key = currentItem[3];
             const validateValue = findWorkByCode(currentItem[3]);
 
             if (!acc[key] && validateValue) {
@@ -364,12 +443,7 @@
         });
     }
 
-    function submitJournalDetails() {
-        // const testing = document.getElementById(`sub_budget_name${indexSubBudget}`);
-        // console.log('testing', testing.value);
-    }
-
-    $('#excel_file').on('change', function() {
+    $('#excel_file').on('change', function () {
         let fileName = this.files[0].name;
         $('#excel_name').val(fileName);
         $('#excel_name').css('background-color', '#e9ecef');
@@ -386,16 +460,16 @@
             data: formData,
             processData: false,
             contentType: false,
-            success: function(res) {
+            success: function (res) {
                 $('#table_import_from_excel tbody').empty();
 
                 dataExcel = res.rows.slice(1);
 
                 res.rows.slice(1).forEach((row, index) => {
                     const validateSubBudget = findSubBudgetByCode(row[1]);
-                    const validateWork      = findWorkByCode(row[3]);
-                    const validateProduct   = findProductByCode(row[5]);
-                    const validateCurrency  = findCurrencyByISOCode(row[7]);
+                    const validateWork = findWorkByCode(row[3]);
+                    const validateProduct = findProductByCode(row[5]);
+                    const validateCurrency = findCurrencyByISOCode(row[7]);
 
                     let componentSubBudget = `
                         <input id="sub_budget_id${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" hidden />
@@ -416,8 +490,8 @@
 
                     if (validateSubBudget) {
                         componentSubBudget = `
-                            <input id="sub_budget_id${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" hidden value="${validateSubBudget.sys_id}" />
-                            <input id="sub_budget_name${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" readonly value="${validateSubBudget.code} - ${validateSubBudget.name}" />
+                            <input id="sub_budget_id${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" hidden value="${validateSubBudget.Sys_ID}" />
+                            <input id="sub_budget_name${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" readonly value="${validateSubBudget.Code} - ${validateSubBudget.Name}" />
                         `;
                     }
 
@@ -515,135 +589,32 @@
                     `);
                 });
 
-                showTimeline();
+                // showTimeline();
             }
         });
-        
+
         $("#excel_file").prop("disabled", true);
         $("#uploadBudgetFile").css("cursor", "not-allowed");
     });
 
-    $('#tableProjects').on('click', 'tbody tr', function() {
-        let sysId   = $(this).find('input[data-trigger="sys_id_project"]').val();
-        let code    = $(this).find('td:nth-child(2)').text();
-        let name    = $(this).find('td:nth-child(3)').text();
+    $('#tableProjects').on('click', 'tbody tr', function () {
+        const sysId = $(this).find('input[data-trigger="sys_id_project"]').val();
+        const code = $(this).find('td:nth-child(2)').text();
+        const name = $(this).find('td:nth-child(3)').text();
 
-        $("#project_id").val(sysId);
-        $("#project_name").val(`${code} - ${name}`);
-        $("#project_name").css('background-color', '#e9ecef');
-        
-        $("#type_import_from_excel").prop("disabled", false);
-        $("#type_add_manually").prop("disabled", false);
+        $("#iconBudget").hide();
+        $("#loadingBudget").show();
 
-        $("#myProjectsTrigger").prop("disabled", true);
-        $("#myProjectsTrigger").css("cursor", "not-allowed");
+        getCustomCurrencies();
 
-        $("#excel_file").prop("disabled", false);
-        $("#uploadBudgetFile").css("cursor", "pointer");
+        workflowValidate(sysId, code, name);
 
         $('#myProjects').modal('hide');
-
-        convertSubBudgetToVariable(sysId);
     });
 
-    $('#tableCurrencies').on('click', 'tbody tr', function() {
-        let sysId   = $(this).find('input[data-trigger="sys_id_currencies"]').val();
-        let code    = $(this).find('td:nth-child(2)').text();
-        let name    = $(this).find('td:nth-child(3)').text();
-
-        $("#currency_id").val(sysId);
-        $("#currency_name").val(`${code} - ${name}`);
-        $("#currency_name").css('background-color', '#e9ecef');
-
-        $("#myCurrenciesTrigger").prop("disabled", true);
-        $("#myCurrenciesTrigger").css("cursor", "not-allowed");
-
-        $('#myCurrencies').modal('hide');
-    });
-
-    $('#tableSites').on('click', 'tbody tr', function() {
-        if (indexSubBudget === null) return;
-
-        let sysId       = $(this).find('input[data-trigger="sys_id_site"]').val();
-        let siteCode    = $(this).find('td:nth-child(2)').text();
-        let siteName    = $(this).find('td:nth-child(3)').text();
-
-        $(`#sub_budget_id${indexSubBudget}`).val(sysId);
-        $(`#sub_budget_name${indexSubBudget}`).val(`${siteCode} - ${siteName}`);
-        $(`#sub_budget_name${indexSubBudget}`).css('border', '1px solid #ced4da');
-
-        $('#mySites').modal('hide');
-    });
-
-    $('#tableWorks tbody').on('click', 'tr', function () {
-        if (indexWork === null) return;
-
-        const table     = $('#tableWorks').DataTable();
-        const dataRow   = table.row(this).data();
-
-        if (dataRow) {
-            $("#myWorks").modal('toggle');
-
-            const workRefID = dataRow.id;
-            const workCode  = dataRow.code;
-            const workName  = dataRow.name;
-
-            $(`#work_id${indexWork}`).val(workRefID);
-            $(`#work_name${indexWork}`).val(`${workCode ?? ''} - ${workName ?? ''}`);
-            $(`#work_name${indexWork}`).css("border", "1px solid #ced4da");
-
-            const findDataExcelByCode = dataExcel.find(item => item[3] !== workCode);
-
-            if (findDataExcelByCode) {
-                dataExcel[indexWork][3] = workCode;
-                dataExcel[indexWork][4] = workName;
-            }
-
-            showTimeline();
-        }
-    });
-
-    $('#tableGetProductss tbody').on('click', 'tr', function () {
-        if (indexProduct === null) return;
-
-        const table     = $('#tableGetProductss').DataTable();
-        const dataRow   = table.row(this).data();
-
-        if (dataRow) {
-            $("#myProductss").modal('toggle');
-
-            const productRefID  = dataRow.sys_ID;
-            const productCode   = dataRow.code;
-            const productName   = dataRow.name;
-
-            $(`#product_id${indexProduct}`).val(productRefID);
-            $(`#product_name${indexProduct}`).val(`${productCode ?? ''} - ${productName ?? ''}`);
-            $(`#product_name${indexProduct}`).css("border", "1px solid #ced4da");
-        }
-    });
-
-    $('#tableCurrencies tbody').on('click', 'tr', function () {
-        if (indexCurrency === null) return;
-
-        const table     = $('#tableCurrencies').DataTable();
-        const dataRow   = table.row(this).data();
-
-        if (dataRow) {
-            $("#myCurrencies").modal('toggle');
-
-            const currencyRefID     = dataRow.sys_ID;
-            const currencyISOCode   = dataRow.ISOCode;
-            const currencyName      = dataRow.name;
-
-            $(`#currency_id${indexCurrency}`).val(currencyRefID);
-            $(`#currency_name${indexCurrency}`).val(`${currencyISOCode ?? ''} - ${currencyName ?? ''}`);
-            $(`#currency_name${indexCurrency}`).css("border", "1px solid #ced4da");
-        }
-    });
-
-    $(window).one('load', function() {
+    $(document).ready(function () {
         $("#excel_file").prop("disabled", true);
         $("#uploadBudgetFile").css("cursor", "not-allowed");
-        convertProductToVariable();
+        getCustomProducts();
     });
 </script>
