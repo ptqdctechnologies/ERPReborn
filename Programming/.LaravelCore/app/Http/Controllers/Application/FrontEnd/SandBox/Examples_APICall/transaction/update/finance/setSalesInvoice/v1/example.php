@@ -21,7 +21,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         |                     ► http://172.28.0.4/transaction.update.finance.setSalesInvoice.v1_throughAPIGateway                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0002.0000000                                                                                       |
-        | ▪ Last Update     : 2025-01-23                                                                                           |
+        | ▪ Last Update     : 2026-06-18                                                                                           |
         | ▪ Creation Date   : 2023-11-22                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -45,71 +45,25 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
 
                     //-----[ DATA ]-----( START )-----
                         [
-                        "recordID" => 138000000000001,
+                        "recordID" => 138000000000002,
                         "entities" => [
-                            "documentDateTimeTZ" => '2022-03-07',
-                            "log_FileUpload_Pointer_RefID" => NULL,
-                            "requesterWorkerJobsPosition_RefID" => 164000000000497,
-                            "amountRoundOff" => 0.00,
-                            "termAndConditions" => 'My Term & Condition',
-                            "remarks" => 'My Remarks',
+                            "documentDateTimeTZ" => '2026-06-19',
+                            "log_FileUpload_Pointer_RefID" => 91000000000002,
+                            "combinedBudget_RefID" => 46000000000002,
+                            "customer_RefID" => 125000000000002,
+                            "currency_RefID" => 62000000000002,
+                            "vatStatus" => 0,
+                            "vatValue" => 10,
+                            "vatNumber" => '01.234.567.8-999.111',
+                            "remarks" => 'My Remarks Updated',
                             "additionalData" => [
                                 "itemList" => [
                                     "items" => [
                                             [
-                                            "recordID" => 139000000000001,
+                                            "recordID" => 139000000000003,
                                             "entities" => [
-                                                "salesInvoiceRequestDetail_RefID" => 245000000000001,
-                                                "product_RefID" => 88000000000002,
-                                                "quantity" => 10,
-                                                "quantityUnit_RefID" => 73000000000001,
-                                                "productUnitPriceCurrency_RefID" => 62000000000001,
-                                                "productUnitPriceCurrencyValue" => 30000,
-                                                "productUnitPriceCurrencyExchangeRate" => 1,
-                                                "productUnitPriceDiscountCurrency_RefID" => 62000000000001,
-                                                "productUnitPriceDiscountCurrencyValue" => 5000,
-                                                "productUnitPriceDiscountCurrencyExchangeRate" => 1,
-                                                "remarks" => 'Catatan',
-                                                "additionalData" => [
-                                                    "transactionTaxItemList" => [
-                                                        "items" => [
-                                                                [
-                                                                "recordID" => 185000000000002,
-                                                                "entities" => [
-                                                                    "taxType_RefID" => 182000000000001,
-                                                                    "tariffCurrency_RefID" => 62000000000001,
-                                                                    "tariffCurrencyValue" => 3000,
-                                                                    "tariffCurrencyExchangeRate" => 1,
-                                                                    "remarks" => null
-                                                                    ]
-                                                                ],
-                                                                [
-                                                                "recordID" => 185000000000003,
-                                                                "entities" => [
-                                                                    "taxType_RefID" => 182000000000005,
-                                                                    "tariffCurrency_RefID" => 62000000000001,
-                                                                    "tariffCurrencyValue" => 4000,
-                                                                    "tariffCurrencyExchangeRate" => 1,
-                                                                    "remarks" => null
-                                                                    ]
-                                                                ]
-                                                            ]
-                                                        ]
-                                                    ]
-                                                ]
-                                            ]
-                                        ]
-                                    ],
-                                "transactionTaxItemList" => [
-                                    "items" => [
-                                            [
-                                            "recordID" => 185000000000001,
-                                            "entities" => [
-                                                "taxType_RefID" => 182000000000005,
-                                                "tariffCurrency_RefID" => 62000000000001,
-                                                "tariffCurrencyValue" => 4000,
-                                                "tariffCurrencyExchangeRate" => 1,
-                                                "remarks" => null
+                                                "combinedBudgetSectionDetail_RefID" => 169000000000002,
+                                                "value" => 17080000.00
                                                 ]
                                             ]
                                         ]
@@ -120,7 +74,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                     //-----[ DATA ]-----(  END  )-----
                     );
 
-            var_dump($varData);
+            return $varData;
             }
 
 
