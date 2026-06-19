@@ -50,8 +50,6 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                             "documentDateTimeTZ" => '2026-06-19',
                             "log_FileUpload_Pointer_RefID" => 91000000000002,
                             "combinedBudget_RefID" => 46000000000002,
-                            "customer_RefID" => 125000000000002,
-                            "currency_RefID" => 62000000000002,
                             "vatStatus" => 0,
                             "vatValue" => 10,
                             "vatNumber" => '01.234.567.8-999.111',
