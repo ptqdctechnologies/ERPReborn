@@ -127,7 +127,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         | ▪ Method Name     : setDataUpdate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0001.0000000                                                                                       |
-        | ▪ Last Update     : 2025-01-22                                                                                           |
+        | ▪ Last Update     : 2026-06-18                                                                                           |
         | ▪ Creation Date   : 2023-11-13                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -143,9 +143,12 @@ namespace App\Models\Database\SchData_OLTP_Finance
         |        ----------------------------------------                                                                          |
         |      ▪ (string) varDocumentDateTimeTZ ► Document DateTimeTZ                                                              |
         |      ▪ (int)    varLog_FileUpload_Pointer_RefID ► File Attachments Reference ID                                          |
-        |      ▪ (int)    varRequesterWorkerJobsPosition_RefID ► Requester Worker Jobs Position Reference ID                       |
-        |      ▪ (float)  varAmountRoundOff ► Amount Round Off                                                                     |
-        |      ▪ (string) varTermAndConditions ► Term And Conditions                                                               |
+        |      ▪ (int)    varCombinedBudget_RefID ► Combined Budget Reference ID                                                   |
+        |      ▪ (int)    varCustomer_RefID ► Customer Reference ID                                                                |
+        |      ▪ (int)    varCurrency_RefID ► Currency Reference ID                                                                |
+        |      ▪ (int)    varVatStatus ► VAT Status                                                                                |
+        |      ▪ (float)  varVatValue ► VAT Value                                                                                  |
+        |      ▪ (string) varVatNumber ► VAT Number                                                                                |
         |      ▪ (string) varRemarks ► Remarks                                                                                     |
         |        ----------------------------------------                                                                          |
         |      ▪ (array)  varAdditionalData ► Additional Data                                                                      |
@@ -154,10 +157,10 @@ namespace App\Models\Database\SchData_OLTP_Finance
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function setDataUpdate(
-            $varUserSession,
+            $varUserSession, 
             int $varSysID,
             string $varSysDataAnnotation = null, string $varSysDataValidityStartDateTimeTZ = null, string $varSysDataValidityFinishDateTimeTZ = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, $varSysBaseCurrency_RefID = null,
-            string $varDocumentDateTimeTZ = null, int $varLog_FileUpload_Pointer_RefID = null, int $varRequesterWorkerJobsPosition_RefID = null, float $varAmountRoundOff = null, string $varTermAndConditions = null, string $varRemarks = null,
+            string $varDocumentDateTimeTZ = null, int $varLog_FileUpload_Pointer_RefID = null, int $varCombinedBudget_RefID = null, int $varCustomer_RefID = null, int $varCurrency_RefID = null, int $varVatStatus = null, float $varVatValue = 0, string $varVatNumber = null, string $varRemarks = null,
             array $varAdditionalData = []
             )
             {
@@ -166,7 +169,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
                     $varUserSession, 
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                         $varUserSession,
-                        parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
+                        parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET_NEW',
                         [
                             [$varUserSession, 'bigint'],
                             [$varSysID, 'bigint'],
@@ -180,9 +183,12 @@ namespace App\Models\Database\SchData_OLTP_Finance
 
                             [$varDocumentDateTimeTZ, 'timestamptz'],
                             [$varLog_FileUpload_Pointer_RefID, 'bigint'],
-                            [$varRequesterWorkerJobsPosition_RefID, 'bigint'],
-                            [$varAmountRoundOff, 'numeric'],
-                            [$varTermAndConditions, 'varchar'],
+                            [$varCombinedBudget_RefID, 'bigint'],
+                            [$varCustomer_RefID, 'bigint'],
+                            [$varCurrency_RefID, 'bigint'],
+                            [$varVatStatus, 'smallint'],
+                            [$varVatValue, 'numeric'],
+                            [$varVatNumber, 'varchar'],
                             [$varRemarks, 'varchar'],
 
                             [
@@ -198,6 +204,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
                         ]
                         )
                     );
+                    // dd($varReturn);
 
             return
                 $varReturn;
