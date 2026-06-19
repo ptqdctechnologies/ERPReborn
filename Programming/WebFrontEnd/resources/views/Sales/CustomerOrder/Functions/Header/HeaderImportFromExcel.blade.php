@@ -15,7 +15,8 @@
           </div>
           <div style="flex: 100%;">
             <div class="input-group">
-              <input type="text" id="excel_name" class="form-control" readonly style="border-radius:0; background-color: white;">
+              <input type="text" id="excel_name" class="form-control" readonly
+                style="border-radius:0; background-color: white;">
             </div>
           </div>
         </div>
@@ -41,12 +42,20 @@
           <table class="table table-head-fixed text-nowrap table-sm" id="table_import_from_excel">
             <thead>
               <tr>
-                <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;border-left:1px solid #e9ecef;text-align: center;">Sub Budget</th>
-                <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;width:150px;">Value</th>
-                <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Notes</th>
+                <th
+                  style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;border-left:1px solid #e9ecef;text-align: center;width: 70px;">
+                  Action</th>
+                <th
+                  style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;border-left:1px solid #e9ecef;text-align: center;">
+                  Sub Budget</th>
+                <th
+                  style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;width:150px;">
+                  Value</th>
+                <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">
+                  Notes</th>
               </tr>
             </thead>
-            <tbody></tbody>
+            <tbody id="table_tbody_import_from_excel"></tbody>
             <tfoot>
               <tr class="loading_import" style="display: none;">
                 <td colspan="3" class="p-0" style="border: 0px; height: 150px;">
@@ -64,7 +73,8 @@
               <tr class="error_message_import_container" style="display: none;">
                 <td colspan="3" class="p-0" style="border: 0px;">
                   <div class="d-flex flex-column justify-content-center align-items-center py-3">
-                    <div id="error_message_import" class="mt-3 text-red" style="font-size: 1rem; font-weight: 700;"></div>
+                    <div id="error_message_import" class="mt-3 text-red" style="font-size: 1rem; font-weight: 700;">
+                    </div>
                   </div>
                 </td>
               </tr>
