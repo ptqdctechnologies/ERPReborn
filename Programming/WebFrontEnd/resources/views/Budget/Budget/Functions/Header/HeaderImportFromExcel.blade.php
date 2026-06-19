@@ -37,7 +37,10 @@
             <thead>
               <tr>
                 <th
-                  style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;border-left:1px solid #e9ecef;text-align: center;background-color: #4B586A;color: #fff;">
+                  style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;border-left:1px solid #e9ecef;text-align: center;background-color: #4B586A;color: #fff;width: 70px;">
+                  Action</th>
+                <th
+                  style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;background-color: #4B586A;color: #fff;">
                   Sub Budget</th>
                 <th
                   style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;background-color: #4B586A;color: #fff;">
@@ -59,7 +62,7 @@
                   Total</th>
               </tr>
             </thead>
-            <tbody></tbody>
+            <tbody id="tbody_table_import_from_excel"></tbody>
           </table>
         </div>
       </div>

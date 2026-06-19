@@ -10,7 +10,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body table-responsive p-0" style="height: 400px;">
-                                <table class="table table-head-fixed text-nowrap" id="tableCurrencies">
+                                <table class="table table-head-fixed w-100" id="tableCurrencies">
                                     <thead>
                                         <tr>
                                             <th>No</th>
