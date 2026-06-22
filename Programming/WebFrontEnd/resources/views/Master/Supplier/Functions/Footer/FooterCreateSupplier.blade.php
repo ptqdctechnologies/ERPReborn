@@ -357,20 +357,18 @@
         }
     });
 
-    $('#supplierForm').on('submit', function (e) {
+    $('#submit-confirmation').on('click', function (e) {
         e.preventDefault();
 
         $.ajax({
             type: 'POST',
             url: '{!! route("Supplier.store") !!}',
-            data: $(this).serialize(),
+            data: $('#supplierForm').serialize(),
             beforeSend: function () {
                 Utils.showLoading();
             }
         })
             .done(function (response) {
-                console.log('response', response);
-
                 if (response.status === 200) {
                     const swalWithBootstrapButtons = Swal.mixin({
                         confirmButtonClass: 'btn btn-success btn-sm',
@@ -442,16 +440,6 @@
     $('#revision_supplier').on('click', function (e) {
         getSuppliers();
     });
-
-    // $('#cancel-category').on('click', function (e) {
-    //     $("#supplierCategoryModal").modal('toggle');
-    //     $("#supplierSpecializationModal").modal('show');
-    // });
-
-    // $('#submit-category').on('click', function (e) {
-    //     $("#supplierCategoryModal").modal('toggle');
-    //     $("#supplierSpecializationModal").modal('show');
-    // });
 
     document.querySelectorAll('.parent-checkbox').forEach(parent => {
         parent.addEventListener('change', function () {
