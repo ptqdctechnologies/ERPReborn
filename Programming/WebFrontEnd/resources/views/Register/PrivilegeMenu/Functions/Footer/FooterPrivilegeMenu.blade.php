@@ -99,8 +99,8 @@
                 const data = (response.status == 200 && response.data[0]) ? response.data : [];
 
                 for (let i = 0; i < data.length; i++) {
-                    if (!checkedValue.includes(data[i]['menuAction_RefID'])) {
-                        checkedValue.push(data[i]['menuAction_RefID']);
+                    if (!checkedValue.includes(data[i]['menu_RefID'])) {
+                        checkedValue.push(data[i]['menu_RefID']);
                     }
                 }
             }
@@ -128,7 +128,7 @@
                 data.forEach(function (item, index) {
                     let checked = "";
                     for (var i = 0; i < checkedValue.length; i++) {
-                        if (checkedValue[i] == item.defaultMenuAction_RefID) {
+                        if (checkedValue[i] == item.sys_ID) {
                             checked = "checked";
                         }
                     }
@@ -139,7 +139,7 @@
                                 <div class="input-group">
                                     &nbsp;&nbsp;
                                     <span class="input-group-text">
-                                        <input type="checkbox" ${checked} name="list_menu[]" id="list_menu${index}" value="${item.defaultMenuAction_RefID}">
+                                        <input type="checkbox" ${checked} name="list_menu[]" id="list_menu${index}" value="${item.sys_ID}">
                                     </span>
                                     <span style="position: relative;top:7px;left:8px;">
                                         ${item.caption}
