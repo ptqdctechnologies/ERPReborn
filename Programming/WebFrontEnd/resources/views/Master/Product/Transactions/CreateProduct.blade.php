@@ -55,17 +55,18 @@
                         <div class="tab-content px-3 pb-2" id="nav-tabContent">
                             <div class="row">
                                 <div class="col">
-                                    <button type="submit" class="btn btn-default btn-sm float-right"
+                                    <button type="button" class="btn btn-default btn-sm float-right" data-toggle="modal"
+                                        data-target="#staticBackdrop"
                                         style="margin-left: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
                                         <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt=""
-                                            title="Submit to Advance"> Submit
+                                            title="Submit to Product"> Submit
                                     </button>
 
                                     <button type="button" class="btn btn-default btn-sm float-right"
                                         onclick="cancelForm('{{ route('Product.index') }}')"
                                         style="background-color:#e9ecef;border:1px solid #ced4da;">
                                         <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt=""
-                                            title="Cancel to Account Payable"> Cancel
+                                            title="Cancel to Product"> Cancel
                                     </button>
                                 </div>
                             </div>
@@ -74,6 +75,33 @@
                 </form>
             </div>
         </section>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 style="margin: 0px;font-weight:bold;">
+                        Confirmation
+                    </h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="font-size: 1.0rem; line-height: normal;">
+                    Are you sure all the information you entered is correct? </br />
+                    Please review your data carefully before proceeding.
+                </div>
+                <div class="modal-footer">
+                    <button id="cancel-confirmation" type="button" class="btn btn-default"
+                        data-dismiss="modal">Cancel</button>
+                    <button id="submit-confirmation" type="button" class="btn btn-primary"
+                        data-dismiss="modal">Submit</button>
+                </div>
+            </div>
+        </div>
     </div>
 
     @include('Partials.footer')

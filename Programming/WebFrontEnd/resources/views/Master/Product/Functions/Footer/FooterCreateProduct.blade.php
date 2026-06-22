@@ -30,69 +30,6 @@
         }
     });
 
-    $('#productForm').on('submit', function (e) {
-        e.preventDefault();
-
-        $.ajax({
-            type: 'POST',
-            url: '{!! route("Product.store") !!}',
-            data: $(this).serialize(),
-            beforeSend: function () {
-                Utils.showLoading();
-            }
-        })
-            .done(function (response) {
-                console.log('response', response);
-
-                if (response.status === 200) {
-                    const swalWithBootstrapButtons = Swal.mixin({
-                        confirmButtonClass: 'btn btn-success btn-sm',
-                        cancelButtonClass: 'btn btn-danger btn-sm',
-                        buttonsStyling: true,
-                    });
-
-                    swalWithBootstrapButtons.fire({
-                        title: 'Successful !',
-                        type: 'success',
-                        html: 'Data has been saved',
-                        showCloseButton: false,
-                        showCancelButton: false,
-                        focusConfirm: false,
-                        confirmButtonText: '<span style="color:black;"> OK </span>',
-                        confirmButtonColor: '#4B586A',
-                        confirmButtonColor: '#e9ecef',
-                        reverseButtons: true
-                    }).then((result) => {
-                        Utils.cancelForm("{{ route('Product.index') }}");
-                    });
-                }
-            })
-            .fail(function (jqXHR, textStatus, errorThrown) {
-                console.error("Error:", errorThrown);
-
-                if (jqXHR.status === 422) {
-                    let errors = jqXHR.responseJSON.errors;
-
-                    console.log('errors', errors);
-
-                    $.each(errors, function (key, value) {
-                        if (formList[key]) {
-                            ErrorHandler.showErrorInputMessage(formList[key].component, formList[key].containerMessageId, formList[key].messageId, value[0]);
-
-                            if (formList[key].component == '#sub_category') {
-                                $('#sub_category').next('.select2-container')
-                                    .find('.select2-selection')
-                                    .css("border", "1px solid red");
-                            }
-                        }
-                    });
-                }
-            })
-            .always(function (jqXHR, textStatus, errorThrown) {
-                Utils.hideLoading();
-            });
-    });
-
     $('#tableGetUom').on('click', 'tbody tr', async function () {
         const sysId = $(this).find('input[data-trigger="sys_id_uom"]').val();
         const name = $(this).find('td:nth-child(2)').text();
@@ -158,5 +95,66 @@
 
     $('#revision_product').on('click', function (e) {
         getProductss();
+    });
+
+    $('#submit-confirmation').on('click', function (e) {
+        e.preventDefault();
+
+        $.ajax({
+            type: 'POST',
+            url: '{!! route("Product.store") !!}',
+            data: $('#productForm').serialize(),
+            beforeSend: function () {
+                Utils.showLoading();
+            }
+        })
+            .done(function (response) {
+                if (response.status === 200) {
+                    const swalWithBootstrapButtons = Swal.mixin({
+                        confirmButtonClass: 'btn btn-success btn-sm',
+                        cancelButtonClass: 'btn btn-danger btn-sm',
+                        buttonsStyling: true,
+                    });
+
+                    swalWithBootstrapButtons.fire({
+                        title: 'Successful !',
+                        type: 'success',
+                        html: 'Data has been saved',
+                        showCloseButton: false,
+                        showCancelButton: false,
+                        focusConfirm: false,
+                        confirmButtonText: '<span style="color:black;"> OK </span>',
+                        confirmButtonColor: '#4B586A',
+                        confirmButtonColor: '#e9ecef',
+                        reverseButtons: true
+                    }).then((result) => {
+                        Utils.cancelForm("{{ route('Product.index') }}");
+                    });
+                }
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                console.error("Error:", errorThrown);
+
+                if (jqXHR.status === 422) {
+                    let errors = jqXHR.responseJSON.errors;
+
+                    console.log('errors', errors);
+
+                    $.each(errors, function (key, value) {
+                        if (formList[key]) {
+                            ErrorHandler.showErrorInputMessage(formList[key].component, formList[key].containerMessageId, formList[key].messageId, value[0]);
+
+                            if (formList[key].component == '#sub_category') {
+                                $('#sub_category').next('.select2-container')
+                                    .find('.select2-selection')
+                                    .css("border", "1px solid red");
+                            }
+                        }
+                    });
+                }
+            })
+            .always(function (jqXHR, textStatus, errorThrown) {
+                Utils.hideLoading();
+            });
     });
 </script>
