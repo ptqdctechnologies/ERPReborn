@@ -20,7 +20,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\dat
         |                     ► http://172.28.0.4/dataPickList.finance.getSalesInvoice.v1_throughAPIGateway                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2024-10-28                                                                                           |
+        | ▪ Last Update     : 2026-06-19                                                                                           |
         | ▪ Creation Date   : 2024-10-28                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -42,7 +42,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\dat
                         ]
                     ]
                     );
-            var_dump($varData);
+            return $varData;
             }
 
 

@@ -23,7 +23,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2023-11-22                                                                                           |
+        | ▪ Last Update     : 2026-06-18                                                                                           |
         | ▪ Creation Date   : 2023-11-22                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -43,7 +43,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0001.0000000                                                                                       |
-        | ▪ Last Update     : 2025-01-23                                                                                           |
+        | ▪ Last Update     : 2026-06-18                                                                                           |
         | ▪ Creation Date   : 2023-11-22                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -93,20 +93,23 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
 
                                     $varData['entities']['documentDateTimeTZ'],
                                     $varData['entities']['log_FileUpload_Pointer_RefID'],
-                                    $varData['entities']['requesterWorkerJobsPosition_RefID'],
-                                    $varData['entities']['amountRoundOff'],
-                                    $varData['entities']['termAndConditions'],
+                                    $varData['entities']['combinedBudget_RefID'],
+                                    null,
+                                    null,
+                                    $varData['entities']['vatStatus'],
+                                    $varData['entities']['vatValue'],
+                                    $varData['entities']['vatNumber'],
                                     $varData['entities']['remarks'],
 
                                     (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
                                         $varUserSession,
                                         'additionalData',
                                         $varData['entities']
-                                        ) 
+                                        )
                                         ?   (
                                                 (
                                                 !is_null($varData['entities']['additionalData'])
-                                                ) 
+                                                )
                                                 ? $varData['entities']['additionalData']
                                                 : []
                                             )
@@ -127,10 +130,12 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
                         }
 
                     catch (\Exception $ex) {
+                        $varErrorMessage = $ex->getMessage();
                         $varReturn =
-                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataUpdateException(
+                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail(
                                 $varUserSession,
-                                $ex
+                                500,
+                                'Invalid SQL Syntax'.($varErrorMessage ? ' ('.$varErrorMessage.')' : '')
                                 );
                         }
                     //-----[ MAIN CODE ]------------------------------------------------------------------------------( END POINT )-----

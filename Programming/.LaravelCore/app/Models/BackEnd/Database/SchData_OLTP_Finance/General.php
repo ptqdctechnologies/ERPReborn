@@ -4028,7 +4028,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         | ▪ Method Name     : getDataPickList_SalesInvoice_LatestVersion                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2024-10-28                                                                                           |
+        | ▪ Last Update     : 2026-06-18                                                                                           |
         | ▪ Creation Date   : 2024-10-28                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Pilihan Data Faktur Penjualan (Sales Invoice) Versi Terakhir                      |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -4048,11 +4048,56 @@ namespace App\Models\Database\SchData_OLTP_Finance
                         $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
-                            'SchData-OLTP-Finance.Func_GetDataPickList_SalesInvoice',
+                            'SchData-OLTP-Finance.Func_GetDataPickList_SalesInvoice_NEW',
                             [
-                                [$varSysBranch_RefID, 'bigint'],
+                                [$varSysBranch_RefID, 'bigint']
+                            ]
+                            )
+                        );
 
-                                [FALSE, 'boolean']
+                return
+                    $varReturn;
+                }
+
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataList_SalesInvoiceDetail_LatestVersion                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2026-06-15                                                                                           |
+        | ▪ Creation Date   : 2026-06-15                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Detail Sales Invoice Versi Terakhir                                                 |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSalesInvoice_RefID ► Sales Invoice ID                                                               |
+        |        ------------------------------                                                                                    |
+        |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
+        |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
+        |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
+        |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataList_SalesInvoiceDetail_LatestVersion(
+            $varUserSession, int $varSalesInvoice_RefID = null)
+            {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession,
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Finance.Func_GetDataList_SalesInvoiceDetail',
+                            [
+                                [$varSalesInvoice_RefID, 'bigint' ],
                             ]
                             )
                         );
