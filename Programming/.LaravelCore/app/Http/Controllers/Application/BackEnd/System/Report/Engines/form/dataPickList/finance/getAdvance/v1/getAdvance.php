@@ -184,7 +184,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\da
                                 )
                             ))
                             {
-                            throw new \Exception();
+                            throw
+                                new \Exception();
                             }
 
                         $varReturn =
