@@ -1,1 +1,1 @@
-a:3:{s:6:"_token";s:40:"Dvo9xdXUeRa34Xyvf5IsMIoKXb0aRp5lungrtoNv";s:9:"_previous";a:2:{s:3:"url";s:77:"http://172.28.0.4/authentication.general.setLogin.v1_throughAPIAuthentication";s:5:"route";N;}s:6:"_flash";a:2:{s:3:"old";a:0:{}s:3:"new";a:0:{}}}
+a:3:{s:6:"_token";s:40:"bhnCIUhFufoePy9wTeeVmbFYt7SMWcwEZeRzzcYg";s:9:"_previous";a:2:{s:3:"url";s:92:"http://172.28.0.4/transaction.read.dataList.sysConfig.getAppObject_Menu.v1_throughAPIGateway";s:5:"route";N;}s:6:"_flash";a:2:{s:3:"old";a:0:{}s:3:"new";a:0:{}}}
