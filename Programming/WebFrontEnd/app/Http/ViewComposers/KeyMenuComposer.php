@@ -20,7 +20,7 @@ class KeyMenuComposer
 
         $menuLayout = Cache::store('redis')->remember(
             $cacheKey,
-            now()->addMinutes(30),
+            now()->addMinutes(480),
             function () use ($token, $branchRefID, $userRefID) {
                 return Helper_APICall::setCallAPIGateway(
                     Helper_Environment::getUserSessionID_System(),
