@@ -10,19 +10,34 @@ use App\Helpers\ZhtHelper\System\Helper_Environment;
 
 class AdvanceRequestService
 {
-    public function getPickList()
+    // public function getPickList()
+    // {
+    //     $sessionToken = Session::get('SessionLogin');
+
+    //     return Helper_APICall::setCallAPIGateway(
+    //         Helper_Environment::getUserSessionID_System(),
+    //         $sessionToken,
+    //         'dataPickList.finance.getAdvance',
+    //         'latest',
+    //         [
+    //             'parameter' => null
+    //         ],
+    //         false
+    //     );
+    // }
+
+    public function getPickList($formatted)
     {
-        $sessionToken = Session::get('SessionLogin');
+        $token = Session::get('SessionLogin');
 
         return Helper_APICall::setCallAPIGateway(
             Helper_Environment::getUserSessionID_System(),
-            $sessionToken,
-            'dataPickList.finance.getAdvance',
+            $token,
+            'report.form.dataPickList.finance.getAdvance',
             'latest',
             [
-                'parameter' => null
-            ],
-            false
+                'parameter' => $formatted
+            ]
         );
     }
 
