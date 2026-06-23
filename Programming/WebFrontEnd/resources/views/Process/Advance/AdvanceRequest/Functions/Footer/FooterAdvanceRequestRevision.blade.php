@@ -835,7 +835,6 @@
                 combinedBudget_RefID: projectID.value
             },
             url: '{!! route("Workflow.UserAllowedToSubmit") !!}',
-            // url: '{!! route("GetWorkflow") !!}',
             success: function (response) {
                 if (response.status === 200 && response.data[0].signAccess) {
                     // totalNextApprover = response.data[0].nextApproverPath.length;
