@@ -25,23 +25,24 @@ class PrivilegeMenuController extends Controller
         return view('Register.PrivilegeMenu.Transactions.index');
     }
 
-
     public function store(StorePrivilegeMenu $request)
     {
         try {
             $token = Session::get('SessionLogin');
+            $branchRefID = Session::get('SessionBranch');
             $userRoleRefID = $request->role_id;
             $menuActionRefIDArray = $request->list_menu;
 
             $response = Helper_APICall::setCallAPIGateway(
                 Helper_Environment::getUserSessionID_System(),
                 $token,
-                'transaction.create.sysConfig.setAppObject_UserRolePrivileges_BulkData',
+                'transaction.create.sysConfig.setAppObject_UserRolePrivilegesMenu_BulkData',
                 'latest',
                 [
                     'entities' => [
-                        'userRole_RefID' => (int) $userRoleRefID,
-                        'menuAction_RefIDArray' => array_map('intval', $menuActionRefIDArray)
+                        "branch_RefID" => (int) $branchRefID,
+                        "userRole_RefID" => (int) $userRoleRefID,
+                        'menu_RefIDArray' => array_map('intval', $menuActionRefIDArray)
                     ]
                 ]
             );

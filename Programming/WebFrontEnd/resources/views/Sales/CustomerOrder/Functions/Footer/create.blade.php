@@ -1,8 +1,10 @@
 <script>
     let data = [];
     let dataAddManual = [];
+    let dataSubBudget = [];
     let indexSubBudget = null;
     let documentTypeID = document.getElementById("DocumentTypeID");
+    let isImportFromExcel = false;
     let dataWorkflow = {
         workFlowPathRefID: null,
         approverEntityRefID: null,
@@ -20,15 +22,22 @@
 
     function typeValue(val) {
         if (val.value === "type_import_from_excel") {
+            dataAddManual = [];
+            isImportFromExcel = true;
+
             $("#tab_import_from_excel").show();
             $("#tab_add_manually").hide();
-            detailAddManual();
+            // detailAddManual();
         } else {
+            isImportFromExcel = false;
+
             $("#tab_import_from_excel").hide();
             $("#tab_add_manually").show();
-            $('#table_import_from_excel tbody').empty();
+            $('#table_import_from_excel tbody').empty(); a
             $('#excel_name').val("");
             $('#excel_file').val("");
+
+            detailAddManual();
         }
         $('#import_total').text("0.00");
         $('#manually_total').text("0.00");
@@ -165,14 +174,13 @@
     }
 
     function addRow() {
-        const tbody = document.getElementById("table_tbody_add_manually");
-
         const newRow = {
             entities: {
                 combinedBudgetSection_RefID: "",
                 sub_budget_name: "",
                 value: "",
-                notes: ""
+                notes: "",
+                isDefault: true
             }
         };
 
@@ -193,7 +201,7 @@
     }
 
     function renderTable() {
-        const tbody = document.getElementById("table_tbody_add_manually");
+        const tbody = isImportFromExcel ? document.getElementById("table_tbody_import_from_excel") : document.getElementById("table_tbody_add_manually");
         tbody.innerHTML = "";
 
         dataAddManual.forEach((row, index) => {
@@ -237,7 +245,7 @@
                                 </span>
                             </div>
                             <input type="hidden" id="combinedBudgetSection_RefID${index}" value="${row.entities.combinedBudgetSection_RefID}">
-                            <input type="text" id="sub_budget_name${index}" class="form-control" readonly value="${row.entities.sub_budget_name}" onchange="updateField(${index}, 'sub_budget_name', this.value)" style="background-color: ${row.entities.sub_budget_name ? '#e9ecef' : 'white'};">
+                            <input type="text" id="sub_budget_name${index}" class="form-control" readonly value="${row.entities.sub_budget_name}" onchange="updateField(${index}, 'sub_budget_name', this.value)" style="background-color: ${row.entities.sub_budget_name ? '#e9ecef' : 'white'}; border: ${row.entities.combinedBudgetSection_RefID ? '1px solid #ced4da' : '1px solid red'}">
                         </div>
                     </td>
                     <td>
@@ -251,6 +259,8 @@
 
             tbody.appendChild(tr);
         });
+
+        calculateTotal();
     }
 
     function findByCode(codeToFind) {
@@ -263,6 +273,10 @@
 
         return data.find(item => item.code == codeToFind);
         // return data.find(item => normalizeString(item.code) == normalizeString(codeToFind));
+    }
+
+    function findSubBudgetByCode(codeToFind) {
+        return dataSubBudget.find(item => item.Code == codeToFind);
     }
 
     function pickSubBudget(index) {
@@ -360,8 +374,15 @@
         const isCurrencyIDNotEmpty = currencyID.value.trim() !== '';
         const isCustomerOrderTypeNotEmpty = document.querySelector('input[name="type_customer_order"]:checked');
         const isCOFileNotEmpty = coFile.value.trim() !== '';
-        const isTableImportNotEmpty = checkOneLineImportContents();
+        // const isTableImportNotEmpty = checkOneLineImportContents();
         const isTableManuallyNotEmpty = checkOneLineManuallyContents();
+        const findEmptyData = dataAddManual.find(
+            ({ entities }) =>
+                !entities.isDefault && (
+                    !entities.combinedBudgetSection_RefID ||
+                    !entities.value
+                )
+        );
 
         if (
             isBudgetIDNotEmpty &&
@@ -374,9 +395,18 @@
                     $("#co_file_message").show();
                     isValid = false;
                 }
-                if (!isTableImportNotEmpty) {
-                    $("#import_message").show();
+                // if (!isTableImportNotEmpty) {
+                //     $("#import_message").show();
+                //     isValid = false;
+                // }
+                if (findEmptyData) {
                     isValid = false;
+
+                    ErrorHandler.notifToast(
+                        'error',
+                        'Please review the highlighted fields (red border) and ensure all required values are filled in correctly before proceeding.',
+                        'Validation Error'
+                    );
                 }
             } else {
                 if (!isTableManuallyNotEmpty) {
@@ -418,6 +448,55 @@
         }
     }
 
+    function getCustomSites(Project_RefID) {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: 'GET',
+            url: '{!! route("getNewSite") !!}?project_code=' + Project_RefID,
+        })
+            .done(function (response) {
+                let data = response[0] ? response : [];
+                dataSubBudget = data;
+
+                $('#tableSites').DataTable({
+                    destroy: true,
+                    data: data,
+                    deferRender: true,
+                    scrollCollapse: true,
+                    scroller: true,
+                    columns: [
+                        {
+                            data: null,
+                            render: function (data, type, row, meta) {
+                                return '<input id="sys_id_site' + (meta.row + 1) + '" value="' + data.Sys_ID + '" data-trigger="sys_id_site" type="hidden">' + (meta.row + 1)
+                            }
+                        },
+                        {
+                            data: 'Code',
+                            defaultContent: '-',
+                            className: "align-middle text-wrap"
+                        },
+                        {
+                            data: 'Name',
+                            defaultContent: '-',
+                            className: "align-middle text-wrap"
+                        }
+                    ]
+                });
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                console.error("Error:", errorThrown);
+            })
+            .always(function (jqXHR, textStatus, errorThrown) {
+                $("#loadingSites").hide();
+            });
+    }
+
     function getWorkflow(combinedBudgetRefID, combinedBudgetCode, combinedBudgetName) {
         $.ajax({
             type: 'POST',
@@ -428,7 +507,7 @@
             url: '{!! route("Workflow.UserAllowedToSubmit") !!}',
             success: function (response) {
                 if (response.status === 200 && response.data[0].signAccess) {
-                    getSites(combinedBudgetRefID);
+                    getCustomSites(combinedBudgetRefID);
 
                     $("#project_id").val(combinedBudgetRefID);
                     $("#project_name").val(`${combinedBudgetCode} - ${combinedBudgetName}`);
@@ -476,62 +555,20 @@
                 $('#table_import_from_excel tbody').empty();
 
                 res.rows.slice(1).forEach((row, index) => {
-                    const result = findByCode(row[1]);
+                    const validateSubBudget = findSubBudgetByCode(row[1]);
 
-                    let subBudgetContent = `
-                        <td>
-                            <div class="input-group">
-                                <div class="input-group-append">
-                                    <span style="border-radius:0;cursor:pointer;" class="input-group-text form-control">
-                                        <a data-toggle="modal" data-target="#mySites" onclick="pickSubBudget(${index})">
-                                            <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="box${index}">
-                                        </a>
-                                    </span>
-                                </div>
-                                <input id="combinedBudgetSection_RefID${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" hidden />
-                                <input id="sub_budget_code${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" hidden value="${row[1] ?? ''}" />
-                                <input id="sub_budget_name${index}" style="border-radius:0;width:130px;background-color:white;border-color:red;" class="form-control" data-invalid="true" readonly value="${row[1] ?? ''} - ${row[2] ?? ''}" />
-                            </div>
-                        </td>
-                    `;
-
-                    if (result) {
-                        subBudgetContent = `
-                            <td>
-                                <div class="input-group">
-                                    <div class="input-group-append">
-                                        <span style="border-radius:0;cursor:pointer;" class="input-group-text form-control">
-                                            <a href="javascript:;" data-toggle="modal" data-target="#mySites" onclick="pickSubBudget(${index})">
-                                                <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="box${index}">
-                                            </a>
-                                        </span>
-                                    </div>
-                                    <input id="combinedBudgetSection_RefID${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" hidden value="${result.sys_id}" />
-                                    <input id="sub_budget_code${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" hidden value="${result.code}" />
-                                    <input id="sub_budget_name${index}" style="border-radius:0;width:130px;background-color:white;" class="form-control" data-invalid="true" readonly value="${result.code} - ${result.name}" />
-                                </div>
-                            </td>
-                        `;
-                    }
-
-                    $('#table_import_from_excel tbody').append(`
-                        <tr>
-                            ${subBudgetContent}
-                            <td>
-                                <div class="input-group">
-                                    <input class="form-control number-without-negative" id="value${index}" autocomplete="off" style="border-radius:0px;" onchange="checkOneLineImportContents(${index})" onkeyup="calculateTotal()" value="${row[3] ? currencyTotal(row[3]) : ''}" />
-                                </div>
-                            </td>
-                            <td>
-                                <div class="input-group">
-                                    <textarea id="note${index}" class="form-control">${row[4] ?? ''}</textarea>
-                                </div>
-                            </td>
-                        </tr>
-                    `);
+                    dataAddManual.push({
+                        entities: {
+                            isDefault: false,
+                            combinedBudgetSection_RefID: validateSubBudget ? validateSubBudget.Sys_ID : '',
+                            sub_budget_name: validateSubBudget ? `${validateSubBudget.Code} - ${validateSubBudget.Name}` : `${row[1]} - ${row[2]}`,
+                            value: row[3] > 0 ? Utils.parseFloatSafe(row[3]) : Utils.parseFloatSafe(0),
+                            notes: row[4] ? row[4] : ''
+                        }
+                    });
                 });
 
-                calculateTotal();
+                addRow();
             }
         });
     });
@@ -614,9 +651,5 @@
 
     $('#revision_customer_order').on('click', function (e) {
         getCustomerOrder();
-    });
-
-    $(document).ready(function () {
-        detailAddManual();
     });
 </script>

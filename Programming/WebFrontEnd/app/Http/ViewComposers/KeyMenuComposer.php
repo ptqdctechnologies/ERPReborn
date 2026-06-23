@@ -3,69 +3,47 @@
 namespace App\Http\ViewComposers;
 
 use Illuminate\View\View;
-use App\Repositories\UserRepository;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Session;
+use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
+use App\Helpers\ZhtHelper\System\Helper_Environment;
 
 class KeyMenuComposer
 {
     public function compose(View $view)
     {
+        $token = Session::get('SessionLogin');
+        $branchRefID = Session::get('SessionBranch');
+        $userRefID = Session::get('SessionUser_RefID');
 
-        $varDataRole = Session::get("SessionRoleLogin");
-        $SessionUser_RefID =  Session::get('SessionUser_RefID');
-        $varAPIWebToken = Session::get('SessionLogin');
-        $varTTL = 32400; // 9 Jam
+        $cacheKey = "menu_layout_{$branchRefID}_{$userRefID}";
 
-        // PERUBAHAN TERBARU MENAMBAHKAN KONDISI IF
-        if (isset($varDataRole) && is_countable($varDataRole)) {
-            for ($i = 0; $i < count($varDataRole); $i++) {
-
-                if (Redis::get("RedisSetMenu" . $varDataRole[$i]) == null) {
-
-                    //SET REDIS MENU
-
-                    \App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(
-                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                        "RedisSetMenu" . $varDataRole[$i],
-                        true,
-                        $varTTL
-                    );
-
-                    //GET REDIS MENU
-                    
-                    \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                        $varAPIWebToken,
-                        'transaction.read.dataList.sysConfig.getAppObject_MenuLayout',
-                        'latest',
-                        [
-                            'parameter' => [
-                                'recordID' => $SessionUser_RefID
-                            ]
-                        ],
-                        false
-                    );
-                    
-                }
+        $menuLayout = Cache::store('redis')->remember(
+            $cacheKey,
+            now()->addMinutes(480),
+            function () use ($token, $branchRefID, $userRefID) {
+                return Helper_APICall::setCallAPIGateway(
+                    Helper_Environment::getUserSessionID_System(),
+                    $token,
+                    'authentication.userPrivilege.getMenuLayout',
+                    'latest',
+                    [
+                        'parameter' => [
+                            'branch_RefID' => (int) $branchRefID,
+                            'user_RefID' => (int) $userRefID
+                        ]
+                    ]
+                );
             }
-        }
-
-        $privilageMenu = json_decode(
-            \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                "RedisGetMenu" . $SessionUser_RefID
-            ),
-            true,
-            $varTTL
         );
 
-        // dd($privilageMenu);
+        $view->with([
+            'privilageMenu' => $menuLayout['data']
+        ]);
 
-        $compact = [
-            'privilageMenu' => $privilageMenu
-        ];
-        $view->with($compact);
+        // MENGHAPUS CACHE MENU LAYOUT
+        // Cache::store('redis')->forget(
+        //     "menu_layout_{$branchRefID}_{$userRefID}"
+        // );
     }
 }

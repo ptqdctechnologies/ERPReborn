@@ -10,7 +10,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body table-responsive p-0" style="height: 400px;">
-                                <table class="table table-head-fixed text-nowrap" id="tableCurrencies">
+                                <table class="table table-head-fixed w-100" id="tableCurrencies">
                                     <thead>
                                         <tr>
                                             <th>No</th>
@@ -22,7 +22,8 @@
                                     <tfoot>
                                         <tr class="loadingCurrencies">
                                             <td colspan="3" class="p-0" style="height: 22rem;">
-                                                <div class="d-flex flex-column justify-content-center align-items-center py-3">
+                                                <div
+                                                    class="d-flex flex-column justify-content-center align-items-center py-3">
                                                     <div class="spinner-border" role="status">
                                                         <span class="sr-only">Loading...</span>
                                                     </div>
@@ -34,8 +35,10 @@
                                         </tr>
                                         <tr class="errorCurrenciesMessageContainer" style="display: none;">
                                             <td colspan="3" class="p-0" style="height: 22rem;">
-                                                <div class="d-flex flex-column justify-content-center align-items-center py-3">
-                                                    <div id="errorCurrenciesMessage" class="mt-3 text-red" style="font-size: 1rem; font-weight: 700;"></div>
+                                                <div
+                                                    class="d-flex flex-column justify-content-center align-items-center py-3">
+                                                    <div id="errorCurrenciesMessage" class="mt-3 text-red"
+                                                        style="font-size: 1rem; font-weight: 700;"></div>
                                                 </div>
                                             </td>
                                         </tr>
@@ -67,7 +70,7 @@
         $.ajax({
             type: 'GET',
             url: '{!! route("getCurrency") !!}',
-            success: function(data) {
+            success: function (data) {
                 $(".loadingCurrencies").hide();
 
                 var no = 1;
@@ -75,8 +78,6 @@
                 table.clear();
 
                 if (Array.isArray(data.data) && data.data.length > 0) {
-                    dataCurrencies = data.data; // USE IN BUDGET PAGE
-
                     // $.each(data.data, function(key, val) {
                     //     keys += 1;
                     //     table.row.add([
@@ -99,7 +100,7 @@
                                     return '<td class="align-middle text-center">' +
                                         '<input id="sys_id_currencies' + (meta.row + 1) + '" value="' + data.sys_ID + '" data-trigger="sys_id_currencies" type="hidden">' +
                                         (meta.row + 1) +
-                                    '</td>';
+                                        '</td>';
                                 }
                             },
                             {
@@ -140,7 +141,7 @@
         });
     }
 
-    $(window).one('load', function(e) {
+    $(window).one('load', function (e) {
         getCurrencies();
     });
 </script>
