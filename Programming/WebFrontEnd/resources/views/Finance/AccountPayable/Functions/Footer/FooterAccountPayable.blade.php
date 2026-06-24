@@ -882,37 +882,39 @@
     }
 
     function getWorkflow(combinedBudgetRefID, purchaseOrderRefID) {
-        $("#tablePurchaseOrderDetail tbody").hide();
-        $(".loadingPurchaseOrderTable").show();
-        $("#loading_workflow").show();
-        $("#purchaseRequisitionTrigger").hide();
-
         $.ajax({
             type: 'POST',
             data: {
                 businessDocumentType_RefID: documentTypeID.value,
                 combinedBudget_RefID: combinedBudgetRefID
             },
-            url: '{!! route("GetWorkflow") !!}',
+            url: '{!! route("Workflow.UserAllowedToSubmit") !!}',
             success: function (response) {
-                if (response.status === 200) {
-                    totalNextApprover = response.data[0].nextApproverPath.length;
-                    dataWorkflow.workFlowPathRefID = response.data[0].sys_ID;
-                    dataWorkflow.approverEntityRefID = response.data[0].submitterEntity_RefID;
+                if (response.status === 200 && response.data[0].signAccess) {
+                    // totalNextApprover = response.data[0].nextApproverPath.length;
+                    // dataWorkflow.workFlowPathRefID = response.data[0].sys_ID;
+                    // dataWorkflow.approverEntityRefID = response.data[0].submitterEntity_RefID;
 
-                    getWorkflows(response.data[0].nextApproverPath);
+                    // getWorkflows(response.data[0].nextApproverPath);
 
                     getPurchaseOrderDetail(purchaseOrderRefID);
                 } else {
-                    Swal.fire("Error", "Workflow Error", "error");
+                    Swal.fire("Error", "You don't have access", "error");
+
+                    $("#invoice_loading_table").hide();
+                    $("#invoice_details_table tbody").show();
+                    $("#purchase_order_loading").hide();
+                    $("#purchase_order_trigger").show();
                 }
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log('jqXHR, textStatus, errorThrown', jqXHR, textStatus, errorThrown);
-                Swal.fire("Error", "Data Error", "error");
+                Swal.fire("Error", "Workflow Error", "error");
 
-                $("#loadingBudget").css({ "display": "none" });
-                $("#myProjectSecondTrigger").css({ "display": "block" });
+                $("#invoice_loading_table").hide();
+                $("#invoice_details_table tbody").show();
+                $("#purchase_order_loading").hide();
+                $("#purchase_order_trigger").show();
             }
         });
     }
