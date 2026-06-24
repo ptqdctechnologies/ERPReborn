@@ -765,7 +765,7 @@
         });
     }
 
-    function getWorkflow() {
+    function getWorkflow(data) {
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -778,18 +778,21 @@
                 businessDocumentType_RefID: documentTypeID.value,
                 combinedBudget_RefID: budgetID.value
             },
-            url: '{!! route("GetWorkflow") !!}',
+            url: '{!! route("Workflow.UserAllowedToSubmit") !!}',
             success: function (response) {
-                if (response.status === 200) {
-                    totalNextApprover = response.data[0].nextApproverPath.length;
-                    dataWorkflow.workFlowPathRefID = response.data[0].sys_ID;
-                    dataWorkflow.approverEntityRefID = response.data[0].submitterEntity_RefID;
+                if (response.status === 200 && response.data[0].signAccess) {
+                    // totalNextApprover = response.data[0].nextApproverPath.length;
+                    // dataWorkflow.workFlowPathRefID = response.data[0].sys_ID;
+                    // dataWorkflow.approverEntityRefID = response.data[0].submitterEntity_RefID;
 
-                    getWorkflows(response.data[0].nextApproverPath);
+                    // getWorkflows(response.data[0].nextApproverPath);
+                    viewPurchaseOrderDetail(data);
                 } else {
                     $("#button_submit").prop("disabled", true);
 
-                    Swal.fire("Error", "You don't have access", "error");
+                    Swal.fire("Error", "You don't have access", "error").then((res) => {
+                        Utils.cancelForm('{{ route('PurchaseOrder.index', ['var' => 1]) }}');
+                    });
                 }
             },
             error: function (jqXHR, textStatus, errorThrown) {
@@ -853,9 +856,8 @@
 
         $(".errorPurchaseOrderTable").hide();
 
-        getWorkflow();
+        getWorkflow(dataTable);
         getPaymentTerm();
         getVAT();
-        viewPurchaseOrderDetail(dataTable);
     });
 </script>
