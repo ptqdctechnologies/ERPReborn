@@ -629,14 +629,14 @@
                 businessDocumentType_RefID: documentTypeID.value,
                 combinedBudget_RefID: combinedBudgetRefID
             },
-            url: '{!! route("GetWorkflow") !!}',
+            url: '{!! route("Workflow.UserAllowedToSubmit") !!}',
             success: function (response) {
-                if (response.status === 200) {
-                    totalNextApprover = response.data[0].nextApproverPath.length;
-                    dataWorkflow.workFlowPathRefID = response.data[0].sys_ID;
-                    dataWorkflow.approverEntityRefID = response.data[0].submitterEntity_RefID;
+                if (response.status === 200 && response.data[0].signAccess) {
+                    // totalNextApprover = response.data[0].nextApproverPath.length;
+                    // dataWorkflow.workFlowPathRefID = response.data[0].sys_ID;
+                    // dataWorkflow.approverEntityRefID = response.data[0].submitterEntity_RefID;
 
-                    getWorkflows(response.data[0].nextApproverPath);
+                    // getWorkflows(response.data[0].nextApproverPath);
 
                     $("#var_combinedBudget_RefID").val(combinedBudgetRefID);
                     $("#project_id_second").val(combinedBudgetRefID);
@@ -667,9 +667,9 @@
     }
 
     $('#tableProjects').on('click', 'tbody tr', function () {
-        let sysId = $(this).find('input[data-trigger="sys_id_project"]').val();
-        let projectCode = $(this).find('td:nth-child(2)').text();
-        let projectName = $(this).find('td:nth-child(3)').text();
+        const sysId = $(this).find('input[data-trigger="sys_id_project"]').val();
+        const projectCode = $(this).find('td:nth-child(2)').text();
+        const projectName = $(this).find('td:nth-child(3)').text();
 
         $("#project_id_second").val("");
         $("#project_code_second").val("");
@@ -684,49 +684,12 @@
         getWorkflow(sysId, projectCode, projectName);
 
         $("#myProjects").modal('toggle');
-
-        // $("#project_id_second").val("");
-        // $("#project_code_second").val("");
-        // $("#project_name_second").val("");
-
-        // $("#project_code_second").css("border", "1px solid #ced4da");
-        // $("#project_name_second").css("border", "1px solid #ced4da");
-        // $("#budgetMessage").hide();
-        // $("#loadingBudget").css({"display":"block"});
-        // $("#myProjectSecondTrigger").css({"display":"none"});
-
-        // $('#myProjects').modal('hide');
-
-        // try {
-        //     let checkWorkFlow = await checkingWorkflow(sysId, documentTypeID);
-
-        //     if (checkWorkFlow) {
-        //         $("#project_id_second").val(sysId);
-        //         $("#project_code_second").val(projectCode);
-        //         $("#project_name_second").val(`${projectCode} - ${projectName}`);
-        //         $("#myProjectSecondTrigger").prop("disabled", true);
-        //         $("#myProjectSecondTrigger").css("cursor", "not-allowed");
-        //         $("#project_name_second").css("background-color", "#e9ecef");
-
-        //         $("#var_combinedBudget_RefID").val(sysId);
-
-        //         getSites(sysId);
-        //         $("#mySiteCodeSecondTrigger").prop("disabled", false);
-        //     }
-
-        //     $("#loadingBudget").css({"display":"none"});
-        //     $("#myProjectSecondTrigger").css({"display":"block"});
-        // } catch (error) {
-        //     console.error('Error checking workflow:', error);
-
-        //     Swal.fire("Error", "Error Checking Workflow", "error");
-        // }
     });
 
     $('#tableSites').on('click', 'tbody tr', function () {
-        let sysId = $(this).find('input[data-trigger="sys_id_site"]').val();
-        let siteCode = $(this).find('td:nth-child(2)').text();
-        let siteName = $(this).find('td:nth-child(3)').text();
+        const sysId = $(this).find('input[data-trigger="sys_id_site"]').val();
+        const siteCode = $(this).find('td:nth-child(2)').text();
+        const siteName = $(this).find('td:nth-child(3)').text();
 
         $("#site_id_second").val(sysId);
         $("#site_code_second").val(siteCode);
@@ -739,7 +702,7 @@
 
         $("#deliverModalTrigger").prop("disabled", false);
 
-        $('#mySites').modal('hide');
+        $('#mySites').modal('toggle');
 
         getBudgetDetails(sysId);
 
@@ -747,9 +710,9 @@
     });
 
     $('#tableGetModalWarehouses').on('click', 'tbody tr', function () {
-        let id = $(this).find('input[data-trigger="sys_id_modal_warehouse"]').val();
-        let name = $(this).find('td:nth-child(2)').text();
-        let address = $(this).find('td:nth-child(3)').text();
+        const id = $(this).find('input[data-trigger="sys_id_modal_warehouse"]').val();
+        const name = $(this).find('td:nth-child(2)').text();
+        const address = $(this).find('td:nth-child(3)').text();
 
         $("#deliver_RefID").val(id);
         $("#deliverName").val(`${name} - ${address}`);
