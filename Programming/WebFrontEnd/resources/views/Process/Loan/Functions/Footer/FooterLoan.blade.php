@@ -76,14 +76,14 @@
                 businessDocumentType_RefID: documentTypeID.value,
                 combinedBudget_RefID: combinedBudgetRefID
             },
-            url: '{!! route("GetWorkflow") !!}',
+            url: '{!! route("Workflow.UserAllowedToSubmit") !!}',
             success: function (response) {
-                if (response.status === 200) {
-                    totalNextApprover = response.data[0].nextApproverPath.length;
-                    dataWorkflow.workFlowPathRefID = response.data[0].sys_ID;
-                    dataWorkflow.approverEntityRefID = response.data[0].submitterEntity_RefID;
+                if (response.status === 200 && response.data[0].signAccess) {
+                    // totalNextApprover = response.data[0].nextApproverPath.length;
+                    // dataWorkflow.workFlowPathRefID = response.data[0].sys_ID;
+                    // dataWorkflow.approverEntityRefID = response.data[0].submitterEntity_RefID;
 
-                    getWorkflows(response.data[0].nextApproverPath);
+                    // getWorkflows(response.data[0].nextApproverPath);
 
                     $("#var_combinedBudget_RefID").val(combinedBudgetRefID);
                     $("#project_id").val(combinedBudgetRefID);
@@ -91,7 +91,7 @@
                     $("#project_name").val(`${combinedBudgetCode} - ${combinedBudgetName}`);
                     $("#project_name").css({ "background-color": "#e9ecef" });
                 } else {
-                    Swal.fire("Error", "Workflow Error", "error");
+                    Swal.fire("Error", "You don't have access", "error");
                 }
 
                 $("#loadingBudget").css({ "display": "none" });
@@ -351,10 +351,10 @@
     });
 
     $('#tableSuppliers').on('click', 'tbody tr', function () {
-        let sysId = $(this).find('input[data-trigger="sys_id_supplier"]').val();
-        let code = $(this).find('td:nth-child(2)').text();
-        let name = $(this).find('td:nth-child(3)').text();
-        let address = $(this).find('td:nth-child(4)').text();
+        const sysId = $(this).find('input[data-trigger="sys_id_supplier"]').val();
+        const code = $(this).find('td:nth-child(2)').text();
+        const name = $(this).find('td:nth-child(3)').text();
+        const address = $(this).find('td:nth-child(4)').text();
 
         if (clickedAt === "creditor") {
             $(`#creditor_id`).val(sysId);
@@ -372,9 +372,9 @@
     });
 
     $('#tableCurrencies').on('click', 'tbody tr', function () {
-        let sysId = $(this).find('input[data-trigger="sys_id_currencies"]').val();
-        let code = $(this).find('td:nth-child(2)').text();
-        let name = $(this).find('td:nth-child(3)').text();
+        const sysId = $(this).find('input[data-trigger="sys_id_currencies"]').val();
+        const code = $(this).find('td:nth-child(2)').text();
+        const name = $(this).find('td:nth-child(3)').text();
 
         $(`#currency_id`).val(sysId);
         $(`#currency_name`).val(`${code} - ${name}`);
@@ -385,9 +385,9 @@
     });
 
     $('#tableGetBankList').on('click', 'tbody tr', function () {
-        let sysId = $(this).find('input[data-trigger="sys_id_bank_list"]').val();
-        let code = $(this).find('td:nth-child(2)').text();
-        let name = $(this).find('td:nth-child(3)').text();
+        const sysId = $(this).find('input[data-trigger="sys_id_bank_list"]').val();
+        const code = $(this).find('td:nth-child(2)').text();
+        const name = $(this).find('td:nth-child(3)').text();
 
         $(`#bank_name_id`).val(sysId);
         $(`#bank_name`).val(`${code} - ${name}`);
@@ -417,9 +417,9 @@
     });
 
     $('#tableGetChartOfAccount').on('click', 'tbody tr', function () {
-        let sysId = $(this).find('input[data-trigger="sys_id_modal_coa"]').val();
-        let code = $(this).find('td:nth-child(2)').text();
-        let name = $(this).find('td:nth-child(3)').text();
+        const sysId = $(this).find('input[data-trigger="sys_id_modal_coa"]').val();
+        const code = $(this).find('td:nth-child(2)').text();
+        const name = $(this).find('td:nth-child(3)').text();
 
         $(`#coa_id`).val(sysId);
         $(`#coa_name`).val(`${code} - ${name}`);
@@ -430,8 +430,8 @@
     });
 
     $('#tableLoans').on('click', 'tbody tr', function () {
-        let sysId = $(this).find('input[data-trigger="sys_id_loans"]').val();
-        let name = $(this).find('td:nth-child(2)').text();
+        const sysId = $(this).find('input[data-trigger="sys_id_loans"]').val();
+        const name = $(this).find('td:nth-child(2)').text();
 
         $(`#modal_loan_id`).val(sysId);
         $(`#modal_loan_document_number`).val(name);
