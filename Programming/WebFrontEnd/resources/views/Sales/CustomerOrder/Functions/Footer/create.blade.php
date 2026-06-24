@@ -33,7 +33,7 @@
 
             $("#tab_import_from_excel").hide();
             $("#tab_add_manually").show();
-            $('#table_import_from_excel tbody').empty(); a
+            $('#table_import_from_excel tbody').empty();
             $('#excel_name').val("");
             $('#excel_file').val("");
 
