@@ -11,9 +11,8 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
-                            <div class="card-body p-0">
-                                <table class="table table-head-fixed table-responsive w-100"
-                                    id="tableGetModalAdvanceSettlement">
+                            <div class="card-body table-responsive p-0" style="height: 400px;">
+                                <table class="table table-head-fixed w-100" id="tableGetModalAdvanceSettlement">
                                     <thead>
                                         <tr>
                                             <th>No</th>
@@ -73,7 +72,7 @@
                         {
                             data: 'sys_Text',
                             defaultContent: '-',
-                            className: "align-middle text-nowrap"
+                            className: "align-middle text-wrap"
                         },
                         {
                             data: 'combinedBudgetCode',
@@ -83,7 +82,7 @@
                         {
                             data: 'combinedBudgetName',
                             defaultContent: '-',
-                            className: "align-middle text-nowrap"
+                            className: "align-middle text-wrap"
                         }
                     ]
                 });
