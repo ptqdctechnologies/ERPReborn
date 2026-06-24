@@ -1,5 +1,6 @@
 <script>
     let dataStore = [];
+    const documentTypeID = document.getElementById("DocumentTypeID");
     const deliveryOrderCode = document.getElementById("delivery_order_code");
     const receiveDate = document.getElementById("receive_date");
     const receiveIn = document.getElementById("warehouse_id");
@@ -276,38 +277,20 @@
             .join(' ');                            // Gabungkan dengan spasi
     }
 
-    function GetDeliveryOrderDetail(delivery_order_id, delivery_order_number) {
-        $("#tableMaterialReceiveDetail tbody").hide();
-        $(".loadingMaterialReceiveDetail").show();
-        $("#delivery_order_trigger").hide();
-        $("#delivery_order_loading").show();
-
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
+    function getWorkflow(data) {
         $.ajax({
-            type: 'GET',
-            url: '{!! route("getDeliveryOrderDetail") !!}?delivery_order_id=' + delivery_order_id,
-            success: async function (data) {
+            type: 'POST',
+            data: {
+                businessDocumentType_RefID: documentTypeID.value,
+                combinedBudget_RefID: data[0].combinedBudget_RefID
+            },
+            url: '{!! route("Workflow.UserAllowedToSubmit") !!}',
+            success: function (response) {
                 let tbody = $('#tableMaterialReceiveDetail tbody');
                 tbody.empty();
 
-                if (Array.isArray(data) && data.length > 0) {
-                    const documentTypeID = document.getElementById("DocumentTypeID");
-
-                    if (documentTypeID.value) {
-                        var checkWorkFlow = await checkingWorkflow(data[0].combinedBudget_RefID, documentTypeID.value);
-
-                        if (!checkWorkFlow) {
-                            $(".loadingMaterialReceiveDetail").hide();
-                            $("#delivery_order_trigger").show();
-                            $("#delivery_order_loading").hide();
-                            return;
-                        }
-                    }
+                if (response.status === 200 && response.data[0].signAccess) {
+                    getModalWarehouses();
 
                     $("#delivery_order_trigger").show();
                     $("#delivery_order_loading").hide();
@@ -348,8 +331,6 @@
                         "data-target": "#myGetModalWarehouses"
                     });
 
-                    getModalWarehouses();
-
                     if (data[0].type == "STOCK_MOVEMENT") {
                         $("#requester_stock_movement_container").show();
                         $("#status_stock_movement_container").show();
@@ -360,41 +341,41 @@
 
                     $.each(data, function (key, val2) {
                         let row = `
-                            <tr>
-                                <input id="trano${key}" value="${delivery_order_number}" type="hidden" />
-                                <input id="delivery_order_detail_id${key}" value="${val2.deliveryOrderDetail_ID}" type="hidden" />
-                                <input id="product_code${key}" value="${val2.productCode}" type="hidden" />
-                                <input id="product_name${key}" value="${val2.productName}" type="hidden" />
-                                <input id="qty_do${key}" value="${val2.qtyReq}" type="hidden" />
-                                <input id="qty_available${key}" value="${val2.qtyAvail}" type="hidden" />
-                                <input id="uom${key}" value="${val2.quantityUnitName}" type="hidden" />
-                                <input id="product_RefID${key}" value="${val2.product_RefID}" type="hidden" />
-                                <input id="quantityUnit_RefID${key}" value="${val2.quantityUnit_RefID}" type="hidden" />
-                                <input id="productUnitPriceCurrency_RefID${key}" value="${val2.productUnitPriceCurrency_RefID}" type="hidden" />
-                                <input id="productUnitPriceCurrencyExchangeRate${key}" value="${val2.productUnitPriceCurrencyExchangeRate}" type="hidden" />
-                                <input id="productUnitPriceBaseCurrencyValue${key}" value="${val2.productUnitPriceBaseCurrencyValue}" type="hidden" />
-                                <input id="workStructure_RefID${key}" value="${val2.workStructure_RefID}" type="hidden" />
+                        <tr>
+                            <input id="trano${key}" value="${delivery_order_number}" type="hidden" />
+                            <input id="delivery_order_detail_id${key}" value="${val2.deliveryOrderDetail_ID}" type="hidden" />
+                            <input id="product_code${key}" value="${val2.productCode}" type="hidden" />
+                            <input id="product_name${key}" value="${val2.productName}" type="hidden" />
+                            <input id="qty_do${key}" value="${val2.qtyReq}" type="hidden" />
+                            <input id="qty_available${key}" value="${val2.qtyAvail}" type="hidden" />
+                            <input id="uom${key}" value="${val2.quantityUnitName}" type="hidden" />
+                            <input id="product_RefID${key}" value="${val2.product_RefID}" type="hidden" />
+                            <input id="quantityUnit_RefID${key}" value="${val2.quantityUnit_RefID}" type="hidden" />
+                            <input id="productUnitPriceCurrency_RefID${key}" value="${val2.productUnitPriceCurrency_RefID}" type="hidden" />
+                            <input id="productUnitPriceCurrencyExchangeRate${key}" value="${val2.productUnitPriceCurrencyExchangeRate}" type="hidden" />
+                            <input id="productUnitPriceBaseCurrencyValue${key}" value="${val2.productUnitPriceBaseCurrencyValue}" type="hidden" />
+                            <input id="workStructure_RefID${key}" value="${val2.workStructure_RefID}" type="hidden" />
 
-                                <td style="text-align: center;">${val2.workCode} - ${val2.workName}</td>
-                                <td style="text-align: left;">${data[0].combinedBudgetSectionCode + ' - ' + data[0].combinedBudgetSectionName}</td>
-                                <td style="text-align: left;text-wrap: auto;">${val2.productCode} - ${val2.productName}</td>
-                                <td style="text-align: center;">${val2.qtyReq}</td>
-                                <td style="text-align: center;">-</td>
-                                <td style="text-align: center;">${val2.qtyAvail}</td>
-                                <td style="text-align: center;">${val2.quantityUnitName}</td>
-                                <td style="text-align: center; width: 100px;">
-                                    <input class="form-control number-without-negative" id="qty_good${key}" data-index=${key} data-default="" autocomplete="off" style="border-radius:0px;" />
-                                </td>
-                                <td style="text-align: center; width: 100px;">
-                                    <input class="form-control number-without-negative" id="qty_reject${key}" data-index=${key} data-default="" autocomplete="off" style="border-radius:0px;" />
-                                </td>
-                                <td style="text-align: center; width: 150px; padding: 0.5rem !important;">
-                                    <textarea id="note${key}" class="form-control" data-default=""></textarea>
-                                </td>
+                            <td style="text-align: center;">${val2.workCode} - ${val2.workName}</td>
+                            <td style="text-align: left;">${data[0].combinedBudgetSectionCode + ' - ' + data[0].combinedBudgetSectionName}</td>
+                            <td style="text-align: left;text-wrap: auto;">${val2.productCode} - ${val2.productName}</td>
+                            <td style="text-align: center;">${val2.qtyReq}</td>
+                            <td style="text-align: center;">-</td>
+                            <td style="text-align: center;">${val2.qtyAvail}</td>
+                            <td style="text-align: center;">${val2.quantityUnitName}</td>
+                            <td style="text-align: center; width: 100px;">
+                                <input class="form-control number-without-negative" id="qty_good${key}" data-index=${key} data-default="" autocomplete="off" style="border-radius:0px;" />
+                            </td>
+                            <td style="text-align: center; width: 100px;">
+                                <input class="form-control number-without-negative" id="qty_reject${key}" data-index=${key} data-default="" autocomplete="off" style="border-radius:0px;" />
+                            </td>
+                            <td style="text-align: center; width: 150px; padding: 0.5rem !important;">
+                                <textarea id="note${key}" class="form-control" data-default=""></textarea>
+                            </td>
 
-                                <input id="combinedBudgetSectionDetail_RefID${key}" value="${val2.combinedBudgetSectionDetail_RefID}" type="hidden" />
-                            </tr>
-                        `;
+                            <input id="combinedBudgetSectionDetail_RefID${key}" value="${val2.combinedBudgetSectionDetail_RefID}" type="hidden" />
+                        </tr>
+                    `;
 
                         tbody.append(row);
 
@@ -423,21 +404,50 @@
                     $("#tableMaterialReceiveDetail tbody").show();
                     $(".errorMessageContainerMaterialReceiveDetail").hide();
                 } else {
+                    $("#delivery_order_loading").hide();
+                    $("#delivery_order_trigger").show();
                     $(".loadingMaterialReceiveDetail").hide();
                     $(".errorMessageContainerMaterialReceiveDetail").show();
-                    $("#errorMessageMaterialReceiveDetail").text(`Data not found.`);
 
                     $("#tableMaterialReceiveDetail_length").hide();
                     $("#tableMaterialReceiveDetail_filter").hide();
                     $("#tableMaterialReceiveDetail_info").hide();
                     $("#tableMaterialReceiveDetail_paginate").hide();
-                }
 
-                $("#delivery_order_loading").hide();
-                $("#delivery_order_trigger").show();
+                    Swal.fire("Error", "You don't have access", "error");
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log('jqXHR, textStatus, errorThrown', jqXHR, textStatus, errorThrown);
+                Swal.fire("Error", "You don't have access", "error").then((res) => {
+                    Utils.cancelForm('{{ route('MaterialReceive.index', ['var' => 1]) }}');
+                });
+            }
+        });
+    }
+
+    function GetDeliveryOrderDetail(delivery_order_id, delivery_order_number) {
+        $("#tableMaterialReceiveDetail tbody").hide();
+        $(".loadingMaterialReceiveDetail").show();
+        $("#delivery_order_trigger").hide();
+        $("#delivery_order_loading").show();
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: 'GET',
+            url: '{!! route("getDeliveryOrderDetail") !!}?delivery_order_id=' + delivery_order_id,
+            success: async function (data) {
+                getWorkflow(data);
             },
             error: function (textStatus, errorThrown) {
                 $('#tableMaterialReceiveDetail tbody').empty();
+                $("#delivery_order_loading").hide();
+                $("#delivery_order_trigger").show();
                 $(".loadingMaterialReceiveDetail").hide();
                 $(".errorMessageContainerMaterialReceiveDetail").show();
                 $("#errorMessageMaterialReceiveDetail").text(`[${textStatus.status}] ${textStatus.responseJSON.message}`);
@@ -518,11 +528,6 @@
         });
     }
 
-    function CancelMaterialReceive() {
-        ShowLoading();
-        window.location.href = "{{ route('MaterialReceive.index', ['var' => 1]) }}";
-    }
-
     function submitForm() {
         $('#material_receive_submit_modal').modal('hide');
 
@@ -579,8 +584,8 @@
     }
 
     $('#tableGetDeliveryOrder').on('click', 'tbody tr', function () {
-        let sysId = $(this).find('input[data-trigger="sys_id_delivery_order"]').val();
-        let projectCode = $(this).find('td:nth-child(2)').text();
+        const sysId = $(this).find('input[data-trigger="sys_id_delivery_order"]').val();
+        const projectCode = $(this).find('td:nth-child(2)').text();
 
         GetDeliveryOrderDetail(sysId, projectCode);
 
