@@ -7,14 +7,21 @@
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Loan Number</label>
                 <div class="col-5 d-flex p-0">
                     <div>
-                        <span id="creditor_trigger" class="input-group-text form-control" data-toggle="modal" data-target="#myLoans" style="border-radius:0;cursor:pointer;">
-                            <i class="fas fa-gift"></i>
+                        <span id="creditor_trigger" class="input-group-text form-control" data-toggle="modal"
+                            data-target="#myLoans" style="border-radius:0;cursor:pointer;">
+                            <i id="loan_icon" class="fas fa-gift"></i>
+
+                            <div id="loan_loading" class="spinner-border spinner-border-sm" role="status"
+                                style="display: none;">
+                                <span class="sr-only">Loading...</span>
+                            </div>
                         </span>
                     </div>
                     <div style="flex: 100%;">
                         <div class="input-group">
                             <input type="hidden" id="loan_id" class="form-control" style="border-radius:0;" />
-                            <input type="text" id="loan_name" class="form-control" style="border-radius:0;background:white;" readonly />
+                            <input type="text" id="loan_name" class="form-control"
+                                style="border-radius:0;background:white;" readonly />
                         </div>
                     </div>
                 </div>
