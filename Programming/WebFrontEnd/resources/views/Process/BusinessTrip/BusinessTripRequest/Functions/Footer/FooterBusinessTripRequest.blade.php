@@ -834,6 +834,48 @@
     });
   }
 
+  function getWorkflow(combinedBudgetRefID, combinedBudgetCode, combinedBudgetName) {
+    $.ajaxSetup({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+    });
+
+    $.ajax({
+      type: 'POST',
+      data: {
+        businessDocumentType_RefID: documentTypeID.value,
+        combinedBudget_RefID: combinedBudgetRefID
+      },
+      url: '{!! route("Workflow.UserAllowedToSubmit") !!}',
+      success: function (response) {
+        if (response.status === 200 && response.data[0].signAccess) {
+          getSites(combinedBudgetRefID);
+
+          $("#var_combinedBudget_RefID").val(combinedBudgetRefID);
+          $("#project_id_second").val(combinedBudgetRefID);
+          $("#project_code_second").val(combinedBudgetCode);
+          $("#project_name_second").val(`${combinedBudgetCode} - ${combinedBudgetName}`);
+          $("#myProjectSecondTrigger").prop("disabled", true);
+          $("#myProjectSecondTrigger").css("cursor", "not-allowed");
+          $("#mySiteCodeSecondTrigger").prop("disabled", false);
+
+          $("#project_code_second").css("border", "1px solid #ced4da");
+          $("#project_name_second").css({ "background-color": "#e9ecef", "border": "1px solid #ced4da" });
+        } else {
+          Swal.fire("Error", "You are not included in this budget", "error");
+        }
+
+        $("#loadingBudget").hide();
+        $("#myProjectSecondTrigger").show();
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+        console.log('jqXHR, textStatus, errorThrown', jqXHR, textStatus, errorThrown);
+        Swal.fire("Error", "Data Error", "error");
+      }
+    });
+  }
+
   $('#budget_detail_search').on('input', function () {
     const searchValue = $(this).val().toLowerCase();
 
@@ -859,9 +901,9 @@
   });
 
   $('#tableProjects').on('click', 'tbody tr', async function () {
-    let sysId = $(this).find('input[data-trigger="sys_id_project"]').val();
-    let projectCode = $(this).find('td:nth-child(2)').text();
-    let projectName = $(this).find('td:nth-child(3)').text();
+    const sysId = $(this).find('input[data-trigger="sys_id_project"]').val();
+    const projectCode = $(this).find('td:nth-child(2)').text();
+    const projectName = $(this).find('td:nth-child(3)').text();
 
     $("#project_id_second").val("");
     $("#project_code_second").val("");
@@ -870,42 +912,15 @@
     $("#loadingBudget").show();
     $("#myProjectSecondTrigger").hide();
 
+    getWorkflow(sysId, projectCode, projectName);
+
     $('#myProjects').modal('hide');
-
-    try {
-      let checkWorkFlow = await checkingWorkflow(sysId, documentTypeID.value);
-
-      if (checkWorkFlow) {
-        $("#var_combinedBudget_RefID").val(sysId);
-        $("#project_id_second").val(sysId);
-        $("#project_code_second").val(projectCode);
-        $("#project_name_second").val(`${projectCode} - ${projectName}`);
-        $("#myProjectSecondTrigger").prop("disabled", true);
-        $("#myProjectSecondTrigger").css("cursor", "not-allowed");
-
-        getSites(sysId);
-        $("#mySiteCodeSecondTrigger").prop("disabled", false);
-
-        $("#project_code_second").css("border", "1px solid #ced4da");
-        $("#project_name_second").css({ "background-color": "#e9ecef", "border": "1px solid #ced4da" });
-        $("#budgetMessage").hide();
-      }
-
-      $("#loadingBudget").hide();
-      $("#myProjectSecondTrigger").show();
-    } catch (error) {
-      console.error('Error checking workflow:', error);
-      $("#loadingBudget").hide();
-      $("#myProjectSecondTrigger").show();
-
-      Swal.fire("Error", "Error Checking Workflow", "error");
-    }
   });
 
   $('#tableSites').on('click', 'tbody tr', function () {
-    let sysId = $(this).find('input[data-trigger="sys_id_site"]').val();
-    let siteCode = $(this).find('td:nth-child(2)').text();
-    let siteName = $(this).find('td:nth-child(3)').text();
+    const sysId = $(this).find('input[data-trigger="sys_id_site"]').val();
+    const siteCode = $(this).find('td:nth-child(2)').text();
+    const siteName = $(this).find('td:nth-child(3)').text();
 
     $("#myWorker").prop("disabled", false);
     $("#requester_popup").prop("disabled", false);
