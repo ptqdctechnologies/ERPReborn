@@ -284,24 +284,16 @@
                 businessDocumentType_RefID: documentTypeID.value,
                 combinedBudget_RefID: combinedBudgetRefID
             },
-            url: '{!! route("GetWorkflow") !!}',
+            url: '{!! route("Workflow.UserAllowedToSubmit") !!}',
             success: function (response) {
-                // if (response.status == 200) {
-                // $("#brf_id").val(businessTripRequestId);
-                // $("#brf_number").val(businessTripRequestNumber);
-                // $("#brf_number").css({ "display": "block", "background-color": "#e9ecef" });
+                if (response.status === 200 && response.data[0].signAccess) {
+                    getDetailBrf(businessTripRequestId);
+                } else {
+                    Swal.fire("Error", "You don't have a access", "error");
 
-                getDetailBrf(businessTripRequestId);
-                // } else {
-                //     $("#myBusinessTripRequestTrigger").show();
-                //     $("#loadingBudget").hide();
-
-                //     ErrorHandler.notifToast(
-                //         'error',
-                //         'You are not included in this budget',
-                //         'Error!'
-                //     );
-                // }
+                    $("#loadingBudget").hide();
+                    $("#myBusinessTripRequestTrigger").show();
+                }
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log('jqXHR, textStatus, errorThrown', jqXHR, textStatus, errorThrown);

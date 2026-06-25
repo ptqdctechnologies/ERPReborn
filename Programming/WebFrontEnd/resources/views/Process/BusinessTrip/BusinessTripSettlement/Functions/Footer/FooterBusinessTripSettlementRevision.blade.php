@@ -258,7 +258,7 @@
     }
 
     $(document).ready(function () {
-        getBusinessTripSettlement();
+        // getBusinessTripSettlement();
         getBusinessTripCostComponentEntityNew();
     });
 </script>
