@@ -7,9 +7,17 @@
     let beneficiaryTrigger = "";
     let indexAdvanceDetail = 0;
     let totalAdvanceDetail = 0;
+    let triggerButtonModal = null;
+    let totalNextApprover = 0;
+    let dataWorkflow = {
+        workFlowPathRefID: null,
+        approverEntityRefID: null,
+        comment: null
+    };
     let advanceNumber = document.getElementById("advance_number");
     let remark = document.getElementById("remark");
     let advanceDetailsAdd = document.getElementById("advance-details-add");
+    const fileID = document.getElementById("dataInput_Log_FileUpload");
     const documentTypeID = document.getElementById("DocumentTypeID");
 
     function checkOneLineBudgetContents(indexInput) {
@@ -602,7 +610,7 @@
         });
     }
 
-    function AdvanceSettlementStore(formatData) {
+    function AdvanceSettlementStore() {
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -611,12 +619,21 @@
 
         $.ajax({
             type: 'POST',
-            data: formatData,
+            data: {
+                workFlowPath_RefID: dataWorkflow.workFlowPathRefID,
+                approverEntity: dataWorkflow.approverEntityRefID,
+                comment: dataWorkflow.comment,
+                storeData: {
+                    dataInput_Log_FileUpload_1: fileID.value,
+                    var_remark: remark.value,
+                    advanceSettlementDetail: JSON.stringify(dataStore)
+                }
+            },
             url: '{{ route("AdvanceSettlement.store") }}',
             success: function (res) {
                 HideLoading();
 
-                if (res.status === 200) {
+                if (res.status == 200) {
                     const swalWithBootstrapButtons = Swal.mixin({
                         confirmButtonClass: 'btn btn-success btn-sm',
                         cancelButtonClass: 'btn btn-danger btn-sm',
@@ -638,66 +655,101 @@
                         cancelForm("{{ route('AdvanceSettlement.index', ['var' => 1]) }}");
                     });
                 } else {
-                    ErrorNotif("Data Cancel Inputed");
+                    ErrorNotif("Create Advance Settlement Failed");
                 }
             },
             error: function (jqXHR, textStatus, errorThrown) {
-                console.log('error', jqXHR, textStatus, errorThrown);
+                HideLoading();
+                ErrorNotif("Internal Server Error");
             }
         });
     }
 
-    function SubmitForm() {
+    function commentWorkflow() {
+        const swalWithBootstrapButtons = Swal.mixin({
+            confirmButtonClass: 'btn btn-success btn-sm',
+            cancelButtonClass: 'btn btn-danger btn-sm',
+            buttonsStyling: true,
+        });
+
+        swalWithBootstrapButtons.fire({
+            title: 'Comment',
+            text: "Please write your comment here",
+            type: 'question',
+            input: 'textarea',
+            showCloseButton: false,
+            showCancelButton: true,
+            focusConfirm: false,
+            cancelButtonText: '<span style="color:black;"> Cancel </span>',
+            confirmButtonText: '<span style="color:black;"> OK </span>',
+            cancelButtonColor: '#DDDAD0',
+            confirmButtonColor: '#DDDAD0',
+            reverseButtons: true
+        }).then((result) => {
+            if ('value' in result) {
+                dataWorkflow.comment = result.value;
+                ShowLoading();
+                AdvanceSettlementStore();
+            }
+        });
+    }
+
+    function SubmitForm(value) {
+        triggerButtonModal = value;
         $('#advanceSettlementFormModal').modal('hide');
 
-        var action = $("#FormStoreAdvanceSettlement").attr("action");
-        var method = $("#FormStoreAdvanceSettlement").attr("method");
-        var form_data = new FormData($("#FormStoreAdvanceSettlement")[0]);
-        form_data.append('advanceSettlementDetail', JSON.stringify(dataStore));
-
-        ShowLoading();
-
-        $.ajax({
-            url: action,
-            dataType: 'json',
-            cache: false,
-            contentType: false,
-            processData: false,
-            data: form_data,
-            type: method,
-            success: function (response) {
-                HideLoading();
-
-                if (response.message == "WorkflowError") {
-                    CancelNotif("You don't have access", "{{ route('AdvanceSettlement.index', ['var' => 1]) }}");
-                } else if (response.message == "MoreThanOne") {
-                    $('#getWorkFlow').modal('toggle');
-
-                    var t = $('#tableGetWorkFlow').DataTable();
-                    t.clear();
-                    $.each(response.data, function (key, val) {
-                        t.row.add([
-                            '<td><span data-dismiss="modal" onclick="SelectWorkFlow(\'' + val.Sys_ID + '\', \'' + val.NextApprover_RefID + '\', \'' + response.approverEntity_RefID + '\', \'' + response.documentTypeID + '\');"><img src="{{ asset("AdminLTE-master/dist/img/add.png") }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></span></td>',
-                            '<td style="border:1px solid #e9ecef;">' + val.FullApproverPath + '</td></tr></tbody>'
-                        ]).draw();
-                    });
+        $('#advanceSettlementFormModal').on('hidden.bs.modal', function () {
+            if (triggerButtonModal === "SUBMIT") {
+                if (totalNextApprover > 1) {
+                    $('#myWorkflows').modal('show');
                 } else {
-                    const formatData = {
-                        workFlowPath_RefID: response.workFlowPath_RefID,
-                        nextApprover: response.nextApprover_RefID,
-                        approverEntity: response.approverEntity_RefID,
-                        documentTypeID: response.documentTypeID,
-                        storeData: response.storeData
-                    };
-
-                    SelectWorkFlow(formatData);
+                    commentWorkflow();
                 }
-            },
-            error: function (response) {
-                console.log('response error', response);
 
-                HideLoading();
-                CancelNotif("You don't have access", "{{ route('AdvanceSettlement.index', ['var' => 1]) }}");
+                triggerButtonModal = null;
+            }
+        });
+    }
+
+    function getWorkflow(advanceSettlementRefID, combinedBudgetRefID, advanceSettlementNumber, beneficiaryName, combinedBudgetCode, combinedBudgetName, combinedSubBudgetCode, combinedSubBudgetName) {
+        $.ajax({
+            type: 'POST',
+            data: {
+                businessDocumentType_RefID: documentTypeID.value,
+                combinedBudget_RefID: combinedBudgetRefID
+            },
+            url: '{!! route("Workflow.UserAllowedToSubmit") !!}',
+            success: function (response) {
+                if (response.status === 200 && !response.data[0].signAccess) {
+                    // totalNextApprover = response.data[0].nextApproverPath.length;
+                    // dataWorkflow.workFlowPathRefID = response.data[0].workFlowPath_RefIDArray[0];
+                    // dataWorkflow.workFlowPathRefID = response.data[0].sys_ID;
+                    // dataWorkflow.approverEntityRefID = response.data[0].submitterEntity_RefID;
+
+                    // getWorkflows(response.data[0].nextApproverPath);
+
+                    $("#var_combinedBudget_RefID").val(combinedBudgetRefID);
+                    $("#beneficiary_name").val(beneficiaryName);
+                    $("#budget_value").val(combinedBudgetCode + ' - ' + combinedBudgetName);
+                    $("#sub_budget_value").val(combinedSubBudgetCode + ' - ' + combinedSubBudgetName);
+                    $("#advance_id").val(advanceSettlementRefID);
+                    $("#advance_number").val(advanceSettlementNumber);
+                    $('#advance_number').css({ "background": "#e9ecef", "border": "1px solid #ced4da" });
+
+                    getAdvanceDetail(advanceSettlementRefID, advanceSettlementNumber);
+                } else {
+                    Swal.fire("Error", "You are not included in this budget", "error");
+                }
+
+                $("#loadingBudget").hide();
+                $("#myGetModalAdvanceTrigger").show();
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log('jqXHR, textStatus, errorThrown', jqXHR, textStatus, errorThrown);
+                Swal.fire("Error", "Data Error", "error");
+
+                $("#loadingBudget").hide();
+                $("#myGetModalAdvanceTrigger").show();
             }
         });
     }
@@ -712,33 +764,16 @@
         const subBudgetCode = $(this).find('td:nth-child(7)').text();
         const subBudgetName = $(this).find('td:nth-child(8)').text();
 
-        $("#myGetModalAdvance").modal('toggle');
+        $("#advance_id").val("");
+        $("#advance_number").val("");
+
+        $("#advanceNumberMessage").hide();
         $("#myGetModalAdvanceTrigger").hide();
         $("#loadingBudget").show();
 
-        if (documentTypeID.value) {
-            const checkWorkFlow = await checkingWorkflow(sysIdBudget, documentTypeID.value);
+        getWorkflow(sysId, sysIdBudget, trano, beneficiary, budgetCode, budgetName, subBudgetCode, subBudgetName);
 
-            if (!checkWorkFlow) {
-                $(".loadingAdvanceSettlementTable").hide();
-                $("#myGetModalAdvanceTrigger").show();
-                $("#loadingBudget").hide();
-                return;
-            }
-        }
-
-        $("#advance_number").val(trano);
-        $("#advance_id").val(sysId);
-        $("#var_combinedBudget_RefID").val(sysIdBudget);
-        $("#beneficiary_name").val(beneficiary);
-        // $("#bank_name").val(result[0].beneficiaryBankName);
-        // $("#bank_account").val(result[0].beneficiaryBankAccountNumber);
-        $("#budget_value").val(budgetCode + ' - ' + budgetName);
-        $("#sub_budget_value").val(subBudgetCode + ' - ' + subBudgetName);
-
-        $('#advance_number').css({ "background": "#e9ecef", "border": "1px solid #ced4da" });
-
-        getAdvanceDetail(sysId, trano);
+        $("#myGetModalAdvance").modal('toggle');
     });
 
     $('#tableGetModalAdvanceSettlement').on('click', 'tbody tr', function () {

@@ -52,72 +52,99 @@
 </div>
 
 <script>
-    function getModalAdvance(project_id, site_id) {
-        $.ajax({
-            type: 'POST',
-            url: '{!! route("AdvanceRequest.AdvancePickList") !!}?project_id=' + project_id + '&site_id=' + site_id
-        })
-            .done(function (response) {
-                let data = (response.status == 200 && response.data[0]) ? response.data : [];
+    function getModalAdvance(combinedBudgetCode, combinedBudgetSectionCode) {
+        $('#tableGetModalAdvance').DataTable({
+            processing: true,
+            serverSide: true,
+            destroy: true,
+            info: true,
+            paging: true,
+            searching: true,
+            lengthChange: true,
+            pageLength: 10,
+            ajax: {
+                url: '{!! route("AdvanceRequest.AdvancePickList") !!}',
+                type: 'GET',
+                data: function (d) {
+                    d.combinedBudgetCode = combinedBudgetCode;
+                    d.combinedBudgetSectionCode = combinedBudgetSectionCode;
 
-                $('#tableGetModalAdvance').DataTable({
-                    destroy: true,
-                    data: data,
-                    deferRender: true,
-                    scrollCollapse: true,
-                    scroller: true,
-                    columns: [
-                        {
-                            data: null,
-                            render: function (data, type, row, meta) {
-                                return '<input id="sys_id_modal_advance' + (meta.row + 1) + '" value="' + data.Sys_ID + '" data-trigger="sys_id_modal_advance" type="hidden">' +
-                                    '<input id="sys_id_budget_advance' + (meta.row + 1) + '" value="' + data.CombinedBudget_RefID + '" data-trigger="sys_id_budget_advance" type="hidden">' +
-                                    (meta.row + 1)
-                            }
-                        },
-                        {
-                            data: 'Sys_Text',
-                            defaultContent: '-',
-                            className: "align-middle text-nowrap"
-                        },
-                        {
-                            data: 'BeneficiaryWorkerName',
-                            defaultContent: '-',
-                            className: "align-middle text-nowrap"
-                        },
-                        {
-                            data: 'RequesterWorkerName',
-                            defaultContent: '-',
-                            className: "align-middle text-nowrap"
-                        },
-                        {
-                            data: 'CombinedBudgetCode',
-                            defaultContent: '-',
-                            className: "align-middle text-nowrap"
-                        },
-                        {
-                            data: 'CombinedBudgetName',
-                            defaultContent: '-',
-                            className: "align-middle text-nowrap"
-                        },
-                        {
-                            data: 'CombinedBudgetSectionCode',
-                            defaultContent: '-',
-                            className: "align-middle text-nowrap"
-                        },
-                        {
-                            data: 'CombinedBudgetSectionName',
-                            defaultContent: '-',
-                            className: "align-middle text-nowrap"
-                        }
-                    ]
-                });
-            })
-            .fail(function (jqXHR, textStatus, errorThrown) {
-                console.error("Error:", errorThrown);
-            })
-            .always(function (jqXHR, textStatus, errorThrown) {
-                $("#loadingGetModalAdvance").hide();
-            });
+                    return d;
+                },
+                beforeSend: function () {
+                    $('#tableGetModalAdvance tbody').empty();
+                    $("#loadingGetModalAdvance").show();
+                },
+                complete: function () {
+                    $("#loadingGetModalAdvance").hide();
+                },
+                error: function (xhr, error, thrown) {
+                    $("#loadingGetModalAdvance").hide();
+                }
+            },
+            columns: [
+                {
+                    data: null,
+                    render: function (data, type, row, meta) {
+                        return '<input id="sys_id_modal_advance' + (meta.row + meta.settings._iDisplayStart + 1) + '" value="' + data.sys_ID + '" data-trigger="sys_id_modal_advance" type="hidden">' +
+                            '<input id="sys_id_budget_advance' + (meta.row + meta.settings._iDisplayStart + 1) + '" value="' + data.additionalData.combinedBudget_RefID + '" data-trigger="sys_id_budget_advance" type="hidden">' +
+                            (meta.row + meta.settings._iDisplayStart + 1)
+                    }
+                },
+                {
+                    data: 'sys_Text',
+                    defaultContent: '-',
+                    className: "align-middle text-nowrap"
+                },
+                {
+                    data: null,
+                    defaultContent: '-',
+                    className: "align-middle text-nowrap",
+                    render: function (data, type, row, meta) {
+                        return data.additionalData.beneficiaryWorkerName
+                    }
+                },
+                {
+                    data: null,
+                    defaultContent: '-',
+                    className: "align-middle text-nowrap",
+                    render: function (data, type, row, meta) {
+                        return data.additionalData.requesterWorkerName
+                    }
+                },
+                {
+                    data: null,
+                    defaultContent: '-',
+                    className: "align-middle text-nowrap",
+                    render: function (data, type, row, meta) {
+                        return data.additionalData.combinedBudgetCode
+                    }
+                },
+                {
+                    data: null,
+                    defaultContent: '-',
+                    className: "align-middle text-nowrap",
+                    render: function (data, type, row, meta) {
+                        return data.additionalData.combinedBudgetName
+                    }
+                },
+                {
+                    data: null,
+                    defaultContent: '-',
+                    className: "align-middle text-nowrap",
+                    render: function (data, type, row, meta) {
+                        return data.additionalData.combinedBudgetSectionCode
+                    }
+                },
+                {
+                    data: null,
+                    defaultContent: '-',
+                    className: "align-middle text-nowrap",
+                    render: function (data, type, row, meta) {
+                        return data.additionalData.combinedBudgetSectionName
+                    }
+                }
+            ]
+        });
     }
 </script>

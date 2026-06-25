@@ -3,6 +3,7 @@
     const receiveDateValue = {!! json_encode($header['receiveDate']) !!};
     const dataTable = {!! json_encode($dataDetail ?? []) !!};
 
+    const documentTypeID = document.getElementById("DocumentTypeID");
     const receiveDate = document.getElementById("receive_date");
 
     const addressDeliveryOrderFrom = document.getElementById("address_delivery_order_from");
@@ -471,11 +472,6 @@
         document.getElementById('totalMaterialReceiveDetail').textContent = currencyTotal(totalRequest);
     }
 
-    function CancelRevisionMaterialReceive() {
-        ShowLoading();
-        window.location.href = "{{ route('MaterialReceive.index', ['var' => 1]) }}";
-    }
-
     function SelectWorkFlow(formatData) {
         const swalWithBootstrapButtons = Swal.mixin({
             confirmButtonClass: 'btn btn-success btn-sm',
@@ -604,6 +600,38 @@
         });
     }
 
+    function getWorkflow(data) {
+        $.ajax({
+            type: 'POST',
+            data: {
+                businessDocumentType_RefID: documentTypeID.value,
+                combinedBudget_RefID: data[0].combinedBudget_RefID
+            },
+            url: '{!! route("Workflow.UserAllowedToSubmit") !!}',
+            success: function (response) {
+                if (response.status === 200 && response.data[0].signAccess) {
+                    // totalNextApprover = response.data[0].nextApproverPath.length;
+                    // dataWorkflow.workFlowPathRefID = response.data[0].sys_ID;
+                    // dataWorkflow.approverEntityRefID = response.data[0].submitterEntity_RefID;
+
+                    // getWorkflows(response.data[0].nextApproverPath);
+
+                    viewMaterialReceiveDetail(data);
+                } else {
+                    $("#button_submit").prop("disabled", true);
+
+                    Swal.fire("Error", "You don't have access", "error").then((res) => {
+                        Utils.cancelForm('{{ route('MaterialReceive.index', ['var' => 1]) }}');
+                    });
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log('jqXHR, textStatus, errorThrown', jqXHR, textStatus, errorThrown);
+                Swal.fire("Error", "Data Error", "error");
+            }
+        });
+    }
+
     $('#tableGetModalWarehouses').on('click', 'tbody tr', function () {
         const sysId = $(this).find('input[data-trigger="sys_id_modal_warehouse"]').val();
         const name = $(this).find('td:nth-child(2)').text();
@@ -647,8 +675,8 @@
     });
 
     $(document).ready(function () {
+        getWorkflow(dataTable);
         getModalWarehouses();
-        viewMaterialReceiveDetail(dataTable);
 
         $('#startDate').datetimepicker({
             format: 'L',

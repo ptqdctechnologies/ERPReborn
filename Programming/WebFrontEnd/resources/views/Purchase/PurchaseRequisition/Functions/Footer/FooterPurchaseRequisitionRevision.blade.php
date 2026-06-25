@@ -767,18 +767,20 @@
                 businessDocumentType_RefID: documentTypeID.value,
                 combinedBudget_RefID: projectID.value
             },
-            url: '{!! route("GetWorkflow") !!}',
+            url: '{!! route("Workflow.UserAllowedToSubmit") !!}',
             success: function (response) {
-                if (response.status === 200) {
-                    totalNextApprover = response.data[0].nextApproverPath.length;
-                    dataWorkflow.workFlowPathRefID = response.data[0].sys_ID;
-                    dataWorkflow.approverEntityRefID = response.data[0].submitterEntity_RefID;
+                if (response.status === 200 && response.data[0].signAccess) {
+                    // totalNextApprover = response.data[0].nextApproverPath.length;
+                    // dataWorkflow.workFlowPathRefID = response.data[0].sys_ID;
+                    // dataWorkflow.approverEntityRefID = response.data[0].submitterEntity_RefID;
 
-                    getWorkflows(response.data[0].nextApproverPath);
+                    // getWorkflows(response.data[0].nextApproverPath);
                 } else {
                     $("#button_submit").prop("disabled", true);
 
-                    Swal.fire("Error", "You don't have access", "error");
+                    Swal.fire("Error", "You don't have access", "error").then((res) => {
+                        Utils.cancelForm('{{ route('PurchaseRequisition.index', ['var' => 1]) }}');
+                    });
                 }
             },
             error: function (jqXHR, textStatus, errorThrown) {
@@ -794,9 +796,9 @@
     });
 
     $('#tableGetModalWarehouses').on('click', 'tbody tr', function () {
-        let id = $(this).find('input[data-trigger="sys_id_modal_warehouse"]').val();
-        let name = $(this).find('td:nth-child(2)').text();
-        let address = $(this).find('td:nth-child(3)').text();
+        const id = $(this).find('input[data-trigger="sys_id_modal_warehouse"]').val();
+        const name = $(this).find('td:nth-child(2)').text();
+        const address = $(this).find('td:nth-child(3)').text();
 
         $("#deliver_RefID").val(id);
         $("#deliverName").val(`${name} - ${address}`);
@@ -839,7 +841,7 @@
         $('#purchaseRequisitionModal').modal('toggle');
     });
 
-    $(window).one('load', function (e) {
+    $(document).ready(function () {
         $('#dateOfDelivery').datetimepicker({
             format: 'YYYY-MM-DD'
         });

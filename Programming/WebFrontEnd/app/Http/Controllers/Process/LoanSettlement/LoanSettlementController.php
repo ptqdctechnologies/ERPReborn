@@ -18,6 +18,7 @@ use App\Services\Process\Loan\LoanSettlementService;
 
 class LoanSettlementController extends Controller
 {
+    protected $loanSettlementService;
     public function __construct(LoanSettlementService $loanSettlementService)
     {
         $this->loanSettlementService = $loanSettlementService;

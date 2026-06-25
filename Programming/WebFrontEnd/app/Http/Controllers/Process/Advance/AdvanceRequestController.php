@@ -176,32 +176,49 @@ class AdvanceRequestController extends Controller
 
     public function AdvancePickList(Request $request)
     {
-        $projectId = (int) $request->input('project_id', 0);
-        $siteId = (int) $request->input('site_id', 0);
+        $start = $request->input('start', 0);
+        $length = $request->input('length', 10);
+        $offset = floor($start / $length) + 1;
+        $limit = $length;
 
-        $response = $this->advanceRequestService->getPickList();
+        $searchValue = $request->input('search.value');
 
-        $status = $response['metadata']['HTTPStatusCode'];
-        $data = [];
+        $combinedBudgetCode = $request->input('combinedBudgetCode');
+        $combinedBudgetSectionCode = $request->input('combinedBudgetSectionCode');
 
-        if ($status == 200) {
-            $data = $response['data']['data'] ?? [];
+        $formatted = [
+            'pagination' => [
+                'pageSize' => (int) $limit,
+                'pageShow' => (int) $offset
+            ],
+            'dataFilter' => [
+                'businessDocumentNumber' => NULL,
+                'documentDateStart' => NULL,
+                'documentDateFinish' => NULL,
+                'requesterName' => NULL,
+                'combinedBudget' => NULL,
+                'combinedBudgetSection' => NULL
+            ]
+        ];
+
+        $response = $this->advanceRequestService->getPickList($formatted);
+
+        if ($response['metadata']['HTTPStatusCode'] !== 200) {
+            return response()->json([
+                'draw' => intval($request->input('draw')),
+                'recordsTotal' => 0,
+                'recordsFiltered' => 0,
+                'data' => []
+            ]);
         }
 
-        if ($projectId > 0 && $siteId > 0) {
-            $data = array_filter($data, function ($item) use ($projectId, $siteId) {
-                return
-                    isset($item['combinedBudget_RefID'], $item['combinedBudgetSection_RefID']) &&
-                    is_array($item['combinedBudget_RefID']) &&
-                    is_array($item['combinedBudgetSection_RefID']) &&
-                    in_array($projectId, $item['combinedBudget_RefID']) &&
-                    in_array($siteId, $item['combinedBudgetSection_RefID']);
-            });
-        }
+        $advanceData = $response['data']['data'];
 
         return response()->json([
-            'data' => array_values($data),
-            'status' => $status
+            'draw' => intval($request->input('draw')),
+            'recordsTotal' => $advanceData['header']['dataCount'],
+            'recordsFiltered' => $advanceData['header']['dataCount'],
+            'data' => $advanceData['content']['itemList']
         ]);
     }
 

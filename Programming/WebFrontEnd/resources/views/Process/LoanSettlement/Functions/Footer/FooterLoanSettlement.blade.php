@@ -1,6 +1,6 @@
 <script>
-    let typeOfCOA                       = null;
-    let dataLoan                        = {
+    let typeOfCOA = null;
+    let dataLoan = {
         combinedBudgetRefID: null,
         creditorRefID: null,
         debitorRefID: null,
@@ -8,20 +8,20 @@
         currencyRefID: null,
         currencyExchangeRate: null,
     };
-    const dataInputLogFileUpload1       = document.getElementById("dataInput_Log_FileUpload_1");
-    const principleSettlement           = document.getElementById("settlement_value");
-    const penaltySettlement             = document.getElementById("penalty_value");
-    const interestSettlement            = document.getElementById("interest_value");
+    const dataInputLogFileUpload1 = document.getElementById("dataInput_Log_FileUpload_1");
+    const principleSettlement = document.getElementById("settlement_value");
+    const penaltySettlement = document.getElementById("penalty_value");
+    const interestSettlement = document.getElementById("interest_value");
     const chartOfAccountSettlementRefID = document.getElementById("coa_settlement_id");
-    const chartOfAccountPenaltyRefID    = document.getElementById("coa_penalty_id");
-    const chartOfAccountInterestRefID   = document.getElementById("coa_interest_id");
-    const remark                        = document.getElementById("remark");
+    const chartOfAccountPenaltyRefID = document.getElementById("coa_penalty_id");
+    const chartOfAccountInterestRefID = document.getElementById("coa_interest_id");
+    const remark = document.getElementById("remark");
 
     function changeTypeOfCOA(value) {
         typeOfCOA = value;
     }
 
-    function getLoanDetail(id, name) {
+    function getWorkflow(res) {
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -29,22 +29,23 @@
         });
 
         $.ajax({
-            url: "{{ route('Loan.Detail') }}",
-            type: "GET",
+            type: 'POST',
             data: {
-                id
+                businessDocumentType_RefID: '77000000000057',
+                combinedBudget_RefID: res[0].CombinedBudget_RefID
             },
-            success: function (res) {
-                if (Array.isArray(res) && res.length > 0) {
-                    dataLoan.combinedBudgetRefID    = res[0].CombinedBudget_RefID ? parseInt(res[0].CombinedBudget_RefID) : null;
-                    dataLoan.creditorRefID          = res[0].Creditor_RefID;
-                    dataLoan.debitorRefID           = res[0].Debitor_RefID;
-                    dataLoan.currencyRefID          = res[0].Currency_RefID;
-                    dataLoan.currencyExchangeRate   = res[0].CurrencyExchangeRate;
+            url: '{!! route("Workflow.UserAllowedToSubmit") !!}',
+            success: function (response) {
+                if (response.status === 200 && response.data[0].signAccess) {
+                    dataLoan.combinedBudgetRefID = res[0].CombinedBudget_RefID ? parseInt(res[0].CombinedBudget_RefID) : null;
+                    dataLoan.creditorRefID = res[0].Creditor_RefID;
+                    dataLoan.debitorRefID = res[0].Debitor_RefID;
+                    dataLoan.currencyRefID = res[0].Currency_RefID;
+                    dataLoan.currencyExchangeRate = res[0].CurrencyExchangeRate;
 
-                    $(`#loan_id`).val(id);
-                    $(`#loan_name`).val(name);
-                    $(`#loan_name`).css({'background-color': '#e9ecef', 'border': '1px solid #ced4da'});
+                    $(`#loan_id`).val(res[0].Loan_RefID);
+                    $(`#loan_name`).val(res[0].BusinessDocumentNumber);
+                    $(`#loan_name`).css({ 'background-color': '#e9ecef', 'border': '1px solid #ced4da' });
                     $(`#loan_budget`).text(`: ${res[0].CombinedBudgetCode ?? ''} - ${res[0].CombinedBudgetName ?? ''}`);
                     $(`#loan_type`).text(`: ${res[0].LoanType}`);
                     $(`#loan_credit`).text(`: ${res[0].CreditorName}`);
@@ -62,9 +63,40 @@
                     $(`#total_settlement`).val(0);
                     $(`#total_unsettlement`).val(0);
                     $(`#total_balance`).val(0);
+                } else {
+                    Swal.fire("Error", "You don't have a access", "error");
                 }
+
+                $("#loan_icon").show();
+                $("#loan_loading").hide();
             },
-            error: function(response) {
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log('jqXHR, textStatus, errorThrown', jqXHR, textStatus, errorThrown);
+                Swal.fire("Error", "Data Error", "error");
+
+                $("#loan_icon").show();
+                $("#loan_loading").hide();
+            }
+        });
+    }
+
+    function getLoanDetail(id, name) {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            url: "{{ route('Loan.Detail') }}",
+            type: "GET",
+            data: {
+                id
+            },
+            success: function (res) {
+                getWorkflow(res);
+            },
+            error: function (response) {
                 console.log('response error', response);
             }
         });
@@ -98,7 +130,7 @@
                 chartOfAccount_Penalty_RefID: chartOfAccountPenaltyRefID.value,
                 chartOfAccount_Interest_RefID: chartOfAccountInterestRefID.value
             },
-            success: function(res) {
+            success: function (res) {
                 HideLoading();
 
                 if (res.status === 200) {
@@ -126,7 +158,7 @@
                     ErrorNotif("Process Error");
                 }
             },
-            error: function(jqXHR, textStatus, errorThrown) {
+            error: function (jqXHR, textStatus, errorThrown) {
                 console.log('error', jqXHR, textStatus, errorThrown);
             }
         });
@@ -136,16 +168,19 @@
         submitForm();
     }
 
-    $('#tableLoans').on('click', 'tbody tr', function() {
+    $('#tableLoans').on('click', 'tbody tr', function () {
         const sysId = $(this).find('input[data-trigger="sys_id_loans"]').val();
-        const name  = $(this).find('td:nth-child(2)').text();
+        const name = $(this).find('td:nth-child(2)').text();
+
+        $("#loan_icon").hide();
+        $("#loan_loading").show();
 
         getLoanDetail(sysId, name);
-        
+
         $("#myLoans").modal('toggle');
     });
 
-    $('#tableLoanSettlements').on('click', 'tbody tr', function() {
+    $('#tableLoanSettlements').on('click', 'tbody tr', function () {
         const sysID = $(this).find('input[data-trigger="sys_id_loan_settlements"]').val();
         const trano = $(this).find('td:nth-child(2)').text();
 
@@ -155,23 +190,23 @@
         $('#myLoanSettlements').modal('hide');
     });
 
-    $('#tableGetChartOfAccount').on('click', 'tbody tr', function() {
+    $('#tableGetChartOfAccount').on('click', 'tbody tr', function () {
         const sysId = $(this).find('input[data-trigger="sys_id_modal_coa"]').val();
-        const code  = $(this).find('td:nth-child(2)').text();
-        const name  = $(this).find('td:nth-child(3)').text();
+        const code = $(this).find('td:nth-child(2)').text();
+        const name = $(this).find('td:nth-child(3)').text();
 
         if (typeOfCOA === "SETTLEMENT") {
             $(`#coa_settlement_id`).val(sysId);
             $(`#coa_settlement_name`).val(`${code} - ${name}`);
-            $(`#coa_settlement_name`).css({'background-color': '#e9ecef', 'border': '1px solid #ced4da'});
+            $(`#coa_settlement_name`).css({ 'background-color': '#e9ecef', 'border': '1px solid #ced4da' });
         } else if (typeOfCOA === "PENALTY") {
             $(`#coa_penalty_id`).val(sysId);
             $(`#coa_penalty_name`).val(`${code} - ${name}`);
-            $(`#coa_penalty_name`).css({'background-color': '#e9ecef', 'border': '1px solid #ced4da'});
+            $(`#coa_penalty_name`).css({ 'background-color': '#e9ecef', 'border': '1px solid #ced4da' });
         } else if (typeOfCOA === "INTEREST") {
             $(`#coa_interest_id`).val(sysId);
             $(`#coa_interest_name`).val(`${code} - ${name}`);
-            $(`#coa_interest_name`).css({'background-color': '#e9ecef', 'border': '1px solid #ced4da'});
+            $(`#coa_interest_name`).css({ 'background-color': '#e9ecef', 'border': '1px solid #ced4da' });
         }
 
         $("#myGetChartOfAccount").modal('toggle');
