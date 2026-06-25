@@ -75,7 +75,7 @@ class InvoiceController extends Controller
                         "customer_RefID" => null,
                         "currency_RefID" => null,
                         "vatStatus" => null,
-                        "vatValue" => $request->vatValue,
+                        "vatValue" => $request->vatValue ? $request->vatValue : 0,
                         "vatNumber" => null,
                         "remarks" => $request->remarks,
                         "additionalData" => [
