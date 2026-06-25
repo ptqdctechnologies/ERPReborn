@@ -5,6 +5,7 @@
     const dummyData = [
         {
             id: 0,
+            combinedBudgetSectionDetail_RefID: 169000000000001,
             subBudgetCode: '235',
             subBudgetName: 'Ampang Kuranji - Padang',
             customerCode: 'PLN1',
@@ -15,6 +16,7 @@
         },
         {
             id: 1,
+            combinedBudgetSectionDetail_RefID: 169000000000002,
             subBudgetCode: '240',
             subBudgetName: 'Cendana Andalas',
             customerCode: 'PLN2',
@@ -25,6 +27,7 @@
         },
         {
             id: 2,
+            combinedBudgetSectionDetail_RefID: 169000000000003,
             subBudgetCode: '248',
             subBudgetName: 'Sudirman Raya',
             customerCode: 'PLN3',
@@ -35,6 +38,7 @@
         },
         {
             id: 3,
+            combinedBudgetSectionDetail_RefID: 169000000000004,
             subBudgetCode: '221',
             subBudgetName: 'Gatot Subroto Line',
             customerCode: 'PLN4',
@@ -45,6 +49,7 @@
         },
         {
             id: 4,
+            combinedBudgetSectionDetail_RefID: 169000000000005,
             subBudgetCode: '254',
             subBudgetName: 'Merdeka Selatan Grid',
             customerCode: 'PLN5',
@@ -55,6 +60,7 @@
         },
         {
             id: 5,
+            combinedBudgetSectionDetail_RefID: 169000000000006,
             subBudgetCode: '249',
             subBudgetName: 'Panjang Timur Project',
             customerCode: 'PLN6',
@@ -65,6 +71,7 @@
         },
         {
             id: 6,
+            combinedBudgetSectionDetail_RefID: 169000000000007,
             subBudgetCode: '219',
             subBudgetName: 'Barito Hulu Development',
             customerCode: 'PLN7',
@@ -75,6 +82,7 @@
         },
         {
             id: 7,
+            combinedBudgetSectionDetail_RefID: 169000000000008,
             subBudgetCode: '235',
             subBudgetName: 'Rinjani Expansion',
             customerCode: 'PLN8',
@@ -85,6 +93,7 @@
         },
         {
             id: 8,
+            combinedBudgetSectionDetail_RefID: 169000000000009,
             subBudgetCode: '217',
             subBudgetName: 'Papua Tengah Electrification',
             customerCode: 'PLN9',
@@ -95,6 +104,7 @@
         },
         {
             id: 9,
+            combinedBudgetSectionDetail_RefID: 169000000000010,
             subBudgetCode: '222',
             subBudgetName: 'Nusantara Grid Phase 1',
             customerCode: 'PLN10',
@@ -105,6 +115,7 @@
         },
         {
             id: 10,
+            combinedBudgetSectionDetail_RefID: 169000000000011,
             subBudgetCode: '256',
             subBudgetName: 'Batam Island Upgrade',
             customerCode: 'PLN11',
@@ -163,6 +174,12 @@
         $.each(dummyData, function (key, val) {
             let row = `
                 <tr>
+                    <input
+                        name="invoiceDetails[${key}][entities][combinedBudgetSectionDetail_RefID]"
+                        value="${val.combinedBudgetSectionDetail_RefID}"
+                        type="hidden"
+                    />
+
                     <td style="text-align: left;">${val.subBudgetCode} - ${val.subBudgetName}</td>
                     <td style="text-align: center;">${decimalFormat(parseFloat(val.customerOrder))}</td>
                     <td style="text-align: center;">${val.progressCompleted}</td>
@@ -172,10 +189,10 @@
                     <td style="text-align: center;">-</td>
                     <td style="text-align: center;">-</td>
                     <td style="text-align: center; width: 12%; padding-right: 5px !important;">
-                        <input class="form-control number-without-negative" id="invoice_progress${key}" autocomplete="off" style="border-radius:0px;" />
+                        <input class="form-control number-without-negative" id="invoice_progress${key}" name="invoiceDetails[${key}][entities][progress]" autocomplete="off" style="border-radius:0px;" />
                     </td>
                     <td style="text-align: center; padding-right: 5px !important;">
-                        <input class="form-control number-without-negative" id="invoice_value${key}" autocomplete="off" style="border-radius:0px; width: 125px;" />
+                        <input class="form-control number-without-negative" id="invoice_value${key}" name="invoiceDetails[${key}][entities][value]" autocomplete="off" style="border-radius:0px; width: 125px;" />
                     </td>
                 </tr>
             `;
@@ -300,6 +317,64 @@
         $("#modal_invoice_document_number").val(trano);
 
         $("#myInvoice").modal('toggle');
+    });
+
+    $('#invoiceForm').on('submit', function (e) {
+        e.preventDefault();
+
+        let formData = new FormData(this);
+
+        $.ajax({
+            type: 'POST',
+            url: '{!! route("Invoice.store") !!}',
+            data: formData,
+            processData: false,
+            contentType: false,
+            beforeSend: function () {
+                Utils.showLoading();
+            }
+        })
+            .done(function (response) {
+                console.log('response', response);
+
+                if (response.status === 200) {
+                    const swalWithBootstrapButtons = Swal.mixin({
+                        confirmButtonClass: 'btn btn-success btn-sm',
+                        cancelButtonClass: 'btn btn-danger btn-sm',
+                        buttonsStyling: true,
+                    });
+
+                    swalWithBootstrapButtons.fire({
+                        title: 'Successful !',
+                        type: 'success',
+                        html: 'Data has been saved',
+                        showCloseButton: false,
+                        showCancelButton: false,
+                        focusConfirm: false,
+                        confirmButtonText: '<span style="color:black;"> OK </span>',
+                        confirmButtonColor: '#4B586A',
+                        confirmButtonColor: '#e9ecef',
+                        reverseButtons: true
+                    }).then((result) => {
+                        Utils.cancelForm("{{ route('Invoice.index') }}");
+                    });
+                }
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                console.error("Error:", errorThrown);
+
+                if (jqXHR.status === 422) {
+                    let errors = jqXHR.responseJSON.errors;
+
+                    $.each(errors, function (key, value) {
+                        console.log(key + ': ' + value[0]);
+                    });
+                }
+            })
+            .always(function (jqXHR, textStatus, errorThrown) {
+                Utils.hideLoading();
+            });
+        ;
     });
 
     $(document).ready(function () {

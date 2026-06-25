@@ -21,7 +21,7 @@
                         <div class="input-group">
                             <input type="text" id="budget_name" class="form-control" readonly
                                 style="border-radius:0; background-color: white;">
-                            <input type="hidden" id="budget_id" class="form-control" name="project_id"
+                            <input type="hidden" id="budget_id" class="form-control" name="budget_id"
                                 style="border-radius:0;">
                         </div>
                     </div>
