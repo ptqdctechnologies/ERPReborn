@@ -23,6 +23,7 @@ class StoreInvoice extends FormRequest
     public function rules(): array
     {
         return [
+            'budget_id' => 'required|string',
             'invoiceDetails' => ['nullable', 'array'],
 
             'invoiceDetails.*.entities.combinedBudgetSectionDetail_RefID' => [
@@ -68,7 +69,7 @@ class StoreInvoice extends FormRequest
             if (!$hasFilledRow) {
                 $validator->errors()->add(
                     'invoiceDetails',
-                    'Minimal satu baris invoice harus diisi lengkap (Value dan Progress).'
+                    'Please complete at least one invoice line.'
                 );
             }
         });
@@ -77,38 +78,38 @@ class StoreInvoice extends FormRequest
     /**
      * Function to Remove Commas
      */
-    protected function prepareForValidation(): void
-    {
-        $invoiceDetails = collect($this->input('invoiceDetails', []))
-            ->map(function ($item) {
+    // protected function prepareForValidation(): void
+    // {
+    //     $invoiceDetails = collect($this->input('invoiceDetails', []))
+    //         ->map(function ($item) {
 
-                $entities = $item['entities'] ?? [];
+    //             $entities = $item['entities'] ?? [];
 
-                return [
-                    'entities' => [
-                        'combinedBudgetSectionDetail_RefID' => $entities['combinedBudgetSectionDetail_RefID'] ?? null,
-                        'value' => isset($entities['value'])
-                            ? str_replace(',', '', $entities['value'])
-                            : null,
-                        'progress' => $entities['progress'] ?? null,
-                    ]
-                ];
-            })
-            ->filter(function ($item) {
+    //             return [
+    //                 'entities' => [
+    //                     'combinedBudgetSectionDetail_RefID' => $entities['combinedBudgetSectionDetail_RefID'] ?? null,
+    //                     'value' => isset($entities['value'])
+    //                         ? str_replace(',', '', $entities['value'])
+    //                         : null,
+    //                     'progress' => $entities['progress'] ?? null,
+    //                 ]
+    //             ];
+    //         })
+    //         ->filter(function ($item) {
 
-                $entities = $item['entities'];
+    //             $entities = $item['entities'];
 
-                return filled($entities['combinedBudgetSectionDetail_RefID'])
-                    && filled($entities['value'])
-                    && filled($entities['progress']);
-            })
-            ->values()
-            ->toArray();
+    //             return filled($entities['combinedBudgetSectionDetail_RefID'])
+    //                 && filled($entities['value'])
+    //                 && filled($entities['progress']);
+    //         })
+    //         ->values()
+    //         ->toArray();
 
-        $this->merge([
-            'invoiceDetails' => $invoiceDetails,
-        ]);
-    }
+    //     $this->merge([
+    //         'invoiceDetails' => $invoiceDetails,
+    //     ]);
+    // }
 
     /**
      * Custom validation messages.
@@ -116,17 +117,17 @@ class StoreInvoice extends FormRequest
     public function messages(): array
     {
         return [
-            'invoiceDetails.*.entities.combinedBudgetSectionDetail_RefID.required_with'
-            => 'Budget Detail wajib ada jika Value atau Progress diisi.',
+            // 'invoiceDetails.*.entities.combinedBudgetSectionDetail_RefID.required_with'
+            // => 'Budget Detail wajib ada jika Value atau Progress diisi.',
 
             'invoiceDetails.*.entities.value.required_with'
-            => 'Value wajib diisi jika Progress diisi.',
+            => 'Please enter a Invoice Value if Progress is provided.',
 
             // 'invoiceDetails.*.entities.value.numeric'
             // => 'Value harus berupa angka.',
 
             'invoiceDetails.*.entities.progress.required_with'
-            => 'Progress wajib diisi jika Value diisi.',
+            => 'Please enter Progress if Invoice Value is provided.',
 
             // 'invoiceDetails.*.entities.progress.numeric'
             // => 'Progress harus berupa angka.',
