@@ -2252,6 +2252,79 @@ namespace App\Models\Database\SchData_OLTP_Master
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataList_SupplierCategoryDetail_LatestVersion                                                     |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2026-05-26                                                                                           |
+        | ▪ Creation Date   : 2026-05-26                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Detail Supplier Category Versi Terakhir                                           |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSupplier Category_RefID ► Supplier Category ID                                                                            |
+        |        ------------------------------                                                                                    |
+        |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
+        |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
+        |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
+        |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataList_SupplierCategoryDetail_LatestVersion(
+            $varUserSession, int $varCategory_RefID = null)
+            {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession,
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Master.Func_GetDataList_SupplierCategoryDetail',
+                            [
+                                [$varCategory_RefID, 'bigint' ],
+                            ]
+                            )
+		    );
+
+                    $resultArray = $varReturn['data'];
+                    // Description: Generate API.
+                    $varReturn['data'] = [];
+                    $idxArray = 0;
+                    $idxArray2 = 0;
+                    $varSys_ID = 0;
+                    foreach ($resultArray as $key => $value) {
+                        if ($varSys_ID != $value["Sys_ID"]) {
+                            $idxArray2 = 0;
+                            $varReturn['data'][$idxArray]['Sys_ID'] = $value["Sys_ID"];
+                            $varReturn['data'][$idxArray]['Code'] = $value["Code"];
+                            $varReturn['data'][$idxArray]['Name'] = $value["Name"];
+                            $varReturn['data'][$idxArray]['SubCategories'][$idxArray2]['SubCategory_RefID'] = $value["SubCategory_RefID"];
+                            $varReturn['data'][$idxArray]['SubCategories'][$idxArray2]['SubCategory_Code'] = $value["SubCategory_Code"];
+                            $varReturn['data'][$idxArray]['SubCategories'][$idxArray2]['SubCategory_Name'] = $value["SubCategory_Name"];
+                            $varSys_ID = $value["Sys_ID"];
+                            $idxArray++;
+                        }
+			else {
+			    $idxArray2++;
+                            $varReturn['data'][$idxArray - 1]['SubCategories'][$idxArray2]['SubCategory_RefID'] = $value["SubCategory_RefID"];
+                            $varReturn['data'][$idxArray - 1]['SubCategories'][$idxArray2]['SubCategory_Code'] = $value["SubCategory_Code"];
+                            $varReturn['data'][$idxArray - 1]['SubCategories'][$idxArray2]['SubCategory_Name'] = $value["SubCategory_Name"];
+                        }
+                    }
+
+                return
+                    $varReturn;
+                }
+
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getDataList_ProductType                                                                              |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
@@ -4100,6 +4173,51 @@ namespace App\Models\Database\SchData_OLTP_Master
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-Master.Func_GetDataPickList_Product_NEW',
+                            [
+                                [$varSysBranch_RefID, 'bigint']
+                            ]
+                            )
+                        );
+
+                return
+                    $varReturn;
+                }
+
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataPickList_SupplierCategory                                                                     |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2026-06-26                                                                                           |
+        | ▪ Creation Date   : 2026-06-26                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Pilihan Data Supplier Category                                                    |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |      ------------------------------                                                                                      |
+        |      ▪ (string) varvarDateTime ► Date Time                                                                               |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataPickList_SupplierCategory(
+            $varUserSession, int $varSysBranch_RefID
+            )
+            {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession,
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Master.Func_GetDataPickList_SupplierCategory',
                             [
                                 [$varSysBranch_RefID, 'bigint']
                             ]
