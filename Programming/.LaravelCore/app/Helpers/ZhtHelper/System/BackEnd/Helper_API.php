@@ -192,23 +192,45 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
                             str_replace('T', ' ', $varBusinessDocument['documentDateTimeTZ']);
                         };
 
-                    $varReturn = [
-                        'process' => (
-                            $varReturnProcess === NULL ? 
-                                [
-                                'DBMS' => [
-                                    'executionInterval' => NULL,
-                                    'startDateTimeTZ' => NULL,
-                                    'finishDateTimeTZ' => NULL
-                                    ]
-                                ]
-                                :
-                                $varReturnProcess
-                                ),
-                        'message' => 'Data Insertion Was Successful (New Record ID : '.$varDataSend['SignRecordID'].')',
-                        'recordID' => $varDataSend['SignRecordID'],
-                        'businessDocument' => $varBusinessDocument
-                        ];
+                        if (in_array(((int)$varDataSend['SignRecordID'] / 1000000000000) % 10000, [305])) {
+                            $varReturn = [
+                                'process' => (
+                                    $varReturnProcess === NULL ?
+                                        [
+                                        'DBMS' => [
+                                            'executionInterval' => NULL,
+                                            'startDateTimeTZ' => NULL,
+                                            'finishDateTimeTZ' => NULL
+                                            ]
+                                        ]
+                                        :
+                                        $varReturnProcess
+                                        ),
+                                'message' => 'Data Insertion Was Successful (New Record ID : '.$varDataSend['SignRecordID'].')',
+                                'recordID' => $varDataSend['SignRecordID'],
+                                'categoryCode' => $varDataSend['SignRecordType'],
+                                'categoryName' => $varDataSend['SignMessage'],
+                                'businessDocument' => $varBusinessDocument
+                                ];
+                        } else {
+                            $varReturn = [
+                                'process' => (
+                                    $varReturnProcess === NULL ?
+                                        [
+                                        'DBMS' => [
+                                            'executionInterval' => NULL,
+                                            'startDateTimeTZ' => NULL,
+                                            'finishDateTimeTZ' => NULL
+                                            ]
+                                        ]
+                                        :
+                                        $varReturnProcess
+                                        ),
+                                'message' => 'Data Insertion Was Successful (New Record ID : '.$varDataSend['SignRecordID'].')',
+                                'recordID' => $varDataSend['SignRecordID'],
+                                'businessDocument' => $varBusinessDocument
+                                ];
+                        }
 
                     return
                         $varReturn;
@@ -700,27 +722,52 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
                         $varBusinessDocument['documentDateTimeTZ'] =
                             str_replace('T', ' ', $varBusinessDocument['documentDateTimeTZ']);
                         };
-                    
-                    $varReturn = [
-                        0 => [
-                            'process' => (
-                                $varReturnProcess === NULL ? 
-                                    [
-                                    'DBMS' => [
-                                        'executionInterval' => NULL,
-                                        'startDateTimeTZ' => NULL,
-                                        'finishDateTimeTZ' => NULL
-                                        ]
-                                    ]
-                                    :
-                                    $varReturnProcess
-                                    ),
-                            'message' => 'Data Update Was Successful (Record ID : '.$varDataSend['SignRecordID'].')',
-                            'recordID' => $varDataSend['SignRecordID'],
-                            'businessDocument' => $varBusinessDocument
-                            ]
 
-                        ];
+                    if (in_array(((int)$varDataSend['SignRecordID'] / 1000000000000) % 10000, [305])) {
+                        $varReturn = [
+                            0 => [
+                                'process' => (
+                                    $varReturnProcess === NULL ? 
+                                        [
+                                        'DBMS' => [
+                                            'executionInterval' => NULL,
+                                            'startDateTimeTZ' => NULL,
+                                            'finishDateTimeTZ' => NULL
+                                            ]
+                                        ]
+                                        :
+                                        $varReturnProcess
+                                        ),
+                                'message' => 'Data Update Was Successful (Record ID : '.$varDataSend['SignRecordID'].')',
+                                'recordID' => $varDataSend['SignRecordID'],
+                                'categoryCode' => $varDataSend['SignRecordType'],
+                                'categoryName' => $varDataSend['SignMessage'],
+                                'businessDocument' => $varBusinessDocument
+                                ]
+
+                            ];
+                    } else {
+                        $varReturn = [
+                            0 => [
+                                'process' => (
+                                    $varReturnProcess === NULL ? 
+                                        [
+                                        'DBMS' => [
+                                            'executionInterval' => NULL,
+                                            'startDateTimeTZ' => NULL,
+                                            'finishDateTimeTZ' => NULL
+                                            ]
+                                        ]
+                                        :
+                                        $varReturnProcess
+                                        ),
+                                'message' => 'Data Update Was Successful (Record ID : '.$varDataSend['SignRecordID'].')',
+                                'recordID' => $varDataSend['SignRecordID'],
+                                'businessDocument' => $varBusinessDocument
+                                ]
+
+                            ];
+                    }
 
                     return
                         $varReturn;
