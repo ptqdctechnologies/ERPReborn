@@ -1,0 +1,11 @@
+{
+"title": "JSON Request Schema",
+"description": "JSON Request Schema of transaction.update.master.setSupplierCategory (version 1)",
+"type": "object",
+"properties": {
+    },
+"required": [
+    "metadata",
+    "data"
+    ]
+}
