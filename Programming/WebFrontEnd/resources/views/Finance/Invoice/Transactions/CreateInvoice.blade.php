@@ -22,6 +22,7 @@
 
         @if($var == 0)
               <form id="invoiceForm">
+                @csrf
                 <div class="card">
                   <input type="hidden" id="DocumentTypeID" value="<?= $documentType_RefID; ?>">
 
@@ -172,7 +173,7 @@
                               <div class="col">
                                 <div class="row text-red" id="invoice_details_message"
                                   style="display: none; margin-bottom: 1rem; margin-left: auto;">
-                                  Please input at least one item.
+                                  <div id="invoice_details_text_message"></div>
                                 </div>
                                 <div class="row d-flex" style="gap: 5%; margin-left: auto;">
                                   <div class="d-flex" style="gap: 8px; margin-bottom: 1rem;">

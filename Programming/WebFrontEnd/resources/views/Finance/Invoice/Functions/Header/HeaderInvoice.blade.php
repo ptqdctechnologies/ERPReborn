@@ -29,9 +29,7 @@
             </div>
             <div id="budget_message" class="row" style="margin-top: .3rem;display: none;">
                 <label class="col-sm-3 col-md-4 col-lg-3 col-form-label p-0"></label>
-                <div id="budget_text_message" class="col text-red">
-                    Budget Code cannot be empty.
-                </div>
+                <div id="budget_text_message" class="col text-red"></div>
             </div>
         </div>
 

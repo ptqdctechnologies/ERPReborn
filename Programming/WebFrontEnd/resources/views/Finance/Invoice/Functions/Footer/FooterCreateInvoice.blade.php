@@ -2,6 +2,18 @@
     const vat = document.getElementById("vatOption");
     const documentTypeID = document.getElementById("DocumentTypeID");
     const invoiceDetailsTable = $('#invoice_details_table tbody');
+    const formList = {
+        budget_id: {
+            component: '#budget_name',
+            containerMessageId: '#budget_message',
+            messageId: '#budget_text_message'
+        },
+        invoiceDetails: {
+            component: '#invoiceDetails',
+            containerMessageId: '#invoice_details_message',
+            messageId: '#invoice_details_text_message'
+        }
+    };
     const dummyData = [
         {
             id: 0,
@@ -126,6 +138,56 @@
         }
     ];
 
+    function checkInvoiceDetails(indexInput) {
+        const rows = document.querySelectorAll("#invoice_details_table tbody tr");
+        let hasFullRow = false;
+
+        rows.forEach((row, index) => {
+            const qty = document.getElementById(`invoice_progress${index}`)?.value.trim();
+            const note = document.getElementById(`invoice_value${index}`)?.value.trim();
+
+            if (qty !== "" && note !== "") {
+                hasFullRow = true;
+            }
+        });
+
+        rows.forEach((row, index) => {
+            const qtyEl = document.getElementById(`invoice_progress${index}`);
+            const noteEl = document.getElementById(`invoice_value${index}`);
+
+            if (hasFullRow) {
+                $(qtyEl).css("border", "1px solid #ced4da");
+                $(noteEl).css("border", "1px solid #ced4da");
+                $("#invoice_details_text_message").hide();
+            } else {
+                if (indexInput > -1) {
+                    if (indexInput == index) {
+                        if (qtyEl.value.trim() != "" || noteEl.value.trim() != "") {
+                            $(qtyEl).css("border", "1px solid red");
+                            $(noteEl).css("border", "1px solid red");
+                            $("#invoice_details_text_message").show();
+                        } else {
+                            $(qtyEl).css("border", "1px solid #ced4da");
+                            $(noteEl).css("border", "1px solid #ced4da");
+                            $("#invoice_details_text_message").hide();
+                        }
+                    }
+
+                    if (indexInput != index && (qtyEl.value.trim() == "" && noteEl.value.trim() == "")) {
+                        $(qtyEl).css("border", "1px solid #ced4da");
+                        $(noteEl).css("border", "1px solid #ced4da");
+                    }
+                } else {
+                    $(qtyEl).css("border", "1px solid red"); noteEl
+                    $(noteEl).css("border", "1px solid red");
+                    $("#invoice_details_text_message").show();
+                }
+            }
+        });
+
+        return hasFullRow;
+    }
+
     function onChangeVAT(params) {
         if (params.value == "Yes") {
             $('#invoice_vat_percentage').css({ "display": "flex" });
@@ -171,6 +233,8 @@
     }
 
     function getInvoiceDetails(budgetID) {
+        ErrorHandler.hideErrorInputMessage("", "#invoice_details_message");
+
         $.each(dummyData, function (key, val) {
             let row = `
                 <tr>
@@ -304,6 +368,8 @@
         $("#budget_icon").hide();
         $("#budget_loading").show();
 
+        ErrorHandler.hideErrorInputMessage("#budget_name", "#budget_message");
+
         getWorkflow(sysId, code, name);
 
         $('#myProjects').modal('toggle');
@@ -361,13 +427,23 @@
                 }
             })
             .fail(function (jqXHR, textStatus, errorThrown) {
-                console.error("Error:", errorThrown);
+                console.error("jqXHR:", jqXHR);
 
                 if (jqXHR.status === 422) {
                     let errors = jqXHR.responseJSON.errors;
 
+                    // console.log('errors', errors);
+
                     $.each(errors, function (key, value) {
-                        console.log(key + ': ' + value[0]);
+                        // console.log(key + ': ' + value[0]);
+
+                        if (formList[key]) {
+                            ErrorHandler.showErrorInputMessage(formList[key].component, formList[key].containerMessageId, formList[key].messageId, value[0]);
+
+                            // if (formList[key].component == "#invoiceDetails") {
+                            //     ErrorHandler.showErrorInputMessage(formList[key].component);
+                            // }
+                        }
                     });
                 }
             })
