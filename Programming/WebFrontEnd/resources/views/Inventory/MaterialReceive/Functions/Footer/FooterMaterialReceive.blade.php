@@ -1,15 +1,28 @@
 <script>
     let dataStore = [];
+    let totalNextApprover = 0;
+    let triggerButtonModal = null;
+    let dataWorkflow = {
+        workFlowPathRefID: null,
+        approverEntityRefID: null,
+        comment: null
+    };
+    const transporterRefID = document.getElementById("transporterRefID");
+    const deliveryDateTime = document.getElementById("deliveryDateTimeTZ");
     const documentTypeID = document.getElementById("DocumentTypeID");
     const deliveryOrderCode = document.getElementById("delivery_order_code");
     const receiveDate = document.getElementById("receive_date");
     const receiveIn = document.getElementById("warehouse_id");
+    const remark = document.getElementById("remark");
     const tableMaterialReceiveLists = document.querySelector("#material_receive_list_table_modal tbody");
+    const fileID = document.getElementById("dataInput_Log_FileUpload");
 
+    const idDeliveryOrderFrom = document.getElementById("id_delivery_order_from");
     const addressDeliveryOrderFrom = document.getElementById("address_delivery_order_from");
     const addressDeliveryOrderFromDuplicate = document.getElementById("address_delivery_order_from_duplicate");
     const idDeliveryOrderFromDuplicate = document.getElementById("id_delivery_order_from_duplicate");
 
+    const idDeliveryOrderTo = document.getElementById("id_delivery_order_to");
     const addressDeliveryOrderTo = document.getElementById("address_delivery_order_to");
     const addressDeliveryOrderToDuplicate = document.getElementById("address_delivery_order_to_duplicate");
     const idDeliveryOrderToDuplicate = document.getElementById("id_delivery_order_to_duplicate");
@@ -289,13 +302,13 @@
                 let tbody = $('#tableMaterialReceiveDetail tbody');
                 tbody.empty();
 
-                if (response.status === 200 && response.data[0].signAccess) {
+                if (response.status === 200 && !response.data[0].signAccess) {
                     getModalWarehouses();
 
                     $("#delivery_order_trigger").show();
                     $("#delivery_order_loading").hide();
-                    $("#delivery_order_id").val(delivery_order_id);
-                    $("#delivery_order_code").val(delivery_order_number);
+                    $("#delivery_order_id").val(data[0].deliveryOrder_RefID);
+                    $("#delivery_order_code").val(data[0].documentNumber);
                     $("#transporterRefID").val(data[0].transporter_RefID);
                     $("#deliveryDateTimeTZ").val(data[0].deliveryDateTimeTZ);
                     $("#var_combinedBudget_RefID").val(data[0].combinedBudget_RefID);
@@ -342,7 +355,7 @@
                     $.each(data, function (key, val2) {
                         let row = `
                         <tr>
-                            <input id="trano${key}" value="${delivery_order_number}" type="hidden" />
+                            <input id="trano${key}" value="${data[0].documentNumber}" type="hidden" />
                             <input id="delivery_order_detail_id${key}" value="${val2.deliveryOrderDetail_ID}" type="hidden" />
                             <input id="product_code${key}" value="${val2.productCode}" type="hidden" />
                             <input id="product_name${key}" value="${val2.productName}" type="hidden" />
@@ -455,35 +468,7 @@
         });
     }
 
-    function SelectWorkFlow(formatData) {
-        const swalWithBootstrapButtons = Swal.mixin({
-            confirmButtonClass: 'btn btn-success btn-sm',
-            cancelButtonClass: 'btn btn-danger btn-sm',
-            buttonsStyling: true,
-        });
-
-        swalWithBootstrapButtons.fire({
-            title: 'Comment',
-            text: "Please write your comment here",
-            type: 'question',
-            input: 'textarea',
-            showCloseButton: false,
-            showCancelButton: true,
-            focusConfirm: false,
-            cancelButtonText: '<span style="color:black;"> Cancel </span>',
-            confirmButtonText: '<span style="color:black;"> OK </span>',
-            cancelButtonColor: '#DDDAD0',
-            confirmButtonColor: '#DDDAD0',
-            reverseButtons: true
-        }).then((result) => {
-            if ('value' in result) {
-                ShowLoading();
-                MaterialReceiveStore({ ...formatData, comment: result.value });
-            }
-        });
-    }
-
-    function MaterialReceiveStore(formatData) {
+    function MaterialReceiveStore() {
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -492,7 +477,24 @@
 
         $.ajax({
             type: 'POST',
-            data: formatData,
+            data: {
+                workFlowPath_RefID: dataWorkflow.workFlowPathRefID,
+                approverEntity: dataWorkflow.approverEntityRefID,
+                comment: dataWorkflow.comment,
+                storeData: {
+                    dataInput_Log_FileUpload_1: fileID.value,
+                    id_delivery_order_from: idDeliveryOrderFrom.value,
+                    id_delivery_order_to: idDeliveryOrderTo.value,
+                    transporterRefID: transporterRefID.value,
+                    deliveryDateTimeTZ: deliveryDateTimeTZ.value,
+                    address_delivery_order_from: addressDeliveryOrderFrom.value,
+                    address_delivery_order_to: addressDeliveryOrderTo.value,
+                    var_remark: remark.value,
+                    receive_date: receiveDate.value,
+                    warehouse_id: receiveIn.value,
+                    materialReceiveDetail: JSON.stringify(dataStore)
+                }
+            },
             url: '{{ route("MaterialReceive.store") }}',
             success: function (res) {
                 HideLoading();
@@ -528,57 +530,48 @@
         });
     }
 
-    function submitForm() {
+    function commentWorkflow() {
+        const swalWithBootstrapButtons = Swal.mixin({
+            confirmButtonClass: 'btn btn-success btn-sm',
+            cancelButtonClass: 'btn btn-danger btn-sm',
+            buttonsStyling: true,
+        });
+
+        swalWithBootstrapButtons.fire({
+            title: 'Comment',
+            text: "Please write your comment here",
+            type: 'question',
+            input: 'textarea',
+            showCloseButton: false,
+            showCancelButton: true,
+            focusConfirm: false,
+            cancelButtonText: '<span style="color:black;"> Cancel </span>',
+            confirmButtonText: '<span style="color:black;"> OK </span>',
+            cancelButtonColor: '#DDDAD0',
+            confirmButtonColor: '#DDDAD0',
+            reverseButtons: true
+        }).then((result) => {
+            if ('value' in result) {
+                dataWorkflow.comment = result.value;
+                ShowLoading();
+                MaterialReceiveStore();
+            }
+        });
+    }
+
+    function submitForm(value) {
+        triggerButtonModal = value;
         $('#material_receive_submit_modal').modal('hide');
 
-        let action = $('#FormSubmitMaterialReceive').attr("action");
-        let method = $('#FormSubmitMaterialReceive').attr("method");
-        let form_data = new FormData($('#FormSubmitMaterialReceive')[0]);
-        form_data.append('materialReceiveDetail', JSON.stringify(dataStore));
-
-        ShowLoading();
-
-        $.ajax({
-            url: action,
-            dataType: 'json',
-            cache: false,
-            contentType: false,
-            processData: false,
-            data: form_data,
-            type: method,
-            success: function (response) {
-                HideLoading();
-
-                if (response.message == "WorkflowError") {
-                    CancelNotif("You don't have access", "{{ route('MaterialReceive.index', ['var' => 1]) }}");
-                } else if (response.message == "MoreThanOne") {
-                    $('#getWorkFlow').modal('toggle');
-
-                    let t = $('#tableGetWorkFlow').DataTable();
-                    t.clear();
-                    $.each(response.data, function (key, val) {
-                        t.row.add([
-                            '<td><span data-dismiss="modal" onclick="SelectWorkFlow(\'' + val.Sys_ID + '\', \'' + val.NextApprover_RefID + '\', \'' + response.approverEntity_RefID + '\', \'' + response.documentTypeID + '\');"><img src="{{ asset("AdminLTE-master/dist/img/add.png") }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></span></td>',
-                            '<td style="border:1px solid #e9ecef;">' + val.FullApproverPath + '</td></tr></tbody>'
-                        ]).draw();
-                    });
+        $('#material_receive_submit_modal').on('hidden.bs.modal', function () {
+            if (triggerButtonModal === "SUBMIT") {
+                if (totalNextApprover > 1) {
+                    $('#myWorkflows').modal('show');
                 } else {
-                    const formatData = {
-                        workFlowPath_RefID: response.workFlowPath_RefID,
-                        nextApprover: response.nextApprover_RefID,
-                        approverEntity: response.approverEntity_RefID,
-                        documentTypeID: response.documentTypeID,
-                        storeData: response.storeData
-                    };
-
-                    SelectWorkFlow(formatData);
+                    commentWorkflow();
                 }
-            },
-            error: function (response) {
-                console.log('response error', response);
 
-                HideLoading();
-                CancelNotif("You don't have access", "{{ route('MaterialReceive.index', ['var' => 1]) }}");
+                triggerButtonModal = null;
             }
         });
     }

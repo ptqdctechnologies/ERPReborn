@@ -53,20 +53,20 @@ class MaterialReceiveController extends Controller
                 return response()->json($response);
             }
 
-            $responseWorkflow = $this->workflowService->submit(
-                $response['data']['businessDocument']['businessDocument_RefID'],
-                $request->workFlowPath_RefID,
-                $request->comment,
-                $request->approverEntity,
-            );
+            // $responseWorkflow = $this->workflowService->submit(
+            //     $response['data']['businessDocument']['businessDocument_RefID'],
+            //     $request->workFlowPath_RefID,
+            //     $request->comment,
+            //     $request->approverEntity,
+            // );
 
-            if ($responseWorkflow['metadata']['HTTPStatusCode'] !== 200) {
-                return response()->json($responseWorkflow);
-            }
+            // if ($responseWorkflow['metadata']['HTTPStatusCode'] !== 200) {
+            //     return response()->json($responseWorkflow);
+            // }
 
             $compact = [
                 "documentNumber" => $response['data']['businessDocument']['documentNumber'],
-                "status" => $responseWorkflow['metadata']['HTTPStatusCode'],
+                "status" => $response['metadata']['HTTPStatusCode'],
             ];
 
             return response()->json($compact);
