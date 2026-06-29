@@ -34,11 +34,14 @@
         </label>
         <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
           <div>
-            <span style="border-radius:0;" class="input-group-text form-control">
-              <a href="javascript:;" id="purchase_order_trigger" data-toggle="modal" data-target="#mySearchPO"
-                style="display: block;">
-                <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="purchase_order_trigger">
-              </a>
+            <span data-toggle="modal" data-target="#mySearchPO" class="input-group-text form-control"
+              style="border-radius:0;">
+              <i id="purchase_order_icon" class="fas fa-gift"></i>
+
+              <div id="purchase_order_loading" class="spinner-border spinner-border-sm" role="status"
+                style="display: none;">
+                <span class="sr-only">Loading...</span>
+              </div>
             </span>
           </div>
           <div>
