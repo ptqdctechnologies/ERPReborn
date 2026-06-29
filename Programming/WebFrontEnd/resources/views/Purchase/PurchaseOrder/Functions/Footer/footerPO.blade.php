@@ -452,7 +452,7 @@
         $("#deliveryToDuplicate").val(data[0].deliveryToName);
         $("#purchase_request_delivery_to").val(data[0].deliveryToName);
         $("#purchase_request_delivery_date").val(splitDateOfDelivery);
-        // $("#delivery_to").val(data[0].deliveryToName);
+        $("#delivery_to").val(data[0].deliveryToName);
         // $("#dateOfDelivery").val(splitDateOfDelivery);
 
         $("#prNumberMessage").hide();
@@ -469,9 +469,9 @@
                 if (data && Array.isArray(data) && data.length > 0) {
                     $("#purchaseRequisitionTrigger").show();
                     $("#loading_workflow").hide();
-                    $("#purchaseRequisitionTrigger").show();
                     $(".loadingPurchaseOrderTable").hide();
                     $("#tablePurchaseOrderDetail tbody").show();
+                    $("#myProjectSecondTrigger").show();
 
                     const isDuplicateMsr = msrIDList.includes(data[0].purchaseRequisition_RefID);
                     const currentBudget = combinedBudgetTrigger.value;
@@ -800,12 +800,12 @@
                     getDetailPurchaseRequisition(purchaseRequisitionNumber, purchaseRequisitionID);
                 } else {
                     Swal.fire("Error", "You don't have access", "error");
-                }
 
-                $("#loading_workflow").hide();
-                $("#myProjectSecondTrigger").show();
-                $(".loadingPurchaseOrderTable").hide();
-                $("#purchaseRequisitionTrigger").show();
+                    $("#loading_workflow").hide();
+                    $("#myProjectSecondTrigger").show();
+                    $(".loadingPurchaseOrderTable").hide();
+                    $("#purchaseRequisitionTrigger").show();
+                }
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log('jqXHR, textStatus, errorThrown', jqXHR, textStatus, errorThrown);
