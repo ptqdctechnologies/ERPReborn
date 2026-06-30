@@ -3,6 +3,8 @@
     let dataAddManual = [];
     let dataSubBudget = [];
     let dataProducts = [];
+    let dataWorks = [];
+    let dataUom = [];
     let indexSubBudget = null;
     let indexProduct = null;
     let indexUom = null;
@@ -104,8 +106,6 @@
         $('#import_total').text("0.00");
         $('#table_total').text("0.00");
         $('#type_message').hide();
-
-        console.log('typeOption', typeOption.value);
     }
 
     function calculateTotal() {
@@ -491,6 +491,18 @@
         return dataSubBudget.find(item => item.Code == codeToFind);
     }
 
+    function findWorkByCode(codeToFind) {
+        return dataWorks.find(item => item.code == codeToFind);
+    }
+
+    function findProductByCode(codeToFind) {
+        return dataProducts.find(item => item.code == codeToFind);
+    }
+
+    function findUomByName(nameToFind) {
+        return dataUom.find(item => item.name == nameToFind);
+    }
+
     function pickSubBudget(index) {
         indexSubBudget = index;
     }
@@ -780,6 +792,99 @@
             });
     }
 
+    function getCustomWorks() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: 'GET',
+            url: '{!! route("getWorks") !!}',
+        })
+            .done(function (response) {
+                const data = response && response[0] ? response : [];
+                dataWorks = data;
+
+                $('#tableWorks').DataTable({
+                    destroy: true,
+                    data: data,
+                    deferRender: true,
+                    scrollCollapse: true,
+                    scroller: true,
+                    columns: [
+                        {
+                            data: null,
+                            render: function (data, type, row, meta) {
+                                return '<input id="sys_id_work' + (meta.row + 1) + '" value="' + data.id + '" data-trigger="sys_id_work" type="hidden">' + (meta.row + 1)
+                            }
+                        },
+                        {
+                            data: 'code',
+                            defaultContent: '-',
+                            className: "align-middle"
+                        },
+                        {
+                            data: 'name',
+                            defaultContent: '-',
+                            className: "align-middle"
+                        }
+                    ]
+                });
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                console.error("Error:", errorThrown);
+            })
+            .always(function (jqXHR, textStatus, errorThrown) {
+                $("#loadingGetModalWorks").hide();
+            });
+    }
+
+    function getCustomUom() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: 'POST',
+            url: '{!! route("getQuantityUnit") !!}',
+        })
+            .done(function (response) {
+                const data = response.data && response.data[0] ? response.data : [];
+                dataUom = data;
+
+                $('#tableGetUom').DataTable({
+                    destroy: true,
+                    data: data,
+                    deferRender: true,
+                    scrollCollapse: true,
+                    scroller: true,
+                    columns: [
+                        {
+                            data: null,
+                            render: function (data, type, row, meta) {
+                                return '<input id="sys_id_uom' + (meta.row + 1) + '" value="' + data.sys_ID + '" data-trigger="sys_id_uom" type="hidden">' + (meta.row + 1)
+                            }
+                        },
+                        {
+                            data: 'name',
+                            defaultContent: '-',
+                            className: "align-middle"
+                        }
+                    ]
+                });
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                console.error("Error:", errorThrown);
+            })
+            .always(function (jqXHR, textStatus, errorThrown) {
+                $("#loadingGetModalUom").hide();
+            });
+    }
+
     function getWorkflow(combinedBudgetRefID, combinedBudgetCode, combinedBudgetName) {
         $.ajax({
             type: 'POST',
@@ -845,17 +950,42 @@
                 $('#table_import_from_excel tbody').empty();
 
                 res.rows.slice(1).forEach((row, index) => {
-                    const validateSubBudget = findSubBudgetByCode(row[1]);
+                    if (typeOption.value == "SUB_BUDGET_BASE") {
+                        const validateSubBudget = findSubBudgetByCode(row[1]);
 
-                    dataAddManual.push({
-                        entities: {
-                            isDefault: false,
-                            combinedBudgetSection_RefID: validateSubBudget ? validateSubBudget.Sys_ID : '',
-                            sub_budget_name: validateSubBudget ? `${validateSubBudget.Code} - ${validateSubBudget.Name}` : `${row[1]} - ${row[2]}`,
-                            value: row[3] > 0 ? Utils.parseFloatSafe(row[3]) : Utils.parseFloatSafe(0),
-                            notes: row[4] ? row[4] : ''
-                        }
-                    });
+                        dataAddManual.push({
+                            entities: {
+                                isDefault: false,
+                                combinedBudgetSection_RefID: validateSubBudget ? validateSubBudget.Sys_ID : '',
+                                sub_budget_name: validateSubBudget ? `${validateSubBudget.Code} - ${validateSubBudget.Name}` : `${row[1]} - ${row[2]}`,
+                                value: row[3] > 0 ? Utils.parseFloatSafe(row[3]) : Utils.parseFloatSafe(0),
+                                notes: row[4] ? row[4] : ''
+                            }
+                        });
+                    } else {
+                        const validateSubBudget = findSubBudgetByCode(row[1]);
+                        const validateWork = findWorkByCode(row[3]);
+                        const validateProduct = findProductByCode(row[5]);
+                        const validateUom = findUomByName(row[7]);
+
+                        dataAddManual.push({
+                            entities: {
+                                isDefault: false,
+                                combinedBudgetSection_RefID: validateSubBudget ? validateSubBudget.Sys_ID : '',
+                                sub_budget_name: validateSubBudget ? `${validateSubBudget.Code} - ${validateSubBudget.Name}` : `${row[1]} - ${row[2]}`,
+                                product_RefID: validateProduct ? validateProduct.sys_ID : '',
+                                product_name: validateProduct ? `${validateProduct.code} - ${validateProduct.name}` : `${row[5]} - ${row[6]}`,
+                                work_RefID: validateWork ? validateWork.id : '',
+                                work_name: validateWork ? validateWork.name : `${row[3]} - ${row[4]}`,
+                                uom_RefID: validateUom ? validateUom.sys_ID : '',
+                                uom_name: validateUom ? validateUom.name : row[7],
+                                qty: row[8] > 0 ? Utils.parseFloatSafe(row[8]) : Utils.parseFloatSafe(0),
+                                price: row[9] > 0 ? Utils.parseFloatSafe(row[9]) : Utils.parseFloatSafe(0),
+                                total: row[10] > 0 ? Utils.parseFloatSafe(row[10]) : Utils.parseFloatSafe(0),
+                                notes: row[11] ? row[11] : ''
+                            }
+                        });
+                    }
                 });
 
                 addRow();
@@ -1002,8 +1132,8 @@
 
     $(document).ready(function () {
         getVAT();
-        getUom();
-        getModalWorks();
+        getCustomUom();
+        getCustomWorks();
         getCustomProducts();
     });
 </script>
