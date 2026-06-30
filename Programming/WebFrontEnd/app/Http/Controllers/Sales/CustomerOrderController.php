@@ -19,9 +19,15 @@ class CustomerOrderController extends Controller
         $this->customerOrderService = $customerOrderService;
     }
 
-    public function download()
+    public function download(Request $request)
     {
-        $file = public_path('files/template-customer-order.xlsx');
+        $type = $request->input('customer_order_type');
+
+        if ($type == "SUB_BUDGET_BASE") {
+            $file = public_path('files/template-customer-order.xlsx');
+        } else {
+            $file = public_path('files/template-customer-order-product.xlsx');
+        }
 
         return response()->download($file);
     }
