@@ -178,12 +178,17 @@ class CustomerOrderController extends Controller
 
     public function ReportCustomerOrderSummary(Request $request)
     {
-        $isSubmitButton = Session::get('isButtonReportCustomerOrderSummary');
-        $dataSummary = $isSubmitButton ? Session::get('dataReportCustomerOrderSummary') : [];
+        $documentTypeRefID = $this->GetBusinessDocumentsTypeFromRedis('Sales Order Form');
+        $sessionOrganizationalDepartmentName = Session::get('SessionOrganizationalDepartmentName');
+        $sessionOrganizationalJobPositionName = Session::get('SessionOrganizationalJobPositionName');
 
-        return view('Sales.CustomerOrder.Reports.ReportCustomerOrderSummary', [
-            'dataSummary' => $dataSummary
-        ]);
+        $compact = [
+            'documentTypeRefID' => $documentTypeRefID,
+            'sessionOrganizationalDepartmentName' => $sessionOrganizationalDepartmentName,
+            'sessionOrganizationalJobPositionName' => $sessionOrganizationalJobPositionName
+        ];
+
+        return view('Sales.CustomerOrder.Reports.ReportCustomerOrderSummary', $compact);
     }
 
     public function ReportCustomerOrderSummaryStore(Request $request)
@@ -220,6 +225,16 @@ class CustomerOrderController extends Controller
 
     public function ReportCustomerOrderToInvoice(Request $request)
     {
-        return view('Sales.CustomerOrder.Reports.ReportCustomerOrderToInvoice');
+        $documentTypeRefID = $this->GetBusinessDocumentsTypeFromRedis('Sales Order Form');
+        $sessionOrganizationalDepartmentName = Session::get('SessionOrganizationalDepartmentName');
+        $sessionOrganizationalJobPositionName = Session::get('SessionOrganizationalJobPositionName');
+
+        $compact = [
+            'documentTypeRefID' => $documentTypeRefID,
+            'sessionOrganizationalDepartmentName' => $sessionOrganizationalDepartmentName,
+            'sessionOrganizationalJobPositionName' => $sessionOrganizationalJobPositionName
+        ];
+
+        return view('Sales.CustomerOrder.Reports.ReportCustomerOrderToInvoice', $compact);
     }
 }
