@@ -797,8 +797,9 @@ class DocumentTypeMapper
             ],
             'Sales Order Form' => [
                 'dataHeader' => [
-                    'dateUpdate' => '2025-09-29 15:49:00.113 +0700', // '2025-09-29 15:49:00.113 +0700'
+                    'dateUpdate' => null, // '2025-09-29 15:49:00.113 +0700'
                     'currency' => 'IDR',
+                    'type' => 'Product Base',
                     'fileID' => null,
                 ],
                 'components' => [
