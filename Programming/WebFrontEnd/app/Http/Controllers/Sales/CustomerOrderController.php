@@ -19,9 +19,15 @@ class CustomerOrderController extends Controller
         $this->customerOrderService = $customerOrderService;
     }
 
-    public function download()
+    public function download(Request $request)
     {
-        $file = public_path('files/template-customer-order.xlsx');
+        $type = $request->input('customer_order_type');
+
+        if ($type == "SUB_BUDGET_BASE") {
+            $file = public_path('files/template-customer-order.xlsx');
+        } else {
+            $file = public_path('files/template-customer-order-product.xlsx');
+        }
 
         return response()->download($file);
     }
@@ -172,12 +178,17 @@ class CustomerOrderController extends Controller
 
     public function ReportCustomerOrderSummary(Request $request)
     {
-        $isSubmitButton = Session::get('isButtonReportCustomerOrderSummary');
-        $dataSummary = $isSubmitButton ? Session::get('dataReportCustomerOrderSummary') : [];
+        $documentTypeRefID = $this->GetBusinessDocumentsTypeFromRedis('Sales Order Form');
+        $sessionOrganizationalDepartmentName = Session::get('SessionOrganizationalDepartmentName');
+        $sessionOrganizationalJobPositionName = Session::get('SessionOrganizationalJobPositionName');
 
-        return view('Sales.CustomerOrder.Reports.ReportCustomerOrderSummary', [
-            'dataSummary' => $dataSummary
-        ]);
+        $compact = [
+            'documentTypeRefID' => $documentTypeRefID,
+            'sessionOrganizationalDepartmentName' => $sessionOrganizationalDepartmentName,
+            'sessionOrganizationalJobPositionName' => $sessionOrganizationalJobPositionName
+        ];
+
+        return view('Sales.CustomerOrder.Reports.ReportCustomerOrderSummary', $compact);
     }
 
     public function ReportCustomerOrderSummaryStore(Request $request)
@@ -214,6 +225,16 @@ class CustomerOrderController extends Controller
 
     public function ReportCustomerOrderToInvoice(Request $request)
     {
-        return view('Sales.CustomerOrder.Reports.ReportCustomerOrderToInvoice');
+        $documentTypeRefID = $this->GetBusinessDocumentsTypeFromRedis('Sales Order Form');
+        $sessionOrganizationalDepartmentName = Session::get('SessionOrganizationalDepartmentName');
+        $sessionOrganizationalJobPositionName = Session::get('SessionOrganizationalJobPositionName');
+
+        $compact = [
+            'documentTypeRefID' => $documentTypeRefID,
+            'sessionOrganizationalDepartmentName' => $sessionOrganizationalDepartmentName,
+            'sessionOrganizationalJobPositionName' => $sessionOrganizationalJobPositionName
+        ];
+
+        return view('Sales.CustomerOrder.Reports.ReportCustomerOrderToInvoice', $compact);
     }
 }

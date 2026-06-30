@@ -5,6 +5,7 @@
     let deliveryType = null;
     let deliveryDate = null;
     let isAlreadyProcess = false;
+    const documentTypeID = document.getElementById("DocumentTypeID");
     const referenceTypeValue = document.getElementById("reference_type");
     const transporterRefID = document.getElementById("transporter_id");
 
@@ -705,35 +706,44 @@
         }
     }
 
-    function selectWorkFlow(formatData) {
-        const swalWithBootstrapButtons = Swal.mixin({
-            confirmButtonClass: 'btn btn-success btn-sm',
-            cancelButtonClass: 'btn btn-danger btn-sm',
-            buttonsStyling: true,
+    // function selectWorkFlow() {
+    //     const swalWithBootstrapButtons = Swal.mixin({
+    //         confirmButtonClass: 'btn btn-success btn-sm',
+    //         cancelButtonClass: 'btn btn-danger btn-sm',
+    //         buttonsStyling: true,
+    //     });
+
+    //     swalWithBootstrapButtons.fire({
+    //         title: 'Comment',
+    //         text: "Please write your comment here",
+    //         type: 'question',
+    //         input: 'textarea',
+    //         showCloseButton: false,
+    //         showCancelButton: true,
+    //         focusConfirm: false,
+    //         cancelButtonText: '<span style="color:black;"> Cancel </span>',
+    //         confirmButtonText: '<span style="color:black;"> OK </span>',
+    //         cancelButtonColor: '#DDDAD0',
+    //         confirmButtonColor: '#DDDAD0',
+    //         reverseButtons: true
+    //     }).then((result) => {
+    //         if ('value' in result) {
+    //             ShowLoading();
+    //             deliveryOrderStore({ ...formatData, comment: result.value });
+    //         }
+    //     });
+    // }
+
+    function deliveryOrderStore(comment) {
+        const storeData = {};
+
+        $('#delivery_order_submit_form').serializeArray().forEach(function (item) {
+            storeData[item.name] = item.value;
         });
 
-        swalWithBootstrapButtons.fire({
-            title: 'Comment',
-            text: "Please write your comment here",
-            type: 'question',
-            input: 'textarea',
-            showCloseButton: false,
-            showCancelButton: true,
-            focusConfirm: false,
-            cancelButtonText: '<span style="color:black;"> Cancel </span>',
-            confirmButtonText: '<span style="color:black;"> OK </span>',
-            cancelButtonColor: '#DDDAD0',
-            confirmButtonColor: '#DDDAD0',
-            reverseButtons: true
-        }).then((result) => {
-            if ('value' in result) {
-                ShowLoading();
-                deliveryOrderStore({ ...formatData, comment: result.value });
-            }
-        });
-    }
+        storeData.delivery_order_details = JSON.stringify(dataStore);
+        storeData.delivery_date = deliveryDate ? deliveryDate.split(" ")[0] : deliveryDate;
 
-    function deliveryOrderStore(formatData) {
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -742,7 +752,13 @@
 
         $.ajax({
             type: 'POST',
-            data: formatData,
+            data: {
+                workFlowPath_RefID: '',
+                nextApprover: '',
+                approverEntity: '',
+                documentTypeID: documentTypeID.value,
+                storeData: storeData
+            },
             url: '{{ route("DeliveryOrder.store") }}',
             success: function (res) {
                 HideLoading();
@@ -783,56 +799,120 @@
     function submitForm() {
         $('#delivery_order_submit_modal').modal('hide');
 
-        var action = $('#delivery_order_submit_form').attr("action");
-        var method = $('#delivery_order_submit_form').attr("method");
-        var form_data = new FormData($('#delivery_order_submit_form')[0]);
-        form_data.append('delivery_order_details', JSON.stringify(dataStore));
-        form_data.append('delivery_date', deliveryDate ? deliveryDate.split(" ")[0] : deliveryDate);
+        const swalWithBootstrapButtons = Swal.mixin({
+            confirmButtonClass: 'btn btn-success btn-sm',
+            cancelButtonClass: 'btn btn-danger btn-sm',
+            buttonsStyling: true,
+        });
 
-        ShowLoading();
+        swalWithBootstrapButtons.fire({
+            title: 'Comment',
+            text: "Please write your comment here",
+            type: 'question',
+            input: 'textarea',
+            showCloseButton: false,
+            showCancelButton: true,
+            focusConfirm: false,
+            cancelButtonText: '<span style="color:black;"> Cancel </span>',
+            confirmButtonText: '<span style="color:black;"> OK </span>',
+            cancelButtonColor: '#DDDAD0',
+            confirmButtonColor: '#DDDAD0',
+            reverseButtons: true
+        }).then((result) => {
+            if ('value' in result) {
+                ShowLoading();
+                deliveryOrderStore(result.value);
+            }
+        });
+    }
+
+    // function submitForm() {
+    //     $('#delivery_order_submit_modal').modal('hide');
+
+    //     var action = $('#delivery_order_submit_form').attr("action");
+    //     var method = $('#delivery_order_submit_form').attr("method");
+    //     var form_data = new FormData($('#delivery_order_submit_form')[0]);
+    //     form_data.append('delivery_order_details', JSON.stringify(dataStore));
+    //     form_data.append('delivery_date', deliveryDate ? deliveryDate.split(" ")[0] : deliveryDate);
+
+    //     ShowLoading();
+
+    //     $.ajax({
+    //         url: action,
+    //         dataType: 'json',
+    //         cache: false,
+    //         contentType: false,
+    //         processData: false,
+    //         data: form_data,
+    //         type: method,
+    //         success: function (response) {
+    //             HideLoading();
+
+    //             if (response.message == "WorkflowError") {
+    //                 CancelNotif("You don't have access", "{{ route('DeliveryOrder.index', ['var' => 1]) }}");
+    //             } else if (response.message == "MoreThanOne") {
+    //                 $('#getWorkFlow').modal('toggle');
+
+    //                 var t = $('#tableGetWorkFlow').DataTable();
+    //                 t.clear();
+    //                 $.each(response.data, function (key, val) {
+    //                     t.row.add([
+    //                         '<td><span data-dismiss="modal" onclick="SelectWorkFlow(\'' + val.Sys_ID + '\', \'' + val.NextApprover_RefID + '\', \'' + response.approverEntity_RefID + '\', \'' + response.documentTypeID + '\');"><img src="{{ asset("AdminLTE-master/dist/img/add.png") }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></span></td>',
+    //                         '<td style="border:1px solid #e9ecef;">' + val.FullApproverPath + '</td></tr></tbody>'
+    //                     ]).draw();
+    //                 });
+    //             } else {
+    //                 const formatData = {
+    //                     workFlowPath_RefID: response.workFlowPath_RefID,
+    // nextApprover: response.nextApprover_RefID,
+    // approverEntity: response.approverEntity_RefID,
+    // documentTypeID: response.documentTypeID,
+    // storeData: response.storeData
+    //                 };
+
+    //                 selectWorkFlow(formatData);
+    //             }
+    //         },
+    //         error: function (response) {
+    //             console.log('response error', response);
+
+    //             HideLoading();
+
+    //             CancelNotif("You don't have access", "{{ route('DeliveryOrder.index', ['var' => 1]) }}");
+    //         }
+    //     });
+    // }
+
+    function getWorkflow(combinedBudgetRefID, purchaseOrderRefID, purchaseOrderNumber) {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
 
         $.ajax({
-            url: action,
-            dataType: 'json',
-            cache: false,
-            contentType: false,
-            processData: false,
-            data: form_data,
-            type: method,
+            type: 'POST',
+            data: {
+                businessDocumentType_RefID: documentTypeID.value,
+                combinedBudget_RefID: combinedBudgetRefID
+            },
+            url: '{!! route("Workflow.UserAllowedToSubmit") !!}',
             success: function (response) {
-                HideLoading();
+                if (response.status === 200 && !response.data[0].signAccess) {
+                    // totalNextApprover = response.data[0].nextApproverPath.length;
+                    // dataWorkflow.workFlowPathRefID = response.data[0].sys_ID;
+                    // dataWorkflow.approverEntityRefID = response.data[0].submitterEntity_RefID;
 
-                if (response.message == "WorkflowError") {
-                    CancelNotif("You don't have access", "{{ route('DeliveryOrder.index', ['var' => 1]) }}");
-                } else if (response.message == "MoreThanOne") {
-                    $('#getWorkFlow').modal('toggle');
+                    // getWorkflows(response.data[0].nextApproverPath);
 
-                    var t = $('#tableGetWorkFlow').DataTable();
-                    t.clear();
-                    $.each(response.data, function (key, val) {
-                        t.row.add([
-                            '<td><span data-dismiss="modal" onclick="SelectWorkFlow(\'' + val.Sys_ID + '\', \'' + val.NextApprover_RefID + '\', \'' + response.approverEntity_RefID + '\', \'' + response.documentTypeID + '\');"><img src="{{ asset("AdminLTE-master/dist/img/add.png") }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></span></td>',
-                            '<td style="border:1px solid #e9ecef;">' + val.FullApproverPath + '</td></tr></tbody>'
-                        ]).draw();
-                    });
+                    getPurchaseOrderDetail(purchaseOrderRefID, purchaseOrderNumber);
                 } else {
-                    const formatData = {
-                        workFlowPath_RefID: response.workFlowPath_RefID,
-                        nextApprover: response.nextApprover_RefID,
-                        approverEntity: response.approverEntity_RefID,
-                        documentTypeID: response.documentTypeID,
-                        storeData: response.storeData
-                    };
-
-                    selectWorkFlow(formatData);
+                    Swal.fire("Error", "You don't have access", "error");
                 }
             },
-            error: function (response) {
-                console.log('response error', response);
-
-                HideLoading();
-
-                CancelNotif("You don't have access", "{{ route('DeliveryOrder.index', ['var' => 1]) }}");
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log('jqXHR, textStatus, errorThrown', jqXHR, textStatus, errorThrown);
+                Swal.fire("Error", "Data Error", "error");
             }
         });
     }
@@ -947,6 +1027,8 @@
                     $("#purchase_order_message").hide();
 
                     $("#loading-purchase-order").hide();
+                    $("#purchase_order_loading").hide();
+                    $("#purchase_order_icon").show();
 
                     let modifyColumn = `<td rowspan="${data.length}" style="text-align: center; padding: 10px !important;">${purchaseOrderNumber}</td>`;
 
@@ -1018,15 +1100,19 @@
         const table = $('#TableSearchPORevision').DataTable();
         const data = table.row(this).data();
 
-        $("#loading-purchase-order").show();
+        // $("#loading-purchase-order").show();
+
+        $("#purchase_order_loading").show();
+        $("#purchase_order_icon").hide();
 
         if (data) {
             $("#mySearchPO").modal('toggle');
 
-            let purchaseOrder_RefID = data.sys_ID;
+            let purchaseOrderRefID = data.sys_ID;
             let purchaseOrderNumber = data.sys_Text;
+            let combinedBudgetRefID = data.combinedBudget_RefID;
 
-            getPurchaseOrderDetail(purchaseOrder_RefID, purchaseOrderNumber);
+            getWorkflow(combinedBudgetRefID, purchaseOrderRefID, purchaseOrderNumber);
         }
     });
     // END OF PURCHASE ORDER TYPE

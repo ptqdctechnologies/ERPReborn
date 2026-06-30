@@ -2,7 +2,13 @@
     let data = [];
     let dataAddManual = [];
     let dataSubBudget = [];
+    let dataProducts = [];
+    let dataWorks = [];
+    let dataUom = [];
     let indexSubBudget = null;
+    let indexProduct = null;
+    let indexUom = null;
+    let indexWork = null;
     let documentTypeID = document.getElementById("DocumentTypeID");
     let isImportFromExcel = false;
     let dataWorkflow = {
@@ -12,12 +18,69 @@
     };
     const budgetID = document.getElementById("project_id");
     const currencyID = document.getElementById("currency_id");
+    const typeOption = document.getElementById("typeOption");
     const fileID = document.getElementById("dataInput_Log_FileUpload");
     const coFile = document.getElementById("excel_name");
+
+    function getVAT() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: 'GET',
+            url: '{!! route("getVAT") !!}',
+            success: function (data) {
+                if (data && Array.isArray(data)) {
+                    $('#ppn_percentage_option').empty();
+                    $('#ppn_percentage_option').append('<option disabled selected value="Select a VAT">Select a VAT</option>');
+
+                    data.forEach(function (project) {
+                        $('#ppn_percentage_option').append('<option value="' + project.tariffFixRate + '">' + project.tariffFixRate + '</option>');
+                    });
+                } else {
+                    console.log('Data vat not found.');
+                }
+            },
+            error: function (textStatus, errorThrown) {
+                console.log('Function getVAT error: ', textStatus, errorThrown);
+            }
+        });
+    }
 
     function detailAddManual() {
         dataAddManual = [];
         addRow();
+    }
+
+    function selectType(params) {
+        if (params.value == "SUB_BUDGET_BASE") {
+            $(".productField").hide();
+            $(".subBudgetField").show();
+            $('#ppn_percentage_option').val('Select a VAT');
+        } else {
+            $(".productField").show();
+            $(".subBudgetField").hide();
+        }
+    }
+
+    function selectPercentageVAT(params) {
+        const tableTotal = document.getElementById("table_total");
+        const resultVAT = (Utils.parseFloatSafe(params.value) / 100) * Utils.parseFloatSafe(Utils.removeCommas(tableTotal.textContent));
+        const resultGrandTotal = resultVAT + Utils.parseFloatSafe(Utils.removeCommas(tableTotal.textContent));
+
+        $("#table_total_vat").text(Utils.formatCurrency(Utils.parseFloatSafe(resultVAT)));
+        $("#table_grand_total").text(Utils.formatCurrency(Utils.parseFloatSafe(resultGrandTotal)));
+    }
+
+    function selectVAT(params) {
+        if (params.value == "NO") {
+            $('#ppn_percentage_container').css('display', 'none');
+        } else {
+            $('#ppn_percentage_container').css('display', 'flex');
+        }
     }
 
     function typeValue(val) {
@@ -39,31 +102,59 @@
 
             detailAddManual();
         }
+        $("#typeOption").prop("disabled", true);
         $('#import_total').text("0.00");
-        $('#manually_total').text("0.00");
+        $('#table_total').text("0.00");
         $('#type_message').hide();
     }
 
     function calculateTotal() {
         let total = 0;
 
-        document.querySelectorAll('input[id^="value"]').forEach(function (input) {
-            let value = parseFloat(input.value.replace(/,/g, '')); // Mengambil nilai dan menghilangkan koma
+        if (typeOption.value === "SUB_BUDGET_BASE") {
+            document.querySelectorAll('input[id^="value"]').forEach(function (input) {
+                let value = parseFloat(input.value.replace(/,/g, '')); // Mengambil nilai dan menghilangkan koma
 
-            if (!isNaN(value)) {
-                total += value;
-            }
-        });
+                if (!isNaN(value)) {
+                    total += value;
+                }
+            });
+        } else {
+            document.querySelectorAll('input[id^="total"]').forEach(function (input) {
+                let value = parseFloat(input.value.replace(/,/g, '')); // Mengambil nilai dan menghilangkan koma
+
+                if (!isNaN(value)) {
+                    total += value;
+                }
+            });
+        }
 
         document.getElementById('import_total').textContent = total.toLocaleString('en-US', {
             minimumFractionDigits: 2,
             maximumFractionDigits: 2
         });
 
-        document.getElementById('manually_total').textContent = total.toLocaleString('en-US', {
+        document.getElementById('table_total').textContent = total.toLocaleString('en-US', {
             minimumFractionDigits: 2,
             maximumFractionDigits: 2
         });
+
+        const tableTotalVAT = document.getElementById("ppn_percentage_option");
+        const resultVAT = (Utils.parseFloatSafe(tableTotalVAT.value) / 100) * Utils.parseFloatSafe(total);
+        const resultGrandTotal = resultVAT + total;
+
+        $("#table_total_vat").text(Utils.formatCurrency(Utils.parseFloatSafe(resultVAT)));
+        $("#table_grand_total").text(Utils.formatCurrency(Utils.parseFloatSafe(resultGrandTotal)));
+    }
+
+    function calculateTotalLine(index) {
+        const qtyLine = document.getElementById(`qty${index}`);
+        const priceLine = document.getElementById(`price${index}`);
+        const result = Utils.parseFloatSafe(Utils.removeCommas(qtyLine.value)) * Utils.parseFloatSafe(Utils.removeCommas(priceLine.value));
+
+        calculateTotal();
+        $(`#total${index}`).val(Utils.formatCurrency(result));
+        updateField(index, 'total', Utils.parseFloatSafe(Utils.removeCommas(Utils.formatCurrency(result))));
     }
 
     function checkOneLineImportContents(indexInput) {
@@ -174,17 +265,35 @@
     }
 
     function addRow() {
-        const newRow = {
-            entities: {
-                combinedBudgetSection_RefID: "",
-                sub_budget_name: "",
-                value: "",
-                notes: "",
-                isDefault: true
-            }
-        };
-
-        dataAddManual.push(newRow);
+        if (typeOption.value == "SUB_BUDGET_BASE") {
+            dataAddManual.push({
+                entities: {
+                    combinedBudgetSection_RefID: "",
+                    sub_budget_name: "",
+                    value: "",
+                    notes: "",
+                    isDefault: true
+                }
+            });
+        } else {
+            dataAddManual.push({
+                entities: {
+                    combinedBudgetSection_RefID: "",
+                    sub_budget_name: "",
+                    product_RefID: "",
+                    product_name: "",
+                    work_RefID: "",
+                    work_name: "",
+                    uom_RefID: "",
+                    uom_name: "",
+                    qty: "",
+                    price: "",
+                    total: "",
+                    notes: "",
+                    isDefault: true
+                }
+            });
+        }
 
         renderTable();
     }
@@ -206,8 +315,9 @@
 
         dataAddManual.forEach((row, index) => {
             const tr = document.createElement("tr");
-            if (index === dataAddManual.length - 1) {
-                tr.innerHTML = `
+            if (typeOption.value === "SUB_BUDGET_BASE") {
+                if (index === dataAddManual.length - 1) {
+                    tr.innerHTML = `
                     <td style="text-align: center; padding-left: 4px !important;">
                         <div class="d-flex justify-content-center">
                             <!-- ICON PLUS -->
@@ -223,8 +333,8 @@
                     <td></td>
                     <td></td>
                 `;
-            } else {
-                tr.innerHTML = `
+                } else {
+                    tr.innerHTML = `
                     <td style="text-align: center; padding-left: 4px !important;">
                         <div class="d-flex justify-content-center">
                             <!-- ICON MINUS -->
@@ -251,10 +361,112 @@
                     <td>
                         <input type="text" id="value${index}" class="form-control form-control number-without-negative" value="${row.entities.value ? Utils.formatCurrency(row.entities.value) : row.entities.value}" onkeyup="calculateTotal()" onchange="updateField(${index}, 'value', parseFloat(this.value.replace(/,/g, '')))">
                     </td>
-                    <td>
+                    <td style="padding-right: 0.3rem;">
                         <textarea id="notes${index}" class="form-control" onchange="updateField(${index}, 'notes', this.value)">${row.entities.notes}</textarea>
                     </td>
                 `;
+                }
+            } else {
+                if (index === dataAddManual.length - 1) {
+                    tr.innerHTML = `
+                    <td style="text-align: center; padding-left: 4px !important;">
+                        <div class="d-flex justify-content-center">
+                            <!-- ICON PLUS -->
+                            <div class="icon-plus d-flex align-items-center justify-content-center" 
+                                style="width:20px;height:20px;border-radius:100%;background-color:#4B586A;margin:2px;cursor:pointer;
+                                display:${index === dataAddManual.length - 1 ? 'flex' : 'none !important'};"
+                                onclick="addRow()">
+                                <i class="fas fa-plus" style="color:#fff;"></i>
+                            </div>
+                        </div>
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                `;
+                } else {
+                    tr.innerHTML = `
+                    <td style="text-align: center; padding-left: 4px !important;">
+                        <div class="d-flex justify-content-center">
+                            <!-- ICON MINUS -->
+                            <div class="icon-minus d-flex align-items-center justify-content-center" 
+                                style="width:20px;height:20px;border-radius:100%;background-color:red;margin:2px;cursor:pointer;display:${index === dataAddManual.length - 1 ? 'none !important' : 'flex'};"
+                                onclick="removeRow(${index})">
+                                <i class="fas fa-minus" style="color:#fff;"></i>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-group">
+                            <div class="input-group-append">
+                                <span class="input-group-text form-control" style="cursor:pointer;">
+                                    <a href="javascript:;" data-toggle="modal" data-target="#mySites" onclick="pickSubBudget(${index})" style="color: #000;">
+                                        <i class="fas fa-gift"></i>
+                                    </a>
+                                </span>
+                            </div>
+                            <input type="hidden" id="combinedBudgetSection_RefID${index}" value="${row.entities.combinedBudgetSection_RefID}">
+                            <input type="text" id="sub_budget_name${index}" class="form-control" readonly value="${row.entities.sub_budget_name}" onchange="updateField(${index}, 'sub_budget_name', this.value)" style="background-color: ${row.entities.sub_budget_name ? '#e9ecef' : 'white'}; border: ${row.entities.combinedBudgetSection_RefID ? '1px solid #ced4da' : '1px solid red'}">
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-group">
+                            <div class="input-group-append">
+                                <span class="input-group-text form-control" style="cursor:pointer;">
+                                    <a href="javascript:;" data-toggle="modal" data-target="#myWorks" onclick="pickWork(${index})" style="color: #000;">
+                                        <i class="fas fa-gift"></i>
+                                    </a>
+                                </span>
+                            </div>
+                            <input type="hidden" id="work_RefID${index}" value="${row.entities.work_RefID}">
+                            <input type="text" id="work_name${index}" class="form-control" readonly value="${row.entities.work_name}" onchange="updateField(${index}, 'work_name', this.value)" style="background-color: ${row.entities.work_name ? '#e9ecef' : 'white'}; border: ${row.entities.work_RefID ? '1px solid #ced4da' : '1px solid red'}">
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-group">
+                            <div class="input-group-append">
+                                <span class="input-group-text form-control" style="cursor:pointer;">
+                                    <a href="javascript:;" data-toggle="modal" data-target="#myProductss" onclick="pickProduct(${index})" style="color: #000;">
+                                        <i class="fas fa-gift"></i>
+                                    </a>
+                                </span>
+                            </div>
+                            <input type="hidden" id="product_RefID${index}" value="${row.entities.product_RefID}">
+                            <input type="text" id="product_name${index}" class="form-control" readonly value="${row.entities.product_name}" onchange="updateField(${index}, 'product_name', this.value)" style="background-color: ${row.entities.product_name ? '#e9ecef' : 'white'}; border: ${row.entities.product_RefID ? '1px solid #ced4da' : '1px solid red'}">
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-group">
+                            <div class="input-group-append">
+                                <span class="input-group-text form-control" style="cursor:pointer;">
+                                    <a href="javascript:;" data-toggle="modal" data-target="#myUom" onclick="pickUom(${index})" style="color: #000;">
+                                        <i class="fas fa-gift"></i>
+                                    </a>
+                                </span>
+                            </div>
+                            <input type="hidden" id="uom_RefID${index}" value="${row.entities.uom_RefID}">
+                            <input type="text" id="uom_name${index}" class="form-control" readonly value="${row.entities.uom_name}" onchange="updateField(${index}, 'uom_name', this.value)" style="background-color: ${row.entities.uom_name ? '#e9ecef' : 'white'}; border: ${row.entities.uom_RefID ? '1px solid #ced4da' : '1px solid red'}">
+                        </div>
+                    </td>
+                    <td>
+                        <input type="text" id="qty${index}" class="form-control form-control number-without-negative" value="${row.entities.qty ? Utils.formatCurrency(row.entities.qty) : row.entities.qty}" onkeyup="calculateTotalLine(${index})" onchange="updateField(${index}, 'qty', parseFloat(this.value.replace(/,/g, '')))">
+                    </td>
+                    <td>
+                        <input type="text" id="price${index}" class="form-control form-control number-without-negative" value="${row.entities.price ? Utils.formatCurrency(row.entities.price) : row.entities.price}" onkeyup="calculateTotalLine(${index})" onchange="updateField(${index}, 'price', parseFloat(this.value.replace(/,/g, '')))">
+                    </td>
+                    <td>
+                        <input type="text" id="total${index}" class="form-control form-control number-without-negative" value="${row.entities.total ? Utils.formatCurrency(row.entities.total) : row.entities.total}" onchange="updateField(${index}, 'total', parseFloat(this.value.replace(/,/g, '')))" disabled>
+                    </td>
+                    <td style="padding-right: 0.3rem;">
+                        <textarea id="notes${index}" class="form-control" onchange="updateField(${index}, 'notes', this.value)">${row.entities.notes}</textarea>
+                    </td>
+                `;
+                }
             }
 
             tbody.appendChild(tr);
@@ -279,8 +491,32 @@
         return dataSubBudget.find(item => item.Code == codeToFind);
     }
 
+    function findWorkByCode(codeToFind) {
+        return dataWorks.find(item => item.code == codeToFind);
+    }
+
+    function findProductByCode(codeToFind) {
+        return dataProducts.find(item => item.code == codeToFind);
+    }
+
+    function findUomByName(nameToFind) {
+        return dataUom.find(item => item.name == nameToFind);
+    }
+
     function pickSubBudget(index) {
         indexSubBudget = index;
+    }
+
+    function pickProduct(index) {
+        indexProduct = index;
+    }
+
+    function pickUom(index) {
+        indexUom = index;
+    }
+
+    function pickWork(index) {
+        indexWork = index;
     }
 
     function submitForm() {
@@ -497,6 +733,158 @@
             });
     }
 
+    function getCustomProducts() {
+        $(".loadingGetModalProductss").show();
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: 'GET',
+            url: '{!! route("getProduct") !!}',
+        })
+            .done(function (response) {
+                let data = response.data.data ? response.data.data : [];
+                dataProducts = data;
+
+                $('#tableGetProductss').DataTable({
+                    destroy: true,
+                    data: data,
+                    deferRender: true,
+                    scrollCollapse: true,
+                    scroller: true,
+                    columns: [
+                        {
+                            data: null,
+                            render: function (data, type, row, meta) {
+                                return '<td class="align-middle text-center">' +
+                                    '<input id="sys_id_product' + (meta.row + 1) + '" value="' + data.sys_ID + '" data-trigger="sys_id_product" type="hidden">' +
+                                    (meta.row + 1) +
+                                    '</td>';
+                            }
+                        },
+                        {
+                            data: 'code',
+                            defaultContent: '-',
+                            className: "align-middle"
+                        },
+                        {
+                            data: 'name',
+                            defaultContent: '-',
+                            className: "align-middle text-wrap"
+                        },
+                        {
+                            data: 'quantityUnitName',
+                            defaultContent: '-',
+                            className: "align-middle"
+                        }
+                    ]
+                });
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                console.error("Error:", errorThrown);
+            })
+            .always(function (jqXHR, textStatus, errorThrown) {
+                $(".loadingGetModalProductss").hide();
+            });
+    }
+
+    function getCustomWorks() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: 'GET',
+            url: '{!! route("getWorks") !!}',
+        })
+            .done(function (response) {
+                const data = response && response[0] ? response : [];
+                dataWorks = data;
+
+                $('#tableWorks').DataTable({
+                    destroy: true,
+                    data: data,
+                    deferRender: true,
+                    scrollCollapse: true,
+                    scroller: true,
+                    columns: [
+                        {
+                            data: null,
+                            render: function (data, type, row, meta) {
+                                return '<input id="sys_id_work' + (meta.row + 1) + '" value="' + data.id + '" data-trigger="sys_id_work" type="hidden">' + (meta.row + 1)
+                            }
+                        },
+                        {
+                            data: 'code',
+                            defaultContent: '-',
+                            className: "align-middle"
+                        },
+                        {
+                            data: 'name',
+                            defaultContent: '-',
+                            className: "align-middle"
+                        }
+                    ]
+                });
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                console.error("Error:", errorThrown);
+            })
+            .always(function (jqXHR, textStatus, errorThrown) {
+                $("#loadingGetModalWorks").hide();
+            });
+    }
+
+    function getCustomUom() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: 'POST',
+            url: '{!! route("getQuantityUnit") !!}',
+        })
+            .done(function (response) {
+                const data = response.data && response.data[0] ? response.data : [];
+                dataUom = data;
+
+                $('#tableGetUom').DataTable({
+                    destroy: true,
+                    data: data,
+                    deferRender: true,
+                    scrollCollapse: true,
+                    scroller: true,
+                    columns: [
+                        {
+                            data: null,
+                            render: function (data, type, row, meta) {
+                                return '<input id="sys_id_uom' + (meta.row + 1) + '" value="' + data.sys_ID + '" data-trigger="sys_id_uom" type="hidden">' + (meta.row + 1)
+                            }
+                        },
+                        {
+                            data: 'name',
+                            defaultContent: '-',
+                            className: "align-middle"
+                        }
+                    ]
+                });
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                console.error("Error:", errorThrown);
+            })
+            .always(function (jqXHR, textStatus, errorThrown) {
+                $("#loadingGetModalUom").hide();
+            });
+    }
+
     function getWorkflow(combinedBudgetRefID, combinedBudgetCode, combinedBudgetName) {
         $.ajax({
             type: 'POST',
@@ -506,7 +894,7 @@
             },
             url: '{!! route("Workflow.UserAllowedToSubmit") !!}',
             success: function (response) {
-                if (response.status === 200 && response.data[0].signAccess) {
+                if (response.status === 200 && !response.data[0].signAccess) {
                     getCustomSites(combinedBudgetRefID);
 
                     $("#project_id").val(combinedBudgetRefID);
@@ -530,6 +918,13 @@
             }
         });
     }
+
+    $('#downloadTemplate').click(function () {
+        let type = typeOption.value;
+
+        window.location.href =
+            "{{ route('CustomerOrder.Download') }}?customer_order_type=" + encodeURIComponent(type);
+    });
 
     $('#excel_file').on('change', function () {
         let fileName = this.files[0].name;
@@ -555,17 +950,42 @@
                 $('#table_import_from_excel tbody').empty();
 
                 res.rows.slice(1).forEach((row, index) => {
-                    const validateSubBudget = findSubBudgetByCode(row[1]);
+                    if (typeOption.value == "SUB_BUDGET_BASE") {
+                        const validateSubBudget = findSubBudgetByCode(row[1]);
 
-                    dataAddManual.push({
-                        entities: {
-                            isDefault: false,
-                            combinedBudgetSection_RefID: validateSubBudget ? validateSubBudget.Sys_ID : '',
-                            sub_budget_name: validateSubBudget ? `${validateSubBudget.Code} - ${validateSubBudget.Name}` : `${row[1]} - ${row[2]}`,
-                            value: row[3] > 0 ? Utils.parseFloatSafe(row[3]) : Utils.parseFloatSafe(0),
-                            notes: row[4] ? row[4] : ''
-                        }
-                    });
+                        dataAddManual.push({
+                            entities: {
+                                isDefault: false,
+                                combinedBudgetSection_RefID: validateSubBudget ? validateSubBudget.Sys_ID : '',
+                                sub_budget_name: validateSubBudget ? `${validateSubBudget.Code} - ${validateSubBudget.Name}` : `${row[1]} - ${row[2]}`,
+                                value: row[3] > 0 ? Utils.parseFloatSafe(row[3]) : Utils.parseFloatSafe(0),
+                                notes: row[4] ? row[4] : ''
+                            }
+                        });
+                    } else {
+                        const validateSubBudget = findSubBudgetByCode(row[1]);
+                        const validateWork = findWorkByCode(row[3]);
+                        const validateProduct = findProductByCode(row[5]);
+                        const validateUom = findUomByName(row[7]);
+
+                        dataAddManual.push({
+                            entities: {
+                                isDefault: false,
+                                combinedBudgetSection_RefID: validateSubBudget ? validateSubBudget.Sys_ID : '',
+                                sub_budget_name: validateSubBudget ? `${validateSubBudget.Code} - ${validateSubBudget.Name}` : `${row[1]} - ${row[2]}`,
+                                product_RefID: validateProduct ? validateProduct.sys_ID : '',
+                                product_name: validateProduct ? `${validateProduct.code} - ${validateProduct.name}` : `${row[5]} - ${row[6]}`,
+                                work_RefID: validateWork ? validateWork.id : '',
+                                work_name: validateWork ? validateWork.name : `${row[3]} - ${row[4]}`,
+                                uom_RefID: validateUom ? validateUom.sys_ID : '',
+                                uom_name: validateUom ? validateUom.name : row[7],
+                                qty: row[8] > 0 ? Utils.parseFloatSafe(row[8]) : Utils.parseFloatSafe(0),
+                                price: row[9] > 0 ? Utils.parseFloatSafe(row[9]) : Utils.parseFloatSafe(0),
+                                total: row[10] > 0 ? Utils.parseFloatSafe(row[10]) : Utils.parseFloatSafe(0),
+                                notes: row[11] ? row[11] : ''
+                            }
+                        });
+                    }
                 });
 
                 addRow();
@@ -639,9 +1059,6 @@
         const sysId = $(this).find('input[data-trigger="sys_id_customer_order"]').val();
         const trano = $(this).find('td:nth-child(2)').text();
 
-        customer_order_id
-        customer_order_number
-
         $(`#customer_order_id`).val(sysId);
         $(`#customer_order_number`).val(trano);
         $(`#customer_order_number`).css({ 'border': '1px solid #ced4da', 'background-color': '#e9ecef' });
@@ -649,7 +1066,74 @@
         $('#myCustomerOrder').modal('toggle');
     });
 
+    $('#tableGetProductss tbody').on('click', 'tr', function () {
+        if (indexProduct === null) return;
+
+        const table = $('#tableGetProductss').DataTable();
+        const dataRow = table.row(this).data();
+
+        if (dataRow) {
+            $("#myProductss").modal('toggle');
+
+            const productRefID = dataRow.sys_ID;
+            const productCode = dataRow.code;
+            const productName = dataRow.name;
+
+            $(`#product_RefID${indexProduct}`).val(productRefID);
+            $(`#product_name${indexProduct}`).val(`${productCode ?? ''} - ${productName ?? ''}`);
+            $(`#product_name${indexProduct}`).css({ "background-color": "#e9ecef", "border": "1px solid #ced4da" });
+
+            updateField(indexProduct, 'product_RefID', productRefID);
+            updateField(indexProduct, 'product_name', `${productCode ?? ''} - ${productName ?? ''}`);
+        }
+    });
+
+    $('#tableGetUom').on('click', 'tbody tr', async function () {
+        if (indexUom === null) return;
+
+        const sysId = $(this).find('input[data-trigger="sys_id_uom"]').val();
+        const name = $(this).find('td:nth-child(2)').text();
+
+        $(`#uom_RefID${indexUom}`).val(sysId);
+        $(`#uom_name${indexUom}`).val(name);
+        $(`#uom_name${indexUom}`).css({ "background-color": "#e9ecef", "border": "1px solid #ced4da" });
+
+        updateField(indexUom, 'uom_RefID', sysId);
+        updateField(indexUom, 'uom_name', name);
+
+        $('#myUom').modal('toggle');
+    });
+
+    $('#tableWorks tbody').on('click', 'tr', function () {
+        if (indexWork === null) return;
+
+        const table = $('#tableWorks').DataTable();
+        const dataRow = table.row(this).data();
+
+        if (dataRow) {
+            $("#myWorks").modal('toggle');
+
+            const workRefID = dataRow.id;
+            const workCode = dataRow.code;
+            const workName = dataRow.name;
+
+            $(`#work_RefID${indexWork}`).val(workRefID);
+            $(`#work_name${indexWork}`).val(`${workCode ?? ''} - ${workName ?? ''}`);
+            $(`#work_name${indexWork}`).css({ "background-color": "#e9ecef", "border": "1px solid #ced4da" });
+
+            updateField(indexWork, 'work_RefID', workRefID);
+            updateField(indexWork, 'work_name', `${workCode ?? ''} - ${workName ?? ''}`);
+        }
+    });
+
     $('#revision_customer_order').on('click', function (e) {
         getCustomerOrder();
+    });
+
+    $(document).ready(function () {
+        getVAT();
+        getCustomUom();
+        getCustomWorks();
+        getCustomProducts();
     });
 </script>

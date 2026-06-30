@@ -53,20 +53,20 @@ class PurchaseRequisitionController extends Controller
                 throw new \Exception('Failed to fetch Create Purchase Request');
             }
 
-            $responseWorkflow = $this->workflowService->submit(
-                $response['data']['businessDocument']['businessDocument_RefID'],
-                $request->workFlowPath_RefID,
-                $request->comment,
-                $request->approverEntity,
-            );
+            // $responseWorkflow = $this->workflowService->submit(
+            //     $response['data']['businessDocument']['businessDocument_RefID'],
+            //     $request->workFlowPath_RefID,
+            //     $request->comment,
+            //     $request->approverEntity,
+            // );
 
-            if ($responseWorkflow['metadata']['HTTPStatusCode'] !== 200) {
-                throw new \Exception('Failed to fetch Submit Workflow Create Purchase Request');
-            }
+            // if ($responseWorkflow['metadata']['HTTPStatusCode'] !== 200) {
+            //     throw new \Exception('Failed to fetch Submit Workflow Create Purchase Request');
+            // }
 
             $compact = [
                 "documentNumber" => $response['data']['businessDocument']['documentNumber'],
-                "status" => $responseWorkflow['metadata']['HTTPStatusCode'],
+                "status" => $response['metadata']['HTTPStatusCode'],
             ];
 
             return response()->json($compact);

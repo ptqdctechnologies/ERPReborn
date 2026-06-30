@@ -29,8 +29,7 @@
 
                 @if($var == 0)
                             <div class="card">
-                                <form method="post" enctype="multipart/form-data" action="{{ route('SelectWorkFlow') }}"
-                                    id="delivery_order_submit_form">
+                                <form method="post" enctype="multipart/form-data" id="delivery_order_submit_form">
                                     @csrf
                                     <input type="hidden" name="DocumentTypeID" id="DocumentTypeID" value="<?= $documentType_RefID; ?>">
                                     <input type="hidden" name="var_combinedBudget_RefID" id="var_combinedBudget_RefID">
@@ -186,12 +185,12 @@
                                                         title="Submit to Advance"> Submit
                                                 </button>
 
-                                                <a onclick="cancelForm('{{ route('DeliveryOrder.index', ['var' => 1]) }}')"
-                                                    class="btn btn-default btn-sm float-right"
+                                                <button type="button" class="btn btn-default btn-sm float-right"
+                                                    onclick="cancelForm('{{ route('DeliveryOrder.index', ['var' => 1]) }}')"
                                                     style="background-color:#e9ecef;border:1px solid #ced4da;">
                                                     <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt=""
-                                                        title="Cancel Advance List Cart"> Cancel
-                                                </a>
+                                                        title="Cancel to Product"> Cancel
+                                                </button>
                                             </div>
                                         </div>
                                     </div>

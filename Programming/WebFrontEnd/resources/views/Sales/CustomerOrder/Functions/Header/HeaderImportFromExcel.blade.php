@@ -23,7 +23,7 @@
       </div>
       <div class="row" style="margin-top: .3rem;">
         <label class="col-sm-3 col-md-4 col-lg-3 col-form-label p-0"></label>
-        <a href="{{ route('CustomerOrder.Download') }}" class="col" style="max-width: fit-content;">
+        <a href="javascript:;" id="downloadTemplate" class="col" style="max-width: fit-content;">
           Download Template
         </a>
       </div>
@@ -43,16 +43,43 @@
             <thead>
               <tr>
                 <th
-                  style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;border-left:1px solid #e9ecef;text-align: center;width: 70px;">
-                  Action</th>
-                <th
-                  style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;border-left:1px solid #e9ecef;text-align: center;">
-                  Sub Budget</th>
-                <th
-                  style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;width:150px;">
-                  Value</th>
+                  style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;width: 70px;">
+                  Action
+                </th>
                 <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">
-                  Notes</th>
+                  Sub Budget
+                </th>
+                <th class="productField"
+                  style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center; display: none;">
+                  Work ID
+                </th>
+                <th class="productField"
+                  style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center; display: none;">
+                  Product
+                </th>
+                <th class="productField"
+                  style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center; display: none;">
+                  UOM
+                </th>
+                <th class="productField"
+                  style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center; display: none;">
+                  Qty
+                </th>
+                <th class="productField"
+                  style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center; display: none;">
+                  Price
+                </th>
+                <th class="productField"
+                  style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center; display: none;">
+                  Total
+                </th>
+                <th class="subBudgetField"
+                  style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;width: 180px;">
+                  Value
+                </th>
+                <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">
+                  Notes
+                </th>
               </tr>
             </thead>
             <tbody id="table_tbody_import_from_excel"></tbody>
@@ -93,9 +120,33 @@
       <div class="text-red" id="import_message" style="display: none;">
         Please review your selected item.
       </div>
+      <div class="d-flex" style="gap: 1rem;align-items: center;">
+        <div class="d-flex" id="ppn_container" style="gap: 8px; align-items: center;">
+          <label style="margin-bottom: 0;">VAT</label>
+          <select type="text" id="ppn_option" class="form-control" name="ppn_value" onchange="selectVAT(this)"
+            style="border-radius:0;width:auto;">
+            <option value="NO" selected>No</option>
+            <option value="YES">Yes</option>
+          </select>
+        </div>
+        <div id="ppn_percentage_container" style="gap: 8px; align-items: center; display: none;">
+          <label style="margin-bottom: 0;">VAT (%)</label>
+          <select type="text" id="ppn_percentage_option" class="form-control" name="ppn_percentage_value"
+            onchange="selectPercentageVAT(this)" style="border-radius:0;width:auto;">
+          </select>
+        </div>
+      </div>
     </div>
     <div class="col text-right" style="margin-right: 20px; font-size: 0.77rem; color: #212529; font-weight: 600;">
-      Total : <span id="import_total">0.00</span>
+      <div>
+        Total : <span id="import_total">0.00</span>
+      </div>
+      <div style="margin-top: .5rem;">
+        Total VAT : <span id="table_total_vat">0.00</span>
+      </div>
+      <div style="margin-top: .5rem;">
+        Grand Total : <span id="table_grand_total">0.00</span>
+      </div>
     </div>
   </div>
 </div>
