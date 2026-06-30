@@ -10,7 +10,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body table-responsive p-0" style="height: 400px;">
-                                <table class="table table-head-fixed w-100" id="tableWorks">
+                                <table class="table table-head-fixed" id="tableWorks" style="width: 100%;">
                                     <thead>
                                         <tr>
                                             <th>No</th>
@@ -20,7 +20,7 @@
                                     </thead>
                                     <tbody></tbody>
                                     <tfoot>
-                                        <tr class="loadingGetModalWorks">
+                                        <tr id="loadingGetModalWorks">
                                             <td colspan="3" class="p-0" style="height: 22rem;">
                                                 <div
                                                     class="d-flex flex-column justify-content-center align-items-center py-3">
@@ -30,15 +30,6 @@
                                                     <div class="mt-3" style="font-size: 0.75rem; font-weight: 700;">
                                                         Loading...
                                                     </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr class="errorModalWorksMessageContainer" style="display: none;">
-                                            <td colspan="3" class="p-0" style="height: 22rem;">
-                                                <div
-                                                    class="d-flex flex-column justify-content-center align-items-center py-3">
-                                                    <div id="errorModalWorksMessage" class="mt-3 text-red"
-                                                        style="font-size: 1rem; font-weight: 700;"></div>
                                                 </div>
                                             </td>
                                         </tr>
@@ -55,93 +46,141 @@
 
 <script>
     function getModalWorks() {
-        $('#tableWorks tbody').empty();
-        $(".loadingGetModalWorks").show();
-        $(".errorModalWorksMessageContainer").hide();
-
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
 
-        var keys = 0;
         $.ajax({
             type: 'GET',
             url: '{!! route("getWorks") !!}',
-            success: function (data) {
-                $(".loadingGetModalWorks").hide();
+        })
+            .done(function (response) {
+                const data = response && response[0] ? response : [];
 
-                var no = 1;
-                var table = $('#tableWorks').DataTable();
-                table.clear();
-
-                if (Array.isArray(data) && data.length > 0) {
-                    // $.each(data, function(key, val) {
-                    //     keys += 1;
-                    //     table.row.add([
-                    //         '<input id="sys_id_work' + keys + '" value="' + val.id + '" data-trigger="sys_id_work" type="hidden">' + no++,
-                    //         val.code || '-',
-                    //         val.name || '-',
-                    //     ]).draw();
-                    // });
-
-                    $('#tableWorks').DataTable({
-                        destroy: true,
-                        data: data,
-                        deferRender: true,
-                        scrollCollapse: true,
-                        scroller: true,
-                        columns: [
-                            {
-                                data: null,
-                                render: function (data, type, row, meta) {
-                                    return '<td class="align-middle text-center">' +
-                                        '<input id="sys_id_work' + (meta.row + 1) + '" value="' + data.id + '" type="hidden">' +
-                                        (meta.row + 1) +
-                                        '</td>';
-                                }
-                            },
-                            {
-                                data: 'code',
-                                defaultContent: '-',
-                                className: "align-middle"
-                            },
-                            {
-                                data: 'name',
-                                defaultContent: '-',
-                                className: "align-middle text-wrap"
+                $('#tableWorks').DataTable({
+                    destroy: true,
+                    data: data,
+                    deferRender: true,
+                    scrollCollapse: true,
+                    scroller: true,
+                    columns: [
+                        {
+                            data: null,
+                            render: function (data, type, row, meta) {
+                                return '<input id="sys_id_work' + (meta.row + 1) + '" value="' + data.id + '" data-trigger="sys_id_work" type="hidden">' + (meta.row + 1)
                             }
-                        ]
-                    });
-
-                    $("#tableWorks").css("width", "100%");
-
-                    $("#tableWorks_length").show();
-                    $("#tableWorks_filter").show();
-                    $("#tableWorks_info").show();
-                    $("#tableWorks_paginate").show();
-                } else {
-                    $('#tableWorks tbody').empty();
-                    $(".errorModalWorksMessageContainer").show();
-                    $("#errorModalWorksMessage").text(`Data not found.`);
-
-                    $("#tableWorks_length").hide();
-                    $("#tableWorks_filter").hide();
-                    $("#tableWorks_info").hide();
-                    $("#tableWorks_paginate").hide();
-                }
-            },
-            error: function (textStatus, errorThrown) {
-                $('#tableWorks tbody').empty();
-                $(".loadingGetModalWorks").hide();
-                $(".errorModalWorksMessageContainer").show();
-                $("#errorModalWorksMessage").text(`[${textStatus.status}] ${textStatus.responseJSON.message}`);
-            }
-        });
+                        },
+                        {
+                            data: 'code',
+                            defaultContent: '-',
+                            className: "align-middle"
+                        },
+                        {
+                            data: 'name',
+                            defaultContent: '-',
+                            className: "align-middle"
+                        }
+                    ]
+                });
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                console.error("Error:", errorThrown);
+            })
+            .always(function (jqXHR, textStatus, errorThrown) {
+                $("#loadingGetModalWorks").hide();
+            });
     }
 
-    $(window).one('load', function (e) {
-        getModalWorks();
-    });
+    // function getModalWorks() {
+    //     $('#tableWorks tbody').empty();
+    //     $(".loadingGetModalWorks").show();
+    //     $(".errorModalWorksMessageContainer").hide();
+
+    //     $.ajaxSetup({
+    //         headers: {
+    //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //         }
+    //     });
+
+    //     var keys = 0;
+    //     $.ajax({
+    //         type: 'GET',
+    //         url: '{!! route("getWorks") !!}',
+    //         success: function (data) {
+    //             $(".loadingGetModalWorks").hide();
+
+    //             var no = 1;
+    //             var table = $('#tableWorks').DataTable();
+    //             table.clear();
+
+    //             if (Array.isArray(data) && data.length > 0) {
+    //                 // $.each(data, function(key, val) {
+    //                 //     keys += 1;
+    //                 //     table.row.add([
+    //                 //         '<input id="sys_id_work' + keys + '" value="' + val.id + '" data-trigger="sys_id_work" type="hidden">' + no++,
+    //                 //         val.code || '-',
+    //                 //         val.name || '-',
+    //                 //     ]).draw();
+    //                 // });
+
+    //                 $('#tableWorks').DataTable({
+    //                     destroy: true,
+    //                     data: data,
+    //                     deferRender: true,
+    //                     scrollCollapse: true,
+    //                     scroller: true,
+    //                     columns: [
+    //                         {
+    //                             data: null,
+    //                             render: function (data, type, row, meta) {
+    //                                 return '<td class="align-middle text-center">' +
+    //                                     '<input id="sys_id_work' + (meta.row + 1) + '" value="' + data.id + '" type="hidden">' +
+    //                                     (meta.row + 1) +
+    //                                     '</td>';
+    //                             }
+    //                         },
+    //                         {
+    //                             data: 'code',
+    //                             defaultContent: '-',
+    //                             className: "align-middle"
+    //                         },
+    //                         {
+    //                             data: 'name',
+    //                             defaultContent: '-',
+    //                             className: "align-middle text-wrap"
+    //                         }
+    //                     ]
+    //                 });
+
+    //                 $("#tableWorks").css("width", "100%");
+
+    //                 $("#tableWorks_length").show();
+    //                 $("#tableWorks_filter").show();
+    //                 $("#tableWorks_info").show();
+    //                 $("#tableWorks_paginate").show();
+    //             } else {
+    //                 $('#tableWorks tbody').empty();
+    //                 $(".errorModalWorksMessageContainer").show();
+    //                 $("#errorModalWorksMessage").text(`Data not found.`);
+
+    //                 $("#tableWorks_length").hide();
+    //                 $("#tableWorks_filter").hide();
+    //                 $("#tableWorks_info").hide();
+    //                 $("#tableWorks_paginate").hide();
+    //             }
+    //         },
+    //         error: function (textStatus, errorThrown) {
+    //             $('#tableWorks tbody').empty();
+    //             $(".loadingGetModalWorks").hide();
+    //             $(".errorModalWorksMessageContainer").show();
+    //             $("#errorModalWorksMessage").text(`[${textStatus.status}] ${textStatus.responseJSON.message}`);
+    //         }
+    //     });
+    // }
+
+    // $(window).one('load', function (e) {
+    //     getModalWorks();
+    // });
 </script>
