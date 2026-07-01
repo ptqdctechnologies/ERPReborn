@@ -7,6 +7,7 @@
     @include('getFunction.getBankLists')
     @include('getFunction.getCountries')
     @include('getFunction.getProvincies')
+    @include('getFunction.getSupplierCategory')
     @include('Master.Supplier.Functions.PopUp.PopUpSupplierRevision')
     @include('Master.Supplier.Functions.PopUp.PopUpSupplierCategory')
     @include('Master.Supplier.Functions.PopUp.PopUpSupplierSpecialization')

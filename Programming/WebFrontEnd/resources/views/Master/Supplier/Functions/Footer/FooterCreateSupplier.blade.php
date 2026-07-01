@@ -496,6 +496,8 @@
                         confirmButtonColor: '#e9ecef',
                         reverseButtons: true
                     }).then((result) => {
+                        getSupplierCategory();
+
                         $("#supplierCategoryModal").modal('hide');
                         $("#supplierSpecializationModal").modal('show');
                         $("#supplier_category_code").val('');
@@ -600,6 +602,7 @@
 
         getCountries();
         getInstitutionType();
+        getSupplierCategory();
         detailSpecialization();
     });
 </script>

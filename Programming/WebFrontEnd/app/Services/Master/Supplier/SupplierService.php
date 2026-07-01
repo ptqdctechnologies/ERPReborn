@@ -60,6 +60,22 @@ class SupplierService
         );
     }
 
+    public function getCategoryPickList()
+    {
+        $sessionToken = Session::get('SessionLogin');
+
+        return Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
+            $sessionToken,
+            'dataPickList.master.getSupplierCategory',
+            'latest',
+            [
+                'parameter' => []
+            ],
+            false
+        );
+    }
+
     public function getSummary($search, $limit = 10, $offset = 0)
     {
         $sessionToken = Session::get('SessionLogin');

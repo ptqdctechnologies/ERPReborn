@@ -13,20 +13,19 @@
                     <div class="col d-flex">
                         <div>
                             <span style="border-radius:0;" class="input-group-text form-control">
-                                <a href="javascript:;" id="myBanksTrigger" data-toggle="modal" data-target="#myBanks">
+                                <a href="javascript:;" id="supplierCategoryListModalTrigger" data-toggle="modal"
+                                    data-target="#supplierCategoryListModal">
                                     <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13"
-                                        alt="myBanksTrigger">
+                                        alt="supplierCategoryListModalTrigger">
                                 </a>
                             </span>
                         </div>
                         <div class="col-4 p-0">
                             <div class="input-group">
-                                <input id="bank_name_second_detail" style="border-radius:0; background-color: white;"
-                                    class="form-control" name="bank_name_detail" readonly>
-                                <input id="bank_name_second_name" style="border-radius:0;" name="bank_name"
+                                <input id="supplier_category_name" style="border-radius:0; background-color: white;"
+                                    class="form-control" name="supplier_category_name" readonly>
+                                <input id="supplier_category_id" style="border-radius:0;" name="supplier_category_id"
                                     class="form-control" hidden>
-                                <input id="bank_name_second_id" style="border-radius:0;" class="form-control"
-                                    name="bank_code" hidden>
                             </div>
                         </div>
                         <div style="margin-left: 1rem;">
