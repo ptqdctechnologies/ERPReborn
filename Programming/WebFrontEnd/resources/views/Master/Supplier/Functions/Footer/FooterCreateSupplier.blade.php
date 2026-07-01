@@ -242,6 +242,18 @@
         }
     }
 
+    $('#tableSupplierCategoryListModal').on('click', 'tbody tr', function () {
+        const id = $(this).find('input[data-trigger="sys_id_supplier_category"]').val();
+        const code = $(this).find('td:nth-child(2)').text();
+        const name = $(this).find('td:nth-child(3)').text();
+
+        $("#supplier_category_id_modal").val(id);
+        $("#supplier_category_name_modal").val(`(${code}) ${name}`);
+        $("#supplier_category_name_modal").css({ "background-color": "#e9ecef" });
+
+        $('#supplierCategoryListModal').modal('toggle');
+    });
+
     $('#tableGetBankList').on('click', 'tbody tr', function () {
         const id = $(this).find('input[type="hidden"]').val();
         const acronym = $(this).find('td:nth-child(2)').text();
@@ -455,6 +467,11 @@
         $('#mySuppliers').modal('toggle');
     });
 
+    $('#supplierCategoryListModalTrigger').on('click', function (e) {
+        $('#supplierSpecializationModal').modal('toggle');
+        $('#supplierCategoryListModal').modal('toggle');
+    });
+
     $('#revision_supplier').on('click', function (e) {
         getSuppliers();
     });
@@ -582,6 +599,10 @@
 
         $('#supplierSpecializationModal').on('hidden.bs.modal', function (e) {
             detailSpecialization();
+        });
+
+        $('#supplierCategoryListModal').on('hidden.bs.modal', function (e) {
+            $('#supplierSpecializationModal').modal('toggle');
         });
 
         $('#supplierCategoryModal').on('hidden.bs.modal', function (e) {

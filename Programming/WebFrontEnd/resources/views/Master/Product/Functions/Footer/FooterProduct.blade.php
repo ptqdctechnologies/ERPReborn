@@ -3,86 +3,81 @@
     const printType = document.getElementById("print_type");
 
     function getDataProducts() {
-        $.ajax({
-            type: 'GET',
-            url: '{!! route("getProduct") !!}',
-            beforeSend: function () {
-                $('#loading-table').show();
-            },
-            complete: function () {
-                $('#loading-table').hide();
-            },
-            success: function (response) {
-                let products = response?.data?.data ?? [];
-                dataReport = products;
+        $('#table_product').DataTable({
+            destroy: true,
+            processing: true,
+            serverSide: true,
+            searching: false,
+            ordering: false,
+            lengthMenu: [
+                [10, 20, 50, 100, -1],
+                [10, 20, 50, 100, "All"]
+            ],
+            pageLength: 20,
+            ajax: {
+                type: 'GET',
+                url: '{!! route("Product.summary") !!}',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: function (d) {
+                    // d.supplier_id = $('#supplier_id').val();
 
-                if (products.length === 0) {
+                    return d;
+                },
+                dataSrc: function (json) {
+
+                    // simpan seluruh response
+                    dataReport = json.data;
+
+                    // wajib return data untuk DataTable
+                    return json.data;
+                },
+                beforeSend: function () {
+                    $('#loading-table').show();
                     $('#table_product tbody').empty();
-                    return;
-                }
-
-                $('#table_product').DataTable({
-                    destroy: true,
-                    processing: true,
-                    data: products,
-                    deferRender: true,
-                    scrollCollapse: true,
-                    scroller: true,
-                    columns: [
-                        {
-                            data: null,
-                            className: "align-middle text-center",
-                            render: function (data, type, row, meta) {
-                                return `<input type="hidden" value="${data.sys_ID}"> ${meta.row + 1}`;
-                            }
-                        },
-                        {
-                            data: 'code',
-                            defaultContent: '-',
-                            className: "align-middle text-nowrap"
-                        },
-                        {
-                            data: 'name',
-                            defaultContent: '-',
-                            className: "align-middle text-wrap"
-                        },
-                        {
-                            data: 'quantityUnitName',
-                            defaultContent: '-',
-                            className: "align-middle"
-                        },
-                        {
-                            data: null,
-                            defaultContent: '-',
-                            className: "align-middle"
-                        },
-                        {
-                            data: null,
-                            defaultContent: '-',
-                            className: "align-middle"
-                        },
-                        // {
-                        //     data: null,
-                        //     className: "align-middle text-center",
-                        //     render: function (data) {
-                        //         return `
-                        //             <div class="d-flex justify-content-center" style="gap: .5rem;">
-                        //                 <button class="btn btn-sm btn-warning btn-edit" data-id="${data.sys_ID}">
-                        //                     Edit
-                        //                 </button>
-                        //             </div>
-                        //         `;
-                        //         // <button class="btn btn-sm btn-danger btn-delete" data-id="${data.sys_ID}">
-                        //         //     Hapus
-                        //         // </button>
-                        //     }
-                        // }
-                    ]
-                });
+                },
+                complete: function () {
+                    $('#loading-table').hide();
+                },
             },
-            error: function (textStatus, errorThrown) {
-                $('#table_product tbody').empty();
-            }
+            columns: [
+                {
+                    data: null,
+                    className: "align-middle text-center",
+                    render: function (data, type, row, meta) {
+                        return `
+                            <input type="hidden" value="${data.Sys_ID}">
+                            ${meta.row + meta.settings._iDisplayStart + 1}
+                        `;
+                    }
+                },
+                {
+                    data: 'Code',
+                    defaultContent: '-',
+                    className: "align-middle text-nowrap"
+                },
+                {
+                    data: 'Name',
+                    defaultContent: '-',
+                    className: "align-middle text-wrap"
+                },
+                {
+                    data: 'UnitOfMeasureName',
+                    defaultContent: '-',
+                    className: "align-middle text-nowrap"
+                },
+                {
+                    data: 'CategoryName',
+                    defaultContent: '-',
+                    className: "align-middle text-nowrap"
+                },
+                {
+                    data: 'SubCategoryName',
+                    defaultContent: '-',
+                    className: "align-middle text-nowrap"
+                }
+            ]
         });
     }
 

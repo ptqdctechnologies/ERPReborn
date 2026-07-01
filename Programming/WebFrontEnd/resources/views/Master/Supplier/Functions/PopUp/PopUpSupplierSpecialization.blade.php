@@ -12,20 +12,18 @@
                     <label class="col-sm-3 col-md-4 col-lg-1 col-form-label">Category</label>
                     <div class="col d-flex">
                         <div>
-                            <span style="border-radius:0;" class="input-group-text form-control">
-                                <a href="javascript:;" id="supplierCategoryListModalTrigger" data-toggle="modal"
-                                    data-target="#supplierCategoryListModal">
-                                    <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13"
-                                        alt="supplierCategoryListModalTrigger">
-                                </a>
+                            <span id="supplierCategoryListModalTrigger" style="border-radius:0; cursor: pointer;"
+                                class="input-group-text form-control">
+                                <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13"
+                                    alt="supplierCategoryListModalTrigger">
                             </span>
                         </div>
                         <div class="col-4 p-0">
                             <div class="input-group">
-                                <input id="supplier_category_name" style="border-radius:0; background-color: white;"
-                                    class="form-control" name="supplier_category_name" readonly>
-                                <input id="supplier_category_id" style="border-radius:0;" name="supplier_category_id"
-                                    class="form-control" hidden>
+                                <input id="supplier_category_name_modal" class="form-control"
+                                    style="border-radius:0; background-color: white;" readonly>
+                                <input id="supplier_category_id_modal" class="form-control" style="border-radius:0;"
+                                    name="supplier_category_id_modal" hidden>
                             </div>
                         </div>
                         <div style="margin-left: 1rem;">

@@ -153,4 +153,34 @@ class ProductController extends Controller
             return response()->json(['statusCode' => 400]);
         }
     }
+
+    public function summary(Request $request)
+    {
+        $limit = $request->input('length', 10);
+        $offset = $request->input('start', 0);
+        $draw = $request->input('draw');
+        $search = $request->input('search.value');
+
+        $response = $this->productService->getSummary(
+            $limit,
+            $offset
+        );
+
+        $status = $response['metadata']['HTTPStatusCode'];
+
+        $data = [];
+        $total = 0;
+
+        if ($status == 200) {
+            $data = $response['data']['data'] ?? [];
+            $total = $response['data']['totalRecords'] ?? count($data);
+        }
+
+        return response()->json([
+            'draw' => intval($draw),
+            'recordsTotal' => $total,
+            'recordsFiltered' => $total,
+            'data' => $data
+        ]);
+    }
 }

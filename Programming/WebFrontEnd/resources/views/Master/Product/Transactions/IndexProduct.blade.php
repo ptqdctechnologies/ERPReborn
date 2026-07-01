@@ -61,7 +61,8 @@
                                                             Sub Category</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody>
+                                                <tbody></tbody>
+                                                <tfoot>
                                                     <tr>
                                                         <td colspan="6">
                                                             <div id="loading-table"
@@ -70,7 +71,7 @@
                                                             </div>
                                                         </td>
                                                     </tr>
-                                                </tbody>
+                                                </tfoot>
                                             </table>
                                         </div>
                                     </div>
