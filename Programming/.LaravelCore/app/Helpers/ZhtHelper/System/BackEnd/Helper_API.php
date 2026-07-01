@@ -797,7 +797,7 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
                                     :
                                     $varReturnProcess
                                     ),
-                            'message' => 'Data Insertion Was Successful (New Record ID : '.$varDataSend['SignRecordID'].')',
+                            'message' => 'Data Update Was Successful (New Record ID : '.$varDataSend['SignRecordID'].')',
                             'recordID' => $varDataSend['SignRecordID'],
                             'subCategoryCode' => $varDataSend['SignRecordType'],
                             'subCategoryName' => $varDataSend['SignMessage'],
