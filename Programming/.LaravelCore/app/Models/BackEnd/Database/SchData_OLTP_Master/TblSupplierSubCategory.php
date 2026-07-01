@@ -1,0 +1,204 @@
+<?php
+
+/*
++----------------------------------------------------------------------------------------------------------------------------------+
+| ▪ Category   : Laravel Models                                                                                                    |
+| ▪ Name Space : \App\Models\Database\SchData_OLTP_Master                                                                          |
+|                                                                                                                                  |
+| ▪ Copyleft 🄯 2026 ijonk7 (rizal.devapps@gmail.com)                                                                               |
++----------------------------------------------------------------------------------------------------------------------------------+
+*/
+namespace App\Models\Database\SchData_OLTP_Master
+    {
+    /*
+    +------------------------------------------------------------------------------------------------------------------------------+
+    | ▪ Class Name  : TblSupplierSubCategory                                                                                       |
+    | ▪ Description : Menangani Models Database ► SchData-OLTP-Master ► TblSupplierSubCategory                                     |
+    +------------------------------------------------------------------------------------------------------------------------------+
+    */
+    class TblSupplierSubCategory extends \App\Models\Database\DefaultClassPrototype
+        {
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : __construct                                                                                          |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2026-07-01                                                                                           |
+        | ▪ Creation Date   : 2026-07-01                                                                                           |
+        | ▪ Description     : System's Default Constructor                                                                         |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (void)                                                                                                            |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (void)                                                                                                            |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        function __construct()
+            {
+            parent::__construct(__CLASS__);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : setDataInsert                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2026-07-01                                                                                           |
+        | ▪ Creation Date   : 2026-07-01                                                                                           |
+        | ▪ Description     : Data Insert                                                                                          |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
+        |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
+        |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
+        |        ----------------------------------------                                                                          |
+        |      ▪ (string) varCode ► Code of Product                                                                                |
+        |      ▪ (string) varName ► Product Name                                                                                   |
+        |      ▪ (int)    varQuantityUnit_RefID ► Quantity Unit Reference ID                                                       |
+        |      ▪ (int)    varProductType_RefID ► Product Type Reference ID                                                         |
+        |        ----------------------------------------                                                                          |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function setDataInsert(
+            $varUserSession, 
+            string $varSysDataAnnotation = null, string $varSysDataValidityStartDateTimeTZ = null, string $varSysDataValidityFinishDateTimeTZ = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, $varSysBaseCurrency_RefID = null,
+            string $varCategoryCode = null,
+            array $varAdditionalData = [])
+            {
+            $varReturn =
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
+                        [
+                            [$varUserSession, 'bigint'],
+                            [null, 'bigint'],
+
+                            [$varSysDataAnnotation, 'varchar'],
+                            [$varSysDataValidityStartDateTimeTZ, 'timestamptz'],
+                            [$varSysDataValidityFinishDateTimeTZ, 'timestamptz'],
+                            [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
+                            [$varSysBranch_RefID, 'bigint'],
+                            [$varSysBaseCurrency_RefID, 'bigint'],
+                            
+                            [$varCategoryCode, 'varchar'],
+
+                            [
+                                ((count($varAdditionalData) === 0) 
+                                    ? null
+                                    : \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode(
+                                        $varUserSession,
+                                        $varAdditionalData
+                                        )
+                                ),
+                                'json'
+                            ]
+                        ]
+                        )
+                    )
+                    ;
+
+            return
+                $varReturn;
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : setDataSynchronize                                                                                   |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2026-07-01                                                                                           |
+        | ▪ Creation Date   : 2026-07-01                                                                                           |
+        | ▪ Description     : Data Synchronize                                                                                     |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function setDataSynchronize($varUserSession)
+            {
+            $varReturn =
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchSysConfig-Synchronize.Func_'.parent::getSchemaName($varUserSession).'_'.parent::getTableName($varUserSession),
+                        []
+                        )
+                    );
+
+            $varReturn = [];
+
+            return
+                $varReturn;
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : setDataUpdate                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2026-07-01                                                                                           |
+        | ▪ Creation Date   : 2026-07-01                                                                                           |
+        | ▪ Description     : Data Update                                                                                          |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysID ► System Record ID                                                                              |
+        |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
+        |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
+        |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                           |
+        |        ----------------------------------------                                                                          |
+        |      ▪ (string) varCode ► Code of Product                                                                                |
+        |      ▪ (string) varName ► Product Name                                                                                   |
+        |      ▪ (int)    varQuantityUnit_RefID ► Quantity Unit Reference ID                                                       |
+        |      ▪ (int)    varProductType_RefID ► Product Type Reference ID                                                         |
+        |        ----------------------------------------                                                                          |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function setDataUpdate(
+            $varUserSession,
+            int $varSysID,
+            string $varSysDataAnnotation = null, string $varSysDataValidityStartDateTimeTZ = null, string $varSysDataValidityFinishDateTimeTZ = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, $varSysBaseCurrency_RefID = null,
+            string $varCategoryCode = null, string $varCode = null, string $varName = null
+            )
+            {
+            $varReturn =
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET_UPDATE',
+                        [
+                            [$varUserSession, 'bigint'],
+                            [$varSysID, 'bigint'],
+
+                            [$varSysDataAnnotation, 'varchar'],
+                            [$varSysDataValidityStartDateTimeTZ, 'timestamptz'],
+                            [$varSysDataValidityFinishDateTimeTZ, 'timestamptz'],
+                            [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
+                            [$varSysBranch_RefID, 'bigint'],
+                            [$varSysBaseCurrency_RefID, 'bigint'],
+                            [$varCategoryCode, 'varchar'],
+                            [$varCode, 'varchar'],
+                            [$varName, 'varchar']
+                        ]
+                        )
+                    );
+
+            return
+                $varReturn;
+            }
+        }
+    }
