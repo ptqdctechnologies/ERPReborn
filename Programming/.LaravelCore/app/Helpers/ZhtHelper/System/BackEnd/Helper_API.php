@@ -212,6 +212,43 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
                                 'categoryName' => $varDataSend['SignMessage'],
                                 'businessDocument' => $varBusinessDocument
                                 ];
+			} elseif (in_array(((int)$varDataSend['SignRecordID'] / 1000000000000) % 10000, [306])) {
+                            // 1. Bersihkan kurung kurawal "{" dan "}"
+                            $clean_string = trim($varDataSend['SignRecordType'], "{}");
+                            // 2. Pecah string berdasarkan koma menjadi array
+                            $varSubCategoryCode = explode(",", $clean_string);
+
+                            // 1. Bersihkan kutip dua ekstra di awal dan akhir, lalu ganti kurung kurawal menjadi kurung siku
+                            $clean_string2 = trim($varDataSend['SignMessage'], '"');
+                            $json_string2 = str_replace(['{', '}'], ['[', ']'], $clean_string2);
+                            // 2. Konversi string JSON menjadi array PHP
+                            $varSubCategoryName = json_decode($json_string2, true);
+
+                            $varAdditionalDataArray = json_decode($varDataSend['AdditionalData'], true);
+                            $varAdditionalData = [];
+                            foreach ($varAdditionalDataArray as $value) {
+                                $varAdditionalData[] = $value;
+                            }
+
+                            $varReturn = [
+                                'process' => (
+                                    $varReturnProcess === NULL ?
+                                        [
+                                        'DBMS' => [
+                                            'executionInterval' => NULL,
+                                            'startDateTimeTZ' => NULL,
+                                            'finishDateTimeTZ' => NULL
+                                            ]
+                                        ]
+                                        :
+                                        $varReturnProcess
+                                        ),
+                                'message' => 'Data Insertion Was Successful (New Record ID : '.$varDataSend['SignRecordID'].')',
+                                'recordID' => $varAdditionalData,
+                                'subCategoryCode' => $varSubCategoryCode,
+                                'subCategoryName' => $varSubCategoryName,
+                                'businessDocument' => $varBusinessDocument
+                                ];
                         } else {
                             $varReturn = [
                                 'process' => (
@@ -745,6 +782,26 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
                                 'businessDocument' => $varBusinessDocument
                                 ]
 
+                            ];
+		    } elseif (in_array(((int)$varDataSend['SignRecordID'] / 1000000000000) % 10000, [306])) {
+                        $varReturn = [
+                            'process' => (
+                                $varReturnProcess === NULL ?
+                                    [
+                                    'DBMS' => [
+                                        'executionInterval' => NULL,
+                                        'startDateTimeTZ' => NULL,
+                                        'finishDateTimeTZ' => NULL
+                                        ]
+                                    ]
+                                    :
+                                    $varReturnProcess
+                                    ),
+                            'message' => 'Data Update Was Successful (New Record ID : '.$varDataSend['SignRecordID'].')',
+                            'recordID' => $varDataSend['SignRecordID'],
+                            'subCategoryCode' => $varDataSend['SignRecordType'],
+                            'subCategoryName' => $varDataSend['SignMessage'],
+                            'businessDocument' => $varBusinessDocument
                             ];
                     } else {
                         $varReturn = [
