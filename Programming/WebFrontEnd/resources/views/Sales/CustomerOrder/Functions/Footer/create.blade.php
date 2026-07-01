@@ -11,6 +11,7 @@
     let indexWork = null;
     let documentTypeID = document.getElementById("DocumentTypeID");
     let isImportFromExcel = false;
+    let customerOrderDetailType = null;
     let dataWorkflow = {
         workFlowPathRefID: null,
         approverEntityRefID: null,
@@ -37,8 +38,12 @@
                     $('#ppn_percentage_option').empty();
                     $('#ppn_percentage_option').append('<option disabled selected value="Select a VAT">Select a VAT</option>');
 
+                    $('#ppn_percentage_import_option').empty();
+                    $('#ppn_percentage_import_option').append('<option disabled selected value="Select a VAT">Select a VAT</option>');
+
                     data.forEach(function (project) {
                         $('#ppn_percentage_option').append('<option value="' + project.tariffFixRate + '">' + project.tariffFixRate + '</option>');
+                        $('#ppn_percentage_import_option').append('<option value="' + project.tariffFixRate + '">' + project.tariffFixRate + '</option>');
                     });
                 } else {
                     console.log('Data vat not found.');
@@ -63,23 +68,41 @@
         } else {
             $(".productField").show();
             $(".subBudgetField").hide();
+            $('#ppn_percentage_import_option').val('Select a VAT');
         }
     }
 
     function selectPercentageVAT(params) {
-        const tableTotal = document.getElementById("table_total");
-        const resultVAT = (Utils.parseFloatSafe(params.value) / 100) * Utils.parseFloatSafe(Utils.removeCommas(tableTotal.textContent));
-        const resultGrandTotal = resultVAT + Utils.parseFloatSafe(Utils.removeCommas(tableTotal.textContent));
+        if (customerOrderDetailType == "type_import_from_excel") {
+            const tableTotal = document.getElementById("import_total");
+            const resultVAT = (Utils.parseFloatSafe(params.value) / 100) * Utils.parseFloatSafe(Utils.removeCommas(tableTotal.textContent));
+            const resultGrandTotal = resultVAT + Utils.parseFloatSafe(Utils.removeCommas(tableTotal.textContent));
 
-        $("#table_total_vat").text(Utils.formatCurrency(Utils.parseFloatSafe(resultVAT)));
-        $("#table_grand_total").text(Utils.formatCurrency(Utils.parseFloatSafe(resultGrandTotal)));
+            $("#table_import_total_vat").text(Utils.formatCurrency(Utils.parseFloatSafe(resultVAT)));
+            $("#table_import_grand_total").text(Utils.formatCurrency(Utils.parseFloatSafe(resultGrandTotal)));
+        } else {
+            const tableTotal = document.getElementById("table_total");
+            const resultVAT = (Utils.parseFloatSafe(params.value) / 100) * Utils.parseFloatSafe(Utils.removeCommas(tableTotal.textContent));
+            const resultGrandTotal = resultVAT + Utils.parseFloatSafe(Utils.removeCommas(tableTotal.textContent));
+
+            $("#table_total_vat").text(Utils.formatCurrency(Utils.parseFloatSafe(resultVAT)));
+            $("#table_grand_total").text(Utils.formatCurrency(Utils.parseFloatSafe(resultGrandTotal)));
+        }
     }
 
     function selectVAT(params) {
-        if (params.value == "NO") {
-            $('#ppn_percentage_container').css('display', 'none');
+        if (customerOrderDetailType == "type_import_from_excel") {
+            if (params.value == "NO") {
+                $('#ppn_percentage_import_container').css('display', 'none');
+            } else {
+                $('#ppn_percentage_import_container').css('display', 'flex');
+            }
         } else {
-            $('#ppn_percentage_container').css('display', 'flex');
+            if (params.value == "NO") {
+                $('#ppn_percentage_container').css('display', 'none');
+            } else {
+                $('#ppn_percentage_container').css('display', 'flex');
+            }
         }
     }
 
@@ -102,9 +125,21 @@
 
             detailAddManual();
         }
+
+        customerOrderDetailType = val.value;
         $("#typeOption").prop("disabled", true);
         $('#import_total').text("0.00");
+        $('#table_import_total_vat').text("0.00");
+        $('#table_import_grand_total').text("0.00");
+        $('#ppn_import_option').val('NO');
+        $('#ppn_percentage_import_option').val('Select a VAT');
+        $('#ppn_percentage_import_container').hide();
         $('#table_total').text("0.00");
+        $('#table_total_vat').text("0.00");
+        $('#table_grand_total').text("0.00");
+        $('#ppn_percentage_option').val('Select a VAT');
+        $('#ppn_percentage_container').hide();
+        $('#ppn_option').val('NO');
         $('#type_message').hide();
     }
 
@@ -139,12 +174,21 @@
             maximumFractionDigits: 2
         });
 
-        const tableTotalVAT = document.getElementById("ppn_percentage_option");
-        const resultVAT = (Utils.parseFloatSafe(tableTotalVAT.value) / 100) * Utils.parseFloatSafe(total);
-        const resultGrandTotal = resultVAT + total;
+        if (customerOrderDetailType == "type_import_from_excel") {
+            const tableTotalVAT = document.getElementById("ppn_percentage_import_option");
+            const resultVAT = (Utils.parseFloatSafe(tableTotalVAT.value) / 100) * Utils.parseFloatSafe(total);
+            const resultGrandTotal = resultVAT + total;
 
-        $("#table_total_vat").text(Utils.formatCurrency(Utils.parseFloatSafe(resultVAT)));
-        $("#table_grand_total").text(Utils.formatCurrency(Utils.parseFloatSafe(resultGrandTotal)));
+            $("#table_import_total_vat").text(Utils.formatCurrency(Utils.parseFloatSafe(resultVAT)));
+            $("#table_import_grand_total").text(Utils.formatCurrency(Utils.parseFloatSafe(resultGrandTotal)));
+        } else {
+            const tableTotalVAT = document.getElementById("ppn_percentage_option");
+            const resultVAT = (Utils.parseFloatSafe(tableTotalVAT.value) / 100) * Utils.parseFloatSafe(total);
+            const resultGrandTotal = resultVAT + total;
+
+            $("#table_total_vat").text(Utils.formatCurrency(Utils.parseFloatSafe(resultVAT)));
+            $("#table_grand_total").text(Utils.formatCurrency(Utils.parseFloatSafe(resultGrandTotal)));
+        }
     }
 
     function calculateTotalLine(index) {
@@ -306,6 +350,7 @@
     function updateField(index, field, value) {
         dataAddManual[index].entities[field] = value;
 
+        calculateTotal();
         console.log("Updated:", dataAddManual); // untuk debugging
     }
 
@@ -359,7 +404,7 @@
                         </div>
                     </td>
                     <td>
-                        <input type="text" id="value${index}" class="form-control form-control number-without-negative" value="${row.entities.value ? Utils.formatCurrency(row.entities.value) : row.entities.value}" onkeyup="calculateTotal()" onchange="updateField(${index}, 'value', parseFloat(this.value.replace(/,/g, '')))">
+                        <input type="text" id="value${index}" class="form-control form-control number-without-negative" value="${row.entities.value ? Utils.formatCurrency(row.entities.value) : row.entities.value}" onkeyup="calculateTotal()" onkeydown="calculateTotal()" onchange="updateField(${index}, 'value', parseFloat(this.value.replace(/,/g, '')))">
                     </td>
                     <td style="padding-right: 0.3rem;">
                         <textarea id="notes${index}" class="form-control" onchange="updateField(${index}, 'notes', this.value)">${row.entities.notes}</textarea>
@@ -454,10 +499,10 @@
                         </div>
                     </td>
                     <td>
-                        <input type="text" id="qty${index}" class="form-control form-control number-without-negative" value="${row.entities.qty ? Utils.formatCurrency(row.entities.qty) : row.entities.qty}" onkeyup="calculateTotalLine(${index})" onchange="updateField(${index}, 'qty', parseFloat(this.value.replace(/,/g, '')))">
+                        <input type="text" id="qty${index}" class="form-control form-control number-without-negative" value="${row.entities.qty ? Utils.formatCurrency(row.entities.qty) : row.entities.qty}" onkeyup="calculateTotalLine(${index})" onkeydown="calculateTotalLine(${index})" onchange="updateField(${index}, 'qty', parseFloat(this.value.replace(/,/g, '')))">
                     </td>
                     <td>
-                        <input type="text" id="price${index}" class="form-control form-control number-without-negative" value="${row.entities.price ? Utils.formatCurrency(row.entities.price) : row.entities.price}" onkeyup="calculateTotalLine(${index})" onchange="updateField(${index}, 'price', parseFloat(this.value.replace(/,/g, '')))">
+                        <input type="text" id="price${index}" class="form-control form-control number-without-negative" value="${row.entities.price ? Utils.formatCurrency(row.entities.price) : row.entities.price}" onkeyup="calculateTotalLine(${index})" onkeydown="calculateTotalLine(${index})" onchange="updateField(${index}, 'price', parseFloat(this.value.replace(/,/g, '')))">
                     </td>
                     <td>
                         <input type="text" id="total${index}" class="form-control form-control number-without-negative" value="${row.entities.total ? Utils.formatCurrency(row.entities.total) : row.entities.total}" onchange="updateField(${index}, 'total', parseFloat(this.value.replace(/,/g, '')))" disabled>

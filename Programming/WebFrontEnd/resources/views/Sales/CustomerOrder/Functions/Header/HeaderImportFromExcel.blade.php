@@ -123,15 +123,15 @@
       <div class="d-flex" style="gap: 1rem;align-items: center;">
         <div class="d-flex" id="ppn_container" style="gap: 8px; align-items: center;">
           <label style="margin-bottom: 0;">VAT</label>
-          <select type="text" id="ppn_option" class="form-control" name="ppn_value" onchange="selectVAT(this)"
+          <select type="text" id="ppn_import_option" class="form-control" name="ppn_value" onchange="selectVAT(this)"
             style="border-radius:0;width:auto;">
             <option value="NO" selected>No</option>
             <option value="YES">Yes</option>
           </select>
         </div>
-        <div id="ppn_percentage_container" style="gap: 8px; align-items: center; display: none;">
+        <div id="ppn_percentage_import_container" style="gap: 8px; align-items: center; display: none;">
           <label style="margin-bottom: 0;">VAT (%)</label>
-          <select type="text" id="ppn_percentage_option" class="form-control" name="ppn_percentage_value"
+          <select type="text" id="ppn_percentage_import_option" class="form-control" name="ppn_percentage_value"
             onchange="selectPercentageVAT(this)" style="border-radius:0;width:auto;">
           </select>
         </div>
@@ -142,10 +142,10 @@
         Total : <span id="import_total">0.00</span>
       </div>
       <div style="margin-top: .5rem;">
-        Total VAT : <span id="table_total_vat">0.00</span>
+        Total VAT : <span id="table_import_total_vat">0.00</span>
       </div>
       <div style="margin-top: .5rem;">
-        Grand Total : <span id="table_grand_total">0.00</span>
+        Grand Total : <span id="table_import_grand_total">0.00</span>
       </div>
     </div>
   </div>
