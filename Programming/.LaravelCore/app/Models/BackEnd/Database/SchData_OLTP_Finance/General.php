@@ -195,8 +195,8 @@ namespace App\Models\Database\SchData_OLTP_Finance
         |      ▪ (int)    varPagination_PageShow ► Pagination Page Show                                                            |
         |      ------------------------------                                                                                      |
         |      ▪ (string) varBusinessDocumentNumber ► Business Document Number                                                     |
-        |      ▪ (string) varDocumentDateStart ► Document Date Start                                                               |
-        |      ▪ (string) varDocumentDateFinish ► Document Date Finish                                                             |
+        |      ▪ (string) varDocumentDateStart ► Business Document Start Date                                                      |
+        |      ▪ (string) varDocumentDateFinish ► Business Document Finish Date                                                    |
         |      ▪ (string) varRequesterName ► Requester Name                                                                        |
         |      ▪ (string) varCombinedBudget ► Combined Budget                                                                      |
         |      ▪ (string) varCombinedBudgetSection ► Combined Budget Section                                                       |
@@ -266,7 +266,11 @@ namespace App\Models\Database\SchData_OLTP_Finance
         |      ▪ (int)    varPagination_PageShow ► Pagination Page Show                                                            |
         |      ------------------------------                                                                                      |
         |      ▪ (string) varBusinessDocumentNumber ► Business Document Number                                                     |
-        |      ▪ (int)    varCombinedBudget_RefID ► Combined Budget Reference ID                                                   |
+        |      ▪ (string) varDocumentDateStart ► Business Document Start Date                                                      |
+        |      ▪ (string) varDocumentDateFinish ► Business Document Finish Date                                                    |
+        |      ▪ (string) varRequesterName ► Requester Name                                                                        |
+        |      ▪ (string) varCombinedBudget ► Combined Budget                                                                      |
+        |      ▪ (string) varCombinedBudgetSection ► Combined Budget Section                                                       |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -303,6 +307,77 @@ namespace App\Models\Database\SchData_OLTP_Finance
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetReport_DataList_AdvanceSettlement']
+                        );
+
+                return
+                     $varReturn;
+                }
+
+            catch (\Exception $ex) {
+                return
+                    [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getReport_Form_DataList_PaymentInstruction_LatestVersion                                             |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2025-11-05                                                                                           |
+        | ▪ Creation Date   : 2025-11-05                                                                                           |
+        | ▪ Description     : Mendapatkan Laporan Form - Daftar Instruksi Pembayaran (Payment Instruction) Versi Terakhir          |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |      ------------------------------                                                                                      |
+        |      ▪ (int)    varPagination_PageSize ► Pagination Page Size                                                            |
+        |      ▪ (int)    varPagination_PageShow ► Pagination Page Show                                                            |
+        |      ------------------------------                                                                                      |
+        |      ▪ (string) varBusinessDocumentNumber ► Business Document Number                                                     |
+        |      ▪ (string) varDocumentDateStart ► Business Document Start Date                                                      |
+        |      ▪ (string) varDocumentDateFinish ► Business Document Finish Date                                                    |
+        |      ▪ (string) varRequesterName ► Requester Name                                                                        |
+        |      ▪ (string) varCombinedBudget ► Combined Budget                                                                      |
+        |      ▪ (string) varCombinedBudgetSection ► Combined Budget Section                                                       |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getReport_Form_DataList_PaymentInstruction_LatestVersion(
+            $varUserSession, int $varSysBranch_RefID,
+            int $varPagination_PageSize = null, int $varPagination_PageShow = null,
+            string $varBusinessDocumentNumber = null, string $varDocumentDateStart = null, string $varDocumentDateFinish = null, string $varRequesterName = null, string $varCombinedBudget = null, string $varCombinedBudgetSection = null)
+            {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession,
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Finance.Func_GetReport_DataList_PaymentInstruction',
+                            [
+                                [$varSysBranch_RefID, 'bigint'],
+
+                                [$varPagination_PageSize, 'bigint'],
+                                [$varPagination_PageShow, 'bigint'],
+
+                                [$varBusinessDocumentNumber, 'varchar'],
+                                [$varDocumentDateStart, 'date'],
+                                [$varDocumentDateFinish, 'date'],
+                                [$varRequesterName, 'varchar'],
+                                [$varCombinedBudget, 'varchar'],
+                                [$varCombinedBudgetSection, 'varchar']
+                            ]
+                            )
+                        );
+
+                $varReturn['data'] =
+                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                        $varUserSession,
+                        $varReturn['data'][0]['Func_GetReport_DataList_PaymentInstruction']
                         );
 
                 return
@@ -446,6 +521,78 @@ namespace App\Models\Database\SchData_OLTP_Finance
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetReport_DataPickList_AdvanceSettlement']
+                        );
+
+                return
+                     $varReturn;
+                }
+
+            catch (\Exception $ex) {
+                return
+                    [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getReport_Form_DataPickList_PaymentInstruction_LatestVersion                                         |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0001.0000000                                                                                       |
+        | ▪ Last Update     : 2026-06-30                                                                                           |
+        | ▪ Creation Date   : 2026-06-30                                                                                           |
+        | ▪ Description     : Mendapatkan Laporan Form - Daftar Pilihan Instruksi Pembayaraan (Payment Instruction) Versi          |
+        |                     Terakhir                                                                                             |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |      ------------------------------                                                                                      |
+        |      ▪ (int)    varPagination_PageSize ► Pagination Page Size                                                            |
+        |      ▪ (int)    varPagination_PageShow ► Pagination Page Show                                                            |
+        |      ------------------------------                                                                                      |
+        |      ▪ (string) varBusinessDocumentNumber ► Business Document Number                                                     |
+        |      ▪ (string) varDocumentDateStart ► Document Date Start                                                               |
+        |      ▪ (string) varDocumentDateFinish ► Document Date Finish                                                             |
+        |      ▪ (string) varRequesterName ► Requester Name                                                                        |
+        |      ▪ (string) varCombinedBudget ► Combined Budget                                                                      |
+        |      ▪ (string) varCombinedBudgetSection ► Combined Budget Section                                                       |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getReport_Form_DataPickList_PaymentInstruction_LatestVersion(
+            $varUserSession, int $varSysBranch_RefID,
+            int $varPagination_PageSize = null, int $varPagination_PageShow = null,
+            string $varBusinessDocumentNumber = null, string $varDocumentDateStart = null, string $varDocumentDateFinish = null, string $varRequesterName = null, string $varCombinedBudget = null, string $varCombinedBudgetSection = null)
+            {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession,
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Finance.Func_GetReport_DataPickList_PaymentInstruction',
+                            [
+                                [$varSysBranch_RefID, 'bigint'],
+
+                                [$varPagination_PageSize, 'bigint'],
+                                [$varPagination_PageShow, 'bigint'],
+
+                                [$varBusinessDocumentNumber, 'varchar'],
+                                [$varDocumentDateStart, 'date'],
+                                [$varDocumentDateFinish, 'date'],
+                                [$varRequesterName, 'varchar'],
+                                [$varCombinedBudget, 'varchar'],
+                                [$varCombinedBudgetSection, 'varchar']
+                            ]
+                            )
+                        );
+
+                $varReturn['data'] =
+                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                        $varUserSession,
+                        $varReturn['data'][0]['Func_GetReport_DataPickList_PaymentInstruction']
                         );
 
                 return
