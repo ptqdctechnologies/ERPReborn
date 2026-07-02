@@ -4871,7 +4871,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                 $varReturn['data'] =
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
-                        $varReturn['data'][0]['Func_GetReport_DataList_Person']
+                        $varReturn['data'][0]['Func_GetReport_DataList_Bank']
                         );
 
                 return
