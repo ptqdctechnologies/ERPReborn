@@ -26,9 +26,17 @@ class BusinessTripService
         );
     }
 
-    public function getBusinessTripSummary($budget, $subBudget, $requester, $beneficiary, $date)
-    {
+    public function getBusinessTripSummary(
+        $budget,
+        $subBudget,
+        $requester,
+        $beneficiary,
+        $date,
+        $limit,
+        $offset
+    ) {
         $sessionToken = Session::get('SessionLogin');
+        $formatLimit = $limit == -1 ? 'ALL' : $limit;
 
         if ($date) {
             $dates = explode(' - ', $date);
@@ -49,6 +57,12 @@ class BusinessTripService
                     'BeneficiaryWorkerJobsPosition_RefID' => NULL, // $beneficiary ? $beneficiary : NULL,
                     'StartDate' => $date ? $startDate : NULL,
                     'EndDate' => $date ? $endDate : NULL
+                ],
+                'SQLStatement' => [
+                    'paging' => [
+                        'limit' => $formatLimit,
+                        'offset' => (int) $offset
+                    ]
                 ]
             ]
         );

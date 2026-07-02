@@ -32,6 +32,29 @@ class ProductService
         );
     }
 
+    public function getSummary($limit = 10, $offset = 0)
+    {
+        $token = Session::get('SessionLogin');
+
+        $formatLimit = $limit == -1 ? 'ALL' : $limit;
+
+        return Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
+            $token,
+            'transaction.read.dataList.master.getProductSummary',
+            'latest',
+            [
+                'parameter' => [],
+                'SQLStatement' => [
+                    'paging' => [
+                        'limit' => $formatLimit,
+                        'offset' => (int) $offset
+                    ]
+                ]
+            ]
+        );
+    }
+
     public function create($categoryRefID, $subCategoryRefID, $productName, $unitOfMeasureRefID)
     {
         $token = Session::get('SessionLogin');

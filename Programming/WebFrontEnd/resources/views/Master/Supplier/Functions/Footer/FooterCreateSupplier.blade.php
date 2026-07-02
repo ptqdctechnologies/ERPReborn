@@ -77,6 +77,16 @@
             component: '#specialization',
             containerMessageId: '#specializationMessage',
             messageId: '#specializationMessageText'
+        },
+        supplier_category_code: {
+            component: '#supplier_category_code',
+            containerMessageId: '#supplierCategoryCodeMessage',
+            messageId: '#supplierCategoryCodeMessageText'
+        },
+        supplier_category_name: {
+            component: '#supplier_category_name',
+            containerMessageId: '#supplierCategoryNameMessage',
+            messageId: '#supplierCategoryNameMessageText'
         }
     };
 
@@ -232,6 +242,18 @@
         }
     }
 
+    $('#tableSupplierCategoryListModal').on('click', 'tbody tr', function () {
+        const id = $(this).find('input[data-trigger="sys_id_supplier_category"]').val();
+        const code = $(this).find('td:nth-child(2)').text();
+        const name = $(this).find('td:nth-child(3)').text();
+
+        $("#supplier_category_id_modal").val(id);
+        $("#supplier_category_name_modal").val(`(${code}) ${name}`);
+        $("#supplier_category_name_modal").css({ "background-color": "#e9ecef" });
+
+        $('#supplierCategoryListModal').modal('toggle');
+    });
+
     $('#tableGetBankList').on('click', 'tbody tr', function () {
         const id = $(this).find('input[type="hidden"]').val();
         const acronym = $(this).find('td:nth-child(2)').text();
@@ -349,6 +371,14 @@
         }
     });
 
+    $('#supplier_category_name').on('input', function (e) {
+        ErrorHandler.hideErrorInputMessage('#supplier_category_name', '#supplierCategoryNameMessage');
+    });
+
+    $('#supplier_category_code').on('input', function (e) {
+        ErrorHandler.hideErrorInputMessage('#supplier_category_code', '#supplierCategoryCodeMessage');
+    });
+
     $('#remark').on('input', function (e) {
         if (!e.target.value) {
             ErrorHandler.showErrorInputMessage("#remark", "#remarkMessage");
@@ -437,8 +467,82 @@
         $('#mySuppliers').modal('toggle');
     });
 
+    $('#supplierCategoryListModalTrigger').on('click', function (e) {
+        $('#supplierSpecializationModal').modal('toggle');
+        $('#supplierCategoryListModal').modal('toggle');
+    });
+
     $('#revision_supplier').on('click', function (e) {
         getSuppliers();
+    });
+
+    $('#categoryForm').on('submit', function (e) {
+        e.preventDefault();
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: 'POST',
+            url: '{!! route("Supplier.Category.store") !!}',
+            data: $(this).serialize(),
+            beforeSend: function () {
+                Utils.showLoading();
+            }
+        })
+            .done(function (response) {
+                if (response.status === 200) {
+                    const swalWithBootstrapButtons = Swal.mixin({
+                        confirmButtonClass: 'btn btn-success btn-sm',
+                        cancelButtonClass: 'btn btn-danger btn-sm',
+                        buttonsStyling: true,
+                    });
+
+                    swalWithBootstrapButtons.fire({
+                        title: 'Successful !',
+                        type: 'success',
+                        html: 'Data has been saved. Your category is ' + '<span style="color:#0046FF;font-weight:bold;">' + response.documentNumber + '</span>',
+                        showCloseButton: false,
+                        showCancelButton: false,
+                        focusConfirm: false,
+                        confirmButtonText: '<span style="color:black;"> OK </span>',
+                        confirmButtonColor: '#4B586A',
+                        confirmButtonColor: '#e9ecef',
+                        reverseButtons: true
+                    }).then((result) => {
+                        getSupplierCategory();
+
+                        $("#supplierCategoryModal").modal('hide');
+                        $("#supplierSpecializationModal").modal('show');
+                        $("#supplier_category_code").val('');
+                        $("#supplier_category_name").val('');
+
+                        ErrorHandler.hideErrorInputMessage('#supplier_category_code', '#supplierCategoryCodeMessage');
+                        ErrorHandler.hideErrorInputMessage('#supplier_category_name', '#supplierCategoryNameMessage');
+                    });
+                }
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                console.error("Error:", errorThrown);
+
+                if (jqXHR.status === 422) {
+                    let errors = jqXHR.responseJSON.errors;
+
+                    $.each(errors, function (key, value) {
+                        console.log(key + ': ' + value[0]);
+
+                        if (formList[key]) {
+                            ErrorHandler.showErrorInputMessage(formList[key].component, formList[key].containerMessageId, formList[key].messageId, value[0]);
+                        }
+                    });
+                }
+            })
+            .always(function (jqXHR, textStatus, errorThrown) {
+                Utils.hideLoading();
+            });
     });
 
     document.querySelectorAll('.parent-checkbox').forEach(parent => {
@@ -497,9 +601,17 @@
             detailSpecialization();
         });
 
+        $('#supplierCategoryListModal').on('hidden.bs.modal', function (e) {
+            $('#supplierSpecializationModal').modal('toggle');
+        });
+
         $('#supplierCategoryModal').on('hidden.bs.modal', function (e) {
+            $("#supplier_category_code").val('');
+            $("#supplier_category_name").val('');
             $("#supplierCategoryModal").modal('hide');
             $("#supplierSpecializationModal").modal('show');
+            ErrorHandler.hideErrorInputMessage('#supplier_category_code', '#supplierCategoryCodeMessage');
+            ErrorHandler.hideErrorInputMessage('#supplier_category_name', '#supplierCategoryNameMessage');
         });
 
         $('#legal_entity').on('select2:select', function (e) {
@@ -511,6 +623,7 @@
 
         getCountries();
         getInstitutionType();
+        getSupplierCategory();
         detailSpecialization();
     });
 </script>

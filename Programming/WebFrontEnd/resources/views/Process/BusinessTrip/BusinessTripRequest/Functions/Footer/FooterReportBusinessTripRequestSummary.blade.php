@@ -56,100 +56,119 @@
     }
 
     function getDataReport() {
-        ShowLoading();
+        let totalBRF = 0;
 
-        $.ajax({
-            type: 'POST',
-            url: '{!! route("BusinessTripRequest.ReportBusinessTripRequestSummaryStore") !!}',
-            data: {
-                budget_code: budgetCode.value,
-                site_code: subBudgetCode.value,
-                requester_id: requesterID.value,
-                beneficiary_id: beneficiaryID.value,
-                brfDate: brfDate.value
+        $('#table_summary').DataTable({
+            destroy: true,
+            processing: true,
+            serverSide: true,
+            searching: false,
+            ordering: false,
+            lengthMenu: [
+                [10, 20, 50, 100, -1],
+                [10, 20, 50, 100, "All"]
+            ],
+            pageLength: 20,
+            ajax: {
+                type: 'POST',
+                url: '{!! route("BusinessTripRequest.ReportBusinessTripRequestSummaryStore") !!}',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: function (d) {
+                    d.budget_code = budgetCode.value;
+                    d.site_code = subBudgetCode.value;
+                    d.requester_id = requesterID.value;
+                    d.beneficiary_id = beneficiaryID.value;
+                    d.brfDate = brfDate.value;
+
+                    return d;
+                },
+                dataSrc: function (json) {
+                    dataReport = json.data;
+
+                    json.data.forEach(function (row) {
+                        totalBRF += parseFloat(row.brfTotal) || 0;
+                    });
+
+                    return json.data;
+                },
+                beforeSend: function () {
+                    Utils.showLoading();
+
+                    $('#table_summary tbody').empty();
+                    $('#table_container').css("display", "none");
+                },
+                complete: function () {
+                    Utils.hideLoading();
+
+                    $('#table_summary').css("width", "100%");
+                    $('#table_container').css("display", "block");
+                },
             },
-            dataType: 'json',
-            success: function (response) {
-                let data = (response.status === 200 && response.data[0]) ? response.data : [];
-                dataReport = data;
-
-                let totalBRF = data.reduce((total, row) => {
-                    return total + Utils.parseFloatSafe(row.brfTotal || 0);
-                }, 0);
-
-                $('#table_summary').DataTable({
-                    destroy: true,
-                    data: data,
-                    deferRender: true,
-                    scrollCollapse: true,
-                    scroller: true,
-                    columns: [
-                        {
-                            data: null,
-                            render: function (data, type, row, meta) {
-                                return (meta.row + 1);
-                            }
-                        },
-                        {
-                            data: 'brfNumber',
-                            defaultContent: '-'
-                        },
-                        {
-                            data: null,
-                            className: "text-nowrap",
-                            render: function (data, type, row, meta) {
-                                return `${data.combinedBudgetSectionCode || ''} - ${data.combinedBudgetSectionName || ''}`;
-                            }
-                        },
-                        {
-                            data: 'departurePoint',
-                            defaultContent: '-'
-                        },
-                        {
-                            data: 'destinationPoint',
-                            defaultContent: '-'
-                        },
-                        {
-                            data: 'brfDate',
-                            defaultContent: '-'
-                        },
-                        {
-                            data: 'currencyISOCode',
-                            defaultContent: '-'
-                        },
-                        {
-                            data: 'requesterName',
-                            defaultContent: '-'
-                        },
-                        {
-                            data: null,
-                            defaultContent: '-',
-                            render: function (data, type, row, meta) {
-                                return Utils.formatCurrency(Utils.parseFloatSafe(data.brfTotal));
-                            }
-                        },
-                        {
-                            data: 'remarks',
-                            className: "text-wrap",
-                            defaultContent: '-'
-                        }
-                    ],
-                    drawCallback: function (settings) {
-                        $('#table_summary tfoot th:nth-child(2)').text(Utils.formatCurrency(totalBRF));
+            columns: [
+                {
+                    data: null,
+                    render: function (data, type, row, meta) {
+                        return (meta.row + meta.settings._iDisplayStart + 1);
                     }
-                });
-
-                $('#table_summary').css("width", "100%");
-                $('#table_container').css("display", "block");
-
-                HideLoading();
-            },
-            error: function (xhr, status, error) {
-                HideLoading();
-                ErrorNotif("An error occurred while processing the received data. Please try again later.");
-                console.log('xhr, status, error', xhr, status, error);
+                },
+                {
+                    data: 'brfNumber',
+                    defaultContent: '-',
+                    className: "text-nowrap"
+                },
+                {
+                    data: null,
+                    defaultContent: '-',
+                    className: "text-nowrap",
+                    render: function (data, type, row, meta) {
+                        return `${data.combinedBudgetSectionCode || ''} - ${data.combinedBudgetSectionName || ''}`;
+                    }
+                },
+                {
+                    data: 'departurePoint',
+                    defaultContent: '-',
+                    className: "text-nowrap"
+                },
+                {
+                    data: 'destinationPoint',
+                    defaultContent: '-',
+                    className: "text-nowrap"
+                },
+                {
+                    data: 'brfDate',
+                    defaultContent: '-',
+                    className: "text-nowrap"
+                },
+                {
+                    data: 'currencyISOCode',
+                    defaultContent: '-',
+                    className: "text-nowrap"
+                },
+                {
+                    data: 'requesterName',
+                    defaultContent: '-',
+                    className: "text-nowrap"
+                },
+                {
+                    data: null,
+                    defaultContent: '-',
+                    className: "text-nowrap",
+                    render: function (data, type, row, meta) {
+                        return Utils.formatCurrency(Utils.parseFloatSafe(data.brfTotal));
+                    }
+                },
+                {
+                    data: 'remarks',
+                    defaultContent: '-',
+                    className: "text-wrap"
+                }
+            ],
+            drawCallback: function (settings) {
+                $('#table_summary tfoot th:nth-child(2)').text(currencyTotal(totalBRF));
             }
-        })
+        });
     }
 
     function exportDataReport() {

@@ -10,6 +10,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Session;
 use App\Http\Requests\Master\Supplier\StoreSupplier;
+use App\Http\Requests\Master\Supplier\StoreSupplierCategory;
 use App\Services\Master\Supplier\SupplierService;
 
 class SupplierController extends Controller
@@ -189,5 +190,47 @@ class SupplierController extends Controller
 
             return response()->json(['statusCode' => 400]);
         }
+    }
+
+    public function categoryStore(StoreSupplierCategory $request)
+    {
+        try {
+            $code = $request->input('supplier_category_code');
+            $name = $request->input('supplier_category_name');
+
+            $response = $this->supplierService->createCategory($code, $name);
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                throw new \Exception('Failed to fetch Store Category Supplier => ' . $response['data']['message']);
+            }
+
+            $compact = [
+                "documentNumber" => $response['data']['categoryCode'] . " - " . $response['data']['categoryName'],
+                "status" => $response['metadata']['HTTPStatusCode'],
+            ];
+
+            return response()->json($compact);
+        } catch (\Throwable $th) {
+            Log::error("Store Category Supplier Function Error: " . $th->getMessage());
+
+            return response()->json(["status" => 500]);
+        }
+    }
+
+    public function categoryPicklist(Request $request)
+    {
+        $response = $this->supplierService->getCategoryPickList();
+
+        $status = $response['metadata']['HTTPStatusCode'];
+        $data = [];
+
+        if ($status == 200) {
+            $data = $response['data']['data'] ?? [];
+        }
+
+        return response()->json([
+            'data' => $data,
+            'status' => $status
+        ]);
     }
 }
