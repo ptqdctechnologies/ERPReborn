@@ -3,29 +3,29 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\dataPickList\sysConfig\getUserRole           |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\dataList\sysConfig\getUserRoleGroup          |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2026 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 
-namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\dataPickList\sysConfig\getUserRole\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\dataList\sysConfig\getUserRoleGroup\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : getUserRole                                                                                                  |
-    | ▪ Description : Menangani API report.form.dataPickList.sysConfig.getUserRole Version 1                                       |
+    | ▪ Class Name  : getUserRoleGroup                                                                                             |
+    | ▪ Description : Menangani API report.form.dataList.sysConfig.getUserRoleGroup Version 1                                      |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class getUserRole extends \App\Http\Controllers\Controller
+    class getUserRoleGroup extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2026-06-26                                                                                           |
-        | ▪ Create date     : 2026-06-26                                                                                           |
+        | ▪ Last Update     : 2026-07-02                                                                                           |
+        | ▪ Create date     : 2026-07-02                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -43,9 +43,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\da
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2026-06-26                                                                                           |
-        | ▪ Create date     : 2026-06-26                                                                                           |
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2026-07-02                                                                                           |
+        | ▪ Create date     : 2026-07-02                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -71,7 +71,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\da
                         if (!($varDataSend = 
                             \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead(
                                 $varUserSession,
-                                (new \App\Models\Database\SchSysConfig\General())->getReport_Form_DataPickList_UserRole(
+                                (new \App\Models\Database\SchSysConfig\General())->getReport_Form_DataList_UserRole(
                                     $varUserSession,
                                     (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
 
@@ -111,18 +111,6 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\da
                                                 ) ? (
                                                     (!is_null($varData['parameter']['dataFilter']['name'])) 
                                                         ? $varData['parameter']['dataFilter']['name'] 
-                                                        : null
-                                                        ) 
-                                                    : null
-                                            ),
-                                        //---► userRoleGroupName
-                                            (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
-                                                $varUserSession,
-                                                'name',
-                                                $varData['parameter']['dataFilter']
-                                                ) ? (
-                                                    (!is_null($varData['parameter']['dataFilter']['userRoleGroupName'])) 
-                                                        ? $varData['parameter']['dataFilter']['userRoleGroupName'] 
                                                         : null
                                                         ) 
                                                     : null
