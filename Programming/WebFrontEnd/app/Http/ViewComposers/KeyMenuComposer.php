@@ -16,16 +16,15 @@ class KeyMenuComposer
         $branchRefID = Session::get('SessionBranch');
         $userRefID = Session::get('SessionUser_RefID');
 
-        $cacheTTL = 28800; // 8 hrs
+        $cacheTTL = 28800; // 8 jam
         $cacheKey = "menu_layout_{$branchRefID}_{$userRefID}";
+        $redisKey = Helper_Environment::getUserSessionID_System();
 
-        $cachedData = Helper_Redis::getValue(Helper_Environment::getUserSessionID_System(), $cacheKey);
-
-        // Helper_Redis::delete($userRefID, $cacheKey);
+        $cachedData = Helper_Redis::getValue($redisKey, $cacheKey);
 
         if ($cachedData === null) {
             $response = Helper_APICall::setCallAPIGateway(
-                Helper_Environment::getUserSessionID_System(),
+                $redisKey,
                 $token,
                 'authentication.userPrivilege.getMenuLayout',
                 'latest',
@@ -38,16 +37,24 @@ class KeyMenuComposer
             );
 
             if ($response['metadata']['HTTPStatusCode'] !== 200) {
-                Helper_Redis::setValue($userRefID, $cacheKey, json_encode([]), $cacheTTL);
-
                 throw new \Exception('Failed to fetch Get Menu Layout');
             }
 
-            Helper_Redis::setValue($userRefID, $cacheKey, json_encode($response['data']), $cacheTTL);
+            // Simpan hasil API ke variabel dan Redis
+            $cachedData = json_encode($response['data']);
+
+            Helper_Redis::setValue(
+                $redisKey,
+                $cacheKey,
+                $cachedData,
+                $cacheTTL
+            );
+
+            // Helper_Redis::delete($userRefID, $cacheKey);
         }
 
         $view->with([
-            'privilageMenu' => json_decode($cachedData, true)
+            'privilageMenu' => json_decode($cachedData, true) ?? []
         ]);
     }
 }

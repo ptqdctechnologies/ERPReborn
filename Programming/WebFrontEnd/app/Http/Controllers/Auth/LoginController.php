@@ -155,9 +155,16 @@ class LoginController extends Controller
                 throw new \Exception('Logout failed');
             }
 
+            $branchRefID = Session::get('SessionBranch');
+            $userRefID = Session::get('SessionUser_RefID');
+
+            $cacheKey = "menu_layout_{$branchRefID}_{$userRefID}";
+
             AuthFacade::logout();
             Session::invalidate();
             Session::regenerateToken();
+
+            Helper_Redis::delete($userRefID, $cacheKey);
 
             return redirect('/')->with([$response['metadata']['HTTPStatusCode'] => $response['data']['message']]);
         } catch (\Throwable $th) {
@@ -195,9 +202,16 @@ class LoginController extends Controller
                 throw new \Exception('Logout failed');
             }
 
+            $branchRefID = Session::get('SessionBranch');
+            $userRefID = Session::get('SessionUser_RefID');
+
+            $cacheKey = "menu_layout_{$branchRefID}_{$userRefID}";
+
             AuthFacade::logout();
             Session::invalidate();
             Session::regenerateToken();
+
+            Helper_Redis::delete($userRefID, $cacheKey);
 
             return redirect('/')->with([$response['metadata']['HTTPStatusCode'] => $response['data']['message']]);
         } catch (\Throwable $th) {
