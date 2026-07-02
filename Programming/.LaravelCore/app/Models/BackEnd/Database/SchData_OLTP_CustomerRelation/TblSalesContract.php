@@ -69,7 +69,7 @@ namespace App\Models\Database\SchData_OLTP_CustomerRelation
         public function setDataInsert(
             $varUserSession,
             string $varSysDataAnnotation = null, string $varSysDataValidityStartDateTimeTZ = null, string $varSysDataValidityFinishDateTimeTZ = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, $varSysBaseCurrency_RefID = null,
-            int $varLog_FileUpload_Pointer_RefID = null, int $varCombinedBudget_RefID = null, int $varCurrency_RefID = null, string $varDocumentDateTimeTZ = null, 
+            int $varLog_FileUpload_Pointer_RefID = null, int $varCombinedBudget_RefID = null, int $varCurrency_RefID = null, string $varDocumentDateTimeTZ = null, string $varType = null, string $varVatStatus = null, float $varVatRatio = 0, 
             array $varAdditionalData = [])
             {
             $varReturn =
@@ -93,6 +93,9 @@ namespace App\Models\Database\SchData_OLTP_CustomerRelation
                             [$varCombinedBudget_RefID, 'bigint'],
                             [$varCurrency_RefID, 'bigint'],
                             [$varDocumentDateTimeTZ, 'timestamptz'],
+                            [$varType, 'varchar'],
+                            [$varVatStatus, 'varchar'],
+                            [$varVatRatio, 'numeric'],
 
                             [
                                 ((count($varAdditionalData) === 0)
@@ -178,7 +181,7 @@ namespace App\Models\Database\SchData_OLTP_CustomerRelation
             $varUserSession, 
             int $varSysID,
             string $varSysDataAnnotation = null, string $varSysDataValidityStartDateTimeTZ = null, string $varSysDataValidityFinishDateTimeTZ = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, $varSysBaseCurrency_RefID = null,
-            int $varLog_FileUpload_Pointer_RefID = null, int $varCombinedBudget_RefID = null, int $varCurrency_RefID = null, string $varDocumentDateTimeTZ = null,
+            int $varLog_FileUpload_Pointer_RefID = null, int $varCombinedBudget_RefID = null, int $varCurrency_RefID = null, string $varDocumentDateTimeTZ = null, string $varType = null, string $varVatStatus = null, float $varVatRatio = 0,
             array $varAdditionalData = [])
             {
             $varReturn =
@@ -202,6 +205,9 @@ namespace App\Models\Database\SchData_OLTP_CustomerRelation
                             [$varCombinedBudget_RefID, 'bigint'],
                             [$varCurrency_RefID, 'bigint'],
                             [$varDocumentDateTimeTZ, 'timestamptz'],
+                            [$varType, 'varchar'],
+                            [$varVatStatus, 'varchar'],
+                            [$varVatRatio, 'numeric'],
 
                             [
                                 ((count($varAdditionalData) === 0)

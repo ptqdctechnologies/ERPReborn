@@ -86,6 +86,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
                                     $varData['entities']['combinedBudget_RefID'],
                                     $varData['entities']['currency_RefID'],
                                     $varData['entities']['documentDateTimeTZ'],
+                                    $varData['entities']['type'],
+                                    $varData['entities']['vatStatus'],
+                                    $varData['entities']['vatRatio'],
 
                                     (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
                                         $varUserSession,

@@ -21,7 +21,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         |                     ► http://172.28.0.4/transaction.create.customerRelation.setSalesContract.v1_throughAPIGateway        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2026-06-12                                                                                           |
+        | ▪ Last Update     : 2026-07-02                                                                                           |
         | ▪ Creation Date   : 2026-06-12                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -43,14 +43,22 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                     "combinedBudget_RefID" => 46000000000001,
                     "currency_RefID" => 62000000000001,
                     "documentDateTimeTZ" => '2026-06-12',
+                    "type" => 'SUB_BUDGET_BASE',
+                    "vatStatus" => 'YES',
+                    "vatRatio" => 10,
                     "additionalData" => [
                         "itemList" => [
                             "items" => [
                                     [
                                     "entities" => [
                                         "combinedBudgetSection_RefID" => 143000000000029,
-                                        "value" => 10,
-                                        "notes" => 'Catatan Pertama'
+                                        "value" => 10.5,
+                                        "notes" => 'Catatan Pertama',
+                                        "work_RefID" => 164000000000497,
+                                        "product_RefID" => 88000000000002,
+                                        "uom_RefID" => 73000000000001,
+                                        "quantity" => 5,
+                                        "price" => 50000
                                         ]                                   
                                     ]
                                 ]
