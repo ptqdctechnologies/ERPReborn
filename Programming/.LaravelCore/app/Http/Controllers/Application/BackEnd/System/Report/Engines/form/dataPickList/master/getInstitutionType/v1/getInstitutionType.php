@@ -115,6 +115,18 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\da
                                                         ) 
                                                     : null
                                             ),
+                                        //---► country_RefID
+                                            (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
+                                                $varUserSession,
+                                                'pageShow',
+                                                $varData['parameter']['dataFilter']
+                                                ) ? (
+                                                    (!is_null($varData['parameter']['dataFilter']['country_RefID'])) 
+                                                        ? $varData['parameter']['dataFilter']['country_RefID'] 
+                                                        : null
+                                                        ) 
+                                                    : null
+                                            ),
                                         //---► countryName
                                             (
                                             \App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(

@@ -10,8 +10,8 @@ RUN printf "deb http://kambing.ui.ac.id/debian/ buster main contrib non-free" >>
 #deb http://kartolo.sby.datautama.net.id/debian-security/ buster/updates main contrib non-free
 
 
-#RUN apt-get update --fix-missing \
-RUN apt-get update \
+#RUN apt-get update \
+RUN apt-get update --fix-missing \
     && apt-get upgrade -y \
     && apt-get autoremove -y
 
