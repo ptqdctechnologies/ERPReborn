@@ -135,9 +135,9 @@
                         }
                     });
 
-                if ($('#searchHintAdvance').length === 0) {
+                if ($('#searchHintAdvanceSettlement').length === 0) {
                     $filter.append(
-                        '<small id="searchHintAdvance" class="form-text text-muted" style="margin-bottom: .5rem;">' +
+                        '<small id="searchHintAdvanceSettlement" class="form-text text-muted" style="margin-bottom: .5rem;">' +
                         'Press <strong>Enter</strong> to start searching.' +
                         '</small>'
                     );

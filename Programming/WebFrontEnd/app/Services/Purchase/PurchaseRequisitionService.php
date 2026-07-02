@@ -10,25 +10,40 @@ use App\Helpers\ZhtHelper\System\Helper_Environment;
 
 class PurchaseRequisitionService
 {
-    public function getPickList()
+    // public function getPickList()
+    // {
+    //     $sessionToken = Session::get('SessionLogin');
+
+    //     return Helper_APICall::setCallAPIGateway(
+    //         Helper_Environment::getUserSessionID_System(),
+    //         $sessionToken,
+    //         'dataPickList.supplyChain.getPurchaseRequisition',
+    //         'latest',
+    //         [
+    //             'parameter' => null,
+    //             'SQLStatement' => [
+    //                 'pick' => null,
+    //                 'sort' => null,
+    //                 'filter' => null,
+    //                 'paging' => null
+    //             ]
+    //         ],
+    //         false
+    //     );
+    // }
+
+    public function getPickList($formatted)
     {
         $sessionToken = Session::get('SessionLogin');
 
         return Helper_APICall::setCallAPIGateway(
             Helper_Environment::getUserSessionID_System(),
             $sessionToken,
-            'dataPickList.supplyChain.getPurchaseRequisition',
+            'report.form.dataPickList.supplyChain.getPurchaseRequisition',
             'latest',
             [
-                'parameter' => null,
-                'SQLStatement' => [
-                    'pick' => null,
-                    'sort' => null,
-                    'filter' => null,
-                    'paging' => null
-                ]
-            ],
-            false
+                'parameter' => $formatted
+            ]
         );
     }
 

@@ -157,18 +157,46 @@ class PurchaseRequisitionController extends Controller
 
     public function PurchaseRequisitionPickList(Request $request)
     {
-        $response = $this->purchaseRequisitionService->getPickList();
+        $start = $request->input('start', 0);
+        $length = $request->input('length', 10);
+        $offset = floor($start / $length) + 1;
+        $limit = $length;
 
-        $status = $response['metadata']['HTTPStatusCode'];
-        $data = [];
+        $searchValue = $request->input('search.value');
 
-        if ($status == 200) {
-            $data = $response['data']['data'] ?? [];
+        $formatted = [
+            'pagination' => [
+                'pageSize' => (int) $limit,
+                'pageShow' => (int) $offset
+            ],
+            'dataFilter' => [
+                'businessDocumentNumber' => $searchValue,   //'PR/QDC',
+                'documentDateStart' => NULL,        //'2026-01-01'
+                'documentDateFinish' => NULL,       //'2026-12-31'
+                'requesterName' => NULL,            //'Adhe'
+                'combinedBudget' => NULL,           //'Q000062'
+                'combinedBudgetSection' => NULL     //'240'
+            ],
+        ];
+
+        $response = $this->purchaseRequisitionService->getPickList($formatted);
+
+        if ($response['metadata']['HTTPStatusCode'] !== 200) {
+            return response()->json([
+                'draw' => intval($request->input('draw')),
+                'recordsTotal' => 0,
+                'recordsFiltered' => 0,
+                'data' => []
+            ]);
         }
 
+        $purchaseRequestData = $response['data']['data'];
+
         return response()->json([
-            'data' => $data,
-            'status' => $status
+            'draw' => intval($request->input('draw')),
+            'recordsTotal' => $purchaseRequestData['header']['dataCount'],
+            'recordsFiltered' => $purchaseRequestData['header']['dataCount'],
+            'data' => $purchaseRequestData['content']['itemList']
         ]);
     }
 
