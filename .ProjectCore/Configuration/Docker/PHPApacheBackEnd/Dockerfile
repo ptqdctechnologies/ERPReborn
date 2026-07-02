@@ -12,8 +12,8 @@ RUN printf "deb http://kambing.ui.ac.id/debian/ buster main contrib non-free" >>
 
 
 #---> Main
-#RUN apt-get update --fix-missing \
-RUN apt-get update \
+#RUN apt-get update \
+RUN apt-get update --fix-missing \
     && apt-get upgrade -y \
     && apt-get autoremove -y \
     && apt-get install -y \
@@ -30,8 +30,12 @@ RUN apt-get install -y \
 
 
 #---> Basic Application : Cron
-RUN apt-get install -y \
-   cron
+#RUN apt-get install -y \
+RUN apt-get update --fix-missing \
+    && apt-get upgrade -y \
+    && apt-get autoremove -y \
+    && apt-get install -y \
+       cron
 ADD ./.ProjectCore/Configuration/Docker/PHPApacheBackEnd/System/etc/cron.d/cron_Script_* /etc/cron.d/
 RUN chmod 0644 /etc/cron.d/cron_Script_* \
     && touch /var/log/cron.log

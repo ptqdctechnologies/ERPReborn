@@ -57,15 +57,15 @@
                     "dataFilter": {
                         "type": "object",
                         "properties": {
-                            "userRoleGroup_RefID": {
-                                "type": [ "integer", "null" ],
-                                "minimum": 1,
-                                "maximum": 9223372036854775807
-                                },
                             "name": {
                                 "type": [ "string", "null" ],
                                 "minLength": 1,
                                 "maxLength": 64
+                                },
+                            "userRoleGroup_RefID": {
+                                "type": [ "integer", "null" ],
+                                "minimum": 1,
+                                "maximum": 9223372036854775807
                                 },
                             "userRoleGroupName": {
                                 "type": [ "string", "null" ],

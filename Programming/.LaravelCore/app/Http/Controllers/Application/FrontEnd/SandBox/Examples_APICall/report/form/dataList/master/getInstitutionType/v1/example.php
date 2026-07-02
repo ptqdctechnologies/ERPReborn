@@ -51,8 +51,9 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
                                 'pageShow' => 1
                                 ],
                             'dataFilter' => [
-                                'name' => NULL,           //'Perusahaan',
-                                'companyName' => NULL     //'Indonesia'
+                                'name' => NULL,             //'Perusahaan',
+                                'country_RefID' => NULL,    //20000000000078
+                                'countryName' => NULL       //'Indonesia'
                                 ],
                             ]
                         ]
