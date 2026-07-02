@@ -1,0 +1,9 @@
+{
+"title": "JSON Request Schema",
+"description": "JSON Request Schema of dataPickList.master.getSupplierSubCategory (version 1)",
+"type": "object",
+"properties": {
+    "data": {
+        }
+    }
+}
