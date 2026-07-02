@@ -2345,7 +2345,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_SupplierSubCategoryDetail_LatestVersion(
-            $varUserSession, int $varProduct_RefID = null)
+            $varUserSession, string $varSubCategoryCode = null)
             {
             try {
                 $varReturn =
@@ -2355,7 +2355,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             $varUserSession,
                             'SchData-OLTP-Master.Func_GetDataList_SupplierSubCategoryDetail',
                             [
-                                [$varProduct_RefID, 'bigint' ],
+                                [$varSubCategoryCode, 'varchar' ]
                             ]
                             )
                         );
