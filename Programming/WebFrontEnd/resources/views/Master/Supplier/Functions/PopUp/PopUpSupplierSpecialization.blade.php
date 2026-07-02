@@ -7,105 +7,54 @@
                     Supplier Specialization
                 </h3>
             </div>
-            <div class="modal-body">
-                <div class="row align-items-center">
-                    <label class="col-sm-3 col-md-4 col-lg-1 col-form-label">Category</label>
-                    <div class="col d-flex">
-                        <div>
-                            <span id="supplierCategoryListModalTrigger" style="border-radius:0; cursor: pointer;"
-                                class="input-group-text form-control">
-                                <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13"
-                                    alt="supplierCategoryListModalTrigger">
-                            </span>
-                        </div>
-                        <div class="col-4 p-0">
-                            <div class="input-group">
-                                <input id="supplier_category_name_modal" class="form-control"
-                                    style="border-radius:0; background-color: white;" readonly>
-                                <input id="supplier_category_id_modal" class="form-control" style="border-radius:0;"
-                                    name="supplier_category_id_modal" hidden>
+            <form id="specializationForm">
+                <div class="modal-body">
+                    <div class="row align-items-center">
+                        <label class="col-sm-3 col-md-4 col-lg-1 col-form-label">Category</label>
+                        <div class="col d-flex">
+                            <div>
+                                <span id="supplierCategoryListModalTrigger" style="border-radius:0; cursor: pointer;"
+                                    class="input-group-text form-control">
+                                    <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13"
+                                        alt="supplierCategoryListModalTrigger">
+                                </span>
                             </div>
-                        </div>
-                        <div style="margin-left: 1rem;">
-                            <button type="button" id="add-category" class="btn btn-default btn-sm" data-toggle="modal"
-                                data-target="#supplierCategoryModal"
-                                style="background-color:#e9ecef;border:1px solid #ced4da;">
-                                Add Category
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <hr />
-
-                <div id="multiple-specialization">
-                    <!-- <div class="row">
-                        <div class="col-sm-3 col-md-4 col-lg-1 col-form-label">
-                            <div class="icon-plus d-flex align-items-center justify-content-center" style="width:20px;height:20px;border-radius:100%;background-color:#4B586A;margin:2px;cursor:pointer;
-                                display:flex;">
-                                <i class="fas fa-plus" style="color:#fff;"></i>
-                            </div>
-                        </div>
-                        <div class="col-4">
-                            <div class="row align-items-center" style="gap: 2rem;">
-                                <label class="col-sm-3 col-md-4 col-lg-1 col-form-label">Code</label>
-                                <div class="col">
-                                    <div class="input-group">
-                                        <input class="form-control" id="supplier_specialization_code"
-                                            name="supplier_specialization_code" style="border-radius:0;">
-                                    </div>
+                            <div class="col-4 p-0">
+                                <div class="input-group">
+                                    <input id="supplier_category_name_modal" class="form-control"
+                                        style="border-radius:0; background-color: white;" readonly>
+                                    <input id="supplier_category_code_modal" class="form-control"
+                                        style="border-radius:0; background-color: white;" hidden>
+                                    <input id="supplier_category_id_modal" class="form-control" style="border-radius:0;"
+                                        hidden>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-4">
-                            <div class="row align-items-center" style="gap: 2rem;">
-                                <label class="col-sm-3 col-md-4 col-lg-1 col-form-label">Name</label>
-                                <div class="col">
-                                    <div class="input-group">
-                                        <input class="form-control" id="supplier_specialization_name"
-                                            name="supplier_specialization_name" style="border-radius:0;">
-                                    </div>
-                                </div>
+                            <div style="margin-left: 1rem;">
+                                <button type="button" id="add-category" class="btn btn-default btn-sm"
+                                    data-toggle="modal" data-target="#supplierCategoryModal"
+                                    style="background-color:#e9ecef;border:1px solid #ced4da;">
+                                    Add Category
+                                </button>
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-sm-3 col-md-4 col-lg-1 col-form-label">
-                            <div class="icon-plus d-flex align-items-center justify-content-center" style="width:20px;height:20px;border-radius:100%;background-color:#4B586A;margin:2px;cursor:pointer;
-                                display:flex;">
-                                <i class="fas fa-plus" style="color:#fff;"></i>
-                            </div>
-                        </div>
-                        <div class="col-4">
-                            <div class="row align-items-center" style="gap: 2rem;">
-                                <label class="col-sm-3 col-md-4 col-lg-1 col-form-label">Code</label>
-                                <div class="col">
-                                    <div class="input-group">
-                                        <input class="form-control" id="supplier_specialization_code"
-                                            name="supplier_specialization_code" style="border-radius:0;">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-4">
-                            <div class="row align-items-center" style="gap: 2rem;">
-                                <label class="col-sm-3 col-md-4 col-lg-1 col-form-label">Name</label>
-                                <div class="col">
-                                    <div class="input-group">
-                                        <input class="form-control" id="supplier_specialization_name"
-                                            name="supplier_specialization_name" style="border-radius:0;">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
+                    <div class="row" id="supplierCategoryMessage" style="margin-top: .3rem;">
+                        <label class="col-sm-3 col-md-4 col-lg-1 col-form-label"></label>
+                        <div class="col text-red" id="supplierCategoryMessageText"></div>
+                    </div>
+                    <hr />
+                    <div id="multiple-specialization"></div>
+                    <div class="row" id="supplierSpecialiationMessage" style="margin-top: .3rem;">
+                        <label class="col-sm-3 col-md-4 col-lg-1 col-form-label"></label>
+                        <div class="col text-red" id="supplierSpecialiationMessageText"></div>
+                    </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button id="cancel-specialization" type="button" class="btn btn-sm btn-default"
-                    data-dismiss="modal">Cancel</button>
-                <button id="submit-specialization" type="button" class="btn btn-sm btn-primary">Submit</button>
-            </div>
+                <div class="modal-footer">
+                    <button id="cancel-specialization" type="button" class="btn btn-sm btn-default"
+                        data-dismiss="modal">Cancel</button>
+                    <button id="submit-specialization" type="submit" class="btn btn-sm btn-primary">Submit</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
