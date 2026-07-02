@@ -68,6 +68,7 @@ namespace App\Models\Database\SchSysConfig
         |      ▪ (int)    varPagination_PageSize ► Pagination Page Size                                                            |
         |      ▪ (int)    varPagination_PageShow ► Pagination Page Show                                                            |
         |      ------------------------------                                                                                      |
+        |      ▪ (int)    varUserRoleGroup_RefID ► User Role Group Reference ID                                                    |
         |      ▪ (string) varName ► Name                                                                                           |
         |      ▪ (string) varUserRoleGroupName ► User Role Group Name                                                              |
         | ▪ Output Variable :                                                                                                      |
@@ -77,7 +78,7 @@ namespace App\Models\Database\SchSysConfig
         public function getReport_Form_DataList_UserRole(
             $varUserSession, int $varSysBranch_RefID,
             int $varPagination_PageSize = null, int $varPagination_PageShow = null,
-            string $varName = null, string $varUserRoleGroupName = null)
+            int $varUserRoleGroup_RefID = null, string $varName = null, string $varUserRoleGroupName = null)
             {
             try {
                 $varReturn =
@@ -92,6 +93,7 @@ namespace App\Models\Database\SchSysConfig
                                 [$varPagination_PageSize, 'bigint'],
                                 [$varPagination_PageShow, 'bigint'],
 
+                                [$varUserRoleGroup_RefID, 'bigint'],
                                 [$varName, 'varchar'],
                                 [$varUserRoleGroupName, 'varchar']
                             ]
@@ -194,6 +196,7 @@ namespace App\Models\Database\SchSysConfig
         |      ▪ (int)    varPagination_PageSize ► Pagination Page Size                                                            |
         |      ▪ (int)    varPagination_PageShow ► Pagination Page Show                                                            |
         |      ------------------------------                                                                                      |
+        |      ▪ (int)    varUserRoleGroup_RefID ► User Role Group Reference ID                                                    |
         |      ▪ (string) varName ► Name                                                                                           |
         |      ▪ (string) varUserRoleGroupName ► User Role Group Name                                                              |
         | ▪ Output Variable :                                                                                                      |
@@ -203,7 +206,7 @@ namespace App\Models\Database\SchSysConfig
         public function getReport_Form_DataPickList_UserRole(
             $varUserSession, int $varSysBranch_RefID,
             int $varPagination_PageSize = null, int $varPagination_PageShow = null,
-            string $varName = null, string $varUserRoleGroupName = null)
+            int $varUserRoleGroup_RefID = null, string $varName = null, string $varUserRoleGroupName = null)
             {
             try {
                 $varReturn =
@@ -218,6 +221,7 @@ namespace App\Models\Database\SchSysConfig
                                 [$varPagination_PageSize, 'bigint'],
                                 [$varPagination_PageShow, 'bigint'],
 
+                                [$varUserRoleGroup_RefID, 'bigint'],
                                 [$varName, 'varchar'],
                                 [$varUserRoleGroupName, 'varchar']
                             ]

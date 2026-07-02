@@ -51,8 +51,9 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
                                 'pageShow' => 1
                                 ],
                             'dataFilter' => [
-                                'name' => NULL,                 //'Project Manager'
-                                'userRoleGroupName' => NULL     //'Project'
+                                'userRoleGroup_RefID' => NULL,  //'252000000000001'
+                                'name' => NULL,                 //'User'
+                                'userRoleGroupName' => NULL     //'System'
                                 ],
                             ]
                         ]

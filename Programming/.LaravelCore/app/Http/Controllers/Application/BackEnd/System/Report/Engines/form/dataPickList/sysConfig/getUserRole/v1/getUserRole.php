@@ -103,6 +103,18 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\da
                                     //-----[ Pagination Parameter ]-------------------------------------------------(  END POINT  )-----
 
                                     //-----[ Filter Parameter ]-----------------------------------------------------( START POINT )-----
+                                        //---► userRoleGroup_RefID
+                                            (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
+                                                $varUserSession,
+                                                'userRoleGroup_RefID',
+                                                $varData['parameter']['dataFilter']
+                                                ) ? (
+                                                    (!is_null($varData['parameter']['dataFilter']['userRoleGroup_RefID'])) 
+                                                        ? $varData['parameter']['dataFilter']['userRoleGroup_RefID'] 
+                                                        : null
+                                                        ) 
+                                                    : null
+                                            ),
                                         //---► name
                                             (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
                                                 $varUserSession,

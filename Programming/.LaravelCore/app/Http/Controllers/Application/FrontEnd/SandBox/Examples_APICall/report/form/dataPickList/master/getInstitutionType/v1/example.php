@@ -3,22 +3,22 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category    : Example - API Call Controller                                                                                    |
-| ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\report\form\dataList\sysConfig\getUserRole   |
-|                 \v1                                                                                                              |
-| ▪ API Key     : report.form.dataList.sysConfig.getUserRole                                                                       |
+| ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\report\form\dataPickList\master              |
+|                 \getInstitutionType\v1                                                                                           |
+| ▪ API Key     : report.form.dataPickList.master.getInstitutionType                                                               |
 | ▪ API Version : 1                                                                                                                |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2026 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\report\form\dataList\sysConfig\getUserRole\v1
+namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\report\form\dataPickList\master\getInstitutionType\v1
     {
     class example extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Call URL        : http(s)://<HOST>/report.form.dataList.sysConfig.getUserRole.v1_throughAPIGateway                     |
-        |                     ► http://172.28.0.4/report.form.dataList.sysConfig.getUserRole.v1_throughAPIGateway                  |
+        | ▪ Call URL        : http(s)://<HOST>/report.form.dataPickList.master.getInstitutionType.v1_throughAPIGateway             |
+        |                     ► http://172.28.0.4/report.form.dataPickList.master.getInstitutionType.v1_throughAPIGateway          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2026-07-02                                                                                           |
@@ -39,7 +39,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
                     //-----[ METADATA ]-----( START )-----
                         \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                         $varAPIWebToken, 
-                        'report.form.dataList.sysConfig.getUserRole', 
+                        'report.form.dataPickList.master.getInstitutionType', 
                         'latest',
                     //-----[ METADATA ]-----(  END  )-----
 
@@ -51,9 +51,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
                                 'pageShow' => 1
                                 ],
                             'dataFilter' => [
-                                'userRoleGroup_RefID' => NULL,  //'252000000000001'
-                                'name' => NULL,                 //'User'
-                                'userRoleGroupName' => NULL     //'System'
+                                'name' => NULL,           //'Perusahaan',
+                                'companyName' => NULL     //'Indonesia'
                                 ],
                             ]
                         ]
@@ -68,13 +67,13 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Call URL        : http(s)://<HOST>/transaction.read.dataList.sysConfig.getUserRole.v1_throughAPIGatewayJQuery |
+        | ▪ Call URL        : http(s)://<HOST>/transaction.read.dataPickList.master.getInstitutionType.v1_throughAPIGatewayJQuery  |
         |                     ► http://172.28.0.4/                                                                                 |
-        |                       transaction.read.dataList.sysConfig.getUserRole.v1_throughAPIGatewayJQuery                |
+        |                       transaction.read.dataPickList.master.getInstitutionType.v1_throughAPIGatewayJQuery                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-09-08                                                                                           |
-        | ▪ Creation Date   : 2022-09-08                                                                                           |
+        | ▪ Last Update     : 2026-07-02                                                                                           |
+        | ▪ Creation Date   : 2026-07-02                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function throughAPIGatewayJQuery($varAPIWebToken)
@@ -100,7 +99,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
                     //-----[ METADATA ]-----( START )-----
                         \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                         $varAPIWebToken, 
-                        'transaction.read.dataList.sysConfig.getUserRole', 
+                        'transaction.read.dataPickList.master.getInstitutionType', 
                         'latest',
                     //-----[ METADATA ]-----(  END  )-----
 

@@ -3,29 +3,29 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\dataList\sysConfig\getUserRole               |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\dataPickList\master\getInstitutionType       |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2026 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 
-namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\dataList\sysConfig\getUserRole\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\dataPickList\master\getInstitutionType\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : getUserRole                                                                                                  |
-    | ▪ Description : Menangani API report.form.dataList.sysConfig.getUserRole Version 1                                           |
+    | ▪ Class Name  : getInstitutionType                                                                                           |
+    | ▪ Description : Menangani API report.form.dataPickList.master.getInstitutionType Version 1                                   |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class getUserRole extends \App\Http\Controllers\Controller
+    class getInstitutionType extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2026-07-02                                                                                           |
-        | ▪ Create date     : 2026-07-02                                                                                           |
+        | ▪ Last Update     : 2026-06-08                                                                                           |
+        | ▪ Create date     : 2026-06-08                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -44,8 +44,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\da
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2026-07-02                                                                                           |
-        | ▪ Create date     : 2026-07-02                                                                                           |
+        | ▪ Last Update     : 2026-06-08                                                                                           |
+        | ▪ Create date     : 2026-06-08                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -62,7 +62,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\da
             try {
                 $varSysDataProcess =
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__,
-                        'Get Report Form - DataPickList - User Role (version 1)'
+                        'Get Report Form - DataPickList - Institution Type (version 1)'
                         );
 
                 try {
@@ -71,7 +71,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\da
                         if (!($varDataSend = 
                             \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead(
                                 $varUserSession,
-                                (new \App\Models\Database\SchSysConfig\General())->getReport_Form_DataList_UserRole(
+                                (new \App\Models\Database\SchData_OLTP_Master\General())->getReport_Form_DataPickList_InstitutionType(
                                     $varUserSession,
                                     (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
 
@@ -103,18 +103,6 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\da
                                     //-----[ Pagination Parameter ]-------------------------------------------------(  END POINT  )-----
 
                                     //-----[ Filter Parameter ]-----------------------------------------------------( START POINT )-----
-                                        //---► userRoleGroup_RefID
-                                            (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
-                                                $varUserSession,
-                                                'userRoleGroup_RefID',
-                                                $varData['parameter']['dataFilter']
-                                                ) ? (
-                                                    (!is_null($varData['parameter']['dataFilter']['userRoleGroup_RefID'])) 
-                                                        ? $varData['parameter']['dataFilter']['userRoleGroup_RefID'] 
-                                                        : null
-                                                        ) 
-                                                    : null
-                                            ),
                                         //---► name
                                             (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
                                                 $varUserSession,
@@ -127,16 +115,17 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\da
                                                         ) 
                                                     : null
                                             ),
-                                        //---► userRoleGroupName
-                                            (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
+                                        //---► countryName
+                                            (
+                                            \App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
                                                 $varUserSession,
-                                                'name',
+                                                'countryName',
                                                 $varData['parameter']['dataFilter']
                                                 ) ? (
-                                                    (!is_null($varData['parameter']['dataFilter']['userRoleGroupName'])) 
-                                                        ? $varData['parameter']['dataFilter']['userRoleGroupName'] 
+                                                    (!is_null($varData['parameter']['dataFilter']['countryName']))
+                                                        ? $varData['parameter']['dataFilter']['countryName']
                                                         : null
-                                                        ) 
+                                                        )
                                                     : null
                                             )
                                     //-----[ Filter Parameter ]-----------------------------------------------------(  END POINT  )-----
@@ -145,8 +134,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\da
                                 )
                             ))
                             {
-                            throw
-                                new \Exception();
+                            throw new \Exception();
                             }
 
                         $varReturn =
