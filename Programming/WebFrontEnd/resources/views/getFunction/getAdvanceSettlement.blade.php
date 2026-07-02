@@ -11,7 +11,7 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
-                            <div class="card-body table-responsive p-0" style="height: 400px;">
+                            <div class="card-body table-responsive p-0" style="min-height: 400px;">
                                 <table class="table table-head-fixed w-100" id="tableGetModalAdvanceSettlement">
                                     <thead>
                                         <tr>
@@ -49,49 +49,155 @@
 
 <script>
     function getModalAdvanceSettlement() {
-        $.ajax({
-            type: 'POST',
-            url: '{!! route("AdvanceSettlement.AdvanceSettlementPickList") !!}',
-        })
-            .done(function (response) {
-                let data = (response.status == 200 && response.data[0]) ? response.data : [];
+        let table = $('#tableGetModalAdvanceSettlement').DataTable({
+            processing: true,
+            serverSide: true,
+            destroy: true,
+            info: true,
+            paging: true,
+            searching: true,
+            lengthChange: true,
+            pageLength: 10,
+            ajax: {
+                url: '{!! route("AdvanceSettlement.AdvanceSettlementPickList") !!}',
+                type: 'GET',
+                data: function (d) {
+                    return d;
+                },
+                beforeSend: function () {
+                    $('#tableGetModalAdvanceSettlement tbody').empty();
+                    $("#loadingGetModalAdvanceSettlement").show();
+                },
+                complete: function () {
+                    $("#loadingGetModalAdvanceSettlement").hide();
+                },
+                error: function () {
+                    $("#loadingGetModalAdvanceSettlement").hide();
+                }
+            },
+            columns: [
+                {
+                    data: null,
+                    render: function (data, type, row, meta) {
+                        return '<input id="sys_id_modal_advance_settlement' +
+                            (meta.row + 1) +
+                            '" value="' +
+                            data.sys_ID +
+                            '" data-trigger="sys_id_modal_advance_settlement" type="hidden">' +
+                            (meta.row + 1);
+                    }
+                },
+                {
+                    data: 'sys_Text',
+                    defaultContent: '-',
+                    className: "align-middle text-wrap"
+                },
+                {
+                    data: null,
+                    defaultContent: '-',
+                    className: "align-middle text-nowrap",
+                    render: function (data) {
+                        return data.additionalData.combinedBudgetCode;
+                    }
+                },
+                {
+                    data: null,
+                    defaultContent: '-',
+                    className: "align-middle text-nowrap",
+                    render: function (data) {
+                        return data.additionalData.combinedBudgetName;
+                    }
+                }
+            ],
+            initComplete: function () {
+                let api = this.api();
 
-                $('#tableGetModalAdvanceSettlement').DataTable({
-                    destroy: true,
-                    data: data,
-                    deferRender: true,
-                    scrollCollapse: true,
-                    scroller: true,
-                    columns: [
-                        {
-                            data: null,
-                            render: function (data, type, row, meta) {
-                                return '<input id="sys_id_modal_advance_settlement' + (meta.row + 1) + '" value="' + data.sys_ID + '" data-trigger="sys_id_modal_advance_settlement" type="hidden">' + (meta.row + 1)
-                            }
-                        },
-                        {
-                            data: 'sys_Text',
-                            defaultContent: '-',
-                            className: "align-middle text-wrap"
-                        },
-                        {
-                            data: 'combinedBudgetCode',
-                            defaultContent: '-',
-                            className: "align-middle text-nowrap"
-                        },
-                        {
-                            data: 'combinedBudgetName',
-                            defaultContent: '-',
-                            className: "align-middle text-wrap"
+                let $filter = $('#tableGetModalAdvanceSettlement_filter');
+                let $searchLabel = $filter.find('label');
+                let $searchInput = $filter.find('input');
+
+                $searchLabel.css('margin-bottom', '0');
+                $searchInput
+                    .attr('placeholder', 'Search...')
+                    .off('.DT')
+                    .on('keypress', function (e) {
+                        if (e.which === 13) {
+                            api.search(this.value).draw();
                         }
-                    ]
-                });
-            })
-            .fail(function (jqXHR, textStatus, errorThrown) {
-                console.error("Error:", errorThrown);
-            })
-            .always(function (jqXHR, textStatus, errorThrown) {
-                $("#loadingGetModalAdvanceSettlement").hide();
-            });
+                    });
+
+                if ($('#searchHintAdvance').length === 0) {
+                    $filter.append(
+                        '<small id="searchHintAdvance" class="form-text text-muted" style="margin-bottom: .5rem;">' +
+                        'Press <strong>Enter</strong> to start searching.' +
+                        '</small>'
+                    );
+                }
+
+            }
+        });
     }
+
+    // function getModalAdvanceSettlement() {
+    //     $('#tableGetModalAdvanceSettlement').DataTable({
+    //         processing: true,
+    //         serverSide: true,
+    //         destroy: true,
+    //         info: true,
+    //         paging: true,
+    //         searching: true,
+    //         lengthChange: true,
+    //         searchDelay: 1000,
+    //         pageLength: 10,
+    //         ajax: {
+    //             url: '{!! route("AdvanceSettlement.AdvanceSettlementPickList") !!}',
+    //             type: 'GET',
+    //             data: function (d) {
+    //                 // d.combinedBudgetCode = combinedBudgetCode;
+    //                 // d.combinedBudgetSectionCode = combinedBudgetSectionCode;
+
+    //                 return d;
+    //             },
+    //             beforeSend: function () {
+    //                 $('#tableGetModalAdvanceSettlement tbody').empty();
+    //                 $("#loadingGetModalAdvanceSettlement").show();
+    //             },
+    //             complete: function () {
+    //                 $("#loadingGetModalAdvanceSettlement").hide();
+    //             },
+    //             error: function (xhr, error, thrown) {
+    //                 $("#loadingGetModalAdvanceSettlement").hide();
+    //             }
+    //         },
+    //         columns: [
+    //             {
+    //                 data: null,
+    //                 render: function (data, type, row, meta) {
+    //                     return '<input id="sys_id_modal_advance_settlement' + (meta.row + 1) + '" value="' + data.sys_ID + '" data-trigger="sys_id_modal_advance_settlement" type="hidden">' + (meta.row + 1)
+    //                 }
+    //             },
+    //             {
+    //                 data: 'sys_Text',
+    //                 defaultContent: '-',
+    //                 className: "align-middle text-wrap"
+    //             },
+    //             {
+    //                 data: null,
+    //                 defaultContent: '-',
+    //                 className: "align-middle text-nowrap",
+    //                 render: function (data, type, row, meta) {
+    //                     return data.additionalData.combinedBudgetCode
+    //                 }
+    //             },
+    //             {
+    //                 data: null,
+    //                 defaultContent: '-',
+    //                 className: "align-middle text-nowrap",
+    //                 render: function (data, type, row, meta) {
+    //                     return data.additionalData.combinedBudgetName
+    //                 }
+    //             }
+    //         ]
+    //     });
+    // }
 </script>

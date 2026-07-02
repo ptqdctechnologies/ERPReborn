@@ -10,18 +10,33 @@ use Carbon\Carbon;
 
 class AdvanceSettlementService
 {
-    public function dataPickList()
+    // public function dataPickList()
+    // {
+    //     $sessionToken = Session::get('SessionLogin');
+
+    //     return Helper_APICall::setCallAPIGateway(
+    //         Helper_Environment::getUserSessionID_System(),
+    //         $sessionToken,
+    //         'dataPickList.finance.getAdvanceSettlement',
+    //         'latest',
+    //         [
+    //             'parameter' => [
+    //             ]
+    //         ]
+    //     );
+    // }
+
+    public function dataPickList($formatted)
     {
         $sessionToken = Session::get('SessionLogin');
 
         return Helper_APICall::setCallAPIGateway(
             Helper_Environment::getUserSessionID_System(),
             $sessionToken,
-            'dataPickList.finance.getAdvanceSettlement',
+            'report.form.dataPickList.finance.getAdvanceSettlement',
             'latest',
             [
-                'parameter' => [
-                ]
+                'parameter' => $formatted
             ]
         );
     }

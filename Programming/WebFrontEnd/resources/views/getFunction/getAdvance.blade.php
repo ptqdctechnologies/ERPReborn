@@ -11,7 +11,7 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
-                            <div class="card-body p-0">
+                            <div class="card-body p-0" style="min-height: 400px;">
                                 <table class="table table-head-fixed table-responsive w-100" id="tableGetModalAdvance">
                                     <thead>
                                         <tr>
@@ -53,7 +53,7 @@
 
 <script>
     function getModalAdvance(combinedBudgetCode, combinedBudgetSectionCode) {
-        $('#tableGetModalAdvance').DataTable({
+        let table = $('#tableGetModalAdvance').DataTable({
             processing: true,
             serverSide: true,
             destroy: true,
@@ -144,7 +144,129 @@
                         return data.additionalData.combinedBudgetSectionName
                     }
                 }
-            ]
+            ],
+            initComplete: function () {
+                let api = this.api();
+
+                let $filter = $('#tableGetModalAdvance_filter');
+                let $searchLabel = $filter.find('label');
+                let $searchInput = $filter.find('input');
+
+                $searchLabel.css('margin-bottom', '0');
+                $searchInput
+                    .attr('placeholder', 'Search...')
+                    .off('.DT')
+                    .on('keypress', function (e) {
+                        if (e.which === 13) {
+                            api.search(this.value).draw();
+                        }
+                    });
+
+                if ($('#searchHintAdvance').length === 0) {
+                    $filter.append(
+                        '<small id="searchHintAdvance" class="form-text text-muted" style="margin-bottom: .5rem;">' +
+                        'Press <strong>Enter</strong> to start searching.' +
+                        '</small>'
+                    );
+                }
+
+            }
         });
     }
+
+    // function getModalAdvance(combinedBudgetCode, combinedBudgetSectionCode) {
+    //     $('#tableGetModalAdvance').DataTable({
+    //         processing: true,
+    //         serverSide: true,
+    //         destroy: true,
+    //         info: true,
+    //         paging: true,
+    //         searching: true,
+    //         lengthChange: true,
+    //         pageLength: 10,
+    //         ajax: {
+    //             url: '{!! route("AdvanceRequest.AdvancePickList") !!}',
+    //             type: 'GET',
+    //             data: function (d) {
+    //                 d.combinedBudgetCode = combinedBudgetCode;
+    //                 d.combinedBudgetSectionCode = combinedBudgetSectionCode;
+
+    //                 return d;
+    //             },
+    //             beforeSend: function () {
+    //                 $('#tableGetModalAdvance tbody').empty();
+    //                 $("#loadingGetModalAdvance").show();
+    //             },
+    //             complete: function () {
+    //                 $("#loadingGetModalAdvance").hide();
+    //             },
+    //             error: function (xhr, error, thrown) {
+    //                 $("#loadingGetModalAdvance").hide();
+    //             }
+    //         },
+    //         columns: [
+    //             {
+    //                 data: null,
+    //                 render: function (data, type, row, meta) {
+    //                     return '<input id="sys_id_modal_advance' + (meta.row + meta.settings._iDisplayStart + 1) + '" value="' + data.sys_ID + '" data-trigger="sys_id_modal_advance" type="hidden">' +
+    //                         '<input id="sys_id_budget_advance' + (meta.row + meta.settings._iDisplayStart + 1) + '" value="' + data.additionalData.combinedBudget_RefID + '" data-trigger="sys_id_budget_advance" type="hidden">' +
+    //                         (meta.row + meta.settings._iDisplayStart + 1)
+    //                 }
+    //             },
+    //             {
+    //                 data: 'sys_Text',
+    //                 defaultContent: '-',
+    //                 className: "align-middle text-nowrap"
+    //             },
+    //             {
+    //                 data: null,
+    //                 defaultContent: '-',
+    //                 className: "align-middle text-nowrap",
+    //                 render: function (data, type, row, meta) {
+    //                     return data.additionalData.beneficiaryWorkerName
+    //                 }
+    //             },
+    //             {
+    //                 data: null,
+    //                 defaultContent: '-',
+    //                 className: "align-middle text-nowrap",
+    //                 render: function (data, type, row, meta) {
+    //                     return data.additionalData.requesterWorkerName
+    //                 }
+    //             },
+    //             {
+    //                 data: null,
+    //                 defaultContent: '-',
+    //                 className: "align-middle text-nowrap",
+    //                 render: function (data, type, row, meta) {
+    //                     return data.additionalData.combinedBudgetCode
+    //                 }
+    //             },
+    //             {
+    //                 data: null,
+    //                 defaultContent: '-',
+    //                 className: "align-middle text-nowrap",
+    //                 render: function (data, type, row, meta) {
+    //                     return data.additionalData.combinedBudgetName
+    //                 }
+    //             },
+    //             {
+    //                 data: null,
+    //                 defaultContent: '-',
+    //                 className: "align-middle text-nowrap",
+    //                 render: function (data, type, row, meta) {
+    //                     return data.additionalData.combinedBudgetSectionCode
+    //                 }
+    //             },
+    //             {
+    //                 data: null,
+    //                 defaultContent: '-',
+    //                 className: "align-middle text-nowrap",
+    //                 render: function (data, type, row, meta) {
+    //                     return data.additionalData.combinedBudgetSectionName
+    //                 }
+    //             }
+    //         ]
+    //     });
+    // }
 </script>
