@@ -17,6 +17,7 @@
                                         <tr>
                                             <th>No</th>
                                             <th>Trano</th>
+                                            <th>Status</th>
                                             <th>Budget Code</th>
                                             <th>Budget Name</th>
                                         </tr>
@@ -24,7 +25,7 @@
                                     <tbody></tbody>
                                     <tfoot>
                                         <tr id="loadingGetModalAdvanceSettlement">
-                                            <td colspan="4" class="p-0" style="height: 22rem;">
+                                            <td colspan="5" class="p-0" style="height: 22rem;">
                                                 <div
                                                     class="d-flex flex-column justify-content-center align-items-center py-3">
                                                     <div class="spinner-border" role="status">
@@ -91,6 +92,14 @@
                     data: 'sys_Text',
                     defaultContent: '-',
                     className: "align-middle text-wrap"
+                },
+                {
+                    data: null,
+                    defaultContent: '-',
+                    className: "align-middle text-nowrap",
+                    render: function (data) {
+                        return data.additionalData.latestWorkFlowStatus;
+                    }
                 },
                 {
                     data: null,
