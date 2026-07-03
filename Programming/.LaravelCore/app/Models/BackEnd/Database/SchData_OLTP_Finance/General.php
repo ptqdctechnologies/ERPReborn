@@ -217,6 +217,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
                             $varUserSession,
                             'SchData-OLTP-Finance.Func_GetReport_DataList_Advance',
                             [
+                                [$varUserSession, 'bigint'],
                                 [$varSysBranch_RefID, 'bigint'],
 
                                 [$varPagination_PageSize, 'bigint'],
@@ -288,6 +289,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
                             $varUserSession,
                             'SchData-OLTP-Finance.Func_GetReport_DataList_AdvanceSettlement',
                             [
+                                [$varUserSession, 'bigint'],
                                 [$varSysBranch_RefID, 'bigint'],
 
                                 [$varPagination_PageSize, 'bigint'],
@@ -359,6 +361,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
                             $varUserSession,
                             'SchData-OLTP-Finance.Func_GetReport_DataList_PaymentInstruction',
                             [
+                                [$varUserSession, 'bigint'],
                                 [$varSysBranch_RefID, 'bigint'],
 
                                 [$varPagination_PageSize, 'bigint'],
@@ -430,6 +433,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
                             $varUserSession,
                             'SchData-OLTP-Finance.Func_GetReport_DataPickList_Advance',
                             [
+                                [$varUserSession, 'bigint'],
                                 [$varSysBranch_RefID, 'bigint'],
 
                                 [$varPagination_PageSize, 'bigint'],
@@ -502,6 +506,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
                             $varUserSession,
                             'SchData-OLTP-Finance.Func_GetReport_DataPickList_AdvanceSettlement',
                             [
+                                [$varUserSession, 'bigint'],
                                 [$varSysBranch_RefID, 'bigint'],
 
                                 [$varPagination_PageSize, 'bigint'],
@@ -574,6 +579,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
                             $varUserSession,
                             'SchData-OLTP-Finance.Func_GetReport_DataPickList_PaymentInstruction',
                             [
+                                [$varUserSession, 'bigint'],
                                 [$varSysBranch_RefID, 'bigint'],
 
                                 [$varPagination_PageSize, 'bigint'],
