@@ -14,7 +14,7 @@ use App\Services\WorkflowService;
 
 class AccountPayableController extends Controller
 {
-    protected $accountPayableService;
+    protected $accountPayableService, $workflowService;
 
     public function __construct(AccountPayableService $accountPayableService, WorkflowService $workflowService)
     {
@@ -93,18 +93,46 @@ class AccountPayableController extends Controller
 
     public function DataPickLists(Request $request)
     {
-        $response = $this->accountPayableService->dataPickList();
+        $start = $request->input('start', 0);
+        $length = $request->input('length', 10);
+        $offset = floor($start / $length) + 1;
+        $limit = $length;
 
-        $status = $response['metadata']['HTTPStatusCode'];
-        $data = [];
+        $searchValue = $request->input('search.value');
 
-        if ($status == 200) {
-            $data = $response['data']['data'] ?? [];
+        $formatted = [
+            'pagination' => [
+                'pageSize' => (int) $limit,
+                'pageShow' => (int) $offset
+            ],
+            'dataFilter' => [
+                'businessDocumentNumber' => $searchValue,   //'AP/QDC',
+                'documentDateStart' => NULL,        //'2026-01-01'
+                'documentDateFinish' => NULL,       //'2026-12-31'
+                'requesterName' => NULL,            //'Adhe'
+                'combinedBudget' => NULL,           //'Q000062'
+                'combinedBudgetSection' => NULL     //'240'
+            ],
+        ];
+
+        $response = $this->accountPayableService->dataPickList($formatted);
+
+        if ($response['metadata']['HTTPStatusCode'] !== 200) {
+            return response()->json([
+                'draw' => intval($request->input('draw')),
+                'recordsTotal' => 0,
+                'recordsFiltered' => 0,
+                'data' => []
+            ]);
         }
 
+        $accountPayableData = $response['data']['data'];
+
         return response()->json([
-            'data' => $data,
-            'status' => $status
+            'draw' => intval($request->input('draw')),
+            'recordsTotal' => $accountPayableData['header']['dataCount'],
+            'recordsFiltered' => $accountPayableData['header']['dataCount'],
+            'data' => $accountPayableData['content']['itemList']
         ]);
     }
 

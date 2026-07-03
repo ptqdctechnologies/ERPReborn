@@ -1,6 +1,7 @@
 <script>
     let countryCodeTemp = null;
     let specializationData = [];
+    const supplierCategoryId = document.getElementById("supplier_category_code_modal");
     const containerMultipleSpecialization = document.getElementById("multiple-specialization");
     const formList = {
         supplier_name: {
@@ -87,6 +88,16 @@
             component: '#supplier_category_name',
             containerMessageId: '#supplierCategoryNameMessage',
             messageId: '#supplierCategoryNameMessageText'
+        },
+        supplier_category_name_modal: {
+            component: '#supplier_category_name_modal',
+            containerMessageId: '#supplierCategoryMessage',
+            messageId: '#supplierCategoryMessageText'
+        },
+        specialization: {
+            component: '',
+            containerMessageId: '#supplierSpecialiationMessage',
+            messageId: '#supplierSpecialiationMessageText'
         }
     };
 
@@ -205,8 +216,8 @@
                             <div class="input-group">
                                 <input class="form-control"
                                     id="supplier_specialization_code${index}"
-                                    name="supplier_specialization_code${index}"
                                     onchange="updateField(${index}, 'code', this.value)"
+                                    value="${row.code}"
                                     style="border-radius:0;">
                             </div>
                         </div>
@@ -220,8 +231,8 @@
                             <div class="input-group">
                                 <input class="form-control"
                                     id="supplier_specialization_name${index}"
-                                    name="supplier_specialization_name${index}"
                                     onchange="updateField(${index}, 'name', this.value)"
+                                    value="${row.name}"
                                     style="border-radius:0;">
                             </div>
                         </div>
@@ -248,6 +259,7 @@
         const name = $(this).find('td:nth-child(3)').text();
 
         $("#supplier_category_id_modal").val(id);
+        $("#supplier_category_code_modal").val(code);
         $("#supplier_category_name_modal").val(`(${code}) ${name}`);
         $("#supplier_category_name_modal").css({ "background-color": "#e9ecef" });
 
@@ -545,6 +557,73 @@
             });
     });
 
+    $('#specializationForm').on('submit', function (e) {
+        e.preventDefault();
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: 'POST',
+            url: '{!! route("Supplier.Specialization.store") !!}',
+            data: {
+                supplier_category_name_modal: supplierCategoryId.value,
+                specialization: JSON.stringify(specializationData.slice(0, -1))
+            },
+            beforeSend: function () {
+                Utils.showLoading();
+            }
+        })
+            .done(function (response) {
+                if (response.status === 200) {
+                    const swalWithBootstrapButtons = Swal.mixin({
+                        confirmButtonClass: 'btn btn-success btn-sm',
+                        cancelButtonClass: 'btn btn-danger btn-sm',
+                        buttonsStyling: true,
+                    });
+
+                    swalWithBootstrapButtons.fire({
+                        title: 'Successful !',
+                        type: 'success',
+                        html: 'Data has been saved. Your sub category is ' + '<span style="color:#0046FF;font-weight:bold;">' + response.documentNumber + '</span>',
+                        showCloseButton: false,
+                        showCancelButton: false,
+                        focusConfirm: false,
+                        confirmButtonText: '<span style="color:black;"> OK </span>',
+                        confirmButtonColor: '#4B586A',
+                        confirmButtonColor: '#e9ecef',
+                        reverseButtons: true
+                    }).then((result) => {
+                        $("#supplier_category_name_modal").val('');
+                        $("#supplier_category_code_modal").val('');
+                        $("#supplier_category_id_modal").val('');
+                        $("#supplierSpecializationModal").modal('toggle');
+                    });
+                }
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                console.error("Error:", errorThrown);
+
+                if (jqXHR.status === 422) {
+                    let errors = jqXHR.responseJSON.errors;
+
+                    $.each(errors, function (key, value) {
+                        console.log(key + ': ' + value[0]);
+
+                        if (formList[key]) {
+                            ErrorHandler.showErrorInputMessage(formList[key].component, formList[key].containerMessageId, formList[key].messageId, value[0]);
+                        }
+                    });
+                }
+            })
+            .always(function (jqXHR, textStatus, errorThrown) {
+                Utils.hideLoading();
+            });
+    });
+
     document.querySelectorAll('.parent-checkbox').forEach(parent => {
         parent.addEventListener('change', function () {
             let parentValue = this.value;
@@ -597,9 +676,9 @@
     $(document).ready(function () {
         $('#legal_entity').select2();
 
-        $('#supplierSpecializationModal').on('hidden.bs.modal', function (e) {
-            detailSpecialization();
-        });
+        // $('#supplierSpecializationModal').on('hidden.bs.modal', function (e) {
+        //     detailSpecialization();
+        // });
 
         $('#supplierCategoryListModal').on('hidden.bs.modal', function (e) {
             $('#supplierSpecializationModal').modal('toggle');

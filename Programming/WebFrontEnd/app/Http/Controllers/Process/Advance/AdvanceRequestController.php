@@ -192,7 +192,7 @@ class AdvanceRequestController extends Controller
                 'pageShow' => (int) $offset
             ],
             'dataFilter' => [
-                'businessDocumentNumber' => NULL,
+                'businessDocumentNumber' => $searchValue,
                 'documentDateStart' => NULL,
                 'documentDateFinish' => NULL,
                 'requesterName' => NULL,

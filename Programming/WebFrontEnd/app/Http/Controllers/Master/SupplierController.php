@@ -11,6 +11,7 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Session;
 use App\Http\Requests\Master\Supplier\StoreSupplier;
 use App\Http\Requests\Master\Supplier\StoreSupplierCategory;
+use App\Http\Requests\Master\Supplier\StoreSupplierSpecialization;
 use App\Services\Master\Supplier\SupplierService;
 
 class SupplierController extends Controller
@@ -206,6 +207,39 @@ class SupplierController extends Controller
 
             $compact = [
                 "documentNumber" => $response['data']['categoryCode'] . " - " . $response['data']['categoryName'],
+                "status" => $response['metadata']['HTTPStatusCode'],
+            ];
+
+            return response()->json($compact);
+        } catch (\Throwable $th) {
+            Log::error("Store Category Supplier Function Error: " . $th->getMessage());
+
+            return response()->json(["status" => 500]);
+        }
+    }
+
+    public function subCategoryStore(StoreSupplierSpecialization $request)
+    {
+        try {
+            $code = $request->input('supplier_category_name_modal');
+            $name = $request->input('specialization');
+
+            $response = $this->supplierService->createSubCategory($code, $name);
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                throw new \Exception('Failed to fetch Store Category Supplier => ' . $response['data']['message']);
+            }
+
+            $documentNumbers = array_map(
+                function ($code, $name) {
+                    return "{$code} - {$name}";
+                },
+                $response['data']['subCategoryCode'],
+                $response['data']['subCategoryName']
+            );
+
+            $compact = [
+                "documentNumber" => $documentNumbers,
                 "status" => $response['metadata']['HTTPStatusCode'],
             ];
 
