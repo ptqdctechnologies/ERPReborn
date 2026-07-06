@@ -16,6 +16,7 @@ use App\Services\Purchase\PurchaseOrderService;
 use App\Services\Inventory\DeliveryOrderService;
 use App\Services\Process\BusinessTrip\BusinessTripService;
 use App\Http\Controllers\ExportExcel\Purchase\ExportReportPurchaseOrderDetail;
+use Milon\Barcode\Facades\DNS2DFacade as DNS2D;
 
 class CheckDocumentController extends Controller
 {
@@ -754,30 +755,48 @@ class CheckDocumentController extends Controller
                     'viewPDF' => 'Inventory.DeliveryOrder.Reports.ReportDODetail_pdf',
                     'filenamePDF' => 'Delivery Order.pdf',
                 ];
+
+                if ($printType == "PDF") {
+                    $pdf = PDF::loadView($arrData['viewPDF'], [
+                        'dataReport' => $dataDetail
+                        ])->setPaper('a4', 'portrait');
+                    $pdf->output();
+                    $dom_pdf = $pdf->getDomPDF();
+
+                    $canvas = $dom_pdf->get_canvas();
+                    $width = $canvas->get_width();
+                    $height = $canvas->get_height();
+                    $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
+                    $canvas->page_text(34, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
+
+                    return $pdf->download($arrData['filenamePDF']);
+                } else {
+                    if ($transactionType === "PURCHASE ORDER") {
+                        return Excel::download(new ExportReportPurchaseOrderDetail($dataDetail), 'Purchase Order.xlsx');
+                    }
+                }
             } else {
                 $arrData = [
                     'viewPDF' => 'Purchase.PurchaseOrder.Reports.ReportPurchaseOrderDetail_pdf',
                     'filenamePDF' => 'Purchase Order.pdf',
                 ];
-            }
 
-            // dd($arrData);
+                if ($printType == "PDF") {
+                    $pdf = PDF::loadView($arrData['viewPDF'], ['dataReport' => $dataDetail])->setPaper('a4', 'portrait');
+                    $pdf->output();
+                    $dom_pdf = $pdf->getDomPDF();
 
-            if ($printType == "PDF") {
-                $pdf = PDF::loadView($arrData['viewPDF'], ['dataReport' => $dataDetail])->setPaper('a4', 'portrait');
-                $pdf->output();
-                $dom_pdf = $pdf->getDomPDF();
+                    $canvas = $dom_pdf->get_canvas();
+                    $width = $canvas->get_width();
+                    $height = $canvas->get_height();
+                    $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
+                    $canvas->page_text(34, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
 
-                $canvas = $dom_pdf->get_canvas();
-                $width = $canvas->get_width();
-                $height = $canvas->get_height();
-                $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
-                $canvas->page_text(34, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
-
-                return $pdf->download($arrData['filenamePDF']);
-            } else {
-                if ($transactionType === "PURCHASE ORDER") {
-                    return Excel::download(new ExportReportPurchaseOrderDetail($dataDetail), 'Purchase Order.xlsx');
+                    return $pdf->download($arrData['filenamePDF']);
+                } else {
+                    if ($transactionType === "PURCHASE ORDER") {
+                        return Excel::download(new ExportReportPurchaseOrderDetail($dataDetail), 'Purchase Order.xlsx');
+                    }
                 }
             }
         } catch (\Throwable $th) {
