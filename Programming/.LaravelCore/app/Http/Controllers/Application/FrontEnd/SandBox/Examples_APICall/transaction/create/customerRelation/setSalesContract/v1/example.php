@@ -54,7 +54,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                         "combinedBudgetSection_RefID" => 143000000000029,
                                         "value" => 10.5,
                                         "notes" => 'Catatan Pertama',
-                                        "work_RefID" => 164000000000497,
+                                        "work_RefID" => 169000000000001,
                                         "product_RefID" => 88000000000002,
                                         "uom_RefID" => 73000000000001,
                                         "quantity" => 5,
