@@ -1,11 +1,6 @@
 CHANGELOG
 =========
 
-8.1
----
-
- * Add support for `:has()`
-
 7.1
 ---
 

@@ -44,7 +44,6 @@ class Translator implements TranslatorInterface
 
     private array $nodeTranslators = [];
     private array $combinationTranslators = [];
-    private array $relativeCombinationTranslators = [];
     private array $functionTranslators = [];
     private array $pseudoClassTranslators = [];
     private array $attributeMatchingTranslators = [];
@@ -59,7 +58,6 @@ class Translator implements TranslatorInterface
             ->registerExtension(new Extension\FunctionExtension())
             ->registerExtension(new Extension\PseudoClassExtension())
             ->registerExtension(new Extension\AttributeMatchingExtension())
-            ->registerExtension(new Extension\RelationExtension())
         ;
     }
 
@@ -121,7 +119,6 @@ class Translator implements TranslatorInterface
         $this->functionTranslators = array_merge($this->functionTranslators, $extension->getFunctionTranslators());
         $this->pseudoClassTranslators = array_merge($this->pseudoClassTranslators, $extension->getPseudoClassTranslators());
         $this->attributeMatchingTranslators = array_merge($this->attributeMatchingTranslators, $extension->getAttributeMatchingTranslators());
-        $this->relativeCombinationTranslators = array_merge($this->relativeCombinationTranslators, $extension->getRelativeCombinationTranslators());
 
         return $this;
     }
@@ -170,18 +167,6 @@ class Translator implements TranslatorInterface
         }
 
         return $this->combinationTranslators[$combiner]($this->nodeToXPath($xpath), $this->nodeToXPath($combinedXpath));
-    }
-
-    /**
-     * @throws ExpressionErrorException
-     */
-    public function addRelativeCombination(string $combiner, NodeInterface $xpath, NodeInterface $combinedXpath): XPathExpr
-    {
-        if (!isset($this->relativeCombinationTranslators[$combiner])) {
-            throw new ExpressionErrorException(\sprintf('Combiner "%s" not supported.', $combiner));
-        }
-
-        return $this->relativeCombinationTranslators[$combiner]($this->nodeToXPath($xpath), $this->nodeToXPath($combinedXpath));
     }
 
     /**
