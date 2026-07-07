@@ -36,7 +36,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-12" id="table_container">
+                            <div class="col-12" id="table_container" style="display: none;">
                                 <div class="card">
                                     <div class="card-body p-0">
                                         <div class="table-responsive">
@@ -48,28 +48,13 @@
                                                             No</th>
                                                         <th
                                                             style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;width: 10px;">
-                                                            Sub Budget</th>
+                                                            CO Number</th>
                                                         <th
                                                             style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;width: 10px;">
-                                                            Work ID</th>
-                                                        <th
-                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;width: 10px;">
-                                                            Product</th>
-                                                        <th
-                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;width: 10px;">
-                                                            UoM</th>
-                                                        <th
-                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;width: 10px;">
-                                                            Qty</th>
-                                                        <th
-                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;width: 10px;">
-                                                            Price</th>
+                                                            Date</th>
                                                         <th
                                                             style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;width: 10px;">
                                                             Total</th>
-                                                        <th
-                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;width: 10px;">
-                                                            Value</th>
                                                         <th
                                                             style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;width: 10px;">
                                                             Notes</th>
@@ -78,9 +63,15 @@
                                                 <tbody></tbody>
                                                 <tfoot>
                                                     <tr>
-                                                        <th colspan="10"
+                                                        <th colspan="3"
                                                             style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">
                                                             GRAND TOTAL</th>
+                                                        <th
+                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">
+                                                        </th>
+                                                        <th
+                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">
+                                                        </th>
                                                     </tr>
                                                 </tfoot>
                                             </table>

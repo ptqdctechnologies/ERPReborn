@@ -212,10 +212,7 @@ class CustomerOrderController extends Controller
                 throw new \Exception('Failed to fetch Report Customer Order Summary');
             }
 
-            Session::put("isButtonReportCustomerOrderSummary", true);
-            Session::put("dataReportCustomerOrderSummary", $response);
-
-            return redirect()->route('CustomerOrder.ReportSummary');
+            return response()->json($response);
         } catch (\Throwable $th) {
             Log::error("Report Customer Order Summary Store Function Error: " . $th->getMessage());
 

@@ -52,22 +52,8 @@
     </div>
 </div>
 <div class="col-sm-12 col-md-12 col-lg-3">
-    <!-- TYPE -->
-    <div class="row p-0 align-items-center">
-        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Type</label>
-        <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
-            <div style="min-width: 60%;">
-                <select type="text" class="form-control" id="typeOption" name="typeValue" style="border-radius:0;">
-                    <option disabled selected>Select a Type</option>
-                    <option value="SUB_BUDGET_BASE">Sub Budget Base</option>
-                    <option value="PRODUCT_BASE">Product Base</option>
-                </select>
-            </div>
-        </div>
-    </div>
-
     <!-- DATE -->
-    <div class="row p-0 align-items-center" style="margin-top: 1rem;">
+    <div class="row p-0 align-items-center">
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Date Range</label>
         <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
             <div>
@@ -111,7 +97,7 @@
 
     <!-- SUBMIT -->
     <div class="row" style="gap: 0.5rem;">
-        <button type="button" class="btn btn-default btn-sm" onclick="validateShowButton()" style="margin-top: -5px;">
+        <button type="button" class="btn btn-default btn-sm" onclick="getDataReport()" style="margin-top: -5px;">
             <img src="{{ asset('AdminLTE-master/dist/img/backwards.png') }}" width="12" alt="show" title="Show">
             Show
         </button>

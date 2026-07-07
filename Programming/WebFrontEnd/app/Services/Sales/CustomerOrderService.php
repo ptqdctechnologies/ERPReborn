@@ -117,6 +117,7 @@ class CustomerOrderService
 
         $dummyData = [
             [
+                'trano' => 'SC/QDC/2026/000001',
                 'sub_budget' => '235 - Bukit Pakis Sby Infill',
                 'date' => '2025-11-25',
                 'value' => 98237120,
@@ -125,6 +126,7 @@ class CustomerOrderService
                 'sub_id' => '143000000000305'
             ],
             [
+                'trano' => 'SC/QDC/2026/000002',
                 'sub_budget' => '240 - Cendana Andalas',
                 'date' => '2025-11-26',
                 'value' => 4712983,
@@ -133,6 +135,7 @@ class CustomerOrderService
                 'sub_id' => '143000000000307'
             ],
             [
+                'trano' => 'SC/QDC/2026/000003',
                 'sub_budget' => '221 - Halat Medan',
                 'date' => '2025-11-26',
                 'value' => 749208120,
@@ -141,6 +144,7 @@ class CustomerOrderService
                 'sub_id' => '143000000000302'
             ],
             [
+                'trano' => 'SC/QDC/2026/000004',
                 'sub_budget' => '254 - Jatiagung Sidoarjo Infill',
                 'date' => '2025-11-27',
                 'value' => 294803,
@@ -149,6 +153,7 @@ class CustomerOrderService
                 'sub_id' => '143000000000314'
             ],
             [
+                'trano' => 'SC/QDC/2026/000005',
                 'sub_budget' => '250 - Jemur Wonosari Sby Infill',
                 'date' => '2025-11-28',
                 'value' => 3948058,
@@ -157,6 +162,7 @@ class CustomerOrderService
                 'sub_id' => '143000000000310'
             ],
             [
+                'trano' => 'SC/QDC/2026/000006',
                 'sub_budget' => '249 - Jetis Kulon Sby Infill',
                 'date' => '2025-11-29',
                 'value' => 492840872,
@@ -165,6 +171,7 @@ class CustomerOrderService
                 'sub_id' => '143000000000309'
             ],
             [
+                'trano' => 'SC/QDC/2026/000007',
                 'sub_budget' => '219 - Karya Wisata Medan',
                 'date' => '2025-11-30',
                 'value' => 294830,
@@ -173,6 +180,7 @@ class CustomerOrderService
                 'sub_id' => '143000000000301'
             ],
             [
+                'trano' => 'SC/QDC/2026/000008',
                 'sub_budget' => '253 - Kureksari Sby Infill',
                 'date' => '2025-11-31',
                 'value' => 6498123,
@@ -181,6 +189,7 @@ class CustomerOrderService
                 'sub_id' => '143000000000313'
             ],
             [
+                'trano' => 'SC/QDC/2026/000009',
                 'sub_budget' => '217 - Mariendal Medan',
                 'date' => '2025-11-25',
                 'value' => 4761238,
@@ -189,6 +198,7 @@ class CustomerOrderService
                 'sub_id' => '143000000000300'
             ],
             [
+                'trano' => 'SC/QDC/2026/000010',
                 'sub_budget' => '222 - Pancasila',
                 'date' => '2025-11-26',
                 'value' => 9538201,
