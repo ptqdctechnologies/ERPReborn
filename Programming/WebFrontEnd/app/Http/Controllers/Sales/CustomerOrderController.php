@@ -254,6 +254,20 @@ class CustomerOrderController extends Controller
             if ($dataCustomerOrderSummary) {
                 if ($type === "PDF") {
                     $renderStart = microtime(true);
+
+                    $pdf = PDF::loadView('Sales.CustomerOrder.Reports.ReportCustomerOrderSummary_pdf', ['dataCustomerOrder' => $dataCustomerOrderSummary])
+                        ->setPaper('a4', 'landscape');
+
+                    $pdf->output();
+
+                    $dom_pdf = $pdf->getDomPDF();
+                    $canvas = $dom_pdf->get_canvas();
+                    $width = $canvas->get_width();
+                    $height = $canvas->get_height();
+                    $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
+                    $canvas->page_text(34, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
+
+                    return $pdf->download('Export Report Customer Order.pdf');
                 } else if ($type === "EXCEL") {
                     return Excel::download(new ExportReportCustomerOrder($dataCustomerOrderSummary), 'Export Report Customer Order.xlsx');
                 } else {
