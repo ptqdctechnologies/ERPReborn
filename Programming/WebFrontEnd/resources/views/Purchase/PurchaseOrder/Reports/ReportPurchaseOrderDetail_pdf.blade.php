@@ -175,41 +175,45 @@
             </td>
         </tr>
 
-        <?php for ($i = 0; $i < 100; $i++) { ?>
+        <?php $number = 1;?>
+        <?php $subTotal = 0; ?>
+        <?php foreach ($dataReport as $dataDetail) { ?>
+        <?php    $total = $dataDetail['quantity'] * $dataDetail['productUnitPriceCurrencyValue']; ?>
+        <?php    $subTotal += $total; ?>
         <tr>
             <td>
                 <div style="margin-top: 4px; font-size: 11px;">
-                    1
-                </div>
-            </td>
-            <td>
-                <div style="margin-top: 4px; max-width: 125px; font-size: 11px;">
-                    -
+                    <?= $number++; ?>
                 </div>
             </td>
             <td>
                 <div style="margin-top: 4px; font-size: 11px;">
-                    -
+                    <?= $dataDetail['productCode'] . " - " . $dataDetail['productName']; ?>
                 </div>
             </td>
             <td>
                 <div style="margin-top: 4px; font-size: 11px;">
-                    -
+                    <?= $dataDetail['quantityUnitName']; ?>
                 </div>
             </td>
             <td>
                 <div style="margin-top: 4px; font-size: 11px;">
-                    1
+                    <?= $dataDetail['productUnitPriceCurrencyISOCode']; ?>
                 </div>
             </td>
             <td>
                 <div style="margin-top: 4px; font-size: 11px;">
-                    22
+                    <?= number_format($dataDetail['quantity'], 2, '.', ','); ?>
                 </div>
             </td>
             <td>
                 <div style="margin-top: 4px; font-size: 11px;">
-                    33
+                    <?= number_format($dataDetail['productUnitPriceCurrencyValue'], 2, '.', ','); ?>
+                </div>
+            </td>
+            <td>
+                <div style="margin-top: 4px; font-size: 11px;">
+                    <?= number_format($total, 2, '.', ','); ?>
                 </div>
             </td>
         </tr>
@@ -250,7 +254,7 @@
                     </td>
                     <td style="line-height: 20px; width: 95px;">
                         <div style="vertical-align: top; font-size: 12px; text-align: right;">
-                            <?= $dataReport['totalIDRWithoutPPN'] ?? '-'; ?>
+                            <?= number_format($subTotal, 2, '.', ','); ?>
                         </div>
                     </td>
                 </tr>
@@ -268,7 +272,7 @@
                     </td>
                     <td style="line-height: 20px; width: 95px;">
                         <div style="vertical-align: top; font-size: 12px; text-align: right;">
-                            0
+                            <?= number_format($subTotal * ((int) $dataReport[0]['vatRatio']), 2, '.', ','); ?>
                         </div>
                     </td>
                 </tr>
@@ -286,7 +290,7 @@
                     </td>
                     <td style="line-height: 20px; width: 95px;">
                         <div style="vertical-align: top; font-size: 12px; text-align: right;">
-                            <?= $dataReport['totalIDRWithoutPPN'] ?? '-'; ?>
+                            <?= number_format($subTotal, 2, '.', ','); ?>
                         </div>
                     </td>
                 </tr>
