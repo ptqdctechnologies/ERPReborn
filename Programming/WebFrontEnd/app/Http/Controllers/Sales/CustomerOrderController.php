@@ -9,6 +9,8 @@ use App\Imports\CustomerOrderImport;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Log;
 use App\Services\Sales\CustomerOrderService;
+use App\Http\Controllers\ExportExcel\CustomerOrder\ExportReportCustomerOrder;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class CustomerOrderController extends Controller
 {
@@ -203,7 +205,7 @@ class CustomerOrderController extends Controller
             $subBudgetCode = $request->input('sub_budget_code');
             $date = $request->input('customer_order_date');
 
-            $response = $this->customerOrderService->summaryReport(
+            $response = $this->customerOrderService->summary(
                 $budgetCode,
                 $subBudgetCode,
                 $date,
@@ -235,6 +237,35 @@ class CustomerOrderController extends Controller
             ];
 
             return response()->json($compact);
+        }
+    }
+
+    public function PrintExportReportCustomerOrder(Request $request)
+    {
+        try {
+            ini_set('memory_limit', '512M');
+            set_time_limit(180);
+
+            $startTime = microtime(true);
+
+            $dataCustomerOrderSummary = json_decode($request->dataReport, true);
+            $type = $request->printType;
+
+            if ($dataCustomerOrderSummary) {
+                if ($type === "PDF") {
+                    $renderStart = microtime(true);
+                } else if ($type === "EXCEL") {
+                    return Excel::download(new ExportReportCustomerOrder($dataCustomerOrderSummary), 'Export Report Customer Order.xlsx');
+                } else {
+                    throw new \Exception('Failed to Export Customer Order Report');
+                }
+            } else {
+                throw new \Exception('Customer Order Data is Empty');
+            }
+        } catch (\Throwable $th) {
+            Log::error("Print Export Report Customer Order Function Error: " . $th->getMessage());
+
+            return response()->json(['statusCode' => 400]);
         }
     }
 

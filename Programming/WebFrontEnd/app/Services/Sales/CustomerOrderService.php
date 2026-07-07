@@ -107,7 +107,7 @@ class CustomerOrderService
         );
     }
 
-    public function summaryReport(
+    public function summary(
         $combinedBudgetCode,
         $combinedBudgetSectionCode,
         $date,

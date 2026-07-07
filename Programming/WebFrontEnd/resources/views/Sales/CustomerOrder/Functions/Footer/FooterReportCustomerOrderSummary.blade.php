@@ -2,8 +2,8 @@
     let dataReport = [];
     const documentTypeID = document.getElementById("documentTypeRefID");
     const budgetCode = document.getElementById("budget_code");
-    const subBudgetCode = document.getElementById("sub_budget_code");
     const coDate = document.getElementById("customer_order_date_range");
+    const printType = document.getElementById("print_type");
 
     function selectBudget(combinedBudgetID, combinedBudgetCode, combinedBudgetName) {
         $("#budget_id").val(combinedBudgetID);
@@ -60,7 +60,6 @@
                 },
                 data: function (d) {
                     d.budget_code = budgetCode.value;
-                    d.sub_budget_code = subBudgetCode.value;
                     d.customer_order_date = coDate.value;
 
                     return d;
@@ -138,7 +137,42 @@
         Utils.showLoading();
 
         $.ajax({
+            url: '{!! route("CustomerOrder.PrintExportReportCustomerOrder") !!}',
+            type: 'POST',
+            data: {
+                dataReport: JSON.stringify(dataReport),
+                printType: printType.value
+            },
+            xhrFields: {
+                responseType: 'blob'
+            },
+            success: function (response) {
+                var blob = new Blob([response], { type: response.type });
+                var link = document.createElement('a');
+                link.href = window.URL.createObjectURL(blob);
 
+                if (response.type === "application/pdf") {
+                    link.download = "Export Report Customer Order.pdf";
+                } else {
+                    link.download = "Export Report Customer Order.xlsx";
+                }
+
+                link.click();
+
+                window.URL.revokeObjectURL(link.href);
+
+                Utils.hideLoading();
+            },
+            error: function (xhr, status, error) {
+                console.log('xhr, status, error', xhr, status, error);
+
+                Utils.hideLoading();
+                ErrorHandler.notifToast(
+                    'error',
+                    'An error occurred while processing the received data. Please try again later',
+                    'Error!'
+                );
+            }
         });
     }
 
@@ -155,7 +189,7 @@
             ErrorHandler.hideErrorInputMessage("#budget_name", "#budgetMessage");
             ErrorHandler.hideErrorInputMessage("#customer_order_date_range", "#dateRangeMessage");
 
-            if (isBudgetIDNotEmpty || isAuthorizedRole) {
+            if (isBudgetCodeNotEmpty || isAuthorizedRole) {
                 getDataReport();
             } else {
                 ErrorHandler.showErrorInputMessage("#budget_name", "#budgetMessage");
