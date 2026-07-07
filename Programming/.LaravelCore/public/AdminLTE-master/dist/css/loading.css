@@ -49,9 +49,9 @@
 
 .loader {
     display: block;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 15%;
+    /* margin-left: auto;
+    margin-right: auto; */
+    /* margin-top: 15%; */
     width: 150px;
     height: 150px;
     border-left: 10px solid blue;
@@ -64,8 +64,8 @@
 
 .textLoader {
     position: relative;
-    top: 15%;
-    text-align: center;
+    /* top: 15%; */
+    /* text-align: center; */
     color: #34495e;
     font-size: 17px;
 }

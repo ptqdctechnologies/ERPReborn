@@ -20,7 +20,8 @@
 
   <!-- Select2 -->
   <link rel="stylesheet" href="{{ asset('AdminLTE-master/plugins/select2/css/select2.min.css') }}">
-  <link rel="stylesheet" href="{{ asset('AdminLTE-master/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
+  <link rel="stylesheet"
+    href="{{ asset('AdminLTE-master/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
 
   <!-- Loading css -->
   <link rel="stylesheet" href="{{ asset('AdminLTE-master/dist/css/loading.css') }}">
@@ -52,10 +53,12 @@
   <link rel="stylesheet" href="{{ asset('AdminLTE-master/plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
 
   <!-- Tempusdominus Bootstrap 4 -->
-  <link rel="stylesheet" href="{{ asset('AdminLTE-master/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
+  <link rel="stylesheet"
+    href="{{ asset('AdminLTE-master/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
 
   <!-- Bootstrap4 Duallistbox -->
-  <link rel="stylesheet" href="{{ asset('AdminLTE-master/plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css') }}">
+  <link rel="stylesheet"
+    href="{{ asset('AdminLTE-master/plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css') }}">
 
   <!-- Core  -->
   <script src="{{ asset('js/zht-js/core.js') }}"></script>
@@ -63,18 +66,19 @@
     new zht_JSCore(false)
   </script>
 
-  <link rel="stylesheet" href="{{ asset('css-page/Globals.css') }}"> 
+  <link rel="stylesheet" href="{{ asset('css-page/Globals.css') }}">
   @stack('styles')
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
   <div class="wrapper">
     <div id="loading" style="display: none;">
-      <span class="loader"></span>
-      <div class="textLoader">
-        <center>
+      <div
+        style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: stretch; gap: 4rem;">
+        <span class="loader"></span>
+        <div class="textLoader">
           <b>Please Wait ... </b>
-        </center>
+        </div>
       </div>
     </div>
     @yield('main')
@@ -89,7 +93,8 @@
   <script src="{{ asset('AdminLTE-master/plugins/moment/moment-timezone-with-data.min.js') }}"></script>
   <script src="{{ asset('AdminLTE-master/plugins/inputmask/jquery.inputmask.min.js') }}"></script>
   <script src="{{ asset('AdminLTE-master/plugins/daterangepicker/daterangepicker.js') }}"></script>
-  <script src="{{ asset('AdminLTE-master/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>
+  <script
+    src="{{ asset('AdminLTE-master/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>
   <script src="{{ asset('AdminLTE-master/plugins/bootstrap-switch/js/bootstrap-switch.min.js') }}"></script>
   <script src="{{ asset('AdminLTE-master/plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
   <script>
@@ -102,18 +107,18 @@
     });
 
     // Saat tanggal dipilih, isi manual ke input
-    $('#reservation').on('apply.daterangepicker', function(ev, picker) {
+    $('#reservation').on('apply.daterangepicker', function (ev, picker) {
       $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
     });
 
     // Saat tombol cancel ditekan, kosongkan input
-    $('#reservation').on('cancel.daterangepicker', function(ev, picker) {
+    $('#reservation').on('cancel.daterangepicker', function (ev, picker) {
       $(this).val('');
     });
 
     // Tambahkan trigger agar klik ikon memunculkan datepicker
     $('#reservation-icon').on('click', function () {
-        $('#reservation').trigger('click');
+      $('#reservation').trigger('click');
     });
 
     $(function () {
@@ -128,7 +133,8 @@
   <script src="{{ asset('AdminLTE-master/dist/js/adminlte.js') }}"></script>
   <!-- Select2 -->
   <script src="{{ asset('AdminLTE-master/plugins/select2/js/select2.full.min.js') }}"></script>
-  <script src="{{ asset('AdminLTE-master/plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js') }}"></script>
+  <script
+    src="{{ asset('AdminLTE-master/plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js') }}"></script>
   <!-- Format Date -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/date-fns/1.30.1/date_fns.min.js"></script>
 </body>
