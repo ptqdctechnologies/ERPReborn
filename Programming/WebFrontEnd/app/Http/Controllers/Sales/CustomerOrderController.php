@@ -194,29 +194,47 @@ class CustomerOrderController extends Controller
     public function ReportCustomerOrderSummaryStore(Request $request)
     {
         try {
-            $project = [
-                'id' => $request->budget_id,
-                'name' => $request->budget_name,
-            ];
+            $limit = $request->input('length', 10);
+            $offset = $request->input('start', 0);
+            $draw = $request->input('draw');
+            $search = $request->input('search.value');
 
-            $site = [
-                'id' => $request->sub_budget_id,
-                'name' => $request->sub_budget_name,
-            ];
+            $budgetCode = $request->input('budget_code');
+            $subBudgetCode = $request->input('sub_budget_code');
+            $date = $request->input('customer_order_date');
 
-            $date = $request->customer_order_date_range;
+            $response = $this->customerOrderService->summaryReport(
+                $budgetCode,
+                $subBudgetCode,
+                $date,
+                $limit,
+                $offset
+            );
 
-            $response = $this->customerOrderService->summaryReport($project, $site, $date);
-
-            if ($response === null) {
-                throw new \Exception('Failed to fetch Report Customer Order Summary');
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                throw new \Exception('Failed to fetch Customer Order Summary');
             }
 
-            return response()->json($response);
-        } catch (\Throwable $th) {
-            Log::error("Report Customer Order Summary Store Function Error: " . $th->getMessage());
+            $totalRecords = $response['data']['totalRecords'] ?? $response['data']['rowCount'];
 
-            return redirect()->back()->with('NotFound', 'Process Error');
+            $compact = [
+                'status' => $response['metadata']['HTTPStatusCode'],
+                'data' => $response['data']['data'],
+                'draw' => intval($draw),
+                'recordsTotal' => $totalRecords,
+                'recordsFiltered' => $totalRecords
+            ];
+
+            return response()->json($compact);
+        } catch (\Throwable $th) {
+            Log::error("Customer Order Summary Function Error:" . $th->getMessage());
+
+            $compact = [
+                'status' => 500,
+                'message' => $th->getMessage()
+            ];
+
+            return response()->json($compact);
         }
     }
 

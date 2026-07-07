@@ -97,7 +97,7 @@
 
     <!-- SUBMIT -->
     <div class="row" style="gap: 0.5rem;">
-        <button type="button" class="btn btn-default btn-sm" onclick="getDataReport()" style="margin-top: -5px;">
+        <button type="button" class="btn btn-default btn-sm" onclick="validateShowButton()" style="margin-top: -5px;">
             <img src="{{ asset('AdminLTE-master/dist/img/backwards.png') }}" width="12" alt="show" title="Show">
             Show
         </button>

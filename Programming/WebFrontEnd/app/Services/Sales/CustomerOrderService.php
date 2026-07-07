@@ -107,134 +107,41 @@ class CustomerOrderService
         );
     }
 
-    public function summaryReport($project, $site, $date): mixed
-    {
+    public function summaryReport(
+        $combinedBudgetCode,
+        $combinedBudgetSectionCode,
+        $date,
+        $limit = 10,
+        $offset = 0
+    ) {
+        $sessionToken = Session::get('SessionLogin');
+        $formatLimit = $limit == -1 ? 'ALL' : $limit;
+
         if ($date) {
             $dates = explode(' - ', $date);
             $startDate = Carbon::createFromFormat('m/d/Y', trim($dates[0]))->startOfDay()->format('Y-m-d');
             $endDate = Carbon::createFromFormat('m/d/Y', trim($dates[1]))->endOfDay()->format('Y-m-d');
         }
 
-        $dummyData = [
+        return Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
+            $sessionToken,
+            'report.form.documentForm.customerRelation.getSalesContractSummary',
+            'latest',
             [
-                'trano' => 'SC/QDC/2026/000001',
-                'sub_budget' => '235 - Bukit Pakis Sby Infill',
-                'date' => '2025-11-25',
-                'value' => 98237120,
-                'notes' => '-',
-                'project_id' => '46000000000033',
-                'sub_id' => '143000000000305'
-            ],
-            [
-                'trano' => 'SC/QDC/2026/000002',
-                'sub_budget' => '240 - Cendana Andalas',
-                'date' => '2025-11-26',
-                'value' => 4712983,
-                'notes' => '-',
-                'project_id' => '46000000000033',
-                'sub_id' => '143000000000307'
-            ],
-            [
-                'trano' => 'SC/QDC/2026/000003',
-                'sub_budget' => '221 - Halat Medan',
-                'date' => '2025-11-26',
-                'value' => 749208120,
-                'notes' => '-',
-                'project_id' => '46000000000033',
-                'sub_id' => '143000000000302'
-            ],
-            [
-                'trano' => 'SC/QDC/2026/000004',
-                'sub_budget' => '254 - Jatiagung Sidoarjo Infill',
-                'date' => '2025-11-27',
-                'value' => 294803,
-                'notes' => '-',
-                'project_id' => '46000000000033',
-                'sub_id' => '143000000000314'
-            ],
-            [
-                'trano' => 'SC/QDC/2026/000005',
-                'sub_budget' => '250 - Jemur Wonosari Sby Infill',
-                'date' => '2025-11-28',
-                'value' => 3948058,
-                'notes' => '-',
-                'project_id' => '46000000000033',
-                'sub_id' => '143000000000310'
-            ],
-            [
-                'trano' => 'SC/QDC/2026/000006',
-                'sub_budget' => '249 - Jetis Kulon Sby Infill',
-                'date' => '2025-11-29',
-                'value' => 492840872,
-                'notes' => '-',
-                'project_id' => '46000000000033',
-                'sub_id' => '143000000000309'
-            ],
-            [
-                'trano' => 'SC/QDC/2026/000007',
-                'sub_budget' => '219 - Karya Wisata Medan',
-                'date' => '2025-11-30',
-                'value' => 294830,
-                'notes' => '-',
-                'project_id' => '46000000000033',
-                'sub_id' => '143000000000301'
-            ],
-            [
-                'trano' => 'SC/QDC/2026/000008',
-                'sub_budget' => '253 - Kureksari Sby Infill',
-                'date' => '2025-11-31',
-                'value' => 6498123,
-                'notes' => '-',
-                'project_id' => '46000000000033',
-                'sub_id' => '143000000000313'
-            ],
-            [
-                'trano' => 'SC/QDC/2026/000009',
-                'sub_budget' => '217 - Mariendal Medan',
-                'date' => '2025-11-25',
-                'value' => 4761238,
-                'notes' => '-',
-                'project_id' => '46000000000033',
-                'sub_id' => '143000000000300'
-            ],
-            [
-                'trano' => 'SC/QDC/2026/000010',
-                'sub_budget' => '222 - Pancasila',
-                'date' => '2025-11-26',
-                'value' => 9538201,
-                'notes' => '-',
-                'project_id' => '46000000000033',
-                'sub_id' => '143000000000303'
-            ],
-        ];
-
-        $filtered = [];
-        $totalIDR = 0;
-        foreach ($dummyData as $data) {
-            $dueDate = Carbon::parse($data['date']);
-
-            if ($data['project_id'] != $project['id']) {
-                continue; // skip jika tidak cocok
-            }
-
-            $isSiteMatch = isset($site['id']) ? $data['sub_id'] == $site['id'] : true;
-            $isDateInRange = !empty($date) ? $dueDate->between($startDate, $endDate) : true;
-
-            if ($isSiteMatch && $isDateInRange) {
-                $filtered[] = $data;
-            }
-
-            $totalIDR += $data['value'];
-        }
-
-        $compact = [
-            'project' => $project,
-            'site' => $site,
-            'date' => $date,
-            'totalIDR' => $totalIDR,
-            'data' => $filtered
-        ];
-
-        return $compact;
+                'parameter' => [
+                    'CombinedBudgetCode' => $combinedBudgetCode,
+                    'CombinedBudgetSectionCode' => $combinedBudgetSectionCode ? $combinedBudgetSectionCode : NULL,
+                    'StartDate' => $date ? $startDate : NULL,
+                    'EndDate' => $date ? $endDate : NULL
+                ],
+                'SQLStatement' => [
+                    'paging' => [
+                        'limit' => $formatLimit,
+                        'offset' => (int) $offset
+                    ]
+                ]
+            ]
+        );
     }
 }

@@ -1,10 +1,24 @@
 <script>
     let dataReport = [];
-    const budgetID = document.getElementById("budget_id");
-    const budgetName = document.getElementById("budget_name");
-    const subBudgetID = document.getElementById("sub_budget_id");
-    const subBudgetName = document.getElementById("sub_budget_name");
+    const documentTypeID = document.getElementById("documentTypeRefID");
+    const budgetCode = document.getElementById("budget_code");
+    const subBudgetCode = document.getElementById("sub_budget_code");
     const coDate = document.getElementById("customer_order_date_range");
+
+    function selectBudget(combinedBudgetID, combinedBudgetCode, combinedBudgetName) {
+        $("#budget_id").val(combinedBudgetID);
+        $("#budget_code").val(combinedBudgetCode);
+        $("#budget_name").val(`${combinedBudgetCode} - ${combinedBudgetName}`);
+        $("#budget_name").css('background-color', '#e9ecef');
+
+        getSites(combinedBudgetID);
+
+        $("#mySitesTrigger").css('cursor', 'pointer');
+        $("#mySitesTrigger").attr({
+            "data-toggle": "modal",
+            "data-target": "#mySites"
+        });
+    }
 
     function resetForm() {
         $("#budget_name").css('background-color', '#fff');
@@ -28,16 +42,16 @@
         let total = 0;
 
         $('#table_summary').DataTable({
-            destroy: false, // true
-            processing: false, // true
-            serverSide: false, // true
+            destroy: true,
+            processing: true,
+            serverSide: true,
             searching: false,
             ordering: false,
             lengthMenu: [
                 [10, 20, 50, 100, -1],
                 [10, 20, 50, 100, "All"]
             ],
-            pageLength: 10, // 20
+            pageLength: 20,
             ajax: {
                 type: 'POST',
                 url: '{!! route("CustomerOrder.ReportSummaryStore") !!}',
@@ -45,16 +59,13 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 data: function (d) {
-                    d.budget_id = budgetID.value;
-                    d.budget_name = budgetName.value;
-                    d.sub_budget_id = subBudgetID.value;
-                    d.sub_budget_name = subBudgetName.value;
-                    d.customer_order_date_range = coDate.value;
+                    d.budget_code = budgetCode.value;
+                    d.sub_budget_code = subBudgetCode.value;
+                    d.customer_order_date = coDate.value;
 
                     return d;
                 },
                 dataSrc: function (json) {
-
                     // simpan seluruh response
                     dataReport = json.data;
 
@@ -65,6 +76,8 @@
                     return json.data;
                 },
                 beforeSend: function () {
+                    total = 0;
+
                     Utils.showLoading();
 
                     $('#table_summary tbody').empty();
@@ -90,6 +103,14 @@
                     className: "text-nowrap",
                 },
                 {
+                    data: null,
+                    defaultContent: '-',
+                    className: "text-nowrap",
+                    render: function (data, type, row, meta) {
+                        return `${data.combinedBudgetSectionCode} - ${data.combinedBudgetSectionName}`;
+                    }
+                },
+                {
                     data: 'date',
                     defaultContent: '-',
                     className: "text-nowrap",
@@ -113,23 +134,67 @@
         });
     }
 
+    function exportDataReport() {
+        Utils.showLoading();
+
+        $.ajax({
+
+        });
+    }
+
+    function validateShowButton() {
+        const isBudgetCodeNotEmpty = budgetCode.value.trim() !== '';
+        const isCoDateNotEmpty = coDate.value.trim() !== '';
+
+        const isAuthorizedRole = Utils.isUserAuthorizedForReport();
+
+        if (
+            isBudgetCodeNotEmpty ||
+            isCoDateNotEmpty
+        ) {
+            ErrorHandler.hideErrorInputMessage("#budget_name", "#budgetMessage");
+            ErrorHandler.hideErrorInputMessage("#customer_order_date_range", "#dateRangeMessage");
+
+            if (isBudgetIDNotEmpty || isAuthorizedRole) {
+                getDataReport();
+            } else {
+                ErrorHandler.showErrorInputMessage("#budget_name", "#budgetMessage");
+            }
+        } else {
+            ErrorHandler.showErrorInputMessage("#budget_name", "#budgetMessage");
+            ErrorHandler.showErrorInputMessage("#customer_order_date_range", "#dateRangeMessage");
+        }
+    }
+
+    function validateExportButton() {
+        if (dataReport.length > 0) {
+            exportDataReport();
+        } else {
+            ErrorHandler.notifToast(
+                'error',
+                'No data available to export. Please display the data first',
+                'Error!'
+            );
+        }
+    }
+
     $('#tableProjects').on('click', 'tbody tr', function () {
         const sysId = $(this).find('input[data-trigger="sys_id_project"]').val();
         const code = $(this).find('td:nth-child(2)').text();
         const name = $(this).find('td:nth-child(3)').text();
 
-        $("#budget_id").val(sysId);
-        $("#budget_code").val(code);
-        $("#budget_name").val(`${code} - ${name}`);
-        $("#budget_name").css('background-color', '#e9ecef');
+        $("#budget_id").val("");
+        $("#budget_code").val("");
+        $("#budget_name").val("");
+        $("#budget_name").css('background-color', '#fff');
 
-        getSites(sysId);
+        if (Utils.isUserAuthorizedForReport()) {
+            selectBudget(sysId, code, name);
+        } else {
+            Utils.showBudgetLoading();
 
-        $("#mySitesTrigger").css('cursor', 'pointer');
-        $("#mySitesTrigger").attr({
-            "data-toggle": "modal",
-            "data-target": "#mySites"
-        });
+            userAllowedToInvolve(sysId, code, name, documentTypeID.value, selectBudget);
+        }
 
         ErrorHandler.hideErrorInputMessage("#budget_name", "#budgetMessage");
 
