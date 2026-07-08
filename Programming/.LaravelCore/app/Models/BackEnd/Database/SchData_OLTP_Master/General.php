@@ -5105,6 +5105,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             $varUserSession,
                             'SchData-OLTP-Master.Func_GetReport_DataList_BusDocIssuanceDisposition',
                             [
+                                [$varUserSession, 'bigint'],
                                 [$varSysBranch_RefID, 'bigint'],
                                 [$varSysID, 'bigint'],
 
@@ -5230,6 +5231,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             $varUserSession,
                             'SchData-OLTP-Master.Func_GetReport_Resume_BusDocIssuanceDispositionCount',
                             [
+                                [$varUserSession, 'bigint'],
                                 [$varSysBranch_RefID, 'bigint'],
                                 [$varSysID, 'bigint']
                             ]

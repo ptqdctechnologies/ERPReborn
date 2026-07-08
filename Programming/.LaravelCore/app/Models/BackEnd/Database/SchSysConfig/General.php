@@ -1182,6 +1182,7 @@ namespace App\Models\Database\SchSysConfig
                             $varUserSession,
                             'SchSysConfig.Func_GetReport_Resume_UserRolePrivilegesMenuAccess',
                             [
+                                [$varUserSession, 'bigint'],
                                 [$varSysBranch_RefID, 'bigint'],
                                 [$varSysID, 'bigint']
                             ]
