@@ -316,13 +316,12 @@
                     <div style="text-align: center; font-weight: bold; font-size: 11px;">
                         Approved by Director
                     </div>
-                    <div style="margin-top: 30px;">
+                    <div style="margin-top: 10px;">
                         <table style="width: 100%;">
-                            <td style="font-size: 8px; line-height: 15px; width: 40px;">
-                                {{-- Digital Signature : --}}
-                            </td>
-                            <td style="font-size: 8px; line-height: 15px; max-width: 30px; word-wrap: break-word;">
-                                {{-- bb4ab83f16b88a54afd8523d667dba91 --}}
+                            <td style="text-align:center;">
+                                <div style="display:inline-block;">
+                                    <?= DNS2D::getBarcodeHTML('https://www.qdc.co.id', 'QRCODE', 2, 2) ?>
+                                </div>
                             </td>
                         </table>
                         <hr style="border: 1px solid black; margin: 8px 0px 2px 0px;" />
@@ -340,13 +339,12 @@
                     <div style="text-align: center; font-weight: bold; font-size: 11px;">
                         Accepted by Vendor
                     </div>
-                    <div style="margin-top: 30px;">
+                    <div style="margin-top: 10px;">
                         <table style="width: 100%; visibility: hidden;">
-                            <td style="font-size: 8px; line-height: 15px; width: 40px;">
-                                {{-- Digital Signature : --}}
-                            </td>
-                            <td style="font-size: 8px; line-height: 15px; max-width: 30px; word-wrap: break-word;">
-                                {{-- bb4ab83f16b88a54afd8523d667dba91 --}}
+                            <td style="text-align:center;">
+                                <div style="display:inline-block;">
+                                    <?= DNS2D::getBarcodeHTML('https://www.qdc.co.id', 'QRCODE', 2, 2) ?>
+                                </div>
                             </td>
                         </table>
                         <hr style="border: 1px solid black; margin: 8px 0px 2px 0px;" />

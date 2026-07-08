@@ -86,6 +86,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::resource('Warehouse', 'Register\Warehouse\WarehouseController');
 
     // SUPPLIER
+    Route::post('Supplier/Specialization/store', 'Master\SupplierController@subCategoryStore')->name('Supplier.Specialization.store');
     Route::get('Supplier/Category/picklist', 'Master\SupplierController@categoryPicklist')->name('Supplier.Category.picklist');
     Route::post('Supplier/Category/store', 'Master\SupplierController@categoryStore')->name('Supplier.Category.store');
     Route::post('Supplier/revision', 'Master\SupplierController@revision')->name('Supplier.revision');
@@ -250,7 +251,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
 
     // ACCOUNT PAYABLE
     Route::get('AccountPayableDetail', 'Finance\AccountPayableController@AccountPayableDetail')->name('AccountPayable.Detail');
-    Route::post('DataPickLists', 'Finance\AccountPayableController@DataPickLists')->name('AccountPayable.DataPickLists');
+    Route::get('DataPickLists', 'Finance\AccountPayableController@DataPickLists')->name('AccountPayable.DataPickLists');
     Route::post('RevisionAccountPayable', 'Finance\AccountPayableController@RevisionAccountPayable')->name('AccountPayable.RevisionAccountPayable');
     Route::post('UpdatesRevisionAccountPayable', 'Finance\AccountPayableController@UpdatesRevisionAccountPayable')->name('AccountPayable.UpdatesRevisionAccountPayable');
     Route::get('ReportAccountPayableSummary', 'Finance\AccountPayableController@ReportAccountPayableSummary')->name('AccountPayable.ReportAccountPayableSummary');
@@ -298,7 +299,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::resource('AdvanceRequest', 'Process\Advance\AdvanceRequestController')->only(['index', 'store']);
 
     // ADVANCE SETTLEMENT
-    Route::post('AdvanceSettlementPickList', 'Process\Advance\AdvanceSettlementController@AdvanceSettlementPickList')->name('AdvanceSettlement.AdvanceSettlementPickList');
+    Route::get('AdvanceSettlementPickList', 'Process\Advance\AdvanceSettlementController@AdvanceSettlementPickList')->name('AdvanceSettlement.AdvanceSettlementPickList');
     Route::post('RevisionAdvanceSettlementIndex', 'Process\Advance\AdvanceSettlementController@RevisionAdvanceSettlementIndex')->name('AdvanceSettlement.RevisionAdvanceSettlementIndex');
     Route::get('AdvanceSettlementDetail', 'Process\Advance\AdvanceSettlementController@AdvanceSettlementDetail')->name('AdvanceSettlement.Detail');
     Route::get('ReportAdvanceSettlementSummary', 'Process\Advance\AdvanceSettlementController@ReportAdvanceSettlementSummary')->name('AdvanceSettlement.ReportAdvanceSettlementSummary');
@@ -370,7 +371,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::resource('Invoice', 'Finance\InvoiceController');
 
     // PURCHASE REQUISITION
-    Route::post('PurchaseRequisitionPickList', 'Purchase\PurchaseRequisitionController@PurchaseRequisitionPickList')->name('PurchaseRequisition.PurchaseRequisitionPickList');
+    Route::get('PurchaseRequisitionPickList', 'Purchase\PurchaseRequisitionController@PurchaseRequisitionPickList')->name('PurchaseRequisition.PurchaseRequisitionPickList');
     Route::post('RevisionPurchaseRequest', 'Purchase\PurchaseRequisitionController@RevisionPurchaseRequest')->name('PurchaseRequisition.RevisionPurchaseRequest');
     Route::get('ReportPurchaseRequisitionDetailID/{id}', 'Purchase\PurchaseRequisitionController@ReportPurchaseRequisitionDetailID')->name('PurchaseRequisition.ReportPurchaseRequisitionDetailID');
     Route::post('PrintExportReportPurchaseRequisitionSummary', 'Purchase\PurchaseRequisitionController@PrintExportReportPurchaseRequisitionSummary')->name('PurchaseRequisition.PrintExportReportPurchaseRequisitionSummary');
