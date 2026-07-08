@@ -3,9 +3,9 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category    : Example - API Call Controller                                                                                    |
-| ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\report\form\dataPickList\master\getBank    |
+| ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\report\form\dataPickList\master\getBank      |
 |                 \v1                                                                                                              |
-| ▪ API Key     : report.form.dataPickList.master.getBank                                                                        |
+| ▪ API Key     : report.form.dataPickList.master.getBank                                                                          |
 | ▪ API Version : 1                                                                                                                |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2026 Zheta (teguhpjs@gmail.com)                                                                                     |
@@ -17,8 +17,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Call URL        : http(s)://<HOST>/report.form.dataPickList.master.getBank.v1_throughAPIGateway                      |
-        |                     ► http://172.28.0.4/report.form.dataPickList.master.getBank.v1_throughAPIGateway                   |
+        | ▪ Call URL        : http(s)://<HOST>/report.form.dataPickList.master.getBank.v1_throughAPIGateway                        |
+        |                     ► http://172.28.0.4/report.form.dataPickList.master.getBank.v1_throughAPIGateway                     |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2026-06-22                                                                                           |

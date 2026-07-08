@@ -4408,6 +4408,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetReport_DataList_PurchaseRequisition',
                             [
+                                [$varUserSession, 'bigint'],
                                 [$varSysBranch_RefID, 'bigint'],
 
                                 [$varPagination_PageSize, 'bigint'],
@@ -4479,6 +4480,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetReport_DataPickList_PurchaseRequisition',
                             [
+                                [$varUserSession, 'bigint'],
                                 [$varSysBranch_RefID, 'bigint'],
 
                                 [$varPagination_PageSize, 'bigint'],

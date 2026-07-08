@@ -986,7 +986,10 @@ class ComposerStaticInitba8dd78905df56b3237571f0ff8edc85
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\report\\form\\dataPickList\\master\\getBank\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/report/form/dataPickList/master/getBank/v1/example.php',
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\report\\form\\dataPickList\\master\\getInstitutionType\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/report/form/dataPickList/master/getInstitutionType/v1/example.php',
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\report\\form\\dataPickList\\master\\getPerson\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/report/form/dataPickList/master/getPerson/v1/example.php',
+<<<<<<< HEAD
+=======
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\report\\form\\dataPickList\\supplyChain\\getPurchaseOrder\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/report/form/dataPickList/supplyChain/getPurchaseOrder/v1/example.php',
+>>>>>>> 9aa9a99d44411cd202108080606dbfb4be81f6a9
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\report\\form\\dataPickList\\supplyChain\\getPurchaseRequisition\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/report/form/dataPickList/supplyChain/getPurchaseRequisition/v1/example.php',
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\report\\form\\dataPickList\\sysConfig\\getUserRoleGroup\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/report/form/dataPickList/sysConfig/getUserRoleGroup/v1/example.php',
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\report\\form\\dataPickList\\sysConfig\\getUserRole\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/report/form/dataPickList/sysConfig/getUserRole/v1/example.php',
@@ -1941,7 +1944,10 @@ class ComposerStaticInitba8dd78905df56b3237571f0ff8edc85
         'App\\Http\\Requests\\Master\\Product\\StoreProduct' => __DIR__ . '/../..' . '/app/Http/Requests/Master/Product/StoreProduct.php',
         'App\\Http\\Requests\\Master\\Supplier\\StoreSupplier' => __DIR__ . '/../..' . '/app/Http/Requests/Master/Supplier/StoreSupplier.php',
         'App\\Http\\Requests\\Master\\Supplier\\StoreSupplierCategory' => __DIR__ . '/../..' . '/app/Http/Requests/Master/Supplier/StoreSupplierCategory.php',
+<<<<<<< HEAD
+=======
         'App\\Http\\Requests\\Master\\Supplier\\StoreSupplierSpecialization' => __DIR__ . '/../..' . '/app/Http/Requests/Master/Supplier/StoreSupplierSpecialization.php',
+>>>>>>> 9aa9a99d44411cd202108080606dbfb4be81f6a9
         'App\\Http\\ViewComposers\\ColorModeComposer' => __DIR__ . '/../..' . '/app/Http/ViewComposers/ColorModeComposer.php',
         'App\\Http\\ViewComposers\\KeyMenuComposer' => __DIR__ . '/../..' . '/app/Http/ViewComposers/KeyMenuComposer.php',
         'App\\Imports\\BudgetImport' => __DIR__ . '/../..' . '/app/Imports/BudgetImport.php',

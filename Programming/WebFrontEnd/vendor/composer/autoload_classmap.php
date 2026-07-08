@@ -265,7 +265,10 @@ return array(
     'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\report\\form\\dataPickList\\master\\getBank\\v1\\example' => $baseDir . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/report/form/dataPickList/master/getBank/v1/example.php',
     'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\report\\form\\dataPickList\\master\\getInstitutionType\\v1\\example' => $baseDir . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/report/form/dataPickList/master/getInstitutionType/v1/example.php',
     'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\report\\form\\dataPickList\\master\\getPerson\\v1\\example' => $baseDir . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/report/form/dataPickList/master/getPerson/v1/example.php',
+<<<<<<< HEAD
+=======
     'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\report\\form\\dataPickList\\supplyChain\\getPurchaseOrder\\v1\\example' => $baseDir . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/report/form/dataPickList/supplyChain/getPurchaseOrder/v1/example.php',
+>>>>>>> 9aa9a99d44411cd202108080606dbfb4be81f6a9
     'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\report\\form\\dataPickList\\supplyChain\\getPurchaseRequisition\\v1\\example' => $baseDir . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/report/form/dataPickList/supplyChain/getPurchaseRequisition/v1/example.php',
     'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\report\\form\\dataPickList\\sysConfig\\getUserRoleGroup\\v1\\example' => $baseDir . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/report/form/dataPickList/sysConfig/getUserRoleGroup/v1/example.php',
     'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\report\\form\\dataPickList\\sysConfig\\getUserRole\\v1\\example' => $baseDir . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/report/form/dataPickList/sysConfig/getUserRole/v1/example.php',
@@ -1220,7 +1223,10 @@ return array(
     'App\\Http\\Requests\\Master\\Product\\StoreProduct' => $baseDir . '/app/Http/Requests/Master/Product/StoreProduct.php',
     'App\\Http\\Requests\\Master\\Supplier\\StoreSupplier' => $baseDir . '/app/Http/Requests/Master/Supplier/StoreSupplier.php',
     'App\\Http\\Requests\\Master\\Supplier\\StoreSupplierCategory' => $baseDir . '/app/Http/Requests/Master/Supplier/StoreSupplierCategory.php',
+<<<<<<< HEAD
+=======
     'App\\Http\\Requests\\Master\\Supplier\\StoreSupplierSpecialization' => $baseDir . '/app/Http/Requests/Master/Supplier/StoreSupplierSpecialization.php',
+>>>>>>> 9aa9a99d44411cd202108080606dbfb4be81f6a9
     'App\\Http\\ViewComposers\\ColorModeComposer' => $baseDir . '/app/Http/ViewComposers/ColorModeComposer.php',
     'App\\Http\\ViewComposers\\KeyMenuComposer' => $baseDir . '/app/Http/ViewComposers/KeyMenuComposer.php',
     'App\\Imports\\BudgetImport' => $baseDir . '/app/Imports/BudgetImport.php',
