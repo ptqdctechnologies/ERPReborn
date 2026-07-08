@@ -178,6 +178,7 @@ namespace App\Models\Database\SchSysAsset
                             $varUserSession,
                             'SchSysAsset.Func_GetDataJSON_WorkFlow_IsUserAllowed',
                             [
+                                [$varUserSession, 'bigint'],
                                 [$varBranchRefID, 'bigint'],
 
                                 [$varUserRefID, 'bigint'],
