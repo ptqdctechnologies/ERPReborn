@@ -88,6 +88,7 @@ namespace App\Models\Database\SchSysConfig
                             $varUserSession,
                             'SchSysConfig.Func_GetReport_DataList_UserRole',
                             [
+                                [$varUserSession, 'bigint'],
                                 [$varSysBranch_RefID, 'bigint'],
 
                                 [$varPagination_PageSize, 'bigint'],
@@ -216,6 +217,7 @@ namespace App\Models\Database\SchSysConfig
                             $varUserSession,
                             'SchSysConfig.Func_GetReport_DataPickList_UserRole',
                             [
+                                [$varUserSession, 'bigint'],
                                 [$varSysBranch_RefID, 'bigint'],
 
                                 [$varPagination_PageSize, 'bigint'],
@@ -279,6 +281,7 @@ namespace App\Models\Database\SchSysConfig
                             $varUserSession,
                             'SchSysConfig.Func_GetReport_DataPickList_UserRoleGroup',
                             [
+                                [$varUserSession, 'bigint'],
                                 [$varSysBranch_RefID, 'bigint'],
 
                                 [$varPagination_PageSize, 'bigint'],

@@ -4857,6 +4857,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             $varUserSession,
                             'SchData-OLTP-Master.Func_GetReport_DataList_Bank',
                             [
+                                [$varUserSession, 'bigint'],
                                 [$varSysBranch_RefID, 'bigint'],
 
                                 [$varPagination_PageSize, 'bigint'],
@@ -4921,6 +4922,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             $varUserSession,
                             'SchData-OLTP-Master.Func_GetReport_DataList_InstitutionType',
                             [
+                                [$varUserSession, 'bigint'],
                                 [$varSysBranch_RefID, 'bigint'],
 
                                 [$varPagination_PageSize, 'bigint'],
@@ -5169,6 +5171,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             $varUserSession,
                             'SchData-OLTP-Master.Func_GetReport_DataPickList_InstitutionType',
                             [
+                                [$varUserSession, 'bigint'],
                                 [$varSysBranch_RefID, 'bigint'],
 
                                 [$varPagination_PageSize, 'bigint'],
@@ -5605,6 +5608,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             $varUserSession,
                             'SchData-OLTP-Master.Func_GetReport_DataPickList_Bank',
                             [
+                                [$varUserSession, 'bigint'],
                                 [$varSysBranch_RefID, 'bigint'],
 
                                 [$varPagination_PageSize, 'bigint'],
