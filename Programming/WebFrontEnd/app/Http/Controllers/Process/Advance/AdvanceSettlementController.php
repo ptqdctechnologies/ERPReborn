@@ -184,18 +184,46 @@ class AdvanceSettlementController extends Controller
 
     public function AdvanceSettlementPickList(Request $request)
     {
-        $response = $this->advanceSettlementService->dataPickList();
+        $start = $request->input('start', 0);
+        $length = $request->input('length', 10);
+        $offset = floor($start / $length) + 1;
+        $limit = $length;
 
-        $status = $response['metadata']['HTTPStatusCode'];
-        $data = [];
+        $searchValue = $request->input('search.value');
 
-        if ($status == 200) {
-            $data = $response['data']['data'] ?? [];
+        $formatted = [
+            'pagination' => [
+                'pageSize' => (int) $limit,
+                'pageShow' => (int) $offset
+            ],
+            'dataFilter' => [
+                'businessDocumentNumber' => $searchValue,   //'Adv/QDC',
+                'documentDateStart' => NULL,        //'2026-01-01'
+                'documentDateFinish' => NULL,       //'2026-12-31'
+                'requesterName' => NULL,            //'Adhe'
+                'combinedBudget' => NULL,           //'Q000062'
+                'combinedBudgetSection' => NULL     //'240'
+            ],
+        ];
+
+        $response = $this->advanceSettlementService->dataPickList($formatted);
+
+        if ($response['metadata']['HTTPStatusCode'] !== 200) {
+            return response()->json([
+                'draw' => intval($request->input('draw')),
+                'recordsTotal' => 0,
+                'recordsFiltered' => 0,
+                'data' => []
+            ]);
         }
 
+        $advanceData = $response['data']['data'];
+
         return response()->json([
-            'data' => $data,
-            'status' => $status
+            'draw' => intval($request->input('draw')),
+            'recordsTotal' => $advanceData['header']['dataCount'],
+            'recordsFiltered' => $advanceData['header']['dataCount'],
+            'data' => $advanceData['content']['itemList']
         ]);
     }
 

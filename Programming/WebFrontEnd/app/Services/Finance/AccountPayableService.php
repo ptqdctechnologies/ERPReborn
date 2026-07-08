@@ -16,9 +16,9 @@ class AccountPayableService
         $sessionToken = Session::get('SessionLogin');
 
         if ($date) {
-            $dates      = explode(' - ', $date);
-            $startDate  = Carbon::createFromFormat('m/d/Y', trim($dates[0]))->startOfDay()->format('Y-m-d');
-            $endDate    = Carbon::createFromFormat('m/d/Y', trim($dates[1]))->endOfDay()->format('Y-m-d');
+            $dates = explode(' - ', $date);
+            $startDate = Carbon::createFromFormat('m/d/Y', trim($dates[0]))->startOfDay()->format('Y-m-d');
+            $endDate = Carbon::createFromFormat('m/d/Y', trim($dates[1]))->endOfDay()->format('Y-m-d');
         }
 
         return Helper_APICall::setCallAPIGateway(
@@ -27,18 +27,18 @@ class AccountPayableService
             'report.form.documentForm.finance.getPaymentInstructionSummary',
             'latest',
             [
-            'parameter' => [
-                'CombinedBudgetCode'        => $budget ? $budget : NULL,
-                'CombinedBudgetSectionCode' => $subBudget ? $subBudget : NULL,
-                'Supplier_RefID'            => $supplier ? (int) $supplier : NULL,
-                'StartDate'                 => $date ? $startDate : NULL,
-                'EndDate'                   => $date ? $endDate : NULL,
+                'parameter' => [
+                    'CombinedBudgetCode' => $budget ? $budget : NULL,
+                    'CombinedBudgetSectionCode' => $subBudget ? $subBudget : NULL,
+                    'Supplier_RefID' => $supplier ? (int) $supplier : NULL,
+                    'StartDate' => $date ? $startDate : NULL,
+                    'EndDate' => $date ? $endDate : NULL,
                 ]
             ]
         );
     }
 
-    public function getDetail($paymentInstructionRefID) 
+    public function getDetail($paymentInstructionRefID)
     {
         $sessionToken = Session::get('SessionLogin');
 
@@ -62,63 +62,78 @@ class AccountPayableService
         );
     }
 
-    public function dataPickList() 
+    // public function dataPickList() 
+    // {
+    //     $sessionToken = Session::get('SessionLogin');
+
+    //     return Helper_APICall::setCallAPIGateway(
+    //         Helper_Environment::getUserSessionID_System(),
+    //         $sessionToken,
+    //         'dataPickList.finance.getPaymentInstruction',
+    //         'latest',
+    //         [
+    //             'parameter' => []
+    //         ],
+    //         false
+    //     );
+    // }
+
+    public function dataPickList($formatted)
     {
         $sessionToken = Session::get('SessionLogin');
 
         return Helper_APICall::setCallAPIGateway(
             Helper_Environment::getUserSessionID_System(),
             $sessionToken,
-            'dataPickList.finance.getPaymentInstruction',
+            'report.form.dataPickList.finance.getPaymentInstruction',
             'latest',
             [
-                'parameter' => []
-            ],
-            false
+                'parameter' => $formatted
+            ]
         );
     }
 
     public function create(Request $request): array
     {
-        $sessionToken   = Session::get('SessionLogin');
+        $sessionToken = Session::get('SessionLogin');
 
-        $data                       = $request->storeData;
-        $detailItems                = json_decode($data['account_payable_detail'], true);
-        $fileID                     = $data['dataInput_Log_FileUpload_1'] ? (int) $data['dataInput_Log_FileUpload_1'] : null;
-        $vatValue                   = $data['vat_origin'] == "yes" ? (float) str_replace(',', '', $data['ppn']) : 0;
-        $supplierID                 = $data['payment_transfer_id'] ? (int) $data['payment_transfer_id'] : null;
-        $otherSupplier              = $data['payment_transfer_id'] ? null : $data['payment_transfer_number'];
-        $categoryID                 = $data['category_id'] ? (int) $data['category_id'] : null;
-        $depreciationMethod         = isset($data['depreciation_method']) && $data['depreciation_method'] ? (int) $data['depreciation_method'] : null; // 298x
-        $depreciationRateYearsID    = $data['depreciation_rate_years_id'] ? (int) str_replace(',', '', $data['depreciation_rate_years_id']) : null; // 299x
-        $depreciationRate           = $data['depreciation_rate_percentage'] ? (float) str_replace(',', '', $data['depreciation_rate_percentage']) : 0;
-        $depreciationYears          = $data['depreciation_rate_years'] ? (float) str_replace(',', '', $data['depreciation_rate_years']) : 0;
-        $depreciationCOARefID       = $data['depreciation_coa_id'] ? (int) $data['depreciation_coa_id'] : null;
-        $deduction                  = $data['budget_details_deduction'] > -1 ? (float) str_replace(',', '', $data['budget_details_deduction']) : 0;
+        $data = $request->storeData;
+        $detailItems = json_decode($data['account_payable_detail'], true);
+        $fileID = $data['dataInput_Log_FileUpload_1'] ? (int) $data['dataInput_Log_FileUpload_1'] : null;
+        $vatValue = $data['vat_origin'] == "yes" ? (float) str_replace(',', '', $data['ppn']) : 0;
+        $supplierID = $data['payment_transfer_id'] ? (int) $data['payment_transfer_id'] : null;
+        $otherSupplier = $data['payment_transfer_id'] ? null : $data['payment_transfer_number'];
+        $categoryID = $data['category_id'] ? (int) $data['category_id'] : null;
+        $depreciationMethod = isset($data['depreciation_method']) && $data['depreciation_method'] ? (int) $data['depreciation_method'] : null; // 298x
+        $depreciationRateYearsID = $data['depreciation_rate_years_id'] ? (int) str_replace(',', '', $data['depreciation_rate_years_id']) : null; // 299x
+        $depreciationRate = $data['depreciation_rate_percentage'] ? (float) str_replace(',', '', $data['depreciation_rate_percentage']) : 0;
+        $depreciationYears = $data['depreciation_rate_years'] ? (float) str_replace(',', '', $data['depreciation_rate_years']) : 0;
+        $depreciationCOARefID = $data['depreciation_coa_id'] ? (int) $data['depreciation_coa_id'] : null;
+        $deduction = $data['budget_details_deduction'] > -1 ? (float) str_replace(',', '', $data['budget_details_deduction']) : 0;
 
         $receiptStatus = match ($data['receipt_origin']) {
-            'no'        => (int) 0,
-            default     => (int) 1,
+            'no' => (int) 0,
+            default => (int) 1,
         };
 
         $contractStatus = match ($data['contract_signed']) {
-            'no'        => (int) 0,
-            default     => (int) 1,
+            'no' => (int) 0,
+            default => (int) 1,
         };
 
         $vatStatus = match ($data['vat_origin']) {
-            'no'        => (int) 0,
-            default     => (int) 1,
+            'no' => (int) 0,
+            default => (int) 1,
         };
 
         $fatPatDoStatus = match ($data['basft_origin']) {
-            'no'        => (int) 0,
-            default     => (int) 1,
+            'no' => (int) 0,
+            default => (int) 1,
         };
 
         $assetStatus = match ($data['asset']) {
-            'no'        => (int) 0,
-            default     => (int) 1,
+            'no' => (int) 0,
+            default => (int) 1,
         };
 
         return Helper_APICall::setCallAPIGateway(
@@ -127,32 +142,32 @@ class AccountPayableService
             'transaction.create.finance.setPaymentInstruction',
             'latest',
             [
-            'entities' => [
-                "documentDateTimeTZ"                => date('Y-m-d'),
-                "log_FileUpload_Pointer_RefID"      => $fileID,
-                "currency_RefID"                    => 62000000000001,
-                "currencySymbol"                    => 'Rp',
-                "currencyValue"                     => 0,
-                "currencyExchangeRate"              => 0,
-                "supplierInvoiceNumber"             => $data['supplier_invoice_number'],
-                "supplier_RefID"                    => $supplierID,
-                "otherSupplier"                     => $otherSupplier,
-                "receiptStatus"                     => $receiptStatus,
-                "contractStatus"                    => $contractStatus,
-                "vatStatus"                         => $vatStatus,
-                "vatValue"                          => $vatValue,
-                "vatNumber"                         => $data['vat_number'],
-                "fatPatDoStatus"                    => $fatPatDoStatus,
-                "assetStatus"                       => 0, // $assetStatus
-                "depreciationAssetCategory_RefID"   => $depreciationRateYearsID, // 299X
-                'period'                            => $depreciationYears,
-                'rate'                              => $depreciationRate,
-                "depreciationCOA_RefID"             => $depreciationCOARefID, 
-                "deduction"                         => $deduction,
-                "remarks"                           => $data['account_payable_notes'],
-                "additionalData"    => [
-                    "itemList"      => [
-                        "items"     => $detailItems
+                'entities' => [
+                    "documentDateTimeTZ" => date('Y-m-d'),
+                    "log_FileUpload_Pointer_RefID" => $fileID,
+                    "currency_RefID" => 62000000000001,
+                    "currencySymbol" => 'Rp',
+                    "currencyValue" => 0,
+                    "currencyExchangeRate" => 0,
+                    "supplierInvoiceNumber" => $data['supplier_invoice_number'],
+                    "supplier_RefID" => $supplierID,
+                    "otherSupplier" => $otherSupplier,
+                    "receiptStatus" => $receiptStatus,
+                    "contractStatus" => $contractStatus,
+                    "vatStatus" => $vatStatus,
+                    "vatValue" => $vatValue,
+                    "vatNumber" => $data['vat_number'],
+                    "fatPatDoStatus" => $fatPatDoStatus,
+                    "assetStatus" => 0, // $assetStatus
+                    "depreciationAssetCategory_RefID" => $depreciationRateYearsID, // 299X
+                    'period' => $depreciationYears,
+                    'rate' => $depreciationRate,
+                    "depreciationCOA_RefID" => $depreciationCOARefID,
+                    "deduction" => $deduction,
+                    "remarks" => $data['account_payable_notes'],
+                    "additionalData" => [
+                        "itemList" => [
+                            "items" => $detailItems
                         ]
                     ]
                 ]
@@ -162,45 +177,45 @@ class AccountPayableService
 
     public function updates(Request $request): array
     {
-        $sessionToken   = Session::get('SessionLogin');
+        $sessionToken = Session::get('SessionLogin');
 
-        $data                       = $request->storeData;
-        $detailItems                = json_decode($data['account_payable_detail'], true);
-        $fileID                     = $data['dataInput_Log_FileUpload_1'] ? (int) $data['dataInput_Log_FileUpload_1'] : null;
-        $vatValue                   = $data['vat_origin'] == "yes" ? (float) str_replace(',', '', $data['ppn']) : 0;
-        $supplierID                 = $data['payment_transfer_id'] ? (int) $data['payment_transfer_id'] : null;
-        $otherSupplier              = $data['payment_transfer_id'] ? null : $data['payment_transfer_number'];
-        $categoryID                 = $data['category_id'] ? (int) $data['category_id'] : null;
-        $depreciationMethod         = isset($data['depreciation_method']) ? (int) $data['depreciation_method'] : null;
-        $depreciationRateYearsID    = $data['depreciation_rate_years_id'] ? (int) str_replace(',', '', $data['depreciation_rate_years_id']) : null; // 299x
-        $depreciationRate           = $data['depreciation_rate_percentage'] ? (float) str_replace(',', '', $data['depreciation_rate_percentage']) : 0;
-        $depreciationYears          = $data['depreciation_rate_years'] ? (float) str_replace(',', '', $data['depreciation_rate_years']) : 0;
-        $depreciationCOARefID       = $data['depreciation_coa_id'] ? (int) $data['depreciation_coa_id'] : null;
-        $deduction                  = $data['budget_details_deduction'] > -1 ? (float) str_replace(',', '', $data['budget_details_deduction']) : 0;
+        $data = $request->storeData;
+        $detailItems = json_decode($data['account_payable_detail'], true);
+        $fileID = $data['dataInput_Log_FileUpload_1'] ? (int) $data['dataInput_Log_FileUpload_1'] : null;
+        $vatValue = $data['vat_origin'] == "yes" ? (float) str_replace(',', '', $data['ppn']) : 0;
+        $supplierID = $data['payment_transfer_id'] ? (int) $data['payment_transfer_id'] : null;
+        $otherSupplier = $data['payment_transfer_id'] ? null : $data['payment_transfer_number'];
+        $categoryID = $data['category_id'] ? (int) $data['category_id'] : null;
+        $depreciationMethod = isset($data['depreciation_method']) ? (int) $data['depreciation_method'] : null;
+        $depreciationRateYearsID = $data['depreciation_rate_years_id'] ? (int) str_replace(',', '', $data['depreciation_rate_years_id']) : null; // 299x
+        $depreciationRate = $data['depreciation_rate_percentage'] ? (float) str_replace(',', '', $data['depreciation_rate_percentage']) : 0;
+        $depreciationYears = $data['depreciation_rate_years'] ? (float) str_replace(',', '', $data['depreciation_rate_years']) : 0;
+        $depreciationCOARefID = $data['depreciation_coa_id'] ? (int) $data['depreciation_coa_id'] : null;
+        $deduction = $data['budget_details_deduction'] > -1 ? (float) str_replace(',', '', $data['budget_details_deduction']) : 0;
 
         $receiptStatus = match ($data['receipt_origin']) {
-            'no'        => (int) 0,
-            default     => (int) 1,
+            'no' => (int) 0,
+            default => (int) 1,
         };
 
         $contractStatus = match ($data['contract_signed']) {
-            'no'        => (int) 0,
-            default     => (int) 1,
+            'no' => (int) 0,
+            default => (int) 1,
         };
 
         $vatStatus = match ($data['vat_origin']) {
-            'no'        => (int) 0,
-            default     => (int) 1,
+            'no' => (int) 0,
+            default => (int) 1,
         };
 
         $fatPatDoStatus = match ($data['basft_origin']) {
-            'no'        => (int) 0,
-            default     => (int) 1,
+            'no' => (int) 0,
+            default => (int) 1,
         };
 
         $assetStatus = match ($data['asset']) {
-            'no'        => (int) 0,
-            default     => (int) 1,
+            'no' => (int) 0,
+            default => (int) 1,
         };
 
         return Helper_APICall::setCallAPIGateway(
@@ -209,29 +224,29 @@ class AccountPayableService
             'transaction.update.finance.setPaymentInstruction',
             'latest',
             [
-            'recordID' => (int) $data['account_payable_id'],
-            'entities' => [
-                "documentDateTimeTZ"                => date('Y-m-d'),
-                "log_FileUpload_Pointer_RefID"      => $fileID,
-                "supplierInvoiceNumber"             => $data['supplier_invoice_number'],
-                "supplier_RefID"                    => $supplierID, 
-                "otherSupplier"                     => $otherSupplier,
-                "receiptStatus"                     => $receiptStatus,
-                "contractStatus"                    => $contractStatus,
-                "vatStatus"                         => $vatStatus,
-                "vatValue"                          => $vatValue,
-                "vatNumber"                         => $data['vat_number'],
-                "fatPatDoStatus"                    => $fatPatDoStatus,
-                "assetStatus"                       => $assetStatus,
-                "depreciationAssetCategory_RefID"   => $depreciationRateYearsID,
-                "period"                            => $depreciationYears,
-                "rate"                              => $depreciationRate,
-                "depreciationCOA_RefID"             => $depreciationCOARefID,
-                "deduction"                         => $deduction,
-                "remarks"                           => $data['account_payable_notes'],
-                'additionalData'    => [
-                    'itemList'      => [
-                        'items'     => $detailItems
+                'recordID' => (int) $data['account_payable_id'],
+                'entities' => [
+                    "documentDateTimeTZ" => date('Y-m-d'),
+                    "log_FileUpload_Pointer_RefID" => $fileID,
+                    "supplierInvoiceNumber" => $data['supplier_invoice_number'],
+                    "supplier_RefID" => $supplierID,
+                    "otherSupplier" => $otherSupplier,
+                    "receiptStatus" => $receiptStatus,
+                    "contractStatus" => $contractStatus,
+                    "vatStatus" => $vatStatus,
+                    "vatValue" => $vatValue,
+                    "vatNumber" => $data['vat_number'],
+                    "fatPatDoStatus" => $fatPatDoStatus,
+                    "assetStatus" => $assetStatus,
+                    "depreciationAssetCategory_RefID" => $depreciationRateYearsID,
+                    "period" => $depreciationYears,
+                    "rate" => $depreciationRate,
+                    "depreciationCOA_RefID" => $depreciationCOARefID,
+                    "deduction" => $deduction,
+                    "remarks" => $data['account_payable_notes'],
+                    'additionalData' => [
+                        'itemList' => [
+                            'items' => $detailItems
                         ]
                     ]
                 ]
