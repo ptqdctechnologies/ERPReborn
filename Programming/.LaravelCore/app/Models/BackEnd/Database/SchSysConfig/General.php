@@ -709,6 +709,7 @@ namespace App\Models\Database\SchSysConfig
                             //'SchSysConfig.Func_GetReport_DataList_BusDocWorkFlowPathApproveHistory',
                             'SchData-OLTP-Master.Func_GetReport_DataList_BusDocApprovementHistory',
                             [
+                                [$varUserSession, 'bigint' ],
                                 [$varSysBranch_RefID, 'bigint' ],
 
                                 [$varBusinessDocument_RefID, 'bigint' ]
@@ -1181,6 +1182,7 @@ namespace App\Models\Database\SchSysConfig
                             $varUserSession,
                             'SchSysConfig.Func_GetReport_Resume_UserRolePrivilegesMenuAccess',
                             [
+                                [$varUserSession, 'bigint'],
                                 [$varSysBranch_RefID, 'bigint'],
                                 [$varSysID, 'bigint']
                             ]
@@ -2471,6 +2473,7 @@ namespace App\Models\Database\SchSysConfig
                             $varUserSession,
                             'SchSysConfig.Func_GetDataList_Log_BusinessDocumentWorkFlowPathHistory',
                             [
+                                [$varUserSession, 'bigint'],
                                 [$varSysBranch_RefID, 'bigint'],
 
                                 [$varLog_BusinessDocumentWorkFlowPathHistory_RefID, 'bigint'],
