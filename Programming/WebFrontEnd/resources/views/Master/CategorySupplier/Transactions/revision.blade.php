@@ -20,6 +20,8 @@
                 @include('Master.CategorySupplier.Functions.Menu.index')
 
                 <form id="categorySupplierForm">
+                    @csrf
+                    @method('PUT')
                     <div class="card">
                         <!-- MASTER CATEGORY SUPPLIER -->
                         <div class="tab-content px-3 pt-4 pb-2" id="nav-tabContent">
@@ -82,13 +84,13 @@
                                                         </label>
                                                         <div class="col-5 d-flex" style="gap: 1rem;">
                                                             <div class="form-check d-flex align-items-center">
-                                                                <input class="form-check-input" type="radio"
-                                                                    name="radioGroup" id="active" checked />
+                                                                <input class="form-check-input" type="radio" name="status"
+                                                                    id="active" checked />
                                                                 <label class="form-check-label" for="active">Active</label>
                                                             </div>
                                                             <div class="form-check d-flex align-items-center">
-                                                                <input class="form-check-input" type="radio"
-                                                                    name="radioGroup" id="inactive" />
+                                                                <input class="form-check-input" type="radio" name="status"
+                                                                    id="inactive" />
                                                                 <label class="form-check-label"
                                                                     for="inactive">Inactive</label>
                                                             </div>
@@ -113,7 +115,7 @@
                                             title="Cancel" />
                                         Cancel
                                     </button>
-                                    <button type="button" class="btn btn-sm"
+                                    <button type="submit" class="btn btn-sm"
                                         style="background-color:#e9ecef;border:1px solid #ced4da;">
                                         <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt=""
                                             title="Submit" />
@@ -129,5 +131,5 @@
     </div>
 
     @include('Partials.footer')
-    @include('Master.CategorySupplier.Functions.Footer.index')
+    @include('Master.CategorySupplier.Functions.Footer.revision')
 @endsection

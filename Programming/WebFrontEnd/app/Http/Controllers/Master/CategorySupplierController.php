@@ -66,6 +66,27 @@ class CategorySupplierController extends Controller
 
     public function update(Request $request, $id)
     {
+        try {
+            $code = $request->input('category_code');
+            $name = $request->input('category_name');
+
+            $response = $this->categorySupplierService->update($id, $code, $name);
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                throw new \Exception('Failed to fetch Update Category Supplier => ' . $response['data']['message']);
+            }
+
+            $compact = [
+                "documentNumber" => $response['data'][0]['categoryCode'] . ' - ' . $response['data'][0]['categoryName'],
+                "status" => $response['metadata']['HTTPStatusCode'],
+            ];
+
+            return response()->json($compact);
+        } catch (\Throwable $th) {
+            Log::error("Update Category Supplier Function Error: " . $th->getMessage());
+
+            return response()->json(["status" => 500]);
+        }
     }
 
     public function destroy($id)

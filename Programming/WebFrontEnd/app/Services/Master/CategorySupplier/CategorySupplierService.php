@@ -30,4 +30,23 @@ class CategorySupplierService
             ]
         );
     }
+
+    public function update($id, $code, $name)
+    {
+        $token = Session::get('SessionLogin');
+
+        return Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
+            $token,
+            'transaction.update.master.setSupplierCategory',
+            'latest',
+            [
+                'recordID' => (int) $id,
+                'entities' => [
+                    "code" => $code,
+                    "name" => $name
+                ]
+            ]
+        );
+    }
 }
