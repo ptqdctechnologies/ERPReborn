@@ -101,6 +101,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
 
     // SPECIALIZATION SUPPLIER
     Route::post('SpecializationSupplier/revision', 'Master\SpecializationSupplierController@revision')->name('SpecializationSupplier.revision');
+    Route::get('SpecializationSupplier/picklist', 'Master\SpecializationSupplierController@picklist')->name('SpecializationSupplier.picklist');
     Route::resource('SpecializationSupplier', 'Master\SpecializationSupplierController');
 
     // PRODUCT

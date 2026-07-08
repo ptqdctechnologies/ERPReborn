@@ -22,7 +22,7 @@
 
         $.ajax({
             type: 'PUT',
-            url: '{!! route("CategorySupplier.update", $categoryRefID) !!}',
+            url: '{!! route("SpecializationSupplier.update", $specializationRefID) !!}',
             data: $(this).serialize(),
             beforeSend: function () {
                 Utils.showLoading();

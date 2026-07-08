@@ -2,8 +2,8 @@
 @section('main')
     @include('Partials.navbar')
     @include('Partials.sidebar')
-    @include('getFunction.getSupplierCategory')
-    @include('Master.CategorySupplier.Functions.PopUp.PopUpCategorySupplierRevision')
+    @include('getFunction.getSupplierSpecialization')
+    @include('Master.SpecializationSupplier.Functions.PopUp.PopUpSpecializationSupplierRevision')
 
     <div class="content-wrapper">
         <section class="content">
@@ -17,13 +17,13 @@
                     </div>
                 </div>
 
-                @include('Master.CategorySupplier.Functions.Menu.index')
+                @include('Master.SpecializationSupplier.Functions.Menu.index')
 
-                <form id="categorySupplierForm">
+                <form id="specializationSupplierForm">
                     @csrf
                     @method('PUT')
                     <div class="card">
-                        <!-- MASTER CATEGORY SUPPLIER -->
+                        <!-- MASTER SPECIALIZATION SUPPLIER -->
                         <div class="tab-content px-3 pt-4 pb-2" id="nav-tabContent">
                             <div class="row">
                                 <div class="col-12">
@@ -31,7 +31,7 @@
                                         <!-- HEADER -->
                                         <div class="card-header">
                                             <label class="card-title">
-                                                Master Category
+                                                Master Specialization
                                             </label>
                                             <div class="card-tools">
                                                 <button type="button" class="btn btn-tool" data-card-widget="collapse"
@@ -54,7 +54,7 @@
                                                         <div class="col-5">
                                                             <div class="input-group">
                                                                 <input class="form-control" id="category_code"
-                                                                    name="category_code" value="<?= $categoryCode; ?>"
+                                                                    name="category_code" value="<?= $specializationCode; ?>"
                                                                     style="border-radius:0;" autocomplete="off">
                                                             </div>
                                                         </div>
@@ -68,7 +68,7 @@
                                                         <div class="col-5">
                                                             <div class="input-group">
                                                                 <input class="form-control" id="category_name"
-                                                                    name="category_name" value="<?= $categoryName; ?>"
+                                                                    name="category_name" value="<?= $specializationName; ?>"
                                                                     style="border-radius:0;" autocomplete="off">
                                                             </div>
                                                         </div>
@@ -109,7 +109,7 @@
                             <div class="row">
                                 <div class="col text-right">
                                     <button type="button" class="btn btn-sm"
-                                        onclick="cancelForm('{{ route('CategorySupplier.index') }}')"
+                                        onclick="cancelForm('{{ route('SpecializationSupplier.index') }}')"
                                         style="background-color: #e9ecef; border:1px solid #ced4da; margin-right: 3px;">
                                         <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt=""
                                             title="Cancel" />
@@ -131,5 +131,5 @@
     </div>
 
     @include('Partials.footer')
-    @include('Master.CategorySupplier.Functions.Footer.revision')
+    @include('Master.SpecializationSupplier.Functions.Footer.revision')
 @endsection

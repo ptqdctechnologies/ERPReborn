@@ -2,8 +2,8 @@
 @section('main')
     @include('Partials.navbar')
     @include('Partials.sidebar')
-    @include('getFunction.getSupplierCategory')
-    @include('Master.CategorySupplier.Functions.PopUp.PopUpCategorySupplierRevision')
+    @include('getFunction.getSupplierSpecialization')
+    @include('Master.SpecializationSupplier.Functions.PopUp.PopUpSpecializationSupplierRevision')
 
     <div class="content-wrapper">
         <section class="content">
@@ -17,11 +17,11 @@
                     </div>
                 </div>
 
-                @include('Master.CategorySupplier.Functions.Menu.index')
+                @include('Master.SpecializationSupplier.Functions.Menu.index')
             </div>
         </section>
     </div>
 
     @include('Partials.footer')
-    @include('Master.CategorySupplier.Functions.Footer.index')
+    @include('Master.SpecializationSupplier.Functions.Footer.index')
 @endsection

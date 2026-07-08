@@ -8,6 +8,21 @@ use App\Helpers\ZhtHelper\System\Helper_Environment;
 
 class SpecializationSupplierService
 {
+    public function getPickList()
+    {
+        $sessionToken = Session::get('SessionLogin');
+
+        return Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
+            $sessionToken,
+            'dataPickList.master.getSupplierSubCategory',
+            'latest',
+            [
+                'parameter' => []
+            ]
+        );
+    }
+
     public function getDetail($subCategoryCodeRefID)
     {
         $sessionToken = Session::get('SessionLogin');

@@ -34,32 +34,32 @@ class SpecializationSupplierController extends Controller
     {
         try {
             $token = Session::get('SessionLogin');
-            $categorySupplierRefID = $request->input('modal_category_supplier_id');
+            $specializationSupplierRefID = $request->input('modal_specialization_supplier_id');
 
-            $response = $this->specializationSupplierService->getDetail($categorySupplierRefID);
+            $response = $this->specializationSupplierService->getDetail($specializationSupplierRefID);
 
             if ($response['metadata']['HTTPStatusCode'] !== 200) {
-                throw new \Exception('Failed to fetch Detail Category Supplier');
+                throw new \Exception('Failed to fetch Detail Specialization Supplier');
             }
 
             $details = $response['data']['data'] ?? [];
             $data = $details[0] ?? [];
             $compact = [
                 'varAPIWebToken' => $token,
-                'categoryRefID' => $data['Sys_ID'],
-                'categoryCode' => $data['Code'],
-                'categoryName' => $data['Name']
+                'specializationRefID' => $data['Sys_ID'],
+                'specializationCode' => $data['Code'],
+                'specializationName' => $data['Name']
             ];
 
-            return view('Master.CategorySupplier.Transactions.revision', $compact);
+            return view('Master.SpecializationSupplier.Transactions.revision', $compact);
         } catch (\Throwable $th) {
-            Log::error('Revision Category Supplier Error', [
+            Log::error('Revision Specialization Supplier Error', [
                 'message' => $th->getMessage(),
-                'categorySupplierRefID' => ''
+                'specializationSupplierRefID' => ''
             ]);
 
             return redirect()
-                ->route('CategorySupplier.index')
+                ->route('SpecializationSupplier.index')
                 ->with('NotFound', 'Data cannot be displayed at this time. Please try again.');
         }
     }
@@ -91,5 +91,22 @@ class SpecializationSupplierController extends Controller
 
     public function destroy($id)
     {
+    }
+
+    public function picklist()
+    {
+        $response = $this->specializationSupplierService->getPickList();
+
+        $status = $response['metadata']['HTTPStatusCode'];
+        $data = [];
+
+        if ($status == 200) {
+            $data = $response['data']['data'] ?? [];
+        }
+
+        return response()->json([
+            'data' => $data,
+            'status' => $status
+        ]);
     }
 }
