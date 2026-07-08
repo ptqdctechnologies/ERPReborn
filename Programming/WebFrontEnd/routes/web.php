@@ -99,6 +99,10 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::post('CategorySupplier/revision', 'Master\CategorySupplierController@revision')->name('CategorySupplier.revision');
     Route::resource('CategorySupplier', 'Master\CategorySupplierController');
 
+    // SPECIALIZATION SUPPLIER
+    Route::post('SpecializationSupplier/revision', 'Master\SpecializationSupplierController@revision')->name('SpecializationSupplier.revision');
+    Route::resource('SpecializationSupplier', 'Master\SpecializationSupplierController');
+
     // PRODUCT
     Route::get('Product/summary', 'Master\ProductController@summary')->name('Product.summary');
     Route::post('Product/export', 'Master\ProductController@export')->name('Product.export');
