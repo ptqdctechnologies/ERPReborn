@@ -1,21 +1,234 @@
 <script>
-    $('#tableProjects').on('click', 'tbody tr', function () {
-        const sysId = $(this).find('input[data-trigger="sys_id_project"]').val();
-        const code = $(this).find('td:nth-child(2)').text();
-        const name = $(this).find('td:nth-child(3)').text();
+    let dataReport = [];
+    const documentTypeID = document.getElementById("documentTypeRefID");
+    const budgetCode = document.getElementById("budget_code");
+    const coDate = document.getElementById("customer_order_date_range");
+    const printType = document.getElementById("print_type");
 
-        $("#budget_id").val(sysId);
-        $("#budget_code").val(code);
-        $("#budget_name").val(`${code} - ${name}`);
+    function selectBudget(combinedBudgetID, combinedBudgetCode, combinedBudgetName) {
+        $("#budget_id").val(combinedBudgetID);
+        $("#budget_code").val(combinedBudgetCode);
+        $("#budget_name").val(`${combinedBudgetCode} - ${combinedBudgetName}`);
         $("#budget_name").css('background-color', '#e9ecef');
 
-        getSites(sysId);
+        getSites(combinedBudgetID);
 
         $("#mySitesTrigger").css('cursor', 'pointer');
         $("#mySitesTrigger").attr({
             "data-toggle": "modal",
             "data-target": "#mySites"
         });
+    }
+
+    function resetForm() {
+        $("#budget_name").css('background-color', '#fff');
+        $(`#budget_name`).val("");
+        $(`#budget_id`).val("");
+        $(`#budget_code`).val("");
+
+        $("#sub_budget_name").css('background-color', '#fff');
+        $(`#sub_budget_name`).val("");
+        $(`#sub_budget_id`).val("");
+        $(`#sub_budget_code`).val("");
+
+        $("#customer_order_date_range").css('background-color', '#fff');
+        $(`#customer_order_date_range`).val("");
+
+        ErrorHandler.hideErrorInputMessage("#budget_name", "#budgetMessage");
+        ErrorHandler.hideErrorInputMessage("#customer_order_date_range", "#dateRangeMessage");
+    }
+
+    function getDataReport() {
+        let total = 0;
+
+        $('#table_summary').DataTable({
+            destroy: true,
+            processing: true,
+            serverSide: true,
+            searching: false,
+            ordering: false,
+            lengthMenu: [
+                [10, 20, 50, 100, -1],
+                [10, 20, 50, 100, "All"]
+            ],
+            pageLength: 20,
+            ajax: {
+                type: 'POST',
+                url: '{!! route("CustomerOrder.ReportSummaryStore") !!}',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: function (d) {
+                    d.budget_code = budgetCode.value;
+                    d.customer_order_date = coDate.value;
+
+                    return d;
+                },
+                dataSrc: function (json) {
+                    // simpan seluruh response
+                    dataReport = json.data;
+
+                    json.data.forEach(function (row) {
+                        total += parseFloat(row.value) || 0;
+                    });
+
+                    return json.data;
+                },
+                beforeSend: function () {
+                    total = 0;
+
+                    Utils.showLoading();
+
+                    $('#table_summary tbody').empty();
+                    $('#table_container').css("display", "none");
+                },
+                complete: function () {
+                    Utils.hideLoading();
+
+                    $('#table_summary').css("width", "100%");
+                    $('#table_container').css("display", "block");
+                },
+            },
+            columns: [
+                {
+                    data: null,
+                    render: function (data, type, row, meta) {
+                        return (meta.row + meta.settings._iDisplayStart + 1);
+                    }
+                },
+                {
+                    data: 'trano',
+                    defaultContent: '-',
+                    className: "text-nowrap",
+                },
+                {
+                    data: null,
+                    defaultContent: '-',
+                    className: "text-nowrap",
+                    render: function (data, type, row, meta) {
+                        return `${data.combinedBudgetSectionCode} - ${data.combinedBudgetSectionName}`;
+                    }
+                },
+                {
+                    data: 'date',
+                    defaultContent: '-',
+                    className: "text-nowrap",
+                },
+                {
+                    data: null,
+                    defaultContent: '-',
+                    render: function (data, type, row, meta) {
+                        return currencyTotal(data.value || '0');
+                    }
+                },
+                {
+                    data: 'notes',
+                    defaultContent: '-',
+                    className: "text-nowrap",
+                }
+            ],
+            drawCallback: function (settings) {
+                $('#table_summary tfoot th:nth-child(2)').text(currencyTotal(total));
+            }
+        });
+    }
+
+    function exportDataReport() {
+        Utils.showLoading();
+
+        $.ajax({
+            url: '{!! route("CustomerOrder.PrintExportReportCustomerOrder") !!}',
+            type: 'POST',
+            data: {
+                dataReport: JSON.stringify(dataReport),
+                printType: printType.value
+            },
+            xhrFields: {
+                responseType: 'blob'
+            },
+            success: function (response) {
+                var blob = new Blob([response], { type: response.type });
+                var link = document.createElement('a');
+                link.href = window.URL.createObjectURL(blob);
+
+                if (response.type === "application/pdf") {
+                    link.download = "Export Report Customer Order.pdf";
+                } else {
+                    link.download = "Export Report Customer Order.xlsx";
+                }
+
+                link.click();
+
+                window.URL.revokeObjectURL(link.href);
+
+                Utils.hideLoading();
+            },
+            error: function (xhr, status, error) {
+                console.log('xhr, status, error', xhr, status, error);
+
+                Utils.hideLoading();
+                ErrorHandler.notifToast(
+                    'error',
+                    'An error occurred while processing the received data. Please try again later',
+                    'Error!'
+                );
+            }
+        });
+    }
+
+    function validateShowButton() {
+        const isBudgetCodeNotEmpty = budgetCode.value.trim() !== '';
+        const isCoDateNotEmpty = coDate.value.trim() !== '';
+
+        const isAuthorizedRole = Utils.isUserAuthorizedForReport();
+
+        if (
+            isBudgetCodeNotEmpty ||
+            isCoDateNotEmpty
+        ) {
+            ErrorHandler.hideErrorInputMessage("#budget_name", "#budgetMessage");
+            ErrorHandler.hideErrorInputMessage("#customer_order_date_range", "#dateRangeMessage");
+
+            if (isBudgetCodeNotEmpty || isAuthorizedRole) {
+                getDataReport();
+            } else {
+                ErrorHandler.showErrorInputMessage("#budget_name", "#budgetMessage");
+            }
+        } else {
+            ErrorHandler.showErrorInputMessage("#budget_name", "#budgetMessage");
+            ErrorHandler.showErrorInputMessage("#customer_order_date_range", "#dateRangeMessage");
+        }
+    }
+
+    function validateExportButton() {
+        if (dataReport.length > 0) {
+            exportDataReport();
+        } else {
+            ErrorHandler.notifToast(
+                'error',
+                'No data available to export. Please display the data first',
+                'Error!'
+            );
+        }
+    }
+
+    $('#tableProjects').on('click', 'tbody tr', function () {
+        const sysId = $(this).find('input[data-trigger="sys_id_project"]').val();
+        const code = $(this).find('td:nth-child(2)').text();
+        const name = $(this).find('td:nth-child(3)').text();
+
+        $("#budget_id").val("");
+        $("#budget_code").val("");
+        $("#budget_name").val("");
+        $("#budget_name").css('background-color', '#fff');
+
+        if (Utils.isUserAuthorizedForReport()) {
+            selectBudget(sysId, code, name);
+        } else {
+            Utils.showBudgetLoading();
+
+            userAllowedToInvolve(sysId, code, name, documentTypeID.value, selectBudget);
+        }
 
         ErrorHandler.hideErrorInputMessage("#budget_name", "#budgetMessage");
 

@@ -56,9 +56,12 @@
 
 <body class="hold-transition login-page">
     <div id="loading" style="display: none;">
-        <span class="loader"></span>
-        <div class="textLoader">
-            <b>Please Wait ...</b>
+        <div
+            style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: stretch; gap: 4rem;">
+            <span class="loader"></span>
+            <div class="textLoader">
+                <b>Please Wait ... </b>
+            </div>
         </div>
     </div>
 

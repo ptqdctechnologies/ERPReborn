@@ -35,7 +35,7 @@
         </th>
         <th class="subBudgetField"
           style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;width: 180px;">
-          Value
+          Total
         </th>
         <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">
           Notes

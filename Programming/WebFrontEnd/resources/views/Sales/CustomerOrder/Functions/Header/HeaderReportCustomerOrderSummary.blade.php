@@ -30,42 +30,6 @@
         </div>
     </div>
 
-    <!-- SUB BUDGET -->
-    <div class="row p-0 align-items-center" style="margin-top: 1rem;">
-        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Sub Budget</label>
-        <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
-            <div>
-                <span id="mySitesTrigger" class="input-group-text form-control"
-                    style="border-radius:0;cursor:not-allowed;">
-                    <i class="fas fa-gift"></i>
-                </span>
-            </div>
-            <div>
-                <input type="text" id="sub_budget_name" class="form-control"
-                    style="border-radius:0;background-color:white;" readonly />
-                <input type="hidden" id="sub_budget_id" class="form-control" style="border-radius:0;"
-                    name="sub_budget_id" />
-                <input type="hidden" id="sub_budget_code" class="form-control" style="border-radius:0;"
-                    name="sub_budget_code" />
-            </div>
-        </div>
-    </div>
-</div>
-<div class="col-sm-12 col-md-12 col-lg-3">
-    <!-- TYPE -->
-    <div class="row p-0 align-items-center">
-        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Type</label>
-        <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
-            <div style="min-width: 60%;">
-                <select type="text" class="form-control" id="typeOption" name="typeValue" style="border-radius:0;">
-                    <option disabled selected>Select a Type</option>
-                    <option value="SUB_BUDGET_BASE">Sub Budget Base</option>
-                    <option value="PRODUCT_BASE">Product Base</option>
-                </select>
-            </div>
-        </div>
-    </div>
-
     <!-- DATE -->
     <div class="row p-0 align-items-center" style="margin-top: 1rem;">
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Date Range</label>

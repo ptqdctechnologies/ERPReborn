@@ -95,6 +95,15 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::post('Supplier/export', 'Master\SupplierController@export')->name('Supplier.export');
     Route::resource('Supplier', 'Master\SupplierController');
 
+    // CATEGORY SUPPLIER
+    Route::post('CategorySupplier/revision', 'Master\CategorySupplierController@revision')->name('CategorySupplier.revision');
+    Route::resource('CategorySupplier', 'Master\CategorySupplierController');
+
+    // SPECIALIZATION SUPPLIER
+    Route::post('SpecializationSupplier/revision', 'Master\SpecializationSupplierController@revision')->name('SpecializationSupplier.revision');
+    Route::get('SpecializationSupplier/picklist', 'Master\SpecializationSupplierController@picklist')->name('SpecializationSupplier.picklist');
+    Route::resource('SpecializationSupplier', 'Master\SpecializationSupplierController');
+
     // PRODUCT
     Route::get('Product/summary', 'Master\ProductController@summary')->name('Product.summary');
     Route::post('Product/export', 'Master\ProductController@export')->name('Product.export');
@@ -569,6 +578,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('ReportCustomerOrderToInvoice', 'Sales\CustomerOrderController@ReportCustomerOrderToInvoice')->name('CustomerOrder.ReportCustomerOrderToInvoice');
     Route::get('ReportCustomerOrderSummary', 'Sales\CustomerOrderController@ReportCustomerOrderSummary')->name('CustomerOrder.ReportSummary');
     Route::post('ReportCustomerOrderSummaryStore', 'Sales\CustomerOrderController@ReportCustomerOrderSummaryStore')->name('CustomerOrder.ReportSummaryStore');
+    Route::post('PrintExportReportCustomerOrder', 'Sales\CustomerOrderController@PrintExportReportCustomerOrder')->name('CustomerOrder.PrintExportReportCustomerOrder');
     Route::post('CustomerOrderRevision', 'Sales\CustomerOrderController@Revision')->name('CustomerOrder.Revision');
     Route::get('CustomerOrderDownload', 'Sales\CustomerOrderController@download')->name('CustomerOrder.Download');
     Route::post('CustomerOrderImport', 'Sales\CustomerOrderController@import')->name('CustomerOrder.Import');

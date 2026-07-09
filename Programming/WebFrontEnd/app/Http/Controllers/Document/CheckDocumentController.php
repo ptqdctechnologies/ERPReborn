@@ -731,6 +731,9 @@ class CheckDocumentController extends Controller
     public function export(Request $request)
     {
         try {
+            ini_set('memory_limit', '512M');
+            set_time_limit(180);
+
             $printType = $request->print_type;
             $transactionRefID = $request->transaction_RefID;
             $transactionType = $request->transactionType;
@@ -751,6 +754,8 @@ class CheckDocumentController extends Controller
 
             $arrData = [];
             if ($transactionType === "DELIVERY ORDER") {
+                $renderStart = microtime(true);
+
                 $arrData = [
                     'viewPDF' => 'Inventory.DeliveryOrder.Reports.ReportDODetail_pdf',
                     'filenamePDF' => 'Delivery Order.pdf',
@@ -759,7 +764,7 @@ class CheckDocumentController extends Controller
                 if ($printType == "PDF") {
                     $pdf = PDF::loadView($arrData['viewPDF'], [
                         'dataReport' => $dataDetail
-                        ])->setPaper('a4', 'portrait');
+                    ])->setPaper('a4', 'portrait');
                     $pdf->output();
                     $dom_pdf = $pdf->getDomPDF();
 
@@ -776,6 +781,8 @@ class CheckDocumentController extends Controller
                     }
                 }
             } else {
+                $renderStart = microtime(true);
+
                 $arrData = [
                     'viewPDF' => 'Purchase.PurchaseOrder.Reports.ReportPurchaseOrderDetail_pdf',
                     'filenamePDF' => 'Purchase Order.pdf',
