@@ -26,12 +26,11 @@ class KeyMenuComposer
             $response = Helper_APICall::setCallAPIGateway(
                 $redisKey,
                 $token,
-                'authentication.userPrivilege.getMenuLayout',
+                'report.form.resume.sysConfig.getUserRolePrivilegesMenuAccess',
                 'latest',
                 [
                     'parameter' => [
-                        'branch_RefID' => (int) $branchRefID,
-                        'user_RefID' => (int) $userRefID
+                        'recordID' => (int) $userRefID
                     ]
                 ]
             );
@@ -41,7 +40,7 @@ class KeyMenuComposer
             }
 
             // Simpan hasil API ke variabel dan Redis
-            $cachedData = json_encode($response['data']);
+            $cachedData = json_encode($response['data']['data']['document']['content']);
 
             Helper_Redis::setValue(
                 $redisKey,
