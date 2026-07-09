@@ -4283,6 +4283,76 @@ namespace App\Models\Database\SchData_OLTP_Master
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataPickList_SupplierCategorySubCategory                                                          |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2026-07-09                                                                                           |
+        | ▪ Creation Date   : 2026-07-09                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Pilihan Data Supplier Category Sub Category                                       |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |      ------------------------------                                                                                      |
+        |      ▪ (string) varvarDateTime ► Date Time                                                                               |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataPickList_SupplierCategorySubCategory(
+            $varUserSession, int $varSysBranch_RefID
+            )
+            {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession,
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Master.Func_GetDataPickList_SupplierCategorySubCategory',
+                            [
+                                [$varSysBranch_RefID, 'bigint']
+                            ]
+                            )
+                        );
+
+                $resultArray = $varReturn['data'];
+                // Description: Generate API.
+                $varReturn['data'] = [];
+                $idxArray = 0;
+                $idxArray2 = 0;
+                $varSys_ID = 0;
+                foreach ($resultArray as $key => $value) {
+                    if ($varSys_ID != $value["Category_RefID"]) {
+                        $idxArray2 = 0;
+                        $varReturn['data'][$idxArray]['Category_RefID'] = $value["Category_RefID"];
+                        $varReturn['data'][$idxArray]['CategoryCode'] = $value["CategoryCode"];
+                        $varReturn['data'][$idxArray]['CategoryName'] = $value["CategoryName"];
+                        $varReturn['data'][$idxArray]['SubCategories'][$idxArray2]['SubCategory_RefID'] = $value["SubCategory_RefID"];
+                        $varReturn['data'][$idxArray]['SubCategories'][$idxArray2]['SubCategory_Code'] = $value["SubCategory_Code"];
+                        $varReturn['data'][$idxArray]['SubCategories'][$idxArray2]['SubCategory_Name'] = $value["SubCategory_Name"];
+                        $varSys_ID = $value["Category_RefID"];
+                        $idxArray++;
+                    } else {
+                        $idxArray2++;
+                        $varReturn['data'][$idxArray - 1]['SubCategories'][$idxArray2]['SubCategory_RefID'] = $value["SubCategory_RefID"];
+                        $varReturn['data'][$idxArray - 1]['SubCategories'][$idxArray2]['SubCategory_Code'] = $value["SubCategory_Code"];
+                        $varReturn['data'][$idxArray - 1]['SubCategories'][$idxArray2]['SubCategory_Name'] = $value["SubCategory_Name"];
+                    }
+                }
+
+                return
+                    $varReturn;
+                }
+
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getDataPickList_SupplierSubCategory                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
