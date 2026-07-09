@@ -212,9 +212,9 @@
             'dev_requirement' => false,
         ),
         'guzzlehttp/psr7' => array(
-            'pretty_version' => '2.12.3',
-            'version' => '2.12.3.0',
-            'reference' => '7ec62dc3f44aa218487dbed81a9bf9bc647be55d',
+            'pretty_version' => '2.12.4',
+            'version' => '2.12.4.0',
+            'reference' => '51e27f9e2b332ab3e72f4520d5ff4f3c68c3577c',
             'type' => 'library',
             'install_path' => __DIR__ . '/../guzzlehttp/psr7',
             'aliases' => array(),
