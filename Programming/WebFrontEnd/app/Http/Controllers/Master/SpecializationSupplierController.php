@@ -46,6 +46,7 @@ class SpecializationSupplierController extends Controller
             $data = $details[0] ?? [];
             $compact = [
                 'varAPIWebToken' => $token,
+                'categoryCode' => $data['CategoryCode'],
                 'specializationRefID' => $data['Sys_ID'],
                 'specializationCode' => $data['Code'],
                 'specializationName' => $data['Name']
@@ -67,23 +68,24 @@ class SpecializationSupplierController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            $code = $request->input('category_code');
-            $name = $request->input('category_name');
+            $categoryCode = $request->input('category_code');
+            $code = $request->input('sub_category_code');
+            $name = $request->input('sub_category_name');
 
-            $response = $this->specializationSupplierService->update($id, $code, $name);
+            $response = $this->specializationSupplierService->update($id, $categoryCode, $code, $name);
 
             if ($response['metadata']['HTTPStatusCode'] !== 200) {
-                throw new \Exception('Failed to fetch Update Category Supplier => ' . $response['data']['message']);
+                throw new \Exception('Failed to fetch Update Sub Category Supplier => ' . $response['data']['message']);
             }
 
             $compact = [
-                "documentNumber" => $response['data'][0]['categoryCode'] . ' - ' . $response['data'][0]['categoryName'],
+                "documentNumber" => $response['data']['subCategoryCode'] . ' - ' . $response['data']['subCategoryName'],
                 "status" => $response['metadata']['HTTPStatusCode'],
             ];
 
             return response()->json($compact);
         } catch (\Throwable $th) {
-            Log::error("Update Category Supplier Function Error: " . $th->getMessage());
+            Log::error("Update Sub Category Supplier Function Error: " . $th->getMessage());
 
             return response()->json(["status" => 500]);
         }

@@ -1,23 +1,23 @@
 <script>
-    $('#modal_category_supplier_trigger').on('click', function () {
-        $('#myCategorySupplierRevision').modal('toggle');
-        $('#supplierCategoryListModal').modal('toggle');
+    $('#modal_specialization_supplier_trigger').on('click', function () {
+        $('#mySpecializationSupplierRevision').modal('toggle');
+        $('#supplierSpecializationListModal').modal('toggle');
     });
 
-    $('#tableSupplierCategoryListModal').on('click', 'tbody tr', function () {
-        const id = $(this).find('input[data-trigger="sys_id_supplier_category"]').val();
+    $('#tableSupplierSpecializationListModal').on('click', 'tbody tr', function () {
+        const id = $(this).find('input[data-trigger="sys_id_supplier_specialization"]').val();
         const code = $(this).find('td:nth-child(2)').text();
         const name = $(this).find('td:nth-child(3)').text();
 
-        $("#modal_category_supplier_id").val(id);
-        $("#modal_category_supplier_text").val(`${code} - ${name}`);
-        $("#modal_category_supplier_text").css({ "background-color": "#e9ecef", "border": "1px solid #ced4da" });
+        $("#modal_specialization_supplier_id").val(id);
+        $("#modal_specialization_supplier_text").val(`${code} - ${name}`);
+        $("#modal_specialization_supplier_text").css({ "background-color": "#e9ecef", "border": "1px solid #ced4da" });
 
-        $('#myCategorySupplierRevision').modal('toggle');
-        $('#supplierCategoryListModal').modal('toggle');
+        $('#mySpecializationSupplierRevision').modal('toggle');
+        $('#supplierSpecializationListModal').modal('toggle');
     });
 
-    $('#categorySupplierForm').on('submit', function (e) {
+    $('#specializationSupplierForm').on('submit', function (e) {
         e.preventDefault();
 
         $.ajax({
@@ -48,7 +48,7 @@
                         confirmButtonColor: '#e9ecef',
                         reverseButtons: true
                     }).then((result) => {
-                        Utils.cancelForm("{{ route('CategorySupplier.index') }}");
+                        Utils.cancelForm("{{ route('SpecializationSupplier.index') }}");
                     });
                 }
             })
@@ -67,6 +67,6 @@
     });
 
     $(document).ready(function () {
-        getSupplierCategory();
+        getSupplierSpecialization();
     });
 </script>
