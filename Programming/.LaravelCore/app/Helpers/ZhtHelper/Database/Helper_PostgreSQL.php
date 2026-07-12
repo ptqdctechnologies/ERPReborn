@@ -206,7 +206,7 @@ namespace App\Helpers\ZhtHelper\Database
                         $i=0;
                         $varData = [];
                         $varNotice = null;
-                        if($DBConnection = pg_connect($varConnectionString))
+                        if($DBConnection = @pg_connect($varConnectionString))
                             {
                             /*
                             var_dump($varConnectionString);
@@ -290,6 +290,13 @@ namespace App\Helpers\ZhtHelper\Database
                                 $i++;
                                 }
                             pg_close($DBConnection);
+                            }
+                        else
+                            {
+                            //---> [PERF Q1] Now that the pre-query "SELECT 1" probe is removed, availability
+                            //     is enforced here: a failed connection raises a clean, logged error instead
+                            //     of silently returning an empty result set.
+                            throw new \Exception('Database connection is not available');
                             }
 
                         $varReturn['data'] = $varData;
@@ -929,10 +936,10 @@ namespace App\Helpers\ZhtHelper\Database
                         $varSQLQuery = ltrim(str_replace("\n", "" , $varSQLQuery));
 
                         //echo $varSQLQuery."<br><br>";
-                        if (self::getStatusAvailability($varUserSession) == true)
-                            {
-//echo $varSQLQuery."<br><br>";
-//echo $varSQLQuery;
+                        //---> [PERF Q1] Dropped the "SELECT 1" availability probe (getStatusAvailability)
+                        //     to remove one DB round-trip per query. Connectivity is now enforced at the
+                        //     real pg_connect() below (getArrayFromQueryExecutionDataFetch_UsingPGSQLConnection),
+                        //     which throws 'Database connection is not available' when the connection fails.
                             //---> Cek apakah SQLQuery Proper
                             if (self::isValid_SQLSyntax($varUserSession, $varSQLQuery) == FALSE)
                                 {
@@ -985,12 +992,6 @@ namespace App\Helpers\ZhtHelper\Database
                                         $varReturn['process']['DBMS']['executionTime']['finishDateTimeTZ']
                                         );
                                 }
-                            }
-                        else
-                            {
-                            throw
-                                new \Exception('Database connection is not available');
-                            }
                         }
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
