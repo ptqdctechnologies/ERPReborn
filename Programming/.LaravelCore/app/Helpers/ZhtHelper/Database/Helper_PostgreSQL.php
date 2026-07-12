@@ -206,7 +206,11 @@ namespace App\Helpers\ZhtHelper\Database
                         $i=0;
                         $varData = [];
                         $varNotice = null;
-                        if($DBConnection = @pg_connect($varConnectionString))
+                        //---> [PERF Q4] Use a persistent connection (pg_pconnect) reused across queries instead
+                        //     of pg_connect()+pg_close() per query, which forced a Postgres backend-fork on
+                        //     every call. The connection is pooled per PHP worker and is NOT closed per query;
+                        //     notices are cleared per query (PGSQL_NOTICE_CLEAR below) so reuse stays clean.
+                        if($DBConnection = @pg_pconnect($varConnectionString))
                             {
                             /*
                             var_dump($varConnectionString);
@@ -231,8 +235,9 @@ namespace App\Helpers\ZhtHelper\Database
                             //     pg_num_fields(false) raise a TypeError in the fetch loop below.
                             if ($varResult === false)
                                 {
+                                //---> [PERF Q4] Do not close the persistent connection; a failed statement in
+                                //     autocommit leaves it healthy for reuse by the next query.
                                 $varErrorMessage = pg_last_error($DBConnection);
-                                pg_close($DBConnection);
                                 throw new \Exception('Incorrect SQL syntax: '.$varErrorMessage);
                                 }
 
@@ -300,7 +305,7 @@ namespace App\Helpers\ZhtHelper\Database
                                 //$varData[$i] = $varDataContent;
                                 $i++;
                                 }
-                            pg_close($DBConnection);
+                            //---> [PERF Q4] Persistent connection kept open for reuse (no per-query pg_close).
                             }
                         else
                             {
@@ -949,7 +954,7 @@ namespace App\Helpers\ZhtHelper\Database
                         //echo $varSQLQuery."<br><br>";
                         //---> [PERF Q1] Dropped the "SELECT 1" availability probe (getStatusAvailability)
                         //     to remove one DB round-trip per query. Connectivity is now enforced at the
-                        //     real pg_connect() below (getArrayFromQueryExecutionDataFetch_UsingPGSQLConnection),
+                        //     real pg_pconnect() below (getArrayFromQueryExecutionDataFetch_UsingPGSQLConnection),
                         //     which throws 'Database connection is not available' when the connection fails.
                             //---> [PERF Q3] Dropped the pre-query isValid_SQLSyntax() round-trip.
                             //     That server-side probe only ran PREPARE/DEALLOCATE to test parseability
