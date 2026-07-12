@@ -217,7 +217,7 @@ namespace App\Helpers\ZhtHelper\Database
 
                             pg_last_notice($DBConnection, PGSQL_NOTICE_CLEAR);
                             $varProfilerStartNs = hrtime(true);
-                            $varResult = pg_query($DBConnection, $varSQLQuery);
+                            $varResult = @pg_query($DBConnection, $varSQLQuery);
                             \App\Helpers\ZhtHelper\Logger\Helper_QueryProfiler::record(
                                 'pgsql',
                                 $varSQLQuery,
@@ -225,6 +225,17 @@ namespace App\Helpers\ZhtHelper\Database
                                 ($varResult !== false),
                                 ($varResult === false ? pg_last_error($DBConnection) : null)
                                 );
+
+                            //---> [PERF Q3] Now that the pre-query syntax-validation probe is removed, an
+                            //     invalid statement surfaces here. Fail cleanly instead of letting
+                            //     pg_num_fields(false) raise a TypeError in the fetch loop below.
+                            if ($varResult === false)
+                                {
+                                $varErrorMessage = pg_last_error($DBConnection);
+                                pg_close($DBConnection);
+                                throw new \Exception('Incorrect SQL syntax: '.$varErrorMessage);
+                                }
+
                             $varNotice = pg_last_notice($DBConnection, PGSQL_NOTICE_ALL);
 
                             /*
@@ -940,14 +951,11 @@ namespace App\Helpers\ZhtHelper\Database
                         //     to remove one DB round-trip per query. Connectivity is now enforced at the
                         //     real pg_connect() below (getArrayFromQueryExecutionDataFetch_UsingPGSQLConnection),
                         //     which throws 'Database connection is not available' when the connection fails.
-                            //---> Cek apakah SQLQuery Proper
-                            if (self::isValid_SQLSyntax($varUserSession, $varSQLQuery) == FALSE)
-                                {
-                                throw
-                                    new \Exception('Incorrect SQL syntax');
-                                }
-                            else
-                                {
+                            //---> [PERF Q3] Dropped the pre-query isValid_SQLSyntax() round-trip.
+                            //     That server-side probe only ran PREPARE/DEALLOCATE to test parseability
+                            //     (not a security gate) and was redundant with executing the query. An
+                            //     invalid statement is now caught at the real pg_query() below, which raises
+                            //     'Incorrect SQL syntax'. (isValid_SQLSyntax() is kept for its other callers.)
                                 $varReturn['process']['DBMS']['executionTime']['interval'] = NULL;
 
                                 //---> Inisialisasi [Process][StartDateTime]
@@ -991,7 +999,6 @@ namespace App\Helpers\ZhtHelper\Database
                                         $varReturn['process']['DBMS']['executionTime']['startDateTimeTZ'],
                                         $varReturn['process']['DBMS']['executionTime']['finishDateTimeTZ']
                                         );
-                                }
                         }
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
