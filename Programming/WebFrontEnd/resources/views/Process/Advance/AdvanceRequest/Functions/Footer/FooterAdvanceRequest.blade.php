@@ -801,8 +801,8 @@
 
         if (status !== "Rejection To Resubmit" && status !== "Final Approval") {
             Swal.fire(
-                "This transaction can't be revised",
-                "Revision is only allowed for Final Approved or Rejected transactions",
+                CONFIG.MESSAGE.revision.title,
+                CONFIG.MESSAGE.revision.description,
                 "error"
             );
             return;

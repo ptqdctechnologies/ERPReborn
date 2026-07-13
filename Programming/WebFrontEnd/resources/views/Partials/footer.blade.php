@@ -22,6 +22,12 @@
       department: {
         report: ['Finance & Accounting'],
       }
+    },
+    MESSAGE: {
+      revision: {
+        title: "This transaction can't be revised",
+        description: "Revision is only allowed for Final Approved or Rejected transactions"
+      }
     }
   };
 
