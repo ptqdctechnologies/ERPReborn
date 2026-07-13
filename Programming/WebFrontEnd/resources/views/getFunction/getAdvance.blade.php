@@ -1,7 +1,7 @@
 <!-- GET ADVANCE -->
 <div id="myGetModalAdvance" class="modal fade" role="dialog" aria-labelledby="contohModalScrollableTitle"
-    aria-hidden="true" style="z-index: 9999;">
-    <div class="modal-dialog modal-dialog-scrollable" role="document">
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title text-bold">Choose Advance Number</h4>
@@ -17,7 +17,6 @@
                                         <tr>
                                             <th>No</th>
                                             <th>Trano</th>
-                                            <th>Status</th>
                                             <th>Beneficiary</th>
                                             <th>Requester</th>
                                             <th>Budget Code</th>
@@ -29,7 +28,7 @@
                                     <tbody></tbody>
                                     <tfoot>
                                         <tr id="loadingGetModalAdvance">
-                                            <td colspan="9" class="p-0" style="height: 22rem;">
+                                            <td colspan="8" class="p-0" style="height: 22rem;">
                                                 <div
                                                     class="d-flex flex-column justify-content-center align-items-center py-3">
                                                     <div class="spinner-border" role="status">
@@ -89,6 +88,7 @@
                     render: function (data, type, row, meta) {
                         return '<input id="sys_id_modal_advance' + (meta.row + meta.settings._iDisplayStart + 1) + '" value="' + data.sys_ID + '" data-trigger="sys_id_modal_advance" type="hidden">' +
                             '<input id="sys_id_budget_advance' + (meta.row + meta.settings._iDisplayStart + 1) + '" value="' + data.additionalData.combinedBudget_RefID + '" data-trigger="sys_id_budget_advance" type="hidden">' +
+                            '<input id="workflow_status_advance' + (meta.row + meta.settings._iDisplayStart + 1) + '" value="' + data.additionalData.latestWorkFlowStatus + '" data-trigger="workflow_status_advance" type="hidden">' +
                             (meta.row + meta.settings._iDisplayStart + 1)
                     }
                 },
@@ -96,14 +96,6 @@
                     data: 'sys_Text',
                     defaultContent: '-',
                     className: "align-middle text-nowrap"
-                },
-                {
-                    data: null,
-                    defaultContent: '-',
-                    className: "align-middle text-nowrap",
-                    render: function (data, type, row, meta) {
-                        return data.additionalData.latestWorkFlowStatus
-                    }
                 },
                 {
                     data: null,

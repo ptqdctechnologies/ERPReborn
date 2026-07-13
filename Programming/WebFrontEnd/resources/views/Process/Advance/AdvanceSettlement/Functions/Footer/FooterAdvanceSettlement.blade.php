@@ -720,7 +720,7 @@
             },
             url: '{!! route("Workflow.UserAllowedToSubmit") !!}',
             success: function (response) {
-                if (response.status === 200 && !response.data[0].signAccess) {
+                if (response.status === 200 && response.data[0].signAccess) {
                     // totalNextApprover = response.data[0].nextApproverPath.length;
                     // dataWorkflow.workFlowPathRefID = response.data[0].workFlowPath_RefIDArray[0];
                     // dataWorkflow.workFlowPathRefID = response.data[0].sys_ID;
@@ -778,12 +778,30 @@
 
     $('#tableGetModalAdvanceSettlement').on('click', 'tbody tr', function () {
         const sysId = $(this).find('input[data-trigger="sys_id_modal_advance_settlement"]').val();
+        const status = $(this).find('input[data-trigger="workflow_status_advance_settlement"]').val();
         const trano = $(this).find('td:nth-child(2)').text();
+
+        if (status !== "Rejection To Resubmit" && status !== "Final Approval") {
+            Swal.fire(
+                CONFIG.MESSAGE.revision.title,
+                CONFIG.MESSAGE.revision.description,
+                "error"
+            );
+            return;
+        }
 
         $("#advance_settlement_id").val(sysId);
         $("#advance_settlement_number").val(trano);
+        $("#advance_settlement_number").css({ "background-color": "#e9ecef", "border": "1px solid #ced4da" });
+        $("#advance_settlement_number_icon").css("border", "1px solid #ced4da");
 
-        $('#myGetModalAdvanceSettlement').modal('hide');
+        $('#myPopUpAdvanceSettlementRevision').modal('toggle');
+        $('#myGetModalAdvanceSettlement').modal('toggle');
+    });
+
+    $('#advance_settlement_number_icon').on('click', function () {
+        $('#myPopUpAdvanceSettlementRevision').modal('toggle');
+        $('#myGetModalAdvanceSettlement').modal('toggle');
     });
 
     $('#remark').on('input', function (e) {

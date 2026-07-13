@@ -1,7 +1,7 @@
 <!-- GET PURCHASE REQUISITION -->
 <div id="purchaseRequisitionModal" class="modal fade" role="dialog" aria-labelledby="contohModalScrollableTitle"
-    aria-hidden="true" style="z-index: 9999;">
-    <div class="modal-dialog modal-dialog-scrollable" role="document">
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title text-bold">Choose Purchase Request Number</h4>
@@ -18,7 +18,6 @@
                                         <tr>
                                             <th>No</th>
                                             <th>Trano</th>
-                                            <th>Status</th>
                                             <th>Budget Code</th>
                                             <th>Budget Name</th>
                                             <th>Sub Budget Code</th>
@@ -28,7 +27,7 @@
                                     <tbody></tbody>
                                     <tfoot>
                                         <tr id="loadingGetModalPurchaseRequisition">
-                                            <td colspan="7" class="p-0" style="height: 22rem;">
+                                            <td colspan="6" class="p-0" style="height: 22rem;">
                                                 <div
                                                     class="d-flex flex-column justify-content-center align-items-center py-3">
                                                     <div class="spinner-border" role="status">
@@ -86,23 +85,16 @@
                 {
                     data: null,
                     render: function (data, type, row, meta) {
-                        return '<input id="sys_id_modal_purchase_requisition' + (meta.row + 1) + '" value="' + data.sys_ID + '" data-trigger="sys_id_modal_purchase_requisition" type="hidden">' +
-                            '<input id="sys_id_combinedBudget_purchase_requisition' + (meta.row + 1) + '" value="' + data.additionalData.combinedBudget_RefID + '" data-trigger="sys_id_combinedBudget_purchase_requisition" type="hidden">' +
-                            (meta.row + 1)
+                        return '<input id="sys_id_modal_purchase_requisition' + (meta.row + meta.settings._iDisplayStart + 1) + '" value="' + data.sys_ID + '" data-trigger="sys_id_modal_purchase_requisition" type="hidden">' +
+                            '<input id="sys_id_combinedBudget_purchase_requisition' + (meta.row + meta.settings._iDisplayStart + 1) + '" value="' + data.additionalData.combinedBudget_RefID + '" data-trigger="sys_id_combinedBudget_purchase_requisition" type="hidden">' +
+                            '<input id="workflow_status_purchase_request' + (meta.row + meta.settings._iDisplayStart + 1) + '" value="' + data.additionalData.latestWorkFlowStatus + '" data-trigger="workflow_status_purchase_request" type="hidden">' +
+                            (meta.row + meta.settings._iDisplayStart + 1)
                     }
                 },
                 {
                     data: 'sys_Text',
                     defaultContent: '-',
                     className: "align-middle text-nowrap"
-                },
-                {
-                    data: null,
-                    defaultContent: '-',
-                    className: "align-middle text-nowrap",
-                    render: function (data, type, row, meta) {
-                        return data.additionalData.latestWorkFlowStatus
-                    }
                 },
                 {
                     data: null,

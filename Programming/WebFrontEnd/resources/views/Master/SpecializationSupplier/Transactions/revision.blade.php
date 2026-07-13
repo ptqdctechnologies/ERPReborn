@@ -22,6 +22,10 @@
                 <form id="specializationSupplierForm">
                     @csrf
                     @method('PUT')
+
+                    <input type="hidden" class="form-control" id="categoryCode" name="categoryCode"
+                        value="<?= $categoryCode; ?>" style="border-radius:0;" autocomplete="off">
+
                     <div class="card">
                         <!-- MASTER SPECIALIZATION SUPPLIER -->
                         <div class="tab-content px-3 pt-4 pb-2" id="nav-tabContent">
@@ -53,9 +57,10 @@
                                                         </label>
                                                         <div class="col-5">
                                                             <div class="input-group">
-                                                                <input class="form-control" id="category_code"
-                                                                    name="category_code" value="<?= $specializationCode; ?>"
-                                                                    style="border-radius:0;" autocomplete="off">
+                                                                <input class="form-control" id="sub_category_code"
+                                                                    name="sub_category_code"
+                                                                    value="<?= $specializationCode; ?>"
+                                                                    style="border-radius:0;" autocomplete="off" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -67,9 +72,10 @@
                                                         </label>
                                                         <div class="col-5">
                                                             <div class="input-group">
-                                                                <input class="form-control" id="category_name"
-                                                                    name="category_name" value="<?= $specializationName; ?>"
-                                                                    style="border-radius:0;" autocomplete="off">
+                                                                <input class="form-control" id="sub_category_name"
+                                                                    name="sub_category_name"
+                                                                    value="<?= $specializationName; ?>"
+                                                                    style="border-radius:0;" autocomplete="off" readonly>
                                                             </div>
                                                         </div>
                                                     </div>

@@ -1,7 +1,6 @@
 <!-- GET PURCHASE ORDER -->
-<div id="mySearchPO" class="modal fade" role="dialog" aria-labelledby="contohModalScrollableTitle" aria-hidden="true"
-    style="z-index: 9999;">
-    <div class="modal-dialog modal-dialog-scrollable" role="document">
+<div id="mySearchPO" class="modal fade" role="dialog" aria-labelledby="contohModalScrollableTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title text-bold">Choose Purchase Order Number</h4>

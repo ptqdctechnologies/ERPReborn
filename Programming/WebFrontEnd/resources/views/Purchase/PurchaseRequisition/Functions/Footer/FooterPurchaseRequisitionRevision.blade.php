@@ -769,7 +769,7 @@
             },
             url: '{!! route("Workflow.UserAllowedToSubmit") !!}',
             success: function (response) {
-                if (response.status === 200 && response.data[0].signAccess) {
+                if (response.status === 200 && !response.data[0].signAccess) {
                     // totalNextApprover = response.data[0].nextApproverPath.length;
                     // dataWorkflow.workFlowPathRefID = response.data[0].sys_ID;
                     // dataWorkflow.approverEntityRefID = response.data[0].submitterEntity_RefID;
@@ -833,11 +833,29 @@
 
     $('#tableGetModalPurchaseRequisition').on('click', 'tbody tr', function () {
         const sysId = $(this).find('input[data-trigger="sys_id_modal_purchase_requisition"]').val();
+        const status = $(this).find('input[data-trigger="workflow_status_purchase_request"]').val();
         const trano = $(this).find('td:nth-child(2)').text();
+
+        if (status !== "Rejection To Resubmit" && status !== "Final Approval") {
+            Swal.fire(
+                CONFIG.MESSAGE.revision.title,
+                CONFIG.MESSAGE.revision.description,
+                "error"
+            );
+            return;
+        }
 
         $("#modal_purchase_requisition_id").val(sysId);
         $("#modal_purchase_requisition_document_number").val(trano);
+        $("#modal_purchase_requisition_document_number").css({ "background-color": "#e9ecef", "border": "1px solid #ced4da" });
+        $("#modal_purchase_requisition_document_number_icon").css("border", "1px solid #ced4da");
 
+        $('#myPopUpPurchaseRequisitionRevision').modal('toggle');
+        $('#purchaseRequisitionModal').modal('toggle');
+    });
+
+    $('#modal_purchase_requisition_document_number_icon').on('click', function () {
+        $('#myPopUpPurchaseRequisitionRevision').modal('toggle');
         $('#purchaseRequisitionModal').modal('toggle');
     });
 
