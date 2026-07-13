@@ -206,7 +206,11 @@ namespace App\Helpers\ZhtHelper\Database
                         $i=0;
                         $varData = [];
                         $varNotice = null;
-                        if($DBConnection = pg_connect($varConnectionString))
+                        //---> [PERF Q4] Use a persistent connection (pg_pconnect) reused across queries instead
+                        //     of pg_connect()+pg_close() per query, which forced a Postgres backend-fork on
+                        //     every call. The connection is pooled per PHP worker and is NOT closed per query;
+                        //     notices are cleared per query (PGSQL_NOTICE_CLEAR below) so reuse stays clean.
+                        if($DBConnection = @pg_pconnect($varConnectionString))
                             {
                             /*
                             var_dump($varConnectionString);
@@ -217,7 +221,7 @@ namespace App\Helpers\ZhtHelper\Database
 
                             pg_last_notice($DBConnection, PGSQL_NOTICE_CLEAR);
                             $varProfilerStartNs = hrtime(true);
-                            $varResult = pg_query($DBConnection, $varSQLQuery);
+                            $varResult = @pg_query($DBConnection, $varSQLQuery);
                             \App\Helpers\ZhtHelper\Logger\Helper_QueryProfiler::record(
                                 'pgsql',
                                 $varSQLQuery,
@@ -225,6 +229,18 @@ namespace App\Helpers\ZhtHelper\Database
                                 ($varResult !== false),
                                 ($varResult === false ? pg_last_error($DBConnection) : null)
                                 );
+
+                            //---> [PERF Q3] Now that the pre-query syntax-validation probe is removed, an
+                            //     invalid statement surfaces here. Fail cleanly instead of letting
+                            //     pg_num_fields(false) raise a TypeError in the fetch loop below.
+                            if ($varResult === false)
+                                {
+                                //---> [PERF Q4] Do not close the persistent connection; a failed statement in
+                                //     autocommit leaves it healthy for reuse by the next query.
+                                $varErrorMessage = pg_last_error($DBConnection);
+                                throw new \Exception('Incorrect SQL syntax: '.$varErrorMessage);
+                                }
+
                             $varNotice = pg_last_notice($DBConnection, PGSQL_NOTICE_ALL);
 
                             /*
@@ -289,7 +305,14 @@ namespace App\Helpers\ZhtHelper\Database
                                 //$varData[$i] = $varDataContent;
                                 $i++;
                                 }
-                            pg_close($DBConnection);
+                            //---> [PERF Q4] Persistent connection kept open for reuse (no per-query pg_close).
+                            }
+                        else
+                            {
+                            //---> [PERF Q1] Now that the pre-query "SELECT 1" probe is removed, availability
+                            //     is enforced here: a failed connection raises a clean, logged error instead
+                            //     of silently returning an empty result set.
+                            throw new \Exception('Database connection is not available');
                             }
 
                         $varReturn['data'] = $varData;
@@ -929,42 +952,26 @@ namespace App\Helpers\ZhtHelper\Database
                         $varSQLQuery = ltrim(str_replace("\n", "" , $varSQLQuery));
 
                         //echo $varSQLQuery."<br><br>";
-                        if (self::getStatusAvailability($varUserSession) == true)
-                            {
-//echo $varSQLQuery."<br><br>";
-//echo $varSQLQuery;
-                            //---> Cek apakah SQLQuery Proper
-                            if (self::isValid_SQLSyntax($varUserSession, $varSQLQuery) == FALSE)
-                                {
-                                throw
-                                    new \Exception('Incorrect SQL syntax');
-                                }
-                            else
-                                {
+                        //---> [PERF Q1] Dropped the "SELECT 1" availability probe (getStatusAvailability)
+                        //     to remove one DB round-trip per query. Connectivity is now enforced at the
+                        //     real pg_pconnect() below (getArrayFromQueryExecutionDataFetch_UsingPGSQLConnection),
+                        //     which throws 'Database connection is not available' when the connection fails.
+                            //---> [PERF Q3] Dropped the pre-query isValid_SQLSyntax() round-trip.
+                            //     That server-side probe only ran PREPARE/DEALLOCATE to test parseability
+                            //     (not a security gate) and was redundant with executing the query. An
+                            //     invalid statement is now caught at the real pg_query() below, which raises
+                            //     'Incorrect SQL syntax'. (isValid_SQLSyntax() is kept for its other callers.)
                                 $varReturn['process']['DBMS']['executionTime']['interval'] = NULL;
 
                                 //---> Inisialisasi [Process][StartDateTime]
-                                $varDataTemp = 
-                                    self::getArrayFromQueryExecutionDataFetch_UsingLaravelConnection(
-                                        $varUserSession, 
-                                        "SELECT NOW();"
-                                        );
-                                $varTempExplode = explode('+', $varDataTemp['data'][0]['now']);
-
-                                /*
-                                $varReturn['process']['DBMS']['executionTime']['startDateTimeTZ'] = (
-                                    str_pad($varTempExplode[0], 26, '0', STR_PAD_RIGHT).
-                                    ((($varTempExplode[1] * 1) < 0) ? '-' : '+').
-                                    $varTempExplode[1]
-                                    );
-                                */
+                                //---> [PERF Q1] Removed the redundant "SELECT NOW();" DB round-trip.
+                                //     The start timestamp is taken from the PHP clock (new \DateTime()) below;
+                                //     the previously-fetched SQL NOW() value was discarded (dead work).
                                 $varReturn['process']['DBMS']['executionTime']['startDateTimeTZ'] =
                                     \App\Helpers\ZhtHelper\General\Helper_DateTime::getTimeStampTZConvert_PHPDateTimeToDateTimeTZString(
                                         \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                                         (new \DateTime())
                                         );
-
-                                unset($varDataTemp);
 
                                 //---> Inisialisasi [Data], [RowCount], [Notice]
                                 //$varDataTemp = self::getArrayFromQueryExecutionDataFetch_UsingLaravelConnection($varUserSession, $varSQLQuery);
@@ -980,30 +987,10 @@ namespace App\Helpers\ZhtHelper\Database
 
                                 unset($varDataTemp);
                                 
-                                //---> Inisialisasi [Process][StartDateTime]
-                                $varDataTemp = 
-                                    self::getArrayFromQueryExecutionDataFetch_UsingLaravelConnection(
-                                        $varUserSession,
-                                        "
-                                        SELECT
-                                            \"SubSQL\".now AS \"FinishDateTimeTZ\",
-                                            (\"SubSQL\".now - '".$varReturn['process']['DBMS']['executionTime']['startDateTimeTZ']."')::interval AS \"ExecutionInterval\"
-                                        FROM
-                                            (
-                                            SELECT NOW()
-                                            ) AS \"SubSQL\"
-                                        "
-                                        );
-                                
                                 //---> Inisialisasi : varReturn[process][DBMS][finishDateTimeTZ]
-                                /*
-                                $varTempExplode = explode('+', $varDataTemp['data'][0]['FinishDateTimeTZ']);
-                                $varReturn['process']['DBMS']['executionTime']['finishDateTimeTZ'] = (
-                                    str_pad($varTempExplode[0], 26, '0', STR_PAD_RIGHT).
-                                    ((($varTempExplode[1] * 1) < 0) ? '-' : '+').
-                                    $varTempExplode[1]
-                                    );
-                                */
+                                //---> [PERF Q1] Removed the redundant "SELECT NOW() ... ::interval" DB round-trip.
+                                //     The finish timestamp is taken from the PHP clock (new \DateTime()) below and the
+                                //     interval is computed in PHP; the previously-fetched SQL values were discarded.
                                 $varReturn['process']['DBMS']['executionTime']['finishDateTimeTZ'] =
                                     \App\Helpers\ZhtHelper\General\Helper_DateTime::getTimeStampTZConvert_PHPDateTimeToDateTimeTZString(
                                         \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
@@ -1011,29 +998,12 @@ namespace App\Helpers\ZhtHelper\Database
                                         );
 
                                 //---> Inisialisasi : varReturn[process][DBMS][executionInterval]
-                                /*
-                                $varTempExplode = explode('.', $varDataTemp['data'][0]['ExecutionInterval']);                                
-                                $varReturn['process']['DBMS']['executionTime']['interval'] = (
-                                    $varTempExplode[0].
-                                    '.'.
-                                     str_pad($varTempExplode[1], 6, '0', STR_PAD_RIGHT)
-                                    );
-                                */
-                                $varReturn['process']['DBMS']['executionTime']['interval'] = 
+                                $varReturn['process']['DBMS']['executionTime']['interval'] =
                                      \App\Helpers\ZhtHelper\General\Helper_DateTime::getDifferenceOfDateTimeTZString(
                                         $varUserSession,
                                         $varReturn['process']['DBMS']['executionTime']['startDateTimeTZ'],
                                         $varReturn['process']['DBMS']['executionTime']['finishDateTimeTZ']
                                         );
-                                
-                                unset($varDataTemp);
-                                }
-                            }
-                        else
-                            {
-                            throw
-                                new \Exception('Database connection is not available');
-                            }
                         }
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
