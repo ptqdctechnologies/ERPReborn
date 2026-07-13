@@ -829,6 +829,7 @@
         const data = table.row(this).data();
 
         if (data) {
+            $("#myPopUpPORevision").modal('toggle');
             $("#mySearchPO").modal('toggle');
 
             const purchaseOrder_RefID = data.sys_ID;
@@ -836,7 +837,14 @@
 
             $('#purchaseOrder_RefID').val(purchaseOrder_RefID);
             $('#purchaseOrder_number').val(code);
+            $("#purchaseOrder_number").css({ "background-color": "#e9ecef", "border": "1px solid #ced4da" });
+            $("#purchaseOrder_number_icon").css("border", "1px solid #ced4da");
         }
+    });
+
+    $('#purchaseOrder_number_icon').on('click', function () {
+        $("#myPopUpPORevision").modal('toggle');
+        $("#mySearchPO").modal('toggle');
     });
 
     $('#revision_purchase_order').on('click', function (e) {
